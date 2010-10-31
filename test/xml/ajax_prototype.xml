@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testcase
+    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd">
+    <step command="Open_Url">ajax/prototype/prototype_ajax.html</step>
+    <step command="Assert_Title">Wetator / AJAX with Prototype</step>
+    <step command="Comment">add content via AJAX</step>
+    <step command="Comment">check the original content</step>
+    <step command="Assert_Content">Click to start AJAX demo...</step>
+    <step command="Click_On">Click to start AJAX demo</step>
+    <step command="Comment"></step>
+    <step command="Assert_Content">This is some text transferred to the client via AJAX.</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">ajax/prototype/prototype_ajax.html</step>
+    <step command="Assert_Title">Wetator / AJAX with Prototype</step>
+    <step command="Comment">change content via javascript loaded with AJAX</step>
+    <step command="Comment">check the original content</step>
+    <step command="Assert_Content">Click to start AJAX Javascript demo...</step>
+    <step command="Click_On">Click to start AJAX Javascript demo</step>
+    <step command="Comment"></step>
+    <step command="Assert_Content">Click to start AJAX Javascript demo... Javascript Execute</step>
+</testcase>

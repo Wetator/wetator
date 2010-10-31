@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE testcase SYSTEM "../../../../../xml/dtd/testcase.dtd">
+<testcase>
+    <step command="Comment">Just a comment</step>
+    <step command="Open_Url">set.html</step>
+    <step command="Assert_Title">Wetator / Set</step>
+    <step command="Set">inputText_Name<optionalParameter>testValue</optionalParameter></step>
+    <step command="Click_On">InputTextNameTest</step>
+    <step command="Click_On" comment="true">Just another comment</step>
+    <step command="Assert_Content">GET Parameters Key Value inputText_Name testValue InputTextNameTest OK</step>
+    <step command="Comment"></step>
+    <step command="Comment"/>
+</testcase>

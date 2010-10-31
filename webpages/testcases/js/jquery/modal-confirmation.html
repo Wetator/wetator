@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>jQuery UI Dialog - Modal confirmation</title>
+    <link type="text/css" href="./themes/base/jquery.ui.all.css" rel="stylesheet" />
+    <script type="text/javascript" src="./jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="./external/jquery.bgiframe-2.1.1.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.mouse.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.button.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.draggable.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.position.js"></script>
+    <script type="text/javascript" src="./ui/jquery.ui.dialog.js"></script>
+    <link type="text/css" href="./demos/demos.css" rel="stylesheet" />
+    <script type="text/javascript">
+    $(function() {
+        // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+        $("#dialog").dialog("destroy");
+
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height:140,
+            modal: true,
+            buttons: {
+                'Delete all items': function() {
+                    $(this).dialog('close');
+                    $('#result').val('Button: Delete all items');
+                },
+                Cancel: function() {
+                    $('#result').val('Button: Cancel');
+                    $(this).dialog('close');
+                }
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+
+<div class="demo">
+
+    <div id="dialog-confirm" title="Empty the recycle bin?">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+    </div>
+
+    <form>
+        <td><input id="result" type="text" name="inputText_Name" value="">
+    </form>
+
+</div>
+
+</body>
+</html>

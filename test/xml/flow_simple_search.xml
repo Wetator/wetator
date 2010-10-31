@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testcase
+    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd">
+    <step command="Open_Url">simple_search.html</step>
+    <step command="Assert_Title">Wetator / Simple Search</step>
+    <step command="Comment">set selects and fields by label and press the button</step>
+    <step command="Select"><![CDATA[Field1, >]]></step>
+    <step command="Set">Field1<optionalParameter>value1</optionalParameter></step>
+    <step command="Select"><![CDATA[Field2, <]]></step>
+    <step command="Set">Field2<optionalParameter>value2</optionalParameter></step>
+    <step command="Select">Field3, =</step>
+    <step command="Set">Field3<optionalParameter>value3</optionalParameter></step>
+    <step command="Select"><![CDATA[Field4, >]]></step>
+    <step command="Set">Field4<optionalParameter>value4</optionalParameter></step>
+    <step command="Click_On">Search</step>
+    <step command="Assert_Content">POST Parameters Key Value name_field1_input value1 name_field1_select o2_f1s name_field2_input value2 name_field2_select o3_f2s name_field3_input value3 name_field3_select o1_f3s name_field4_input value4 name_field4_select o2_f4s Headers</step>
+</testcase>

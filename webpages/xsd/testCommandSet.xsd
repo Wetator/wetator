@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.wetator.org/xsd/testCommandSet"
+  targetNamespace="http://www.wetator.org/xsd/testCommandSet"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:element name="step" type="stepType" />
+
+  <xs:complexType name="stepType" mixed="true">
+    <xs:sequence>
+      <xs:element name="optionalParameter" type="xs:string"
+        minOccurs="0" maxOccurs="1" />
+      <xs:element name="optionalParameter2" type="xs:string"
+        minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="command" type="commandsEnum" use="required" />
+    <xs:attribute name="comment" type="xs:boolean" default="false" />
+  </xs:complexType>
+
+  <xs:simpleType name="commandsEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Assert_Fail" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
