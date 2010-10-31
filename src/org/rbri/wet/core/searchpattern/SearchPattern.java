@@ -16,7 +16,9 @@
 
 package org.rbri.wet.core.searchpattern;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.util.SecretString;
@@ -31,6 +33,7 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
+  private static Map<String, SearchPattern> searchPatternCache = new HashMap<String, SearchPattern>();
   private String originalString;
 
   /**
@@ -76,6 +79,11 @@ public abstract class SearchPattern {
     String tmpDosStyleWildcardString = "";
     if (null != aDosStyleWildcardString) {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
+    }
+
+    SearchPattern tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+    if (tmpSearchPattern != null) {
+      return tmpSearchPattern;
     }
 
     String tmpOriginalString = tmpDosStyleWildcardString;
@@ -145,14 +153,13 @@ public abstract class SearchPattern {
     }
 
     if (tmpIsStarPattern) {
-      return new MatchAllSearchPattern();
+      tmpSearchPattern = new MatchAllSearchPattern();
+    } else if (tmpIsTextOnly) {
+      tmpSearchPattern = new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
+    } else {
+      tmpSearchPattern = new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
     }
-
-    if (tmpIsTextOnly) {
-      return new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
-    }
-
-    return new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+    return tmpSearchPattern;
   }
 
   /**
