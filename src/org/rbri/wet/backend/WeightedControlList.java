@@ -127,8 +127,15 @@ public final class WeightedControlList {
         int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
 
         if (0 == tmpCoverageComp) {
-          return anEntry1.distance - anEntry2.distance;
+          int tmpDistanceComp = anEntry1.distance - anEntry2.distance;
+
+          if (0 == tmpDistanceComp) {
+            return anEntry1.control.getDescribingText().compareTo(anEntry2.control.getDescribingText());
+          }
+
+          return tmpDistanceComp;
         }
+
         return tmpCoverageComp;
       }
 
@@ -142,7 +149,7 @@ public final class WeightedControlList {
    * Constructor
    */
   public WeightedControlList() {
-    entries = new LinkedList<Entry>();
+    entries = Collections.synchronizedList(new LinkedList<Entry>());
   }
 
   /**

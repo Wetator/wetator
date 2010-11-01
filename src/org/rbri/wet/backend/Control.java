@@ -17,6 +17,10 @@
 package org.rbri.wet.backend;
 
 import java.io.File;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
@@ -26,6 +30,7 @@ import org.rbri.wet.util.SecretString;
  * The common interface for the Control.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface Control {
 
@@ -113,4 +118,42 @@ public interface Control {
    * @return true or false
    */
   public boolean hasSameBackendControl(Control aControl);
+
+  /**
+   * This annotation marks the actions a control supports.
+   * 
+   * @author frank.danek
+   */
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public static @interface SupportedActions {
+    /**
+     * The supported actions.
+     */
+    SupportedAction[] value();
+  }
+
+  /**
+   * This enum contains all actions that can be executed by a control.
+   * 
+   * @author frank.danek
+   */
+  public static enum SupportedAction {
+    /**
+     * The control is clickable.
+     */
+    CLICKABLE,
+    /**
+     * The control is setable.
+     */
+    SETABLE,
+    /**
+     * The control is selectable.
+     */
+    SELECTABLE,
+    /**
+     * The control is deselectable.
+     */
+    DESELECTABLE
+  }
 }

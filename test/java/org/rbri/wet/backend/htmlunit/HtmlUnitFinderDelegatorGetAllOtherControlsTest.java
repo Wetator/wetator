@@ -21,8 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
+import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -31,7 +37,20 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class HtmlUnitControlFinderGetAllOtherControlsTest {
+public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
+
+  private HtmlUnitControlRepository controlRepository;
+
+  @Before
+  public void setupControlFinder() {
+    controlRepository = new HtmlUnitControlRepository();
+
+    controlRepository.add(ClickableHtmlUnitControl.class);
+    controlRepository.add(DeselectableHtmlUnitControl.class);
+    controlRepository.add(OtherHtmlUnitControl.class);
+    controlRepository.add(SelectableHtmlUnitControl.class);
+    controlRepository.add(SetableHtmlUnitControl.class);
+  }
 
   @Test
   public void testGetAllOtherControls_Empty() throws IOException {
@@ -41,7 +60,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -57,7 +76,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -78,7 +97,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -99,7 +118,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("cond*elText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -121,7 +140,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     tmpSearch.add(new SecretString("Fir", false));
     tmpSearch.add(new SecretString("tSelectLabelText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -144,7 +163,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyFirstSelectName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -166,7 +185,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -188,7 +207,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -207,7 +226,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("colors", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -228,7 +247,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("optgroup_colors", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());

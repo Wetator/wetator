@@ -21,8 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
+import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -31,7 +37,20 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class HtmlUnitControlFinderGetAllClickablesTest {
+public class HtmlUnitFinderDelegatorGetAllClickablesTest {
+
+  private HtmlUnitControlRepository controlRepository;
+
+  @Before
+  public void setupControlFinder() {
+    controlRepository = new HtmlUnitControlRepository();
+
+    controlRepository.add(ClickableHtmlUnitControl.class);
+    controlRepository.add(DeselectableHtmlUnitControl.class);
+    controlRepository.add(OtherHtmlUnitControl.class);
+    controlRepository.add(SelectableHtmlUnitControl.class);
+    controlRepository.add(SetableHtmlUnitControl.class);
+  }
 
   @Test
   public void testGetAllClickables_Empty() throws IOException {
@@ -41,7 +60,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -56,7 +75,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -71,7 +90,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -90,7 +109,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Marker", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -108,7 +127,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -127,7 +146,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -146,7 +165,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -161,7 +180,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("lickM", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -179,7 +198,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -199,7 +218,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -219,7 +238,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -234,7 +253,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -249,7 +268,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -268,7 +287,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Marker", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -286,7 +305,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -305,7 +324,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -324,7 +343,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -339,7 +358,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("lickM", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -357,7 +376,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -377,7 +396,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -397,7 +416,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -412,7 +431,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -427,7 +446,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -446,7 +465,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Marker", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -464,7 +483,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -483,7 +502,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -502,7 +521,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -517,7 +536,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("lickM", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -535,7 +554,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -555,7 +574,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -575,7 +594,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -590,7 +609,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -605,7 +624,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -624,7 +643,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -645,7 +664,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -665,7 +684,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -686,7 +705,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -707,7 +726,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -729,7 +748,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -749,7 +768,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -769,7 +788,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -790,7 +809,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -810,7 +829,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -831,7 +850,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Marker", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -850,7 +869,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ButtonWithText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -871,7 +890,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("ButtonWithText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -890,7 +909,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -911,7 +930,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -932,7 +951,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("ButtonWithText", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
@@ -948,7 +967,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("tonWithT", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -967,7 +986,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -989,7 +1008,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageAlt", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1011,7 +1030,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageTitle", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1033,7 +1052,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1055,7 +1074,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1077,7 +1096,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -1095,7 +1114,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TestAnchor", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -1115,7 +1134,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("TestAnchor", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(
@@ -1132,7 +1151,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -1152,7 +1171,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
@@ -1171,7 +1190,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1196,7 +1215,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1219,7 +1238,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1244,7 +1263,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1267,7 +1286,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1290,7 +1309,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1315,7 +1334,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("picture.png", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1338,7 +1357,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
@@ -1361,7 +1380,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest {
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());

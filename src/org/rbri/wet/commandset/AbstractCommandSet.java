@@ -16,6 +16,7 @@
 
 package org.rbri.wet.commandset;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -148,5 +149,15 @@ public abstract class AbstractCommandSet implements WetCommandSet {
     }
 
     return tmpEntry.getControl();
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#getControls()
+   */
+  @Override
+  public List<Class<? extends Control>> getControls() {
+    return new ArrayList<Class<? extends Control>>();
   }
 }

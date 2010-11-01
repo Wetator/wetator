@@ -139,7 +139,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                     tmpFoundElements.add(new HtmlUnitControl(tmpElementForLabel),
                         WeightedControlList.FoundType.BY_LABEL, tmpCoverage, tmpDistance);
-                    continue;
+                    // continue;
                   }
                 }
               } catch (ElementNotFoundException e) {
@@ -158,7 +158,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                   tmpFoundElements.add(new HtmlUnitControl(tmpChildElement), WeightedControlList.FoundType.BY_LABEL,
                       tmpCoverage, tmpDistance);
-                  continue;
+                  // continue;
                 }
               }
             }
@@ -183,7 +183,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // whole text before
@@ -193,7 +193,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // name
@@ -204,7 +204,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
 
@@ -216,13 +216,12 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
       }
     }
-
     return tmpFoundElements;
   }
 
@@ -262,7 +261,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           String tmpName = tmpHtmlElement.getAttribute("name");
@@ -273,7 +272,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -292,7 +291,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
                 WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE, tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // does image title-text match?
@@ -302,7 +301,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
                 WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // does image filename match?
@@ -313,7 +312,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
                 WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           String tmpName = tmpHtmlElement.getAttribute("name");
@@ -324,7 +323,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -342,7 +341,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           String tmpName = tmpHtmlElement.getAttribute("name");
@@ -353,7 +352,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
 
@@ -371,7 +370,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                 tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
                     WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
-                continue;
+                // continue;
               }
 
               // does image filename match?
@@ -382,7 +381,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
                 tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
                     WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
-                continue;
+                // continue;
               }
 
               tmpName = tmpImage.getAttribute("name");
@@ -393,7 +392,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                   int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                   tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
                       WeightedControlList.FoundType.BY_INNER_NAME, tmpCoverage, tmpDistance);
-                  continue;
+                  // continue;
                 }
               }
             }
@@ -415,7 +414,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_LABEL_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // now check for the including image
@@ -432,7 +431,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                 tmpFoundElements.add(new HtmlUnitControl(tmpAnchor),
                     WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
-                continue;
+                // continue;
               }
 
               // does image filename match?
@@ -443,7 +442,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
                 tmpFoundElements.add(new HtmlUnitControl(tmpAnchor),
                     WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
-                continue;
+                // continue;
               }
 
               String tmpName = tmpImage.getAttribute("name");
@@ -454,7 +453,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                   int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                   tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_INNER_NAME,
                       tmpCoverage, tmpDistance);
-                  continue;
+                  // continue;
                 }
               }
             }
@@ -469,7 +468,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
                   tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -488,7 +487,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // does image title-text match?
@@ -498,7 +497,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // does image filename match?
@@ -509,7 +508,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           String tmpName = tmpImage.getAttribute("name");
@@ -520,7 +519,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
                   tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -544,7 +543,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -606,7 +605,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     boolean tmpFound = getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance,
                         tmpFoundElements);
                     if (tmpFound) {
-                      continue;
+                      // continue;
                     }
                   }
                 }
@@ -625,7 +624,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                   boolean tmpFound = getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance,
                       tmpFoundElements);
                   if (tmpFound) {
-                    continue;
+                    // continue;
                   }
                 }
               }
@@ -650,7 +649,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                     tmpFoundElements.add(new HtmlUnitControl(tmpElementForLabel),
                         WeightedControlList.FoundType.BY_LABEL, tmpCoverage, tmpDistance);
-                    continue;
+                    // continue;
                   }
                 }
 
@@ -669,7 +668,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                   tmpFoundElements.add(new HtmlUnitControl(tmpChildElement), WeightedControlList.FoundType.BY_LABEL,
                       tmpCoverage, tmpDistance);
-                  continue;
+                  // continue;
                 }
               }
             }
@@ -688,7 +687,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             boolean tmpFound = getOption((HtmlSelect) tmpHtmlElement, tmpSearchPattern, tmpDistance, tmpFoundElements);
             if (tmpFound) {
-              continue;
+              // continue;
             }
           }
 
@@ -701,7 +700,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               boolean tmpFound = getOption((HtmlSelect) tmpHtmlElement, tmpSearchPattern, tmpDistance, tmpFoundElements);
               if (tmpFound) {
-                continue;
+                // continue;
               }
             }
           }
@@ -715,7 +714,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               boolean tmpFound = getOption((HtmlSelect) tmpHtmlElement, tmpSearchPattern, tmpDistance, tmpFoundElements);
               if (tmpFound) {
-                continue;
+                // continue;
               }
             }
           }
@@ -733,7 +732,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // name
@@ -745,7 +744,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
 
@@ -758,7 +757,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -775,7 +774,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
                 tmpCoverage, tmpDistance);
-            continue;
+            // continue;
           }
 
           // no search by name
@@ -789,7 +788,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -806,7 +805,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -858,7 +857,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 if (tmpHtmlSelect.isMultipleSelectEnabled()) {
                   boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
                   if (tmpFound) {
-                    continue;
+                    // continue;
                   }
                 }
               }
@@ -875,7 +874,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               if (tmpHtmlSelect.isMultipleSelectEnabled()) {
                 boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
                 if (tmpFound) {
-                  continue;
+                  // continue;
                 }
               }
             }
@@ -895,7 +894,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               if (tmpElementForLabel instanceof HtmlCheckBoxInput) {
                 tmpFoundElements.add(new HtmlUnitControl(tmpElementForLabel), WeightedControlList.FoundType.BY_LABEL,
                     tmpCoverage, tmpDistance);
-                continue;
+                // continue;
               }
             } catch (ElementNotFoundException e) {
               // not found
@@ -908,7 +907,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if (tmpChildElement instanceof HtmlCheckBoxInput) {
               tmpFoundElements.add(new HtmlUnitControl(tmpChildElement), WeightedControlList.FoundType.BY_LABEL,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
@@ -927,7 +926,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if ((tmpDistance > -1) && (tmpLabelDistance > -1)) {
             boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpLabelDistance, tmpFoundElements);
             if (tmpFound) {
-              continue;
+              // continue;
             }
           }
 
@@ -938,7 +937,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if ((tmpCoverage > -1) && (tmpDistance > -1)) {
               boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
               if (tmpFound) {
-                continue;
+                // continue;
               }
             }
           }
@@ -950,7 +949,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if ((tmpCoverage > -1) && (tmpDistance > -1)) {
               boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
               if (tmpFound) {
-                continue;
+                // continue;
               }
             }
           }
@@ -967,7 +966,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
         if ((tmpDistance > -1) && (tmpCoverage > -1)) {
           tmpFoundElements.add(new HtmlUnitControl(tmpCheckBox), WeightedControlList.FoundType.BY_LABEL_TEXT,
               tmpCoverage, tmpDistance);
-          continue;
+          // continue;
         }
 
         // by name
@@ -977,7 +976,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if ((tmpCoverage > -1) && (tmpDistance > -1)) {
             tmpFoundElements.add(new HtmlUnitControl(tmpCheckBox), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
                 tmpDistance);
-            continue;
+            // continue;
           }
         }
 
@@ -988,7 +987,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if ((tmpCoverage > -1) && (tmpDistance > -1)) {
             tmpFoundElements.add(new HtmlUnitControl(tmpCheckBox), WeightedControlList.FoundType.BY_ID, tmpCoverage,
                 tmpDistance);
-            continue;
+            // continue;
           }
         }
       }
@@ -1032,7 +1031,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
               if (tmpElementForLabel instanceof HtmlSelect) {
                 tmpFoundElements.add(new HtmlUnitControl(tmpElementForLabel), WeightedControlList.FoundType.BY_LABEL,
                     tmpCoverage, tmpDistance);
-                continue;
+                // continue;
               }
             } catch (ElementNotFoundException e) {
               // not found
@@ -1045,26 +1044,31 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if (tmpChildElement instanceof HtmlSelect) {
               tmpFoundElements.add(new HtmlUnitControl(tmpChildElement), WeightedControlList.FoundType.BY_LABEL,
                   tmpCoverage, tmpDistance);
-              continue;
+              // continue;
             }
           }
         }
       } else if (tmpElement instanceof HtmlSelect) {
         String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
+        FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
         // if the select follows text directly and text matches => choose it
-        // TODO
-        String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement, -1);
+        String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement, tmpPathSpot.endPos);
 
         int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpLabelTextBefore);
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        if (tmpCoverage > -1) {
+          tmpTextBefore = tmpTextBefore.substring(0,
+              tmpLabelSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpTextBefore));
+          int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              tmpDistance);
-          continue;
+          if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+            tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
+                tmpCoverage, tmpDistance);
+            // continue;
+          }
         }
 
+        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
         // name
         String tmpName = tmpElement.getAttribute("name");
         if (StringUtils.isNotEmpty(tmpName) && tmpLabelSearchPattern.matches(tmpName)) {
@@ -1072,7 +1076,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if ((tmpCoverage > -1) && (tmpDistance > -1)) {
             tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
                 tmpDistance);
-            continue;
+            // continue;
           }
         }
 
@@ -1083,17 +1087,18 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if ((tmpCoverage > -1) && (tmpDistance > -1)) {
             tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
                 tmpDistance);
-            continue;
+            // continue;
           }
         }
 
         // whole text before
-        tmpCoverage = tmpWholePathSearchPattern.noOfSurroundingCharsIn(tmpTextBefore);
-        tmpDistance = tmpWholePathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-        if (tmpDistance > -1) {
+        tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+        tmpCoverage = tmpWholePathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
           tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_TEXT, tmpCoverage,
               tmpDistance);
-          continue;
+          // continue;
         }
       } else if (tmpElement instanceof HtmlOptionGroup) {
         String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
@@ -1104,7 +1109,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
         if ((tmpDistance > -1) && (tmpCoverage > -1)) {
           tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
               tmpCoverage, tmpDistance);
-          continue;
+          // continue;
         }
 
         // id
@@ -1114,7 +1119,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if ((tmpCoverage > -1) && (tmpDistance > -1)) {
             tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
                 tmpDistance);
-            continue;
+            // continue;
           }
         }
       }
@@ -1156,7 +1161,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
                 tmpDistance);
-            continue;
+            // continue;
           }
         }
       }

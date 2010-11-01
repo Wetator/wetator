@@ -18,11 +18,16 @@ package org.rbri.wet.backend.htmlunit;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.Control;
+import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
@@ -583,5 +588,19 @@ public class HtmlUnitControl implements Control {
       aStringBuilder.append(tmpName);
       aStringBuilder.append("')");
     }
+  }
+
+  /**
+   * This annotation contains the identifier for the htmlunit control.
+   * 
+   * @author frank.danek
+   */
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public static @interface Identifiers {
+    /**
+     * The identifiers.
+     */
+    Class<? extends AbstractHtmlUnitElementIdentifier>[] value();
   }
 }

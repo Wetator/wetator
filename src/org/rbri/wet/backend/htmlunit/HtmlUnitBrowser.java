@@ -31,12 +31,19 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.rbri.wet.backend.Control;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WetBackend;
+import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
 import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
+import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.core.searchpattern.SearchPattern;
@@ -68,6 +75,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  * The HtmlUnit backend.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class HtmlUnitBrowser implements WetBackend {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
@@ -87,10 +95,16 @@ public final class HtmlUnitBrowser implements WetBackend {
   protected long immediateJobsTimeout;
 
   /**
+   * This repository contains all additional controls supported by the backend (e.g. added by a command set).
+   */
+  protected HtmlUnitControlRepository controlRepository = new HtmlUnitControlRepository();
+
+  /**
    * Constructor.
    * 
    * @param aWetEngine the engine to work with
    */
+  @SuppressWarnings("unchecked")
   public HtmlUnitBrowser(WetEngine aWetEngine) {
     super();
 
@@ -107,6 +121,25 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     // TODO read from config
     immediateJobsTimeout = 1000L;
+
+    // add the default controls
+    // TODO is this the right place here or should they be added by the DefaultCommandSet (although they are HtmlUnit
+    // specific)?
+    controlRepository.add(ClickableHtmlUnitControl.class);
+    controlRepository.add(DeselectableHtmlUnitControl.class);
+    controlRepository.add(OtherHtmlUnitControl.class);
+    controlRepository.add(SelectableHtmlUnitControl.class);
+    controlRepository.add(SetableHtmlUnitControl.class);
+
+    // search for controls in the command sets
+    for (WetCommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
+      List<Class<? extends Control>> tmpControlClasses = tmpCommandSet.getControls();
+      if (tmpControlClasses != null) {
+        for (Class<? extends Control> tmpControlClass : tmpControlClasses) {
+          controlRepository.add((Class<? extends HtmlUnitControl>) tmpControlClass);
+        }
+      }
+    }
   }
 
   /**
@@ -516,7 +549,9 @@ public final class HtmlUnitBrowser implements WetBackend {
   public ControlFinder getControlFinder() throws AssertionFailedException {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
-    return new HtmlUnitControlFinder(tmpHtmlPage);
+    // XXX
+    // return new HtmlUnitControlFinder(tmpHtmlPage);
+    return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
   }
 
   @Override
@@ -529,10 +564,12 @@ public final class HtmlUnitBrowser implements WetBackend {
         HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
-        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          continue;
+        }
 
         if (tmpPage == getCurrentPage()) {
-          continue;
+          break;
         }
 
         // current page is changed, we have to make at least one try
@@ -566,10 +603,12 @@ public final class HtmlUnitBrowser implements WetBackend {
         }
 
         JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          continue;
+        }
 
         if (tmpPage == getCurrentPage()) {
-          continue;
+          break;
         }
 
         // current page is changed, we have to make at least one try
@@ -608,11 +647,13 @@ public final class HtmlUnitBrowser implements WetBackend {
         }
 
         JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          continue;
+        }
 
         // current page is changed, we have to make another try
         if (tmpPage == getCurrentPage()) {
-          continue;
+          break;
         }
 
         // current page is changed, we have to make at least one try
@@ -713,8 +754,8 @@ public final class HtmlUnitBrowser implements WetBackend {
     for (AssertionFailedException tmpException : failures) {
       Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
-        wetEngine.informListenersWarn("error", new String[] { tmpException.getMessage(),
-            ExceptionUtils.getStackTrace(tmpCause) });
+        wetEngine.informListenersWarn("error",
+            new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
       }
     }
     failures = new LinkedList<AssertionFailedException>();
