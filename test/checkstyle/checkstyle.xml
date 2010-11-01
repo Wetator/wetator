@@ -119,6 +119,7 @@
     <module name="EqualsAvoidNull"/>
     <module name="IllegalType">
       <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
+      <property name="format" value="^(.*[\.])?HiHo.*$"/>
     </module>
     <module name="NoFinalizer"/>
     <module name="ParameterAssignment"/>
