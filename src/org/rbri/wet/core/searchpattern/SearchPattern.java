@@ -16,10 +16,10 @@
 
 package org.rbri.wet.core.searchpattern;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.LRUMap;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.util.SecretString;
 
@@ -33,7 +33,8 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
-  private static Map<String, SearchPattern> searchPatternCache = new HashMap<String, SearchPattern>();
+  @SuppressWarnings("unchecked")
+  private static Map<String, SearchPattern> searchPatternCache = new LRUMap(500);
   private String originalString;
 
   /**
@@ -81,83 +82,87 @@ public abstract class SearchPattern {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
     }
 
-    SearchPattern tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
-    if (tmpSearchPattern != null) {
-      return tmpSearchPattern;
-    }
-
-    String tmpOriginalString = tmpDosStyleWildcardString;
-
-    StringBuilder tmpPattern = new StringBuilder();
-    StringBuilder tmpTextPattern = new StringBuilder();
-
-    boolean tmpSlash = false;
-    boolean tmpIsStarPattern = true;
-    boolean tmpIsTextOnly = true;
-    for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
-      char tmpChar = tmpDosStyleWildcardString.charAt(i);
-
-      if ('*' == tmpChar) {
-        if (tmpSlash) {
-          tmpPattern.append("\\*");
-          tmpTextPattern.append("*");
-          tmpSlash = false;
-          continue;
-        }
-        tmpPattern.append(".*");
-        tmpIsTextOnly = false;
-        continue;
-      } else if ('?' == tmpChar) {
-        tmpIsStarPattern = false;
-        if (tmpSlash) {
-          tmpPattern.append("\\?");
-          tmpTextPattern.append("?");
-          tmpSlash = false;
-          continue;
-        }
-        tmpPattern.append(".");
-        tmpIsTextOnly = false;
-        continue;
-      } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
-        tmpIsStarPattern = false;
-        if (tmpSlash) {
-          tmpPattern.append("\\\\\\");
-          tmpPattern.append(tmpChar);
-          tmpTextPattern.append('\\');
-          tmpTextPattern.append(tmpChar);
-          tmpSlash = false;
-          continue;
-        }
-        tmpPattern.append("\\");
-        tmpPattern.append(tmpChar);
-        tmpTextPattern.append(tmpChar);
-        continue;
-      } else if ('\\' == tmpChar) {
-        tmpSlash = true;
-        continue;
-      } else {
-        tmpIsStarPattern = false;
-        if (tmpSlash) {
-          tmpPattern.append("\\\\");
-          tmpTextPattern.append('\\');
-          tmpSlash = false;
-        }
-        tmpPattern.append(tmpChar);
-        tmpTextPattern.append(tmpChar);
-        continue;
+    SearchPattern tmpSearchPattern;
+    synchronized (searchPatternCache) {
+      tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+      if (tmpSearchPattern != null) {
+        return tmpSearchPattern;
       }
-    }
-    if (tmpSlash) {
-      tmpPattern.append("\\\\");
-      tmpTextPattern.append('\\');
-    }
 
-    if (tmpIsStarPattern) {
-      tmpSearchPattern = new MatchAllSearchPattern();
-    } else if (tmpIsTextOnly) {
-      tmpSearchPattern = new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
-    } else {
-      tmpSearchPattern = new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+      String tmpOriginalString = tmpDosStyleWildcardString;
+
+      StringBuilder tmpPattern = new StringBuilder();
+      StringBuilder tmpTextPattern = new StringBuilder();
+
+      boolean tmpSlash = false;
+      boolean tmpIsStarPattern = true;
+      boolean tmpIsTextOnly = true;
+      for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
+        char tmpChar = tmpDosStyleWildcardString.charAt(i);
+
+        if ('*' == tmpChar) {
+          if (tmpSlash) {
+            tmpPattern.append("\\*");
+            tmpTextPattern.append("*");
+            tmpSlash = false;
+            continue;
+          }
+          tmpPattern.append(".*");
+          tmpIsTextOnly = false;
+          continue;
+        } else if ('?' == tmpChar) {
+          tmpIsStarPattern = false;
+          if (tmpSlash) {
+            tmpPattern.append("\\?");
+            tmpTextPattern.append("?");
+            tmpSlash = false;
+            continue;
+          }
+          tmpPattern.append(".");
+          tmpIsTextOnly = false;
+          continue;
+        } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
+          tmpIsStarPattern = false;
+          if (tmpSlash) {
+            tmpPattern.append("\\\\\\");
+            tmpPattern.append(tmpChar);
+            tmpTextPattern.append('\\');
+            tmpTextPattern.append(tmpChar);
+            tmpSlash = false;
+            continue;
+          }
+          tmpPattern.append("\\");
+          tmpPattern.append(tmpChar);
+          tmpTextPattern.append(tmpChar);
+          continue;
+        } else if ('\\' == tmpChar) {
+          tmpSlash = true;
+          continue;
+        } else {
+          tmpIsStarPattern = false;
+          if (tmpSlash) {
+            tmpPattern.append("\\\\");
+            tmpTextPattern.append('\\');
+            tmpSlash = false;
+          }
+          tmpPattern.append(tmpChar);
+          tmpTextPattern.append(tmpChar);
+          continue;
+        }
+      }
+      if (tmpSlash) {
+        tmpPattern.append("\\\\");
+        tmpTextPattern.append('\\');
+      }
+
+      if (tmpIsStarPattern) {
+        tmpSearchPattern = new MatchAllSearchPattern();
+      } else if (tmpIsTextOnly) {
+        tmpSearchPattern = new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
+      } else {
+        tmpSearchPattern = new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+      }
+      searchPatternCache.put(aDosStyleWildcardString, tmpSearchPattern);
     }
     return tmpSearchPattern;
   }
