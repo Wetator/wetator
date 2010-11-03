@@ -31,7 +31,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.rbri.wet.backend.Control;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
@@ -43,7 +42,6 @@ import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
-import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.core.searchpattern.SearchPattern;
@@ -104,7 +102,6 @@ public final class HtmlUnitBrowser implements WetBackend {
    * 
    * @param aWetEngine the engine to work with
    */
-  @SuppressWarnings("unchecked")
   public HtmlUnitBrowser(WetEngine aWetEngine) {
     super();
 
@@ -123,23 +120,14 @@ public final class HtmlUnitBrowser implements WetBackend {
     immediateJobsTimeout = 1000L;
 
     // add the default controls
-    // TODO is this the right place here or should they be added by the DefaultCommandSet (although they are HtmlUnit
-    // specific)?
     controlRepository.add(ClickableHtmlUnitControl.class);
     controlRepository.add(DeselectableHtmlUnitControl.class);
     controlRepository.add(OtherHtmlUnitControl.class);
     controlRepository.add(SelectableHtmlUnitControl.class);
     controlRepository.add(SetableHtmlUnitControl.class);
 
-    // search for controls in the command sets
-    for (WetCommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
-      List<Class<? extends Control>> tmpControlClasses = tmpCommandSet.getControls();
-      if (tmpControlClasses != null) {
-        for (Class<? extends Control> tmpControlClass : tmpControlClasses) {
-          controlRepository.add((Class<? extends HtmlUnitControl>) tmpControlClass);
-        }
-      }
-    }
+    // add the controls from the configuration
+    controlRepository.addAll(tmpConfiguration.getControls());
   }
 
   /**

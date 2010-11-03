@@ -26,14 +26,15 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.rbri.wet.backend.Control;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.backend.WetBackend.Browser;
 import org.rbri.wet.commandset.DefaultCommandSet;
@@ -66,6 +67,10 @@ public final class WetConfiguration {
    * The property name to set the supported {@link WetCommandSet}s.
    */
   public static final String PROPERTY_COMMAND_SETS = PROPERTY_PREFIX + "commandSets";
+  /**
+   * The property name to set the supported {@link Control}s.
+   */
+  public static final String PROPERTY_CONTROLS = PROPERTY_PREFIX + "controls";
   /**
    * The property name to set the supported {@link WetScripter}s.
    */
@@ -139,6 +144,7 @@ public final class WetConfiguration {
 
   private List<WetScripter> scripters;
   private List<WetCommandSet> commandSets;
+  private List<Class<? extends Control>> controls;
   private String baseUrl;
 
   private File outputDir;
@@ -350,6 +356,31 @@ public final class WetConfiguration {
       tmpWetCommandSet.initialize(tmpProperties);
     }
 
+    // controls
+    controls = new LinkedList<Class<? extends Control>>();
+
+    tmpValue = tmpProperties.getProperty(PROPERTY_CONTROLS, "");
+    List<String> tmpControlClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+
+    for (String tmpControlClassName : tmpControlClassNames) {
+      tmpControlClassName = tmpControlClassName.trim();
+      if (!StringUtils.isEmpty(tmpControlClassName)) {
+        try {
+          Class<? extends Control> tmpClass;
+          try {
+            tmpClass = ClassUtils.getClass(tmpControlClassName);
+          } catch (ClassNotFoundException e) {
+            // make Ant happy
+            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpControlClassName);
+          }
+          controls.add(tmpClass);
+          LOG.info("Config  control '" + tmpControlClassName + "' registered.");
+        } catch (ClassNotFoundException e) {
+          LOG.error("Config  Can't load control '" + tmpControlClassName + "'.", e);
+        }
+      }
+    }
+
     // outputDir
     tmpValue = tmpProperties.getProperty(PROPERTY_OUTPUT_DIR, DEFAULT_OUTPUT_DIR);
     // output dir is relative to the base directory
@@ -498,6 +529,13 @@ public final class WetConfiguration {
    */
   public List<WetCommandSet> getCommandSets() {
     return commandSets;
+  }
+
+  /**
+   * @return the controls
+   */
+  public List<Class<? extends Control>> getControls() {
+    return controls;
   }
 
   /**

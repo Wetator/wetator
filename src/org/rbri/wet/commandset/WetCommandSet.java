@@ -19,8 +19,6 @@ package org.rbri.wet.commandset;
 import java.util.List;
 import java.util.Properties;
 
-import org.rbri.wet.backend.Control;
-
 /**
  * A collection of available commands.
  * The implementation of this interface also holds the implementation of the commands.
@@ -56,9 +54,4 @@ public interface WetCommandSet {
    * @return The found {@link WetCommandImplementation}.
    */
   public WetCommandImplementation getCommandImplementationFor(String aCommandName);
-
-  /**
-   * @return a list containing the additional control the command set supports
-   */
-  public List<Class<? extends Control>> getControls();
 }

@@ -43,11 +43,10 @@ public class HtmlUnitControlRepository {
   /**
    * @param aControlClassList the classes of the controls to add
    */
-  @SuppressWarnings("unchecked")
-  public void addAll(List<Class<? extends HtmlUnitControl>> aControlClassList) {
+  public void addAll(List<Class<? extends Control>> aControlClassList) {
     if (aControlClassList != null) {
       for (Class<? extends Control> tmpControlClass : aControlClassList) {
-        add((Class<? extends HtmlUnitControl>) tmpControlClass);
+        add(tmpControlClass);
       }
     }
   }
@@ -55,7 +54,7 @@ public class HtmlUnitControlRepository {
   /**
    * @param aControlClass the class of the control to add
    */
-  public void add(Class<? extends HtmlUnitControl> aControlClass) {
+  public void add(Class<? extends Control> aControlClass) {
     if (aControlClass == null) {
       return;
     }
