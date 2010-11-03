@@ -764,26 +764,21 @@
                     <td>
                         <img>
                             <xsl:attribute name="src">
-                                <xsl:choose>
-                                    <xsl:when test="../@browser='Firefox3'">
-                                        <xsl:text disable-output-escaping="yes"><xsl:value-of select="$browserPicture.Firefox"/></xsl:text>
-                                    </xsl:when>
-                                    <xsl:when test="../@browser='Firefox3.6'">
-                                        <xsl:text disable-output-escaping="yes"><xsl:value-of select="$browserPicture.Firefox"/></xsl:text>
-                                    </xsl:when>
-                                    <xsl:when test="../@browser='IE6'">
-                                        <xsl:text disable-output-escaping="yes"><xsl:value-of select="$browserPicture.IE6"/></xsl:text>
-                                    </xsl:when>
-                                    <xsl:when test="../@browser='IE7'">
-                                        <xsl:text disable-output-escaping="yes"><xsl:value-of select="$browserPicture.IE7"/></xsl:text>
-                                    </xsl:when>
-                                    <xsl:when test="../@browser='IE8'">
-                                        <xsl:text disable-output-escaping="yes"><xsl:value-of select="$browserPicture.IE8"/></xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text disable-output-escaping="yes"><xsl:value-of select="$browserPicture.Firefox"/></xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                <xsl:if test="../@browser='Firefox3'">
+                                    <xsl:value-of select="$browserPicture.Firefox"/>
+                                </xsl:if>
+                                <xsl:if test="../@browser='Firefox3.6'">
+                                    <xsl:value-of select="$browserPicture.Firefox"/>
+                                </xsl:if>
+                                <xsl:if test="../@browser='IE6'">
+                                    <xsl:value-of select="$browserPicture.IE6"/>
+                                </xsl:if>
+                                <xsl:if test="../@browser='IE7'">
+                                    <xsl:value-of select="$browserPicture.IE7"/>
+                                </xsl:if>
+                                <xsl:if test="../@browser='IE8'">
+                                    <xsl:value-of select="$browserPicture.IE8"/>
+                                </xsl:if>
                             </xsl:attribute>
                             <xsl:attribute name="alt">
                                 <xsl:value-of select="../@browser"/>
