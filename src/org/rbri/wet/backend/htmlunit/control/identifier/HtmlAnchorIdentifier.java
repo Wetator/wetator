@@ -19,12 +19,12 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitAnchor;
+import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByInnerImageMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByTextMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
@@ -76,7 +76,7 @@ public class HtmlAnchorIdentifier extends AbstractHtmlUnitElementIdentifier {
     tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new ClickableHtmlUnitControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundElements.add(new HtmlUnitAnchor((HtmlAnchor) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

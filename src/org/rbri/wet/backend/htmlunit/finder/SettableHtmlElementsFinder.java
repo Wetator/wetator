@@ -20,7 +20,10 @@ import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.util.SecretString;
 
@@ -36,14 +39,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * 
  * @author frank.danek
  */
-public class SetableHtmlElementsFinder extends IdentifierBasedElementsFinder {
+public class SettableHtmlElementsFinder extends IdentifierBasedElementsFinder {
 
   /**
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
    * @param aThreadPool the thread pool to use for worker threads
    */
-  public SetableHtmlElementsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
+  public SettableHtmlElementsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
     super(aHtmlPage, aDomNodeText, aThreadPool);
   }
 
@@ -60,9 +63,30 @@ public class SetableHtmlElementsFinder extends IdentifierBasedElementsFinder {
     if (aSearch.isEmpty()) {
       for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
         if (tmpHtmlElement.isDisplayed()) {
-          if ((tmpHtmlElement instanceof HtmlTextInput) || (tmpHtmlElement instanceof HtmlPasswordInput)
-              || (tmpHtmlElement instanceof HtmlTextArea) || (tmpHtmlElement instanceof HtmlFileInput)) {
-            tmpFoundElements.add(new SetableHtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID, 0, // no
+          if (tmpHtmlElement instanceof HtmlTextInput) {
+            tmpFoundElements.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
+                WeightedControlList.FoundType.BY_ID, 0, // no
+                // coverage
+                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+            return tmpFoundElements;
+          }
+          if (tmpHtmlElement instanceof HtmlPasswordInput) {
+            tmpFoundElements.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
+                WeightedControlList.FoundType.BY_ID, 0, // no
+                // coverage
+                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+            return tmpFoundElements;
+          }
+          if (tmpHtmlElement instanceof HtmlTextArea) {
+            tmpFoundElements.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
+                WeightedControlList.FoundType.BY_ID, 0, // no
+                // coverage
+                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+            return tmpFoundElements;
+          }
+          if (tmpHtmlElement instanceof HtmlFileInput) {
+            tmpFoundElements.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
+                WeightedControlList.FoundType.BY_ID, 0, // no
                 // coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundElements;

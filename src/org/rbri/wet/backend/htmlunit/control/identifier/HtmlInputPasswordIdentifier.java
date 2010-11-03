@@ -19,13 +19,13 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByLabelTextBeforeMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
@@ -85,8 +85,8 @@ public class HtmlInputPasswordIdentifier extends AbstractHtmlUnitElementIdentifi
           foundElements, htmlPage, HtmlPasswordInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new SetableHtmlUnitControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
-          tmpMatch.getCoverage(), tmpMatch.getDistance());
+      foundElements.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpMatch.getHtmlElement()),
+          tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }
 

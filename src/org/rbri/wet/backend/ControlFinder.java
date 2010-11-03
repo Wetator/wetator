@@ -53,12 +53,12 @@ public interface ControlFinder {
   public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
 
   /**
-   * Return a list of all setables for the given search
+   * Return a list of all settables for the given search
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllSetables(List<SecretString> aSearch);
+  public WeightedControlList getAllSettables(List<SecretString> aSearch);
 
   /**
    * Return a list of all other controls for the given search

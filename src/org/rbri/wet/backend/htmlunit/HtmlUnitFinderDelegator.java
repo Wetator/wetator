@@ -24,8 +24,8 @@ import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitElementsFinder;
 import org.rbri.wet.backend.htmlunit.finder.AllHtmlElementsForTextFinder;
-import org.rbri.wet.backend.htmlunit.finder.SetableHtmlElementsFinder;
 import org.rbri.wet.backend.htmlunit.finder.IdentifierBasedElementsFinder;
+import org.rbri.wet.backend.htmlunit.finder.SettableHtmlElementsFinder;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.util.SecretString;
 
@@ -51,7 +51,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
 
   private static ThreadPoolExecutor threadPool;
 
-  private IdentifierBasedElementsFinder setablesFinder;
+  private IdentifierBasedElementsFinder settablesFinder;
   private IdentifierBasedElementsFinder clickablesFinder;
   private IdentifierBasedElementsFinder selectablesFinder;
   private IdentifierBasedElementsFinder deselectablesFinder;
@@ -71,11 +71,11 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
     domNodeText = new DomNodeText(htmlPage.getBody());
 
     if (threadPool == null) {
-      threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(8);
+      threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
       threadPool.prestartAllCoreThreads();
     }
 
-    setablesFinder = new SetableHtmlElementsFinder(htmlPage, domNodeText, threadPool);
+    settablesFinder = new SettableHtmlElementsFinder(htmlPage, domNodeText, threadPool);
     clickablesFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
     selectablesFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
     deselectablesFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
@@ -84,7 +84,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param anHtmlPage the page to search in
    * @param aControlRepository the repository of controls this delegator supports
@@ -93,7 +93,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
     this(anHtmlPage);
 
     if (aControlRepository != null) {
-      setablesFinder.addIdentifiers(aControlRepository.getSetableIdentifiers());
+      settablesFinder.addIdentifiers(aControlRepository.getSettableIdentifiers());
       clickablesFinder.addIdentifiers(aControlRepository.getClickableIdentifiers());
       selectablesFinder.addIdentifiers(aControlRepository.getSelectableIdentifiers());
       deselectablesFinder.addIdentifiers(aControlRepository.getDeselectableIdentifiers());
@@ -104,11 +104,11 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllSetables(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllSettables(java.util.List)
    */
   @Override
-  public WeightedControlList getAllSetables(List<SecretString> aSearch) {
-    return setablesFinder.find(aSearch);
+  public WeightedControlList getAllSettables(List<SecretString> aSearch) {
+    return settablesFinder.find(aSearch);
   }
 
   /**

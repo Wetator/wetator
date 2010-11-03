@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.HtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
@@ -69,7 +69,7 @@ public class AllHtmlElementsForTextFinder extends AbstractHtmlUnitElementsFinder
       List<MatchResult> tmpMatches = new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
           tmpFoundElements).matches(tmpHtmlElement);
       for (MatchResult tmpMatch : tmpMatches) {
-        tmpFoundElements.add(new HtmlUnitControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+        tmpFoundElements.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
             tmpMatch.getCoverage(), tmpMatch.getDistance());
       }
     }
@@ -90,8 +90,8 @@ public class AllHtmlElementsForTextFinder extends AbstractHtmlUnitElementsFinder
           tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.startPos);
           int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-          tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT, tmpCoverage,
-              tmpDistance);
+          tmpFoundElements.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
+              WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance);
           break;
         }
       }

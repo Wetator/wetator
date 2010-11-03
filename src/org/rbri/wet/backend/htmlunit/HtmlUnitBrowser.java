@@ -33,11 +33,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WetBackend;
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitAnchor;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputRadioButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputReset;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputSubmit;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitSelect;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
@@ -120,11 +131,22 @@ public final class HtmlUnitBrowser implements WetBackend {
     immediateJobsTimeout = 1000L;
 
     // add the default controls
-    controlRepository.add(ClickableHtmlUnitControl.class);
-    controlRepository.add(DeselectableHtmlUnitControl.class);
-    controlRepository.add(OtherHtmlUnitControl.class);
-    controlRepository.add(SelectableHtmlUnitControl.class);
-    controlRepository.add(SetableHtmlUnitControl.class);
+    controlRepository.add(HtmlUnitAnchor.class);
+    controlRepository.add(HtmlUnitButton.class);
+    controlRepository.add(HtmlUnitImage.class);
+    controlRepository.add(HtmlUnitInputButton.class);
+    controlRepository.add(HtmlUnitInputCheckBox.class);
+    controlRepository.add(HtmlUnitInputFile.class);
+    controlRepository.add(HtmlUnitInputImage.class);
+    controlRepository.add(HtmlUnitInputPassword.class);
+    controlRepository.add(HtmlUnitInputRadioButton.class);
+    controlRepository.add(HtmlUnitInputReset.class);
+    controlRepository.add(HtmlUnitInputSubmit.class);
+    controlRepository.add(HtmlUnitInputText.class);
+    controlRepository.add(HtmlUnitOption.class);
+    controlRepository.add(HtmlUnitOptionGroup.class);
+    controlRepository.add(HtmlUnitSelect.class);
+    controlRepository.add(HtmlUnitTextArea.class);
 
     // add the controls from the configuration
     controlRepository.addAll(tmpConfiguration.getControls());
@@ -537,8 +559,6 @@ public final class HtmlUnitBrowser implements WetBackend {
   public ControlFinder getControlFinder() throws AssertionFailedException {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
-    // XXX
-    // return new HtmlUnitControlFinder(tmpHtmlPage);
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
   }
 

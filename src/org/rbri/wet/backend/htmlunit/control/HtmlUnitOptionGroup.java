@@ -16,28 +16,34 @@
 
 package org.rbri.wet.backend.htmlunit.control;
 
-import org.rbri.wet.backend.htmlunit.HtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.HtmlUnitControl.Identifiers;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlOptionGroupIdentifier;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlSelectIdentifier;
+import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 
 /**
- * This is the generic {@link HtmlUnitControl} for all other controls (not clickable, deselectable, selectable or
- * setable).
- * 
  * @author frank.danek
  */
-@Identifiers({ HtmlSelectIdentifier.class, HtmlOptionGroupIdentifier.class })
-public class OtherHtmlUnitControl extends HtmlUnitControl {
+@Identifiers(HtmlOptionGroupIdentifier.class)
+public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
 
   /**
    * The constructor.
    * 
-   * @param anHtmlElement the {@link HtmlElement} from the backend
+   * @param anHtmlElement the {@link HtmlOptionGroup} from the backend
    */
-  public OtherHtmlUnitControl(HtmlElement anHtmlElement) {
+  public HtmlUnitOptionGroup(HtmlOptionGroup anHtmlElement) {
     super(anHtmlElement);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
+   */
+  @Override
+  public String getDescribingText() {
+    return HtmlElementUtil.getDescribingTextForHtmlOptionGroup(getHtmlElement());
   }
 }

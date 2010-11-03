@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet.backend.htmlunit;
+package org.rbri.wet.backend.htmlunit.control;
 
 import java.io.IOException;
 
@@ -23,12 +23,14 @@ import org.junit.Test;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.exception.AssertionFailedException;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
-public class HtmlUnitControlTest {
+public class HtmlUnitBaseControlTest {
 
   @Test
   public void testIsDisabled() throws IOException, AssertionFailedException {
@@ -37,7 +39,7 @@ public class HtmlUnitControlTest {
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -49,7 +51,7 @@ public class HtmlUnitControlTest {
         + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }

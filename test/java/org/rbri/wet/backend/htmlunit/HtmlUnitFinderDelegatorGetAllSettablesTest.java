@@ -24,11 +24,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -36,8 +35,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
-public class HtmlUnitFinderDelegatorGetAllSetablesTest {
+public class HtmlUnitFinderDelegatorGetAllSettablesTest {
 
   private HtmlUnitControlRepository controlRepository;
 
@@ -45,17 +45,17 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
   public void setupControlFinder() {
     controlRepository = new HtmlUnitControlRepository();
 
-    controlRepository.add(ClickableHtmlUnitControl.class);
-    controlRepository.add(DeselectableHtmlUnitControl.class);
-    controlRepository.add(OtherHtmlUnitControl.class);
-    controlRepository.add(SelectableHtmlUnitControl.class);
-    controlRepository.add(SetableHtmlUnitControl.class);
+    // add the default settables
+    controlRepository.add(HtmlUnitInputFile.class);
+    controlRepository.add(HtmlUnitInputPassword.class);
+    controlRepository.add(HtmlUnitInputText.class);
+    controlRepository.add(HtmlUnitTextArea.class);
   }
 
   @Test
   public void testConstructorNullPage() {
     try {
-      new HtmlUnitControlFinder(null);
+      new HtmlUnitFinderDelegator(null, controlRepository);
       Assert.fail("NullPointerException expected.");
     } catch (NullPointerException e) {
       Assert.assertEquals("HtmlPage can't be null", e.getMessage());
@@ -71,7 +71,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Name", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -86,7 +86,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("TextInput", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 0 distance: 0",
@@ -103,7 +103,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("TextI*", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 4 distance: 0",
@@ -122,7 +122,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("TextInput1", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='id1') (name='TextInput1')] found by: BY_NAME coverage: 0 distance: 0",
@@ -133,7 +133,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("abcdef", false));
     tmpSearch.add(new SecretString("TextInput1", false));
 
-    tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -148,7 +148,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("ti", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
@@ -165,7 +165,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("t*", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 1 distance: 0",
@@ -182,7 +182,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -197,7 +197,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -216,7 +216,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
@@ -236,7 +236,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -255,7 +255,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -274,7 +274,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -294,7 +294,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -313,7 +313,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -331,7 +331,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
@@ -350,7 +350,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
@@ -371,7 +371,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("La*l", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
@@ -392,7 +392,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("La*l", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
@@ -415,7 +415,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Passwort", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert
@@ -437,7 +437,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Pass*", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert
@@ -461,7 +461,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Input2", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(3, tmpFound.getElementsSorted().size());
     Assert.assertEquals(
@@ -479,7 +479,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Input1", false));
 
     tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals(
@@ -494,7 +494,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Input2", false));
 
     tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals(
@@ -514,7 +514,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Label", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals(
@@ -536,7 +536,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("ti", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
@@ -555,7 +555,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("TextInput", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='TextInput') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
@@ -575,7 +575,7 @@ public class HtmlUnitFinderDelegatorGetAllSetablesTest {
     tmpSearch.add(new SecretString("Passwor*", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert

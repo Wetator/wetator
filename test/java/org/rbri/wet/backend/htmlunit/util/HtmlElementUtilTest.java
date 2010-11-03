@@ -21,9 +21,24 @@ import java.util.Iterator;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.rbri.wet.backend.htmlunit.HtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitAnchor;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputRadioButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputReset;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputSubmit;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitSelect;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 
-import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
@@ -64,7 +79,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -84,7 +100,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -104,7 +121,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'AnchorText' (name='AnchorName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -124,7 +142,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'image: wet.src']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -144,7 +163,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'image: wet.src' 'AnchorText']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -164,7 +184,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -185,7 +206,8 @@ public class HtmlElementUtilTest {
 
     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpAnchor).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
     Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpAnchor);
@@ -202,7 +224,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -211,7 +234,7 @@ public class HtmlElementUtilTest {
 
   @Test
   public void testGetDescribingTextFor_HtmlButton_Value() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button' value='TestButton' />"
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button' value='TestButton'/>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -219,7 +242,26 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
+    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
+    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlButton_PlainText() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button'>TestButton</b></button>"
+        + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -236,7 +278,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -253,7 +296,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'image: wet.src']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -270,7 +314,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'image: wet.src' 'Text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -287,7 +332,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'Text' (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -304,7 +350,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'Text' (id='ButtonId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -321,7 +368,8 @@ public class HtmlElementUtilTest {
 
     HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpButton).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
     Assert.assertEquals("[HtmlButton 'Text' (id='ButtonId') (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpButton);
@@ -338,7 +386,8 @@ public class HtmlElementUtilTest {
 
     HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlButtonInput 'Button']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
@@ -355,7 +404,8 @@ public class HtmlElementUtilTest {
 
     HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlButtonInput 'Button' (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
@@ -372,7 +422,8 @@ public class HtmlElementUtilTest {
 
     HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlButtonInput 'Button' (id='sb')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
@@ -389,7 +440,8 @@ public class HtmlElementUtilTest {
 
     HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlButtonInput 'Button' (id='sb') (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
@@ -406,7 +458,8 @@ public class HtmlElementUtilTest {
 
     HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpCheckBoxInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
     Assert.assertEquals("[HtmlCheckBoxInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpCheckBoxInput);
@@ -423,7 +476,8 @@ public class HtmlElementUtilTest {
 
     HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpCheckBoxInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
     Assert.assertEquals("[HtmlCheckBoxInput (name='CheckBoxName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpCheckBoxInput);
@@ -440,7 +494,8 @@ public class HtmlElementUtilTest {
 
     HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpCheckBoxInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
     Assert.assertEquals("[HtmlCheckBoxInput (id='CheckBoxId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpCheckBoxInput);
@@ -458,7 +513,8 @@ public class HtmlElementUtilTest {
 
     HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpCheckBoxInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
     Assert.assertEquals("[HtmlCheckBoxInput (id='CheckBoxId') (name='CheckBoxName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpCheckBoxInput);
@@ -474,7 +530,8 @@ public class HtmlElementUtilTest {
 
     HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpFileInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
     Assert.assertEquals("[HtmlFileInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpFileInput);
@@ -491,7 +548,8 @@ public class HtmlElementUtilTest {
 
     HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpFileInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
     Assert.assertEquals("[HtmlFileInput (name='FileInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpFileInput);
@@ -508,7 +566,8 @@ public class HtmlElementUtilTest {
 
     HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpFileInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
     Assert.assertEquals("[HtmlFileInput (id='FileInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpFileInput);
@@ -525,7 +584,8 @@ public class HtmlElementUtilTest {
 
     HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpFileInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
     Assert.assertEquals("[HtmlFileInput (id='FileInputId') (name='FileInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpFileInput);
@@ -545,7 +605,8 @@ public class HtmlElementUtilTest {
 
     HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpImage).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
     Assert.assertEquals("[HtmlImage 'wet.png']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpImage);
@@ -566,7 +627,7 @@ public class HtmlElementUtilTest {
     HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitControl(tmpImage).getDescribingText();
+    tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
     Assert.assertEquals("[HtmlImage 'wet.png' (name='ImageName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpImage);
@@ -586,7 +647,8 @@ public class HtmlElementUtilTest {
 
     HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpImage).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
     Assert.assertEquals("[HtmlImage 'wet.png' (id='ImageId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpImage);
@@ -606,7 +668,8 @@ public class HtmlElementUtilTest {
 
     HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpImage).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
     Assert.assertEquals("[HtmlImage 'wet.png' (id='ImageId') (name='ImageName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpImage);
@@ -623,7 +686,8 @@ public class HtmlElementUtilTest {
 
     HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlImageInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
     Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
@@ -641,7 +705,8 @@ public class HtmlElementUtilTest {
 
     HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlImageInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
     Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
@@ -658,7 +723,8 @@ public class HtmlElementUtilTest {
 
     HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlImageInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
     Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
@@ -676,7 +742,8 @@ public class HtmlElementUtilTest {
 
     HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlImageInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
     Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
         tmpResult);
 
@@ -686,67 +753,244 @@ public class HtmlElementUtilTest {
   }
 
   @Test
-  public void testGetDescribingTextFor_HtmlParagraph() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>test</p>" + "</body></html>";
+  public void testGetDescribingTextFor_HtmlOption() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>" + "<option>Option1</option>"
+        + "</select>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
-    tmpChilds.next();
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpChilds.next().getFirstChild();
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'test']", tmpResult);
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
+    Assert.assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
+    Assert.assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOption_Name() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>"
+        + "<option name='optionName'>Option1</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
+    Assert.assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
+    Assert.assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOption_Id() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>"
+        + "<option id='optionId'>Option1</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
+    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
+    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOption_Name_Id() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>"
+        + "<option name='optionName' id='optionId'>Option1</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
+    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
+    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOptionGroup() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>" + "<optgroup label='optGroupLabel'>"
+        + "<option>Option1</option>" + "</optgroup>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOptionGroup_Name() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>"
+        + "<optgroup label='optGroupLabel' name='optionName'>" + "<option>Option1</option>" + "</optgroup>"
+        + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOptionGroup_Id() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>"
+        + "<optgroup label='optGroupLabel' id='optionId'>" + "<option>Option1</option>" + "</optgroup>" + "</select>"
+        + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlOptionGroup_Name_Id() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>"
+        + "<optgroup label='optGroupLabel' name='optionName' id='optionId'>" + "<option>Option1</option>"
+        + "</optgroup>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
+        tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
+    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
+        tmpResult);
+  }
+
+  @Test
+  public void testGetDescribingTextFor_HtmlParagraph() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>paragraph text</p>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+
+    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    Assert.assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'test']", tmpResult);
+    Assert.assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
   }
 
   @Test
   public void testGetDescribingTextFor_HtmlParagraph_Name() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p name='MyName' >test</p>" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" + "<p name='ParagraphName'>paragraph text</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
-    tmpChilds.next();
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpChilds.next().getFirstChild();
+    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'test' (name='MyName')]", tmpResult);
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+
+    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    Assert.assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'test' (name='MyName')]", tmpResult);
+    Assert.assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
   }
 
   @Test
   public void testGetDescribingTextFor_HtmlParagraph_Id() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p id='MyId'>test</p>" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" + "<p id='para'>paragraph text</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
-    tmpChilds.next();
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpChilds.next().getFirstChild();
+    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'test' (id='MyId')]", tmpResult);
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+
+    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'test' (id='MyId')]", tmpResult);
+    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
   }
 
   @Test
   public void testGetDescribingTextFor_HtmlParagraph_Name_Id() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p name='MyName' id='MyId'>test</p>" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" + "<p id='para' name='ParagraphName'>paragraph text</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
-    tmpChilds.next();
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpChilds.next().getFirstChild();
+    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'test' (id='MyId') (name='MyName')]", tmpResult);
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+    tmpHtmlElements.next();
+
+    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'test' (id='MyId') (name='MyName')]", tmpResult);
+    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
   }
 
   @Test
@@ -759,145 +1003,12 @@ public class HtmlElementUtilTest {
 
     HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlPasswordInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
     Assert.assertEquals("[HtmlPasswordInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
     Assert.assertEquals("[HtmlPasswordInput]", tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOption_Id() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='optId' value='o_red'>red</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOption tmpHtmlOption = (HtmlOption) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    Assert.assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    Assert.assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOptionGroup_ValueOnly() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<option value='o_red'>red</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOption tmpHtmlOption = (HtmlOption) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    Assert.assertEquals("[HtmlOption 'red' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    Assert.assertEquals("[HtmlOption 'red' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOptionGroup_Name() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' name='optgroup_colors'>" + "<option value='o_red'>red</option>" + "</optgroup>"
-        + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (name='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (name='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOptionGroup_Id() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>" + "</optgroup>"
-        + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOptionGroup_Name_Id() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors' name='optgroup_name'>" + "<option value='o_red'>red</option>"
-        + "</optgroup>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    Assert
-        .assertEquals(
-            "[HtmlOptionGroup 'colors' (id='optgroup_colors') (name='optgroup_name') part of [HtmlSelect (id='MyFirstSelectId')]]",
-            tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert
-        .assertEquals(
-            "[HtmlOptionGroup 'colors' (id='optgroup_colors') (name='optgroup_name') part of [HtmlSelect (id='MyFirstSelectId')]]",
-            tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOptionGroup_LabelOnly() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors'>" + "<option value='o_red'>red</option>" + "</optgroup>" + "</select>" + "</form>"
-        + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals("[HtmlOptionGroup 'colors' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals("[HtmlOptionGroup 'colors' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-  }
-
-  @Test
-  public void testGetDescribingTextFor_HtmlOptionGroup_NoLabel() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup>" + "<option value='o_red'>red</option>" + "</optgroup>" + "</select>" + "</form>"
-        + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
-
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
-
-    String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals("[HtmlOptionGroup '' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
-
-    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals("[HtmlOptionGroup '' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
   }
 
   @Test
@@ -910,7 +1021,8 @@ public class HtmlElementUtilTest {
 
     HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlPasswordInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
     Assert.assertEquals("[HtmlPasswordInput (name='PasswordName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
@@ -927,7 +1039,8 @@ public class HtmlElementUtilTest {
 
     HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlPasswordInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
     Assert.assertEquals("[HtmlPasswordInput (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
@@ -944,7 +1057,8 @@ public class HtmlElementUtilTest {
 
     HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlPasswordInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
     Assert.assertEquals("[HtmlPasswordInput (id='tx') (name='PasswordName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
@@ -961,7 +1075,8 @@ public class HtmlElementUtilTest {
 
     HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlRadioButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
@@ -978,7 +1093,8 @@ public class HtmlElementUtilTest {
 
     HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlRadioButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (name='RadioButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
@@ -995,7 +1111,8 @@ public class HtmlElementUtilTest {
 
     HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlRadioButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
     Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
@@ -1013,7 +1130,8 @@ public class HtmlElementUtilTest {
 
     HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlRadioButtonInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
     Assert
         .assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
 
@@ -1032,7 +1150,8 @@ public class HtmlElementUtilTest {
 
     HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlResetInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
     Assert.assertEquals("[HtmlResetInput 'ResetButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
@@ -1049,7 +1168,8 @@ public class HtmlElementUtilTest {
 
     HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlResetInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
     Assert.assertEquals("[HtmlResetInput 'ResetButton' (name='ResetButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
@@ -1066,7 +1186,8 @@ public class HtmlElementUtilTest {
 
     HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlResetInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
     Assert.assertEquals("[HtmlResetInput 'ResetButton' (id='sb')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
@@ -1083,7 +1204,8 @@ public class HtmlElementUtilTest {
 
     HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlResetInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
     Assert.assertEquals("[HtmlResetInput 'ResetButton' (id='sb') (name='ResetButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
@@ -1100,7 +1222,8 @@ public class HtmlElementUtilTest {
 
     HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSelect).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
     Assert.assertEquals("[HtmlSelect]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
@@ -1117,7 +1240,8 @@ public class HtmlElementUtilTest {
 
     HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSelect).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
     Assert.assertEquals("[HtmlSelect (name='SelectName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
@@ -1134,7 +1258,8 @@ public class HtmlElementUtilTest {
 
     HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSelect).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
     Assert.assertEquals("[HtmlSelect (id='SelectId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
@@ -1151,7 +1276,8 @@ public class HtmlElementUtilTest {
 
     HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSelect).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
     Assert.assertEquals("[HtmlSelect (id='SelectId') (name='SelectName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
@@ -1171,7 +1297,8 @@ public class HtmlElementUtilTest {
 
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSpan).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1191,7 +1318,8 @@ public class HtmlElementUtilTest {
 
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSpan).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan '']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1211,7 +1339,8 @@ public class HtmlElementUtilTest {
 
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSpan).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text' (name='Spanname')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1231,7 +1360,8 @@ public class HtmlElementUtilTest {
 
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSpan).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1251,7 +1381,8 @@ public class HtmlElementUtilTest {
 
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSpan).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId') (name='Spanname')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1268,7 +1399,8 @@ public class HtmlElementUtilTest {
 
     HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSubmitInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
     Assert.assertEquals("[HtmlSubmitInput 'SubmitButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
@@ -1285,7 +1417,8 @@ public class HtmlElementUtilTest {
 
     HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSubmitInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
     Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (name='SubmitButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
@@ -1302,7 +1435,8 @@ public class HtmlElementUtilTest {
 
     HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSubmitInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
     Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
@@ -1319,7 +1453,8 @@ public class HtmlElementUtilTest {
 
     HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlSubmitInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
     Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb') (name='SubmitButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
@@ -1336,7 +1471,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
     Assert.assertEquals("[HtmlTextInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
@@ -1353,7 +1489,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
     Assert.assertEquals("[HtmlTextInput (name='TextName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
@@ -1370,7 +1507,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
     Assert.assertEquals("[HtmlTextInput (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
@@ -1387,7 +1525,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextInput).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
     Assert.assertEquals("[HtmlTextInput (id='tx') (name='TextName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
@@ -1404,7 +1543,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextArea).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
     Assert.assertEquals("[HtmlTextArea]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
@@ -1421,7 +1561,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextArea).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
     Assert.assertEquals("[HtmlTextArea (name='TextAreaName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
@@ -1438,7 +1579,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextArea).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
     Assert.assertEquals("[HtmlTextArea (id='TextAreaId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
@@ -1455,7 +1597,8 @@ public class HtmlElementUtilTest {
 
     HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
-    String tmpResult = new HtmlUnitControl(tmpHtmlTextArea).getDescribingText();
+    String tmpResult;
+    tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
     Assert.assertEquals("[HtmlTextArea (id='TextAreaId') (name='TextAreaName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);

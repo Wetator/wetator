@@ -19,10 +19,10 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
+import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByLabelAttributeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
@@ -75,7 +75,7 @@ public class HtmlOptionGroupIdentifier extends AbstractHtmlUnitElementIdentifier
     tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern,
         foundElements).matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new OtherHtmlUnitControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundElements.add(new HtmlUnitOptionGroup((HtmlOptionGroup) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

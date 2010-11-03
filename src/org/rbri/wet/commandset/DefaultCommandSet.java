@@ -30,10 +30,13 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang.reflect.MethodUtils;
-import org.rbri.wet.backend.Control;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WetBackend;
+import org.rbri.wet.backend.control.Control;
+import org.rbri.wet.backend.control.Deselectable;
+import org.rbri.wet.backend.control.Selectable;
+import org.rbri.wet.backend.control.Settable;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.core.variable.Variable;
@@ -181,9 +184,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       ControlFinder tmpElementFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpElementFinder.getAllSetables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpSearchParam);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       if (tmpSearchParam.isEmpty()) {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
@@ -246,7 +249,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpSearchParam);
       tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -274,7 +278,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpSearchParam);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpSearchParam);
       tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -429,7 +434,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSetables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpSearchParam);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpSearchParam));
 
@@ -467,13 +472,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSetables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpSearchParam);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
 
-      String tmpValue = tmpControl.getValue(aWetContext);
-
-      Assert.assertEquals(tmpValueParam, tmpValue, "expectedValueNotFound", null);
+      tmpControl.assertValue(aWetContext, tmpValueParam);
     }
   }
 
@@ -498,7 +501,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpSearchParam);
 
       boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -526,7 +530,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpSearchParam);
 
       boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });

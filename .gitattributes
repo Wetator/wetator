@@ -29,18 +29,33 @@ src/org/rbri/wet/backend/Control.java -text
 src/org/rbri/wet/backend/ControlFinder.java -text
 src/org/rbri/wet/backend/WeightedControlList.java -text
 src/org/rbri/wet/backend/WetBackend.java -text
+src/org/rbri/wet/backend/control/Clickable.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/control/Control.java -text
+src/org/rbri/wet/backend/control/Deselectable.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/control/Selectable.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/control/Settable.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/HtmlUnitBrowser.java -text
-src/org/rbri/wet/backend/htmlunit/HtmlUnitControl.java -text
-src/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinder.java -text
 src/org/rbri/wet/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/ResponseStore.java -text
 src/org/rbri/wet/backend/htmlunit/XHtmlOutputter.java -text
-src/org/rbri/wet/backend/htmlunit/control/ClickableHtmlUnitControl.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/DeselectableHtmlUnitControl.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/OtherHtmlUnitControl.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/SelectableHtmlUnitControl.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/SetableHtmlUnitControl.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitBaseControl.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitButton.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitImage.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputButton.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputCheckBox.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputFile.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputImage.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputPassword.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputReset.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputSubmit.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputText.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitOption.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitTextArea.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/AbstractHtmlUnitElementIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlAnchorIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlButtonIdentifier.java -text svneol=unset#text/plain
@@ -62,7 +77,7 @@ src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlTextAreaIdentifier.java
 src/org/rbri/wet/backend/htmlunit/finder/AbstractHtmlUnitElementsFinder.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/finder/AllHtmlElementsForTextFinder.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/finder/IdentifierBasedElementsFinder.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/finder/SetableHtmlElementsFinder.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/finder/SettableHtmlElementsFinder.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/matcher/AbstractByAttributeMatcher.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/matcher/AbstractHtmlUnitElementMatcher.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/matcher/ByHtmlLabelMatcher.java -text svneol=unset#text/plain
@@ -190,21 +205,16 @@ test/java/org/rbri/wet/automatonTest.jpage -text
 test/java/org/rbri/wet/backend/AllTests.java -text
 test/java/org/rbri/wet/backend/WeightedControlListTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/AllTests.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlElementUtilTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllClickablesTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllElementsForTextTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllOtherControlsTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllSelectablesTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllSetablesTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorGetAllClickablesTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorGetAllElementsForTextTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorGetAllOtherControlsTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorGetAllSelectablesTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorGetAllSetablesTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorGetAllSettablesTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitTest.html -text
 test/java/org/rbri/wet/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
+test/java/org/rbri/wet/backend/htmlunit/control/AllTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/AllTests.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/DomNodeTextTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/HtmlElementUtilTest.java -text

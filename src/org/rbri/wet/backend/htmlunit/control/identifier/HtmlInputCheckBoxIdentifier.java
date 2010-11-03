@@ -19,12 +19,12 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByLabelTextAfterMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
@@ -79,8 +79,8 @@ public class HtmlInputCheckBoxIdentifier extends AbstractHtmlUnitElementIdentifi
           foundElements, htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new SelectableHtmlUnitControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
-          tmpMatch.getCoverage(), tmpMatch.getDistance());
+      foundElements.add(new HtmlUnitInputCheckBox((HtmlCheckBoxInput) tmpMatch.getHtmlElement()),
+          tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }
 

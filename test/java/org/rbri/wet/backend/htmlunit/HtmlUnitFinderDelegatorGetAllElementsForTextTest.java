@@ -24,11 +24,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -36,6 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
 
@@ -44,12 +40,6 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
   @Before
   public void setupControlFinder() {
     controlRepository = new HtmlUnitControlRepository();
-
-    controlRepository.add(ClickableHtmlUnitControl.class);
-    controlRepository.add(DeselectableHtmlUnitControl.class);
-    controlRepository.add(OtherHtmlUnitControl.class);
-    controlRepository.add(SelectableHtmlUnitControl.class);
-    controlRepository.add(SetableHtmlUnitControl.class);
   }
 
   @Test
@@ -191,6 +181,22 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
   }
 
   @Test
+  public void testGetAllControlsForText_ParagraphFormatedTextExact() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyText", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
+
+  @Test
   public void testGetAllControlsForText_AnchorTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -225,7 +231,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
   }
 
   @Test
-  public void testGetAllControlsForText_ParagraphFormatedTextExact() throws IOException {
+  public void testGetAllControlsForText_AnchorFormatedTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>My<b>T</b>ext</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 

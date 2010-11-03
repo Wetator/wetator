@@ -14,23 +14,12 @@
  */
 
 
-package org.rbri.wet.backend.htmlunit;
-
-import org.junit.Assert;
-import org.junit.Test;
+package org.rbri.wet.backend.control;
 
 /**
- * @author rbri
+ * @author frank.danek
  */
-public class HtmlUnitControlFinderTest {
+public interface Clickable extends Control {
 
-  @Test
-  public void testConstructorNullPage() {
-    try {
-      new HtmlUnitControlFinder(null);
-      Assert.fail("NullPointerException expected.");
-    } catch (NullPointerException e) {
-      Assert.assertEquals("HtmlPage can't be null", e.getMessage());
-    }
-  }
+  // nothing so far
 }

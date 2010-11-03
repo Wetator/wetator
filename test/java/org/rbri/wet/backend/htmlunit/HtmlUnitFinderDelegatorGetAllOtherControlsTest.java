@@ -24,11 +24,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitSelect;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -36,6 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
 
@@ -45,11 +43,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
   public void setupControlFinder() {
     controlRepository = new HtmlUnitControlRepository();
 
-    controlRepository.add(ClickableHtmlUnitControl.class);
-    controlRepository.add(DeselectableHtmlUnitControl.class);
-    controlRepository.add(OtherHtmlUnitControl.class);
-    controlRepository.add(SelectableHtmlUnitControl.class);
-    controlRepository.add(SetableHtmlUnitControl.class);
+    // add the default others
+    controlRepository.add(HtmlUnitOptionGroup.class);
+    controlRepository.add(HtmlUnitSelect.class);
   }
 
   @Test

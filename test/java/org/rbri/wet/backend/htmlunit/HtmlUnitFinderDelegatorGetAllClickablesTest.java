@@ -24,11 +24,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitAnchor;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputReset;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputSubmit;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -36,6 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class HtmlUnitFinderDelegatorGetAllClickablesTest {
 
@@ -45,11 +48,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   public void setupControlFinder() {
     controlRepository = new HtmlUnitControlRepository();
 
-    controlRepository.add(ClickableHtmlUnitControl.class);
-    controlRepository.add(DeselectableHtmlUnitControl.class);
-    controlRepository.add(OtherHtmlUnitControl.class);
-    controlRepository.add(SelectableHtmlUnitControl.class);
-    controlRepository.add(SetableHtmlUnitControl.class);
+    // add the default clickables
+    controlRepository.add(HtmlUnitAnchor.class);
+    controlRepository.add(HtmlUnitButton.class);
+    controlRepository.add(HtmlUnitImage.class);
+    controlRepository.add(HtmlUnitInputButton.class);
+    controlRepository.add(HtmlUnitInputImage.class);
+    controlRepository.add(HtmlUnitInputReset.class);
+    controlRepository.add(HtmlUnitInputSubmit.class);
   }
 
   @Test

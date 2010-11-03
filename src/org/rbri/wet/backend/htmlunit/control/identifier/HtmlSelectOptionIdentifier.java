@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
@@ -174,8 +174,8 @@ public class HtmlSelectOptionIdentifier extends AbstractHtmlUnitElementIdentifie
       if (StringUtils.isNotEmpty(tmpText)) {
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new SelectableHtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL,
-              tmpCoverage, aDistance);
+          aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+              aDistance);
           tmpFound = true;
         }
       }
@@ -184,8 +184,8 @@ public class HtmlSelectOptionIdentifier extends AbstractHtmlUnitElementIdentifie
       if (StringUtils.isNotEmpty(tmpText)) {
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new SelectableHtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL,
-              tmpCoverage, aDistance);
+          aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+              aDistance);
           tmpFound = true;
         }
       }
@@ -194,8 +194,8 @@ public class HtmlSelectOptionIdentifier extends AbstractHtmlUnitElementIdentifie
       if (StringUtils.isNotEmpty(tmpText)) {
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new SelectableHtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL,
-              tmpCoverage, aDistance);
+          aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+              aDistance);
           tmpFound = true;
         }
       }

@@ -20,21 +20,23 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.rbri.wet.backend.Control;
-import org.rbri.wet.backend.Control.SupportedAction;
-import org.rbri.wet.backend.Control.SupportedActions;
-import org.rbri.wet.backend.htmlunit.HtmlUnitControl.Identifiers;
+import org.rbri.wet.backend.control.Clickable;
+import org.rbri.wet.backend.control.Control;
+import org.rbri.wet.backend.control.Deselectable;
+import org.rbri.wet.backend.control.Selectable;
+import org.rbri.wet.backend.control.Settable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
 import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier;
 
 /**
- * Central repository for all supported {@link HtmlUnitControl}s.
+ * Central repository for all supported {@link HtmlUnitBaseControl}s.
  * 
  * @author frank.danek
  */
 public class HtmlUnitControlRepository {
 
-  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> setableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> settableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
   private List<Class<? extends AbstractHtmlUnitElementIdentifier>> clickableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
   private List<Class<? extends AbstractHtmlUnitElementIdentifier>> selectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
   private List<Class<? extends AbstractHtmlUnitElementIdentifier>> deselectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
@@ -58,31 +60,28 @@ public class HtmlUnitControlRepository {
     if (aControlClass == null) {
       return;
     }
-    if (HtmlUnitControl.class.isAssignableFrom(aControlClass)) {
+    if (HtmlUnitBaseControl.class.isAssignableFrom(aControlClass)) {
       Identifiers tmpIdentifiers = aControlClass.getAnnotation(Identifiers.class);
       if (tmpIdentifiers != null) {
         List<Class<? extends AbstractHtmlUnitElementIdentifier>> tmpIdentifierClasses = Arrays.asList(tmpIdentifiers
             .value());
 
-        SupportedActions tmpSupportedActions = aControlClass.getAnnotation(SupportedActions.class);
         boolean tmpFound = false;
-        if (tmpSupportedActions != null) {
-          if (ArrayUtils.contains(tmpSupportedActions.value(), SupportedAction.SETABLE)) {
-            tmpFound = true;
-            setableIdentifiers.addAll(tmpIdentifierClasses);
-          }
-          if (ArrayUtils.contains(tmpSupportedActions.value(), SupportedAction.CLICKABLE)) {
-            tmpFound = true;
-            clickableIdentifiers.addAll(tmpIdentifierClasses);
-          }
-          if (ArrayUtils.contains(tmpSupportedActions.value(), SupportedAction.SELECTABLE)) {
-            tmpFound = true;
-            selectableIdentifiers.addAll(tmpIdentifierClasses);
-          }
-          if (ArrayUtils.contains(tmpSupportedActions.value(), SupportedAction.DESELECTABLE)) {
-            tmpFound = true;
-            deselectableIdentifiers.addAll(tmpIdentifierClasses);
-          }
+        if (Settable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          settableIdentifiers.addAll(tmpIdentifierClasses);
+        }
+        if (Clickable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          clickableIdentifiers.addAll(tmpIdentifierClasses);
+        }
+        if (Selectable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          selectableIdentifiers.addAll(tmpIdentifierClasses);
+        }
+        if (Deselectable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          deselectableIdentifiers.addAll(tmpIdentifierClasses);
         }
         if (!tmpFound) {
           otherIdentifiers.addAll(tmpIdentifierClasses);
@@ -92,10 +91,10 @@ public class HtmlUnitControlRepository {
   }
 
   /**
-   * @return the setableIdentifiers
+   * @return the settableIdentifiers
    */
-  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getSetableIdentifiers() {
-    return setableIdentifiers;
+  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getSettableIdentifiers() {
+    return settableIdentifiers;
   }
 
   /**

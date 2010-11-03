@@ -24,11 +24,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.ClickableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.DeselectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.OtherHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SelectableHtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.control.SetableHtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputRadioButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -36,6 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class HtmlUnitFinderDelegatorGetAllSelectablesTest {
 
@@ -45,11 +44,10 @@ public class HtmlUnitFinderDelegatorGetAllSelectablesTest {
   public void setupControlFinder() {
     controlRepository = new HtmlUnitControlRepository();
 
-    controlRepository.add(ClickableHtmlUnitControl.class);
-    controlRepository.add(DeselectableHtmlUnitControl.class);
-    controlRepository.add(OtherHtmlUnitControl.class);
-    controlRepository.add(SelectableHtmlUnitControl.class);
-    controlRepository.add(SetableHtmlUnitControl.class);
+    // add the default selectables
+    controlRepository.add(HtmlUnitInputCheckBox.class);
+    controlRepository.add(HtmlUnitInputRadioButton.class);
+    controlRepository.add(HtmlUnitOption.class);
   }
 
   @Test

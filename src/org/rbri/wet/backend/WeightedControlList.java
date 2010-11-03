@@ -21,6 +21,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.rbri.wet.backend.control.Control;
+
 /**
  * List to store HtmlElements together with some 'weight' information.
  * Then it is possible to sort the list by this criterion.
