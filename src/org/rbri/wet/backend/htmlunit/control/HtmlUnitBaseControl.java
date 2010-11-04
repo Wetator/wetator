@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Control;
-import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier;
+import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.core.WetContext;
@@ -50,9 +50,9 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   private T htmlElement;
 
   /**
-   * Constructor
+   * The constructor.
    * 
-   * @param anHtmlElement the HtmlElement from the backend
+   * @param anHtmlElement the {@link HtmlElement} from the backend
    */
   public HtmlUnitBaseControl(final T anHtmlElement) {
     htmlElement = anHtmlElement;
@@ -74,9 +74,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   }
 
   /**
-   * Getter for the backing htmlElement from HtmlUnit
-   * 
-   * @return the html element
+   * @return the backing {@link HtmlElement} from HtmlUnit
    */
   protected T getHtmlElement() {
     return htmlElement;
@@ -220,16 +218,16 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   }
 
   /**
-   * This annotation contains the identifier for the htmlunit control.
+   * This annotation contains the identifiers for the HtmlUnit control.
    * 
    * @author frank.danek
    */
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
-  public static @interface Identifiers {
+  public static @interface IdentifiedBy {
     /**
      * The identifiers.
      */
-    Class<? extends AbstractHtmlUnitElementIdentifier>[] value();
+    Class<? extends AbstractHtmlUnitControlIdentifier>[] value();
   }
 }
