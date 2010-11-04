@@ -82,7 +82,10 @@ public abstract class SearchPattern {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
     }
 
-    SearchPattern tmpSearchPattern;
+    SearchPattern tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+    if (tmpSearchPattern != null) {
+      return tmpSearchPattern;
+    }
     synchronized (searchPatternCache) {
       tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
       if (tmpSearchPattern != null) {
