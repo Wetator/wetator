@@ -19,7 +19,7 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitSelect;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
@@ -31,28 +31,30 @@ import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
+ * XXX add class jdoc
+ * 
  * @author frank.danek
  */
-public class HtmlSelectIdentifier extends AbstractHtmlUnitElementIdentifier {
+public class HtmlUnitInputFileIdentifier extends AbstractHtmlUnitControlIdentifier {
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
   public boolean isElementSupported(HtmlElement aHtmlElement) {
-    return (aHtmlElement instanceof HtmlSelect) || (aHtmlElement instanceof HtmlLabel);
+    return (aHtmlElement instanceof HtmlFileInput) || (aHtmlElement instanceof HtmlLabel);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -67,7 +69,7 @@ public class HtmlSelectIdentifier extends AbstractHtmlUnitElementIdentifier {
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    if (aHtmlElement instanceof HtmlSelect) {
+    if (aHtmlElement instanceof HtmlFileInput) {
       // whole text before
       tmpMatches.addAll(new ByWholeTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
           tmpWholePathSearchPattern, foundElements).matches(aHtmlElement));
@@ -82,11 +84,12 @@ public class HtmlSelectIdentifier extends AbstractHtmlUnitElementIdentifier {
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements, htmlPage, HtmlSelect.class).matches(aHtmlElement));
+          foundElements, htmlPage, HtmlFileInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitSelect((HtmlSelect) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundElements.add(new HtmlUnitInputFile((HtmlFileInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }
+
 }

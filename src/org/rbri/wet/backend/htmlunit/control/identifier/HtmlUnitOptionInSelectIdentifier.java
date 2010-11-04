@@ -32,14 +32,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
+ * XXX add class jdoc
+ * 
  * @author frank.danek
  */
-public class HtmlSelectOptionIdentifier extends AbstractHtmlUnitElementIdentifier {
+public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIdentifier {
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
   public boolean isElementSupported(HtmlElement aHtmlElement) {
@@ -49,7 +51,7 @@ public class HtmlSelectOptionIdentifier extends AbstractHtmlUnitElementIdentifie
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

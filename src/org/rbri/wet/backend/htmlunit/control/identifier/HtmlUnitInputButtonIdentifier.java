@@ -19,39 +19,39 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputButton;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.ByImageAltAttributeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.ByImageSrcAttributeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.ByImageTitleAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
+import org.rbri.wet.backend.htmlunit.matcher.ByValueAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
+import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
 
 /**
+ * XXX add class jdoc
+ * 
  * @author frank.danek
  */
-public class HtmlImageIdentifier extends AbstractHtmlUnitElementIdentifier {
+public class HtmlUnitInputButtonIdentifier extends AbstractHtmlUnitControlIdentifier {
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
   public boolean isElementSupported(HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlImage;
+    return aHtmlElement instanceof HtmlButtonInput;
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -65,24 +65,14 @@ public class HtmlImageIdentifier extends AbstractHtmlUnitElementIdentifier {
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    // does image alt-text match?
-    tmpMatches.addAll(new ByImageAltAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+    tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
         foundElements).matches(aHtmlElement));
-
-    // does image title-text match?
-    tmpMatches.addAll(new ByImageTitleAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
-        tmpSearchPattern, foundElements).matches(aHtmlElement));
-
-    // does image filename match?
-    tmpMatches.addAll(new ByImageSrcAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundElements).matches(aHtmlElement));
-
     tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
         foundElements).matches(aHtmlElement));
     tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitImage((HtmlImage) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundElements.add(new HtmlUnitInputButton((HtmlButtonInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

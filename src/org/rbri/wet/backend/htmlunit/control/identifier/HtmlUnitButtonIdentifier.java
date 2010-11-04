@@ -19,37 +19,40 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputReset;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitButton;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
+import org.rbri.wet.backend.htmlunit.matcher.ByInnerImageMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.ByValueAttributeMatcher;
+import org.rbri.wet.backend.htmlunit.matcher.ByTextMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 
 /**
+ * XXX add class jdoc
+ * 
  * @author frank.danek
  */
-public class HtmlInputResetIdentifier extends AbstractHtmlUnitElementIdentifier {
+public class HtmlUnitButtonIdentifier extends AbstractHtmlUnitControlIdentifier {
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
   public boolean isElementSupported(HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlResetInput;
+    return aHtmlElement instanceof HtmlButton;
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -63,14 +66,19 @@ public class HtmlInputResetIdentifier extends AbstractHtmlUnitElementIdentifier 
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+    // now check for the including image
+    tmpMatches.addAll(new ByInnerImageMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
         foundElements).matches(aHtmlElement));
+
+    tmpMatches
+        .addAll(new ByTextMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+            .matches(aHtmlElement));
     tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
         foundElements).matches(aHtmlElement));
     tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitInputReset((HtmlResetInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundElements.add(new HtmlUnitButton((HtmlButton) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

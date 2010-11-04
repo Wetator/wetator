@@ -19,40 +19,41 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.ByLabelTextBeforeMatcher;
+import org.rbri.wet.backend.htmlunit.matcher.ByLabelTextAfterMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
-import org.rbri.wet.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
+import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 
 /**
+ * XXX add class jdoc
+ * 
  * @author frank.danek
  */
-public class HtmlInputPasswordIdentifier extends AbstractHtmlUnitElementIdentifier {
+public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIdentifier {
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
   public boolean isElementSupported(HtmlElement aHtmlElement) {
-    return (aHtmlElement instanceof HtmlPasswordInput) || (aHtmlElement instanceof HtmlLabel);
+    return (aHtmlElement instanceof HtmlCheckBoxInput) || (aHtmlElement instanceof HtmlLabel);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -60,19 +61,14 @@ public class HtmlInputPasswordIdentifier extends AbstractHtmlUnitElementIdentifi
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
     FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
-    SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(aSearch);
 
     if (null == tmpPathSpot) {
       return;
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    if (aHtmlElement instanceof HtmlPasswordInput) {
-      // whole text before
-      tmpMatches.addAll(new ByWholeTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
-          tmpWholePathSearchPattern, foundElements).matches(aHtmlElement));
-
-      tmpMatches.addAll(new ByLabelTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+    if (aHtmlElement instanceof HtmlCheckBoxInput) {
+      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
           foundElements).matches(aHtmlElement));
       tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
           foundElements).matches(aHtmlElement));
@@ -82,10 +78,10 @@ public class HtmlInputPasswordIdentifier extends AbstractHtmlUnitElementIdentifi
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements, htmlPage, HtmlPasswordInput.class).matches(aHtmlElement));
+          foundElements, htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpMatch.getHtmlElement()),
+      foundElements.add(new HtmlUnitInputCheckBox((HtmlCheckBoxInput) tmpMatch.getHtmlElement()),
           tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }
