@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class HtmlUnitBaseControlTest {
 
   @Test
-  public void testIsDisabled() throws IOException, AssertionFailedException {
+  public void isDisabled() throws IOException, AssertionFailedException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button disabled='disabled' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>"
         + "</form>" + "</body></html>";
@@ -45,7 +45,18 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
-  public void testIsDisabled_Not() throws IOException, AssertionFailedException {
+  public void isDisabled_Not() throws IOException, AssertionFailedException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
+        + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+
+    Assert.assertFalse(tmpControl.isDisabled(null));
+  }
+
+  @Test
+  public void isDisabled_NotVisible() throws IOException, AssertionFailedException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button style='visible: none' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>"
         + "</button>" + "</form>" + "</body></html>";
