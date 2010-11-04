@@ -21,15 +21,15 @@ import java.util.List;
 import org.rbri.wet.util.SecretString;
 
 /**
- * The common interface for the
- * backend.
+ * The common interface for the backend.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface ControlFinder {
 
   /**
-   * Return a list of all clickables for the given search
+   * Return a list of all clickable controls for the given search.
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
@@ -37,7 +37,7 @@ public interface ControlFinder {
   public WeightedControlList getAllClickables(List<SecretString> aSearch);
 
   /**
-   * Return a list of all selectables for the given search
+   * Return a list of all selectable controls for the given search.
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
@@ -45,7 +45,7 @@ public interface ControlFinder {
   public WeightedControlList getAllDeselectables(final List<SecretString> aSearch);
 
   /**
-   * Return a list of all deselectables for the given search
+   * Return a list of all deselectable controls for the given search.
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
@@ -53,7 +53,7 @@ public interface ControlFinder {
   public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
 
   /**
-   * Return a list of all settables for the given search
+   * Return a list of all settable controls for the given search.
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
@@ -61,7 +61,7 @@ public interface ControlFinder {
   public WeightedControlList getAllSettables(List<SecretString> aSearch);
 
   /**
-   * Return a list of all other controls for the given search
+   * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given search.
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
@@ -69,10 +69,10 @@ public interface ControlFinder {
   public WeightedControlList getAllOtherControls(List<SecretString> aSearch);
 
   /**
-   * Return a list of all elements for the given search
+   * Return a list of all controls for the given search.
    * 
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllElementsForText(List<SecretString> aSearch);
+  public WeightedControlList getAllControlsForText(List<SecretString> aSearch);
 }
