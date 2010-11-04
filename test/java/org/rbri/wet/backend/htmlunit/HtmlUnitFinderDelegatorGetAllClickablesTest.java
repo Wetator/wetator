@@ -69,7 +69,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -84,7 +84,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -99,10 +99,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -118,10 +118,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlSubmitInput 'ClickMeAlso' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -137,7 +137,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -152,7 +152,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -167,10 +167,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -186,10 +186,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -205,7 +205,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -220,10 +220,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -238,11 +238,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -258,11 +258,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -278,7 +278,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -293,7 +293,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -308,11 +308,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlSubmitInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -327,10 +327,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -346,10 +346,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlResetInput 'ClickMeAlso' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -365,7 +365,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -380,7 +380,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -395,10 +395,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -414,10 +414,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -433,7 +433,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -448,10 +448,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -466,11 +466,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -486,11 +486,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -506,7 +506,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -521,7 +521,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -536,11 +536,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlResetInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -555,10 +555,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -574,10 +574,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlButtonInput 'ClickMeAlso' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -593,7 +593,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -608,7 +608,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -623,10 +623,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -642,10 +642,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -661,7 +661,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -676,10 +676,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -694,11 +694,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -714,11 +714,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -734,7 +734,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -749,7 +749,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -764,11 +764,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButtonInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -783,11 +783,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -803,11 +803,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -823,7 +823,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -838,7 +838,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -853,12 +853,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -874,12 +874,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -895,7 +895,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -910,7 +910,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -925,12 +925,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -946,12 +946,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -967,7 +967,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -982,12 +982,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 2 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1003,12 +1003,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1025,12 +1025,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1047,7 +1047,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1063,12 +1063,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 2 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1083,12 +1083,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1103,12 +1103,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1124,12 +1124,12 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1145,7 +1145,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1160,7 +1160,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1176,11 +1176,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlImageInput '' (src='MyName') (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1195,11 +1195,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1216,11 +1216,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithAnotherText' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1237,7 +1237,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1252,7 +1252,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1267,11 +1267,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1288,11 +1288,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1309,7 +1309,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1324,11 +1324,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1343,11 +1343,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1364,11 +1364,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1385,7 +1385,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1400,7 +1400,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1415,10 +1415,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1433,14 +1433,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1455,14 +1455,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(1).toString());
+        .getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1477,14 +1477,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(1).toString());
+        .getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1499,14 +1499,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(1).toString());
+        .getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1521,14 +1521,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlButton 'image: web/picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'web/picture.png'] found by: BY_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1543,10 +1543,10 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlAnchor 'TestAnchor' (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1562,11 +1562,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1582,7 +1582,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1597,7 +1597,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1612,11 +1612,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1632,11 +1632,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1652,7 +1652,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1667,7 +1667,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1682,11 +1682,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1702,11 +1702,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1722,7 +1722,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1736,9 +1736,9 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1753,11 +1753,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1772,11 +1772,11 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -1791,15 +1791,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1816,15 +1816,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1839,15 +1839,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1864,15 +1864,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1887,15 +1887,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1910,15 +1910,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: web/picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'web/picture.png' (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1935,15 +1935,15 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1958,14 +1958,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -1982,13 +1982,13 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 }

@@ -59,7 +59,7 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -75,9 +75,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -96,9 +96,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 0 distance: 45",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -117,9 +117,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 2 distance: 47",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -139,11 +139,11 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL_TEXT coverage: 1 distance: 1",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT coverage: 46 distance: 63",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -162,9 +162,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -184,9 +184,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -206,9 +206,9 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 24 distance: 44", tmpFound
-        .getElementsSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -225,11 +225,11 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
             "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -246,10 +246,10 @@ public class HtmlUnitFinderDelegatorGetAllOtherControlsTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
             "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 }

@@ -73,7 +73,7 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -88,9 +88,9 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -105,9 +105,9 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 4 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -124,9 +124,9 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='id1') (name='TextInput1')] found by: BY_NAME coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
 
     // not found
     tmpSearch = new ArrayList<SecretString>();
@@ -135,7 +135,7 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
 
     tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -150,9 +150,9 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -167,9 +167,9 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 1 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -184,7 +184,7 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -199,10 +199,10 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -218,12 +218,12 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 3 distance: 8", tmpFound
-            .getElementsSorted().get(1).toString());
+            .getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -238,11 +238,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -257,11 +257,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -276,11 +276,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -296,11 +296,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -315,10 +315,10 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -333,10 +333,10 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -352,12 +352,12 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -373,12 +373,12 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -394,12 +394,12 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -417,11 +417,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
             "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -439,11 +439,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
             "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 4 distance: 5",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -463,15 +463,15 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(3, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(3, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 13", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 43", tmpFound
-            .getElementsSorted().get(1).toString());
+            .getEntriesSorted().get(1).toString());
     Assert.assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_TEXT coverage: 18 distance: 37",
-        tmpFound.getElementsSorted().get(2).toString());
+        tmpFound.getEntriesSorted().get(2).toString());
 
     // ----
     tmpSearch = new ArrayList<SecretString>();
@@ -481,12 +481,12 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 1", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_TEXT coverage: 12 distance: 19",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
 
     // ----
     tmpSearch = new ArrayList<SecretString>();
@@ -496,10 +496,10 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 13", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -516,13 +516,13 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l1Txt1') (name='l1Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 1", tmpFound
-            .getElementsSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
     Assert.assertEquals(
         "[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] found by: BY_LABEL_TEXT coverage: 6 distance: 16", tmpFound
-            .getElementsSorted().get(1).toString());
+            .getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -538,11 +538,11 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput2')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(1).toString());
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -557,9 +557,9 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='TextInput') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -577,14 +577,14 @@ public class HtmlUnitFinderDelegatorGetAllSettablesTest {
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllSettables(tmpSearch);
 
-    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
             "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 1 distance: 14",
-            tmpFound.getElementsSorted().get(0).toString());
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert
         .assertEquals(
             "[HtmlTextInput (id='userForm:cwidTxt') (name='userForm:cwidTxt')] found by: BY_LABEL_TEXT coverage: 6 distance: 0",
-            tmpFound.getElementsSorted().get(1).toString());
+            tmpFound.getEntriesSorted().get(1).toString());
   }
 }

@@ -24,15 +24,15 @@ import java.util.List;
 import org.rbri.wet.backend.control.Control;
 
 /**
- * List to store HtmlElements together with some 'weight' information.
- * Then it is possible to sort the list by this criterion.
+ * List to store {@link Control}s together with some 'weight' information. Then it is possible to sort the list by this
+ * criterion.
  * 
  * @author rbri
  */
 public final class WeightedControlList {
 
   /**
-   * Enum for the different found by types.
+   * Enum for the different found by types.<br/>
    * Smaller values are more important.
    */
   public enum FoundType {
@@ -74,14 +74,17 @@ public final class WeightedControlList {
     }
 
     /**
-     * Getter for the entry value.
-     * 
-     * @return the current value
+     * @return the current entry value
      */
     public int getValue() {
       return value;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Enum#toString()
+     */
     @Override
     public String toString() {
       return name();
@@ -98,14 +101,17 @@ public final class WeightedControlList {
     private int distance;
 
     /**
-     * Returns the encapsulated Control
-     * 
-     * @return the control
+     * @return the encapsulated control
      */
     public Control getControl() {
       return control;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
       StringBuilder tmpResult = new StringBuilder();
@@ -118,9 +124,14 @@ public final class WeightedControlList {
   }
 
   /**
-   * The comparator used to sort WeightedControlList entries
+   * The comparator used to sort WeightedControlList entries.
    */
   private static final class EntryComperator implements Comparator<Entry> {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
     @Override
     public int compare(final Entry anEntry1, final Entry anEntry2) {
       int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
@@ -148,14 +159,14 @@ public final class WeightedControlList {
   private final List<Entry> entries;
 
   /**
-   * Constructor
+   * The constructor.
    */
   public WeightedControlList() {
     entries = Collections.synchronizedList(new LinkedList<Entry>());
   }
 
   /**
-   * Creates a new entry and add the entry to this list.
+   * Creates a new entry and adds the entry to the list.
    * 
    * @param aControl the control
    * @param aFoundType the found type
@@ -177,7 +188,7 @@ public final class WeightedControlList {
    * 
    * @return a new list
    */
-  public List<Entry> getElementsSorted() {
+  public List<Entry> getEntriesSorted() {
     Collections.sort(entries, new EntryComperator());
 
     List<Entry> tmpResult = new LinkedList<Entry>();
@@ -201,7 +212,7 @@ public final class WeightedControlList {
   }
 
   /**
-   * Adds all elements form anOtherWeightedControlList to this list.
+   * Adds all entries from anOtherWeightedControlList to this list.
    * 
    * @param anOtherWeightedControlList the list of entries to add
    */
