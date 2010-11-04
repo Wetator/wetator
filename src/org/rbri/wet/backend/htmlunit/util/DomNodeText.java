@@ -68,9 +68,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 
 /**
- * The text representation of a page text.
- * Indexed by form controls to speed up
- * the calculation of text before and after.
+ * The text representation of a page text. Indexed by form controls to speed up the calculation of text before and
+ * after.
  * 
  * @author rbri
  */
