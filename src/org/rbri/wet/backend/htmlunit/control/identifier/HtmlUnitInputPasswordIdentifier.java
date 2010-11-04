@@ -44,10 +44,10 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractHtmlUnitControlIden
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return (aHtmlElement instanceof HtmlPasswordInput) || (aHtmlElement instanceof HtmlLabel);
   }
 
@@ -72,22 +72,22 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractHtmlUnitControlIden
     if (aHtmlElement instanceof HtmlPasswordInput) {
       // whole text before
       tmpMatches.addAll(new ByWholeTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
-          tmpWholePathSearchPattern, foundElements).matches(aHtmlElement));
+          tmpWholePathSearchPattern, foundControls).matches(aHtmlElement));
 
       tmpMatches.addAll(new ByLabelTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements).matches(aHtmlElement));
+          foundControls).matches(aHtmlElement));
       tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements).matches(aHtmlElement));
+          foundControls).matches(aHtmlElement));
       tmpMatches
-          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
               .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements, htmlPage, HtmlPasswordInput.class).matches(aHtmlElement));
+          foundControls, htmlPage, HtmlPasswordInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpMatch.getHtmlElement()),
+      foundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpMatch.getHtmlElement()),
           tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

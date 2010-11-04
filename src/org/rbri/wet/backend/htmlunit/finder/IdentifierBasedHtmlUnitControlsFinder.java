@@ -85,7 +85,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
         try {
           AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
           tmpIdentifier.initializeForAsynch(htmlPage, domNodeText, tmpHtmlElement, aSearch, tmpFoundControls);
-          if (tmpIdentifier.isElementSupported(tmpHtmlElement)) {
+          if (tmpIdentifier.isHtmlElementSupported(tmpHtmlElement)) {
             execute(tmpIdentifier);
           }
         } catch (IllegalAccessException e) {

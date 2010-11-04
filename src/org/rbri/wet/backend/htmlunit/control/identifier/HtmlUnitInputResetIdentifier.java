@@ -41,10 +41,10 @@ public class HtmlUnitInputResetIdentifier extends AbstractHtmlUnitControlIdentif
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlResetInput;
   }
 
@@ -66,13 +66,13 @@ public class HtmlUnitInputResetIdentifier extends AbstractHtmlUnitControlIdentif
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundElements).matches(aHtmlElement));
+        foundControls).matches(aHtmlElement));
     tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundElements).matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitInputReset((HtmlResetInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundControls.add(new HtmlUnitInputReset((HtmlResetInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

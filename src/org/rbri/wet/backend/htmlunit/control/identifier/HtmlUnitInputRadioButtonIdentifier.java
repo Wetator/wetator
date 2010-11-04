@@ -42,10 +42,10 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractHtmlUnitControlI
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return (aHtmlElement instanceof HtmlRadioButtonInput) || (aHtmlElement instanceof HtmlLabel);
   }
 
@@ -68,18 +68,18 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractHtmlUnitControlI
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlRadioButtonInput) {
       tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements).matches(aHtmlElement));
+          foundControls).matches(aHtmlElement));
       // no search by name
       tmpMatches
-          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
               .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements, htmlPage, HtmlRadioButtonInput.class).matches(aHtmlElement));
+          foundControls, htmlPage, HtmlRadioButtonInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitInputRadioButton((HtmlRadioButtonInput) tmpMatch.getHtmlElement()),
+      foundControls.add(new HtmlUnitInputRadioButton((HtmlRadioButtonInput) tmpMatch.getHtmlElement()),
           tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

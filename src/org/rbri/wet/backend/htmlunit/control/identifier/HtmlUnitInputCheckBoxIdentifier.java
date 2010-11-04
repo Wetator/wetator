@@ -43,10 +43,10 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIden
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return (aHtmlElement instanceof HtmlCheckBoxInput) || (aHtmlElement instanceof HtmlLabel);
   }
 
@@ -69,19 +69,19 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIden
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlCheckBoxInput) {
       tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements).matches(aHtmlElement));
+          foundControls).matches(aHtmlElement));
       tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements).matches(aHtmlElement));
+          foundControls).matches(aHtmlElement));
       tmpMatches
-          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
               .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundElements, htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
+          foundControls, htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitInputCheckBox((HtmlCheckBoxInput) tmpMatch.getHtmlElement()),
+      foundControls.add(new HtmlUnitInputCheckBox((HtmlCheckBoxInput) tmpMatch.getHtmlElement()),
           tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

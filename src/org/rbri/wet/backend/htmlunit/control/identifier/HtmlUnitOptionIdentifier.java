@@ -39,10 +39,10 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlOption;
   }
 
@@ -71,9 +71,9 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern,
-        foundElements).matches(aHtmlElement));
+        foundControls).matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitOption((HtmlOption) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundControls.add(new HtmlUnitOption((HtmlOption) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }

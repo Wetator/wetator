@@ -44,7 +44,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
   /**
    * The list the found controls should be added to.
    */
-  protected WeightedControlList foundElements;
+  protected WeightedControlList foundControls;
 
   // for asynchronous use
   private boolean initializedForAsynch;
@@ -56,12 +56,12 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
-   * @param aFoundElements the list the found controls should be added to
+   * @param aFoundControls the list the found controls should be added to
    */
-  public void initialize(HtmlPage aHtmlPage, DomNodeText aDomNodeText, WeightedControlList aFoundElements) {
+  public void initialize(HtmlPage aHtmlPage, DomNodeText aDomNodeText, WeightedControlList aFoundControls) {
     htmlPage = aHtmlPage;
     domNodeText = aDomNodeText;
-    foundElements = aFoundElements;
+    foundControls = aFoundControls;
   }
 
   /**
@@ -71,11 +71,11 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * @param aDomNodeText the {@link DomNodeText} index of the page
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @param aSearch the search used to identify the control
-   * @param aFoundElements the list the found controls should be added to
+   * @param aFoundControls the list the found controls should be added to
    */
   public void initializeForAsynch(HtmlPage aHtmlPage, DomNodeText aDomNodeText, HtmlElement aHtmlElement,
-      List<SecretString> aSearch, WeightedControlList aFoundElements) {
-    initialize(aHtmlPage, aDomNodeText, aFoundElements);
+      List<SecretString> aSearch, WeightedControlList aFoundControls) {
+    initialize(aHtmlPage, aDomNodeText, aFoundControls);
     htmlElement = aHtmlElement;
     search = aSearch;
     initializedForAsynch = true;
@@ -83,9 +83,9 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   /**
    * @param aHtmlElement the {@link HtmlElement} to check
-   * @return true if the given element is supported
+   * @return true if the given {@link HtmlElement} is supported
    */
-  public abstract boolean isElementSupported(HtmlElement aHtmlElement);
+  public abstract boolean isHtmlElementSupported(HtmlElement aHtmlElement);
 
   /**
    * {@inheritDoc}

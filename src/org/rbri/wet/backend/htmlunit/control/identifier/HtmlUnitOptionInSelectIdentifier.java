@@ -41,10 +41,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return (aHtmlElement instanceof HtmlSelect) || (aHtmlElement instanceof HtmlLabel);
   }
 
@@ -85,7 +85,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           if (tmpCoverage > -1) {
             String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, foundElements);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, foundControls);
           }
         }
 
@@ -96,7 +96,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           if (tmpCoverage > -1) {
             String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, foundElements);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, foundControls);
           }
         }
 
@@ -107,7 +107,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           if (tmpCoverage > -1) {
             String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, foundElements);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, foundControls);
           }
         }
       }
@@ -134,7 +134,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
                 if (tmpElementForLabel.isDisplayed()) {
                   String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
                   int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-                  getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, foundElements);
+                  getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, foundControls);
                 }
               }
             } catch (ElementNotFoundException e) {
@@ -149,7 +149,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
               if (tmpChildElement.isDisplayed()) {
                 String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
                 int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-                getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, foundElements);
+                getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, foundControls);
               }
             }
           }

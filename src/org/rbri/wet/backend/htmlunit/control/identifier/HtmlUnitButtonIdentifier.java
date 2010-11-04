@@ -42,10 +42,10 @@ public class HtmlUnitButtonIdentifier extends AbstractHtmlUnitControlIdentifier 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlButton;
   }
 
@@ -68,17 +68,17 @@ public class HtmlUnitButtonIdentifier extends AbstractHtmlUnitControlIdentifier 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // now check for the including image
     tmpMatches.addAll(new ByInnerImageMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundElements).matches(aHtmlElement));
+        foundControls).matches(aHtmlElement));
 
     tmpMatches
-        .addAll(new ByTextMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+        .addAll(new ByTextMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
             .matches(aHtmlElement));
     tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundElements).matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundElements)
+        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
-      foundElements.add(new HtmlUnitButton((HtmlButton) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      foundControls.add(new HtmlUnitButton((HtmlButton) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
   }
