@@ -56,22 +56,22 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
    */
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {
-    WeightedControlList tmpFoundElements = new WeightedControlList();
+    WeightedControlList tmpFoundControls = new WeightedControlList();
 
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
     FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
     if (null == tmpPathSpot) {
-      return tmpFoundElements;
+      return tmpFoundControls;
     }
 
     // search with id
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
       List<MatchResult> tmpMatches = new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          tmpFoundElements).matches(tmpHtmlElement);
+          tmpFoundControls).matches(tmpHtmlElement);
       for (MatchResult tmpMatch : tmpMatches) {
-        tmpFoundElements.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+        tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
             tmpMatch.getCoverage(), tmpMatch.getDistance());
       }
     }
@@ -92,7 +92,7 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
           tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.startPos);
           int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-          tmpFoundElements.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
+          tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
               WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance);
           break;
         }
@@ -100,6 +100,6 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
 
       tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
     }
-    return tmpFoundElements;
+    return tmpFoundControls;
   }
 }

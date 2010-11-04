@@ -79,12 +79,12 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    */
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {
-    WeightedControlList tmpFoundElements = new WeightedControlList();
+    WeightedControlList tmpFoundControls = new WeightedControlList();
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
       for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
         try {
           AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
-          tmpIdentifier.initializeForAsynch(htmlPage, domNodeText, tmpHtmlElement, aSearch, tmpFoundElements);
+          tmpIdentifier.initializeForAsynch(htmlPage, domNodeText, tmpHtmlElement, aSearch, tmpFoundControls);
           if (tmpIdentifier.isElementSupported(tmpHtmlElement)) {
             execute(tmpIdentifier);
           }
@@ -97,7 +97,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
       }
     }
     waitUntilExecuted();
-    return tmpFoundElements;
+    return tmpFoundControls;
   }
 
   /**

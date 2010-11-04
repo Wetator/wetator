@@ -59,35 +59,35 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
    */
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {
-    WeightedControlList tmpFoundElements = new WeightedControlList();
+    WeightedControlList tmpFoundControls = new WeightedControlList();
 
     // special case to support some search engines
     if (aSearch.isEmpty()) {
       for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
         if (tmpHtmlElement.isDisplayed()) {
           if (tmpHtmlElement instanceof HtmlTextInput) {
-            tmpFoundElements.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
+            tmpFoundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundElements;
+            return tmpFoundControls;
           }
           if (tmpHtmlElement instanceof HtmlPasswordInput) {
-            tmpFoundElements.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
+            tmpFoundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundElements;
+            return tmpFoundControls;
           }
           if (tmpHtmlElement instanceof HtmlTextArea) {
-            tmpFoundElements.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
+            tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundElements;
+            return tmpFoundControls;
           }
           if (tmpHtmlElement instanceof HtmlFileInput) {
-            tmpFoundElements.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
+            tmpFoundControls.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundElements;
+            return tmpFoundControls;
           }
         }
       }
