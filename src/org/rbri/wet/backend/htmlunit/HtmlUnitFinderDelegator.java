@@ -22,10 +22,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitElementsFinder;
-import org.rbri.wet.backend.htmlunit.finder.AllHtmlElementsForTextFinder;
-import org.rbri.wet.backend.htmlunit.finder.IdentifierBasedElementsFinder;
-import org.rbri.wet.backend.htmlunit.finder.SettableHtmlElementsFinder;
+import org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
+import org.rbri.wet.backend.htmlunit.finder.AllHtmlUnitControlsForTextFinder;
+import org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder;
+import org.rbri.wet.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.util.SecretString;
 
@@ -33,30 +33,30 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * This is the HtmlUnit specific implementation of a {@link ControlFinder}. All requests for controls are delegated to
- * the specific finder.
+ * This is the HtmlUnit specific implementation of a {@link ControlFinder}. All requests for
+ * {@link org.rbri.wet.backend.control.Control}s are delegated to the specific finder.
  * 
  * @author frank.danek
  */
 public class HtmlUnitFinderDelegator implements ControlFinder {
 
   /**
-   * the page to work on
+   * The page to work on.
    */
   protected HtmlPage htmlPage;
   /**
-   * the DomNodeText index of the page
+   * The DomNodeText index of the page.
    */
   protected DomNodeText domNodeText;
 
   private static ThreadPoolExecutor threadPool;
 
-  private IdentifierBasedElementsFinder settablesFinder;
-  private IdentifierBasedElementsFinder clickablesFinder;
-  private IdentifierBasedElementsFinder selectablesFinder;
-  private IdentifierBasedElementsFinder deselectablesFinder;
-  private IdentifierBasedElementsFinder othersFinder;
-  private AbstractHtmlUnitElementsFinder forTextFinder;
+  private IdentifierBasedHtmlUnitControlsFinder settablesFinder;
+  private IdentifierBasedHtmlUnitControlsFinder clickablesFinder;
+  private IdentifierBasedHtmlUnitControlsFinder selectablesFinder;
+  private IdentifierBasedHtmlUnitControlsFinder deselectablesFinder;
+  private IdentifierBasedHtmlUnitControlsFinder othersFinder;
+  private AbstractHtmlUnitControlsFinder forTextFinder;
 
   /**
    * The default constructor.
@@ -75,12 +75,12 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
       threadPool.prestartAllCoreThreads();
     }
 
-    settablesFinder = new SettableHtmlElementsFinder(htmlPage, domNodeText, threadPool);
-    clickablesFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
-    selectablesFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
-    deselectablesFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
-    othersFinder = new IdentifierBasedElementsFinder(htmlPage, domNodeText, threadPool);
-    forTextFinder = new AllHtmlElementsForTextFinder(htmlPage, domNodeText, threadPool);
+    settablesFinder = new SettableHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
+    clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
+    selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
+    deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
+    othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
+    forTextFinder = new AllHtmlUnitControlsForTextFinder(htmlPage, domNodeText, threadPool);
   }
 
   /**
@@ -154,10 +154,10 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllElementsForText(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllControlsForText(java.util.List)
    */
   @Override
-  public WeightedControlList getAllElementsForText(List<SecretString> aSearch) {
+  public WeightedControlList getAllControlsForText(List<SecretString> aSearch) {
     return forTextFinder.find(aSearch);
   }
 
