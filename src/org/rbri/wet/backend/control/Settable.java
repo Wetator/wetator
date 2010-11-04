@@ -23,29 +23,23 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.SecretString;
 
 /**
+ * This interface marks all settable {@link Control}s. These controls are returned by
+ * {@link org.rbri.wet.backend.ControlFinder#getAllSettables(java.util.List)}.
+ * 
  * @author frank.danek
  */
 public interface Settable extends Control {
 
   /**
-   * Sets the value of the control
+   * Sets the value of the control.
    * 
    * @param aWetContext the wet context
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
-   *        aDirectory points to the dir for searching the file
+   *        aDirectory points to the directory for searching the file
    * @throws AssertionFailedException if the the control supports no value
    */
   public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException;
-
-  /**
-   * Returns the value of the control
-   * 
-   * @param aWetContext the wet context
-   * @return the value as string
-   * @throws AssertionFailedException if the the control supports no value
-   */
-  public String getValue(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Asserts that the value of the control is equal to the given (expected) value.
