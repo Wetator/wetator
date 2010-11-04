@@ -16,16 +16,19 @@
 
 package org.rbri.wet.backend.htmlunit.control;
 
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlOptionGroupIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitOptionGroupIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlOptionGroupIdentifier.class)
+@IdentifiedBy(HtmlUnitOptionGroupIdentifier.class)
 public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
 
   /**

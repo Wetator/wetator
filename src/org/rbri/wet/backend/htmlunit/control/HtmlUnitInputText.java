@@ -22,8 +22,8 @@ import java.io.IOException;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Settable;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlInputTextIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.core.WetContext;
@@ -38,9 +38,12 @@ import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlInputTextIdentifier.class)
+@IdentifiedBy(HtmlUnitInputTextIdentifier.class)
 public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implements Settable {
 
   /**
@@ -140,23 +143,11 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.control.Settable#getValue(org.rbri.wet.core.WetContext)
-   */
-  @Override
-  public String getValue(WetContext aWetContext) throws AssertionFailedException {
-    HtmlTextInput tmpHtmlTextInput = getHtmlElement();
-
-    return tmpHtmlTextInput.getValueAttribute();
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.rbri.wet.backend.control.Settable#assertValue(org.rbri.wet.core.WetContext,
    *      org.rbri.wet.util.SecretString)
    */
   @Override
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
-    Assert.assertEquals(anExpectedValue, getValue(aWetContext), "expectedValueNotFound", null);
+    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 }

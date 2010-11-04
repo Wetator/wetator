@@ -17,16 +17,19 @@
 package org.rbri.wet.backend.htmlunit.control;
 
 import org.rbri.wet.backend.control.Clickable;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlInputResetIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlInputResetIdentifier.class)
+@IdentifiedBy(HtmlUnitInputResetIdentifier.class)
 public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> implements Clickable {
 
   /**

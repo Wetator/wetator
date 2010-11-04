@@ -22,8 +22,8 @@ import java.io.IOException;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Settable;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlInputPasswordIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.core.WetContext;
@@ -38,9 +38,12 @@ import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlInputPasswordIdentifier.class)
+@IdentifiedBy(HtmlUnitInputPasswordIdentifier.class)
 public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput> implements Settable {
 
   /**
@@ -142,23 +145,11 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.control.Settable#getValue(org.rbri.wet.core.WetContext)
-   */
-  @Override
-  public String getValue(WetContext aWetContext) throws AssertionFailedException {
-    HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
-
-    return tmpHtmlPasswordInput.getValueAttribute();
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.rbri.wet.backend.control.Settable#assertValue(org.rbri.wet.core.WetContext,
    *      org.rbri.wet.util.SecretString)
    */
   @Override
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
-    Assert.assertEquals(anExpectedValue, getValue(aWetContext), "expectedValueNotFound", null);
+    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 }

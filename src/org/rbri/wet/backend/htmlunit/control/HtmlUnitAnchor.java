@@ -18,8 +18,8 @@ package org.rbri.wet.backend.htmlunit.control;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.control.Clickable;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlAnchorIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.core.WetContext;
@@ -28,9 +28,12 @@ import org.rbri.wet.exception.AssertionFailedException;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlAnchorIdentifier.class)
+@IdentifiedBy(HtmlUnitAnchorIdentifier.class)
 public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements Clickable {
 
   /**

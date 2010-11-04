@@ -23,8 +23,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.control.Settable;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlTextAreaIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.core.WetContext;
@@ -36,9 +36,12 @@ import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlTextAreaIdentifier.class)
+@IdentifiedBy(HtmlUnitTextAreaIdentifier.class)
 public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implements Settable {
 
   /**
@@ -112,23 +115,11 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.control.Settable#getValue(org.rbri.wet.core.WetContext)
-   */
-  @Override
-  public String getValue(WetContext aWetContext) throws AssertionFailedException {
-    HtmlTextArea tmpHtmlTextArea = getHtmlElement();
-
-    return tmpHtmlTextArea.getText();
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.rbri.wet.backend.control.Settable#assertValue(org.rbri.wet.core.WetContext,
    *      org.rbri.wet.util.SecretString)
    */
   @Override
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
-    Assert.assertEquals(anExpectedValue, getValue(aWetContext), "expectedValueNotFound", null);
+    Assert.assertEquals(anExpectedValue, getHtmlElement().getText(), "expectedValueNotFound", null);
   }
 }

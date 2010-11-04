@@ -17,16 +17,19 @@
 package org.rbri.wet.backend.htmlunit.control;
 
 import org.rbri.wet.backend.control.Clickable;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlInputButtonIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 
 /**
+ * XXX add class jdoc
+ * 
+ * @author rbri
  * @author frank.danek
  */
-@Identifiers(HtmlInputButtonIdentifier.class)
+@IdentifiedBy(HtmlUnitInputButtonIdentifier.class)
 public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> implements Clickable {
 
   /**
