@@ -16,7 +16,6 @@
 
 package org.rbri.wet.backend.htmlunit.matcher;
 
-import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
@@ -39,11 +38,10 @@ public class ByIdMatcher extends AbstractByAttributeMatcher {
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aFoundElements the result list to add the found elements to
    */
   public ByIdMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, WeightedControlList aFoundElements) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements, FoundType.BY_ID);
+      SearchPattern aSearchPattern) {
+    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_ID);
     matchType = MatchType.EXACT;
   }
 

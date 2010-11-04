@@ -18,7 +18,6 @@ package org.rbri.wet.backend.htmlunit.matcher;
 
 import java.util.List;
 
-import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
@@ -51,10 +50,6 @@ public abstract class AbstractHtmlUnitElementMatcher {
    * The {@link SearchPattern} describing the element.
    */
   protected SearchPattern searchPattern;
-  /**
-   * The result list to add the found elements to.
-   */
-  protected WeightedControlList foundElements;
 
   /**
    * The constructor.<br/>
@@ -64,15 +59,13 @@ public abstract class AbstractHtmlUnitElementMatcher {
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aFoundElements the result list to add the found elements to
    */
   public AbstractHtmlUnitElementMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, WeightedControlList aFoundElements) {
+      SearchPattern aSearchPattern) {
     domNodeText = aDomNodeText;
     pathSpot = aPathSpot;
     searchPattern = aSearchPattern;
     pathSearchPattern = aPathSearchPattern;
-    foundElements = aFoundElements;
   }
 
   /**

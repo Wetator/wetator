@@ -68,20 +68,21 @@ public class HtmlUnitImageIdentifier extends AbstractHtmlUnitControlIdentifier {
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // does image alt-text match?
-    tmpMatches.addAll(new ByImageAltAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByImageAltAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
 
     // does image title-text match?
-    tmpMatches.addAll(new ByImageTitleAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
-        tmpSearchPattern, foundControls).matches(aHtmlElement));
+    tmpMatches
+        .addAll(new ByImageTitleAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+            .matches(aHtmlElement));
 
     // does image filename match?
-    tmpMatches.addAll(new ByImageSrcAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByImageSrcAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
 
-    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
+    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitImage((HtmlImage) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),

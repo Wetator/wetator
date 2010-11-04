@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
@@ -49,12 +48,11 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aFoundElements the result list to add the found elements to
    * @param aFoundType the {@link FoundType} the matcher should use when adding the element
    */
   public AbstractByAttributeMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, WeightedControlList aFoundElements, FoundType aFoundType) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements);
+      SearchPattern aSearchPattern, FoundType aFoundType) {
+    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern);
     foundType = aFoundType;
   }
 
@@ -65,7 +63,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    */
   @Override
   public List<MatchResult> matches(HtmlElement aHtmlElement) {
-    List<MatchResult> tmpFound = new LinkedList<MatchResult>();
+    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // has the node the text before
     FindSpot tmpNodeSpot = domNodeText.getPosition(aHtmlElement);
     if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
@@ -88,12 +86,12 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
             String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
             tmpTextBefore = processTextForDistance(tmpTextBefore);
             int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            tmpFound.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance));
+            tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance));
           }
         }
       }
     }
-    return tmpFound;
+    return tmpMatches;
   }
 
   /**

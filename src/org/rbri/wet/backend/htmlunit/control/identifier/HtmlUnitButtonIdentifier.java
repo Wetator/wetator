@@ -67,15 +67,14 @@ public class HtmlUnitButtonIdentifier extends AbstractHtmlUnitControlIdentifier 
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // now check for the including image
-    tmpMatches.addAll(new ByInnerImageMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByInnerImageMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
 
-    tmpMatches
-        .addAll(new ByTextMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
-            .matches(aHtmlElement));
-    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
+    tmpMatches.addAll(new ByTextMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitButton((HtmlButton) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),

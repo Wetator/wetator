@@ -19,7 +19,6 @@ package org.rbri.wet.backend.htmlunit.matcher;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
@@ -45,11 +44,10 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aFoundElements the result list to add the found elements to
    */
   public ByInnerImageMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, WeightedControlList aFoundElements) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements);
+      SearchPattern aSearchPattern) {
+    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 
   /**
@@ -72,14 +70,14 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
 
           // does image title-text match?
           tmpFound.addAll(new ByInnerImageTitleAttributeMatcher(domNodeText, pathSearchPattern, pathSpot,
-              searchPattern, foundElements, tmpInnerElement).matches(aHtmlElement));
+              searchPattern, tmpInnerElement).matches(aHtmlElement));
 
           // does image filename match?
           tmpFound.addAll(new ByInnerImageSrcAttributeMatcher(domNodeText, pathSearchPattern, pathSpot, searchPattern,
-              foundElements, tmpInnerElement).matches(aHtmlElement));
+              tmpInnerElement).matches(aHtmlElement));
 
           tmpFound.addAll(new ByInnerNameMatcher(domNodeText, pathSearchPattern, pathSpot, searchPattern,
-              foundElements, tmpInnerElement).matches(aHtmlElement));
+              tmpInnerElement).matches(aHtmlElement));
         }
       }
     }
@@ -104,14 +102,11 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
      * @param aPathSpot the {@link FindSpot} the path was found first
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param aFoundElements the result list to add the found elements to
      * @param anInnerHtmlElement the inner image element
      */
     public ByInnerImageSrcAttributeMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern,
-        FindSpot aPathSpot, SearchPattern aSearchPattern, WeightedControlList aFoundElements,
-        HtmlElement anInnerHtmlElement) {
-      super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements,
-          FoundType.BY_INNER_IMG_SRC_ATTRIBUTE);
+        FindSpot aPathSpot, SearchPattern aSearchPattern, HtmlElement anInnerHtmlElement) {
+      super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_SRC_ATTRIBUTE);
       innerHtmlElement = anInnerHtmlElement;
       matchType = MatchType.ENDS_WITH;
     }
@@ -152,14 +147,11 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
      * @param aPathSpot the {@link FindSpot} the path was found first
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param aFoundElements the result list to add the found elements to
      * @param anInnerHtmlElement the inner image element
      */
     public ByInnerImageTitleAttributeMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern,
-        FindSpot aPathSpot, SearchPattern aSearchPattern, WeightedControlList aFoundElements,
-        HtmlElement anInnerHtmlElement) {
-      super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements,
-          FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE);
+        FindSpot aPathSpot, SearchPattern aSearchPattern, HtmlElement anInnerHtmlElement) {
+      super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE);
       innerHtmlElement = anInnerHtmlElement;
     }
 
@@ -192,12 +184,11 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
      * @param aPathSpot the {@link FindSpot} the path was found first
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param aFoundElements the result list to add the found elements to
      * @param anInnerHtmlElement the inner image element
      */
     public ByInnerNameMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-        SearchPattern aSearchPattern, WeightedControlList aFoundElements, HtmlElement anInnerHtmlElement) {
-      super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements, FoundType.BY_INNER_NAME);
+        SearchPattern aSearchPattern, HtmlElement anInnerHtmlElement) {
+      super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_NAME);
       innerHtmlElement = anInnerHtmlElement;
       matchType = MatchType.EXACT;
     }

@@ -65,11 +65,11 @@ public class HtmlUnitInputResetIdentifier extends AbstractHtmlUnitControlIdentif
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
-    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
+    tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitInputReset((HtmlResetInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),

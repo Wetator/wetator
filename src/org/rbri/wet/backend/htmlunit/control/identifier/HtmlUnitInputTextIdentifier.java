@@ -72,19 +72,18 @@ public class HtmlUnitInputTextIdentifier extends AbstractHtmlUnitControlIdentifi
     if (aHtmlElement instanceof HtmlTextInput) {
       // whole text before
       tmpMatches.addAll(new ByWholeTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
-          tmpWholePathSearchPattern, foundControls).matches(aHtmlElement));
+          tmpWholePathSearchPattern).matches(aHtmlElement));
 
-      tmpMatches.addAll(new ByLabelTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls).matches(aHtmlElement));
-      tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls).matches(aHtmlElement));
-      tmpMatches
-          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
-              .matches(aHtmlElement));
+      tmpMatches.addAll(new ByLabelTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
+      tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
+      tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls, htmlPage, HtmlTextInput.class).matches(aHtmlElement));
+          htmlPage, HtmlTextInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),

@@ -65,11 +65,11 @@ public class HtmlUnitInputButtonIdentifier extends AbstractHtmlUnitControlIdenti
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
-    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
+    tmpMatches.addAll(new ByValueAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitInputButton((HtmlButtonInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),

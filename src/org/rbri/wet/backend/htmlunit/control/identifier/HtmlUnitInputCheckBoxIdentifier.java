@@ -68,17 +68,16 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIden
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlCheckBoxInput) {
-      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls).matches(aHtmlElement));
-      tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls).matches(aHtmlElement));
-      tmpMatches
-          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
-              .matches(aHtmlElement));
+      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
+      tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
+      tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls, htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
+          htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitInputCheckBox((HtmlCheckBoxInput) tmpMatch.getHtmlElement()),

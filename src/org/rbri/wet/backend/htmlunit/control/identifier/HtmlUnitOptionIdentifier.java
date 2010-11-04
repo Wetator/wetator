@@ -70,8 +70,8 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern)
+        .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitOption((HtmlOption) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());

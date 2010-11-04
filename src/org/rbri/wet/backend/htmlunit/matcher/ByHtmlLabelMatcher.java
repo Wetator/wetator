@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
@@ -49,14 +48,12 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aFoundElements the result list to add the found elements to
    * @param aHtmlPage the {@link HtmlPage} containing the given {@link HtmlElement}
    * @param aClass the class of the {@link HtmlElement} the matching label labels.
    */
   public ByHtmlLabelMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, WeightedControlList aFoundElements, HtmlPage aHtmlPage,
-      Class<? extends HtmlElement> aClass) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, aFoundElements);
+      SearchPattern aSearchPattern, HtmlPage aHtmlPage, Class<? extends HtmlElement> aClass) {
+    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern);
     htmlPage = aHtmlPage;
     clazz = aClass;
   }
@@ -68,9 +65,9 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    */
   @Override
   public List<MatchResult> matches(HtmlElement aHtmlElement) {
-    List<MatchResult> tmpFound = new LinkedList<MatchResult>();
+    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (!(aHtmlElement instanceof HtmlLabel)) {
-      return tmpFound;
+      return tmpMatches;
     }
 
     // has the node the text before
@@ -93,10 +90,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
                 String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
                 int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-                // foundElements.add(new HtmlUnitControl(tmpElementForLabel), WeightedControlList.FoundType.BY_LABEL,
-                // tmpCoverage, tmpDistance);
-                // tmpFound = true;
-                tmpFound.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
+                tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
               }
             }
           } catch (ElementNotFoundException e) {
@@ -112,15 +106,12 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
               int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-              // foundElements.add(new HtmlUnitControl(tmpChildElement), WeightedControlList.FoundType.BY_LABEL,
-              // tmpCoverage, tmpDistance);
-              // tmpFound = true;
-              tmpFound.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
+              tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
             }
           }
         }
       }
     }
-    return tmpFound;
+    return tmpMatches;
   }
 }

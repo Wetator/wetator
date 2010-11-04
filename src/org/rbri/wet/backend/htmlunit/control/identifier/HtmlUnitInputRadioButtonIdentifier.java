@@ -67,16 +67,15 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractHtmlUnitControlI
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlRadioButtonInput) {
-      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls).matches(aHtmlElement));
+      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
       // no search by name
-      tmpMatches
-          .addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern, foundControls)
-              .matches(aHtmlElement));
+      tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          foundControls, htmlPage, HtmlRadioButtonInput.class).matches(aHtmlElement));
+          htmlPage, HtmlRadioButtonInput.class).matches(aHtmlElement));
     }
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitInputRadioButton((HtmlRadioButtonInput) tmpMatch.getHtmlElement()),

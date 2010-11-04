@@ -68,8 +68,8 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
 
     // search with id
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
-      List<MatchResult> tmpMatches = new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          tmpFoundControls).matches(tmpHtmlElement);
+      List<MatchResult> tmpMatches = new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+          .matches(tmpHtmlElement);
       for (MatchResult tmpMatch : tmpMatches) {
         tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
             tmpMatch.getCoverage(), tmpMatch.getDistance());

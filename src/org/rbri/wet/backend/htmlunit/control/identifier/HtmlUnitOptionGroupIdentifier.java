@@ -72,10 +72,10 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractHtmlUnitControlIdenti
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     tmpMatches.addAll(new ByLabelAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect,
-        tmpSearchPattern, foundControls).matches(aHtmlElement));
+        tmpSearchPattern).matches(aHtmlElement));
 
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern,
-        foundControls).matches(aHtmlElement));
+    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern)
+        .matches(aHtmlElement));
     for (MatchResult tmpMatch : tmpMatches) {
       foundControls.add(new HtmlUnitOptionGroup((HtmlOptionGroup) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
