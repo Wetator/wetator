@@ -39,21 +39,23 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * 
  * @author frank.danek
  */
-public class SettableHtmlElementsFinder extends IdentifierBasedElementsFinder {
+public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitControlsFinder {
 
   /**
+   * The constructor.
+   * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
    * @param aThreadPool the thread pool to use for worker threads
    */
-  public SettableHtmlElementsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
+  public SettableHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
     super(aHtmlPage, aDomNodeText, aThreadPool);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.finder.IdentifierBasedElementsFinder#find(java.util.List)
+   * @see org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder#find(java.util.List)
    */
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {
@@ -65,29 +67,25 @@ public class SettableHtmlElementsFinder extends IdentifierBasedElementsFinder {
         if (tmpHtmlElement.isDisplayed()) {
           if (tmpHtmlElement instanceof HtmlTextInput) {
             tmpFoundElements.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no
-                // coverage
+                WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundElements;
           }
           if (tmpHtmlElement instanceof HtmlPasswordInput) {
             tmpFoundElements.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no
-                // coverage
+                WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundElements;
           }
           if (tmpHtmlElement instanceof HtmlTextArea) {
             tmpFoundElements.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no
-                // coverage
+                WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundElements;
           }
           if (tmpHtmlElement instanceof HtmlFileInput) {
             tmpFoundElements.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no
-                // coverage
+                WeightedControlList.FoundType.BY_ID, 0, // no coverage
                 domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundElements;
           }

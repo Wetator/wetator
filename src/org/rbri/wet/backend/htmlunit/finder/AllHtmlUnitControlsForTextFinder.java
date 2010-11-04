@@ -36,21 +36,23 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * 
  * @author frank.danek
  */
-public class AllHtmlElementsForTextFinder extends AbstractHtmlUnitElementsFinder {
+public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFinder {
 
   /**
+   * The constructor.
+   * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
    * @param aThreadPool the thread pool to use for worker threads
    */
-  public AllHtmlElementsForTextFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
+  public AllHtmlUnitControlsForTextFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
     super(aHtmlPage, aDomNodeText, aThreadPool);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitElementsFinder#find(java.util.List)
+   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(java.util.List)
    */
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {

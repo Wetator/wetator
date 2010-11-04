@@ -24,7 +24,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier;
+import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.SecretString;
@@ -37,50 +37,53 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * 
  * @author frank.danek
  */
-public class IdentifierBasedElementsFinder extends AbstractHtmlUnitElementsFinder {
+public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinder {
 
   /**
    * The supported identifiers.
    */
-  protected List<Class<? extends AbstractHtmlUnitElementIdentifier>> identifiers = new ArrayList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
+  protected List<Class<? extends AbstractHtmlUnitControlIdentifier>> identifiers = new ArrayList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
 
   private List<Future<?>> futures = new LinkedList<Future<?>>();
 
   /**
+   * The constructor.
+   * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
    * @param aThreadPool the thread pool to use for worker threads
    */
-  public IdentifierBasedElementsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
+  public IdentifierBasedHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText,
+      ThreadPoolExecutor aThreadPool) {
     super(aHtmlPage, aDomNodeText, aThreadPool);
   }
 
   /**
    * @param anIdentifier the identifier to add
    */
-  public void addIdentifier(Class<? extends AbstractHtmlUnitElementIdentifier> anIdentifier) {
+  public void addIdentifier(Class<? extends AbstractHtmlUnitControlIdentifier> anIdentifier) {
     identifiers.add(anIdentifier);
   }
 
   /**
    * @param anIdentifierList the list containing the identifiers to add
    */
-  public void addIdentifiers(List<Class<? extends AbstractHtmlUnitElementIdentifier>> anIdentifierList) {
+  public void addIdentifiers(List<Class<? extends AbstractHtmlUnitControlIdentifier>> anIdentifierList) {
     identifiers.addAll(anIdentifierList);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitElementsFinder#find(java.util.List)
+   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(java.util.List)
    */
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
-      for (Class<? extends AbstractHtmlUnitElementIdentifier> tmpIdentifierClass : identifiers) {
+      for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
         try {
-          AbstractHtmlUnitElementIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
+          AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
           tmpIdentifier.initializeForAsynch(htmlPage, domNodeText, tmpHtmlElement, aSearch, tmpFoundElements);
           if (tmpIdentifier.isElementSupported(tmpHtmlElement)) {
             execute(tmpIdentifier);
@@ -102,7 +105,7 @@ public class IdentifierBasedElementsFinder extends AbstractHtmlUnitElementsFinde
    * 
    * @param anIdentifier the identifier
    */
-  protected void execute(AbstractHtmlUnitElementIdentifier anIdentifier) {
+  protected void execute(AbstractHtmlUnitControlIdentifier anIdentifier) {
     futures.add(threadPool.submit(anIdentifier));
   }
 

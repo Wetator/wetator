@@ -31,7 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * 
  * @author frank.danek
  */
-public abstract class AbstractHtmlUnitElementsFinder {
+public abstract class AbstractHtmlUnitControlsFinder {
 
   /**
    * The page to work on.
@@ -47,27 +47,29 @@ public abstract class AbstractHtmlUnitElementsFinder {
   protected ThreadPoolExecutor threadPool;
 
   /**
+   * The constructor.
+   * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
    * @param aThreadPool the thread pool to use for worker threads
    */
-  public AbstractHtmlUnitElementsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
+  public AbstractHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
     htmlPage = aHtmlPage;
     domNodeText = aDomNodeText;
 
     threadPool = aThreadPool;
     if (null == threadPool) {
       // no executor was given, this mainly happens when called from unit tests
-      threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(8);
+      threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
       threadPool.prestartAllCoreThreads();
     }
   }
 
   /**
-   * Returns all elements on the page for the given search.
+   * Returns all controls on the page matching the given search.
    * 
-   * @param aSearch the filter
-   * @return the list of matching elements
+   * @param aSearch the search
+   * @return the list of matching controls
    */
   public abstract WeightedControlList find(List<SecretString> aSearch);
 }
