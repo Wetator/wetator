@@ -59,7 +59,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Empty() throws IOException {
+  public void empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -73,7 +73,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Hidden() throws IOException {
+  public void hidden() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -88,7 +88,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputId() throws IOException {
+  public void submitInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -106,7 +106,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputId_TextBefore() throws IOException {
+  public void submitInput_Id_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='submit' value='ClickMeAlso'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -125,7 +125,38 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputLabel() throws IOException {
+  public void submitInput_Id_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void submitInput_IdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void submitInput_Label() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -143,7 +174,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputLabel_TextBefore() throws IOException {
+  public void submitInput_Label_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -162,7 +193,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputLabel_WrongTextBefore() throws IOException {
+  public void submitInput_Label_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -178,7 +209,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputLabelPart() throws IOException {
+  public void submitInput_LabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -196,7 +227,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputName() throws IOException {
+  public void submitInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -215,7 +246,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputName_TextBefore() throws IOException {
+  public void submitInput_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -235,7 +266,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputName_WrongTextBefore() throws IOException {
+  public void submitInput_Name_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -251,7 +282,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInputNamePart() throws IOException {
+  public void submitInput_NamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -266,7 +297,26 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputId() throws IOException {
+  public void submitInput_IdNameLabel() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='MyName' type='submit' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyName", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlSubmitInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
+            .getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void resetInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -284,7 +334,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputId_TextBefore() throws IOException {
+  public void resetInput_Id_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='reset' value='ClickMeAlso'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -303,7 +353,38 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputLabel() throws IOException {
+  public void resetInput_Id_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void resetInput_IdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void resetInput_Label() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -321,7 +402,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputLabel_TextBefore() throws IOException {
+  public void resetInput_Label_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -340,7 +421,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputLabel_WrongTextBefore() throws IOException {
+  public void resetInput_Label_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -356,7 +437,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputLabelPart() throws IOException {
+  public void resetInput_LabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -374,7 +455,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputName() throws IOException {
+  public void resetInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -393,7 +474,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputName_TextBefore() throws IOException {
+  public void resetInput_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -413,7 +494,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputName_WrongTextBefore() throws IOException {
+  public void resetInput_Name_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -429,7 +510,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ResetInputNamePart() throws IOException {
+  public void resetInput_NamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -444,7 +525,26 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputId() throws IOException {
+  public void resetInput_IdNameLabel() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='MyName' type='reset' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyName", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlResetInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
+            .getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void buttonInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -462,7 +562,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputId_TextBefore() throws IOException {
+  public void buttonInput_Id_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='button' value='ClickMeAlso'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -481,7 +581,38 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputLabel() throws IOException {
+  public void buttonInput_Id_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void buttonInput_IdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void buttonInput_Label() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -499,7 +630,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputLabel_TextBefore() throws IOException {
+  public void buttonInput_Label_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -518,7 +649,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputLabel_WrongTextBefore() throws IOException {
+  public void buttonInput_Label_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -534,7 +665,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputLabelPart() throws IOException {
+  public void buttonInput_LabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -552,7 +683,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputName() throws IOException {
+  public void buttonInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -571,7 +702,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputName_TextBefore() throws IOException {
+  public void buttonInput_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -591,7 +722,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputName_WrongTextBefore() throws IOException {
+  public void buttonInput_Name_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -607,7 +738,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonInputNamePart() throws IOException {
+  public void buttonInput_NamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -622,7 +753,26 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageId() throws IOException {
+  public void buttonInput_IdNameLabel() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='MyName' type='button' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyName", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlButtonInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
+            .getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void imageInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -641,7 +791,58 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageName() throws IOException {
+  public void imageInput_Id_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 5",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void imageInput_Id_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_IdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -661,7 +862,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageName_TextBefore() throws IOException {
+  public void imageInput_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -682,7 +883,38 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageAlt() throws IOException {
+  public void imageInput_Name_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("MyName", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_NamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yNam", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_Alt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png' alt='MyAlt'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -702,7 +934,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageAlt_TextBefore() throws IOException {
+  public void imageInput_Alt_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -723,7 +955,43 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageTitle() throws IOException {
+  public void imageInput_Alt_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("MyAlt", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_AltPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yAl", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 2 distance: 0",
+            tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void imageInput_Title() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png' title='MyTitle'>" + "</form>"
         + "</body></html>";
@@ -744,7 +1012,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageTitle_TextBefore() throws IOException {
+  public void imageInput_Title_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>"
         + "</body></html>";
@@ -766,7 +1034,45 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageFileName() throws IOException {
+  public void imageInput_Title_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("MyTitle", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_TitlePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yTitl", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 2 distance: 0",
+            tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void imageInput_FileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -786,7 +1092,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageFileNameWithPath() throws IOException {
+  public void imageInput_FileNameWithPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='web/picture.png'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -806,7 +1112,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ImageFileName_TextBefore() throws IOException {
+  public void imageInput_FileName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -827,7 +1133,58 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonId() throws IOException {
+  public void imageInput_FileName_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("picture.png", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_FileNamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("icture.pn", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void imageInput_IdNameAltTitleFileName() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='MyName' type='image' name='MyName' src='MyName' alt='MyName' title='MyName'>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyName", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlImageInput '' (src='MyName') (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void button_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -846,7 +1203,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonId_TextBefore() throws IOException {
+  public void button_Id_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "<p>Marker</p>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithAnotherText</p>" + "</button>" + "</form>" + "</body></html>";
@@ -867,7 +1224,39 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonLabel() throws IOException {
+  public void button_Id_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
+        + "<p>ButtonWithText</p>" + "</button>" + "<p>Marker</p>" + "<button id='myId' type='button' name='MyName'>"
+        + "<p>ButtonWithAnotherText</p>" + "</button>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Sarker", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void button_IdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
+        + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void button_Label() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -886,7 +1275,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonLabel_TextBefore() throws IOException {
+  public void button_Label_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
@@ -907,7 +1296,43 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonName() throws IOException {
+  public void button_Label_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("ButtonWithText", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void button_LabelPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
+        + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("uttonWithTex", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void button_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -926,7 +1351,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonName_TextBefore() throws IOException {
+  public void button_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
@@ -947,7 +1372,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonLabel_WrongTextBefore() throws IOException {
+  public void button_Name_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
@@ -955,7 +1380,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("ButtonWithText", false));
+    tmpSearch.add(new SecretString("MyName", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
@@ -964,27 +1389,40 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_ButtonLabelPart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
-        + "</body></html>";
+  public void button_NamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
+        + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("tonWithT", false));
+    tmpSearch.add(new SecretString("yNam", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void button_IdNameLabel() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='MyName' type='button' name='MyName'>"
+        + "<p>MyName</p>" + "</button>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyName", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 6 distance: 14",
+    Assert.assertEquals("[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
   }
 
   @Test
-  public void testGetAllClickables_Button_ImageName() throws IOException {
+  public void button_Image_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' name='MyImageName'>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1006,7 +1444,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Button_ImageAlt() throws IOException {
+  public void button_Image_Alt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' alt='MyImageAlt'>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1028,7 +1466,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Button_ImageTitle() throws IOException {
+  public void button_Image_Title() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1050,7 +1488,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Button_ImageFileName() throws IOException {
+  public void button_Image_FileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1072,7 +1510,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Button_ImageFileNameWithPath() throws IOException {
+  public void button_Image_FileNameWithPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='web/picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1094,7 +1532,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_AnchorId() throws IOException {
+  public void anchor_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1112,13 +1550,14 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_AnchorText() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+  public void anchor_Id_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TestAnchor", false));
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("myId", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
@@ -1126,30 +1565,43 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
 
     Assert.assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 5", tmpFound
+            .getElementsSorted().get(0).toString());
   }
 
   @Test
-  public void testGetAllClickables_AnchorText_TextBefore() throws IOException {
+  public void anchor_Id_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("TestAnchor", false));
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myId", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
-        tmpFound.getElementsSorted().get(0).toString());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
   @Test
-  public void testGetAllClickables_AnchorName() throws IOException {
+  public void anchor_IdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void anchor_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1168,7 +1620,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_AnchorName_TextBefore() throws IOException {
+  public void anchor_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1188,7 +1640,147 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageAlt() throws IOException {
+  public void anchor_Name_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("MyName", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void anchor_NamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yNam", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void anchor_Text() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("TestAnchor", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void anchor_Text_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("TestAnchor", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void anchor_Text_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("TestAnchor", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
+  }
+
+  @Test
+  public void anchor_FormatedText() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<a>My<b>T</b>ext</a>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyText", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void anchor_TextPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("estAncho", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void anchor_IdNameText() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myAnchor' name='myAnchor' href='snoopy.php'>myAnchor</a>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("myAnchor", false));
+
+    HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+    WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
+
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ID coverage: 0 distance: 0", tmpFound
+            .getElementsSorted().get(0).toString());
+  }
+
+  @Test
+  public void anchor_Image_Alt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' alt='MyAlt'>" + "</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1211,7 +1803,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_AnchorAlt_TextBefore() throws IOException {
+  public void anchor_Image_Alt_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>" + "<img src='picture.png' name='MyImageName' alt='MyAlt'>"
         + "</a>" + "</form>" + "</body></html>";
@@ -1236,7 +1828,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageTitle() throws IOException {
+  public void anchor_Image_Title() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1259,7 +1851,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageTitle_TextBefore() throws IOException {
+  public void anchor_Image_Title_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
@@ -1284,7 +1876,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageFileName() throws IOException {
+  public void anchor_Image_FileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1307,7 +1899,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageFileNameWithPath() throws IOException {
+  public void anchor_Image_FileNameWithPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='web/picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1330,7 +1922,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageFileName_TextBefore() throws IOException {
+  public void anchor_Image_FileName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
@@ -1355,7 +1947,7 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_Anchor_ImageName() throws IOException {
+  public void anchor_Image_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName'>" + "</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -1377,22 +1969,26 @@ public class HtmlUnitFinderDelegatorGetAllClickablesTest {
   }
 
   @Test
-  public void testGetAllClickables_SubmitInput_IdNameValue_TextBefore() throws IOException {
+  public void anchor_Image_Name_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyName' type='submit' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("MyName", false));
+    tmpSearch.add(new SecretString("MyImageName", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
     WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlSubmitInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 5", tmpFound
-            .getElementsSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 5",
+            tmpFound.getElementsSorted().get(0).toString());
+    Assert.assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 5",
+        tmpFound.getElementsSorted().get(1).toString());
   }
 }
