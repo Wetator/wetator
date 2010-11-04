@@ -26,8 +26,8 @@ import org.rbri.wet.backend.control.Deselectable;
 import org.rbri.wet.backend.control.Selectable;
 import org.rbri.wet.backend.control.Settable;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.Identifiers;
-import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementIdentifier;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
+import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 
 /**
  * Central repository for all supported {@link HtmlUnitBaseControl}s.
@@ -36,11 +36,11 @@ import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitElementI
  */
 public class HtmlUnitControlRepository {
 
-  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> settableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> clickableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> selectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> deselectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitElementIdentifier>> otherIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitElementIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> settableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> selectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> deselectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> otherIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
 
   /**
    * @param aControlClassList the classes of the controls to add
@@ -61,9 +61,9 @@ public class HtmlUnitControlRepository {
       return;
     }
     if (HtmlUnitBaseControl.class.isAssignableFrom(aControlClass)) {
-      Identifiers tmpIdentifiers = aControlClass.getAnnotation(Identifiers.class);
+      IdentifiedBy tmpIdentifiers = aControlClass.getAnnotation(IdentifiedBy.class);
       if (tmpIdentifiers != null) {
-        List<Class<? extends AbstractHtmlUnitElementIdentifier>> tmpIdentifierClasses = Arrays.asList(tmpIdentifiers
+        List<Class<? extends AbstractHtmlUnitControlIdentifier>> tmpIdentifierClasses = Arrays.asList(tmpIdentifiers
             .value());
 
         boolean tmpFound = false;
@@ -93,35 +93,35 @@ public class HtmlUnitControlRepository {
   /**
    * @return the settableIdentifiers
    */
-  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getSettableIdentifiers() {
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getSettableIdentifiers() {
     return settableIdentifiers;
   }
 
   /**
    * @return the clickableIdentifiers
    */
-  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getClickableIdentifiers() {
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getClickableIdentifiers() {
     return clickableIdentifiers;
   }
 
   /**
    * @return the selectableIdentifiers
    */
-  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getSelectableIdentifiers() {
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getSelectableIdentifiers() {
     return selectableIdentifiers;
   }
 
   /**
    * @return the deselectableIdentifiers
    */
-  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getDeselectableIdentifiers() {
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getDeselectableIdentifiers() {
     return deselectableIdentifiers;
   }
 
   /**
    * @return the otherIdentifiers
    */
-  public List<Class<? extends AbstractHtmlUnitElementIdentifier>> getOtherIdentifiers() {
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getOtherIdentifiers() {
     return otherIdentifiers;
   }
 }
