@@ -41,7 +41,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 /**
  * Helper methods to work with the HtmlElements page.
  * 
- * @author exxws
+ * @author rbri
  */
 public final class HtmlElementUtil {
 
