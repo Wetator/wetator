@@ -51,7 +51,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("Name", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -65,7 +65,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("Name", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -79,7 +79,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("Name", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -93,7 +93,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("YourText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -107,7 +107,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert
@@ -125,7 +125,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("My*", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert
@@ -143,7 +143,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("YourText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -157,7 +157,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
@@ -173,7 +173,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("My*", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0", tmpFound
@@ -189,7 +189,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
@@ -205,7 +205,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
@@ -221,7 +221,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
@@ -239,7 +239,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
@@ -256,7 +256,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("ine3", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8", tmpFound
@@ -273,7 +273,7 @@ public class HtmlUnitFinderDelegatorGetAllElementsForTextTest {
     tmpSearch.add(new SecretString("ne3", false));
 
     HtmlUnitFinderDelegator tmpFinder = new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
-    WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllControlsForText(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getElementsSorted().size());
     Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
