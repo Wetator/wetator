@@ -55,6 +55,7 @@ src/org/rbri/wet/backend/htmlunit/control/HtmlUnitOption.java -text svneol=unset
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitTextArea.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/AbstractHtmlUnitElementIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlAnchorIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlButtonIdentifier.java -text svneol=unset#text/plain
