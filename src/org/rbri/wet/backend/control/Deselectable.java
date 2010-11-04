@@ -20,15 +20,19 @@ import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
+ * This interface marks all deselectable {@link Control}s. These controls are returned by
+ * {@link org.rbri.wet.backend.ControlFinder#getAllDeselectables(java.util.List)}. All deselectable control are also
+ * selectable.
+ * 
  * @author frank.danek
  */
 public interface Deselectable extends Selectable {
 
   /**
-   * Deselects the control
+   * Deselects the control.
    * 
    * @param aWetContext the wet context
-   * @throws AssertionFailedException if the control is not supported
+   * @throws AssertionFailedException if the control supports no deselect
    */
   public void deselect(WetContext aWetContext) throws AssertionFailedException;
 }

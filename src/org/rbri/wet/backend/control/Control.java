@@ -20,7 +20,9 @@ import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
- * The common interface for the Control.
+ * The common interface for a control.<br/>
+ * It includes the actions and checks valid for all controls. If a control does not support an action or a check, an
+ * {@link AssertionFailedException} is thrown when calling this action or check.
  * 
  * @author rbri
  * @author frank.danek
@@ -28,23 +30,19 @@ import org.rbri.wet.exception.AssertionFailedException;
 public interface Control {
 
   /**
-   * Returns a description of the control.
-   * 
-   * @return a description string
+   * @return the description of the control
    */
   public String getDescribingText();
 
   /**
-   * Returns true, if the control is disabled
-   * 
    * @param aWetContext the wet context
-   * @return true or false
-   * @throws AssertionFailedException if the check is not supported for the control
+   * @return true, if the control is disabled
+   * @throws AssertionFailedException if the check is not supported by the control
    */
   public boolean isDisabled(WetContext aWetContext) throws AssertionFailedException;
 
   /**
-   * Simulates moving the (mouse) over the control
+   * Simulates moving the mouse over the control.
    * 
    * @param aWetContext the wet context
    * @throws AssertionFailedException if the the control has no support for mouse events
@@ -52,7 +50,7 @@ public interface Control {
   public void mouseOver(WetContext aWetContext) throws AssertionFailedException;
 
   /**
-   * Simulates a (mouse) click on the control
+   * Simulates a mouse click on the control.
    * 
    * @param aWetContext the wet context
    * @throws AssertionFailedException if the the control has no support for clicks
@@ -60,10 +58,8 @@ public interface Control {
   public void click(WetContext aWetContext) throws AssertionFailedException;
 
   /**
-   * Checks, if the provided Control has the same backend control
-   * 
    * @param aControl the control to compare with
-   * @return true or false
+   * @return true, if the given control has the same backend control
    */
   public boolean hasSameBackendControl(Control aControl);
 }

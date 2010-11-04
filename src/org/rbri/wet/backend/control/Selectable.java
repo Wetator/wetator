@@ -20,23 +20,24 @@ import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
+ * This interface marks all selectable {@link Control}s. These controls are returned by
+ * {@link org.rbri.wet.backend.ControlFinder#getAllSelectables(java.util.List)}.
+ * 
  * @author frank.danek
  */
 public interface Selectable extends Control {
 
   /**
-   * Selects the control
+   * Selects the control.
    * 
    * @param aWetContext the wet context
-   * @throws AssertionFailedException if the control is not supported
+   * @throws AssertionFailedException if the control supports no select
    */
   public void select(WetContext aWetContext) throws AssertionFailedException;
 
   /**
-   * Returns true, if the control is selected
-   * 
    * @param aWetContext the wet context
-   * @return true or false
+   * @return true, if the control is selected
    * @throws AssertionFailedException if the check is not supported for the control
    */
   public boolean isSelected(WetContext aWetContext) throws AssertionFailedException;
