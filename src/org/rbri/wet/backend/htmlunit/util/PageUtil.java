@@ -38,41 +38,6 @@ import com.gargoylesoftware.htmlunit.html.XHtmlPage;
  */
 public final class PageUtil {
 
-  // /**
-  // * Wait for finishing of all jobs scheduled for execution
-  // * in the next 1s
-  // *
-  // * @param aPage the page
-  // */
-  // public static void waitForThreads(final Page aPage, long aTimeoutInSeconds) {
-  // // no wait
-  // if (aTimeoutInSeconds < 1) {
-  // // at least execute all immediate jobs
-  // JavaScriptJobManager tmpJobManager = aPage.getEnclosingWindow().getJobManager();
-  //
-  // tmpJobManager.waitForJobsStartingBefore(1000); // one second
-  // return;
-  // }
-  //
-  // // try with wait
-  // int tmpNoOfJobsLeft = 1;
-  // long tmpEndTime = System.currentTimeMillis() + aTimeoutInSeconds * 1000;
-  // while (tmpNoOfJobsLeft > 0 && System.currentTimeMillis() < tmpEndTime) {
-  // long tmpWaitTime = tmpEndTime - System.currentTimeMillis();
-  // tmpNoOfJobsLeft = tmpJobManager.waitForJobsStartingBefore(Math.max(1000, tmpWaitTime));
-  //
-  // // current page is changed, we have to make another try
-  // if (tmpHtmlPage != getCurrentHtmlPage()) {
-  // tmpNoOfJobsLeft = 1;
-  // tmpHtmlPage = getCurrentHtmlPage();
-  // tmpCurrentTitle = tmpHtmlPage.getTitleText();
-  // }
-  // }
-  //
-  // // TODO make max wait time configurable
-  //
-  // }
-
   /**
    * Helper for tests
    * 
