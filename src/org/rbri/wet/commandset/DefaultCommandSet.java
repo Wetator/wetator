@@ -219,7 +219,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       // Text
       // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
-      tmpFoundElements.addAll(tmpControlFinder.getAllElementsForText(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpSearchParam));
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.click(aWetContext);
@@ -304,7 +304,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllElementsForText(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllControlsForText(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.mouseOver(aWetContext);
@@ -444,7 +444,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       // clickable Text
       // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
-      tmpFoundElements.addAll(tmpControlFinder.getAllElementsForText(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpSearchParam));
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
 
