@@ -214,6 +214,24 @@ test/java/org/rbri/wet/backend/htmlunit/HtmlUnitTest.html -text
 test/java/org/rbri/wet/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/control/AllTests.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllClickablesTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllDeselectablesTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllOthersTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllSelectablesTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllSettablesTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllTests.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitImageIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputButtonIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputFileIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputImageIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputPasswordIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputResetIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/util/AllTests.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/DomNodeTextTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/HtmlElementUtilTest.java -text

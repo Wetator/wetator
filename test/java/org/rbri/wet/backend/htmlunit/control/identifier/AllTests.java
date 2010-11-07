@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet.backend.htmlunit.control;
+package org.rbri.wet.backend.htmlunit.control.identifier;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -22,11 +22,15 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
+ * @author rbri
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.rbri.wet.backend.htmlunit.control.identifier.AllTests.class, //
-    HtmlUnitBaseControlTest.class })
+@SuiteClasses({ AllClickablesTests.class, //
+    AllDeselectablesTests.class, //
+    AllOthersTests.class, //
+    AllSelectablesTests.class, //
+    AllSettablesTests.class })
 public final class AllTests {
 
   /**

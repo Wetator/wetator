@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet.backend.htmlunit.control;
+package org.rbri.wet.backend.htmlunit.control.identifier;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -22,24 +22,27 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
+ * @author rbri
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.rbri.wet.backend.htmlunit.control.identifier.AllTests.class, //
-    HtmlUnitBaseControlTest.class })
-public final class AllTests {
+@SuiteClasses({ HtmlUnitAnchorIdentifierTest.class, //
+    HtmlUnitButtonIdentifierTest.class, //
+    HtmlUnitImageIdentifierTest.class, //
+    HtmlUnitInputSubmitIdentifierTest.class })
+public final class AllSelectablesTests {
 
   /**
    * @param anArgsArray ignored
    */
   public static void main(String[] anArgsArray) {
-    JUnitCore.main(AllTests.class.getName());
+    JUnitCore.main(AllSelectablesTests.class.getName());
   }
 
   /**
    * The constructor.
    */
-  private AllTests() {
+  private AllSelectablesTests() {
     // nothing
   }
 }

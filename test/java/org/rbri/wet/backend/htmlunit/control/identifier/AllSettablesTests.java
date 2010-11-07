@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet.backend.htmlunit.control;
+package org.rbri.wet.backend.htmlunit.control.identifier;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -22,24 +22,27 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
+ * @author rbri
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.rbri.wet.backend.htmlunit.control.identifier.AllTests.class, //
-    HtmlUnitBaseControlTest.class })
-public final class AllTests {
+@SuiteClasses({ HtmlUnitInputFileIdentifierTest.class, //
+    HtmlUnitInputPasswordIdentifierTest.class, //
+    HtmlUnitInputTextIdentifierTest.class, //
+    HtmlUnitTextAreaIdentifierTest.class })
+public final class AllSettablesTests {
 
   /**
    * @param anArgsArray ignored
    */
   public static void main(String[] anArgsArray) {
-    JUnitCore.main(AllTests.class.getName());
+    JUnitCore.main(AllSettablesTests.class.getName());
   }
 
   /**
    * The constructor.
    */
-  private AllTests() {
+  private AllSettablesTests() {
     // nothing
   }
 }
