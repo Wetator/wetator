@@ -67,7 +67,7 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
     FindSpot tmpPathSpotSelect = domNodeText.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
-      return null;
+      return new WeightedControlList();
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();

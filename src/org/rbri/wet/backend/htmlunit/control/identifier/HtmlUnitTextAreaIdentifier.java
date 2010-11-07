@@ -66,7 +66,7 @@ public class HtmlUnitTextAreaIdentifier extends AbstractHtmlUnitControlIdentifie
     SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(aSearch);
 
     if (null == tmpPathSpot) {
-      return null;
+      return new WeightedControlList();
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();

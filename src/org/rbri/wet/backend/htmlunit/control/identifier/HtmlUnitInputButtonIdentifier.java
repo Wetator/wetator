@@ -62,7 +62,7 @@ public class HtmlUnitInputButtonIdentifier extends AbstractHtmlUnitControlIdenti
     FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
-      return null;
+      return new WeightedControlList();
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();

@@ -64,7 +64,7 @@ public class HtmlUnitImageIdentifier extends AbstractHtmlUnitControlIdentifier {
     FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
-      return null;
+      return new WeightedControlList();
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
