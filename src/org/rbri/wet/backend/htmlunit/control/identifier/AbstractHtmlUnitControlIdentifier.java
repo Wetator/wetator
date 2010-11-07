@@ -44,7 +44,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
   /**
    * The list the found controls should be added to.
    */
-  protected WeightedControlList foundControls;
+  private WeightedControlList foundControls;
 
   // for asynchronous use
   private boolean initializedForAsynch;
@@ -56,12 +56,10 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
-   * @param aFoundControls the list the found controls should be added to
    */
-  public void initialize(HtmlPage aHtmlPage, DomNodeText aDomNodeText, WeightedControlList aFoundControls) {
+  public void initialize(HtmlPage aHtmlPage, DomNodeText aDomNodeText) {
     htmlPage = aHtmlPage;
     domNodeText = aDomNodeText;
-    foundControls = aFoundControls;
   }
 
   /**
@@ -75,9 +73,10 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    */
   public void initializeForAsynch(HtmlPage aHtmlPage, DomNodeText aDomNodeText, HtmlElement aHtmlElement,
       List<SecretString> aSearch, WeightedControlList aFoundControls) {
-    initialize(aHtmlPage, aDomNodeText, aFoundControls);
+    initialize(aHtmlPage, aDomNodeText);
     htmlElement = aHtmlElement;
     search = aSearch;
+    foundControls = aFoundControls;
     initializedForAsynch = true;
   }
 
@@ -98,7 +97,10 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
       throw new WetException(getClass().getName()
           + " is not initialized to work asynchronously. Use initializeForAsynch().");
     }
-    identify(search, htmlElement);
+    WeightedControlList tmpResult = identify(search, htmlElement);
+    if (tmpResult != null) {
+      foundControls.addAll(tmpResult);
+    }
   }
 
   /**
@@ -106,6 +108,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * 
    * @param aSearch the search used to identify the control
    * @param aHtmlElement the {@link HtmlElement} to be identified
+   * @return the list containing the identified controls
    */
-  public abstract void identify(List<SecretString> aSearch, HtmlElement aHtmlElement);
+  public abstract WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement);
 }

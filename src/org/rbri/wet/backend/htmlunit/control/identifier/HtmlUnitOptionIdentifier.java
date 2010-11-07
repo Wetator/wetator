@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
@@ -53,7 +54,7 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public void identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
+  public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
@@ -66,16 +67,18 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
     FindSpot tmpPathSpotSelect = domNodeText.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
-      return;
+      return null;
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern)
         .matches(aHtmlElement));
+    WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {
-      foundControls.add(new HtmlUnitOption((HtmlOption) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+      tmpResult.add(new HtmlUnitOption((HtmlOption) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
           tmpMatch.getCoverage(), tmpMatch.getDistance());
     }
+    return tmpResult;
   }
 
 }
