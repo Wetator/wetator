@@ -80,7 +80,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
     selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
     deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
     othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
-    forTextFinder = new AllHtmlUnitControlsForTextFinder(htmlPage, domNodeText, threadPool);
+    forTextFinder = new AllHtmlUnitControlsForTextFinder(htmlPage, domNodeText);
   }
 
   /**

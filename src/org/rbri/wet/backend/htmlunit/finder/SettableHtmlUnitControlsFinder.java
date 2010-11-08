@@ -35,7 +35,15 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * XXX add class jdoc
+ * In addition to the {@link IdentifierBasedHtmlUnitControlsFinder} this finder has a special support for empty
+ * searches. This is needed for some search engines which have no label in front of their input field. Currently the
+ * following settable {@link org.rbri.wet.backend.control.Control}s are supported:
+ * <ul>
+ * <li>{@link HtmlUnitInputFile}</li>
+ * <li>{@link HtmlUnitInputPassword}</li>
+ * <li>{@link HtmlUnitInputText}</li>
+ * <li>{@link HtmlUnitTextArea}</li>
+ * </ul>
  * 
  * @author frank.danek
  */
@@ -46,7 +54,7 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
    * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
-   * @param aThreadPool the thread pool to use for worker threads
+   * @param aThreadPool the thread pool to use for worker threads; may be null
    */
   public SettableHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
     super(aHtmlPage, aDomNodeText, aThreadPool);

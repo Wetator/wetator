@@ -44,7 +44,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -59,7 +59,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -74,7 +74,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -89,7 +89,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("YourText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -104,7 +104,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -123,7 +123,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("My*", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -142,7 +142,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("YourText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -157,7 +157,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -174,7 +174,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("My*", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -191,7 +191,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -208,7 +208,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -227,7 +227,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
@@ -248,7 +248,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -268,7 +268,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
     tmpSearch.add(new SecretString("ine3", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -286,7 +286,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("line2 li", false));
     tmpSearch.add(new SecretString("ne3", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText, null);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());

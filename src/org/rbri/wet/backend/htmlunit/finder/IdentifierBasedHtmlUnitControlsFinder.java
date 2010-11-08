@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -33,12 +34,21 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * XXX add class jdoc
+ * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given
+ * search.<br />
+ * The identifiers must be added by {@link #addIdentifier(Class)} or {@link #addIdentifiers(List)} before
+ * executing {@link #find(List)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
+ * a match is found. So the returned {@link WeightedControlList} may contain multiple
+ * {@link org.rbri.wet.backend.control.Control}s (multiple times).
  * 
  * @author frank.danek
  */
 public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinder {
 
+  /**
+   * The thread pool to use for worker threads.
+   */
+  protected ThreadPoolExecutor threadPool;
   /**
    * The supported identifiers.
    */
@@ -51,11 +61,18 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
-   * @param aThreadPool the thread pool to use for worker threads
+   * @param aThreadPool the thread pool to use for worker threads; may be null
    */
   public IdentifierBasedHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText,
       ThreadPoolExecutor aThreadPool) {
-    super(aHtmlPage, aDomNodeText, aThreadPool);
+    super(aHtmlPage, aDomNodeText);
+
+    threadPool = aThreadPool;
+    if (null == threadPool) {
+      // no executor was given, this mainly happens when called from unit tests
+      threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+      threadPool.prestartAllCoreThreads();
+    }
   }
 
   /**

@@ -17,7 +17,6 @@
 package org.rbri.wet.backend.htmlunit.finder;
 
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
@@ -32,8 +31,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * XXX add class jdoc
+ * This finder is a generic finder for all {@link HtmlElement}s. Only instances of {@link HtmlUnitBaseControl} are
+ * returned (so no specific subclasses). This finder supports just two find methods:
+ * <ul>
+ * <li>by id</li>
+ * <li>by text (the first {@link HtmlElement} which matches the path and which's text contains the search pattern)</li>
+ * </ul>
  * 
+ * @author rbri
  * @author frank.danek
  */
 public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFinder {
@@ -43,10 +48,9 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
    * 
    * @param aHtmlPage the page to work on
    * @param aDomNodeText the {@link DomNodeText} index of the page
-   * @param aThreadPool the thread pool to use for worker threads
    */
-  public AllHtmlUnitControlsForTextFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
-    super(aHtmlPage, aDomNodeText, aThreadPool);
+  public AllHtmlUnitControlsForTextFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText) {
+    super(aHtmlPage, aDomNodeText);
   }
 
   /**
