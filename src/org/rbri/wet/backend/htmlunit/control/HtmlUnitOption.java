@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'option' (&lt;option&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

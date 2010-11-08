@@ -23,7 +23,7 @@ import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'select' (&lt;select&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

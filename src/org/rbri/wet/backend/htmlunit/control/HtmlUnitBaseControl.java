@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 /**
- * The base HtmlUnit control implementation.
+ * This is the base implementation of a {@link Control} using HtmlUnit as backend.
  * 
  * @param <T> the type of the {@link HtmlElement}.
  * @author rbri

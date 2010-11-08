@@ -31,7 +31,8 @@ import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'input radio' (&lt;input type="radio"&gt;) using HtmlUnit as
+ * backend.
  * 
  * @author rbri
  * @author frank.danek

@@ -24,7 +24,7 @@ import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'image' (&lt;img&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

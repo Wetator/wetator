@@ -38,7 +38,8 @@ import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'input password' (&lt;input type="password"&gt;) using HtmlUnit as
+ * backend.
  * 
  * @author rbri
  * @author frank.danek

@@ -23,7 +23,7 @@ import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'option group' (&lt;optgroup&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

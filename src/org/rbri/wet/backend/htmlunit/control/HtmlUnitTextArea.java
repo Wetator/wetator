@@ -36,7 +36,7 @@ import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'textarea' (&lt;textarea&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

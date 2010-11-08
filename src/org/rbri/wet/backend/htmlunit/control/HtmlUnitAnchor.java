@@ -28,7 +28,7 @@ import org.rbri.wet.exception.AssertionFailedException;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'anchor' (&lt;a&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

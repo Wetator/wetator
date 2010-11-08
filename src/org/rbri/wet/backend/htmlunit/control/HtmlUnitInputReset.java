@@ -24,7 +24,8 @@ import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'input reset' (&lt;input type="reset"&gt;) using HtmlUnit as
+ * backend.
  * 
  * @author rbri
  * @author frank.danek

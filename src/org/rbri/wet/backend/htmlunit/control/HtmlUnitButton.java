@@ -24,7 +24,7 @@ import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'button' (&lt;button&gt;) using HtmlUnit as backend.
  * 
  * @author rbri
  * @author frank.danek

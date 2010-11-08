@@ -24,7 +24,8 @@ import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'input image' (&lt;input type="image"&gt;) using HtmlUnit as
+ * backend.
  * 
  * @author rbri
  * @author frank.danek

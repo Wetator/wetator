@@ -37,7 +37,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * XXX add class jdoc
+ * This is the implementation of the HTML element 'input file' (&lt;input type="file"&gt;) using HtmlUnit as
+ * backend.
  * 
  * @author rbri
  * @author frank.danek
