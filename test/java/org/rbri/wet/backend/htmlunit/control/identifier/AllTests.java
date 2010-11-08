@@ -26,11 +26,23 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllClickablesTests.class, //
-    AllDeselectablesTests.class, //
-    AllOthersTests.class, //
-    AllSelectablesTests.class, //
-    AllSettablesTests.class })
+@SuiteClasses({ HtmlUnitAnchorIdentifierTest.class, //
+    HtmlUnitButtonIdentifierTest.class, //
+    HtmlUnitImageIdentifierTest.class, //
+    HtmlUnitInputButtonIdentifierTest.class, //
+    HtmlUnitInputCheckBoxIdentifierTest.class, //
+    HtmlUnitInputFileIdentifierTest.class, //
+    HtmlUnitInputImageIdentifierTest.class, //
+    HtmlUnitInputPasswordIdentifierTest.class, //
+    HtmlUnitInputRadioButtonIdentifierTest.class, //
+    HtmlUnitInputResetIdentifierTest.class, //
+    HtmlUnitInputSubmitIdentifierTest.class, //
+    HtmlUnitInputTextIdentifierTest.class, //
+    HtmlUnitOptionGroupIdentifierTest.class, //
+    HtmlUnitOptionIdentifierTest.class, //
+    HtmlUnitOptionInSelectIdentifierTest.class, //
+    HtmlUnitSelectIdentifierTest.class, //
+    HtmlUnitTextAreaIdentifierTest.class })
 public final class AllTests {
 
   /**

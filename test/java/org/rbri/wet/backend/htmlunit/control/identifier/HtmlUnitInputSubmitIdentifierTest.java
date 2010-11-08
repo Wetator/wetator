@@ -26,7 +26,6 @@ import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
-
 /**
  * @author rbri
  * @author frank.danek
@@ -39,7 +38,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Id() throws IOException {
+  public void byId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -55,7 +54,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Id_TextBefore() throws IOException {
+  public void byId_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='submit' value='ClickMeAlso'>" + "</form>" + "</body></html>";
 
@@ -72,7 +71,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Id_WrongTextBefore() throws IOException {
+  public void byId_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -86,7 +85,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_IdPart() throws IOException {
+  public void byIdPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -99,7 +98,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Label() throws IOException {
+  public void byLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -115,7 +114,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Label_TextBefore() throws IOException {
+  public void byLabel_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -132,7 +131,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Label_WrongTextBefore() throws IOException {
+  public void byLabel_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -146,7 +145,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_LabelPart() throws IOException {
+  public void byLabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -162,7 +161,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Name() throws IOException {
+  public void byName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -179,7 +178,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Name_TextBefore() throws IOException {
+  public void byName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -197,7 +196,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_Name_WrongTextBefore() throws IOException {
+  public void byName_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -211,7 +210,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_NamePart() throws IOException {
+  public void byNamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -224,7 +223,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void submitInput_IdNameLabel() throws IOException {
+  public void byIdNameLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyName' type='submit' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
 

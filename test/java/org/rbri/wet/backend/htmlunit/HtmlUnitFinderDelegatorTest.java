@@ -26,7 +26,7 @@ import org.junit.Test;
 public class HtmlUnitFinderDelegatorTest {
 
   @Test
-  public void testConstructorNullPage() {
+  public void pageNull() {
     try {
       new HtmlUnitFinderDelegator(null);
       Assert.fail("NullPointerException expected.");

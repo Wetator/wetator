@@ -38,7 +38,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_FileInputByLabel() throws IOException {
+  public void byLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "<input id='inputId' name='FileInput' type='file'>" + "</form>" + "</body></html>";
 
@@ -54,7 +54,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_FileInputByLabelChild() throws IOException {
+  public void byLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='inputId' name='FileInput' type='file'>" + "</label>" + "</form>" + "</body></html>";
 

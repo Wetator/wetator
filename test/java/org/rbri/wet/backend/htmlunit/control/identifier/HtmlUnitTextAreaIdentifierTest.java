@@ -38,7 +38,7 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
   }
 
   @Test
-  public void testGetAllSetables_TextAreaByLabel() throws IOException {
+  public void byLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "<textarea id='inputId' name='TextAreaName' cols='50' rows='1'></textarea>" + "</form>" + "</body></html>";
 
@@ -55,7 +55,7 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
   }
 
   @Test
-  public void testGetAllSetables_TextAreaByLabelChild() throws IOException {
+  public void byLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<textarea id='inputId' name='TextAreaName' cols='50' rows='1'></textarea>" + "</label>" + "</form>"
         + "</body></html>";

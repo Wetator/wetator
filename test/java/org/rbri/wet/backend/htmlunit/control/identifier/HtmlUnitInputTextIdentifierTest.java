@@ -38,7 +38,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByNameExact() throws IOException {
+  public void byNameExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
 
@@ -53,7 +53,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByNameWildcard() throws IOException {
+  public void byNameWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
 
@@ -68,7 +68,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByNameExact_AndPath() throws IOException {
+  public void byNameExact_AndPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>abc def</p>"
         + "<input id='id1' name='TextInput1' type='text'>" + "<p>abcdef</p>"
         + "<input id='id2' name='TextInput2' type='text'>" + "</form>" + "</body></html>";
@@ -97,7 +97,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByIdExact() throws IOException {
+  public void byIdExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
 
@@ -112,7 +112,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByIdWildcard() throws IOException {
+  public void byIdWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
 
@@ -127,7 +127,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_LabelWrongId() throws IOException {
+  public void byLabelWrongId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "</form>" + "</body></html>";
 
@@ -140,7 +140,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_TextInputByLabel() throws IOException {
+  public void byLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "<input id='inputId' name='TextInput' type='text'>" + "</form>" + "</body></html>";
 
@@ -156,7 +156,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_TextInputByLabelChild() throws IOException {
+  public void byLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
         + "abc<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
@@ -179,7 +179,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByLabelExact() throws IOException {
+  public void byLabelExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "<input id='inputId' name='TextInput' type='text'>"
         + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
@@ -202,7 +202,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByLabelWildcard() throws IOException {
+  public void byLabelWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "<input id='inputId' name='TextInput' type='text'>"
         + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
@@ -225,7 +225,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByLabelChildWildcard() throws IOException {
+  public void byLabelChildWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
         + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
@@ -248,7 +248,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByTextBeforeExact() throws IOException {
+  public void byTextBeforeExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<table>" + "<tr>" + "<td>Line1</td>" + "<td>Input1</td>" + "<td>"
         + "<input id='l1Txt1' name='l1Txt1' type='text' value='l1t1'/>" + "</td>" + "<td>Input2</td>" + "<td>"
         + "<input id='l1Txt2' name='l1Txt2' type='text' value='l1t2'/>" + "</td>" + "</tr>" + "<tr>" + "<td>Line2</td>"
@@ -312,7 +312,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_OneByTextBefore() throws IOException {
+  public void byTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "LongTextBefore Label"
         + "<input id='l1Txt1' name='l1Txt1' type='text' value='l1t1'/>" + "SecondLabel"
         + "<input id='l1Txt2' name='l1Txt2' type='text' value='l1t2'/>" + "</body></html>";
@@ -337,7 +337,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_ManyByIdExact() throws IOException {
+  public void byIdExactMany() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "<form action='test2'>" + "<input id='ti' name='TextInput2' type='text'>" + "</form>"
         + "</body></html>";
@@ -359,7 +359,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void testGetAllSetables_SameNameAndId() throws IOException {
+  public void bySameNameAndId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='TextInput' name='TextInput' type='text'>" + "</form>" + "</body></html>";
 

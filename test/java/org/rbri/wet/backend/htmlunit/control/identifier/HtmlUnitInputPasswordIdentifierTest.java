@@ -38,7 +38,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void testGetAllSetables_PasswordInputByLabel() throws IOException {
+  public void byLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
         + "<input id='inputId' name='PasswordInput' type='password'>" + "</form>" + "</body></html>";
 
@@ -55,7 +55,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void testGetAllSetables_PasswordInputByLabelChild() throws IOException {
+  public void byLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='inputId' name='PasswordInput' type='password'>" + "</label>" + "</form>" + "</body></html>";
 
@@ -72,7 +72,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void testGetAllSetables_OneByLabelTextBeforeExact() throws IOException {
+  public void byLabelTextBeforeExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<table>" + "<tr>" + "<td>CWID</td>" + "<td>"
         + "<input id='userForm:cwidTxt' name='userForm:cwidTxt' type='text' value=''/>" + "</td>" + "</tr>" + "<tr>"
         + "<td>Passwort</td>" + "<td>"
@@ -92,7 +92,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void testGetAllSetables_OneByLabelTextBeforeWildcard() throws IOException {
+  public void byLabelTextBeforeWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<table>" + "<tr>" + "<td>CWID</td>" + "<td>"
         + "<input id='userForm:cwidTxt' name='userForm:cwidTxt' type='text' value=''/>" + "</td>" + "</tr>" + "<tr>"
         + "<td>Passwort</td>" + "<td>"

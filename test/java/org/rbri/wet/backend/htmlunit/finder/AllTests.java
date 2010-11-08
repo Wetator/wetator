@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet.backend.htmlunit.control.identifier;
+package org.rbri.wet.backend.htmlunit.finder;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -26,23 +26,22 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ HtmlUnitAnchorIdentifierTest.class, //
-    HtmlUnitButtonIdentifierTest.class, //
-    HtmlUnitImageIdentifierTest.class, //
-    HtmlUnitInputSubmitIdentifierTest.class })
-public final class AllSelectablesTests {
+@SuiteClasses({ AllHtmlUnitControlsForTextFinderTest.class, //
+    IdentifierBasedHtmlUnitControlsFinderTest.class, //
+    SettableHtmlUnitControlsFinderTest.class })
+public final class AllTests {
 
   /**
    * @param anArgsArray ignored
    */
   public static void main(String[] anArgsArray) {
-    JUnitCore.main(AllSelectablesTests.class.getName());
+    JUnitCore.main(AllTests.class.getName());
   }
 
   /**
    * The constructor.
    */
-  private AllSelectablesTests() {
+  private AllTests() {
     // nothing
   }
 }
