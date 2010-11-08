@@ -212,8 +212,10 @@ public class AllHtmlUnitControlsForTextFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getEntriesSorted()
-        .get(0).toString());
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlAnchor'] found by: BY_TEXT coverage: 0 distance: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -229,8 +231,10 @@ public class AllHtmlUnitControlsForTextFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getEntriesSorted()
-        .get(0).toString());
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlAnchor'] found by: BY_TEXT coverage: 0 distance: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 7", tmpFound
         .getEntriesSorted().get(1).toString());
   }
@@ -248,8 +252,10 @@ public class AllHtmlUnitControlsForTextFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getEntriesSorted()
-        .get(0).toString());
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlAnchor'] found by: BY_TEXT coverage: 0 distance: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
