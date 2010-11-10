@@ -27,7 +27,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * XXX add class jdoc
+ * The base class for all identifiers.<br />
+ * An identifier can be used to identify a {@link HtmlElement} as a {@link org.rbri.wet.backend.control.Control}
+ * matching a specific search. To check, if a {@link HtmlElement} is supported by an identifier at all, use
+ * {@link #isHtmlElementSupported(HtmlElement)}.
  * 
  * @author frank.danek
  */

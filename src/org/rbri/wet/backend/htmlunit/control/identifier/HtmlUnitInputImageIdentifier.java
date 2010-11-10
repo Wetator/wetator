@@ -35,7 +35,15 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitInputImage}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>it's alt attribute</li>
+ * <li>it's title attribute</li>
+ * <li>it's src attribute</li>
+ * <li>it's name</li>
+ * <li>it's id</li>
+ * </ul>
  * 
  * @author frank.danek
  */

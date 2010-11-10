@@ -34,7 +34,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitAnchor}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>some attributes of a nested image</li>
+ * <li>it's text</li>
+ * <li>it's name</li>
+ * <li>it's id</li>
+ * </ul>
  * 
  * @author frank.danek
  */

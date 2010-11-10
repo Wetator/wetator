@@ -36,7 +36,15 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitTextArea}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>the whole text before</li>
+ * <li>the label text before</li>
+ * <li>it's name</li>
+ * <li>it's id</li>
+ * <li>a label</li>
+ * </ul>
  * 
  * @author frank.danek
  */

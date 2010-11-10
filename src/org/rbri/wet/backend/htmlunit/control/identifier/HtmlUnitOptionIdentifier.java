@@ -31,7 +31,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitOption}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>it's id</li>
+ * </ul>
  * 
  * @author frank.danek
  */

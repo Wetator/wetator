@@ -32,7 +32,20 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitOption} nested inside a select.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>it's text</li>
+ * <li>it's label attribute</li>
+ * <li>it's value attribute</li>
+ * </ul>
+ * The surrounding select can be identified by:
+ * <ul>
+ * <li>the label text before</li>
+ * <li>it's name</li>
+ * <li>it's id</li>
+ * <li>a label</li>
+ * </ul>
  * 
  * @author frank.danek
  */

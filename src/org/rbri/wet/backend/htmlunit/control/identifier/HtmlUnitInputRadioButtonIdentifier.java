@@ -34,7 +34,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitInputRadioButton}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>the label text after</li>
+ * <li>it's id</li>
+ * <li>a label</li>
+ * </ul>
  * 
  * @author frank.danek
  */

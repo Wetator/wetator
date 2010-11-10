@@ -33,7 +33,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitInputSubmit}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>it's value</li>
+ * <li>it's name</li>
+ * <li>it's id</li>
+ * </ul>
  * 
  * @author frank.danek
  */

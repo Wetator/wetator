@@ -35,7 +35,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
 /**
- * XXX add class jdoc
+ * The identifier for a {@link HtmlUnitInputCheckBox}.<br />
+ * It can be identified by:
+ * <ul>
+ * <li>the label text after</li>
+ * <li>it's name</li>
+ * <li>it's id</li>
+ * <li>a label</li>
+ * </ul>
  * 
  * @author frank.danek
  */
