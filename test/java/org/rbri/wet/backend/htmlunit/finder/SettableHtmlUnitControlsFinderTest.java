@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -39,11 +39,11 @@ public class SettableHtmlUnitControlsFinderTest {
   public void empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPage, tmpDomNodeText, null);
+    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -54,11 +54,11 @@ public class SettableHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='text' value='SetMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPage, tmpDomNodeText, null);
+    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -69,11 +69,11 @@ public class SettableHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='file' value='SetMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPage, tmpDomNodeText, null);
+    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -86,11 +86,11 @@ public class SettableHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='password' value='SetMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPage, tmpDomNodeText, null);
+    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -103,11 +103,11 @@ public class SettableHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='text' value='SetMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPage, tmpDomNodeText, null);
+    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -120,11 +120,11 @@ public class SettableHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea id='myId'>SetMe</textarea>" + "</form>"
         + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPage, tmpDomNodeText, null);
+    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());

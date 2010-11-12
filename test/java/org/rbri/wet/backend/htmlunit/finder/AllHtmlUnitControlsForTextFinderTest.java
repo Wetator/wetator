@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -39,12 +39,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void noHtml() throws IOException {
     String tmpHtmlCode = "";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -54,12 +54,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void noBody() throws IOException {
     String tmpHtmlCode = "<html>" + "<head><title>MyTitle</title></head>" + "</html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -69,12 +69,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -84,12 +84,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void textNotFound() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("YourText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -99,12 +99,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void textExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -118,12 +118,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void textWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("My*", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -137,12 +137,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void paragraphTextNotFound() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("YourText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -152,12 +152,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void paragraphTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -169,12 +169,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void paragraphTextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("My*", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -186,12 +186,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void paragraphFormatedTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -203,12 +203,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void anchorTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -222,12 +222,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void anchorAndParagraphTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a><p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
@@ -243,12 +243,12 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void anchorFormatedTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>My<b>T</b>ext</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -262,13 +262,13 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void manyParagraphs() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
     tmpSearch.add(new SecretString("ine3", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -280,13 +280,13 @@ public class AllHtmlUnitControlsForTextFinderTest {
   public void manyParagraphs_MatchInside() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("line2 li", false));
     tmpSearch.add(new SecretString("ne3", false));
 
-    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPage, tmpDomNodeText);
+    AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());

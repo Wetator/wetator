@@ -67,7 +67,7 @@ public class HtmlUnitAnchorIdentifier extends AbstractHtmlUnitControlIdentifier 
   public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
       return new WeightedControlList();
@@ -75,14 +75,14 @@ public class HtmlUnitAnchorIdentifier extends AbstractHtmlUnitControlIdentifier 
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // now check for the including image
-    tmpMatches.addAll(new ByInnerImageMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByInnerImageMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
 
-    tmpMatches.addAll(new ByTextMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByTextMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
-    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
     WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {

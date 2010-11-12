@@ -93,10 +93,10 @@ src/org/rbri/wet/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#
 src/org/rbri/wet/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/util/ContentTypeUtil.java -text
-src/org/rbri/wet/backend/htmlunit/util/DomNodeText.java -text
 src/org/rbri/wet/backend/htmlunit/util/ExceptionUtil.java -text
 src/org/rbri/wet/backend/htmlunit/util/FindSpot.java -text
 src/org/rbri/wet/backend/htmlunit/util/HtmlElementUtil.java -text
+src/org/rbri/wet/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/util/PageUtil.java -text
 src/org/rbri/wet/commandset/AbstractCommandSet.java -text
 src/org/rbri/wet/commandset/DefaultCommandSet.java -text
@@ -233,8 +233,8 @@ test/java/org/rbri/wet/backend/htmlunit/finder/AllTests.java -text svneol=unset#
 test/java/org/rbri/wet/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/backend/htmlunit/util/AllTests.java -text
-test/java/org/rbri/wet/backend/htmlunit/util/DomNodeTextTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/HtmlElementUtilTest.java -text
+test/java/org/rbri/wet/backend/htmlunit/util/HtmlPageIndexTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/PageUtilTest.java -text
 test/java/org/rbri/wet/commandset/AllTests.java -text
 test/java/org/rbri/wet/commandset/ExecTester.java -text

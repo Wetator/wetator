@@ -69,7 +69,7 @@ public class HtmlUnitInputImageIdentifier extends AbstractHtmlUnitControlIdentif
   public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
       return new WeightedControlList();
@@ -77,21 +77,21 @@ public class HtmlUnitInputImageIdentifier extends AbstractHtmlUnitControlIdentif
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // does image alt-text match?
-    tmpMatches.addAll(new ByImageAltAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByImageAltAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
 
     // does image title-text match?
     tmpMatches
-        .addAll(new ByImageTitleAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .addAll(new ByImageTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
             .matches(aHtmlElement));
 
     // does image filename match?
-    tmpMatches.addAll(new ByImageSrcAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByImageSrcAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
 
-    tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));
     WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {

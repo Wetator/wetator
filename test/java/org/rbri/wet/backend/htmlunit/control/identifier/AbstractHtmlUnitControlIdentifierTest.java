@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -37,23 +37,23 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
   protected WeightedControlList identify(String aHtmlCode, String anHtmlElementId, List<SecretString> aSearch)
       throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById(anHtmlElementId);
 
-    identifier.initialize(tmpHtmlPage, tmpDomNodeText);
+    identifier.initialize(tmpHtmlPageIndex);
     return identifier.identify(aSearch, tmpHtmlElement);
   }
 
   protected WeightedControlList identify(String aHtmlCode, String anHtmlElementIdOrName, int anIndex,
       List<SecretString> aSearch) throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<HtmlElement> tmpHtmlElements = tmpHtmlPage.getElementsByIdAndOrName(anHtmlElementIdOrName);
     HtmlElement tmpHtmlElement = tmpHtmlElements.get(anIndex);
 
-    identifier.initialize(tmpHtmlPage, tmpDomNodeText);
+    identifier.initialize(tmpHtmlPageIndex);
     return identifier.identify(aSearch, tmpHtmlElement);
   }
 

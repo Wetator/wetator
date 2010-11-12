@@ -70,7 +70,7 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractHtmlUnitControlIden
   public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
     SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(aSearch);
 
     if (null == tmpPathSpot) {
@@ -80,19 +80,20 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractHtmlUnitControlIden
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlPasswordInput) {
       // whole text before
-      tmpMatches.addAll(new ByWholeTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot,
+      tmpMatches.addAll(new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
           tmpWholePathSearchPattern).matches(aHtmlElement));
 
-      tmpMatches.addAll(new ByLabelTextBeforeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches
+          .addAll(new ByLabelTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+              .matches(aHtmlElement));
+      tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
-      tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-          .matches(aHtmlElement));
-      tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
-      tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          htmlPage, HtmlPasswordInput.class).matches(aHtmlElement));
+      tmpMatches.addAll(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+          HtmlPasswordInput.class).matches(aHtmlElement));
     }
     WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {

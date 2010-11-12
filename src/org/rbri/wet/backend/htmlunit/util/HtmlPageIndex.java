@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.NormalizedString;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
@@ -53,6 +54,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlListItem;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
@@ -72,9 +74,11 @@ import com.gargoylesoftware.htmlunit.html.SubmittableElement;
  * after.
  * 
  * @author rbri
+ * @author frank.danek
  */
-public class DomNodeText {
+public class HtmlPageIndex {
 
+  private HtmlPage htmlPage;
   private NormalizedString text;
   private List<DomNode> nodes;
   private List<HtmlElement> visibleHtmlElementsBottomUp;
@@ -82,18 +86,30 @@ public class DomNodeText {
   private Map<DomNode, FindSpot> positions;
 
   /**
-   * Constructor
+   * The constructor.
    * 
-   * @param aDomNode the root node to start with
+   * @param aHtmlPage the HtmlPage to index
    */
-  public DomNodeText(final DomNode aDomNode) {
+  public HtmlPageIndex(final HtmlPage aHtmlPage) {
+    htmlPage = aHtmlPage;
     text = new NormalizedString();
     nodes = new LinkedList<DomNode>();
     visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
     visibleHtmlElements = new LinkedList<HtmlElement>();
     positions = new HashMap<DomNode, FindSpot>();
 
-    parseDomNode(aDomNode);
+    parseDomNode(aHtmlPage);
+  }
+
+  /**
+   * @param <E> the type of the {@link HtmlElement}
+   * @param aId the id
+   * @return the {@link HtmlElement} for the id
+   * @throws ElementNotFoundException if no element was found for the given id
+   * @see com.gargoylesoftware.htmlunit.html.HtmlPage#getHtmlElementById(java.lang.String)
+   */
+  public <E extends HtmlElement> E getHtmlElementById(String aId) throws ElementNotFoundException {
+    return htmlPage.getHtmlElementById(aId);
   }
 
   /**

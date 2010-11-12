@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -44,15 +44,15 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
    * 
-   * @param aDomNodeText the {@link DomNodeText} of the page the match is based on
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    * @param aFoundType the {@link FoundType} the matcher should use when adding the element
    */
-  public AbstractByAttributeMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
+  public AbstractByAttributeMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
       SearchPattern aSearchPattern, FoundType aFoundType) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern);
+    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
     foundType = aFoundType;
   }
 
@@ -65,7 +65,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   public List<MatchResult> matches(HtmlElement aHtmlElement) {
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // has the node the text before
-    FindSpot tmpNodeSpot = domNodeText.getPosition(aHtmlElement);
+    FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
 
       String tmpValue = getAttributeValue(aHtmlElement);
@@ -83,7 +83,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
             tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpValue);
           }
           if (tmpCoverage > -1) {
-            String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
+            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             tmpTextBefore = processTextForDistance(tmpTextBefore);
             int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance));

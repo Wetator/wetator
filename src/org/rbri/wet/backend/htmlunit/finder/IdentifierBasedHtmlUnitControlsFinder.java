@@ -26,12 +26,11 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given
@@ -59,13 +58,11 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   /**
    * The constructor.
    * 
-   * @param aHtmlPage the page to work on
-   * @param aDomNodeText the {@link DomNodeText} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be null
    */
-  public IdentifierBasedHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText,
-      ThreadPoolExecutor aThreadPool) {
-    super(aHtmlPage, aDomNodeText);
+  public IdentifierBasedHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex, ThreadPoolExecutor aThreadPool) {
+    super(aHtmlPageIndex);
 
     threadPool = aThreadPool;
     if (null == threadPool) {
@@ -97,11 +94,11 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   @Override
   public WeightedControlList find(List<SecretString> aSearch) {
     WeightedControlList tmpFoundControls = new WeightedControlList();
-    for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
+    for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
       for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
         try {
           AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
-          tmpIdentifier.initializeForAsynch(htmlPage, domNodeText, tmpHtmlElement, aSearch, tmpFoundControls);
+          tmpIdentifier.initializeForAsynch(htmlPageIndex, tmpHtmlElement, aSearch, tmpFoundControls);
           if (tmpIdentifier.isHtmlElementSupported(tmpHtmlElement)) {
             execute(tmpIdentifier);
           }

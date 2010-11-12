@@ -19,8 +19,8 @@ package org.rbri.wet.backend.htmlunit.matcher;
 import java.util.List;
 
 import org.rbri.wet.backend.WeightedControlList.FoundType;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -35,9 +35,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 public abstract class AbstractHtmlUnitElementMatcher {
 
   /**
-   * The {@link DomNodeText} of the page the match is based on.
+   * The {@link HtmlPageIndex} of the page the match is based on.
    */
-  protected DomNodeText domNodeText;
+  protected HtmlPageIndex htmlPageIndex;
   /**
    * The {@link SearchPattern} describing the path to the element.
    */
@@ -55,14 +55,14 @@ public abstract class AbstractHtmlUnitElementMatcher {
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
    * 
-   * @param aDomNodeText the {@link DomNodeText} of the page the match is based on
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public AbstractHtmlUnitElementMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern) {
-    domNodeText = aDomNodeText;
+  public AbstractHtmlUnitElementMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern,
+      FindSpot aPathSpot, SearchPattern aSearchPattern) {
+    htmlPageIndex = aHtmlPageIndex;
     pathSpot = aPathSpot;
     searchPattern = aSearchPattern;
     pathSearchPattern = aPathSearchPattern;

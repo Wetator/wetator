@@ -80,7 +80,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       tmpSearchPatternSelect = aSearch.get(aSearch.size() - 2).getSearchPattern();
       tmpPathSearchPatternSelect = SearchPattern.createFromList(aSearch, aSearch.size() - 2);
     }
-    FindSpot tmpPathSpotSelect = domNodeText.firstOccurence(tmpPathSearchPatternSelect);
+    FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
       return new WeightedControlList();
@@ -89,15 +89,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     WeightedControlList tmpResult = new WeightedControlList();
     if (aHtmlElement instanceof HtmlSelect) {
       // has the node the text before
-      FindSpot tmpNodeSpot = domNodeText.getPosition(aHtmlElement);
+      FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
       if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {
 
         // if the select follows text directly and text matches => choose it
-        String tmpText = domNodeText.getLabelTextBefore(aHtmlElement, tmpPathSpotSelect.endPos);
+        String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpPathSpotSelect.endPos);
         if (StringUtils.isNotEmpty(tmpText)) {
           int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpText);
           if (tmpCoverage > -1) {
-            String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
+            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
           }
@@ -108,7 +108,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         if (StringUtils.isNotEmpty(tmpName) && tmpSearchPatternSelect.matches(tmpName)) {
           int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
           if (tmpCoverage > -1) {
-            String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
+            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
           }
@@ -119,7 +119,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
           int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
           if (tmpCoverage > -1) {
-            String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
+            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
           }
@@ -128,11 +128,11 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       // has the node the text before
-      FindSpot tmpNodeSpot = domNodeText.getPosition(aHtmlElement);
+      FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
       HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
-      String tmpText = domNodeText.getAsText(tmpLabel);
+      String tmpText = htmlPageIndex.getAsText(tmpLabel);
 
       // select
       if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {
@@ -143,10 +143,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           // label contains a for-attribute => find corresponding element
           if (StringUtils.isNotEmpty(tmpForAttribute)) {
             try {
-              HtmlElement tmpElementForLabel = htmlPage.getHtmlElementById(tmpForAttribute);
+              HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
               if (tmpElementForLabel instanceof HtmlSelect) {
                 if (tmpElementForLabel.isDisplayed()) {
-                  String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
+                  String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
                   int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                   getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, tmpResult);
                 }
@@ -161,7 +161,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           for (HtmlElement tmpChildElement : tmpChilds) {
             if (tmpChildElement instanceof HtmlSelect) {
               if (tmpChildElement.isDisplayed()) {
-                String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
+                String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
                 int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                 getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, tmpResult);
               }
@@ -187,7 +187,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     boolean tmpFound = false;
     Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
     for (HtmlOption tmpOption : tmpOptions) {
-      String tmpText = domNodeText.getAsText(tmpOption);
+      String tmpText = htmlPageIndex.getAsText(tmpOption);
       if (StringUtils.isNotEmpty(tmpText)) {
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {

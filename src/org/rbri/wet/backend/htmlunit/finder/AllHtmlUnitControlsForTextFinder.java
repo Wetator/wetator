@@ -22,13 +22,12 @@ import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * This finder is a generic finder for all {@link HtmlElement}s. Only instances of {@link HtmlUnitBaseControl} are
@@ -46,11 +45,10 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
   /**
    * The constructor.
    * 
-   * @param aHtmlPage the page to work on
-   * @param aDomNodeText the {@link DomNodeText} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    */
-  public AllHtmlUnitControlsForTextFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText) {
-    super(aHtmlPage, aDomNodeText);
+  public AllHtmlUnitControlsForTextFinder(HtmlPageIndex aHtmlPageIndex) {
+    super(aHtmlPageIndex);
   }
 
   /**
@@ -65,14 +63,14 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
     if (null == tmpPathSpot) {
       return tmpFoundControls;
     }
 
     // search with id
-    for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
-      List<MatchResult> tmpMatches = new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+    for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
+      List<MatchResult> tmpMatches = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(tmpHtmlElement);
       for (MatchResult tmpMatch : tmpMatches) {
         tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
@@ -80,16 +78,16 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
       }
     }
 
-    FindSpot tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.endPos));
+    FindSpot tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.endPos));
     while ((null != tmpHitSpot) && (tmpHitSpot.endPos > -1)) {
       // found a hit
 
       // find the first element that surrounds this
-      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUp()) {
-        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+      for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
+        FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
         if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
           // found one
-          String tmpTextBefore = domNodeText.getTextBeforeIncludingMyself(tmpHtmlElement);
+          String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
           FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
           int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.endPos;
 
@@ -102,7 +100,7 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
         }
       }
 
-      tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
+      tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
     }
     return tmpFoundControls;
   }

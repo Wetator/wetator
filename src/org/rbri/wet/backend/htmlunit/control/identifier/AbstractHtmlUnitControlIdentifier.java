@@ -19,12 +19,11 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.List;
 
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * The base class for all identifiers.<br />
@@ -37,13 +36,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   /**
-   * The page to work on.
+   * The HtmlPageIndex index of the page.
    */
-  protected HtmlPage htmlPage;
-  /**
-   * The DomNodeText index of the page.
-   */
-  protected DomNodeText domNodeText;
+  protected HtmlPageIndex htmlPageIndex;
   /**
    * The list the found controls should be added to.
    */
@@ -57,26 +52,23 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
   /**
    * Initializes the identifier.
    * 
-   * @param aHtmlPage the page to work on
-   * @param aDomNodeText the {@link DomNodeText} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    */
-  public void initialize(HtmlPage aHtmlPage, DomNodeText aDomNodeText) {
-    htmlPage = aHtmlPage;
-    domNodeText = aDomNodeText;
+  public void initialize(HtmlPageIndex aHtmlPageIndex) {
+    htmlPageIndex = aHtmlPageIndex;
   }
 
   /**
    * Initializes the identifier to work asynchronously.
    * 
-   * @param aHtmlPage the page to work on
-   * @param aDomNodeText the {@link DomNodeText} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @param aSearch the search used to identify the control
    * @param aFoundControls the list the found controls should be added to
    */
-  public void initializeForAsynch(HtmlPage aHtmlPage, DomNodeText aDomNodeText, HtmlElement aHtmlElement,
-      List<SecretString> aSearch, WeightedControlList aFoundControls) {
-    initialize(aHtmlPage, aDomNodeText);
+  public void initializeForAsynch(HtmlPageIndex aHtmlPageIndex, HtmlElement aHtmlElement, List<SecretString> aSearch,
+      WeightedControlList aFoundControls) {
+    initialize(aHtmlPageIndex);
     htmlElement = aHtmlElement;
     search = aSearch;
     foundControls = aFoundControls;

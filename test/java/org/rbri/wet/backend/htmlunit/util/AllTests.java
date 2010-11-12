@@ -27,7 +27,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses( { HtmlElementUtilTest.class, //
-    DomNodeTextTest.class, //
+    HtmlPageIndexTest.class, //
     PageUtilTest.class })
 public final class AllTests {
 

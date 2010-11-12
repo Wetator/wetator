@@ -19,10 +19,8 @@ package org.rbri.wet.backend.htmlunit.finder;
 import java.util.List;
 
 import org.rbri.wet.backend.WeightedControlList;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.util.SecretString;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * The base class for all HtmlUnit finders.<br />
@@ -34,23 +32,17 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public abstract class AbstractHtmlUnitControlsFinder {
 
   /**
-   * The page to work on.
+   * The index of the page.
    */
-  protected HtmlPage htmlPage;
-  /**
-   * The DomNodeText index of the page.
-   */
-  protected DomNodeText domNodeText;
+  protected HtmlPageIndex htmlPageIndex;
 
   /**
    * The constructor.
    * 
-   * @param aHtmlPage the page to work on
-   * @param aDomNodeText the {@link DomNodeText} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    */
-  public AbstractHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText) {
-    htmlPage = aHtmlPage;
-    domNodeText = aDomNodeText;
+  public AbstractHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex) {
+    htmlPageIndex = aHtmlPageIndex;
   }
 
   /**

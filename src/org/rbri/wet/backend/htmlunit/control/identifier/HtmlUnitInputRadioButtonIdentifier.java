@@ -66,7 +66,7 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractHtmlUnitControlI
   public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
       return new WeightedControlList();
@@ -74,15 +74,15 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractHtmlUnitControlI
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlRadioButtonInput) {
-      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches.addAll(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
       // no search by name
-      tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
-      tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          htmlPage, HtmlRadioButtonInput.class).matches(aHtmlElement));
+      tmpMatches.addAll(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+          HtmlRadioButtonInput.class).matches(aHtmlElement));
     }
     WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {

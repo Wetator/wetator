@@ -68,7 +68,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIden
   public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
       return new WeightedControlList();
@@ -76,16 +76,16 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIden
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (aHtmlElement instanceof HtmlCheckBoxInput) {
-      tmpMatches.addAll(new ByLabelTextAfterMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches.addAll(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
-      tmpMatches.addAll(new ByNameAttributeMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
-      tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+      tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
           .matches(aHtmlElement));
 
     } else if (aHtmlElement instanceof HtmlLabel) {
-      tmpMatches.addAll(new ByHtmlLabelMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          htmlPage, HtmlCheckBoxInput.class).matches(aHtmlElement));
+      tmpMatches.addAll(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+          HtmlCheckBoxInput.class).matches(aHtmlElement));
     }
     WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {

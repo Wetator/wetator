@@ -21,14 +21,13 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.WeightedControlList.FoundType;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * This matcher checks if the given {@link HtmlLabel} matches the criteria and labels the needed type of element.
@@ -37,24 +36,21 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
 
-  private HtmlPage htmlPage;
   private Class<? extends HtmlElement> clazz;
 
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
    * 
-   * @param aDomNodeText the {@link DomNodeText} of the page the match is based on
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aHtmlPage the {@link HtmlPage} containing the given {@link HtmlElement}
    * @param aClass the class of the {@link HtmlElement} the matching label labels.
    */
-  public ByHtmlLabelMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, HtmlPage aHtmlPage, Class<? extends HtmlElement> aClass) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern);
-    htmlPage = aHtmlPage;
+  public ByHtmlLabelMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
+      SearchPattern aSearchPattern, Class<? extends HtmlElement> aClass) {
+    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
     clazz = aClass;
   }
 
@@ -71,23 +67,23 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
     }
 
     // has the node the text before
-    FindSpot tmpNodeSpot = domNodeText.getPosition(aHtmlElement);
+    FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
 
       HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
-      String tmpText = domNodeText.getAsText(tmpLabel);
+      String tmpText = htmlPageIndex.getAsText(tmpLabel);
       int tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpCoverage > -1) {
         String tmpForAttribute = tmpLabel.getForAttribute();
         // label contains a for-attribute => find corresponding element
         if (StringUtils.isNotEmpty(tmpForAttribute)) {
           try {
-            HtmlElement tmpElementForLabel = htmlPage.getHtmlElementById(tmpForAttribute);
+            HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
             if (clazz.isAssignableFrom(tmpElementForLabel.getClass())) {
               if (tmpElementForLabel.isDisplayed()) {
-                String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
+                String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
                 int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
                 tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
@@ -103,7 +99,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
         for (HtmlElement tmpChildElement : tmpChilds) {
           if (clazz.isAssignableFrom(tmpChildElement.getClass())) {
             if (tmpChildElement.isDisplayed()) {
-              String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
+              String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
               tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance));

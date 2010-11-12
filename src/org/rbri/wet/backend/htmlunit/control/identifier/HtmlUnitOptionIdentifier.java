@@ -68,14 +68,14 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
     } else {
       tmpPathSearchPatternSelect = SearchPattern.createFromList(aSearch, aSearch.size() - 2);
     }
-    FindSpot tmpPathSpotSelect = domNodeText.firstOccurence(tmpPathSearchPatternSelect);
+    FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
       return new WeightedControlList();
     }
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByIdMatcher(domNodeText, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern)
+    tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern)
         .matches(aHtmlElement));
     WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpMatches) {

@@ -26,10 +26,9 @@ import org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.finder.AllHtmlUnitControlsForTextFinder;
 import org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.util.SecretString;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -41,13 +40,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class HtmlUnitFinderDelegator implements ControlFinder {
 
   /**
-   * The page to work on.
+   * The index of the page.
    */
-  protected HtmlPage htmlPage;
-  /**
-   * The DomNodeText index of the page.
-   */
-  protected DomNodeText domNodeText;
+  protected HtmlPageIndex htmlPageIndex;
 
   private static ThreadPoolExecutor threadPool;
 
@@ -67,20 +62,19 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
     if (null == anHtmlPage) {
       throw new NullPointerException("HtmlPage can't be null");
     }
-    htmlPage = anHtmlPage;
-    domNodeText = new DomNodeText(htmlPage.getBody());
+    htmlPageIndex = new HtmlPageIndex(anHtmlPage);
 
     if (threadPool == null) {
       threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
       threadPool.prestartAllCoreThreads();
     }
 
-    settablesFinder = new SettableHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
-    clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
-    selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
-    deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
-    othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPage, domNodeText, threadPool);
-    forTextFinder = new AllHtmlUnitControlsForTextFinder(htmlPage, domNodeText);
+    settablesFinder = new SettableHtmlUnitControlsFinder(htmlPageIndex, threadPool);
+    clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
+    selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
+    deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
+    othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
+    forTextFinder = new AllHtmlUnitControlsForTextFinder(htmlPageIndex);
   }
 
   /**
@@ -159,23 +153,5 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   @Override
   public WeightedControlList getAllControlsForText(List<SecretString> aSearch) {
     return forTextFinder.find(aSearch);
-  }
-
-  /**
-   * @param <E> a subclass of HtmlElement
-   * @param anElementName the name of the element
-   * @param anAttributeName the name of the attribute
-   * @param anAttributeValue the value of the attribute
-   * @return a list containing all found elements
-   * @deprecated do not use anymore
-   */
-  @Deprecated
-  public final <E extends HtmlElement> List<E> getElementsByAttribute(String anElementName, String anAttributeName,
-      String anAttributeValue) {
-    HtmlElement tmpBody = htmlPage.getBody();
-    if (null == tmpBody) {
-      return null;
-    }
-    return tmpBody.getElementsByAttribute(anElementName, anAttributeName, anAttributeValue);
   }
 }

@@ -50,8 +50,8 @@ import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitSelect;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
@@ -646,7 +646,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       while (System.currentTimeMillis() < tmpEndTime) {
         HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        String tmpContentAsText = new DomNodeText(tmpHtmlPage).getText();
+        String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         try {
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpContentAsText;
@@ -678,7 +678,7 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     if (tmpPage instanceof HtmlPage) {
       HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-      String tmpContentAsText = new DomNodeText(tmpHtmlPage).getText();
+      String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
       return tmpContentAsText;
     }

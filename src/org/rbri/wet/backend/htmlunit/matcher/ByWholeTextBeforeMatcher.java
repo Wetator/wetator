@@ -17,7 +17,7 @@
 package org.rbri.wet.backend.htmlunit.matcher;
 
 import org.rbri.wet.backend.WeightedControlList.FoundType;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 
@@ -34,14 +34,14 @@ public class ByWholeTextBeforeMatcher extends AbstractByAttributeMatcher {
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
    * 
-   * @param aDomNodeText the {@link DomNodeText} of the page the match is based on
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public ByWholeTextBeforeMatcher(DomNodeText aDomNodeText, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
+  public ByWholeTextBeforeMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
       SearchPattern aSearchPattern) {
-    super(aDomNodeText, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_TEXT);
+    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_TEXT);
     matchType = MatchType.STARTS_WITH;
   }
 
@@ -52,6 +52,6 @@ public class ByWholeTextBeforeMatcher extends AbstractByAttributeMatcher {
    */
   @Override
   protected String getAttributeValue(HtmlElement aHtmlElement) {
-    return domNodeText.getTextBefore(aHtmlElement);
+    return htmlPageIndex.getTextBefore(aHtmlElement);
   }
 }

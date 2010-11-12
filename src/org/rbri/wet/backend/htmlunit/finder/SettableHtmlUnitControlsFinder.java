@@ -24,12 +24,11 @@ import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
@@ -52,12 +51,11 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
   /**
    * The constructor.
    * 
-   * @param aHtmlPage the page to work on
-   * @param aDomNodeText the {@link DomNodeText} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be null
    */
-  public SettableHtmlUnitControlsFinder(HtmlPage aHtmlPage, DomNodeText aDomNodeText, ThreadPoolExecutor aThreadPool) {
-    super(aHtmlPage, aDomNodeText, aThreadPool);
+  public SettableHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex, ThreadPoolExecutor aThreadPool) {
+    super(aHtmlPageIndex, aThreadPool);
   }
 
   /**
@@ -71,30 +69,30 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
 
     // special case to support some search engines
     if (aSearch.isEmpty()) {
-      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
+      for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
         if (tmpHtmlElement.isDisplayed()) {
           if (tmpHtmlElement instanceof HtmlTextInput) {
             tmpFoundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundControls;
           }
           if (tmpHtmlElement instanceof HtmlPasswordInput) {
             tmpFoundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundControls;
           }
           if (tmpHtmlElement instanceof HtmlTextArea) {
             tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundControls;
           }
           if (tmpHtmlElement instanceof HtmlFileInput) {
             tmpFoundControls.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
                 WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                domNodeText.getTextBefore(tmpHtmlElement).length()); // distance from page start
+                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
             return tmpFoundControls;
           }
         }

@@ -24,7 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
 
@@ -40,13 +40,12 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
   public void empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
 
-    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPage,
-        tmpDomNodeText, null);
+    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -57,13 +56,12 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPage,
-        tmpDomNodeText, null);
+    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
@@ -75,13 +73,12 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
 
-    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPage,
-        tmpDomNodeText, null);
+    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
     WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
 
