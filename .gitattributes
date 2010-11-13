@@ -143,7 +143,9 @@ src/org/rbri/wet/util/StringUtil.java -text
 src/org/rbri/wet/util/VariableReplaceUtil.java -text
 src/org/rbri/wet/util/XmlUtil.java -text
 src/wetator.config -text
+test/ant/ant_task_classpath_test.xls -text
 test/ant/build.xml -text
+test/ant/commons-exec-1.1.jar -text
 test/ant/sample.xls -text
 test/ant/wet.config -text
 test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
