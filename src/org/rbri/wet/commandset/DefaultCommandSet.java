@@ -624,9 +624,14 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             aWetContext.informListenersInfo("javaExecResult", new String[] { tmpResult.toString() });
           }
         }
-      } catch (ClassNotFoundException e) {
+      } catch (NoClassDefFoundError e) {
+        aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aWetContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
-        Assert.fail("javaExecClassNotFound", new String[] { tmpClassName });
+        Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
+      } catch (ClassNotFoundException e) {
+        aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aWetContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
+        Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
       } catch (IllegalArgumentException e) {
         Assert.fail("javaExecIllegalArgument",
             new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getMessage() });
