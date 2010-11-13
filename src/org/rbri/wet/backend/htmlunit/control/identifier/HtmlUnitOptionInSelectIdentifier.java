@@ -16,14 +16,12 @@
 
 package org.rbri.wet.backend.htmlunit.control.identifier;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -64,21 +62,21 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
+  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
+    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
 
     SearchPattern tmpSearchPatternSelect;
     SearchPattern tmpPathSearchPatternSelect;
-    if (aSearch.size() <= 1) {
+    if (aWPath.size() <= 1) {
       tmpSearchPatternSelect = SearchPattern.compile("");
       tmpPathSearchPatternSelect = SearchPattern.compile("");
     } else {
-      tmpSearchPatternSelect = aSearch.get(aSearch.size() - 2).getSearchPattern();
-      tmpPathSearchPatternSelect = SearchPattern.createFromList(aSearch, aSearch.size() - 2);
+      tmpSearchPatternSelect = aWPath.getNode(aWPath.size() - 2).getSearchPattern();
+      tmpPathSearchPatternSelect = SearchPattern.createFromWPath(aWPath, aWPath.size() - 2);
     }
     FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 

@@ -19,10 +19,10 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.io.IOException;
 import java.util.List;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -34,19 +34,18 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
 
   protected AbstractHtmlUnitControlIdentifier identifier;
 
-  protected WeightedControlList identify(String aHtmlCode, String anHtmlElementId, List<SecretString> aSearch)
-      throws IOException {
+  protected WeightedControlList identify(String aHtmlCode, String anHtmlElementId, WPath aWPath) throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById(anHtmlElementId);
 
     identifier.initialize(tmpHtmlPageIndex);
-    return identifier.identify(aSearch, tmpHtmlElement);
+    return identifier.identify(aWPath, tmpHtmlElement);
   }
 
-  protected WeightedControlList identify(String aHtmlCode, String anHtmlElementIdOrName, int anIndex,
-      List<SecretString> aSearch) throws IOException {
+  protected WeightedControlList identify(String aHtmlCode, String anHtmlElementIdOrName, int anIndex, WPath aWPath)
+      throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -54,7 +53,7 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
     HtmlElement tmpHtmlElement = tmpHtmlElements.get(anIndex);
 
     identifier.initialize(tmpHtmlPageIndex);
-    return identifier.identify(aSearch, tmpHtmlElement);
+    return identifier.identify(aWPath, tmpHtmlElement);
   }
 
 }

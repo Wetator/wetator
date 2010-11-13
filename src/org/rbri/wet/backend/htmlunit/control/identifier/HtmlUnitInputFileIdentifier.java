@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -29,7 +30,6 @@ import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
@@ -63,15 +63,15 @@ public class HtmlUnitInputFileIdentifier extends AbstractHtmlUnitControlIdentifi
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
+  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
+    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
-    SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(aSearch);
+    SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromWPath(aWPath);
 
     if (null == tmpPathSpot) {
       return new WeightedControlList();

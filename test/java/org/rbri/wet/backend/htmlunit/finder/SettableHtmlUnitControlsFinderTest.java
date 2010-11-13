@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
@@ -44,7 +45,7 @@ public class SettableHtmlUnitControlsFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -59,7 +60,7 @@ public class SettableHtmlUnitControlsFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -74,7 +75,7 @@ public class SettableHtmlUnitControlsFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
@@ -91,7 +92,7 @@ public class SettableHtmlUnitControlsFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
@@ -108,7 +109,7 @@ public class SettableHtmlUnitControlsFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound
@@ -125,7 +126,7 @@ public class SettableHtmlUnitControlsFinderTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
 
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID coverage: 0 distance: 0", tmpFound

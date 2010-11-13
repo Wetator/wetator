@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -45,7 +46,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TextInput", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 0 distance: 0",
@@ -60,7 +61,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TextI*", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 4 distance: 0",
@@ -77,13 +78,13 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     tmpSearch.add(new SecretString("abc*def", false));
     tmpSearch.add(new SecretString("TextInput1", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "id1", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "id1", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='id1') (name='TextInput1')] found by: BY_NAME coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "id2", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "id2", new WPath(tmpSearch));
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
 
     // not found
@@ -91,7 +92,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     tmpSearch.add(new SecretString("abcdef", false));
     tmpSearch.add(new SecretString("TextInput1", false));
 
-    tmpFound = identify(tmpHtmlCode, "id1", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "id1", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -104,7 +105,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ti", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
@@ -119,7 +120,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("t*", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 1 distance: 0",
@@ -134,7 +135,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -147,7 +148,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -164,13 +165,13 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "another", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -187,13 +188,13 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "another", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -210,13 +211,13 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("La*l", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "another", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -233,13 +234,13 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("La*l", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "another", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -260,21 +261,21 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     tmpSearch.add(new SecretString("Line1", false));
     tmpSearch.add(new SecretString("Input2", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "l1Txt2", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "l1Txt2", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 13", tmpFound
             .getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "l2Txt2", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "l2Txt2", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 43", tmpFound
             .getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "l2Txt1", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "l2Txt1", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_TEXT coverage: 18 distance: 37",
@@ -285,14 +286,14 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     tmpSearch.add(new SecretString("Line2", false));
     tmpSearch.add(new SecretString("Input1", false));
 
-    tmpFound = identify(tmpHtmlCode, "l2Txt1", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "l2Txt1", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 1", tmpFound
             .getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "l2Txt2", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "l2Txt2", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_TEXT coverage: 12 distance: 19",
@@ -303,7 +304,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     tmpSearch.add(new SecretString("Line2", false));
     tmpSearch.add(new SecretString("Input2", false));
 
-    tmpFound = identify(tmpHtmlCode, "l2Txt2", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "l2Txt2", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -321,14 +322,14 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     tmpSearch.add(new SecretString("LongTextBefore", false));
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "l1Txt1", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "l1Txt1", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlTextInput (id='l1Txt1') (name='l1Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 1", tmpFound
             .getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "l1Txt2", tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "l1Txt2", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -345,13 +346,13 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ti", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", 0, tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", 0, new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "ti", 1, tmpSearch);
+    tmpFound = identify(tmpHtmlCode, "ti", 1, new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='ti') (name='TextInput2')] found by: BY_ID coverage: 0 distance: 0",
@@ -366,7 +367,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TextInput", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "TextInput", 0, tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "TextInput", 0, new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='TextInput') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0",

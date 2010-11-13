@@ -16,19 +16,17 @@
 
 package org.rbri.wet.backend.htmlunit.control.identifier;
 
-import java.util.List;
-
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.exception.WetException;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers.<br />
  * An identifier can be used to identify a {@link HtmlElement} as a {@link org.rbri.wet.backend.control.Control}
- * matching a specific search. To check, if a {@link HtmlElement} is supported by an identifier at all, use
+ * matching a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use
  * {@link #isHtmlElementSupported(HtmlElement)}.
  * 
  * @author frank.danek
@@ -46,7 +44,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   // for asynchronous use
   private boolean initializedForAsynch;
-  private List<SecretString> search;
+  private WPath wPath;
   private HtmlElement htmlElement;
 
   /**
@@ -63,14 +61,14 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    * @param aHtmlElement the {@link HtmlElement} to be identified
-   * @param aSearch the search used to identify the control
+   * @param aWPath the wpath used to identify the controls
    * @param aFoundControls the list the found controls should be added to
    */
-  public void initializeForAsynch(HtmlPageIndex aHtmlPageIndex, HtmlElement aHtmlElement, List<SecretString> aSearch,
+  public void initializeForAsynch(HtmlPageIndex aHtmlPageIndex, HtmlElement aHtmlElement, WPath aWPath,
       WeightedControlList aFoundControls) {
     initialize(aHtmlPageIndex);
     htmlElement = aHtmlElement;
-    search = aSearch;
+    wPath = aWPath;
     foundControls = aFoundControls;
     initializedForAsynch = true;
   }
@@ -92,18 +90,18 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
       throw new WetException(getClass().getName()
           + " is not initialized to work asynchronously. Use initializeForAsynch().");
     }
-    WeightedControlList tmpResult = identify(search, htmlElement);
+    WeightedControlList tmpResult = identify(wPath, htmlElement);
     if (tmpResult != null) {
       foundControls.addAll(tmpResult);
     }
   }
 
   /**
-   * Tries to identify the given {@link HtmlElement} with the given search.
+   * Tries to identify the given {@link HtmlElement} using the given wpath.
    * 
-   * @param aSearch the search used to identify the control
+   * @param aWPath the wpath used to identify the controls
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @return the list containing the identified controls
    */
-  public abstract WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement);
+  public abstract WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement);
 }

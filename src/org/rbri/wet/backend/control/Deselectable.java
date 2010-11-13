@@ -21,7 +21,8 @@ import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * This interface marks all deselectable {@link Control}s. These controls are returned by
- * {@link org.rbri.wet.backend.ControlFinder#getAllDeselectables(java.util.List)}. All deselectable control are also
+ * {@link org.rbri.wet.backend.ControlFinder#getAllDeselectables(org.rbri.wet.backend.WPath)}. All deselectable control
+ * are also
  * selectable.
  * 
  * @author frank.danek

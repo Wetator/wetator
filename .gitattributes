@@ -26,6 +26,7 @@ src/org/rbri/wet/WetatorScriptConverter.java -text svneol=unset#text/plain
 src/org/rbri/wet/ant/AntOutProgressListener.java -text
 src/org/rbri/wet/ant/Wetator.java -text
 src/org/rbri/wet/backend/ControlFinder.java -text
+src/org/rbri/wet/backend/WPath.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/WeightedControlList.java -text
 src/org/rbri/wet/backend/WetBackend.java -text
 src/org/rbri/wet/backend/control/Clickable.java -text svneol=unset#text/plain

@@ -24,7 +24,7 @@ import org.rbri.wet.util.SecretString;
 
 /**
  * This interface marks all settable {@link Control}s. These controls are returned by
- * {@link org.rbri.wet.backend.ControlFinder#getAllSettables(java.util.List)}.
+ * {@link org.rbri.wet.backend.ControlFinder#getAllSettables(org.rbri.wet.backend.WPath)}.
  * 
  * @author frank.danek
  */

@@ -16,18 +16,17 @@
 
 package org.rbri.wet.backend.htmlunit;
 
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.rbri.wet.backend.ControlFinder;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.finder.AllHtmlUnitControlsForTextFinder;
 import org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -98,60 +97,60 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllSettables(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllSettables(WPath)
    */
   @Override
-  public WeightedControlList getAllSettables(List<SecretString> aSearch) {
-    return settablesFinder.find(aSearch);
+  public WeightedControlList getAllSettables(WPath aWPath) {
+    return settablesFinder.find(aWPath);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllClickables(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllClickables(WPath)
    */
   @Override
-  public WeightedControlList getAllClickables(List<SecretString> aSearch) {
-    return clickablesFinder.find(aSearch);
+  public WeightedControlList getAllClickables(WPath aWPath) {
+    return clickablesFinder.find(aWPath);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllSelectables(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllSelectables(WPath)
    */
   @Override
-  public WeightedControlList getAllSelectables(final List<SecretString> aSearch) {
-    return selectablesFinder.find(aSearch);
+  public WeightedControlList getAllSelectables(final WPath aWPath) {
+    return selectablesFinder.find(aWPath);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllDeselectables(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllDeselectables(WPath)
    */
   @Override
-  public WeightedControlList getAllDeselectables(final List<SecretString> aSearch) {
-    return deselectablesFinder.find(aSearch);
+  public WeightedControlList getAllDeselectables(final WPath aWPath) {
+    return deselectablesFinder.find(aWPath);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllOtherControls(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllOtherControls(WPath)
    */
   @Override
-  public WeightedControlList getAllOtherControls(final List<SecretString> aSearch) {
-    return othersFinder.find(aSearch);
+  public WeightedControlList getAllOtherControls(final WPath aWPath) {
+    return othersFinder.find(aWPath);
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.ControlFinder#getAllControlsForText(java.util.List)
+   * @see org.rbri.wet.backend.ControlFinder#getAllControlsForText(WPath)
    */
   @Override
-  public WeightedControlList getAllControlsForText(List<SecretString> aSearch) {
-    return forTextFinder.find(aSearch);
+  public WeightedControlList getAllControlsForText(WPath aWPath) {
+    return forTextFinder.find(aWPath);
   }
 }

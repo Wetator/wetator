@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -47,9 +48,9 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyOptionId1", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyOptionId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyOptionId2", tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MyOptionId3", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyOptionId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyOptionId2", new WPath(tmpSearch)));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyOptionId3", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

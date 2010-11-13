@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -46,7 +47,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyCheckboxId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -63,7 +64,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("CheckBox", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -81,7 +82,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("e*Box", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -99,7 +100,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyCheckboxName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyCheckboxId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(

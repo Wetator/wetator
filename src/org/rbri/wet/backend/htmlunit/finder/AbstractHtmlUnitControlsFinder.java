@@ -16,11 +16,9 @@
 
 package org.rbri.wet.backend.htmlunit.finder;
 
-import java.util.List;
-
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
-import org.rbri.wet.util.SecretString;
 
 /**
  * The base class for all HtmlUnit finders.<br />
@@ -46,10 +44,10 @@ public abstract class AbstractHtmlUnitControlsFinder {
   }
 
   /**
-   * Returns all {@link org.rbri.wet.backend.control.Control}s on the page matching the given search.
+   * Returns all {@link org.rbri.wet.backend.control.Control}s on the page matching the given wpath.
    * 
-   * @param aSearch the search
+   * @param aWPath the wpath
    * @return the list of matching controls
    */
-  public abstract WeightedControlList find(List<SecretString> aSearch);
+  public abstract WeightedControlList find(WPath aWPath);
 }

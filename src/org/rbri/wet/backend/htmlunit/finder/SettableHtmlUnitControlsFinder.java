@@ -16,16 +16,15 @@
 
 package org.rbri.wet.backend.htmlunit.finder;
 
-import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
@@ -61,44 +60,42 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder#find(java.util.List)
+   * @see org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder#find(WPath)
    */
   @Override
-  public WeightedControlList find(List<SecretString> aSearch) {
+  public WeightedControlList find(WPath aWPath) {
     WeightedControlList tmpFoundControls = new WeightedControlList();
 
     // special case to support some search engines
-    if (aSearch.isEmpty()) {
+    if (aWPath.isEmpty()) {
       for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
-        if (tmpHtmlElement.isDisplayed()) {
-          if (tmpHtmlElement instanceof HtmlTextInput) {
-            tmpFoundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundControls;
-          }
-          if (tmpHtmlElement instanceof HtmlPasswordInput) {
-            tmpFoundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundControls;
-          }
-          if (tmpHtmlElement instanceof HtmlTextArea) {
-            tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundControls;
-          }
-          if (tmpHtmlElement instanceof HtmlFileInput) {
-            tmpFoundControls.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
-                WeightedControlList.FoundType.BY_ID, 0, // no coverage
-                htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
-            return tmpFoundControls;
-          }
+        if (tmpHtmlElement instanceof HtmlTextInput) {
+          tmpFoundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
+              WeightedControlList.FoundType.BY_ID, 0, // no coverage
+              htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
+          return tmpFoundControls;
+        }
+        if (tmpHtmlElement instanceof HtmlPasswordInput) {
+          tmpFoundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
+              WeightedControlList.FoundType.BY_ID, 0, // no coverage
+              htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
+          return tmpFoundControls;
+        }
+        if (tmpHtmlElement instanceof HtmlTextArea) {
+          tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
+              WeightedControlList.FoundType.BY_ID, 0, // no coverage
+              htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
+          return tmpFoundControls;
+        }
+        if (tmpHtmlElement instanceof HtmlFileInput) {
+          tmpFoundControls.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
+              WeightedControlList.FoundType.BY_ID, 0, // no coverage
+              htmlPageIndex.getTextBefore(tmpHtmlElement).length()); // distance from page start
+          return tmpFoundControls;
         }
       }
     }
 
-    return super.find(aSearch);
+    return super.find(aWPath);
   }
 }

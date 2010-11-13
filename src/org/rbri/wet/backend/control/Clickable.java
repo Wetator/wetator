@@ -18,7 +18,7 @@ package org.rbri.wet.backend.control;
 
 /**
  * This interface marks all clickable {@link Control}s. These controls are returned by
- * {@link org.rbri.wet.backend.ControlFinder#getAllClickables(java.util.List)}.<br/>
+ * {@link org.rbri.wet.backend.ControlFinder#getAllClickables(org.rbri.wet.backend.WPath)}.<br/>
  * As all controls implement {@link #click(org.rbri.wet.core.WetContext)} no additional action needs to be implemented.
  * 
  * @author frank.danek

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.map.LRUMap;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.util.SecretString;
 
@@ -67,6 +68,27 @@ public abstract class SearchPattern {
    */
   public static SearchPattern createFromList(List<SecretString> aSearch) {
     return createFromList(aSearch, aSearch.size());
+  }
+
+  /**
+   * Construct a new SearchPattern from a wpath.
+   * 
+   * @param aWPath the wpath
+   * @return the SearchPattern
+   */
+  public static SearchPattern createFromWPath(WPath aWPath) {
+    return createFromList(aWPath.getPathNodes(), aWPath.size());
+  }
+
+  /**
+   * Construct a new SearchPattern from a wpath.
+   * 
+   * @param aWPath the wpath
+   * @param aNumberOfNodes the number of path nodes to be used (from the start of the path)
+   * @return the SearchPattern
+   */
+  public static SearchPattern createFromWPath(WPath aWPath, int aNumberOfNodes) {
+    return createFromList(aWPath.getPathNodes(), aNumberOfNodes);
   }
 
   /**

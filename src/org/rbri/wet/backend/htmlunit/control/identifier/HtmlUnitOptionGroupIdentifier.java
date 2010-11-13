@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -26,7 +27,6 @@ import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByLabelAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
@@ -56,19 +56,19 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractHtmlUnitControlIdenti
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
+  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
+    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
 
     SearchPattern tmpPathSearchPatternSelect;
-    if (aSearch.size() <= 1) {
+    if (aWPath.size() <= 1) {
       tmpPathSearchPatternSelect = SearchPattern.compile("");
     } else {
-      tmpPathSearchPatternSelect = SearchPattern.createFromList(aSearch, aSearch.size() - 2);
+      tmpPathSearchPatternSelect = SearchPattern.createFromWPath(aWPath, aWPath.size() - 2);
     }
     FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 

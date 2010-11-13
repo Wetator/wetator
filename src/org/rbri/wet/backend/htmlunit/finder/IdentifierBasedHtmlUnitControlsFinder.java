@@ -24,11 +24,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.exception.WetException;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
@@ -36,7 +36,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given
  * search.<br />
  * The identifiers must be added by {@link #addIdentifier(Class)} or {@link #addIdentifiers(List)} before
- * executing {@link #find(List)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
+ * executing {@link #find(WPath)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
  * a match is found. So the returned {@link WeightedControlList} may contain multiple
  * {@link org.rbri.wet.backend.control.Control}s (multiple times).
  * 
@@ -89,16 +89,16 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(java.util.List)
+   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
    */
   @Override
-  public WeightedControlList find(List<SecretString> aSearch) {
+  public WeightedControlList find(WPath aWPath) {
     WeightedControlList tmpFoundControls = new WeightedControlList();
     for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
       for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
         try {
           AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
-          tmpIdentifier.initializeForAsynch(htmlPageIndex, tmpHtmlElement, aSearch, tmpFoundControls);
+          tmpIdentifier.initializeForAsynch(htmlPageIndex, tmpHtmlElement, aWPath, tmpFoundControls);
           if (tmpIdentifier.isHtmlElementSupported(tmpHtmlElement)) {
             execute(tmpIdentifier);
           }

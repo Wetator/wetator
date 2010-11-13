@@ -24,13 +24,13 @@ import java.util.Map;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.backend.control.Control;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.Assert;
-import org.rbri.wet.util.SecretString;
 
 /**
  * A parent class for command sets.
@@ -125,21 +125,21 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * 
    * @param aWetContext the wet context
    * @param aWeightedControlList the WeightedControlList
-   * @param aSearchParam the search parameter (only needed for the warning message)
+   * @param aWPath the wpath (only needed for the warning message)
    * @return the first control from the list
    * @throws AssertionFailedException if the list is empty
    */
   protected Control getRequiredFirstHtmlElementFrom(WetContext aWetContext, WeightedControlList aWeightedControlList,
-      List<SecretString> aSearchParam) throws AssertionFailedException {
+      WPath aWPath) throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {
-      Assert.fail("noHtmlElementFound", new String[] { SecretString.toString(aSearchParam) });
+      Assert.fail("noHtmlElementFound", new String[] { aWPath.toString() });
     }
 
     List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();
     WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
-      aWetContext.informListenersWarn("manyElementsFound", new String[] { SecretString.toString(aSearchParam),
+      aWetContext.informListenersWarn("manyElementsFound", new String[] { aWPath.toString(),
           tmpEntry.getControl().getDescribingText() });
     }
 

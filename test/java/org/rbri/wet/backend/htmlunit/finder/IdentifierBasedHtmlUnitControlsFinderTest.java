@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
@@ -46,7 +47,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     tmpSearch.add(new SecretString("Name", false));
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -63,7 +64,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -80,7 +81,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
   }

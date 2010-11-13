@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -45,7 +46,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -62,7 +63,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -82,7 +83,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Passwort", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "userForm:passwordTxt", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "userForm:passwordTxt", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -102,7 +103,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Pass*", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "userForm:passwordTxt", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "userForm:passwordTxt", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

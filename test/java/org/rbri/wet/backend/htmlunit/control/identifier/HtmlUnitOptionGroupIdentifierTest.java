@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -47,7 +48,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("colors", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "optgroup_colors", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "optgroup_colors", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -66,7 +67,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("optgroup_colors", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "optgroup_colors", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "optgroup_colors", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

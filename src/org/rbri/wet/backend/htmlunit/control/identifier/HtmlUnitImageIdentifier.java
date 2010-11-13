@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control.identifier;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -29,7 +30,6 @@ import org.rbri.wet.backend.htmlunit.matcher.ByImageTitleAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
@@ -62,13 +62,13 @@ public class HtmlUnitImageIdentifier extends AbstractHtmlUnitControlIdentifier {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(java.util.List,
+   * @see org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public WeightedControlList identify(List<SecretString> aSearch, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
+  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
+    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
@@ -77,17 +77,18 @@ public class HtmlUnitImageIdentifier extends AbstractHtmlUnitControlIdentifier {
 
     List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // does image alt-text match?
-    tmpMatches.addAll(new ByImageAltAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-        .matches(aHtmlElement));
-
-    // does image title-text match?
     tmpMatches
-        .addAll(new ByImageTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+        .addAll(new ByImageAltAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
             .matches(aHtmlElement));
 
+    // does image title-text match?
+    tmpMatches.addAll(new ByImageTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+        tmpSearchPattern).matches(aHtmlElement));
+
     // does image filename match?
-    tmpMatches.addAll(new ByImageSrcAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-        .matches(aHtmlElement));
+    tmpMatches
+        .addAll(new ByImageSrcAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
+            .matches(aHtmlElement));
 
     tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
         .matches(aHtmlElement));

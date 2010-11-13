@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -45,7 +46,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -62,7 +63,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -80,7 +81,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -93,7 +94,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yI", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -106,7 +107,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -124,7 +125,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -142,7 +143,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -155,7 +156,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -168,7 +169,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TestAnchor", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -186,7 +187,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("TestAnchor", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -204,7 +205,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("TestAnchor", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -216,7 +217,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlAnchor 'MyText' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound
@@ -231,7 +232,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("estAncho", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -248,7 +249,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myAnchor", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myAnchor", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myAnchor", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -265,7 +266,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -285,7 +286,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -303,7 +304,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -323,7 +324,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -341,7 +342,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -359,7 +360,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -379,7 +380,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -397,7 +398,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -417,7 +418,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyImageName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 

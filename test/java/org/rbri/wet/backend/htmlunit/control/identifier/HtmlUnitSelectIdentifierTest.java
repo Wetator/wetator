@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -46,7 +47,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyId", tmpSearch);
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyId", new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID coverage: 0 distance: 0",
@@ -66,8 +67,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -89,8 +90,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("cond*elText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -113,8 +114,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpSearch.add(new SecretString("Fir", false));
     tmpSearch.add(new SecretString("tSelectLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert
@@ -139,8 +140,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyFirstSelectName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -162,8 +163,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstLabelId", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstLabelId", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound
@@ -183,8 +184,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstLabelId", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstLabelId", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 24 distance: 44", tmpFound

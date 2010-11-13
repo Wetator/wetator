@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.util.SecretString;
 
@@ -47,8 +48,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyRadioButtonId2", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -67,8 +68,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("RadioButton1", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -87,8 +88,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("u*on1", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -109,8 +110,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyLabelId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyLabelId2", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyLabelId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyLabelId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -118,8 +119,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
             "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 27",
             tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", tmpSearch));
+    tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -139,8 +140,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyLabelId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyLabelId2", tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyLabelId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyLabelId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -148,8 +149,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
             "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 27",
             tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", tmpSearch);
-    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", tmpSearch));
+    tmpFound = identify(tmpHtmlCode, "MyRadioButtonId1", new WPath(tmpSearch));
+    tmpFound.addAll(identify(tmpHtmlCode, "MyRadioButtonId2", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

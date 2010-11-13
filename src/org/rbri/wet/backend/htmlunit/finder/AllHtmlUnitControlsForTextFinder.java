@@ -18,6 +18,7 @@ package org.rbri.wet.backend.htmlunit.finder;
 
 import java.util.List;
 
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.rbri.wet.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -25,7 +26,6 @@ import org.rbri.wet.backend.htmlunit.matcher.ByIdMatcher;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.core.searchpattern.SearchPattern;
-import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
@@ -54,14 +54,14 @@ public class AllHtmlUnitControlsForTextFinder extends AbstractHtmlUnitControlsFi
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(java.util.List)
+   * @see org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
    */
   @Override
-  public WeightedControlList find(List<SecretString> aSearch) {
+  public WeightedControlList find(WPath aWPath) {
     WeightedControlList tmpFoundControls = new WeightedControlList();
 
-    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
+    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
 
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
     if (null == tmpPathSpot) {

@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
@@ -45,7 +46,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("Name", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -60,7 +61,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("Name", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -75,7 +76,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("Name", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -90,7 +91,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("YourText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -105,7 +106,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -124,7 +125,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("My*", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -143,7 +144,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("YourText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -158,7 +159,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
@@ -175,7 +176,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("My*", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0", tmpFound
@@ -192,7 +193,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
@@ -209,7 +210,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -228,7 +229,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert
@@ -249,7 +250,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("MyText", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -269,7 +270,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("ine3", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8", tmpFound
@@ -287,7 +288,7 @@ public class AllHtmlUnitControlsForTextFinderTest {
     tmpSearch.add(new SecretString("ne3", false));
 
     AllHtmlUnitControlsForTextFinder tmpFinder = new AllHtmlUnitControlsForTextFinder(tmpHtmlPageIndex);
-    WeightedControlList tmpFound = tmpFinder.find(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound

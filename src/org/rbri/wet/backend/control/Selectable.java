@@ -21,7 +21,7 @@ import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * This interface marks all selectable {@link Control}s. These controls are returned by
- * {@link org.rbri.wet.backend.ControlFinder#getAllSelectables(java.util.List)}.
+ * {@link org.rbri.wet.backend.ControlFinder#getAllSelectables(org.rbri.wet.backend.WPath)}.
  * 
  * @author frank.danek
  */

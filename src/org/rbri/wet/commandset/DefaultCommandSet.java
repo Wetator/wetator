@@ -31,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang.reflect.MethodUtils;
 import org.rbri.wet.backend.ControlFinder;
+import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.backend.control.Control;
@@ -174,7 +175,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
-      List<SecretString> tmpSearchParam = aWetCommand.getFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getFirstParameterValues(aWetContext));
       SecretString tmpValueParam = aWetCommand.getSecondParameterValue(aWetContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
@@ -184,10 +185,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       ControlFinder tmpElementFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
 
-      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      if (tmpSearchParam.isEmpty()) {
+      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      if (tmpWPath.isEmpty()) {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
       tmpControl.setValue(aWetContext, tmpValueParam, aWetContext.getFile().getParentFile());
@@ -208,20 +209,20 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // Buttons / Link / Image
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
 
       // Text
       // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.click(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -240,17 +241,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
       Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpSearchParam);
+          tmpWPath);
       tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -269,17 +270,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
       Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpSearchParam);
+          tmpWPath);
       tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -298,15 +299,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllControlsForText(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllControlsForText(tmpWPath);
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.mouseOver(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -427,26 +428,26 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpSearchParam);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpSearchParam));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpSearchParam));
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
 
       // search for special elements
       // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
 
       // clickable Text
       // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
       boolean tmpIsDisabled = tmpControl.isDisabled(aWetContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
@@ -465,16 +466,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       SecretString tmpValueParam = aWetCommand.getRequiredSecondParameterValue(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
-      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
       tmpControl.assertValue(aWetContext, tmpValueParam);
     }
@@ -492,17 +493,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
       Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpSearchParam);
+          tmpWPath);
 
       boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -521,17 +522,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
       Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpSearchParam);
+          tmpWPath);
 
       boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
