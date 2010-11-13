@@ -250,8 +250,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -279,8 +278,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
-      Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+      Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -305,7 +303,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllControlsForText(tmpWPath);
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+
+      // search for special elements
+      // e.g. selects by label, name, id
+      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
+
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.mouseOver(aWetContext);
@@ -502,8 +508,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
       boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -531,8 +536,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
       boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
