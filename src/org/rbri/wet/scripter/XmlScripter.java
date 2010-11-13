@@ -41,6 +41,7 @@ import org.rbri.wet.exception.WetException;
  */
 public final class XmlScripter implements WetScripter {
 
+  private static final String WET_FILE_EXTENSION = ".wet";
   private static final String XML_FILE_EXTENSION = ".xml";
 
   /**
@@ -107,7 +108,7 @@ public final class XmlScripter implements WetScripter {
     boolean tmpResult;
 
     tmpFileName = aFile.getName().toLowerCase();
-    tmpResult = tmpFileName.endsWith(XML_FILE_EXTENSION);
+    tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
 
     return tmpResult;
   }
