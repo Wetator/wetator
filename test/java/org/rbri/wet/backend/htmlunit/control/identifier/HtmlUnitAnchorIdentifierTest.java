@@ -55,6 +55,19 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byIdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
   public void byId_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
@@ -87,19 +100,6 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byIdPart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
-        + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yI", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
   public void byName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
@@ -114,6 +114,19 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound
             .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byNamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yNam", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -149,19 +162,6 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byNamePart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yNam", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
   public void byText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
@@ -176,6 +176,37 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTextPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("estAncho", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTextFormated() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<a id='myId'>My<b>T</b>ext</a>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyText", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlAnchor 'MyText' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -208,37 +239,6 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byFormatedText() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<a id='myId'>My<b>T</b>ext</a>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlAnchor 'MyText' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound
-        .getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byTextPart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("estAncho", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-
-    Assert.assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -277,6 +277,24 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byImage_AltPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' alt='MyAlt'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yAl", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
   public void byImage_Alt_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>" + "<img src='picture.png' name='MyImageName' alt='MyAlt'>"
@@ -297,6 +315,21 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byImage_Alt_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>" + "<img src='picture.png' name='MyImageName' alt='MyAlt'>"
+        + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Wrong text", false));
+    tmpSearch.add(new SecretString("MyAlt", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
   public void byImage_Title() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
@@ -311,6 +344,24 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     Assert
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byImage_TitlePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yTitl", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 2 distance: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -335,6 +386,21 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byImage_Title_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Wrong text", false));
+    tmpSearch.add(new SecretString("MyTitle", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
   public void byImage_FileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
@@ -350,6 +416,19 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0",
             tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byImage_FileNamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("picture", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -391,6 +470,21 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byImage_FileName_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Wrong text", false));
+    tmpSearch.add(new SecretString("picture.png", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
   public void byImage_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName'>" + "</a>" + "</form>" + "</body></html>";
@@ -406,6 +500,19 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         .assertEquals(
             "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0",
             tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byImage_NamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yImageNam", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -428,4 +535,18 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
+  @Test
+  public void byImage_Name_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Wrong text", false));
+    tmpSearch.add(new SecretString("MyImageName", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
 }
