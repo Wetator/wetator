@@ -69,11 +69,15 @@ public class Wetator extends Task {
         log("Classpath:", Project.MSG_INFO);
         String[] tmpPaths = classpath.list();
         for (int i = 0; i < tmpPaths.length; i++) {
-          log("    '" + tmpPaths[i] + "'", Project.MSG_DEBUG);
+          log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
         }
 
         // AntClassLoader
-        AntClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
+        // We are using the system classloader, because this is only needed
+        // for 'Exec Java' command. And this command needs nothing from ant;
+        // normally ant only disturbs.
+        AntClassLoader tmpClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath,
+            false);
         tmpClassLoader.setThreadContextLoader();
       }
 
