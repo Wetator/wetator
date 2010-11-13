@@ -12,40 +12,40 @@
      -->
     <property name="wetator.baseUrl" value="http://www.wetator.org"/>
 
-	<!-- adjust dir for your project -->
-	<path id="wetator-classpath">
-		<fileset dir="../../lib" includes="**/**.jar"/>
-	</path>
+    <!-- adjust dir for your project -->
+    <path id="wetator-classpath">
+        <fileset dir="../../lib" includes="**/**.jar"/>
+    </path>
 
-	<!-- You have to declare the task first -->
-	<taskdef name="wetator" classname="org.rbri.wet.ant.Wetator" classpathref="wetator-classpath" />
+    <!-- You have to declare the task first -->
+    <taskdef name="wetator" classname="org.rbri.wet.ant.Wetator" classpathref="wetator-classpath" />
 
     <target name="run_wetator" description="Sample target that runs Wetator">
-    	<!-- Attributes:
-    	     -config: full name of your config-file (required)
+        <!-- Attributes:
+             -config: full name of your config-file (required)
 
-    	     the input files are defined as fileset
-    	     more about filesets under http://ant.apache.org/manual/CoreTypes/fileset.html
-    	-->
-    	<wetator config="sample.properties">
-			<fileset>
-				<include name="test/wetator/*.xls"/>
-			</fileset>
+             the input files are defined as fileset
+             more about filesets under http://ant.apache.org/manual/CoreTypes/fileset.html
+        -->
+        <wetator config="sample.properties">
+            <fileset>
+                <include name="test/wetator/*.xls"/>
+            </fileset>
 
-    	    <!--
-    	       You can use properties to overwrite properties defined in the config-file.
-    	       The name of the property has to start with 'wetator.'.
-    	       This overwrites properties defined for the project.
-    	     -->
-        	<property name="wetator.baseUrl" value="http://www.wetator.org"/>
+            <!--
+               You can use properties to overwrite properties defined in the config-file.
+               The name of the property has to start with 'wetator.'.
+               This overwrites properties defined for the project.
+             -->
+            <property name="wetator.baseUrl" value="http://www.wetator.org"/>
 
-    		<!--
-    		  set variables
-    		  to define a secret property you need $$$
-    		-->
-    		<property name="$user" value="dobby"/>
+            <!--
+              set variables
+              to define a secret property you need $$$
+            -->
+            <property name="$user" value="dobby"/>
             <property name="$$$password" value="secret"/>
-    	</wetator>
+        </wetator>
 
     </target>
 
