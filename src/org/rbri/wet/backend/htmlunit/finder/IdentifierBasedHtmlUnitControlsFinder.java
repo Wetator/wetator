@@ -133,7 +133,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
       } catch (InterruptedException e) {
         throw new WetException("Exception waiting for executed threads.", e);
       } catch (ExecutionException e) {
-        throw new WetException("Exception waiting for executed threads.", e);
+        throw new WetException("Exception occured in executed thread.", e.getCause());
       }
     }
   }
