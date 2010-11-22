@@ -16,6 +16,7 @@
 
 package org.rbri.wet.core.searchpattern;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public abstract class SearchPattern {
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
   @SuppressWarnings("unchecked")
-  private static Map<String, SearchPattern> searchPatternCache = new LRUMap(500);
+  private static Map<String, SearchPattern> searchPatternCache = Collections.synchronizedMap(new LRUMap(500));
   private String originalString;
 
   /**
