@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Deselectable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitOptionInSelectIdentifier;
@@ -38,6 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlOption.class)
 @IdentifiedBy({ HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
 public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements Deselectable {
 

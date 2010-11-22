@@ -218,6 +218,20 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   }
 
   /**
+   * This annotation contains the {@link HtmlElement} the HtmlUnit control is for.
+   * 
+   * @author frank.danek
+   */
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public static @interface ForHtmlElement {
+    /**
+     * The {@link HtmlElement}.
+     */
+    Class<? extends HtmlElement> value();
+  }
+
+  /**
    * This annotation contains the identifiers for the HtmlUnit control.
    * 
    * @author frank.danek

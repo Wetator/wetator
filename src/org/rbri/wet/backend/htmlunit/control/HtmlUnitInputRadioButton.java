@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Selectable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
@@ -37,6 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlRadioButtonInput.class)
 @IdentifiedBy(HtmlUnitInputRadioButtonIdentifier.class)
 public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButtonInput> implements Selectable {
 

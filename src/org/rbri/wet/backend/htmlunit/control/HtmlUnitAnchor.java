@@ -18,6 +18,7 @@ package org.rbri.wet.backend.htmlunit.control;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.control.Clickable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
@@ -33,6 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlAnchor.class)
 @IdentifiedBy(HtmlUnitAnchorIdentifier.class)
 public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements Clickable {
 

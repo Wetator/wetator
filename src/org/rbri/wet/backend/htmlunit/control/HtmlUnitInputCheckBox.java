@@ -19,6 +19,7 @@ package org.rbri.wet.backend.htmlunit.control;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Deselectable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
@@ -37,6 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlCheckBoxInput.class)
 @IdentifiedBy(HtmlUnitInputCheckBoxIdentifier.class)
 public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput> implements Deselectable {
 

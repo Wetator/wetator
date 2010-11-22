@@ -17,6 +17,7 @@
 package org.rbri.wet.backend.htmlunit.control;
 
 import org.rbri.wet.backend.control.Clickable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitImageIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
@@ -29,6 +30,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlImage.class)
 @IdentifiedBy(HtmlUnitImageIdentifier.class)
 public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements Clickable {
 

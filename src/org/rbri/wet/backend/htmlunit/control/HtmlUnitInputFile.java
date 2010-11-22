@@ -23,6 +23,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.control.Settable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
@@ -43,6 +44,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlFileInput.class)
 @IdentifiedBy(HtmlUnitInputFileIdentifier.class)
 public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implements Settable {
 

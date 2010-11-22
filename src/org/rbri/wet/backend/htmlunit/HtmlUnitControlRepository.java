@@ -17,8 +17,10 @@
 package org.rbri.wet.backend.htmlunit;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.rbri.wet.backend.control.Clickable;
 import org.rbri.wet.backend.control.Control;
@@ -26,8 +28,11 @@ import org.rbri.wet.backend.control.Deselectable;
 import org.rbri.wet.backend.control.Selectable;
 import org.rbri.wet.backend.control.Settable;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
+
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * Central repository for all supported {@link HtmlUnitBaseControl}s.
@@ -35,6 +40,8 @@ import org.rbri.wet.backend.htmlunit.control.identifier.AbstractHtmlUnitControlI
  * @author frank.danek
  */
 public class HtmlUnitControlRepository {
+
+  private Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<String, Class<HtmlUnitBaseControl<?>>>();
 
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> settableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
@@ -56,11 +63,19 @@ public class HtmlUnitControlRepository {
   /**
    * @param aControlClass the class of the control to add
    */
+  @SuppressWarnings("unchecked")
   public void add(Class<? extends Control> aControlClass) {
     if (aControlClass == null) {
       return;
     }
     if (HtmlUnitBaseControl.class.isAssignableFrom(aControlClass)) {
+      ForHtmlElement tmpForHtmlElement = aControlClass.getAnnotation(ForHtmlElement.class);
+      if (tmpForHtmlElement != null) {
+        Class<? extends HtmlElement> tmpHtmlElementClass = tmpForHtmlElement.value();
+
+        forElementMap.put(tmpHtmlElementClass.getSimpleName(), (Class<HtmlUnitBaseControl<?>>) aControlClass);
+      }
+
       IdentifiedBy tmpIdentifiers = aControlClass.getAnnotation(IdentifiedBy.class);
       if (tmpIdentifiers != null) {
         List<Class<? extends AbstractHtmlUnitControlIdentifier>> tmpIdentifierClasses = Arrays.asList(tmpIdentifiers
@@ -88,6 +103,17 @@ public class HtmlUnitControlRepository {
         }
       }
     }
+  }
+
+  /**
+   * @param anHtmlElement the {@link HtmlElement}
+   * @return the control for the given {@link HtmlElement}
+   */
+  public Class<? extends HtmlUnitBaseControl<?>> getForHtmlElement(HtmlElement anHtmlElement) {
+    if (anHtmlElement == null) {
+      return null;
+    }
+    return forElementMap.get(anHtmlElement.getClass().getSimpleName());
   }
 
   /**

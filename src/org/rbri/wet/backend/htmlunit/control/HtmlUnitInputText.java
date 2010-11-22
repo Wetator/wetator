@@ -22,6 +22,7 @@ import java.io.IOException;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Settable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
@@ -44,6 +45,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlTextInput.class)
 @IdentifiedBy(HtmlUnitInputTextIdentifier.class)
 public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implements Settable {
 

@@ -16,6 +16,7 @@
 
 package org.rbri.wet.backend.htmlunit.control;
 
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
@@ -28,6 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlSelect.class)
 @IdentifiedBy(HtmlUnitSelectIdentifier.class)
 public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
 

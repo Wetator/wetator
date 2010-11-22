@@ -23,9 +23,9 @@ import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WPath;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
-import org.rbri.wet.backend.htmlunit.finder.AllHtmlUnitControlsForTextFinder;
 import org.rbri.wet.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
+import org.rbri.wet.backend.htmlunit.finder.UnknownHtmlUnitControlsFinder;
 import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -58,6 +58,16 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
    * @param anHtmlPage the page to search in
    */
   public HtmlUnitFinderDelegator(HtmlPage anHtmlPage) {
+    this(anHtmlPage, null);
+  }
+
+  /**
+   * The constructor.
+   * 
+   * @param anHtmlPage the page to search in
+   * @param aControlRepository the repository of controls this delegator supports
+   */
+  public HtmlUnitFinderDelegator(HtmlPage anHtmlPage, HtmlUnitControlRepository aControlRepository) {
     if (null == anHtmlPage) {
       throw new NullPointerException("HtmlPage can't be null");
     }
@@ -73,17 +83,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
     selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
     deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
     othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
-    forTextFinder = new AllHtmlUnitControlsForTextFinder(htmlPageIndex);
-  }
-
-  /**
-   * The constructor.
-   * 
-   * @param anHtmlPage the page to search in
-   * @param aControlRepository the repository of controls this delegator supports
-   */
-  public HtmlUnitFinderDelegator(HtmlPage anHtmlPage, HtmlUnitControlRepository aControlRepository) {
-    this(anHtmlPage);
+    forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
 
     if (aControlRepository != null) {
       settablesFinder.addIdentifiers(aControlRepository.getSettableIdentifiers());

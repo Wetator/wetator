@@ -23,6 +23,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.control.Settable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
@@ -41,6 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlTextArea.class)
 @IdentifiedBy(HtmlUnitTextAreaIdentifier.class)
 public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implements Settable {
 

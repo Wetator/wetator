@@ -29,6 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ org.rbri.wet.backend.htmlunit.control.AllTests.class, //
     org.rbri.wet.backend.htmlunit.finder.AllTests.class, //
     org.rbri.wet.backend.htmlunit.util.AllTests.class, //
+    HtmlUnitControlRepositoryTest.class, //
     HtmlUnitFinderDelegatorTest.class, //
     XHtmlOutputterXHtmlPageTest.class })
 public final class AllTests {

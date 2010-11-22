@@ -17,6 +17,7 @@
 package org.rbri.wet.backend.htmlunit.control;
 
 import org.rbri.wet.backend.control.Clickable;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
@@ -30,6 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
  * @author rbri
  * @author frank.danek
  */
+@ForHtmlElement(HtmlSubmitInput.class)
 @IdentifiedBy(HtmlUnitInputSubmitIdentifier.class)
 public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> implements Clickable {
 

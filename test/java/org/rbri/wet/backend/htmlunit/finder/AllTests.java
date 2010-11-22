@@ -26,7 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllHtmlUnitControlsForTextFinderTest.class, //
+@SuiteClasses({ UnknownHtmlUnitControlsFinderTest.class, //
     IdentifierBasedHtmlUnitControlsFinderTest.class, //
     SettableHtmlUnitControlsFinderTest.class })
 public final class AllTests {
