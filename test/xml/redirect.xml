@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <testcase
-    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd">
-    <step command="Comment">redirect via http header</step>
-    <step command="Open_Url">redirect_header.php</step>
-    <step command="Assert_Title">Wetator / Smarter web application testing</step>
-    <step command="Comment">redirect via meta tag</step>
-    <step command="Open_Url">redirect_meta.php</step>
-    <step command="Assert_Title">Wetator / Smarter web application testing</step>
-    <step command="Comment">redirect via javascript</step>
-    <step command="Open_Url">redirect_js.php</step>
-    <step command="Assert_Title">Wetator / Smarter web application testing</step>
-    <step command="Comment">all together</step>
-    <step command="Open_Url">redirect_header.php?target=http://wetator.rbri.org/testcases/redirect_meta.php</step>
-    <step command="Assert_Title">Wetator / Smarter web application testing</step>
-    <step command="Open_Url">redirect_meta.php?target=http://wetator.rbri.org/testcases/redirect_js.php</step>
-    <step command="Assert_Title">Wetator / Smarter web application testing</step>
-    <step command="Open_Url">redirect_js.php?target=http://wetator.rbri.org/testcases/redirect_header.php</step>
-    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd'>
+    <step command='Comment'>redirect via http header</step>
+    <step command='Open_Url'>redirect_header.php</step>
+    <step command='Assert_Title'>Wetator / Smarter web application testing</step>
+    <step command='Comment'>redirect via meta tag</step>
+    <step command='Open_Url'>redirect_meta.php</step>
+    <step command='Assert_Title'>Wetator / Smarter web application testing</step>
+    <step command='Comment'>redirect via javascript</step>
+    <step command='Open_Url'>redirect_js.php</step>
+    <step command='Assert_Title'>Wetator / Smarter web application testing</step>
+    <step command='Comment'>all together</step>
+    <step command='Open_Url'>redirect_header.php?target=http://wetator.rbri.org/testcases/redirect_meta.php</step>
+    <step command='Assert_Title'>Wetator / Smarter web application testing</step>
+    <step command='Open_Url'>redirect_meta.php?target=http://wetator.rbri.org/testcases/redirect_js.php</step>
+    <step command='Assert_Title'>Wetator / Smarter web application testing</step>
+    <step command='Open_Url'>redirect_js.php?target=http://wetator.rbri.org/testcases/redirect_header.php</step>
+    <step command='Assert_Title'>Wetator / Smarter web application testing</step>
 </testcase>

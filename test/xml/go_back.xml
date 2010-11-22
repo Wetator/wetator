@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <testcase
-    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
-    xmlns:tst="http://www.wetator.org/xsd/testCommandSet"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd
-        http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd">
-    <step command="Open_Url">simple_login.html</step>
-    <step command="Assert_Title">Wetator / Simple Login</step>
-    <step command="Comment">set fields by label and press the button</step>
-    <step command="Set">User:<optionalParameter>WeT</optionalParameter></step>
-    <step command="Set">Password:<optionalParameter>tew</optionalParameter></step>
-    <step command="Click_On">Login</step>
-    <step command="Assert_Title">Wetator / Request Snoopy</step>
-    <step command="Assert_Content">POST Parameters, Key, Value, password, tew, userid, WeT</step>
-    <step command="Comment">now we are going back</step>
-    <step command="Go_Back"></step>
-    <step command="Assert_Title">Wetator / Simple Login</step>
-    <step command="Assert_Set" comment="true">User:<optionalParameter>WeT</optionalParameter></step>
-    <step command="Set" comment="true">Password:</step>
-    <tst:step command="Assert_Fail">Go Back, Walking trough the history failed (steps: 1 currentPos: -1 historySize: 2).</tst:step>
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>simple_login.html</step>
+    <step command='Assert_Title'>Wetator / Simple Login</step>
+    <step command='Comment'>set fields by label and press the button</step>
+    <step command='Set'>User:<optionalParameter>WeT</optionalParameter></step>
+    <step command='Set'>Password:<optionalParameter>tew</optionalParameter></step>
+    <step command='Click_On'>Login</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='Assert_Content'>POST Parameters, Key, Value, password, tew, userid, WeT</step>
+    <step command='Comment'>now we are going back</step>
+    <step command='Go_Back'></step>
+    <step command='Assert_Title'>Wetator / Simple Login</step>
+    <step command='Assert_Set' comment='true'>User:<optionalParameter>WeT</optionalParameter></step>
+    <step command='Set' comment='true'>Password:</step>
+    <tst:step command='Assert_Fail'>Go Back, Walking trough the history failed (steps: 1 currentPos: -1 historySize: 2).</tst:step>
 </testcase>

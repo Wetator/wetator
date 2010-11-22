@@ -40,8 +40,8 @@
             <property name="wetator.baseUrl" value="http://www.wetator.org"/>
 
             <!--
-              set variables
-              to define a secret property you need $$$
+              set variables;
+              to define a secret property you need $$$ (you really need three $ signs for ant) 
             -->
             <property name="$user" value="dobby"/>
             <property name="$$$password" value="secret"/>

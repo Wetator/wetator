@@ -3,7 +3,7 @@
 
   <application>
     <name>Wetator</name>
-    <version>0_9_3_beta5</version>
+    <version>0_9_3</version>
     <jar-basename>wetator</jar-basename>
     <vendor>Ronald Brill</vendor>
   </application>

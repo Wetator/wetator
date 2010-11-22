@@ -161,7 +161,6 @@
                     <attribute name="Java-Target" value="${javac.target}" />
                     <attribute name="OS-Name" value="${os.name}"/>
                     <attribute name="OS-Version" value="${os.version}"/>
-                    <attribute name="Username" value="${env.USERNAME}"/>
                 </section>
             </manifest>
         </jar>
@@ -239,7 +238,6 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
 
             <zipfileset dir="${dir.xsl}" prefix="xsl">
-                <exclude name="${dir.xsl}/ExceltestReport.xsl" />
             </zipfileset>
 
             <zipfileset dir="${dir.src}" prefix="templates">
@@ -258,11 +256,21 @@ echo location of the Java Virtual Machine you want to use.
 
                 <exclude name="ant-*.jar" />
                 <exclude name="hsqldb-*.jar" />
+                <exclude name="jetty-*.jar" />
                 <exclude name="junit-*.jar" />
+                <exclude name="servlet-*.jar" />
+                <exclude name="slf4j-*.jar" />
             </zipfileset>
 
             <zipfileset dir="${dir.samples}/ant" prefix="templates">
                 <include name="build.xml" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="xsl">
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="templates">
+                <include name="wetator.config" />
             </zipfileset>
         </zip>
 
@@ -309,6 +317,7 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
 
             <zipfileset dir="${dir.deploy}" prefix="download">
+                <include name="${application.jar-basename}_*${application.version}.zip" />
                 <exclude name="${application.jar-basename}_web_${application.version}.zip" />
             </zipfileset>
             <zipfileset dir="${dir.test-wet-src}" prefix="exceltests">
