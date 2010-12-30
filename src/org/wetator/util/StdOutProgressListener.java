@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.apache.commons.lang.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.WetCommand;
 import org.wetator.core.WetConfiguration;
@@ -85,6 +86,10 @@ public class StdOutProgressListener implements WetProgressListener {
 
     final WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
     if (tmpConfiguration != null) {
+      if (StringUtils.isNotEmpty(tmpConfiguration.getProxyHost())) {
+        println("    proxy:  '" + tmpConfiguration.getProxyHost() + ":" + tmpConfiguration.getProxyPort() + "'");
+      }
+
       println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
 
       boolean tmpFirst = true;
