@@ -816,6 +816,7 @@ webpages/wet.css -text
 webpages/xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 webpages/xsd/defaultCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 webpages/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
+webpages/xsd/incubatorCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 webpages/xsd/sqlCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 webpages/xsd/sqlCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 webpages/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
