@@ -46,8 +46,7 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
-    final StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode,
-        new URL("http://www.rbri.org/wet/test.html"));
+    final StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.wetator.org/test.html"));
     final WebClient tmpWebClient = new WebClient();
     final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
@@ -63,7 +62,7 @@ public final class PageUtil {
    */
   public static XHtmlPage constructXHtmlPage(final String anXHtmlCode) throws IOException {
     final StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode, new URL(
-        "http://www.rbri.org/wet/test.xhtml"));
+        "http://www.wetator.org/test.xhtml"));
     final WebClient tmpWebClient = new WebClient();
     final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
