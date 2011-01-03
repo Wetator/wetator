@@ -289,6 +289,7 @@ test/java/org/wetator/test/junit/BrowserFrameworkMethod.java -text svneol=unset#
 test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plain
 test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/junit.xls -text
 test/java/org/wetator/util/AllTests.java -text
 test/java/org/wetator/util/AssertTest.java -text
 test/java/org/wetator/util/ContentUtilTest.java -text

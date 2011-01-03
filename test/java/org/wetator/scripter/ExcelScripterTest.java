@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2010 Ronald Brill
+ * Copyright (c) 2008-2011 Ronald Brill
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,21 +32,92 @@ public class ExcelScripterTest {
   @Test
   public void test() throws WetException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
-    tmpExcelScripter.setFile(new File("test/excel/assert_content.xls"));
+    tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
 
     List<WetCommand> tmpCommands = tmpExcelScripter.getCommands();
-    Assert.assertEquals(73, tmpCommands.size());
+    Assert.assertEquals(13, tmpCommands.size());
 
-    WetCommand tmpCommand = tmpCommands.get(0);
+    int tmpPos = 0;
+    WetCommand tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("Aktion", tmpCommand.getName());
+    Assert.assertEquals("Parameter", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals("opt. Parameter", tmpCommand.getSecondParameter().getValue());
 
-    tmpCommand = tmpCommands.get(10);
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Comment", tmpCommand.getName());
 
-    tmpCommand = tmpCommands.get(54);
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Fail", tmpCommand.getName());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("a simple string", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("1", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("1234567", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("12,4", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("12,3000", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("12,99", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    // POI Bug - the current locale is ignored
+    Assert.assertEquals("01/04/99", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("1-Apr-99", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("April 2011", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
   }
 }
