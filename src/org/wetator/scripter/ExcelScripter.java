@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +31,8 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
@@ -51,9 +53,6 @@ public final class ExcelScripter implements WetScripter {
   private static final int THIRD_PARAM_COLUMN_NO = 4;
 
   private File file;
-  private HSSFWorkbook workbook;
-  private InputStream inputStream;
-  private HSSFSheet sheet;
   private List<WetCommand> commands;
 
   /**
@@ -101,17 +100,19 @@ public final class ExcelScripter implements WetScripter {
   private List<WetCommand> readCommands() throws WetException {
     final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
 
+    final InputStream tmpInputStream;
     try {
-      inputStream = new FileInputStream(getFile().getAbsoluteFile());
+      tmpInputStream = new FileInputStream(getFile().getAbsoluteFile());
     } catch (final FileNotFoundException e) {
       throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
     }
     try {
-      workbook = new HSSFWorkbook(inputStream);
+      final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
+      final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
       int tmpSheetNo = -1;
-      for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-        final String tmpSheetName = workbook.getSheetName(i);
+      for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
+        final String tmpSheetName = tmpWorkbook.getSheetName(i);
         if (!StringUtils.isEmpty(tmpSheetName)) {
           if (tmpSheetName.toLowerCase().contains("test")) {
             tmpSheetNo = i;
@@ -124,21 +125,21 @@ public final class ExcelScripter implements WetScripter {
         throw new WetException("No test sheet found in file '" + getFile().getAbsolutePath() + "'.");
       }
 
-      sheet = workbook.getSheetAt(tmpSheetNo);
+      final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
 
-      for (int tmpLine = 0; tmpLine <= sheet.getLastRowNum(); tmpLine++) {
+      for (int tmpLine = 0; tmpLine <= tmpSheet.getLastRowNum(); tmpLine++) {
         HSSFRow tmpRow;
         String tmpCommentString;
         boolean tmpCommentFlag;
         String tmpCommandName;
         Parameter tmpParameter;
 
-        tmpRow = sheet.getRow(tmpLine);
+        tmpRow = tmpSheet.getRow(tmpLine);
 
-        tmpCommentString = readCellContentAsString(tmpRow, COMMENT_COLUMN_NO);
+        tmpCommentString = readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator);
         tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
-        tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO);
+        tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
         tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
         // empty command means comment
@@ -149,17 +150,17 @@ public final class ExcelScripter implements WetScripter {
         if (!StringUtils.isEmpty(tmpCommandName)) {
           final WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
 
-          tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO);
+          tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
           if (null != tmpParameter) {
             tmpCommand.setFirstParameter(tmpParameter);
           }
 
-          tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO);
+          tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO, tmpFormulaEvaluator);
           if (null != tmpParameter) {
             tmpCommand.setSecondParameter(tmpParameter);
           }
 
-          tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO);
+          tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO, tmpFormulaEvaluator);
           if (null != tmpParameter) {
             tmpCommand.setThirdParameter(tmpParameter);
           }
@@ -175,7 +176,7 @@ public final class ExcelScripter implements WetScripter {
       throw new WetException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
     } finally {
       try {
-        inputStream.close();
+        tmpInputStream.close();
       } catch (final IOException e) {
         throw new WetException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
       }
@@ -202,51 +203,24 @@ public final class ExcelScripter implements WetScripter {
     // nothing to do
   }
 
-  private String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo) throws WetException {
-    String tmpResult = null;
-    HSSFCell tmpCell;
-    int tmpCellType;
+  private String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
+      final FormulaEvaluator aFormulaEvaluator) throws WetException {
 
-    tmpCell = aRow.getCell(aColumnsNo);
+    final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
-      return tmpResult;
+      return null;
     }
 
-    tmpCellType = tmpCell.getCellType();
-
-    switch (tmpCellType) {
-      case Cell.CELL_TYPE_BLANK:
-        tmpResult = "";
-        break;
-      case Cell.CELL_TYPE_STRING:
-        tmpResult = tmpCell.getRichStringCellValue().getString();
-        break;
-      // for convenience support numbers also
-      case Cell.CELL_TYPE_NUMERIC:
-        tmpResult = "" + tmpCell.getNumericCellValue();
-        break;
-
-      // deal with the other possible cases
-      case Cell.CELL_TYPE_BOOLEAN:
-        throw new WetException("Unsupported cell type 'boolean' row: " + aRow.getRowNum() + " column: " + aColumnsNo
-            + " (file: '" + getFile().getAbsolutePath() + "').");
-      case Cell.CELL_TYPE_ERROR:
-        throw new WetException("Unsupported cell type 'error' row: " + aRow.getRowNum() + " column: " + aColumnsNo
-            + " (file: '" + getFile().getAbsolutePath() + "').");
-      case Cell.CELL_TYPE_FORMULA:
-        throw new WetException("Unsupported cell type 'formula' row: " + aRow.getRowNum() + " column: " + aColumnsNo
-            + " (file: '" + getFile().getAbsolutePath() + "').");
-      default:
-        throw new WetException("Unsupported cell type '" + tmpCellType + "' row: " + aRow.getRowNum() + " column: "
-            + aColumnsNo + " (file: '" + getFile().getAbsolutePath() + "').");
-    }
+    final DataFormatter tmpDataFormatter = new DataFormatter(Locale.getDefault());
+    final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
     return tmpResult;
   }
 
-  private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo) throws WetException {
+  private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
+      final FormulaEvaluator aFormulaEvaluator) throws WetException {
     String tmpContent;
 
-    tmpContent = readCellContentAsString(aRow, aColumnsNo);
+    tmpContent = readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
     if (StringUtils.isEmpty(tmpContent)) {
       return null;
     }
