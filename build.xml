@@ -186,6 +186,9 @@
                     <exclude name="ant-*.jar" />
                     <exclude name="hsqldb-*.jar" />
                     <exclude name="junit-*.jar" />
+                    <exclude name="jetty-*.jar" />
+                    <exclude name="servlet-*.jar" />
+                    <exclude name="slf4j-*.jar" />
                 </fileset>
             </lib>
         </one-jar>
