@@ -35,7 +35,7 @@ public class ExcelScripterTest {
     tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
 
     List<WetCommand> tmpCommands = tmpExcelScripter.getCommands();
-    Assert.assertEquals(15, tmpCommands.size());
+    Assert.assertEquals(17, tmpCommands.size());
 
     int tmpPos = 0;
     WetCommand tmpCommand = tmpCommands.get(tmpPos);
@@ -129,6 +129,18 @@ public class ExcelScripterTest {
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("Assert Title", tmpCommand.getName());
     Assert.assertEquals("25,7", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )", tmpCommand.getFirstParameter()
+        .getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
 }
