@@ -27,10 +27,13 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Parameter;
@@ -44,6 +47,7 @@ import org.wetator.util.NormalizedString;
  * @author rbri
  */
 public final class ExcelScripter implements WetScripter {
+  private static final Log LOG = LogFactory.getLog(ExcelScripter.class);
 
   private static final String EXCEL_FILE_EXTENSION = ".xls";
   private static final int COMMENT_COLUMN_NO = 0;
@@ -212,8 +216,18 @@ public final class ExcelScripter implements WetScripter {
     }
 
     final DataFormatter tmpDataFormatter = new DataFormatter(Locale.getDefault());
-    final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
-    return tmpResult;
+    try {
+      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
+      return tmpResult;
+    } catch (final NotImplementedException e) {
+      String tmpMsg = e.getMessage();
+      if (null != e.getCause()) {
+        tmpMsg = tmpMsg + " (" + e.getCause().toString() + ")";
+      }
+      LOG.error(tmpMsg);
+      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
+      return tmpResult;
+    }
   }
 
   private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
