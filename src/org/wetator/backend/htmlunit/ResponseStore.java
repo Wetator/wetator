@@ -115,6 +115,16 @@ public final class ResponseStore {
   public String storePage(final WebClient aWebClient, final Page aPage) {
     webClient = aWebClient;
 
+    return storePage(aPage);
+  }
+
+  /**
+   * This method writes the page to a file with a unique name.
+   * 
+   * @param aPage the page to save
+   * @return the file name used for this page
+   */
+  public String storePage(final Page aPage) {
     try {
       String tmpFileName = "response_" + getUniqueId();
       final String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);

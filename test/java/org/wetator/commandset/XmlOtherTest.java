@@ -96,6 +96,16 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  public void iframe() {
+    executeTestFile("iframe.wet");
+
+     Assert.assertEquals(6, getSteps());
+     Assert.assertEquals(0, getFailures());
+     Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
   public void jquery() {
     executeTestFile("jquery.wet");
 

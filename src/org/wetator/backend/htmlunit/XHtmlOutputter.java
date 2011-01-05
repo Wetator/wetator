@@ -51,6 +51,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlHorizontalRule;
 import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlMeta;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -301,6 +302,7 @@ public final class XHtmlOutputter {
       }
 
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
+      final boolean tmpIsHtmlInlineFrame = tmpHtmlElement instanceof HtmlInlineFrame;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
 
       final Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
@@ -319,6 +321,14 @@ public final class XHtmlOutputter {
           final String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, null);
           if (null != tmpStoredFileName) {
             tmpAttributeValue = tmpStoredFileName;
+          }
+        }
+
+        if (tmpIsHtmlInlineFrame && ("src".equals(tmpAttributeName))) {
+          final HtmlInlineFrame tmpInlineFrame = (HtmlInlineFrame) aDomNode;
+          final String tmpStoredFileName = responseStore.storePage(tmpInlineFrame.getEnclosedPage());
+          if (null != tmpStoredFileName) {
+            tmpAttributeValue = "../" + tmpStoredFileName;
           }
         }
 

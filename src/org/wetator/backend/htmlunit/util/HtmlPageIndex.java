@@ -27,6 +27,7 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.NormalizedString;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
@@ -48,6 +49,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlHeading6;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLegend;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
@@ -324,6 +326,8 @@ public class HtmlPageIndex {
         // nothing
       } else if (aDomNode instanceof DomText) {
         appendDomText((DomText) aDomNode);
+      } else if (aDomNode instanceof HtmlInlineFrame) {
+        appendHtmlInlineFrame((HtmlInlineFrame) aDomNode);
       } else if (aDomNode instanceof HtmlBreak) {
         text.append(" ");
       } else if (aDomNode instanceof HtmlImage) {
@@ -379,6 +383,13 @@ public class HtmlPageIndex {
 
   private void appendDomText(final DomText aDomText) {
     text.append(aDomText.getData());
+  }
+
+  private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame) {
+    final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
+    if (tmpPage instanceof HtmlPage) {
+      parseDomNode((HtmlPage) tmpPage);
+    }
   }
 
   private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {

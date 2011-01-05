@@ -336,6 +336,7 @@ test/xml/ie8/event_clickOn.wet -text
 test/xml/ie8/event_deselect.wet -text
 test/xml/ie8/event_mouseOver.wet -text
 test/xml/ie8/event_select.wet -text
+test/xml/iframe.wet -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
 test/xml/jquery.wet -text svneol=unset#text/plain
@@ -428,6 +429,8 @@ webpages/testcases/event_handler_old.html -text svneol=unset#text/plain
 webpages/testcases/favicon.ico -text
 webpages/testcases/htmlunit_javascript.html -text
 webpages/testcases/http_header.php -text
+webpages/testcases/iframe.html -text
+webpages/testcases/iframe_set.html -text
 webpages/testcases/javascript_boxover.html -text
 webpages/testcases/javascript_error.html -text
 webpages/testcases/javascript_jquery.html -text
