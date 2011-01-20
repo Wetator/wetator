@@ -16,6 +16,8 @@
 
 package org.wetator.util;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -206,5 +208,16 @@ public class StringUtilTest {
     org.junit.Assert.assertEquals(2, tmpResult.size());
     org.junit.Assert.assertEquals("a12", tmpResult.get(0));
     org.junit.Assert.assertEquals("34", tmpResult.get(1));
+  }
+
+  @Test
+  public void testFormatDate() {
+    Date tmpDate = new GregorianCalendar(2010, 3, 1, 8, 30, 0).getTime();
+    String tmpResult = StringUtil.formatDate(tmpDate);
+    org.junit.Assert.assertEquals("01.04.2010 08:30:00", tmpResult);
+
+    tmpDate = new GregorianCalendar(2010, 3, 1, 16, 30, 11).getTime();
+    tmpResult = StringUtil.formatDate(tmpDate);
+    org.junit.Assert.assertEquals("01.04.2010 16:30:11", tmpResult);
   }
 }

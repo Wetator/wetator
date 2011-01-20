@@ -131,7 +131,7 @@ public final class StringUtil {
       return null;
     }
 
-    return new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(aDate);
+    return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(aDate);
   }
 
   /**
