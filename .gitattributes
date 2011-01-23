@@ -846,3 +846,4 @@ xsl/images/previous.png -text
 xsl/images/response.png -text
 xsl/images/top.png -text
 xsl/images/wetator.png -text
+xsl/run_report.xsl -text svneol=unset#text/plain
