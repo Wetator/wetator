@@ -880,7 +880,7 @@
         <table width="100%" cellpadding="4" cellspacing="0" border="0" style="margin-top: 5px;">
           <tr>
               <td align="right" valign="top" style="width: 50%;">
-                  <table id="configuration" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px; margin-bottom: 20px">
+                  <table id="configuration" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px; margin-bottom: 20px;">
                       <tr>
                           <th>Key</th>
                           <th></th>
@@ -897,7 +897,7 @@
                   </table>
               </td>
               <td valign="top" style="width: 50%;">
-                  <table id="variables" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px">
+                  <table id="variables" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px; margin-bottom: 20px;">
                       <tr>
                           <th>Name</th>
                           <th></th>
