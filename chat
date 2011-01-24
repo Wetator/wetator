@@ -1,56 +1,3 @@
-Der Testfall, der bei mir nicht lŠuft, ist HtmlUnitControlFinderGetFirstClickableTextElementTest.testGetFirstClickableTextElement_ByTextWithBreak().
-Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
-Šndern, damit er durchlŠuft.
-Die Eingabe in die Textarea erzeugt folgende URL http://wetator.rbri.org/testcases/snoopy.php?textArea_Name=something%0D%0Aanother+something&TextAreaNameTest=OK.
-Also %0D%0A als Umbruch.
--> OK werde ich mir mal anschauen
-
-frank.danek 2010-09-28 23:40: hallo ronald. ich habe das projekt jetzt mit einigen helios-features versehen, insb. formatter + @suppresswarnings. ich weiß nicht
-	wirklich, wie sich das ganze verhält, wenn man es in galileo öffnet. wirst du dann aber ja sehen. ;-)
-
-rbri 2010-10-22: hi frank, snapshots sind aktualisiert, bei mir hat der refresh geklappt.
-
-frank.danek 2010-11-23 00:25: hallo ronald. ich habe den neuen controlfinder jetzt in den trunk gemerged. bei mir laufen alle tests in 91,5 sec durch.
-
-frank.danek 2010-11-27 16:15: hallo ronald. hier die ergebnisse meine analyse des tooltip-problems:
-
-	rich:toolTip initialisiert erst beim ersten document.onmousemove 
-	-> weder Open Url noch Mouse Over machen ein mousemove 
-	-> rich:toolTip wird nie initialisiert
-	=> was machen wir da? wenn ich Mouse Over um das entsprechende mousemove ergänze, funtionieren die rich:toolTip
-
-	dann noch zwei andere sachen:
-		Mouse Over macht ein focus() => warum? nur weil die maus irgendwo drüber fährt, bekommt das element doch nicht den focus.
-
-		wenn ich einen tooltip zu einem <span> mache, wird das im code <span>Text</span><span>ToolTip<span> 
-		-> daraus macht der HtmlPageIndex dann TextToolTip
-		=> das ist irgendwie unschön, aber eine lösung ist mir bisher noch nicht eingefallen.
-
-rbri 2010-11-27 22:20: hi frank; wahnsinn, wie hast du das rausgefunden?
-    ich denke, der mouseover sollte auf jeden fall auch einen mousemove triggern.
-    Bei OpenUrl könnten wir das ja auch machen, einfach so zur Sicherheit. Sich an den mousemove zu hängen ist aber schon schräg.
-    
-    Für den Aufruf von focus() kann ich mir als Grund nur vorstellen, das das Fenster auch aktiviert sein soll. Ich denke, da gibt es aber bessere Wege.
-    Da müssen wir mal suchen.
-    
-    Das mit dem Span hab ich nicht ganz verstanden. Vermisst Du das Leerzeichen? Eventuell können wir das ja montag klären.
-    
-    Wenn es gut läuft, dann kriege ich das mit den Images im CSS hin.
-     
-frank.danek 2010-11-27 01:40: die suche nach dem problem ging vom aufstehen bis zu meiner nachricht, also ca. 4h. javascript debuggen und besonders
-	den javascript-teil von htmlunit debuggen macht keinen spaß...
-	ich könnte mir auch vorstellen, dass das in richfaces ein bug ist. wenn du jetzt nämlich deine maus an die richtige stelle bewegst,
-	die seite neu lädst und deine maus nicht bewegst, erscheint der tooltip nicht, obwohl deine maus über dem element ist.
-	aber davon mal abgesehen, erschließt sich mir der sinn auch nicht so ganz. wenn man das ganze ans onload gehangen hätte, hätte alles ohne
-	probleme funktioniert. das hab ich ausprobiert (weil ich den ganzen müll eh für nen test nachgebaut habe).
-	
-	ist denn das aktuelle fenster nicht immer aktiv? das mit den mehreren fenstern habe ich noch nie gemacht... ich habs grad aber auch mal im
-	richtigen browser ausprobiert: das fenster muss noch nicht mal aktiv sein, damit der mouseover da funktioniert.
-	
-	genau, da steht kein leerzeichen. ich hab mir das aber nochmal etwas weiter angeschaut. im normalfall ist das vollkommen korrekt, dass da kein
-	leerzeichen steht. zwei <span> hintereinander werden auch im browser ohne leerzeichen dargestellt. ist halt beim tooltip blöd, weil niemand
-	darauf kommt, das ohne leerzeichen im test aufzuschreiben. reden wir montag drüber.
-	
 frank.danek 2010-12-02 23:00: hallo ronald. für diese ganze event-geschichte wäre es, glaube ich, ziemlich nützlich, wenn wir mal definieren, was
 	die actionen bei den verschiedenen controls eigentlich bedeuten (sollen). ich schreib da mal was zusammen, wenn ich wieder zeit habe. aber
 	heute nicht mehr...
@@ -65,4 +12,4 @@ frank.danek 2010-12-12 12:45: hallo ronald, kannst du bitte die webpage neu hoch
 
 rbri 2010-12-12 14:45: hi frank, habe das xsd verzeichnis aktualisiert. Reicht das?
 rbri 2010-12-24 14:08: Habe gestern mal angefangen mit PMD rumzuspielen. Die Checken auch, ob möglichst alles als final markiert ist. Es soll wohl
-    dem Compiler helfen. Deshlab habe ich das mal im Checkstyle angeschaltet. Die fehlenden final's baue ich ein.
+    dem Compiler helfen. Deshlab habe ich das mal im Checkstyle angeschaltet. Die fehlenden final's baue ich ein. 
