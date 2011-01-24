@@ -24,3 +24,6 @@ frank.danek 2011-01-25 00:35: Hi ihr, ich habe gerade das Checkstyle auf Version
     Die Property ignoreModifier ist dem Editor leider unbekannt. :( Also falls ihr mal was an der Checkstyle-Config ändert, bitte diese Zeile wieder
     manuell ins XML packen. Ansonsten habe ich alle alten und neuen Warnings bereits entfernt. Wehe ich sehe da irgendwann neue drin!!
     LAW AND ORDER RULZ! >:D
+    
+    Außerdem habe ich ein paar Libraries aktualisiert. @Ronald: es gibt eine neue Version vom Automaton. Kannst du die bitte in dein Repository
+    packen und dann hier einbinden? Danke!
