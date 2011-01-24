@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 public final class PageUtil {
 
   /**
-   * Helper for tests
+   * Helper for tests.
    * 
    * @param anHtmlCode the html source of the page
    * @return the HtmlPage result of parsing the source
@@ -54,7 +54,7 @@ public final class PageUtil {
   }
 
   /**
-   * Helper for tests
+   * Helper for tests.
    * 
    * @param anXHtmlCode the XHtml source of the page
    * @return the XHtmlPage result of parsing the source
@@ -70,7 +70,7 @@ public final class PageUtil {
   }
 
   /**
-   * Check, if the given Anchor is on the page
+   * Check, if the given Anchor is on the page.
    * 
    * @param aRef the anchor ref
    * @param aPage the page
@@ -99,7 +99,7 @@ public final class PageUtil {
   }
 
   /**
-   * Private constructor to be invisible
+   * Private constructor to be invisible.
    */
   private PageUtil() {
     super();

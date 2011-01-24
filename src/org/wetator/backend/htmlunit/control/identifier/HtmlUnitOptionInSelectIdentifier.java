@@ -178,7 +178,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
   }
 
   /**
-   * searches for nested option of a given select by label, value or text
+   * Searches for nested option of a given select by label, value or text.
    * 
    * @param aSelect HtmlSelect which should contain this option
    * @param aSearchPattern value or label of option

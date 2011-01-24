@@ -16,9 +16,8 @@
 
 package org.wetator.commandset;
 
-
 /**
- * Small class that offers some methods to be executed via 'Exec Java' command
+ * Small class that offers some methods to be executed via 'Exec Java' command.
  * 
  * @author rbri
  */

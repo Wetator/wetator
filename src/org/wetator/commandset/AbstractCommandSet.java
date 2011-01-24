@@ -45,7 +45,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   private int noOfCommands;
 
   /**
-   * Constructor
+   * The constructor.
    */
   protected AbstractCommandSet() {
     super();
@@ -82,7 +82,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   }
 
   /**
-   * Adds an initialization message to this command set
+   * Adds an initialization message to this command set.
    * 
    * @param aMessage the message to be added
    */
@@ -96,7 +96,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   protected abstract void registerCommands();
 
   /**
-   * Registers a command under the given name
+   * Registers a command under the given name.
    * 
    * @param aCommandName the name of the command
    * @param aWetCommandImplementation the implementation (class) of the command
@@ -108,8 +108,6 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   }
 
   /**
-   * Getter for the backend
-   * 
    * @param aWetContext the wet context
    * @return the WetBackend
    */
@@ -119,9 +117,9 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   }
 
   /**
-   * Returns the first control from the WeightedControlList<br>
-   * if the list is empty a AssertionFailedException is thrown<br>
-   * if the list has elements for more than one control then some warnings are fired
+   * Returns the first control from the WeightedControlList.<br>
+   * If the list is empty an AssertionFailedException is thrown.<br>
+   * If the list has elements for more than one control then some warnings are fired.
    * 
    * @param aWetContext the wet context
    * @param aWeightedControlList the WeightedControlList

@@ -47,7 +47,7 @@ import org.wetator.util.StringUtil;
  */
 public final class SqlCommandSet extends AbstractCommandSet {
   /**
-   * The prefix used to mark the db name
+   * The prefix used to mark the db name.
    */
   protected static final String DB_NAME_PREFIX = "@";
 
@@ -80,7 +80,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Exec Sql'
+   * Command 'Exec Sql'.
    */
   public final class CommandExecSql implements WetCommandImplementation {
     /**
@@ -116,7 +116,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Sql'
+   * Command 'Assert Sql'.
    */
   public final class CommandAssertSql implements WetCommandImplementation {
     /**
@@ -171,7 +171,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Sql in Content'
+   * Command 'Assert Sql in Content'.
    */
   public final class CommandAssertSqlInContent implements WetCommandImplementation {
     /**
@@ -301,7 +301,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * extract the connection name from a string
+   * Extract the connection name from a string.
    * 
    * @param aWetContext the wet context
    * @param aParameter the parameter
@@ -326,7 +326,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * removes the connection name from an sql
+   * Removes the connection name from an sql.
    * 
    * @param aSql the sql
    * @param aConnectionName the connection name

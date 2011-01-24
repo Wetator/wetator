@@ -32,7 +32,9 @@ import org.wetator.core.searchpattern.SearchPattern;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * TODO class comment
+ * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link Control}.<br />
+ * Implement {@link #addMatchers(WPath, HtmlElement, List)} to add the matcher to use and
+ * {@link #createControl(HtmlElement)} to create a {@link Control} for an {@link HtmlElement}.
  * 
  * @author frank.danek
  */

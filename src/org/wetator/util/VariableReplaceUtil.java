@@ -21,16 +21,17 @@ import java.util.List;
 import org.wetator.core.variable.Variable;
 
 /**
- * Helpers to replace the variables in a String
+ * Helpers to replace the variables in a String.
  * 
  * @author rbri
  */
 public final class VariableReplaceUtil {
+
   private static final String VAR_START_SEQ = "${";
   private static final String VAR_END_SEQ = "}";
 
   /**
-   * Replace all place holders in aStringWithPlaceholders
+   * Replace all place holders in aStringWithPlaceholders.
    * 
    * @param aStringWithPlaceholders the string with the place holders
    * @param aVariables the values for the place holders
@@ -83,7 +84,7 @@ public final class VariableReplaceUtil {
   }
 
   /**
-   * Private constructor to be invisible
+   * Private constructor to be invisible.
    */
   private VariableReplaceUtil() {
     super();

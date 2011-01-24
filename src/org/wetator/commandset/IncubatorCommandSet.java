@@ -40,13 +40,6 @@ import org.wetator.util.SecretString;
  */
 public final class IncubatorCommandSet extends AbstractCommandSet {
 
-  /**
-   * Constructor of the default command set
-   */
-  public IncubatorCommandSet() {
-    super();
-  }
-
   @Override
   protected void registerCommands() {
     registerCommand("Assert Focus", new CommandAssertFocus());
@@ -55,7 +48,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Focus'
+   * Command 'Assert Focus'.
    */
   public final class CommandAssertFocus implements WetCommandImplementation {
     /**
@@ -92,7 +85,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Open Bookmark'
+   * Command 'Open Bookmark'.
    */
   public final class CommandOpenBookmark implements WetCommandImplementation {
     /**
@@ -118,7 +111,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Save Bookmark'
+   * Command 'Save Bookmark'.
    */
   public final class CommandSaveBookmark implements WetCommandImplementation {
     /**

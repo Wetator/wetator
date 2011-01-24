@@ -42,7 +42,7 @@ import org.wetator.exception.WetException;
 import org.wetator.util.NormalizedString;
 
 /**
- * Scripter for excel files
+ * Scripter for excel files.
  * 
  * @author rbri
  */

@@ -135,7 +135,7 @@ public final class StringUtil {
   }
 
   /**
-   * Private constructor to be invisible
+   * Private constructor to be invisible.
    */
   private StringUtil() {
     super();

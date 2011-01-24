@@ -30,14 +30,14 @@ public final class NormalizedString {
   private StringBuilder content;
 
   /**
-   * Default constructor; creates a new empty NormalizedString
+   * Default constructor; creates a new empty NormalizedString.
    */
   public NormalizedString() {
     content = new StringBuilder();
   }
 
   /**
-   * Default constructor; creates a new NormalizedString with an initial value
+   * Default constructor; creates a new NormalizedString with an initial value.
    * 
    * @param aString the initial value
    */
@@ -128,7 +128,7 @@ public final class NormalizedString {
   }
 
   /**
-   * Returns the length of the normalized String
+   * Returns the length of the normalized String.
    * 
    * @return the length
    */

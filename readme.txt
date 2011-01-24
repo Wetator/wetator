@@ -2,7 +2,7 @@ HOW TO SETUP THE IDE
 
 Currently we use
     Eclipse 3.6.1 (Helios SR1)
-    Eclipse Checkstyle Plugin 5.1.1
+    Eclipse Checkstyle Plugin 5.3.0
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 

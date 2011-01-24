@@ -125,7 +125,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns a list of all visible HtmlElements
+   * Returns a list of all visible HtmlElements.
    * 
    * @return the list of all visible HtmlElements
    */
@@ -134,7 +134,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the list of all visible html elements always starting with the leaves
+   * Returns the list of all visible html elements always starting with the leaves.
    * 
    * @return the list of all html elements
    */
@@ -143,7 +143,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the start and end position of this html element as FindSpot
+   * Returns the start and end position of this html element as FindSpot.
    * 
    * @param anHtmlElement the element
    * @return the position
@@ -153,7 +153,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the start and end position of the first occurrence of the string in the text
+   * Returns the start and end position of the first occurrence of the string in the text.
    * 
    * @param aSearchPattern the search pattern
    * @return the position
@@ -163,7 +163,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the start and end position of the first occurrence of the string in the text
+   * Returns the start and end position of the first occurrence of the string in the text.
    * 
    * @param aSearchPattern the search pattern
    * @param aStartPos the pos to start with the search
@@ -174,7 +174,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole (trimmed) text before the given dom node
+   * Returns the whole (trimmed) text before the given dom node.
    * 
    * @param aDomNode the node to look at
    * @return the text before the node
@@ -188,7 +188,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole (trimmed) text before the given dom node
+   * Returns the whole (trimmed) text before the given dom node.
    * 
    * @param aDomNode the node to look at
    * @return the text before the node
@@ -202,7 +202,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole (trimmed) text between this element and the preceding form element or the form start
+   * Returns the whole (trimmed) text between this element and the preceding form element or the form start.
    * 
    * @param anHtmlElement the element to start from
    * @param aStartPos the start pos, text found before this will be not part of the result
@@ -250,7 +250,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole (trimmed) text between this element and the next form element or the form end
+   * Returns the whole (trimmed) text between this element and the next form element or the form end.
    * 
    * @param anHtmlElement the element to start from
    * @return the text after
@@ -291,7 +291,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the (trimmed) text of the given node and all its children
+   * Returns the (trimmed) text of the given node and all its children.
    * 
    * @param aDomNode the node to look at
    * @return the text

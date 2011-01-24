@@ -43,7 +43,7 @@ public class WetScriptConverter {
   private List<File> inputFiles;
 
   /**
-   * Constructor
+   * The constructor.
    */
   public WetScriptConverter() {
     inputFiles = new LinkedList<File>();

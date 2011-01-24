@@ -45,7 +45,7 @@ public final class XslTransformer {
   private File wetResultFile;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aWetResultFile the name of the report xml file
    */

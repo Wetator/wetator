@@ -35,7 +35,7 @@ import org.wetator.util.StdOutProgressListener;
 public final class AntOutProgressListener extends StdOutProgressListener {
 
   /**
-   * Wrapper
+   * A wrapper around a {@link Writer}.
    */
   private static class AntWriter extends Writer {
     private Task task;
@@ -84,7 +84,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
   private long lastPrint;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aWetator the wetator this executes
    */

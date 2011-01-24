@@ -25,28 +25,28 @@ package org.wetator.backend.htmlunit.util;
 public final class FindSpot {
 
   /**
-   * static object to reduce the number of objects in use
+   * Static object to reduce the number of objects in use.
    */
   public static final FindSpot NOT_FOUND = new FindSpot();
 
   /**
-   * the start position of a match
+   * The start position of a match.
    */
   public int startPos;
   /**
-   * the end position of a match
+   * The end position of a match.
    */
   public int endPos;
 
   /**
-   * Constructor
+   * The constructor.
    */
   public FindSpot() {
     this(-1, -1);
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aStartPos the startPos
    * @param anEndPos the endPos
@@ -56,6 +56,11 @@ public final class FindSpot {
     endPos = anEndPos;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#hashCode()
+   */
   @Override
   public int hashCode() {
     final int tmpPrime = 31;
@@ -65,6 +70,11 @@ public final class FindSpot {
     return tmpHash;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
   @Override
   public boolean equals(final Object anObject) {
     if (this == anObject) {
@@ -86,6 +96,11 @@ public final class FindSpot {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
   @Override
   public String toString() {
     return "FindSpot(" + startPos + ", " + endPos + ")";

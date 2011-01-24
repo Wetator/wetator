@@ -28,7 +28,7 @@ import org.wetator.exception.WetException;
 public final class FileUtil {
 
   /**
-   * Creates the specified directory if needed
+   * Creates the specified directory if needed.
    * 
    * @param anOutputDir the name of the directory
    * @throws WetException in case of problems
@@ -56,7 +56,7 @@ public final class FileUtil {
   }
 
   /**
-   * Private constructor to be invisible
+   * Private constructor to be invisible.
    */
   private FileUtil() {
     super();

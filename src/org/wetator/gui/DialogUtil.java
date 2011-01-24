@@ -34,7 +34,7 @@ public final class DialogUtil {
   private static final String LAST_DIR = "lastDir";
 
   /**
-   * Helper for displaying a file selector dialog
+   * Helper for displaying a file selector dialog.
    * 
    * @return the files
    */
@@ -49,7 +49,7 @@ public final class DialogUtil {
   }
 
   /**
-   * Helper for displaying a file selector dialog
+   * Helper for displaying a file selector dialog.
    * 
    * @return the files
    */

@@ -35,7 +35,7 @@ import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
 
 /**
- * Scripter for XML files
+ * Scripter for XML files.
  * 
  * @author tobwoerk
  */
@@ -45,23 +45,23 @@ public final class XmlScripter implements WetScripter {
   private static final String XML_FILE_EXTENSION = ".xml";
 
   /**
-   * The element name for test step
+   * The element name for test step.
    */
   public static final String E_STEP = "step";
   /**
-   * The element name for optional parameter
+   * The element name for optional parameter.
    */
   public static final String E_OPTIONAL_PARAMETER = "optionalParameter";
   /**
-   * The element name for second optional parameter
+   * The element name for second optional parameter.
    */
   public static final String E_OPTIONAL_PARAMETER2 = "optionalParameter2";
   /**
-   * The attribute name for command
+   * The attribute name for command.
    */
   public static final String A_COMMAND = "command";
   /**
-   * The attribute name for comment
+   * The attribute name for comment.
    */
   public static final String A_COMMENT = "comment";
 

@@ -29,7 +29,7 @@ import org.wetator.exception.WetException;
 public interface WetScriptCreator {
 
   /**
-   * Creates a script from the previously set command list with the given fileName
+   * Creates a script from the previously set command list with the given fileName.
    * 
    * @throws WetException in case of errors
    */

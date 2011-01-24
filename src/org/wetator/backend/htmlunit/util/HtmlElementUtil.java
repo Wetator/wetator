@@ -47,7 +47,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public final class HtmlElementUtil {
 
   /**
-   * Private constructor; this util has only static methods
+   * Private constructor; this util has only static methods.
    */
   private HtmlElementUtil() {
     super();

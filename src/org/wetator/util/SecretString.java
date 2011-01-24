@@ -37,7 +37,7 @@ public final class SecretString {
   private String valueForPrint;
 
   /**
-   * Constructs a comma separated string from the given list of secret strings
+   * Constructs a comma separated string from the given list of secret strings.
    * 
    * @param aSecretStringList the input
    * @return the constucted string
@@ -86,8 +86,6 @@ public final class SecretString {
   }
 
   /**
-   * Returns the value
-   * 
    * @return the value
    */
   public String getValue() {
@@ -95,7 +93,7 @@ public final class SecretString {
   }
 
   /**
-   * Prefixes the value and the printout with the given string
+   * Prefixes the value and the printout with the given string.
    * 
    * @param aValuePrefix the prefix
    */
@@ -104,7 +102,7 @@ public final class SecretString {
   }
 
   /**
-   * Prefixes the value and the printout with the given string
+   * Prefixes the value and the printout with the given string.
    * 
    * @param aValuePrefix the prefix for the value
    * @param aValueForPrintPrefix the prefix for the printout
@@ -114,13 +112,18 @@ public final class SecretString {
     valueForPrint = aValueForPrintPrefix + valueForPrint;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
   @Override
   public String toString() {
     return valueForPrint;
   }
 
   /**
-   * Constructs and returns a new search pattern from the value
+   * Constructs and returns a new search pattern from the value.
    * 
    * @return the search pattern
    */
@@ -129,7 +132,7 @@ public final class SecretString {
   }
 
   /**
-   * Returns true if a value starts with the given prefix
+   * Returns true if a value starts with the given prefix.
    * 
    * @param aPrefix the prefix
    * @return true or false
@@ -139,7 +142,7 @@ public final class SecretString {
   }
 
   /**
-   * Returns true if a value starts at offset with the given prefix
+   * Returns true if a value starts at offset with the given prefix.
    * 
    * @param aPrefix the prefix
    * @param anOffset the start position
@@ -150,7 +153,7 @@ public final class SecretString {
   }
 
   /**
-   * Returns true if a value ends with the given suffix
+   * Returns true if a value ends with the given suffix.
    * 
    * @param aSuffix the suffix
    * @return true or false
@@ -160,7 +163,7 @@ public final class SecretString {
   }
 
   /**
-   * Returns the lower case form of the string
+   * Returns the lower case form of the string.
    * 
    * @param aLocale the locale for the conversion
    * @return the lower case form of the string

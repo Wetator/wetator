@@ -36,38 +36,38 @@ public final class WeightedControlList {
    * Smaller values are more important.
    */
   public enum FoundType {
-    /** found by text match */
+    /** Found by text match. */
     BY_TEXT(9999),
 
-    /** found by table coordindates match */
+    /** Found by table coordindates match. */
     BY_TABLE_COORDINATE(6000),
 
-    /** found by image source attribute match */
+    /** Found by image source attribute match. */
     BY_IMG_SRC_ATTRIBUTE(5000),
-    /** found by image alt attribute match */
+    /** Found by image alt attribute match. */
     BY_IMG_ALT_ATTRIBUTE(5000),
-    /** found by image title attribute match */
+    /** Found by image title attribute match. */
     BY_IMG_TITLE_ATTRIBUTE(5000),
 
-    /** found by inner image source attribute match */
+    /** Found by inner image source attribute match. */
     BY_INNER_IMG_SRC_ATTRIBUTE(4000),
-    /** found by inner image alt attribute match */
+    /** Found by inner image alt attribute match. */
     BY_INNER_IMG_ALT_ATTRIBUTE(4000),
-    /** found by inner image title attribute match */
+    /** Found by inner image title attribute match. */
     BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
 
-    /** found by label text match */
+    /** Found by label text match. */
     BY_LABEL_TEXT(3000),
 
-    /** found by label match */
+    /** Found by label match. */
     BY_LABEL(2000),
 
-    /** found by name match */
+    /** Found by name match. */
     BY_NAME(1000),
-    /** found by inner name match */
+    /** Found by inner name match. */
     BY_INNER_NAME(900),
 
-    /** found by id match */
+    /** Found by id match. */
     BY_ID(400);
 
     private int value;
@@ -235,7 +235,7 @@ public final class WeightedControlList {
   }
 
   /**
-   * Returns true, if the list is empty
+   * Returns true, if the list is empty.
    * 
    * @return true or false
    */

@@ -38,7 +38,7 @@ public final class Wetator {
   private static final Log LOG = LogFactory.getLog(Wetator.class);
 
   /**
-   * The start point for the command line call
+   * The start point for the command line call.
    * 
    * @param anArgsArray the command line arguments
    */

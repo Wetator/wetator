@@ -29,7 +29,7 @@ public class XmlUtil {
   private CharsetEncoder charsetEncoder;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param anEncoding the encoding used for the file
    */

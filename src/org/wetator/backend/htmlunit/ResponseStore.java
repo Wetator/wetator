@@ -69,7 +69,7 @@ public final class ResponseStore {
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param anOutputDir the outputDir to set
    * @param anOverwriteFlag the overwrite to set

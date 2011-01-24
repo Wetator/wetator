@@ -50,7 +50,7 @@ public class WetContext {
   private WetContext parentWetContext;
 
   /**
-   * Constructor for a root context
+   * Constructor for a root context.
    * 
    * @param aWetEngine the engine that processes this file
    * @param aFile the file this context is for
@@ -65,7 +65,7 @@ public class WetContext {
   }
 
   /**
-   * Constructor for a sub context
+   * Constructor for a sub context.
    * 
    * @param aWetContext the parent context
    * @param aFile the file this context is for

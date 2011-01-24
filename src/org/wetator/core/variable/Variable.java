@@ -70,8 +70,6 @@ public final class Variable {
   }
 
   /**
-   * Getter for the name
-   * 
    * @return the name of this variable
    */
   public String getName() {
@@ -79,8 +77,6 @@ public final class Variable {
   }
 
   /**
-   * Getter for the secret string
-   * 
    * @return the secret string
    */
   public SecretString getValue() {

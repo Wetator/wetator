@@ -31,7 +31,7 @@ import org.wetator.i18n.Messages;
  */
 public final class Assert {
 
-  /** the marker for more content */
+  /** The marker for more content. */
   protected static final String MORE_MARKER = "...";
 
   /**

@@ -91,7 +91,7 @@ public class WetResultWriter implements WetProgressListener {
   private long commandExecutionStartTime;
 
   /**
-   * Constructor
+   * The constructor.
    */
   public WetResultWriter() {
     tagId = 0;

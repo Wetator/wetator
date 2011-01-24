@@ -23,11 +23,11 @@ package org.wetator.scripter;
  */
 public enum Scripter {
   /**
-   * XML
+   * XML.
    */
   XML(new XmlScripter()),
   /**
-   * Excel
+   * Excel.
    */
   XLS(new ExcelScripter());
 

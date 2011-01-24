@@ -23,7 +23,7 @@ package org.wetator.scriptcreator;
  */
 public enum ScriptCreator {
   /**
-   * XML
+   * XML.
    */
   XML(new XmlScriptCreator());
 

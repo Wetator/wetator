@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * A simple helper to write formated to a writer
+ * A simple helper to write formated to a writer.
  * 
  * @author rbri
  */
@@ -105,7 +105,7 @@ public final class Output {
   }
 
   /**
-   * Flush
+   * Flushes the output.
    * 
    * @return this (for convenience)
    * @throws IOException in case of error
@@ -128,7 +128,7 @@ public final class Output {
   }
 
   /**
-   * clear indent
+   * Clear the indent.
    * 
    * @return this (for convenience)
    */

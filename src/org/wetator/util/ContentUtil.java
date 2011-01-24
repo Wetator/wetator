@@ -35,7 +35,7 @@ import org.apache.poi.ss.usermodel.Cell;
 public final class ContentUtil {
 
   /**
-   * Converts a pdf document to string
+   * Converts a pdf document to string.
    * 
    * @param anInputStream the input
    * @return the normalizes content string
@@ -55,7 +55,7 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts a xls document to string
+   * Converts an xls document to string.
    * 
    * @param anInputStream the input
    * @return the normalizes content string
@@ -126,7 +126,7 @@ public final class ContentUtil {
   }
 
   /**
-   * Private constructor to be invisible
+   * Private constructor to be invisible.
    */
   private ContentUtil() {
     super();

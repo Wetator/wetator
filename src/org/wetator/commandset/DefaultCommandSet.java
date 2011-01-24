@@ -52,14 +52,6 @@ import org.wetator.util.SecretString;
  * @author rbri
  */
 public final class DefaultCommandSet extends AbstractCommandSet {
-  // private static final Log LOG = LogFactory.getLog(DefaultCommandSet.class);
-
-  /**
-   * Constructor of the default command set
-   */
-  public DefaultCommandSet() {
-    super();
-  }
 
   @Override
   protected void registerCommands() {
@@ -84,7 +76,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Open Url'
+   * Command 'Open Url'.
    */
   public final class CommandOpenUrl implements WetCommandImplementation {
     /**
@@ -125,7 +117,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Use Module'
+   * Command 'Use Module'.
    */
   public final class CommandUseModule implements WetCommandImplementation {
     /**
@@ -163,7 +155,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Set'
+   * Command 'Set'.
    */
   public final class CommandSet implements WetCommandImplementation {
     /**
@@ -197,7 +189,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Click On'
+   * Command 'Click On'.
    */
   public final class CommandClickOn implements WetCommandImplementation {
     /**
@@ -229,7 +221,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Select'
+   * Command 'Select'.
    */
   public final class CommandSelect implements WetCommandImplementation {
     /**
@@ -258,7 +250,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Deselect'
+   * Command 'Deselect'.
    */
   public final class CommandDeselect implements WetCommandImplementation {
     /**
@@ -287,7 +279,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Mouse Over'
+   * Command 'Mouse Over'.
    */
   public final class CommandMouseOver implements WetCommandImplementation {
     /**
@@ -322,7 +314,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'close Window'
+   * Command 'close Window'.
    */
   public final class CommandCloseWindow implements WetCommandImplementation {
     /**
@@ -344,7 +336,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Go Back'
+   * Command 'Go Back'.
    */
   public final class CommandGoBack implements WetCommandImplementation {
     /**
@@ -376,7 +368,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Title'
+   * Command 'Assert Title'.
    */
   public final class CommandAssertTitle implements WetCommandImplementation {
     /**
@@ -404,7 +396,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Content'
+   * Command 'Assert Content'.
    */
   public final class CommandAssertContent implements WetCommandImplementation {
     /**
@@ -432,7 +424,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Disabled'
+   * Command 'Assert Disabled'.
    */
   public final class CommandAssertDisabled implements WetCommandImplementation {
     /**
@@ -470,7 +462,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Set'
+   * Command 'Assert Set'.
    */
   public final class CommandAssertSet implements WetCommandImplementation {
     /**
@@ -500,7 +492,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Selected'
+   * Command 'Assert Selected'.
    */
   public final class CommandAssertSelected implements WetCommandImplementation {
     /**
@@ -529,7 +521,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Deselected'
+   * Command 'Assert Deselected'.
    */
   public final class CommandAssertDeselected implements WetCommandImplementation {
     /**
@@ -558,7 +550,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Exec Java'
+   * Command 'Exec Java'.
    */
   public final class CommandExecJava implements WetCommandImplementation {
     /**

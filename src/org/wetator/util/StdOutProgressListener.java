@@ -39,7 +39,7 @@ public class StdOutProgressListener implements WetProgressListener {
 
   private static final int DOTS_PER_LINE = 100;
 
-  /** the output used */
+  /** The output used. */
   protected Output output;
   private long stepsCount;
   private long errorCount;
@@ -48,7 +48,7 @@ public class StdOutProgressListener implements WetProgressListener {
   private int contextDeep;
 
   /**
-   * Constructor
+   * The constructor.
    */
   public StdOutProgressListener() {
     output = new Output(new PrintWriter(System.out), "  ");
@@ -280,7 +280,7 @@ public class StdOutProgressListener implements WetProgressListener {
   }
 
   /**
-   * The worker that does the real output
+   * The worker that does the real output.
    * 
    * @param aString the output
    */
@@ -294,7 +294,7 @@ public class StdOutProgressListener implements WetProgressListener {
   }
 
   /**
-   * The worker that does the real output
+   * The worker that does the real output.
    * 
    * @param aString the output
    */
@@ -308,7 +308,7 @@ public class StdOutProgressListener implements WetProgressListener {
   }
 
   /**
-   * The printing of the progress output
+   * The printing of the progress output.
    * 
    * @param aProgressSign the output
    */

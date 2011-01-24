@@ -39,7 +39,7 @@ public final class WetatorScriptConverter {
   private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);;
 
   /**
-   * The start point for the command line call
+   * The start point for the command line call.
    * 
    * @param anArgsArray
    *        the command line arguments

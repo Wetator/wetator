@@ -36,15 +36,15 @@ public interface WetBackend {
    * Enum for the supported content type.
    */
   public enum ContentType {
-    /** html */
+    /** html. */
     HTML,
-    /** plain text */
+    /** plain text. */
     TEXT,
-    /** pdf */
+    /** pdf. */
     PDF,
-    /** excel */
+    /** excel. */
     XLS,
-    /** the rest */
+    /** the rest. */
     OTHER
   };
 
@@ -52,22 +52,22 @@ public interface WetBackend {
    * Enum for the supported browsers.
    */
   public enum Browser {
-    /** firefox 3 */
+    /** firefox 3. */
     FIREFOX_3("Firefox3", "Firefox_3"),
-    /** firefox 3.6 */
+    /** firefox 3.6. */
     FIREFOX_3_6("Firefox3.6", "Firefox_3_6"),
-    /** the famous internet explorer 6 */
+    /** the famous internet explorer 6. */
     INTERNET_EXPLORER_6("IE6", "IE_6"),
-    /** internet explorer 7 */
+    /** internet explorer 7. */
     INTERNET_EXPLORER_7("IE7", "IE_7"),
-    /** internet explorer 8 */
+    /** internet explorer 8. */
     INTERNET_EXPLORER_8("IE8", "IE_8");
 
     private String label;
     private String symbol;
 
     /**
-     * Constructor
+     * The constructor.
      * 
      * @param aLabel the label of the browser
      * @param aSymbol the symbol for the browser (e.g. used by the {@link org.wetator.core.WetConfiguration})
@@ -78,8 +78,6 @@ public interface WetBackend {
     }
 
     /**
-     * Getter for the label
-     * 
      * @return the label
      */
     public String getLabel() {
@@ -196,7 +194,7 @@ public interface WetBackend {
   public void startNewSession(WetBackend.Browser aBrowser);
 
   /**
-   * Returns the url for the bookmark with the given name
+   * Returns the url for the bookmark with the given name.
    * 
    * @param aBookmarkName the name of the bookmark
    * @return the url (including get parameters)

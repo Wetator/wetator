@@ -17,7 +17,7 @@
 package org.wetator.exception;
 
 /**
- * Special error in case an assertion fails
+ * Special error in case an assertion fails.
  * 
  * @author rbri
  */
@@ -26,7 +26,7 @@ public class AssertionFailedException extends Exception {
   private static final long serialVersionUID = -1587032805061848761L;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aMessage the message text
    */
@@ -35,7 +35,7 @@ public class AssertionFailedException extends Exception {
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aMessage the message text
    * @param aCause the cause

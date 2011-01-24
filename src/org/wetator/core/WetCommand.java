@@ -40,7 +40,7 @@ public final class WetCommand {
   private int lineNo;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aName the name of the command
    * @param anIsCommentFlag true if the command is a comment
@@ -68,8 +68,6 @@ public final class WetCommand {
   }
 
   /**
-   * Getter for the name
-   * 
    * @return the name
    */
   public String getName() {
@@ -77,8 +75,6 @@ public final class WetCommand {
   }
 
   /**
-   * Getter for the isComment flag
-   * 
    * @return the isComment flag
    */
   public boolean isComment() {
@@ -170,7 +166,7 @@ public final class WetCommand {
   }
 
   /**
-   * Returns the list of secret strings parsed from the first parameter
+   * Returns the list of secret strings parsed from the first parameter.
    * 
    * @param aWetContext the context
    * @return the list of secret strings (never null)
@@ -211,7 +207,7 @@ public final class WetCommand {
   }
 
   /**
-   * Returns the list of secret strings parsed from the first parameter
+   * Returns the list of secret strings parsed from the first parameter.
    * 
    * @param aWetContext the context
    * @return the list of secret strings (never null)
@@ -248,7 +244,7 @@ public final class WetCommand {
   }
 
   /**
-   * Returns the list of secret strings parsed from the second parameter
+   * Returns the list of secret strings parsed from the second parameter.
    * 
    * @param aWetContext the context
    * @return the list of secret strings (never null)
@@ -285,7 +281,7 @@ public final class WetCommand {
   }
 
   /**
-   * Returns the list of secret strings parsed from the second parameter
+   * Returns the list of secret strings parsed from the second parameter.
    * 
    * @param aWetContext the context
    * @return the list of secret strings (never null)

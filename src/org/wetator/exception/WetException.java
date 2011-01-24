@@ -26,7 +26,7 @@ public class WetException extends RuntimeException {
   private static final long serialVersionUID = 3757691195403775693L;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aMessage the message text
    */
@@ -35,7 +35,7 @@ public class WetException extends RuntimeException {
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param aMessage the message text
    * @param aThrowable the reason of this exception

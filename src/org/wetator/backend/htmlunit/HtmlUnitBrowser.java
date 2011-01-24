@@ -92,20 +92,20 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
 public final class HtmlUnitBrowser implements WetBackend {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
 
-  /** the maximum history size */
+  /** The maximum history size. */
   protected static final int MAX_HISTORY_SIZE = 15;
 
-  /** htmlunit WebClient */
+  /** Htmlunit WebClient. */
   protected WebClient webClient;
-  /** ResponseStore */
+  /** ResponseStore. */
   protected ResponseStore responseStore;
-  /** WetEngine */
+  /** WetEngine. */
   protected WetEngine wetEngine;
-  /** AssertionFailedException */
+  /** The list of failures ({@link AssertionFailedException}s). */
   protected List<AssertionFailedException> failures;
-  /** immediateJobsTimeout */
+  /** ImmediateJobsTimeout. */
   protected long immediateJobsTimeout;
-  /** bookmarks */
+  /** The map containing the bookmarks. */
   protected Map<String, URL> bookmarks;
 
   /**
@@ -459,7 +459,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   /**
-   * Check if the url contains a hash, that the matching anchor is on the page
+   * Checks if the url contains a hash, that the matching anchor is on the page.
    * 
    * @param aRef the hash from the url
    * @throws AssertionFailedException if no matisching anchor found
@@ -477,7 +477,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     private HtmlUnitBrowser htmlUnitBrowser;
 
     /**
-     * Constructor
+     * The constructor.
      * 
      * @param anHtmlUnitBrowser the browser to inform
      */

@@ -13,16 +13,11 @@
   <module name="TreeWalker">
     <module name="ConstantName"/>
     <module name="LocalFinalVariableName">
-      <property name="format" value="^(tmp[A-Z][a-zA-Z0-9]*|i|j|k)$"/>
-      <property name="tokens" value="VARIABLE_DEF"/>
+      <property name="format" value="^((tmp|e)[A-Z][a-zA-Z0-9]*|i|j|k|e)$"/>
     </module>
     <module name="LocalVariableName">
       <property name="format" value="^(tmp[A-Z][a-zA-Z0-9]*|i|j|k)$"/>
       <property name="tokens" value="VARIABLE_DEF"/>
-    </module>
-    <module name="LocalFinalVariableName">
-      <property name="format" value="^e([A-Z][a-zA-Z0-9]*)?$"/>
-      <property name="tokens" value="PARAMETER_DEF"/>
     </module>
     <module name="LocalVariableName">
       <property name="format" value="^e([A-Z][a-zA-Z0-9]*)?$"/>
@@ -123,10 +118,15 @@
     <module name="RedundantThrows">
       <property name="allowUnchecked" value="true"/>
       <property name="allowSubclasses" value="true"/>
-      <property name="logLoadErrors" value="true"/>
       <property name="suppressLoadErrors" value="true"/>
     </module>
     <module name="ArrayTypeStyle"/>
+    <module name="JavadocStyle"/>
+    <module name="AbstractClassName">
+      <property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
+      <property name="ignoreModifier" value="true"/>
+    </module>
+    <module name="OneStatementPerLine"/>
   </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>

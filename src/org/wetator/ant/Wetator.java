@@ -121,7 +121,7 @@ public class Wetator extends Task {
   }
 
   /**
-   * Reads and returns the properties form ant project and from wetator task
+   * Reads and returns the properties form ant project and from wetator task.
    * 
    * @return a map with properties
    */
@@ -160,8 +160,6 @@ public class Wetator extends Task {
   }
 
   /**
-   * Getter for attribute config
-   * 
    * @return current config
    */
   protected String getConfig() {
@@ -169,8 +167,6 @@ public class Wetator extends Task {
   }
 
   /**
-   * Setter for attribute config
-   * 
    * @param aConfig the new config
    */
   public void setConfig(final String aConfig) {
@@ -178,8 +174,6 @@ public class Wetator extends Task {
   }
 
   /**
-   * Getter for attribute fileset
-   * 
    * @return current fileset
    */
   protected FileSet getFileset() {
@@ -187,7 +181,7 @@ public class Wetator extends Task {
   }
 
   /**
-   * Creates a new file set and stores it in attribute fileset
+   * Creates a new file set and stores it in attribute fileset.
    * 
    * @return the new file set
    */
@@ -197,7 +191,7 @@ public class Wetator extends Task {
   }
 
   /**
-   * Lazy initialization for attribute classpath
+   * Lazy initialization for attribute classpath.
    * 
    * @return the attribute classpath
    */
@@ -209,7 +203,7 @@ public class Wetator extends Task {
   }
 
   /**
-   * Adds a property to the list of known properties
+   * Adds a property to the list of known properties.
    * 
    * @param aProperty the new proptery
    */

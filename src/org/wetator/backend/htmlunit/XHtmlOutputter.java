@@ -118,7 +118,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param anHtmlPage the page to be written
    * @param aResponseStore the response store that is responsible to store files
@@ -131,7 +131,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * The real worker; dumps the page as XHTML to this file
+   * The real worker; dumps the page as XHTML to this file.
    * 
    * @param aFile the file to write to
    * @throws IOException in case of error
@@ -142,7 +142,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * The real worker; dumps the page as XHTML to this file
+   * The real worker; dumps the page as XHTML to this file.
    * 
    * @param aWriter the writer to write on
    * @throws IOException in case of error
@@ -165,7 +165,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * Helper rot writing subnodes
+   * Helper rot writing subnodes.
    * 
    * @param aDomNode the parent node
    * @throws IOException in case of error
@@ -187,7 +187,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * Writes the opening part of the tag
+   * Writes the opening part of the tag.
    * 
    * @param aDomNode the node to work on
    * @throws IOException in case of error
@@ -256,7 +256,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * Writes the closing part of the tag
+   * Writes the closing part of the tag.
    * 
    * @param aDomNode the node to work on
    * @throws IOException in case of error
@@ -283,7 +283,7 @@ public final class XHtmlOutputter {
   }
 
   /**
-   * Writes the attributes of the tag
+   * Writes the attributes of the tag.
    * 
    * @param aDomNode the node to work on
    * @throws IOException in case of error
