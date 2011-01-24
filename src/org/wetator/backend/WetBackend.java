@@ -123,6 +123,12 @@ public interface WetBackend {
    */
   public ControlFinder getControlFinder() throws AssertionFailedException;
 
+  /**
+   * Opens the given URL in the current window.
+   * 
+   * @param aUrl the URL to open
+   * @throws AssertionFailedException in case of error
+   */
   public void openUrl(URL aUrl) throws AssertionFailedException;
 
   /**
@@ -160,12 +166,33 @@ public interface WetBackend {
   public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException;
 
+  /**
+   * Saves the content of the current window to the log.
+   */
   public void saveCurrentWindowToLog();
 
+  /**
+   * Goes back (simulates the browser's back button) in the current window.
+   * 
+   * @param aSteps the number of steps to go back
+   * @throws AssertionFailedException in case of error
+   */
   public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
 
+  /**
+   * Closes the window with the given name.
+   * 
+   * @param aWindowName the name
+   * @throws AssertionFailedException in case of error
+   */
   public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
 
+  /**
+   * Starts a new browser session.<br/>
+   * If there are any open sessions (and open windows) currently they are closed.
+   * 
+   * @param aBrowser the browser to start a session for
+   */
   public void startNewSession(WetBackend.Browser aBrowser);
 
   /**

@@ -19,53 +19,97 @@ package org.wetator.core;
 import org.wetator.exception.AssertionFailedException;
 
 /**
- * The interface for listeners of the wetator run
- * progress. Register a listener to be informed.
+ * The interface for listeners of the wetator run progress. Register a listener to be informed.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface WetProgressListener {
 
   /**
-   * This is called before the setup is done
-   * and before the test are starting.<br>
-   * Only the configuration path is available.
-   * The listener can dump the version and the
-   * configuration file used (if any).
+   * This is called before the setup is done and before the test are starting.<br/>
+   * Only the configuration path is available. The listener can dump the version and the configuration file used (if
+   * any).
    * 
    * @param aWetEngine the engine
    */
   public void init(WetEngine aWetEngine);
 
   /**
-   * This is called after the setup is done
-   * and before the test are starting.
-   * The listener can dump the setup
+   * This is called after the setup is done and before the test are starting.<br/>
+   * The listener can dump the setup.
    * 
    * @param aWetEngine the engine
    */
   public void start(WetEngine aWetEngine);
 
+  /**
+   * This is called before a test case (grouping the browser runs) is started.<br/>
+   * 
+   * @param aTestName the name of the test case
+   */
   public void testCaseStart(String aTestName);
 
+  /**
+   * This is called before a run of a test case for one browser is started.<br/>
+   * 
+   * @param aBrowserName the name of the browser
+   */
   public void testRunStart(String aBrowserName);
 
+  /**
+   * This is called before a test file is started.<br/>
+   * This happens for a top level test file as well as for included modules.
+   * 
+   * @param aFileName the file name of the test file
+   */
   public void testFileStart(String aFileName);
 
+  /**
+   * This is called before a command is executed.
+   * 
+   * @param aWetContext the {@link WetContext}
+   * @param aCommand the {@link WetCommand}
+   */
   public void executeCommandStart(WetContext aWetContext, WetCommand aCommand);
 
+  /**
+   * This is called if a command was executed successfully.
+   */
   public void executeCommandSuccess();
 
+  /**
+   * This is called if a the execution of a command resulted in a failure.
+   * 
+   * @param anAssertionFailedException the failure
+   */
   public void executeCommandFailure(AssertionFailedException anAssertionFailedException);
 
+  /**
+   * This is called if a the execution of a command resulted in an error.
+   * 
+   * @param aThrowable the error
+   */
   public void executeCommandError(Throwable aThrowable);
 
+  /**
+   * This is called after a command is executed.
+   */
   public void executeCommandEnd();
 
+  /**
+   * This is called after a test file is finished.
+   */
   public void testFileEnd();
 
+  /**
+   * This is called after a run of a test case for one browser is finished.
+   */
   public void testRunEnd();
 
+  /**
+   * This is called after a test case (grouping the browser runs) is finished.
+   */
   public void testCaseEnd();
 
   /**
@@ -75,9 +119,26 @@ public interface WetProgressListener {
    */
   public void end(WetEngine aWetEngine);
 
+  /**
+   * This is called after a response was stored in disk.
+   * 
+   * @param aResponseFileName the file name of the stored response
+   */
   public void responseStored(String aResponseFileName);
 
+  /**
+   * This is called to log a warning.
+   * 
+   * @param aMessageKey the message key
+   * @param aParameterArray the parameters for the message
+   */
   public void warn(String aMessageKey, String[] aParameterArray);
 
+  /**
+   * This is called to log an information.
+   * 
+   * @param aMessageKey the message key
+   * @param aParameterArray the parameters for the message
+   */
   public void info(String aMessageKey, String[] aParameterArray);
 }

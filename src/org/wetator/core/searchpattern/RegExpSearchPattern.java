@@ -24,11 +24,14 @@ import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
 /**
- * The wildcard handling based on automaton regexp
+ * This is the standard implementation of a {@link SearchPattern} based on automaton RegExp.<br/>
+ * <b>Notice:</b> the currently used RegExp implementation dk.briks.automaton does not support all functionality of
+ * RegExp. But it is fast. ;)
  * 
  * @author rbri
  */
 final class RegExpSearchPattern extends SearchPattern {
+
   private static long constructor;
   private static long noOfCharsBeforeLastOccurenceIn;
   private static long noOfCharsAfterLastOccurenceIn;
@@ -59,10 +62,10 @@ final class RegExpSearchPattern extends SearchPattern {
   private int minLength;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param anOriginalString the string used to construct the pattern
-   * @param aPatternString the compiled patter used by the automaton
+   * @param aPatternString the compiled pattern used by the automaton
    */
   protected RegExpSearchPattern(final String anOriginalString, final String aPatternString) {
     super(anOriginalString);
@@ -74,11 +77,21 @@ final class RegExpSearchPattern extends SearchPattern {
     runAutomaton = new RunAutomaton(tmpAutomaton);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
+   */
   @Override
   public FindSpot firstOccurenceIn(final String aString) {
     return firstOccurenceIn(aString, 0);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String, int)
+   */
   @Override
   public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
     firstOccurenceIn++;
@@ -105,6 +118,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#lastOccurenceIn(java.lang.String)
+   */
   @Override
   public FindSpot lastOccurenceIn(final String aString) {
     lastOccurenceIn++;
@@ -131,6 +149,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastOccurenceIn(java.lang.String)
+   */
   @Override
   public int noOfCharsBeforeLastOccurenceIn(final String aString) {
     noOfCharsBeforeLastOccurenceIn++;
@@ -160,6 +183,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastOccurenceIn(java.lang.String)
+   */
   @Override
   public int noOfCharsAfterLastOccurenceIn(final String aString) {
     noOfCharsAfterLastOccurenceIn++;
@@ -185,6 +213,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
+   */
   @Override
   public boolean matches(final String aString) {
     matches++;
@@ -199,6 +232,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return runAutomaton.run(aString);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
+   */
   @Override
   public boolean matchesAtEnd(final String aString) {
     matchesAtEnd++;
@@ -219,6 +257,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return aString.length() == tmpMatcher.end();
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
+   */
   @Override
   public int noOfSurroundingCharsIn(final String aString) {
     noOfSurroundingCharsIn++;
@@ -244,6 +287,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
   @Override
   public String toString() {
     return "SearchPattern '" + getOriginalString() + "' [regexp: '" + patternString + "']";

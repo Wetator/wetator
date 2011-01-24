@@ -166,6 +166,12 @@ public class WetContext {
     }
   }
 
+  /**
+   * Determines the command implementation for the given {@link WetCommand} and executes it.
+   * 
+   * @param aWetCommand the command to be executed
+   * @throws AssertionFailedException if no command implementation was found or the execution fails
+   */
   public void determineAndExecuteCommandImpl(final WetCommand aWetCommand) throws AssertionFailedException {
     final WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
     if (null == tmpImpl) {

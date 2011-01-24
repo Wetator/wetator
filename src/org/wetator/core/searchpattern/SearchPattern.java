@@ -25,10 +25,11 @@ import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.util.SecretString;
 
 /**
- * The central wildcard handling.
+ * The central wildcard handling.<br/>
  * This supports the dos wildcards '*' and '?'.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public abstract class SearchPattern {
 
@@ -172,7 +173,7 @@ public abstract class SearchPattern {
   }
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @param anOriginalString the string used to construct the pattern
    */
@@ -181,40 +182,51 @@ public abstract class SearchPattern {
     originalString = anOriginalString;
   }
 
+  /**
+   * Searches for the first occurrence of this search pattern inside the given string.
+   * 
+   * @param aString the string to search inside
+   * @return the {@link FindSpot} of the first occurrence
+   */
   public abstract FindSpot firstOccurenceIn(String aString);
 
+  /**
+   * Searches for the first occurrence of this search pattern inside the given string starting at the given position.
+   * 
+   * @param aString the string to search inside
+   * @param aStartPos the position to start
+   * @return the {@link FindSpot} of the first occurrence
+   */
   public abstract FindSpot firstOccurenceIn(String aString, int aStartPos);
 
+  /**
+   * Searches for the last occurrence of this search pattern inside the given string.
+   * 
+   * @param aString the string to search inside
+   * @return the {@link FindSpot} of the last occurrence
+   */
   public abstract FindSpot lastOccurenceIn(String aString);
 
   /**
-   * Calculates the number of chars before the
-   * last occurrence of this search pattern in
-   * the given string.<br>
-   * If this search pattern is left truncated (star at
-   * start), then this returns zero.
+   * Calculates the number of chars before the last occurrence of this search pattern in the given string.<br>
+   * If this search pattern is left truncated (star at start), then this returns zero.
    * 
    * @param aString the string to search inside
-   * @return the number of chars or -1 if the pattern is
-   *         not found
+   * @return the number of chars or -1 if the pattern is not found
    */
   public abstract int noOfCharsBeforeLastOccurenceIn(String aString);
 
   /**
-   * Calculates the number of chars after the
-   * last occurrence of this search pattern in
-   * the given string.<br>
-   * If this search pattern is right truncated (star at
-   * end), then this returns zero.
+   * Calculates the number of chars after the last occurrence of this search pattern in the given string.<br>
+   * If this search pattern is right truncated (star at end), then this returns zero.
    * 
    * @param aString the string to search inside
-   * @return the number of chars or -1 if the pattern is
-   *         not found
+   * @return the number of chars or -1 if the pattern is not found
    */
   public abstract int noOfCharsAfterLastOccurenceIn(String aString);
 
   /**
-   * Returns true if the patterns matches the whole string
+   * Returns true if the patterns matches the whole string.
    * 
    * @param aString the String to match with
    * @return true or false
@@ -222,7 +234,7 @@ public abstract class SearchPattern {
   public abstract boolean matches(String aString);
 
   /**
-   * Returns true, if the Strings ends with this pattern.
+   * Returns true, if the string ends with this pattern.
    * 
    * @param aString the string to match
    * @return true or false
@@ -230,25 +242,26 @@ public abstract class SearchPattern {
   public abstract boolean matchesAtEnd(String aString);
 
   /**
-   * Calculates the sum of the number of chars before
-   * and after the match of this search pattern
-   * in the given string.<br>
+   * Calculates the sum of the number of characters before and after the match of this search pattern in the given
+   * string.
    * 
    * @param aString the string to search inside
-   * @return the number of chars or -1 if the pattern is
-   *         not found
+   * @return the number of characters or -1 if the pattern is not found
    */
   public abstract int noOfSurroundingCharsIn(String aString);
 
   /**
-   * Getter for attribute originalString
-   * 
-   * @return the value of attribute originalString
+   * @return the originalString
    */
   public String getOriginalString() {
     return originalString;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#hashCode()
+   */
   @Override
   public int hashCode() {
     final int tmpPrime = 31;
@@ -260,6 +273,11 @@ public abstract class SearchPattern {
     return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
   @Override
   public boolean equals(final Object anObject) {
     if (this == anObject) {
