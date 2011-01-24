@@ -479,22 +479,16 @@
                                     <img src="images/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
                                         <xsl:attribute name="onclick">
                                             showOrHideAll(this
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE6'">
-                                                ,'ie6overview'
-                                            </xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE7'">
-                                                ,'ie7overview'
-                                            </xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE8'">
-                                                ,'ie8overview'
-                                            </xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
-                                                ,'ff3overview'
-                                            </xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
-                                                ,'ff3_6overview'
-                                            </xsl:if>
-                                            );
+                                            <xsl:if test="/wet/testcase/testrun/@browser='IE6'">, 'ie6overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='IE6')">, null</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='IE7'">, 'ie7overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='IE7')">, null</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='IE8')">, null</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">, 'ff3overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3')">, null</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">, 'ff3_6overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3.6')">, null</xsl:if>);
                                         </xsl:attribute>
                                     </img>
                                 </td>
