@@ -200,7 +200,7 @@
 
                 <center><p><img src="images/wetator.png" alt="Wetator"/></p></center>
 
-                <table align="center" frame="box" border="5" rules="none">
+                <table align="center" frame="box" border="3" rules="none">
                     <xsl:attribute name="bordercolor">
                         <xsl:value-of select="$lightGreyColor"/>
                     </xsl:attribute>
