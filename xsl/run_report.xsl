@@ -304,7 +304,7 @@
                                 <table cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <xsl:if test="$testCaseFailurePercentage > 0">
-                                            <td class="smallBorder">
+                                            <td class="smallBorder" style="text-align: center;">
                                                 <xsl:attribute name="width">
                                                     <xsl:value-of select="$testCaseFailurePercentage"/>%
                                                 </xsl:attribute>
@@ -318,7 +318,7 @@
                                             </td>
                                         </xsl:if>
                                         <xsl:if test="$testCaseSuccessPercentage > 0">
-                                            <td class="smallBorder">
+                                            <td class="smallBorder" style="text-align: center;">
                                                 <xsl:attribute name="width">
                                                     <xsl:value-of select="$testCaseSuccessPercentage"/>%
                                                 </xsl:attribute>
@@ -350,7 +350,7 @@
                                 <tr>
                                     <!-- failed steps -->
                                     <xsl:if test="$stepsFailedPercent > 0">
-                                        <td class="smallBorder">
+                                        <td class="smallBorder" style="text-align: center;">
                                             <xsl:attribute name="width">
                                                 <xsl:value-of select="$stepsFailedPercent"/>%
                                             </xsl:attribute>
@@ -379,7 +379,7 @@
 
                                     <!-- vacant failed steps -->
                                     <xsl:if test="$stepsVacantFailedPercent > 0">
-                                        <td class="smallBorder">
+                                        <td class="smallBorder" style="text-align: center;">
                                             <xsl:attribute name="width">
                                                 <xsl:value-of select="$stepsVacantFailedPercent"/>%
                                             </xsl:attribute>
@@ -408,7 +408,7 @@
 
                                     <!-- successful steps -->
                                     <xsl:if test="$stepsOkPercent > 0">
-                                        <td class="smallBorder">
+                                        <td class="smallBorder" style="text-align: center;">
                                             <xsl:attribute name="width">
                                                 <xsl:value-of select="$stepsOkPercent"/>%
                                             </xsl:attribute>
@@ -437,7 +437,7 @@
 
                                     <!-- vacant successful steps -->
                                     <xsl:if test="$stepsVacantOkPercent > 0">
-                                        <td class="smallBorder">
+                                        <td class="smallBorder" style="text-align: center;">
                                             <xsl:attribute name="width">
                                                 <xsl:value-of select="$stepsVacantOkPercent"/>%
                                             </xsl:attribute>
@@ -698,7 +698,7 @@
                 <table cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <xsl:if test="$failedPercent > 0">
-                        <td class="smallBorder"  style="text-align: center;">
+                        <td class="smallBorder" style="text-align: center;">
                             <xsl:attribute name="width">
                                 <xsl:value-of select="$failedPercent"/>%
                             </xsl:attribute>
@@ -749,7 +749,7 @@
                     <tr>
                       <!-- failed steps -->
                       <xsl:if test="$stepsFailedPercent > 0">
-                          <td class="smallBorder"  style="text-align: center;">
+                          <td class="smallBorder" style="text-align: center;">
                               <xsl:attribute name="width">
                                   <xsl:value-of select="$stepsFailedPercent"/>%
                               </xsl:attribute>
@@ -765,7 +765,7 @@
                           </td>
                       </xsl:if>
                       <xsl:if test="$stepsFailedPercent = 0 and $failed > 0">
-                          <td class="smallBorder"  style="text-align: center;">
+                          <td class="smallBorder" style="text-align: center;">
                               <xsl:attribute name="width">1%</xsl:attribute>
                               <xsl:attribute name="bgcolor">
                                   <xsl:value-of select="$failedColor"/>
@@ -794,7 +794,7 @@
                           </td>
                       </xsl:if>
                       <xsl:if test="$stepsVacantFailedPercent = 0 and $stepsVacantFailed > 0">
-                          <td class="smallBorder"  style="text-align: center;">
+                          <td class="smallBorder" style="text-align: center;">
                               <xsl:attribute name="width">1%</xsl:attribute>
                               <xsl:attribute name="bgcolor">
                                   <xsl:value-of select="$vacantFailedColor"/>
@@ -823,7 +823,7 @@
                           </td>
                       </xsl:if>
                       <xsl:if test="$stepsOkPercent = 0 and $stepsOk > 0">
-                          <td class="smallBorder"  style="text-align: center;">
+                          <td class="smallBorder" style="text-align: center;">
                               <xsl:attribute name="width">1%</xsl:attribute>
                               <xsl:attribute name="bgcolor">
                                   <xsl:value-of select="$okColor"/>
@@ -852,7 +852,7 @@
                           </td>
                       </xsl:if>
                       <xsl:if test="$stepsVacantOkPercent = 0 and $stepsVacantOk > 0">
-                          <td class="smallBorder"  style="text-align: center;">
+                          <td class="smallBorder" style="text-align: center;">
                               <xsl:attribute name="width">1%</xsl:attribute>
                               <xsl:attribute name="bgcolor">
                                   <xsl:value-of select="$vacantOkColor"/>
