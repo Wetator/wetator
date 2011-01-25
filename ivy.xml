@@ -5,7 +5,7 @@
     <info organisation="org.wetator" module="wetator"/>
     <dependencies>
         <dependency org="org.apache.ant" name="ant" rev="1.8.2" transitive="false"/>
-        <dependency org="automaton" name="automaton" rev="1.11.4" transitive="false"/>
+        <dependency org="automaton" name="automaton" rev="1.11.5" transitive="false"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.6"/>
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.10"/>
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.9-SNAPSHOT" changing="true" />
