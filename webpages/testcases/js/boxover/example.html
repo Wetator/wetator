@@ -1,0 +1,173 @@
+<html>
+   <head>
+    <title>Tooltips, Popups, Javascript, Dhtml - BoxOver</title>
+      <style>
+         .thdrcell {
+            background:#F3F0E7;
+            font-family:arial;
+            font-size:12px;
+            font-weight:bold;
+            padding:5px;
+            border-bottom:1px solid #C8BA92;
+         }
+         
+         .tdatacell {
+            font-family:arial;
+            font-size:12px;
+            padding:5px;
+            background:#FFFFFF
+         }
+         
+         .dvhdr1 {
+            background:#F3F0E7;
+            font-family:arial;
+            font-size:12px;
+            font-weight:bold;
+            border:1px solid #C8BA92;
+            padding:5px;
+            width:150px;
+         }
+         
+         .dvbdy1 {
+            background:#FFFFFF;
+            font-family:arial;
+            font-size:12px;
+            border-left:1px solid #C8BA92;
+            border-right:1px solid #C8BA92;
+            border-bottom:1px solid #C8BA92;
+            padding:5px;
+            width:150px;
+         }
+         
+         p {
+         margin-top:20px;
+         }
+         
+         h1 {
+         font-size:13px;
+         }
+         
+         .dogvdvhdr {
+            width:300;
+            background:#C4D5E3;
+            border:1px solid #C4D5E3;
+            font-weight:bold;
+            padding:10px;
+         }
+         
+         .dogvdvbdy {
+            width:300;
+            background:#FFFFFF;
+            border-left:1px solid #C4D5E3;
+            border-right:1px solid #C4D5E3;
+            border-bottom:1px solid #C4D5E3;
+            padding:10px;
+         }
+         
+         .pgdiv {
+         width:320;
+         height:250;
+         background:#E9EFF4;
+         border:1px solid #C4D5E3;
+         padding:10px;
+         margin-bottom:20;
+         font-family:arial;
+         font-size:12px;
+         }
+      </style>
+   </head>
+   <body style="font-family:arial;font-size:12px">
+      <h1>Best uses for BoxOver</h1>
+      <p>This shows some of the situations where BoxOver can be really nifty.
+      <br>It also gives you fellas out there an example to work off.</p>
+      <table cellspacing=30>
+         <tr>
+            <td valign=top>
+               <div class=pgdiv><b>Tooltips</b>
+               <p>This is where you can show help to the user.  Naturally you don't want this help to be permanently
+               visible on the screen so you can hide it and bring it up when needed.</p>
+               <p style="margin-top:0px">Move over question mark for help <span title="header=[<img src='info.gif' style='vertical-align:middle'>&nbsp;&nbsp;Title] body=[Some sort of explanation would go here]" style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">?</span></p>
+               <p title="header=[Delayed tooltip] body=[some text for the body] delay=[450]"><b>Move over this text to see a tooltip with a delay added.</b></p>
+               <p style="margin-top:0px" title="header=[Tooltip with fade & delay] body=[some text for the body] delay=[400] fade=[on]"><b>Oh yes.  Move over this for a delay and a fade.</b></p>
+               </div>
+            </td>
+            <td valign=top>      
+               <div class=pgdiv><b>For tabulated data</b> (especially when you have lots of fields and need space)
+               <p><table style="border:1px solid #C8BA92;border-collapse:collapse">
+                  <tr>
+                     <td class=thdrcell>Animal</td><td class=thdrcell>Type</td><td class=thdrcell>Where to find</td>
+                  </tr>
+                  <tr title="cssbody=[dvbdy1] cssheader=[dvhdr1] header=[Cat] body=[A nocturnal creature found prowling about alley ways throughout the world.]">
+                     <td class=tdatacell>Cat</td><td class=tdatacell>Mammal</td><td class=tdatacell>Sleeping on the TV</td>
+                  </tr>
+                  <tr title="cssbody=[dvbdy1] cssheader=[dvhdr1] header=[Tuna] body=[A most tasty snack - especially popular in the gym community, containing 27g per 100g protein. Also commonly mistaken for chicken by those cerebrally challenged individuals out there.]">
+                     <td class=tdatacell>Tuna</td><td class=tdatacell>Chicken ;)</td><td class=tdatacell>In the cupboard</td>
+                  </tr>
+                  <tr title="cssbody=[dvbdy1] cssheader=[dvhdr1] header=[Spider] body=[Spiderman, Spiderman, does whatever a spider can!]">
+                     <td class=tdatacell>Spider</td><td class=tdatacell>Insect</td><td class=tdatacell>Behind you</td>
+                  </tr>         
+                  <tr title="cssbody=[dvbdy1] cssheader=[dvhdr1] header=[Chicken] body=[Most commonly known to be crossing the road - goddam I crack myself up; apparently I shouldn't quit my day job though]">
+                     <td class=tdatacell>Chicken</td><td class=tdatacell>Poultry, haha</td><td class=tdatacell>Crossing the road</td>
+                  </tr>
+                  <tr title="cssbody=[dvbdy1] cssheader=[dvhdr1] header=[Lama] body=[Last seen being fed in Napolean Dynamite] fade=[on] fadespeed=[0.01]">
+                     <td class=tdatacell>Lama</td><td class=tdatacell>Mammal</td><td class=tdatacell>Really slow fading tooltip</td>
+                  </tr>
+               </table></p>
+               </div>
+             </td>
+             <td valign=top>
+               <div class=pgdiv><b>For popups appearing after user clicks a link</b>
+               <p>
+               <a href="http://boxover.swazz.org" title="requireclick=[on] header=[Be patient link loading...] body=[You are on your way to the BoxOver homepage]">Click this link</a>               
+               </p>
+               <p>
+               The above uses the "requireclick" property of the tooltip.
+               </p>
+               <p>
+               The idea was inspired by a post in the <a href="http://boxover.swazz.org/forum" title="requireclick=[on] header=[Forum loading...] body=[Depending on your connection speed this could take up to 2 secs. Hehe.]">forum</a>.
+               </p>
+               </div>
+             </td>
+          </tr>
+          <tr>
+              <td valign=top>              
+                  <div class=pgdiv>
+                  <b>On Images</b>
+                  <table width=100% style="font-family:arial;font-size:12px">
+                     <tr>
+                        <td>
+                           <p><i>Plain description</i></p>
+                           <img src="doghat1.jpg" title="header=[A dog with a hat] body=[You wouldn't find this funny unless you've seen Southpark series 8<p>Note that this box halts on a single click</p>]">
+                        </td>
+                        <td>
+                           <p><i>Image maps</i></p>
+                           <img src="doghat1.jpg" usemap=#ant_map border=0>
+                           <MAP NAME="ant_map">
+                              <AREA SHAPE="circle" href="http://www.google.com" title="header=[My left eyeball] body=[Stop moving over my left eyeball.  Click to go to google]" COORDS="65,55,8">
+                              <AREA SHAPE="circle" href="http://boxover.swazz.org" title="header=[You stinky bastid!] body=[Just kidding - Click to go to BoxOver home]" COORDS="110,90,12">
+                           </MAP>
+                        </td>
+                     </tr>
+                  </table>
+                  </div>
+               </td>
+               <td valign=top>
+                  <div class=pgdiv>
+                  <b>When space is tight (images in BoxOver)</b>
+                  <p>I know this is a little bit of a lame example but I needed a fourth to fill up this table ;)                  
+                  </p>
+                  Move over <span title="cssbody=[dogvdvbdy] cssheader=[dogvdvhdr] header=[Ha ha! Another dog in a hat] body=[Well I lied.  This was actually a legit example - just showing you can have pictures in the captions as well, or any legitamate HTML for that matter<center><p><img src='doghat2.jpg'></p>] fixedabsx=[150] fixedabsy=[270]" style="font-family:arial;font-size:12px;font-weight:bold;color:#ABABAB;cursor:pointer">this</span>
+                  <p>Yeah...about that tight space.</p>
+                  </div>
+               </td>
+           </tr>
+        </table>	
+       <div style="font-weight:bold;width:250px;border:1px solid #000000;padding:5px" title="header=[A tooltip] body=[Note the select box disappearing] hideselects=[on]">Move over this text to bring up a tooltip.  <br>Notice how the select box disappears</div><br>
+      <select>
+         <option value="somevalue">A select box</option>
+      </select>
+
+      <p><a href="http://boxover.swazz.org">BoxOver Home</a></p>		
+      <script src="boxover.js"></script>
+   </body>
+</html>

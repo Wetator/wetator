@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>wait_for.html</step>
+    <step command='Assert_Title'>Wetator / Wait For</step>
+    <step command='' comment='true'>click the link</step>
+    <step command='Click_On'>startIndirectJump</step>
+    <step command='Assert_Content'>Wait For Result page</step>
+</testcase>

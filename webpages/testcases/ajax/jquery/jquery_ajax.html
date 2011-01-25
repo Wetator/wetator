@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / AJAX with jQuery</title>
+  <link type="text/css" href="../../../wet.css" rel="stylesheet">
+
+  <script type="text/javascript" src="../../js/jquery/jquery-1.2.1.js"></script>
+
+  <script type="text/javascript">
+      function sethtml(div,content) {
+          var search = content;
+          var script;
+
+          while( script = search.match(/(<script[^>]+javascript[^>]+>\s*(<!--)?)/i))
+          {
+            search = search.substr(search.indexOf(RegExp.$1) + RegExp.$1.length);
+
+            if (!(endscript = search.match(/((-->)?\s*<\/script>)/))) break;
+
+            block = search.substr(0, search.indexOf(RegExp.$1));
+            search = search.substring(block.length + RegExp.$1.length);
+
+            var oScript = document.createElement('script');
+            oScript.text = block;
+            document.getElementsByTagName("head").item(0).appendChild(oScript);
+          }
+
+          document.getElementById(div).innerHTML=content;
+      }
+
+      function setjs(div,content) {
+          var oScript = document.createElement('script');
+          oScript.text = content;
+          document.getElementsByTagName("head").item(0).appendChild(oScript);
+      }
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(
+      function() {
+        $("#startAjaxDemo").click(
+          function() {
+            $.get( "ajax_test.txt",
+              function(text) {
+                $("#text").fadeOut( 'fast',
+                  function() {
+                    $("#text").html(text).fadeIn( 'normal',
+                      function() {
+                        $("#link").html('It works...').fadeIn( 'normal');
+                      });
+                  });
+              });
+          });
+
+        $("#startAjaxJavascriptDemo").click(
+                function() {
+                  $.get( "ajax_javascript_test.js",
+                    function(myJavascript) {
+                      sethtml('jscript',myJavascript);
+                    });
+                });
+
+        $("#startAjaxPlainJavascriptDemo").click(
+                function() {
+                  $.get( "ajax_plain_javascript_test.js",
+                    function(myJavascript) {
+                      setjs('plainjscript',myJavascript);
+                    });
+                });
+
+        $("select#animals").change(
+          function () {
+            var str = "";
+            $("select#animals option:selected").each(
+              function () {
+                $.get( "ajax_options_" + $(this).text().toLowerCase() + ".htms",
+                  function(text) {
+                    $("#group").html(text);
+                    $("#group option:eq(0)").attr("selected","selected");
+                  });
+              });
+          }).change();
+      })
+  </script>
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../../../images/wetator.png" alt="Wetator">
+  </div>
+
+  <h1 class="command_test">Wetator / AJAX with jQuery</h1>
+
+  <div style='margin-left:40px; margin-top: 30px;'>
+    <h3>Animated text replacement</h3>
+
+    <p id='link'><a id="startAjaxDemo" style='text-decoration: none;' href="#">Click to start AJAX demo...</a></p>
+    <p style='padding-top:10px;color: #006600;' id='text'></p>
+  </div>
+
+  <div style='margin-left:40px; margin-top: 30px;'>
+
+    <h3>Load and Execute javascript</h3>
+
+    <p id='link'><a id="startAjaxJavascriptDemo" style='text-decoration: none;' href="#">Click to start AJAX Javascript demo...</a></p>
+    <p style='padding-top:10px;'></p>
+    <div id='jscript'></div>
+    <input type="text" id="jsresult" value="">
+  </div>
+
+  <div style='margin-left:40px; margin-top: 30px;'>
+
+    <h3>Load and Execute javascript</h3>
+
+    <p id='link'><a id="startAjaxPlainJavascriptDemo" style='text-decoration: none;' href="#">Click to start AJAX Plain Javascript demo...</a></p>
+    <p style='padding-top:10px;'></p>
+    <div id='plainjscript'></div>
+    <input type="text" id="plainjsresult" value="">
+  </div>
+
+  <div style='margin-left:40px; margin-top: 30px;'>
+
+    <h3>Dependent select boxes</h3>
+
+    <table border='0'>
+      <tr>
+        <td><label for="animals">Animals</label></td>
+        <td><label for="group">Group</label></td>
+      </tr>
+
+      <tr>
+        <td>
+          <select id="animals" size="4">
+            <option selected="selected">Fish</option>
+            <option>Birds</option>
+            <option>Mammals</option>
+          </select>
+        </td>
+        <td>
+          <select id="group" size="4">
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+</html>
+

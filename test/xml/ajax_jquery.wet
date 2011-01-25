@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>ajax/jquery/jquery_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>add content via AJAX</step>
+    <step command='' comment='true'>check the original content</step>
+    <step command='Assert_Content'>Animated text replacement Click to start AJAX demo... Load and Execute javascript</step>
+    <step command='Click_On'>Click to start AJAX demo</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Content'>It works</step>
+    <step command='Assert_Content'>This is some text transferred to the client via AJAX.</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>ajax/jquery/jquery_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>change content via javascript loaded with AJAX</step>
+    <step command='' comment='true'>check the original content</step>
+    <step command='Assert_Content'>Load and Execute javascript Click to start AJAX Javascript demo... Load and Execute javascript</step>
+    <step command='Click_On' comment='true'>Click to start AJAX Javascript demo</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Content' comment='true'>Click to start AJAX Javascript demo... Javascript Execute Load and Execute javascript </step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>ajax/jquery/jquery_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>change content via javascript loaded with AJAX</step>
+    <step command='' comment='true'>check the original content</step>
+    <step command='Assert_Content'>Load and Execute javascript Click to start AJAX Plain Javascript demo... Dependent select boxes</step>
+    <step command='Assert_Set' comment='true'>Click to start AJAX Javascript demo</step>
+    <step command='Click_On'>Click to start AJAX Plain Javascript demo</step>
+    <step command='Assert_Content'>Click to start AJAX Plain Javascript demo... Javascript Executed Dependent</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>dependent list boxes</step>
+    <step command='Open_Url'>ajax/jquery/jquery_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='Assert_Selected'>Animals, Fish</step>
+    <step command='Assert_Selected'>Group, doctor-fish</step>
+    <step command='Assert_Deselected'>Group, barbel-fish</step>
+    <step command='Assert_Deselected'>Group, shark</step>
+    <step command='' comment='true'></step>
+    <step command='Select'>Animals, Birds</step>
+    <step command='Assert_Selected'>Animals, Birds</step>
+    <step command='Assert_Selected'>Group, parrots</step>
+    <step command='Assert_Deselected'>Group, penguins</step>
+    <step command='Assert_Deselected'>Group, raven-birds</step>
+    <step command='Assert_Deselected'>Group, woodpeckers</step>
+    <step command='' comment='true'></step>
+    <step command='Select'>Animals, Mammals</step>
+    <step command='Assert_Selected'>Animals, Mammals</step>
+    <step command='Assert_Selected'>Group, antelopes</step>
+    <step command='Assert_Deselected'>Group, bears</step>
+    <step command='Assert_Deselected'>Group, cats</step>
+    <step command='Assert_Deselected'>Group, dogs</step>
+    <step command='Assert_Deselected'>Group, pigs</step>
+    <step command='Assert_Deselected'>Group, seals</step>
+</testcase>

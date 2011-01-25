@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Simple Search</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / Simple Search</h1>
+
+  <div class="test_content">
+
+    <p><br></p>
+
+    <form method="post" action="snoopy.php">
+      <table border='0'>
+        <tr>
+          <td>Field1 (no label)</td>
+          <td>
+            <select id="id_field1_select" name="name_field1_select" size="1">
+              <option value="o1_f1s">=</option>
+              <option value="o2_f1s">&gt;</option>
+              <option value="o3_f1s">&lt;</option>
+            </select>
+          </td>
+          <td><input type="text" id="name_field1_input" name="name_field1_input"></td>
+        </tr>
+
+        <tr>
+          <td><label for="id_field2_select">Field2 (label for select)</label></td>
+          <td>
+            <select id="id_field2_select" name="name_field2_select" size="1">
+              <option value="o1_f2s">=</option>
+              <option value="o2_f2s">&gt;</option>
+              <option value="o3_f2s">&lt;</option>
+            </select>
+          </td>
+          <td><input type="text" id="name_field2_input" name="name_field2_input"></td>
+        </tr>
+
+        <tr>
+          <td><label for="id_field3_select">Field3 (label for input)</label></td>
+          <td>
+            <select id="id_field3_input" name="name_field3_select" size="1">
+              <option value="o1_f3s">=</option>
+              <option value="o2_f3s">&gt;</option>
+              <option value="o3_f3s">&lt;</option>
+            </select>
+          </td>
+          <td><input type="text" id="id_field3_input" name="name_field3_input"></td>
+        </tr>
+
+        <td>Fi<font color='red'>el</font><b>d</b>4 (no label 7 formated)</td>
+          <td>
+            <select id="id_field4_select" name="name_field4_select" size="1">
+              <option value="o1_f4s">=</option>
+              <option value="o2_f4s">&gt;</option>
+              <option value="o3_f4s">&lt;</option>
+            </select>
+          </td>
+          <td><input type="text" id="name_field4_input" name="name_field4_input"></td>
+        </tr>
+
+        <tr>
+          <td colspan="3" align="right"><input type="submit" value="Search"></td>
+        </tr>
+
+      </table>
+    </form>
+
+  </div>
+
+</body>
+</html>
+

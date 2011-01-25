@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>Select for enabled elements</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Select'>SingleSelect, option1</step>
+    <step command='Select'>SingleSelect, option1</step>
+    <step command='Assert_Content'>Handler mousedown [singleSelect] [1] focus [singleSelect] [-] mouseup [singleSelect] [1] change [singleSelect] [-] click [singleSelect] [1] mousedown [singleSelect] [1] mouseup [singleSelect] [1] click [singleSelect] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Select'>MultipleSelect, option1</step>
+    <step command='Select'>MultipleSelect, option1</step>
+    <step command='Assert_Content'>Handler mousedown [multipleSelect] [1] focus [multipleSelect] [-] mouseup [multipleSelect] [1] change [multipleSelect] [-] click [multipleSelect] [1] mousedown [multipleSelect] [1] mouseup [multipleSelect] [1] click [multipleSelect] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Select'>Checkbox</step>
+    <step command='Select'>Checkbox</step>
+    <step command='Assert_Content'>Handler mousedown [checkbox] [1] focus [checkbox] [-] mouseup [checkbox] [1] click [checkbox] [1] change [checkbox] [-] mousedown [checkbox] [1] mouseup [checkbox] [1] click [checkbox] [1] change [checkbox] [-] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Select'>RadioGroup, Radio1</step>
+    <step command='Select'>RadioGroup, Radio1</step>
+    <step command='Assert_Content'>Handler mousedown [radioGroup] [1] focus [radioGroup] [-] mouseup [radioGroup] [1] click [radioGroup] [1] change [radioGroup] [-] mousedown [radioGroup] [1] mouseup [radioGroup] [1] click [radioGroup] [1] OK</step>
+    <step command='' comment='true'>Select for disabled elements</step>
+    <step command='Click_On'>Clear</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option1' (id='singleSelectDisabled_o_value1') part of [HtmlSelect (id='singleSelectDisabled') (name='singleSelectDisabled')]] is disabled. Setting a value is not possible.<tst:optionalParameter>singleSelectDisabled_o_value1</tst:optionalParameter></tst:step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option1' (id='multipleSelectDisabled_o_value1') part of [HtmlSelect (id='multipleSelectDisabled') (name='multipleSelectDisabled')]] is disabled. Setting a value is not possible.<tst:optionalParameter>multipleSelectDisabled_o_value1</tst:optionalParameter></tst:step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlCheckBoxInput (id='checkboxDisabled') (name='checkboxDisabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>checkboxDisabled</tst:optionalParameter></tst:step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlRadioButtonInput 'r_value1' (id='radio1Disabled') (name='radioGroup')] is disabled. Setting a value is not possible.<tst:optionalParameter>radio1Disabled</tst:optionalParameter></tst:step>
+    <step command='Assert_Content'>Handler OK</step>
+</testcase>

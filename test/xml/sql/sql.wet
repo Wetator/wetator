@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:sql='http://www.wetator.org/xsd/sqlCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/sqlCommandSet http://www.wetator.org/xsd/sqlCommandSet.xsd'>
+    <step command='' comment='true'>cleanup</step>
+    <sql:step command='Exec_SQL'>DROP TABLE IF EXISTS test_tbl</sql:step>
+    <sql:step command='Exec_SQL'>@secondDb DROP TABLE IF EXISTS second_tbl</sql:step>
+    <step command='' comment='true'>default connection</step>
+    <sql:step command='Exec_SQL'>CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)</sql:step>
+    <sql:step command='Assert_SQL'>SELECT * FROM test_tbl ORDER BY col2<sql:optionalParameter>First, Second</sql:optionalParameter></sql:step>
+    <sql:step command='Assert_SQL'>SELECT * FROM test_tbl ORDER BY col2<sql:optionalParameter>First, 1, Second, 2</sql:optionalParameter></sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('val9', 9)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('val7', 7)</sql:step>
+    <sql:step command='Assert_SQL'>SELECT * FROM test_tbl ORDER BY col2<sql:optionalParameter>First, Second, val7, val9</sql:optionalParameter></sql:step>
+    <sql:step command='Assert_SQL'>SELECT * FROM test_tbl ORDER BY col2<sql:optionalParameter>First, 1,Second, 2, val7, 7, val9, 9</sql:optionalParameter></sql:step>
+    <sql:step command='Assert_SQL'>SELECT col1 FROM test_tbl ORDER BY col2<sql:optionalParameter>First, Second, val7, val9</sql:optionalParameter></sql:step>
+    <step command='' comment='true'>second connection</step>
+    <sql:step command='Exec_SQL'>@secondDb CREATE TABLE second_tbl (col1 CHAR(20), col2 CHAR(2))</sql:step>
+    <sql:step command='Exec_SQL'>@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('Tester', 'aa')</sql:step>
+    <sql:step command='Exec_SQL'>@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('WeT', 'ab')</sql:step>
+    <sql:step command='Assert_SQL'>@secondDb SELECT * FROM second_tbl ORDER BY col2<sql:optionalParameter>Tester, WeT</sql:optionalParameter></sql:step>
+    <sql:step command='Assert_SQL'>@secondDb SELECT * FROM second_tbl ORDER BY col2<sql:optionalParameter>Tester, aa, WeT, ab</sql:optionalParameter></sql:step>
+    <step command='' comment='true'>no blank after db name</step>
+    <sql:step command='Assert_SQL'>@secondDbSELECT * FROM second_tbl ORDER BY col2<sql:optionalParameter>Tester, WeT</sql:optionalParameter></sql:step>
+    <sql:step command='Assert_SQL'>@wetdbSELECT * FROM test_tbl ORDER BY col2<sql:optionalParameter>First, 1, Second, 2</sql:optionalParameter></sql:step>
+    <step command='' comment='true'>check content</step>
+    <step command='Open_Url'>assert_content.html</step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('Wetator / Assert Content', 10)</sql:step>
+    <sql:step command='Assert_SQL_in_Content'>SELECT col1 FROM test_tbl WHERE col2 = 10</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('Pferde', 11)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('fressen', 12)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('keinen', 13)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('Gurkensalat', 14)</sql:step>
+    <sql:step command='Assert_SQL_in_Content'><![CDATA[SELECT col1 FROM test_tbl WHERE col2 > 10]]></sql:step>
+    <step command='' comment='true'>content was a download</step>
+    <step command='Open_Url'>download/download.txt</step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('simple', 21)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('text', 22)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('file', 23)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 24)</sql:step>
+    <sql:step command='Assert_SQL_in_Content'><![CDATA[SELECT col1 FROM test_tbl WHERE col2 > 20]]></sql:step>
+    <step command='Open_Url'>download/wet_test.pdf</step>
+    <step command='Assert_Content'>simple, PDF, file, WeT</step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('simple', 31)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('PDF', 32)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('file', 33)</sql:step>
+    <sql:step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 44)</sql:step>
+    <sql:step command='Assert_SQL_in_Content'><![CDATA[SELECT col1 FROM test_tbl WHERE col2 > 30]]></sql:step>
+</testcase>

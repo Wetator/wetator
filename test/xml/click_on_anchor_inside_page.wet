@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='' comment='true'>click on anchor</step>
+    <step command='Open_Url'>anchor_inside_page.html</step>
+    <step command='Assert_Content'>Wetator / Anchor Inside Page</step>
+    <step command='Click_On'>jump to 'Chapter 1'</step>
+    <step command='' comment='true'>unknown anchor</step>
+    <tst:step command='Assert_Fail'>Click On, No id/anchor found for ref 'chapter3'.<tst:optionalParameter>jump to non existing anchor</tst:optionalParameter></tst:step>
+    <step command='' comment='true'>duplicate anchor</step>
+    <step command='Click_On'>jump to duplicate anchor</step>
+</testcase>

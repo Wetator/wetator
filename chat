@@ -1,0 +1,29 @@
+frank.danek 2010-12-02 23:00: hallo ronald. für diese ganze event-geschichte wäre es, glaube ich, ziemlich nützlich, wenn wir mal definieren, was
+	die actionen bei den verschiedenen controls eigentlich bedeuten (sollen). ich schreib da mal was zusammen, wenn ich wieder zeit habe. aber
+	heute nicht mehr...
+	
+frank.danek 2010-12-06 21:20: ich habe das angekündigte dokument mal erstellt -> actions.txt
+	da stehen noch ein paar TODOs drin, die wir mal diskutieren sollten.
+	
+	außerdem habe ich bei den tests etwas umorganisiert und aufgeräumt. der standard sind ab jetzt die .wet tests und nicht länger die .xls tests.
+	
+frank.danek 2010-12-12 12:45: hallo ronald, kannst du bitte die webpage neu hochladen? ich habe das thema dtd/xsd glatt gezogen. aber damit das ticket
+	geschlossen werden kann, muss die homepage einmal aktualisiert werden.
+
+rbri 2010-12-12 14:45: hi frank, habe das xsd verzeichnis aktualisiert. Reicht das?
+rbri 2010-12-24 14:08: Habe gestern mal angefangen mit PMD rumzuspielen. Die Checken auch, ob möglichst alles als final markiert ist. Es soll wohl
+    dem Compiler helfen. Deshlab habe ich das mal im Checkstyle angeschaltet. Die fehlenden final's baue ich ein.
+    
+frank.danek 2011-01-25 00:35: Hi ihr, ich habe gerade das Checkstyle auf Version 5.3.0 gehoben. Damit die Checks wieder richtig laufen, werdet ihr wohl
+	euer Eclipse auch updaten müssen. Leider hat der Eclipse-Checkstyle-Config-Editor einen Bug: Man kann einen Check nicht korrekt konfigurieren. Das
+	muss man dann per XML wieder glatt bügeln. Es geht um:
+	<module name="AbstractClassName">
+      <property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
+      <property name="ignoreModifier" value="true"/>
+    </module>
+    Die Property ignoreModifier ist dem Editor leider unbekannt. :( Also falls ihr mal was an der Checkstyle-Config ändert, bitte diese Zeile wieder
+    manuell ins XML packen. Ansonsten habe ich alle alten und neuen Warnings bereits entfernt. Wehe ich sehe da irgendwann neue drin!!
+    LAW AND ORDER RULZ! >:D
+    
+    Außerdem habe ich ein paar Libraries aktualisiert. @Ronald: es gibt eine neue Version vom Automaton. Kannst du die bitte in dein Repository
+    packen und dann hier einbinden? Danke!

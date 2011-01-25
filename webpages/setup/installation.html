@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <meta http-equiv="language" content="english, en">
+  <meta name="keywords" content="wetator,web,application,test,testing,automation,GUI,tool,HTMLUnit">
+  <meta name="description" content="Wetator is a small, flexible and extendable test automation tool that drives and checks your web application. Wetator provides you with a language for writing test scripts that is simple and easily readable - also for non-IT-people. The list of supported commands is intended to be preferably small.">
+  <meta name="page-topic" content="Software-Testing">
+  <meta name="author" content="Ronald Brill">
+  <meta name="publisher" content="Ronald Brill">
+  <meta name="copyright" content="(c) Ronald Brill">
+  <meta name="robots" content="index,nofollow">
+  <meta name="revisit-after" content="14 days">
+
+  <title>Wetator / Installation</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+
+
+<!-- navigation -->
+<div class="navigation">
+  <!-- home -->
+  <p class="navi_header">
+    <a class="navi_header" href="../index.html">Home</a>
+  </p>
+
+  <!-- setup -->
+  <p class="navi_header">
+    Setup
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/download.html">Download</a>
+  </p>
+  <p class="navi_link_sel">
+    <a class="navi_header" href="../setup/installation.html">Installation</a>
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/configuration.html">Configuration</a>
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/cmdline.html">Command-Line Options</a>
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/anttask.html">Ant Task</a>
+  </p>
+
+  <!-- commands -->
+  <p class="navi_header">
+    <a class="navi_header" href="../commands/commands.html">Commands</a>
+  </p>
+
+  <!-- testcases -->
+  <p class="navi_header">
+    <a class="navi_header" href="../testcases/testcases.html">Test Pages</a>
+  </p>
+
+  <!-- imprint -->
+  <p class="navi_header">
+    <a class="navi_header" href="../imprint.html">License/Imprint</a>
+  </p>
+</div>
+
+
+
+
+<!-- content -->
+<h1 class="command">Installation &amp; Setup</h1>
+
+<div class="content">
+  <h1>Prerequisites</h1>
+
+  <ul>
+    <li>JDK version 6 or higher
+    <li>If you plan to run Wetator tests from ant than you need additionally Ant version 1.7.0 or newer
+    <li>Excel to edit you test plans (future versions will support more formats)
+  </ul>
+</div>
+
+<div class="content">
+  <h1>Command Line Version</h1>
+
+  <p>Installation of the command line version
+  <ul>
+    <li>Download the latest <a href="../download/wetator_0.9.zip">stable version</a>.
+    <li>Create a new directory and unzip the file into it (preserve subdirectories).
+    <li>Open a command window and go to your wetator directory.
+    <li>Start wetator &#91;Enter&#93;; If you see some message like
+<pre>Starting Wetator
+Wetator execution failed: The configuration file 'D:\Wetator\wetator.config' does not exist.
+</pre> then everything seems to be right and you can start with your first test.
+  </ul>
+  </p>
+  <p>
+  Run a simple test
+  <ul>
+    <li>Copy the file wetator.config from directory samples\google_search to the root of your installation directory.<br>
+    This file defines wetator's setup.
+    <li>Type wetator &#91;Enter&#93;
+    <li>A small popup window appears. Please choose the file google.xls and click on open (You can select more
+    then one file if you like).
+    <li>Wetator executes all commands form the selected file. A small progress report is written to the console.
+    <li>If everything works fine you will end with some output like
+<pre>Tests run: 8,  Failures: 0,  Errors: 0
+</pre>
+    <li>Wetator writes a detailed protocol for every test run. You can find this protocol in the
+    folder 'logs'. Open the file 'SimpleHtml.xsl.html' with your browser.
+  </ul>
+  </p>
+
+  <p>For more details about the command line interface see <a href="cmdline.html">Command-Line Options</a>
+  </p>
+
+  <p>To run your tests as Ant-task see <a href="anttask.html">Ant Task</a>
+  </p>
+</div>
+
+</body>
+</html>
+

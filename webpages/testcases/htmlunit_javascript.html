@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / HtmlUnit Javascript Tests</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+
+  <h1 class="command_test">Wetator / HtmlUnit Javascript Tests</h1>
+
+  <div style='margin-left:40px; margin-top: 30px;'>
+    <h3>RegExp Test for RichFaces</h3>
+
+    <p>
+      <input type="button" value="Execute Test1" onClick="document.getElementById('jsresult1').value='#part1\:part2'.replace(/^#|\\(:)/g, '$1')">
+    </p>
+    <p style='padding-top:10px;'></p>
+      Expected: 'part1:part2'<br>
+      <input type="text" id="jsresult1" value="" style="width: 400px;">
+    </p>
+  </div>
+
+</body>
+</html>
+
