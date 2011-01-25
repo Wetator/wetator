@@ -152,6 +152,7 @@ Wetator/test/MouseEvents.xls -text
 Wetator/test/ant/ant_task_classpath_test.xls -text
 Wetator/test/ant/build.xml -text
 Wetator/test/ant/commons-exec-1.1.jar -text
+Wetator/test/ant/failure.wet -text
 Wetator/test/ant/sample.xls -text
 Wetator/test/ant/wet.config -text
 Wetator/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain

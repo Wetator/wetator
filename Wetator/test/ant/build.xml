@@ -55,4 +55,46 @@
             <property name="$$$password" value="secret"/>
         </wetator>
     </target>
+
+
+    <target name="run_wetator_haltonfailure_false">
+        <echo message="before wetator"/>
+    	<wetator config="wet.config" haltonfailure="false">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="failure.wet"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator"/>
+    </target>
+
+    <target name="run_wetator_haltonfailure_true">
+        <echo message="before wetator"/>
+        <wetator config="wet.config" haltonfailure="true">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="failure.wet"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator"/>
+    </target>
+
+
+    <target name="run_wetator_failureproperty">
+        <wetator config="wet.config" failureproperty="failed">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="sample.xls"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator property failed = '${failed}'"/>
+
+    	<wetator config="wet.config" failureproperty="failed">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="failure.wet"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator property failed = '${failed}'"/>
+    </target>
 </project>
