@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +78,7 @@ public final class XHtmlOutputter {
 
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
+  private static final Set<String> IGNORED_ATTRIBUTES;
 
   private HtmlPage htmlPage;
   private ResponseStore responseStore;
@@ -115,6 +117,24 @@ public final class XHtmlOutputter {
     SINGLE_LINE_TAGS.add(HtmlOption.class.getName());
     // TextArea because the content is preformated
     SINGLE_LINE_TAGS.add(HtmlTextArea.class.getName());
+
+    IGNORED_ATTRIBUTES = new HashSet<String>();
+    IGNORED_ATTRIBUTES.add("onclick");
+    IGNORED_ATTRIBUTES.add("ondblclick");
+    IGNORED_ATTRIBUTES.add("onfocus");
+    IGNORED_ATTRIBUTES.add("onblur");
+    IGNORED_ATTRIBUTES.add("onselect");
+    IGNORED_ATTRIBUTES.add("onchange");
+
+    IGNORED_ATTRIBUTES.add("onmousemove");
+    IGNORED_ATTRIBUTES.add("onmouseover");
+    IGNORED_ATTRIBUTES.add("onmouseout");
+    IGNORED_ATTRIBUTES.add("onmousedown");
+    IGNORED_ATTRIBUTES.add("onmouseup");
+
+    IGNORED_ATTRIBUTES.add("onkeydown");
+    IGNORED_ATTRIBUTES.add("onkeyup");
+    IGNORED_ATTRIBUTES.add("onkeypress");
   }
 
   /**
@@ -176,11 +196,15 @@ public final class XHtmlOutputter {
     tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
-      writeStartTag(tmpChild);
-      output.indent();
-      writeSubNodes(tmpChild);
-      output.unindent();
-      writeEndTag(tmpChild);
+      if ((tmpChild instanceof DomDocumentType) || (tmpChild instanceof HtmlScript)) {
+        // ignore
+      } else {
+        writeStartTag(tmpChild);
+        output.indent();
+        writeSubNodes(tmpChild);
+        output.unindent();
+        writeEndTag(tmpChild);
+      }
 
       tmpChild = tmpChild.getNextSibling();
     }
@@ -200,19 +224,6 @@ public final class XHtmlOutputter {
       output.print(((HtmlUnknownElement) aDomNode).getQualifiedName());
       writeAttributes(aDomNode);
       output.println(">");
-    } else if (aDomNode instanceof DomDocumentType) {
-      final DomDocumentType tmpDocumentType = (DomDocumentType) aDomNode;
-      output.println("<!-- org doctype");
-      output.print("     <!DOCTYPE ");
-      output.print(tmpDocumentType.getName());
-      output.print(" PUBLIC \"");
-      output.print(tmpDocumentType.getPublicId());
-      if (StringUtils.isNotEmpty(tmpDocumentType.getSystemId())) {
-        output.print("\"  \"");
-        output.print(tmpDocumentType.getSystemId());
-      }
-      output.println("\">");
-      output.println("-->");
     } else if (aDomNode instanceof HtmlElement) {
       output.print('<');
       output.print(determineTag(aDomNode));
@@ -304,53 +315,58 @@ public final class XHtmlOutputter {
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
       final boolean tmpIsHtmlInlineFrame = tmpHtmlElement instanceof HtmlInlineFrame;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
+      final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
       final Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
       for (DomAttr tmpAttribute : tmpAttributeEntries) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase();
-        String tmpAttributeValue = tmpAttribute.getNodeValue();
 
-        if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {
-          final String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, ".css");
-          if (null != tmpStoredFileName) {
-            tmpAttributeValue = tmpStoredFileName;
+        if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
+          String tmpAttributeValue = tmpAttribute.getNodeValue();
+
+          if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {
+            final String tmpStoredFileName = responseStore
+                .storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, ".css");
+            if (null != tmpStoredFileName) {
+              tmpAttributeValue = tmpStoredFileName;
+            }
           }
-        }
 
-        if (tmpIsHtmlImage && ("src".equals(tmpAttributeName))) {
-          final String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, null);
-          if (null != tmpStoredFileName) {
-            tmpAttributeValue = tmpStoredFileName;
+          if (tmpIsHtmlImage && ("src".equals(tmpAttributeName))) {
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
+            if (null != tmpStoredFileName) {
+              tmpAttributeValue = tmpStoredFileName;
+            }
           }
-        }
 
-        if (tmpIsHtmlInlineFrame && ("src".equals(tmpAttributeName))) {
-          final HtmlInlineFrame tmpInlineFrame = (HtmlInlineFrame) aDomNode;
-          final String tmpStoredFileName = responseStore.storePage(tmpInlineFrame.getEnclosedPage());
-          if (null != tmpStoredFileName) {
-            tmpAttributeValue = "../" + tmpStoredFileName;
+          if (tmpIsHtmlInlineFrame && ("src".equals(tmpAttributeName))) {
+            final HtmlInlineFrame tmpInlineFrame = (HtmlInlineFrame) aDomNode;
+            final String tmpStoredFileName = responseStore.storePage(tmpInlineFrame.getEnclosedPage());
+            if (null != tmpStoredFileName) {
+              tmpAttributeValue = "../" + tmpStoredFileName;
+            }
           }
-        }
 
-        if (tmpIsHtmlPasswordInput && ("value".equals(tmpAttributeName))) {
-          if (!StringUtils.isEmpty(tmpAttributeValue)) {
-            tmpAttributeValue = "*******";
+          if (tmpIsHtmlPasswordInput && ("value".equals(tmpAttributeName))) {
+            if (!StringUtils.isEmpty(tmpAttributeValue)) {
+              tmpAttributeValue = "*******";
+            }
           }
-        }
 
-        // special cases
-        if (("checked".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
-          tmpAttributeValue = "checked";
-        }
-        if (("multiple".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
-          tmpAttributeValue = "multiple";
-        }
+          // special cases
+          if (("checked".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
+            tmpAttributeValue = "checked";
+          }
+          if (("multiple".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
+            tmpAttributeValue = "multiple";
+          }
 
-        output.print(' ');
-        output.print(tmpAttributeName);
-        output.print("=\"");
-        output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
-        output.print('"');
+          output.print(' ');
+          output.print(tmpAttributeName);
+          output.print("=\"");
+          output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
+          output.print('"');
+        }
       }
     }
   }
