@@ -19,6 +19,7 @@ package org.wetator.backend;
 import java.net.URL;
 import java.util.List;
 
+import org.wetator.backend.control.Control;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.SecretString;
 
@@ -166,8 +167,10 @@ public interface WetBackend {
 
   /**
    * Saves the content of the current window to the log.
+   * 
+   * @param aControls the controls to be highlighted
    */
-  public void saveCurrentWindowToLog();
+  public void saveCurrentWindowToLog(Control... aControls);
 
   /**
    * Goes back (simulates the browser's back button) in the current window.
