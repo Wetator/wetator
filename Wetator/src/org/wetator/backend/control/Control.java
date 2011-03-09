@@ -16,6 +16,7 @@
 
 package org.wetator.backend.control;
 
+import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 
@@ -69,4 +70,12 @@ public interface Control {
    * @return true, if the given control has the same backend control
    */
   public boolean hasSameBackendControl(Control aControl);
+
+  /**
+   * Retrieves the style to be used for highlight this control from the configuration
+   * and adds the style to the control.
+   * 
+   * @param aWetConfiguration the wet configuration
+   */
+  public void addHighlightStyle(WetConfiguration aWetConfiguration);
 }

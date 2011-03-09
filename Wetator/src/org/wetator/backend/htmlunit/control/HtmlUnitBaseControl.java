@@ -27,6 +27,7 @@ import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
+import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
@@ -250,6 +251,28 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
 
     tmpResult.append("]");
     return tmpResult.toString();
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#addHighlightStyle(WetConfiguration)
+   */
+  @Override
+  public void addHighlightStyle(final WetConfiguration aWetConfiguration) {
+    final HtmlElement tmpHtmlElement = getHtmlElement();
+    final StringBuilder tmpStyle = new StringBuilder(tmpHtmlElement.getAttribute("style"));
+
+    tmpStyle.append("color: #000000;");
+    tmpStyle.append("background-color: #EEEEEE;");
+    tmpStyle.append("box-shadow: 0 0 2px 2px #E65212;");
+    tmpStyle.append("-moz-box-shadow: 0 0 2px 2px #E65212;");
+    tmpStyle.append("-webkit-box-shadow: 0 0 2px 2px #E65212;");
+    tmpStyle.append("border-radius: 5px;");
+    tmpStyle.append("-moz-border-radius: 5px;");
+    tmpStyle.append("-webkit-border-radius: 5px;");
+
+    tmpHtmlElement.setAttribute("style", tmpStyle.toString());
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {

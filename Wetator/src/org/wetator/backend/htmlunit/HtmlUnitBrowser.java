@@ -35,6 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.ControlFinder;
 import org.wetator.backend.WetBackend;
+import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
@@ -442,13 +443,16 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   @Override
-  public void saveCurrentWindowToLog() {
+  public void saveCurrentWindowToLog(final Control... aControls) {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
       try {
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
+          for (Control tmpControl : aControls) {
+            tmpControl.addHighlightStyle(wetEngine.getWetConfiguration());
+          }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetEngine.informListenersResponseStored(tmpPageFile);
         }
