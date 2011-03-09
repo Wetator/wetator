@@ -43,6 +43,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.util.UrlUtils;
 
 /**
  * Simple store that manages the storage
@@ -160,28 +161,34 @@ public final class ResponseStore {
   }
 
   /**
-   * This method writes the page to a file with a unique name.
+   * This method writes the content of a url to a file with a unique name.
    * 
-   * @param aContaingPage the page that contains the reference pointing to this file
-   * @param aUrlString the url of the file to save
+   * @param aBaseUrl the url of the page, this is referenced from
+   * @param aContentUrl the url of the content to save
+   * @param aDeep the deep of the parent file in the response store
+   *        (file system). This is used to calculate always relative urls for the return value
    * @param aSuffix to force a specific suffix for the file name
-   * @return the file name used for this page
+   * @return the file name used for this page (as relative path);
    */
-  public String storeContentFromUrl(final HtmlPage aContaingPage, final String aUrlString, final String aSuffix) {
+  public String storeContentFromUrl(final URL aBaseUrl, final String aContentUrl, final int aDeep, final String aSuffix) {
     try {
-      final URL tmpPageUrl = aContaingPage.getWebResponse().getWebRequest().getUrl();
-      final String tmpPageHost = tmpPageUrl.getHost();
-
-      final URL tmpUrl = aContaingPage.getFullyQualifiedUrl(aUrlString);
-      final String tmpHost = tmpUrl.getHost();
-      if ((null == tmpHost) || !tmpHost.equals(tmpPageHost)) {
-        LOG.info("Ignoring url '" + aUrlString + "' (wrong host).");
+      final URL tmpFullContentUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aBaseUrl, aContentUrl));
+      final String tmpBaseHost = aBaseUrl.getHost();
+      if ((null == tmpBaseHost) || !tmpBaseHost.equals(tmpFullContentUrl.getHost())) {
+        LOG.info("Ignoring url '" + tmpFullContentUrl.toExternalForm() + "' (wrong host).");
         return null;
       }
 
-      final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpUrl));
-      String tmpFileName = tmpUrl.getPath();
-      String tmpQuery = tmpUrl.getQuery();
+      // read data
+      final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpFullContentUrl));
+
+      // create path
+      String tmpFileName = tmpFullContentUrl.getPath();
+      if (tmpFileName.startsWith("/")) {
+        tmpFileName = tmpFileName.substring(1);
+      }
+
+      String tmpQuery = tmpFullContentUrl.getQuery();
       if (null != tmpQuery) {
         tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
         tmpFileName = tmpFileName + "?" + tmpQuery;
@@ -222,7 +229,7 @@ public final class ResponseStore {
           FileUtils.forceMkdir(tmpResourceFile.getParentFile());
 
           // process all url(....) inside
-          tmpProcessed = processCSS(tmpResponse, aContaingPage);
+          tmpProcessed = processCSS(tmpFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
           FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed);
         }
 
@@ -237,28 +244,29 @@ public final class ResponseStore {
           }
         }
       }
-      // write our path
-      String tmpResult;
-      if (!(tmpFileName.charAt(0) == '/')) {
-        tmpResult = "./" + tmpFileName;
-        return tmpResult;
-      }
 
-      tmpResult = "." + tmpFileName;
-      return tmpResult;
+      final StringBuilder tmpResult = new StringBuilder();
+      if (aDeep <= 0) {
+        tmpResult.append("./");
+      } else {
+        for (int i = 0; i < aDeep; i++) {
+          tmpResult.append("../");
+        }
+      }
+      tmpResult.append(tmpFileName);
+      return tmpResult.toString();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
     return null;
   }
 
-  private String processCSS(final String aCssContent, final HtmlPage aContaingPage) {
+  private String processCSS(final URL aFullContentUrl, final String aCssContent, final int aDeep) {
     String tmpContent = aCssContent;
     int tmpStart = 0;
     Matcher tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
-
     while (tmpMatcher.find(tmpStart)) {
-      final String tmpNewUrl = storeContentFromUrl(aContaingPage, tmpMatcher.group(2), null);
+      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpMatcher.group(2), aDeep, null);
       if (null == tmpNewUrl) {
         tmpStart = tmpMatcher.end();
       } else {
@@ -266,7 +274,7 @@ public final class ResponseStore {
         tmpContent = StringUtils.replace(tmpContent, tmpMatcher.group(0), tmpReplacement);
         tmpStart = tmpMatcher.start() + tmpReplacement.length();
 
-        tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
+        tmpMatcher = CSS_URL_PATTERN.matcher(tmpContent);
       }
     }
 
