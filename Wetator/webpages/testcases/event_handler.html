@@ -9,7 +9,7 @@
   <!--
     function dumpEvent(event) {
       var msg = '';
-      msg = msg + event.type; 
+      msg = msg + event.type;
 
       // target
       var eTarget;
@@ -22,7 +22,7 @@
       if (eTarget.nodeType == 3) {
         eTarget = eTarget.parentNode;
       }
-      
+
       if (eTarget.name) {
       	msg = msg + ' [' + eTarget.name + ']';
       } else {
@@ -40,9 +40,9 @@
       }
       if (eCode) {
         var char = String.fromCharCode(eCode);
-        msg = msg + ' [' + eCode + ']'; 
+        msg = msg + ' [' + eCode + ']';
       } else {
-        msg = msg + ' [-]'; 
+        msg = msg + ' [-]';
       }
 
       writeTrace(msg + '\n');
@@ -65,7 +65,7 @@
   <div class="header">
     <img src="../images/wetator.png" alt="Wetator">
   </div>
-  
+
   <h1 class="command_test">Wetator / Event Handler</h1>
 
   <div class="test_content">
@@ -94,6 +94,7 @@
               <td><input type="submit" name="submitTest" value="submitTest"
                     onclick="dumpEvent(event);return false;"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -112,6 +113,7 @@
               <td><input type="reset" name="resetTest" value="resetTest"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -130,6 +132,7 @@
               <td><input type="button" name="buttonTest" value="buttonTest"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -158,6 +161,7 @@
               <td><input type="text" id="inputText" name="inputText"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -177,6 +181,7 @@
               <td><input type="password" id="inputPassword" name="inputPassword"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -196,6 +201,7 @@
               <td><textarea id="textarea" name="textarea" cols="10" rows="1"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -215,6 +221,7 @@
               <td><input type="file" name="upload" id="upload"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -245,6 +252,7 @@
                 <select name="singleSelect" id="singleSelect" size="2"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -271,6 +279,7 @@
                 <select name="multipleSelect" id="multipleSelect" size="2" multiple
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -297,6 +306,7 @@
                 <input type="checkbox" id="checkbox" name="checkbox" value="checkboxValue"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -318,6 +328,7 @@
                 <input type="radio" id="radio1" name="radioGroup" value="r_value1"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -333,6 +344,7 @@
                 <input type="radio" id="radio2" name="radioGroup" value="r_value2"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -368,6 +380,7 @@
               <td><input type="text" id="inputTextDefault" name="inputTextDefault" value="default"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -387,6 +400,7 @@
               <td><input type="password" id="inputPasswordDefault" name="inputPasswordDefault" value="default"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -406,6 +420,7 @@
               <td><textarea id="textareaDefault" name="textareaDefault" cols="10" rows="1"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -425,6 +440,7 @@
               <td><input type="file" name="uploadDefault" id="uploadDefault" value="default"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -455,6 +471,7 @@
                 <select name="singleSelectSelected" id="singleSelectSelected" size="2"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -481,6 +498,7 @@
                 <select name="multipleSelectSelected" id="multipleSelectSelected" size="2" multiple
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -507,6 +525,7 @@
                 <input type="checkbox" id="checkboxChecked" name="checkboxChecked" value="checkboxValue" checked
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -528,6 +547,7 @@
                 <input type="radio" id="radio1" name="radioGroup" value="r_value1" checked
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -543,6 +563,7 @@
                 <input type="radio" id="radio2" name="radioGroup" value="r_value2"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -575,6 +596,7 @@
               <td><input type="submit" name="submitTestDisabled" value="submitTestDisabled" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -593,6 +615,7 @@
               <td><input type="reset" name="resetTestDisabled" value="resetTestDisabled" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -611,6 +634,7 @@
               <td><input type="button" name="buttonTestDisabled" value="buttonTestDisabled" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -636,9 +660,10 @@
             </tr>
             <tr>
               <td><label for="inputTextDisabled">InputText Disabled</label></td>
-              <td><input type="text" id="inputTextDisabled" name="inputTextDisabled" disabled="disabled" 
+              <td><input type="text" id="inputTextDisabled" name="inputTextDisabled" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -655,9 +680,10 @@
 
             <tr>
               <td><label for="inputPasswordDisabled">InputPassword Disabled</label></td>
-              <td><input type="password" id="inputPasswordDisabled" name="inputPasswordDisabled" disabled="disabled"  
+              <td><input type="password" id="inputPasswordDisabled" name="inputPasswordDisabled" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -674,9 +700,10 @@
 
             <tr>
               <td><label for="textareaDisabled">Textarea Disabled</label></td>
-              <td><textarea id="textareaDisabled" name="textareaDisabled" cols="10" rows="1" disabled="disabled"   
+              <td><textarea id="textareaDisabled" name="textareaDisabled" cols="10" rows="1" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -693,9 +720,10 @@
 
             <tr>
               <td><label for="uploadDisabled">Upload Disabled</label></td>
-              <td><input type="file" name="uploadDisabled" id="uploadDisabled" disabled="disabled"  
+              <td><input type="file" name="uploadDisabled" id="uploadDisabled" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -723,9 +751,10 @@
             <tr>
               <td><label for="singleSelectDisabled">SingleSelect</label></td>
               <td>
-                <select name="singleSelectDisabled" id="singleSelectDisabled" size="2" disabled="disabled"  
+                <select name="singleSelectDisabled" id="singleSelectDisabled" size="2" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -749,9 +778,10 @@
             <tr>
               <td><label for="multipleSelectDisabled">MultipleSelect</label></td>
               <td>
-                <select name="multipleSelectDisabled" id="multipleSelectDisabled" size="2" multiple disabled="disabled"  
+                <select name="multipleSelectDisabled" id="multipleSelectDisabled" size="2" multiple disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -775,9 +805,10 @@
             <tr>
               <td><label for="checkbox">Checkbox</label></td>
               <td>
-                <input type="checkbox" id="checkboxDisabled" name="checkboxDisabled" value="checkboxValue" disabled="disabled"  
+                <input type="checkbox" id="checkboxDisabled" name="checkboxDisabled" value="checkboxValue" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -796,9 +827,10 @@
             <tr>
               <td><label>RadioGroup Disabled</label></td>
               <td>
-                <input type="radio" id="radio1Disabled" name="radioGroup" value="r_value1" disabled="disabled"  
+                <input type="radio" id="radio1Disabled" name="radioGroup" value="r_value1" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -811,9 +843,10 @@
                     onkeypress = "dumpEvent(event);"
                     onselect = "dumpEvent(event);"
                     onchange = "dumpEvent(event);">Radio1<br>
-                <input type="radio" id="radio2Disabled" name="radioGroup" value="r_value2" disabled="disabled"  
+                <input type="radio" id="radio2Disabled" name="radioGroup" value="r_value2" disabled="disabled"
                     onclick="dumpEvent(event);"
                     ondblclick="dumpEvent(event);"
+                    oncontextmenu="dumpEvent(event);"
                     onfocus="dumpEvent(event);"
                     onblur="dumpEvent(event);"
                     onmousemove = "dumpEvent(event);"
@@ -833,12 +866,13 @@
           </form>
         </td>
       </tr>
-      
+
       <tr valign='top' bgcolor='eeeeee'>
         <td>
       	  <a id="anchor" href="#anchor" name="anchor"
       	      onclick="dumpEvent(event);"
               ondblclick="dumpEvent(event);"
+              oncontextmenu="dumpEvent(event);"
               onfocus="dumpEvent(event);"
               onblur="dumpEvent(event);"
               onmousemove = "dumpEvent(event);"
@@ -856,6 +890,7 @@
       	  <span id="span"
       	      onclick="dumpEvent(event);"
               ondblclick="dumpEvent(event);"
+              oncontextmenu="dumpEvent(event);"
               onfocus="dumpEvent(event);"
               onblur="dumpEvent(event);"
               onmousemove = "dumpEvent(event);"
@@ -873,6 +908,7 @@
       	  <span id="spanWithTabIndex" tabindex="999"
       	      onclick="dumpEvent(event);"
               ondblclick="dumpEvent(event);"
+              oncontextmenu="dumpEvent(event);"
               onfocus="dumpEvent(event);"
               onblur="dumpEvent(event);"
               onmousemove = "dumpEvent(event);"
