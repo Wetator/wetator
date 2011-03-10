@@ -820,6 +820,7 @@ Wetator/webpages/testcases/wait_for2.html -text
 Wetator/webpages/wet.css -text
 Wetator/webpages/xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/defaultCommandSet-0.9.4.xsd -text svneol=unset#text/plain
+Wetator/webpages/xsd/defaultCommandSet-0.9.5.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/incubatorCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/sqlCommandSet-0.9.3.xsd -text svneol=unset#text/plain
