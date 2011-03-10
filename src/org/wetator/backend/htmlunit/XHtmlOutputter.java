@@ -196,7 +196,7 @@ public final class XHtmlOutputter {
     tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
-      if ((tmpChild instanceof DomDocumentType) || (tmpChild instanceof HtmlScript)) {
+      if ((tmpChild instanceof DomDocumentType) || (tmpChild instanceof HtmlScript) || (tmpChild instanceof DomComment)) {
         // ignore
       } else {
         writeStartTag(tmpChild);
@@ -257,10 +257,6 @@ public final class XHtmlOutputter {
           output.println(xmlUtil.normalizeBodyValue(tmpText));
         }
       }
-    } else if (aDomNode instanceof DomComment) {
-      output.print("<!--");
-      // don't normalize the comment
-      output.print(((DomComment) aDomNode).getData());
     } else {
       LOG.warn("Unknown DomNode " + aDomNode);
     }
@@ -287,8 +283,6 @@ public final class XHtmlOutputter {
       }
     } else if (aDomNode instanceof DomText) {
       // nothing to do
-    } else if (aDomNode instanceof DomComment) {
-      output.println("-->");
     }
     // ignore the unsupported ones because they are reported form the start tag handler
   }
@@ -323,6 +317,11 @@ public final class XHtmlOutputter {
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
           String tmpAttributeValue = tmpAttribute.getNodeValue();
+
+          // no output of javascript actions
+          if (StringUtils.startsWithIgnoreCase(tmpAttributeValue, "javascript:")) {
+            continue;
+          }
 
           if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {
             final String tmpStoredFileName = responseStore
