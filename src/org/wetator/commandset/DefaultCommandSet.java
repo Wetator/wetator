@@ -58,6 +58,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     registerCommand("Open Url", new CommandOpenUrl());
     registerCommand("Use Module", new CommandUseModule());
     registerCommand("Click On", new CommandClickOn());
+    registerCommand("Click Double On", new CommandClickDoubleOn());
+    registerCommand("Click Right On", new CommandClickRightOn());
     registerCommand("Set", new CommandSet());
     registerCommand("Select", new CommandSelect());
     registerCommand("Deselect", new CommandDeselect());
@@ -216,6 +218,70 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.click(aWetContext);
+      tmpBackend.saveCurrentWindowToLog();
+    }
+  }
+
+  /**
+   * Command 'Click Double On'.
+   */
+  public final class CommandClickDoubleOn implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     *      org.wetator.core.WetCommand)
+     */
+    @Override
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+
+      // Buttons / Link / Image
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
+
+      // Text
+      // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      tmpControl.clickDouble(aWetContext);
+      tmpBackend.saveCurrentWindowToLog();
+    }
+  }
+
+  /**
+   * Command 'Click Right On'.
+   */
+  public final class CommandClickRightOn implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     *      org.wetator.core.WetCommand)
+     */
+    @Override
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+
+      // Buttons / Link / Image
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
+
+      // Text
+      // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      tmpControl.clickRight(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
   }

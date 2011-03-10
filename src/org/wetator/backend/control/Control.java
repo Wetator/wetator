@@ -66,6 +66,22 @@ public interface Control {
   public void click(WetContext aWetContext) throws AssertionFailedException;
 
   /**
+   * Simulates a mouse double click on the control.
+   * 
+   * @param aWetContext the wet context
+   * @throws AssertionFailedException if the the control has no support for clicks
+   */
+  public void clickDouble(WetContext aWetContext) throws AssertionFailedException;
+
+  /**
+   * Simulates a mouse right click on the control.
+   * 
+   * @param aWetContext the wet context
+   * @throws AssertionFailedException if the the control has no support for clicks
+   */
+  public void clickRight(WetContext aWetContext) throws AssertionFailedException;
+
+  /**
    * @param aControl the control to compare with
    * @return true, if the given control has the same backend control
    */
