@@ -3,6 +3,11 @@
     <settings defaultResolver="chain" />
     <resolvers>
         <ibiblio name="ibiblio" m2compatible="true" checksums="" />
+        <ibiblio name="NekoHTMLSnapshots"
+                 m2compatible="true"
+                 usepoms="true"
+                 root="http://build.canoo.com/NekoHTML/artifacts/m2-repo"
+                 checkmodified="true"/>
         <ibiblio name="wetator-sh"
                  m2compatible="true"
                  usepoms="true"
@@ -17,6 +22,7 @@
             <resolver ref="wetator-sh" />
             <resolver ref="wetator" />
             <resolver ref="ibiblio" />
+            <resolver ref="NekoHTMLSnapshots" />
         </chain>
     </resolvers>
 </ivysettings>
