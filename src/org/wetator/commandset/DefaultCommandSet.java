@@ -213,7 +213,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
 
       // Text
-      // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
@@ -245,7 +244,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
 
       // Text
-      // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
@@ -277,7 +275,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
 
       // Text
-      // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
@@ -517,7 +514,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
 
       // clickable Text
-      // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
