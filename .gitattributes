@@ -357,6 +357,7 @@ test/xml/open_url.wet -text svneol=unset#text/plain
 test/xml/open_url_anchor_inside_page.wet -text
 test/xml/open_url_header.wet -text svneol=unset#text/plain
 test/xml/open_url_redirect.wet -text svneol=unset#text/plain
+test/xml/response_store.wet -text
 test/xml/select_checkbox.wet -text svneol=unset#text/plain
 test/xml/select_checkbox_after.wet -text svneol=unset#text/plain
 test/xml/select_multipleSelect.wet -text svneol=unset#text/plain
@@ -802,6 +803,8 @@ webpages/testcases/onkey.html -text
 webpages/testcases/redirect_header.php -text
 webpages/testcases/redirect_js.php -text
 webpages/testcases/redirect_meta.php -text
+webpages/testcases/response_store/embedded_style.html -text
+webpages/testcases/response_store/inline_style.html -text
 webpages/testcases/select.html -text
 webpages/testcases/select_after.html -text
 webpages/testcases/set.html -text
