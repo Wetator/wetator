@@ -37,6 +37,8 @@ import com.gargoylesoftware.htmlunit.html.DomDocumentType;
 import com.gargoylesoftware.htmlunit.html.DomNamespaceNode;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlArea;
+import com.gargoylesoftware.htmlunit.html.HtmlBase;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
@@ -58,6 +60,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlMeta;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
+import com.gargoylesoftware.htmlunit.html.HtmlParameter;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
@@ -103,6 +106,11 @@ public final class XHtmlOutputter {
 
     EMPTY_TAGS.add(HtmlBreak.class.getName());
     EMPTY_TAGS.add(HtmlHorizontalRule.class.getName());
+
+    EMPTY_TAGS.add(HtmlArea.class.getName());
+    EMPTY_TAGS.add(HtmlBase.class.getName());
+    // EMPTY_TAGS.add(HtmlCol.class.getName());
+    EMPTY_TAGS.add(HtmlParameter.class.getName());
 
     SINGLE_LINE_TAGS = new HashSet<String>();
     SINGLE_LINE_TAGS.add(HtmlTitle.class.getName());
