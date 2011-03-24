@@ -36,11 +36,10 @@ public class XHtmlOutputterXHtmlPageTest {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
   private static final String LEADING = "\n</html>\n";
 
-  private static final String EXPECTED_TRAILING = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> "
+  private static final String EXPECTED_TRAILING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
-      + "<!-- org doctype <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> --> "
-      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <body> ";
-  private static final String EXPECTED_LEADING = "</body> </html>";
+      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> ";
+  private static final String EXPECTED_LEADING = " </html>";
 
   @Test
   public void testSimple() throws IOException {
@@ -52,20 +51,21 @@ public class XHtmlOutputterXHtmlPageTest {
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    String tmpExpected = EXPECTED_TRAILING + EXPECTED_LEADING;
+    String tmpExpected = EXPECTED_TRAILING + "<body> </body>" + EXPECTED_LEADING;
     Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
-  // @Test public void testSimpleWithJavascript() throws IOException {
-  // String tmpXHtmlCode = TRAILING + "<body><h1>Test</h1>"
-  // + "<script type=\"text/javascript\"><![CDATA[ ]]></script></body>" + LEADING;
-  // System.out.println(tmpXHtmlCode);
-  // HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
-  // XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
-  // StringWriter tmpWriter = new StringWriter();
-  // tmpXHtmlOutputter.writeTo(tmpWriter);
-  //
-  // String tmpExpected = EXPECTED_TRAILING + EXPECTED_LEADING;
-  // Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
-  // }
+  @Test
+  public void testSimpleWithJavascript() throws IOException {
+    String tmpXHtmlCode = TRAILING + "<body><h1>Test</h1>"
+        + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + LEADING;
+    System.out.println(tmpXHtmlCode);
+    HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    String tmpExpected = EXPECTED_TRAILING + "<head> </head> <body> <h1>Test</h1> </body>" + EXPECTED_LEADING;
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
 }
