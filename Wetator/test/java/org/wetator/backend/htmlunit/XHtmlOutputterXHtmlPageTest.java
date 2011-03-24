@@ -59,7 +59,7 @@ public class XHtmlOutputterXHtmlPageTest {
   public void testSimpleWithJavascript() throws IOException {
     String tmpXHtmlCode = TRAILING + "<body><h1>Test</h1>"
         + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + LEADING;
-    System.out.println(tmpXHtmlCode);
+
     HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
