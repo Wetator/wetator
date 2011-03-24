@@ -245,20 +245,19 @@ public final class XHtmlOutputter {
         output.println(">");
       }
     } else if (aDomNode instanceof DomText) {
-      final String tmpText = aDomNode.asText();
+      String tmpText = aDomNode.asText();
       if (StringUtils.isEmpty(tmpText)) {
         output.print(tmpText);
       } else {
         if (aDomNode.getParentNode() instanceof HtmlStyle) {
           output.indent();
-          output.println(((DomText) aDomNode).getData());
-          output.unindent();
-        } else if (aDomNode.getParentNode() instanceof HtmlScript) {
-          output.println("<![CDATA[");
-          output.indent();
+
+          // process all url(....) inside
+          final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
+          tmpText = responseStore.processCSS(tmpBaseUrl, tmpText, 0);
+
           output.println(tmpText);
           output.unindent();
-          output.println("]]>");
         } else if (SINGLE_LINE_TAGS.contains(aDomNode.getParentNode().getClass().getName())) {
           output.print(xmlUtil.normalizeBodyValue(tmpText));
         } else {
@@ -329,6 +328,11 @@ public final class XHtmlOutputter {
           // no output of javascript actions
           if (StringUtils.startsWithIgnoreCase(tmpAttributeValue, "javascript:")) {
             continue;
+          }
+
+          if ("style".equals(tmpAttributeName)) {
+            // process all url(....) inside
+            tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
           }
 
           if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {

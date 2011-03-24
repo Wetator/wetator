@@ -357,6 +357,7 @@ Wetator/test/xml/open_url.wet -text svneol=unset#text/plain
 Wetator/test/xml/open_url_anchor_inside_page.wet -text
 Wetator/test/xml/open_url_header.wet -text svneol=unset#text/plain
 Wetator/test/xml/open_url_redirect.wet -text svneol=unset#text/plain
+Wetator/test/xml/response_store.wet -text
 Wetator/test/xml/select_checkbox.wet -text svneol=unset#text/plain
 Wetator/test/xml/select_checkbox_after.wet -text svneol=unset#text/plain
 Wetator/test/xml/select_multipleSelect.wet -text svneol=unset#text/plain
@@ -802,6 +803,8 @@ Wetator/webpages/testcases/onkey.html -text
 Wetator/webpages/testcases/redirect_header.php -text
 Wetator/webpages/testcases/redirect_js.php -text
 Wetator/webpages/testcases/redirect_meta.php -text
+Wetator/webpages/testcases/response_store/embedded_style.html -text
+Wetator/webpages/testcases/response_store/inline_style.html -text
 Wetator/webpages/testcases/select.html -text
 Wetator/webpages/testcases/select_after.html -text
 Wetator/webpages/testcases/set.html -text

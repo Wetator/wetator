@@ -99,9 +99,9 @@ public class XmlOtherTest extends AbstractWebServerTest {
   public void iframe() {
     executeTestFile("iframe.wet");
 
-     Assert.assertEquals(6, getSteps());
-     Assert.assertEquals(0, getFailures());
-     Assert.assertEquals(0, getErrors());
+    Assert.assertEquals(6, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
   }
 
   @Test
@@ -168,6 +168,16 @@ public class XmlOtherTest extends AbstractWebServerTest {
   @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
   public void wait1() {
     executeTestFile("wait.wet");
+
+    Assert.assertEquals(4, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  public void responseStore() {
+    executeTestFile("response_store.wet");
 
     Assert.assertEquals(4, getSteps());
     Assert.assertEquals(0, getFailures());

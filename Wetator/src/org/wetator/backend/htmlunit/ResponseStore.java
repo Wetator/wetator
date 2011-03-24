@@ -57,7 +57,7 @@ public final class ResponseStore {
   private static final int MAX_FILE_NAME_LENGTH = 200;
 
   private static long counter = 99999;
-  private static Map<String, String> genericFileNames;
+  private static Map<String, String> fileNames;
 
   private File outputDir;
   private boolean overwrite;
@@ -81,7 +81,7 @@ public final class ResponseStore {
     overwrite = anOverwriteFlag;
 
     initOutputDir();
-    genericFileNames = new HashMap<String, String>();
+    fileNames = new HashMap<String, String>();
   }
 
   /**
@@ -179,6 +179,12 @@ public final class ResponseStore {
         return null;
       }
 
+      // did we already download this
+      final String tmpKnownFileName = fileNames.get(tmpFullContentUrl.toExternalForm());
+      if (null != tmpKnownFileName) {
+        return tmpKnownFileName;
+      }
+
       // read data
       final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpFullContentUrl));
 
@@ -213,14 +219,23 @@ public final class ResponseStore {
 
       if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
         // files with really long names
-        String tmpGenericFileName = genericFileNames.get(tmpFileName);
-        if (null == tmpGenericFileName) {
-          tmpGenericFileName = "resource_" + getUniqueId();
-          genericFileNames.put(tmpFileName, tmpGenericFileName);
-        }
-        tmpFileName = "resource/" + tmpGenericFileName;
+        tmpFileName = "resource/" + "resource_" + getUniqueId();
         tmpResourceFile = new File(storeDir, tmpFileName);
       }
+
+      // calculate the return value
+      final StringBuilder tmpResult = new StringBuilder();
+      if (aDeep <= 0) {
+        tmpResult.append("./");
+      } else {
+        for (int i = 0; i < aDeep; i++) {
+          tmpResult.append("../");
+        }
+      }
+      tmpResult.append(tmpFileName);
+
+      // store the value already to prevent endless looping
+      fileNames.put(tmpFullContentUrl.toExternalForm(), tmpResult.toString());
 
       if (!tmpResourceFile.exists()) {
         String tmpProcessed = null;
@@ -245,15 +260,6 @@ public final class ResponseStore {
         }
       }
 
-      final StringBuilder tmpResult = new StringBuilder();
-      if (aDeep <= 0) {
-        tmpResult.append("./");
-      } else {
-        for (int i = 0; i < aDeep; i++) {
-          tmpResult.append("../");
-        }
-      }
-      tmpResult.append(tmpFileName);
       return tmpResult.toString();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
@@ -261,7 +267,18 @@ public final class ResponseStore {
     return null;
   }
 
-  private String processCSS(final URL aFullContentUrl, final String aCssContent, final int aDeep) {
+  /**
+   * This method parses the given css content for url(...);
+   * resolves the pictures and returns the content with
+   * correct paths.
+   * 
+   * @param aFullContentUrl the url of the page/css, this is referenced from
+   * @param aCssContent the css to process
+   * @param aDeep the deep of the parent file in the response store
+   *        (file system). This is used to calculate always relative urls for the return value
+   * @return the changed content;
+   */
+  public String processCSS(final URL aFullContentUrl, final String aCssContent, final int aDeep) {
     String tmpContent = aCssContent;
     int tmpStart = 0;
     Matcher tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
@@ -271,7 +288,8 @@ public final class ResponseStore {
         tmpStart = tmpMatcher.end();
       } else {
         final String tmpReplacement = "url(" + tmpMatcher.group(1) + tmpNewUrl + tmpMatcher.group(3) + ")";
-        tmpContent = StringUtils.replace(tmpContent, tmpMatcher.group(0), tmpReplacement);
+        tmpContent = tmpContent.substring(0, tmpMatcher.start()) + tmpReplacement
+            + tmpContent.substring(tmpMatcher.end());
         tmpStart = tmpMatcher.start() + tmpReplacement.length();
 
         tmpMatcher = CSS_URL_PATTERN.matcher(tmpContent);
