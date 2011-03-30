@@ -59,6 +59,21 @@ public final class ContentTypeUtil {
     if ("application/vnd.ms-excel".equalsIgnoreCase(tmpContentType)) {
       return ContentType.XLS;
     }
+
+    // RTF
+    if ("application/rtf".equalsIgnoreCase(tmpContentType)) {
+      return ContentType.RTF;
+    }
+    if ("text/rtf".equalsIgnoreCase(tmpContentType)) {
+      return ContentType.RTF;
+    }
+    if ("text/richtext".equalsIgnoreCase(tmpContentType)) {
+      return ContentType.RTF;
+    }
+    if ("text/enriched".equalsIgnoreCase(tmpContentType)) {
+      return ContentType.RTF;
+    }
+
     return ContentType.OTHER;
   }
 

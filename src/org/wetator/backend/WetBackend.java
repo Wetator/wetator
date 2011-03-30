@@ -45,6 +45,8 @@ public interface WetBackend {
     PDF,
     /** excel. */
     XLS,
+    /** rtf. */
+    RTF,
     /** the rest. */
     OTHER
   };

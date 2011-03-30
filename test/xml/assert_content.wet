@@ -32,8 +32,8 @@
     <step command='' comment='true'>now searching with more parts</step>
     <step command='Assert_Content'>Pferde,fressen,keinen,Gurkensalat</step>
     <step command='Assert_Content'>Pferde, fressen, keinen, Gurkensalat</step>
-    <tst:step command='Assert_Fail'><![CDATA[Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, keinen\, [fressen]\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser <h:outputText> Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').]]><tst:optionalParameter>Pferde,keinen,fressen,Gurkensalat</tst:optionalParameter></tst:step>
-    <tst:step command='Assert_Fail'><![CDATA[Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser <h:outputText> Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').]]><tst:optionalParameter>Pferde, fressen, meinen, Gurkensalat</tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, keinen\, [fressen]\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser <h:outputText> Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.rtf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').]]><tst:optionalParameter>Pferde,keinen,fressen,Gurkensalat</tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser <h:outputText> Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.rtf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').]]><tst:optionalParameter>Pferde, fressen, meinen, Gurkensalat</tst:optionalParameter></tst:step>
     <step command='' comment='true'>options of a select</step>
     <step command='Assert_Content'>Select to check for the options, First Option, Second Option, Another Option, Various Content types</step>
     <step command='' comment='true'>error for unused parameter</step>
@@ -47,6 +47,10 @@
     <step command='Open_Url'>assert_content.html</step>
     <step command='Click_On'>wet_test.pdf</step>
     <step command='Assert_Content'>simple, PDF, file, WeT</step>
+    <step command='' comment='true'>content type rtf</step>
+    <step command='Open_Url'>assert_content.html</step>
+    <step command='Click_On'>wet_test.rtf</step>
+    <step command='Assert_Content'>Wetator is great.</step>
     <step command='' comment='true'>content type xml</step>
     <step command='Open_Url'>assert_content.html</step>
     <step command='Click_On'>wet_test.xml</step>

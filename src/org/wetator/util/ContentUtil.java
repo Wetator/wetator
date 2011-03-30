@@ -19,6 +19,10 @@ package org.wetator.util;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.rtf.RTFEditorKit;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -33,6 +37,7 @@ import org.apache.poi.ss.usermodel.Cell;
  * @author rbri
  */
 public final class ContentUtil {
+  private static final int MAX_LENGTH = 2000;
 
   /**
    * Converts a pdf document to string.
@@ -52,6 +57,27 @@ public final class ContentUtil {
     } finally {
       tmpDocument.close();
     }
+  }
+
+  /**
+   * Converts a rtf document to string.
+   * 
+   * @param anInputStream the input
+   * @return the normalizes content string
+   * @throws IOException in case of io errors
+   * @throws BadLocationException if parsing goes wrong
+   */
+  public static String getRtfContentAsString(final InputStream anInputStream) throws IOException, BadLocationException {
+    final RTFEditorKit tmpRtfEditorKit = new RTFEditorKit();
+    final Document tmpDocument = tmpRtfEditorKit.createDefaultDocument();
+    tmpRtfEditorKit.read(anInputStream, tmpDocument, 0);
+    // don't get the whole document
+    final int tmpLength = Math.min(tmpDocument.getLength(), MAX_LENGTH);
+    final NormalizedString tmpResult = new NormalizedString(tmpDocument.getText(0, tmpLength));
+    if (tmpDocument.getLength() > MAX_LENGTH) {
+      tmpResult.append(" ...");
+    }
+    return tmpResult.toString();
   }
 
   /**
@@ -81,6 +107,13 @@ public final class ContentUtil {
               tmpResult.append(" ");
             }
           }
+
+          // check after each row
+          if (tmpResult.length() > MAX_LENGTH) {
+            tmpResult.append(" ...");
+            return tmpResult.toString();
+          }
+
           tmpResult.append(" ");
         }
       }

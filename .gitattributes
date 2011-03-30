@@ -425,6 +425,7 @@ webpages/testcases/click_on_table.html -text svneol=unset#text/plain
 webpages/testcases/download/download.txt -text
 webpages/testcases/download/unknown_content_type.bin -text
 webpages/testcases/download/wet_test.pdf -text
+webpages/testcases/download/wet_test.rtf -text
 webpages/testcases/download/wet_test.xls -text
 webpages/testcases/event_handler.html -text svneol=unset#text/plain
 webpages/testcases/event_handler_old.html -text svneol=unset#text/plain
