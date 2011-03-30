@@ -379,7 +379,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
 
     if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
-      for (int i = tmpWebWindows.size() - 1; i > 0; i--) {
+      for (int i = tmpWebWindows.size() - 1; i >= 0; i--) {
         final WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
         if (tmpWebWindow instanceof TopLevelWindow) {
