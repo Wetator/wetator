@@ -4,10 +4,25 @@
     xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
-    <step command='' comment='true'></step>
+    <step command='' comment='true'>parse style attribute content</step>
     <step command='Open_Url'>response_store/inline_style.html</step>
     <step command='Assert_Title'>Wetator / Inline Style</step>
-    <step command='' comment='true'></step>
+    <step command='' comment='true'>parse embedded styles (style tag)</step>
     <step command='Open_Url'>response_store/embedded_style.html</step>
     <step command='Assert_Title'>Wetator / Embedded Style</step>
+    <step command='' comment='true'>parse external styles (link tag)</step>
+    <step command='Open_Url'>response_store/external_style.html</step>
+    <step command='Assert_Title'>Wetator / External Style</step>
+    <step command='' comment='true'>external style is not available</step>
+    <step command='Open_Url'>response_store/notavailable_style.html</step>
+    <step command='Assert_Title'>Wetator / Not available Style</step>
+    <step command='' comment='true'>external styles imported</step>
+    <step command='Open_Url'>response_store/imported_style.html</step>
+    <step command='Assert_Title'>Wetator / Imported Style</step>
+    <step command='' comment='true'>styles recursion imported</step>
+    <step command='Open_Url'>response_store/import_recursion_style.html</step>
+    <step command='Assert_Title'>Wetator / Recursion Style</step>
+    <step command='' comment='true'>styles imported not available</step>
+    <step command='Open_Url'>response_store/import_notavailable_style.html</step>
+    <step command='Assert_Title'>Wetator / Import not available Style</step>
 </testcase>

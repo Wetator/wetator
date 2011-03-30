@@ -54,6 +54,7 @@ import com.gargoylesoftware.htmlunit.util.UrlUtils;
 public final class ResponseStore {
   private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
   private static final Pattern CSS_URL_PATTERN = Pattern.compile("url\\(([\"']?)(.*?)([\"']?)\\)");
+  private static final Pattern CSS_IMPORT_URL_PATTERN = Pattern.compile("@import\\s+([\"'])(.*?)([\"'])");
   private static final int MAX_FILE_NAME_LENGTH = 200;
 
   private static long counter = 99999;
@@ -180,47 +181,71 @@ public final class ResponseStore {
       }
 
       // did we already download this
-      final String tmpKnownFileName = fileNames.get(tmpFullContentUrl.toExternalForm());
-      if (null != tmpKnownFileName) {
-        return tmpKnownFileName;
-      }
+      String tmpFileName = fileNames.get(tmpFullContentUrl.toExternalForm());
+      if (null == tmpFileName) {
+        // read data
+        final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpFullContentUrl));
 
-      // read data
-      final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpFullContentUrl));
+        // create path
+        tmpFileName = tmpFullContentUrl.getPath();
+        if (tmpFileName.startsWith("/")) {
+          tmpFileName = tmpFileName.substring(1);
+        }
 
-      // create path
-      String tmpFileName = tmpFullContentUrl.getPath();
-      if (tmpFileName.startsWith("/")) {
-        tmpFileName = tmpFileName.substring(1);
-      }
+        String tmpQuery = tmpFullContentUrl.getQuery();
+        if (null != tmpQuery) {
+          tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
+          tmpFileName = tmpFileName + "?" + tmpQuery;
+        }
 
-      String tmpQuery = tmpFullContentUrl.getQuery();
-      if (null != tmpQuery) {
-        tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
-        tmpFileName = tmpFileName + "?" + tmpQuery;
-      }
+        // fix special characters
+        tmpFileName = tmpFileName.replaceAll(">", "__");
+        tmpFileName = tmpFileName.replaceAll("<", "__");
+        tmpFileName = tmpFileName.replaceAll(":", "__");
+        tmpFileName = tmpFileName.replaceAll("\"", "__");
+        tmpFileName = tmpFileName.replaceAll("\\|", "__");
+        tmpFileName = tmpFileName.replaceAll("\\?", "__");
+        tmpFileName = tmpFileName.replaceAll("\\*", "__");
 
-      // fix special characters
-      tmpFileName = tmpFileName.replaceAll(">", "__");
-      tmpFileName = tmpFileName.replaceAll("<", "__");
-      tmpFileName = tmpFileName.replaceAll(":", "__");
-      tmpFileName = tmpFileName.replaceAll("\"", "__");
-      tmpFileName = tmpFileName.replaceAll("\\|", "__");
-      tmpFileName = tmpFileName.replaceAll("\\?", "__");
-      tmpFileName = tmpFileName.replaceAll("\\*", "__");
+        // ensure the postfix
+        // this helps if the result is browsed from a real server
+        if (null != aSuffix && !tmpFileName.endsWith(aSuffix)) {
+          tmpFileName = tmpFileName + aSuffix;
+        }
 
-      // ensure the postfix
-      // this helps if the result is browsed from a real server
-      if (null != aSuffix && !tmpFileName.endsWith(aSuffix)) {
-        tmpFileName = tmpFileName + aSuffix;
-      }
+        File tmpResourceFile = new File(storeDir, tmpFileName);
 
-      File tmpResourceFile = new File(storeDir, tmpFileName);
+        if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
+          // files with really long names
+          tmpFileName = "resource/" + "resource_" + getUniqueId();
+          tmpResourceFile = new File(storeDir, tmpFileName);
+        }
 
-      if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
-        // files with really long names
-        tmpFileName = "resource/" + "resource_" + getUniqueId();
-        tmpResourceFile = new File(storeDir, tmpFileName);
+        // store the value already to prevent endless looping
+        fileNames.put(tmpFullContentUrl.toExternalForm(), tmpFileName);
+
+        if (!tmpResourceFile.exists()) {
+          String tmpProcessed = null;
+          if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
+            final String tmpResponse = tmpWebResponse.getContentAsString();
+            FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+
+            // process all url(....) inside
+            tmpProcessed = processCSS(tmpFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
+            FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed);
+          }
+
+          if (tmpProcessed == null) {
+            final InputStream tmpInStream = tmpWebResponse.getContentAsStream();
+            FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+            final FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
+            try {
+              IOUtils.copy(tmpInStream, tmpOutStream);
+            } finally {
+              tmpOutStream.close();
+            }
+          }
+        }
       }
 
       // calculate the return value
@@ -233,32 +258,6 @@ public final class ResponseStore {
         }
       }
       tmpResult.append(tmpFileName);
-
-      // store the value already to prevent endless looping
-      fileNames.put(tmpFullContentUrl.toExternalForm(), tmpResult.toString());
-
-      if (!tmpResourceFile.exists()) {
-        String tmpProcessed = null;
-        if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
-          final String tmpResponse = tmpWebResponse.getContentAsString();
-          FileUtils.forceMkdir(tmpResourceFile.getParentFile());
-
-          // process all url(....) inside
-          tmpProcessed = processCSS(tmpFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
-          FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed);
-        }
-
-        if (tmpProcessed == null) {
-          final InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-          FileUtils.forceMkdir(tmpResourceFile.getParentFile());
-          final FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
-          try {
-            IOUtils.copy(tmpInStream, tmpOutStream);
-          } finally {
-            tmpOutStream.close();
-          }
-        }
-      }
 
       return tmpResult.toString();
     } catch (final IOException e) {
@@ -293,6 +292,22 @@ public final class ResponseStore {
         tmpStart = tmpMatcher.start() + tmpReplacement.length();
 
         tmpMatcher = CSS_URL_PATTERN.matcher(tmpContent);
+      }
+    }
+
+    tmpStart = 0;
+    tmpMatcher = CSS_IMPORT_URL_PATTERN.matcher(tmpContent);
+    while (tmpMatcher.find(tmpStart)) {
+      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpMatcher.group(2), aDeep, null);
+      if (null == tmpNewUrl) {
+        tmpStart = tmpMatcher.end();
+      } else {
+        final String tmpReplacement = "@import" + tmpMatcher.group(1) + tmpNewUrl + tmpMatcher.group(3);
+        tmpContent = tmpContent.substring(0, tmpMatcher.start()) + tmpReplacement
+            + tmpContent.substring(tmpMatcher.end());
+        tmpStart = tmpMatcher.start() + tmpReplacement.length();
+
+        tmpMatcher = CSS_IMPORT_URL_PATTERN.matcher(tmpContent);
       }
     }
 
