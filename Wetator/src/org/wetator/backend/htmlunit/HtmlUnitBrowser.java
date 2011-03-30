@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.text.BadLocationException;
+
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
@@ -745,6 +747,21 @@ public final class HtmlUnitBrowser implements WetBackend {
         return tmpStartPage != tmpPage;
       } catch (final IOException e) {
         Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
+        return tmpStartPage != tmpPage;
+      }
+    }
+
+    if (ContentType.RTF == tmpContentType) {
+      try {
+        final String tmpContentAsText = ContentUtil
+            .getRtfContentAsString(tmpPage.getWebResponse().getContentAsStream());
+        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        return tmpStartPage != tmpPage;
+      } catch (final IOException e) {
+        Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+        return tmpStartPage != tmpPage;
+      } catch (final BadLocationException e) {
+        Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
         return tmpStartPage != tmpPage;
       }
     }

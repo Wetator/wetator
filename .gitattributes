@@ -425,6 +425,7 @@ Wetator/webpages/testcases/click_on_table.html -text svneol=unset#text/plain
 Wetator/webpages/testcases/download/download.txt -text
 Wetator/webpages/testcases/download/unknown_content_type.bin -text
 Wetator/webpages/testcases/download/wet_test.pdf -text
+Wetator/webpages/testcases/download/wet_test.rtf -text
 Wetator/webpages/testcases/download/wet_test.xls -text
 Wetator/webpages/testcases/event_handler.html -text svneol=unset#text/plain
 Wetator/webpages/testcases/event_handler_old.html -text svneol=unset#text/plain
