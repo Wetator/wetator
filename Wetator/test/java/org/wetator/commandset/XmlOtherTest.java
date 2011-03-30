@@ -179,7 +179,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   public void responseStore() {
     executeTestFile("response_store.wet");
 
-    Assert.assertEquals(4, getSteps());
+    Assert.assertEquals(14, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

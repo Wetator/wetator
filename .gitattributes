@@ -805,7 +805,15 @@ Wetator/webpages/testcases/redirect_header.php -text
 Wetator/webpages/testcases/redirect_js.php -text
 Wetator/webpages/testcases/redirect_meta.php -text
 Wetator/webpages/testcases/response_store/embedded_style.html -text
+Wetator/webpages/testcases/response_store/external_style.css -text
+Wetator/webpages/testcases/response_store/external_style.html -text
+Wetator/webpages/testcases/response_store/import_notavailable_style.css -text
+Wetator/webpages/testcases/response_store/import_notavailable_style.html -text
+Wetator/webpages/testcases/response_store/import_recursion_style.html -text
+Wetator/webpages/testcases/response_store/imported_style.html -text
 Wetator/webpages/testcases/response_store/inline_style.html -text
+Wetator/webpages/testcases/response_store/notavailable_style.html -text
+Wetator/webpages/testcases/response_store/recursion_style.css -text
 Wetator/webpages/testcases/select.html -text
 Wetator/webpages/testcases/select_after.html -text
 Wetator/webpages/testcases/set.html -text
