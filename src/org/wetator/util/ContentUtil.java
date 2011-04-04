@@ -37,7 +37,7 @@ import org.apache.poi.ss.usermodel.Cell;
  * @author rbri
  */
 public final class ContentUtil {
-  private static final int MAX_LENGTH = 2000;
+  private static final int MAX_LENGTH = 4000;
 
   /**
    * Converts a pdf document to string.
