@@ -20,6 +20,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.text.BadLocationException;
+
 import org.junit.Test;
 
 /**
@@ -36,6 +38,16 @@ public class ContentUtilTest {
 
     String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream(
         "webpages/testcases/download/wet_test.pdf"));
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void testGetRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("Wetator is great.");
+
+    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream(
+        "webpages/testcases/download/wet_test.rtf"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 

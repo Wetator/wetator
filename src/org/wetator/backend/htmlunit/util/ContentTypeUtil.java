@@ -98,6 +98,9 @@ public final class ContentTypeUtil {
       case XLS:
         tmpResult = "xls";
         break;
+      case RTF:
+        tmpResult = "rtf";
+        break;
       default:
         tmpResult = "bin";
         break;
