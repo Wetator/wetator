@@ -73,7 +73,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
       final HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
-      final String tmpText = htmlPageIndex.getAsText(tmpLabel);
+      final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
       final int tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpCoverage > -1) {
         final String tmpForAttribute = tmpLabel.getForAttribute();

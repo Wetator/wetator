@@ -81,11 +81,15 @@ import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 public class HtmlPageIndex {
 
   private HtmlPage htmlPage;
+
   private NormalizedString text;
+  private Map<DomNode, FindSpot> positions;
+  private NormalizedString textWithoutFormControls;
+  private Map<DomNode, FindSpot> positionsWithoutFormControls;
+
   private List<DomNode> nodes;
   private List<HtmlElement> visibleHtmlElementsBottomUp;
   private List<HtmlElement> visibleHtmlElements;
-  private Map<DomNode, FindSpot> positions;
 
   /**
    * The constructor.
@@ -94,11 +98,15 @@ public class HtmlPageIndex {
    */
   public HtmlPageIndex(final HtmlPage aHtmlPage) {
     htmlPage = aHtmlPage;
+
     text = new NormalizedString();
+    positions = new HashMap<DomNode, FindSpot>();
+    textWithoutFormControls = new NormalizedString();
+    positionsWithoutFormControls = new HashMap<DomNode, FindSpot>();
+
     nodes = new LinkedList<DomNode>();
     visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
     visibleHtmlElements = new LinkedList<HtmlElement>();
-    positions = new HashMap<DomNode, FindSpot>();
 
     parseDomNode(aHtmlPage);
   }
@@ -304,6 +312,22 @@ public class HtmlPageIndex {
     return text.substring(tmpFindSpot.startPos, tmpFindSpot.endPos);
   }
 
+  /**
+   * Returns the (trimmed) text of the given node and all its children.
+   * All form controls are not part of this text.
+   * 
+   * @param aDomNode the node to look at
+   * @return the text
+   */
+  public String getAsTextWithoutFormControls(final DomNode aDomNode) {
+    final FindSpot tmpFindSpot = positionsWithoutFormControls.get(aDomNode);
+    if (null == tmpFindSpot) {
+      return null;
+    }
+
+    return textWithoutFormControls.substring(tmpFindSpot.startPos, tmpFindSpot.endPos);
+  }
+
   private void parseDomNode(final DomNode aDomNode) {
     if (null == aDomNode) {
       return;
@@ -314,6 +338,10 @@ public class HtmlPageIndex {
     FindSpot tmpFindSpot = new FindSpot();
     tmpFindSpot.startPos = text.length();
     positions.put(aDomNode, tmpFindSpot);
+
+    FindSpot tmpFindSpotWFC = new FindSpot();
+    tmpFindSpotWFC.startPos = textWithoutFormControls.length();
+    positionsWithoutFormControls.put(aDomNode, tmpFindSpotWFC);
 
     if (aDomNode.isDisplayed()) {
       if (aDomNode instanceof HtmlElement) {
@@ -330,6 +358,7 @@ public class HtmlPageIndex {
         appendHtmlInlineFrame((HtmlInlineFrame) aDomNode);
       } else if (aDomNode instanceof HtmlBreak) {
         text.append(" ");
+        textWithoutFormControls.append(" ");
       } else if (aDomNode instanceof HtmlImage) {
         appendHtmlImage((HtmlImage) aDomNode);
       } else if (aDomNode instanceof HtmlSelect) {
@@ -359,10 +388,12 @@ public class HtmlPageIndex {
             || (aDomNode instanceof HtmlListItem);
         if (tmpIsBlock) {
           text.append(" ");
+          textWithoutFormControls.append(" ");
         }
         parseChildren(aDomNode);
         if (tmpIsBlock) {
           text.append(" ");
+          textWithoutFormControls.append(" ");
         }
       }
 
@@ -373,6 +404,9 @@ public class HtmlPageIndex {
     // mark pos after
     tmpFindSpot = positions.get(aDomNode);
     tmpFindSpot.endPos = text.length();
+
+    tmpFindSpotWFC = positionsWithoutFormControls.get(aDomNode);
+    tmpFindSpotWFC.endPos = textWithoutFormControls.length();
   }
 
   private void parseChildren(final DomNode aNode) {
@@ -383,6 +417,7 @@ public class HtmlPageIndex {
 
   private void appendDomText(final DomText aDomText) {
     text.append(aDomText.getData());
+    textWithoutFormControls.append(aDomText.getData());
   }
 
   private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame) {
@@ -402,11 +437,13 @@ public class HtmlPageIndex {
 
   private void appendHtmlImage(final HtmlImage anHtmlImage) {
     text.append(anHtmlImage.getAltAttribute());
+    textWithoutFormControls.append(anHtmlImage.getAltAttribute());
   }
 
   private void appendHtmlLegend(final HtmlLegend anHtmlLegend) {
     parseChildren(anHtmlLegend);
     text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
@@ -417,21 +454,25 @@ public class HtmlPageIndex {
   private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
     parseChildren(anHtmlCheckBoxInput);
     text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
     parseChildren(anHtmlRadioButtonInput);
     text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlSelect(final HtmlSelect anHtmlSelect) {
     for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
       if ((tmpItem instanceof HtmlOption) || (tmpItem instanceof HtmlOptionGroup)) {
         text.append(" ");
+        textWithoutFormControls.append(" ");
         parseDomNode(tmpItem);
       }
     }
     text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 
   /**
@@ -441,6 +482,8 @@ public class HtmlPageIndex {
    */
   private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList) {
     text.append(" ");
+    textWithoutFormControls.append(" ");
+
     int i = 1;
     for (final DomNode tmpItem : anHtmlOrderedList.getChildren()) {
       if (tmpItem instanceof HtmlListItem) {
@@ -448,13 +491,22 @@ public class HtmlPageIndex {
         final int tmpStartPos = text.length();
         text.append(String.valueOf(i++));
         text.append(". ");
+
+        final int tmpStartPosWFC = textWithoutFormControls.length();
+        textWithoutFormControls.append(String.valueOf(i));
+        textWithoutFormControls.append(". ");
+
         parseDomNode(tmpItem);
         final FindSpot tmpFindSpot = positions.get(tmpItem);
         tmpFindSpot.startPos = tmpStartPos;
+
+        final FindSpot tmpFindSpotWFC = positionsWithoutFormControls.get(tmpItem);
+        tmpFindSpotWFC.startPos = tmpStartPosWFC;
       } else {
         parseDomNode(tmpItem);
       }
     }
     text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 }
