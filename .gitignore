@@ -1,6 +1,8 @@
 Wetator/ant_lib/ivy-2.1.0.jar
 Wetator/ant_lib/one-jar-ant-task-0.96.jar
 Wetator/ant_lib/version_tool.jar
+Wetator/build
+Wetator/deploy
 Wetator/lib/*.jar
 Wetator/lib/ant
 Wetator/lib/automaton
