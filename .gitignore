@@ -1,6 +1,8 @@
 ant_lib/ivy-2.1.0.jar
 ant_lib/one-jar-ant-task-0.96.jar
 ant_lib/version_tool.jar
+/build
+/deploy
 lib/*.jar
 lib/ant
 lib/automaton
