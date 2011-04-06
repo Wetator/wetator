@@ -12,7 +12,7 @@
   <div class="header">
     <img src="../images/wetator.png" alt="Wetator">
   </div>
-  
+
   <h1 class="command_test">Wetator / Select</h1>
 
   <div class="test_content">
@@ -120,25 +120,56 @@
                 </form>
               </td>
             </tr>
+          </table>
+
+          <h4>by label</h4>
+
+          <table border='0'>
 
             <tr>
-              <td>SingleSelect identified by label</td>
+              <td>SingleSelect identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="singleSelectId_Label">SingleSelect Label</label></td>
+                      <td><label for="singleSelectId_LabelFor">SingleSelect Label with For</label></td>
                       <td>
-                        <select id="singleSelectId_Label" name="singleSelect_Label" size="2">
+                        <select id="singleSelectId_LabelFor" name="singleSelect_LabelFor" size="2">
                           <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
-                      <td><input type="submit" name="SingleSelectLabelTest" value="OK"></td>
+                      <td><input type="submit" name="SingleSelectLabelForTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>SingleSelect surrounding
+                          <select id="singleSelectId_SurroundingLabel" name="singleSelect_SurroundingLabel" size="2">
+                            <option value="o_value1">option1</option>
+                            <option value="o_value2">option2</option>
+                            <option value="o_value3">option3</option>
+                            <option value="o_value4">option4</option>
+                          </select>
+                          Label
+                        </label>
+                      </td>
+                      <td><input type="submit" name="SingleSelectSurroundingLabelTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
