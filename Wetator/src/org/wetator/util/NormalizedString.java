@@ -24,10 +24,11 @@ package org.wetator.util;
  * 
  * @author rbri
  */
-public final class NormalizedString {
+public class NormalizedString {
   private static final String BLANK = " ";
 
   private StringBuilder content;
+  private boolean isAppendDisabled;
 
   /**
    * Default constructor; creates a new empty NormalizedString.
@@ -47,6 +48,20 @@ public final class NormalizedString {
   }
 
   /**
+   * Let the append method ignore the content to be appended.
+   */
+  public void disableAppend() {
+    isAppendDisabled = true;
+  }
+
+  /**
+   * Switch back to expected append behaviour.
+   */
+  public void enableAppend() {
+    isAppendDisabled = false;
+  }
+
+  /**
    * Appends the specified String to this sequence.
    * 
    * @param aString the string to append.
@@ -54,6 +69,9 @@ public final class NormalizedString {
    */
   public NormalizedString append(final String aString) {
     if (null == aString) {
+      return this;
+    }
+    if (isAppendDisabled) {
       return this;
     }
     if (aString.length() < 1) {
