@@ -34,6 +34,7 @@ import com.gargoylesoftware.htmlunit.html.DomText;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -67,6 +68,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableHeader;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
@@ -130,6 +132,15 @@ public class HtmlPageIndex {
    */
   public String getText() {
     return text.toString();
+  }
+
+  /**
+   * Returns the whole text without the form controls trimmed.
+   * 
+   * @return the whole text
+   */
+  public String getTextWithoutFormControls() {
+    return textWithoutFormControls.toString();
   }
 
   /**
@@ -375,6 +386,10 @@ public class HtmlPageIndex {
         appendHtmlImageInput((HtmlImageInput) aDomNode);
       } else if (aDomNode instanceof HtmlInput) {
         appendHtmlInput((HtmlInput) aDomNode);
+      } else if (aDomNode instanceof HtmlTextArea) {
+        appendHtmlTextArea((HtmlTextArea) aDomNode);
+      } else if (aDomNode instanceof HtmlButton) {
+        appendHtmlButton((HtmlButton) aDomNode);
       } else if (aDomNode instanceof HtmlOrderedList) {
         appendHtmlOrderedList((HtmlOrderedList) aDomNode);
       } else {
@@ -435,6 +450,18 @@ public class HtmlPageIndex {
     text.append(anHtmlInput.getValueAttribute());
   }
 
+  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea) {
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlTextArea);
+    textWithoutFormControls.enableAppend();
+  }
+
+  private void appendHtmlButton(final HtmlButton anHtmlButton) {
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlButton);
+    textWithoutFormControls.enableAppend();
+  }
+
   private void appendHtmlImage(final HtmlImage anHtmlImage) {
     text.append(anHtmlImage.getAltAttribute());
     textWithoutFormControls.append(anHtmlImage.getAltAttribute());
@@ -452,18 +479,23 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
+    textWithoutFormControls.disableAppend();
     parseChildren(anHtmlCheckBoxInput);
+    textWithoutFormControls.enableAppend();
     text.append(" ");
     textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
+    textWithoutFormControls.disableAppend();
     parseChildren(anHtmlRadioButtonInput);
+    textWithoutFormControls.enableAppend();
     text.append(" ");
     textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlSelect(final HtmlSelect anHtmlSelect) {
+    textWithoutFormControls.disableAppend();
     for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
       if ((tmpItem instanceof HtmlOption) || (tmpItem instanceof HtmlOptionGroup)) {
         text.append(" ");
@@ -471,6 +503,7 @@ public class HtmlPageIndex {
         parseDomNode(tmpItem);
       }
     }
+    textWithoutFormControls.enableAppend();
     text.append(" ");
     textWithoutFormControls.append(" ");
   }

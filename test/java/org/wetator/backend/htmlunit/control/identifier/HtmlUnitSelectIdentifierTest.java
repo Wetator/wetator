@@ -191,7 +191,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", new WPath(tmpSearch)));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 24 distance: 44 start: 66",
+    Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44 start: 66",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

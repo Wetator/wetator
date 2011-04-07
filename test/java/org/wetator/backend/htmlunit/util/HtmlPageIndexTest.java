@@ -34,7 +34,9 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals("", tmpResult.getText());
+    String tmpExpected = "";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -48,6 +50,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "Paragraph 1 Paragraph 2";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -59,52 +62,128 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "Paragraph 1 Paragraph 2";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void testAsText_AllControls() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>PageStart</p>" + "<form action='test'>" + "<p> </p>" + "<fieldset>"
-        + "<legend id='idLegend'>LegendLabel</legend>" + "</fieldset>" + "<p> </p>"
-        + "<label id='idLabel' for='TextInput'>LabelLabel</label>" + "<p> </p>"
-        + "<input id='idTextInput' name='TextInput' type='text' value='inputValue'>" + "<p> </p>"
-        + "<input name='PasswordInput' type='password' value='secretInputValue'>" + "<p> </p>"
-        + "<input name='HiddenInput' type='hidden' value='hiddenInputValue'>" + "<p> </p>"
-        + "<textarea name='TextArea'>textAreaValue</textarea>" + "<p> </p>" + "<input name='FileInput' type='file'>"
-        + "<p> </p>" + "<select id='idSingleSelect' name='SingleSelect'>" + "<option selected>Option1Value"
-        + "<option>Option2Value" + "</select>" + "<p> </p>" + "<select name='MultipleSelect' multiple>"
-        + "  <option selected>Option1Value" + "  <option>Option2Value" + "  <option selected>Option3Value"
-        + "</select>" + "<p> </p>" + "<select name='SingleOptgroupSelect'>"
-        + "  <optgroup label='SingleOptgroupLabel1'>" + "    <option>SingleOptgroup1Option1Value"
-        + "    <option>SingleOptgroup1Option2Value" + "    <option>SingleOptgroup1Option3Value" + "  </optgroup>"
-        + "  <optgroup label='SingleOptgroupLabel2'>" + "    <option>SingleOptgroup2Option1Value"
-        + "    <option selected>SingleOptgroup2Option2Value" + "    <option>SingleOptgroup2Option3Value"
-        + "  </optgroup>" + "</select>" + "<p> </p>" + "<select name='MultipleOptgroupSelect' multiple>"
-        + "  <optgroup label='MultipleOptgroupLabel1'>" + "    <option selected>MultipleOptgroup1Option1Value"
-        + "    <option>MultipleOptgroup1Option2Value" + "    <option selected>MultipleOptgroup1Option3Value"
-        + "  </optgroup>" + "  <optgroup label='MultipleOptgroupLabel2'>" + "    <option>MultipleOptgroup2Option1Value"
-        + "    <option selected>MultipleOptgroup2Option2Value" + "    <option>MultipleOptgroup2Option3Value"
-        + "  </optgroup>" + "</select>" + "<p> </p>"
-        + "<input name='RadioInput' type='radio' value='radioInputValue1'>radioInputLabel1"
-        + "<input name='RadioInput' type='radio' value='radioInputValue2' checked>radioInputLabel2" + "<p> </p>"
-        + "<input name='CheckboxInput' type='checkbox' value='checkboxInputValue1' checked>checkboxInputLabel1"
-        + "<input name='CheckboxInput' type='checkbox' value='checkboxInputValue2'>checkboxInputLabel2" + "<p> </p>"
-        + "<button name='ButtonButton' type='button' value='buttonButtonValue'>buttonButtonLabel</button>" + "<p> </p>"
-        + "<input name='ButtonInput' type='button' value='buttonInputValue'>" + "<p> </p>"
-        + "<input name='SubmitInput' type='submit' value='submitInputValue'>" + "<p> </p>"
-        + "<input name='ResetInput' type='reset' value='resetInputValue'>" + "</form>" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" //
+        + "<p>PageStart</p>" //
+        + "<form action='test'>" //
+        + "<p> </p>" //
+        + "<fieldset>" //
+        + "<legend id='idLegend'>LegendLabel</legend>" //
+        + "</fieldset>" //
+        + "<p> </p>" //
+        + "<label id='idLabel' for='TextInput'>LabelLabel</label>" //
+        + "<p> </p>" //
+        + "<input id='idTextInput' name='TextInput' type='text' value='inputValue'>" //
+        + "<p> </p>" //
+        + "<input name='PasswordInput' type='password' value='secretInputValue'>" //
+        + "<p> </p>" //
+        + "<input name='HiddenInput' type='hidden' value='hiddenInputValue'>" //
+        + "<p> </p>" //
+        + "<textarea name='TextArea'>textAreaValue</textarea>" //
+        + "<p> </p>" //
+        + "<input name='FileInput' type='file'>" //
+        + "<p> </p>" //
+        + "<select id='idSingleSelect' name='SingleSelect'>" //
+        + "<option selected>Option1Value" //
+        + "<option>Option2Value" //
+        + "</select>" //
+        + "<p> </p>" //
+        + "<select name='MultipleSelect' multiple>" //
+        + "  <option selected>Option1Value" //
+        + "  <option>Option2Value" //
+        + "  <option selected>Option3Value" //
+        + "</select>" //
+        + "<p> </p>" //
+        + "<select name='SingleOptgroupSelect'>" //
+        + "  <optgroup label='SingleOptgroupLabel1'>" //
+        + "    <option>SingleOptgroup1Option1Value" //
+        + "    <option>SingleOptgroup1Option2Value" //
+        + "    <option>SingleOptgroup1Option3Value" //
+        + "  </optgroup>" //
+        + "  <optgroup label='SingleOptgroupLabel2'>" //
+        + "    <option>SingleOptgroup2Option1Value" //
+        + "    <option selected>SingleOptgroup2Option2Value" //
+        + "    <option>SingleOptgroup2Option3Value" //
+        + "  </optgroup>" //
+        + "</select>" //
+        + "<p> </p>" //
+        + "<select name='MultipleOptgroupSelect' multiple>" //
+        + "  <optgroup label='MultipleOptgroupLabel1'>" //
+        + "    <option selected>MultipleOptgroup1Option1Value" //
+        + "    <option>MultipleOptgroup1Option2Value" //
+        + "    <option selected>MultipleOptgroup1Option3Value" //
+        + "  </optgroup>" //
+        + "  <optgroup label='MultipleOptgroupLabel2'>" //
+        + "    <option>MultipleOptgroup2Option1Value" //
+        + "    <option selected>MultipleOptgroup2Option2Value" //
+        + "    <option>MultipleOptgroup2Option3Value" //
+        + "  </optgroup>" //
+        + "</select>" //
+        + "<p> </p>" //
+        + "<input name='RadioInput' type='radio' value='radioInputValue1'>radioInputLabel1" //
+        + "<input name='RadioInput' type='radio' value='radioInputValue2' checked>radioInputLabel2" //
+        + "<p> </p>" //
+        + "<input name='CheckboxInput' type='checkbox' value='checkboxInputValue1' checked>checkboxInputLabel1" //
+        + "<input name='CheckboxInput' type='checkbox' value='checkboxInputValue2'>checkboxInputLabel2" //
+        + "<p> </p>" //
+        + "<button name='ButtonButton' type='button' value='buttonButtonValue'>buttonButtonLabel</button>" //
+        + "<p> </p>" //
+        + "<input name='ButtonInput' type='button' value='buttonInputValue'>" //
+        + "<p> </p>" //
+        + "<input name='SubmitInput' type='submit' value='submitInputValue'>" //
+        + "<p> </p>" //
+        + "<input name='ResetInput' type='reset' value='resetInputValue'>" //
+        + "</form>" //
+        + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals("PageStart " + "LegendLabel " + "LabelLabel " + "inputValue " + "secretInputValue "
-        + "textAreaValue " + "Option1Value " + "Option2Value " + "Option1Value " + "Option2Value " + "Option3Value "
-        + "SingleOptgroupLabel1 " + "SingleOptgroup1Option1Value " + "SingleOptgroup1Option2Value "
-        + "SingleOptgroup1Option3Value " + "SingleOptgroupLabel2 " + "SingleOptgroup2Option1Value "
-        + "SingleOptgroup2Option2Value " + "SingleOptgroup2Option3Value " + "MultipleOptgroupLabel1 "
-        + "MultipleOptgroup1Option1Value " + "MultipleOptgroup1Option2Value " + "MultipleOptgroup1Option3Value "
-        + "MultipleOptgroupLabel2 " + "MultipleOptgroup2Option1Value " + "MultipleOptgroup2Option2Value "
-        + "MultipleOptgroup2Option3Value " + "radioInputLabel1 radioInputLabel2 "
-        + "checkboxInputLabel1 checkboxInputLabel2 " + "buttonButtonLabel " + "buttonInputValue " + "submitInputValue "
-        + "resetInputValue", tmpResult.getText());
+    String tmpExpected = "PageStart " //
+        + "LegendLabel " //
+        + "LabelLabel " //
+        + "inputValue " //
+        + "secretInputValue " //
+        + "textAreaValue " //
+        + "Option1Value " //
+        + "Option2Value " //
+        + "Option1Value " //
+        + "Option2Value " //
+        + "Option3Value " //
+        + "SingleOptgroupLabel1 " //
+        + "SingleOptgroup1Option1Value " //
+        + "SingleOptgroup1Option2Value " //
+        + "SingleOptgroup1Option3Value " //
+        + "SingleOptgroupLabel2 " //
+        + "SingleOptgroup2Option1Value " //
+        + "SingleOptgroup2Option2Value " //
+        + "SingleOptgroup2Option3Value " //
+        + "MultipleOptgroupLabel1 " //
+        + "MultipleOptgroup1Option1Value " //
+        + "MultipleOptgroup1Option2Value " //
+        + "MultipleOptgroup1Option3Value " //
+        + "MultipleOptgroupLabel2 " //
+        + "MultipleOptgroup2Option1Value " //
+        + "MultipleOptgroup2Option2Value " //
+        + "MultipleOptgroup2Option3Value " //
+        + "radioInputLabel1 radioInputLabel2 " //
+        + "checkboxInputLabel1 checkboxInputLabel2 " //
+        + "buttonButtonLabel " //
+        + "buttonInputValue " //
+        + "submitInputValue " //
+        + "resetInputValue";
+
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+
+    tmpExpected = "PageStart " //
+        + "LegendLabel " //
+        + "LabelLabel " //
+        + "radioInputLabel1 radioInputLabel2 " //
+        + "checkboxInputLabel1 checkboxInputLabel2";
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
     Assert.assertEquals("PageStart", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLegend")));
     Assert.assertEquals("PageStart LegendLabel", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLabel")));
@@ -121,7 +200,9 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals("before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after", tmpResult.getText());
+    String tmpExpected = "before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -134,10 +215,12 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals("header1 header2 " + "data1 data2 " + "data3 data4 " + "data5", tmpResult.getText());
+    String tmpExpected = "header1 header2 data1 data2 data3 data4 data5";
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
-    Assert.assertEquals("header1 header2 data1 data2 data3 data4 data5", tmpResult.getAsText(tmpHtmlPage
-        .getElementById("idTable")));
+    Assert.assertEquals("header1 header2 data1 data2 data3 data4 data5",
+        tmpResult.getAsText(tmpHtmlPage.getElementById("idTable")));
     Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTable")));
 
     Assert.assertEquals("header1 header2", tmpResult.getAsText(tmpHtmlPage.getElementById("idTr1")));
@@ -165,16 +248,16 @@ public class HtmlPageIndexTest {
     Assert.assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd3")));
 
     Assert.assertEquals("data4", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd4")));
-    Assert.assertEquals("header1 header2 data1 data2 data3", tmpResult.getTextBefore(tmpHtmlPage
-        .getElementById("idTd4")));
+    Assert.assertEquals("header1 header2 data1 data2 data3",
+        tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd4")));
 
     Assert.assertEquals("data5", tmpResult.getAsText(tmpHtmlPage.getElementById("idTr4")));
-    Assert.assertEquals("header1 header2 data1 data2 data3 data4", tmpResult.getTextBefore(tmpHtmlPage
-        .getElementById("idTr4")));
+    Assert.assertEquals("header1 header2 data1 data2 data3 data4",
+        tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTr4")));
 
     Assert.assertEquals("data5", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd5")));
-    Assert.assertEquals("header1 header2 data1 data2 data3 data4", tmpResult.getTextBefore(tmpHtmlPage
-        .getElementById("idTd5")));
+    Assert.assertEquals("header1 header2 data1 data2 data3 data4",
+        tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd5")));
   }
 
   @Test
@@ -203,7 +286,9 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals("before Line1 Line2 after", tmpResult.getText());
+    String tmpExpected = "before Line1 Line2 after";
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
     Assert.assertEquals("Line1 Line2", tmpResult.getAsText(tmpHtmlPage.getElementById("idUl")));
     Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idUl")));
@@ -226,6 +311,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "red green blue";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals("", tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -237,6 +323,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -261,8 +348,8 @@ public class HtmlPageIndexTest {
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "colors red green blue";
-    Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals("colors red green blue", tmpResult.getText());
+    Assert.assertEquals("", tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -275,6 +362,8 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "before Test Image after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    tmpExpected = "before after";
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -287,6 +376,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "before test image after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -300,6 +390,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "before RadioButton after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -313,6 +404,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "before RadioButton after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -326,6 +418,7 @@ public class HtmlPageIndexTest {
 
     String tmpExpected = "before LabelText RadioButton after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -335,7 +428,9 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals("", tmpResult.getText());
+    String tmpExpected = "";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
@@ -379,8 +474,8 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("MoreText MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"),
-        0));
+    Assert.assertEquals("MoreText MyLabel",
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
   }
 
   @Test
@@ -415,8 +510,8 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert
-        .assertEquals("MyLabel value2", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+    Assert.assertEquals("MyLabel value2",
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
   }
 
   @Test
@@ -452,7 +547,8 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("CheckBoxpart2", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+    Assert
+        .assertEquals("CheckBoxpart2", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
   }
 
   @Test
