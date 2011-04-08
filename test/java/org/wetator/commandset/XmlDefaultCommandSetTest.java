@@ -267,7 +267,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectCheckbox() {
     executeTestFile("select_checkbox.wet");
 
-    Assert.assertEquals(53, getSteps());
+    Assert.assertEquals(58, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -276,7 +276,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectMultipleSelect() {
     executeTestFile("select_multipleSelect.wet");
 
-    Assert.assertEquals(73, getSteps());
+    Assert.assertEquals(78, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -285,7 +285,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectRadio() {
     executeTestFile("select_radio.wet");
 
-    Assert.assertEquals(40, getSteps());
+    Assert.assertEquals(45, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -294,7 +294,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectSingleSelect() {
     executeTestFile("select_singleSelect.wet");
 
-    Assert.assertEquals(68, getSteps());
+    Assert.assertEquals(73, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -312,7 +312,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void set() {
     executeTestFile("set.wet");
 
-    Assert.assertEquals(214, getSteps());
+    Assert.assertEquals(229, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

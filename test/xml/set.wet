@@ -39,10 +39,18 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>set.html</step>
     <step command='Assert_Title'>Wetator / Set</step>
-    <step command='' comment='true'>InputText identified by label</step>
-    <step command='Set'>InputText Label<optionalParameter>testValue</optionalParameter></step>
-    <step command='Click_On'>InputTextLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value InputTextLabelTest OK inputText_Label testValue POST</step>
+    <step command='' comment='true'>InputText identified by label with for attribute</step>
+    <step command='Set'>InputText Label with For<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLabelForTest OK inputText_LabelFor testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by surrounding label</step>
+    <step command='Set'>InputText surrounding Label<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextSurroundingLabelTest OK inputText_SurroundingLabel testValue POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>set.html</step>
@@ -159,10 +167,18 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>set.html</step>
     <step command='Assert_Title'>Wetator / Set</step>
-    <step command='' comment='true'>InputPassword identified by label</step>
-    <step command='Set'>InputPassword Label<optionalParameter>testValue</optionalParameter></step>
-    <step command='Click_On'>InputPasswordLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLabelTest OK inputPassword_Label testValue POST</step>
+    <step command='' comment='true'>InputPassword identified by label with for attribute</step>
+    <step command='Set'>InputPassword Label with For<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLabelForTest OK inputPassword_LabelFor testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by surrounding label</step>
+    <step command='Set'>InputPassword surrounding Label<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordSurroundingLabelTest OK inputPassword_SurroundingLabel testValue POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>set.html</step>
@@ -279,10 +295,18 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>set.html</step>
     <step command='Assert_Title'>Wetator / Set</step>
-    <step command='' comment='true'>TextArea identified by label</step>
-    <step command='Set'>TextArea Label<optionalParameter>testValue</optionalParameter></step>
-    <step command='Click_On'>TextAreaLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value TextAreaLabelTest OK textArea_Label testValue POST</step>
+    <step command='' comment='true'>TextArea identified by label with for attribute</step>
+    <step command='Set'>TextArea Label with For<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLabelForTest OK textArea_LabelFor testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by surrounding label</step>
+    <step command='Set'>TextArea surrounding Label<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaSurroundingLabelTest OK textArea_SurroundingLabel testValue POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>set.html</step>
