@@ -31,10 +31,18 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>
     <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by label</step>
-    <step command='Select'>CheckBox Label</step>
-    <step command='Click_On'>CheckBoxLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLabelTest OK checkBox_Label check_Label POST</step>
+    <step command='' comment='true'>CheckBox identified by label with for attribute</step>
+    <step command='Select'>CheckBox Label with For</step>
+    <step command='Click_On'>CheckBoxLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLabelForTest OK checkBox_LabelFor check_LabelFor POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>CheckBox identified identified by surrounding label</step>
+    <step command='Select'>CheckBox surrounding Label</step>
+    <step command='Click_On'>CheckBoxSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxSurroundingLabelTest OK checkBox_SurroundingLabel check_SurroundingLabel POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>

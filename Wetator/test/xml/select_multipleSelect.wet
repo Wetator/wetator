@@ -43,11 +43,19 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>
     <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>MultipleSelect identified by label</step>
+    <step command='' comment='true'>MultipleSelect identified by label with for attribute</step>
     <step command='Select'>MultipleSelect Label, option1</step>
     <step command='Select'>MultipleSelect Label, option2</step>
-    <step command='Click_On'>MultipleSelectLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLabelTest OK multipleSelect_Label[] o_value1\, o_value2 POST</step>
+    <step command='Click_On'>MultipleSelectLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLabelForTest OK multipleSelect_LabelFor[] o_value1\, o_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>MultipleSelect identified by surrounding label</step>
+    <step command='Select'>MultipleSelect surrounding Label, option1</step>
+    <step command='Click_On'>MultipleSelectSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectSurroundingLabelTest OK multipleSelect_SurroundingLabel[] o_value1 POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>

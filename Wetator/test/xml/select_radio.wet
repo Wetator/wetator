@@ -31,10 +31,18 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>
     <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by label</step>
-    <step command='Select'>Radio2 Label</step>
-    <step command='Click_On'>RadioButtonLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLabelTest OK radioButton_Label r_value2 POST</step>
+    <step command='' comment='true'>RadioButton identified by label with for attribute</step>
+    <step command='Select'>Radio2 LabelFor</step>
+    <step command='Click_On'>RadioButtonLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLabelForTest OK radioButton_LabelFor r_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by by surrounding label</step>
+    <step command='Select'>Radio1 surrounding Label</step>
+    <step command='Click_On'>RadioButtonSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonSurroundingLabelTest OK radioButton_SurroundingLabel r_value1 POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>

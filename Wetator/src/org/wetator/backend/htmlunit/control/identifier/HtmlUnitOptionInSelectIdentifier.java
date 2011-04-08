@@ -136,7 +136,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       final HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
-      final String tmpText = htmlPageIndex.getAsText(tmpLabel);
+      final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
 
       // select
       if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {

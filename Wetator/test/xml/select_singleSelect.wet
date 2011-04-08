@@ -41,7 +41,7 @@
     <step command='' comment='true'>SingleSelect identified by label with for attribute</step>
     <step command='Select'>SingleSelect Label with For, option1</step>
     <step command='Click_On'>SingleSelectLabelForTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value SingleSelectLabelForTest OK singleSelectId_LabelFor o_value1 POST</step>
+    <step command='Assert_Content'>GET Parameters Key Value SingleSelectLabelForTest OK singleSelect_LabelFor o_value1 POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>
@@ -49,7 +49,7 @@
     <step command='' comment='true'>SingleSelect identified by surrounding label</step>
     <step command='Select'>SingleSelect surrounding Label, option1</step>
     <step command='Click_On'>SingleSelectSurroundingLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value SingleSelectSurroundingLabelTest OK singleSelectId_SurroundingLabel o_value1 POST</step>
+    <step command='Assert_Content'>GET Parameters Key Value SingleSelectSurroundingLabelTest OK singleSelect_SurroundingLabel o_value1 POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>
