@@ -191,16 +191,6 @@ public final class HtmlUnitBrowser implements WetBackend {
 
       webClient = new WebClient(tmpBrowserVersion, tmpHost, tmpPort);
 
-      if ((null != tmpConfiguration.getBasicAuthUser())
-          && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
-        final String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
-        final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
-        final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
-        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
-        webClient.setCredentialsProvider(tmpCredentialProvider);
-        // TODO logging
-      }
-
       if ((null != tmpConfiguration.getProxyUser())
           && StringUtils.isNotEmpty(tmpConfiguration.getProxyUser().getValue())) {
         final String tmpUser = tmpConfiguration.getProxyUser().getValue();
@@ -220,6 +210,18 @@ public final class HtmlUnitBrowser implements WetBackend {
       }
     } else {
       webClient = new WebClient(tmpBrowserVersion);
+
+      if ((null != tmpConfiguration.getBasicAuthUser())
+          && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
+        final String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
+        final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
+        final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
+        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
+        webClient.setCredentialsProvider(tmpCredentialProvider);
+
+        LOG.info("BasicAuth enabled  user '" + tmpUser + "'.");
+      }
+
     }
 
     // setup our listener
