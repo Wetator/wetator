@@ -422,6 +422,25 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void testAsText_LabelWithEnclosedSelect() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<label>LabelText before"
+        + "<select id='idSingleSelect' name='SingleSelect'>" //
+        + "<option selected>Option1Value" //
+        + "<option>Option2Value" //
+        + "</select>" //
+        + "</label>" + " after" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    String tmpExpected = "LabelText before Option1Value Option2Value after";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+
+    tmpExpected = "LabelText before after";
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
   public void testAsText_Javascript() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<script language='JavaScript' type='text/javascript'>" + "function foo() {}"
         + "</script>" + "</body></html>";
