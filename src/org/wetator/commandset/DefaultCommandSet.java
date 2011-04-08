@@ -240,10 +240,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WetBackend tmpBackend = getWetBackend(aWetContext);
       final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      // Buttons / Link / Image
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
-
-      // Text
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
@@ -271,10 +271,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WetBackend tmpBackend = getWetBackend(aWetContext);
       final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      // Buttons / Link / Image
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
-
-      // Text
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
