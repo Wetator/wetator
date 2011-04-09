@@ -355,6 +355,7 @@ Wetator/test/xml/onfocus_onblur.wet -text svneol=unset#text/plain
 Wetator/test/xml/onkey.wet -text svneol=unset#text/plain
 Wetator/test/xml/open_url.wet -text svneol=unset#text/plain
 Wetator/test/xml/open_url_anchor_inside_page.wet -text
+Wetator/test/xml/open_url_basicauth.wet -text
 Wetator/test/xml/open_url_header.wet -text svneol=unset#text/plain
 Wetator/test/xml/open_url_redirect.wet -text svneol=unset#text/plain
 Wetator/test/xml/response_store.wet -text
