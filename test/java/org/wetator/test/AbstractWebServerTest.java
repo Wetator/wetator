@@ -19,6 +19,11 @@ package org.wetator.test;
 import java.io.File;
 import java.util.Properties;
 
+import org.eclipse.jetty.http.security.Constraint;
+import org.eclipse.jetty.http.security.Credential;
+import org.eclipse.jetty.security.ConstraintMapping;
+import org.eclipse.jetty.security.ConstraintSecurityHandler;
+import org.eclipse.jetty.security.HashLoginService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -68,11 +73,13 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     }
     server = new Server(DEFAULT_PORT);
 
+    // resources
     ResourceHandler tmpResourceHandler = new ResourceHandler();
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
 
+    // servlets
     ServletContextHandler tmpContextHandler = new ServletContextHandler();
     tmpContextHandler.setContextPath("/testcases");
     tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
@@ -80,6 +87,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_meta.php");
     tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopy.php");
+    tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopyAuth.php");
 
     FilterHolder tmpFilterHolder = new FilterHolder(new MultiPartFilter());
     tmpFilterHolder.setInitParameter("deleteFiles", "true");
@@ -89,6 +97,26 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpHandlers.setHandlers(new Handler[] { tmpContextHandler, tmpResourceHandler, new DefaultHandler() });
     server.setHandler(tmpHandlers);
 
+    // security
+    final Constraint tmpConstraint = new Constraint();
+    tmpConstraint.setName(Constraint.__BASIC_AUTH);
+    tmpConstraint.setRoles(new String[] { "user" });
+    tmpConstraint.setAuthenticate(true);
+
+    final ConstraintMapping tmpConstraintMapping = new ConstraintMapping();
+    tmpConstraintMapping.setConstraint(tmpConstraint);
+    tmpConstraintMapping.setPathSpec("/snoopyAuth.php");
+
+    final HashLoginService tmpLoginService = new HashLoginService("wetator");
+    tmpLoginService.putUser("wetator", Credential.getCredential("secret"), new String[] { "user" });
+
+    final ConstraintSecurityHandler tmpSecurityHandler = new ConstraintSecurityHandler();
+    tmpSecurityHandler.setLoginService(tmpLoginService);
+    tmpSecurityHandler.addConstraintMapping(tmpConstraintMapping);
+
+    tmpContextHandler.setSecurityHandler(tmpSecurityHandler);
+
+    // time to start
     server.start();
   }
 
@@ -106,6 +134,9 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS, "org.wetator.commandset.IncubatorCommandSet, "
         + "org.wetator.commandset.SqlCommandSet, " + "org.wetator.commandset.TestCommandSet");
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
+
+    tmpProperties.setProperty("wetator.basicAuthUser", "wetator");
+    tmpProperties.setProperty("wetator.basicAuthPassword", "secret");
 
     tmpProperties.setProperty("wetator.db.wetdb.driver", "org.hsqldb.jdbcDriver");
     tmpProperties.setProperty("wetator.db.wetdb.url", "jdbc:hsqldb:mem:wetdb");

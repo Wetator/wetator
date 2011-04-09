@@ -355,6 +355,7 @@ test/xml/onfocus_onblur.wet -text svneol=unset#text/plain
 test/xml/onkey.wet -text svneol=unset#text/plain
 test/xml/open_url.wet -text svneol=unset#text/plain
 test/xml/open_url_anchor_inside_page.wet -text
+test/xml/open_url_basicauth.wet -text
 test/xml/open_url_header.wet -text svneol=unset#text/plain
 test/xml/open_url_redirect.wet -text svneol=unset#text/plain
 test/xml/response_store.wet -text

@@ -228,6 +228,15 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
+  public void openUrlBasicAuth() {
+    executeTestFile("open_url_basicauth.wet");
+
+    Assert.assertEquals(4, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
   public void openUrlHeader() {
     executeTestFile("open_url_header.wet");
 
