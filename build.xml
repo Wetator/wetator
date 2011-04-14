@@ -108,7 +108,7 @@
         <echo>Compiling with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.test-src}" encoding="iso-8859-1" debug="on" debuglevel="lines,vars,source"
-      target="${javac.target}" destdir="${dir.build}/test-classes">
+            target="${javac.target}" destdir="${dir.build}/test-classes">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <include name="**/*.jar"/>
@@ -130,7 +130,7 @@
     <!-- target build-release                        -->
     <!-- ******************************************* -->
     <target name="build-release" description="build all Wetator release artifacts"
-        depends="clean-compile,load-onejar,load-buildupdate">
+        depends="load-onejar,load-buildupdate">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
         </tstamp>
@@ -140,6 +140,11 @@
             classname="org.wetator.Version"
             variablename="BUILD"
             propertyName="application.buildnumber" />
+
+        <echo message="Version: ${application.version}"/>
+        <echo message="Build:   ${application.buildnumber}"/>
+
+        <antcall target="clean-compile" />
 
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
