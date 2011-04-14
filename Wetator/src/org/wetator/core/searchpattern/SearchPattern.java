@@ -52,10 +52,11 @@ public abstract class SearchPattern {
     for (int i = 0; i < aNumberOfElements; i++) {
       final String tmpExpectedString = aSearch.get(i).getValue();
 
-      tmpPattern.append("*");
+      if (i > 0) {
+        tmpPattern.append("*");
+      }
       tmpPattern.append(tmpExpectedString);
     }
-    tmpPattern.append("*");
 
     final SearchPattern tmpSearchPattern = SearchPattern.compile(tmpPattern.toString());
     return tmpSearchPattern;
