@@ -27,3 +27,7 @@ frank.danek 2011-01-25 00:35: Hi ihr, ich habe gerade das Checkstyle auf Version
     
     Außerdem habe ich ein paar Libraries aktualisiert. @Ronald: es gibt eine neue Version vom Automaton. Kannst du die bitte in dein Repository
     packen und dann hier einbinden? Danke!
+    
+frank.danek 2011-04-16 12:55: Hi Ronald. Deine Umstellung der Homepage hat leider die openUrlRedirect Tests kaputt gemacht, weil die testcases nicht
+	mehr online sind. Kannst du das wieder irgendwie hinbekommen oder müssen wir die Tests umstellen? Und was machen wir mir dem HtmlUnit-Problem bei
+	der Gebit-Seite?
