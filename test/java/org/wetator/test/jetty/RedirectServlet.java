@@ -40,13 +40,10 @@ public class RedirectServlet extends HttpServlet {
 
     if (tmpPath.endsWith("redirect_header.php")) {
       aResponse.setStatus(Code.MOVED_TEMPORARILY.getCode());
-      String tmpTarget = aRequest.getParameter("target");
-      if (StringUtils.isEmpty(tmpTarget)) {
-        tmpTarget = "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
-      }
+      String tmpTarget = determineTarget(aRequest);
       aResponse.setHeader("Location", tmpTarget);
     } else if (tmpPath.endsWith("redirect_js.php")) {
-      String tmpTarget = aRequest.getParameter("target");
+      String tmpTarget = determineTarget(aRequest);
       String tmpWait = aRequest.getParameter("wait");
       aResponse.getWriter().println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
@@ -54,9 +51,6 @@ public class RedirectServlet extends HttpServlet {
       aResponse.getWriter().println("<head>");
       aResponse.getWriter().println("<script type=\"text/javascript\">");
       aResponse.getWriter().println("function redirect(){");
-      if (StringUtils.isEmpty(tmpTarget)) {
-        tmpTarget = "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
-      }
       aResponse.getWriter().println("  window.location = '" + tmpTarget + "'");
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("function startRedirect() {");
@@ -73,14 +67,11 @@ public class RedirectServlet extends HttpServlet {
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
     } else if (tmpPath.endsWith("redirect_meta.php")) {
-      String tmpTarget = aRequest.getParameter("target");
+      String tmpTarget = determineTarget(aRequest);
       aResponse.getWriter().println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
-      if (StringUtils.isEmpty(tmpTarget)) {
-        tmpTarget = "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
-      }
       aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=" + tmpTarget + "'/>");
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body>");
@@ -91,8 +82,23 @@ public class RedirectServlet extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest aReq, HttpServletResponse aResp) throws ServletException, IOException {
-    doGet(aReq, aResp);
+  protected void doPost(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException,
+      IOException {
+    doGet(aRequest, aResponse);
   }
 
+  protected String determineTarget(HttpServletRequest aRequest) {
+    String tmpTarget = aRequest.getParameter("target");
+    if (StringUtils.isEmpty(tmpTarget)) {
+      return "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
+    }
+
+    if (!tmpTarget.startsWith("http://")) {
+      if (!tmpTarget.startsWith("/")) {
+        tmpTarget = "/" + tmpTarget;
+      }
+      return "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT + tmpTarget;
+    }
+    return tmpTarget;
+  }
 }
