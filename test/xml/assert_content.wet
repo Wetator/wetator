@@ -70,21 +70,21 @@
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'>redirect without timeout</step>
-    <step command='Open_Url'>redirect_js.php?target=assert_content.html</step>
+    <step command='Open_Url'>redirect_js.php?target=testcases/assert_content.html</step>
     <step command='Assert_Content'>Wetator / Assert Content</step>
     <step command='' comment='true'>redirect with simple timeout</step>
-    <step command='Open_Url'><![CDATA[redirect_js.php?target=assert_content.html&wait=3000]]></step>
+    <step command='Open_Url'><![CDATA[redirect_js.php?target=testcases/assert_content.html&wait=3000]]></step>
     <step command='Assert_Content'>Wetator / Assert Content<optionalParameter>4.0</optionalParameter></step>
     <step command='' comment='true'>two redirects</step>
-    <step command='Open_Url'><![CDATA[redirect_js.php?target=redirect_js.php&wait=3000]]></step>
+    <step command='Open_Url'><![CDATA[redirect_js.php?target=testcases/redirect_js.php&wait=3000]]></step>
     <step command='Assert_Content'>About Wetator is a small, flexible and extendable test automation tool<optionalParameter>5.0</optionalParameter></step>
     <step command='' comment='true'>redirect to pdf</step>
-    <step command='Open_Url'><![CDATA[redirect_js.php?target=download/wet_test.pdf&wait=3000]]></step>
+    <step command='Open_Url'><![CDATA[redirect_js.php?target=testcases/download/wet_test.pdf&wait=3000]]></step>
     <step command='Assert_Content'>simple, PDF, file, WeT<optionalParameter>4.0</optionalParameter></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'>redirect with a long timeout and page check inbetween</step>
-    <step command='Open_Url'><![CDATA[redirect_js.php?target=assert_content.html&wait=2000]]></step>
+    <step command='Open_Url'><![CDATA[redirect_js.php?target=testcases/assert_content.html&wait=2000]]></step>
     <step command='Assert_Content'>Wetator / Redirect via JavaScript</step>
     <step command='Assert_Content'>Wetator / Assert Content<optionalParameter>4</optionalParameter></step>
 </testcase>
