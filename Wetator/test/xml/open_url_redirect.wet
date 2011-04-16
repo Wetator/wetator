@@ -14,10 +14,10 @@
     <step command='Open_Url'>redirect_js.php</step>
     <step command='Assert_Title'>Wetator / Smarter web application testing</step>
     <step command='' comment='true'>all together</step>
-    <step command='Open_Url'>redirect_header.php?target=http://www.wetator.org/testcases/redirect_meta.php</step>
+    <step command='Open_Url'>redirect_header.php?target=testcases/redirect_meta.php</step>
     <step command='Assert_Title'>Wetator / Smarter web application testing</step>
-    <step command='Open_Url'>redirect_meta.php?target=http://www.wetator.org/testcases/redirect_js.php</step>
+    <step command='Open_Url'>redirect_meta.php?target=testcases/redirect_js.php</step>
     <step command='Assert_Title'>Wetator / Smarter web application testing</step>
-    <step command='Open_Url'>redirect_js.php?target=http://www.wetator.org/testcases/redirect_header.php</step>
+    <step command='Open_Url'>redirect_js.php?target=testcases/redirect_header.php</step>
     <step command='Assert_Title'>Wetator / Smarter web application testing</step>
 </testcase>
