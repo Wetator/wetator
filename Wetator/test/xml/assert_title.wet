@@ -28,12 +28,12 @@
     <tst:step command='Assert_Fail'>Assert Title, Expected content(s) {not found} or [in wrong order]: 'Wetator\, Content\, [Assert]' (content: 'Wetator / Assert Content').<tst:optionalParameter>Wetator, Content, Assert</tst:optionalParameter></tst:step>
     <tst:step command='Assert_Fail'>Assert Title, Expected content(s) {not found} or [in wrong order]: '{wrong*}' (content: 'Wetator / Assert Content').<tst:optionalParameter>wrong*</tst:optionalParameter></tst:step>
     <step command='' comment='true'>redirect without timeout</step>
-    <step command='Open_Url'>redirect_js.php?target=assert_content.html</step>
+    <step command='Open_Url'>redirect_js.php?target=testcases/assert_content.html</step>
     <step command='Assert_Title'>Wetator / Assert Content</step>
     <step command='' comment='true'>redirect with simple timeout</step>
-    <step command='Open_Url'><![CDATA[redirect_js.php?target=assert_content.html&wait=3000]]></step>
+    <step command='Open_Url'><![CDATA[redirect_js.php?target=testcases/assert_content.html&wait=3000]]></step>
     <step command='Assert_Title'>Wetator / Assert Content<optionalParameter>4.0</optionalParameter></step>
     <step command='' comment='true'>two redirects</step>
-    <step command='Open_Url'><![CDATA[redirect_js.php?target=redirect_js.php&wait=3000]]></step>
+    <step command='Open_Url'><![CDATA[redirect_js.php?target=testcases/redirect_js.php&wait=3000]]></step>
     <step command='Assert_Title'>Wetator / Smarter web application testing<optionalParameter>5.0</optionalParameter></step>
 </testcase>
