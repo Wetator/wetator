@@ -168,7 +168,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void deselectCheckbox() {
     executeTestFile("deselect_checkbox.wet");
 
-    Assert.assertEquals(53, getSteps());
+    Assert.assertEquals(58, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
