@@ -120,25 +120,56 @@
                 </form>
               </td>
             </tr>
+          </table>
+
+          <h4>by label</h4>
+
+          <table border='0'>
 
             <tr>
-              <td>SingleSelect identified by label</td>
+              <td>SingleSelect identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="singleSelectId_Label">SingleSelect Label</label></td>
+                      <td><label for="singleSelectId_LabelFor">SingleSelect Label with For</label></td>
                       <td>
-                        <select id="singleSelectId_Label" name="singleSelect_Label" size="2">
+                        <select id="singleSelectId_LabelFor" name="singleSelect_LabelFor" size="2">
                           <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
-                      <td><input type="submit" name="SingleSelectLabelTest" value="OK"></td>
+                      <td><input type="submit" name="SingleSelectLabelForTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>SingleSelect surrounding
+                          <select id="singleSelectId_SurroundingLabel" name="singleSelect_SurroundingLabel" size="2">
+                            <option value="o_value1">option1</option>
+                            <option value="o_value2">option2</option>
+                            <option value="o_value3">option3</option>
+                            <option value="o_value4">option4</option>
+                          </select>
+                          Label
+                        </label>
+                      </td>
+                      <td><input type="submit" name="SingleSelectSurroundingLabelTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
@@ -479,25 +510,55 @@
                 </form>
               </td>
             </tr>
+          </table>
 
+          <h4>by label</h4>
+
+          <table border='0'>
             <tr>
-              <td>MultipleSelect identified by label</td>
+              <td>MultipleSelect identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="multipleSelectId_Label">MultipleSelect Label</label></td>
+                      <td><label for="multipleSelectId_LabelFor">MultipleSelect Label with For</label></td>
                       <td>
-                        <select id="multipleSelectId_Label" name="multipleSelect_Label[]" size="2" multiple>
+                        <select id="multipleSelectId_LabelFor" name="multipleSelect_LabelFor[]" size="2" multiple>
                           <option value="o_value1" selected>option1</option>
                           <option value="o_value2" selected>option2</option>
                           <option value="o_value3" selected>option3</option>
                           <option value="o_value4" selected>option4</option>
                         </select>
                       </td>
-                      <td><input type="submit" name="MultipleSelectLabelTest" value="OK"></td>
+                      <td><input type="submit" name="MultipleSelectLabelForTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>MultipleSelect identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>MultipleSelect surrounding
+                          <select id="multipleSelectId_SurroundingLabel" name="multipleSelect_SurroundingLabel[]" size="2" multiple>
+                            <option value="o_value1" selected>option1</option>
+                            <option value="o_value2" selected>option2</option>
+                            <option value="o_value3" selected>option3</option>
+                            <option value="o_value4" selected>option4</option>
+                          </select>
+                          Label
+                        </label>
+                      </td>
+                      <td><input type="submit" name="MultipleSelectSurroundingLabelTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
@@ -771,24 +832,48 @@
                 </form>
               </td>
             </tr>
+          </table>
 
+          <h4>by label</h4>
+
+          <table border='0'>
             <tr>
-              <td>CheckBox identified by label</td>
+              <td>CheckBox identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="checkBoxId_Label">CheckBox Label</label></td>
-                      <td><input type="checkbox" id="checkBoxId_Label" name="checkBox_Label" value="check_Label" checked>CheckBox</td>
-                      <td><input type="submit" name="CheckBoxLabelTest" value="OK"></td>
+                      <td><label for="checkBoxId_LabelFor">CheckBox Label with For</label></td>
+                      <td><input type="checkbox" id="checkBoxId_LabelFor" name="checkBox_LabelFor" value="check_LabelFor" checked></td>
+                      <td><input type="submit" name="CheckBoxLabelForTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
               </td>
             </tr>
 
+            <tr>
+              <td>CheckBox identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>CheckBox surrounding
+                          <input type="checkbox" id="checkBoxId_SurroundingLabel" name="checkBox_SurroundingLabel" value="check_SurroundingLabel" checked>
+                          Label
+                        </label>
+                      </td>
+                      <td><input type="submit" name="CheckBoxSurroundingLabelTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
           <h4>by layout</h4>
@@ -980,32 +1065,66 @@
                 </form>
               </td>
             </tr>
+          </table>
 
+          <h4>by label</h4>
+
+          <table border='0'>
             <tr>
-              <td>RadioButton identified by label</td>
+              <td>RadioButton identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="radioLabelValue1">Radio1 Label</label></td>
+                      <td><label for="radioLabelForValue1">Radio1 LabelFor</label></td>
                     </tr>
                     <tr>
-                      <td><label for="radioLabelValue2">Radio2 Label</label></td>
+                      <td><label for="radioLabelForValue2">Radio2 LabelFor</label></td>
                     </tr>
                     <tr>
                       <td>
-                        <input type="radio" id="radioLabelValue1" name="radioButton_Label" value="r_value1"><br>
-                        <input type="radio" id="radioLabelValue2" name="radioButton_Label" value="r_value2"><br>
+                        <input type="radio" id="radioLabelForValue1" name="radioButton_LabelFor" value="r_value1"><br>
+                        <input type="radio" id="radioLabelForValue2" name="radioButton_LabelFor" value="r_value2"><br>
                       </td>
-                      <td><input type="submit" name="RadioButtonLabelTest" value="OK"></td>
+                      <td><input type="submit" name="RadioButtonLabelForTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
               </td>
             </tr>
 
+            <tr>
+              <td>RadioButton identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>Radio1 surrounding
+                        <input type="radio" id="radioSurroundingLabelValue1" name="radioButton_SurroundingLabel" value="r_value1">
+                        Label
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Radio2 surrounding
+                        <input type="radio" id="radioSurroundingLabelValue2" name="radioButton_SurroundingLabel" value="r_value2">
+                        Label
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="submit" name="RadioButtonSurroundingLabelTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
           <h4>by layout</h4>
