@@ -181,7 +181,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
 
-      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+          "noSetableHtmlElmentFound");
       if (tmpWPath.isEmpty()) {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
@@ -215,7 +216,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+          "noClickableHtmlElmentFound");
       tmpControl.click(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -246,7 +248,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+          "no2ClickableHtmlElmentFound");
       tmpControl.clickDouble(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -277,7 +280,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath, "7");
       tmpControl.clickRight(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -306,7 +309,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
       final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+          tmpWPath, "noSelectableHtmlElmentFound");
       tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -335,7 +338,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
       final Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+          tmpWPath, "noDeselectableHtmlElmentFound");
       tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -370,7 +373,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+          "noHtmlElementFound");
       tmpControl.mouseOver(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -516,7 +520,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+          "noHtmlElementFound");
 
       final boolean tmpIsDisabled = tmpControl.isDisabled(aWetContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
@@ -547,7 +552,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
-      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+          "noSetableHtmlElmentFound");
 
       tmpControl.assertValue(aWetContext, tmpValueParam);
     }
@@ -575,7 +581,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
       final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+          tmpWPath, "noSelectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -604,7 +610,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
       final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
-          tmpWPath);
+          tmpWPath, "noDeselectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });

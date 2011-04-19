@@ -7,6 +7,12 @@
     xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
     <step command='Open_Url'>deselect.html</step>
     <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Deselect, No deselectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
     <step command='' comment='true'>MultipleSelect with name</step>
     <step command='Deselect'>multipleSelect_Name[], option2</step>
     <step command='Deselect'>multipleSelect_Name[], option4</step>
@@ -43,11 +49,19 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>deselect.html</step>
     <step command='Assert_Title'>Wetator / Deselect</step>
-    <step command='' comment='true'>MultipleSelect identified by label</step>
-    <step command='Deselect'>MultipleSelect Label, option1</step>
-    <step command='Deselect'>MultipleSelect Label, option2</step>
-    <step command='Click_On'>MultipleSelectLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLabelTest OK multipleSelect_Label[] o_value3\, o_value4 POST</step>
+    <step command='' comment='true'>MultipleSelect identified by label with for attribute</step>
+    <step command='Deselect'>MultipleSelect Label with For, option1</step>
+    <step command='Deselect'>MultipleSelect Label with For, option2</step>
+    <step command='Click_On'>MultipleSelectLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLabelForTest OK multipleSelect_LabelFor[] o_value3\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified identified by surrounding label</step>
+    <step command='Deselect'>MultipleSelect surrounding Label, option3</step>
+    <step command='Click_On'>MultipleSelectSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectSurroundingLabelTest OK multipleSelect_SurroundingLabel[] o_value1\, o_value2\, o_value4 POST</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>deselect.html</step>

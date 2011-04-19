@@ -317,6 +317,7 @@ test/xml/click_on_after_text.wet -text svneol=unset#text/plain
 test/xml/click_on_anchor_inside_page.wet -text
 test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
+test/xml/deselect_radio.wet -text
 test/xml/event_handler.wet -text svneol=unset#text/plain
 test/xml/exec_java.wet -text svneol=unset#text/plain
 test/xml/ff36/event_clickOn.wet -text

@@ -124,13 +124,15 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * @param aWetContext the wet context
    * @param aWeightedControlList the WeightedControlList
    * @param aWPath the wpath (only needed for the warning message)
+   * @param aNoElementFoundKey the key used to resolve the 'no element found' message.
    * @return the first control from the list
    * @throws AssertionFailedException if the list is empty
    */
   protected Control getRequiredFirstHtmlElementFrom(final WetContext aWetContext,
-      final WeightedControlList aWeightedControlList, final WPath aWPath) throws AssertionFailedException {
+      final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNoElementFoundKey)
+      throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {
-      Assert.fail("noHtmlElementFound", new String[] { aWPath.toString() });
+      Assert.fail(aNoElementFoundKey, new String[] { aWPath.toString() });
     }
 
     final List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();
