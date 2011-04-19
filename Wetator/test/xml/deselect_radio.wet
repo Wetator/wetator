@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Deselect, No deselectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>RadioButtons</step>
+    <step command='' comment='true'>deselect not possible</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>RadioButton with id</step>
+    <tst:step command='Assert_Fail'>Deselect, No deselectable html element found for 'radioId2'.<tst:optionalParameter>radioId2</tst:optionalParameter></tst:step>
+</testcase>

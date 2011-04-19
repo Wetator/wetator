@@ -2,8 +2,15 @@
 
 <testcase
     xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Assert Set, No setable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
     <step command='Open_Url'>assert_set.html</step>
     <step command='Assert_Title'>Wetator / Assert Set</step>
     <step command='' comment='true'>InputText with name</step>
@@ -67,7 +74,7 @@
     <step command='Open_Url'>assert_set.html</step>
     <step command='Assert_Title'>Wetator / Assert Set</step>
     <step command='' comment='true'></step>
-    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;inputTextNameValue&gt;<optionalParameter>inputText_Name</optionalParameter></step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Set, Wrong value: expected: <> but was: <inputTextNameValue>]]><tst:optionalParameter>inputText_Name</tst:optionalParameter></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
@@ -135,7 +142,7 @@
     <step command='Open_Url'>assert_set.html</step>
     <step command='Assert_Title'>Wetator / Assert Set</step>
     <step command='' comment='true'></step>
-    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;inputPasswordNameValue&gt;<optionalParameter>inputPassword_Name</optionalParameter></step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Set, Wrong value: expected: <> but was: <inputPasswordNameValue>]]><tst:optionalParameter>inputPassword_Name</tst:optionalParameter></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
@@ -203,7 +210,7 @@
     <step command='Open_Url'>assert_set.html</step>
     <step command='Assert_Title'>Wetator / Assert Set</step>
     <step command='' comment='true'></step>
-    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;textAreaNameValue&gt;<optionalParameter>textArea_Name</optionalParameter></step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Set, Wrong value: expected: <> but was: <textAreaNameValue>]]><tst:optionalParameter>textArea_Name</tst:optionalParameter></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
 </testcase>

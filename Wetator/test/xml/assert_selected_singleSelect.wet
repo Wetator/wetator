@@ -7,6 +7,12 @@
     xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
     <step command='Open_Url'>assert_selected.html</step>
     <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Assert Selected, No selectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
     <step command='' comment='true'>SingleSelect with name</step>
     <step command='Assert_Selected'>singleSelect_Name, option2</step>
     <step command='' comment='true'></step>
