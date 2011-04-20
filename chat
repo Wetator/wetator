@@ -31,3 +31,18 @@ frank.danek 2011-01-25 00:35: Hi ihr, ich habe gerade das Checkstyle auf Version
 frank.danek 2011-04-16 12:55: Hi Ronald. Deine Umstellung der Homepage hat leider die openUrlRedirect Tests kaputt gemacht, weil die testcases nicht
 	mehr online sind. Kannst du das wieder irgendwie hinbekommen oder müssen wir die Tests umstellen? Und was machen wir mir dem HtmlUnit-Problem bei
 	der Gebit-Seite?
+	
+frank.danek 2011-04-20 20:58: Nabend! Ich habe heute einen Branch für die Entwicklung des neuen XML Scripters geöffnet und alles, was ich bisher so
+	gebastelt hatte, da mal reingepackt. Ergebnis: Das läuft schon! :)
+	Jetzt stellen sich aber ein paar Fragen:
+	1. Wie soll der neue neue Scripter heißen? Zur Zeit heißt er XmlScripter2, was ziemlich blöd ist.
+	2. Das Interface für die Scripter heißt WetScripter. Sollten wir nicht mal versuchen, das "Wet"-Prefix loszuwerden? Aber was dann: Scripter oder
+		IScripter? Ziehen wir das dann auch einheitlich durch?
+	3. Scripter als Name für 2. ist jedoch schon von einem Enum belegt. Das müsste man dann umbauen oder auflösen (siehe 5.).
+	4. Hinweis: Wenn wir 2. machen, wäre WetScripter als Name für 1. frei... ;)
+	5. Zur Zeit konfiguriert man die Scripter in der .config, indem man da "XML" oder "XLS" angibt. Das wird dann über ein Enum zum eigentlichen
+		Scripter aufgelöst. Das ist nicht wirklich erweiterbar, da so nur Scripter unterstützt werden, die in diesem Enum sind. Flexibler wäre es, 
+		wenn man in der .config einfach den FullQualifiedName angibt und unsere weiterhin per default hinzugefügt werden. Damit könnte das Enum
+		wegfallen.
+	6. Was wird aus dem ScriptConverter/ScriptCreator. Das wäre nochmal ein ordentliches Stück Arbeit, davon einen für den neuen Scripter zu bauen.
+		Perspektivisch würde ich sowas auch eher im WTE sehen. (@Tobias: oder?)
