@@ -1,19 +1,19 @@
 frank.danek 2010-12-02 23:00: hallo ronald. für diese ganze event-geschichte wäre es, glaube ich, ziemlich nützlich, wenn wir mal definieren, was
 	die actionen bei den verschiedenen controls eigentlich bedeuten (sollen). ich schreib da mal was zusammen, wenn ich wieder zeit habe. aber
 	heute nicht mehr...
-	
+
 frank.danek 2010-12-06 21:20: ich habe das angekündigte dokument mal erstellt -> actions.txt
 	da stehen noch ein paar TODOs drin, die wir mal diskutieren sollten.
-	
+
 	außerdem habe ich bei den tests etwas umorganisiert und aufgeräumt. der standard sind ab jetzt die .wet tests und nicht länger die .xls tests.
-	
+
 frank.danek 2010-12-12 12:45: hallo ronald, kannst du bitte die webpage neu hochladen? ich habe das thema dtd/xsd glatt gezogen. aber damit das ticket
 	geschlossen werden kann, muss die homepage einmal aktualisiert werden.
 
 rbri 2010-12-12 14:45: hi frank, habe das xsd verzeichnis aktualisiert. Reicht das?
 rbri 2010-12-24 14:08: Habe gestern mal angefangen mit PMD rumzuspielen. Die Checken auch, ob möglichst alles als final markiert ist. Es soll wohl
     dem Compiler helfen. Deshlab habe ich das mal im Checkstyle angeschaltet. Die fehlenden final's baue ich ein.
-    
+
 frank.danek 2011-01-25 00:35: Hi ihr, ich habe gerade das Checkstyle auf Version 5.3.0 gehoben. Damit die Checks wieder richtig laufen, werdet ihr wohl
 	euer Eclipse auch updaten müssen. Leider hat der Eclipse-Checkstyle-Config-Editor einen Bug: Man kann einen Check nicht korrekt konfigurieren. Das
 	muss man dann per XML wieder glatt bügeln. Es geht um:
@@ -24,14 +24,14 @@ frank.danek 2011-01-25 00:35: Hi ihr, ich habe gerade das Checkstyle auf Version
     Die Property ignoreModifier ist dem Editor leider unbekannt. :( Also falls ihr mal was an der Checkstyle-Config ändert, bitte diese Zeile wieder
     manuell ins XML packen. Ansonsten habe ich alle alten und neuen Warnings bereits entfernt. Wehe ich sehe da irgendwann neue drin!!
     LAW AND ORDER RULZ! >:D
-    
+
     Außerdem habe ich ein paar Libraries aktualisiert. @Ronald: es gibt eine neue Version vom Automaton. Kannst du die bitte in dein Repository
     packen und dann hier einbinden? Danke!
-    
+
 frank.danek 2011-04-16 12:55: Hi Ronald. Deine Umstellung der Homepage hat leider die openUrlRedirect Tests kaputt gemacht, weil die testcases nicht
 	mehr online sind. Kannst du das wieder irgendwie hinbekommen oder müssen wir die Tests umstellen? Und was machen wir mir dem HtmlUnit-Problem bei
 	der Gebit-Seite?
-	
+
 frank.danek 2011-04-20 20:58: Nabend! Ich habe heute einen Branch für die Entwicklung des neuen XML Scripters geöffnet und alles, was ich bisher so
 	gebastelt hatte, da mal reingepackt. Ergebnis: Das läuft schon! :)
 	Jetzt stellen sich aber ein paar Fragen:
@@ -41,8 +41,17 @@ frank.danek 2011-04-20 20:58: Nabend! Ich habe heute einen Branch für die Entwic
 	3. Scripter als Name für 2. ist jedoch schon von einem Enum belegt. Das müsste man dann umbauen oder auflösen (siehe 5.).
 	4. Hinweis: Wenn wir 2. machen, wäre WetScripter als Name für 1. frei... ;)
 	5. Zur Zeit konfiguriert man die Scripter in der .config, indem man da "XML" oder "XLS" angibt. Das wird dann über ein Enum zum eigentlichen
-		Scripter aufgelöst. Das ist nicht wirklich erweiterbar, da so nur Scripter unterstützt werden, die in diesem Enum sind. Flexibler wäre es, 
+		Scripter aufgelöst. Das ist nicht wirklich erweiterbar, da so nur Scripter unterstützt werden, die in diesem Enum sind. Flexibler wäre es,
 		wenn man in der .config einfach den FullQualifiedName angibt und unsere weiterhin per default hinzugefügt werden. Damit könnte das Enum
 		wegfallen.
 	6. Was wird aus dem ScriptConverter/ScriptCreator. Das wäre nochmal ein ordentliches Stück Arbeit, davon einen für den neuen Scripter zu bauen.
 		Perspektivisch würde ich sowas auch eher im WTE sehen. (@Tobias: oder?)
+
+tobwoerk 2011-04-21 18:36: Hi.
+    1. Ich wŸrde ihn XmlScripter nennen und den alten umbenennen oder wegtun.
+    2. Ich vote fŸr IScripter.
+    3. Wir nehmen ja IScripter.
+    4. Du machst mich bekloppt. WetScripter finde ich aber in der Tat spannend. Und da ich mich bei 1. noch nicht geŠu§ert habe - warum nicht WetScripter?!
+    5. Klingt vernŸnftig.
+    6. Wir mŸssen ein Konzept fŸr AbwŠrtskompatibilitŠt besprechen. Das gehšrt mit dazu. Im Grunde brauchen wir alle Scripter, die es jemals gab
+       und (jeweils) einen Writer fŸr die neuesten Formate. Ich bin mir nicht sicher, ob das nicht sogar extra sollte?!
