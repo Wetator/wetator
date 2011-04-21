@@ -1112,7 +1112,7 @@
                     <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
                     <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
                     <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-                    <th>Duration</th>
+                    <th style="text-align: right;">Duration</th>
                 </tr>
                 <xsl:for-each select="./command">
                     <xsl:call-template name="command"/>
