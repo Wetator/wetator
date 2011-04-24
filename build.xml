@@ -283,7 +283,7 @@ echo location of the Java Virtual Machine you want to use.
         </zip>
 
         <!-- generate src zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}_src_${application.version}.zip">
+        <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar">
             <fileset dir="." >
                 <include name=".classpath" />
                 <include name=".project" />
@@ -295,7 +295,10 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="readme.txt" />
             </fileset>
 
-            <zipfileset dir="${dir.lib}" prefix="{dir.lib}">
+            <zipfileset dir="${dir.ant-lib}" prefix="${dir.ant-lib}">
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="${dir.lib}">
                 <exclude name="**/**" />
             </zipfileset>
 
@@ -338,16 +341,17 @@ echo location of the Java Virtual Machine you want to use.
           target: resolve
          ================================= -->
     <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
-        <ivy:configure />
+    	<ivy:configure />
         <ivy:resolve />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle" />
-        <ivy:retrieve pattern="${dir.lib}_src${ivy.retrieve.pattern}" sync="true" type="source" />
+        <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
     </target>
 
     <!-- =================================
           target: report
          ================================= -->
     <target name="report" depends="resolve" description="--> generates a report of dependencies">
+        <mkdir dir="${dir.build}/ivy-report"/>
         <ivy:report todir="${dir.build}/ivy-report"/>
     </target>
 
@@ -355,9 +359,12 @@ echo location of the Java Virtual Machine you want to use.
           target: clean-lib
          ================================= -->
     <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
+        <mkdir dir="${dir.lib}"/>
+        <mkdir dir="${dir.lib-src}"/>
+        
         <delete includeemptydirs="true">
             <fileset dir="${dir.lib}" includes="**/*"/>
-            <fileset dir="${dir.lib}_src" includes="**/*"/>
+            <fileset dir="${dir.lib-src}" includes="**/*"/>
         </delete>
     </target>
 
