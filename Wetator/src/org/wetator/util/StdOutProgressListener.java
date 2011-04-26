@@ -102,8 +102,10 @@ public class StdOutProgressListener implements WetProgressListener {
           println("'" + tmpTemplate + "'");
         }
       }
+      if (!tmpFirst) {
+        output.unindent().unindent().unindent().unindent().unindent().unindent();
+      }
     }
-    output.unindent().unindent().unindent().unindent().unindent().unindent();
 
     if (aWetEngine.getTestFiles().isEmpty()) {
       println("TestFiles: none");
@@ -119,8 +121,10 @@ public class StdOutProgressListener implements WetProgressListener {
       } else {
         println("'" + tmpTestFile.getAbsolutePath() + "'");
       }
+      if (!tmpFirst) {
+        output.unindent().unindent().unindent().unindent().unindent().unindent();
+      }
     }
-    output.unindent().unindent().unindent().unindent().unindent().unindent();
   }
 
   /**
