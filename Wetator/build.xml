@@ -12,7 +12,7 @@
 
 
     <!-- ******************************************* -->
-    <!-- target init-onejar                          -->
+    <!-- target load-onejar                          -->
     <!-- ******************************************* -->
     <target name="load-onejar">
         <property name="one-jar.dist.dir" value="./dist"/>
@@ -25,7 +25,7 @@
     </target>
 
     <!-- ******************************************* -->
-    <!-- target init-buildupdate                     -->
+    <!-- target load-buildupdate                     -->
     <!-- ******************************************* -->
     <target name="load-buildupdate">
         <taskdef name="buildupdate" classname="com.ryangrier.ant.BuildUpdate">
@@ -35,8 +35,21 @@
         </taskdef>
     </target>
 
+	
+    <!-- ******************************************* -->
+    <!-- target load-wetator                         -->
+    <!-- ******************************************* -->
+    <target name="load-wetator">
+        <taskdef name="wetator" classname="org.wetator.ant.Wetator" >
+            <classpath id="wetator-classpath">
+                <fileset dir="${dir.lib}" includes="**/**.jar" />
+                <fileset dir="${dir.build}" includes="wetator.jar" />
+            </classpath>
+        </taskdef>
+    </target>
 
-    <!-- =================================
+
+	<!-- =================================
           target: load-ivy
          ================================= -->
     <target name="load-ivy">
@@ -336,6 +349,27 @@ echo location of the Java Virtual Machine you want to use.
         </zip>
 
     </target>
+
+
+    <!-- ******************************************* -->
+    <!-- target upload-jar-to-repo                   -->
+    <!-- ******************************************* -->
+    <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to repo"
+        depends="load-wetator">
+
+    	<input message="Please enter repo username:" addproperty="repo.user"/>
+        <input message="Please enter repo password:" addproperty="repo.password"/>
+    	
+        <wetator config="wetator-upload.cfg">
+            <fileset dir=".">
+                <include name="wetator-upload.wet"/>
+            </fileset>
+
+            <property name="$user" value="${repo.user}"/>
+            <property name="$$$password" value="${repo.password}"/>
+        </wetator>
+    </target>
+
 
     <!-- =================================
           target: resolve

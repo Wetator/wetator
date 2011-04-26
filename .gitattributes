@@ -843,6 +843,8 @@ Wetator/webpages/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/webpages/xsd/testCommandSet.xsd -text svneol=unset#text/plain
+Wetator/wetator-upload.cfg -text
+Wetator/wetator-upload.wet -text
 Wetator/xsl/SimpleHtml.xsl -text svneol=unset#text/plain
 Wetator/xsl/images/collapseall.png -text
 Wetator/xsl/images/collapselog.png -text

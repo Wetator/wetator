@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>/admin.php</step>
+    <step command='Set'>Username<optionalParameter>${user}</optionalParameter></step>
+    <step command='Set'>Password<optionalParameter>${password}</optionalParameter></step>
+    <step command='Click_On'>Login</step>
+    <step command='Click_On'>org</step>
+    <step command='Click_On'>wetator</step>
+    <step command='Click_On'>0.9.5-SNAPSHOT</step>
+    <step command='Set'>Upload files<optionalParameter>./build/wetator.jar</optionalParameter></step>
+    <step command='Click_On'>Upload</step>
+</testcase>
