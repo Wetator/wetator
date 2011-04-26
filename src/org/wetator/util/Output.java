@@ -133,7 +133,7 @@ public final class Output {
    * @return this (for convenience)
    */
   public Output unindent() {
-    currentIndent.setLength(currentIndent.length() - indent.length());
+    currentIndent.setLength(Math.max(0, currentIndent.length() - indent.length()));
 
     return this;
   }
