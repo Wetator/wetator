@@ -11,12 +11,12 @@
         <ibiblio name="wetator-sh"
                  m2compatible="true"
                  usepoms="true"
-                 root="http://www.wetator.org/files/repo"
+                 root="http://www.wetator.org/repo"
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
         <url name="wetator" checkmodified="true" changingPattern="^.+-SNAPSHOT$">
-            <artifact pattern="http://www.wetator.org/files/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
-            <artifact pattern="http://www.wetator.org/files/repo/[module]/[revision]/[artifact].[ext]" />
+            <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
+            <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
         </url>
         <chain name="chain">
             <resolver ref="wetator-sh" />
