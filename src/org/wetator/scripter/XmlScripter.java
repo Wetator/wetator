@@ -153,8 +153,10 @@ public final class XmlScripter implements WetScripter {
             while (reader.next() == XMLStreamConstants.CHARACTERS) {
               tmpParameters.append(reader.getText());
             }
-            if (!"".equals(tmpParameters)) {
-              tmpWetCommand.setFirstParameter(new Parameter(tmpParameters.toString()));
+
+            final String tmpParameterValue = tmpParameters.toString();
+            if (StringUtils.isNotEmpty(tmpParameterValue)) {
+              tmpWetCommand.setFirstParameter(new Parameter(tmpParameterValue));
             }
           }
           if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
@@ -164,7 +166,9 @@ public final class XmlScripter implements WetScripter {
                   + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
             }
 
-            tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
+            if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
+              tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
+            }
             reader.next();
           }
           if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
@@ -174,7 +178,9 @@ public final class XmlScripter implements WetScripter {
                   + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
             }
 
-            tmpWetCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
+            if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
+              tmpWetCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
+            }
             reader.next();
           }
         }
