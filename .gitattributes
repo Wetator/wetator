@@ -187,7 +187,6 @@ test/excel/jquery.xls -text
 test/excel/js_error.xls -text
 test/excel/js_libs.xls -text
 test/excel/modules/module.xls -text
-test/excel/modules/module_with_parameters.xls -text
 test/excel/mouse_over.xls -text
 test/excel/mouse_over_after.xls -text
 test/excel/normalize_command.xls -text
