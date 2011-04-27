@@ -184,10 +184,8 @@ Wetator/test/excel/go_back.xls -text
 Wetator/test/excel/header.xls -text
 Wetator/test/excel/htmlunit_javascript.xls -text
 Wetator/test/excel/jquery.xls -text
-Wetator/test/excel/jquery/modal_confirmation.xls -text
 Wetator/test/excel/js_error.xls -text
 Wetator/test/excel/js_libs.xls -text
-Wetator/test/excel/misc_files/test_file.txt -text
 Wetator/test/excel/modules/module.xls -text
 Wetator/test/excel/modules/module_with_parameters.xls -text
 Wetator/test/excel/mouse_over.xls -text
