@@ -174,11 +174,8 @@ public final class WetEngine {
    * @throws WetException if no {@link WetScripter} can be found for the given file.
    */
   protected List<WetCommand> readCommandsFromFile(final File aFile) throws WetException {
-    WetScripter tmpScripter;
-    List<WetCommand> tmpResult;
-
-    tmpScripter = createScripter(aFile);
-    tmpResult = tmpScripter.getCommands();
+    final WetScripter tmpScripter = createScripter(aFile);
+    final List<WetCommand> tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
   }
