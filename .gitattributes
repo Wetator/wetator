@@ -184,10 +184,8 @@ test/excel/go_back.xls -text
 test/excel/header.xls -text
 test/excel/htmlunit_javascript.xls -text
 test/excel/jquery.xls -text
-test/excel/jquery/modal_confirmation.xls -text
 test/excel/js_error.xls -text
 test/excel/js_libs.xls -text
-test/excel/misc_files/test_file.txt -text
 test/excel/modules/module.xls -text
 test/excel/modules/module_with_parameters.xls -text
 test/excel/mouse_over.xls -text
