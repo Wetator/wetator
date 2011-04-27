@@ -187,7 +187,6 @@ Wetator/test/excel/jquery.xls -text
 Wetator/test/excel/js_error.xls -text
 Wetator/test/excel/js_libs.xls -text
 Wetator/test/excel/modules/module.xls -text
-Wetator/test/excel/modules/module_with_parameters.xls -text
 Wetator/test/excel/mouse_over.xls -text
 Wetator/test/excel/mouse_over_after.xls -text
 Wetator/test/excel/normalize_command.xls -text
