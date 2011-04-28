@@ -55,3 +55,22 @@ tobwoerk 2011-04-21 18:36: Hi.
     5. Klingt vernŸnftig.
     6. Wir mŸssen ein Konzept fŸr AbwŠrtskompatibilitŠt besprechen. Das gehšrt mit dazu. Im Grunde brauchen wir alle Scripter, die es jemals gab
        und (jeweils) einen Writer fŸr die neuesten Formate. Ich bin mir nicht sicher, ob das nicht sogar extra sollte?!
+
+rbri 2011-04-28 20:30:
+    > 1. Ich würde ihn XmlScripter nennen; den alten nach DeclinedXmlScripter umbenennen.
+    > 2. IScripter und das I-Pattern für alle Interfaces durchziehen. Wetator steht ja schon im Package.
+    > 3. -
+    > 4. ich bin dafür Wet ganz wegzuwerfen
+    > 5. Nö, da kann man nur die Liste der verfügbaren Scripter erweitern.
+         Die Auswahl des Scripters passiert in org.wetator.core.WetEngine.readCommandsFromFile(File). Dort wird die Liste der Scripter durchgegangen,
+         und dann jeder gefragt, ob er sich für die Datei zuständig fühlt. Wenn ja, dann musss der die Datei lesen.
+         Dieses Verfahren würde ich folgendermaßen erweitern.
+         a) die Liste wird von hinten nach vorne abgearbeitet, damit sich Eigencreationen vordrängeln können
+         b) die Entscheidung ob ein Scripter es versuchen möchte und der eigentliche Versuch laufen nacheinander in der Loop ab
+         Wenn ein Scripter die Datei akzeptiert, und auch noch ohne Exeption (ggf. spezielle Exeption) liest, dann -> fertig
+         Wenn ein Scripter die Datei akzeptiert, dann aber beim Lesen der Commands eine Exeption wirft, dann wird anders
+         als bisher die Liste weiter abgearbeitet.
+         Ggf. müssen wir dann die Fehlermeldungen noch ein wenig verbessern.
+         So könnten wir sogar den DeclinedXmlScripter noch eine Weile mitlaufen lassen.
+    > 6. Alte lesen, aber nur das neuste Schreiben finde ich ausreichend. Eventuell noch mit einer Warnung nach dem Lesen.
+         Damit würde das Konvertieren implizit vom WTE erledigt. Hätte den Charme, das wir keine (weiteres) GUI bauen müssen.
