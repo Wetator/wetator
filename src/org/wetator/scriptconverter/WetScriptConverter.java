@@ -24,8 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
-import org.wetator.scriptcreator.WetScriptCreator;
-import org.wetator.scripter.WetScripter;
+import org.wetator.scriptcreator.IScriptCreator;
+import org.wetator.scripter.IScripter;
 
 /**
  * The converter for wetator test scripts. To use it set a scripter and a creator first.<br/>
@@ -37,8 +37,8 @@ public class WetScriptConverter {
 
   private static final Log LOG = LogFactory.getLog(WetScriptConverter.class);
 
-  private WetScripter scripter;
-  private WetScriptCreator creator;
+  private IScripter scripter;
+  private IScriptCreator creator;
 
   private List<File> inputFiles;
 
@@ -69,7 +69,7 @@ public class WetScriptConverter {
   /**
    * @return the scripter
    */
-  public WetScripter getScripter() {
+  public IScripter getScripter() {
     return scripter;
   }
 
@@ -77,14 +77,14 @@ public class WetScriptConverter {
    * @param aScripter
    *        the scripter to set
    */
-  public void setScripter(final WetScripter aScripter) {
+  public void setScripter(final IScripter aScripter) {
     scripter = aScripter;
   }
 
   /**
    * @return the creator
    */
-  public WetScriptCreator getCreator() {
+  public IScriptCreator getCreator() {
     return creator;
   }
 
@@ -92,7 +92,7 @@ public class WetScriptConverter {
    * @param aCreator
    *        the creator to set
    */
-  public void setCreator(final WetScriptCreator aCreator) {
+  public void setCreator(final IScriptCreator aCreator) {
     creator = aCreator;
   }
 

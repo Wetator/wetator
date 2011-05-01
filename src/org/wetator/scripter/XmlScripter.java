@@ -16,10 +16,13 @@
 
 package org.wetator.scripter;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -33,61 +36,114 @@ import org.apache.commons.lang.StringUtils;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
+import org.wetator.scripter.xml.ModelBuilder;
+import org.wetator.scripter.xml.model.CommandType;
+import org.wetator.scripter.xml.model.ParameterType;
 
 /**
- * Scripter for XML files.
+ * Scripter for XML files using the new test XSDs.
  * 
- * @author tobwoerk
+ * @author frank.danek
  */
-public final class XmlScripter implements WetScripter {
+public class XmlScripter implements IScripter {
 
   private static final String WET_FILE_EXTENSION = ".wet";
   private static final String XML_FILE_EXTENSION = ".xml";
 
-  /**
-   * The element name for test step.
-   */
-  public static final String E_STEP = "step";
-  /**
-   * The element name for optional parameter.
-   */
-  public static final String E_OPTIONAL_PARAMETER = "optionalParameter";
-  /**
-   * The element name for second optional parameter.
-   */
-  public static final String E_OPTIONAL_PARAMETER2 = "optionalParameter2";
-  /**
-   * The attribute name for command.
-   */
-  public static final String A_COMMAND = "command";
-  /**
-   * The attribute name for comment.
-   */
-  public static final String A_COMMENT = "comment";
+  private static final List<String> SUPPORTED_VERSIONS = Arrays.asList("1.0.0");
+
+  private static final String E_TEST_CASE = "test-case";
+  private static final String E_COMMAND = "command";
+  private static final String E_COMMENT = "comment";
+  private static final String A_VERSION = "version";
+  private static final String A_DISABLED = "disabled";
+
+  private ModelBuilder model;
 
   private File file;
-  private InputStream inputStream;
-  private XMLStreamReader reader;
-
   private List<WetCommand> commands;
 
   /**
-   * Standard constructor.
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.scripter.IScripter#initialize(java.util.Properties)
    */
-  public XmlScripter() {
-    super();
+  @Override
+  public void initialize(final Properties aConfiguration) {
+    // nothing to do
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.WetScripter#setFile(java.io.File)
+   * @see org.wetator.scripter.IScripter#isSupported(java.io.File)
+   */
+  @Override
+  public boolean isSupported(final File aFile) {
+    // first check the file extension
+    final String tmpFileName = aFile.getName().toLowerCase();
+    if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
+      return false;
+    }
+
+    // now check root element, schema and version
+    BufferedReader tmpReader = null;
+    try {
+      tmpReader = new BufferedReader(new FileReader(aFile));
+      String tmpLine;
+      boolean tmpTestCase = false;
+      boolean tmpBaseSchema = false;
+      String tmpVersion = null;
+      while ((tmpLine = tmpReader.readLine()) != null) {
+        if (tmpLine.contains("<" + E_TEST_CASE)) {
+          tmpTestCase = true;
+        }
+        if (tmpLine.contains("<" + E_COMMAND) || tmpLine.contains("<" + E_COMMENT)) {
+          break;
+        }
+        if (tmpTestCase && tmpLine.contains(ModelBuilder.BASE_SCHEMA)) {
+          tmpBaseSchema = true;
+        }
+        if (tmpTestCase && tmpLine.contains(" " + A_VERSION)) {
+          final int tmpStart = tmpLine.indexOf('"', tmpLine.indexOf(A_VERSION)) + 1;
+          final int tmpEnd = tmpLine.indexOf('"', tmpStart);
+          tmpVersion = tmpLine.substring(tmpStart, tmpEnd);
+        }
+        if (tmpBaseSchema && tmpVersion != null && SUPPORTED_VERSIONS.contains(tmpVersion)) {
+          return true;
+        }
+      }
+    } catch (final IOException e) {
+      throw new WetException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+    } finally {
+      if (tmpReader != null) {
+        try {
+          tmpReader.close();
+        } catch (final IOException e) {
+          // bad luck
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.scripter.IScripter#setFile(java.io.File)
    */
   @Override
   public void setFile(final File aFile) throws WetException {
     file = aFile;
 
-    commands = readCommands();
+    try {
+      model = new ModelBuilder(file);
+
+      commands = parseScript(file);
+    } catch (final Exception e) {
+      throw new WetException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+    }
   }
 
   /**
@@ -100,119 +156,135 @@ public final class XmlScripter implements WetScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.WetScripter#isSupported(java.io.File)
-   */
-  @Override
-  public boolean isSupported(final File aFile) {
-    String tmpFileName;
-    boolean tmpResult;
-
-    tmpFileName = aFile.getName().toLowerCase();
-    tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
-
-    return tmpResult;
-  }
-
-  private List<WetCommand> readCommands() throws WetException {
-    final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
-
-    try {
-      inputStream = new FileInputStream(file);
-    } catch (final FileNotFoundException e) {
-      throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
-    }
-    final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
-    try {
-      reader = tmpFactory.createXMLStreamReader(inputStream);
-    } catch (final XMLStreamException e) {
-      throw new WetException("Error creating reader for file '" + getFile().getAbsolutePath() + "'.", e);
-    }
-
-    try {
-      WetCommand tmpWetCommand = null;
-      while (reader.hasNext()) {
-        if (reader.next() == XMLStreamConstants.START_ELEMENT) {
-          if (E_STEP.equals(reader.getLocalName())) {
-            final String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
-
-            // comment handling
-            boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
-            if (!tmpIsComment) {
-              final String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
-              if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-                tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
-              }
-            }
-
-            // build WetCommand
-            tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
-            tmpWetCommand.setLineNo(tmpResult.size() + 1);
-
-            // go to CHARACTER event (parameter) if there
-            final StringBuilder tmpParameters = new StringBuilder("");
-            while (reader.next() == XMLStreamConstants.CHARACTERS) {
-              tmpParameters.append(reader.getText());
-            }
-            if (!"".equals(tmpParameters)) {
-              tmpWetCommand.setFirstParameter(new Parameter(tmpParameters.toString()));
-            }
-          }
-          if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
-            final String tmpOptionalParameter = reader.getElementText();
-            if (null == tmpWetCommand) {
-              throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
-                  + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
-            }
-
-            tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
-            reader.next();
-          }
-          if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
-            final String tmpOptionalParameter = reader.getElementText();
-            if (null == tmpWetCommand) {
-              throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
-                  + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
-            }
-
-            tmpWetCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
-            reader.next();
-          }
-        }
-        if (reader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(reader.getLocalName())) {
-          tmpResult.add(tmpWetCommand);
-        }
-      }
-
-      return tmpResult;
-    } catch (final XMLStreamException e) {
-      throw new WetException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
-    } finally {
-      try {
-        reader.close();
-        inputStream.close();
-      } catch (final Exception e) {
-        throw new WetException("Problem closing resources for file '" + getFile().getAbsolutePath() + "'.", e);
-      }
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.scripter.WetScripter#getCommands()
+   * @see org.wetator.scripter.IScripter#getCommands()
    */
   @Override
   public List<WetCommand> getCommands() {
     return commands;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.scripter.WetScripter#initialize(java.util.Properties)
-   */
-  @Override
-  public void initialize(final Properties aConfiguration) {
-    // nothing to do
+  private List<WetCommand> parseScript(final File aFile) throws IOException, XMLStreamException {
+    final InputStream tmpInputStream = new FileInputStream(aFile);
+    final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
+    final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
+
+    final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
+    try {
+      // move reader to test-case...
+      while (tmpReader.hasNext()) {
+        if (tmpReader.next() == XMLStreamConstants.START_ELEMENT
+            && ModelBuilder.BASE_SCHEMA.equals(tmpReader.getNamespaceURI())
+            && E_TEST_CASE.equals(tmpReader.getLocalName())) {
+          break;
+        }
+      }
+
+      // ...and now parse the rest of the file
+      boolean tmpInComment = false;
+      boolean tmpInCommand = false;
+      boolean tmpInCommandType = false;
+      boolean tmpInParameter = false;
+      CommandType tmpCurrentCommandType = null;
+      int tmpCurrentParameter = -1;
+      StringBuilder tmpCurrentText = new StringBuilder();
+      boolean tmpDisabled = false;
+      String[] tmpParameters = new String[0];
+
+      WetCommand tmpWetCommand = null;
+      while (tmpReader.hasNext()) {
+        final int tmpEvent = tmpReader.next();
+        if (tmpEvent == XMLStreamConstants.START_ELEMENT) {
+          if (E_COMMENT.equals(tmpReader.getLocalName())) {
+            // comment found
+            tmpInComment = true;
+            // build WetCommand
+            tmpWetCommand = new WetCommand("", true);
+            tmpWetCommand.setLineNo(tmpResult.size() + 1);
+
+            tmpCurrentText = new StringBuilder();
+          } else if (E_COMMAND.equals(tmpReader.getLocalName())) {
+            // command
+            tmpInCommand = true;
+            // detect disabled
+            final String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_DISABLED);
+            if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
+              tmpDisabled = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
+            }
+          } else {
+            CommandType tmpCommandType = null;
+            if (!tmpInCommandType) {
+              tmpCommandType = model.getCommandType(tmpReader.getNamespaceURI(), tmpReader.getLocalName());
+            }
+            if (tmpCommandType != null) {
+              // known commandType found
+              tmpInCommandType = true;
+              tmpCurrentCommandType = tmpCommandType;
+              // build WetCommand
+              tmpWetCommand = new WetCommand(tmpCurrentCommandType.getName(), tmpDisabled);
+              tmpWetCommand.setLineNo(tmpResult.size() + 1);
+
+              tmpParameters = new String[tmpCurrentCommandType.getParameterTypes().size()];
+            } else if (tmpInCommandType) {
+              // no commandType found -> check for parameter of current commandType
+              int i = 0;
+              for (ParameterType tmpParameterType : tmpCurrentCommandType.getParameterTypes().values()) {
+                if (tmpParameterType.getNamespace().equals(tmpReader.getNamespaceURI())
+                    && tmpParameterType.getName().equals(tmpReader.getLocalName())) {
+                  // new parameter of current commandType found
+                  tmpInParameter = true;
+                  tmpCurrentParameter = i;
+                  tmpCurrentText = new StringBuilder();
+                  break;
+                }
+                i++;
+              }
+            }
+          }
+        } else if (tmpEvent == XMLStreamConstants.CHARACTERS) {
+          if (tmpInComment || tmpInParameter) {
+            // only comments and parameters contain text
+            tmpCurrentText.append(tmpReader.getText());
+          }
+        } else if (tmpEvent == XMLStreamConstants.END_ELEMENT) {
+          if (tmpInParameter) {
+            tmpInParameter = false;
+
+            tmpParameters[tmpCurrentParameter] = tmpCurrentText.toString();
+
+            tmpCurrentParameter = -1;
+            tmpCurrentText = null;
+          } else if (tmpInCommandType) {
+            tmpInCommandType = false;
+
+            if (tmpParameters.length >= 1 && StringUtils.isNotEmpty(tmpParameters[0])) {
+              tmpWetCommand.setFirstParameter(new Parameter(tmpParameters[0]));
+            }
+            if (tmpParameters.length >= 2 && StringUtils.isNotEmpty(tmpParameters[1])) {
+              tmpWetCommand.setSecondParameter(new Parameter(tmpParameters[1]));
+            }
+            if (tmpParameters.length >= 3 && StringUtils.isNotEmpty(tmpParameters[2])) {
+              tmpWetCommand.setThirdParameter(new Parameter(tmpParameters[2]));
+            }
+            tmpResult.add(tmpWetCommand);
+
+            tmpCurrentCommandType = null;
+          } else if (tmpInCommand) {
+            tmpInCommand = false;
+            tmpDisabled = false;
+          } else if (tmpInComment) {
+            tmpInComment = false;
+
+            tmpWetCommand.setFirstParameter(new Parameter(tmpCurrentText.toString()));
+            tmpResult.add(tmpWetCommand);
+
+            tmpCurrentText = null;
+          }
+        }
+      }
+    } finally {
+      tmpReader.close();
+      tmpInputStream.close();
+    }
+    return tmpResult;
   }
 }

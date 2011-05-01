@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:s='http://www.wetator.org/xsd/sql-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd 
+        http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd
+        http://www.wetator.org/xsd/sql-command-set sql-command-set-1.0.0.xsd'
+    version="1.0.0">
+    <command><d:assert-content><d:content><![CDATA[dies ist ein testäöü]]></d:content></d:assert-content></command>
+    <command disabled="true"><d:click-on><d:wpath><![CDATA[blabla]]></d:wpath></d:click-on></command>
+    <comment>Schöner Kommentar</comment>
+    <command><s:exec-sql><s:sql>SELECT sysdate FROM dual</s:sql></s:exec-sql></command>
+</test-case>

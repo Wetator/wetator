@@ -46,7 +46,7 @@ import org.wetator.util.NormalizedString;
  * 
  * @author rbri
  */
-public final class ExcelScripter implements WetScripter {
+public final class ExcelScripter implements IScripter {
   private static final Log LOG = LogFactory.getLog(ExcelScripter.class);
 
   private static final String EXCEL_FILE_EXTENSION = ".xls";
@@ -69,7 +69,7 @@ public final class ExcelScripter implements WetScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.WetScripter#setFile(java.io.File)
+   * @see org.wetator.scripter.IScripter#setFile(java.io.File)
    */
   @Override
   public void setFile(final File aFile) throws WetException {
@@ -88,7 +88,7 @@ public final class ExcelScripter implements WetScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.WetScripter#isSupported(java.io.File)
+   * @see org.wetator.scripter.IScripter#isSupported(java.io.File)
    */
   @Override
   public boolean isSupported(final File aFile) {
@@ -190,7 +190,7 @@ public final class ExcelScripter implements WetScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.WetScripter#getCommands()
+   * @see org.wetator.scripter.IScripter#getCommands()
    */
   @Override
   public List<WetCommand> getCommands() {
@@ -200,7 +200,7 @@ public final class ExcelScripter implements WetScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.WetScripter#initialize(java.util.Properties)
+   * @see org.wetator.scripter.IScripter#initialize(java.util.Properties)
    */
   @Override
   public void initialize(final Properties aConfiguration) {

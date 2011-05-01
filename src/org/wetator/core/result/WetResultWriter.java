@@ -38,7 +38,7 @@ import org.wetator.core.WetProgressListener;
 import org.wetator.core.variable.Variable;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.i18n.Messages;
-import org.wetator.scripter.WetScripter;
+import org.wetator.scripter.IScripter;
 import org.wetator.util.Output;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
@@ -163,7 +163,7 @@ public class WetResultWriter implements WetProgressListener {
       for (Class<? extends Control> tmpControl : tmpWetConfiguration.getControls()) {
         printConfigurationProperty(WetConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
       }
-      for (WetScripter tmpScripter : tmpWetConfiguration.getScripters()) {
+      for (IScripter tmpScripter : tmpWetConfiguration.getScripters()) {
         printConfigurationProperty(WetConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
       }
 

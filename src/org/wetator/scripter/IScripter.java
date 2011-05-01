@@ -36,7 +36,7 @@ import org.wetator.exception.WetException;
  * 
  * @author rbri
  */
-public interface WetScripter {
+public interface IScripter {
 
   /**
    * Sets the file this scripter works on.

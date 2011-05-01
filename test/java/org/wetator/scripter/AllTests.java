@@ -27,7 +27,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses( { ExcelScripterTest.class, //
+@SuiteClasses({ ExcelScripterTest.class, //
+    LegacyXmlScripterTest.class, //
     XmlScripterTest.class })
 public final class AllTests {
 

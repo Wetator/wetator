@@ -18,97 +18,130 @@ package org.wetator.scriptcreator;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.apache.commons.lang.StringUtils;
 import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
-import org.wetator.scripter.XmlScripter;
+import org.wetator.scripter.xml.ModelBuilder;
+import org.wetator.scripter.xml.model.CommandType;
+import org.wetator.scripter.xml.model.ParameterType;
 
 /**
- * Creates a Wetator test script in XML format from the given commands<br/>
- * with the given file name and DTD in the given output directory.
+ * Creates a Wetator test script in XML format from the given commands with the given file name and XSD in the given
+ * output directory.
  * 
- * @author tobwoerk
+ * @author frank.danek
  */
-public class XmlScriptCreator implements WetScriptCreator {
+public class XmlScriptCreator implements IScriptCreator {
 
   private List<WetCommand> commands;
   private String fileName;
-  private String dtd;
   private File outputDir;
 
-  private static final String R_TEST_CASE = "testcase";
+  private static final String XML_ENCODING = "UTF-8";
+  private static final String XML_VERSION = "1.0";
 
-  private static final String ENCODING = "UTF-8";
-  private static final String VERSION = "1.0";
+  private static final String E_TEST_CASE = "test-case";
+  private static final String E_COMMAND = "command";
+  private static final String E_COMMENT = "comment";
+  private static final String A_VERSION = "version";
+  private static final String A_DISABLED = "disabled";
+
+  private static final String XSD_VERSION = "1.0.0";
+
+  private static final Pattern CHARACTER_DATA_PATTERN = Pattern.compile(".*[<>&]");
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scriptcreator.WetScriptCreator#createScript()
+   * @see org.wetator.scriptcreator.IScriptCreator#createScript()
    */
   @Override
   public void createScript() throws WetException {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
-      final File tmpFile = new File(outputDir, fileName + ".xml");
-      final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), ENCODING);
+      final Map<String, String> tmpKnownSchemas = new HashMap<String, String>();
+      tmpKnownSchemas.put("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd");
+      tmpKnownSchemas.put("http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd");
+      tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd");
+      tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd");
+      tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd");
+      final ModelBuilder tmpModel = new ModelBuilder(null, tmpKnownSchemas);
 
-      tmpWriter.writeStartDocument(ENCODING, VERSION);
+      final File tmpFile = new File(outputDir, fileName + ".wet");
+      final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), XML_ENCODING);
+
+      tmpWriter.writeStartDocument(XML_ENCODING, XML_VERSION);
       tmpWriter.writeCharacters("\n");
-      if (null != dtd) {
-        tmpWriter.writeDTD("<!DOCTYPE " + R_TEST_CASE + " " + dtd + ">");
-        tmpWriter.writeCharacters("\n");
-      }
-      tmpWriter.writeCharacters("\n");
-      tmpWriter.writeStartElement(R_TEST_CASE);
-      tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/defaultCommandSet");
+
+      tmpWriter.writeStartElement(E_TEST_CASE);
+      tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/test-case");
+      tmpWriter.writeNamespace("d", "http://www.wetator.org/xsd/default-command-set");
+      tmpWriter.writeNamespace("s", "http://www.wetator.org/xsd/sql-command-set");
+      tmpWriter.writeNamespace("i", "http://www.wetator.org/xsd/incubator-command-set");
+      tmpWriter.writeNamespace("t", "http://www.wetator.org/xsd/test-command-set");
       tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
       tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
-          "http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd");
+          "http://www.wetator.org/xsd/test-case test-case-" + XSD_VERSION + ".xsd\n"
+              + "http://www.wetator.org/xsd/default-command-set default-command-set-" + XSD_VERSION + ".xsd\n"
+              + "http://www.wetator.org/xsd/sql-command-set sql-command-set-" + XSD_VERSION + ".xsd\n"
+              + "http://www.wetator.org/xsd/incubator-command-set incubator-command-set-" + XSD_VERSION + ".xsd\n"
+              + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
+      tmpWriter.writeAttribute(A_VERSION, XSD_VERSION);
       tmpWriter.writeCharacters("\n");
       for (WetCommand tmpCommand : commands) {
         tmpWriter.writeCharacters("    ");
-        tmpWriter.writeStartElement(XmlScripter.E_STEP);
-        tmpWriter.writeAttribute(XmlScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));
-        if (tmpCommand.isComment() && !"Comment".equals(tmpCommand.getName())) {
-          tmpWriter.writeAttribute(XmlScripter.A_COMMENT, "true");
-        }
-        if (tmpCommand.getFirstParameter() != null) {
-          final String tmpCharacterDataPattern = ".*[<>&]";
-          final String tmpParameter = tmpCommand.getFirstParameter().getValue();
-          if (tmpParameter.matches(tmpCharacterDataPattern)) {
-            tmpWriter.writeCData(tmpParameter);
-          } else {
-            tmpWriter.writeCharacters(tmpParameter);
+        if (tmpCommand.isComment() && StringUtils.isEmpty(tmpCommand.getName())) {
+          tmpWriter.writeStartElement(E_COMMENT);
+          writeContent(tmpWriter, tmpCommand.getFirstParameter().getValue());
+          tmpWriter.writeEndElement();
+          tmpWriter.writeCharacters("\n");
+        } else {
+          tmpWriter.writeStartElement(E_COMMAND);
+          if (tmpCommand.isComment()) {
+            tmpWriter.writeAttribute(A_DISABLED, "true");
           }
-          if (tmpCommand.getSecondParameter() != null) {
-            tmpWriter.writeStartElement(XmlScripter.E_OPTIONAL_PARAMETER);
-            String tmpOptionalParameter = tmpCommand.getSecondParameter().getValue();
-            if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
-              tmpWriter.writeCData(tmpOptionalParameter);
-            } else {
-              tmpWriter.writeCharacters(tmpOptionalParameter);
-            }
-            tmpWriter.writeEndElement();
 
-            if (tmpCommand.getThirdParameter() != null) {
-              tmpWriter.writeStartElement(XmlScripter.E_OPTIONAL_PARAMETER2);
-              tmpOptionalParameter = tmpCommand.getThirdParameter().getValue();
-              if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
-                tmpWriter.writeCData(tmpOptionalParameter);
-              } else {
-                tmpWriter.writeCharacters(tmpOptionalParameter);
-              }
+          final CommandType tmpCommandType = getCommandType(tmpModel, tmpCommand.getName());
+          if (tmpCommandType == null) {
+            throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
+          }
+          tmpWriter.writeStartElement(tmpCommandType.getNamespace(), tmpCommandType.getName());
+
+          final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes().values();
+          final String[] tmpParameterValues = new String[tmpParameterTypes.size()];
+          if (tmpParameterValues.length >= 1 && tmpCommand.getFirstParameter() != null) {
+            tmpParameterValues[0] = tmpCommand.getFirstParameter().getValue();
+          }
+          if (tmpParameterValues.length >= 2 && tmpCommand.getSecondParameter() != null) {
+            tmpParameterValues[1] = tmpCommand.getSecondParameter().getValue();
+          }
+          if (tmpParameterValues.length >= 3 && tmpCommand.getThirdParameter() != null) {
+            tmpParameterValues[2] = tmpCommand.getThirdParameter().getValue();
+          }
+          int i = 0;
+          for (ParameterType tmpParameterType : tmpParameterTypes) {
+            if (StringUtils.isNotEmpty(tmpParameterValues[i])) {
+              tmpWriter.writeStartElement(tmpParameterType.getNamespace(), tmpParameterType.getName());
+              writeContent(tmpWriter, tmpParameterValues[i]);
               tmpWriter.writeEndElement();
             }
+            i++;
           }
+
+          tmpWriter.writeEndElement();
+          tmpWriter.writeEndElement();
+          tmpWriter.writeCharacters("\n");
         }
-        tmpWriter.writeEndElement();
-        tmpWriter.writeCharacters("\n");
       }
       tmpWriter.writeEndElement();
       tmpWriter.writeEndDocument();
@@ -118,10 +151,27 @@ public class XmlScriptCreator implements WetScriptCreator {
     }
   }
 
+  private void writeContent(final XMLStreamWriter aWriter, final String aContent) throws XMLStreamException {
+    if (CHARACTER_DATA_PATTERN.matcher(aContent).matches()) {
+      aWriter.writeCData(aContent);
+    } else {
+      aWriter.writeCharacters(aContent);
+    }
+  }
+
+  private CommandType getCommandType(final ModelBuilder aModel, final String aName) {
+    for (CommandType tmpCommandType : aModel.getCommandTypes()) {
+      if (tmpCommandType.getName().equals(aName)) {
+        return tmpCommandType;
+      }
+    }
+    return null;
+  }
+
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scriptcreator.WetScriptCreator#setCommands(java.util.List)
+   * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
    */
   @Override
   public void setCommands(final List<WetCommand> aCommandList) throws WetException {
@@ -131,7 +181,7 @@ public class XmlScriptCreator implements WetScriptCreator {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scriptcreator.WetScriptCreator#setFileName(java.lang.String)
+   * @see org.wetator.scriptcreator.IScriptCreator#setFileName(java.lang.String)
    */
   @Override
   public void setFileName(final String aFileName) {
@@ -141,18 +191,10 @@ public class XmlScriptCreator implements WetScriptCreator {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scriptcreator.WetScriptCreator#setOutputDir(java.lang.String)
+   * @see org.wetator.scriptcreator.IScriptCreator#setOutputDir(java.lang.String)
    */
   @Override
   public void setOutputDir(final String anOutputDir) {
     outputDir = new File(anOutputDir);
-  }
-
-  /**
-   * @param aDtd
-   *        the DTD to set (name only expected, including keyword)
-   */
-  public void setDtd(final String aDtd) {
-    dtd = aDtd;
   }
 }

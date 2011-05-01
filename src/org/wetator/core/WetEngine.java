@@ -31,7 +31,7 @@ import org.wetator.commandset.WetCommandSet;
 import org.wetator.core.result.WetResultWriter;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetException;
-import org.wetator.scripter.WetScripter;
+import org.wetator.scripter.IScripter;
 
 /**
  * The engine that makes the monster running.<br/>
@@ -53,7 +53,7 @@ public final class WetEngine {
   private WetConfiguration configuration;
   private WetBackend backend;
   private List<WetCommandSet> commandSets;
-  private List<WetScripter> scripter;
+  private List<IScripter> scripter;
   private List<WetProgressListener> progressListener;
 
   /**
@@ -171,10 +171,10 @@ public final class WetEngine {
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link WetCommand}s.
-   * @throws WetException if no {@link WetScripter} can be found for the given file.
+   * @throws WetException if no {@link IScripter} can be found for the given file.
    */
   protected List<WetCommand> readCommandsFromFile(final File aFile) throws WetException {
-    WetScripter tmpScripter;
+    IScripter tmpScripter;
     List<WetCommand> tmpResult;
 
     tmpScripter = createScripter(aFile);
@@ -188,8 +188,8 @@ public final class WetEngine {
     return new WetConfiguration(tmpConfigFile, getExternalProperties());
   }
 
-  private WetScripter createScripter(final File aFile) {
-    for (WetScripter tmpScripter : scripter) {
+  private IScripter createScripter(final File aFile) {
+    for (IScripter tmpScripter : scripter) {
       if (tmpScripter.isSupported(aFile)) {
         tmpScripter.setFile(aFile);
         return tmpScripter;

@@ -23,11 +23,11 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.exception.WetException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptconverter.WetScriptConverter;
-import org.wetator.scriptcreator.ScriptCreator;
-import org.wetator.scriptcreator.WetScriptCreator;
-import org.wetator.scriptcreator.XmlScriptCreator;
-import org.wetator.scripter.Scripter;
-import org.wetator.scripter.WetScripter;
+import org.wetator.scriptcreator.IScriptCreator;
+import org.wetator.scriptcreator.LegacyXmlScriptCreator;
+import org.wetator.scripter.ExcelScripter;
+import org.wetator.scripter.IScripter;
+import org.wetator.scripter.LegacyXmlScripter;
 
 /**
  * The command line interface for converting test scripts.
@@ -65,16 +65,16 @@ public final class WetatorScriptConverter {
     final WetScriptConverter tmpConverter = new WetScriptConverter();
     try {
       final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
-      final WetScripter tmpWetScripter = tmpScripter.getWetScripter();
+      final IScripter tmpIScripter = tmpScripter.getWetScripter();
       final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
-      final WetScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
+      final IScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
       tmpCreator.setOutputDir(tmpOutputDir);
-      if (tmpCreator instanceof XmlScriptCreator && anArgsArray.length == 5) {
+      if (tmpCreator instanceof LegacyXmlScriptCreator && anArgsArray.length == 5) {
         final String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
         LOG.info("Using DTD '" + tmpDtd + "'.");
-        ((XmlScriptCreator) tmpCreator).setDtd(tmpDtd);
+        ((LegacyXmlScriptCreator) tmpCreator).setDtd(tmpDtd);
       }
-      tmpConverter.setScripter(tmpWetScripter);
+      tmpConverter.setScripter(tmpIScripter);
       tmpConverter.setCreator(tmpCreator);
       final File[] tmpFiles = DialogUtil.chooseFiles();
       if (null == tmpFiles || (tmpFiles.length < 1)) {
@@ -100,5 +100,59 @@ public final class WetatorScriptConverter {
    */
   private WetatorScriptConverter() {
     // nothing
+  }
+
+  /**
+   * Scripter enum.
+   * 
+   * @author tobwoerk
+   */
+  public enum Scripter {
+    /**
+     * XML.
+     */
+    XML(new LegacyXmlScripter()),
+    /**
+     * Excel.
+     */
+    XLS(new ExcelScripter());
+
+    private IScripter iScripter;
+
+    private Scripter(final IScripter aIScripter) {
+      iScripter = aIScripter;
+    }
+
+    /**
+     * @return the wetScripter
+     */
+    public IScripter getWetScripter() {
+      return iScripter;
+    }
+  }
+
+  /**
+   * Script creator enum.
+   * 
+   * @author tobwoerk
+   */
+  public enum ScriptCreator {
+    /**
+     * XML.
+     */
+    XML(new LegacyXmlScriptCreator());
+
+    private IScriptCreator iScriptCreator;
+
+    private ScriptCreator(final IScriptCreator aIScriptCreator) {
+      iScriptCreator = aIScriptCreator;
+    }
+
+    /**
+     * @return the wetScriptCreator
+     */
+    public IScriptCreator getWetScriptCreator() {
+      return iScriptCreator;
+    }
   }
 }

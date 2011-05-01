@@ -19,5 +19,6 @@
         <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="7.2.0.v20101020"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.1" transitive="false"/>
         <dependency org="org.slf4j" name="slf4j-api" rev="1.6.1" transitive="false"/>
+        <dependency org="com.sun.xsom" name="xsom" rev="20081112" transitive="true" conf="*->*,!javadoc"/>
     </dependencies>
 </ivy-module>

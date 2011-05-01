@@ -25,7 +25,7 @@ import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
 
 /**
- * @author tobwoerk
+ * @author frank.danek
  */
 public class XmlScripterTest {
 
@@ -35,7 +35,11 @@ public class XmlScripterTest {
   @Test
   public void test() throws WetException {
     XmlScripter tmpXmlScripter = new XmlScripter();
-    tmpXmlScripter.setFile(new File("test/java/org/wetator/test/resource/junit.wet"));
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+
+    Assert.assertTrue(tmpXmlScripter.isSupported(tmpFile));
+
+    tmpXmlScripter.setFile(tmpFile);
 
     List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
     Assert.assertEquals(9, tmpCommands.size());
@@ -46,28 +50,28 @@ public class XmlScripterTest {
 
     tmpCommand = tmpCommands.get(1);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Open Url", tmpCommand.getName());
+    Assert.assertEquals("open-url", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(2);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(3);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Set", tmpCommand.getName());
+    Assert.assertEquals("set", tmpCommand.getName());
     Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
 
     tmpCommand = tmpCommands.get(4);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Click On", tmpCommand.getName());
+    Assert.assertEquals("click-on", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(5);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Click On", tmpCommand.getName());
+    Assert.assertEquals("click-on", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(6);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Content", tmpCommand.getName());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(7);
     Assert.assertTrue(tmpCommand.isComment());
@@ -76,5 +80,46 @@ public class XmlScripterTest {
     tmpCommand = tmpCommands.get(8);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
+  }
+
+  /**
+   * @throws WetException if something goes wrong
+   */
+  @Test
+  public void unsupported() throws WetException {
+    XmlScripter tmpXmlScripter = new XmlScripter();
+    Assert.assertFalse(tmpXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit.wet")));
+  }
+
+  /**
+   * @throws WetException if something goes wrong
+   */
+  @Test
+  public void manual() throws WetException {
+    XmlScripter tmpXmlScripter = new XmlScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/testXml2.xml");
+
+    tmpXmlScripter.initialize(null);
+    if (tmpXmlScripter.isSupported(tmpFile)) {
+      tmpXmlScripter.setFile(tmpFile);
+      final List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
+      System.out.println("RESULT: " + tmpCommands.size());
+      for (WetCommand tmpCommand : tmpCommands) {
+        System.out.println("    " + tmpCommand.getName());
+        System.out.println("        comment: " + tmpCommand.isComment());
+        System.out.println("        line: " + tmpCommand.getLineNo());
+        if (tmpCommand.getFirstParameter() != null) {
+          System.out.println("        1: " + tmpCommand.getFirstParameter().getValue());
+        }
+        if (tmpCommand.getSecondParameter() != null) {
+          System.out.println("        2: " + tmpCommand.getSecondParameter().getValue());
+        }
+        if (tmpCommand.getThirdParameter() != null) {
+          System.out.println("        3: " + tmpCommand.getThirdParameter().getValue());
+        }
+      }
+    } else {
+      System.out.println("UNSUPPORTED!");
+    }
   }
 }
