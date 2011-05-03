@@ -139,39 +139,41 @@ public final class ExcelScripter implements WetScripter {
         Parameter tmpParameter;
 
         tmpRow = tmpSheet.getRow(tmpLine);
+        // strange case but it really happens
+        if (null != tmpRow) {
+          tmpCommentString = readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator);
+          tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
-        tmpCommentString = readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator);
-        tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
+          tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
+          tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
-        tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
-        tmpCommandName = new NormalizedString(tmpCommandName).toString();
-
-        // empty command means comment
-        if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {
-          tmpCommandName = "Comment";
-        }
-
-        if (!StringUtils.isEmpty(tmpCommandName)) {
-          final WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
-
-          tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
-          if (null != tmpParameter) {
-            tmpCommand.setFirstParameter(tmpParameter);
+          // empty command means comment
+          if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {
+            tmpCommandName = "Comment";
           }
 
-          tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO, tmpFormulaEvaluator);
-          if (null != tmpParameter) {
-            tmpCommand.setSecondParameter(tmpParameter);
+          if (!StringUtils.isEmpty(tmpCommandName)) {
+            final WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
+
+            tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+            if (null != tmpParameter) {
+              tmpCommand.setFirstParameter(tmpParameter);
+            }
+
+            tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+            if (null != tmpParameter) {
+              tmpCommand.setSecondParameter(tmpParameter);
+            }
+
+            tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+            if (null != tmpParameter) {
+              tmpCommand.setThirdParameter(tmpParameter);
+            }
+
+            tmpCommand.setLineNo(tmpLine + 1);
+
+            tmpResult.add(tmpCommand);
           }
-
-          tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO, tmpFormulaEvaluator);
-          if (null != tmpParameter) {
-            tmpCommand.setThirdParameter(tmpParameter);
-          }
-
-          tmpCommand.setLineNo(tmpLine + 1);
-
-          tmpResult.add(tmpCommand);
         }
       }
 
