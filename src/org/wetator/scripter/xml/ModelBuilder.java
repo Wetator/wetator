@@ -20,8 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -160,42 +158,35 @@ public class ModelBuilder {
   }
 
   private void parseSchemas(final File aSchemaDirectory) throws SAXException, IOException {
+    if (schemaLocations == null || schemaLocations.isEmpty()) {
+      throw new WetException("No schema to parse.");
+    }
+
     final XSOMParser tmpParser = new XSOMParser();
     tmpParser.setAnnotationParser(new DomAnnotationParserFactory());
-    tmpParser.setEntityResolver(new LocalEntityResolver());
+    tmpParser.setEntityResolver(new LocalEntityResolver(aSchemaDirectory));
 
     // parse all schemas
     for (Entry<String, String> tmpSchemaLocation : schemaLocations.entrySet()) {
-      // first try the local xsd resolver
-      final InputSource tmpSource = new LocalEntityResolver().resolveEntity(tmpSchemaLocation.getKey(),
+      final InputSource tmpSource = new LocalEntityResolver(aSchemaDirectory).resolveEntity(tmpSchemaLocation.getKey(),
           tmpSchemaLocation.getValue());
       if (tmpSource != null) {
-        tmpParser.parse(tmpSource);
+        try {
+          tmpParser.parse(tmpSource);
+        } catch (final SAXException e) {
+          throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue() + "'.",
+              e.getException());
+        }
       } else {
-        // nothing found locally -> try external file
-        File tmpSchemaFile = new File(tmpSchemaLocation.getValue());
-        if (!tmpSchemaFile.isAbsolute() && aSchemaDirectory != null) {
-          tmpSchemaFile = new File(aSchemaDirectory, tmpSchemaFile.getName());
-        }
-        if (tmpSchemaFile.exists()) {
-          tmpParser.parse(tmpSchemaFile);
-        } else {
-          // nothing found locally or as external file -> try URL
-          try {
-            final URL tmpURL = new URL(tmpSchemaLocation.getValue());
-            tmpParser.parse(tmpURL);
-          } catch (final MalformedURLException e) {
-            throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue() + "'.", e);
-          } catch (final SAXException e) {
-            throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue() + "'.",
-                e.getException());
-          }
-        }
+        throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue() + "'.");
       }
     }
 
     final XSSchemaSet tmpSchemaSet = tmpParser.getResult();
     final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(XmlScripter.BASE_SCHEMA);
+    if (tmpBaseSchema == null) {
+      throw new WetException("No base schema '" + XmlScripter.BASE_SCHEMA + "' found.");
+    }
     baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);
 

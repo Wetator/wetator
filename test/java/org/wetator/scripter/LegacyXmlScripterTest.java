@@ -48,37 +48,41 @@ public class LegacyXmlScripterTest {
     WetCommand tmpCommand = tmpCommands.get(0);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
+    Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(1);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Open Url", tmpCommand.getName());
+    Assert.assertEquals("open-url", tmpCommand.getName());
+    Assert.assertEquals("set.html", tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(2);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
+    Assert.assertEquals("Wetator / Set", tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(3);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Set", tmpCommand.getName());
+    Assert.assertEquals("set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
     Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
 
     tmpCommand = tmpCommands.get(4);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Click On", tmpCommand.getName());
+    Assert.assertEquals("click-on", tmpCommand.getName());
+    Assert.assertEquals("InputTextNameTest", tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(5);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Click On", tmpCommand.getName());
+    Assert.assertEquals("click-on", tmpCommand.getName());
+    Assert.assertEquals("Just another comment", tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(6);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Content", tmpCommand.getName());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
+        .getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("", tmpCommand.getName());
-
-    tmpCommand = tmpCommands.get(8);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
   }

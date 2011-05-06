@@ -18,6 +18,7 @@ package org.wetator.scriptcreator;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +57,7 @@ public class XmlScriptCreator implements IScriptCreator {
   private static final String A_VERSION = "version";
   private static final String A_DISABLED = "disabled";
 
-  private static final String XSD_VERSION = "1.0.0";
+  private static final String TEST_CASE_XSD_VERSION = "1.0.0";
 
   private static final Pattern CHARACTER_DATA_PATTERN = Pattern.compile(".*[<>&]");
 
@@ -77,6 +78,21 @@ public class XmlScriptCreator implements IScriptCreator {
       tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd");
       final ModelBuilder tmpModel = new ModelBuilder(tmpKnownSchemas);
 
+      // get used namespaces
+      final List<NamespaceBean> tmpNamespaces = new ArrayList<NamespaceBean>();
+      for (WetCommand tmpCommand : commands) {
+        if (!tmpCommand.isComment() && StringUtils.isNotEmpty(tmpCommand.getName())) {
+          final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
+          if (tmpCommandType == null) {
+            throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
+          }
+          final NamespaceBean tmpBean = NamespaceBean.create(tmpCommandType.getNamespace());
+          if (!tmpNamespaces.contains(tmpBean)) {
+            tmpNamespaces.add(tmpBean);
+          }
+        }
+      }
+
       final File tmpFile = new File(outputDir, fileName + ".wet");
       final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), XML_ENCODING);
 
@@ -85,24 +101,39 @@ public class XmlScriptCreator implements IScriptCreator {
 
       tmpWriter.writeStartElement(E_TEST_CASE);
       tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/test-case");
-      tmpWriter.writeNamespace("d", "http://www.wetator.org/xsd/default-command-set");
-      tmpWriter.writeNamespace("s", "http://www.wetator.org/xsd/sql-command-set");
-      tmpWriter.writeNamespace("i", "http://www.wetator.org/xsd/incubator-command-set");
-      tmpWriter.writeNamespace("t", "http://www.wetator.org/xsd/test-command-set");
+      for (NamespaceBean tmpNamespaceBean : tmpNamespaces) {
+        tmpWriter.writeNamespace(tmpNamespaceBean.getSymbol(), tmpNamespaceBean.getNamespace());
+      }
+      // tmpWriter.writeNamespace("d", "http://www.wetator.org/xsd/default-command-set");
+      // tmpWriter.writeNamespace("s", "http://www.wetator.org/xsd/sql-command-set");
+      // tmpWriter.writeNamespace("i", "http://www.wetator.org/xsd/incubator-command-set");
+      // tmpWriter.writeNamespace("t", "http://www.wetator.org/xsd/test-command-set");
       tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+      final StringBuilder tmpLocations = new StringBuilder("http://www.wetator.org/xsd/test-case test-case-"
+          + TEST_CASE_XSD_VERSION + ".xsd\n");
+      for (NamespaceBean tmpNamespaceBean : tmpNamespaces) {
+        tmpLocations.append(tmpNamespaceBean.getNamespace());
+        tmpLocations.append(" ");
+        tmpLocations.append(tmpNamespaceBean.getLocation());
+        tmpLocations.append("\n");
+      }
       tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
-          "http://www.wetator.org/xsd/test-case test-case-" + XSD_VERSION + ".xsd\n"
-              + "http://www.wetator.org/xsd/default-command-set default-command-set-" + XSD_VERSION + ".xsd\n"
-              + "http://www.wetator.org/xsd/sql-command-set sql-command-set-" + XSD_VERSION + ".xsd\n"
-              + "http://www.wetator.org/xsd/incubator-command-set incubator-command-set-" + XSD_VERSION + ".xsd\n"
-              + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
-      tmpWriter.writeAttribute(A_VERSION, XSD_VERSION);
+          tmpLocations.substring(0, tmpLocations.length() - 1));
+      // tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
+      // "http://www.wetator.org/xsd/test-case test-case-" + XSD_VERSION + ".xsd\n"
+      // + "http://www.wetator.org/xsd/default-command-set default-command-set-" + XSD_VERSION + ".xsd\n"
+      // + "http://www.wetator.org/xsd/sql-command-set sql-command-set-" + XSD_VERSION + ".xsd\n"
+      // + "http://www.wetator.org/xsd/incubator-command-set incubator-command-set-" + XSD_VERSION + ".xsd\n"
+      // + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
+      tmpWriter.writeAttribute(A_VERSION, TEST_CASE_XSD_VERSION);
       tmpWriter.writeCharacters("\n");
       for (WetCommand tmpCommand : commands) {
         tmpWriter.writeCharacters("    ");
         if (tmpCommand.isComment() && StringUtils.isEmpty(tmpCommand.getName())) {
           tmpWriter.writeStartElement(E_COMMENT);
-          writeContent(tmpWriter, tmpCommand.getFirstParameter().getValue());
+          if (tmpCommand.getFirstParameter() != null) {
+            writeContent(tmpWriter, tmpCommand.getFirstParameter().getValue());
+          }
           tmpWriter.writeEndElement();
           tmpWriter.writeCharacters("\n");
         } else {
@@ -187,5 +218,130 @@ public class XmlScriptCreator implements IScriptCreator {
   @Override
   public void setOutputDir(final String anOutputDir) {
     outputDir = new File(anOutputDir);
+  }
+
+  /**
+   * Little helper to store some namespace information.
+   * 
+   * @author frank.danek
+   */
+  private static class NamespaceBean {
+
+    private String symbol;
+    private String namespace;
+    private String location;
+
+    public static NamespaceBean create(final String aNamespace) {
+      if ("http://www.wetator.org/xsd/default-command-set".equals(aNamespace)) {
+        return new NamespaceBean("d", aNamespace, "default-command-set-1.0.0.xsd");
+      }
+      if ("http://www.wetator.org/xsd/sql-command-set".equals(aNamespace)) {
+        return new NamespaceBean("s", aNamespace, "sql-command-set-1.0.0.xsd");
+      }
+      if ("http://www.wetator.org/xsd/incubator-command-set".equals(aNamespace)) {
+        return new NamespaceBean("i", aNamespace, "incubator-command-set-1.0.0.xsd");
+      }
+      if ("http://www.wetator.org/xsd/test-command-set".equals(aNamespace)) {
+        return new NamespaceBean("t", aNamespace, "test-command-set-1.0.0.xsd");
+      }
+      throw new RuntimeException("Unknown command set '" + aNamespace + "'.");
+    }
+
+    /**
+     * @param aSymbol the symbol to set
+     * @param aNamespace the namespace to set
+     * @param aLocation the location to set
+     */
+    public NamespaceBean(final String aSymbol, final String aNamespace, final String aLocation) {
+      symbol = aSymbol;
+      namespace = aNamespace;
+      location = aLocation;
+    }
+
+    /**
+     * @return the symbol
+     */
+    public String getSymbol() {
+      return symbol;
+    }
+
+    /**
+     * @return the namespace
+     */
+    public String getNamespace() {
+      return namespace;
+    }
+
+    /**
+     * @return the location
+     */
+    public String getLocation() {
+      return location;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      final int tmpPrime = 31;
+      int tmpResult = 1;
+      tmpResult = tmpPrime * tmpResult;
+      if (location == null) {
+        tmpResult += location.hashCode();
+      }
+      tmpResult = tmpPrime * tmpResult;
+      if (namespace == null) {
+        tmpResult += namespace.hashCode();
+      }
+      tmpResult = tmpPrime * tmpResult;
+      if (symbol == null) {
+        tmpResult += symbol.hashCode();
+      }
+      return tmpResult;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(final Object anObj) {
+      if (this == anObj) {
+        return true;
+      }
+      if (anObj == null) {
+        return false;
+      }
+      if (getClass() != anObj.getClass()) {
+        return false;
+      }
+      final NamespaceBean tmpOther = (NamespaceBean) anObj;
+      if (location == null) {
+        if (tmpOther.location != null) {
+          return false;
+        }
+      } else if (!location.equals(tmpOther.location)) {
+        return false;
+      }
+      if (namespace == null) {
+        if (tmpOther.namespace != null) {
+          return false;
+        }
+      } else if (!namespace.equals(tmpOther.namespace)) {
+        return false;
+      }
+      if (symbol == null) {
+        if (tmpOther.symbol != null) {
+          return false;
+        }
+      } else if (!symbol.equals(tmpOther.symbol)) {
+        return false;
+      }
+      return true;
+    }
   }
 }

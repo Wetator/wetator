@@ -17,26 +17,36 @@
 package org.wetator;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
 import org.wetator.gui.DialogUtil;
-import org.wetator.scriptconverter.WetScriptConverter;
 import org.wetator.scriptcreator.IScriptCreator;
 import org.wetator.scriptcreator.LegacyXmlScriptCreator;
+import org.wetator.scriptcreator.XmlScriptCreator;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.IScripter;
 import org.wetator.scripter.LegacyXmlScripter;
+import org.wetator.scripter.XmlScripter;
 
 /**
  * The command line interface for converting test scripts.
  * 
  * @author tobwoerk
+ * @author frank.danek
  */
 public final class WetatorScriptConverter {
 
   private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);;
+
+  private IScripter scripter;
+  private IScriptCreator creator;
+
+  private List<File> inputFiles;
 
   /**
    * The start point for the command line call.
@@ -62,7 +72,7 @@ public final class WetatorScriptConverter {
     LOG.info("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType
         + " and output directory '" + tmpOutputDir + "'.");
 
-    final WetScriptConverter tmpConverter = new WetScriptConverter();
+    final WetatorScriptConverter tmpConverter = new WetatorScriptConverter();
     try {
       final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
       final IScripter tmpIScripter = tmpScripter.getWetScripter();
@@ -96,10 +106,70 @@ public final class WetatorScriptConverter {
   }
 
   /**
-   * This class should not be instantiated.
+   * The constructor.
    */
   private WetatorScriptConverter() {
-    // nothing
+    inputFiles = new LinkedList<File>();
+  }
+
+  /**
+   * @throws WetException in case of errors
+   */
+  public void convert() throws WetException {
+    for (File tmpInputFile : inputFiles) {
+      LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
+      scripter.setFile(tmpInputFile);
+      final List<WetCommand> tmpCommands = scripter.getCommands();
+
+      final String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));
+      creator.setFileName(tmpFileName);
+      creator.setCommands(tmpCommands);
+      creator.createScript();
+      LOG.trace("Converted '" + tmpInputFile.getAbsolutePath() + "'...");
+    }
+  }
+
+  /**
+   * @return the scripter
+   */
+  public IScripter getScripter() {
+    return scripter;
+  }
+
+  /**
+   * @param aScripter
+   *        the scripter to set
+   */
+  public void setScripter(final IScripter aScripter) {
+    scripter = aScripter;
+  }
+
+  /**
+   * @return the creator
+   */
+  public IScriptCreator getCreator() {
+    return creator;
+  }
+
+  /**
+   * @param aCreator
+   *        the creator to set
+   */
+  public void setCreator(final IScriptCreator aCreator) {
+    creator = aCreator;
+  }
+
+  /**
+   * @param aFile
+   *        the file to add
+   * @throws WetException
+   *         if aFile does not exist
+   */
+  public void addTestFile(final File aFile) throws WetException {
+    if (!aFile.exists()) {
+      throw new WetException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
+    }
+    inputFiles.add(aFile);
   }
 
   /**
@@ -109,9 +179,13 @@ public final class WetatorScriptConverter {
    */
   public enum Scripter {
     /**
+     * Legacy XML.
+     */
+    LEGACY_XML(new LegacyXmlScripter()),
+    /**
      * XML.
      */
-    XML(new LegacyXmlScripter()),
+    XML(new XmlScripter()),
     /**
      * Excel.
      */
@@ -138,9 +212,13 @@ public final class WetatorScriptConverter {
    */
   public enum ScriptCreator {
     /**
+     * Legacy XML.
+     */
+    LEGACY_XML(new LegacyXmlScriptCreator()),
+    /**
      * XML.
      */
-    XML(new LegacyXmlScriptCreator());
+    XML(new XmlScriptCreator());
 
     private IScriptCreator iScriptCreator;
 

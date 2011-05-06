@@ -144,6 +144,8 @@ public final class ExcelScripter implements IScripter {
         tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
         tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
+        // normalize command name
+        tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
         tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
         // empty command means comment

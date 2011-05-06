@@ -129,7 +129,6 @@ src/org/wetator/exception/AssertionFailedException.java -text
 src/org/wetator/exception/WetException.java -text
 src/org/wetator/gui/DialogUtil.java -text
 src/org/wetator/i18n/Messages.java -text
-src/org/wetator/scriptconverter/WetScriptConverter.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/IScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/LegacyXmlScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/XmlScriptCreator.java -text svneol=unset#text/plain
@@ -303,16 +302,11 @@ test/java/org/wetator/test/jetty/SnoopyServlet.java -text svneol=unset#text/plai
 test/java/org/wetator/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
 test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plain
 test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/default-command-set-1.0.0.xsd -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/incubator-command-set-1.0.0.xsd -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.xls -text
 test/java/org/wetator/test/resource/junit2.xml -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/sql-command-set-1.0.0.xsd -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/test-case-1.0.0.xsd -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/test-command-set-1.0.0.xsd -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/testXml2.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/something.xsd -text svneol=unset#text/plain
 test/java/org/wetator/util/AllTests.java -text
 test/java/org/wetator/util/AssertTest.java -text
 test/java/org/wetator/util/ContentUtilTest.java -text

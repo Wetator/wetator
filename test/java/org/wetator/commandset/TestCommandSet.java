@@ -31,6 +31,7 @@ import org.wetator.util.SecretString;
  * Commands to make it possible to test other commands (e.g. error situations).
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class TestCommandSet extends AbstractCommandSet {
 
@@ -45,7 +46,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   @Override
   protected void registerCommands() {
-    registerCommand("Assert Fail", new CommandAssertFail());
+    registerCommand("assert-fail", new CommandAssertFail());
   }
 
   /**
@@ -59,7 +60,10 @@ public final class TestCommandSet extends AbstractCommandSet {
       SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aWetContext);
 
       SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aWetContext);
-      WetCommand tmpCommand = new WetCommand(tmpCommandParam.getValue(), false);
+      String tmpCommandName = tmpCommandParam.getValue();
+      // normalize command name
+      tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
+      WetCommand tmpCommand = new WetCommand(tmpCommandName, false);
       tmpCommand.setLineNo(aWetCommand.getLineNo());
 
       tmpCommand.setFirstParameter(aWetCommand.getSecondParameter());

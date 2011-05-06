@@ -50,31 +50,33 @@ import org.wetator.util.SecretString;
  * supports at the moment.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class DefaultCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
-    registerCommand("Open Url", new CommandOpenUrl());
-    registerCommand("Use Module", new CommandUseModule());
-    registerCommand("Click On", new CommandClickOn());
-    registerCommand("Click Double On", new CommandClickDoubleOn());
-    registerCommand("Click Right On", new CommandClickRightOn());
-    registerCommand("Set", new CommandSet());
-    registerCommand("Select", new CommandSelect());
-    registerCommand("Deselect", new CommandDeselect());
-    registerCommand("Mouse Over", new CommandMouseOver());
-    registerCommand("Close Window", new CommandCloseWindow());
-    registerCommand("Go Back", new CommandGoBack());
+    registerCommand("open-url", new CommandOpenUrl());
+    registerCommand("use-module", new CommandUseModule());
+    registerCommand("close-window", new CommandCloseWindow());
+    registerCommand("go-back", new CommandGoBack());
 
-    registerCommand("Assert Title", new CommandAssertTitle());
-    registerCommand("Assert Content", new CommandAssertContent());
-    registerCommand("Assert Disabled", new CommandAssertDisabled());
-    registerCommand("Assert Set", new CommandAssertSet());
-    registerCommand("Assert Selected", new CommandAssertSelected());
-    registerCommand("Assert Deselected", new CommandAssertDeselected());
+    registerCommand("click-on", new CommandClickOn());
+    registerCommand("click-double-on", new CommandClickDoubleOn());
+    registerCommand("click-right-on", new CommandClickRightOn());
+    registerCommand("set", new CommandSet());
+    registerCommand("select", new CommandSelect());
+    registerCommand("deselect", new CommandDeselect());
+    registerCommand("mouse-over", new CommandMouseOver());
 
-    registerCommand("Exec Java", new CommandExecJava());
+    registerCommand("assert-title", new CommandAssertTitle());
+    registerCommand("assert-content", new CommandAssertContent());
+    registerCommand("assert-disabled", new CommandAssertDisabled());
+    registerCommand("assert-set", new CommandAssertSet());
+    registerCommand("assert-selected", new CommandAssertSelected());
+    registerCommand("assert-deselected", new CommandAssertDeselected());
+
+    registerCommand("exec-java", new CommandExecJava());
   }
 
   /**

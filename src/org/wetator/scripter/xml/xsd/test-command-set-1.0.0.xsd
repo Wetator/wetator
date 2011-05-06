@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="http://www.wetator.org/xsd/sql-command-set"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.wetator.org/xsd/sql-command-set"
+<xs:schema targetNamespace="http://www.wetator.org/xsd/test-command-set"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.wetator.org/xsd/test-command-set"
     xmlns:tc="http://www.wetator.org/xsd/test-case" elementFormDefault="qualified"
     attributeFormDefault="unqualified" version="1.0.0">
 

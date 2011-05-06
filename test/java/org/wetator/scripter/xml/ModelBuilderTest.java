@@ -47,6 +47,13 @@ public class ModelBuilderTest {
     new ModelBuilder(new HashMap<String, String>());
   }
 
+  @Test(expected = WetException.class)
+  public void invalidSchema() throws SAXException, IOException {
+    Map<String, String> tmpSchemas = new HashMap<String, String>();
+    tmpSchemas.put("http://www.wetator.org/xsd/something", "test/java/org/wetator/test/resource/something.xsd");
+    new ModelBuilder(tmpSchemas);
+  }
+
   @Test
   public void noCommandSets() throws SAXException, IOException {
     Map<String, String> tmpSchemas = new HashMap<String, String>();
@@ -55,7 +62,7 @@ public class ModelBuilderTest {
   }
 
   @Test(expected = WetException.class)
-  public void unknownCommandSet() throws SAXException, IOException {
+  public void unknownCommandSet1() throws SAXException, IOException {
     Map<String, String> tmpSchemas = new HashMap<String, String>();
     tmpSchemas.put("http://www.wetator.org/xsd/unknown", "unknown.xsd");
     new ModelBuilder(tmpSchemas);

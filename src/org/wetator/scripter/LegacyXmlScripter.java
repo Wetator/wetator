@@ -168,7 +168,9 @@ public final class LegacyXmlScripter implements IScripter {
       while (reader.hasNext()) {
         if (reader.next() == XMLStreamConstants.START_ELEMENT) {
           if (E_STEP.equals(reader.getLocalName())) {
-            final String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
+            String tmpCommandName = reader.getAttributeValue(null, A_COMMAND);
+            // normalize command name
+            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
 
             // comment handling
             boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());

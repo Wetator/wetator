@@ -16,7 +16,10 @@
 
 package org.wetator.scripter.xml;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -28,8 +31,12 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * This implementation of the interface {@link EntityResolver} uses a local list of known schema files to resolve the
- * entity. The local schema files must be places in the sub-package 'xsd'.
+ * This implementation of the interface {@link EntityResolver} tries to resolve the entity
+ * <ul>
+ * <li>in a local list of known schema files. The local schema files must be places in the sub-package 'xsd'.</li>
+ * <li>as a file in the given schema directory.</li>
+ * <li>as a URL.</li>
+ * </ul>
  * 
  * @author frank.danek
  * @author tobwoerk
@@ -37,8 +44,9 @@ import org.xml.sax.SAXException;
 public class LocalEntityResolver implements EntityResolver {
 
   private static final Map<String, List<String>> KNOWN_SCHEMAS = getKnownSchemas();
-
   private static final String XSD_DIRECTORY = "xsd/";
+
+  private File schemaDirectory;
 
   private static Map<String, List<String>> getKnownSchemas() {
     final Map<String, List<String>> tmpKnownSchemas = new HashMap<String, List<String>>();
@@ -52,25 +60,63 @@ public class LocalEntityResolver implements EntityResolver {
   }
 
   /**
+   * The default constructor.<br/>
+   * Sets the schema directory to null.
+   */
+  public LocalEntityResolver() {
+    // nothing
+  }
+
+  /**
+   * The constructor.
+   * 
+   * @param aSchemaDirectory the directory to look in for schema files
+   */
+  public LocalEntityResolver(final File aSchemaDirectory) {
+    schemaDirectory = aSchemaDirectory;
+  }
+
+  /**
    * {@inheritDoc}
    * 
    * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
    */
   @Override
   public InputSource resolveEntity(final String aPublicId, final String aSystemId) throws SAXException, IOException {
+    // first try the known schemas
     final List<String> tmpKnownSchemaFiles = KNOWN_SCHEMAS.get(aPublicId);
     if (tmpKnownSchemaFiles != null) {
       for (String tmpKnownSchemaFile : tmpKnownSchemaFiles) {
         if (aSystemId.equals(tmpKnownSchemaFile) || aSystemId.endsWith("/" + tmpKnownSchemaFile)
             || aSystemId.endsWith("\\" + tmpKnownSchemaFile)) {
-          final InputSource tmpSource = new InputSource(getClass().getResourceAsStream(
+          final InputSource tmpInputSource = new InputSource(getClass().getResourceAsStream(
               XSD_DIRECTORY + tmpKnownSchemaFile));
-          tmpSource.setPublicId(aPublicId);
-          tmpSource.setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFile).toExternalForm());
-          return tmpSource;
+          tmpInputSource.setPublicId(aPublicId);
+          tmpInputSource.setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFile).toExternalForm());
+          return tmpInputSource;
         }
       }
     }
-    return null;
+
+    // nothing found so far -> try external file
+    File tmpSchemaFile = new File(aSystemId);
+    if (!tmpSchemaFile.isAbsolute() && schemaDirectory != null) {
+      tmpSchemaFile = new File(schemaDirectory, tmpSchemaFile.getName());
+    }
+    if (tmpSchemaFile.exists()) {
+      final InputSource tmpInputSource = new InputSource(tmpSchemaFile.toURI().toURL().toExternalForm());
+      tmpInputSource.setPublicId(aPublicId);
+      return tmpInputSource;
+    }
+
+    // nothing found so far -> try URL
+    try {
+      final InputSource tmpInputSource = new InputSource(new URL(aSystemId).toExternalForm());
+      tmpInputSource.setPublicId(aPublicId);
+      return tmpInputSource;
+    } catch (final MalformedURLException e) {
+      // nothing found anywhere
+      return null;
+    }
   }
 }

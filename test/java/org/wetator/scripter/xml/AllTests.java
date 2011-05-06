@@ -26,7 +26,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ LocalEntityResolverTest.class })
+@SuiteClasses({ LocalEntityResolverTest.class, //
+    ModelBuilderTest.class })
 public final class AllTests {
 
   /**

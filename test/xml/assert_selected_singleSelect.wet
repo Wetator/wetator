@@ -69,5 +69,5 @@
     <step command='' comment='true'></step>
     <step command='' comment='true'>test for unused parameter</step>
     <step command='Open_Url'>assert_selected.html</step>
-    <tst:step command='Assert_Fail'>Assert Selected, The command 'Assert Selected' does not use the value 'unused' provided in column 2.<tst:optionalParameter>SingleSelect LayoutLabel at left formated, option2</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Assert Selected, The command 'assert-selected' does not use the value 'unused' provided in column 2.<tst:optionalParameter>SingleSelect LayoutLabel at left formated, option2</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
 </testcase>

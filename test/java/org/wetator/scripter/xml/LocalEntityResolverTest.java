@@ -47,7 +47,7 @@ public class LocalEntityResolverTest {
   }
 
   @Test
-  public void exact() throws SAXException, IOException {
+  public void exactLocal() throws SAXException, IOException {
     InputSource tmpInputSource = new LocalEntityResolver().resolveEntity("http://www.wetator.org/xsd/test-case",
         "test-case-1.0.0.xsd");
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpInputSource.getPublicId());
@@ -56,7 +56,7 @@ public class LocalEntityResolverTest {
   }
 
   @Test
-  public void slash() throws SAXException, IOException {
+  public void slashLocal() throws SAXException, IOException {
     InputSource tmpInputSource = new LocalEntityResolver().resolveEntity("http://www.wetator.org/xsd/test-case",
         "something/test-case-1.0.0.xsd");
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpInputSource.getPublicId());
@@ -65,11 +65,40 @@ public class LocalEntityResolverTest {
   }
 
   @Test
-  public void backslash() throws SAXException, IOException {
+  public void backslashLocal() throws SAXException, IOException {
     InputSource tmpInputSource = new LocalEntityResolver().resolveEntity("http://www.wetator.org/xsd/test-case",
         "something\\test-case-1.0.0.xsd");
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpInputSource.getPublicId());
     Assert.assertTrue(tmpInputSource.getSystemId().endsWith("xsd/test-case-1.0.0.xsd"));
     Assert.assertNotNull(tmpInputSource.getByteStream());
+  }
+
+  @Test
+  public void file() throws SAXException, IOException {
+    InputSource tmpInputSource = new LocalEntityResolver().resolveEntity(
+        "http://www.wetator.org/xsd/junit-test-command-set",
+        "test/java/org/wetator/test/resource/junit-test-command-set.xsd");
+    Assert.assertEquals("http://www.wetator.org/xsd/junit-test-command-set", tmpInputSource.getPublicId());
+    Assert.assertTrue(tmpInputSource.getSystemId().endsWith("test/resource/junit-test-command-set.xsd"));
+  }
+
+  @Test
+  public void unknownFile() throws SAXException, IOException {
+    Assert.assertNull(new LocalEntityResolver().resolveEntity("http://www.wetator.org/xsd/junit-test-command-set",
+        "never/found/junit-test-command-set.xsd"));
+  }
+
+  @Test
+  public void url() throws SAXException, IOException {
+    InputSource tmpInputSource = new LocalEntityResolver().resolveEntity(
+        "http://www.wetator.org/xsd/junit-test-command-set", "http://www.wetator.org/xsd/junit-test-command-set.xsd");
+    Assert.assertEquals("http://www.wetator.org/xsd/junit-test-command-set", tmpInputSource.getPublicId());
+    Assert.assertEquals("http://www.wetator.org/xsd/junit-test-command-set.xsd", tmpInputSource.getSystemId());
+  }
+
+  @Test
+  public void invalidUrl() throws SAXException, IOException {
+    Assert.assertNull(new LocalEntityResolver().resolveEntity("http://www.wetator.org/xsd/junit-test-command-set",
+        "h1t2t3p://www.wetator.org/xsd/junit-test-command-set.xsd"));
   }
 }

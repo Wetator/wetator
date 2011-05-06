@@ -37,14 +37,15 @@ import org.wetator.util.SecretString;
  * the current command set. So we have this set to play a bit.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class IncubatorCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
-    registerCommand("Assert Focus", new CommandAssertFocus());
-    registerCommand("Save Bookmark", new CommandSaveBookmark());
-    registerCommand("Open Bookmark", new CommandOpenBookmark());
+    registerCommand("assert-focus", new CommandAssertFocus());
+    registerCommand("save-bookmark", new CommandSaveBookmark());
+    registerCommand("open-bookmark", new CommandOpenBookmark());
   }
 
   /**
