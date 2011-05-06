@@ -26,6 +26,7 @@ import org.wetator.exception.WetException;
 
 /**
  * @author tobwoerk
+ * @author frank.danek
  */
 public class LegacyXmlScripterTest {
 
@@ -33,7 +34,7 @@ public class LegacyXmlScripterTest {
    * @throws WetException if something goes wrong
    */
   @Test
-  public void test() throws WetException {
+  public void supported() throws WetException {
     LegacyXmlScripter tmpLegacyXmlScripter = new LegacyXmlScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
 

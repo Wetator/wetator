@@ -33,7 +33,7 @@ public class XmlScripterTest {
    * @throws WetException if something goes wrong
    */
   @Test
-  public void test() throws WetException {
+  public void supported() throws WetException {
     XmlScripter tmpXmlScripter = new XmlScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
 
@@ -89,37 +89,5 @@ public class XmlScripterTest {
   public void unsupported() throws WetException {
     XmlScripter tmpXmlScripter = new XmlScripter();
     Assert.assertFalse(tmpXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit.wet")));
-  }
-
-  /**
-   * @throws WetException if something goes wrong
-   */
-  @Test
-  public void manual() throws WetException {
-    XmlScripter tmpXmlScripter = new XmlScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/testXml2.xml");
-
-    tmpXmlScripter.initialize(null);
-    if (tmpXmlScripter.isSupported(tmpFile)) {
-      tmpXmlScripter.setFile(tmpFile);
-      final List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
-      System.out.println("RESULT: " + tmpCommands.size());
-      for (WetCommand tmpCommand : tmpCommands) {
-        System.out.println("    " + tmpCommand.getName());
-        System.out.println("        comment: " + tmpCommand.isComment());
-        System.out.println("        line: " + tmpCommand.getLineNo());
-        if (tmpCommand.getFirstParameter() != null) {
-          System.out.println("        1: " + tmpCommand.getFirstParameter().getValue());
-        }
-        if (tmpCommand.getSecondParameter() != null) {
-          System.out.println("        2: " + tmpCommand.getSecondParameter().getValue());
-        }
-        if (tmpCommand.getThirdParameter() != null) {
-          System.out.println("        3: " + tmpCommand.getThirdParameter().getValue());
-        }
-      }
-    } else {
-      System.out.println("UNSUPPORTED!");
-    }
   }
 }

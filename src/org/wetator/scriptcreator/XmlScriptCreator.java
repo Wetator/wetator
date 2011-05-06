@@ -75,7 +75,7 @@ public class XmlScriptCreator implements IScriptCreator {
       tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd");
       tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd");
       tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd");
-      final ModelBuilder tmpModel = new ModelBuilder(null, tmpKnownSchemas);
+      final ModelBuilder tmpModel = new ModelBuilder(tmpKnownSchemas);
 
       final File tmpFile = new File(outputDir, fileName + ".wet");
       final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), XML_ENCODING);
@@ -111,13 +111,13 @@ public class XmlScriptCreator implements IScriptCreator {
             tmpWriter.writeAttribute(A_DISABLED, "true");
           }
 
-          final CommandType tmpCommandType = getCommandType(tmpModel, tmpCommand.getName());
+          final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
           if (tmpCommandType == null) {
             throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
           }
           tmpWriter.writeStartElement(tmpCommandType.getNamespace(), tmpCommandType.getName());
 
-          final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes().values();
+          final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes();
           final String[] tmpParameterValues = new String[tmpParameterTypes.size()];
           if (tmpParameterValues.length >= 1 && tmpCommand.getFirstParameter() != null) {
             tmpParameterValues[0] = tmpCommand.getFirstParameter().getValue();
@@ -157,15 +157,6 @@ public class XmlScriptCreator implements IScriptCreator {
     } else {
       aWriter.writeCharacters(aContent);
     }
-  }
-
-  private CommandType getCommandType(final ModelBuilder aModel, final String aName) {
-    for (CommandType tmpCommandType : aModel.getCommandTypes()) {
-      if (tmpCommandType.getName().equals(aName)) {
-        return tmpCommandType;
-      }
-    }
-    return null;
   }
 
   /**

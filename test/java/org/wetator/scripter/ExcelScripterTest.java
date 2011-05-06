@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2011 Ronald Brill
+ * Copyright (c) 2008-2011 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.wetator.exception.WetException;
 public class ExcelScripterTest {
 
   @Test
-  public void test() throws WetException {
+  public void supported() throws WetException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
 

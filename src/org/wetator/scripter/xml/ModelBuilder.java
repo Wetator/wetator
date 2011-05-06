@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -39,6 +41,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.wetator.exception.WetException;
+import org.wetator.scripter.XmlScripter;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
 import org.wetator.util.NormalizedString;
@@ -61,15 +64,17 @@ import com.sun.xml.xsom.util.DomAnnotationParserFactory;
  * This builder creates the model of command types and their parameter types out of an XML file by parsing the schemas.
  * 
  * @author frank.danek
+ * @author tobwoerk
  */
 public class ModelBuilder {
 
-  /**
-   * The base schema file for this model.
-   */
-  public static final String BASE_SCHEMA = "http://www.wetator.org/xsd/test-case";
   private static final String BASE_COMMAND_TYPE = "commandType";
   private static final String BASE_PARAMETER_TYPE = "parameterType";
+  /**
+   * The schema file for the default command set.
+   */
+  public static final String DEFAULT_COMMAND_SET_SCHEMA = "http://www.wetator.org/xsd/default-command-set";
+  private static final String DEFAULT_COMMAND_SET_XSD = "default-command-set-1.0.0.xsd";
 
   private Map<String, String> schemaLocations = new HashMap<String, String>();
 
@@ -89,50 +94,43 @@ public class ModelBuilder {
   public ModelBuilder(final File aFile) throws XMLStreamException, IOException, SAXException {
     findSchemas(aFile);
 
+    // add schema for default command set since it is always loaded
+    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA, DEFAULT_COMMAND_SET_XSD);
+
     parseSchemas(aFile.getParentFile());
   }
 
   /**
-   * @param aSchemaDirectory the directory to search for schemas with relative paths
    * @param aSchemaLocationMap the map containing the schemas to use (key = namespace URI, value = schema location)
    * @throws SAXException in case of problems reading the file
    * @throws IOException in case of problems reading the file
    */
-  public ModelBuilder(final File aSchemaDirectory, final Map<String, String> aSchemaLocationMap) throws SAXException,
-      IOException {
+  public ModelBuilder(final Map<String, String> aSchemaLocationMap) throws SAXException, IOException {
     schemaLocations = aSchemaLocationMap;
 
-    parseSchemas(aSchemaDirectory);
+    parseSchemas(null);
   }
 
   /**
-   * @param aNamespace the namespace URI of the command type
    * @param aName the local name of the command type
    * @return the command type for the given parameters or null if none found
    */
-  public CommandType getCommandType(final String aNamespace, final String aName) {
-    return commandTypes.get(aNamespace + ":" + aName);
+  public CommandType getCommandType(final String aName) {
+    return commandTypes.get(aName);
   }
 
   /**
    * @return a list containing all known command types
    */
   public List<CommandType> getCommandTypes() {
-    return new ArrayList<CommandType>(commandTypes.values());
-  }
-
-  /**
-   * @param aNamespace the namespace URI of the command and parameter type
-   * @param aCommandName the local name of the command type
-   * @param aName the local name of the parameter type
-   * @return the parameter type for the given parameters or null if none found
-   */
-  public ParameterType getParameterType(final String aNamespace, final String aCommandName, final String aName) {
-    final CommandType tmpCommandType = commandTypes.get(aNamespace + ":" + aCommandName);
-    if (tmpCommandType != null) {
-      return tmpCommandType.getParameterTypes().get(aNamespace + ":" + aName);
-    }
-    return null;
+    final List<CommandType> tmpCommandTypes = new ArrayList<CommandType>(commandTypes.values());
+    Collections.sort(tmpCommandTypes, new Comparator<CommandType>() {
+      @Override
+      public int compare(final CommandType aType1, final CommandType aType2) {
+        return aType1.getName().compareToIgnoreCase(aType2.getName());
+      }
+    });
+    return tmpCommandTypes;
   }
 
   private void findSchemas(final File aFile) throws XMLStreamException, IOException {
@@ -197,7 +195,7 @@ public class ModelBuilder {
     }
 
     final XSSchemaSet tmpSchemaSet = tmpParser.getResult();
-    final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(BASE_SCHEMA);
+    final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(XmlScripter.BASE_SCHEMA);
     baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);
 
@@ -207,16 +205,29 @@ public class ModelBuilder {
       if (tmpElement.getType().isDerivedFrom(baseCommandType) && !((XSComplexType) tmpElement.getType()).isAbstract()) {
         final XSComplexType tmpType = (XSComplexType) tmpElement.getType();
 
+        final String tmpElementName = tmpElement.getName();
+        final CommandType tmpExistingCommandType = commandTypes.get(tmpElementName);
+        if (tmpExistingCommandType != null) {
+          throw new RuntimeException("Duplicate command '" + tmpElementName + "' found ('"
+              + tmpExistingCommandType.getNamespace() + "' and '" + tmpElement.getTargetNamespace() + "').");
+        }
+
         // build command
         final CommandType tmpCommandType = new CommandType();
         tmpCommandType.setNamespace(tmpElement.getTargetNamespace());
-        tmpCommandType.setName(tmpElement.getName());
+        tmpCommandType.setName(tmpElementName);
         tmpCommandType.setDocumentation(getDocumentation(tmpElement));
-        commandTypes.put(tmpElement.getTargetNamespace() + ":" + tmpElement.getName(), tmpCommandType);
+        commandTypes.put(tmpElementName, tmpCommandType);
 
         for (ParameterType tmpParameterType : getParameterTypes(tmpType)) {
-          tmpCommandType.getParameterTypes().put(tmpParameterType.getNamespace() + ":" + tmpParameterType.getName(),
-              tmpParameterType);
+          final String tmpParameterName = tmpParameterType.getName();
+          for (ParameterType tmpCommandParameterType : tmpCommandType.getParameterTypes()) {
+            if (tmpCommandParameterType.getName().equals(tmpParameterName)) {
+              throw new RuntimeException("Duplicate parameter '" + tmpElementName + "' found for command '"
+                  + tmpCommandType.getNamespace() + ":" + tmpCommandType.getName() + "'.");
+            }
+          }
+          tmpCommandType.getParameterTypes().add(tmpParameterType);
         }
       }
     }

@@ -4,17 +4,17 @@
             xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
     <info organisation="org.wetator" module="wetator"/>
     <dependencies>
-        <dependency org="org.apache.ant" name="ant" rev="1.8.2" transitive="false"/>
+        <dependency org="org.apache.ant" name="ant" rev="1.8.2" transitive="false" conf="*->*,!javadoc,!sources"/>
         <dependency org="automaton" name="automaton" rev="1.11.7" transitive="false"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.6"/>
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.10"/>
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.9-SNAPSHOT" changing="true" />
-        <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.9-SNAPSHOT" changing="true" />
+        <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.9-SNAPSHOT" changing="true" conf="*->*,!javadoc,!sources" />
         <dependency org="junit" name="junit" rev="4.8.2" transitive="false"/>
         <dependency org="log4j" name="log4j" rev="1.2.16" transitive="false"/>
         <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.5.0" transitive="false"/>
         <dependency org="org.apache.pdfbox" name="fontbox" rev="1.5.0" transitive="false"/>
-        <dependency org="org.apache.poi" name="poi" rev="3.7"/>
+        <dependency org="org.apache.poi" name="poi" rev="3.7" conf="*->*,!javadoc"/>
         <dependency org="org.eclipse.jetty" name="jetty-server" rev="7.2.0.v20101020"/>
         <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="7.2.0.v20101020"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.1" transitive="false"/>

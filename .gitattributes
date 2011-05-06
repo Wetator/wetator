@@ -290,6 +290,9 @@ test/java/org/wetator/scripter/AllTests.java -text
 test/java/org/wetator/scripter/ExcelScripterTest.java -text
 test/java/org/wetator/scripter/LegacyXmlScripterTest.java -text svneol=unset#text/plain
 test/java/org/wetator/scripter/XmlScripterTest.java -text svneol=unset#text/plain
+test/java/org/wetator/scripter/xml/AllTests.java -text svneol=unset#text/plain
+test/java/org/wetator/scripter/xml/LocalEntityResolverTest.java -text svneol=unset#text/plain
+test/java/org/wetator/scripter/xml/ModelBuilderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/AbstractBrowserTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/AbstractWebServerTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/JUnitProgressListener.java -text svneol=unset#text/plain
@@ -302,6 +305,7 @@ test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plai
 test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/default-command-set-1.0.0.xsd -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/incubator-command-set-1.0.0.xsd -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.xls -text
 test/java/org/wetator/test/resource/junit2.xml -text svneol=unset#text/plain

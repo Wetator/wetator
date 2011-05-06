@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -44,12 +46,17 @@ import org.wetator.scripter.xml.model.ParameterType;
  * Scripter for XML files using the new test XSDs.
  * 
  * @author frank.danek
+ * @author tobwoerk
  */
 public class XmlScripter implements IScripter {
 
   private static final String WET_FILE_EXTENSION = ".wet";
   private static final String XML_FILE_EXTENSION = ".xml";
 
+  /**
+   * The base schema file for the test case model.
+   */
+  public static final String BASE_SCHEMA = "http://www.wetator.org/xsd/test-case";
   private static final List<String> SUPPORTED_VERSIONS = Arrays.asList("1.0.0");
 
   private static final String E_TEST_CASE = "test-case";
@@ -58,9 +65,10 @@ public class XmlScripter implements IScripter {
   private static final String A_VERSION = "version";
   private static final String A_DISABLED = "disabled";
 
-  private ModelBuilder model;
+  private static final Pattern VERSION_PATTERN = Pattern.compile(".*" + A_VERSION + "\\s*=\\s*[\"'](.*)[\"'].*");
 
   private File file;
+  private ModelBuilder model;
   private List<WetCommand> commands;
 
   /**
@@ -101,13 +109,14 @@ public class XmlScripter implements IScripter {
         if (tmpLine.contains("<" + E_COMMAND) || tmpLine.contains("<" + E_COMMENT)) {
           break;
         }
-        if (tmpTestCase && tmpLine.contains(ModelBuilder.BASE_SCHEMA)) {
+        if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
           tmpBaseSchema = true;
         }
-        if (tmpTestCase && tmpLine.contains(" " + A_VERSION)) {
-          final int tmpStart = tmpLine.indexOf('"', tmpLine.indexOf(A_VERSION)) + 1;
-          final int tmpEnd = tmpLine.indexOf('"', tmpStart);
-          tmpVersion = tmpLine.substring(tmpStart, tmpEnd);
+        if (tmpTestCase && tmpLine.contains(A_VERSION)) {
+          final Matcher tmpMatcher = VERSION_PATTERN.matcher(tmpLine);
+          if (tmpMatcher.matches()) {
+            tmpVersion = tmpMatcher.group(1);
+          }
         }
         if (tmpBaseSchema && tmpVersion != null && SUPPORTED_VERSIONS.contains(tmpVersion)) {
           return true;
@@ -147,13 +156,6 @@ public class XmlScripter implements IScripter {
   }
 
   /**
-   * @return the file
-   */
-  public File getFile() {
-    return file;
-  }
-
-  /**
    * {@inheritDoc}
    * 
    * @see org.wetator.scripter.IScripter#getCommands()
@@ -163,6 +165,13 @@ public class XmlScripter implements IScripter {
     return commands;
   }
 
+  /**
+   * @return the model
+   */
+  public ModelBuilder getModel() {
+    return model;
+  }
+
   private List<WetCommand> parseScript(final File aFile) throws IOException, XMLStreamException {
     final InputStream tmpInputStream = new FileInputStream(aFile);
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
@@ -170,10 +179,9 @@ public class XmlScripter implements IScripter {
 
     final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
     try {
-      // move reader to test-case...
+      // move reader position to test-case...
       while (tmpReader.hasNext()) {
-        if (tmpReader.next() == XMLStreamConstants.START_ELEMENT
-            && ModelBuilder.BASE_SCHEMA.equals(tmpReader.getNamespaceURI())
+        if (tmpReader.next() == XMLStreamConstants.START_ELEMENT && BASE_SCHEMA.equals(tmpReader.getNamespaceURI())
             && E_TEST_CASE.equals(tmpReader.getLocalName())) {
           break;
         }
@@ -213,7 +221,7 @@ public class XmlScripter implements IScripter {
           } else {
             CommandType tmpCommandType = null;
             if (!tmpInCommandType) {
-              tmpCommandType = model.getCommandType(tmpReader.getNamespaceURI(), tmpReader.getLocalName());
+              tmpCommandType = model.getCommandType(tmpReader.getLocalName());
             }
             if (tmpCommandType != null) {
               // known commandType found
@@ -227,9 +235,8 @@ public class XmlScripter implements IScripter {
             } else if (tmpInCommandType) {
               // no commandType found -> check for parameter of current commandType
               int i = 0;
-              for (ParameterType tmpParameterType : tmpCurrentCommandType.getParameterTypes().values()) {
-                if (tmpParameterType.getNamespace().equals(tmpReader.getNamespaceURI())
-                    && tmpParameterType.getName().equals(tmpReader.getLocalName())) {
+              for (ParameterType tmpParameterType : tmpCurrentCommandType.getParameterTypes()) {
+                if (tmpParameterType.getName().equals(tmpReader.getLocalName())) {
                   // new parameter of current commandType found
                   tmpInParameter = true;
                   tmpCurrentParameter = i;

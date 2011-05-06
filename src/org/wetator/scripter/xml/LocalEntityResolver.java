@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.wetator.scripter.XmlScripter;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -31,16 +32,18 @@ import org.xml.sax.SAXException;
  * entity. The local schema files must be places in the sub-package 'xsd'.
  * 
  * @author frank.danek
+ * @author tobwoerk
  */
 public class LocalEntityResolver implements EntityResolver {
 
   private static final Map<String, List<String>> KNOWN_SCHEMAS = getKnownSchemas();
 
+  private static final String XSD_DIRECTORY = "xsd/";
+
   private static Map<String, List<String>> getKnownSchemas() {
     final Map<String, List<String>> tmpKnownSchemas = new HashMap<String, List<String>>();
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-case", Arrays.asList("test-case-1.0.0.xsd"));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/default-command-set",
-        Arrays.asList("default-command-set-1.0.0.xsd"));
+    tmpKnownSchemas.put(XmlScripter.BASE_SCHEMA, Arrays.asList("test-case-1.0.0.xsd"));
+    tmpKnownSchemas.put(ModelBuilder.DEFAULT_COMMAND_SET_SCHEMA, Arrays.asList("default-command-set-1.0.0.xsd"));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set", Arrays.asList("sql-command-set-1.0.0.xsd"));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays.asList("test-command-set-1.0.0.xsd"));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set",
@@ -60,9 +63,10 @@ public class LocalEntityResolver implements EntityResolver {
       for (String tmpKnownSchemaFile : tmpKnownSchemaFiles) {
         if (aSystemId.equals(tmpKnownSchemaFile) || aSystemId.endsWith("/" + tmpKnownSchemaFile)
             || aSystemId.endsWith("\\" + tmpKnownSchemaFile)) {
-          final InputSource tmpSource = new InputSource(getClass().getResourceAsStream("xsd/" + tmpKnownSchemaFile));
+          final InputSource tmpSource = new InputSource(getClass().getResourceAsStream(
+              XSD_DIRECTORY + tmpKnownSchemaFile));
           tmpSource.setPublicId(aPublicId);
-          tmpSource.setSystemId(getClass().getResource("xsd/" + tmpKnownSchemaFile).toExternalForm());
+          tmpSource.setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFile).toExternalForm());
           return tmpSource;
         }
       }

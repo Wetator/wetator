@@ -16,8 +16,8 @@
 
 package org.wetator.scripter.xml.model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Meta-model representation of a command.
@@ -29,7 +29,7 @@ public class CommandType {
   private String namespace;
   private String name;
   private String documentation;
-  private Map<String, ParameterType> parameterTypes = new LinkedHashMap<String, ParameterType>();
+  private List<ParameterType> parameterTypes = new ArrayList<ParameterType>();
 
   /**
    * @return the namespace
@@ -76,7 +76,7 @@ public class CommandType {
   /**
    * @return the parameterTypes
    */
-  public Map<String, ParameterType> getParameterTypes() {
+  public List<ParameterType> getParameterTypes() {
     return parameterTypes;
   }
 
