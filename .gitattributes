@@ -156,7 +156,6 @@ src/org/wetator/util/StringUtil.java -text
 src/org/wetator/util/VariableReplaceUtil.java -text
 src/org/wetator/util/XmlUtil.java -text
 src/wetator.config -text
-/test.txt -text svneol=unset#text/plain
 test/MouseEvents.xls -text
 test/ant/ant_task_classpath_test.xls -text
 test/ant/build.xml -text
@@ -387,6 +386,7 @@ test/xml/set_upload.wet -text svneol=unset#text/plain
 test/xml/sql/sql.wet -text svneol=unset#text/plain
 test/xml/use_module.wet -text svneol=unset#text/plain
 test/xml/wait.wet -text svneol=unset#text/plain
+/test2.txt -text svneol=unset#text/plain
 webpages/commands/assertcontent.html -text
 webpages/commands/assertdeselected.html -text
 webpages/commands/assertdisabled.html -text
