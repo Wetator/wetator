@@ -74,3 +74,17 @@ rbri 2011-04-28 20:30:
          So könnten wir sogar den DeclinedXmlScripter noch eine Weile mitlaufen lassen.
     > 6. Alte lesen, aber nur das neuste Schreiben finde ich ausreichend. Eventuell noch mit einer Warnung nach dem Lesen.
          Damit würde das Konvertieren implizit vom WTE erledigt. Hätte den Charme, das wir keine (weiteres) GUI bauen müssen.
+
+frank.danek 2011-05-07 00:15: Nabend! Soweit ich das sehe ist der neue XMLScripter fertig und im Branch eingecheckt. Folgendes haben wir jetzt:
+	- neuer XmlScripter mit Tests
+	- der alte XmlScripter heißt jetzt LegacyXmlScripter und hat (neue) Tests
+	- neuer XmlScriptCreator mit manuellem Test
+	- der alte XmlScriptCreator heißt jetzt LegacyXmlScriptCreator
+	- der WetScriptConverter wurde in den WetatorScriptConverter integriert
+	- Commands werden von allen Scriptern in Kleinbuchstaben mit - als Trenner normalisiert
+		=> in den Tests bleibt alles wie bisher
+		=> in den CommandSets heißen die jetzt z.B. assert-content
+	- ich musste dafür leider einige der Tests anpassen, die assert-fail verwenden, da im Text (einer Fehlermeldung) der Command Name stand :(
+	- ach ja: neue XSDs für neue XML/WET-Tests
+
+	Aus meiner Sicht ist das neue also fertig und abwärtskompatibel und wir müssten das in den Trunk mergen können.
