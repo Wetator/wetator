@@ -36,7 +36,9 @@
     <tst:step command='Assert_Fail'><![CDATA[Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser <h:outputText> Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.rtf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').]]><tst:optionalParameter>Pferde, fressen, meinen, Gurkensalat</tst:optionalParameter></tst:step>
     <step command='' comment='true'>options of a select</step>
     <step command='Assert_Content'>Select to check for the options, First Option, Second Option, Another Option, Various Content types</step>
-    <step command='' comment='true'>error for unused parameter</step>
+    <step command='' comment='true'>error for required first parameter</step>
+    <tst:step command='Assert_Fail'>Assert Content, The command 'Assert Content' requires a first parameter.</tst:step>
+    <step command='' comment='true'>error for wrong second parameter</step>
     <tst:step command='Assert_Fail'>Assert Content, The command 'Assert Content' expects an integer parameter value 'unused' in column 2.<tst:optionalParameter>Pferde,fressen,keinen,Gurkensalat</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'>content type text</step>
