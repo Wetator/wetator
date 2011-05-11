@@ -31,9 +31,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang.reflect.MethodUtils;
 import org.wetator.backend.ControlFinder;
+import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.WetBackend;
 import org.wetator.backend.control.Control;
 import org.wetator.backend.control.Deselectable;
 import org.wetator.backend.control.Selectable;
@@ -111,12 +111,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final URL tmpUrl = new URL(tmpUrlParam.getValue());
         aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
 
-        final WetBackend tmpBackend = getWetBackend(aWetContext);
-        tmpBackend.openUrl(tmpUrl);
+        final IBrowser tmpBrowser = getBrowser(aWetContext);
+        tmpBrowser.openUrl(tmpUrl);
       } catch (final MalformedURLException e) {
         Assert.fail("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
       }
-      getWetBackend(aWetContext).saveCurrentWindowToLog();
+      getBrowser(aWetContext).saveCurrentWindowToLog();
     }
   }
 
@@ -177,8 +177,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpValueParam = new SecretString("", "");
       }
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpElementFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpElementFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
@@ -189,7 +189,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
       tmpControl.setValue(aWetContext, tmpValueParam, aWetContext.getFile().getParentFile());
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -209,8 +209,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // Buttons / Link / Image
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
@@ -221,7 +221,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
           "noClickableHtmlElmentFound");
       tmpControl.click(aWetContext);
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -241,8 +241,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -253,7 +253,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
           "no2ClickableHtmlElmentFound");
       tmpControl.clickDouble(aWetContext);
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -273,8 +273,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -284,7 +284,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath, "7");
       tmpControl.clickRight(aWetContext);
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -304,8 +304,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
@@ -313,7 +313,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
           tmpWPath, "noSelectableHtmlElmentFound");
       tmpControl.select(aWetContext);
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -333,8 +333,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
@@ -342,7 +342,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
       tmpControl.deselect(aWetContext);
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -362,8 +362,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -378,7 +378,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
       tmpControl.mouseOver(aWetContext);
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -398,9 +398,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final SecretString tmpWindowNameParam = aWetCommand.getFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      tmpBackend.closeWindow(tmpWindowNameParam);
-      tmpBackend.saveCurrentWindowToLog();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      tmpBrowser.closeWindow(tmpWindowNameParam);
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -430,9 +430,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
       }
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      tmpBackend.goBackInCurrentWindow(tmpSteps);
-      tmpBackend.saveCurrentWindowToLog();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      tmpBrowser.goBackInCurrentWindow(tmpSteps);
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -456,10 +456,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final boolean tmpContentChanged = tmpBackend.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
-        tmpBackend.saveCurrentWindowToLog();
+        tmpBrowser.saveCurrentWindowToLog();
       }
     }
   }
@@ -484,10 +484,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
-        tmpBackend.saveCurrentWindowToLog();
+        tmpBrowser.saveCurrentWindowToLog();
       }
     }
   }
@@ -507,8 +507,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -548,8 +548,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpValueParam = new SecretString("", "");
       }
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -576,8 +576,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
@@ -605,8 +605,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);

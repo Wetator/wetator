@@ -83,12 +83,12 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
     try {
       tmpHtmlFileInput.click();
     } catch (final IOException e) {
-      aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
@@ -117,17 +117,17 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
       }
 
       // wait for silence
-      aWetContext.getWetBackend().waitForImmediateJobs();
+      aWetContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getWetBackend().addFailure(e);
+      aWetContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 

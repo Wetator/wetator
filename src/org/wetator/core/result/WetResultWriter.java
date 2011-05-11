@@ -26,7 +26,7 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.Version;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.WetCommandSet;
 import org.wetator.core.Parameter;
@@ -148,8 +148,8 @@ public class WetResultWriter implements WetProgressListener {
       printlnStartTag(TAG_CONFIGURATION);
 
       printConfigurationProperty(WetConfiguration.PROPERTY_BASE_URL, tmpWetConfiguration.getBaseUrl());
-      for (Browser tmpBrowser : tmpWetConfiguration.getBrowsers()) {
-        printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER, tmpBrowser.getLabel());
+      for (BrowserType tmpBrowserType : tmpWetConfiguration.getBrowserTypes()) {
+        printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER_TYPE, tmpBrowserType.getLabel());
       }
       printConfigurationProperty(WetConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpWetConfiguration.getAcceptLanaguage());
       printConfigurationProperty(WetConfiguration.PROPERTY_OUTPUT_DIR, tmpWetConfiguration.getOutputDir()

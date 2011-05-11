@@ -27,9 +27,9 @@ src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
 src/org/wetator/ant/AntOutProgressListener.java -text
 src/org/wetator/ant/Wetator.java -text
 src/org/wetator/backend/ControlFinder.java -text
+src/org/wetator/backend/IBrowser.java -text
 src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
 src/org/wetator/backend/WeightedControlList.java -text
-src/org/wetator/backend/WetBackend.java -text
 src/org/wetator/backend/control/Clickable.java -text svneol=unset#text/plain
 src/org/wetator/backend/control/Control.java -text
 src/org/wetator/backend/control/Deselectable.java -text svneol=unset#text/plain

@@ -34,8 +34,8 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.backend.WetBackend;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.commandset.WetCommandSet;
@@ -100,10 +100,10 @@ public final class WetConfiguration {
 
   // browser
   /**
-   * The property name to set the supported {@link Browser}s (by their {@link Browser#getSymbol()}).
+   * The property name to set the supported {@link BrowserType}s (by their {@link BrowserType#getSymbol()}).
    */
-  public static final String PROPERTY_BROWSER = PROPERTY_PREFIX + "browser";
-  private static final Browser DEFAULT_BROWSER = Browser.FIREFOX_3_6;
+  public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
+  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_3_6;
   /**
    * The property name to set the 'Accept-Language' header of the browser.
    */
@@ -152,7 +152,7 @@ public final class WetConfiguration {
   private File outputDir;
   private List<String> xslTemplates;
 
-  private List<Browser> browsers;
+  private List<BrowserType> browserTypes;
   private String acceptLanaguage;
   private SecretString basicAuthUser;
   private SecretString basicAuthPassword;
@@ -430,25 +430,25 @@ public final class WetConfiguration {
     baseUrl = tmpValue;
 
     // browserVersion
-    tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER, "");
-    tmpProperties.remove(PROPERTY_BROWSER);
+    tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER_TYPE, "");
+    tmpProperties.remove(PROPERTY_BROWSER_TYPE);
 
-    browsers = new ArrayList<WetBackend.Browser>();
+    browserTypes = new ArrayList<IBrowser.BrowserType>();
 
     List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
-        final WetBackend.Browser tmpBrowser = Browser.getForSymbol(tmpString);
-        if (null == tmpBrowser) {
+        final IBrowser.BrowserType tmpBrowserType = BrowserType.getForSymbol(tmpString);
+        if (null == tmpBrowserType) {
           LOG.warn("Unsupported browser '" + tmpString + "'.");
         } else {
-          browsers.add(tmpBrowser);
+          browserTypes.add(tmpBrowserType);
         }
       }
     }
     // if nothing configured fall back to default
-    if (browsers.isEmpty()) {
-      browsers.add(DEFAULT_BROWSER);
+    if (browserTypes.isEmpty()) {
+      browserTypes.add(DEFAULT_BROWSER_TYPE);
     }
 
     // accept language
@@ -589,10 +589,10 @@ public final class WetConfiguration {
   }
 
   /**
-   * @return a list containing the configured {@link Browser}s
+   * @return a list containing the configured {@link BrowserType}s
    */
-  public List<WetBackend.Browser> getBrowsers() {
-    return browsers;
+  public List<IBrowser.BrowserType> getBrowserTypes() {
+    return browserTypes;
   }
 
   /**

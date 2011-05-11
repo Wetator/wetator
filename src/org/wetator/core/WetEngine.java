@@ -23,8 +23,8 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.backend.WetBackend;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.commandset.WetCommandImplementation;
 import org.wetator.commandset.WetCommandSet;
@@ -51,7 +51,7 @@ public final class WetEngine {
   private List<File> files;
 
   private WetConfiguration configuration;
-  private WetBackend backend;
+  private IBrowser browser;
   private List<WetCommandSet> commandSets;
   private List<IScripter> scripter;
   private List<WetProgressListener> progressListener;
@@ -99,7 +99,7 @@ public final class WetEngine {
 
     // setup the browser
     final HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
-    setWetBackend(tmpBrowser);
+    setBrowser(tmpBrowser);
   }
 
   /**
@@ -139,14 +139,14 @@ public final class WetEngine {
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
         informListenersTestCaseStart(tmpFile.getName());
         try {
-          for (Browser tmpBrowser : configuration.getBrowsers()) {
-            informListenersTestRunStart(tmpBrowser.getLabel());
+          for (BrowserType tmpBrowserType : configuration.getBrowserTypes()) {
+            informListenersTestRunStart(tmpBrowserType.getLabel());
             try {
               // new session for every (root) file and browser
-              getWetBackend().startNewSession(tmpBrowser);
+              getBrowser().startNewSession(tmpBrowserType);
 
               // setup the context
-              final WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
+              final WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowserType);
               tmpWetContext.execute();
             } finally {
               informListenersTestRunEnd();
@@ -239,17 +239,17 @@ public final class WetEngine {
   }
 
   /**
-   * @return the backend
+   * @return the {@link IBrowser}
    */
-  public WetBackend getWetBackend() {
-    return backend;
+  public IBrowser getBrowser() {
+    return browser;
   }
 
   /**
-   * @param aWetBackend the backend to set
+   * @param aBrowser the browser to set
    */
-  public void setWetBackend(final WetBackend aWetBackend) {
-    backend = aWetBackend;
+  public void setBrowser(final IBrowser aBrowser) {
+    browser = aBrowser;
   }
 
   /**

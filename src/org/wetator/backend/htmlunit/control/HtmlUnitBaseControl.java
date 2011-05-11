@@ -98,26 +98,26 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     try {
       tmpHtmlElement.focus();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
       tmpHtmlElement.click();
-      aWetContext.getWetBackend().waitForImmediateJobs();
+      aWetContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getWetBackend().addFailure(e);
+      aWetContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -133,26 +133,26 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     try {
       tmpHtmlElement.focus();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
       tmpHtmlElement.dblClick();
-      aWetContext.getWetBackend().waitForImmediateJobs();
+      aWetContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getWetBackend().addFailure(e);
+      aWetContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -168,26 +168,26 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     try {
       tmpHtmlElement.focus();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
       tmpHtmlElement.rightClick();
-      aWetContext.getWetBackend().waitForImmediateJobs();
+      aWetContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getWetBackend().addFailure(e);
+      aWetContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -204,10 +204,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
       // simulate mouse move on the document (outside the element)
       ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
@@ -216,15 +216,15 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
       tmpHtmlElement.mouseOver();
       // simulate mouse move on the element
       tmpHtmlElement.mouseMove();
-      aWetContext.getWetBackend().waitForImmediateJobs();
+      aWetContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final Throwable e) {
-      aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 

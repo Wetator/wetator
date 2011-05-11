@@ -36,7 +36,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.ControlFinder;
-import org.wetator.backend.WetBackend;
+import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
@@ -92,7 +92,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  * @author rbri
  * @author frank.danek
  */
-public final class HtmlUnitBrowser implements WetBackend {
+public final class HtmlUnitBrowser implements IBrowser {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
 
   /** The maximum history size. */
@@ -164,16 +164,16 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#startNewSession(org.wetator.backend.WetBackend.Browser)
+   * @see org.wetator.backend.IBrowser#startNewSession(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
-  public void startNewSession(final WetBackend.Browser aBrowser) {
+  public void startNewSession(final IBrowser.BrowserType aBrowserType) {
     final WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
 
     // reset the bookmarks
     bookmarks = new HashMap<String, URL>();
 
-    final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowser);
+    final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
 
     // TODO maybe we have to do more here
     if (null != webClient) {
@@ -247,7 +247,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#openUrl(java.net.URL)
+   * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
   public void openUrl(final URL aUrl) throws AssertionFailedException {
@@ -544,20 +544,20 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   @SuppressWarnings("deprecation")
-  private BrowserVersion determineBrowserVersionFor(final WetBackend.Browser aWetBrowser) {
-    if (WetBackend.Browser.FIREFOX_3 == aWetBrowser) {
+  private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
+    if (IBrowser.BrowserType.FIREFOX_3 == aBrowserType) {
       return BrowserVersion.FIREFOX_3;
     }
-    if (WetBackend.Browser.FIREFOX_3_6 == aWetBrowser) {
+    if (IBrowser.BrowserType.FIREFOX_3_6 == aBrowserType) {
       return BrowserVersion.FIREFOX_3_6;
     }
-    if (WetBackend.Browser.INTERNET_EXPLORER_6 == aWetBrowser) {
+    if (IBrowser.BrowserType.INTERNET_EXPLORER_6 == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER_6;
     }
-    if (WetBackend.Browser.INTERNET_EXPLORER_7 == aWetBrowser) {
+    if (IBrowser.BrowserType.INTERNET_EXPLORER_7 == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER_7;
     }
-    if (WetBackend.Browser.INTERNET_EXPLORER_8 == aWetBrowser) {
+    if (IBrowser.BrowserType.INTERNET_EXPLORER_8 == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER_8;
     }
     return BrowserVersion.INTERNET_EXPLORER_6;
@@ -775,7 +775,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
+   * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
   public void addFailure(final String aMessageKey, final Object[] aParameterArray, final Throwable aCause) {
@@ -787,7 +787,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
+   * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
   public void addFailure(final AssertionFailedException aFailure) {
@@ -797,7 +797,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#checkAndResetFailures()
+   * @see org.wetator.backend.IBrowser#checkAndResetFailures()
    */
   @Override
   public AssertionFailedException checkAndResetFailures() {
@@ -820,7 +820,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#getBookmark(java.lang.String)
+   * @see org.wetator.backend.IBrowser#getBookmark(java.lang.String)
    */
   @Override
   public URL getBookmark(final String aBookmarkName) {
@@ -830,7 +830,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.WetBackend#saveBookmark(java.lang.String, java.net.URL)
+   * @see org.wetator.backend.IBrowser#saveBookmark(java.lang.String, java.net.URL)
    */
   @Override
   public void saveBookmark(final String aBookmarkName, final URL aBookmarkUrl) {
@@ -841,7 +841,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * {@inheritDoc}
    * 
    * @throws AssertionFailedException
-   * @see org.wetator.backend.WetBackend#bookmarkPage(String)
+   * @see org.wetator.backend.IBrowser#bookmarkPage(String)
    */
   @Override
   public void bookmarkPage(final String aBookmarkName) throws AssertionFailedException {

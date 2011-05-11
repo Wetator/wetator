@@ -21,7 +21,7 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -35,7 +35,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void ajaxJquery() {
     executeTestFile("ajax_jquery.wet");
 
@@ -45,7 +45,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void ajaxPrototype() {
     executeTestFile("ajax_prototype.wet");
 
@@ -55,7 +55,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void jsAnchorInsidePage() {
     executeTestFile("js_anchor_inside_page.wet");
 
@@ -65,7 +65,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void flowSimpleLogin() {
     executeTestFile("flow_simple_login.wet");
 
@@ -75,7 +75,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void flowSimpleSearch() {
     executeTestFile("flow_simple_search.wet");
 
@@ -85,7 +85,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void htmlunitJavascript() {
     executeTestFile("htmlunit_javascript.wet");
 
@@ -95,7 +95,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void iframe() {
     executeTestFile("iframe.wet");
 
@@ -105,7 +105,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void jquery() {
     executeTestFile("jquery.wet");
 
@@ -115,7 +115,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void jsError() {
     executeTestFile("js_error.wet");
 
@@ -125,7 +125,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void jsLibs() {
     executeTestFile("js_libs.wet");
 
@@ -135,7 +135,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void normalizeCommand() {
     executeTestFile("normalize_command.wet");
 
@@ -145,7 +145,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void onfocusOnblur() {
     executeTestFile("onfocus_onblur.wet");
 
@@ -155,7 +155,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void onkey() {
     executeTestFile("onkey.wet");
 
@@ -165,7 +165,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void wait1() {
     executeTestFile("wait.wet");
 
@@ -175,7 +175,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void responseStore() {
     executeTestFile("response_store.wet");
 

@@ -19,7 +19,7 @@ package org.wetator.test.junit;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.test.junit.BrowserRunner.BrowserTest;
 import org.wetator.test.junit.BrowserRunner.Browsers;
 
@@ -31,43 +31,43 @@ public class BrowserRunnerTest implements BrowserTest {
 
   private static boolean firstFound;
 
-  private Browser browser;
+  private BrowserType browserType;
 
   @Test
   public void test() {
-    Assert.assertNull(browser);
+    Assert.assertNull(browserType);
   }
 
   @Test
   @Browsers
   public void testDefault() {
-    Assert.assertEquals(Browser.FIREFOX_3_6, browser);
+    Assert.assertEquals(BrowserType.FIREFOX_3_6, browserType);
   }
 
   @Test
-  @Browsers(Browser.INTERNET_EXPLORER_8)
+  @Browsers(BrowserType.INTERNET_EXPLORER_8)
   public void testSingle() {
-    Assert.assertEquals(Browser.INTERNET_EXPLORER_8, browser);
+    Assert.assertEquals(BrowserType.INTERNET_EXPLORER_8, browserType);
   }
 
   @Test
-  @Browsers( { Browser.FIREFOX_3, Browser.INTERNET_EXPLORER_8 })
+  @Browsers( { BrowserType.FIREFOX_3, BrowserType.INTERNET_EXPLORER_8 })
   public void testMultiple() {
     if (!firstFound) {
-      Assert.assertEquals(Browser.FIREFOX_3, browser);
+      Assert.assertEquals(BrowserType.FIREFOX_3, browserType);
       firstFound = true;
     } else {
-      Assert.assertEquals(Browser.INTERNET_EXPLORER_8, browser);
+      Assert.assertEquals(BrowserType.INTERNET_EXPLORER_8, browserType);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.test.junit.BrowserRunner.BrowserTest#setBrowser(org.wetator.backend.WetBackend.Browser)
+   * @see org.wetator.test.junit.BrowserRunner.BrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
-  public void setBrowser(Browser aBrowser) {
-    browser = aBrowser;
+  public void setBrowser(BrowserType aBrowserType) {
+    browserType = aBrowserType;
   }
 }

@@ -22,8 +22,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.backend.WetBackend;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.commandset.WetCommandImplementation;
 import org.wetator.core.variable.Variable;
 import org.wetator.exception.AssertionFailedException;
@@ -44,7 +44,7 @@ public class WetContext {
 
   private WetEngine engine;
   private File file;
-  private Browser browser;
+  private BrowserType browserType;
   private List<Variable> variables; // store them in defined order
 
   private WetContext parentWetContext;
@@ -54,13 +54,13 @@ public class WetContext {
    * 
    * @param aWetEngine the engine that processes this file
    * @param aFile the file this context is for
-   * @param aBrowser the emulated browser
+   * @param aBrowserType the emulated browser type
    */
-  public WetContext(final WetEngine aWetEngine, final File aFile, final Browser aBrowser) {
+  public WetContext(final WetEngine aWetEngine, final File aFile, final BrowserType aBrowserType) {
     super();
     engine = aWetEngine;
     file = aFile;
-    browser = aBrowser;
+    browserType = aBrowserType;
     variables = new LinkedList<Variable>();
   }
 
@@ -71,7 +71,7 @@ public class WetContext {
    * @param aFile the file this context is for
    */
   protected WetContext(final WetContext aWetContext, final File aFile) {
-    this(aWetContext.engine, aFile, aWetContext.browser);
+    this(aWetContext.engine, aFile, aWetContext.browserType);
 
     parentWetContext = aWetContext;
   }
@@ -94,10 +94,10 @@ public class WetContext {
   }
 
   /**
-   * @return the wetBackend
+   * @return the {@link IBrowser}
    */
-  public WetBackend getWetBackend() {
-    return engine.getWetBackend();
+  public IBrowser getBrowser() {
+    return engine.getBrowser();
   }
 
   /**
@@ -179,15 +179,15 @@ public class WetContext {
           "" + aWetCommand.getLineNo() });
     }
 
-    final WetBackend tmpBackend = getWetBackend();
+    final IBrowser tmpBrowser = getBrowser();
     LOG.debug("Executing '" + aWetCommand.toPrintableString(this) + "'");
     try {
       tmpImpl.execute(this, aWetCommand);
     } catch (final AssertionFailedException e) {
-      tmpBackend.checkAndResetFailures();
+      tmpBrowser.checkAndResetFailures();
       throw e;
     }
-    final AssertionFailedException tmpFailed = tmpBackend.checkAndResetFailures();
+    final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
     if (null != tmpFailed) {
       throw tmpFailed;
     }

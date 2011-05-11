@@ -20,9 +20,9 @@ import java.net.URL;
 import java.util.Properties;
 
 import org.wetator.backend.ControlFinder;
+import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.WetBackend;
 import org.wetator.backend.control.Control;
 import org.wetator.core.WetCommand;
 import org.wetator.core.WetContext;
@@ -63,8 +63,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -101,14 +101,14 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final URL tmpUrl = tmpBackend.getBookmark(tmpBookmarkName.getValue());
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
       Assert.assertNotNull(tmpUrl, "unknownBookmark", new String[] { tmpBookmarkName.getValue() });
 
       aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
-      tmpBackend.openUrl(tmpUrl);
+      tmpBrowser.openUrl(tmpUrl);
 
-      tmpBackend.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -127,8 +127,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      tmpBackend.bookmarkPage(tmpBookmarkName.getValue());
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      tmpBrowser.bookmarkPage(tmpBookmarkName.getValue());
     }
   }
 

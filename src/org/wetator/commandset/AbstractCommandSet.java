@@ -24,9 +24,9 @@ import java.util.Map;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.WetBackend;
 import org.wetator.backend.control.Control;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
@@ -109,11 +109,11 @@ public abstract class AbstractCommandSet implements WetCommandSet {
 
   /**
    * @param aWetContext the wet context
-   * @return the WetBackend
+   * @return the {@link IBrowser}
    */
-  protected WetBackend getWetBackend(final WetContext aWetContext) {
-    final WetBackend tmpWetBackend = aWetContext.getWetBackend();
-    return tmpWetBackend;
+  protected IBrowser getBrowser(final WetContext aWetContext) {
+    final IBrowser tmpBrowser = aWetContext.getBrowser();
+    return tmpBrowser;
   }
 
   /**

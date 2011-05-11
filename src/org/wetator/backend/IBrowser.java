@@ -31,7 +31,7 @@ import org.wetator.util.SecretString;
  * 
  * @author rbri
  */
-public interface WetBackend {
+public interface IBrowser {
 
   /**
    * Enum for the supported content type.
@@ -52,9 +52,9 @@ public interface WetBackend {
   };
 
   /**
-   * Enum for the supported browsers.
+   * Enum for the supported browser types.
    */
-  public enum Browser {
+  public enum BrowserType {
     /** firefox 3. */
     FIREFOX_3("Firefox3", "Firefox_3"),
     /** firefox 3.6. */
@@ -72,10 +72,10 @@ public interface WetBackend {
     /**
      * The constructor.
      * 
-     * @param aLabel the label of the browser
-     * @param aSymbol the symbol for the browser (e.g. used by the {@link org.wetator.core.WetConfiguration})
+     * @param aLabel the label of the browser type
+     * @param aSymbol the symbol for the browser type (e.g. used by the {@link org.wetator.core.WetConfiguration})
      */
-    Browser(final String aLabel, final String aSymbol) {
+    BrowserType(final String aLabel, final String aSymbol) {
       label = aLabel;
       symbol = aSymbol;
     }
@@ -95,19 +95,19 @@ public interface WetBackend {
     }
 
     /**
-     * @param aSymbol the symbol to get the browser for
-     * @return the found browser or null if found none
+     * @param aSymbol the symbol to get the browser type for
+     * @return the found browser type or null if found none
      */
-    public static Browser getForSymbol(final String aSymbol) {
+    public static BrowserType getForSymbol(final String aSymbol) {
       if (null == aSymbol) {
         return null;
       }
 
       final String tmpSymbol = aSymbol.trim();
-      Browser tmpFound = null;
-      for (Browser tmpBrowser : values()) {
-        if (tmpBrowser.getSymbol().equalsIgnoreCase(tmpSymbol)) {
-          tmpFound = tmpBrowser;
+      BrowserType tmpFound = null;
+      for (BrowserType tmpBrowserType : values()) {
+        if (tmpBrowserType.getSymbol().equalsIgnoreCase(tmpSymbol)) {
+          tmpFound = tmpBrowserType;
           break;
         }
       }
@@ -194,9 +194,9 @@ public interface WetBackend {
    * Starts a new browser session.<br/>
    * If there are any open sessions (and open windows) currently they are closed.
    * 
-   * @param aBrowser the browser to start a session for
+   * @param aBrowserType the browser type to start a session for
    */
-  public void startNewSession(WetBackend.Browser aBrowser);
+  public void startNewSession(IBrowser.BrowserType aBrowserType);
 
   /**
    * Returns the url for the bookmark with the given name.
