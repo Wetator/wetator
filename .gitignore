@@ -41,16 +41,7 @@ Wetator/lib_src/org.apache.pdfbox
 Wetator/lib_src/org.apache.poi
 Wetator/lib_src/pdfbox-1.1.0-src.zip
 Wetator/lib_src/poi-src-3.6-20091214.zip
-Wetator/logs/Copy[!!-~](2)[!!-~]of[!!-~]wetresult.xml
-Wetator/logs/Copy[!!-~]of[!!-~]wetresult.xml
-Wetator/logs/SimpleHtml.xsl.html
-Wetator/logs/SimpleHtml.xsl.xls.html
-Wetator/logs/SimpleHtml.xsl.xml.html
-Wetator/logs/full_wetresult.xml
-Wetator/logs/images
-Wetator/logs/responses_current
-Wetator/logs/run_report.xsl.html
-Wetator/logs/wetresult.xml
+Wetator/logs/*
 /build
 /deploy
 /wetator.config
