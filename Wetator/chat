@@ -88,3 +88,6 @@ frank.danek 2011-05-07 00:15: Nabend! Soweit ich das sehe ist der neue XMLScript
 	- ach ja: neue XSDs für neue XML/WET-Tests
 
 	Aus meiner Sicht ist das neue also fertig und abwärtskompatibel und wir müssten das in den Trunk mergen können.
+
+frank.danek 2011-05-11 22:45: Es ist angerichtet! Der neue XMLScripter ist im Trunk, alle Test laufen -> sieht gut aus!
+	Next Stop: kill the wet-prefix
