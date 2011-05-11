@@ -285,5 +285,5 @@
     <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextSpanIdId</step>
     <step command='' comment='true'>test for unused parameter</step>
     <step command='Open_Url'>click_on.html</step>
-    <tst:step command='Assert_Fail'>Click On, The command 'Click On' does not use the value 'unused' provided in column 2.<tst:optionalParameter>innerSpanId</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Click On, The command 'click-on' does not use the value 'unused' provided in column 2.<tst:optionalParameter>innerSpanId</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
 </testcase>

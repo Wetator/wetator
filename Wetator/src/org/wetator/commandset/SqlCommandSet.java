@@ -44,6 +44,7 @@ import org.wetator.util.StringUtil;
  * The implementation of all sql commands.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class SqlCommandSet extends AbstractCommandSet {
   /**
@@ -74,9 +75,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
-    registerCommand("Exec SQL", new CommandExecSql());
-    registerCommand("Assert SQL", new CommandAssertSql());
-    registerCommand("Assert SQL in Content", new CommandAssertSqlInContent());
+    registerCommand("exec-sql", new CommandExecSql());
+    registerCommand("assert-sql", new CommandAssertSql());
+    registerCommand("assert-sql-in-content", new CommandAssertSqlInContent());
   }
 
   /**

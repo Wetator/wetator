@@ -106,7 +106,7 @@
     <step command='Assert_Content'>GET Parameters Key Value SingleSelectLayoutLeftFormatedTest OK singleSelect_LayoutLeftFormated o_value2 POST</step>
     <step command='' comment='true'>test for unused parameter</step>
     <step command='Open_Url'>select.html</step>
-    <tst:step command='Assert_Fail'>Select, The command 'Select' does not use the value 'unused' provided in column 2.<tst:optionalParameter>singleSelect_Name, option2</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Select, The command 'select' does not use the value 'unused' provided in column 2.<tst:optionalParameter>singleSelect_Name, option2</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>select.html</step>

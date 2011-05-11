@@ -27,7 +27,7 @@
     <step command='Open_Url'>assert_title.html</step>
     <step command='Assert_Title'>Wetator / Assert Title</step>
     <step command='' comment='true'>test for unused parameter</step>
-    <tst:step command='Assert_Fail'>Open Url, The command 'Open Url' does not use the value 'unused' provided in column 2.<tst:optionalParameter>assert_title.html</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Open Url, The command 'open-url' does not use the value 'unused' provided in column 2.<tst:optionalParameter>assert_title.html</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
     <step command='' comment='true'>test for parameter support</step>
     <step command='Open_Url'>assert_title.html?secret=${wet}</step>
     <step command='' comment='true'>test for secret parts of the url</step>

@@ -137,5 +137,5 @@
     <step command='' comment='true'>Option (in OptGroup)  with id</step>
     <step command='Assert_Disabled'>option_red</step>
     <step command='' comment='true'>test for unused parameter</step>
-    <tst:step command='Assert_Fail'>Assert Disabled, The command 'Assert Disabled' does not use the value 'unused' provided in column 2.<tst:optionalParameter>inputText_Name</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided in column 2.<tst:optionalParameter>inputText_Name</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
 </testcase>
