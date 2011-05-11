@@ -21,7 +21,7 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -35,7 +35,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6 })
+  @Browsers({ BrowserType.FIREFOX_3_6 })
   public void eventClickOnFF36() {
     executeTestFile("ff36/event_clickOn.wet");
 
@@ -45,7 +45,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
   public void eventClickOnIE6() {
     executeTestFile("ie6/event_clickOn.wet");
 
@@ -55,7 +55,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
   public void eventClickOnIE8() {
     executeTestFile("ie8/event_clickOn.wet");
 
@@ -65,7 +65,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6 })
+  @Browsers({ BrowserType.FIREFOX_3_6 })
   public void eventDeselectFF36() {
     executeTestFile("ff36/event_deselect.wet");
 
@@ -75,7 +75,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
   public void eventDeselectIE6() {
     executeTestFile("ie6/event_deselect.wet");
 
@@ -85,7 +85,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
   public void eventDeselectIE8() {
     executeTestFile("ie8/event_deselect.wet");
 
@@ -95,7 +95,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void eventHandlerOLD() {
     executeTestFile("event_handler.wet");
 
@@ -105,7 +105,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
   public void eventHandlerOLDIE6() {
     executeTestFile("ie6/event_handler.wet");
 
@@ -115,7 +115,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6 })
+  @Browsers({ BrowserType.FIREFOX_3_6 })
   public void eventHandlerOLDFF36() {
     executeTestFile("ff36/event_handler.wet");
 
@@ -125,7 +125,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6 })
+  @Browsers({ BrowserType.FIREFOX_3_6 })
   public void eventMouseOverFF36() {
     executeTestFile("ff36/event_mouseOver.wet");
 
@@ -135,7 +135,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
   public void eventMouseOverIE6() {
     executeTestFile("ie6/event_mouseOver.wet");
 
@@ -145,7 +145,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
   public void eventMouseOverIE8() {
     executeTestFile("ie8/event_mouseOver.wet");
 
@@ -155,7 +155,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6 })
+  @Browsers({ BrowserType.FIREFOX_3_6 })
   public void eventSelectFF36() {
     executeTestFile("ff36/event_select.wet");
 
@@ -165,7 +165,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
   public void eventSelectIE6() {
     executeTestFile("ie6/event_select.wet");
 
@@ -175,7 +175,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
   public void eventSelectIE8() {
     executeTestFile("ie8/event_select.wet");
 

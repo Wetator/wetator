@@ -21,7 +21,7 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -35,7 +35,7 @@ public class XlsSqlCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/excel/";
 
   @Test
-  @Browsers( { Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers( { BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void sql() {
     executeTestFile("sql.xls");
 

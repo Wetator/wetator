@@ -31,7 +31,7 @@ import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.backend.WetBackend;
+import org.wetator.backend.IBrowser;
 import org.wetator.core.WetCommand;
 import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
@@ -227,10 +227,10 @@ public final class SqlCommandSet extends AbstractCommandSet {
         Assert.fail("sqlFailes", new String[] { tmpSqlParam.toString(), e.getMessage() });
       }
 
-      final WetBackend tmpBackend = getWetBackend(aWetContext);
-      final boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
-        tmpBackend.saveCurrentWindowToLog();
+        tmpBrowser.saveCurrentWindowToLog();
       }
     }
   }

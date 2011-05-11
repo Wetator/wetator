@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import org.wetator.backend.WetBackend.ContentType;
+import org.wetator.backend.IBrowser.ContentType;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.TextPage;

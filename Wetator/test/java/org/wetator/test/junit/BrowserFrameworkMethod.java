@@ -19,32 +19,32 @@ package org.wetator.test.junit;
 import java.lang.reflect.Method;
 
 import org.junit.runners.model.FrameworkMethod;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 
 /**
- * A special subclass of a {@link FrameworkMethod} to transport a {@link Browser}.
+ * A special subclass of a {@link FrameworkMethod} to transport a {@link BrowserType}.
  * 
  * @author frank.danek
  */
 public class BrowserFrameworkMethod extends FrameworkMethod {
 
-  private Browser browser;
+  private BrowserType browserType;
 
   /**
    * @param aMethod the method to wrap
-   * @param aBrowser the browser to run the method for
+   * @param aBrowserType the browser to run the method for
    */
-  public BrowserFrameworkMethod(Method aMethod, Browser aBrowser) {
+  public BrowserFrameworkMethod(Method aMethod, BrowserType aBrowserType) {
     super(aMethod);
 
-    browser = aBrowser;
+    browserType = aBrowserType;
   }
 
   /**
    * @return the browser
    */
-  public Browser getBrowser() {
-    return browser;
+  public BrowserType getBrowser() {
+    return browserType;
   }
 
 }

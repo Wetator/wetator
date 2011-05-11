@@ -27,11 +27,11 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 
 /**
  * This custom runner implements browser parameterized tests. When running a test class, each method is run for all
- * {@link Browser}s annotated by {@link Browsers}.<br/>
+ * {@link BrowserType}s annotated by {@link Browsers}.<br/>
  * Only work correctly if the test class implements {@link BrowserTest}.<br/>
  * For example, write:
  * 
@@ -82,8 +82,8 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
       Browsers tmpBrowsers = tmpMethod.getAnnotation(Browsers.class);
       if (tmpBrowsers != null) {
         // we found a Browsers annotation -> we add one instance of the test method for each browser to the result
-        for (Browser tmpBrowser : tmpBrowsers.value()) {
-          tmpBrowserMethods.add(new BrowserFrameworkMethod(tmpMethod.getMethod(), tmpBrowser));
+        for (BrowserType tmpBrowserType : tmpBrowsers.value()) {
+          tmpBrowserMethods.add(new BrowserFrameworkMethod(tmpMethod.getMethod(), tmpBrowserType));
         }
       } else {
         // we found no Browser annotation -> just add the test method to the result
@@ -136,7 +136,7 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
     /**
      * The browsers the test should be run with.
      */
-    Browser[] value() default { };
+    BrowserType[] value() default { };
   }
 
   /**
@@ -147,9 +147,9 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
   public static interface BrowserTest {
 
     /**
-     * @param aBrowser the browser to set
+     * @param aBrowserType the browser to set
      */
-    public void setBrowser(Browser aBrowser);
+    public void setBrowser(BrowserType aBrowserType);
 
   }
 }

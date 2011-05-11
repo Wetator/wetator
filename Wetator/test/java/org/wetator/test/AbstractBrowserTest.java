@@ -16,7 +16,7 @@
 
 package org.wetator.test;
 
-import org.wetator.backend.WetBackend.Browser;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.test.junit.BrowserRunner.BrowserTest;
 
 /**
@@ -26,22 +26,22 @@ import org.wetator.test.junit.BrowserRunner.BrowserTest;
  */
 public abstract class AbstractBrowserTest implements BrowserTest {
 
-  private Browser browser;
+  private BrowserType browserType;
 
   /**
    * @return the browser
    */
-  public Browser getBrowser() {
-    return browser;
+  public BrowserType getBrowser() {
+    return browserType;
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.test.junit.BrowserRunner.BrowserTest#setBrowser(org.wetator.backend.WetBackend.Browser)
+   * @see org.wetator.test.junit.BrowserRunner.BrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
-  public void setBrowser(Browser aBrowser) {
-    browser = aBrowser;
+  public void setBrowser(BrowserType aBrowserType) {
+    browserType = aBrowserType;
   }
 }

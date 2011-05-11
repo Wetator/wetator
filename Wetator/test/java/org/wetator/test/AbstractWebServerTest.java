@@ -128,7 +128,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/testcases");
     if (getBrowser() != null) {
-      tmpProperties.setProperty(WetConfiguration.PROPERTY_BROWSER, getBrowser().getSymbol());
+      tmpProperties.setProperty(WetConfiguration.PROPERTY_BROWSER_TYPE, getBrowser().getSymbol());
     }
     tmpProperties.setProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl,./xsl/run_report.xsl");
     tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS, "org.wetator.commandset.IncubatorCommandSet, "
