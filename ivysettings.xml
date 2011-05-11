@@ -8,6 +8,13 @@
                  usepoms="true"
                  root="http://build.canoo.com/NekoHTML/artifacts/m2-repo"
                  checkmodified="true"/>
+        <ibiblio name="JavaNet"
+                 m2compatible="true"
+                 usepoms="true"
+                 root="http://download.java.net/maven/2"
+                 checkmodified="true"
+                 changingPattern="^.+-SNAPSHOT$"
+                 checksums=""/>
         <ibiblio name="wetator-sh"
                  m2compatible="true"
                  usepoms="true"
@@ -22,6 +29,7 @@
             <resolver ref="wetator-sh" />
             <resolver ref="wetator" />
             <resolver ref="ibiblio" />
+            <resolver ref="JavaNet" />
             <resolver ref="NekoHTMLSnapshots" />
         </chain>
     </resolvers>
