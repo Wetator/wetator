@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -149,7 +149,7 @@ public final class LegacyXmlScripter implements IScripter {
   }
 
   private List<WetCommand> readCommands() throws WetException {
-    final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
+    final List<WetCommand> tmpResult = new ArrayList<WetCommand>();
 
     try {
       inputStream = new FileInputStream(file);
