@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.scripter;
+package org.wetator.scripter.xml;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -22,15 +22,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * @author rbri
  * @author tobwoerk
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.wetator.scripter.xml.AllTests.class, //
-    ExcelScripterTest.class, //
-    LegacyXmlScripterTest.class, //
-    XmlScripterTest.class })
+@SuiteClasses({ LocalEntityResolverTest.class, //
+    ModelBuilderTest.class })
 public final class AllTests {
 
   /**

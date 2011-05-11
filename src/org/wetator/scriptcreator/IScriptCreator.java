@@ -26,7 +26,7 @@ import org.wetator.exception.WetException;
  * 
  * @author tobwoerk
  */
-public interface WetScriptCreator {
+public interface IScriptCreator {
 
   /**
    * Creates a script from the previously set command list with the given fileName.

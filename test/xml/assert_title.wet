@@ -15,7 +15,7 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_content.html</step>
     <step command='' comment='true'>test for warning about unused parameter</step>
-    <tst:step command='Assert_Fail'>Assert Title, The command 'Assert Title' expects an integer parameter value 'unused' in column 2.<tst:optionalParameter>Wetator / Assert Content</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Assert Title, The command 'assert-title' expects an integer parameter value 'unused' in column 2.<tst:optionalParameter>Wetator / Assert Content</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
     <step command='' comment='true'>test for parameter support</step>
     <step command='Assert_Title'>${wet} / Assert Content</step>
     <step command='' comment='true'>test for secret parts</step>

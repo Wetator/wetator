@@ -41,8 +41,10 @@ import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.commandset.WetCommandSet;
 import org.wetator.core.variable.Variable;
 import org.wetator.exception.WetException;
-import org.wetator.scripter.Scripter;
-import org.wetator.scripter.WetScripter;
+import org.wetator.scripter.ExcelScripter;
+import org.wetator.scripter.IScripter;
+import org.wetator.scripter.LegacyXmlScripter;
+import org.wetator.scripter.XmlScripter;
 import org.wetator.util.FileUtil;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
@@ -72,7 +74,7 @@ public final class WetConfiguration {
    */
   public static final String PROPERTY_CONTROLS = PROPERTY_PREFIX + "controls";
   /**
-   * The property name to set the supported {@link WetScripter}s.
+   * The property name to set the supported {@link IScripter}s.
    */
   public static final String PROPERTY_SCRIPTERS = PROPERTY_PREFIX + "scripters";
   /**
@@ -142,7 +144,7 @@ public final class WetConfiguration {
    */
   public static final String SECRET_PREFIX = "$";
 
-  private List<WetScripter> scripters;
+  private List<IScripter> scripters;
   private List<WetCommandSet> commandSets;
   private List<Class<? extends Control>> controls;
   private String baseUrl;
@@ -274,13 +276,16 @@ public final class WetConfiguration {
     }
 
     // scripters
-    scripters = new LinkedList<WetScripter>();
+    scripters = new LinkedList<IScripter>();
 
-    WetScripter tmpScripter;
-    tmpScripter = Scripter.XML.getWetScripter();
+    IScripter tmpScripter;
+    tmpScripter = new XmlScripter();
     scripters.add(tmpScripter);
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
-    tmpScripter = Scripter.XLS.getWetScripter();
+    tmpScripter = new LegacyXmlScripter();
+    scripters.add(tmpScripter);
+    LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
+    tmpScripter = new ExcelScripter();
     scripters.add(tmpScripter);
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
 
@@ -291,15 +296,15 @@ public final class WetConfiguration {
       tmpScripterClassName = tmpScripterClassName.trim();
       if (!StringUtils.isEmpty(tmpScripterClassName)) {
         try {
-          Class<? extends WetScripter> tmpClass;
+          Class<? extends IScripter> tmpClass;
           try {
             tmpClass = ClassUtils.getClass(tmpScripterClassName);
           } catch (final ClassNotFoundException e) {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
           }
-          final WetScripter tmpWetScripter = tmpClass.newInstance();
-          scripters.add(tmpWetScripter);
+          final IScripter tmpIScripter = tmpClass.newInstance();
+          scripters.add(tmpIScripter);
           LOG.info("Config  scripter '" + tmpScripterClassName + "' registered.");
         } catch (final ClassNotFoundException e) {
           LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
@@ -312,7 +317,7 @@ public final class WetConfiguration {
         }
       }
     }
-    for (WetScripter tmpWebScripter : scripters) {
+    for (IScripter tmpWebScripter : scripters) {
       tmpWebScripter.initialize(tmpProperties);
     }
 
@@ -563,9 +568,9 @@ public final class WetConfiguration {
   }
 
   /**
-   * @return a list containing the configured {@link WetScripter}s
+   * @return a list containing the configured {@link IScripter}s
    */
-  public List<WetScripter> getScripters() {
+  public List<IScripter> getScripters() {
     return scripters;
   }
 

@@ -39,7 +39,7 @@
     <step command='' comment='true'>error for required first parameter</step>
     <tst:step command='Assert_Fail'>Assert Content, The command 'Assert Content' requires a first parameter.</tst:step>
     <step command='' comment='true'>error for wrong second parameter</step>
-    <tst:step command='Assert_Fail'>Assert Content, The command 'Assert Content' expects an integer parameter value 'unused' in column 2.<tst:optionalParameter>Pferde,fressen,keinen,Gurkensalat</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Assert Content, The command 'assert-content' expects an integer parameter value 'unused' in column 2.<tst:optionalParameter>Pferde,fressen,keinen,Gurkensalat</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'>content type text</step>
     <step command='Open_Url'>assert_content.html</step>

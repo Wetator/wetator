@@ -27,7 +27,7 @@ import org.wetator.exception.WetException;
  * The interface for scripters.
  * Scripters are responsible for reading an input file
  * and parsing the commands.<br>
- * Sripters are reused for many files. The flow is:
+ * Scripters are reused for many files. The flow is:
  * <ol>
  * <li>isSupported()
  * <li>setFile()
@@ -36,7 +36,7 @@ import org.wetator.exception.WetException;
  * 
  * @author rbri
  */
-public interface WetScripter {
+public interface IScripter {
 
   /**
    * Sets the file this scripter works on.

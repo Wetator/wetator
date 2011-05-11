@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2011 Ronald Brill
+ * Copyright (c) 2008-2011 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.wetator.exception.WetException;
 public class ExcelScripterTest {
 
   @Test
-  public void test() throws WetException {
+  public void supported() throws WetException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
 
@@ -40,7 +40,7 @@ public class ExcelScripterTest {
     int tmpPos = 0;
     WetCommand tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Aktion", tmpCommand.getName());
+    Assert.assertEquals("aktion", tmpCommand.getName());
     Assert.assertEquals("Parameter", tmpCommand.getFirstParameter().getValue());
     Assert.assertEquals("opt. Parameter", tmpCommand.getSecondParameter().getValue());
 
@@ -51,7 +51,7 @@ public class ExcelScripterTest {
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("a simple string", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
@@ -62,35 +62,35 @@ public class ExcelScripterTest {
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("1", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("1234567", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("12,4", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("12,3000", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("12,99", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
@@ -101,7 +101,7 @@ public class ExcelScripterTest {
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     // POI Bug - the current locale is ignored
     Assert.assertEquals("01/04/99", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
@@ -109,14 +109,14 @@ public class ExcelScripterTest {
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("1-Apr-99", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("April 2011", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
@@ -127,7 +127,7 @@ public class ExcelScripterTest {
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("25,7", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
@@ -138,7 +138,7 @@ public class ExcelScripterTest {
     tmpPos++;
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("Assert Title", tmpCommand.getName());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
     Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )", tmpCommand.getFirstParameter()
         .getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());

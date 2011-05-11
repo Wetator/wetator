@@ -25,23 +25,24 @@ import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
 
 /**
+ * @author tobwoerk
  * @author frank.danek
  */
-public class XmlScripterTest {
+public class LegacyXmlScripterTest {
 
   /**
    * @throws WetException if something goes wrong
    */
   @Test
   public void supported() throws WetException {
-    XmlScripter tmpXmlScripter = new XmlScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+    LegacyXmlScripter tmpLegacyXmlScripter = new LegacyXmlScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
 
-    Assert.assertTrue(tmpXmlScripter.isSupported(tmpFile));
+    Assert.assertTrue(tmpLegacyXmlScripter.isSupported(tmpFile));
 
-    tmpXmlScripter.setFile(tmpFile);
+    tmpLegacyXmlScripter.setFile(tmpFile);
 
-    List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
+    List<WetCommand> tmpCommands = tmpLegacyXmlScripter.getCommands();
     Assert.assertEquals(9, tmpCommands.size());
 
     WetCommand tmpCommand = tmpCommands.get(0);
@@ -84,10 +85,6 @@ public class XmlScripterTest {
     tmpCommand = tmpCommands.get(7);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
-
-    tmpCommand = tmpCommands.get(8);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("", tmpCommand.getName());
   }
 
   /**
@@ -95,7 +92,7 @@ public class XmlScripterTest {
    */
   @Test
   public void unsupported() throws WetException {
-    XmlScripter tmpXmlScripter = new XmlScripter();
-    Assert.assertFalse(tmpXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit.wet")));
+    LegacyXmlScripter tmpLegacyXmlScripter = new LegacyXmlScripter();
+    Assert.assertFalse(tmpLegacyXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit2.xml")));
   }
 }
