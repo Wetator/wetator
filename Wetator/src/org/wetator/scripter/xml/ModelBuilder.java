@@ -71,10 +71,11 @@ public class ModelBuilder {
   /**
    * The schema file for the default command set.
    */
-  public static final String DEFAULT_COMMAND_SET_SCHEMA = "http://www.wetator.org/xsd/default-command-set";
-  private static final String DEFAULT_COMMAND_SET_XSD = "default-command-set-1.0.0.xsd";
+  public static final String DEFAULT_COMMAND_SET_SCHEMA_URI = "http://www.wetator.org/xsd/default-command-set";
+  private static final String DEFAULT_COMMAND_SET_XSD_LOCATION = "default-command-set-1.0.0.xsd";
+  private static final String DEFAULT_COMMAND_SET_PREFIX = "d";
 
-  private Map<String, String> schemaLocations = new HashMap<String, String>();
+  private Map<String, XMLSchema> schemaLocations = new HashMap<String, XMLSchema>();
 
   private XSComplexType baseCommandType;
   private XSSimpleType baseParameterType;
@@ -93,7 +94,8 @@ public class ModelBuilder {
     findSchemas(aFile);
 
     // add schema for default command set since it is always loaded
-    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA, DEFAULT_COMMAND_SET_XSD);
+    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA_URI, new XMLSchema(DEFAULT_COMMAND_SET_PREFIX,
+        DEFAULT_COMMAND_SET_SCHEMA_URI, DEFAULT_COMMAND_SET_XSD_LOCATION));
 
     parseSchemas(aFile.getParentFile());
   }
@@ -103,7 +105,7 @@ public class ModelBuilder {
    * @throws SAXException in case of problems reading the file
    * @throws IOException in case of problems reading the file
    */
-  public ModelBuilder(final Map<String, String> aSchemaLocationMap) throws SAXException, IOException {
+  public ModelBuilder(final Map<String, XMLSchema> aSchemaLocationMap) throws SAXException, IOException {
     schemaLocations = aSchemaLocationMap;
 
     parseSchemas(null);
@@ -141,11 +143,23 @@ public class ModelBuilder {
         if (tmpReader.next() == XMLStreamConstants.START_ELEMENT) {
           String tmpSchemaLocation = tmpReader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
               "schemaLocation");
+
+          final int tmpSchemaCount = tmpReader.getAttributeCount();
+          final Map<String, String> tmpNamespacePrefixes = new HashMap<String, String>();
+          for (int i = 0; i <= tmpSchemaCount; i++) {
+            final String tmpPrefix = tmpReader.getNamespacePrefix(i);
+            final String tmpNamespaceURI = tmpReader.getNamespaceURI(i);
+            tmpNamespacePrefixes.put(tmpNamespaceURI, tmpPrefix);
+          }
+
           tmpSchemaLocation = tmpSchemaLocation.replace("  ", " ");
           final String[] tmpSchemaLocations = tmpSchemaLocation.split(" ");
           for (int i = 0; i < tmpSchemaLocations.length; i += 2) {
             if (!"".equals(tmpSchemaLocations[i].trim())) {
-              schemaLocations.put(tmpSchemaLocations[i], tmpSchemaLocations[i + 1]);
+              final String tmpNamespaceURI = tmpSchemaLocations[i];
+              final String tmpPrefix = tmpNamespacePrefixes.get(tmpNamespaceURI);
+              final XMLSchema tmpSchema = new XMLSchema(tmpPrefix, tmpNamespaceURI, tmpSchemaLocations[i + 1]);
+              schemaLocations.put(tmpNamespaceURI, tmpSchema);
             }
           }
           break;
@@ -167,18 +181,18 @@ public class ModelBuilder {
     tmpParser.setEntityResolver(new LocalEntityResolver(aSchemaDirectory));
 
     // parse all schemas
-    for (Entry<String, String> tmpSchemaLocation : schemaLocations.entrySet()) {
+    for (Entry<String, XMLSchema> tmpSchemaLocation : schemaLocations.entrySet()) {
       final InputSource tmpSource = new LocalEntityResolver(aSchemaDirectory).resolveEntity(tmpSchemaLocation.getKey(),
-          tmpSchemaLocation.getValue());
+          tmpSchemaLocation.getValue().getSchemaLocation());
       if (tmpSource != null) {
         try {
           tmpParser.parse(tmpSource);
         } catch (final SAXException e) {
-          throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue() + "'.",
+          throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getUri() + "'.",
               e.getException());
         }
       } else {
-        throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue() + "'.");
+        throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getUri() + "'.");
       }
     }
 
@@ -276,5 +290,12 @@ public class ModelBuilder {
       }
     }
     return tmpDocumentation.toString();
+  }
+
+  /**
+   * @return the schemaLocations
+   */
+  public Map<String, XMLSchema> getSchemaLocations() {
+    return schemaLocations;
   }
 }

@@ -43,19 +43,23 @@ import org.xml.sax.SAXException;
  */
 public class LocalEntityResolver implements EntityResolver {
 
-  private static final Map<String, List<String>> KNOWN_SCHEMAS = getKnownSchemas();
+  private static final Map<String, List<XMLSchema>> KNOWN_SCHEMAS = getKnownSchemas();
   private static final String XSD_DIRECTORY = "xsd/";
 
   private File schemaDirectory;
 
-  private static Map<String, List<String>> getKnownSchemas() {
-    final Map<String, List<String>> tmpKnownSchemas = new HashMap<String, List<String>>();
-    tmpKnownSchemas.put(XmlScripter.BASE_SCHEMA, Arrays.asList("test-case-1.0.0.xsd"));
-    tmpKnownSchemas.put(ModelBuilder.DEFAULT_COMMAND_SET_SCHEMA, Arrays.asList("default-command-set-1.0.0.xsd"));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set", Arrays.asList("sql-command-set-1.0.0.xsd"));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays.asList("test-command-set-1.0.0.xsd"));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set",
-        Arrays.asList("incubator-command-set-1.0.0.xsd"));
+  private static Map<String, List<XMLSchema>> getKnownSchemas() {
+    final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<String, List<XMLSchema>>();
+    tmpKnownSchemas.put(XmlScripter.BASE_SCHEMA,
+        Arrays.asList(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd")));
+    tmpKnownSchemas.put(ModelBuilder.DEFAULT_COMMAND_SET_SCHEMA_URI, Arrays.asList(new XMLSchema("d",
+        "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set",
+        Arrays.asList(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays.asList(new XMLSchema("tst",
+        "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", Arrays.asList(new XMLSchema("inc",
+        "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd")));
     return tmpKnownSchemas;
   }
 
@@ -84,15 +88,17 @@ public class LocalEntityResolver implements EntityResolver {
   @Override
   public InputSource resolveEntity(final String aPublicId, final String aSystemId) throws SAXException, IOException {
     // first try the known schemas
-    final List<String> tmpKnownSchemaFiles = KNOWN_SCHEMAS.get(aPublicId);
+    final List<XMLSchema> tmpKnownSchemaFiles = KNOWN_SCHEMAS.get(aPublicId);
     if (tmpKnownSchemaFiles != null) {
-      for (String tmpKnownSchemaFile : tmpKnownSchemaFiles) {
-        if (aSystemId.equals(tmpKnownSchemaFile) || aSystemId.endsWith("/" + tmpKnownSchemaFile)
-            || aSystemId.endsWith("\\" + tmpKnownSchemaFile)) {
+      for (XMLSchema tmpKnownSchemaFile : tmpKnownSchemaFiles) {
+        final String tmpKnownSchemaFileLocation = tmpKnownSchemaFile.getSchemaLocation();
+        if (aSystemId.equals(tmpKnownSchemaFileLocation) || aSystemId.endsWith("/" + tmpKnownSchemaFileLocation)
+            || aSystemId.endsWith("\\" + tmpKnownSchemaFileLocation)) {
           final InputSource tmpInputSource = new InputSource(getClass().getResourceAsStream(
-              XSD_DIRECTORY + tmpKnownSchemaFile));
+              XSD_DIRECTORY + tmpKnownSchemaFileLocation));
           tmpInputSource.setPublicId(aPublicId);
-          tmpInputSource.setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFile).toExternalForm());
+          tmpInputSource.setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFileLocation)
+              .toExternalForm());
           return tmpInputSource;
         }
       }

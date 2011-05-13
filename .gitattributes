@@ -138,6 +138,7 @@ Wetator/src/org/wetator/scripter/LegacyXmlScripter.java -text svneol=unset#text/
 Wetator/src/org/wetator/scripter/XmlScripter.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/xml/LocalEntityResolver.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/xml/ModelBuilder.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/scripter/xml/XMLSchema.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/xml/model/CommandType.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/xml/model/ParameterType.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/xml/xsd/default-command-set-1.0.0.xsd -text svneol=unset#text/plain
