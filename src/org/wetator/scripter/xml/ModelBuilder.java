@@ -144,9 +144,9 @@ public class ModelBuilder {
           String tmpSchemaLocation = tmpReader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
               "schemaLocation");
 
-          final int tmpSchemaCount = tmpReader.getAttributeCount();
+          final int tmpSchemaCount = tmpReader.getNamespaceCount();
           final Map<String, String> tmpNamespacePrefixes = new HashMap<String, String>();
-          for (int i = 0; i <= tmpSchemaCount; i++) {
+          for (int i = 0; i < tmpSchemaCount; i++) {
             final String tmpPrefix = tmpReader.getNamespacePrefix(i);
             final String tmpNamespaceURI = tmpReader.getNamespaceURI(i);
             tmpNamespacePrefixes.put(tmpNamespaceURI, tmpPrefix);

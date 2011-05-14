@@ -259,6 +259,7 @@ test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unse
 test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.xls -text
 test/java/org/wetator/test/resource/junit2.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/junit3.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/something.xsd -text svneol=unset#text/plain
 test/java/org/wetator/util/AllTests.java -text
 test/java/org/wetator/util/AssertTest.java -text

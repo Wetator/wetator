@@ -98,4 +98,24 @@ public class XmlScripterTest {
     XmlScripter tmpXmlScripter = new XmlScripter();
     Assert.assertFalse(tmpXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit.wet")));
   }
+
+  @Test
+  public void readSchemaInfo() {
+    XmlScripter tmpXmlScripter = new XmlScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit3.xml");
+
+    tmpXmlScripter.setFile(tmpFile);
+
+    Assert.assertEquals(4, tmpXmlScripter.getModel().getSchemaLocations().values().size());
+    Assert.assertNull(tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-case")
+        .getPrefix());
+    Assert.assertEquals("d",
+        tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/default-command-set")
+            .getPrefix());
+    Assert.assertEquals("inc",
+        tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/incubator-command-set")
+            .getPrefix());
+    Assert.assertEquals("tst",
+        tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-command-set").getPrefix());
+  }
 }
