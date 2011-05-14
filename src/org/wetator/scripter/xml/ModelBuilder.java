@@ -183,16 +183,16 @@ public class ModelBuilder {
     // parse all schemas
     for (Entry<String, XMLSchema> tmpSchemaLocation : schemaLocations.entrySet()) {
       final InputSource tmpSource = new LocalEntityResolver(aSchemaDirectory).resolveEntity(tmpSchemaLocation.getKey(),
-          tmpSchemaLocation.getValue().getSchemaLocation());
+          tmpSchemaLocation.getValue().getLocation());
       if (tmpSource != null) {
         try {
           tmpParser.parse(tmpSource);
         } catch (final SAXException e) {
-          throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getUri() + "'.",
+          throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.",
               e.getException());
         }
       } else {
-        throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getUri() + "'.");
+        throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.");
       }
     }
 

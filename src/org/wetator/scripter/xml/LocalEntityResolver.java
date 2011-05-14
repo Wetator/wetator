@@ -91,7 +91,7 @@ public class LocalEntityResolver implements EntityResolver {
     final List<XMLSchema> tmpKnownSchemaFiles = KNOWN_SCHEMAS.get(aPublicId);
     if (tmpKnownSchemaFiles != null) {
       for (XMLSchema tmpKnownSchemaFile : tmpKnownSchemaFiles) {
-        final String tmpKnownSchemaFileLocation = tmpKnownSchemaFile.getSchemaLocation();
+        final String tmpKnownSchemaFileLocation = tmpKnownSchemaFile.getLocation();
         if (aSystemId.equals(tmpKnownSchemaFileLocation) || aSystemId.endsWith("/" + tmpKnownSchemaFileLocation)
             || aSystemId.endsWith("\\" + tmpKnownSchemaFileLocation)) {
           final InputSource tmpInputSource = new InputSource(getClass().getResourceAsStream(

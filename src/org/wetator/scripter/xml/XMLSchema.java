@@ -24,33 +24,33 @@ package org.wetator.scripter.xml;
 public class XMLSchema {
 
   private String prefix;
-  private String uri;
-  private String schemaLocation;
-
-  /**
-   * Constructor.
-   * 
-   * @param aUri the uri to set
-   * @param aSchemaLocation the schemaLocation to set
-   */
-  public XMLSchema(final String aUri, final String aSchemaLocation) {
-    super();
-    uri = aUri;
-    schemaLocation = aSchemaLocation;
-  }
+  private String namespace;
+  private String location;
 
   /**
    * Constructor.
    * 
    * @param aNamespace the namespace to set
-   * @param aUri the uri to set
-   * @param aSchemaLocation the schemaLocation to set
+   * @param aLocation the location to set
    */
-  public XMLSchema(final String aNamespace, final String aUri, final String aSchemaLocation) {
+  public XMLSchema(final String aNamespace, final String aLocation) {
     super();
-    prefix = aNamespace;
-    uri = aUri;
-    schemaLocation = aSchemaLocation;
+    namespace = aNamespace;
+    location = aLocation;
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param aPrefix the prefix to set
+   * @param aNamespace the namespace to set
+   * @param aLocation the location to set
+   */
+  public XMLSchema(final String aPrefix, final String aNamespace, final String aLocation) {
+    super();
+    prefix = aPrefix;
+    namespace = aNamespace;
+    location = aLocation;
   }
 
   /**
@@ -68,30 +68,30 @@ public class XMLSchema {
   }
 
   /**
-   * @return the uri
+   * @return the namespace
    */
-  public String getUri() {
-    return uri;
+  public String getNamespace() {
+    return namespace;
   }
 
   /**
-   * @param aUri the uri to set
+   * @param aNamespace the namespace to set
    */
-  public void setUri(final String aUri) {
-    uri = aUri;
+  public void setNamespace(final String aNamespace) {
+    namespace = aNamespace;
   }
 
   /**
-   * @return the schemaLocation
+   * @return the location
    */
-  public String getSchemaLocation() {
-    return schemaLocation;
+  public String getLocation() {
+    return location;
   }
 
   /**
-   * @param aSchemaLocation the schemaLocation to set
+   * @param aLocation the location to set
    */
-  public void setSchemaLocation(final String aSchemaLocation) {
-    schemaLocation = aSchemaLocation;
+  public void setLocation(final String aLocation) {
+    location = aLocation;
   }
 }
