@@ -83,11 +83,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * Command 'Exec Sql'.
    */
-  public final class CommandExecSql implements WetCommandImplementation {
+  public final class CommandExecSql implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -119,11 +119,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Sql'.
    */
-  public final class CommandAssertSql implements WetCommandImplementation {
+  public final class CommandAssertSql implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -174,11 +174,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Sql in Content'.
    */
-  public final class CommandAssertSqlInContent implements WetCommandImplementation {
+  public final class CommandAssertSqlInContent implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override

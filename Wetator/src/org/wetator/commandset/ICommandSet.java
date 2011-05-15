@@ -47,11 +47,11 @@ public interface ICommandSet {
   public void cleanup();
 
   /**
-   * Returns the {@link WetCommandImplementation} for the given command name or null, if no
-   * {@link WetCommandImplementation} was found.
+   * Returns the {@link ICommandImplementation} for the given command name or null, if no
+   * {@link ICommandImplementation} was found.
    * 
-   * @param aCommandName The name of the {@link WetCommandImplementation}.
-   * @return The found {@link WetCommandImplementation}.
+   * @param aCommandName The name of the {@link ICommandImplementation}.
+   * @return The found {@link ICommandImplementation}.
    */
-  public WetCommandImplementation getCommandImplementationFor(String aCommandName);
+  public ICommandImplementation getCommandImplementationFor(String aCommandName);
 }

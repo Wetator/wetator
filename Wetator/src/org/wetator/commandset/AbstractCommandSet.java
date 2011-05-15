@@ -41,7 +41,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
   private static final Log LOG = LogFactory.getLog(AbstractCommandSet.class);
 
   private List<String> initializationMessages;
-  private Map<String, WetCommandImplementation> commandImplementations;
+  private Map<String, ICommandImplementation> commandImplementations;
   private int noOfCommands;
 
   /**
@@ -53,7 +53,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
     noOfCommands = 0;
 
     LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
-    commandImplementations = new HashMap<String, WetCommandImplementation>();
+    commandImplementations = new HashMap<String, ICommandImplementation>();
 
     // initialize the list of supported commands
     registerCommands();
@@ -67,7 +67,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @see org.wetator.commandset.ICommandSet#getCommandImplementationFor(java.lang.String)
    */
   @Override
-  public final WetCommandImplementation getCommandImplementationFor(final String aCommandName) {
+  public final ICommandImplementation getCommandImplementationFor(final String aCommandName) {
     return commandImplementations.get(aCommandName);
   }
 
@@ -99,11 +99,11 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * Registers a command under the given name.
    * 
    * @param aCommandName the name of the command
-   * @param aWetCommandImplementation the implementation (class) of the command
+   * @param aCommandImplementation the implementation (class) of the command
    */
-  protected void registerCommand(final String aCommandName, final WetCommandImplementation aWetCommandImplementation) {
+  protected void registerCommand(final String aCommandName, final ICommandImplementation aCommandImplementation) {
     LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " - register command : '" + aCommandName + "'");
-    commandImplementations.put(aCommandName, aWetCommandImplementation);
+    commandImplementations.put(aCommandName, aCommandImplementation);
     noOfCommands++;
   }
 

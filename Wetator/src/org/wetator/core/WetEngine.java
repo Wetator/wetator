@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
-import org.wetator.commandset.WetCommandImplementation;
+import org.wetator.commandset.ICommandImplementation;
 import org.wetator.commandset.ICommandSet;
 import org.wetator.core.result.WetResultWriter;
 import org.wetator.exception.AssertionFailedException;
@@ -196,13 +196,12 @@ public final class WetEngine {
   }
 
   /**
-   * @param aCommandName the name of the {@link WetCommandImplementation}
-   * @return the {@link WetCommandImplementation} for the given name or null if none was found
+   * @param aCommandName the name of the {@link ICommandImplementation}
+   * @return the {@link ICommandImplementation} for the given name or null if none was found
    */
-  protected WetCommandImplementation getCommandImplementationFor(final String aCommandName) {
+  protected ICommandImplementation getCommandImplementationFor(final String aCommandName) {
     for (ICommandSet tmpCommandSet : commandSets) {
-      WetCommandImplementation tmpCommandImplementation;
-      tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
+      final ICommandImplementation tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
       if (null != tmpCommandImplementation) {
         return tmpCommandImplementation;
       }

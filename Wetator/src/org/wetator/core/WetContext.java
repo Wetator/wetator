@@ -24,7 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.commandset.WetCommandImplementation;
+import org.wetator.commandset.ICommandImplementation;
 import org.wetator.core.variable.Variable;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetException;
@@ -173,8 +173,8 @@ public class WetContext {
    * @throws AssertionFailedException if no command implementation was found or the execution fails
    */
   public void determineAndExecuteCommandImpl(final WetCommand aWetCommand) throws AssertionFailedException {
-    final WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
-    if (null == tmpImpl) {
+    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aWetCommand.getName());
+    if (null == tmpCommandImplementation) {
       Assert.fail("unsupportedCommand", new String[] { aWetCommand.getName(), getFile().getAbsolutePath(),
           "" + aWetCommand.getLineNo() });
     }
@@ -182,7 +182,7 @@ public class WetContext {
     final IBrowser tmpBrowser = getBrowser();
     LOG.debug("Executing '" + aWetCommand.toPrintableString(this) + "'");
     try {
-      tmpImpl.execute(this, aWetCommand);
+      tmpCommandImplementation.execute(this, aWetCommand);
     } catch (final AssertionFailedException e) {
       tmpBrowser.checkAndResetFailures();
       throw e;
