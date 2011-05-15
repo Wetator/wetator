@@ -34,7 +34,7 @@ import org.wetator.core.WetCommand;
 import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.core.WetEngine;
-import org.wetator.core.WetProgressListener;
+import org.wetator.core.IProgressListener;
 import org.wetator.core.variable.Variable;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.i18n.Messages;
@@ -50,7 +50,7 @@ import org.wetator.util.XmlUtil;
  * @author rbri
  * @author frank.danek
  */
-public class WetResultWriter implements WetProgressListener {
+public class WetResultWriter implements IProgressListener {
   private static final Log LOG = LogFactory.getLog(WetResultWriter.class);
 
   private static final String TAG_WET = "wet";
@@ -100,7 +100,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#init(WetEngine)
+   * @see org.wetator.core.IProgressListener#init(WetEngine)
    */
   @Override
   public void init(final WetEngine aWetEngine) {
@@ -137,7 +137,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#start(WetEngine)
+   * @see org.wetator.core.IProgressListener#start(WetEngine)
    */
   @Override
   public void start(final WetEngine aWetEngine) {
@@ -229,7 +229,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#testCaseStart(String)
+   * @see org.wetator.core.IProgressListener#testCaseStart(String)
    */
   @Override
   public void testCaseStart(final String aTestName) {
@@ -247,7 +247,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#testRunStart(String)
+   * @see org.wetator.core.IProgressListener#testRunStart(String)
    */
   @Override
   public void testRunStart(final String aBrowserName) {
@@ -265,7 +265,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#testFileStart(String)
+   * @see org.wetator.core.IProgressListener#testFileStart(String)
    */
   @Override
   public void testFileStart(final String aFileName) {
@@ -283,7 +283,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#executeCommandStart(org.wetator.core.WetContext,
+   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetContext,
    *      org.wetator.core.WetCommand)
    */
   @Override
@@ -324,7 +324,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#executeCommandEnd()
+   * @see org.wetator.core.IProgressListener#executeCommandEnd()
    */
   @Override
   public void executeCommandEnd() {
@@ -340,7 +340,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#executeCommandSuccess()
+   * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
   public void executeCommandSuccess() {
@@ -350,7 +350,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
+   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
    */
   @Override
   public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
@@ -371,7 +371,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#executeCommandError(java.lang.Throwable)
+   * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
   public void executeCommandError(final Throwable aThrowable) {
@@ -392,7 +392,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#testFileEnd()
+   * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
   public void testFileEnd() {
@@ -406,7 +406,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#testRunEnd()
+   * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override
   public void testRunEnd() {
@@ -421,7 +421,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#testCaseEnd()
+   * @see org.wetator.core.IProgressListener#testCaseEnd()
    */
   @Override
   public void testCaseEnd() {
@@ -436,7 +436,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#responseStored(java.lang.String)
+   * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
    */
   @Override
   public void responseStored(final String aResponseFileName) {
@@ -450,7 +450,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#end(WetEngine)
+   * @see org.wetator.core.IProgressListener#end(WetEngine)
    */
   @Override
   public void end(final WetEngine aWetEngine) {
@@ -471,7 +471,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
+   * @see org.wetator.core.IProgressListener#warn(java.lang.String, java.lang.String[])
    */
   @Override
   public void warn(final String aMessageKey, final String[] aParameterArray) {
@@ -489,7 +489,7 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#info(java.lang.String, java.lang.String[])
+   * @see org.wetator.core.IProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
   public void info(final String aMessageKey, final String[] aParameterArray) {
