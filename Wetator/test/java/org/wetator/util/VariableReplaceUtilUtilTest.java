@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
-import org.wetator.core.variable.Variable;
+import org.wetator.core.Variable;
 
 /**
  * @author rbri

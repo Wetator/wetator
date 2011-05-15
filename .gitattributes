@@ -111,6 +111,7 @@ Wetator/src/org/wetator/commandset/IncubatorCommandSet.java -text
 Wetator/src/org/wetator/commandset/SqlCommandSet.java -text
 Wetator/src/org/wetator/core/IProgressListener.java -text
 Wetator/src/org/wetator/core/Parameter.java -text
+Wetator/src/org/wetator/core/Variable.java -text
 Wetator/src/org/wetator/core/WetCommand.java -text
 Wetator/src/org/wetator/core/WetConfiguration.java -text
 Wetator/src/org/wetator/core/WetContext.java -text
@@ -124,7 +125,6 @@ Wetator/src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/SearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
-Wetator/src/org/wetator/core/variable/Variable.java -text
 Wetator/src/org/wetator/exception/AssertionFailedException.java -text
 Wetator/src/org/wetator/exception/WetException.java -text
 Wetator/src/org/wetator/gui/DialogUtil.java -text

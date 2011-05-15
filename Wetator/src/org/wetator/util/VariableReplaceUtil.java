@@ -18,7 +18,7 @@ package org.wetator.util;
 
 import java.util.List;
 
-import org.wetator.core.variable.Variable;
+import org.wetator.core.Variable;
 
 /**
  * Helpers to replace the variables in a String.

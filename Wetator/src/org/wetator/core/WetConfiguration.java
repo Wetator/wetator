@@ -39,7 +39,6 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.commandset.ICommandSet;
-import org.wetator.core.variable.Variable;
 import org.wetator.exception.WetException;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.IScripter;
