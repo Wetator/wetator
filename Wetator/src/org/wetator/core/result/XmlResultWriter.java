@@ -461,8 +461,10 @@ public class XmlResultWriter implements IProgressListener {
       output.flush();
       writer.close();
 
-      final XslTransformer tmpXslTransformer = new XslTransformer(resultFile);
-      tmpXslTransformer.transform(xslTemplates, outputDir);
+      if (!xslTemplates.isEmpty()) {
+        final XslTransformer tmpXslTransformer = new XslTransformer(resultFile);
+        tmpXslTransformer.transform(xslTemplates, outputDir);
+      }
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
