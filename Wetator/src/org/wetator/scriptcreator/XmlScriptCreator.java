@@ -30,7 +30,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.lang.StringUtils;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 import org.wetator.scripter.xml.ModelBuilder;
 import org.wetator.scripter.xml.XMLSchema;
@@ -46,7 +46,7 @@ import org.wetator.scripter.xml.model.ParameterType;
  */
 public class XmlScriptCreator implements IScriptCreator {
 
-  private List<WetCommand> commands;
+  private List<Command> commands;
   private String fileName;
   private File outputDir;
 
@@ -87,7 +87,7 @@ public class XmlScriptCreator implements IScriptCreator {
 
       // get used namespaces
       final List<NamespaceBean> tmpNamespaces = new ArrayList<NamespaceBean>();
-      for (WetCommand tmpCommand : commands) {
+      for (Command tmpCommand : commands) {
         if (!tmpCommand.isComment() && StringUtils.isNotEmpty(tmpCommand.getName())) {
           final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
           if (tmpCommandType == null) {
@@ -134,7 +134,7 @@ public class XmlScriptCreator implements IScriptCreator {
       // + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
       tmpWriter.writeAttribute(A_VERSION, TEST_CASE_XSD_VERSION);
       tmpWriter.writeCharacters("\n");
-      for (WetCommand tmpCommand : commands) {
+      for (Command tmpCommand : commands) {
         tmpWriter.writeCharacters("    ");
         if (tmpCommand.isComment() && StringUtils.isEmpty(tmpCommand.getName())) {
           tmpWriter.writeStartElement(E_COMMENT);
@@ -203,7 +203,7 @@ public class XmlScriptCreator implements IScriptCreator {
    * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
    */
   @Override
-  public void setCommands(final List<WetCommand> aCommandList) throws WetException {
+  public void setCommands(final List<Command> aCommandList) throws WetException {
     commands = aCommandList;
   }
 

@@ -37,7 +37,7 @@ import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Parameter;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 import org.wetator.util.NormalizedString;
 
@@ -57,7 +57,7 @@ public final class ExcelScripter implements IScripter {
   private static final int THIRD_PARAM_COLUMN_NO = 4;
 
   private File file;
-  private List<WetCommand> commands;
+  private List<Command> commands;
 
   /**
    * Standard constructor.
@@ -101,8 +101,8 @@ public final class ExcelScripter implements IScripter {
     return tmpResult;
   }
 
-  private List<WetCommand> readCommands() throws WetException {
-    final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
+  private List<Command> readCommands() throws WetException {
+    final List<Command> tmpResult = new LinkedList<Command>();
 
     final InputStream tmpInputStream;
     try {
@@ -155,7 +155,7 @@ public final class ExcelScripter implements IScripter {
           }
 
           if (!StringUtils.isEmpty(tmpCommandName)) {
-            final WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
+            final Command tmpCommand = new Command(tmpCommandName, tmpCommentFlag);
 
             tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
             if (null != tmpParameter) {
@@ -197,7 +197,7 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.scripter.IScripter#getCommands()
    */
   @Override
-  public List<WetCommand> getCommands() {
+  public List<Command> getCommands() {
     return commands;
   }
 

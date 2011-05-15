@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.wetator.core.Parameter;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 
 /**
@@ -34,21 +34,21 @@ public class ManualXmlScriptCreatorTest {
    */
   @Test
   public void manual() throws WetException {
-    List<WetCommand> tmpCommands = new ArrayList<WetCommand>();
-    WetCommand tmpCommand;
-    tmpCommand = new WetCommand("assert-content", false);
+    List<Command> tmpCommands = new ArrayList<Command>();
+    Command tmpCommand;
+    tmpCommand = new Command("assert-content", false);
     tmpCommand.setLineNo(1);
     tmpCommand.setFirstParameter(new Parameter("dies ist ein testäöü"));
     tmpCommands.add(tmpCommand);
-    tmpCommand = new WetCommand("click-on", true);
+    tmpCommand = new Command("click-on", true);
     tmpCommand.setLineNo(2);
     tmpCommand.setFirstParameter(new Parameter("blabla"));
     tmpCommands.add(tmpCommand);
-    tmpCommand = new WetCommand("", true);
+    tmpCommand = new Command("", true);
     tmpCommand.setLineNo(3);
     tmpCommand.setFirstParameter(new Parameter("Schöner Kommentar"));
     tmpCommands.add(tmpCommand);
-    tmpCommand = new WetCommand("exec-sql", false);
+    tmpCommand = new Command("exec-sql", false);
     tmpCommand.setLineNo(4);
     tmpCommand.setFirstParameter(new Parameter("SELECT sysdate FROM dual"));
     tmpCommands.add(tmpCommand);

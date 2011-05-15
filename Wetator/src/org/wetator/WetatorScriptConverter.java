@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
@@ -119,7 +119,7 @@ public final class WetatorScriptConverter {
     for (File tmpInputFile : inputFiles) {
       LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
       scripter.setFile(tmpInputFile);
-      final List<WetCommand> tmpCommands = scripter.getCommands();
+      final List<Command> tmpCommands = scripter.getCommands();
 
       final String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));
       creator.setFileName(tmpFileName);

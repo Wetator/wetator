@@ -144,14 +144,14 @@ public class WetContext {
     return new SecretString(tmpResultValue, tmpResultValueForPrint);
   }
 
-  private void executeCommand(final WetCommand aWetCommand) {
-    engine.informListenersExecuteCommandStart(this, aWetCommand);
+  private void executeCommand(final Command aCommand) {
+    engine.informListenersExecuteCommandStart(this, aCommand);
     try {
-      if (aWetCommand.isComment()) {
-        LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
+      if (aCommand.isComment()) {
+        LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
       } else {
         try {
-          determineAndExecuteCommandImpl(aWetCommand);
+          determineAndExecuteCommandImpl(aCommand);
           engine.informListenersExecuteCommandSuccess();
         } catch (final AssertionFailedException e) {
           engine.informListenersExecuteCommandFailure(e);
@@ -166,22 +166,22 @@ public class WetContext {
   }
 
   /**
-   * Determines the command implementation for the given {@link WetCommand} and executes it.
+   * Determines the command implementation for the given {@link Command} and executes it.
    * 
-   * @param aWetCommand the command to be executed
+   * @param aCommand the command to be executed
    * @throws AssertionFailedException if no command implementation was found or the execution fails
    */
-  public void determineAndExecuteCommandImpl(final WetCommand aWetCommand) throws AssertionFailedException {
-    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aWetCommand.getName());
+  public void determineAndExecuteCommandImpl(final Command aCommand) throws AssertionFailedException {
+    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
-      Assert.fail("unsupportedCommand", new String[] { aWetCommand.getName(), getFile().getAbsolutePath(),
-          "" + aWetCommand.getLineNo() });
+      Assert.fail("unsupportedCommand", new String[] { aCommand.getName(), getFile().getAbsolutePath(),
+          "" + aCommand.getLineNo() });
     }
 
     final IBrowser tmpBrowser = getBrowser();
-    LOG.debug("Executing '" + aWetCommand.toPrintableString(this) + "'");
+    LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
     try {
-      tmpCommandImplementation.execute(this, aWetCommand);
+      tmpCommandImplementation.execute(this, aCommand);
     } catch (final AssertionFailedException e) {
       tmpBrowser.checkAndResetFailures();
       throw e;
@@ -202,9 +202,9 @@ public class WetContext {
 
     engine.informListenersTestFileStart(tmpFile.getAbsolutePath());
     try {
-      final List<WetCommand> tmpCommands = engine.readCommandsFromFile(tmpFile);
+      final List<Command> tmpCommands = engine.readCommandsFromFile(tmpFile);
 
-      for (WetCommand tmpCommand : tmpCommands) {
+      for (Command tmpCommand : tmpCommands) {
         executeCommand(tmpCommand);
       }
     } catch (final WetException e) {

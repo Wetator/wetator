@@ -170,12 +170,12 @@ public final class WetEngine {
    * Reads all commands of the given file and returns them in the same order they occur in the file.
    * 
    * @param aFile the file to read the commands from.
-   * @return a list of {@link WetCommand}s.
+   * @return a list of {@link Command}s.
    * @throws WetException if no {@link IScripter} can be found for the given file.
    */
-  protected List<WetCommand> readCommandsFromFile(final File aFile) throws WetException {
+  protected List<Command> readCommandsFromFile(final File aFile) throws WetException {
     final IScripter tmpScripter = createScripter(aFile);
-    final List<WetCommand> tmpResult = tmpScripter.getCommands();
+    final List<Command> tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
   }
@@ -354,9 +354,9 @@ public final class WetEngine {
    * Informs all listeners about 'executeCommandStart'.
    * 
    * @param aWetContext the {@link WetContext} used to execute the command.
-   * @param aCommand the {@link WetCommand} to be executed.
+   * @param aCommand the {@link Command} to be executed.
    */
-  protected void informListenersExecuteCommandStart(final WetContext aWetContext, final WetCommand aCommand) {
+  protected void informListenersExecuteCommandStart(final WetContext aWetContext, final Command aCommand) {
     for (IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandStart(aWetContext, aCommand);
     }

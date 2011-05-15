@@ -24,7 +24,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.Control;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
@@ -56,12 +56,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * {@inheritDoc}
      * 
      * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
-     *      org.wetator.core.WetCommand)
+     *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
-      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
-      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aWetContext));
+      aCommand.assertNoUnusedSecondParameter(aWetContext);
 
       final IBrowser tmpBrowser = getBrowser(aWetContext);
       final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -94,12 +94,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * {@inheritDoc}
      * 
      * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
-     *      org.wetator.core.WetCommand)
+     *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
-      final SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aWetContext);
+      aCommand.assertNoUnusedSecondParameter(aWetContext);
 
       final IBrowser tmpBrowser = getBrowser(aWetContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
@@ -120,12 +120,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * {@inheritDoc}
      * 
      * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
-     *      org.wetator.core.WetCommand)
+     *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
-      final SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aWetContext);
+      aCommand.assertNoUnusedSecondParameter(aWetContext);
 
       final IBrowser tmpBrowser = getBrowser(aWetContext);
       tmpBrowser.bookmarkPage(tmpBookmarkName.getValue());

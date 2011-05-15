@@ -29,7 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses( { org.wetator.core.result.AllTests.class, //
     org.wetator.core.searchpattern.AllTests.class, //
     org.wetator.core.variable.AllTests.class, //
-    WetCommandTest.class })
+    CommandTest.class })
 public final class AllTests {
 
   /**

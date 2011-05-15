@@ -33,8 +33,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.lang.StringUtils;
+import org.wetator.core.Command;
 import org.wetator.core.Parameter;
-import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
 
 /**
@@ -75,7 +75,7 @@ public final class LegacyXmlScripter implements IScripter {
   private InputStream inputStream;
   private XMLStreamReader reader;
 
-  private List<WetCommand> commands;
+  private List<Command> commands;
 
   /**
    * Standard constructor.
@@ -148,8 +148,8 @@ public final class LegacyXmlScripter implements IScripter {
     return false;
   }
 
-  private List<WetCommand> readCommands() throws WetException {
-    final List<WetCommand> tmpResult = new ArrayList<WetCommand>();
+  private List<Command> readCommands() throws WetException {
+    final List<Command> tmpResult = new ArrayList<Command>();
 
     try {
       inputStream = new FileInputStream(file);
@@ -164,7 +164,7 @@ public final class LegacyXmlScripter implements IScripter {
     }
 
     try {
-      WetCommand tmpWetCommand = null;
+      Command tmpCommand = null;
       while (reader.hasNext()) {
         if (reader.next() == XMLStreamConstants.START_ELEMENT) {
           if (E_STEP.equals(reader.getLocalName())) {
@@ -181,9 +181,9 @@ public final class LegacyXmlScripter implements IScripter {
               }
             }
 
-            // build WetCommand
-            tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
-            tmpWetCommand.setLineNo(tmpResult.size() + 1);
+            // build command
+            tmpCommand = new Command(tmpCommandName, tmpIsComment);
+            tmpCommand.setLineNo(tmpResult.size() + 1);
 
             // go to CHARACTER event (parameter) if there
             final StringBuilder tmpParameters = new StringBuilder("");
@@ -193,36 +193,36 @@ public final class LegacyXmlScripter implements IScripter {
 
             final String tmpParameterValue = tmpParameters.toString();
             if (StringUtils.isNotEmpty(tmpParameterValue)) {
-              tmpWetCommand.setFirstParameter(new Parameter(tmpParameterValue));
+              tmpCommand.setFirstParameter(new Parameter(tmpParameterValue));
             }
           }
           if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
             final String tmpOptionalParameter = reader.getElementText();
-            if (null == tmpWetCommand) {
+            if (null == tmpCommand) {
               throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
                   + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
             }
 
             if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
-              tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
+              tmpCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
             }
             reader.next();
           }
           if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
             final String tmpOptionalParameter = reader.getElementText();
-            if (null == tmpWetCommand) {
+            if (null == tmpCommand) {
               throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
                   + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
             }
 
             if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
-              tmpWetCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
+              tmpCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
             }
             reader.next();
           }
         }
         if (reader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(reader.getLocalName())) {
-          tmpResult.add(tmpWetCommand);
+          tmpResult.add(tmpCommand);
         }
       }
 
@@ -245,7 +245,7 @@ public final class LegacyXmlScripter implements IScripter {
    * @see org.wetator.scripter.IScripter#getCommands()
    */
   @Override
-  public List<WetCommand> getCommands() {
+  public List<Command> getCommands() {
     return commands;
   }
 

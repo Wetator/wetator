@@ -22,11 +22,11 @@ import org.junit.Test;
 /**
  * @author rbri
  */
-public class WetCommandTest {
+public class CommandTest {
 
   @Test
   public void testConstructor() {
-    WetCommand tmpCommand = new WetCommand("TestCommand", false);
+    Command tmpCommand = new Command("TestCommand", false);
 
     Assert.assertEquals("TestCommand", tmpCommand.getName());
     Assert.assertFalse(tmpCommand.isComment());
@@ -36,7 +36,7 @@ public class WetCommandTest {
 
   @Test
   public void testConstructor_comment() {
-    WetCommand tmpCommand = new WetCommand("TestCommand", true);
+    Command tmpCommand = new Command("TestCommand", true);
 
     Assert.assertEquals("TestCommand", tmpCommand.getName());
     Assert.assertTrue(tmpCommand.isComment());

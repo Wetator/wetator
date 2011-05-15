@@ -109,10 +109,10 @@ Wetator/src/org/wetator/commandset/ICommandImplementation.java -text
 Wetator/src/org/wetator/commandset/ICommandSet.java -text
 Wetator/src/org/wetator/commandset/IncubatorCommandSet.java -text
 Wetator/src/org/wetator/commandset/SqlCommandSet.java -text
+Wetator/src/org/wetator/core/Command.java -text
 Wetator/src/org/wetator/core/IProgressListener.java -text
 Wetator/src/org/wetator/core/Parameter.java -text
 Wetator/src/org/wetator/core/Variable.java -text
-Wetator/src/org/wetator/core/WetCommand.java -text
 Wetator/src/org/wetator/core/WetConfiguration.java -text
 Wetator/src/org/wetator/core/WetContext.java -text
 Wetator/src/org/wetator/core/WetEngine.java -text
@@ -220,7 +220,7 @@ Wetator/test/java/org/wetator/commandset/XmlIncubatorCommandSetTest.java -text
 Wetator/test/java/org/wetator/commandset/XmlOtherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/AllTests.java -text
-Wetator/test/java/org/wetator/core/WetCommandTest.java -text
+Wetator/test/java/org/wetator/core/CommandTest.java -text
 Wetator/test/java/org/wetator/core/result/AllTests.java -text
 Wetator/test/java/org/wetator/core/result/WetResultWriterTest.java -text
 Wetator/test/java/org/wetator/core/result/XslTransformerTest.java -text

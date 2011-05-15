@@ -18,7 +18,7 @@ package org.wetator.scriptcreator;
 
 import java.util.List;
 
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 
 /**
@@ -41,7 +41,7 @@ public interface IScriptCreator {
    * @param aCommandList the commands that should be in the script
    * @throws WetException in case of error
    */
-  public void setCommands(List<WetCommand> aCommandList) throws WetException;
+  public void setCommands(List<Command> aCommandList) throws WetException;
 
   /**
    * @param aFileName the fileName to set (name only expected, without extension)

@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 
 /**
@@ -34,11 +34,11 @@ public class ExcelScripterTest {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
 
-    List<WetCommand> tmpCommands = tmpExcelScripter.getCommands();
+    List<Command> tmpCommands = tmpExcelScripter.getCommands();
     Assert.assertEquals(17, tmpCommands.size());
 
     int tmpPos = 0;
-    WetCommand tmpCommand = tmpCommands.get(tmpPos);
+    Command tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("aktion", tmpCommand.getName());
     Assert.assertEquals("Parameter", tmpCommand.getFirstParameter().getValue());

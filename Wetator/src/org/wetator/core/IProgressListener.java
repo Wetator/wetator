@@ -69,9 +69,9 @@ public interface IProgressListener {
    * This is called before a command is executed.
    * 
    * @param aWetContext the {@link WetContext}
-   * @param aCommand the {@link WetCommand}
+   * @param aCommand the {@link Command}
    */
-  public void executeCommandStart(WetContext aWetContext, WetCommand aCommand);
+  public void executeCommandStart(WetContext aWetContext, Command aCommand);
 
   /**
    * This is called if a command was executed successfully.

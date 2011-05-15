@@ -31,7 +31,7 @@ import org.wetator.util.SecretString;
  * 
  * @author rbri
  */
-public final class WetCommand {
+public final class Command {
   private String name;
   private boolean isComment;
   private Parameter firstParameter;
@@ -45,7 +45,7 @@ public final class WetCommand {
    * @param aName the name of the command
    * @param anIsCommentFlag true if the command is a comment
    */
-  public WetCommand(final String aName, final boolean anIsCommentFlag) {
+  public Command(final String aName, final boolean anIsCommentFlag) {
     name = aName;
     isComment = anIsCommentFlag;
 
@@ -132,7 +132,7 @@ public final class WetCommand {
    */
   public String toPrintableString(final WetContext aWetContext) {
     final StringBuilder tmpResult = new StringBuilder();
-    tmpResult.append("[WetCommand '");
+    tmpResult.append("[Command '");
     tmpResult.append(getName());
     tmpResult.append("'");
     if (isComment) {
