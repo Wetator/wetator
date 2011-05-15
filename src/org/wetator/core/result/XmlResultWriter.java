@@ -29,13 +29,13 @@ import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.ICommandSet;
+import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
 import org.wetator.core.Variable;
 import org.wetator.core.WetCommand;
 import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.core.WetEngine;
-import org.wetator.core.IProgressListener;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.i18n.Messages;
 import org.wetator.scripter.IScripter;
@@ -45,13 +45,13 @@ import org.wetator.util.StringUtil;
 import org.wetator.util.XmlUtil;
 
 /**
- * The class that generates the output.
+ * The class that generates the XML output.
  * 
  * @author rbri
  * @author frank.danek
  */
-public class WetResultWriter implements IProgressListener {
-  private static final Log LOG = LogFactory.getLog(WetResultWriter.class);
+public class XmlResultWriter implements IProgressListener {
+  private static final Log LOG = LogFactory.getLog(XmlResultWriter.class);
 
   private static final String TAG_WET = "wet";
   private static final String TAG_ABOUT = "about";
@@ -87,13 +87,13 @@ public class WetResultWriter implements IProgressListener {
   private List<String> xslTemplates;
 
   private long tagId;
-  private long wetExecutionStartTime;
+  private long executionStartTime;
   private long commandExecutionStartTime;
 
   /**
    * The constructor.
    */
-  public WetResultWriter() {
+  public XmlResultWriter() {
     tagId = 0;
   }
 
@@ -220,7 +220,7 @@ public class WetResultWriter implements IProgressListener {
         printlnNode(TAG_TEST_FILE, tmpFile.getAbsolutePath());
       }
 
-      wetExecutionStartTime = System.currentTimeMillis();
+      executionStartTime = System.currentTimeMillis();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -455,7 +455,7 @@ public class WetResultWriter implements IProgressListener {
   @Override
   public void end(final WetEngine aWetEngine) {
     try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - wetExecutionStartTime));
+      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - executionStartTime));
 
       printlnEndTag(TAG_WET);
       output.flush();
