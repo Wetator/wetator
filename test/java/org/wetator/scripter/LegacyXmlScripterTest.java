@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 
 /**
@@ -42,10 +42,10 @@ public class LegacyXmlScripterTest {
 
     tmpLegacyXmlScripter.setFile(tmpFile);
 
-    List<WetCommand> tmpCommands = tmpLegacyXmlScripter.getCommands();
+    List<Command> tmpCommands = tmpLegacyXmlScripter.getCommands();
     Assert.assertEquals(9, tmpCommands.size());
 
-    WetCommand tmpCommand = tmpCommands.get(0);
+    Command tmpCommand = tmpCommands.get(0);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
     Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());

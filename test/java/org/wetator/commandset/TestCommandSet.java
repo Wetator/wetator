@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.wetator.core.Parameter;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
@@ -54,21 +54,21 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   public final class CommandAssertFail implements ICommandImplementation {
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(WetContext aWetContext, Command aCommand) throws AssertionFailedException {
 
-      List<Parameter.Part> tmpFirstParameters = aWetCommand.getFirstParameter().getParts();
+      List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
       SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aWetContext);
 
       SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aWetContext);
       String tmpCommandName = tmpCommandParam.getValue();
       // normalize command name
       tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
-      WetCommand tmpCommand = new WetCommand(tmpCommandName, false);
-      tmpCommand.setLineNo(aWetCommand.getLineNo());
+      Command tmpCommand = new Command(tmpCommandName, false);
+      tmpCommand.setLineNo(aCommand.getLineNo());
 
-      tmpCommand.setFirstParameter(aWetCommand.getSecondParameter());
-      if (null != aWetCommand.getThirdParameter()) {
-        tmpCommand.setSecondParameter(aWetCommand.getThirdParameter());
+      tmpCommand.setFirstParameter(aCommand.getSecondParameter());
+      if (null != aCommand.getThirdParameter()) {
+        tmpCommand.setSecondParameter(aCommand.getThirdParameter());
       }
 
       try {

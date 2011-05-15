@@ -32,7 +32,7 @@ import org.wetator.commandset.ICommandSet;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
 import org.wetator.core.Variable;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.core.WetEngine;
@@ -284,22 +284,22 @@ public class XmlResultWriter implements IProgressListener {
    * {@inheritDoc}
    * 
    * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetContext,
-   *      org.wetator.core.WetCommand)
+   *      org.wetator.core.Command)
    */
   @Override
-  public void executeCommandStart(final WetContext aWetContext, final WetCommand aWetCommand) {
+  public void executeCommandStart(final WetContext aWetContext, final Command aCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
       output.print("name=\"");
-      output.print(xmlUtil.normalizeAttributeValue(aWetCommand.getName()));
-      output.print("\" line=\"" + aWetCommand.getLineNo());
-      if (aWetCommand.isComment()) {
+      output.print(xmlUtil.normalizeAttributeValue(aCommand.getName()));
+      output.print("\" line=\"" + aCommand.getLineNo());
+      if (aCommand.isComment()) {
         output.print("\" isComment=\"true");
       }
       output.println("\" >");
       output.indent();
 
-      Parameter tmpParameter = aWetCommand.getFirstParameter();
+      Parameter tmpParameter = aCommand.getFirstParameter();
       printStartTag(TAG_FIRST_PARAM);
       if (null != tmpParameter) {
         output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
@@ -307,7 +307,7 @@ public class XmlResultWriter implements IProgressListener {
       printEndTag(TAG_FIRST_PARAM);
       output.println();
 
-      tmpParameter = aWetCommand.getSecondParameter();
+      tmpParameter = aCommand.getSecondParameter();
       printStartTag(TAG_SECOND_PARAM);
       if (null != tmpParameter) {
         output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));

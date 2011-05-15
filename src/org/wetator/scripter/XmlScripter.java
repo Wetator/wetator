@@ -35,8 +35,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.lang.StringUtils;
+import org.wetator.core.Command;
 import org.wetator.core.Parameter;
-import org.wetator.core.WetCommand;
 import org.wetator.exception.WetException;
 import org.wetator.scripter.xml.ModelBuilder;
 import org.wetator.scripter.xml.model.CommandType;
@@ -69,7 +69,7 @@ public class XmlScripter implements IScripter {
 
   private File file;
   private ModelBuilder model;
-  private List<WetCommand> commands;
+  private List<Command> commands;
 
   /**
    * {@inheritDoc}
@@ -161,7 +161,7 @@ public class XmlScripter implements IScripter {
    * @see org.wetator.scripter.IScripter#getCommands()
    */
   @Override
-  public List<WetCommand> getCommands() {
+  public List<Command> getCommands() {
     return commands;
   }
 
@@ -172,12 +172,12 @@ public class XmlScripter implements IScripter {
     return model;
   }
 
-  private List<WetCommand> parseScript(final File aFile) throws IOException, XMLStreamException {
+  private List<Command> parseScript(final File aFile) throws IOException, XMLStreamException {
     final InputStream tmpInputStream = new FileInputStream(aFile);
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
     final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
 
-    final List<WetCommand> tmpResult = new ArrayList<WetCommand>();
+    final List<Command> tmpResult = new ArrayList<Command>();
     try {
       // move reader position to test-case...
       while (tmpReader.hasNext()) {
@@ -198,16 +198,16 @@ public class XmlScripter implements IScripter {
       boolean tmpDisabled = false;
       String[] tmpParameters = new String[0];
 
-      WetCommand tmpWetCommand = null;
+      Command tmpCommand = null;
       while (tmpReader.hasNext()) {
         final int tmpEvent = tmpReader.next();
         if (tmpEvent == XMLStreamConstants.START_ELEMENT) {
           if (E_COMMENT.equals(tmpReader.getLocalName())) {
             // comment found
             tmpInComment = true;
-            // build WetCommand
-            tmpWetCommand = new WetCommand("", true);
-            tmpWetCommand.setLineNo(tmpResult.size() + 1);
+            // build command
+            tmpCommand = new Command("", true);
+            tmpCommand.setLineNo(tmpResult.size() + 1);
 
             tmpCurrentText = new StringBuilder();
           } else if (E_COMMAND.equals(tmpReader.getLocalName())) {
@@ -227,9 +227,9 @@ public class XmlScripter implements IScripter {
               // known commandType found
               tmpInCommandType = true;
               tmpCurrentCommandType = tmpCommandType;
-              // build WetCommand
-              tmpWetCommand = new WetCommand(tmpCurrentCommandType.getName(), tmpDisabled);
-              tmpWetCommand.setLineNo(tmpResult.size() + 1);
+              // build command
+              tmpCommand = new Command(tmpCurrentCommandType.getName(), tmpDisabled);
+              tmpCommand.setLineNo(tmpResult.size() + 1);
 
               tmpParameters = new String[tmpCurrentCommandType.getParameterTypes().size()];
             } else if (tmpInCommandType) {
@@ -264,15 +264,15 @@ public class XmlScripter implements IScripter {
             tmpInCommandType = false;
 
             if (tmpParameters.length >= 1 && StringUtils.isNotEmpty(tmpParameters[0])) {
-              tmpWetCommand.setFirstParameter(new Parameter(tmpParameters[0]));
+              tmpCommand.setFirstParameter(new Parameter(tmpParameters[0]));
             }
             if (tmpParameters.length >= 2 && StringUtils.isNotEmpty(tmpParameters[1])) {
-              tmpWetCommand.setSecondParameter(new Parameter(tmpParameters[1]));
+              tmpCommand.setSecondParameter(new Parameter(tmpParameters[1]));
             }
             if (tmpParameters.length >= 3 && StringUtils.isNotEmpty(tmpParameters[2])) {
-              tmpWetCommand.setThirdParameter(new Parameter(tmpParameters[2]));
+              tmpCommand.setThirdParameter(new Parameter(tmpParameters[2]));
             }
-            tmpResult.add(tmpWetCommand);
+            tmpResult.add(tmpCommand);
 
             tmpCurrentCommandType = null;
           } else if (tmpInCommand) {
@@ -281,8 +281,8 @@ public class XmlScripter implements IScripter {
           } else if (tmpInComment) {
             tmpInComment = false;
 
-            tmpWetCommand.setFirstParameter(new Parameter(tmpCurrentText.toString()));
-            tmpResult.add(tmpWetCommand);
+            tmpCommand.setFirstParameter(new Parameter(tmpCurrentText.toString()));
+            tmpResult.add(tmpCommand);
 
             tmpCurrentText = null;
           }

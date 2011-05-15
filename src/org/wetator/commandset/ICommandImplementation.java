@@ -16,7 +16,7 @@
 
 package org.wetator.commandset;
 
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 
@@ -28,13 +28,13 @@ import org.wetator.exception.AssertionFailedException;
 public interface ICommandImplementation {
 
   /**
-   * This method executes the given {@link WetCommand}. The implementation of this method must contain the logic for
-   * executing the {@link WetCommand}.
+   * This method executes the given {@link Command}. The implementation of this method must contain the logic for
+   * executing the {@link Command}.
    * 
    * @param aWetContext The current {@link WetContext}.
-   * @param aWetCommand The {@link WetCommand} to execute.
+   * @param aCommand The {@link Command} to execute.
    * @throws AssertionFailedException in case of a wrong assertion (if the command is an assert).
    */
-  public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException;
+  public void execute(WetContext aWetContext, Command aCommand) throws AssertionFailedException;
 
 }

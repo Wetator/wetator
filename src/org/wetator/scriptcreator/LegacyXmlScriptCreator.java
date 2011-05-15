@@ -23,7 +23,7 @@ import java.util.List;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 import org.wetator.scripter.LegacyXmlScripter;
 
@@ -35,7 +35,7 @@ import org.wetator.scripter.LegacyXmlScripter;
  */
 public class LegacyXmlScriptCreator implements IScriptCreator {
 
-  private List<WetCommand> commands;
+  private List<Command> commands;
   private String fileName;
   private String dtd;
   private File outputDir;
@@ -70,7 +70,7 @@ public class LegacyXmlScriptCreator implements IScriptCreator {
       tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
           "http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd");
       tmpWriter.writeCharacters("\n");
-      for (WetCommand tmpCommand : commands) {
+      for (Command tmpCommand : commands) {
         tmpWriter.writeCharacters("    ");
         tmpWriter.writeStartElement(LegacyXmlScripter.E_STEP);
         tmpWriter.writeAttribute(LegacyXmlScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));
@@ -124,7 +124,7 @@ public class LegacyXmlScriptCreator implements IScriptCreator {
    * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
    */
   @Override
-  public void setCommands(final List<WetCommand> aCommandList) throws WetException {
+  public void setCommands(final List<Command> aCommandList) throws WetException {
     commands = aCommandList;
   }
 

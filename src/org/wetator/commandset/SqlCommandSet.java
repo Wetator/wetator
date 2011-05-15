@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
@@ -88,12 +88,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * {@inheritDoc}
      * 
      * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
-     *      org.wetator.core.WetCommand)
+     *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
-      final SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aWetContext);
+      aCommand.assertNoUnusedSecondParameter(aWetContext);
 
       tmpSqlParam.trim();
       final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
@@ -124,12 +124,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * {@inheritDoc}
      * 
      * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
-     *      org.wetator.core.WetCommand)
+     *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
-      final SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      final List<SecretString> tmpExpected = aWetCommand.getRequiredSecondParameterValues(aWetContext);
+    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aWetContext);
+      final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aWetContext);
 
       tmpSqlParam.trim();
       final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
@@ -179,12 +179,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * {@inheritDoc}
      * 
      * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
-     *      org.wetator.core.WetCommand)
+     *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
-      final SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aWetContext);
+      Long tmpTimeout = aCommand.getSecondParameterLongValue(aWetContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
       }

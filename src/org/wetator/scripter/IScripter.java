@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import org.wetator.core.WetCommand;
+import org.wetator.core.Command;
 import org.wetator.exception.WetException;
 
 /**
@@ -61,7 +61,7 @@ public interface IScripter {
    * 
    * @return the complete list of commands.
    */
-  public List<WetCommand> getCommands();
+  public List<Command> getCommands();
 
   /**
    * @param aConfiguration the configuration to use for initialization
