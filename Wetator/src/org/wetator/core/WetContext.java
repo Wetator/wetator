@@ -207,6 +207,8 @@ public class WetContext {
       for (WetCommand tmpCommand : tmpCommands) {
         executeCommand(tmpCommand);
       }
+    } catch (final WetException e) {
+      engine.informListenersExecuteCommandError(e);
     } finally {
       engine.informListenersTestFileEnd();
     }
