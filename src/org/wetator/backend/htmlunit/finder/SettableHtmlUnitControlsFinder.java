@@ -74,30 +74,27 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
               WeightedControlList.FoundType.BY_ID, 0, // no coverage
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
               htmlPageIndex.getPosition(tmpHtmlElement).startPos);
-          return tmpFoundControls;
         }
         if (tmpHtmlElement instanceof HtmlPasswordInput) {
           tmpFoundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no coverage
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
               htmlPageIndex.getPosition(tmpHtmlElement).startPos);
-          return tmpFoundControls;
         }
         if (tmpHtmlElement instanceof HtmlTextArea) {
           tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no coverage
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
               htmlPageIndex.getPosition(tmpHtmlElement).startPos);
-          return tmpFoundControls;
         }
         if (tmpHtmlElement instanceof HtmlFileInput) {
           tmpFoundControls.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no coverage
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
               htmlPageIndex.getPosition(tmpHtmlElement).startPos);
-          return tmpFoundControls;
         }
       }
+      return tmpFoundControls;
     }
 
     return super.find(aWPath);

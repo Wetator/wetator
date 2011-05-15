@@ -183,11 +183,26 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
 
-      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
-          "noSetableHtmlElmentFound");
+      Settable tmpControl = null;
+      // in case of no input use the first 'usable' field on the page
       if (tmpWPath.isEmpty()) {
+        for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
+          tmpControl = (Settable) tmpEntry.getControl();
+          if (!tmpControl.isDisabled(aWetContext)) {
+            break;
+          }
+        }
+
+        if (null == tmpControl) {
+          Assert.fail("noSetableHtmlElmentFound", new String[] { tmpWPath.toString() });
+        }
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
+      } else {
+        tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+            "noSetableHtmlElmentFound");
+
       }
+
       tmpControl.setValue(aWetContext, tmpValueParam, aWetContext.getFile().getParentFile());
       tmpBrowser.saveCurrentWindowToLog();
     }
