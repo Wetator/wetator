@@ -921,23 +921,44 @@
     </xsl:template>
 
     <xsl:template name="testcaseTable">
-        <xsl:if test="count(command) > 0">
-            <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
-                <tr>
-                    <th>Line</th>
-                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-                    <th>Command</th>
-                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-                    <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
-                    <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
-                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-                    <th>Duration</th>
-                </tr>
-                <xsl:for-each select="./command">
-                    <xsl:call-template name="command"/>
-                </xsl:for-each>
-            </table>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="count(command) > 0">
+                <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
+                    <tr>
+                        <th>Line</th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th>Command</th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
+                        <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th style="text-align: right;">Duration</th>
+                    </tr>
+                    <xsl:for-each select="./command">
+                        <xsl:call-template name="command"/>
+                    </xsl:for-each>
+                </table>
+            </xsl:when>
+
+            <xsl:when test="count(descendant-or-self::error) &gt; 0">
+                <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
+                    <tr>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th>Error</th>
+                    </tr>
+                    <xsl:for-each select="error">
+                    <tr>
+                      <td>
+                        <img src="./images/failed.png" width="12" height="10" alt="failed"/>
+                      </td>
+                      <td class="error">
+                        <xsl:value-of select="message"/>
+                      </td>
+                    </tr>
+                  </xsl:for-each>
+                </table>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="command">
