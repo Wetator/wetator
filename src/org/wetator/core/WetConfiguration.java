@@ -38,7 +38,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.DefaultCommandSet;
-import org.wetator.commandset.WetCommandSet;
+import org.wetator.commandset.ICommandSet;
 import org.wetator.core.variable.Variable;
 import org.wetator.exception.WetException;
 import org.wetator.scripter.ExcelScripter;
@@ -66,7 +66,7 @@ public final class WetConfiguration {
 
   // wetator
   /**
-   * The property name to set the supported {@link WetCommandSet}s.
+   * The property name to set the supported {@link ICommandSet}s.
    */
   public static final String PROPERTY_COMMAND_SETS = PROPERTY_PREFIX + "commandSets";
   /**
@@ -145,7 +145,7 @@ public final class WetConfiguration {
   public static final String SECRET_PREFIX = "$";
 
   private List<IScripter> scripters;
-  private List<WetCommandSet> commandSets;
+  private List<ICommandSet> commandSets;
   private List<Class<? extends Control>> controls;
   private String baseUrl;
 
@@ -322,29 +322,27 @@ public final class WetConfiguration {
     }
 
     // command sets
-    commandSets = new LinkedList<WetCommandSet>();
-
-    WetCommandSet tmpCommandSet;
-    tmpCommandSet = new DefaultCommandSet();
-    commandSets.add(tmpCommandSet);
-    LOG.info("Config  command set '" + tmpCommandSet.getClass().getName() + "' registered.");
+    commandSets = new LinkedList<ICommandSet>();
 
     tmpValue = tmpProperties.getProperty(PROPERTY_COMMAND_SETS, "");
     final List<String> tmpCommandSetClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+
+    // add default command first
+    tmpCommandSetClassNames.add(0, DefaultCommandSet.class.getName());
 
     for (String tmpCommandSetClassName : tmpCommandSetClassNames) {
       tmpCommandSetClassName = tmpCommandSetClassName.trim();
       if (!StringUtils.isEmpty(tmpCommandSetClassName)) {
         try {
-          Class<? extends WetCommandSet> tmpClass;
+          Class<? extends ICommandSet> tmpClass;
           try {
             tmpClass = ClassUtils.getClass(tmpCommandSetClassName);
           } catch (final ClassNotFoundException e) {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
           }
-          final WetCommandSet tmpWetCommandSet = tmpClass.newInstance();
-          commandSets.add(tmpWetCommandSet);
+          final ICommandSet tmpCommandSet = tmpClass.newInstance();
+          commandSets.add(tmpCommandSet);
           LOG.info("Config:  command set '" + tmpCommandSetClassName + "' registered.");
         } catch (final ClassNotFoundException e) {
           if (LOG.isDebugEnabled()) {
@@ -373,8 +371,8 @@ public final class WetConfiguration {
         }
       }
     }
-    for (WetCommandSet tmpWetCommandSet : commandSets) {
-      tmpWetCommandSet.initialize(tmpProperties);
+    for (ICommandSet tmpCommandSet : commandSets) {
+      tmpCommandSet.initialize(tmpProperties);
     }
 
     // controls
@@ -554,9 +552,9 @@ public final class WetConfiguration {
   }
 
   /**
-   * @return a list containing the configured {@link WetCommandSet}s
+   * @return a list containing the configured {@link ICommandSet}s
    */
-  public List<WetCommandSet> getCommandSets() {
+  public List<ICommandSet> getCommandSets() {
     return commandSets;
   }
 

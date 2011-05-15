@@ -27,7 +27,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.commandset.WetCommandImplementation;
-import org.wetator.commandset.WetCommandSet;
+import org.wetator.commandset.ICommandSet;
 import org.wetator.core.result.WetResultWriter;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetException;
@@ -52,7 +52,7 @@ public final class WetEngine {
 
   private WetConfiguration configuration;
   private IBrowser browser;
-  private List<WetCommandSet> commandSets;
+  private List<ICommandSet> commandSets;
   private List<IScripter> scripter;
   private List<WetProgressListener> progressListener;
 
@@ -200,7 +200,7 @@ public final class WetEngine {
    * @return the {@link WetCommandImplementation} for the given name or null if none was found
    */
   protected WetCommandImplementation getCommandImplementationFor(final String aCommandName) {
-    for (WetCommandSet tmpCommandSet : commandSets) {
+    for (ICommandSet tmpCommandSet : commandSets) {
       WetCommandImplementation tmpCommandImplementation;
       tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
       if (null != tmpCommandImplementation) {
