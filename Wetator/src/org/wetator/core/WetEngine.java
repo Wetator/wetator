@@ -54,7 +54,7 @@ public final class WetEngine {
   private IBrowser browser;
   private List<ICommandSet> commandSets;
   private List<IScripter> scripter;
-  private List<WetProgressListener> progressListener;
+  private List<IProgressListener> progressListener;
 
   /**
    * The constructor.
@@ -65,7 +65,7 @@ public final class WetEngine {
     super();
 
     files = new LinkedList<File>();
-    progressListener = new LinkedList<WetProgressListener>();
+    progressListener = new LinkedList<IProgressListener>();
   }
 
   /**
@@ -287,12 +287,12 @@ public final class WetEngine {
   }
 
   /**
-   * Adds the given {@link WetProgressListener} as listener. If this listener is already added it will not be
+   * Adds the given {@link IProgressListener} as listener. If this listener is already added it will not be
    * added again but the listener added first will be taken.
    * 
    * @param aProgressListener the listener to add
    */
-  public void addProgressListener(final WetProgressListener aProgressListener) {
+  public void addProgressListener(final IProgressListener aProgressListener) {
     if (progressListener.contains(aProgressListener)) {
       return;
     }
@@ -303,7 +303,7 @@ public final class WetEngine {
    * Informs all listeners about 'init'.
    */
   protected void informListenersInit() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.init(this);
     }
   }
@@ -312,7 +312,7 @@ public final class WetEngine {
    * Informs all listeners about 'start'.
    */
   protected void informListenersStart() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.start(this);
     }
   }
@@ -323,7 +323,7 @@ public final class WetEngine {
    * @param aTestName the file name of the test started.
    */
   protected void informListenersTestCaseStart(final String aTestName) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.testCaseStart(aTestName);
     }
   }
@@ -334,7 +334,7 @@ public final class WetEngine {
    * @param aBrowserName the browser name of the test started.
    */
   protected void informListenersTestRunStart(final String aBrowserName) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.testRunStart(aBrowserName);
     }
   }
@@ -345,7 +345,7 @@ public final class WetEngine {
    * @param aFileName the file name of the test started.
    */
   protected void informListenersTestFileStart(final String aFileName) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.testFileStart(aFileName);
     }
   }
@@ -357,7 +357,7 @@ public final class WetEngine {
    * @param aCommand the {@link WetCommand} to be executed.
    */
   protected void informListenersExecuteCommandStart(final WetContext aWetContext, final WetCommand aCommand) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandStart(aWetContext, aCommand);
     }
   }
@@ -366,7 +366,7 @@ public final class WetEngine {
    * Informs all listeners about 'executeCommandEnd'.
    */
   protected void informListenersExecuteCommandEnd() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandEnd();
     }
   }
@@ -375,7 +375,7 @@ public final class WetEngine {
    * Informs all listeners about 'executeCommandSuccess'.
    */
   protected void informListenersExecuteCommandSuccess() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandSuccess();
     }
   }
@@ -386,7 +386,7 @@ public final class WetEngine {
    * @param anAssertionFailedException The exception thrown by the failed command.
    */
   protected void informListenersExecuteCommandFailure(final AssertionFailedException anAssertionFailedException) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandFailure(anAssertionFailedException);
     }
   }
@@ -397,7 +397,7 @@ public final class WetEngine {
    * @param aThrowable The exception thrown by the command.
    */
   protected void informListenersExecuteCommandError(final Throwable aThrowable) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandError(aThrowable);
     }
   }
@@ -406,7 +406,7 @@ public final class WetEngine {
    * Informs all listeners about 'testFileEnd'.
    */
   protected void informListenersTestFileEnd() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.testFileEnd();
     }
   }
@@ -415,7 +415,7 @@ public final class WetEngine {
    * Informs all listeners about 'testRunEnd'.
    */
   protected void informListenersTestRunEnd() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.testRunEnd();
     }
   }
@@ -424,7 +424,7 @@ public final class WetEngine {
    * Informs all listeners about 'testEnd'.
    */
   protected void informListenersTestCaseEnd() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.testCaseEnd();
     }
   }
@@ -433,7 +433,7 @@ public final class WetEngine {
    * Informs all listeners about 'end'.
    */
   protected void informListenersEnd() {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.end(this);
     }
   }
@@ -445,7 +445,7 @@ public final class WetEngine {
    * @param aParameterArray the message parameters.
    */
   public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.warn(aMessageKey, aParameterArray);
     }
   }
@@ -457,7 +457,7 @@ public final class WetEngine {
    * @param aParameterArray the message parameters.
    */
   public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.info(aMessageKey, aParameterArray);
     }
   }
@@ -468,7 +468,7 @@ public final class WetEngine {
    * @param aResponseFileName the file name of the stored response.
    */
   public void informListenersResponseStored(final String aResponseFileName) {
-    for (WetProgressListener tmpListener : progressListener) {
+    for (IProgressListener tmpListener : progressListener) {
       tmpListener.responseStored(aResponseFileName);
     }
   }

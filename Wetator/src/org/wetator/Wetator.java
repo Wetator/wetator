@@ -23,7 +23,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.WetEngine;
-import org.wetator.core.WetProgressListener;
+import org.wetator.core.IProgressListener;
 import org.wetator.exception.WetException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.util.StdOutProgressListener;
@@ -47,7 +47,7 @@ public final class Wetator {
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    final WetProgressListener tmpProgressListener = new StdOutProgressListener();
+    final IProgressListener tmpProgressListener = new StdOutProgressListener();
 
     String tmpConfigFileName = null;
     final List<String> tmpFileNames = new LinkedList<String>();

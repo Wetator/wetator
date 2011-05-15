@@ -109,12 +109,12 @@ Wetator/src/org/wetator/commandset/ICommandImplementation.java -text
 Wetator/src/org/wetator/commandset/ICommandSet.java -text
 Wetator/src/org/wetator/commandset/IncubatorCommandSet.java -text
 Wetator/src/org/wetator/commandset/SqlCommandSet.java -text
+Wetator/src/org/wetator/core/IProgressListener.java -text
 Wetator/src/org/wetator/core/Parameter.java -text
 Wetator/src/org/wetator/core/WetCommand.java -text
 Wetator/src/org/wetator/core/WetConfiguration.java -text
 Wetator/src/org/wetator/core/WetContext.java -text
 Wetator/src/org/wetator/core/WetEngine.java -text
-Wetator/src/org/wetator/core/WetProgressListener.java -text
 Wetator/src/org/wetator/core/result/WetResultWriter.java -text
 Wetator/src/org/wetator/core/result/XslTransformer.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
