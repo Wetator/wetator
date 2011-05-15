@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.core.variable;
+package org.wetator.core;
 
 import org.apache.commons.lang.StringUtils;
 import org.wetator.util.SecretString;

@@ -25,7 +25,6 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.commandset.ICommandImplementation;
-import org.wetator.core.variable.Variable;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetException;
 import org.wetator.util.Assert;

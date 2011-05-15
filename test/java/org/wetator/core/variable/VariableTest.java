@@ -18,6 +18,7 @@ package org.wetator.core.variable;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.wetator.core.Variable;
 import org.wetator.util.SecretString;
 
 /**
