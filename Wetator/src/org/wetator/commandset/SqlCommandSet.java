@@ -238,7 +238,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.WetCommandSet#initialize(java.util.Properties)
+   * @see org.wetator.commandset.ICommandSet#initialize(java.util.Properties)
    */
   @Override
   public void initialize(final Properties aConfiguration) {
@@ -346,7 +346,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.WetCommandSet#cleanup()
+   * @see org.wetator.commandset.ICommandSet#cleanup()
    */
   @Override
   public void cleanup() {

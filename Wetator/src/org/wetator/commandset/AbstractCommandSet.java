@@ -37,7 +37,7 @@ import org.wetator.util.Assert;
  * 
  * @author rbri
  */
-public abstract class AbstractCommandSet implements WetCommandSet {
+public abstract class AbstractCommandSet implements ICommandSet {
   private static final Log LOG = LogFactory.getLog(AbstractCommandSet.class);
 
   private List<String> initializationMessages;
@@ -64,7 +64,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.WetCommandSet#getCommandImplementationFor(java.lang.String)
+   * @see org.wetator.commandset.ICommandSet#getCommandImplementationFor(java.lang.String)
    */
   @Override
   public final WetCommandImplementation getCommandImplementationFor(final String aCommandName) {
@@ -74,7 +74,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.WetCommandSet#getInitializationMessages()
+   * @see org.wetator.commandset.ICommandSet#getInitializationMessages()
    */
   @Override
   public List<String> getInitializationMessages() {

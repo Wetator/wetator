@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
-import org.wetator.commandset.WetCommandSet;
+import org.wetator.commandset.ICommandSet;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetCommand;
 import org.wetator.core.WetConfiguration;
@@ -157,7 +157,7 @@ public class WetResultWriter implements WetProgressListener {
       for (String tmpTemplate : tmpWetConfiguration.getXslTemplates()) {
         printConfigurationProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
       }
-      for (WetCommandSet tmpCommandSet : tmpWetConfiguration.getCommandSets()) {
+      for (ICommandSet tmpCommandSet : tmpWetConfiguration.getCommandSets()) {
         printConfigurationProperty(WetConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
       }
       for (Class<? extends Control> tmpControl : tmpWetConfiguration.getControls()) {
@@ -189,8 +189,8 @@ public class WetResultWriter implements WetProgressListener {
 
       printlnEndTag(TAG_VARIABLES);
 
-      final List<WetCommandSet> tmpCommandSets = tmpWetConfiguration.getCommandSets();
-      for (WetCommandSet tmpCommandSet : tmpCommandSets) {
+      final List<ICommandSet> tmpCommandSets = tmpWetConfiguration.getCommandSets();
+      for (ICommandSet tmpCommandSet : tmpCommandSets) {
         printStartTagOpener(TAG_COMMAND_SET);
         output.print("class=\"");
         output.print(xmlUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));

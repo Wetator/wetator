@@ -105,10 +105,10 @@ Wetator/src/org/wetator/backend/htmlunit/util/HtmlPageIndex.java -text svneol=un
 Wetator/src/org/wetator/backend/htmlunit/util/PageUtil.java -text
 Wetator/src/org/wetator/commandset/AbstractCommandSet.java -text
 Wetator/src/org/wetator/commandset/DefaultCommandSet.java -text
+Wetator/src/org/wetator/commandset/ICommandSet.java -text
 Wetator/src/org/wetator/commandset/IncubatorCommandSet.java -text
 Wetator/src/org/wetator/commandset/SqlCommandSet.java -text
 Wetator/src/org/wetator/commandset/WetCommandImplementation.java -text
-Wetator/src/org/wetator/commandset/WetCommandSet.java -text
 Wetator/src/org/wetator/core/Parameter.java -text
 Wetator/src/org/wetator/core/WetCommand.java -text
 Wetator/src/org/wetator/core/WetConfiguration.java -text
