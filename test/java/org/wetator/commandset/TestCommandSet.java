@@ -52,7 +52,7 @@ public final class TestCommandSet extends AbstractCommandSet {
   /**
    * The assert fail command.
    */
-  public final class CommandAssertFail implements WetCommandImplementation {
+  public final class CommandAssertFail implements ICommandImplementation {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 

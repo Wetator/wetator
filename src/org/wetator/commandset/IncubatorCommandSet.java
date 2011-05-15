@@ -51,11 +51,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Focus'.
    */
-  public final class CommandAssertFocus implements WetCommandImplementation {
+  public final class CommandAssertFocus implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -89,11 +89,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   /**
    * Command 'Open Bookmark'.
    */
-  public final class CommandOpenBookmark implements WetCommandImplementation {
+  public final class CommandOpenBookmark implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -115,11 +115,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   /**
    * Command 'Save Bookmark'.
    */
-  public final class CommandSaveBookmark implements WetCommandImplementation {
+  public final class CommandSaveBookmark implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override

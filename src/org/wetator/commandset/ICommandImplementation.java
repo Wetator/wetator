@@ -21,19 +21,18 @@ import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
- * The interface every implemented command
- * fulfills.
+ * The interface every implemented command fulfills.
  * 
  * @author rbri
  */
-public interface WetCommandImplementation {
+public interface ICommandImplementation {
 
   /**
-   * This method executes the given WetCommand. The implementation of this method must contain the logic for executing
-   * the WetCommand.
+   * This method executes the given {@link WetCommand}. The implementation of this method must contain the logic for
+   * executing the {@link WetCommand}.
    * 
-   * @param aWetContext The current WetContext.
-   * @param aWetCommand The WetCommand to execute.
+   * @param aWetContext The current {@link WetContext}.
+   * @param aWetCommand The {@link WetCommand} to execute.
    * @throws AssertionFailedException in case of a wrong assertion (if the command is an assert).
    */
   public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException;

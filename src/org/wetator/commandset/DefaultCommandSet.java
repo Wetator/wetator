@@ -82,11 +82,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Open Url'.
    */
-  public final class CommandOpenUrl implements WetCommandImplementation {
+  public final class CommandOpenUrl implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -123,11 +123,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Use Module'.
    */
-  public final class CommandUseModule implements WetCommandImplementation {
+  public final class CommandUseModule implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -161,11 +161,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Set'.
    */
-  public final class CommandSet implements WetCommandImplementation {
+  public final class CommandSet implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -211,11 +211,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Click On'.
    */
-  public final class CommandClickOn implements WetCommandImplementation {
+  public final class CommandClickOn implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -243,11 +243,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Click Double On'.
    */
-  public final class CommandClickDoubleOn implements WetCommandImplementation {
+  public final class CommandClickDoubleOn implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -275,11 +275,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Click Right On'.
    */
-  public final class CommandClickRightOn implements WetCommandImplementation {
+  public final class CommandClickRightOn implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -306,11 +306,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Select'.
    */
-  public final class CommandSelect implements WetCommandImplementation {
+  public final class CommandSelect implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -335,11 +335,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Deselect'.
    */
-  public final class CommandDeselect implements WetCommandImplementation {
+  public final class CommandDeselect implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -364,11 +364,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Mouse Over'.
    */
-  public final class CommandMouseOver implements WetCommandImplementation {
+  public final class CommandMouseOver implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -400,11 +400,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'close Window'.
    */
-  public final class CommandCloseWindow implements WetCommandImplementation {
+  public final class CommandCloseWindow implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -422,11 +422,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Go Back'.
    */
-  public final class CommandGoBack implements WetCommandImplementation {
+  public final class CommandGoBack implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -454,11 +454,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Title'.
    */
-  public final class CommandAssertTitle implements WetCommandImplementation {
+  public final class CommandAssertTitle implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -482,11 +482,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Content'.
    */
-  public final class CommandAssertContent implements WetCommandImplementation {
+  public final class CommandAssertContent implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -510,11 +510,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Disabled'.
    */
-  public final class CommandAssertDisabled implements WetCommandImplementation {
+  public final class CommandAssertDisabled implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -548,11 +548,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Set'.
    */
-  public final class CommandAssertSet implements WetCommandImplementation {
+  public final class CommandAssertSet implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -579,11 +579,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Selected'.
    */
-  public final class CommandAssertSelected implements WetCommandImplementation {
+  public final class CommandAssertSelected implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -608,11 +608,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Assert Deselected'.
    */
-  public final class CommandAssertDeselected implements WetCommandImplementation {
+  public final class CommandAssertDeselected implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
@@ -637,11 +637,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Exec Java'.
    */
-  public final class CommandExecJava implements WetCommandImplementation {
+  public final class CommandExecJava implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.WetCommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
      *      org.wetator.core.WetCommand)
      */
     @Override
