@@ -28,7 +28,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.commandset.ICommandImplementation;
 import org.wetator.commandset.ICommandSet;
-import org.wetator.core.result.WetResultWriter;
+import org.wetator.core.result.XmlResultWriter;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetException;
 import org.wetator.scripter.IScripter;
@@ -129,7 +129,7 @@ public final class WetEngine {
    */
   public void executeTests() {
     // create new result writer and call the init() method.
-    final WetResultWriter tmpResultWriter = new WetResultWriter();
+    final XmlResultWriter tmpResultWriter = new XmlResultWriter();
     tmpResultWriter.init(this);
     addProgressListener(tmpResultWriter);
 

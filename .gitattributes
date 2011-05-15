@@ -116,7 +116,7 @@ Wetator/src/org/wetator/core/WetCommand.java -text
 Wetator/src/org/wetator/core/WetConfiguration.java -text
 Wetator/src/org/wetator/core/WetContext.java -text
 Wetator/src/org/wetator/core/WetEngine.java -text
-Wetator/src/org/wetator/core/result/WetResultWriter.java -text
+Wetator/src/org/wetator/core/result/XmlResultWriter.java -text
 Wetator/src/org/wetator/core/result/XslTransformer.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
