@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.core.result;
+package org.wetator.progresslistener;
 
 import java.io.File;
 import java.io.IOException;

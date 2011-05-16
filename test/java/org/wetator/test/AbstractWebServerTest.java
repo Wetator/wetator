@@ -37,11 +37,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
+import org.wetator.progresslistener.StdOutProgressListener;
 import org.wetator.test.jetty.HttpHeaderServlet;
 import org.wetator.test.jetty.MultiPartFilter;
 import org.wetator.test.jetty.RedirectServlet;
 import org.wetator.test.jetty.SnoopyServlet;
-import org.wetator.util.StdOutProgressListener;
 
 /**
  * Base test class for all WetatorEngine tests that need a web server.

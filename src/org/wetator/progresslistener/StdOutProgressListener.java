@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.util;
+package org.wetator.progresslistener;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +28,7 @@ import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.util.Output;
 
 /**
  * Simple progress listener that writes to stdout.

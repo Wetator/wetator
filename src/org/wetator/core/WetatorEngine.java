@@ -28,9 +28,9 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.commandset.ICommandImplementation;
 import org.wetator.commandset.ICommandSet;
-import org.wetator.core.result.XmlResultWriter;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetatorException;
+import org.wetator.progresslistener.XmlResultWriter;
 import org.wetator.scripter.IScripter;
 
 /**

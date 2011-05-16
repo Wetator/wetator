@@ -116,8 +116,6 @@ src/org/wetator/core/Variable.java -text
 src/org/wetator/core/WetatorConfiguration.java -text
 src/org/wetator/core/WetatorContext.java -text
 src/org/wetator/core/WetatorEngine.java -text
-src/org/wetator/core/result/XmlResultWriter.java -text
-src/org/wetator/core/result/XslTransformer.java -text
 src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
@@ -129,6 +127,9 @@ src/org/wetator/exception/AssertionFailedException.java -text
 src/org/wetator/exception/WetatorException.java -text
 src/org/wetator/gui/DialogUtil.java -text
 src/org/wetator/i18n/Messages.java -text
+src/org/wetator/progresslistener/StdOutProgressListener.java -text
+src/org/wetator/progresslistener/XmlResultWriter.java -text
+src/org/wetator/progresslistener/XslTransformer.java -text
 src/org/wetator/scriptcreator/IScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/LegacyXmlScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/XmlScriptCreator.java -text svneol=unset#text/plain
@@ -152,7 +153,6 @@ src/org/wetator/util/FileUtil.java -text
 src/org/wetator/util/NormalizedString.java -text
 src/org/wetator/util/Output.java -text
 src/org/wetator/util/SecretString.java -text
-src/org/wetator/util/StdOutProgressListener.java -text
 src/org/wetator/util/StringUtil.java -text
 src/org/wetator/util/VariableReplaceUtil.java -text
 src/org/wetator/util/XmlUtil.java -text
