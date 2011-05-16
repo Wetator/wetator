@@ -35,8 +35,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.backend.ControlFinder;
 import org.wetator.backend.IBrowser;
+import org.wetator.backend.IControlFinder;
 import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
@@ -375,6 +375,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
+   */
   @Override
   public void closeWindow(final SecretString aWindowName) throws AssertionFailedException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
@@ -421,6 +426,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     Assert.fail("noWindowByNameToClose", new String[] { aWindowName.toString() });
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
+   */
   @Override
   public void goBackInCurrentWindow(final int aSteps) throws AssertionFailedException {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
@@ -446,6 +456,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(org.wetator.backend.control.Control[])
+   */
   @Override
   public void saveCurrentWindowToLog(final Control... aControls) {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
@@ -579,13 +594,23 @@ public final class HtmlUnitBrowser implements IBrowser {
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#getControlFinder()
+   */
   @Override
-  public ControlFinder getControlFinder() throws AssertionFailedException {
+  public IControlFinder getControlFinder() throws AssertionFailedException {
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#waitForImmediateJobs()
+   */
   @Override
   public void waitForImmediateJobs() throws AssertionFailedException {
     Page tmpPage = getCurrentPage();
@@ -615,6 +640,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#assertTitleInTimeFrame(java.util.List, long)
+   */
   @Override
   public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
       throws AssertionFailedException {
@@ -662,6 +692,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     return tmpStartPage != tmpPage;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#assertContentInTimeFrame(java.util.List, long)
+   */
   @Override
   public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
       throws AssertionFailedException {

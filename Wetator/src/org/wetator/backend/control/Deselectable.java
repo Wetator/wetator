@@ -21,7 +21,7 @@ import org.wetator.exception.AssertionFailedException;
 
 /**
  * This interface marks all deselectable {@link Control}s. These controls are returned by
- * {@link org.wetator.backend.ControlFinder#getAllDeselectables(org.wetator.backend.WPath)}. All deselectable control
+ * {@link org.wetator.backend.IControlFinder#getAllDeselectables(org.wetator.backend.WPath)}. All deselectable control
  * are also
  * selectable.
  * 

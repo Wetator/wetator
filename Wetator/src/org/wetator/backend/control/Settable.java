@@ -24,7 +24,7 @@ import org.wetator.util.SecretString;
 
 /**
  * This interface marks all settable {@link Control}s. These controls are returned by
- * {@link org.wetator.backend.ControlFinder#getAllSettables(org.wetator.backend.WPath)}.
+ * {@link org.wetator.backend.IControlFinder#getAllSettables(org.wetator.backend.WPath)}.
  * 
  * @author frank.danek
  */

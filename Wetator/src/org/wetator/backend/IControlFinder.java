@@ -22,7 +22,7 @@ package org.wetator.backend;
  * @author rbri
  * @author frank.danek
  */
-public interface ControlFinder {
+public interface IControlFinder {
 
   /**
    * Return a list of all clickable controls for the given wpath.

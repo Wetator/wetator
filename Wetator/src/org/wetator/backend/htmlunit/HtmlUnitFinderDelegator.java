@@ -19,7 +19,7 @@ package org.wetator.backend.htmlunit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import org.wetator.backend.ControlFinder;
+import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
@@ -31,12 +31,12 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * This is the HtmlUnit specific implementation of a {@link ControlFinder}. All requests for
+ * This is the HtmlUnit specific implementation of a {@link IControlFinder}. All requests for
  * {@link org.wetator.backend.control.Control}s are delegated to the specific finder.
  * 
  * @author frank.danek
  */
-public class HtmlUnitFinderDelegator implements ControlFinder {
+public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * The index of the page.
@@ -97,7 +97,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.ControlFinder#getAllSettables(WPath)
+   * @see org.wetator.backend.IControlFinder#getAllSettables(WPath)
    */
   @Override
   public WeightedControlList getAllSettables(final WPath aWPath) {
@@ -107,7 +107,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.ControlFinder#getAllClickables(WPath)
+   * @see org.wetator.backend.IControlFinder#getAllClickables(WPath)
    */
   @Override
   public WeightedControlList getAllClickables(final WPath aWPath) {
@@ -117,7 +117,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.ControlFinder#getAllSelectables(WPath)
+   * @see org.wetator.backend.IControlFinder#getAllSelectables(WPath)
    */
   @Override
   public WeightedControlList getAllSelectables(final WPath aWPath) {
@@ -127,7 +127,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.ControlFinder#getAllDeselectables(WPath)
+   * @see org.wetator.backend.IControlFinder#getAllDeselectables(WPath)
    */
   @Override
   public WeightedControlList getAllDeselectables(final WPath aWPath) {
@@ -137,7 +137,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.ControlFinder#getAllOtherControls(WPath)
+   * @see org.wetator.backend.IControlFinder#getAllOtherControls(WPath)
    */
   @Override
   public WeightedControlList getAllOtherControls(final WPath aWPath) {
@@ -147,7 +147,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.ControlFinder#getAllControlsForText(WPath)
+   * @see org.wetator.backend.IControlFinder#getAllControlsForText(WPath)
    */
   @Override
   public WeightedControlList getAllControlsForText(final WPath aWPath) {
