@@ -33,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
-import org.wetator.core.WetConfiguration;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
@@ -54,7 +54,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   private final Log log = LogFactory.getLog(SqlCommandSet.class);
 
-  private static final String PROPERTY_PREFIX = WetConfiguration.PROPERTY_PREFIX + "db.";
+  private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "db.";
   private static final String PROPERTY_CONNECTIONS = PROPERTY_PREFIX + "connections";
   private static final String PROPERTY_PART_DRIVER = ".driver";
   private static final String PROPERTY_PART_URL = ".url";

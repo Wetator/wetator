@@ -50,7 +50,7 @@ public final class WetEngine {
   private Map<String, String> externalProperties;
   private List<File> files;
 
-  private WetConfiguration configuration;
+  private WetatorConfiguration configuration;
   private IBrowser browser;
   private List<ICommandSet> commandSets;
   private List<IScripter> scripter;
@@ -76,26 +76,26 @@ public final class WetEngine {
    */
   public void init() throws WetException {
     informListenersInit();
-    init(readWetConfiguration());
+    init(readConfiguration());
   }
 
   /**
    * Initializes the wetator engine using the given configuration.
    * 
-   * @param aWetConfiguration the configuration to use
+   * @param aConfiguration the configuration to use
    * @throws WetException in case of problems
    */
-  public void init(final WetConfiguration aWetConfiguration) throws WetException {
-    configuration = aWetConfiguration;
+  public void init(final WetatorConfiguration aConfiguration) throws WetException {
+    configuration = aConfiguration;
     if (configFileName == null) {
       configFileName = "";
     }
 
     // setup the scripter
-    scripter = getWetConfiguration().getScripters();
+    scripter = getConfiguration().getScripters();
 
     // setup the command sets
-    commandSets = getWetConfiguration().getCommandSets();
+    commandSets = getConfiguration().getCommandSets();
 
     // setup the browser
     final HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
@@ -180,9 +180,9 @@ public final class WetEngine {
     return tmpResult;
   }
 
-  private WetConfiguration readWetConfiguration() throws WetException {
+  private WetatorConfiguration readConfiguration() throws WetException {
     final File tmpConfigFile = getConfigFile();
-    return new WetConfiguration(tmpConfigFile, getExternalProperties());
+    return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
   }
 
   private IScripter createScripter(final File aFile) {
@@ -254,7 +254,7 @@ public final class WetEngine {
   /**
    * @return the configuration
    */
-  public WetConfiguration getWetConfiguration() {
+  public WetatorConfiguration getConfiguration() {
     return configuration;
   }
 

@@ -59,7 +59,7 @@ import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
-import org.wetator.core.WetConfiguration;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetEngine;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionFailedException;
@@ -132,7 +132,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     wetEngine = aWetEngine;
 
     // response store
-    final WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
+    final WetatorConfiguration tmpConfiguration = wetEngine.getConfiguration();
     responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
 
     // TODO read from config
@@ -168,7 +168,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void startNewSession(final IBrowser.BrowserType aBrowserType) {
-    final WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
+    final WetatorConfiguration tmpConfiguration = wetEngine.getConfiguration();
 
     // reset the bookmarks
     bookmarks = new HashMap<String, URL>();
@@ -455,7 +455,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
           for (Control tmpControl : aControls) {
-            tmpControl.addHighlightStyle(wetEngine.getWetConfiguration());
+            tmpControl.addHighlightStyle(wetEngine.getConfiguration());
           }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetEngine.informListenersResponseStored(tmpPageFile);

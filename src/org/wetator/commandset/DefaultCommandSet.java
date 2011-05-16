@@ -105,7 +105,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             tmpUrlParam.prefixWith("/");
           }
 
-          tmpUrlParam.prefixWith(aWetContext.getWetConfiguration().getBaseUrl());
+          tmpUrlParam.prefixWith(aWetContext.getConfiguration().getBaseUrl());
         }
 
         final URL tmpUrl = new URL(tmpUrlParam.getValue());

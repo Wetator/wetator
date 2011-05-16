@@ -55,8 +55,8 @@ import org.wetator.util.StringUtil;
  * @author frank.danek
  */
 // TODO we have to split this into one common part and one part for configuring the backend
-public final class WetConfiguration {
-  private static final Log LOG = LogFactory.getLog(WetConfiguration.class);
+public final class WetatorConfiguration {
+  private static final Log LOG = LogFactory.getLog(WetatorConfiguration.class);
 
   /**
    * The prefix for all wetator properties.
@@ -176,7 +176,7 @@ public final class WetConfiguration {
    * @param aConfigurationPropertyFile the configuration property file
    * @param anExternalPropertiesMap the external properties
    */
-  public WetConfiguration(final File aConfigurationPropertyFile, final Map<String, String> anExternalPropertiesMap) {
+  public WetatorConfiguration(final File aConfigurationPropertyFile, final Map<String, String> anExternalPropertiesMap) {
     super();
 
     LOG.info("Config  Configuration file is '" + aConfigurationPropertyFile.getAbsolutePath() + "'");
@@ -226,7 +226,7 @@ public final class WetConfiguration {
    * @param aConfigurationProperties the configuration properties
    * @param anExternalPropertiesMap the external properties
    */
-  public WetConfiguration(final File aBaseDirectory, final Properties aConfigurationProperties,
+  public WetatorConfiguration(final File aBaseDirectory, final Properties aConfigurationProperties,
       final Map<String, String> anExternalPropertiesMap) {
     super();
 

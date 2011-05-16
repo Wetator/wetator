@@ -27,7 +27,7 @@ import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetConfiguration;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
@@ -326,10 +326,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#addHighlightStyle(WetConfiguration)
+   * @see org.wetator.backend.control.Control#addHighlightStyle(WetatorConfiguration)
    */
   @Override
-  public void addHighlightStyle(final WetConfiguration aWetConfiguration) {
+  public void addHighlightStyle(final WetatorConfiguration aConfiguration) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
     final StringBuilder tmpStyle = new StringBuilder(tmpHtmlElement.getAttribute("style"));
 

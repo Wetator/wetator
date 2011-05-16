@@ -33,7 +33,7 @@ import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
 import org.wetator.core.Variable;
 import org.wetator.core.Command;
-import org.wetator.core.WetConfiguration;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetContext;
 import org.wetator.core.WetEngine;
 import org.wetator.exception.AssertionFailedException;
@@ -105,10 +105,10 @@ public class XmlResultWriter implements IProgressListener {
   @Override
   public void init(final WetEngine aWetEngine) {
     try {
-      final WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
+      final WetatorConfiguration tmpConfiguration = aWetEngine.getConfiguration();
 
-      outputDir = tmpWetConfiguration.getOutputDir();
-      xslTemplates = tmpWetConfiguration.getXslTemplates();
+      outputDir = tmpConfiguration.getOutputDir();
+      xslTemplates = tmpConfiguration.getXslTemplates();
       resultFile = new File(outputDir, "wetresult.xml");
 
       writer = new FileWriterWithEncoding(resultFile, "UTF-8");
@@ -142,42 +142,42 @@ public class XmlResultWriter implements IProgressListener {
   @Override
   public void start(final WetEngine aWetEngine) {
     try {
-      final WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
+      final WetatorConfiguration tmpConfiguration = aWetEngine.getConfiguration();
 
       // print the configuration
       printlnStartTag(TAG_CONFIGURATION);
 
-      printConfigurationProperty(WetConfiguration.PROPERTY_BASE_URL, tmpWetConfiguration.getBaseUrl());
-      for (BrowserType tmpBrowserType : tmpWetConfiguration.getBrowserTypes()) {
-        printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER_TYPE, tmpBrowserType.getLabel());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_BASE_URL, tmpConfiguration.getBaseUrl());
+      for (BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, tmpBrowserType.getLabel());
       }
-      printConfigurationProperty(WetConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpWetConfiguration.getAcceptLanaguage());
-      printConfigurationProperty(WetConfiguration.PROPERTY_OUTPUT_DIR, tmpWetConfiguration.getOutputDir()
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpConfiguration.getAcceptLanaguage());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_OUTPUT_DIR, tmpConfiguration.getOutputDir()
           .getAbsolutePath());
-      for (String tmpTemplate : tmpWetConfiguration.getXslTemplates()) {
-        printConfigurationProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
+      for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
       }
-      for (ICommandSet tmpCommandSet : tmpWetConfiguration.getCommandSets()) {
-        printConfigurationProperty(WetConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
+      for (ICommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
       }
-      for (Class<? extends Control> tmpControl : tmpWetConfiguration.getControls()) {
-        printConfigurationProperty(WetConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
+      for (Class<? extends Control> tmpControl : tmpConfiguration.getControls()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
       }
-      for (IScripter tmpScripter : tmpWetConfiguration.getScripters()) {
-        printConfigurationProperty(WetConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
+      for (IScripter tmpScripter : tmpConfiguration.getScripters()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
       }
 
-      printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOST, tmpWetConfiguration.getProxyHost());
-      printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_PORT,
-          Integer.toString(tmpWetConfiguration.getProxyPort()));
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOST, tmpConfiguration.getProxyHost());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_PORT,
+          Integer.toString(tmpConfiguration.getProxyPort()));
       // writeConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
       // aWetConfiguration.getProxyHostsToBypass());
-      printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_USER, tmpWetConfiguration.getProxyUser());
-      printConfigurationProperty(WetConfiguration.PROPERTY_BASIC_AUTH_USER, tmpWetConfiguration.getBasicAuthUser());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_USER, tmpConfiguration.getProxyUser());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_BASIC_AUTH_USER, tmpConfiguration.getBasicAuthUser());
 
       printlnStartTag(TAG_VARIABLES);
 
-      final List<Variable> tmpVariables = tmpWetConfiguration.getVariables();
+      final List<Variable> tmpVariables = tmpConfiguration.getVariables();
       for (Variable tmpVariable : tmpVariables) {
         printStartTagOpener(TAG_VARIABLE);
         output.print("name=\"");
@@ -189,7 +189,7 @@ public class XmlResultWriter implements IProgressListener {
 
       printlnEndTag(TAG_VARIABLES);
 
-      final List<ICommandSet> tmpCommandSets = tmpWetConfiguration.getCommandSets();
+      final List<ICommandSet> tmpCommandSets = tmpConfiguration.getCommandSets();
       for (ICommandSet tmpCommandSet : tmpCommandSets) {
         printStartTagOpener(TAG_COMMAND_SET);
         output.print("class=\"");
@@ -205,7 +205,7 @@ public class XmlResultWriter implements IProgressListener {
         printEndTag(TAG_COMMAND_SET);
       }
 
-      final List<Class<? extends Control>> tmpControls = tmpWetConfiguration.getControls();
+      final List<Class<? extends Control>> tmpControls = tmpConfiguration.getControls();
       for (Class<? extends Control> tmpControl : tmpControls) {
         printStartTagOpener(TAG_CONTROL);
         output.print("class=\"");
