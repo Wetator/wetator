@@ -28,6 +28,8 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.Control;
+import org.wetator.core.ICommandImplementation;
+import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
@@ -64,7 +66,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.ICommandSet#getCommandImplementationFor(java.lang.String)
+   * @see org.wetator.core.ICommandSet#getCommandImplementationFor(java.lang.String)
    */
   @Override
   public final ICommandImplementation getCommandImplementationFor(final String aCommandName) {
@@ -74,7 +76,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.ICommandSet#getInitializationMessages()
+   * @see org.wetator.core.ICommandSet#getInitializationMessages()
    */
   @Override
   public List<String> getInitializationMessages() {

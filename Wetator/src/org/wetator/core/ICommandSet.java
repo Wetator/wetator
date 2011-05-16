@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.commandset;
+package org.wetator.core;
 
 import java.util.List;
 import java.util.Properties;

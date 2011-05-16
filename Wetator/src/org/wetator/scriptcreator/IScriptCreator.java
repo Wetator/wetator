@@ -22,7 +22,8 @@ import org.wetator.core.Command;
 import org.wetator.exception.WetatorException;
 
 /**
- * The interface for all script writers.
+ * The interface for all script creators.<br/>
+ * This interface is not inside the core package because it is only used for converting scripts.
  * 
  * @author tobwoerk
  */

@@ -23,13 +23,13 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.Command;
+import org.wetator.core.IScripter;
 import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
 import org.wetator.scriptcreator.LegacyXmlScriptCreator;
 import org.wetator.scriptcreator.XmlScriptCreator;
 import org.wetator.scripter.ExcelScripter;
-import org.wetator.scripter.IScripter;
 import org.wetator.scripter.LegacyXmlScripter;
 import org.wetator.scripter.XmlScripter;
 

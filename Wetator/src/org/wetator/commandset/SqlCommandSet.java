@@ -33,6 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
+import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
@@ -87,7 +88,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
@@ -123,7 +124,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
@@ -178,7 +179,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
@@ -238,7 +239,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.ICommandSet#initialize(java.util.Properties)
+   * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
    */
   @Override
   public void initialize(final Properties aConfiguration) {
@@ -346,7 +347,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.ICommandSet#cleanup()
+   * @see org.wetator.core.ICommandSet#cleanup()
    */
   @Override
   public void cleanup() {
