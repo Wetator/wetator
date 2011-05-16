@@ -26,10 +26,10 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses( { org.wetator.core.result.AllTests.class, //
+@SuiteClasses({ org.wetator.core.result.AllTests.class, //
     org.wetator.core.searchpattern.AllTests.class, //
-    org.wetator.core.variable.AllTests.class, //
-    CommandTest.class })
+    CommandTest.class, //
+    VariableTest.class })
 public final class AllTests {
 
   /**

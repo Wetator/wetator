@@ -221,6 +221,7 @@ Wetator/test/java/org/wetator/commandset/XmlOtherTest.java -text svneol=unset#te
 Wetator/test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/AllTests.java -text
 Wetator/test/java/org/wetator/core/CommandTest.java -text
+Wetator/test/java/org/wetator/core/VariableTest.java -text
 Wetator/test/java/org/wetator/core/result/AllTests.java -text
 Wetator/test/java/org/wetator/core/result/XMLResultWriterTest.java -text
 Wetator/test/java/org/wetator/core/result/XSLTransformerTest.java -text
@@ -233,8 +234,6 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLast
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
-Wetator/test/java/org/wetator/core/variable/AllTests.java -text
-Wetator/test/java/org/wetator/core/variable/VariableTest.java -text
 Wetator/test/java/org/wetator/i18n/AllTests.java -text
 Wetator/test/java/org/wetator/i18n/MessagesTest.java -text
 Wetator/test/java/org/wetator/scriptcreator/ManualXMLScriptCreatorTest.java -text svneol=unset#text/plain
