@@ -23,14 +23,14 @@ import org.junit.Test;
 /**
  * @author rbri
  */
-public class WetResultWriterTest {
+public class XMLResultWriterTest {
 
   @Test
   @Ignore
   public void test() {
     // StringWriter tmpStringWriter = new StringWriter();
     //
-    // WetResultWriter tmpResultWriter;
+    // XMLResultWriter tmpResultWriter;
     Assert.fail("I am not a test.");
   }
 }

@@ -46,7 +46,7 @@ public class WetatorContext {
   private BrowserType browserType;
   private List<Variable> variables; // store them in defined order
 
-  private WetatorContext parentWetContext;
+  private WetatorContext parentContext;
 
   /**
    * Constructor for a root context.
@@ -72,7 +72,7 @@ public class WetatorContext {
   protected WetatorContext(final WetatorContext aContext, final File aFile) {
     this(aContext.engine, aFile, aContext.browserType);
 
-    parentWetContext = aContext;
+    parentContext = aContext;
   }
 
   /**
@@ -123,10 +123,10 @@ public class WetatorContext {
     tmpResult.addAll(variables);
 
     // then the stuff from parent or configuration
-    if (null == parentWetContext) {
+    if (null == parentContext) {
       tmpResult.addAll(getConfiguration().getVariables());
     } else {
-      tmpResult.addAll(parentWetContext.getVariables());
+      tmpResult.addAll(parentContext.getVariables());
     }
 
     return tmpResult;

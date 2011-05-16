@@ -222,7 +222,7 @@ test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=unset#te
 test/java/org/wetator/core/AllTests.java -text
 test/java/org/wetator/core/CommandTest.java -text
 test/java/org/wetator/core/result/AllTests.java -text
-test/java/org/wetator/core/result/WetResultWriterTest.java -text
+test/java/org/wetator/core/result/XMLResultWriterTest.java -text
 test/java/org/wetator/core/result/XslTransformerTest.java -text
 test/java/org/wetator/core/searchpattern/AllTests.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text

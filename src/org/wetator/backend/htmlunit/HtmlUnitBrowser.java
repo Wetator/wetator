@@ -102,7 +102,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   protected WebClient webClient;
   /** ResponseStore. */
   protected ResponseStore responseStore;
-  /** WetEngine. */
+  /** WetatorEngine. */
   protected WetatorEngine wetatorEngine;
   /** The list of failures ({@link AssertionFailedException}s). */
   protected List<AssertionFailedException> failures;

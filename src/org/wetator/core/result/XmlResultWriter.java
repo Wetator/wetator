@@ -33,9 +33,9 @@ import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
 import org.wetator.core.Variable;
-import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.WetatorEngine;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.i18n.Messages;
 import org.wetator.scripter.IScripter;
@@ -170,8 +170,8 @@ public class XmlResultWriter implements IProgressListener {
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOST, tmpConfiguration.getProxyHost());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_PORT,
           Integer.toString(tmpConfiguration.getProxyPort()));
-      // writeConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
-      // aWetConfiguration.getProxyHostsToBypass());
+      // writeConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
+      // tmpConfiguration.getProxyHostsToBypass());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_USER, tmpConfiguration.getProxyUser());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_BASIC_AUTH_USER, tmpConfiguration.getBasicAuthUser());
 

@@ -35,8 +35,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
+import org.wetator.core.WetatorEngine;
 import org.wetator.test.jetty.HttpHeaderServlet;
 import org.wetator.test.jetty.MultiPartFilter;
 import org.wetator.test.jetty.RedirectServlet;
@@ -44,7 +44,7 @@ import org.wetator.test.jetty.SnoopyServlet;
 import org.wetator.util.StdOutProgressListener;
 
 /**
- * Base test class for all WetEngine tests that need a web server.
+ * Base test class for all WetatorEngine tests that need a web server.
  * 
  * @author frank.danek
  */
@@ -121,10 +121,10 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   }
 
   /**
-   * Creates a WetEngine and configures it.
+   * Creates a Wetator engine and configures it.
    */
   @Before
-  public void createWetEngine() {
+  public void createWetatorEngine() {
     Properties tmpProperties = new Properties();
     tmpProperties
         .setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/testcases");
