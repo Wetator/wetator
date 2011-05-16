@@ -21,8 +21,8 @@ import java.io.Writer;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.wetator.progresslistener.StdOutProgressListener;
 import org.wetator.util.Output;
-import org.wetator.util.StdOutProgressListener;
 
 /**
  * Simple progress listener that writes to the ant output system.

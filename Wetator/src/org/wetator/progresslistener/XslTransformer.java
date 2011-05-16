@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.core.result;
+package org.wetator.progresslistener;
 
 import java.io.BufferedWriter;
 import java.io.File;

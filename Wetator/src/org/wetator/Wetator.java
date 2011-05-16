@@ -26,7 +26,7 @@ import org.wetator.core.WetatorEngine;
 import org.wetator.core.IProgressListener;
 import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
-import org.wetator.util.StdOutProgressListener;
+import org.wetator.progresslistener.StdOutProgressListener;
 
 /**
  * The command line interface for the Wetator.
