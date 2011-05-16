@@ -26,12 +26,9 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
-import org.wetator.commandset.ICommandImplementation;
-import org.wetator.commandset.ICommandSet;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetatorException;
 import org.wetator.progresslistener.XmlResultWriter;
-import org.wetator.scripter.IScripter;
 
 /**
  * The engine that makes the monster running.<br/>

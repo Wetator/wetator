@@ -34,6 +34,7 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.lang.StringUtils;
 import org.wetator.core.Command;
+import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
 import org.wetator.exception.WetatorException;
 
@@ -87,7 +88,7 @@ public final class LegacyXmlScripter implements IScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.IScripter#setFile(java.io.File)
+   * @see org.wetator.core.IScripter#setFile(java.io.File)
    */
   @Override
   public void setFile(final File aFile) throws WetatorException {
@@ -106,7 +107,7 @@ public final class LegacyXmlScripter implements IScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.IScripter#isSupported(java.io.File)
+   * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
   public boolean isSupported(final File aFile) {
@@ -242,7 +243,7 @@ public final class LegacyXmlScripter implements IScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.IScripter#getCommands()
+   * @see org.wetator.core.IScripter#getCommands()
    */
   @Override
   public List<Command> getCommands() {
@@ -252,7 +253,7 @@ public final class LegacyXmlScripter implements IScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.scripter.IScripter#initialize(java.util.Properties)
+   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
   public void initialize(final Properties aConfiguration) {

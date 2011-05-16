@@ -14,10 +14,8 @@
  */
 
 
-package org.wetator.commandset;
+package org.wetator.core;
 
-import org.wetator.core.Command;
-import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**

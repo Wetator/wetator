@@ -14,13 +14,12 @@
  */
 
 
-package org.wetator.scripter;
+package org.wetator.core;
 
 import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import org.wetator.core.Command;
 import org.wetator.exception.WetatorException;
 
 /**

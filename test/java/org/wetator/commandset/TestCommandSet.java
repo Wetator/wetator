@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.wetator.core.Command;
+import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
@@ -87,7 +88,7 @@ public final class TestCommandSet extends AbstractCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.ICommandSet#initialize(java.util.Properties)
+   * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
    */
   @Override
   public void initialize(Properties aConfiguration) {
@@ -97,7 +98,7 @@ public final class TestCommandSet extends AbstractCommandSet {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.commandset.ICommandSet#cleanup()
+   * @see org.wetator.core.ICommandSet#cleanup()
    */
   @Override
   public void cleanup() {

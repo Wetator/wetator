@@ -105,12 +105,13 @@ src/org/wetator/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text
 src/org/wetator/backend/htmlunit/util/PageUtil.java -text
 src/org/wetator/commandset/AbstractCommandSet.java -text
 src/org/wetator/commandset/DefaultCommandSet.java -text
-src/org/wetator/commandset/ICommandImplementation.java -text
-src/org/wetator/commandset/ICommandSet.java -text
 src/org/wetator/commandset/IncubatorCommandSet.java -text
 src/org/wetator/commandset/SqlCommandSet.java -text
 src/org/wetator/core/Command.java -text
+src/org/wetator/core/ICommandImplementation.java -text
+src/org/wetator/core/ICommandSet.java -text
 src/org/wetator/core/IProgressListener.java -text
+src/org/wetator/core/IScripter.java -text
 src/org/wetator/core/Parameter.java -text
 src/org/wetator/core/Variable.java -text
 src/org/wetator/core/WetatorConfiguration.java -text
@@ -134,7 +135,6 @@ src/org/wetator/scriptcreator/IScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/LegacyXmlScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/XmlScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scripter/ExcelScripter.java -text
-src/org/wetator/scripter/IScripter.java -text
 src/org/wetator/scripter/LegacyXmlScripter.java -text svneol=unset#text/plain
 src/org/wetator/scripter/XmlScripter.java -text svneol=unset#text/plain
 src/org/wetator/scripter/xml/LocalEntityResolver.java -text svneol=unset#text/plain
