@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * The interface for scripters.
@@ -43,9 +43,9 @@ public interface IScripter {
    * Also this method must read the whole list of commands.
    * 
    * @param aFile the file
-   * @throws WetException in case of error
+   * @throws WetatorException in case of error
    */
-  public void setFile(File aFile) throws WetException;
+  public void setFile(File aFile) throws WetatorException;
 
   /**
    * Returns true, if this scripter is able to handle this

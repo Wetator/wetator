@@ -38,7 +38,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.scripter.XmlScripter;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
@@ -173,7 +173,7 @@ public class ModelBuilder {
 
   private void parseSchemas(final File aSchemaDirectory) throws SAXException, IOException {
     if (schemaLocations == null || schemaLocations.isEmpty()) {
-      throw new WetException("No schema to parse.");
+      throw new WetatorException("No schema to parse.");
     }
 
     final XSOMParser tmpParser = new XSOMParser();
@@ -188,18 +188,18 @@ public class ModelBuilder {
         try {
           tmpParser.parse(tmpSource);
         } catch (final SAXException e) {
-          throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.",
+          throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.",
               e.getException());
         }
       } else {
-        throw new WetException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.");
+        throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.");
       }
     }
 
     final XSSchemaSet tmpSchemaSet = tmpParser.getResult();
     final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(XmlScripter.BASE_SCHEMA);
     if (tmpBaseSchema == null) {
-      throw new WetException("No base schema '" + XmlScripter.BASE_SCHEMA + "' found.");
+      throw new WetatorException("No base schema '" + XmlScripter.BASE_SCHEMA + "' found.");
     }
     baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);

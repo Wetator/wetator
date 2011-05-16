@@ -22,7 +22,7 @@ import java.util.List;
 import org.junit.Test;
 import org.wetator.core.Parameter;
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * @author frank.danek
@@ -30,10 +30,10 @@ import org.wetator.exception.WetException;
 public class ManualXmlScriptCreatorTest {
 
   /**
-   * @throws WetException if something goes wrong
+   * @throws WetatorException if something goes wrong
    */
   @Test
-  public void manual() throws WetException {
+  public void manual() throws WetatorException {
     List<Command> tmpCommands = new ArrayList<Command>();
     Command tmpCommand;
     tmpCommand = new Command("assert-content", false);

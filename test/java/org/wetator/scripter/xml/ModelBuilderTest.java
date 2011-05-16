@@ -24,7 +24,7 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
 import org.xml.sax.SAXException;
@@ -37,17 +37,17 @@ import org.xml.sax.SAXException;
  */
 public class ModelBuilderTest {
 
-  @Test(expected = WetException.class)
+  @Test(expected = WetatorException.class)
   public void nullSchemaMap() throws SAXException, IOException {
     new ModelBuilder((HashMap<String, XMLSchema>) null);
   }
 
-  @Test(expected = WetException.class)
+  @Test(expected = WetatorException.class)
   public void emptySchemaMap() throws SAXException, IOException {
     new ModelBuilder(new HashMap<String, XMLSchema>());
   }
 
-  @Test(expected = WetException.class)
+  @Test(expected = WetatorException.class)
   public void invalidSchema() throws SAXException, IOException {
     Map<String, XMLSchema> tmpSchemas = new HashMap<String, XMLSchema>();
     tmpSchemas.put("http://www.wetator.org/xsd/something", new XMLSchema("http://www.wetator.org/xsd/something",
@@ -63,7 +63,7 @@ public class ModelBuilderTest {
     Assert.assertEquals(0, new ModelBuilder(tmpSchemas).getCommandTypes().size());
   }
 
-  @Test(expected = WetException.class)
+  @Test(expected = WetatorException.class)
   public void unknownCommandSet1() throws SAXException, IOException {
     Map<String, XMLSchema> tmpSchemas = new HashMap<String, XMLSchema>();
     tmpSchemas.put("http://www.wetator.org/xsd/unknown", new XMLSchema("http://www.wetator.org/xsd/unknown",

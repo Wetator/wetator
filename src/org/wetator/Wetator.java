@@ -24,7 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.IProgressListener;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.util.StdOutProgressListener;
 
@@ -89,7 +89,7 @@ public final class Wetator {
 
       tmpWetatorEngine.executeTests();
       // SearchPattern.dumpStatistics();
-    } catch (final WetException e) {
+    } catch (final WetatorException e) {
       System.out.println("Wetator execution failed: " + e.getMessage());
       LOG.warn("Wetator execution failed:", e);
       // System.exit is needed because we have started swing

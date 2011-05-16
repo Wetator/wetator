@@ -22,7 +22,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * @author tobwoerk
@@ -31,10 +31,10 @@ import org.wetator.exception.WetException;
 public class LegacyXmlScripterTest {
 
   /**
-   * @throws WetException if something goes wrong
+   * @throws WetatorException if something goes wrong
    */
   @Test
-  public void supported() throws WetException {
+  public void supported() throws WetatorException {
     LegacyXmlScripter tmpLegacyXmlScripter = new LegacyXmlScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
 
@@ -88,10 +88,10 @@ public class LegacyXmlScripterTest {
   }
 
   /**
-   * @throws WetException if something goes wrong
+   * @throws WetatorException if something goes wrong
    */
   @Test
-  public void unsupported() throws WetException {
+  public void unsupported() throws WetatorException {
     LegacyXmlScripter tmpLegacyXmlScripter = new LegacyXmlScripter();
     Assert.assertFalse(tmpLegacyXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit2.xml")));
   }

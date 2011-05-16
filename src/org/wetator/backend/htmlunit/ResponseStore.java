@@ -36,7 +36,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -157,7 +157,7 @@ public final class ResponseStore {
       return tmpLogDir + "/" + tmpFileName;
     } catch (final IOException e) {
       // TODO
-      throw new WetException("xxx");
+      throw new WetatorException("xxx");
     }
   }
 
