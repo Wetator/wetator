@@ -69,11 +69,10 @@ public class ModelBuilder {
   private static final String BASE_COMMAND_TYPE = "commandType";
   private static final String BASE_PARAMETER_TYPE = "parameterType";
   /**
-   * The schema file for the default command set.
+   * The schema for the default command set.
    */
-  public static final String DEFAULT_COMMAND_SET_SCHEMA_URI = "http://www.wetator.org/xsd/default-command-set";
-  private static final String DEFAULT_COMMAND_SET_XSD_LOCATION = "default-command-set-1.0.0.xsd";
-  private static final String DEFAULT_COMMAND_SET_PREFIX = "d";
+  public static final XMLSchema DEFAULT_COMMAND_SET_SCHEMA = new XMLSchema("d",
+      "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd");
 
   private Map<String, XMLSchema> schemaLocations = new HashMap<String, XMLSchema>();
 
@@ -94,8 +93,7 @@ public class ModelBuilder {
     findSchemas(aFile);
 
     // add schema for default command set since it is always loaded
-    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA_URI, new XMLSchema(DEFAULT_COMMAND_SET_PREFIX,
-        DEFAULT_COMMAND_SET_SCHEMA_URI, DEFAULT_COMMAND_SET_XSD_LOCATION));
+    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), DEFAULT_COMMAND_SET_SCHEMA);
 
     parseSchemas(aFile.getParentFile());
   }
@@ -188,11 +186,12 @@ public class ModelBuilder {
         try {
           tmpParser.parse(tmpSource);
         } catch (final SAXException e) {
-          throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.",
-              e.getException());
+          throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace()
+              + "'.", e.getException());
         }
       } else {
-        throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace() + "'.");
+        throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace()
+            + "'.");
       }
     }
 
