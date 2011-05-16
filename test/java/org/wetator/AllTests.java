@@ -26,10 +26,11 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses( { org.wetator.backend.AllTests.class, //
+@SuiteClasses({ org.wetator.backend.AllTests.class, //
     org.wetator.commandset.AllTests.class, //
     org.wetator.core.AllTests.class, //
     org.wetator.i18n.AllTests.class, //
+    org.wetator.progresslistener.AllTests.class, //
     org.wetator.scripter.AllTests.class, //
     org.wetator.util.AllTests.class, //
     org.wetator.test.junit.BrowserRunnerTest.class })
