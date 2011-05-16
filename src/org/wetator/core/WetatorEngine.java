@@ -28,7 +28,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetatorException;
-import org.wetator.progresslistener.XmlResultWriter;
+import org.wetator.progresslistener.XMLResultWriter;
 
 /**
  * The engine that makes the monster running.<br/>
@@ -126,7 +126,7 @@ public final class WetatorEngine {
    */
   public void executeTests() {
     // create new result writer and call the init() method.
-    final XmlResultWriter tmpResultWriter = new XmlResultWriter();
+    final XMLResultWriter tmpResultWriter = new XMLResultWriter();
     tmpResultWriter.init(this);
     addProgressListener(tmpResultWriter);
 

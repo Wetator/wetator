@@ -38,8 +38,8 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author rbri
  */
-public final class XslTransformer {
-  private static final Log LOG = LogFactory.getLog(XslTransformer.class);
+public final class XSLTransformer {
+  private static final Log LOG = LogFactory.getLog(XSLTransformer.class);
 
   private static final String IMAGES_DIRECTORY = "images";
   private File xmlResultFile;
@@ -49,7 +49,7 @@ public final class XslTransformer {
    * 
    * @param aXMLResultFile the name of the report xml file
    */
-  public XslTransformer(final File aXMLResultFile) {
+  public XSLTransformer(final File aXMLResultFile) {
     xmlResultFile = aXMLResultFile;
   }
 

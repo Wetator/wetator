@@ -29,8 +29,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ org.wetator.scripter.xml.AllTests.class, //
     ExcelScripterTest.class, //
-    LegacyXmlScripterTest.class, //
-    XmlScripterTest.class })
+    LegacyXMLScripterTest.class, //
+    XMLScripterTest.class })
 public final class AllTests {
 
   /**

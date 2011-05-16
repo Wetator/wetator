@@ -43,7 +43,7 @@ import org.wetator.exception.WetatorException;
  * 
  * @author tobwoerk
  */
-public final class LegacyXmlScripter implements IScripter {
+public final class LegacyXMLScripter implements IScripter {
 
   private static final String WET_FILE_EXTENSION = ".wet";
   private static final String XML_FILE_EXTENSION = ".xml";
@@ -81,7 +81,7 @@ public final class LegacyXmlScripter implements IScripter {
   /**
    * Standard constructor.
    */
-  public LegacyXmlScripter() {
+  public LegacyXMLScripter() {
     super();
   }
 

@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.wetator.exception.WetatorException;
-import org.wetator.scripter.XmlScripter;
+import org.wetator.scripter.XMLScripter;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
 import org.wetator.util.NormalizedString;
@@ -197,9 +197,9 @@ public class ModelBuilder {
     }
 
     final XSSchemaSet tmpSchemaSet = tmpParser.getResult();
-    final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(XmlScripter.BASE_SCHEMA);
+    final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(XMLScripter.BASE_SCHEMA);
     if (tmpBaseSchema == null) {
-      throw new WetatorException("No base schema '" + XmlScripter.BASE_SCHEMA + "' found.");
+      throw new WetatorException("No base schema '" + XMLScripter.BASE_SCHEMA + "' found.");
     }
     baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);

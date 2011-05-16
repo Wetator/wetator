@@ -25,7 +25,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import org.wetator.core.Command;
 import org.wetator.exception.WetatorException;
-import org.wetator.scripter.LegacyXmlScripter;
+import org.wetator.scripter.LegacyXMLScripter;
 
 /**
  * Creates a Wetator test script in XML format from the given commands<br/>
@@ -33,7 +33,7 @@ import org.wetator.scripter.LegacyXmlScripter;
  * 
  * @author tobwoerk
  */
-public class LegacyXmlScriptCreator implements IScriptCreator {
+public class LegacyXMLScriptCreator implements IScriptCreator {
 
   private List<Command> commands;
   private String fileName;
@@ -72,10 +72,10 @@ public class LegacyXmlScriptCreator implements IScriptCreator {
       tmpWriter.writeCharacters("\n");
       for (Command tmpCommand : commands) {
         tmpWriter.writeCharacters("    ");
-        tmpWriter.writeStartElement(LegacyXmlScripter.E_STEP);
-        tmpWriter.writeAttribute(LegacyXmlScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));
+        tmpWriter.writeStartElement(LegacyXMLScripter.E_STEP);
+        tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));
         if (tmpCommand.isComment() && !"Comment".equals(tmpCommand.getName())) {
-          tmpWriter.writeAttribute(LegacyXmlScripter.A_COMMENT, "true");
+          tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMENT, "true");
         }
         if (tmpCommand.getFirstParameter() != null) {
           final String tmpCharacterDataPattern = ".*[<>&]";
@@ -86,7 +86,7 @@ public class LegacyXmlScriptCreator implements IScriptCreator {
             tmpWriter.writeCharacters(tmpParameter);
           }
           if (tmpCommand.getSecondParameter() != null) {
-            tmpWriter.writeStartElement(LegacyXmlScripter.E_OPTIONAL_PARAMETER);
+            tmpWriter.writeStartElement(LegacyXMLScripter.E_OPTIONAL_PARAMETER);
             String tmpOptionalParameter = tmpCommand.getSecondParameter().getValue();
             if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
               tmpWriter.writeCData(tmpOptionalParameter);
@@ -96,7 +96,7 @@ public class LegacyXmlScriptCreator implements IScriptCreator {
             tmpWriter.writeEndElement();
 
             if (tmpCommand.getThirdParameter() != null) {
-              tmpWriter.writeStartElement(LegacyXmlScripter.E_OPTIONAL_PARAMETER2);
+              tmpWriter.writeStartElement(LegacyXMLScripter.E_OPTIONAL_PARAMETER2);
               tmpOptionalParameter = tmpCommand.getThirdParameter().getValue();
               if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
                 tmpWriter.writeCData(tmpOptionalParameter);

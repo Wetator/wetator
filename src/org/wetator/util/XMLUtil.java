@@ -24,7 +24,7 @@ import java.nio.charset.CharsetEncoder;
  * 
  * @author rbri
  */
-public class XmlUtil {
+public class XMLUtil {
 
   private CharsetEncoder charsetEncoder;
 
@@ -33,7 +33,7 @@ public class XmlUtil {
    * 
    * @param anEncoding the encoding used for the file
    */
-  public XmlUtil(final String anEncoding) {
+  public XMLUtil(final String anEncoding) {
     charsetEncoder = Charset.forName(anEncoding).newEncoder();
   }
 

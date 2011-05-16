@@ -31,7 +31,7 @@ import org.junit.runners.Suite.SuiteClasses;
     NormalizedStringTest.class, //
     StringUtilTest.class, //
     VariableReplaceUtilUtilTest.class, //
-    XmlUtilTest.class })
+    XMLUtilTest.class })
 public final class AllTests {
 
   /**
