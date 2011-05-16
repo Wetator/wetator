@@ -44,7 +44,7 @@ import org.wetator.scripter.xml.model.ParameterType;
  * @author frank.danek
  * @author tobwoerk
  */
-public class XmlScriptCreator implements IScriptCreator {
+public class XMLScriptCreator implements IScriptCreator {
 
   private List<Command> commands;
   private String fileName;

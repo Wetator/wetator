@@ -40,8 +40,8 @@ import org.wetator.backend.control.Control;
 import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.exception.WetatorException;
 import org.wetator.scripter.ExcelScripter;
-import org.wetator.scripter.LegacyXmlScripter;
-import org.wetator.scripter.XmlScripter;
+import org.wetator.scripter.LegacyXMLScripter;
+import org.wetator.scripter.XMLScripter;
 import org.wetator.util.FileUtil;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
@@ -276,10 +276,10 @@ public final class WetatorConfiguration {
     scripters = new LinkedList<IScripter>();
 
     IScripter tmpScripter;
-    tmpScripter = new XmlScripter();
+    tmpScripter = new XMLScripter();
     scripters.add(tmpScripter);
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
-    tmpScripter = new LegacyXmlScripter();
+    tmpScripter = new LegacyXMLScripter();
     scripters.add(tmpScripter);
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
     tmpScripter = new ExcelScripter();

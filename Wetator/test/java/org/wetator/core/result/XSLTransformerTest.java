@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * @author rbri
  */
-public class XslTransformerTest {
+public class XSLTransformerTest {
 
   @Test
   @Ignore

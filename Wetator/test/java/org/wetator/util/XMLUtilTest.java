@@ -21,117 +21,117 @@ import org.junit.Test;
 /**
  * @author rbri
  */
-public class XmlUtilTest {
+public class XMLUtilTest {
 
   @Test
   public void testNormalizeBodyValue_NormalChars() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", tmpXmlUtil
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", tmpXMLUtil
         .normalizeBodyValue("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
   }
 
   @Test
   public void testNormalizeBodyValue_SpecialChars() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("&lt;&gt;&amp;", tmpXmlUtil.normalizeBodyValue("<>&"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("&lt;&gt;&amp;", tmpXMLUtil.normalizeBodyValue("<>&"));
   }
 
   @Test
   public void testNormalizeBodyValue_ForbiddenChars() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
     String tmpInput = "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u0009\r\u000B\u000C\n\u000E\u000F"
         + "\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F"
         + "\u0020\u0010";
 
-    org.junit.Assert.assertEquals("\t\r\n ", tmpXmlUtil.normalizeBodyValue(tmpInput));
+    org.junit.Assert.assertEquals("\t\r\n ", tmpXMLUtil.normalizeBodyValue(tmpInput));
   }
 
   @Test
   public void testNormalizeBodyValue_Empty() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("", tmpXmlUtil.normalizeBodyValue(null));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("", tmpXMLUtil.normalizeBodyValue(null));
   }
 
   @Test
   public void testNormalizeBody_EscapeMany() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&lt;de&lt;", tmpXmlUtil.normalizeBodyValue("ab<de<"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&lt;de&lt;", tmpXMLUtil.normalizeBodyValue("ab<de<"));
   }
 
   @Test
   public void testNormalizeBody_EscapeOne() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&gt;de", tmpXmlUtil.normalizeBodyValue("ab>de"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&gt;de", tmpXMLUtil.normalizeBodyValue("ab>de"));
   }
 
   @Test
   public void testNormalizeBody_EscapeAmpersand() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&amp;de", tmpXmlUtil.normalizeBodyValue("ab&de"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&amp;de", tmpXMLUtil.normalizeBodyValue("ab&de"));
   }
 
   @Test
   public void testNormalizeBody_EscapeEuro() {
-    XmlUtil tmpXmlUtil = new XmlUtil("iso-8859-1");
-    org.junit.Assert.assertEquals("11 &#8364;", tmpXmlUtil.normalizeBodyValue("11 \u20AC"));
+    XMLUtil tmpXMLUtil = new XMLUtil("iso-8859-1");
+    org.junit.Assert.assertEquals("11 &#8364;", tmpXMLUtil.normalizeBodyValue("11 \u20AC"));
   }
 
   @Test
   public void testNormalizeBodyValueChar_Empty() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("", tmpXmlUtil.normalizeBodyValue(null));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("", tmpXMLUtil.normalizeBodyValue(null));
   }
 
   @Test
   public void testNormalizeAttributeValue_NormalChars() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", tmpXmlUtil
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", tmpXMLUtil
         .normalizeAttributeValue("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
   }
 
   @Test
   public void testNormalizeAttributeValue_SpecialChars() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("&lt;&gt;&amp;&quot;&apos;", tmpXmlUtil.normalizeAttributeValue("<>&\"'"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("&lt;&gt;&amp;&quot;&apos;", tmpXMLUtil.normalizeAttributeValue("<>&\"'"));
   }
 
   @Test
   public void testNormalizeAttributeValue_ForbiddenChars() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
     String tmpInput = "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u0009\r\u000B\u000C\n\u000E\u000F"
         + "\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F"
         + "\u0020\u0010";
 
-    org.junit.Assert.assertEquals("\t\r\n ", tmpXmlUtil.normalizeAttributeValue(tmpInput));
+    org.junit.Assert.assertEquals("\t\r\n ", tmpXMLUtil.normalizeAttributeValue(tmpInput));
   }
 
   @Test
   public void testNormalizeAttributeValue_EscapeMany() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&gt;de&lt;", tmpXmlUtil.normalizeAttributeValue("ab>de<"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&gt;de&lt;", tmpXMLUtil.normalizeAttributeValue("ab>de<"));
   }
 
   @Test
   public void testNormalizeAttributeValue_EscapeOne() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&amp;de", tmpXmlUtil.normalizeAttributeValue("ab&de"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&amp;de", tmpXMLUtil.normalizeAttributeValue("ab&de"));
   }
 
   @Test
   public void testNormalizeAttributeValue_EscapeQuote() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&quot;de", tmpXmlUtil.normalizeAttributeValue("ab\"de"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&quot;de", tmpXMLUtil.normalizeAttributeValue("ab\"de"));
   }
 
   @Test
   public void testNormalizeAttributeValue_EscapeApostroph() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("ab&apos;de", tmpXmlUtil.normalizeAttributeValue("ab'de"));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("ab&apos;de", tmpXMLUtil.normalizeAttributeValue("ab'de"));
   }
 
   @Test
   public void testNormalizeAttributeValue_Null() {
-    XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
-    org.junit.Assert.assertEquals("", tmpXmlUtil.normalizeAttributeValue(null));
+    XMLUtil tmpXMLUtil = new XMLUtil("UTF-8");
+    org.junit.Assert.assertEquals("", tmpXMLUtil.normalizeAttributeValue(null));
   }
 }

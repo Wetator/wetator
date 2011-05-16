@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.util.Output;
-import org.wetator.util.XmlUtil;
+import org.wetator.util.XMLUtil;
 
 import com.gargoylesoftware.htmlunit.html.DomAttr;
 import com.gargoylesoftware.htmlunit.html.DomComment;
@@ -86,7 +86,7 @@ public final class XHtmlOutputter {
   private HtmlPage htmlPage;
   private ResponseStore responseStore;
   private Output output;
-  private XmlUtil xmlUtil;
+  private XMLUtil xMLUtil;
 
   static {
     EMPTY_TAGS = new HashSet<String>();
@@ -177,7 +177,7 @@ public final class XHtmlOutputter {
    */
   public void writeTo(final Writer aWriter) throws IOException {
     try {
-      xmlUtil = new XmlUtil(htmlPage.getPageEncoding());
+      xMLUtil = new XMLUtil(htmlPage.getPageEncoding());
       output = new Output(aWriter, "  ");
 
       output.println("<?xml version=\"1.0\" encoding=\"" + htmlPage.getPageEncoding() + "\"?>");
@@ -259,9 +259,9 @@ public final class XHtmlOutputter {
           output.println(tmpText);
           output.unindent();
         } else if (SINGLE_LINE_TAGS.contains(aDomNode.getParentNode().getClass().getName())) {
-          output.print(xmlUtil.normalizeBodyValue(tmpText));
+          output.print(xMLUtil.normalizeBodyValue(tmpText));
         } else {
-          output.println(xmlUtil.normalizeBodyValue(tmpText));
+          output.println(xMLUtil.normalizeBodyValue(tmpText));
         }
       }
     } else {
@@ -375,7 +375,7 @@ public final class XHtmlOutputter {
           output.print(' ');
           output.print(tmpAttributeName);
           output.print("=\"");
-          output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
+          output.print(xMLUtil.normalizeAttributeValue(tmpAttributeValue));
           output.print('"');
         }
       }

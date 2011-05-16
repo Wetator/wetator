@@ -49,7 +49,7 @@ import org.wetator.scripter.xml.model.ParameterType;
  * @author frank.danek
  * @author tobwoerk
  */
-public class XmlScripter implements IScripter {
+public class XMLScripter implements IScripter {
 
   private static final String WET_FILE_EXTENSION = ".wet";
   private static final String XML_FILE_EXTENSION = ".xml";

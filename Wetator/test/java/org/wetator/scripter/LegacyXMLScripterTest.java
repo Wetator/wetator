@@ -25,23 +25,24 @@ import org.wetator.core.Command;
 import org.wetator.exception.WetatorException;
 
 /**
+ * @author tobwoerk
  * @author frank.danek
  */
-public class XmlScripterTest {
+public class LegacyXMLScripterTest {
 
   /**
    * @throws WetatorException if something goes wrong
    */
   @Test
   public void supported() throws WetatorException {
-    XmlScripter tmpXmlScripter = new XmlScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
 
-    Assert.assertTrue(tmpXmlScripter.isSupported(tmpFile));
+    Assert.assertTrue(tmpLegacyXMLScripter.isSupported(tmpFile));
 
-    tmpXmlScripter.setFile(tmpFile);
+    tmpLegacyXMLScripter.setFile(tmpFile);
 
-    List<Command> tmpCommands = tmpXmlScripter.getCommands();
+    List<Command> tmpCommands = tmpLegacyXMLScripter.getCommands();
     Assert.assertEquals(9, tmpCommands.size());
 
     Command tmpCommand = tmpCommands.get(0);
@@ -84,10 +85,6 @@ public class XmlScripterTest {
     tmpCommand = tmpCommands.get(7);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
-
-    tmpCommand = tmpCommands.get(8);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("", tmpCommand.getName());
   }
 
   /**
@@ -95,27 +92,7 @@ public class XmlScripterTest {
    */
   @Test
   public void unsupported() throws WetatorException {
-    XmlScripter tmpXmlScripter = new XmlScripter();
-    Assert.assertFalse(tmpXmlScripter.isSupported(new File("test/java/org/wetator/test/resource/junit.wet")));
-  }
-
-  @Test
-  public void readSchemaInfo() {
-    XmlScripter tmpXmlScripter = new XmlScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit3.xml");
-
-    tmpXmlScripter.setFile(tmpFile);
-
-    Assert.assertEquals(4, tmpXmlScripter.getModel().getSchemaLocations().values().size());
-    Assert.assertNull(tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-case")
-        .getPrefix());
-    Assert.assertEquals("d",
-        tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/default-command-set")
-            .getPrefix());
-    Assert.assertEquals("inc",
-        tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/incubator-command-set")
-            .getPrefix());
-    Assert.assertEquals("tst",
-        tmpXmlScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-command-set").getPrefix());
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    Assert.assertFalse(tmpLegacyXMLScripter.isSupported(new File("test/java/org/wetator/test/resource/junit2.xml")));
   }
 }

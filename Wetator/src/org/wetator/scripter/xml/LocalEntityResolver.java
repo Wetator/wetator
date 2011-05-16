@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.wetator.scripter.XmlScripter;
+import org.wetator.scripter.XMLScripter;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -50,7 +50,7 @@ public class LocalEntityResolver implements EntityResolver {
 
   private static Map<String, List<XMLSchema>> getKnownSchemas() {
     final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<String, List<XMLSchema>>();
-    tmpKnownSchemas.put(XmlScripter.BASE_SCHEMA,
+    tmpKnownSchemas.put(XMLScripter.BASE_SCHEMA,
         Arrays.asList(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd")));
     tmpKnownSchemas.put(ModelBuilder.DEFAULT_COMMAND_SET_SCHEMA_URI, Arrays.asList(new XMLSchema("d",
         "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd")));

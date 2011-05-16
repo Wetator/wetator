@@ -27,7 +27,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses( { XMLResultWriterTest.class, //
-    XslTransformerTest.class })
+    XSLTransformerTest.class })
 public final class AllTests {
 
   /**

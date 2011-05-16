@@ -27,11 +27,11 @@ import org.wetator.core.IScripter;
 import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
-import org.wetator.scriptcreator.LegacyXmlScriptCreator;
-import org.wetator.scriptcreator.XmlScriptCreator;
+import org.wetator.scriptcreator.LegacyXMLScriptCreator;
+import org.wetator.scriptcreator.XMLScriptCreator;
 import org.wetator.scripter.ExcelScripter;
-import org.wetator.scripter.LegacyXmlScripter;
-import org.wetator.scripter.XmlScripter;
+import org.wetator.scripter.LegacyXMLScripter;
+import org.wetator.scripter.XMLScripter;
 
 /**
  * The command line interface for converting test scripts.
@@ -79,10 +79,10 @@ public final class WetatorScriptConverter {
       final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
       final IScriptCreator tmpCreator = tmpScriptCreator.getScriptCreator();
       tmpCreator.setOutputDir(tmpOutputDir);
-      if (tmpCreator instanceof LegacyXmlScriptCreator && anArgsArray.length == 5) {
+      if (tmpCreator instanceof LegacyXMLScriptCreator && anArgsArray.length == 5) {
         final String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
         LOG.info("Using DTD '" + tmpDtd + "'.");
-        ((LegacyXmlScriptCreator) tmpCreator).setDtd(tmpDtd);
+        ((LegacyXMLScriptCreator) tmpCreator).setDtd(tmpDtd);
       }
       tmpConverter.setScripter(tmpIScripter);
       tmpConverter.setCreator(tmpCreator);
@@ -181,11 +181,11 @@ public final class WetatorScriptConverter {
     /**
      * Legacy XML.
      */
-    LEGACY_XML(new LegacyXmlScripter()),
+    LEGACY_XML(new LegacyXMLScripter()),
     /**
      * XML.
      */
-    XML(new XmlScripter()),
+    XML(new XMLScripter()),
     /**
      * Excel.
      */
@@ -214,11 +214,11 @@ public final class WetatorScriptConverter {
     /**
      * Legacy XML.
      */
-    LEGACY_XML(new LegacyXmlScriptCreator()),
+    LEGACY_XML(new LegacyXMLScriptCreator()),
     /**
      * XML.
      */
-    XML(new XmlScriptCreator());
+    XML(new XMLScriptCreator());
 
     private IScriptCreator scriptCreator;
 

@@ -27,7 +27,7 @@ import org.wetator.exception.WetatorException;
 /**
  * @author frank.danek
  */
-public class ManualXmlScriptCreatorTest {
+public class ManualXMLScriptCreatorTest {
 
   /**
    * @throws WetatorException if something goes wrong
@@ -53,11 +53,11 @@ public class ManualXmlScriptCreatorTest {
     tmpCommand.setFirstParameter(new Parameter("SELECT sysdate FROM dual"));
     tmpCommands.add(tmpCommand);
 
-    XmlScriptCreator tmpXmlScriptCreator = new XmlScriptCreator();
-    tmpXmlScriptCreator.setOutputDir("build");
-    tmpXmlScriptCreator.setFileName("test");
-    tmpXmlScriptCreator.setCommands(tmpCommands);
+    XMLScriptCreator tmpXMLScriptCreator = new XMLScriptCreator();
+    tmpXMLScriptCreator.setOutputDir("build");
+    tmpXMLScriptCreator.setFileName("test");
+    tmpXMLScriptCreator.setCommands(tmpCommands);
 
-    tmpXmlScriptCreator.createScript();
+    tmpXMLScriptCreator.createScript();
   }
 }
