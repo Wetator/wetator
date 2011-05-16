@@ -38,7 +38,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Parameter;
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.util.NormalizedString;
 
 /**
@@ -72,7 +72,7 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.scripter.IScripter#setFile(java.io.File)
    */
   @Override
-  public void setFile(final File aFile) throws WetException {
+  public void setFile(final File aFile) throws WetatorException {
     file = aFile;
 
     commands = readCommands();
@@ -101,14 +101,14 @@ public final class ExcelScripter implements IScripter {
     return tmpResult;
   }
 
-  private List<Command> readCommands() throws WetException {
+  private List<Command> readCommands() throws WetatorException {
     final List<Command> tmpResult = new LinkedList<Command>();
 
     final InputStream tmpInputStream;
     try {
       tmpInputStream = new FileInputStream(getFile().getAbsoluteFile());
     } catch (final FileNotFoundException e) {
-      throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
+      throw new WetatorException("File '" + getFile().getAbsolutePath() + "' not available.", e);
     }
     try {
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
@@ -126,7 +126,7 @@ public final class ExcelScripter implements IScripter {
       }
 
       if (tmpSheetNo < 0) {
-        throw new WetException("No test sheet found in file '" + getFile().getAbsolutePath() + "'.");
+        throw new WetatorException("No test sheet found in file '" + getFile().getAbsolutePath() + "'.");
       }
 
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
@@ -181,12 +181,12 @@ public final class ExcelScripter implements IScripter {
 
       return tmpResult;
     } catch (final IOException e) {
-      throw new WetException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
+      throw new WetatorException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
     } finally {
       try {
         tmpInputStream.close();
       } catch (final IOException e) {
-        throw new WetException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
+        throw new WetatorException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
       }
     }
   }
@@ -212,7 +212,7 @@ public final class ExcelScripter implements IScripter {
   }
 
   private String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) throws WetException {
+      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
 
     final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
@@ -235,7 +235,7 @@ public final class ExcelScripter implements IScripter {
   }
 
   private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) throws WetException {
+      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
     String tmpContent;
 
     tmpContent = readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);

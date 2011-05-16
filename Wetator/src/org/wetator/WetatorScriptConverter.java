@@ -23,7 +23,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
 import org.wetator.scriptcreator.LegacyXmlScriptCreator;
@@ -98,7 +98,7 @@ public final class WetatorScriptConverter {
       LOG.info("Begin converting...");
       tmpConverter.convert();
       LOG.info("Converting successfully completed.");
-    } catch (final WetException e) {
+    } catch (final WetatorException e) {
       e.printStackTrace();
       System.exit(1);
     }
@@ -113,9 +113,9 @@ public final class WetatorScriptConverter {
   }
 
   /**
-   * @throws WetException in case of errors
+   * @throws WetatorException in case of errors
    */
-  public void convert() throws WetException {
+  public void convert() throws WetatorException {
     for (File tmpInputFile : inputFiles) {
       LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
       scripter.setFile(tmpInputFile);
@@ -162,12 +162,12 @@ public final class WetatorScriptConverter {
   /**
    * @param aFile
    *        the file to add
-   * @throws WetException
+   * @throws WetatorException
    *         if aFile does not exist
    */
-  public void addTestFile(final File aFile) throws WetException {
+  public void addTestFile(final File aFile) throws WetatorException {
     if (!aFile.exists()) {
-      throw new WetException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new WetatorException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
     inputFiles.add(aFile);
   }

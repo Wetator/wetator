@@ -26,7 +26,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.commandset.ICommandImplementation;
 import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
@@ -155,7 +155,7 @@ public class WetatorContext {
           engine.informListenersExecuteCommandSuccess();
         } catch (final AssertionFailedException e) {
           engine.informListenersExecuteCommandFailure(e);
-        } catch (final WetException e) {
+        } catch (final WetatorException e) {
           engine.informListenersExecuteCommandError(e);
           throw e;
         }
@@ -207,7 +207,7 @@ public class WetatorContext {
       for (Command tmpCommand : tmpCommands) {
         executeCommand(tmpCommand);
       }
-    } catch (final WetException e) {
+    } catch (final WetatorException e) {
       engine.informListenersExecuteCommandError(e);
     } finally {
       engine.informListenersTestFileEnd();

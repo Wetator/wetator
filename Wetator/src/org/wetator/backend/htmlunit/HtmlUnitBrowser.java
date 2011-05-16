@@ -63,7 +63,7 @@ import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.ContentUtil;
@@ -460,7 +460,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
-      } catch (final WetException e) {
+      } catch (final WetatorException e) {
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
     }

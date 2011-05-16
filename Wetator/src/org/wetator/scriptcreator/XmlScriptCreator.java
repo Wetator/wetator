@@ -31,7 +31,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.lang.StringUtils;
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.ModelBuilder;
 import org.wetator.scripter.xml.XMLSchema;
 import org.wetator.scripter.xml.model.CommandType;
@@ -69,7 +69,7 @@ public class XmlScriptCreator implements IScriptCreator {
    * @see org.wetator.scriptcreator.IScriptCreator#createScript()
    */
   @Override
-  public void createScript() throws WetException {
+  public void createScript() throws WetatorException {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
       final Map<String, XMLSchema> tmpKnownSchemas = new HashMap<String, XMLSchema>();
@@ -203,7 +203,7 @@ public class XmlScriptCreator implements IScriptCreator {
    * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
    */
   @Override
-  public void setCommands(final List<Command> aCommandList) throws WetException {
+  public void setCommands(final List<Command> aCommandList) throws WetatorException {
     commands = aCommandList;
   }
 

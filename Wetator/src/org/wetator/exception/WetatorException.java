@@ -21,7 +21,7 @@ package org.wetator.exception;
  * 
  * @author rbri
  */
-public class WetException extends RuntimeException {
+public class WetatorException extends RuntimeException {
 
   private static final long serialVersionUID = 3757691195403775693L;
 
@@ -30,7 +30,7 @@ public class WetException extends RuntimeException {
    * 
    * @param aMessage the message text
    */
-  public WetException(final String aMessage) {
+  public WetatorException(final String aMessage) {
     super(aMessage);
   }
 
@@ -40,7 +40,7 @@ public class WetException extends RuntimeException {
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */
-  public WetException(final String aMessage, final Throwable aThrowable) {
+  public WetatorException(final String aMessage, final Throwable aThrowable) {
     super(aMessage, aThrowable);
   }
 }

@@ -126,7 +126,7 @@ Wetator/src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/SearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
 Wetator/src/org/wetator/exception/AssertionFailedException.java -text
-Wetator/src/org/wetator/exception/WetException.java -text
+Wetator/src/org/wetator/exception/WetatorException.java -text
 Wetator/src/org/wetator/gui/DialogUtil.java -text
 Wetator/src/org/wetator/i18n/Messages.java -text
 Wetator/src/org/wetator/scriptcreator/IScriptCreator.java -text svneol=unset#text/plain

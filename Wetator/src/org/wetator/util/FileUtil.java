@@ -18,7 +18,7 @@ package org.wetator.util;
 
 import java.io.File;
 
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * FileUtil contains some useful extensions to work with files.
@@ -31,25 +31,25 @@ public final class FileUtil {
    * Creates the specified directory if needed.
    * 
    * @param anOutputDir the name of the directory
-   * @throws WetException in case of problems
+   * @throws WetatorException in case of problems
    */
-  public static void createOutputDir(final File anOutputDir) throws WetException {
+  public static void createOutputDir(final File anOutputDir) throws WetatorException {
     if (null == anOutputDir) {
       // I18n
-      throw new WetException("No output dir specified");
+      throw new WetatorException("No output dir specified");
     }
 
     if (anOutputDir.exists()) {
       if (anOutputDir.isFile()) {
         // I18n
-        throw new WetException("There is already a file ('" + anOutputDir.getAbsolutePath()
+        throw new WetatorException("There is already a file ('" + anOutputDir.getAbsolutePath()
             + "' with the same name as the configured"
             + "directory. Please change the configured directory or rename the file.");
       }
     } else {
       if (!anOutputDir.mkdirs()) {
         // I18n
-        throw new WetException("Can't create the directory ('" + anOutputDir.getAbsolutePath()
+        throw new WetatorException("Can't create the directory ('" + anOutputDir.getAbsolutePath()
             + "'. Please change the configuration.");
       }
     }

@@ -22,7 +22,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * @author rbri
@@ -30,7 +30,7 @@ import org.wetator.exception.WetException;
 public class ExcelScripterTest {
 
   @Test
-  public void supported() throws WetException {
+  public void supported() throws WetatorException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
 

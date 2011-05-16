@@ -19,7 +19,7 @@ package org.wetator.scriptcreator;
 import java.util.List;
 
 import org.wetator.core.Command;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * The interface for all script writers.
@@ -31,17 +31,17 @@ public interface IScriptCreator {
   /**
    * Creates a script from the previously set command list with the given fileName.
    * 
-   * @throws WetException in case of errors
+   * @throws WetatorException in case of errors
    */
-  public void createScript() throws WetException;
+  public void createScript() throws WetatorException;
 
   /**
    * Sets the file this script writer works on.
    * 
    * @param aCommandList the commands that should be in the script
-   * @throws WetException in case of error
+   * @throws WetatorException in case of error
    */
-  public void setCommands(List<Command> aCommandList) throws WetException;
+  public void setCommands(List<Command> aCommandList) throws WetatorException;
 
   /**
    * @param aFileName the fileName to set (name only expected, without extension)

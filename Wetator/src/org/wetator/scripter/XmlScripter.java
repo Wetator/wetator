@@ -37,7 +37,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.apache.commons.lang.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.Parameter;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.ModelBuilder;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
@@ -123,7 +123,7 @@ public class XmlScripter implements IScripter {
         }
       }
     } catch (final IOException e) {
-      throw new WetException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     } finally {
       if (tmpReader != null) {
         try {
@@ -143,7 +143,7 @@ public class XmlScripter implements IScripter {
    * @see org.wetator.scripter.IScripter#setFile(java.io.File)
    */
   @Override
-  public void setFile(final File aFile) throws WetException {
+  public void setFile(final File aFile) throws WetatorException {
     file = aFile;
 
     try {
@@ -151,7 +151,7 @@ public class XmlScripter implements IScripter {
 
       commands = parseScript(file);
     } catch (final Exception e) {
-      throw new WetException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
   }
 

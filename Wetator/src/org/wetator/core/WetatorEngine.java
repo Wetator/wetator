@@ -30,7 +30,7 @@ import org.wetator.commandset.ICommandImplementation;
 import org.wetator.commandset.ICommandSet;
 import org.wetator.core.result.XmlResultWriter;
 import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.scripter.IScripter;
 
 /**
@@ -59,9 +59,9 @@ public final class WetatorEngine {
   /**
    * The constructor.
    * 
-   * @throws WetException in case of problems
+   * @throws WetatorException in case of problems
    */
-  public WetatorEngine() throws WetException {
+  public WetatorEngine() throws WetatorException {
     super();
 
     files = new LinkedList<File>();
@@ -72,9 +72,9 @@ public final class WetatorEngine {
    * Initializes the wetator engine. The configuration is read from the configuration file got by
    * {@link #getConfigFile()}.
    * 
-   * @throws WetException in case of problems
+   * @throws WetatorException in case of problems
    */
-  public void init() throws WetException {
+  public void init() throws WetatorException {
     informListenersInit();
     init(readConfiguration());
   }
@@ -83,9 +83,9 @@ public final class WetatorEngine {
    * Initializes the wetator engine using the given configuration.
    * 
    * @param aConfiguration the configuration to use
-   * @throws WetException in case of problems
+   * @throws WetatorException in case of problems
    */
-  public void init(final WetatorConfiguration aConfiguration) throws WetException {
+  public void init(final WetatorConfiguration aConfiguration) throws WetatorException {
     configuration = aConfiguration;
     if (configFileName == null) {
       configFileName = "";
@@ -115,11 +115,11 @@ public final class WetatorEngine {
    * Adds a test file to be executed.
    * 
    * @param aFile the test file to be added.
-   * @throws WetException if the test file does not exist.
+   * @throws WetatorException if the test file does not exist.
    */
   public void addTestFile(final File aFile) {
     if (!aFile.exists()) {
-      throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new WetatorException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
     files.add(aFile);
   }
@@ -171,16 +171,16 @@ public final class WetatorEngine {
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link Command}s.
-   * @throws WetException if no {@link IScripter} can be found for the given file.
+   * @throws WetatorException if no {@link IScripter} can be found for the given file.
    */
-  protected List<Command> readCommandsFromFile(final File aFile) throws WetException {
+  protected List<Command> readCommandsFromFile(final File aFile) throws WetatorException {
     final IScripter tmpScripter = createScripter(aFile);
     final List<Command> tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
   }
 
-  private WetatorConfiguration readConfiguration() throws WetException {
+  private WetatorConfiguration readConfiguration() throws WetatorException {
     final File tmpConfigFile = getConfigFile();
     return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
   }
@@ -192,7 +192,7 @@ public final class WetatorEngine {
         return tmpScripter;
       }
     }
-    throw new WetException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
+    throw new WetatorException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
   }
 
   /**

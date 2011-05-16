@@ -35,7 +35,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.apache.commons.lang.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.Parameter;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 /**
  * Scripter for XML files.
@@ -90,7 +90,7 @@ public final class LegacyXmlScripter implements IScripter {
    * @see org.wetator.scripter.IScripter#setFile(java.io.File)
    */
   @Override
-  public void setFile(final File aFile) throws WetException {
+  public void setFile(final File aFile) throws WetatorException {
     file = aFile;
 
     commands = readCommands();
@@ -134,7 +134,7 @@ public final class LegacyXmlScripter implements IScripter {
         }
       }
     } catch (final IOException e) {
-      throw new WetException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     } finally {
       if (tmpReader != null) {
         try {
@@ -148,19 +148,19 @@ public final class LegacyXmlScripter implements IScripter {
     return false;
   }
 
-  private List<Command> readCommands() throws WetException {
+  private List<Command> readCommands() throws WetatorException {
     final List<Command> tmpResult = new ArrayList<Command>();
 
     try {
       inputStream = new FileInputStream(file);
     } catch (final FileNotFoundException e) {
-      throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
+      throw new WetatorException("File '" + getFile().getAbsolutePath() + "' not available.", e);
     }
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
     try {
       reader = tmpFactory.createXMLStreamReader(inputStream);
     } catch (final XMLStreamException e) {
-      throw new WetException("Error creating reader for file '" + getFile().getAbsolutePath() + "'.", e);
+      throw new WetatorException("Error creating reader for file '" + getFile().getAbsolutePath() + "'.", e);
     }
 
     try {
@@ -199,7 +199,7 @@ public final class LegacyXmlScripter implements IScripter {
           if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
             final String tmpOptionalParameter = reader.getElementText();
             if (null == tmpCommand) {
-              throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
+              throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath()
                   + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
             }
 
@@ -211,7 +211,7 @@ public final class LegacyXmlScripter implements IScripter {
           if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
             final String tmpOptionalParameter = reader.getElementText();
             if (null == tmpCommand) {
-              throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
+              throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath()
                   + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
             }
 
@@ -228,13 +228,13 @@ public final class LegacyXmlScripter implements IScripter {
 
       return tmpResult;
     } catch (final XMLStreamException e) {
-      throw new WetException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+      throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
     } finally {
       try {
         reader.close();
         inputStream.close();
       } catch (final Exception e) {
-        throw new WetException("Problem closing resources for file '" + getFile().getAbsolutePath() + "'.", e);
+        throw new WetatorException("Problem closing resources for file '" + getFile().getAbsolutePath() + "'.", e);
       }
     }
   }

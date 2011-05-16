@@ -19,7 +19,7 @@ package org.wetator.backend.htmlunit.control.identifier;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
@@ -87,7 +87,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
   @Override
   public void run() {
     if (!initializedForAsynch) {
-      throw new WetException(getClass().getName()
+      throw new WetatorException(getClass().getName()
           + " is not initialized to work asynchronously. Use initializeForAsynch().");
     }
     final WeightedControlList tmpResult = identify(wPath, htmlElement);

@@ -39,7 +39,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.commandset.ICommandSet;
-import org.wetator.exception.WetException;
+import org.wetator.exception.WetatorException;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.IScripter;
 import org.wetator.scripter.LegacyXmlScripter;
@@ -182,12 +182,12 @@ public final class WetatorConfiguration {
     LOG.info("Config  Configuration file is '" + aConfigurationPropertyFile.getAbsolutePath() + "'");
     // lets do some validations first
     if (!aConfigurationPropertyFile.exists()) {
-      throw new WetException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
+      throw new WetatorException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
           + "' does not exist.");
     }
 
     if (!aConfigurationPropertyFile.canRead()) {
-      throw new WetException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
+      throw new WetatorException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
           + "' is not readable.");
     }
 
@@ -206,7 +206,7 @@ public final class WetatorConfiguration {
         tmpBaseDirectory = new File(System.getProperty("user.dir"));
       }
     } catch (final IOException e) {
-      throw new WetException("An error occured during read of the configuration file '"
+      throw new WetatorException("An error occured during read of the configuration file '"
           + aConfigurationPropertyFile.getAbsolutePath() + "'.", e);
     }
 
@@ -238,7 +238,7 @@ public final class WetatorConfiguration {
       final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
-      throw new WetException("Config  The base directory '" + aBaseDirectory.getAbsolutePath() + "' does not exist.");
+      throw new WetatorException("Config  The base directory '" + aBaseDirectory.getAbsolutePath() + "' does not exist.");
     }
 
     LOG.info("Config  Base directory is '" + aBaseDirectory.getAbsolutePath() + "'");
@@ -422,7 +422,7 @@ public final class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_BASE_URL, "");
     tmpProperties.remove(PROPERTY_BASE_URL);
     if (StringUtils.isEmpty(tmpValue)) {
-      throw new WetException("The required property '" + PROPERTY_BASE_URL + "' is not set.");
+      throw new WetatorException("The required property '" + PROPERTY_BASE_URL + "' is not set.");
     }
     baseUrl = tmpValue;
 
@@ -465,7 +465,7 @@ public final class WetatorConfiguration {
       try {
         proxyPort = Integer.parseInt(tmpValue);
       } catch (final NumberFormatException e) {
-        throw new WetException("The property '" + PROPERTY_PROXY_PORT + "' is no integer.");
+        throw new WetatorException("The property '" + PROPERTY_PROXY_PORT + "' is no integer.");
       }
 
       proxyHostsToBypass = new HashSet<String>();
@@ -525,7 +525,7 @@ public final class WetatorConfiguration {
         if (tmpTemplateFile.exists()) {
           xslTemplates.add(tmpTemplateFile.getAbsolutePath());
         } else {
-          throw new WetException("Configured XSL template '" + tmpTemplateFile.getAbsolutePath() + "' not found.");
+          throw new WetatorException("Configured XSL template '" + tmpTemplateFile.getAbsolutePath() + "' not found.");
         }
       }
     }
