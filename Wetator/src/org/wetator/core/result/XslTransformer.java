@@ -42,15 +42,15 @@ public final class XslTransformer {
   private static final Log LOG = LogFactory.getLog(XslTransformer.class);
 
   private static final String IMAGES_DIRECTORY = "images";
-  private File wetResultFile;
+  private File xmlResultFile;
 
   /**
    * The constructor.
    * 
-   * @param aWetResultFile the name of the report xml file
+   * @param aXMLResultFile the name of the report xml file
    */
-  public XslTransformer(final File aWetResultFile) {
-    wetResultFile = aWetResultFile;
+  public XslTransformer(final File aXMLResultFile) {
+    xmlResultFile = aXMLResultFile;
   }
 
   /**
@@ -71,7 +71,7 @@ public final class XslTransformer {
         final StreamSource tmpXlsStreamSource = new StreamSource(tmpXslFile);
         final Transformer tmpTransformer = TransformerFactory.newInstance().newTransformer(tmpXlsStreamSource);
 
-        final StreamSource tmpXmlStreamSource = new StreamSource(wetResultFile);
+        final StreamSource tmpXmlStreamSource = new StreamSource(xmlResultFile);
 
         final FileWriter tmpFileWriter = new FileWriter(tmpResultFile);
         final BufferedWriter tmpBufferedWriter = new BufferedWriter(tmpFileWriter);

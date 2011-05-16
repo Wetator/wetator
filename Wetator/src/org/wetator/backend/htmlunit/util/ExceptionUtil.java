@@ -34,8 +34,6 @@ public final class ExceptionUtil {
     // nothing
   }
 
-  // private static final Log LOG = WetLogger.getWetLogger();
-
   /**
    * Try to get the included script exception.
    * 

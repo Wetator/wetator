@@ -31,7 +31,7 @@ public class CommandTest {
     Assert.assertEquals("TestCommand", tmpCommand.getName());
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals(-1, tmpCommand.getLineNo());
-    // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aWetContext));
+    // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aContext));
   }
 
   @Test
@@ -41,6 +41,6 @@ public class CommandTest {
     Assert.assertEquals("TestCommand", tmpCommand.getName());
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals(-1, tmpCommand.getLineNo());
-    // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aWetContext));
+    // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aContext));
   }
 }

@@ -75,9 +75,9 @@ public final class WetatorScriptConverter {
     final WetatorScriptConverter tmpConverter = new WetatorScriptConverter();
     try {
       final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
-      final IScripter tmpIScripter = tmpScripter.getWetScripter();
+      final IScripter tmpIScripter = tmpScripter.getScripter();
       final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
-      final IScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
+      final IScriptCreator tmpCreator = tmpScriptCreator.getScriptCreator();
       tmpCreator.setOutputDir(tmpOutputDir);
       if (tmpCreator instanceof LegacyXmlScriptCreator && anArgsArray.length == 5) {
         final String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
@@ -191,17 +191,17 @@ public final class WetatorScriptConverter {
      */
     XLS(new ExcelScripter());
 
-    private IScripter iScripter;
+    private IScripter scripter;
 
     private Scripter(final IScripter aIScripter) {
-      iScripter = aIScripter;
+      scripter = aIScripter;
     }
 
     /**
-     * @return the wetScripter
+     * @return the scripter
      */
-    public IScripter getWetScripter() {
-      return iScripter;
+    public IScripter getScripter() {
+      return scripter;
     }
   }
 
@@ -220,17 +220,17 @@ public final class WetatorScriptConverter {
      */
     XML(new XmlScriptCreator());
 
-    private IScriptCreator iScriptCreator;
+    private IScriptCreator scriptCreator;
 
     private ScriptCreator(final IScriptCreator aIScriptCreator) {
-      iScriptCreator = aIScriptCreator;
+      scriptCreator = aIScriptCreator;
     }
 
     /**
-     * @return the wetScriptCreator
+     * @return the script creator
      */
-    public IScriptCreator getWetScriptCreator() {
-      return iScriptCreator;
+    public IScriptCreator getScriptCreator() {
+      return scriptCreator;
     }
   }
 }
