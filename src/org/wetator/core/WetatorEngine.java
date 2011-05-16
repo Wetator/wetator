@@ -40,8 +40,8 @@ import org.wetator.scripter.IScripter;
  * @author rbri
  * @author frank.danek
  */
-public final class WetEngine {
-  private static final Log LOG = LogFactory.getLog(WetEngine.class);
+public final class WetatorEngine {
+  private static final Log LOG = LogFactory.getLog(WetatorEngine.class);
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
   private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
@@ -61,7 +61,7 @@ public final class WetEngine {
    * 
    * @throws WetException in case of problems
    */
-  public WetEngine() throws WetException {
+  public WetatorEngine() throws WetException {
     super();
 
     files = new LinkedList<File>();

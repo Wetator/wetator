@@ -41,7 +41,7 @@ import org.wetator.util.VariableReplaceUtil;
 public class WetatorContext {
   private static final Log LOG = LogFactory.getLog(WetatorContext.class);
 
-  private WetEngine engine;
+  private WetatorEngine engine;
   private File file;
   private BrowserType browserType;
   private List<Variable> variables; // store them in defined order
@@ -51,13 +51,13 @@ public class WetatorContext {
   /**
    * Constructor for a root context.
    * 
-   * @param aWetEngine the engine that processes this file
+   * @param aWetatorEngine the engine that processes this file
    * @param aFile the file this context is for
    * @param aBrowserType the emulated browser type
    */
-  public WetatorContext(final WetEngine aWetEngine, final File aFile, final BrowserType aBrowserType) {
+  public WetatorContext(final WetatorEngine aWetatorEngine, final File aFile, final BrowserType aBrowserType) {
     super();
-    engine = aWetEngine;
+    engine = aWetatorEngine;
     file = aFile;
     browserType = aBrowserType;
     variables = new LinkedList<Variable>();

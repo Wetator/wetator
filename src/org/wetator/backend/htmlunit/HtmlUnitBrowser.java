@@ -60,7 +60,7 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetException;
@@ -103,7 +103,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /** ResponseStore. */
   protected ResponseStore responseStore;
   /** WetEngine. */
-  protected WetEngine wetEngine;
+  protected WetatorEngine wetatorEngine;
   /** The list of failures ({@link AssertionFailedException}s). */
   protected List<AssertionFailedException> failures;
   /** ImmediateJobsTimeout. */
@@ -119,9 +119,9 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Constructor.
    * 
-   * @param aWetEngine the engine to work with
+   * @param aWetatorEngine the engine to work with
    */
-  public HtmlUnitBrowser(final WetEngine aWetEngine) {
+  public HtmlUnitBrowser(final WetatorEngine aWetatorEngine) {
     super();
 
     // setup the backend
@@ -129,10 +129,10 @@ public final class HtmlUnitBrowser implements IBrowser {
     System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
 
     failures = new LinkedList<AssertionFailedException>();
-    wetEngine = aWetEngine;
+    wetatorEngine = aWetatorEngine;
 
     // response store
-    final WetatorConfiguration tmpConfiguration = wetEngine.getConfiguration();
+    final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
     responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
 
     // TODO read from config
@@ -168,7 +168,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void startNewSession(final IBrowser.BrowserType aBrowserType) {
-    final WetatorConfiguration tmpConfiguration = wetEngine.getConfiguration();
+    final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
 
     // reset the bookmarks
     bookmarks = new HashMap<String, URL>();
@@ -226,7 +226,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // setup our listener
     webClient.addWebWindowListener(new WebWindowListener(this));
-    webClient.setAlertHandler(new AlertHandler(wetEngine));
+    webClient.setAlertHandler(new AlertHandler(wetatorEngine));
     // javascript
     webClient.setJavaScriptEnabled(true);
     webClient.setThrowExceptionOnScriptError(false);
@@ -278,15 +278,15 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Our own alert handler.
    */
   public static final class AlertHandler implements com.gargoylesoftware.htmlunit.AlertHandler {
-    private WetEngine wetEngine;
+    private WetatorEngine wetatorEngine;
 
     /**
      * Constructor.
      * 
-     * @param aWetEngine the engine to inform about the alert texts.
+     * @param aWetatorEngine the engine to inform about the alert texts.
      */
-    public AlertHandler(final WetEngine aWetEngine) {
-      wetEngine = aWetEngine;
+    public AlertHandler(final WetatorEngine aWetatorEngine) {
+      wetatorEngine = aWetatorEngine;
     }
 
     @Override
@@ -304,7 +304,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         // ignore
       }
 
-      wetEngine.informListenersInfo("javascriptAlert", new String[] { tmpMessage, tmpUrl });
+      wetatorEngine.informListenersInfo("javascriptAlert", new String[] { tmpMessage, tmpUrl });
     }
   }
 
@@ -387,12 +387,12 @@ public final class HtmlUnitBrowser implements IBrowser {
         final WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
         if (tmpWebWindow instanceof TopLevelWindow) {
-          wetEngine.informListenersInfo("closeWindow", new String[] { tmpWebWindow.getName() });
+          wetatorEngine.informListenersInfo("closeWindow", new String[] { tmpWebWindow.getName() });
           ((TopLevelWindow) tmpWebWindow).close();
           return;
         }
         if (tmpWebWindow instanceof DialogWindow) {
-          wetEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWebWindow.getName() });
+          wetatorEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWebWindow.getName() });
           ((DialogWindow) tmpWebWindow).close();
           return;
         }
@@ -407,12 +407,12 @@ public final class HtmlUnitBrowser implements IBrowser {
       final String tmpWindowName = tmpWebWindow.getName();
       if (tmpWindowNamePattern.matches(tmpWindowName)) {
         if (tmpWebWindow instanceof TopLevelWindow) {
-          wetEngine.informListenersInfo("closeWindow", new String[] { tmpWindowName });
+          wetatorEngine.informListenersInfo("closeWindow", new String[] { tmpWindowName });
           ((TopLevelWindow) tmpWebWindow).close();
           return;
         }
         if (tmpWebWindow instanceof DialogWindow) {
-          wetEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWindowName });
+          wetatorEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWindowName });
           ((DialogWindow) tmpWebWindow).close();
           return;
         }
@@ -455,10 +455,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
           for (Control tmpControl : aControls) {
-            tmpControl.addHighlightStyle(wetEngine.getConfiguration());
+            tmpControl.addHighlightStyle(wetatorEngine.getConfiguration());
           }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
-          wetEngine.informListenersResponseStored(tmpPageFile);
+          wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
       } catch (final WetException e) {
         LOG.fatal("Problem with window handling. Saving page failed!", e);
@@ -809,7 +809,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     for (AssertionFailedException tmpException : failures) {
       final Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
-        wetEngine.informListenersWarn("pageError",
+        wetatorEngine.informListenersWarn("pageError",
             new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
       }
     }

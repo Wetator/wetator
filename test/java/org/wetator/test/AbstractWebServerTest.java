@@ -35,7 +35,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.test.jetty.HttpHeaderServlet;
 import org.wetator.test.jetty.MultiPartFilter;
@@ -56,7 +56,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
   private static Server server;
 
-  private WetEngine wetEngine;
+  private WetatorEngine wetatorEngine;
   private JUnitProgressListener listener;
 
   /**
@@ -160,10 +160,10 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
     listener = new JUnitProgressListener();
 
-    wetEngine = new WetEngine();
-    wetEngine.addProgressListener(listener);
-    wetEngine.addProgressListener(new StdOutProgressListener());
-    wetEngine.init(tmpConfiguration);
+    wetatorEngine = new WetatorEngine();
+    wetatorEngine.addProgressListener(listener);
+    wetatorEngine.addProgressListener(new StdOutProgressListener());
+    wetatorEngine.init(tmpConfiguration);
   }
 
   /**
@@ -180,8 +180,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   }
 
   protected void executeTestFile(File aTestFile) {
-    wetEngine.addTestFile(aTestFile);
-    wetEngine.executeTests();
+    wetatorEngine.addTestFile(aTestFile);
+    wetatorEngine.executeTests();
   }
 
   /**
