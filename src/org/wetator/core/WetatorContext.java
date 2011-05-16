@@ -38,15 +38,15 @@ import org.wetator.util.VariableReplaceUtil;
  * 
  * @author rbri
  */
-public class WetContext {
-  private static final Log LOG = LogFactory.getLog(WetContext.class);
+public class WetatorContext {
+  private static final Log LOG = LogFactory.getLog(WetatorContext.class);
 
   private WetEngine engine;
   private File file;
   private BrowserType browserType;
   private List<Variable> variables; // store them in defined order
 
-  private WetContext parentWetContext;
+  private WetatorContext parentWetContext;
 
   /**
    * Constructor for a root context.
@@ -55,7 +55,7 @@ public class WetContext {
    * @param aFile the file this context is for
    * @param aBrowserType the emulated browser type
    */
-  public WetContext(final WetEngine aWetEngine, final File aFile, final BrowserType aBrowserType) {
+  public WetatorContext(final WetEngine aWetEngine, final File aFile, final BrowserType aBrowserType) {
     super();
     engine = aWetEngine;
     file = aFile;
@@ -66,13 +66,13 @@ public class WetContext {
   /**
    * Constructor for a sub context.
    * 
-   * @param aWetContext the parent context
+   * @param aContext the parent context
    * @param aFile the file this context is for
    */
-  protected WetContext(final WetContext aWetContext, final File aFile) {
-    this(aWetContext.engine, aFile, aWetContext.browserType);
+  protected WetatorContext(final WetatorContext aContext, final File aFile) {
+    this(aContext.engine, aFile, aContext.browserType);
 
-    parentWetContext = aWetContext;
+    parentWetContext = aContext;
   }
 
   /**
@@ -81,8 +81,8 @@ public class WetContext {
    * @param aFile the file the sub context is for
    * @return the sub context
    */
-  public WetContext createSubContext(final File aFile) {
-    return new WetContext(this, aFile);
+  public WetatorContext createSubContext(final File aFile) {
+    return new WetatorContext(this, aFile);
   }
 
   /**

@@ -16,7 +16,7 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -30,15 +30,15 @@ public interface Selectable extends Control {
   /**
    * Selects the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @throws AssertionFailedException if the control supports no select
    */
-  public void select(WetContext aWetContext) throws AssertionFailedException;
+  public void select(WetatorContext aContext) throws AssertionFailedException;
 
   /**
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @return true, if the control is selected
    * @throws AssertionFailedException if the check is not supported for the control
    */
-  public boolean isSelected(WetContext aWetContext) throws AssertionFailedException;
+  public boolean isSelected(WetatorContext aContext) throws AssertionFailedException;
 }

@@ -23,10 +23,10 @@ import java.io.PrintWriter;
 import org.apache.commons.lang.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
-import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetContext;
-import org.wetator.core.WetEngine;
 import org.wetator.core.IProgressListener;
+import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorConfiguration;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -163,11 +163,11 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetContext,
+   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
   @Override
-  public void executeCommandStart(final WetContext aWetContext, final Command aWommand) {
+  public void executeCommandStart(final WetatorContext aContext, final Command aWommand) {
   }
 
   /**

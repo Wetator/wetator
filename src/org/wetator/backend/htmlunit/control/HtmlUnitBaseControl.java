@@ -28,7 +28,7 @@ import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlId
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 
@@ -89,125 +89,125 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#click(WetContext)
+   * @see org.wetator.backend.control.Control#click(WetatorContext)
    */
   @Override
-  public void click(final WetContext aWetContext) throws AssertionFailedException {
+  public void click(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
       tmpHtmlElement.focus();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
       tmpHtmlElement.click();
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#clickDouble(WetContext)
+   * @see org.wetator.backend.control.Control#clickDouble(WetatorContext)
    */
   @Override
-  public void clickDouble(final WetContext aWetContext) throws AssertionFailedException {
+  public void clickDouble(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
       tmpHtmlElement.focus();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
       tmpHtmlElement.dblClick();
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#clickRight(WetContext)
+   * @see org.wetator.backend.control.Control#clickRight(WetatorContext)
    */
   @Override
-  public void clickRight(final WetContext aWetContext) throws AssertionFailedException {
+  public void clickRight(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
       tmpHtmlElement.focus();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
       tmpHtmlElement.rightClick();
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#mouseOver(WetContext)
+   * @see org.wetator.backend.control.Control#mouseOver(WetatorContext)
    */
   @Override
-  public void mouseOver(final WetContext aWetContext) throws AssertionFailedException {
+  public void mouseOver(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
       // simulate mouse move on the document (outside the element)
       ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
@@ -216,25 +216,25 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
       tmpHtmlElement.mouseOver();
       // simulate mouse move on the element
       tmpHtmlElement.mouseMove();
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
     boolean tmpSupported = false;
 
@@ -279,10 +279,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean hasFocus(final WetContext aWetContext) throws AssertionFailedException {
+  public boolean hasFocus(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();

@@ -16,8 +16,8 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.core.WetContext;
 import org.wetator.core.WetatorConfiguration;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -36,50 +36,50 @@ public interface Control {
   public String getDescribingText();
 
   /**
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @return true, if the control is disabled
    * @throws AssertionFailedException if the check is not supported by the control
    */
-  public boolean isDisabled(WetContext aWetContext) throws AssertionFailedException;
+  public boolean isDisabled(WetatorContext aContext) throws AssertionFailedException;
 
   /**
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @return true, if the control has the focus
    * @throws AssertionFailedException if the check is not supported by the control
    */
-  public boolean hasFocus(final WetContext aWetContext) throws AssertionFailedException;
+  public boolean hasFocus(final WetatorContext aContext) throws AssertionFailedException;
 
   /**
    * Simulates moving the mouse over the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @throws AssertionFailedException if the the control has no support for mouse events
    */
-  public void mouseOver(WetContext aWetContext) throws AssertionFailedException;
+  public void mouseOver(WetatorContext aContext) throws AssertionFailedException;
 
   /**
    * Simulates a mouse click on the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @throws AssertionFailedException if the the control has no support for clicks
    */
-  public void click(WetContext aWetContext) throws AssertionFailedException;
+  public void click(WetatorContext aContext) throws AssertionFailedException;
 
   /**
    * Simulates a mouse double click on the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @throws AssertionFailedException if the the control has no support for clicks
    */
-  public void clickDouble(WetContext aWetContext) throws AssertionFailedException;
+  public void clickDouble(WetatorContext aContext) throws AssertionFailedException;
 
   /**
    * Simulates a mouse right click on the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @throws AssertionFailedException if the the control has no support for clicks
    */
-  public void clickRight(WetContext aWetContext) throws AssertionFailedException;
+  public void clickRight(WetatorContext aContext) throws AssertionFailedException;
 
   /**
    * @param aControl the control to compare with

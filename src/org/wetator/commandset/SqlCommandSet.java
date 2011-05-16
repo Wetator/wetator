@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -87,16 +87,16 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
-      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aWetContext);
-      aCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.assertNoUnusedSecondParameter(aContext);
 
       tmpSqlParam.trim();
-      final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
+      final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
@@ -123,16 +123,16 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
-      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aWetContext);
-      final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aWetContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
+      final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aContext);
 
       tmpSqlParam.trim();
-      final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
+      final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
@@ -178,13 +178,13 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
-      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aWetContext);
-      Long tmpTimeout = aCommand.getSecondParameterLongValue(aWetContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
+      Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
       }
@@ -192,7 +192,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       tmpSqlParam.trim();
-      final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
+      final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
@@ -212,7 +212,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
               final String tmpValue = tmpResultSet.getString(i);
               if (tmpResultSet.wasNull()) {
                 // TODO maybe report column and row
-                aWetContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
+                aContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
               } else {
                 final SecretString tmpSecretString = new SecretString(tmpValue, false);
                 tmpExpected.add(tmpSecretString);
@@ -227,7 +227,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
         Assert.fail("sqlFailes", new String[] { tmpSqlParam.toString(), e.getMessage() });
       }
 
-      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final IBrowser tmpBrowser = getBrowser(aContext);
       final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
         tmpBrowser.saveCurrentWindowToLog();
@@ -304,12 +304,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * Extract the connection name from a string.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @param aParameter the parameter
    * @return the connection name
    * @throws AssertionFailedException if no default connection defined
    */
-  protected String extractConnectionName(final WetContext aWetContext, final SecretString aParameter)
+  protected String extractConnectionName(final WetatorContext aContext, final SecretString aParameter)
       throws AssertionFailedException {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
@@ -319,7 +319,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
           return tmpConnectionName;
         }
       }
-      aWetContext.informListenersWarn("undefinedConnectionName", new String[] { aParameter.toString() });
+      aContext.informListenersWarn("undefinedConnectionName", new String[] { aParameter.toString() });
     }
 
     Assert.assertNotNull(defaultConnectionName, "noDefaultConnection", null);

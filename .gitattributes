@@ -113,9 +113,9 @@ src/org/wetator/core/Command.java -text
 src/org/wetator/core/IProgressListener.java -text
 src/org/wetator/core/Parameter.java -text
 src/org/wetator/core/Variable.java -text
-src/org/wetator/core/WetContext.java -text
 src/org/wetator/core/WetEngine.java -text
 src/org/wetator/core/WetatorConfiguration.java -text
+src/org/wetator/core/WetatorContext.java -text
 src/org/wetator/core/result/XmlResultWriter.java -text
 src/org/wetator/core/result/XslTransformer.java -text
 src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text

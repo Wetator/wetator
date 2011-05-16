@@ -55,11 +55,11 @@ public final class Parameter {
   /**
    * Constructs a secret string from the value.
    * 
-   * @param aWetContext the wet context needed to resolve the value (variables)
+   * @param aContext the context needed to resolve the value (variables)
    * @return the constructed secret string
    */
-  public SecretString getValue(final WetContext aWetContext) {
-    return aWetContext.replaceVariables(value);
+  public SecretString getValue(final WetatorContext aContext) {
+    return aContext.replaceVariables(value);
   }
 
   /**
@@ -133,11 +133,11 @@ public final class Parameter {
     /**
      * Constructs a secret string from the value.
      * 
-     * @param aWetContext the wet context needed to resolve the value (variables)
+     * @param aContext the context needed to resolve the value (variables)
      * @return the constructed secret string
      */
-    public SecretString getValue(final WetContext aWetContext) {
-      return aWetContext.replaceVariables(value);
+    public SecretString getValue(final WetatorContext aContext) {
+      return aContext.replaceVariables(value);
     }
   }
 }

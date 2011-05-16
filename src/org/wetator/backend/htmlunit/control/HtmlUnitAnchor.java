@@ -23,7 +23,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.backend.htmlunit.util.PageUtil;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
@@ -50,11 +50,11 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements C
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetContext)
+   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetatorContext)
    */
   @Override
-  public void click(final WetContext aWetContext) throws AssertionFailedException {
-    super.click(aWetContext);
+  public void click(final WetatorContext aWetatorContext) throws AssertionFailedException {
+    super.click(aWetatorContext);
 
     try {
       final HtmlAnchor tmpHtmlAnchor = getHtmlElement();
@@ -64,9 +64,9 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements C
         PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
       }
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 

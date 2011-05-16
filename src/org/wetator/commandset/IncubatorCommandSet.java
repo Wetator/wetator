@@ -25,7 +25,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.Control;
 import org.wetator.core.Command;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -55,15 +55,15 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aWetContext));
-      aCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      aCommand.assertNoUnusedSecondParameter(aContext);
 
-      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final IBrowser tmpBrowser = getBrowser(aContext);
       final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
@@ -78,10 +78,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath,
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
-      final boolean tmpIsDisabled = tmpControl.hasFocus(aWetContext);
+      final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -93,19 +93,19 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
-      final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aWetContext);
-      aCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.assertNoUnusedSecondParameter(aContext);
 
-      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final IBrowser tmpBrowser = getBrowser(aContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
       Assert.assertNotNull(tmpUrl, "unknownBookmark", new String[] { tmpBookmarkName.getValue() });
 
-      aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
+      aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
       tmpBrowser.openUrl(tmpUrl);
 
       tmpBrowser.saveCurrentWindowToLog();
@@ -119,15 +119,15 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetContext,
+     * @see org.wetator.commandset.ICommandImplementation#execute(org.wetator.core.WetatorContext,
      *      org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetContext aWetContext, final Command aCommand) throws AssertionFailedException {
-      final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aWetContext);
-      aCommand.assertNoUnusedSecondParameter(aWetContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.assertNoUnusedSecondParameter(aContext);
 
-      final IBrowser tmpBrowser = getBrowser(aWetContext);
+      final IBrowser tmpBrowser = getBrowser(aContext);
       tmpBrowser.bookmarkPage(tmpBookmarkName.getValue());
     }
   }

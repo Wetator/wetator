@@ -28,7 +28,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.Control;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 
@@ -108,11 +108,11 @@ public abstract class AbstractCommandSet implements ICommandSet {
   }
 
   /**
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @return the {@link IBrowser}
    */
-  protected IBrowser getBrowser(final WetContext aWetContext) {
-    final IBrowser tmpBrowser = aWetContext.getBrowser();
+  protected IBrowser getBrowser(final WetatorContext aContext) {
+    final IBrowser tmpBrowser = aContext.getBrowser();
     return tmpBrowser;
   }
 
@@ -121,14 +121,14 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * If the list is empty an AssertionFailedException is thrown.<br>
    * If the list has elements for more than one control then some warnings are fired.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @param aWeightedControlList the WeightedControlList
    * @param aWPath the wpath (only needed for the warning message)
    * @param aNoElementFoundKey the key used to resolve the 'no element found' message.
    * @return the first control from the list
    * @throws AssertionFailedException if the list is empty
    */
-  protected Control getRequiredFirstHtmlElementFrom(final WetContext aWetContext,
+  protected Control getRequiredFirstHtmlElementFrom(final WetatorContext aContext,
       final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNoElementFoundKey)
       throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {
@@ -139,12 +139,12 @@ public abstract class AbstractCommandSet implements ICommandSet {
     final WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
-      aWetContext.informListenersWarn("manyElementsFound", new String[] { aWPath.toString(),
+      aContext.informListenersWarn("manyElementsFound", new String[] { aWPath.toString(),
           tmpEntry.getControl().getDescribingText() });
     }
 
     for (WeightedControlList.Entry tmpEachEntry : tmpEntries) {
-      aWetContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
+      aContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
     }
 
     return tmpEntry.getControl();

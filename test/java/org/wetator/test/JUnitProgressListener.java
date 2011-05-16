@@ -17,9 +17,9 @@
 package org.wetator.test;
 
 import org.wetator.core.Command;
-import org.wetator.core.WetContext;
-import org.wetator.core.WetEngine;
 import org.wetator.core.IProgressListener;
+import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -76,11 +76,11 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetContext,
+   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
   @Override
-  public void executeCommandStart(WetContext aWetContext, Command aCommand) {
+  public void executeCommandStart(WetatorContext aContext, Command aCommand) {
     // nothing
   }
 
