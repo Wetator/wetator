@@ -116,13 +116,13 @@ public interface IBrowser {
   };
 
   /**
-   * Returns the {@link ControlFinder} for this backend.
+   * Returns the {@link IControlFinder} for this backend.
    * Every supported backend has his own ControlFinder.
    * 
-   * @return the ControlFinder for this backend.
+   * @return the ControlFinder for this backend
    * @throws AssertionFailedException in case of error
    */
-  public ControlFinder getControlFinder() throws AssertionFailedException;
+  public IControlFinder getControlFinder() throws AssertionFailedException;
 
   /**
    * Opens the given URL in the current window.

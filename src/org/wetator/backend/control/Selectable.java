@@ -21,7 +21,7 @@ import org.wetator.exception.AssertionFailedException;
 
 /**
  * This interface marks all selectable {@link Control}s. These controls are returned by
- * {@link org.wetator.backend.ControlFinder#getAllSelectables(org.wetator.backend.WPath)}.
+ * {@link org.wetator.backend.IControlFinder#getAllSelectables(org.wetator.backend.WPath)}.
  * 
  * @author frank.danek
  */

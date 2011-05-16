@@ -19,8 +19,8 @@ package org.wetator.commandset;
 import java.net.URL;
 import java.util.Properties;
 
-import org.wetator.backend.ControlFinder;
 import org.wetator.backend.IBrowser;
+import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.Control;
@@ -56,8 +56,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -65,7 +64,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -94,8 +93,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -120,8 +118,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {

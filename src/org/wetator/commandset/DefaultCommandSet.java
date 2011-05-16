@@ -30,8 +30,8 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang.reflect.MethodUtils;
-import org.wetator.backend.ControlFinder;
 import org.wetator.backend.IBrowser;
+import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.Control;
@@ -87,8 +87,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -128,8 +127,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -166,8 +164,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -179,7 +176,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpElementFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpElementFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
@@ -216,8 +213,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -226,7 +222,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // Buttons / Link / Image
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
@@ -248,8 +244,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -258,7 +253,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -280,8 +275,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -290,7 +284,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -311,8 +305,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -321,7 +314,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
@@ -340,8 +333,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -350,7 +342,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
@@ -369,8 +361,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -379,7 +370,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -405,8 +396,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -427,8 +417,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -459,8 +448,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -487,8 +475,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -515,8 +502,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -524,7 +510,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -553,8 +539,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -565,7 +550,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -584,8 +569,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -593,7 +577,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
@@ -613,8 +597,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -622,7 +605,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.assertNoUnusedSecondParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
@@ -642,8 +625,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     @SuppressWarnings("unchecked")
