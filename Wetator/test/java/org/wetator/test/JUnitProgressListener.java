@@ -18,7 +18,7 @@ package org.wetator.test;
 
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
@@ -34,10 +34,10 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#end(org.wetator.core.WetEngine)
+   * @see org.wetator.core.IProgressListener#end(org.wetator.core.WetatorEngine)
    */
   @Override
-  public void end(WetEngine aWetEngine) {
+  public void end(WetatorEngine aWetatorEngine) {
     // nothing
   }
 
@@ -107,10 +107,10 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#init(org.wetator.core.WetEngine)
+   * @see org.wetator.core.IProgressListener#init(org.wetator.core.WetatorEngine)
    */
   @Override
-  public void init(WetEngine aWetEngine) {
+  public void init(WetatorEngine aWetatorEngine) {
     // nothing
   }
 
@@ -127,10 +127,10 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#start(org.wetator.core.WetEngine)
+   * @see org.wetator.core.IProgressListener#start(org.wetator.core.WetatorEngine)
    */
   @Override
-  public void start(WetEngine aWetEngine) {
+  public void start(WetatorEngine aWetatorEngine) {
     // nothing
   }
 

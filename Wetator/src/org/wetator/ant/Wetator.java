@@ -33,7 +33,7 @@ import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.wetator.Version;
 import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 
 /**
  * The AntTask to execute test within an ant script.
@@ -66,7 +66,7 @@ public class Wetator extends Task {
             + " Ant: Fileset is required (define a fileset for all your test files).");
       }
 
-      final WetEngine tmpWetEngine = new WetEngine();
+      final WetatorEngine tmpWetatorEngine = new WetatorEngine();
       if (classpath != null) {
         log("Classpath:", Project.MSG_INFO);
         final String[] tmpPaths = classpath.list();
@@ -85,23 +85,23 @@ public class Wetator extends Task {
 
       // configuration is relative to the base dir of the project
       final File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
-      tmpWetEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
+      tmpWetatorEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
 
       final Map<String, String> tmpOurProperties = getPropertiesFromAnt();
-      tmpWetEngine.setExternalProperties(tmpOurProperties);
+      tmpWetatorEngine.setExternalProperties(tmpOurProperties);
       final AntOutProgressListener tmpListener = new AntOutProgressListener(this);
-      tmpWetEngine.addProgressListener(tmpListener);
-      tmpWetEngine.init();
+      tmpWetatorEngine.addProgressListener(tmpListener);
+      tmpWetatorEngine.init();
 
       // add all files
       final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
       final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
 
       for (int i = 0; i < tmpListOfFiles.length; i++) {
-        tmpWetEngine.addTestFile(new File(tmpDirScanner.getBasedir(), tmpListOfFiles[i]));
+        tmpWetatorEngine.addTestFile(new File(tmpDirScanner.getBasedir(), tmpListOfFiles[i]));
       }
 
-      tmpWetEngine.executeTests();
+      tmpWetatorEngine.executeTests();
 
       // failures
       if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {

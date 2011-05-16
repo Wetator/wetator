@@ -24,7 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
@@ -57,16 +57,16 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#init(WetEngine)
+   * @see org.wetator.core.IProgressListener#init(WetatorEngine)
    */
   @Override
-  public void init(final WetEngine aWetEngine) {
+  public void init(final WetatorEngine aWetatorEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     output.indent();
     println("using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    final File tmpConfigFile = aWetEngine.getConfigFile();
+    final File tmpConfigFile = aWetatorEngine.getConfigFile();
     if (null != tmpConfigFile) {
       println("Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
     }
@@ -75,16 +75,16 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#start(WetEngine)
+   * @see org.wetator.core.IProgressListener#start(WetatorEngine)
    */
   @Override
-  public void start(final WetEngine aWetEngine) {
+  public void start(final WetatorEngine aWetatorEngine) {
     stepsCount = 0;
     errorCount = 0;
     failureCount = 0;
     contextDeep = 0;
 
-    final WetatorConfiguration tmpConfiguration = aWetEngine.getConfiguration();
+    final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
       if (StringUtils.isNotEmpty(tmpConfiguration.getProxyHost())) {
         println("    proxy:  '" + tmpConfiguration.getProxyHost() + ":" + tmpConfiguration.getProxyPort() + "'");
@@ -107,13 +107,13 @@ public class StdOutProgressListener implements IProgressListener {
       }
     }
 
-    if (aWetEngine.getTestFiles().isEmpty()) {
+    if (aWetatorEngine.getTestFiles().isEmpty()) {
       println("TestFiles: none");
       return;
     }
 
     boolean tmpFirst = true;
-    for (File tmpTestFile : aWetEngine.getTestFiles()) {
+    for (File tmpTestFile : aWetatorEngine.getTestFiles()) {
       if (tmpFirst) {
         println("TestFiles:  '" + tmpTestFile.getAbsolutePath() + "'");
         tmpFirst = false;
@@ -247,10 +247,10 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#end(WetEngine)
+   * @see org.wetator.core.IProgressListener#end(WetatorEngine)
    */
   @Override
-  public void end(final WetEngine aWetEngine) {
+  public void end(final WetatorEngine aWetatorEngine) {
     // print summary
     println("");
     println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);

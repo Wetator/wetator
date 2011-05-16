@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 import org.wetator.core.IProgressListener;
 import org.wetator.exception.WetException;
 import org.wetator.gui.DialogUtil;
@@ -62,15 +62,15 @@ public final class Wetator {
       }
     }
 
-    WetEngine tmpWetEngine;
+    WetatorEngine tmpWetatorEngine;
     try {
-      tmpWetEngine = new WetEngine();
-      tmpWetEngine.addProgressListener(tmpProgressListener);
+      tmpWetatorEngine = new WetatorEngine();
+      tmpWetatorEngine.addProgressListener(tmpProgressListener);
 
       if (null != tmpConfigFileName) {
-        tmpWetEngine.setConfigFileName(tmpConfigFileName);
+        tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
       }
-      tmpWetEngine.init();
+      tmpWetatorEngine.init();
 
       if (tmpFileNames.isEmpty()) {
         final File[] tmpFiles = DialogUtil.chooseFiles();
@@ -79,15 +79,15 @@ public final class Wetator {
         }
 
         for (int i = 0; i < tmpFiles.length; i++) {
-          tmpWetEngine.addTestFile(tmpFiles[i]);
+          tmpWetatorEngine.addTestFile(tmpFiles[i]);
         }
       } else {
         for (String tmpFileName : tmpFileNames) {
-          tmpWetEngine.addTestFile(new File(tmpFileName));
+          tmpWetatorEngine.addTestFile(new File(tmpFileName));
         }
       }
 
-      tmpWetEngine.executeTests();
+      tmpWetatorEngine.executeTests();
       // SearchPattern.dumpStatistics();
     } catch (final WetException e) {
       System.out.println("Wetator execution failed: " + e.getMessage());

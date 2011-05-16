@@ -31,17 +31,17 @@ public interface IProgressListener {
    * Only the configuration path is available. The listener can dump the version and the configuration file used (if
    * any).
    * 
-   * @param aWetEngine the engine
+   * @param aWetatorEngine the engine
    */
-  public void init(WetEngine aWetEngine);
+  public void init(WetatorEngine aWetatorEngine);
 
   /**
    * This is called after the setup is done and before the test are starting.<br/>
    * The listener can dump the setup.
    * 
-   * @param aWetEngine the engine
+   * @param aWetatorEngine the engine
    */
-  public void start(WetEngine aWetEngine);
+  public void start(WetatorEngine aWetatorEngine);
 
   /**
    * This is called before a test case (grouping the browser runs) is started.<br/>
@@ -115,9 +115,9 @@ public interface IProgressListener {
   /**
    * This is called after all tests are finished.
    * 
-   * @param aWetEngine the engine
+   * @param aWetatorEngine the engine
    */
-  public void end(WetEngine aWetEngine);
+  public void end(WetatorEngine aWetatorEngine);
 
   /**
    * This is called after a response was stored in disk.

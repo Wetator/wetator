@@ -33,7 +33,7 @@ import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
 import org.wetator.core.Variable;
-import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
@@ -100,12 +100,12 @@ public class XmlResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#init(WetEngine)
+   * @see org.wetator.core.IProgressListener#init(WetatorEngine)
    */
   @Override
-  public void init(final WetEngine aWetEngine) {
+  public void init(final WetatorEngine aWetatorEngine) {
     try {
-      final WetatorConfiguration tmpConfiguration = aWetEngine.getConfiguration();
+      final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
 
       outputDir = tmpConfiguration.getOutputDir();
       xslTemplates = tmpConfiguration.getXslTemplates();
@@ -137,12 +137,12 @@ public class XmlResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#start(WetEngine)
+   * @see org.wetator.core.IProgressListener#start(WetatorEngine)
    */
   @Override
-  public void start(final WetEngine aWetEngine) {
+  public void start(final WetatorEngine aWetatorEngine) {
     try {
-      final WetatorConfiguration tmpConfiguration = aWetEngine.getConfiguration();
+      final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
 
       // print the configuration
       printlnStartTag(TAG_CONFIGURATION);
@@ -216,7 +216,7 @@ public class XmlResultWriter implements IProgressListener {
       printlnEndTag(TAG_CONFIGURATION);
 
       printlnNode(TAG_START_TIME, StringUtil.formatDate(new Date()));
-      for (File tmpFile : aWetEngine.getTestFiles()) {
+      for (File tmpFile : aWetatorEngine.getTestFiles()) {
         printlnNode(TAG_TEST_FILE, tmpFile.getAbsolutePath());
       }
 
@@ -450,10 +450,10 @@ public class XmlResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#end(WetEngine)
+   * @see org.wetator.core.IProgressListener#end(WetatorEngine)
    */
   @Override
-  public void end(final WetEngine aWetEngine) {
+  public void end(final WetatorEngine aWetatorEngine) {
     try {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - executionStartTime));
 
