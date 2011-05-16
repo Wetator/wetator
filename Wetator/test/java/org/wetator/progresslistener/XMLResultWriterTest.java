@@ -14,33 +14,23 @@
  */
 
 
-package org.wetator.core.result;
+package org.wetator.progresslistener;
 
-import org.junit.runner.JUnitCore;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * @author rbri
- * @author frank.danek
  */
-@RunWith(Suite.class)
-@SuiteClasses( { XMLResultWriterTest.class, //
-    XSLTransformerTest.class })
-public final class AllTests {
+public class XMLResultWriterTest {
 
-  /**
-   * @param anArgsArray ignored
-   */
-  public static void main(String[] anArgsArray) {
-    JUnitCore.main(AllTests.class.getName());
-  }
-
-  /**
-   * The constructor.
-   */
-  private AllTests() {
-    // nothing
+  @Test
+  @Ignore
+  public void test() {
+    // StringWriter tmpStringWriter = new StringWriter();
+    //
+    // XMLResultWriter tmpResultWriter;
+    Assert.fail("I am not a test.");
   }
 }

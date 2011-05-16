@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.core.result;
+package org.wetator.progresslistener;
 
 import org.junit.Assert;
 import org.junit.Ignore;
