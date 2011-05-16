@@ -19,9 +19,9 @@ package org.wetator.commandset;
 import java.util.List;
 import java.util.Properties;
 
-import org.wetator.core.Parameter;
 import org.wetator.core.Command;
-import org.wetator.core.WetContext;
+import org.wetator.core.Parameter;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 import org.wetator.util.NormalizedString;
@@ -54,12 +54,12 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   public final class CommandAssertFail implements ICommandImplementation {
     @Override
-    public void execute(WetContext aWetContext, Command aCommand) throws AssertionFailedException {
+    public void execute(WetatorContext aContext, Command aCommand) throws AssertionFailedException {
 
       List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
-      SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aWetContext);
+      SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aContext);
 
-      SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aWetContext);
+      SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aContext);
       String tmpCommandName = tmpCommandParam.getValue();
       // normalize command name
       tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
@@ -72,7 +72,7 @@ public final class TestCommandSet extends AbstractCommandSet {
       }
 
       try {
-        aWetContext.determineAndExecuteCommandImpl(tmpCommand);
+        aContext.determineAndExecuteCommandImpl(tmpCommand);
       } catch (AssertionFailedException e) {
         NormalizedString tmpResult = new NormalizedString(e.getMessage());
         Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),

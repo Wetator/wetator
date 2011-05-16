@@ -146,8 +146,8 @@ public final class WetEngine {
               getBrowser().startNewSession(tmpBrowserType);
 
               // setup the context
-              final WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowserType);
-              tmpWetContext.execute();
+              final WetatorContext tmpWetatorContext = new WetatorContext(this, tmpFile, tmpBrowserType);
+              tmpWetatorContext.execute();
             } finally {
               informListenersTestRunEnd();
             }
@@ -353,12 +353,12 @@ public final class WetEngine {
   /**
    * Informs all listeners about 'executeCommandStart'.
    * 
-   * @param aWetContext the {@link WetContext} used to execute the command.
+   * @param aContext the {@link WetatorContext} used to execute the command.
    * @param aCommand the {@link Command} to be executed.
    */
-  protected void informListenersExecuteCommandStart(final WetContext aWetContext, final Command aCommand) {
+  protected void informListenersExecuteCommandStart(final WetatorContext aContext, final Command aCommand) {
     for (IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandStart(aWetContext, aCommand);
+      tmpListener.executeCommandStart(aContext, aCommand);
     }
   }
 

@@ -16,7 +16,7 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -32,8 +32,8 @@ public interface Deselectable extends Selectable {
   /**
    * Deselects the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @throws AssertionFailedException if the control supports no deselect
    */
-  public void deselect(WetContext aWetContext) throws AssertionFailedException;
+  public void deselect(WetatorContext aContext) throws AssertionFailedException;
 }

@@ -25,7 +25,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionInSelectIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 
@@ -65,10 +65,10 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Selectable#select(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Selectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetContext aWetContext) throws AssertionFailedException {
+  public void select(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlOption.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
@@ -82,27 +82,27 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
       }
 
       // wait for silence
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Selectable#isSelected(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Selectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isSelected(final WetContext aWetContext) throws AssertionFailedException {
+  public boolean isSelected(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     return tmpHtmlOption.isSelected();
@@ -111,10 +111,10 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Deselectable#deselect(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Deselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
-  public void deselect(final WetContext aWetContext) throws AssertionFailedException {
+  public void deselect(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlOption.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
@@ -134,27 +134,27 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
       }
 
       // wait for silence
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     return tmpHtmlOption.isDisabled();

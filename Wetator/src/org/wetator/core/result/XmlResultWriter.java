@@ -29,13 +29,13 @@ import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.Control;
 import org.wetator.commandset.ICommandSet;
+import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
 import org.wetator.core.Variable;
-import org.wetator.core.Command;
-import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetContext;
 import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorConfiguration;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.i18n.Messages;
 import org.wetator.scripter.IScripter;
@@ -283,11 +283,11 @@ public class XmlResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetContext,
+   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
   @Override
-  public void executeCommandStart(final WetContext aWetContext, final Command aCommand) {
+  public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
       output.print("name=\"");
@@ -302,7 +302,7 @@ public class XmlResultWriter implements IProgressListener {
       Parameter tmpParameter = aCommand.getFirstParameter();
       printStartTag(TAG_FIRST_PARAM);
       if (null != tmpParameter) {
-        output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
+        output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aContext).toString()));
       }
       printEndTag(TAG_FIRST_PARAM);
       output.println();
@@ -310,7 +310,7 @@ public class XmlResultWriter implements IProgressListener {
       tmpParameter = aCommand.getSecondParameter();
       printStartTag(TAG_SECOND_PARAM);
       if (null != tmpParameter) {
-        output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
+        output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aContext).toString()));
       }
       printEndTag(TAG_SECOND_PARAM);
       output.println();

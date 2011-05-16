@@ -27,7 +27,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -71,11 +71,11 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#setValue(org.wetator.core.WetContext, org.wetator.util.SecretString,
+   * @see org.wetator.backend.control.Settable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
    *      java.io.File)
    */
   @Override
-  public void setValue(final WetContext aWetContext, final SecretString aValue, final File aDirectory)
+  public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
       throws AssertionFailedException {
     final HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
@@ -85,12 +85,12 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
     try {
       tmpHtmlPasswordInput.click();
     } catch (final IOException e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
@@ -123,27 +123,27 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
       }
 
       // wait for silence
-      aWetContext.getBrowser().waitForImmediateJobs();
+      aWetatorContext.getBrowser().waitForImmediateJobs();
     } catch (final ScriptException e) {
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final AssertionFailedException e) {
-      aWetContext.getBrowser().addFailure(e);
+      aWetatorContext.getBrowser().addFailure(e);
     } catch (final Throwable e) {
-      aWetContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString)
    */
   @Override
-  public void assertValue(final WetContext aWetContext, final SecretString anExpectedValue)
+  public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
@@ -151,10 +151,10 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
     final HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
     return tmpHtmlPasswordInput.isDisabled() || tmpHtmlPasswordInput.isReadOnly();

@@ -18,7 +18,7 @@ package org.wetator.backend.control;
 
 import java.io.File;
 
-import org.wetator.core.WetContext;
+import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.SecretString;
 
@@ -33,20 +33,20 @@ public interface Settable extends Control {
   /**
    * Sets the value of the control.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
    *        aDirectory points to the directory for searching the file
    * @throws AssertionFailedException if the the control supports no value
    */
-  public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException;
+  public void setValue(WetatorContext aContext, SecretString aValue, File aDirectory) throws AssertionFailedException;
 
   /**
    * Asserts that the value of the control is equal to the given (expected) value.
    * 
-   * @param aWetContext the wet context
+   * @param aContext the context
    * @param anExpectedValue the expected value of the control
    * @throws AssertionFailedException if the value of the control does not match the expected value
    */
-  public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException;
+  public void assertValue(WetatorContext aContext, SecretString anExpectedValue) throws AssertionFailedException;
 }

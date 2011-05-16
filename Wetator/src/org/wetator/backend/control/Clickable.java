@@ -19,7 +19,8 @@ package org.wetator.backend.control;
 /**
  * This interface marks all clickable {@link Control}s. These controls are returned by
  * {@link org.wetator.backend.ControlFinder#getAllClickables(org.wetator.backend.WPath)}.<br/>
- * As all controls implement {@link #click(org.wetator.core.WetContext)} no additional action needs to be implemented.
+ * As all controls implement {@link #click(org.wetator.core.WetatorContext)} no additional action needs to be
+ * implemented.
  * 
  * @author frank.danek
  */
