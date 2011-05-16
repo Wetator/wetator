@@ -16,8 +16,8 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetContext;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -91,7 +91,7 @@ public interface Control {
    * Retrieves the style to be used for highlight this control from the configuration
    * and adds the style to the control.
    * 
-   * @param aWetConfiguration the wet configuration
+   * @param aConfiguration the configuration
    */
-  public void addHighlightStyle(WetConfiguration aWetConfiguration);
+  public void addHighlightStyle(WetatorConfiguration aConfiguration);
 }

@@ -32,7 +32,7 @@ import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.wetator.Version;
-import org.wetator.core.WetConfiguration;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetEngine;
 
 /**
@@ -132,11 +132,11 @@ public class Wetator extends Task {
     final Map<String, String> tmpOurProperties = new HashMap<String, String>();
     final Set<String> tmpKeys = tmpProjectProperties.keySet();
     for (String tmpKey : tmpKeys) {
-      if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+      if (tmpKey.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
         tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
         log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
-      } else if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)
-          || tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
+      } else if (tmpKey.startsWith(WetatorConfiguration.PROPERTY_PREFIX)
+          || tmpKey.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
         tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
         log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
             Project.MSG_INFO);
@@ -146,11 +146,11 @@ public class Wetator extends Task {
     // read the properties from property sets
     for (Property tmpProperty : properties) {
       final String tmpName = tmpProperty.getName();
-      if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+      if (tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
         log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
-      } else if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)
-          || tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
+      } else if (tmpName.startsWith(WetatorConfiguration.PROPERTY_PREFIX)
+          || tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
         log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
       }

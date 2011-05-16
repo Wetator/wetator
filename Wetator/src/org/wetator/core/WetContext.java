@@ -100,10 +100,10 @@ public class WetContext {
   }
 
   /**
-   * @return the wetConfiguration
+   * @return the configuration
    */
-  public WetConfiguration getWetConfiguration() {
-    return engine.getWetConfiguration();
+  public WetatorConfiguration getConfiguration() {
+    return engine.getConfiguration();
   }
 
   /**
@@ -124,7 +124,7 @@ public class WetContext {
 
     // then the stuff from parent or configuration
     if (null == parentWetContext) {
-      tmpResult.addAll(getWetConfiguration().getVariables());
+      tmpResult.addAll(getConfiguration().getVariables());
     } else {
       tmpResult.addAll(parentWetContext.getVariables());
     }
@@ -174,8 +174,8 @@ public class WetContext {
   public void determineAndExecuteCommandImpl(final Command aCommand) throws AssertionFailedException {
     final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
-      Assert.fail("unsupportedCommand", new String[] { aCommand.getName(), getFile().getAbsolutePath(),
-          "" + aCommand.getLineNo() });
+      Assert.fail("unsupportedCommand",
+          new String[] { aCommand.getName(), getFile().getAbsolutePath(), "" + aCommand.getLineNo() });
     }
 
     final IBrowser tmpBrowser = getBrowser();

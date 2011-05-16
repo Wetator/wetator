@@ -73,7 +73,7 @@ public interface IBrowser {
      * The constructor.
      * 
      * @param aLabel the label of the browser type
-     * @param aSymbol the symbol for the browser type (e.g. used by the {@link org.wetator.core.WetConfiguration})
+     * @param aSymbol the symbol for the browser type (e.g. used by the {@link org.wetator.core.WetatorConfiguration})
      */
     BrowserType(final String aLabel, final String aSymbol) {
       label = aLabel;

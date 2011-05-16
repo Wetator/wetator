@@ -35,8 +35,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.wetator.core.WetConfiguration;
 import org.wetator.core.WetEngine;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.test.jetty.HttpHeaderServlet;
 import org.wetator.test.jetty.MultiPartFilter;
 import org.wetator.test.jetty.RedirectServlet;
@@ -126,13 +126,15 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   @Before
   public void createWetEngine() {
     Properties tmpProperties = new Properties();
-    tmpProperties.setProperty(WetConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/testcases");
+    tmpProperties
+        .setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/testcases");
     if (getBrowser() != null) {
-      tmpProperties.setProperty(WetConfiguration.PROPERTY_BROWSER_TYPE, getBrowser().getSymbol());
+      tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, getBrowser().getSymbol());
     }
-    tmpProperties.setProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl,./xsl/run_report.xsl");
-    tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS, "org.wetator.commandset.IncubatorCommandSet, "
-        + "org.wetator.commandset.SqlCommandSet, " + "org.wetator.commandset.TestCommandSet");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl,./xsl/run_report.xsl");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS,
+        "org.wetator.commandset.IncubatorCommandSet, " + "org.wetator.commandset.SqlCommandSet, "
+            + "org.wetator.commandset.TestCommandSet");
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
     tmpProperties.setProperty("wetator.basicAuthUser", "wetator");
@@ -154,14 +156,14 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty("$wet", "Wetator");
     tmpProperties.setProperty("$$wet-secret", "Wetator");
 
-    WetConfiguration tmpWetConfiguration = new WetConfiguration(new File("."), tmpProperties, null);
+    WetatorConfiguration tmpConfiguration = new WetatorConfiguration(new File("."), tmpProperties, null);
 
     listener = new JUnitProgressListener();
 
     wetEngine = new WetEngine();
     wetEngine.addProgressListener(listener);
     wetEngine.addProgressListener(new StdOutProgressListener());
-    wetEngine.init(tmpWetConfiguration);
+    wetEngine.init(tmpConfiguration);
   }
 
   /**
