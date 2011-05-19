@@ -380,6 +380,54 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void testAsText_SubmitInput() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "before "
+        + "<input id='MySubmitId' name='MySubmitName' value='Submit' type='submit'>" + "after" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("before Submit after", tmpResult.getText());
+    Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
+  public void testAsText_ResetInput() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "before "
+        + "<input id='MyResetId' name='MyResetName' value='Reset' type='reset'>" + "after" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("before Reset after", tmpResult.getText());
+    Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
+  public void testAsText_ButtonInput() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "before "
+        + "<input id='MyButtonId' name='MyButtonName' value='Button' type='button'>" + "after" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("before Button after", tmpResult.getText());
+    Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
+  public void testAsText_Button() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "before " + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
+        + "after" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("before Button after", tmpResult.getText());
+    Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
   public void testAsText_RadioButton() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before "
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio'>RadioButton" + " after"

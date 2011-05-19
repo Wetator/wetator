@@ -35,6 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlApplet;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -60,9 +61,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
+import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlStyle;
+import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
@@ -378,6 +381,12 @@ public class HtmlPageIndex {
         appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
       } else if (aDomNode instanceof HtmlLegend) {
         appendHtmlLegend((HtmlLegend) aDomNode);
+      } else if (aDomNode instanceof HtmlSubmitInput) {
+        appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
+      } else if (aDomNode instanceof HtmlResetInput) {
+        appendHtmlResetInput((HtmlResetInput) aDomNode);
+      } else if (aDomNode instanceof HtmlButtonInput) {
+        appendHtmlButtonInput((HtmlButtonInput) aDomNode);
       } else if (aDomNode instanceof HtmlCheckBoxInput) {
         appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode);
       } else if (aDomNode instanceof HtmlRadioButtonInput) {
@@ -456,12 +465,6 @@ public class HtmlPageIndex {
     textWithoutFormControls.enableAppend();
   }
 
-  private void appendHtmlButton(final HtmlButton anHtmlButton) {
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlButton);
-    textWithoutFormControls.enableAppend();
-  }
-
   private void appendHtmlImage(final HtmlImage anHtmlImage) {
     text.append(anHtmlImage.getAltAttribute());
     textWithoutFormControls.append(anHtmlImage.getAltAttribute());
@@ -476,6 +479,29 @@ public class HtmlPageIndex {
   private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
     final String tmpLabel = anHtmlOptionGroup.getLabelAttribute();
     text.append(tmpLabel);
+  }
+
+  private void appendHtmlButton(final HtmlButton anHtmlButton) {
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlButton);
+    textWithoutFormControls.enableAppend();
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+  }
+
+  private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
+    text.append(anHtmlSubmitInput.getValueAttribute());
+    text.append(" ");
+  }
+
+  private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
+    text.append(anHtmlResetInput.getValueAttribute());
+    text.append(" ");
+  }
+
+  private void appendHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
+    text.append(anHtmlButtonInput.getValueAttribute());
+    text.append(" ");
   }
 
   private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
