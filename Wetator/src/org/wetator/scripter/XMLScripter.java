@@ -18,10 +18,10 @@ package org.wetator.scripter;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,7 +68,6 @@ public class XMLScripter implements IScripter {
 
   private static final Pattern VERSION_PATTERN = Pattern.compile(".*" + A_VERSION + "\\s*=\\s*[\"'](.*)[\"'].*");
 
-  private File file;
   private ModelBuilder model;
   private List<Command> commands;
 
@@ -95,10 +94,34 @@ public class XMLScripter implements IScripter {
       return false;
     }
 
+    // now check the content
+    try {
+      return isSupported(new FileReader(aFile));
+    } catch (final IOException e) {
+      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+    }
+  }
+
+  /**
+   * This method is used by the WTE.
+   * 
+   * @param aContent the content to check
+   * @return true if this scripter is able to handle this content otherwise false
+   */
+  public boolean isSupported(final String aContent) {
+    // now check the content
+    try {
+      return isSupported(new StringReader(aContent));
+    } catch (final IOException e) {
+      throw new WetatorException("Could not read content.", e);
+    }
+  }
+
+  private boolean isSupported(final Reader aContent) throws IOException {
     // now check root element, schema and version
     BufferedReader tmpReader = null;
     try {
-      tmpReader = new BufferedReader(new FileReader(aFile));
+      tmpReader = new BufferedReader(aContent);
       String tmpLine;
       boolean tmpTestCase = false;
       boolean tmpBaseSchema = false;
@@ -123,8 +146,6 @@ public class XMLScripter implements IScripter {
           return true;
         }
       }
-    } catch (final IOException e) {
-      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     } finally {
       if (tmpReader != null) {
         try {
@@ -141,18 +162,34 @@ public class XMLScripter implements IScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IScripter#setFile(java.io.File)
+   * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
-  public void setFile(final File aFile) throws WetatorException {
-    file = aFile;
-
+  public void script(final File aFile) throws WetatorException {
     try {
-      model = new ModelBuilder(file);
+      model = new ModelBuilder(aFile);
 
-      commands = parseScript(file);
+      commands = parseScript(new FileReader(aFile));
     } catch (final Exception e) {
       throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+    }
+  }
+
+  /**
+   * Scripts the given content by reading all commands.<br/>
+   * This method is used by the WTE.
+   * 
+   * @param aContent the content
+   * @param aDirectory the directory to search for schema files; may be null
+   * @throws WetatorException in case of error
+   */
+  public void script(final String aContent, final File aDirectory) throws WetatorException {
+    try {
+      model = new ModelBuilder(aContent, aDirectory);
+
+      commands = parseScript(new StringReader(aContent));
+    } catch (final Exception e) {
+      throw new WetatorException("Could not read content.", e);
     }
   }
 
@@ -173,10 +210,9 @@ public class XMLScripter implements IScripter {
     return model;
   }
 
-  private List<Command> parseScript(final File aFile) throws IOException, XMLStreamException {
-    final InputStream tmpInputStream = new FileInputStream(aFile);
+  private List<Command> parseScript(final Reader aContent) throws XMLStreamException, IOException {
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
-    final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
+    final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(aContent);
 
     final List<Command> tmpResult = new ArrayList<Command>();
     try {
@@ -291,7 +327,7 @@ public class XMLScripter implements IScripter {
       }
     } finally {
       tmpReader.close();
-      tmpInputStream.close();
+      aContent.close();
     }
     return tmpResult;
   }

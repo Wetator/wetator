@@ -17,9 +17,10 @@
 package org.wetator.scripter.xml;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -90,12 +91,31 @@ public class ModelBuilder {
    * @throws SAXException in case of problems reading the file
    */
   public ModelBuilder(final File aFile) throws XMLStreamException, IOException, SAXException {
-    findSchemas(aFile);
+    findSchemas(new FileReader(aFile));
 
     // add schema for default command set since it is always loaded
     schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), DEFAULT_COMMAND_SET_SCHEMA);
 
     parseSchemas(aFile.getParentFile());
+  }
+
+  /**
+   * The constructor. Creates a new ModelBuilder by parsing the given string.
+   * 
+   * @param aContent the content to build the model from
+   * @param aSchemaDirectory the directory to search for schema files; may be null
+   * @throws XMLStreamException in case of problems reading the string
+   * @throws IOException in case of problems reading the string
+   * @throws SAXException in case of problems reading the string
+   */
+  public ModelBuilder(final String aContent, final File aSchemaDirectory) throws XMLStreamException, IOException,
+      SAXException {
+    findSchemas(new StringReader(aContent));
+
+    // add schema for default command set since it is always loaded
+    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), DEFAULT_COMMAND_SET_SCHEMA);
+
+    parseSchemas(aSchemaDirectory);
   }
 
   /**
@@ -131,10 +151,9 @@ public class ModelBuilder {
     return tmpCommandTypes;
   }
 
-  private void findSchemas(final File aFile) throws XMLStreamException, IOException {
-    final InputStream tmpInputStream = new FileInputStream(aFile);
+  private void findSchemas(final Reader aContentReader) throws XMLStreamException, IOException {
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
-    final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
+    final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(aContentReader);
 
     try {
       while (tmpReader.hasNext()) {
@@ -165,7 +184,7 @@ public class ModelBuilder {
       }
     } finally {
       tmpReader.close();
-      tmpInputStream.close();
+      aContentReader.close();
     }
   }
 

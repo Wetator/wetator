@@ -185,7 +185,7 @@ public final class WetatorEngine {
   private IScripter createScripter(final File aFile) {
     for (IScripter tmpScripter : scripter) {
       if (tmpScripter.isSupported(aFile)) {
-        tmpScripter.setFile(aFile);
+        tmpScripter.script(aFile);
         return tmpScripter;
       }
     }
