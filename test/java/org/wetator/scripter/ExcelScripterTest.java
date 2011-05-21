@@ -32,7 +32,7 @@ public class ExcelScripterTest {
   @Test
   public void supported() throws WetatorException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
-    tmpExcelScripter.setFile(new File("test/java/org/wetator/test/resource/junit.xls"));
+    tmpExcelScripter.script(new File("test/java/org/wetator/test/resource/junit.xls"));
 
     List<Command> tmpCommands = tmpExcelScripter.getCommands();
     Assert.assertEquals(17, tmpCommands.size());

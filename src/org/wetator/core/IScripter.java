@@ -23,41 +23,35 @@ import java.util.Properties;
 import org.wetator.exception.WetatorException;
 
 /**
- * The interface for scripters.
- * Scripters are responsible for reading an input file
- * and parsing the commands.<br>
+ * The interface for scripters.<br/>
+ * Scripters are responsible for reading an input file and parsing the commands.<br/>
  * Scripters are reused for many files. The flow is:
  * <ol>
- * <li>isSupported()
- * <li>setFile()
- * <li>getCommands()
+ * <li>isSupported()</li>
+ * <li>script()</li>
+ * <li>getCommands()</li>
  * </ol>
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface IScripter {
 
   /**
-   * Sets the file this scripter works on.
-   * Also this method must read the whole list of commands.
-   * 
-   * @param aFile the file
-   * @throws WetatorException in case of error
-   */
-  public void setFile(File aFile) throws WetatorException;
-
-  /**
-   * Returns true, if this scripter is able to handle this
-   * file.
-   * 
    * @param aFile the file to check
-   * @return true or false
+   * @return true if this scripter is able to handle this file otherwise false
    */
   public boolean isSupported(File aFile);
 
   /**
-   * Returns the complete list of commands.
+   * Scripts the given file by reading all commands.
    * 
+   * @param aFile the file
+   * @throws WetatorException in case of error
+   */
+  public void script(File aFile) throws WetatorException;
+
+  /**
    * @return the complete list of commands.
    */
   public List<Command> getCommands();

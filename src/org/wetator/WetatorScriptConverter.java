@@ -118,7 +118,7 @@ public final class WetatorScriptConverter {
   public void convert() throws WetatorException {
     for (File tmpInputFile : inputFiles) {
       LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
-      scripter.setFile(tmpInputFile);
+      scripter.script(tmpInputFile);
       final List<Command> tmpCommands = scripter.getCommands();
 
       final String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));

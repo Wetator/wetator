@@ -40,7 +40,7 @@ public class LegacyXMLScripterTest {
 
     Assert.assertTrue(tmpLegacyXMLScripter.isSupported(tmpFile));
 
-    tmpLegacyXMLScripter.setFile(tmpFile);
+    tmpLegacyXMLScripter.script(tmpFile);
 
     List<Command> tmpCommands = tmpLegacyXMLScripter.getCommands();
     Assert.assertEquals(9, tmpCommands.size());

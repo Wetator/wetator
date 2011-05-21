@@ -70,10 +70,10 @@ public final class ExcelScripter implements IScripter {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IScripter#setFile(java.io.File)
+   * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
-  public void setFile(final File aFile) throws WetatorException {
+  public void script(final File aFile) throws WetatorException {
     file = aFile;
 
     commands = readCommands();
