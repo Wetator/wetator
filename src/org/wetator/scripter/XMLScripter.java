@@ -24,7 +24,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +43,8 @@ import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
 import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.ModelBuilder;
+import org.wetator.scripter.xml.SchemaFinder;
+import org.wetator.scripter.xml.XMLSchema;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
 
@@ -68,6 +73,13 @@ public class XMLScripter implements IScripter {
 
   private static final Pattern VERSION_PATTERN = Pattern.compile(".*" + A_VERSION + "\\s*=\\s*[\"'](.*)[\"'].*");
 
+  /**
+   * The schema for the default command set.
+   */
+  public static final XMLSchema DEFAULT_COMMAND_SET_SCHEMA = new XMLSchema("d",
+      "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd");
+
+  private Map<String, XMLSchema> schemas;
   private ModelBuilder model;
   private List<Command> commands;
 
@@ -119,9 +131,8 @@ public class XMLScripter implements IScripter {
 
   private boolean isSupported(final Reader aContent) throws IOException {
     // now check root element, schema and version
-    BufferedReader tmpReader = null;
+    final BufferedReader tmpReader = new BufferedReader(aContent);
     try {
-      tmpReader = new BufferedReader(aContent);
       String tmpLine;
       boolean tmpTestCase = false;
       boolean tmpBaseSchema = false;
@@ -147,12 +158,10 @@ public class XMLScripter implements IScripter {
         }
       }
     } finally {
-      if (tmpReader != null) {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // bad luck
-        }
+      try {
+        tmpReader.close();
+      } catch (final IOException e) {
+        // bad luck
       }
     }
 
@@ -167,9 +176,33 @@ public class XMLScripter implements IScripter {
   @Override
   public void script(final File aFile) throws WetatorException {
     try {
-      model = new ModelBuilder(aFile);
+      Reader tmpReader = new FileReader(aFile);
+      List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      try {
+        tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
+      } finally {
+        try {
+          tmpReader.close();
+        } catch (final IOException e) {
+          // ignore;
+        }
+      }
 
-      commands = parseScript(new FileReader(aFile));
+      addDefaultSchemas(tmpSchemas);
+
+      buildSchemaMap(tmpSchemas);
+      model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
+
+      tmpReader = new FileReader(aFile);
+      try {
+        commands = parseScript(tmpReader);
+      } finally {
+        try {
+          tmpReader.close();
+        } catch (final IOException e) {
+          // ignore;
+        }
+      }
     } catch (final Exception e) {
       throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
@@ -185,29 +218,55 @@ public class XMLScripter implements IScripter {
    */
   public void script(final String aContent, final File aDirectory) throws WetatorException {
     try {
-      model = new ModelBuilder(aContent, aDirectory);
+      Reader tmpReader = new StringReader(aContent);
+      List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      try {
+        tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
+      } finally {
+        try {
+          tmpReader.close();
+        } catch (final IOException e) {
+          // ignore;
+        }
+      }
 
-      commands = parseScript(new StringReader(aContent));
+      addDefaultSchemas(tmpSchemas);
+
+      buildSchemaMap(tmpSchemas);
+      model = new ModelBuilder(tmpSchemas, aDirectory);
+
+      tmpReader = new StringReader(aContent);
+      try {
+        commands = parseScript(tmpReader);
+      } finally {
+        try {
+          tmpReader.close();
+        } catch (final IOException e) {
+          // ignore;
+        }
+      }
     } catch (final Exception e) {
       throw new WetatorException("Could not read content.", e);
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IScripter#getCommands()
-   */
-  @Override
-  public List<Command> getCommands() {
-    return commands;
+  private void addDefaultSchemas(final List<XMLSchema> aSchemaList) {
+    // add schema for default command set since it is always loaded
+    aSchemaList.add(DEFAULT_COMMAND_SET_SCHEMA);
   }
 
-  /**
-   * @return the model
-   */
-  public ModelBuilder getModel() {
-    return model;
+  private void buildSchemaMap(final List<XMLSchema> aSchemaList) {
+    final Map<String, XMLSchema> tmpSchemaMap = new LinkedHashMap<String, XMLSchema>();
+    for (XMLSchema tmpXMLSchema : aSchemaList) {
+      tmpSchemaMap.put(tmpXMLSchema.getNamespace(), tmpXMLSchema);
+    }
+
+    schemas = tmpSchemaMap;
+
+    aSchemaList.clear();
+    for (Entry<String, XMLSchema> tmpXMLSchema : schemas.entrySet()) {
+      aSchemaList.add(tmpXMLSchema.getValue());
+    }
   }
 
   private List<Command> parseScript(final Reader aContent) throws XMLStreamException, IOException {
@@ -330,5 +389,29 @@ public class XMLScripter implements IScripter {
       aContent.close();
     }
     return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IScripter#getCommands()
+   */
+  @Override
+  public List<Command> getCommands() {
+    return commands;
+  }
+
+  /**
+   * @return the model
+   */
+  public ModelBuilder getModel() {
+    return model;
+  }
+
+  /**
+   * @return the schemas
+   */
+  public Map<String, XMLSchema> getSchemas() {
+    return schemas;
   }
 }

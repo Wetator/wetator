@@ -51,9 +51,9 @@ public class LocalEntityResolver implements EntityResolver {
   private static Map<String, List<XMLSchema>> getKnownSchemas() {
     final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<String, List<XMLSchema>>();
     tmpKnownSchemas.put(XMLScripter.BASE_SCHEMA,
-        Arrays.asList(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd")));
-    tmpKnownSchemas.put(ModelBuilder.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Arrays.asList(new XMLSchema("d",
-        "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd")));
+        Arrays.asList(new XMLSchema(XMLScripter.BASE_SCHEMA, "test-case-1.0.0.xsd")));
+    tmpKnownSchemas.put(XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Arrays.asList(new XMLSchema("d",
+        XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), "default-command-set-1.0.0.xsd")));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set",
         Arrays.asList(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd")));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays.asList(new XMLSchema("tst",

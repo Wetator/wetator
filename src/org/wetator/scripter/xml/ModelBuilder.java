@@ -17,24 +17,14 @@
 package org.wetator.scripter.xml;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -44,6 +34,7 @@ import org.wetator.scripter.XMLScripter;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
 import org.wetator.util.NormalizedString;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -69,13 +60,6 @@ public class ModelBuilder {
 
   private static final String BASE_COMMAND_TYPE = "commandType";
   private static final String BASE_PARAMETER_TYPE = "parameterType";
-  /**
-   * The schema for the default command set.
-   */
-  public static final XMLSchema DEFAULT_COMMAND_SET_SCHEMA = new XMLSchema("d",
-      "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd");
-
-  private Map<String, XMLSchema> schemaLocations = new HashMap<String, XMLSchema>();
 
   private XSComplexType baseCommandType;
   private XSSimpleType baseParameterType;
@@ -83,50 +67,14 @@ public class ModelBuilder {
   private Map<String, CommandType> commandTypes = new LinkedHashMap<String, CommandType>();
 
   /**
-   * The constructor. Creates a new ModelBuilder by parsing the given file.
-   * 
-   * @param aFile the file to build the model from
-   * @throws XMLStreamException in case of problems reading the file
-   * @throws IOException in case of problems reading the file
-   * @throws SAXException in case of problems reading the file
-   */
-  public ModelBuilder(final File aFile) throws XMLStreamException, IOException, SAXException {
-    findSchemas(new FileReader(aFile));
-
-    // add schema for default command set since it is always loaded
-    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), DEFAULT_COMMAND_SET_SCHEMA);
-
-    parseSchemas(aFile.getParentFile());
-  }
-
-  /**
-   * The constructor. Creates a new ModelBuilder by parsing the given string.
-   * 
-   * @param aContent the content to build the model from
+   * @param aSchemaMap the map containing the schemas to use (key = namespace URI)
    * @param aSchemaDirectory the directory to search for schema files; may be null
-   * @throws XMLStreamException in case of problems reading the string
-   * @throws IOException in case of problems reading the string
-   * @throws SAXException in case of problems reading the string
-   */
-  public ModelBuilder(final String aContent, final File aSchemaDirectory) throws XMLStreamException, IOException,
-      SAXException {
-    findSchemas(new StringReader(aContent));
-
-    // add schema for default command set since it is always loaded
-    schemaLocations.put(DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), DEFAULT_COMMAND_SET_SCHEMA);
-
-    parseSchemas(aSchemaDirectory);
-  }
-
-  /**
-   * @param aSchemaLocationMap the map containing the schemas to use (key = namespace URI, value = schema location)
    * @throws SAXException in case of problems reading the file
    * @throws IOException in case of problems reading the file
    */
-  public ModelBuilder(final Map<String, XMLSchema> aSchemaLocationMap) throws SAXException, IOException {
-    schemaLocations = aSchemaLocationMap;
-
-    parseSchemas(null);
+  public ModelBuilder(final List<XMLSchema> aSchemaMap, final File aSchemaDirectory) throws SAXException, IOException {
+    final XSSchemaSet tmpSchemaSet = parseSchemas(aSchemaMap, aSchemaDirectory);
+    buildModel(tmpSchemaSet);
   }
 
   /**
@@ -151,71 +99,37 @@ public class ModelBuilder {
     return tmpCommandTypes;
   }
 
-  private void findSchemas(final Reader aContentReader) throws XMLStreamException, IOException {
-    final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
-    final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(aContentReader);
-
-    try {
-      while (tmpReader.hasNext()) {
-        if (tmpReader.next() == XMLStreamConstants.START_ELEMENT) {
-          String tmpSchemaLocation = tmpReader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-              "schemaLocation");
-
-          final int tmpSchemaCount = tmpReader.getNamespaceCount();
-          final Map<String, String> tmpNamespacePrefixes = new HashMap<String, String>();
-          for (int i = 0; i < tmpSchemaCount; i++) {
-            final String tmpPrefix = tmpReader.getNamespacePrefix(i);
-            final String tmpNamespaceURI = tmpReader.getNamespaceURI(i);
-            tmpNamespacePrefixes.put(tmpNamespaceURI, tmpPrefix);
-          }
-
-          tmpSchemaLocation = tmpSchemaLocation.replace("  ", " ");
-          final String[] tmpSchemaLocations = tmpSchemaLocation.split(" ");
-          for (int i = 0; i < tmpSchemaLocations.length; i += 2) {
-            if (!"".equals(tmpSchemaLocations[i].trim())) {
-              final String tmpNamespaceURI = tmpSchemaLocations[i];
-              final String tmpPrefix = tmpNamespacePrefixes.get(tmpNamespaceURI);
-              final XMLSchema tmpSchema = new XMLSchema(tmpPrefix, tmpNamespaceURI, tmpSchemaLocations[i + 1]);
-              schemaLocations.put(tmpNamespaceURI, tmpSchema);
-            }
-          }
-          break;
-        }
-      }
-    } finally {
-      tmpReader.close();
-      aContentReader.close();
-    }
-  }
-
-  private void parseSchemas(final File aSchemaDirectory) throws SAXException, IOException {
-    if (schemaLocations == null || schemaLocations.isEmpty()) {
+  private XSSchemaSet parseSchemas(final List<XMLSchema> aSchemaList, final File aSchemaDirectory) throws SAXException,
+      IOException {
+    if (aSchemaList == null || aSchemaList.isEmpty()) {
       throw new WetatorException("No schema to parse.");
     }
 
+    final EntityResolver tmpEntityResolver = new LocalEntityResolver(aSchemaDirectory);
     final XSOMParser tmpParser = new XSOMParser();
     tmpParser.setAnnotationParser(new DomAnnotationParserFactory());
-    tmpParser.setEntityResolver(new LocalEntityResolver(aSchemaDirectory));
+    tmpParser.setEntityResolver(tmpEntityResolver);
 
     // parse all schemas
-    for (Entry<String, XMLSchema> tmpSchemaLocation : schemaLocations.entrySet()) {
-      final InputSource tmpSource = new LocalEntityResolver(aSchemaDirectory).resolveEntity(tmpSchemaLocation.getKey(),
-          tmpSchemaLocation.getValue().getLocation());
+    for (XMLSchema tmpSchema : aSchemaList) {
+      final InputSource tmpSource = tmpEntityResolver.resolveEntity(tmpSchema.getNamespace(), tmpSchema.getLocation());
       if (tmpSource != null) {
         try {
           tmpParser.parse(tmpSource);
         } catch (final SAXException e) {
-          throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace()
-              + "'.", e.getException());
+          throw new WetatorException("Could not resolve schema file '" + tmpSchema.getNamespace() + "'.",
+              e.getException());
         }
       } else {
-        throw new WetatorException("Could not resolve schema file '" + tmpSchemaLocation.getValue().getNamespace()
-            + "'.");
+        throw new WetatorException("Could not resolve schema file '" + tmpSchema.getNamespace() + "'.");
       }
     }
 
-    final XSSchemaSet tmpSchemaSet = tmpParser.getResult();
-    final XSSchema tmpBaseSchema = tmpSchemaSet.getSchema(XMLScripter.BASE_SCHEMA);
+    return tmpParser.getResult();
+  }
+
+  private void buildModel(final XSSchemaSet aSchemaSet) {
+    final XSSchema tmpBaseSchema = aSchemaSet.getSchema(XMLScripter.BASE_SCHEMA);
     if (tmpBaseSchema == null) {
       throw new WetatorException("No base schema '" + XMLScripter.BASE_SCHEMA + "' found.");
     }
@@ -223,7 +137,7 @@ public class ModelBuilder {
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);
 
     // find all command types and their parameter types
-    for (final Iterator<XSElementDecl> tmpIterator = tmpSchemaSet.iterateElementDecls(); tmpIterator.hasNext();) {
+    for (final Iterator<XSElementDecl> tmpIterator = aSchemaSet.iterateElementDecls(); tmpIterator.hasNext();) {
       final XSElementDecl tmpElement = tmpIterator.next();
       if (tmpElement.getType().isDerivedFrom(baseCommandType) && !((XSComplexType) tmpElement.getType()).isAbstract()) {
         final XSComplexType tmpType = (XSComplexType) tmpElement.getType();
@@ -308,12 +222,5 @@ public class ModelBuilder {
       }
     }
     return tmpDocumentation.toString();
-  }
-
-  /**
-   * @return the schemaLocations
-   */
-  public Map<String, XMLSchema> getSchemaLocations() {
-    return schemaLocations;
   }
 }

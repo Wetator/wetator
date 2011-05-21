@@ -27,7 +27,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ LocalEntityResolverTest.class, //
-    ModelBuilderTest.class })
+    ModelBuilderTest.class, //
+    SchemaFinderTest.class })
 public final class AllTests {
 
   /**
