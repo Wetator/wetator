@@ -20,9 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -72,18 +70,15 @@ public class XMLScriptCreator implements IScriptCreator {
   public void createScript() throws WetatorException {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
-      final Map<String, XMLSchema> tmpKnownSchemas = new HashMap<String, XMLSchema>();
-      tmpKnownSchemas.put("http://www.wetator.org/xsd/test-case", new XMLSchema("http://www.wetator.org/xsd/test-case",
-          "test-case-1.0.0.xsd"));
-      tmpKnownSchemas.put("http://www.wetator.org/xsd/default-command-set", new XMLSchema("d",
-          "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd"));
-      tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set", new XMLSchema("sql",
-          "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd"));
-      tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", new XMLSchema("tst",
-          "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd"));
-      tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", new XMLSchema("inc",
-          "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd"));
-      final ModelBuilder tmpModel = new ModelBuilder(tmpKnownSchemas);
+      final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
+      tmpSchemas.add(new XMLSchema("d", "http://www.wetator.org/xsd/default-command-set",
+          "default-command-set-1.0.0.xsd"));
+      tmpSchemas.add(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd"));
+      tmpSchemas.add(new XMLSchema("tst", "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd"));
+      tmpSchemas.add(new XMLSchema("inc", "http://www.wetator.org/xsd/incubator-command-set",
+          "incubator-command-set-1.0.0.xsd"));
+      final ModelBuilder tmpModel = new ModelBuilder(tmpSchemas, outputDir);
 
       // get used namespaces
       final List<NamespaceBean> tmpNamespaces = new ArrayList<NamespaceBean>();

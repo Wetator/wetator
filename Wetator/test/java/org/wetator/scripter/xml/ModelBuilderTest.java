@@ -17,9 +17,8 @@
 package org.wetator.scripter.xml;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -39,48 +38,44 @@ public class ModelBuilderTest {
 
   @Test(expected = WetatorException.class)
   public void nullSchemaMap() throws SAXException, IOException {
-    new ModelBuilder((HashMap<String, XMLSchema>) null);
+    new ModelBuilder(null, null);
   }
 
   @Test(expected = WetatorException.class)
   public void emptySchemaMap() throws SAXException, IOException {
-    new ModelBuilder(new HashMap<String, XMLSchema>());
+    new ModelBuilder(new ArrayList<XMLSchema>(), null);
   }
 
   @Test(expected = WetatorException.class)
   public void invalidSchema() throws SAXException, IOException {
-    Map<String, XMLSchema> tmpSchemas = new HashMap<String, XMLSchema>();
-    tmpSchemas.put("http://www.wetator.org/xsd/something", new XMLSchema("http://www.wetator.org/xsd/something",
+    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/something",
         "test/java/org/wetator/test/resource/something.xsd"));
-    new ModelBuilder(tmpSchemas);
+    new ModelBuilder(tmpSchemas, null);
   }
 
   @Test
   public void noCommandSets() throws SAXException, IOException {
-    Map<String, XMLSchema> tmpSchemas = new HashMap<String, XMLSchema>();
-    tmpSchemas.put("http://www.wetator.org/xsd/test-case", new XMLSchema("http://www.wetator.org/xsd/test-case",
-        "test-case-1.0.0.xsd"));
-    Assert.assertEquals(0, new ModelBuilder(tmpSchemas).getCommandTypes().size());
+    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
+    Assert.assertEquals(0, new ModelBuilder(tmpSchemas, null).getCommandTypes().size());
   }
 
   @Test(expected = WetatorException.class)
   public void unknownCommandSet1() throws SAXException, IOException {
-    Map<String, XMLSchema> tmpSchemas = new HashMap<String, XMLSchema>();
-    tmpSchemas.put("http://www.wetator.org/xsd/unknown", new XMLSchema("http://www.wetator.org/xsd/unknown",
-        "unknown.xsd"));
-    new ModelBuilder(tmpSchemas);
+    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/unknown", "unknown.xsd"));
+    new ModelBuilder(tmpSchemas, null);
   }
 
   @Test
   public void junitTestCommandSet() throws SAXException, IOException {
-    Map<String, XMLSchema> tmpSchemas = new HashMap<String, XMLSchema>();
-    tmpSchemas.put("http://www.wetator.org/xsd/test-case", new XMLSchema("http://www.wetator.org/xsd/test-case",
-        "test-case-1.0.0.xsd"));
-    tmpSchemas.put("http://www.wetator.org/xsd/junit-test-command-set", new XMLSchema(
-        "http://www.wetator.org/xsd/junit-test-command-set",
+    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
+    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/junit-test-command-set",
         "test/java/org/wetator/test/resource/junit-test-command-set.xsd"));
 
-    List<CommandType> tmpCommandTypes = new ModelBuilder(tmpSchemas).getCommandTypes();
+    List<CommandType> tmpCommandTypes = new ModelBuilder(tmpSchemas, null).getCommandTypes();
 
     Assert.assertEquals(3, tmpCommandTypes.size());
 

@@ -103,17 +103,14 @@ public class XMLScripterTest {
 
     tmpXMLScripter.script(tmpFile);
 
-    Assert.assertEquals(4, tmpXMLScripter.getModel().getSchemaLocations().values().size());
-    Assert.assertNull(tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-case")
+    Assert.assertEquals(4, tmpXMLScripter.getSchemas().values().size());
+    Assert.assertNull(tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-case").getPrefix());
+    Assert.assertEquals("d", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/default-command-set")
         .getPrefix());
-    Assert.assertEquals("d",
-        tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/default-command-set")
-            .getPrefix());
-    Assert.assertEquals("inc",
-        tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/incubator-command-set")
-            .getPrefix());
-    Assert.assertEquals("tst",
-        tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-command-set").getPrefix());
+    Assert.assertEquals("inc", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/incubator-command-set")
+        .getPrefix());
+    Assert.assertEquals("tst", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-command-set")
+        .getPrefix());
   }
 
   @Test
@@ -188,16 +185,13 @@ public class XMLScripterTest {
 
     tmpXMLScripter.script(tmpContent, null);
 
-    Assert.assertEquals(4, tmpXMLScripter.getModel().getSchemaLocations().values().size());
-    Assert.assertNull(tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-case")
+    Assert.assertEquals(4, tmpXMLScripter.getSchemas().values().size());
+    Assert.assertNull(tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-case").getPrefix());
+    Assert.assertEquals("d", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/default-command-set")
         .getPrefix());
-    Assert.assertEquals("d",
-        tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/default-command-set")
-            .getPrefix());
-    Assert.assertEquals("inc",
-        tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/incubator-command-set")
-            .getPrefix());
-    Assert.assertEquals("tst",
-        tmpXMLScripter.getModel().getSchemaLocations().get("http://www.wetator.org/xsd/test-command-set").getPrefix());
+    Assert.assertEquals("inc", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/incubator-command-set")
+        .getPrefix());
+    Assert.assertEquals("tst", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-command-set")
+        .getPrefix());
   }
 }
