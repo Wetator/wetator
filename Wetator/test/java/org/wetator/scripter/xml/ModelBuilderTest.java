@@ -49,8 +49,8 @@ public class ModelBuilderTest {
   @Test(expected = WetatorException.class)
   public void invalidSchema() throws SAXException, IOException {
     List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
-    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/something",
-        "test/java/org/wetator/test/resource/something.xsd"));
+    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/invalid-command-set",
+        "test/java/org/wetator/test/resource/invalid-command-set.xsd"));
     new ModelBuilder(tmpSchemas, null);
   }
 

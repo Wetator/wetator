@@ -256,12 +256,14 @@ Wetator/test/java/org/wetator/test/jetty/SnoopyServlet.java -text svneol=unset#t
 Wetator/test/java/org/wetator/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/emptyMultipleSchemas.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/emptyNoDefault.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/emptyWrongDefault.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/invalid-command-set.xsd -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/junit.xls -text
 Wetator/test/java/org/wetator/test/resource/junit2.xml -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/test/resource/junit3.xml -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/test/resource/something.xsd -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/util/AllTests.java -text
 Wetator/test/java/org/wetator/util/AssertTest.java -text
 Wetator/test/java/org/wetator/util/ContentUtilTest.java -text

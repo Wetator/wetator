@@ -24,11 +24,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +61,8 @@ public class XMLScripter implements IScripter {
   /**
    * The base schema file for the test case model.
    */
-  public static final String BASE_SCHEMA = "http://www.wetator.org/xsd/test-case";
+  public static final XMLSchema BASE_SCHEMA = new XMLSchema("http://www.wetator.org/xsd/test-case",
+      "test-case-1.0.0.xsd");
   private static final List<String> SUPPORTED_VERSIONS = Arrays.asList("1.0.0");
 
   private static final String E_TEST_CASE = "test-case";
@@ -79,7 +79,7 @@ public class XMLScripter implements IScripter {
   public static final XMLSchema DEFAULT_COMMAND_SET_SCHEMA = new XMLSchema("d",
       "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd");
 
-  private Map<String, XMLSchema> schemas;
+  private List<XMLSchema> schemas;
   private ModelBuilder model;
   private List<Command> commands;
 
@@ -144,7 +144,7 @@ public class XMLScripter implements IScripter {
         if (tmpLine.contains("<" + E_COMMAND) || tmpLine.contains("<" + E_COMMENT)) {
           break;
         }
-        if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
+        if (tmpTestCase && tmpLine.contains(BASE_SCHEMA.getNamespace())) {
           tmpBaseSchema = true;
         }
         if (tmpTestCase && tmpLine.contains(A_VERSION)) {
@@ -189,8 +189,9 @@ public class XMLScripter implements IScripter {
       }
 
       addDefaultSchemas(tmpSchemas);
+      removeDuplicateSchemas(tmpSchemas);
+      schemas = tmpSchemas;
 
-      buildSchemaMap(tmpSchemas);
       model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
 
       tmpReader = new FileReader(aFile);
@@ -218,25 +219,18 @@ public class XMLScripter implements IScripter {
    */
   public void script(final String aContent, final File aDirectory) throws WetatorException {
     try {
-      Reader tmpReader = new StringReader(aContent);
-      List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      final Reader tmpReader = new StringReader(aContent);
       try {
+        List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
         tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-      } finally {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // ignore;
-        }
-      }
+        tmpReader.reset();
 
-      addDefaultSchemas(tmpSchemas);
+        addDefaultSchemas(tmpSchemas);
+        removeDuplicateSchemas(tmpSchemas);
+        schemas = tmpSchemas;
 
-      buildSchemaMap(tmpSchemas);
-      model = new ModelBuilder(tmpSchemas, aDirectory);
+        model = new ModelBuilder(tmpSchemas, aDirectory);
 
-      tmpReader = new StringReader(aContent);
-      try {
         commands = parseScript(tmpReader);
       } finally {
         try {
@@ -252,21 +246,13 @@ public class XMLScripter implements IScripter {
 
   private void addDefaultSchemas(final List<XMLSchema> aSchemaList) {
     // add schema for default command set since it is always loaded
-    aSchemaList.add(DEFAULT_COMMAND_SET_SCHEMA);
+    aSchemaList.add(1, DEFAULT_COMMAND_SET_SCHEMA);
   }
 
-  private void buildSchemaMap(final List<XMLSchema> aSchemaList) {
-    final Map<String, XMLSchema> tmpSchemaMap = new LinkedHashMap<String, XMLSchema>();
-    for (XMLSchema tmpXMLSchema : aSchemaList) {
-      tmpSchemaMap.put(tmpXMLSchema.getNamespace(), tmpXMLSchema);
-    }
-
-    schemas = tmpSchemaMap;
-
+  private void removeDuplicateSchemas(final List<XMLSchema> aSchemaList) {
+    final Set<XMLSchema> tmpSchemaSet = new LinkedHashSet<XMLSchema>(aSchemaList);
     aSchemaList.clear();
-    for (Entry<String, XMLSchema> tmpXMLSchema : schemas.entrySet()) {
-      aSchemaList.add(tmpXMLSchema.getValue());
-    }
+    aSchemaList.addAll(tmpSchemaSet);
   }
 
   private List<Command> parseScript(final Reader aContent) throws XMLStreamException, IOException {
@@ -277,7 +263,8 @@ public class XMLScripter implements IScripter {
     try {
       // move reader position to test-case...
       while (tmpReader.hasNext()) {
-        if (tmpReader.next() == XMLStreamConstants.START_ELEMENT && BASE_SCHEMA.equals(tmpReader.getNamespaceURI())
+        if (tmpReader.next() == XMLStreamConstants.START_ELEMENT
+            && BASE_SCHEMA.getNamespace().equals(tmpReader.getNamespaceURI())
             && E_TEST_CASE.equals(tmpReader.getLocalName())) {
           break;
         }
@@ -411,7 +398,7 @@ public class XMLScripter implements IScripter {
   /**
    * @return the schemas
    */
-  public Map<String, XMLSchema> getSchemas() {
-    return schemas;
+  public List<XMLSchema> getSchemas() {
+    return new ArrayList<XMLSchema>(schemas);
   }
 }

@@ -129,9 +129,9 @@ public class ModelBuilder {
   }
 
   private void buildModel(final XSSchemaSet aSchemaSet) {
-    final XSSchema tmpBaseSchema = aSchemaSet.getSchema(XMLScripter.BASE_SCHEMA);
+    final XSSchema tmpBaseSchema = aSchemaSet.getSchema(XMLScripter.BASE_SCHEMA.getNamespace());
     if (tmpBaseSchema == null) {
-      throw new WetatorException("No base schema '" + XMLScripter.BASE_SCHEMA + "' found.");
+      throw new WetatorException("No base schema '" + XMLScripter.BASE_SCHEMA.getNamespace() + "' found.");
     }
     baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);

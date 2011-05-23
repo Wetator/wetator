@@ -20,6 +20,7 @@ package org.wetator.scripter.xml;
  * An XML Schema meta representation bean.
  * 
  * @author tobwoerk
+ * @author frank.danek
  */
 public class XMLSchema {
 
@@ -34,7 +35,6 @@ public class XMLSchema {
    * @param aLocation the location to set
    */
   public XMLSchema(final String aNamespace, final String aLocation) {
-    super();
     namespace = aNamespace;
     location = aLocation;
   }
@@ -93,5 +93,58 @@ public class XMLSchema {
    */
   public void setLocation(final String aLocation) {
     location = aLocation;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int tmpPrime = 31;
+    int tmpResult = 1;
+    tmpResult = tmpPrime * tmpResult;
+    if (namespace != null) {
+      tmpResult += namespace.hashCode();
+    }
+    return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object anObj) {
+    if (this == anObj) {
+      return true;
+    }
+    if (anObj == null) {
+      return false;
+    }
+    if (getClass() != anObj.getClass()) {
+      return false;
+    }
+    final XMLSchema tmpOther = (XMLSchema) anObj;
+    if (namespace == null) {
+      if (tmpOther.namespace != null) {
+        return false;
+      }
+    } else if (!namespace.equals(tmpOther.namespace)) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "XMLSchema [namespace=" + namespace + "]";
   }
 }
