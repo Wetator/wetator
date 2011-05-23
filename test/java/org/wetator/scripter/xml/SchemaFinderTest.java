@@ -75,4 +75,31 @@ public class SchemaFinderTest {
     Assert.assertEquals("d", tmpSchema.getPrefix());
     Assert.assertEquals("default.xsd", tmpSchema.getLocation());
   }
+
+  @Test
+  public void multipleSchemas() throws IOException, XMLStreamException {
+    List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
+        + "xmlns='http://www.wetator.org/xsd/default' " //
+        + "xmlns:a='http://www.wetator.org/xsd/schema-a' " //
+        + "xmlns:b='http://www.wetator.org/xsd/schema-b' " //
+        + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " //
+        + "xsi:schemaLocation='http://www.wetator.org/xsd/default default.xsd " //
+        + "http://www.wetator.org/xsd/schema-a schema-a.xsd " //
+        + "http://www.wetator.org/xsd/schema-b schema-b.xsd' />")).getSchemas();
+    Assert.assertEquals(3, tmpSchemas.size());
+    XMLSchema tmpSchema = tmpSchemas.get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/default", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("default.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpSchemas.get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/schema-a", tmpSchema.getNamespace());
+    Assert.assertEquals("a", tmpSchema.getPrefix());
+    Assert.assertEquals("schema-a.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpSchemas.get(2);
+    Assert.assertEquals("http://www.wetator.org/xsd/schema-b", tmpSchema.getNamespace());
+    Assert.assertEquals("b", tmpSchema.getPrefix());
+    Assert.assertEquals("schema-b.xsd", tmpSchema.getLocation());
+  }
 }

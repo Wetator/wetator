@@ -26,8 +26,11 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
+import org.wetator.scripter.xml.XMLSchema;
 
 /**
+ * Test for {@link XMLScripter}.
+ * 
  * @author frank.danek
  */
 public class XMLScripterTest {
@@ -35,59 +38,7 @@ public class XMLScripterTest {
   @Test
   public void supportedFile() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
-
-    Assert.assertTrue(tmpXMLScripter.isSupported(tmpFile));
-
-    tmpXMLScripter.script(tmpFile);
-
-    List<Command> tmpCommands = tmpXMLScripter.getCommands();
-    Assert.assertEquals(9, tmpCommands.size());
-
-    Command tmpCommand = tmpCommands.get(0);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("", tmpCommand.getName());
-    Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());
-
-    tmpCommand = tmpCommands.get(1);
-    Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("open-url", tmpCommand.getName());
-    Assert.assertEquals("set.html", tmpCommand.getFirstParameter().getValue());
-
-    tmpCommand = tmpCommands.get(2);
-    Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("assert-title", tmpCommand.getName());
-    Assert.assertEquals("Wetator / Set", tmpCommand.getFirstParameter().getValue());
-
-    tmpCommand = tmpCommands.get(3);
-    Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("set", tmpCommand.getName());
-    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
-    Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
-
-    tmpCommand = tmpCommands.get(4);
-    Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("click-on", tmpCommand.getName());
-    Assert.assertEquals("InputTextNameTest", tmpCommand.getFirstParameter().getValue());
-
-    tmpCommand = tmpCommands.get(5);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("click-on", tmpCommand.getName());
-    Assert.assertEquals("Just another comment", tmpCommand.getFirstParameter().getValue());
-
-    tmpCommand = tmpCommands.get(6);
-    Assert.assertFalse(tmpCommand.isComment());
-    Assert.assertEquals("assert-content", tmpCommand.getName());
-    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
-        .getFirstParameter().getValue());
-
-    tmpCommand = tmpCommands.get(7);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("", tmpCommand.getName());
-
-    tmpCommand = tmpCommands.get(8);
-    Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("", tmpCommand.getName());
+    Assert.assertTrue(tmpXMLScripter.isSupported(new File("test/java/org/wetator/test/resource/junit2.xml")));
   }
 
   @Test
@@ -97,30 +48,79 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void readSchemaInfoFromFile() {
+  public void schemasNoDefaultFromFile() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit3.xml");
+    File tmpFile = new File("test/java/org/wetator/test/resource/emptyNoDefault.xml");
 
     tmpXMLScripter.script(tmpFile);
 
-    Assert.assertEquals(4, tmpXMLScripter.getSchemas().values().size());
-    Assert.assertNull(tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-case").getPrefix());
-    Assert.assertEquals("d", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/default-command-set")
-        .getPrefix());
-    Assert.assertEquals("inc", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/incubator-command-set")
-        .getPrefix());
-    Assert.assertEquals("tst", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-command-set")
-        .getPrefix());
+    Assert.assertEquals(2, tmpXMLScripter.getSchemas().size());
+
+    XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/default-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("d", tmpSchema.getPrefix());
+    Assert.assertEquals("default-command-set-1.0.0.xsd", tmpSchema.getLocation());
   }
 
   @Test
-  public void supportedContent() throws FileNotFoundException, IOException {
+  public void schemasWrongDefaultFromFile() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit2.xml"));
+    File tmpFile = new File("test/java/org/wetator/test/resource/emptyWrongDefault.xml");
 
-    Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
+    tmpXMLScripter.script(tmpFile);
 
-    tmpXMLScripter.script(tmpContent, null);
+    Assert.assertEquals(2, tmpXMLScripter.getSchemas().size());
+
+    XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/default-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("d", tmpSchema.getPrefix());
+    Assert.assertEquals("default-command-set-1.0.0.xsd", tmpSchema.getLocation());
+  }
+
+  @Test
+  public void schemasFromFile() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/emptyMultipleSchemas.xml");
+
+    tmpXMLScripter.script(tmpFile);
+
+    Assert.assertEquals(4, tmpXMLScripter.getSchemas().size());
+
+    XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/default-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("d", tmpSchema.getPrefix());
+    Assert.assertEquals("default-command-set-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(2);
+    Assert.assertEquals("http://www.wetator.org/xsd/incubator-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("inc", tmpSchema.getPrefix());
+    Assert.assertEquals("incubator-command-set-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(3);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("tst", tmpSchema.getPrefix());
+    Assert.assertEquals("test-command-set-1.0.0.xsd", tmpSchema.getLocation());
+  }
+
+  @Test
+  public void scriptFile() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    tmpXMLScripter.script(new File("test/java/org/wetator/test/resource/junit2.xml"));
 
     List<Command> tmpCommands = tmpXMLScripter.getCommands();
     Assert.assertEquals(9, tmpCommands.size());
@@ -169,6 +169,13 @@ public class XMLScripterTest {
     tmpCommand = tmpCommands.get(8);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
+  }
+
+  @Test
+  public void supportedContent() throws FileNotFoundException, IOException {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit2.xml"));
+    Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
   }
 
   @Test
@@ -179,19 +186,129 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void readSchemaInfoFromContent() throws FileNotFoundException, IOException {
+  public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit3.xml"));
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/emptyNoDefault.xml"));
 
     tmpXMLScripter.script(tmpContent, null);
 
-    Assert.assertEquals(4, tmpXMLScripter.getSchemas().values().size());
-    Assert.assertNull(tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-case").getPrefix());
-    Assert.assertEquals("d", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/default-command-set")
-        .getPrefix());
-    Assert.assertEquals("inc", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/incubator-command-set")
-        .getPrefix());
-    Assert.assertEquals("tst", tmpXMLScripter.getSchemas().get("http://www.wetator.org/xsd/test-command-set")
-        .getPrefix());
+    Assert.assertEquals(2, tmpXMLScripter.getSchemas().size());
+
+    XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/default-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("d", tmpSchema.getPrefix());
+    Assert.assertEquals("default-command-set-1.0.0.xsd", tmpSchema.getLocation());
+  }
+
+  @Test
+  public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    String tmpContent = IOUtils.toString(new FileInputStream(
+        "test/java/org/wetator/test/resource/emptyWrongDefault.xml"));
+
+    tmpXMLScripter.script(tmpContent, null);
+
+    Assert.assertEquals(2, tmpXMLScripter.getSchemas().size());
+
+    XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/default-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("d", tmpSchema.getPrefix());
+    Assert.assertEquals("default-command-set-1.0.0.xsd", tmpSchema.getLocation());
+  }
+
+  @Test
+  public void schemasFromContent() throws FileNotFoundException, IOException {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    String tmpContent = IOUtils.toString(new FileInputStream(
+        "test/java/org/wetator/test/resource/emptyMultipleSchemas.xml"));
+
+    tmpXMLScripter.script(tmpContent, null);
+
+    Assert.assertEquals(4, tmpXMLScripter.getSchemas().size());
+
+    XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
+    Assert.assertEquals(null, tmpSchema.getPrefix());
+    Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(1);
+    Assert.assertEquals("http://www.wetator.org/xsd/default-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("d", tmpSchema.getPrefix());
+    Assert.assertEquals("default-command-set-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(2);
+    Assert.assertEquals("http://www.wetator.org/xsd/incubator-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("inc", tmpSchema.getPrefix());
+    Assert.assertEquals("incubator-command-set-1.0.0.xsd", tmpSchema.getLocation());
+
+    tmpSchema = tmpXMLScripter.getSchemas().get(3);
+    Assert.assertEquals("http://www.wetator.org/xsd/test-command-set", tmpSchema.getNamespace());
+    Assert.assertEquals("tst", tmpSchema.getPrefix());
+    Assert.assertEquals("test-command-set-1.0.0.xsd", tmpSchema.getLocation());
+  }
+
+  @Test
+  public void scriptContent() throws FileNotFoundException, IOException {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit2.xml"));
+    tmpXMLScripter.script(tmpContent, null);
+
+    List<Command> tmpCommands = tmpXMLScripter.getCommands();
+    Assert.assertEquals(9, tmpCommands.size());
+
+    Command tmpCommand = tmpCommands.get(0);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+    Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(1);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("open-url", tmpCommand.getName());
+    Assert.assertEquals("set.html", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(2);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
+    Assert.assertEquals("Wetator / Set", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(3);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
+
+    tmpCommand = tmpCommands.get(4);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("click-on", tmpCommand.getName());
+    Assert.assertEquals("InputTextNameTest", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(5);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("click-on", tmpCommand.getName());
+    Assert.assertEquals("Just another comment", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(6);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
+        .getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(7);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+
+    tmpCommand = tmpCommands.get(8);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
   }
 }
