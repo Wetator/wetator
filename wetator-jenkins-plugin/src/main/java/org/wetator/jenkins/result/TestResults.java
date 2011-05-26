@@ -19,8 +19,6 @@ package org.wetator.jenkins.result;
 import hudson.model.AbstractBuild;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +171,10 @@ public class TestResults extends AbstractBaseResult {
    * @return the result
    */
   public AbstractBaseResult findCorrespondingResult(String aName) {
+    if (aName == null || getName().equals(aName)) {
+      return this;
+    }
+
     int tmpBraket = aName.indexOf("[");
     String tmpTestFileName = aName;
     String tmpBrowserName = null;
@@ -278,22 +280,22 @@ public class TestResults extends AbstractBaseResult {
   // htmlString.append("</OL>");
   // return htmlString.substring(0);
   // }
-
-  public void set(TestResults that) {
-    this.failedTests = that.getFailedTests();
-    this.passedTests = that.getPassedTests();
-    this.testResults = that.getTestResults();
-  }
-
-  public static TestResults total(Collection<TestResults>... results) {
-    Collection<TestResults> merged = merge(results);
-    TestResults total = new TestResults("");
-    for (TestResults individual : merged) {
-      total.add(individual, false);
-    }
-    total.tally();
-    return total;
-  }
+  //
+  // public void set(TestResults that) {
+  // this.failedTests = that.getFailedTests();
+  // this.passedTests = that.getPassedTests();
+  // this.testResults = that.getTestResults();
+  // }
+  //
+  // public static TestResults total(Collection<TestResults>... results) {
+  // Collection<TestResults> merged = merge(results);
+  // TestResults total = new TestResults("");
+  // for (TestResults individual : merged) {
+  // total.add(individual, false);
+  // }
+  // total.tally();
+  // return total;
+  // }
 
   private void add(TestResults r, boolean tally) {
     testResults.addAll(r.getTestResults());
@@ -309,36 +311,36 @@ public class TestResults extends AbstractBaseResult {
     add(r, true);
   }
 
-  private static Collection<TestResults> merge(Collection<TestResults>... aResults) {
-    Collection<TestResults> tmpNewResults = new ArrayList<TestResults>();
-    if (aResults.length == 0) {
-      return Collections.emptySet();
-    }
-    if (aResults.length == 1) {
-      return aResults[0];
-    }
-    List<String> tmpIndivNames = new ArrayList<String>();
-    for (Collection<TestResults> tmpResult : aResults) {
-      for (TestResults tmpIndividual : tmpResult) {
-        if (!tmpIndivNames.contains(tmpIndividual.name)) {
-          tmpIndivNames.add(tmpIndividual.name);
-        }
-      }
-    }
-    for (String tmpIndivName : tmpIndivNames) {
-      TestResults tmpIndivStat = new TestResults(tmpIndivName);
-      for (Collection<TestResults> tmpResult : aResults) {
-
-        for (TestResults tmpIndividual : tmpResult) {
-          if (tmpIndivName.equals(tmpIndividual.name)) {
-            tmpIndivStat.add(tmpIndividual);
-          }
-        }
-      }
-      tmpNewResults.add(tmpIndivStat);
-    }
-    return tmpNewResults;
-  }
+  // private static Collection<TestResults> merge(Collection<TestResults>... aResults) {
+  // Collection<TestResults> tmpNewResults = new ArrayList<TestResults>();
+  // if (aResults.length == 0) {
+  // return Collections.emptySet();
+  // }
+  // if (aResults.length == 1) {
+  // return aResults[0];
+  // }
+  // List<String> tmpIndivNames = new ArrayList<String>();
+  // for (Collection<TestResults> tmpResult : aResults) {
+  // for (TestResults tmpIndividual : tmpResult) {
+  // if (!tmpIndivNames.contains(tmpIndividual.name)) {
+  // tmpIndivNames.add(tmpIndividual.name);
+  // }
+  // }
+  // }
+  // for (String tmpIndivName : tmpIndivNames) {
+  // TestResults tmpIndivStat = new TestResults(tmpIndivName);
+  // for (Collection<TestResults> tmpResult : aResults) {
+  //
+  // for (TestResults tmpIndividual : tmpResult) {
+  // if (tmpIndivName.equals(tmpIndividual.name)) {
+  // tmpIndivStat.add(tmpIndividual);
+  // }
+  // }
+  // }
+  // tmpNewResults.add(tmpIndivStat);
+  // }
+  // return tmpNewResults;
+  // }
 
   /**
    * {@inheritDoc}
@@ -375,11 +377,12 @@ public class TestResults extends AbstractBaseResult {
    * Used by stapler.
    * 
    * @param token the token to get
-   * @param req the request
-   * @param rsp the response
+   * @param request the request
+   * @param response the response
    * @return the {@link TestFileResult} if the token matches or null
    */
-  public Object getDynamic(String token, StaplerRequest req, StaplerResponse rsp) {
+  public Object getDynamic(String token, StaplerRequest request, StaplerResponse response) {
+    // the method parameters must be raw (without leading a) to make stapler work
     return testFileMap.get(token);
   }
 }

@@ -36,4 +36,5 @@ public class PluginImpl extends Plugin {
    */
   public static final String URL_NAME = "wetatorReport";
 
+  public static final String TEST_RESULTS_NAME = "WetatorResults";
 }

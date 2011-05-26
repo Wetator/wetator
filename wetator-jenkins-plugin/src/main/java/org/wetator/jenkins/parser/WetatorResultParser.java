@@ -43,16 +43,35 @@ import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
 
 /**
+ * This parser parses some Wetator XML result files and generates a {@link TestResults} containing all results of all
+ * files parsed.
+ * 
  * @author frank.danek
  */
 public class WetatorResultParser {
 
+  /**
+   * Starts a process on the <b>slave</b> parsing the test results.
+   * 
+   * @param aTestResultLocations the location of the test results
+   * @param aBuild the build
+   * @return a {@link TestResults} containing all results of all files parsed
+   * @throws InterruptedException in case of problems with the slave
+   * @throws IOException in case of problems with the slave
+   */
   public TestResults parse(String aTestResultLocations, AbstractBuild<?, ?> aBuild) throws InterruptedException,
       IOException {
     TestResults tmpTestResults = aBuild.getWorkspace().act(new ParseResultCallable(aTestResultLocations));
     return tmpTestResults;
   }
 
+  /**
+   * <b>INTERNAL API</b>
+   * 
+   * @param aFile the wetator result file to parse
+   * @return the {@link TestResults}
+   * @throws DocumentException if an error occurs during parsing the file
+   */
   @SuppressWarnings("unchecked")
   public static TestResults parse(File aFile) throws DocumentException {
     SAXReader tmpReader = new SAXReader();
@@ -63,7 +82,7 @@ public class WetatorResultParser {
       return null;
     }
 
-    TestResults tmpTestResults = new TestResults(UUID.randomUUID().toString() + "_WetatorResults");
+    TestResults tmpTestResults = new TestResults(UUID.randomUUID().toString());
 
     TestResult tmpTestResult = new TestResult();
     tmpTestResult.setName(tmpWet.elementText("startTime"));
@@ -154,15 +173,15 @@ public class WetatorResultParser {
 
     private static final long serialVersionUID = -876970965386374113L;
 
-    private String testResults;
+    private String testResultLocations;
 
     /**
      * The constructor.
      * 
-     * @param aTestResults the location of the test results
+     * @param aTestResultLocations the location of the test results
      */
-    private ParseResultCallable(String aTestResults) {
-      testResults = aTestResults;
+    private ParseResultCallable(String aTestResultLocations) {
+      testResultLocations = aTestResultLocations;
     }
 
     /**
@@ -174,7 +193,7 @@ public class WetatorResultParser {
     public TestResults invoke(File aWorkspace, VirtualChannel aChannel) throws IOException {
       // compared to the junit parser we do not check the last modified of the result against the build time
 
-      FileSet tmpFileSet = Util.createFileSet(aWorkspace, testResults);
+      FileSet tmpFileSet = Util.createFileSet(aWorkspace, testResultLocations);
       DirectoryScanner tmpScanner = tmpFileSet.getDirectoryScanner();
 
       String[] tmpFiles = tmpScanner.getIncludedFiles();
@@ -182,9 +201,10 @@ public class WetatorResultParser {
         // no test result. Most likely a configuration
         // error or fatal problem
         throw new AbortException(Messages.WetatorRecorder_NoTestReportFound());
+        // TODO make abortion for missing test results optional
       }
 
-      TestResults tmpAllResults = new TestResults(UUID.randomUUID().toString() + "_WetatorResults");
+      TestResults tmpAllResults = new TestResults(UUID.randomUUID().toString());
 
       File tmpBaseDir = tmpScanner.getBasedir();
       for (String tmpFile : tmpFiles) {
@@ -196,6 +216,7 @@ public class WetatorResultParser {
             tmpAllResults.add(tmpTestResults);
           }
         } catch (DocumentException e) {
+          // TODO exception handling
           e.printStackTrace();
         }
       }

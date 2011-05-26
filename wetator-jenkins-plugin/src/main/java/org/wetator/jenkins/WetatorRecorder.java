@@ -97,6 +97,7 @@ public class WetatorRecorder extends Recorder {
 
     try {
       TestResults tmpResult = new WetatorResultParser().parse(tmpTestResults, aBuild);
+      tmpResult.setName(PluginImpl.TEST_RESULTS_NAME);
 
       try {
         tmpReport = new WetatorBuildReport(aBuild, tmpResult, aListener);
@@ -121,6 +122,7 @@ public class WetatorRecorder extends Recorder {
 
     aBuild.getActions().add(tmpReport);
 
+    // TODO unstable and failure threshold should be configurable
     if (tmpReport.getResults().getFailCount() > 0) {
       aBuild.setResult(Result.UNSTABLE);
     }
@@ -151,9 +153,6 @@ public class WetatorRecorder extends Recorder {
   /**
    * Descriptor for {@link WetatorRecorder}. Used as a singleton.
    * The class is marked as public so that it can be accessed from views.
-   * <p>
-   * See <tt>views/hudson/plugins/demo/DemoRecorder/*.jelly</tt> for the actual HTML fragment for the configuration
-   * screen.
    */
   @Extension
   public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
