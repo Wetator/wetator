@@ -1,0 +1,41 @@
+<!--
+  Show the floating box on the project report:
+  * graph
+
+  Attributes
+  ==========
+
+  @from     current WetatorProjectReport
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+    xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <j:set var="tr" value="${action.lastCompletedBuildReport}" />
+    <j:set var="relativeUrlPath" value="${action.urlName}"/>
+    <j:if test="${tr.previousResult != null}">
+        <!-- at least two data points are required for a trend report -->
+        <div align="right">
+            <j:set var="mode" value="${h.getCookie(request,'WetatorBuildReport_failureOnly').value}" />
+            <j:if test="${mode != null}">
+                <j:set var="trendQueryString1" value="?failureOnly=${mode}" />
+                <j:set var="trendQueryString2" value="&amp;failureOnly=${mode}" />
+            </j:if>
+            <div class="test-trend-caption">
+                ${%Wetator Test Result Trend}
+            </div>
+            <div>
+                <img src="${relativeUrlPath}/trend${trendQueryString1}" lazymap="${relativeUrlPath}/trendMap${trendQueryString1}" alt="[${%Wetator Test Result Trend} Chart]"/>
+            </div>
+            <div style="text-align:right">
+                <a href="${relativeUrlPath}/flipTrend">
+                    <j:choose>
+                        <!-- needs to strip whitespace here -->
+                        <j:when test="${mode}">(${%show test # and failure #})</j:when>
+                        <j:otherwise>(${%just show failures})</j:otherwise>
+                    </j:choose>
+                </a>
+                <st:nbsp/>
+<!-- TODO                <a href="${relativeUrlPath}/?width=800&amp;height=600${trendQueryString2}">${%enlarge}</a>-->
+            </div>
+        </div>
+    </j:if>
+</j:jelly>

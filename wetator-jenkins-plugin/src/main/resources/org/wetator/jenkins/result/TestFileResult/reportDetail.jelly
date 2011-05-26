@@ -1,0 +1,58 @@
+<!--
+  Show the details of the file report:
+  * the history
+  * all tests on browser level
+
+  Attributes
+  ==========
+
+  @it     current TestFileResult
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+    xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <h1>${it.displayName}</h1>
+    <j:if test="${it.fullName != it.name}">
+        <st:out value="${it.fullName}"/>
+    </j:if>
+    
+    <div style="text-align:right;">
+        <a href="history">
+            ${%took(it.durationString)}
+        </a>
+    </div>
+            
+    <t:editableDescription permission="${it.owner.UPDATE}"/>
+    
+    <j:if test="${it.total != 0}">
+        <h2>${%All Browsers}</h2>
+        <table class="pane sortable">
+            <tr>
+                <td class="pane-header">${%Browser}</td>
+                <td class="pane-header" style="width:6em">${%Duration}</td>
+                <td class="pane-header" style="width:6em">${%Status}</td>
+            </tr>
+            <tbody>
+                <j:forEach var="browser" items="${it.browserResults}">
+                    <tr>
+                        <td class="pane">
+                            <a href="${browser.relativeUrl}">
+                                <span style="${browser.previousResult == null ? 'font-weight:bold' : ''}">
+                                    ${browser.name}
+                                </span>
+                            </a>
+                        </td>
+                        <td class="pane" style="width:6em" data="${browser.duration}">
+                            ${browser.durationString}
+                        </td>
+                        <td class="pane" style="width:6em">
+                            <j:set var="bstatus" value="${browser.status}" />
+                            <span class="${bstatus.cssClass}">
+                                ${bstatus.message}
+                            </span>
+                        </td>
+                    </tr>
+                </j:forEach>
+            </tbody>
+        </table>
+    </j:if>
+</j:jelly>

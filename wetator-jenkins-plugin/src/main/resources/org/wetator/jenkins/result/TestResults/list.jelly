@@ -1,0 +1,36 @@
+<!--
+  Show the trend of test execution over time as table
+
+  Attributes
+  ==========
+
+  @it     current TestResults
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+         xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <table class="pane sortable" id="testresult">
+      <tr>
+        <td class="pane-header">${%Build}</td>
+        <td class="pane-header">${%Description}</td>
+        <td class="pane-header" style="width:5em">${%Duration}</td>
+        <td class="pane-header" style="width:5em">${%Fail}</td>
+        <td class="pane-header" style="width:5em">${%Total}</td>
+      </tr>
+      <tbody>
+        <j:forEach var="b" items="${it.owner.parent.builds}" begin="${start}" end="${end}">
+          <j:set var="p" value="${it.getResultInBuild(b)}"/>
+          <j:if test="${p != null}">
+          <tr>
+            <td class="pane">
+            	<a href="${app.rootUrl}${b.url}${test.parentBuildReport.urlName}${p.url}">${b.fullDisplayName}</a>
+            </td>
+            <td class="pane" style="text-align:right">${p.description}</td>
+            <td class="pane" style="text-align:right" data="${p.duration}">${p.durationString}</td>
+            <td class="pane" style="text-align:right">${p.failCount}</td>
+            <td class="pane" style="text-align:right">${p.totalCount}</td>
+          </tr>
+          </j:if>
+        </j:forEach>
+      </tbody>
+    </table>
+</j:jelly>

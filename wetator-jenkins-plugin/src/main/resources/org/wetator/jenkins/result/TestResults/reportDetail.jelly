@@ -1,0 +1,93 @@
+<!--
+  Show the details of the report:
+  * bar.jelly
+  * the history
+  * all failed tests on browser level
+  * all tests on file level
+
+  Attributes
+  ==========
+
+  @it     current TestResults
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+
+    <h1>${it.displayName}</h1>
+            
+    <j:set var="prev" value="${it.previousResult}" />
+            
+    <j:if test="${it.totalCount > 0 }">
+        <st:include page="bar.jelly"/>
+            
+        <div style="text-align:right;">
+            <a href="history">
+                ${%took(it.durationString)}
+            </a>
+        </div>
+            
+        <t:editableDescription permission="${it.owner.UPDATE}"/>
+    </j:if>
+
+    <j:if test="${it.failCount != 0}">
+        <h2>${%All Failed Tests}</h2>
+        <table id="failedTestsTable" class="pane sortable">
+            <tr>
+                <td class="pane-header">${%Test Name}</td>
+                <td class="pane-header" style="width:4em">${%Duration}</td>
+                <td class="pane-header" style="width:3em">${%Age}</td>
+            </tr>
+            <tbody>
+                <j:forEach var="f" items="${it.failedTests}">
+                    <j:set var="prev" value="${f.previousResult}" />
+                    <tr>
+                        <td class="pane">
+                            <a href="${f.url}"><span style="${prev == null ? 'font-weight:bold' : ''}">${f.fullName}</span></a>
+                        </td>
+                        <td class="pane" style="text-align:right;" data="${f.duration}">
+                            ${f.durationString}
+                        </td>
+                        <td class="pane" style="text-align:right;">
+                            <a href="${rootURL}/${f.failedSinceRun.url}">${f.age}</a>
+                        </td>
+                    </tr>
+                </j:forEach>
+            </tbody>
+        </table>
+    </j:if>
+
+    <j:if test="${it.totalCount != 0}">
+        <h2>${%All Tests}</h2>
+        <table id="allTestsTable" class="pane sortable">
+            <tr>
+                <td class="pane-header">${%Test File}</td>
+                <td class="pane-header" style="width:5em">${%Duration}</td>
+                <td class="pane-header" style="width:5em">${%Fail}</td>
+                <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">(${%diff})</td>
+                <td class="pane-header" style="width:5em">${%Total}</td>
+                <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">(${%diff})</td>
+            </tr>
+            <tbody>
+                <j:forEach var="tst" items="${it.testFileMap.values()}">
+                    <j:set var="prev" value="${tst.previousResult}" />
+                    <tr>
+                        <td class="pane">
+                            <a href="${tst.url}"><span style="${prev == null ? 'font-weight:bold' : ''}">${tst.name}</span></a>
+                        </td>
+                        <td class="pane" style="text-align:right" data="${tst.duration}">
+                            ${tst.durationString}
+                        </td>
+                        <td class="pane" style="text-align:right">${tst.failCount}</td>
+                        <td class="pane" style="text-align:right">
+                            ${h.getDiffString(tst.failCount - prev.failCount)}
+                        </td>
+                        <td class="pane" style="text-align:right">${tst.totalCount}</td>
+                        <td class="pane" style="text-align:right">
+                            ${h.getDiffString(tst.totalCount - prev.totalCount)}
+                        </td>
+                    </tr>
+                </j:forEach>
+            </tbody>
+        </table>
+    </j:if>
+</j:jelly>

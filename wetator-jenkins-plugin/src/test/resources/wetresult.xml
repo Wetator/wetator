@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<wet id="0" >
+  <about id="1" >
+    <product id="2" >Wetator</product>
+    <version id="3" >local build</version>
+    <build id="4" >2010121601</build>
+  </about>
+  <configuration id="5" >
+    <property id="6" key="wetator.baseUrl" value="http://www.wetator.org" />
+    <property id="7" key="wetator.browser" value="Firefox3.6" />
+    <property id="8" key="wetator.acceptLanguage" value="en-us,en;q=0.8,de-de;q=0.5,de;q=0.3" />
+    <property id="9" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator\test\ant\..\..\logs" />
+    <property id="10" key="wetator.xslTemplates" value="E:\Java\workspaces\wetator\wetator\test\ant\..\..\xsl\SimpleHtml.xsl" />
+    <property id="11" key="wetator.commandSets" value="org.wetator.commandset.DefaultCommandSet" />
+    <property id="12" key="wetator.commandSets" value="org.wetator.commandset.SqlCommandSet" />
+    <property id="13" key="wetator.commandSets" value="org.wetator.commandset.TestCommandSet" />
+    <property id="14" key="wetator.scripters" value="org.wetator.scripter.XmlScripter" />
+    <property id="15" key="wetator.scripters" value="org.wetator.scripter.ExcelScripter" />
+    <property id="16" key="wetator.proxyHost" />
+    <property id="17" key="wetator.proxyPort" value="0" />
+    <property id="18" key="wetator.proxyUser" />
+    <property id="19" key="wetator.basicAuthUser" />
+    <variables id="20" >
+      <variable id="21" name="wet-secret" value="****" />
+      <variable id="22" name="wet" value="Wetator" />
+      <variable id="23" name="password" value="****" />
+      <variable id="24" name="user" value="dobby" />
+      <variable id="25" name="app_password" value="****" />
+      <variable id="26" name="app_user" value="dobby" />
+    </variables>
+    <commandSet id="27" class="class org.wetator.commandset.DefaultCommandSet" >
+    </commandSet><commandSet id="28" class="class org.wetator.commandset.SqlCommandSet" >
+      <log id="29" >
+        <level id="30" >INFO</level>
+        <message id="31" >DB wetdb (default): jdbc:hsqldb:mem:wetdb</message>
+      </log>
+      <log id="32" >
+        <level id="33" >INFO</level>
+        <message id="34" >DB secondDb: jdbc:hsqldb:mem:second_db</message>
+      </log>
+    </commandSet><commandSet id="35" class="class org.wetator.commandset.TestCommandSet" >
+    </commandSet></configuration>
+  <startTime id="36" >20.12.2010 07:11:07</startTime>
+  <testFile id="37" >E:\Java\workspaces\wetator\wetator\test\ant\sample.xls</testFile>
+  <testcase id="38" name="sample.xls">
+    <testrun id="39" browser="Firefox3.6">
+      <testfile id="40" file="E:\Java\workspaces\wetator\wetator\test\ant\sample.xls">
+        <command id="41" name="Aktion" line="1" isComment="true" >
+          <param0 id="42" >Parameter</param0>
+          <param1 id="43" >opt. Parameter</param1>
+          <executionTime id="44" >0</executionTime>
+        </command>
+        <command id="45" name="Comment" line="2" isComment="true" >
+          <param0 id="46" ></param0>
+          <param1 id="47" ></param1>
+          <executionTime id="48" >0</executionTime>
+        </command>
+        <command id="49" name="Open Url" line="3" >
+          <param0 id="50" >/</param0>
+          <param1 id="51" ></param1>
+          <log id="52" >
+            <level id="53" >INFO</level>
+            <message id="54" >Open url 'http://www.wetator.org/'.</message>
+          </log>
+          <response id="55" >responses_current/response_100000.html</response>
+          <executionTime id="56" >1170</executionTime>
+        </command>
+        <command id="57" name="Assert Title" line="4" >
+          <param0 id="58" >Wetator / Smarter web application testing</param0>
+          <param1 id="59" ></param1>
+          <executionTime id="60" >31</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+    <testrun id="39" browser="IE6">
+      <testfile id="40" file="E:\Java\workspaces\wetator\wetator\test\ant\sample.xls">
+        <command id="41" name="Aktion" line="1" isComment="true" >
+          <param0 id="42" >Parameter</param0>
+          <param1 id="43" >opt. Parameter</param1>
+          <executionTime id="44" >0</executionTime>
+        </command>
+        <command id="45" name="Comment" line="2" isComment="true" >
+          <param0 id="46" ></param0>
+          <param1 id="47" ></param1>
+          <executionTime id="48" >0</executionTime>
+        </command>
+        <command id="49" name="Open Url" line="3" >
+          <param0 id="50" >/</param0>
+          <param1 id="51" ></param1>
+          <log id="52" >
+            <level id="53" >INFO</level>
+            <message id="54" >Open url 'http://www.wetator.org/'.</message>
+          </log>
+          <response id="55" >responses_current/response_100000.html</response>
+          <executionTime id="56" >1170</executionTime>
+        </command>
+        <command id="57" name="Assert Title" line="4" >
+          <param0 id="58" >Wetator / Smarter web application testing</param0>
+          <param1 id="59" ></param1>
+          <executionTime id="60" >32</executionTime>
+          <error><message>A really big problem</message></error>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <executionTime id="61" >2215</executionTime>
+</wet>

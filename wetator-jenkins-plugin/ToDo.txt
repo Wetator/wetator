@@ -1,0 +1,23 @@
+	ProjectReport
+		Trend
+X			enlarge -> not possible right now
+
+	AbstractBaseResult
+X		extend AbstractModelObject
+
+	BuildReport
+X		Make it a StaplerProxy
+X		Save results in extra file
+		Save results as zip
+
+	ResultParser
+		Make it steaming
+
+	Add link to SimpleHtml.xsl.html
+
+X	Update to current Hudson -> only sources until 1.388
+
+	Duration Trend
+X		Browser
+X		TestFile
+		Report

@@ -1,0 +1,68 @@
+<!--
+  Show the summary on the build report:
+  * link to wetator report
+  * resultSummary.jelly
+  * failed tests
+
+  Attributes
+  ==========
+
+  @it     current WetatorBuildReport
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+
+    <script type="text/javascript">
+        function wetatorShowFailures() {
+
+            var elms = document.getElementsByClassName("wetatorHidden");
+            for(var i = 0; i &lt; elms.length; i++) {
+                elms[i].style.display = "";
+            }
+            elm = document.getElementById("wetatorShowLink");
+            elm.style.display = "none";
+        }
+    </script>
+
+    <!-- summary -->
+    <t:summary icon="${it.iconFileName}">
+        <a href="${it.urlName}/">${it.displayName}</a>
+        <st:nbsp/>
+        <st:include page="resultSummary.jelly" />
+    
+        <j:set var="failedTests" value="${it.results.failedTests}" />
+        <j:if test="${failedTests != null}">
+            <j:set var="failedIterator" value="${failedTests.iterator()}" />
+            <j:set var="displayedCount" value="${1}" />
+            <ul style="list-style-type: none; margin: 0;">
+                <j:while test="${failedIterator.hasNext()}">
+                    <j:set var="browser" value="${failedIterator.next()}" />
+                    <!-- BrowserResult -->
+                    <j:set var="elementClass" value="wetatorHidden" />
+                    <j:set var="elementStyle" value="display:none" />
+
+                    <!-- Show max 10 failures from this build -->
+                    <j:if test="${((browser.age == 1) &amp;&amp; (displayedCount &lt;= 10))}">
+                        <j:set var="displayedCount" value="${displayedCount + 1}" />
+                        <j:set var="elementClass" value="wetatorShown" />
+                        <j:set var="elementStyle" value="" />
+                    </j:if>
+
+                    <li class="${elementClass}" style="${elementStyle}">
+                        <!-- child test results are referenced from their parent builds -->
+                        <j:set var="build" value="${browser.owner}" />
+                        <a href="${it.urlName}/${browser.url}">
+                            <st:out value="${browser.fullName}" />
+                        </a>
+                    </li>
+                </j:while>
+            </ul>
+
+            <!-- Show failures link -->
+            <j:if test="${displayedCount &lt; failedTests.size() }">
+                <a id="wetatorShowLink" name="wetatorShowFailuresLink"
+                    href="#wetatorShowFailuresLink"
+                    onclick="javascript:wetatorShowFailures()">${%Show all failed tests} ${">>>"}</a>
+            </j:if>
+        </j:if>
+    </t:summary>
+</j:jelly>

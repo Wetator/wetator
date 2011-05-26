@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<wet id="0" >
+  <about id="1" >
+    <product id="2" >Wetator</product>
+    <version id="3" >local build</version>
+    <build id="4" >2010120101</build>
+  </about>
+  <configuration id="5" >
+    <property id="6" key="wetator.baseUrl" value="http://localhost:4711/testcases" />
+    <property id="7" key="wetator.browser" value="IE8" />
+    <property id="8" key="wetator.acceptLanguage" value="en-us,en;q=0.8,de-de;q=0.5,de;q=0.3" />
+    <property id="9" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator\.\.\logs" />
+    <property id="10" key="wetator.xslTemplates" value="E:\Java\workspaces\wetator\wetator\.\.\xsl\SimpleHtml.xsl" />
+    <property id="11" key="wetator.commandSets" value="org.wetator.commandset.DefaultCommandSet" />
+    <property id="12" key="wetator.commandSets" value="org.wetator.commandset.IncubatorCommandSet" />
+    <property id="13" key="wetator.commandSets" value="org.wetator.commandset.SqlCommandSet" />
+    <property id="14" key="wetator.commandSets" value="org.wetator.commandset.TestCommandSet" />
+    <property id="15" key="wetator.scripters" value="org.wetator.scripter.XmlScripter" />
+    <property id="16" key="wetator.scripters" value="org.wetator.scripter.ExcelScripter" />
+    <property id="17" key="wetator.proxyHost" />
+    <property id="18" key="wetator.proxyPort" value="0" />
+    <property id="19" key="wetator.proxyUser" />
+    <property id="20" key="wetator.basicAuthUser" />
+    <variables id="21" >
+      <variable id="22" name="wet" value="Wetator" />
+      <variable id="23" name="app_user" value="dobby" />
+      <variable id="24" name="app_password" value="****" />
+      <variable id="25" name="wet-secret" value="****" />
+    </variables>
+    <commandSet id="26" class="class org.wetator.commandset.DefaultCommandSet" >
+    </commandSet><commandSet id="27" class="class org.wetator.commandset.IncubatorCommandSet" >
+    </commandSet><commandSet id="28" class="class org.wetator.commandset.SqlCommandSet" >
+      <log id="29" >
+        <level id="30" >INFO</level>
+        <message id="31" >DB wetdb (default): jdbc:hsqldb:mem:wetdb</message>
+      </log>
+      <log id="32" >
+        <level id="33" >INFO</level>
+        <message id="34" >DB secondDb: jdbc:hsqldb:mem:second_db</message>
+      </log>
+    </commandSet><commandSet id="35" class="class org.wetator.commandset.TestCommandSet" >
+    </commandSet></configuration>
+  <startTime id="36" >16.12.2010 12:32:54</startTime>
+  <testFile id="37" >E:\Java\workspaces\wetator\wetator\test\xml\sql\sql.wet</testFile>
+  <testcase id="38" name="sql.wet">
+    <testrun id="39" browser="IE8">
+      <testfile id="40" file="E:\Java\workspaces\wetator\wetator\test\xml\sql\sql.wet">
+        <command id="41" name="Comment" line="1" isComment="true" >
+          <param0 id="42" >cleanup</param0>
+          <param1 id="43" ></param1>
+          <executionTime id="44" >0</executionTime>
+        </command>
+        <command id="45" name="Exec SQL" line="2" >
+          <param0 id="46" >DROP TABLE IF EXISTS test_tbl</param0>
+          <param1 id="47" ></param1>
+          <executionTime id="48" >0</executionTime>
+        </command>
+        <command id="49" name="Exec SQL" line="3" >
+          <param0 id="50" >@secondDb DROP TABLE IF EXISTS second_tbl</param0>
+          <param1 id="51" ></param1>
+          <executionTime id="52" >0</executionTime>
+        </command>
+        <command id="53" name="Comment" line="4" isComment="true" >
+          <param0 id="54" >default connection</param0>
+          <param1 id="55" ></param1>
+          <executionTime id="56" >0</executionTime>
+        </command>
+        <command id="57" name="Exec SQL" line="5" >
+          <param0 id="58" >CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)</param0>
+          <param1 id="59" ></param1>
+          <executionTime id="60" >0</executionTime>
+        </command>
+        <command id="61" name="Exec SQL" line="6" >
+          <param0 id="62" >INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)</param0>
+          <param1 id="63" ></param1>
+          <executionTime id="64" >0</executionTime>
+        </command>
+        <command id="65" name="Exec SQL" line="7" >
+          <param0 id="66" >INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)</param0>
+          <param1 id="67" ></param1>
+          <executionTime id="68" >1</executionTime>
+        </command>
+        <command id="69" name="Assert SQL" line="8" >
+          <param0 id="70" >SELECT * FROM test_tbl ORDER BY col2</param0>
+          <param1 id="71" >First, Second</param1>
+          <executionTime id="72" >0</executionTime>
+        </command>
+        <command id="73" name="Assert SQL" line="9" >
+          <param0 id="74" >SELECT * FROM test_tbl ORDER BY col2</param0>
+          <param1 id="75" >First, 1, Second, 2</param1>
+          <executionTime id="76" >0</executionTime>
+        </command>
+        <command id="77" name="Exec SQL" line="10" >
+          <param0 id="78" >INSERT INTO test_tbl (col1, col2) VALUES ('val9', 9)</param0>
+          <param1 id="79" ></param1>
+          <executionTime id="80" >0</executionTime>
+        </command>
+        <command id="81" name="Exec SQL" line="11" >
+          <param0 id="82" >INSERT INTO test_tbl (col1, col2) VALUES ('val7', 7)</param0>
+          <param1 id="83" ></param1>
+          <executionTime id="84" >0</executionTime>
+        </command>
+        <command id="85" name="Assert SQL" line="12" >
+          <param0 id="86" >SELECT * FROM test_tbl ORDER BY col2</param0>
+          <param1 id="87" >First, Second, val7, val9</param1>
+          <executionTime id="88" >0</executionTime>
+        </command>
+        <command id="89" name="Assert SQL" line="13" >
+          <param0 id="90" >SELECT * FROM test_tbl ORDER BY col2</param0>
+          <param1 id="91" >First, 1,Second, 2, val7, 7, val9, 9</param1>
+          <executionTime id="92" >0</executionTime>
+        </command>
+        <command id="93" name="Assert SQL" line="14" >
+          <param0 id="94" >SELECT col1 FROM test_tbl ORDER BY col2</param0>
+          <param1 id="95" >First, Second, val7, val9</param1>
+          <executionTime id="96" >1</executionTime>
+        </command>
+        <command id="97" name="Comment" line="15" isComment="true" >
+          <param0 id="98" >second connection</param0>
+          <param1 id="99" ></param1>
+          <executionTime id="100" >0</executionTime>
+        </command>
+        <command id="101" name="Exec SQL" line="16" >
+          <param0 id="102" >@secondDb CREATE TABLE second_tbl (col1 CHAR(20), col2 CHAR(2))</param0>
+          <param1 id="103" ></param1>
+          <executionTime id="104" >0</executionTime>
+        </command>
+        <command id="105" name="Exec SQL" line="17" >
+          <param0 id="106" >@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('Tester', 'aa')</param0>
+          <param1 id="107" ></param1>
+          <executionTime id="108" >0</executionTime>
+        </command>
+        <command id="109" name="Exec SQL" line="18" >
+          <param0 id="110" >@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('WeT', 'ab')</param0>
+          <param1 id="111" ></param1>
+          <executionTime id="112" >0</executionTime>
+        </command>
+        <command id="113" name="Assert SQL" line="19" >
+          <param0 id="114" >@secondDb SELECT * FROM second_tbl ORDER BY col2</param0>
+          <param1 id="115" >Tester, WeT</param1>
+          <executionTime id="116" >0</executionTime>
+        </command>
+        <command id="117" name="Assert SQL" line="20" >
+          <param0 id="118" >@secondDb SELECT * FROM second_tbl ORDER BY col2</param0>
+          <param1 id="119" >Tester, aa, WeT, ab</param1>
+          <executionTime id="120" >0</executionTime>
+        </command>
+        <command id="121" name="Comment" line="21" isComment="true" >
+          <param0 id="122" >no blank after db name</param0>
+          <param1 id="123" ></param1>
+          <executionTime id="124" >0</executionTime>
+        </command>
+        <command id="125" name="Assert SQL" line="22" >
+          <param0 id="126" >@secondDbSELECT * FROM second_tbl ORDER BY col2</param0>
+          <param1 id="127" >Tester, WeT</param1>
+          <executionTime id="128" >1</executionTime>
+        </command>
+        <command id="129" name="Assert SQL" line="23" >
+          <param0 id="130" >@wetdbSELECT * FROM test_tbl ORDER BY col2</param0>
+          <param1 id="131" >First, 1, Second, 2</param1>
+          <executionTime id="132" >0</executionTime>
+        </command>
+        <command id="133" name="Comment" line="24" isComment="true" >
+          <param0 id="134" >check content</param0>
+          <param1 id="135" ></param1>
+          <executionTime id="136" >0</executionTime>
+        </command>
+        <command id="137" name="Open Url" line="25" >
+          <param0 id="138" >assert_content.html</param0>
+          <param1 id="139" ></param1>
+          <log id="140" >
+            <level id="141" >INFO</level>
+            <message id="142" >Open url 'http://localhost:4711/testcases/assert_content.html'.</message>
+          </log>
+          <response id="143" >responses_current/response_101837.html</response>
+          <executionTime id="144" >26</executionTime>
+        </command>
+        <command id="145" name="Exec SQL" line="26" >
+          <param0 id="146" >INSERT INTO test_tbl (col1, col2) VALUES ('Wetator / Assert Content', 10)</param0>
+          <param1 id="147" ></param1>
+          <executionTime id="148" >0</executionTime>
+        </command>
+        <command id="149" name="Assert SQL in Content" line="27" >
+          <param0 id="150" >SELECT col1 FROM test_tbl WHERE col2 = 10</param0>
+          <param1 id="151" ></param1>
+          <executionTime id="152" >1</executionTime>
+        </command>
+        <command id="153" name="Exec SQL" line="28" >
+          <param0 id="154" >INSERT INTO test_tbl (col1, col2) VALUES ('Pferde', 11)</param0>
+          <param1 id="155" ></param1>
+          <executionTime id="156" >0</executionTime>
+        </command>
+        <command id="157" name="Exec SQL" line="29" >
+          <param0 id="158" >INSERT INTO test_tbl (col1, col2) VALUES ('fressen', 12)</param0>
+          <param1 id="159" ></param1>
+          <executionTime id="160" >0</executionTime>
+        </command>
+        <command id="161" name="Exec SQL" line="30" >
+          <param0 id="162" >INSERT INTO test_tbl (col1, col2) VALUES ('keinen', 13)</param0>
+          <param1 id="163" ></param1>
+          <executionTime id="164" >0</executionTime>
+        </command>
+        <command id="165" name="Exec SQL" line="31" >
+          <param0 id="166" >INSERT INTO test_tbl (col1, col2) VALUES ('Gurkensalat', 14)</param0>
+          <param1 id="167" ></param1>
+          <executionTime id="168" >0</executionTime>
+        </command>
+        <command id="169" name="Assert SQL in Content" line="32" >
+          <param0 id="170" >SELECT col1 FROM test_tbl WHERE col2 &gt; 10</param0>
+          <param1 id="171" ></param1>
+          <executionTime id="172" >1</executionTime>
+        </command>
+        <command id="173" name="Comment" line="33" isComment="true" >
+          <param0 id="174" >content was a download</param0>
+          <param1 id="175" ></param1>
+          <executionTime id="176" >0</executionTime>
+        </command>
+        <command id="177" name="Open Url" line="34" >
+          <param0 id="178" >download/download.txt</param0>
+          <param1 id="179" ></param1>
+          <log id="180" >
+            <level id="181" >INFO</level>
+            <message id="182" >Open url 'http://localhost:4711/testcases/download/download.txt'.</message>
+          </log>
+          <response id="183" >responses_current/response_101838.txt</response>
+          <executionTime id="184" >3</executionTime>
+        </command>
+        <command id="185" name="Exec SQL" line="35" >
+          <param0 id="186" >INSERT INTO test_tbl (col1, col2) VALUES ('simple', 21)</param0>
+          <param1 id="187" ></param1>
+          <executionTime id="188" >0</executionTime>
+        </command>
+        <command id="189" name="Exec SQL" line="36" >
+          <param0 id="190" >INSERT INTO test_tbl (col1, col2) VALUES ('text', 22)</param0>
+          <param1 id="191" ></param1>
+          <executionTime id="192" >0</executionTime>
+        </command>
+        <command id="193" name="Exec SQL" line="37" >
+          <param0 id="194" >INSERT INTO test_tbl (col1, col2) VALUES ('file', 23)</param0>
+          <param1 id="195" ></param1>
+          <executionTime id="196" >0</executionTime>
+        </command>
+        <command id="197" name="Exec SQL" line="38" >
+          <param0 id="198" >INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 24)</param0>
+          <param1 id="199" ></param1>
+          <executionTime id="200" >0</executionTime>
+        </command>
+        <command id="201" name="Assert SQL in Content" line="39" >
+          <param0 id="202" >SELECT col1 FROM test_tbl WHERE col2 &gt; 20</param0>
+          <param1 id="203" ></param1>
+          <executionTime id="204" >0</executionTime>
+        </command>
+        <command id="205" name="Open Url" line="40" >
+          <param0 id="206" >download/wet_test.pdf</param0>
+          <param1 id="207" ></param1>
+          <log id="208" >
+            <level id="209" >INFO</level>
+            <message id="210" >Open url 'http://localhost:4711/testcases/download/wet_test.pdf'.</message>
+          </log>
+          <response id="211" >responses_current/response_101839.pdf</response>
+          <executionTime id="212" >6</executionTime>
+        </command>
+        <command id="213" name="Assert Content" line="41" >
+          <param0 id="214" >simple, PDF, file, WeT</param0>
+          <param1 id="215" ></param1>
+          <executionTime id="216" >7</executionTime>
+        </command>
+        <command id="217" name="Exec SQL" line="42" >
+          <param0 id="218" >INSERT INTO test_tbl (col1, col2) VALUES ('simple', 31)</param0>
+          <param1 id="219" ></param1>
+          <executionTime id="220" >0</executionTime>
+        </command>
+        <command id="221" name="Exec SQL" line="43" >
+          <param0 id="222" >INSERT INTO test_tbl (col1, col2) VALUES ('PDF', 32)</param0>
+          <param1 id="223" ></param1>
+          <executionTime id="224" >1</executionTime>
+        </command>
+        <command id="225" name="Exec SQL" line="44" >
+          <param0 id="226" >INSERT INTO test_tbl (col1, col2) VALUES ('file', 33)</param0>
+          <param1 id="227" ></param1>
+          <executionTime id="228" >0</executionTime>
+        </command>
+        <command id="229" name="Exec SQL" line="45" >
+          <param0 id="230" >INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 44)</param0>
+          <param1 id="231" ></param1>
+          <executionTime id="232" >0</executionTime>
+        </command>
+        <command id="233" name="Assert SQL in Content" line="46" >
+          <param0 id="234" >SELECT col1 FROM test_tbl WHERE col2 &gt; 30</param0>
+          <param1 id="235" ></param1>
+          <executionTime id="236" >7</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <executionTime id="237" >57</executionTime>
+</wet>

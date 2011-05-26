@@ -1,0 +1,31 @@
+<!--
+  Show the result summary on the build report:
+  * number of failures + diff
+
+  Attributes
+  ==========
+
+  @it     current WetatorBuildReport
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <st:documentation>
+        Evaluates to a sstring that reports the test result number in text, like "(5 failures / +3)".
+        <st:attribute name="it" type="WetatorBuildReport">
+            Either the "it" has to be available in the context or specified as an attribute.
+        </st:attribute>
+    </st:documentation>
+    <j:choose>
+        <j:when test="${it.totalCount == 0}">
+            (${%no tests})
+        </j:when>
+        <j:when test="${it.failCount == 0}">
+            (${%no failures})
+        </j:when>
+        <j:when test="${it.failCount == 1}">
+            (${%1failure(it.failureDiffString)})
+        </j:when>
+        <j:otherwise>
+            (${%multifailures(it.failCount, it.failureDiffString)})
+        </j:otherwise>
+    </j:choose>
+</j:jelly>

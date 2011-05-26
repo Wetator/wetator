@@ -1,0 +1,19 @@
+<!--
+  Show the current result report:
+  * sidepanel.jelly
+  * reportDetail.jelly
+
+  Attributes
+  ==========
+
+  @it     current result (subclass of AbstractBaseResult)
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+    xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <l:layout title="${it.owner} ${it.displayName}">
+        <st:include page="sidepanel.jelly"/>
+        <l:main-panel>
+            <st:include page="reportDetail.jelly"/>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

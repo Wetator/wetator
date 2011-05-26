@@ -1,0 +1,73 @@
+<!--
+  Show the details of the browser report:
+  * the status
+  * the full name
+  * failing for and since with link
+  * the history
+  * the error
+
+  Attributes
+  ==========
+
+  @it     current BrowserResult
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+    xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <j:set var="st" value="${it.status}" />
+    <h1 class="${st.cssClass}">
+        <st:out value="${st.message}" />
+    </h1>
+    <p>
+        <span style="font-weight:bold">
+            <st:out value="${it.fullName}"/>
+        </span>
+        <j:if test="${it.parent.fullName != it.parent.name}">
+            ${%from} <st:out value="${it.parent.fullName}"/>
+        </j:if>
+    </p>
+    <j:if test="${!it.passed}">
+        <div style="text-align:right;">
+            ${%failingFor(it.age)}
+
+            (${%since.before}<t:buildLink job="${it.owner.project}" number="${it.failedSince}"/>${%since.after})
+        </div>
+    </j:if>
+   
+    <div style="text-align:right;">
+        <a href="history">
+            ${%took(it.durationString)}
+        </a>
+    </div>
+
+    <t:editableDescription permission="${it.owner.UPDATE}"/>
+   
+    <j:if test="${!empty(it.error)}">
+        <j:set var="error" value="${it.error}" />
+        <h3>${%Error Message}</h3>
+        <table class="pane sortable">
+            <tr>
+                <td class="pane-header">${%Line}</td>
+                <td class="pane-header">${%Command}</td>
+                <td class="pane-header">${%Parameters}</td>
+            </tr>
+            <tbody>
+                <tr>
+                    <td class="pane" style="text-align:right">${error.line}</td>
+                    <td class="pane">${error.command}</td>
+                    <td style="padding: 0px;">
+                        <table style="width: 100%; border-collapse: collapse">
+                            <tr>
+                                <j:forEach var="param" items="${error.parameters}">
+                                    <td class="pane">${param}</td>
+                                </j:forEach>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pane" colspan="3">${error.error}</td>
+                </tr>
+            </tbody>
+        </table>
+    </j:if>
+</j:jelly>
