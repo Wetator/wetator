@@ -10,22 +10,23 @@
 
   @it     current TestResults
 -->
+<?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 
     <h1>${it.displayName}</h1>
-            
+
     <j:set var="prev" value="${it.previousResult}" />
-            
+
     <j:if test="${it.totalCount > 0 }">
         <st:include page="bar.jelly"/>
-            
+
         <div style="text-align:right;">
             <a href="history">
                 ${%took(it.durationString)}
             </a>
         </div>
-            
+
         <t:editableDescription permission="${it.owner.UPDATE}"/>
     </j:if>
 

@@ -8,21 +8,22 @@
 
   @it     current TestFileResult
 -->
+<?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
     xmlns:t="/lib/hudson" xmlns:f="/lib/form">
     <h1>${it.displayName}</h1>
     <j:if test="${it.fullName != it.name}">
         <st:out value="${it.fullName}"/>
     </j:if>
-    
+
     <div style="text-align:right;">
         <a href="history">
             ${%took(it.durationString)}
         </a>
     </div>
-            
+
     <t:editableDescription permission="${it.owner.UPDATE}"/>
-    
+
     <j:if test="${it.total != 0}">
         <h2>${%All Browsers}</h2>
         <table class="pane sortable">

@@ -9,6 +9,7 @@
 
   @it     current WetatorBuildReport
 -->
+<?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
 
     <script type="text/javascript">
@@ -28,7 +29,7 @@
         <a href="${it.urlName}/">${it.displayName}</a>
         <st:nbsp/>
         <st:include page="resultSummary.jelly" />
-    
+
         <j:set var="failedTests" value="${it.results.failedTests}" />
         <j:if test="${failedTests != null}">
             <j:set var="failedIterator" value="${failedTests.iterator()}" />

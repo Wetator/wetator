@@ -11,6 +11,7 @@
 
   @it     current BrowserResult
 -->
+<?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
     xmlns:t="/lib/hudson" xmlns:f="/lib/form">
     <j:set var="st" value="${it.status}" />
@@ -32,7 +33,7 @@
             (${%since.before}<t:buildLink job="${it.owner.project}" number="${it.failedSince}"/>${%since.after})
         </div>
     </j:if>
-   
+
     <div style="text-align:right;">
         <a href="history">
             ${%took(it.durationString)}
@@ -40,7 +41,7 @@
     </div>
 
     <t:editableDescription permission="${it.owner.UPDATE}"/>
-   
+
     <j:if test="${!empty(it.error)}">
         <j:set var="error" value="${it.error}" />
         <h3>${%Error Message}</h3>
