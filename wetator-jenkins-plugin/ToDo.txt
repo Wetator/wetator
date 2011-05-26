@@ -1,8 +1,8 @@
 	ProjectReport
 		Trend
-X			enlarge -> not possible right now
+			enlarge -> not possible right now
 
-	AbstractBaseResult
+X	AbstractBaseResult
 X		extend AbstractModelObject
 
 	BuildReport
@@ -15,9 +15,15 @@ X		Save results in extra file
 
 	Add link to SimpleHtml.xsl.html
 
-X	Update to current Hudson -> only sources until 1.388
+X	Update to current Jenkins
 
-	Duration Trend
+X	Duration Trend
 X		Browser
 X		TestFile
-		Report
+X		Report
+
+	Cleanup code
+
+	Fix TODOs
+
+	Add JavaDoc
