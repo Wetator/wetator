@@ -53,6 +53,7 @@ public class Wetator extends Task {
    */
   @Override
   public void execute() {
+    AntClassLoader tmpAntClassLoader = null;
     try {
       // check the input
 
@@ -78,9 +79,8 @@ public class Wetator extends Task {
         // We are using the system classloader, because the loader is only needed
         // for the 'Exec Java' command.<br>
         // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
-        final AntClassLoader tmpClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
-            classpath, false);
-        tmpClassLoader.setThreadContextLoader();
+        tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath, false);
+        tmpAntClassLoader.setThreadContextLoader();
       }
 
       // configuration is relative to the base dir of the project
@@ -117,6 +117,12 @@ public class Wetator extends Task {
 
     } catch (final Throwable e) {
       throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
+    } finally {
+      if (null != tmpAntClassLoader) {
+        // cleanup
+        tmpAntClassLoader.resetThreadContextLoader();
+        tmpAntClassLoader.cleanup();
+      }
     }
   }
 
