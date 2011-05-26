@@ -185,27 +185,34 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     }
 
-    if (StringUtils.isNotEmpty(tmpConfiguration.getProxyHost())) {
-      final String tmpHost = tmpConfiguration.getProxyHost();
+    final String tmpHost = tmpConfiguration.getProxyHost();
+    if (StringUtils.isNotEmpty(tmpHost)) {
+      LOG.info("Proxy configured");
+      LOG.info("Proxy Host: '" + tmpHost + "'");
       final int tmpPort = tmpConfiguration.getProxyPort();
+      LOG.info("Proxy Port: '" + tmpPort + "'");
 
       webClient = new WebClient(tmpBrowserVersion, tmpHost, tmpPort);
 
       if ((null != tmpConfiguration.getProxyUser())
           && StringUtils.isNotEmpty(tmpConfiguration.getProxyUser().getValue())) {
         final String tmpUser = tmpConfiguration.getProxyUser().getValue();
+        LOG.info("Proxy User: '" + tmpUser + "'");
         final String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
         final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
         tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
         webClient.setCredentialsProvider(tmpCredentialProvider);
-        // TODO logging
+      } else {
+        LOG.info("Proxy no user defined");
       }
 
       final Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
 
       for (String tmpString : tmpNonProxyHosts) {
         if (StringUtils.isNotEmpty(tmpString)) {
-          webClient.getProxyConfig().addHostsToProxyBypass(tmpString.trim());
+          final String tmpHostsToProxyBypass = tmpString.trim();
+          webClient.getProxyConfig().addHostsToProxyBypass(tmpHostsToProxyBypass);
+          LOG.info("Proxy HostsToProxyBypass: '" + tmpHostsToProxyBypass + "'");
         }
       }
     } else {
