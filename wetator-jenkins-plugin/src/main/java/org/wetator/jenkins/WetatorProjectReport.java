@@ -63,9 +63,10 @@ public class WetatorProjectReport implements ProminentProjectAction {
   public AbstractProject<?, ?> project;
 
   /**
-   * @param project
+   * @param project the project this report belongs to
    */
   public WetatorProjectReport(AbstractProject<?, ?> project) {
+    // the method parameters must be raw (without leading a) to make stapler work
     this.project = project;
   }
 
@@ -123,6 +124,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
    *         in case of an error
    */
   public void doIndex(final StaplerRequest request, final StaplerResponse response) throws IOException {
+    // the method parameters must be raw (without leading a) to make stapler work
     AbstractBuild<?, ?> tmpBuild = getLastCompletedBuild();
     if (tmpBuild != null) {
       response.sendRedirect2(String.format("../%d/%s", tmpBuild.getNumber(), PluginImpl.URL_NAME));
@@ -157,69 +159,73 @@ public class WetatorProjectReport implements ProminentProjectAction {
   /**
    * Display the test result trend.
    * 
-   * @param req the request
-   * @param rsp the response
+   * @param request the request
+   * @param response the response
    * @throws IOException in case of problems generating the trend graph
    */
   @SuppressWarnings("deprecation")
-  public void doTrend(StaplerRequest req, StaplerResponse rsp) throws IOException {
+  public void doTrend(StaplerRequest request, StaplerResponse response) throws IOException {
+    // the method parameters must be raw (without leading a) to make stapler work
     WetatorBuildReport tmpBuildReport = getLastCompletedBuildReport();
     if (tmpBuildReport == null) {
       // no wetator result so far
-      rsp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       return;
     }
 
     if (ChartUtil.awtProblemCause != null) {
       // not available. send out error message
-      rsp.sendRedirect2(req.getContextPath() + "/images/headless.png");
+      response.sendRedirect2(request.getContextPath() + "/images/headless.png");
       return;
     }
 
     Calendar tmpTimestamp = project.getLastCompletedBuild().getTimestamp();
-    if (req.checkIfModified(tmpTimestamp, rsp)) {
+    if (request.checkIfModified(tmpTimestamp, response)) {
       return; // up to date
     }
 
-    ChartUtil.generateGraph(req, rsp, createChart(req, buildDataSet(req)), calculateDefaultSize());
+    ChartUtil.generateGraph(request, response, createChart(request, buildDataSet(request)), calculateDefaultSize());
   }
 
   /**
    * Generates the clickable map HTML fragment for {@link #doTrend(StaplerRequest, StaplerResponse)}.
    * 
-   * @param req the request
-   * @param rsp the response
+   * @param request the request
+   * @param response the response
    * @throws IOException in case of problems generating the trend map
    */
   @SuppressWarnings("deprecation")
-  public void doTrendMap(StaplerRequest req, StaplerResponse rsp) throws IOException {
+  public void doTrendMap(StaplerRequest request, StaplerResponse response) throws IOException {
+    // the method parameters must be raw (without leading a) to make stapler work
     WetatorBuildReport tmpBuildReport = getLastCompletedBuildReport();
     if (tmpBuildReport == null) {
       // no wetator result so far
-      rsp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       return;
     }
 
     Calendar tmpTimestamp = project.getLastCompletedBuild().getTimestamp();
-    if (req.checkIfModified(tmpTimestamp, rsp)) {
+    if (request.checkIfModified(tmpTimestamp, response)) {
       return; // up to date
     }
 
-    ChartUtil.generateClickableMap(req, rsp, createChart(req, buildDataSet(req)), calculateDefaultSize());
+    ChartUtil.generateClickableMap(request, response, createChart(request, buildDataSet(request)),
+        calculateDefaultSize());
   }
 
   /**
    * Changes the test result report display mode.
    * 
-   * @param req the request
-   * @param rsp the response
+   * @param request the request
+   * @param response the response
    * @throws IOException in case of problems during redirect
    */
-  public void doFlipTrend(StaplerRequest req, StaplerResponse rsp) throws IOException {
+  public void doFlipTrend(StaplerRequest request, StaplerResponse response) throws IOException {
+    // the method parameters must be raw (without leading a) to make stapler work
     boolean tmpFailureOnly = false;
 
     // check the current preference value
-    Cookie[] tmpCookies = req.getCookies();
+    Cookie[] tmpCookies = request.getCookies();
     if (tmpCookies != null) {
       for (Cookie tmpCookie : tmpCookies) {
         if (tmpCookie.getName().equals(FAILURE_ONLY_COOKIE))
@@ -232,14 +238,14 @@ public class WetatorProjectReport implements ProminentProjectAction {
 
     // set the updated value
     Cookie tmpCookie = new Cookie(FAILURE_ONLY_COOKIE, String.valueOf(tmpFailureOnly));
-    List<Ancestor> tmpAncestors = req.getAncestors();
+    List<Ancestor> tmpAncestors = request.getAncestors();
     Ancestor tmpAnchestor = tmpAncestors.get(tmpAncestors.size() - 2);
     tmpCookie.setPath(tmpAnchestor.getUrl()); // just for this project
     tmpCookie.setMaxAge(60 * 60 * 24 * 365); // 1 year
-    rsp.addCookie(tmpCookie);
+    response.addCookie(tmpCookie);
 
     // back to the project page
-    rsp.sendRedirect("..");
+    response.sendRedirect("..");
   }
 
   /**

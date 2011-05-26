@@ -338,14 +338,15 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
    * Used by stapler.
    * 
    * @param token the token to get
-   * @param req the request
-   * @param rsp the response
+   * @param request the request
+   * @param response the response
    * @return this if the token matches or null
    */
-  public Object getDynamic(String token, StaplerRequest req, StaplerResponse rsp) {
+  public Object getDynamic(String token, StaplerRequest request, StaplerResponse response) {
+    // the method parameters must be raw (without leading a) to make stapler work
     if (getResults() == null) {
       return null;
     }
-    return getResults().getDynamic(token, req, rsp);
+    return getResults().getDynamic(token, request, response);
   }
 }

@@ -92,7 +92,6 @@ public class History {
    */
   public Graph getDurationGraph() {
     return new GraphImpl("seconds") {
-
       @Override
       protected DataSetBuilder<String, ChartLabel> createDataSet() {
         DataSetBuilder<String, ChartLabel> data = new DataSetBuilder<String, ChartLabel>();
@@ -290,5 +289,4 @@ public class History {
     }
 
   }
-
 }

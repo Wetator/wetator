@@ -232,6 +232,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
    * @throws IOException in case of problems
    */
   public synchronized HttpResponse doSubmitDescription(@QueryParameter String description) throws IOException {
+    // the method parameters must be raw (without leading a) to make stapler work
     if (getOwner() == null) {
       LOG.severe("getOwner() is null, can't save description.");
     } else {
