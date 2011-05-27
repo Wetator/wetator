@@ -47,6 +47,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("assert-focus", new CommandAssertFocus());
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
+    // still there to solve some strange situations
+    registerCommand("wait", new CommandWait());
   }
 
   /**
@@ -127,6 +129,32 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       tmpBrowser.bookmarkPage(tmpBookmarkName.getValue());
+    }
+  }
+
+  /**
+   * Command 'Wait'.
+   */
+  public final class CommandWait implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpWaitTime = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.assertNoUnusedSecondParameter(aContext);
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      try {
+        Thread.sleep(Long.parseLong(tmpWaitTime.getValue()) * 1000L);
+      } catch (final NumberFormatException e) {
+        e.printStackTrace();
+      } catch (final InterruptedException e) {
+        e.printStackTrace();
+      }
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
