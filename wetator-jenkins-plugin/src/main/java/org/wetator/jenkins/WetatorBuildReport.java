@@ -17,7 +17,6 @@
 package org.wetator.jenkins;
 
 import hudson.Functions;
-import hudson.XmlFile;
 import hudson.model.BuildListener;
 import hudson.model.HealthReport;
 import hudson.model.HealthReportingAction;
@@ -46,6 +45,7 @@ import org.wetator.jenkins.result.StepError;
 import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
+import org.wetator.jenkins.util.GZIPXMLFile;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -293,8 +293,8 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     }
   }
 
-  private XmlFile getDataFile() {
-    return new XmlFile(XSTREAM, new File(build.getRootDir(), "wetatorResult.xml"));
+  private GZIPXMLFile getDataFile() {
+    return new GZIPXMLFile(XSTREAM, new File(build.getRootDir(), "wetatorResult.gz"));
   }
 
   /**

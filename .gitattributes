@@ -858,6 +858,8 @@ wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/result/StepError.java -
 wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/result/TestFileResult.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/result/TestResult.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/result/TestResults.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/util/AtomicGZIPFileWriter.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/util/GZIPXMLFile.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/resources/index.jelly -text
 wetator-jenkins-plugin/src/main/resources/org/wetator/jenkins/History/index.jelly -text
 wetator-jenkins-plugin/src/main/resources/org/wetator/jenkins/History/index.properties -text svneol=unset#text/plain

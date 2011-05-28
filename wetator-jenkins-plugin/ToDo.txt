@@ -5,10 +5,10 @@ X			enlarge -> not possible right now
 X	AbstractBaseResult
 X		extend AbstractModelObject
 
-	BuildReport
+X	BuildReport
 X		Make it a StaplerProxy
 X		Save results in extra file
-		Save results as zip
+X		Save results as gzip
 
 	ResultParser
 		Make it steaming
