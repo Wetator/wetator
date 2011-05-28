@@ -16,18 +16,20 @@
 		<j:set var="rangeParameters" value="start=${start}&amp;end=${end+1}"/>
 		<script type="text/javascript">
 			function setCount() {
-				document.getElementById("graph").src = "countGraph/png?${rangeParameters}";
-				document.getElementById("graph").lazyMap = "countGraph/map?${rangeParameters}";
-                document.getElementById("graph").alt = "[${%Count graph}]";
+				document.getElementById("graph").src = document.getElementById("count-graph").src;
+				document.getElementById("graph").useMap = document.getElementById("count-graph").useMap;
+                document.getElementById("graph").alt = document.getElementById("count-graph").alt;
 				document.getElementById("duration-link").style.display = "";
 				document.getElementById("count-link").style.display = "none";
+                //Behaviour.apply();
 			}
 			function setDuration() {
-				document.getElementById("graph").src = "durationGraph/png?${rangeParameters}"
-				document.getElementById("graph").lazyMap = "durationGraph/map?${rangeParameters}"
-                document.getElementById("graph").alt = "[${%Duration graph}]";
+				document.getElementById("graph").src = document.getElementById("duration-graph").src;
+				document.getElementById("graph").useMap = document.getElementById("duration-graph").useMap;
+                document.getElementById("graph").alt = document.getElementById("duration-graph").alt;
 				document.getElementById("duration-link").style.display = "none";
 				document.getElementById("count-link").style.display = "";
+                //Behaviour.apply();
 			}
 		 </script>
 
@@ -38,6 +40,8 @@
         <j:when test="${it.historyAvailable()}">
           <div align="center">
             <img id="graph" src="durationGraph/png?${rangeParameters}" width="600" height="300" lazymap="durationGraph/map?${rangeParameters}" alt="[${%Duration graph}]"/>
+            <img id="duration-graph" style="display: none;" src="durationGraph/png?${rangeParameters}" width="600" height="300" lazymap="durationGraph/map?${rangeParameters}" alt="[${%Duration graph}]"/>
+            <img id="count-graph" style="display: none;" src="countGraph/png?${rangeParameters}" width="600" height="300" lazymap="countGraph/map?${rangeParameters}" alt="[${%Count graph}]"/>
           </div>
           <div align="center">
           	${%show}

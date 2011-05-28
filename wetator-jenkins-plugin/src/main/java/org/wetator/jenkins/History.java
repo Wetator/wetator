@@ -113,6 +113,11 @@ public class History {
               }
               return ColorPalette.BLUE;
             }
+
+            @Override
+            protected void generateToolTip() {
+              toolTip = o.getOwner().getDisplayName() + " : " + o.getDurationString();
+            }
           });
         }
         return data;
@@ -139,8 +144,20 @@ public class History {
         }
 
         for (AbstractBaseResult o : list) {
-          data.add(o.getPassCount(), "2Passed", new ChartLabel(o));
-          data.add(o.getFailCount(), "1Failed", new ChartLabel(o));
+          data.add(o.getPassCount(), "2Passed", new ChartLabel(o) {
+
+            @Override
+            protected void generateToolTip() {
+              toolTip = o.getOwner().getDisplayName() + " : " + (o.getPassCount() + o.getFailCount());
+            }
+          });
+          data.add(o.getFailCount(), "1Failed", new ChartLabel(o) {
+
+            @Override
+            protected void generateToolTip() {
+              toolTip = o.getOwner().getDisplayName() + " : " + (o.getPassCount() + o.getFailCount());
+            }
+          });
         }
         return data;
       }
@@ -217,7 +234,7 @@ public class History {
         @Override
         public String generateToolTip(CategoryDataset categoryDataset, int row, int column) {
           ChartLabel label = (ChartLabel) categoryDataset.getColumnKey(column);
-          return label.o.getOwner().getDisplayName() + " : " + label.o.getDurationString();
+          return label.getToolTip();
         }
       };
       plot.setRenderer(ar);
@@ -232,9 +249,10 @@ public class History {
     }
   }
 
-  class ChartLabel implements Comparable<ChartLabel> {
+  abstract class ChartLabel implements Comparable<ChartLabel> {
     AbstractBaseResult o;
     String url;
+    String toolTip;
 
     public ChartLabel(AbstractBaseResult o) {
       this.o = o;
@@ -254,6 +272,15 @@ public class History {
       String actionUrl = o.getOwner().getAction(WetatorBuildReport.class).getUrlName();
       this.url = Hudson.getInstance().getRootUrl() + buildLink + actionUrl + o.getUrl();
     }
+
+    public String getToolTip() {
+      if (this.toolTip == null) {
+        generateToolTip();
+      }
+      return toolTip;
+    }
+
+    protected abstract void generateToolTip();
 
     @Override
     public int compareTo(ChartLabel that) {
