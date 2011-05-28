@@ -1,6 +1,6 @@
-	ProjectReport
-		Trend
-			enlarge -> not possible right now
+X	ProjectReport
+X		Trend
+X			enlarge -> not possible right now
 
 X	AbstractBaseResult
 X		extend AbstractModelObject

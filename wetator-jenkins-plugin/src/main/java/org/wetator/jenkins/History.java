@@ -115,8 +115,8 @@ public class History {
             }
 
             @Override
-            protected void generateToolTip() {
-              toolTip = o.getOwner().getDisplayName() + " : " + o.getDurationString();
+            public String getToolTip(int row) {
+              return o.getOwner().getDisplayName() + " : " + o.getDurationString();
             }
           });
         }
@@ -144,20 +144,17 @@ public class History {
         }
 
         for (AbstractBaseResult o : list) {
-          data.add(o.getPassCount(), "2Passed", new ChartLabel(o) {
-
+          ChartLabel tmpLabel = new ChartLabel(o) {
             @Override
-            protected void generateToolTip() {
-              toolTip = o.getOwner().getDisplayName() + " : " + (o.getPassCount() + o.getFailCount());
+            public String getToolTip(int row) {
+              if (row == 0) {
+                return o.getOwner().getDisplayName() + " : " + Messages.History_fail(o.getFailCount());
+              }
+              return o.getOwner().getDisplayName() + " : " + Messages.History_test(o.getPassCount() + o.getFailCount());
             }
-          });
-          data.add(o.getFailCount(), "1Failed", new ChartLabel(o) {
-
-            @Override
-            protected void generateToolTip() {
-              toolTip = o.getOwner().getDisplayName() + " : " + (o.getPassCount() + o.getFailCount());
-            }
-          });
+          };
+          data.add(o.getPassCount(), "2Passed", tmpLabel);
+          data.add(o.getFailCount(), "1Failed", tmpLabel);
         }
         return data;
       }
@@ -234,13 +231,12 @@ public class History {
         @Override
         public String generateToolTip(CategoryDataset categoryDataset, int row, int column) {
           ChartLabel label = (ChartLabel) categoryDataset.getColumnKey(column);
-          return label.getToolTip();
+          return label.getToolTip(row);
         }
       };
       plot.setRenderer(ar);
       ar.setSeriesPaint(0, ColorPalette.RED); // Failures.
-      ar.setSeriesPaint(1, ColorPalette.YELLOW); // Skips.
-      ar.setSeriesPaint(2, ColorPalette.BLUE); // Total.
+      ar.setSeriesPaint(1, ColorPalette.BLUE); // Total.
 
       // crop extra space around the graph
       plot.setInsets(new RectangleInsets(0, 0, 0, 5.0));
@@ -252,7 +248,6 @@ public class History {
   abstract class ChartLabel implements Comparable<ChartLabel> {
     AbstractBaseResult o;
     String url;
-    String toolTip;
 
     public ChartLabel(AbstractBaseResult o) {
       this.o = o;
@@ -273,14 +268,13 @@ public class History {
       this.url = Hudson.getInstance().getRootUrl() + buildLink + actionUrl + o.getUrl();
     }
 
-    public String getToolTip() {
-      if (this.toolTip == null) {
-        generateToolTip();
-      }
-      return toolTip;
+    public String getToolTip(@SuppressWarnings("unused") int row) {
+      return null;
     }
 
-    protected abstract void generateToolTip();
+    public Color getColor() {
+      return null;
+    }
 
     @Override
     public int compareTo(ChartLabel that) {
@@ -296,10 +290,6 @@ public class History {
       return this.o == that.o;
     }
 
-    public Color getColor() {
-      return null;
-    }
-
     @Override
     public int hashCode() {
       return o.hashCode();
@@ -312,8 +302,6 @@ public class History {
       if (s != null)
         l += ' ' + s;
       return l;
-      // return o.getDisplayName() + " " + o.getOwner().getDisplayName();
     }
-
   }
 }
