@@ -96,7 +96,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedMultipleSelect() {
     executeTestFile("assert_selected_multipleSelect.wet");
 
-    Assert.assertEquals(38, getSteps());
+    Assert.assertEquals(55, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -114,7 +114,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedSingleSelect() {
     executeTestFile("assert_selected_singleSelect.wet");
 
-    Assert.assertEquals(32, getSteps());
+    Assert.assertEquals(44, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -294,7 +294,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectMultipleSelect() {
     executeTestFile("select_multipleSelect.wet");
 
-    Assert.assertEquals(81, getSteps());
+    Assert.assertEquals(84, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
