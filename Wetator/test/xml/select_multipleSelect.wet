@@ -130,6 +130,12 @@
     <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option1' part of [HtmlSelect (id='multipleSelect_Disabled') (name='multipleSelect_Disabled')]] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled MultipleSelect, option1</tst:optionalParameter></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>Disabled MultipleSelect Option</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option2' part of [HtmlSelect (id='multipleSelect_DisabledOption') (name='multipleSelect_DisabledOption')]] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled MultipleSelect Option, option2</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
 </testcase>

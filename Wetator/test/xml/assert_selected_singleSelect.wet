@@ -16,6 +16,11 @@
     <step command='' comment='true'>SingleSelect with name</step>
     <step command='Assert_Selected'>singleSelect_Name, option2</step>
     <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>SingleSelectOptGroup with name</step>
+    <step command='Assert_Selected'>singleSelectOptGroup_Name, green</step>
+    <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_selected.html</step>
     <step command='Assert_Title'>Wetator / Assert Selected</step>
@@ -25,8 +30,14 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_selected.html</step>
     <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>SingleSelect identified by label</step>
-    <step command='Assert_Selected'>SingleSelect Label, option4</step>
+    <step command='' comment='true'>SingleSelect identified by label with for attribute</step>
+    <step command='Assert_Selected'>SingleSelect Label with For, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>SingleSelect identified by surrounding label</step>
+    <step command='Assert_Selected'>SingleSelect surrounding Label, option2</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_selected.html</step>
@@ -63,6 +74,18 @@
     <step command='Assert_Title'>Wetator / Assert Selected</step>
     <step command='' comment='true'>SingleSelect identified by layout at left formated</step>
     <step command='Assert_Selected'>SingleSelect LayoutLabel at left formated, option2</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>Disabled SingleSelect</step>
+    <step command='Assert_Selected'>Disabled SingleSelect, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>Disabled SingleSelect Option</step>
+    <step command='Assert_Selected'>Disabled SingleSelect Option, option2</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>

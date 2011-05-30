@@ -126,7 +126,7 @@
     <step command='Open_Url'>select.html</step>
     <step command='Assert_Title'>Wetator / Select</step>
     <step command='' comment='true'>Disabled SingleSelect Option</step>
-    <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option2' part of [HtmlSelect (id='singleSelect_DisabledOption') (name='singleSelect_DisabledOption')]] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled Option, option2</tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option2' part of [HtmlSelect (id='singleSelect_DisabledOption') (name='singleSelect_DisabledOption')]] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled SingleSelect Option, option2</tst:optionalParameter></tst:step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
