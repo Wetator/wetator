@@ -758,23 +758,46 @@
                 </form>
               </td>
             </tr>
+          </table>
 
+          <h4>by label</h4>
+
+          <table border='0'>
             <tr>
-              <td>CheckBox identified by label</td>
+              <td>CheckBox identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="checkBoxId_Label">CheckBox Label</label></td>
-                      <td><input type="checkbox" id="checkBoxId_Label" name="checkBox_Label" value="check_Label" checked>CheckBox</td>
+                      <td><label for="checkBoxId_LabelFor">CheckBox Label with For</label></td>
+                      <td><input type="checkbox" id="checkBoxId_LabelFor" name="checkBox_LabelFor" value="check_LabelFor" checked></td>
                     </tr>
                   </table>
                 </form>
               </td>
             </tr>
 
+            <tr>
+              <td>CheckBox identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>CheckBox surrounding
+                          <input type="checkbox" id="checkBoxId_SurroundingLabel" name="checkBox_SurroundingLabel" value="check_SurroundingLabel" checked>
+                          Label
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
           <h4>by layout</h4>
@@ -881,6 +904,27 @@
 
           </table>
 
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><label for="checkBox_Disabled">Disabled CheckBox</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="checkbox" name="checkBox_Disabled" id="checkBox_Disabled" value="checkBox_Disabled" disabled checked></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
         <!-- end third column -->
         </td>
         <td>
@@ -917,22 +961,22 @@
             </tr>
 
             <tr>
-              <td>RadioButton identified by label</td>
+              <td>RadioButton identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="radioLabelValue1">Radio1 Label</label></td>
+                      <td><label for="radioLabelForValue1">Radio1 LabelFor</label></td>
                     </tr>
                     <tr>
-                      <td><label for="radioLabelValue2">Radio2 Label</label></td>
+                      <td><label for="radioLabelForValue2">Radio2 LabelFor</label></td>
                     </tr>
                     <tr>
                       <td>
-                        <input type="radio" id="radioLabelValue1" name="radioButton_Label" value="r_value1"><br>
-                        <input type="radio" id="radioLabelValue2" name="radioButton_Label" value="r_value2" checked><br>
+                        <input type="radio" id="radioLabelForValue1" name="radioButton_LabelFor" value="r_value1" checked><br>
+                        <input type="radio" id="radioLabelForValue2" name="radioButton_LabelFor" value="r_value2"><br>
                       </td>
                     </tr>
                   </table>
@@ -940,6 +984,33 @@
               </td>
             </tr>
 
+            <tr>
+              <td>RadioButton identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>Radio1 surrounding
+                        <input type="radio" id="radioSurroundingLabelValue1" name="radioButton_SurroundingLabel" value="r_value1">
+                        Label
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Radio2 surrounding
+                        <input type="radio" id="radioSurroundingLabelValue2" name="radioButton_SurroundingLabel" value="r_value2" checked>
+                        Label
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
           <h4>by layout</h4>
@@ -1024,6 +1095,30 @@
                         <input type="radio" name="radioButton_LayoutRightFormated" value="r_value2">
                       </td>
                       <td>RadioButton2 Layout<font color='red'>Label</font> <b>righ</b>t formated</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2"><input type="submit" name="RadioButtonLayoutRightFormatedTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><label for="radioButton_Disabled">Disabled RadioButton</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="radio" id="radioButton_Disabled" name="radioButton_Disabled" value="r_value" disabled checked></td>
                     </tr>
                   </table>
                 </form>
