@@ -87,7 +87,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedCheckbox() {
     executeTestFile("assert_selected_checkbox.wet");
 
-    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(36, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -105,7 +105,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedRadio() {
     executeTestFile("assert_selected_radio.wet");
 
-    Assert.assertEquals(23, getSteps());
+    Assert.assertEquals(29, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

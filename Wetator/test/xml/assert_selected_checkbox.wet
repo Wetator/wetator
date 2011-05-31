@@ -25,8 +25,14 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_selected.html</step>
     <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>CheckBox identified by label</step>
-    <step command='Assert_Selected'>CheckBox Label</step>
+    <step command='' comment='true'>CheckBox identified by label with for attribute</step>
+    <step command='Assert_Selected'>CheckBox Label with For</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>CheckBox identified identified by surrounding label</step>
+    <step command='Assert_Selected'>CheckBox surrounding Label</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_selected.html</step>
@@ -63,6 +69,12 @@
     <step command='Assert_Title'>Wetator / Assert Selected</step>
     <step command='' comment='true'>CheckBox identified by layout at right formated</step>
     <step command='Assert_Selected'>CheckBox LayoutLabel at right formated</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Selected</step>
+    <step command='' comment='true'>Disabled CheckBox</step>
+    <step command='Assert_Selected'>Disabled CheckBox</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
