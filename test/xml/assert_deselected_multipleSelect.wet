@@ -14,15 +14,29 @@
     <step command='Open_Url'>assert_deselected.html</step>
     <step command='Assert_Title'>Wetator / Assert Deselected</step>
     <step command='' comment='true'>MultipleSelect with name</step>
-    <step command='Assert_Deselected'>multipleSelect_Name[], option3</step>
-    <step command='Assert_Deselected'>multipleSelect_Name[], option4</step>
+    <step command='Assert_Deselected'>multipleSelect_Name[], option1</step>
+    <step command='Assert_Deselected'>multipleSelect_Name[], option2</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>MultipleSelectOptGroup with name</step>
+    <step command='Assert_Deselected'>multipleSelectOptgroup_Name[], blue</step>
+    <step command='Assert_Deselected'>multipleSelectOptgroup_Name[], value1</step>
+    <step command='Assert_Deselected'>multipleSelectOptgroup_Name[], value2</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_deselected.html</step>
     <step command='Assert_Title'>Wetator / Assert Deselected</step>
     <step command='' comment='true'>MultipleSelect with id</step>
-    <step command='Assert_Deselected'>multipleSelect_Id[], option1</step>
-    <step command='Assert_Deselected'>multipleSelect_Id[], option4</step>
+    <step command='Assert_Deselected'>multipleSelect_Id[], option2</step>
+    <step command='Assert_Deselected'>multipleSelect_Id[], option3</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>MultipleSelect identified by label with for attribute</step>
+    <step command='Assert_Deselected'>MultipleSelect Label, option3</step>
+    <step command='Assert_Deselected'>MultipleSelect Label, option4</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_deselected.html</step>
@@ -70,7 +84,21 @@
     <step command='Open_Url'>assert_deselected.html</step>
     <step command='Assert_Title'>Wetator / Assert Deselected</step>
     <step command='' comment='true'>MultipleSelect identified by layout at left formated</step>
-    <step command='Assert_Deselected'>MultipleSelect LayoutLabel at left formated, option1</step>
+    <step command='Assert_Deselected'>MultipleSelect LayoutLabel at left formated, option2</step>
+    <step command='Assert_Deselected'>MultipleSelect LayoutLabel at left formated, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>Disabled MultipleSelect</step>
+    <step command='Assert_Deselected'>Disabled MultipleSelect, option1</step>
+    <step command='Assert_Deselected'>Disabled MultipleSelect, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>Disabled MultipleSelect Option</step>
+    <step command='Assert_Deselected'>Disabled MultipleSelect Option, option2</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>

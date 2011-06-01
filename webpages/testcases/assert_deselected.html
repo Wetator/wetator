@@ -38,9 +38,33 @@
                       <td>
                         <select name="singleSelect_Name" size="2">
                           <option value="o_value1">option1</option>
-                          <option value="o_value2" selected>option2</option>
+                          <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelectOptGroup_Name" size="6">
+                          <optgroup label="colors">
+                            <option value="o_red">red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
                         </select>
                       </td>
                     </tr>
@@ -61,7 +85,35 @@
                         <select name="singleSelect_Id" size="2">
                           <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
-                          <option value="o_value3" selected>option3</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <h4>by label</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>SingleSelect identified by label with for attribute</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="singleSelectId_LabelFor">SingleSelect Label with For</label></td>
+                      <td>
+                        <select id="singleSelectId_LabelFor" name="singleSelect_LabelFor" size="2">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
@@ -72,21 +124,23 @@
             </tr>
 
             <tr>
-              <td>SingleSelect identified by label</td>
+              <td>SingleSelect identified by surrounding label</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="singleSelectId_Label">SingleSelect Label</label></td>
                       <td>
-                        <select id="singleSelectId_Label" name="singleSelect_Label" size="2">
-                          <option value="o_value1">option1</option>
-                          <option value="o_value2">option2</option>
-                          <option value="o_value3">option3</option>
-                          <option value="o_value4" selected>option4</option>
-                        </select>
+                        <label>SingleSelect surrounding
+                          <select id="singleSelectId_SurroundingLabel" name="singleSelect_SurroundingLabel" size="2">
+                            <option value="o_value1">option1</option>
+                            <option value="o_value2">option2</option>
+                            <option value="o_value3">option3</option>
+                            <option value="o_value4">option4</option>
+                          </select>
+                          Label
+                        </label>
                       </td>
                     </tr>
                   </table>
@@ -109,7 +163,7 @@
                     <tr>
                       <td>SingleSelect LayoutLabel before
                         <select name="singleSelect_LayoutBefore" size="2">
-                          <option value="o_value1" selected>option1</option>
+                          <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
@@ -132,7 +186,7 @@
                       <td>SingleSelect Layout<font color='red'>Label</font> <b>befor</b>e formated
                         <select name="singleSelect_LayoutBeforeFormated" size="2">
                           <option value="o_value1">option1</option>
-                          <option value="o_value2" selected>option2</option>
+                          <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
@@ -158,7 +212,7 @@
                         <select name="singleSelect_LayoutTop" size="2">
                           <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
-                          <option value="o_value3" selected>option3</option>
+                          <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
@@ -184,7 +238,7 @@
                           <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
-                          <option value="o_value4" selected>option4</option>
+                          <option value="o_value4">option4</option>
                         </select>
                       </td>
                     </tr>
@@ -204,7 +258,7 @@
                       <td>SingleSelect LayoutLabel at left</td>
                       <td>
                         <select name="singleSelect_LayoutLeft" size="2">
-                          <option value="o_value1" selected>option1</option>
+                          <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
@@ -228,7 +282,7 @@
                       <td>
                         <select name="singleSelect_LayoutLeftFormated" size="2">
                           <option value="o_value1">option1</option>
-                          <option value="o_value2" selected>option2</option>
+                          <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
@@ -239,6 +293,80 @@
               </td>
             </tr>
 
+            <tr>
+              <td>label text at left; text entry between</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>SingleSelect Label at left; text entry between</td>
+                      <td><input type="text" name="inputText_between"></td>
+                      <td>
+                        <select name="singleSelect_LabelLeft_TextBetween" size="2">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><label for="singleSelect_Disabled">Disabled SingleSelect</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select id="singleSelect_Disabled" name="singleSelect_Disabled" size="2" disabled>
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Disabled SingleSelect Option</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select id="singleSelect_DisabledOption" name="singleSelect_DisabledOption" size="2">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2" disabled>option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          
           </table>
 
         <!-- end left column -->
@@ -261,10 +389,34 @@
                     <tr>
                       <td>
                         <select name="multipleSelect_Name[]" size="2" multiple>
-                          <option value="o_value1" selected>option1</option>
-                          <option value="o_value2" selected>option2</option>
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="multipleSelectOptgroup_Name[]" size="6" multiple>
+                          <optgroup label="colors">
+                            <option value="o_red">red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
                         </select>
                       </td>
                     </tr>
@@ -284,8 +436,35 @@
                       <td>
                         <select name="multipleSelect_Id[]" id="multipleSelect_Id" size="2" multiple>
                           <option value="o_value1">option1</option>
-                          <option value="o_value2" selected>option2</option>
-                          <option value="o_value3" selected>option3</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <h4>by label</h4>
+
+          <table border='0'>
+            <tr>
+              <td>MultipleSelect identified by label with for attribute</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="multipleSelectId_LabelFor">MultipleSelect Label with For</label></td>
+                      <td>
+                        <select id="multipleSelectId_LabelFor" name="multipleSelect_LabelFor[]" size="2" multiple>
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
@@ -296,21 +475,23 @@
             </tr>
 
             <tr>
-              <td>MultipleSelect identified by label</td>
+              <td>MultipleSelect identified by surrounding label</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="multipleSelectId_Label">MultipleSelect Label</label></td>
                       <td>
-                        <select id="multipleSelectId_Label" name="multipleSelect_Label[]" size="2" multiple>
-                          <option value="o_value1">option1</option>
-                          <option value="o_value2">option2</option>
-                          <option value="o_value3" selected>option3</option>
-                          <option value="o_value4" selected>option4</option>
-                        </select>
+                        <label>MultipleSelect surrounding
+                          <select id="multipleSelectId_SurroundingLabel" name="multipleSelect_SurroundingLabel[]" size="2" multiple>
+                            <option value="o_value1">option1</option>
+                            <option value="o_value2">option2</option>
+                            <option value="o_value3">option3</option>
+                            <option value="o_value4">option4</option>
+                          </select>
+                          Label
+                        </label>
                       </td>
                     </tr>
                   </table>
@@ -333,10 +514,10 @@
                     <tr>
                       <td>MultipleSelect LayoutLabel before
                         <select name="multipleSelect_LayoutBefore[]" size="2" multiple>
-                          <option value="o_value1" selected>option1</option>
+                          <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
-                          <option value="o_value4" selected>option4</option>
+                          <option value="o_value4">option4</option>
                         </select>
                       </td>
                     </tr>
@@ -355,9 +536,9 @@
                     <tr>
                       <td>MultipleSelect Layout<font color='red'>Label</font> <b>befor</b>e formated
                         <select name="multipleSelect_LayoutBeforeFormated[]" size="2" multiple>
-                          <option value="o_value1" selected>option1</option>
+                          <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
-                          <option value="o_value3" selected>option3</option>
+                          <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
@@ -381,9 +562,9 @@
                       <td>
                         <select name="multipleSelect_LayoutTop[]" size="2" multiple>
                           <option value="o_value1">option1</option>
-                          <option value="o_value2" selected>option2</option>
+                          <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
-                          <option value="o_value4" selected>option4</option>
+                          <option value="o_value4">option4</option>
                         </select>
                       </td>
                     </tr>
@@ -405,10 +586,10 @@
                     <tr>
                       <td>
                         <select name="multipleSelect_LayoutTopFormated[]" size="2" multiple>
-                          <option value="o_value1" selected>option1</option>
+                          <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
                           <option value="o_value3">option3</option>
-                          <option value="o_value4" selected>option4</option>
+                          <option value="o_value4">option4</option>
                         </select>
                       </td>
                     </tr>
@@ -429,8 +610,8 @@
                       <td>
                         <select name="multipleSelect_LayoutLeft[]" size="2" multiple>
                           <option value="o_value1">option1</option>
-                          <option value="o_value2" selected>option2</option>
-                          <option value="o_value3" selected>option3</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
@@ -453,7 +634,7 @@
                         <select name="multipleSelect_LayoutLeftFormated[]" size="2" multiple>
                           <option value="o_value1">option1</option>
                           <option value="o_value2">option2</option>
-                          <option value="o_value3" selected>option3</option>
+                          <option value="o_value3">option3</option>
                           <option value="o_value4">option4</option>
                         </select>
                       </td>
@@ -463,6 +644,79 @@
               </td>
             </tr>
 
+            <tr>
+              <td>label text at left; text entry between</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>MultipleSelect Label at left; text entry between</td>
+                      <td><input type="text" name="inputText_between"></td>
+                      <td>
+                        <select name="multipleSelect_LabelLeft_TextBetween[]" size="2" multiple>
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><label for="multipleSelect_Disabled">Disabled MultipleSelect</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select id="multipleSelect_Disabled" name="multipleSelect_Disabled" size="2" multiple disabled>
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Disabled MultipleSelect Option</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select id="multipleSelect_DisabledOption" name="multipleSelect_DisabledOption" size="2">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2" disableds>option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
         <!-- end second column -->
@@ -504,23 +758,46 @@
                 </form>
               </td>
             </tr>
+          </table>
 
+          <h4>by label</h4>
+
+          <table border='0'>
             <tr>
-              <td>CheckBox identified by label</td>
+              <td>CheckBox identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="checkBoxId_Label">CheckBox Label</label></td>
-                      <td><input type="checkbox" id="checkBoxId_Label" name="checkBox_Label" value="check_Label">CheckBox</td>
+                      <td><label for="checkBoxId_LabelFor">CheckBox Label with For</label></td>
+                      <td><input type="checkbox" id="checkBoxId_LabelFor" name="checkBox_LabelFor" value="check_LabelFor"></td>
                     </tr>
                   </table>
                 </form>
               </td>
             </tr>
 
+            <tr>
+              <td>CheckBox identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>CheckBox surrounding
+                          <input type="checkbox" id="checkBoxId_SurroundingLabel" name="checkBox_SurroundingLabel" value="check_SurroundingLabel">
+                          Label
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
           <h4>by layout</h4>
@@ -627,6 +904,27 @@
 
           </table>
 
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><label for="checkBox_Disabled">Disabled CheckBox</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="checkbox" name="checkBox_Disabled" id="checkBox_Disabled" value="checkBox_Disabled" disabled></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
         <!-- end third column -->
         </td>
         <td>
@@ -653,7 +951,7 @@
                   <table border='0'>
                     <tr>
                       <td>
-                        <input type="radio" id="radioId1" name="radioButton_Id" value="r_value1" checked>Radio1<br>
+                        <input type="radio" id="radioId1" name="radioButton_Id" value="r_value1">Radio1<br>
                         <input type="radio" id="radioId2" name="radioButton_Id" value="r_value2">Radio2<br>
                       </td>
                     </tr>
@@ -663,22 +961,22 @@
             </tr>
 
             <tr>
-              <td>RadioButton identified by label</td>
+              <td>RadioButton identified by label with for attribute</td>
             </tr>
             <tr>
               <td>
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><label for="radioLabelValue1">Radio1 Label</label></td>
+                      <td><label for="radioLabelForValue1">Radio1 LabelFor</label></td>
                     </tr>
                     <tr>
-                      <td><label for="radioLabelValue2">Radio2 Label</label></td>
+                      <td><label for="radioLabelForValue2">Radio2 LabelFor</label></td>
                     </tr>
                     <tr>
                       <td>
-                        <input type="radio" id="radioLabelValue1" name="radioButton_Label" value="r_value1"><br>
-                        <input type="radio" id="radioLabelValue2" name="radioButton_Label" value="r_value2" checked><br>
+                        <input type="radio" id="radioLabelForValue1" name="radioButton_LabelFor" value="r_value1"><br>
+                        <input type="radio" id="radioLabelForValue2" name="radioButton_LabelFor" value="r_value2"><br>
                       </td>
                     </tr>
                   </table>
@@ -686,6 +984,33 @@
               </td>
             </tr>
 
+            <tr>
+              <td>RadioButton identified by surrounding label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <label>Radio1 surrounding
+                        <input type="radio" id="radioSurroundingLabelValue1" name="radioButton_SurroundingLabel" value="r_value1">
+                        Label
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Radio2 surrounding
+                        <input type="radio" id="radioSurroundingLabelValue2" name="radioButton_SurroundingLabel" value="r_value2">
+                        Label
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
           </table>
 
           <h4>by layout</h4>
@@ -701,7 +1026,7 @@
                   <table border='1' cellspacing='0' cellpadding='4'>
                     <tr>
                       <td>
-                        <input type="radio" name="radioButton_LayoutAfter" value="r_value1" checked>RadioButton1 LayoutLabel after<br>
+                        <input type="radio" name="radioButton_LayoutAfter" value="r_value1">RadioButton1 LayoutLabel after<br>
                         <input type="radio" name="radioButton_LayoutAfter" value="r_value2">RadioButton2 LayoutLabel after<br>
                       </td>
                     </tr>
@@ -719,7 +1044,7 @@
                   <table border='1' cellspacing='0' cellpadding='4'>
                     <tr>
                       <td>
-                        <input type="radio" name="radioButton_LayoutFormatedAfter" value="r_value1" checked>RadioButton1 Layout<font color='red'>Label</font> <b>afte</b>r formated<br>
+                        <input type="radio" name="radioButton_LayoutFormatedAfter" value="r_value1">RadioButton1 Layout<font color='red'>Label</font> <b>afte</b>r formated<br>
                         <input type="radio" name="radioButton_LayoutFormatedAfter" value="r_value2">RadioButton2 Layout<font color='red'>Label</font> <b>afte</b>r formated<br>
                       </td>
                     </tr>
@@ -743,7 +1068,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <input type="radio" name="radioButton_LayoutRight" value="r_value2" checked>
+                        <input type="radio" name="radioButton_LayoutRight" value="r_value2">
                       </td>
                       <td>RadioButton2 LayoutLabel at right</td>
                     </tr>
@@ -761,7 +1086,7 @@
                   <table border='1' cellspacing='0' cellpadding='4'>
                     <tr>
                       <td>
-                        <input type="radio" name="radioButton_LayoutRightFormated" value="r_value1" checked>
+                        <input type="radio" name="radioButton_LayoutRightFormated" value="r_value1">
                       </td>
                       <td>RadioButton1 Layout<font color='red'>Label</font> <b>righ</b>t formated</td>
                     </tr>
@@ -770,6 +1095,30 @@
                         <input type="radio" name="radioButton_LayoutRightFormated" value="r_value2">
                       </td>
                       <td>RadioButton2 Layout<font color='red'>Label</font> <b>righ</b>t formated</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2"><input type="submit" name="RadioButtonLayoutRightFormatedTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><label for="radioButton_Disabled">Disabled RadioButton</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="radio" id="radioButton_Disabled" name="radioButton_Disabled" value="r_value" disabled></td>
                     </tr>
                   </table>
                 </form>
