@@ -31,7 +31,7 @@
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_selected.html</step>
     <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>CheckBox identified identified by surrounding label</step>
+    <step command='' comment='true'>CheckBox identified by surrounding label</step>
     <step command='Assert_Selected'>CheckBox surrounding Label</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
