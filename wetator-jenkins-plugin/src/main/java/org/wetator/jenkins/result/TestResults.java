@@ -364,7 +364,6 @@ public class TestResults extends AbstractBaseResult {
     }
     for (String tmpFileName : testFileMap.keySet()) {
       TestFileResult tmpTestFileResult = testFileMap.get(tmpFileName);
-      tmpTestFileResult.tally();
       passedTests.addAll(tmpTestFileResult.getPassedTests());
       failedTests.addAll(tmpTestFileResult.getFailedTests());
     }

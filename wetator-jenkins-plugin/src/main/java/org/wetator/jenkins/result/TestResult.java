@@ -87,6 +87,7 @@ public class TestResult extends AbstractBaseResult {
     passCount = 0;
     failCount = 0;
     for (TestFileResult tmpTestFileResult : testFileResults) {
+      tmpTestFileResult.tally();
       if (tmpTestFileResult.isPassed()) {
         passCount++;
       } else {

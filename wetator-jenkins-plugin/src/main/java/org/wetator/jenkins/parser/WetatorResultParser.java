@@ -23,18 +23,20 @@ import hudson.model.AbstractBuild;
 import hudson.remoting.VirtualChannel;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
 import org.wetator.jenkins.Messages;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
@@ -68,100 +70,132 @@ public class WetatorResultParser {
   /**
    * <b>INTERNAL API</b>
    * 
-   * @param aFile the wetator result file to parse
+   * @param anInputStream a stream containing the wetator result file to parse
    * @return the {@link TestResults}
-   * @throws DocumentException if an error occurs during parsing the file
+   * @throws XMLStreamException if an error occurs during parsing the file
    */
-  @SuppressWarnings("unchecked")
-  public static TestResults parse(File aFile) throws DocumentException {
-    SAXReader tmpReader = new SAXReader();
-    Document tmpDocument = tmpReader.read(aFile);
-    Element tmpWet = tmpDocument.getRootElement();
+  public static TestResults parse(InputStream anInputStream) throws XMLStreamException {
+    XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
+    XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(anInputStream);
 
-    if (!"wet".equals(tmpWet.getName())) {
-      return null;
-    }
+    try {
+      TestResults tmpTestResults = new TestResults(UUID.randomUUID().toString());
+      TestResult tmpTestResult = null;
+      TestFileResult tmpTestFileResult = null;
+      List<BrowserResult> tmpBrowserResults = null;
+      BrowserResult tmpBrowserResult = null;
+      long tmpDuration = 0;
+      int tmpLine = 0;
+      String tmpCommand = null;
+      String tmpParam0 = null;
+      String tmpParam1 = null;
+      String tmpParam2 = null;
+      String tmpParam3 = null;
+      StepError tmpStepError = null;
 
-    TestResults tmpTestResults = new TestResults(UUID.randomUUID().toString());
+      Path tmpPath = new Path();
 
-    TestResult tmpTestResult = new TestResult();
-    tmpTestResult.setName(tmpWet.elementText("startTime"));
-    tmpTestResult.setDuration(Long.valueOf(tmpWet.elementText("executionTime")));
-    tmpTestResults.getTestResults().add(tmpTestResult);
+      while (tmpReader.hasNext()) {
+        int tmpEvent = tmpReader.next();
+        if (tmpEvent == XMLStreamConstants.START_ELEMENT) {
+          tmpPath.push(tmpReader.getLocalName());
 
-    List<Element> tmpTestcases = tmpWet.elements("testcase");
-    for (Element tmpTestcase : tmpTestcases) {
-      TestFileResult tmpTestFileResult = new TestFileResult();
-      String tmpTestcaseName = tmpTestcase.attributeValue("name");
-      tmpTestFileResult.setName(tmpTestcaseName);
-      tmpTestFileResult.setFullName(tmpTestcaseName);
-      tmpTestResult.getTestFileResults().add(tmpTestFileResult);
-
-      List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
-      List<Element> tmpTestruns = tmpTestcase.elements("testrun");
-      for (Element tmpTestrun : tmpTestruns) {
-        BrowserResult tmpBrowserResult = new BrowserResult();
-        String tmpTestrunBrowser = tmpTestrun.attributeValue("browser");
-        tmpBrowserResult.setName(tmpTestrunBrowser);
-        tmpBrowserResult.setFullName(tmpTestcaseName + "[" + tmpTestrunBrowser + "]");
-
-        Element tmpTestfile = tmpTestrun.element("testfile");
-        tmpTestFileResult.setFullName(tmpTestfile.attributeValue("file"));
-
-        long tmpDuration = 0;
-        List<Node> tmpExecutionTimes = tmpTestfile.selectNodes("//testcase[@name='" + tmpTestcaseName
-            + "']/testrun[@browser='" + tmpTestrunBrowser + "']//command/executionTime");
-        for (Node tmpExecutionTime : tmpExecutionTimes) {
-          tmpDuration += Long.valueOf(tmpExecutionTime.getText());
-        }
-        tmpBrowserResult.setDuration(tmpDuration);
-
-        StepError tmpStepError = null;
-        List<Node> tmpErrors = tmpTestfile.selectNodes("//testcase[@name='" + tmpTestcaseName + "']/testrun[@browser='"
-            + tmpTestrunBrowser + "']//command/error/message");
-        if (tmpErrors != null && !tmpErrors.isEmpty()) {
-          Node tmpError = tmpErrors.get(0);
-          Element tmpErrorCommand = tmpError.getParent().getParent();
-
-          tmpStepError = new StepError();
-          tmpStepError.setLine(Integer.valueOf(tmpErrorCommand.attributeValue("line")));
-          tmpStepError.setCommand(tmpErrorCommand.attributeValue("name"));
-          String tmpParam0 = tmpErrorCommand.elementText("param0");
-          String tmpParam1 = tmpErrorCommand.elementText("param1");
-          String tmpParam2 = tmpErrorCommand.elementText("param2");
-          String tmpParam3 = tmpErrorCommand.elementText("param3");
-          List<String> tmpParameters = new ArrayList<String>();
-          if (tmpParam0 != null && !"".equals(tmpParam0)) {
-            tmpParameters.add(tmpParam0);
+          if (tmpPath.matches("/wet")) {
+            tmpTestResult = new TestResult();
+          } else if (tmpPath.matches("/wet/startTime")) {
+            tmpTestResult.setName(tmpReader.getElementText());
+            tmpPath.pop();
+          } else if (tmpPath.matches("/wet/executionTime")) {
+            tmpTestResult.setDuration(Long.valueOf(tmpReader.getElementText()));
+            tmpPath.pop();
+          } else if (tmpPath.matches("/wet/testcase")) {
+            tmpTestFileResult = new TestFileResult();
+            String tmpTestcaseName = tmpReader.getAttributeValue(null, "name");
+            tmpTestFileResult.setName(tmpTestcaseName);
+            tmpTestFileResult.setFullName(tmpTestcaseName);
+            tmpBrowserResults = new ArrayList<BrowserResult>();
+          } else if (tmpPath.matches("/wet/testcase/testrun")) {
+            tmpBrowserResult = new BrowserResult();
+            String tmpTestrunBrowser = tmpReader.getAttributeValue(null, "browser");
+            tmpBrowserResult.setName(tmpTestrunBrowser);
+            tmpBrowserResult.setFullName(tmpTestFileResult.getName() + "[" + tmpTestrunBrowser + "]");
+            tmpStepError = null;
+            tmpDuration = 0;
+          } else if (tmpPath.matches("/wet/testcase/testrun/testfile")) {
+            tmpTestFileResult.setFullName(tmpReader.getAttributeValue(null, "file"));
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command")) {
+            tmpLine = Integer.valueOf(tmpReader.getAttributeValue(null, "line")).intValue();
+            tmpCommand = tmpReader.getAttributeValue(null, "name");
+            tmpParam0 = null;
+            tmpParam1 = null;
+            tmpParam2 = null;
+            tmpParam3 = null;
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param0")) {
+            tmpParam0 = tmpReader.getElementText();
+            tmpPath.pop();
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param1")) {
+            tmpParam1 = tmpReader.getElementText();
+            tmpPath.pop();
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param2")) {
+            tmpParam2 = tmpReader.getElementText();
+            tmpPath.pop();
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param3")) {
+            tmpParam3 = tmpReader.getElementText();
+            tmpPath.pop();
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/executionTime")) {
+            tmpDuration += Long.valueOf(tmpReader.getElementText()).longValue();
+            tmpPath.pop();
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/error/message")) {
+            if (tmpStepError == null) {
+              // only save the first error per browser run
+              tmpStepError = new StepError();
+              tmpStepError.setLine(tmpLine);
+              tmpStepError.setCommand(tmpCommand);
+              List<String> tmpParameters = new ArrayList<String>();
+              if (tmpParam0 != null && !"".equals(tmpParam0)) {
+                tmpParameters.add(tmpParam0);
+              }
+              if (tmpParam1 != null && !"".equals(tmpParam1)) {
+                tmpParameters.add(tmpParam1);
+              }
+              if (tmpParam2 != null && !"".equals(tmpParam2)) {
+                tmpParameters.add(tmpParam2);
+              }
+              if (tmpParam3 != null && !"".equals(tmpParam3)) {
+                tmpParameters.add(tmpParam3);
+              }
+              tmpStepError.setParameters(tmpParameters);
+              tmpStepError.setError(tmpReader.getElementText());
+              tmpBrowserResult.setError(tmpStepError);
+              tmpPath.pop();
+            }
           }
-          if (tmpParam1 != null && !"".equals(tmpParam1)) {
-            tmpParameters.add(tmpParam1);
+        } else if (tmpEvent == XMLStreamConstants.END_ELEMENT) {
+          if (tmpPath.matches("/wet/testcase/testrun")) {
+            tmpBrowserResult.setDuration(tmpDuration);
+            tmpBrowserResults.add(tmpBrowserResult);
+            if (tmpStepError == null) {
+              tmpTestResults.getPassedTests().add(tmpBrowserResult);
+            } else {
+              tmpTestResults.getFailedTests().add(tmpBrowserResult);
+            }
+          } else if (tmpPath.matches("/wet/testcase")) {
+            tmpTestFileResult.setBrowserResults(tmpBrowserResults);
+            tmpTestResult.getTestFileResults().add(tmpTestFileResult);
+          } else if (tmpPath.matches("/wet")) {
+            tmpTestResults.getTestResults().add(tmpTestResult);
           }
-          if (tmpParam2 != null && !"".equals(tmpParam2)) {
-            tmpParameters.add(tmpParam2);
-          }
-          if (tmpParam3 != null && !"".equals(tmpParam3)) {
-            tmpParameters.add(tmpParam3);
-          }
-          tmpStepError.setParameters(tmpParameters);
-          tmpStepError.setError(tmpError.getText());
-          tmpBrowserResult.setError(tmpStepError);
-        }
 
-        tmpBrowserResults.add(tmpBrowserResult);
-        if (tmpStepError == null) {
-          tmpTestResults.getPassedTests().add(tmpBrowserResult);
-        } else {
-          tmpTestResults.getFailedTests().add(tmpBrowserResult);
+          tmpPath.pop();
         }
       }
 
-      tmpTestFileResult.setBrowserResults(tmpBrowserResults);
+      tmpTestResults.tally();
+
+      return tmpTestResults;
+    } finally {
+      tmpReader.close();
     }
-
-    tmpTestResults.tally();
-
-    return tmpTestResults;
   }
 
   /**
@@ -210,14 +244,17 @@ public class WetatorResultParser {
       for (String tmpFile : tmpFiles) {
         File tmpReportFile = new File(tmpBaseDir, tmpFile);
         TestResults tmpTestResults;
+        InputStream tmpInputStream = new FileInputStream(tmpReportFile);
         try {
-          tmpTestResults = parse(tmpReportFile);
+          tmpTestResults = parse(tmpInputStream);
           if (tmpTestResults != null) {
             tmpAllResults.add(tmpTestResults);
           }
-        } catch (DocumentException e) {
+        } catch (XMLStreamException e) {
           // TODO exception handling
           e.printStackTrace();
+        } finally {
+          tmpInputStream.close();
         }
       }
 

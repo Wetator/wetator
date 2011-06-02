@@ -10,8 +10,8 @@ X		Make it a StaplerProxy
 X		Save results in extra file
 X		Save results as gzip
 
-	ResultParser
-		Make it steaming
+X	ResultParser
+X		Make it steaming
 
 	Add link to SimpleHtml.xsl.html
 
@@ -27,3 +27,5 @@ X		Report
 	Fix TODOs
 
 	Add JavaDoc
+
+	Update Logo
