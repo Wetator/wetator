@@ -340,9 +340,9 @@ public class WetatorProjectReport implements ProminentProjectAction {
         NumberOnlyBuildLabel label = (NumberOnlyBuildLabel) dataset.getColumnKey(column);
         WetatorBuildReport a = label.build.getAction(WetatorBuildReport.class);
         if (row == 0) {
-          return String.valueOf(Messages.WetatorBuildReport_fail(a.getFailCount()));
+          return String.valueOf(Messages.WetatorBuildReport_fail(label.build.getNumber(), a.getFailCount()));
         }
-        return String.valueOf(Messages.WetatorBuildReport_test(a.getTotalCount()));
+        return String.valueOf(Messages.WetatorBuildReport_test(label.build.getNumber(), a.getTotalCount()));
       }
     };
     tmpPlot.setRenderer(tmpAreaRenderer);
