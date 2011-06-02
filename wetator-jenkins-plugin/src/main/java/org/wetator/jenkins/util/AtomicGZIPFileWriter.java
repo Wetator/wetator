@@ -81,8 +81,8 @@ public class AtomicGZIPFileWriter extends Writer {
    * @see java.io.Writer#write(int)
    */
   @Override
-  public void write(int c) throws IOException {
-    core.write(c);
+  public void write(int aChar) throws IOException {
+    core.write(aChar);
   }
 
   /**
@@ -91,8 +91,8 @@ public class AtomicGZIPFileWriter extends Writer {
    * @see java.io.Writer#write(java.lang.String, int, int)
    */
   @Override
-  public void write(String str, int off, int len) throws IOException {
-    core.write(str, off, len);
+  public void write(String aString, int anOffset, int aLength) throws IOException {
+    core.write(aString, anOffset, aLength);
   }
 
   /**
@@ -101,8 +101,8 @@ public class AtomicGZIPFileWriter extends Writer {
    * @see java.io.Writer#write(char[], int, int)
    */
   @Override
-  public void write(char cbuf[], int off, int len) throws IOException {
-    core.write(cbuf, off, len);
+  public void write(char aChars[], int anOffset, int aLength) throws IOException {
+    core.write(aChars, anOffset, aLength);
   }
 
   /**

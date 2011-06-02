@@ -71,15 +71,30 @@ public class GZIPXMLFile {
   private final XStream xs;
   private final File file;
 
-  public GZIPXMLFile(File file) {
-    this(DEFAULT_XSTREAM, file);
+  /**
+   * The constructor.<br/>
+   * It uses the default {@link XStream}.
+   * 
+   * @param aFile the file to work with
+   */
+  public GZIPXMLFile(File aFile) {
+    this(DEFAULT_XSTREAM, aFile);
   }
 
-  public GZIPXMLFile(XStream xs, File file) {
-    this.xs = xs;
-    this.file = file;
+  /**
+   * The constructor.
+   * 
+   * @param anXStream the {@link XStream} to use
+   * @param aFile the file to work with
+   */
+  public GZIPXMLFile(XStream anXStream, File aFile) {
+    xs = anXStream;
+    file = aFile;
   }
 
+  /**
+   * @return the file
+   */
   public File getFile() {
     return file;
   }
@@ -98,11 +113,14 @@ public class GZIPXMLFile {
 
   /**
    * Loads the contents of this file into a new object.
+   * 
+   * @return the loaded object
+   * @throws IOException in case of problems reading the file
    */
   public Object read() throws IOException {
-    Reader r = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
+    Reader tmpReader = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
     try {
-      return xs.fromXML(r);
+      return xs.fromXML(tmpReader);
     } catch (StreamException e) {
       throw new IOException2("Unable to read " + file, e);
     } catch (ConversionException e) {
@@ -110,21 +128,22 @@ public class GZIPXMLFile {
     } catch (Error e) {// mostly reflection errors
       throw new IOException2("Unable to read " + file, e);
     } finally {
-      r.close();
+      tmpReader.close();
     }
   }
 
   /**
    * Loads the contents of this file into an existing object.
    * 
-   * @return
-   *         The unmarshalled object. Usually the same as <tt>o</tt>, but would be different
+   * @param anObject the object to load into
+   * @return the unmarshalled object. Usually the same as <tt>anObject</tt>, but would be different
    *         if the XML representation is completely new.
+   * @throws IOException in case of problems reading the file
    */
-  public Object unmarshal(Object o) throws IOException {
-    Reader r = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
+  public Object unmarshal(Object anObject) throws IOException {
+    Reader tmpReader = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
     try {
-      return xs.unmarshal(new XppReader(r), o);
+      return xs.unmarshal(new XppReader(tmpReader), anObject);
     } catch (StreamException e) {
       throw new IOException2("Unable to read " + file, e);
     } catch (ConversionException e) {
@@ -132,79 +151,104 @@ public class GZIPXMLFile {
     } catch (Error e) {// mostly reflection errors
       throw new IOException2("Unable to read " + file, e);
     } finally {
-      r.close();
+      tmpReader.close();
     }
   }
 
-  public void write(Object o) throws IOException {
+  /**
+   * Writes the given object to this file.
+   * 
+   * @param anObject the object to write
+   * @throws IOException in case of problems writing the file
+   */
+  public void write(Object anObject) throws IOException {
     mkdirs();
-    AtomicGZIPFileWriter w = new AtomicGZIPFileWriter(file);
+    AtomicGZIPFileWriter tmpWriter = new AtomicGZIPFileWriter(file);
     try {
-      w.write("<?xml version='1.0' encoding='UTF-8'?>\n");
-      xs.toXML(o, w);
-      w.commit();
+      tmpWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+      xs.toXML(anObject, tmpWriter);
+      tmpWriter.commit();
     } catch (StreamException e) {
       throw new IOException2(e);
     } finally {
-      w.abort();
+      tmpWriter.abort();
     }
   }
 
+  /**
+   * @return true if this file exists, false otherwise
+   */
   public boolean exists() {
     return file.exists();
   }
 
+  /**
+   * Deletes this file.
+   */
   public void delete() {
     file.delete();
   }
 
+  /**
+   * Creates all parent directories.
+   */
   public void mkdirs() {
     file.getParentFile().mkdirs();
-  }
-
-  @Override
-  public String toString() {
-    return file.toString();
   }
 
   /**
    * Opens a {@link Reader} that loads XML.
    * This method uses {@link #sniffEncoding() the right encoding},
    * not just the system default encoding.
+   * 
+   * @return a {@link Reader} using the right encoding
+   * @throws IOException in case of problems reading the file
    */
   public Reader readRaw() throws IOException {
     return new InputStreamReader(getInputStream(), sniffEncoding());
   }
 
   /**
-   * Returns the XML file read as a string.
+   * @return the XML file read as a string
+   * @throws IOException in case of problems reading the file
    */
   public String asString() throws IOException {
-    StringWriter w = new StringWriter();
-    writeRawTo(w);
-    return w.toString();
+    StringWriter tmpWriter = new StringWriter();
+    writeRawTo(tmpWriter);
+    return tmpWriter.toString();
   }
 
   /**
    * Writes the raw XML to the given {@link Writer}.
    * Writer will not be closed by the implementation.
+   * 
+   * @param aWriter the {@link Writer} to write to
+   * @throws IOException in case of problems writing the file
    */
-  public void writeRawTo(Writer w) throws IOException {
-    Reader r = readRaw();
+  public void writeRawTo(Writer aWriter) throws IOException {
+    Reader tmpReader = readRaw();
     try {
-      Util.copyStream(r, w);
+      Util.copyStream(tmpReader, aWriter);
     } finally {
-      r.close();
+      tmpReader.close();
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return file.toString();
   }
 
   /**
    * Parses the beginning of the file and determines the encoding.
    * 
-   * @throws IOException
-   *         if failed to detect encoding.
-   * @return
-   *         always non-null.
+   * @return the found encoding. always non-null.
+   * @throws IOException if failed to detect encoding.
    */
   public String sniffEncoding() throws IOException {
     class Eureka extends SAXException {
@@ -212,26 +256,43 @@ public class GZIPXMLFile {
 
       final String encoding;
 
-      public Eureka(String encoding) {
-        this.encoding = encoding;
+      public Eureka(String anEncoding) {
+        encoding = anEncoding;
       }
     }
     try {
       JAXP.newSAXParser().parse(file, new DefaultHandler() {
-        private Locator loc;
+        private Locator locator;
 
+        /**
+         * {@inheritDoc}
+         * 
+         * @see org.xml.sax.helpers.DefaultHandler#setDocumentLocator(org.xml.sax.Locator)
+         */
         @Override
-        public void setDocumentLocator(Locator locator) {
-          this.loc = locator;
+        public void setDocumentLocator(Locator aLocator) {
+          locator = aLocator;
         }
 
+        /**
+         * {@inheritDoc}
+         * 
+         * @see org.xml.sax.helpers.DefaultHandler#startDocument()
+         */
         @Override
         public void startDocument() throws SAXException {
           attempt();
         }
 
+        /**
+         * {@inheritDoc}
+         * 
+         * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String,
+         *      org.xml.sax.Attributes)
+         */
         @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        public void startElement(String anURI, String aLocalName, String aQName, Attributes anAttributes)
+            throws SAXException {
           attempt();
           // if we still haven't found it at the first start element,
           // there's something wrong.
@@ -239,21 +300,24 @@ public class GZIPXMLFile {
         }
 
         private void attempt() throws Eureka {
-          if (loc == null)
+          if (locator == null) {
             return;
-          if (loc instanceof Locator2) {
-            Locator2 loc2 = (Locator2) loc;
-            String e = loc2.getEncoding();
-            if (e != null)
-              throw new Eureka(e);
+          }
+          if (locator instanceof Locator2) {
+            Locator2 tmpLocator2 = (Locator2) locator;
+            String tmpEncoding = tmpLocator2.getEncoding();
+            if (tmpEncoding != null) {
+              throw new Eureka(tmpEncoding);
+            }
           }
         }
       });
       // can't reach here
       throw new AssertionError();
     } catch (Eureka e) {
-      if (e.encoding == null)
+      if (e.encoding == null) {
         throw new IOException("Failed to detect encoding of " + file);
+      }
       return e.encoding;
     } catch (SAXException e) {
       throw new IOException2("Failed to detect encoding of " + file, e);
