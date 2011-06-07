@@ -188,8 +188,8 @@
                         var tmpDetailedOverview=document.getElementById('detailedoverview');
                         switchTables(tmpDetailedOverview, 'summaryoverview', true);
                     } else if (image.src.indexOf("collapseall.png") != -1) {
-                        var tmpDetailedOverview=document.getElementById('summaryoverview');
-                        switchTables(tmpDetailedOverview, 'detailedoverview', true);
+                        var tmpSummaryOverview=document.getElementById('summaryoverview');
+                        switchTables(tmpSummaryOverview, 'detailedoverview', true);
                     }
                 }
                 ]]></script>
