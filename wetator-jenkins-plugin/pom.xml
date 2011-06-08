@@ -15,6 +15,11 @@
     <packaging>hpi</packaging>
 
     <url>http://www.wetator.org</url>
+    <issueManagement>
+    	<system>Trac</system>
+    	<url>https://www2.hosted-projects.com/trac/rbri/wetator/report</url>
+    </issueManagement>
+    <inceptionYear>2008</inceptionYear>
     <developers>
         <developer>
             <id>frank.danek</id>
@@ -43,8 +48,6 @@
     </pluginRepositories>
 
     <dependencies>
-        <!-- <dependency> <groupId>org.jvnet.hudson.main</groupId> <artifactId>maven-plugin</artifactId>
-            </dependency> -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

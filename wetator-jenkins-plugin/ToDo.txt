@@ -22,10 +22,10 @@ X		Browser
 X		TestFile
 X		Report
 
-	Cleanup code
+X	Cleanup code
 
 	Fix TODOs
 
-	Add JavaDoc
+X	Add JavaDoc
 
 	Update Logo
