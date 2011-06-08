@@ -233,70 +233,6 @@ public class TestResults extends AbstractBaseResult {
     return "TestResults{" + "name='" + name + '\'' + ", totalTests=" + totalCount + ", failedTests=" + failCount + '}';
   }
 
-  // public String toSummary() {
-  // // lets get the previous failed count
-  // int previouseFailedTestCount = 0;
-  // int previousTotalTestCount = 0;
-  // List<TestResults> previousTestResults = TestResultHistoryUtil.getPreviousBuildTestResults(getOwner());
-  // if (previousTestResults != null && previousTestResults.size() > 0) {
-  // TestResults previousResult = previousTestResults.get(0);
-  // previouseFailedTestCount = previousResult.getFailCount();
-  // previousTotalTestCount = previousResult.getTotalCount();
-  // }
-  // return "<ul>" + diff(previousTotalTestCount, totalCount, "Total Tests")
-  // + diff(previouseFailedTestCount, failCount, "Failed Tests") + printTestsUrls(getFailedTests()) + "</ul>";
-  // }
-  //
-  // private static String diff(long prev, long curr, String name) {
-  // if (prev <= curr) {
-  // return "<li>" + name + ": " + curr + " (+" + (curr - prev) + ")</li>";
-  // }
-  // // if (a < b)
-  // return "<li>" + name + ": " + curr + " (-" + (prev - curr) + ")</li>";
-  // }
-  //
-  // public String printTestsUrls(List<BrowserResult> browserResults) {
-  // StringBuffer htmlString = new StringBuffer();
-  // htmlString.append("<OL>");
-  // if (browserResults != null && browserResults.size() > 0) {
-  // for (BrowserResult browserResult : browserResults) {
-  // htmlString.append("<LI>");
-  // if (browserResult.getParent() instanceof TestFileResult) {
-  // // /${it.project.url}${_buildNumber}/${it.urlName}
-  // htmlString.append("<a href=\"");
-  // htmlString.append("/").append(getOwner().getProject().getUrl());
-  // htmlString.append("/").append(getOwner().getNumber());
-  // htmlString.append("/").append(getOwner().getProject().getAction(WetatorProjectReport.class).getUrlName());
-  // htmlString.append("/").append(browserResult.getFullUrl());
-  // htmlString.append("\">");
-  // htmlString.append(browserResult.getFullName()).append("</a>");
-  // } else {
-  // htmlString.append(browserResult.getFullName());
-  // }
-  // htmlString.append("</LI>");
-  // }
-  //
-  // }
-  // htmlString.append("</OL>");
-  // return htmlString.substring(0);
-  // }
-  //
-  // public void set(TestResults that) {
-  // this.failedTests = that.getFailedTests();
-  // this.passedTests = that.getPassedTests();
-  // this.testResults = that.getTestResults();
-  // }
-  //
-  // public static TestResults total(Collection<TestResults>... results) {
-  // Collection<TestResults> merged = merge(results);
-  // TestResults total = new TestResults("");
-  // for (TestResults individual : merged) {
-  // total.add(individual, false);
-  // }
-  // total.tally();
-  // return total;
-  // }
-
   private void add(TestResults r, boolean tally) {
     testResults.addAll(r.getTestResults());
     failedTests.addAll(r.getFailedTests());
@@ -307,40 +243,12 @@ public class TestResults extends AbstractBaseResult {
     }
   }
 
-  public void add(TestResults r) {
-    add(r, true);
+  /**
+   * @param aTestResults the {@link TestResults} to add and tally (automatically)
+   */
+  public void add(TestResults aTestResults) {
+    add(aTestResults, true);
   }
-
-  // private static Collection<TestResults> merge(Collection<TestResults>... aResults) {
-  // Collection<TestResults> tmpNewResults = new ArrayList<TestResults>();
-  // if (aResults.length == 0) {
-  // return Collections.emptySet();
-  // }
-  // if (aResults.length == 1) {
-  // return aResults[0];
-  // }
-  // List<String> tmpIndivNames = new ArrayList<String>();
-  // for (Collection<TestResults> tmpResult : aResults) {
-  // for (TestResults tmpIndividual : tmpResult) {
-  // if (!tmpIndivNames.contains(tmpIndividual.name)) {
-  // tmpIndivNames.add(tmpIndividual.name);
-  // }
-  // }
-  // }
-  // for (String tmpIndivName : tmpIndivNames) {
-  // TestResults tmpIndivStat = new TestResults(tmpIndivName);
-  // for (Collection<TestResults> tmpResult : aResults) {
-  //
-  // for (TestResults tmpIndividual : tmpResult) {
-  // if (tmpIndivName.equals(tmpIndividual.name)) {
-  // tmpIndivStat.add(tmpIndividual);
-  // }
-  // }
-  // }
-  // tmpNewResults.add(tmpIndivStat);
-  // }
-  // return tmpNewResults;
-  // }
 
   /**
    * {@inheritDoc}

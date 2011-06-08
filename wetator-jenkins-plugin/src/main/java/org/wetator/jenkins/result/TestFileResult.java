@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
-import org.wetator.jenkins.WetatorBuildReport;
 
 /**
  * This class represents the results of one wetator test file and aggregates all {@link BrowserResult}s for this file.
@@ -169,6 +168,7 @@ public class TestFileResult extends AbstractBaseResult {
    * @return this or a child {@link BrowserResult} if the token matches or null
    */
   public Object getDynamic(String token, StaplerRequest req, StaplerResponse rsp) {
+    // the method parameters must be raw (without leading a) to make stapler work
     if (token.equals("/" + getName())) {
       return this;
     }

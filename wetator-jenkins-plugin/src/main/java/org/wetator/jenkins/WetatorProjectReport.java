@@ -282,12 +282,12 @@ public class WetatorProjectReport implements ProminentProjectAction {
   }
 
   private JFreeChart createChart(StaplerRequest aRequest, CategoryDataset aDataset) {
-
     final String tmpRelPath = getRelPath(aRequest);
 
-    final JFreeChart tmpChart = ChartFactory.createStackedAreaChart(null, // chart title
+    final JFreeChart tmpChart = ChartFactory.createStackedAreaChart( //
+        null, // chart title
         null, // unused
-        "count", // range axis label
+        Messages.WetatorProjectReport_yLabel(), // range axis label
         aDataset, // data
         PlotOrientation.VERTICAL, // orientation
         false, // include legend
@@ -330,19 +330,19 @@ public class WetatorProjectReport implements ProminentProjectAction {
       private static final long serialVersionUID = 2111499896183437611L;
 
       @Override
-      public String generateURL(CategoryDataset dataset, int row, int column) {
-        NumberOnlyBuildLabel label = (NumberOnlyBuildLabel) dataset.getColumnKey(column);
-        return tmpRelPath + label.build.getNumber() + "/" + getUrlName() + "/";
+      public String generateURL(CategoryDataset aCategoryDataset, int aRow, int aColumn) {
+        NumberOnlyBuildLabel tmpLabel = (NumberOnlyBuildLabel) aCategoryDataset.getColumnKey(aColumn);
+        return tmpRelPath + tmpLabel.build.getNumber() + "/" + getUrlName() + "/";
       }
 
       @Override
-      public String generateToolTip(CategoryDataset dataset, int row, int column) {
-        NumberOnlyBuildLabel label = (NumberOnlyBuildLabel) dataset.getColumnKey(column);
-        WetatorBuildReport a = label.build.getAction(WetatorBuildReport.class);
-        if (row == 0) {
-          return String.valueOf(Messages.WetatorBuildReport_fail(label.build.getNumber(), a.getFailCount()));
+      public String generateToolTip(CategoryDataset aCategoryDataset, int aRow, int aColumn) {
+        NumberOnlyBuildLabel tmpLabel = (NumberOnlyBuildLabel) aCategoryDataset.getColumnKey(aColumn);
+        WetatorBuildReport tmpBuildReport = tmpLabel.build.getAction(WetatorBuildReport.class);
+        if (aRow == 0) {
+          return String.valueOf(Messages.WetatorBuildReport_fail(tmpLabel.build.getNumber(), tmpBuildReport.getFailCount()));
         }
-        return String.valueOf(Messages.WetatorBuildReport_test(label.build.getNumber(), a.getTotalCount()));
+        return String.valueOf(Messages.WetatorBuildReport_test(tmpLabel.build.getNumber(), tmpBuildReport.getTotalCount()));
       }
     };
     tmpPlot.setRenderer(tmpAreaRenderer);

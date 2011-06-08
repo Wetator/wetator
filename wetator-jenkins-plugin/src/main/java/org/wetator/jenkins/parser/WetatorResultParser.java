@@ -232,10 +232,9 @@ public class WetatorResultParser {
 
       String[] tmpFiles = tmpScanner.getIncludedFiles();
       if (tmpFiles.length == 0) {
-        // no test result. Most likely a configuration
-        // error or fatal problem
+        // no test result. Most likely a configuration error or fatal problem
         throw new AbortException(Messages.WetatorRecorder_NoTestReportFound());
-        // TODO make abortion for missing test results optional
+        // TODO make abortion for missing test results optional?
       }
 
       TestResults tmpAllResults = new TestResults(UUID.randomUUID().toString());

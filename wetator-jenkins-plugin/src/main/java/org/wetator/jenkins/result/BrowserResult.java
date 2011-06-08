@@ -222,6 +222,7 @@ public class BrowserResult extends AbstractBaseResult {
    * @return this if the token matches or null
    */
   public Object getDynamic(String token, StaplerRequest req, StaplerResponse rsp) {
+    // the method parameters must be raw (without leading a) to make stapler work
     if (token.equals("/" + getName())) {
       return this;
     }

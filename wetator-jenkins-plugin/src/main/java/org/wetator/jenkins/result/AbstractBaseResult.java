@@ -68,34 +68,58 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
     return getName();
   }
 
+  /**
+   * @return the owning build
+   */
   public AbstractBuild<?, ?> getOwner() {
     return owner;
   }
 
+  /**
+   * @param owner the owning build to set
+   */
   public void setOwner(AbstractBuild<?, ?> owner) {
     this.owner = owner;
   }
 
+  /**
+   * @return the name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * @param name the name to set
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * @return the parent result
+   */
   public AbstractBaseResult getParent() {
     return parent;
   }
 
+  /**
+   * @param parent the parent result to set
+   */
   public void setParent(AbstractBaseResult parent) {
     this.parent = parent;
   }
 
+  /**
+   * @return the full name
+   */
   public String getFullName() {
     return fullName;
   }
 
+  /**
+   * @param fullName the full name to set
+   */
   public void setFullName(String fullName) {
     this.fullName = fullName;
   }
@@ -218,6 +242,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
    * @param description the description (= annotation of the result) to set
    */
   public void setDescription(String description) {
+    // the method parameters must be raw (without leading a) to make stapler work
     WetatorBuildReport tmpReport = owner.getAction(WetatorBuildReport.class);
     if (tmpReport != null) {
       tmpReport.setDescription(this, description);

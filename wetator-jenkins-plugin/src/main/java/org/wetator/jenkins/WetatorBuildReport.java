@@ -143,6 +143,9 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Overwrites the {@link TestResults} by a new data set.
+   * 
+   * @param aResults the results to set
+   * @param aListener the current {@link BuildListener}
    */
   public synchronized void setResults(TestResults aResults, BuildListener aListener) {
     aResults.tally();
@@ -158,7 +161,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
       e.printStackTrace(aListener.fatalError("Failed to save the Wetator test result"));
     }
 
-    this.results = new WeakReference<TestResults>(aResults);
+    results = new WeakReference<TestResults>(aResults);
   }
 
   /**
@@ -195,10 +198,9 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * {@link AbstractBaseResult}s do not have their own persistence mechanism, so updatable data of
-   * {@link AbstractBaseResult}s
-   * need to be persisted by the owning {@link WetatorBuildReport}, and this method and
-   * {@link #setDescription(AbstractBaseResult, String)} provides that logic.
-   * <p>
+   * {@link AbstractBaseResult}s need to be persisted by the owning {@link WetatorBuildReport}, and this method and
+   * {@link #setDescription(AbstractBaseResult, String)} provide that logic. <br/>
+   * <br/>
    * The default implementation stores information in the 'this' object.
    * 
    * @see TestObject#getDescription()
@@ -207,10 +209,19 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     return descriptions.get(aResult.getName());
   }
 
+  /**
+   * @param aResult the result to set the description for
+   * @param aDescription the description to set
+   */
   public void setDescription(AbstractBaseResult aResult, String aDescription) {
     descriptions.put(aResult.getName(), aDescription);
   }
 
+  /**
+   * Used for deserialization (magic java method name).
+   * 
+   * @return this
+   */
   public Object readResolve() {
     if (descriptions == null) {
       descriptions = new ConcurrentHashMap<String, String>();
@@ -228,8 +239,8 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
       return ""; // no record
     }
 
-    return " "
-        + Messages.WetatorBuildReport_FailureDiff(Functions.getDiffString(getFailCount() - tmpPrevious.getFailCount()));
+    int tmpDiff = getFailCount() - tmpPrevious.getFailCount();
+    return " " + Messages.WetatorBuildReport_FailureDiff(Functions.getDiffString(tmpDiff));
   }
 
   /**
@@ -294,11 +305,13 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
   }
 
   private GZIPXMLFile getDataFile() {
-    return new GZIPXMLFile(XSTREAM, new File(build.getRootDir(), "wetatorResult.gz"));
+    return new GZIPXMLFile(XSTREAM, new File(build.getRootDir(), PluginImpl.TEST_RESULTS_FILE_NAME));
   }
 
   /**
    * Loads a {@link TestResults} from disk.
+   * 
+   * @return the loaded {@link TestResults}
    */
   private TestResults load() {
     TestResults tmpTestResults;

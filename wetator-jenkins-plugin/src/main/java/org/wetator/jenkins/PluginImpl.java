@@ -35,6 +35,12 @@ public class PluginImpl extends Plugin {
    * The URL of the report.
    */
   public static final String URL_NAME = "wetatorReport";
-
+  /**
+   * The name of the top level test results.
+   */
   public static final String TEST_RESULTS_NAME = "WetatorResults";
+  /**
+   * The name of the file the test results are persisted in.
+   */
+  public static final String TEST_RESULTS_FILE_NAME = "wetatorResult.gz";
 }
