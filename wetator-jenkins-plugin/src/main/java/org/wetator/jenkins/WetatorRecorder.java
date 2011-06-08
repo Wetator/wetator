@@ -52,7 +52,9 @@ public class WetatorRecorder extends Recorder {
   /**
    * {@link FileSet} "includes" string, like "foo/bar/*.xml"
    */
-  private String testResults = null;
+  private String testResults;
+  private String unstableThreshold;
+  private String failureThreshold;
 
   /**
    * The constructor.
@@ -60,9 +62,14 @@ public class WetatorRecorder extends Recorder {
    * @param testResults the file patter of the test results
    */
   @DataBoundConstructor
-  public WetatorRecorder(String testResults) {
+  public WetatorRecorder(String testResults, String unstableThreshold, String failureThreshold) {
     // the method parameters must be raw (without leading a) to make stapler work
     this.testResults = testResults;
+    this.unstableThreshold = unstableThreshold;
+    if (this.unstableThreshold == null || "".equals(this.unstableThreshold)) {
+      this.unstableThreshold = "0";
+    }
+    this.failureThreshold = failureThreshold;
   }
 
   /**
@@ -70,6 +77,20 @@ public class WetatorRecorder extends Recorder {
    */
   public String getTestResults() {
     return testResults;
+  }
+
+  /**
+   * @return the unstableThreshold
+   */
+  public String getUnstableThreshold() {
+    return unstableThreshold;
+  }
+
+  /**
+   * @return the failureThreshold
+   */
+  public String getFailureThreshold() {
+    return failureThreshold;
   }
 
   /**
@@ -122,9 +143,12 @@ public class WetatorRecorder extends Recorder {
 
     aBuild.getActions().add(tmpReport);
 
-    // TODO unstable and failure threshold should be configurable
-    if (tmpReport.getResults().getFailCount() > 0) {
+    if (tmpReport.getResults().getFailCount() > Integer.parseInt(unstableThreshold)) {
       aBuild.setResult(Result.UNSTABLE);
+    }
+    if (failureThreshold != null && !"".equals(failureThreshold)
+        && tmpReport.getResults().getFailCount() > Integer.parseInt(failureThreshold)) {
+      aBuild.setResult(Result.FAILURE);
     }
 
     return true;
@@ -188,6 +212,40 @@ public class WetatorRecorder extends Recorder {
         throws IOException {
       // the method parameters must be raw (without leading a) to make stapler work
       return FilePath.validateFileMask(project.getSomeWorkspace(), value);
+    }
+
+    /**
+     * Performs on-the-fly validation on the unstable threshold.
+     * 
+     * @param project the owner project
+     * @param value the value to check
+     * @return the result of the check
+     * @throws IOException in case of problems
+     */
+    public FormValidation doCheckUnstableThreshold(@AncestorInPath AbstractProject<?, ?> project,
+        @QueryParameter String value) throws IOException {
+      // the method parameters must be raw (without leading a) to make stapler work
+      if (value == null || "".equals(value)) {
+        return FormValidation.ok();
+      }
+      return FormValidation.validateNonNegativeInteger(value);
+    }
+
+    /**
+     * Performs on-the-fly validation on the failure threshold.
+     * 
+     * @param project the owner project
+     * @param value the value to check
+     * @return the result of the check
+     * @throws IOException in case of problems
+     */
+    public FormValidation doCheckFailureThreshold(@AncestorInPath AbstractProject<?, ?> project,
+        @QueryParameter String value) throws IOException {
+      // the method parameters must be raw (without leading a) to make stapler work
+      if (value == null || "".equals(value)) {
+        return FormValidation.ok();
+      }
+      return FormValidation.validateNonNegativeInteger(value);
     }
   }
 }

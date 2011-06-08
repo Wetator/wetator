@@ -4,5 +4,11 @@
 		description="${%description('http://ant.apache.org/manual/Types/fileset.html')}">
 		<f:textbox />
 	</f:entry>
+    <f:entry title="${%Unstable Threshold}" field="unstableThreshold">
+        <f:textbox default="0" />
+    </f:entry>
+    <f:entry title="${%Failure Threshold}" field="failureThreshold">
+        <f:textbox />
+    </f:entry>
 </j:jelly>
 
