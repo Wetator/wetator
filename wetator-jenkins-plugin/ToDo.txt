@@ -28,4 +28,4 @@ X	Cleanup code
 
 X	Add JavaDoc
 
-	Update Logo
+X	Update Logo
