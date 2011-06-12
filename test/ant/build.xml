@@ -22,7 +22,7 @@
     </path>
 
     <target name="run_wetator_with_classpath">
-        <wetator config="wet.config">
+        <wetator config="wetator.config">
             <classpath>
                 <fileset dir="." includes="commons-exec-1.1.jar"/>
             </classpath>
@@ -33,7 +33,7 @@
     </target>
 
     <target name="run_wetator_with_classpath_ref">
-        <wetator config="wet.config">
+        <wetator config="wetator.config">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="ant_task_classpath_test.xls"/>
@@ -43,7 +43,7 @@
 
 
     <target name="run_wetator_with_properties">
-        <wetator config="wet.config">
+        <wetator config="wetator.config">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="sample.xls"/>
@@ -59,7 +59,7 @@
 
     <target name="run_wetator_haltonfailure_false">
         <echo message="before wetator"/>
-    	<wetator config="wet.config" haltonfailure="false">
+    	<wetator config="wetator.config" haltonfailure="false">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="failure.wet"/>
@@ -70,7 +70,7 @@
 
     <target name="run_wetator_haltonfailure_true">
         <echo message="before wetator"/>
-        <wetator config="wet.config" haltonfailure="true">
+        <wetator config="wetator.config" haltonfailure="true">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="failure.wet"/>
@@ -81,7 +81,7 @@
 
 
     <target name="run_wetator_failureproperty">
-        <wetator config="wet.config" failureproperty="failed">
+        <wetator config="wetator.config" failureproperty="failed">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="sample.xls"/>
@@ -89,7 +89,7 @@
         </wetator>
         <echo message="after wetator property failed = '${failed}'"/>
 
-    	<wetator config="wet.config" failureproperty="failed">
+    	<wetator config="wetator.config" failureproperty="failed">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="failure.wet"/>
