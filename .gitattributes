@@ -165,6 +165,7 @@ Wetator/test/ant/commons-exec-1.1.jar -text
 Wetator/test/ant/failure.wet -text
 Wetator/test/ant/sample.xls -text
 Wetator/test/ant/wet.config -text
+Wetator/test/ant/wetator.config -text
 Wetator/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/excel/default_command_set.xls -text
