@@ -1,0 +1,656 @@
+<html>
+    <head>
+        <title>Wetator Commands - Overview</title>
+
+        <!--
+            green acc952
+            orange e75013
+            blue 00769c
+            very light grey f0f0f0
+            light grey cccccc
+            dark grey 565656
+        -->
+
+        <style type="text/css">
+            body {color: #565656; font-family: Arial,Helvetica,sans-serif;}
+            a {color: #00769c; text-decoration: none;}
+            p {margin: 0;}
+            td.command {color: #00769c; cursor: pointer; padding-top: 0.5em; padding-left: 0.5em; width: 10em;}
+            td.commandShortDesc {padding-top: 0.5em;}
+            td.commandDescription {padding-left: 0.5em; padding-bottom: 1em;}
+            td.parameter {color: #acc952; padding-left: 0.5em; padding-right: 0.5em; text-align: right; vertical-align: top; width: 8em;}
+            td.parameterDescription {padding-left: 0.5em;}
+            td.example {color: #cccccc; padding: 0.5em 0.5em 0 0.5em; text-align: right; vertical-align: top; width: 139px;}
+            td.exampleText {padding: 0.5em 0.5em 0 0.5em;}
+            table.exampleCommand {margin: 0.25em 0 0.25em 0; padding 0; text-align: left;}
+            table.exampleCommand td {padding: 0.25em; border:thin solid black; border-style: dotted;}
+            table.exampleCommand td.header {padding: 0.2em; background-color: #f0f0f0; font-style: italic; font-size: 0.7em;}
+            table.exampleCommand td.exampleCommand {background-color: #acc952; font-weight: bold; font-size: 0.9em;}
+            p.exampleHTML {font-size: 0.8em; border-style: dotted; border-width: 0.1em; padding: 0.5em; width: 505px;}
+            p.exampleHTML table {font-size: 1em;}
+            p.exampleHTML th {text-align: left; border-style: solid; border-width: 0.1em;}
+            p.exampleHTML td {border-style: solid; border-width: 0.1em;}
+            p.exampleStepDesc {font-size: 0.8em;}
+            span.true {color: #acc952;}
+            span.false {color: #e75013;}
+        </style>
+        <script type="text/javascript" language="JavaScript">
+            function show(id) {
+                var tmpElement = document.getElementById(id);
+                tmpElement.style.display = "";
+            }
+
+            function hide(id) {
+                var tmpElement = document.getElementById(id);
+                tmpElement.style.display = "none";
+            }
+
+            function showOrHide(id) {
+                var tmpElement = document.getElementById(id);
+                if (tmpElement.style.display == "none") {
+                	show(id);
+                } else {
+                	hide(id);
+                }
+            }
+          </script>
+    </head>
+    <body>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                The following commands are available in the
+                                    <ul>
+                                        <li><a href="default-command-set-1.0.0.xsd">default command set</a></li>
+                                        <li><a href="incubator-command-set-1.0.0.xsd">incubator command set</a></li>
+                                        <li><a href="sql-command-set-1.0.0.xsd">sql command set</a></li>
+                                    </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertContent')">
+                        <tr>
+                            <td class="command">
+                                assert-content
+                            </td>
+                            <td class="commandShortDesc">
+                                Asserts that the current page contains the expected content.
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertContent" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                <table class="commandDescription" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td class="parameter">content</td>
+                                        <td class="parameterDescription">
+                                            The expected content (mandatory).<br/>
+                                            Wetator exactly asserts the given value by default.<br/>
+                                            Asserts texts, button labels, alt-texts, title-texts (if visible).<br/>
+                                            <br/>
+                                            Special features:<br/>
+                                            <ul>
+                                                <li>' ' - separates two words (more than one space characters are trimmed)</li>
+                                                <li>',' - acts as a wildcard for arbitrary words between two expected words</li>
+                                                <li>'*' - wildcard for arbitrary characters</li>
+                                                <li>'?' - wildcard for one arbitrary character</li>
+                                                <li>'[x; y]' - enables table cell addressing</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="parameter">wait</td>
+                                        <td class="parameterDescription">
+                                            The time to wait (in seconds) for the expected content to appear (optional).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="example">example1</td>
+                                        <td class="exampleText">
+                                            <p class="exampleHTML">Wetator is a tool for automatic Graphical User Interface (GUI) tests of web applications.</p>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">Wetator is a tool</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span></p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">Wetator, tool, web applications</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span></p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">Wet?tor is a t*l</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span></p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                     <td class="header">wait</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">Wetator is a tool</td>
+                                                     <td class="exampleCommand">5</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span> if the content "Wetator is a tool" appears at least 5 seconds after the previous step</p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">Wetator is no tool</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="false">false</span></p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">tool, Wetator</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="false">false</span> (wrong order)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="example">example2</td>
+                                        <td class="exampleText">
+                                            <p class="exampleHTML">
+	                                            <table>
+	                                                <tr>
+	                                                    <th>alias</th>
+	                                                    <th>favorite domain</th>
+	                                                </tr>
+	                                                <tr>
+	                                                    <td>goo.gle</td>
+	                                                    <td>google.com</td>
+	                                                </tr>
+	                                                <tr>
+	                                                    <td>smart.testing</td>
+	                                                    <td>wetator.org</td>
+	                                                </tr>
+	                                                <tr>
+	                                                    <td>wet.ator</td>
+	                                                    <td>wetator.org</td>
+	                                                </tr>
+	                                            </table>
+                                            </p>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">[favorite domain; wet.ator] wetator.org</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">[favorite domain; smart.testing] wetator.org</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span> since wet.ator and smart.testing both have the favorite domain "wetator.org"</p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-content</td>
+                                                     <td class="exampleCommand">[favorite domain; goo.gle] wetator.org</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="false">false</span> since goo.gle does <span class="false">not</span> have the favorite domain "wetator.org"</p>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertDeselected')">
+                        <tr>
+                            <td class="command">
+                                assert-deselected
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertDeselected" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertDisabled')">
+                        <tr>
+                            <td class="command">
+                                assert-disabled
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertDisabled" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertFocus')">
+                        <tr>
+                            <td class="command">
+                                assert-focus
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertFocus" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertSelected')">
+                        <tr>
+                            <td class="command">
+                                assert-selected
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertSelected" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertSet')">
+                        <tr>
+                            <td class="command">
+                                assert-set
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertSet" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertSQL')">
+                        <tr>
+                            <td class="command">
+                                assert-sql
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertSQL" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertSQLInContent')">
+                        <tr>
+                            <td class="command">
+                                assert-sql-in-content
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertSQLInContent" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('assertTitle')">
+                        <tr>
+                            <td class="command">
+                                assert-title
+                            </td>
+                            <td class="commandShortDesc">
+                                Asserts that the actual title of the current page equals the expected title.
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="assertTitle" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('clickOn')">
+                        <tr>
+                            <td class="command">
+                                click-on
+                            </td>
+                            <td class="commandShortDesc">
+                                Clicks on the given control.
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="clickOn" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('clickDoubleOn')">
+                        <tr>
+                            <td class="command">
+                                click-double-on
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="clickDoubleOn" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('clickRightOn')">
+                        <tr>
+                            <td class="command">
+                                click-right-on
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="clickRightOn" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('closeWindow')">
+                        <tr>
+                            <td class="command">
+                                close-window
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="closeWindow" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('deselect')">
+                        <tr>
+                            <td class="command">
+                                deselect
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="deselect" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('execJava')">
+                        <tr>
+                            <td class="command">
+                                exec-java
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="execJava" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('execSQL')">
+                        <tr>
+                            <td class="command">
+                                exec-sql
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="execSQL" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('goBack')">
+                        <tr>
+                            <td class="command">
+                                go-back
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="goBack" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('mouseOver')">
+                        <tr>
+                            <td class="command">
+                                mouse-over
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="mouseOver" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('openBookmark')">
+                        <tr>
+                            <td class="command">
+                                open-bookmark
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="openBookmark" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('openURL')">
+                        <tr>
+                            <td class="command">
+                                open-url
+                            </td>
+                            <td class="commandShortDesc">
+                                Opens a given URL in the current window.
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="openURL" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                <table class="commandDescription" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td class="parameter">url</td>
+                                        <td class="parameterDescription">
+                                            Specifies the URL to open (mandatory).<br/>
+                                            May be absolute or relative to the configured base URL (see examples).<br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="example">examples</td>
+                                        <td class="exampleText">
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">url</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">open-url</td>
+                                                     <td class="exampleCommand">http://www.wetator.org</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc">opens www.wetator.org</p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">url</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">open-url</td>
+                                                     <td class="exampleCommand">index.php</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc">opens {wetator.baseUrl}/index.php</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('saveBookmark')">
+                        <tr>
+                            <td class="command">
+                                save-bookmark
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="saveBookmark" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('select')">
+                        <tr>
+                            <td class="command">
+                                select
+                            </td>
+                            <td class="commandShortDesc">
+                                Selects the given control.
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="select" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('set')">
+                        <tr>
+                            <td class="command">
+                                set
+                            </td>
+                            <td class="commandShortDesc">
+                                Sets the value of the given control to a given value.
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="set" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                <table class="commandDescription" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td class="parameter">wpath</td>
+                                        <td class="parameterDescription">
+                                            The <a href="wpathdescription" target="blank">WPath</a> identifying the control (mandatory).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="parameter">value</td>
+                                        <td class="parameterDescription">
+                                            The value to set (mandatory).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="example">example</td>
+                                        <td class="exampleText">
+                                            <p class="exampleHTML">First Name&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" readonly="readonly" value=""/></p>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">wpath</td>
+                                                     <td class="header">value</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">set</td>
+                                                     <td class="exampleCommand">First Name</td>
+                                                     <td class="exampleCommand">Wetator</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleHTML">First Name&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" readonly="readonly" value="Wetator"/></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table onclick="showOrHide('useModule')">
+                        <tr>
+                            <td class="command">
+                                use-module
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="useModule" style="display: none;">
+                        <tr>
+                            <td class="commandDescription">
+                                to be done
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

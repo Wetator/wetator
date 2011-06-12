@@ -351,6 +351,7 @@ Wetator/webpages/commands/assertset.html -text
 Wetator/webpages/commands/asserttitle.html -text
 Wetator/webpages/commands/clickon.html -text
 Wetator/webpages/commands/commands.html -text
+Wetator/webpages/commands/commands_new.html -text svneol=unset#text/plain
 Wetator/webpages/commands/deselect.html -text svneol=unset#text/plain
 Wetator/webpages/commands/execjava.html -text
 Wetator/webpages/commands/mouseover.html -text
