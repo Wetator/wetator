@@ -351,6 +351,7 @@ webpages/commands/assertset.html -text
 webpages/commands/asserttitle.html -text
 webpages/commands/clickon.html -text
 webpages/commands/commands.html -text
+webpages/commands/commands_new.html -text svneol=unset#text/plain
 webpages/commands/deselect.html -text svneol=unset#text/plain
 webpages/commands/execjava.html -text
 webpages/commands/mouseover.html -text
