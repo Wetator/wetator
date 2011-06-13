@@ -16,7 +16,7 @@
     <!-- ******************************************* -->
     <target name="load-onejar">
         <property name="one-jar.dist.dir" value="./dist"/>
-        <property name="one-jar.version" value="0.96"/>
+        <property name="one-jar.version" value="0.97"/>
         <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
             <classpath id="one-jar-classpath">
                 <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
@@ -24,19 +24,8 @@
         </taskdef>
     </target>
 
-    <!-- ******************************************* -->
-    <!-- target load-buildupdate                     -->
-    <!-- ******************************************* -->
-    <target name="load-buildupdate">
-        <taskdef name="buildupdate" classname="com.ryangrier.ant.BuildUpdate">
-            <classpath id="buildupdate-classpath">
-                <fileset dir="./ant_lib" includes="**/version_tool.jar"/>
-            </classpath>
-        </taskdef>
-    </target>
 
-	
-    <!-- ******************************************* -->
+	<!-- ******************************************* -->
     <!-- target load-wetator                         -->
     <!-- ******************************************* -->
     <target name="load-wetator">
@@ -143,16 +132,16 @@
     <!-- target build-release                        -->
     <!-- ******************************************* -->
     <target name="build-release" description="build all Wetator release artifacts"
-        depends="load-onejar,load-buildupdate">
+        depends="load-onejar">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
         </tstamp>
 
-        <buildupdate
-            srcdir="${dir.src}"
-            classname="org.wetator.Version"
-            variablename="BUILD"
-            propertyName="application.buildnumber" />
+        <propertyfile file="build.properties">
+          <entry key="application.buildnumber" type="int" default="42" operation="+"/>
+        </propertyfile>
+        <property file="build.properties"/>
+        <echo message="${build}"></echo>
 
         <echo message="Version: ${application.version}"/>
         <echo message="Build:   ${application.buildnumber}"/>
@@ -352,6 +341,71 @@ echo location of the Java Virtual Machine you want to use.
 
 
     <!-- ******************************************* -->
+    <!-- target test-release                         -->
+    <!-- ******************************************* -->
+    <target name="test-release" description="test the wetator release artefacts" >
+    	<echo message="Testing version: ${application.version}"></echo>
+        <echo></echo>
+
+        <!-- new dir for the tests -->
+        <delete dir="${dir.build}/test-release" />
+        <mkdir dir="${dir.build}/test-release" />
+
+        <!-- test the application -->
+    	<unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
+    	<copy
+    		file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+    		todir="${basedir}/${dir.build}/test-release/app"
+    	/>
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
+
+    	<exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
+    	    <arg value="/c"/>
+    	    <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
+            <arg value="google.xls"/>
+    	</exec>
+
+        <!-- test the ant task -->
+        <unzip src="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip" dest="${dir.build}/test-release/ant" />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+            todir="${basedir}/${dir.build}/test-release/ant"
+        />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
+            todir="${basedir}/${dir.build}/test-release/ant"
+        />
+    	
+    	<echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Wetator Ant Test" basedir="${basedir}/${dir.build}/test-release/ant" default="run_wetator">
+  <path id="wetator-classpath">
+    <fileset dir="./lib" includes="**/**.jar"/>
+  </path>
+  <taskdef name="wetator" classname="org.wetator.ant.Wetator" classpathref="wetator-classpath" />
+
+  <target name="run_wetator">
+    <wetator config="wetator.config">
+      <fileset dir="." >
+        <include name="*.xls"/>
+      </fileset>
+    </wetator>
+  </target>
+</project>
+]]>
+</echo>
+
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="%ANT_HOME%\bin\ant.bat"/>
+            <arg value="-buildfile"/>
+            <arg value="${dir.build}/test-release/ant/build.xml"/>
+        </exec>
+    </target>
+
+	<!-- ******************************************* -->
     <!-- target upload-jar-to-repo                   -->
     <!-- ******************************************* -->
     <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to repo"

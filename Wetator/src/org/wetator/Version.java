@@ -27,11 +27,6 @@ import java.util.jar.Manifest;
 public final class Version {
 
   /**
-   * The build.
-   */
-  public static final String BUILD = "2010121601";
-
-  /**
    * A simple main function to be able to ask for the version from a command line.
    * 
    * @param anArgsArray ignored
@@ -66,7 +61,7 @@ public final class Version {
    * @return the build number.
    */
   public static String getBuild() {
-    return BUILD;
+    return readFromManifest("Build", "");
   }
 
   /**
