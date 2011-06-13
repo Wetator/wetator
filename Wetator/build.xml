@@ -291,6 +291,7 @@ echo location of the Java Virtual Machine you want to use.
                 <include name=".project" />
                 <include name="build.xml" />
                 <include name="build-properties.xml" />
+                <include name="build.properties" />
                 <include name="ivy.xml" />
                 <include name="ivysettings.xml" />
                 <include name="LICENSE.txt" />
