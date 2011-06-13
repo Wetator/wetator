@@ -141,7 +141,6 @@
           <entry key="application.buildnumber" type="int" default="42" operation="+"/>
         </propertyfile>
         <property file="build.properties"/>
-        <echo message="${build}"></echo>
 
         <echo message="Version: ${application.version}"/>
         <echo message="Build:   ${application.buildnumber}"/>
