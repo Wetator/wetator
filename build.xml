@@ -152,6 +152,7 @@
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
             <fileset dir="${dir.build}/classes">
                 <include name="**/*.*"/>
+                <exclude name="wetator.config"/>
             </fileset>
             <manifest>
                 <attribute name="Main-Class" value="org.wetator.Wetator"/>
