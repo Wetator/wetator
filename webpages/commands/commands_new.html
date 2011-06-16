@@ -90,7 +90,8 @@
                                         <td class="parameterDescription">
                                             The expected content (mandatory).<br/>
                                             Wetator exactly asserts the given value by default.<br/>
-                                            Asserts texts, button labels, alt-texts, title-texts (if visible).<br/>
+                                            At the moment content of type HTML, text, PDF or XLS is supported.<br/>
+                                            In HTML Wetator asserts texts, button labels, alt-texts, title-texts (if visible).<br/>
                                             <br/>
                                             Special features:<br/>
                                             <ul>
@@ -112,6 +113,7 @@
                                         <td class="example">example1</td>
                                         <td class="exampleText">
                                             <p class="exampleHTML">Wetator is a tool for automatic Graphical User Interface (GUI) tests of web applications.</p>
+                                            <br/>
                                             <table class="exampleCommand" cellpadding="0" cellspacing="0">
                                                  <tr>
                                                      <td class="header">command</td>
@@ -210,6 +212,7 @@
 	                                                </tr>
 	                                            </table>
                                             </p>
+                                            <br/>
                                             <table class="exampleCommand" cellpadding="0" cellspacing="0">
                                                  <tr>
                                                      <td class="header">command</td>
@@ -355,7 +358,69 @@
                     <table id="assertTitle" style="display: none;">
                         <tr>
                             <td class="commandDescription">
-                                to be done
+                                <table class="commandDescription" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td class="parameter">title</td>
+                                        <td class="parameterDescription">
+                                            The expected title (mandatory).<br/>
+                                            <br/>
+                                            Special features:<br/>
+                                            <ul>
+                                                <li>' ' - separates two words (more than one space characters are trimmed)</li>
+                                                <li>'*' - wildcard for arbitrary characters</li>
+                                                <li>'?' - wildcard for one arbitrary character</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="parameter">wait</td>
+                                        <td class="parameterDescription">
+                                            The time to wait (in seconds) for the expected title to appear (optional).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="example">example</td>
+                                        <td class="exampleText">
+                                            <img src="../images/wetator_home_title.png" /><br/>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-title</td>
+                                                     <td class="exampleCommand">WETATOR / Smart Web Application Testing</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span></p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-title</td>
+                                                     <td class="exampleCommand">W?T?TOR / Smart Web App*</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="true">true</span></p>
+                                            <br/>
+                                            <table class="exampleCommand" cellpadding="0" cellspacing="0">
+                                                 <tr>
+                                                     <td class="header">command</td>
+                                                     <td class="header">content</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="exampleCommand">assert-title</td>
+                                                     <td class="exampleCommand">WETATOR</td>
+                                                 </tr>
+                                            </table>
+                                            <p class="exampleStepDesc"><span class="false">false</span> since Wetator asserts the whole title</p>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
