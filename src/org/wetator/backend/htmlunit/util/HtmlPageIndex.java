@@ -53,6 +53,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlLegend;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -363,7 +364,6 @@ public class HtmlPageIndex {
       }
       if (aDomNode instanceof HtmlHiddenInput || aDomNode instanceof HtmlApplet || aDomNode instanceof HtmlScript
           || aDomNode instanceof HtmlStyle || aDomNode instanceof HtmlFileInput || aDomNode instanceof DomComment
-
           || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) {
         // nothing
       } else if (aDomNode instanceof DomText) {
@@ -381,6 +381,8 @@ public class HtmlPageIndex {
         appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
       } else if (aDomNode instanceof HtmlLegend) {
         appendHtmlLegend((HtmlLegend) aDomNode);
+      } else if (aDomNode instanceof HtmlLabel) {
+        appendHtmlLabel((HtmlLabel) aDomNode);
       } else if (aDomNode instanceof HtmlSubmitInput) {
         appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
       } else if (aDomNode instanceof HtmlResetInput) {
@@ -452,7 +454,10 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
     text.append(anHtmlImageInput.getAltAttribute());
+    text.append(" ");
   }
 
   private void appendHtmlInput(final HtmlInput anHtmlInput) {
@@ -466,8 +471,12 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlImage(final HtmlImage anHtmlImage) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
     text.append(anHtmlImage.getAltAttribute());
+    text.append(" ");
     textWithoutFormControls.append(anHtmlImage.getAltAttribute());
+    textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlLegend(final HtmlLegend anHtmlLegend) {
@@ -482,6 +491,8 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlButton(final HtmlButton anHtmlButton) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
     textWithoutFormControls.disableAppend();
     parseChildren(anHtmlButton);
     textWithoutFormControls.enableAppend();
@@ -490,16 +501,22 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
     text.append(anHtmlSubmitInput.getValueAttribute());
     text.append(" ");
   }
 
   private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
     text.append(anHtmlResetInput.getValueAttribute());
     text.append(" ");
   }
 
   private void appendHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
     text.append(anHtmlButtonInput.getValueAttribute());
     text.append(" ");
   }
@@ -508,6 +525,14 @@ public class HtmlPageIndex {
     textWithoutFormControls.disableAppend();
     parseChildren(anHtmlCheckBoxInput);
     textWithoutFormControls.enableAppend();
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+  }
+
+  private void appendHtmlLabel(final HtmlLabel anHtmlLabel) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+    parseChildren(anHtmlLabel);
     text.append(" ");
     textWithoutFormControls.append(" ");
   }

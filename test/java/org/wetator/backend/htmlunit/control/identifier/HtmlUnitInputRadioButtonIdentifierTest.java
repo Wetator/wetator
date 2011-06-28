@@ -237,7 +237,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 27 start: 42",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 27 start: 43",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -258,7 +258,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 2 distance: 27 start: 42",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 2 distance: 27 start: 43",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -279,7 +279,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 2 distance: 27 start: 42",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 2 distance: 27 start: 43",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -301,7 +301,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 33 start: 57",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 33 start: 58",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -339,7 +339,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 27 start: 42",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 27 start: 43",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -359,7 +359,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 15 distance: 27 start: 42",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 15 distance: 27 start: 43",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -379,7 +379,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 15 distance: 27 start: 42",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 15 distance: 27 start: 43",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -401,7 +401,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 33 start: 57",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 33 start: 58",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
