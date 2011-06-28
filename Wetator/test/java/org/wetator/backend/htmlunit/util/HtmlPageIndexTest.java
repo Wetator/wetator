@@ -354,8 +354,8 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_InputImageWithAlt() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before "
-        + "<input type='image' id='image_id' src='src.img' alt='Test Image'>" + " after" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" + "before"
+        + "<input type='image' id='image_id' src='src.img' alt='Test Image'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -368,7 +368,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_ImageWithAlt() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before " + "<img src='src.img' alt='test image'>" + " after"
+    String tmpHtmlCode = "<html><body>" + "before" + "<img src='src.img' alt='test image'>" + "after"
         + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -381,7 +381,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_SubmitInput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before "
+    String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MySubmitId' name='MySubmitName' value='Submit' type='submit'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -393,7 +393,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_ResetInput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before "
+    String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyResetId' name='MyResetName' value='Reset' type='reset'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -405,7 +405,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_ButtonInput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before "
+    String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyButtonId' name='MyButtonName' value='Button' type='button'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -417,7 +417,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_Button() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before " + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
+    String tmpHtmlCode = "<html><body>" + "before" + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
         + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -429,7 +429,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_RadioButton() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before "
+    String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio'>RadioButton" + " after"
         + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -443,7 +443,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_RadioButtonSelected() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before "
+    String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' checked>RadioButton"
         + " after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -457,9 +457,9 @@ public class HtmlPageIndexTest {
 
   @Test
   public void testAsText_LabelWithEnclosedRadioButtonSelected() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before " + "<label>LabelText"
+    String tmpHtmlCode = "<html><body>" + "before" + "<label>LabelText"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' selected>RadioButton"
-        + "</label>" + " after" + "</body></html>";
+        + "</label>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -476,7 +476,7 @@ public class HtmlPageIndexTest {
         + "<option selected>Option1Value" //
         + "<option>Option2Value" //
         + "</select>" //
-        + "</label>" + " after" + "</body></html>";
+        + "</label>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
