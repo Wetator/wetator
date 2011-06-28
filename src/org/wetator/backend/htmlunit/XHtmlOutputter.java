@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
@@ -34,6 +35,7 @@ import org.wetator.util.XMLUtil;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomDocumentType;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNamespaceNode;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
@@ -316,15 +318,24 @@ public final class XHtmlOutputter {
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
       final boolean tmpIsHtmlInlineFrame = tmpHtmlElement instanceof HtmlInlineFrame;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
+      final boolean tmpIsHtmlSubmitInput = tmpHtmlElement instanceof HtmlSubmitInput;
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
-      final Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
-      for (DomAttr tmpAttribute : tmpAttributeEntries) {
+      final Map<String, DomAttr> tmpAttributes = tmpHtmlElement.getAttributesMap();
+
+      // some HtmlUnitControls are special
+      if (tmpHtmlElement instanceof HtmlOption) {
+        final HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
+        if (tmpHtmlOption.isSelected() && tmpHtmlOption.getAttribute("selected") == DomElement.ATTRIBUTE_NOT_DEFINED) {
+          output.print(" selected");
+        }
+      }
+
+      for (DomAttr tmpAttribute : tmpAttributes.values()) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase();
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
           String tmpAttributeValue = tmpAttribute.getNodeValue();
-
           // no output of javascript actions
           if (StringUtils.startsWithIgnoreCase(tmpAttributeValue, "javascript:")) {
             continue;
@@ -362,6 +373,12 @@ public final class XHtmlOutputter {
             if (!StringUtils.isEmpty(tmpAttributeValue)) {
               tmpAttributeValue = "*******";
             }
+          }
+
+          // Don't print if value="Submit Query"
+          // see com.gargoylesoftware.htmlunit.html.HtmlSubmitInput
+          if (tmpIsHtmlSubmitInput && ("value".equals(tmpAttributeName) && "Submit Query".equals(tmpAttributeValue))) {
+            continue;
           }
 
           // special cases
