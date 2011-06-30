@@ -16,6 +16,10 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.wetator.backend.IBrowser.ContentType;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -29,6 +33,34 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author rbri
  */
 public final class ContentTypeUtil {
+  private static final Map<String, ContentType> CONTENT_TYPES = new CaseInsensitiveMap();
+  private static final Map<ContentType, String> FILE_EXTENSIONS = new HashMap<ContentType, String>();
+
+  static {
+    define(ContentType.HTML, "html", "text/html");
+    define(ContentType.CSS, "css", "text/css");
+    define(ContentType.JAVASCRIPT, "js", "text/javascript", "application/x-javascript");
+    define(ContentType.TEXT, "txt", "text/plain");
+
+    define(ContentType.XML, "xml", "text/xml");
+    define(ContentType.PDF, "pdf", "application/pdf");
+    define(ContentType.XLS, "xls", "application/vnd.ms-excel");
+    // RTF
+    define(ContentType.RTF, "rtf", "application/rtf", "text/rtf", "text/richtext", "text/enriched");
+    // images
+    define(ContentType.PNG, "png", "image/png");
+    define(ContentType.GIF, "gif", "image/gif");
+    define(ContentType.BMP, "bmp", "image/bmp");
+    define(ContentType.JPEG, "jpeg", "image/jpeg");
+  }
+
+  private static void define(final ContentType aContentType, final String aFileExtension,
+      final String... aContentTypeStrings) {
+    FILE_EXTENSIONS.put(aContentType, aFileExtension);
+    for (String tmpContentType : aContentTypeStrings) {
+      CONTENT_TYPES.put(tmpContentType, aContentType);
+    }
+  }
 
   /**
    * This class should not be instantiated.
@@ -51,30 +83,19 @@ public final class ContentTypeUtil {
 
     final WebResponse tmpWebResponse = aPage.getWebResponse();
     final String tmpContentType = tmpWebResponse.getContentType();
+    return getContentType(tmpContentType);
+  }
 
-    if ("application/pdf".equalsIgnoreCase(tmpContentType)) {
-      return ContentType.PDF;
+  /**
+   * @param aContentType The content type string.
+   * @return The content type.
+   */
+  public static ContentType getContentType(final String aContentType) {
+    final ContentType tmpContentType = CONTENT_TYPES.get(aContentType);
+    if (null == tmpContentType) {
+      return ContentType.OTHER;
     }
-
-    if ("application/vnd.ms-excel".equalsIgnoreCase(tmpContentType)) {
-      return ContentType.XLS;
-    }
-
-    // RTF
-    if ("application/rtf".equalsIgnoreCase(tmpContentType)) {
-      return ContentType.RTF;
-    }
-    if ("text/rtf".equalsIgnoreCase(tmpContentType)) {
-      return ContentType.RTF;
-    }
-    if ("text/richtext".equalsIgnoreCase(tmpContentType)) {
-      return ContentType.RTF;
-    }
-    if ("text/enriched".equalsIgnoreCase(tmpContentType)) {
-      return ContentType.RTF;
-    }
-
-    return ContentType.OTHER;
+    return tmpContentType;
   }
 
   /**
@@ -83,29 +104,27 @@ public final class ContentTypeUtil {
    */
   public static String getFileSuffix(final Page aPage) {
     final ContentType tmpContentType = getContentType(aPage);
-    String tmpResult;
+    return getFileSuffix(tmpContentType);
+  }
 
-    switch (tmpContentType) {
-      case HTML:
-        tmpResult = "html";
-        break;
-      case TEXT:
-        tmpResult = "txt";
-        break;
-      case PDF:
-        tmpResult = "pdf";
-        break;
-      case XLS:
-        tmpResult = "xls";
-        break;
-      case RTF:
-        tmpResult = "rtf";
-        break;
-      default:
-        tmpResult = "bin";
-        break;
+  /**
+   * @param aContentType The content type string.
+   * @return The file suffix.
+   */
+  public static String getFileSuffix(final String aContentType) {
+    final ContentType tmpContentType = getContentType(aContentType);
+    return getFileSuffix(tmpContentType);
+  }
+
+  /**
+   * @param aContentType The content type.
+   * @return The file suffix.
+   */
+  public static String getFileSuffix(final ContentType aContentType) {
+    final String tmpResult = FILE_EXTENSIONS.get(aContentType);
+    if (null == tmpResult) {
+      return "bin";
     }
     return tmpResult;
   }
-
 }

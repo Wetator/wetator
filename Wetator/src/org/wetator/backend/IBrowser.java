@@ -39,14 +39,28 @@ public interface IBrowser {
   public enum ContentType {
     /** html. */
     HTML,
+    /** css. */
+    CSS,
+    /** javascript. */
+    JAVASCRIPT,
     /** plain text. */
     TEXT,
+    /** xml. */
+    XML,
     /** pdf. */
     PDF,
     /** excel. */
     XLS,
     /** rtf. */
     RTF,
+    /** png. */
+    PNG,
+    /** gif. */
+    GIF,
+    /** bmp. */
+    BMP,
+    /** jpeg. */
+    JPEG,
     /** the rest. */
     OTHER
   };
