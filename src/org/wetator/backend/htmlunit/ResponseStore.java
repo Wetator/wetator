@@ -218,6 +218,12 @@ public final class ResponseStore {
         if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
           // files with really long names
           tmpFileName = "resource/" + "resource_" + getUniqueId();
+          if (null != aSuffix) {
+            tmpFileName = tmpFileName + aSuffix;
+          } else {
+            final String tmpContentType = tmpWebResponse.getContentType();
+            tmpFileName = tmpFileName + "." + ContentTypeUtil.getFileSuffix(tmpContentType);
+          }
           tmpResourceFile = new File(storeDir, tmpFileName);
         }
 
