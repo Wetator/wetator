@@ -45,6 +45,7 @@ Wetator/lib_src/poi-src-3.6-20091214.zip
 Wetator/logs/*
 /build
 /deploy
+wetator-jenkins-plugin/infinitest.filters
 wetator-jenkins-plugin/target
 wetator-jenkins-plugin/work
 /wetator.config
