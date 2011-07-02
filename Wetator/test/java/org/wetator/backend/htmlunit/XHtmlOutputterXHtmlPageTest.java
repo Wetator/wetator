@@ -31,19 +31,19 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class XHtmlOutputterXHtmlPageTest {
 
-  private static final String TRAILING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+  private static final String LEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
-  private static final String LEADING = "\n</html>\n";
+  private static final String TRAILING = "\n</html>\n";
 
-  private static final String EXPECTED_TRAILING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
+  private static final String EXPECTED_LEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> ";
-  private static final String EXPECTED_LEADING = " </html>";
+  private static final String EXPECTED_TRAILING = " </html>";
 
   @Test
   public void testSimple() throws IOException {
-    String tmpXHtmlCode = TRAILING + LEADING;
+    String tmpXHtmlCode = LEADING + TRAILING;
     HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
 
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
@@ -51,21 +51,21 @@ public class XHtmlOutputterXHtmlPageTest {
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    String tmpExpected = EXPECTED_TRAILING + "<body> </body>" + EXPECTED_LEADING;
+    String tmpExpected = EXPECTED_LEADING + "<body> </body>" + EXPECTED_TRAILING;
     Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
   public void testSimpleWithJavascript() throws IOException {
-    String tmpXHtmlCode = TRAILING + "<body><h1>Test</h1>"
-        + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + LEADING;
+    String tmpXHtmlCode = LEADING + "<body><h1>Test</h1>"
+        + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + TRAILING;
 
     HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    String tmpExpected = EXPECTED_TRAILING + "<head> </head> <body> <h1>Test</h1> </body>" + EXPECTED_LEADING;
+    String tmpExpected = EXPECTED_LEADING + "<head> </head> <body> <h1>Test</h1> </body>" + EXPECTED_TRAILING;
     Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 }
