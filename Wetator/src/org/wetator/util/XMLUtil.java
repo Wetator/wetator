@@ -184,6 +184,12 @@ public class XMLUtil {
         tmpResult.append("&quot;");
         i++;
         break;
+      } else if (!charsetEncoder.canEncode(tmpChar)) {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&#" + (int) tmpChar);
+        tmpResult.append(";");
+        i++;
+        break;
       }
     }
 
@@ -215,7 +221,12 @@ public class XMLUtil {
           }
 
           default: {
-            tmpResult.append(tmpChar);
+            if (charsetEncoder.canEncode(tmpChar)) {
+              tmpResult.append(tmpChar);
+            } else {
+              tmpResult.append("&#" + (int) tmpChar);
+              tmpResult.append(";");
+            }
           }
         }
       }
