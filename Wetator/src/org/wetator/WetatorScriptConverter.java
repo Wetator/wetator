@@ -38,6 +38,7 @@ import org.wetator.scripter.XMLScripter;
  * 
  * @author tobwoerk
  * @author frank.danek
+ * @author rbri
  */
 public final class WetatorScriptConverter {
 
@@ -55,22 +56,23 @@ public final class WetatorScriptConverter {
    *        the command line arguments
    */
   public static void main(final String[] anArgsArray) {
-    LOG.info(Version.getFullProductName());
-    LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
+    System.out.println(Version.getFullProductName());
+    System.out.println("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
     if (null == anArgsArray || anArgsArray.length < 3) {
       System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)");
       System.err.println("example1: xls xml /Users/me/tests");
       System.err.println("example2: xls xml /Users/me/tests SYSTEM testcase.dtd");
+      System.err.println("example1: xls legacy_xml /Users/me/tests");
       System.exit(1);
       return;
     }
     final String tmpScripterType = anArgsArray[0];
     final String tmpScriptCreatorType = anArgsArray[1];
     final String tmpOutputDir = anArgsArray[2];
-    LOG.info("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType
-        + " and output directory '" + tmpOutputDir + "'.");
+    System.out.println("Starting converter using scripter '" + tmpScripterType + "', script creator '"
+        + tmpScriptCreatorType + "' and output directory '" + tmpOutputDir + "'.");
 
     final WetatorScriptConverter tmpConverter = new WetatorScriptConverter();
     try {
@@ -95,9 +97,9 @@ public final class WetatorScriptConverter {
         tmpConverter.addTestFile(tmpFiles[i]);
       }
 
-      LOG.info("Begin converting...");
+      System.out.println("Begin converting...");
       tmpConverter.convert();
-      LOG.info("Converting successfully completed.");
+      System.out.println("Converting successfully completed.");
     } catch (final WetatorException e) {
       e.printStackTrace();
       System.exit(1);
@@ -117,7 +119,7 @@ public final class WetatorScriptConverter {
    */
   public void convert() throws WetatorException {
     for (File tmpInputFile : inputFiles) {
-      LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
+      System.out.print("    Converting '" + tmpInputFile.getAbsolutePath() + "'...");
       scripter.script(tmpInputFile);
       final List<Command> tmpCommands = scripter.getCommands();
 
@@ -125,7 +127,7 @@ public final class WetatorScriptConverter {
       creator.setFileName(tmpFileName);
       creator.setCommands(tmpCommands);
       creator.createScript();
-      LOG.trace("Converted '" + tmpInputFile.getAbsolutePath() + "'...");
+      System.out.println(" done");
     }
   }
 
