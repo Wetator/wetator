@@ -177,6 +177,7 @@ test/java/org/wetator/backend/htmlunit/AllTests.java -text
 test/java/org/wetator/backend/htmlunit/HtmlUnitControlRepositoryTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
 test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
+test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/control/AllTests.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text

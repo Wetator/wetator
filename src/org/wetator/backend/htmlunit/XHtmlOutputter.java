@@ -256,7 +256,7 @@ public final class XHtmlOutputter {
         output.println(">");
       }
     } else if (aDomNode instanceof DomText) {
-      String tmpText = aDomNode.asText();
+      String tmpText = ((DomText) aDomNode).getData();
       if (StringUtils.isEmpty(tmpText)) {
         output.print(tmpText);
       } else {
