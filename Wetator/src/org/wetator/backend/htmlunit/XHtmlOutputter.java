@@ -179,7 +179,7 @@ public final class XHtmlOutputter {
    */
   public void writeTo(final Writer aWriter) throws IOException {
     try {
-      String tmpEncoding = determineEncoding();
+      final String tmpEncoding = determineEncoding();
       xMLUtil = new XMLUtil(tmpEncoding);
       output = new Output(aWriter, "  ");
 
@@ -196,7 +196,7 @@ public final class XHtmlOutputter {
   }
 
   private String determineEncoding() {
-    String tmpEncoding = htmlPage.getPageEncoding();
+    final String tmpEncoding = htmlPage.getPageEncoding();
     if (StringUtils.isBlank(tmpEncoding)) {
       return "UTF-8";
     }
