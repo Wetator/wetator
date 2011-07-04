@@ -33,6 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author rbri
  */
 public final class ContentTypeUtil {
+  @SuppressWarnings("unchecked")
   private static final Map<String, ContentType> CONTENT_TYPES = new CaseInsensitiveMap();
   private static final Map<ContentType, String> FILE_EXTENSIONS = new HashMap<ContentType, String>();
 
