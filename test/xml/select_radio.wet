@@ -1,94 +1,95 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
-    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>not found</step>
-    <tst:step command='Assert_Fail'>Select, No selectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton with name</step>
-    <step command='' comment='true'>not possible</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton with id</step>
-    <step command='Select'>radioId2</step>
-    <step command='Click_On'>RadioButtonIdTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonIdTest OK radioButton_Id r_value2 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton with default selection</step>
-    <step command='Select'>radioIdValue1</step>
-    <step command='Click_On'>RadioButtonIdValueTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonIdValueTest OK radioButton_IdValue r_value1 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by label with for attribute</step>
-    <step command='Select'>Radio2 LabelFor</step>
-    <step command='Click_On'>RadioButtonLabelForTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLabelForTest OK radioButton_LabelFor r_value2 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by by surrounding label</step>
-    <step command='Select'>Radio1 surrounding Label</step>
-    <step command='Click_On'>RadioButtonSurroundingLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonSurroundingLabelTest OK radioButton_SurroundingLabel r_value1 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by layout directly after</step>
-    <step command='Select'>RadioButton1 LayoutLabel after</step>
-    <step command='Click_On'>RadioButtonLayoutAfterTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutAfterTest OK radioButton_LayoutAfter r_value1 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by layout directly after formated</step>
-    <step command='Select'>RadioButton2 LayoutLabel after formated</step>
-    <step command='Click_On'>RadioButtonLayoutAfterFormatedTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutAfterFormatedTest OK radioButton_LayoutFormatedAfter r_value2 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by layout at right</step>
-    <step command='Select'>RadioButton1 LayoutLabel at right</step>
-    <step command='Click_On'>RadioButtonLayoutRightTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutRightTest OK radioButton_LayoutRight r_value1 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>RadioButton identified by layout at right formated</step>
-    <step command='Select'>RadioButton2 LayoutLabel right formated</step>
-    <step command='Click_On'>RadioButtonLayoutRightFormatedTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutRightFormatedTest OK radioButton_LayoutRightFormated r_value2 POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>Disabled RadioButton</step>
-    <tst:step command='Assert_Fail'>Select, The html element [HtmlRadioButtonInput 'r_value' (id='radioButton_Disabled') (name='radioButton_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled RadioButton</tst:optionalParameter></tst:step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, No selectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton with name</comment>
+    <comment>not possible</comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton with id</comment>
+    <command><d:select><d:wpath>radioId2</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonIdTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonIdTest OK radioButton_Id r_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton with default selection</comment>
+    <command><d:select><d:wpath>radioIdValue1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonIdValueTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonIdValueTest OK radioButton_IdValue r_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton identified by label with for attribute</comment>
+    <command><d:select><d:wpath>Radio2 LabelFor</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonLabelForTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonLabelForTest OK radioButton_LabelFor r_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton identified by by surrounding label</comment>
+    <command><d:select><d:wpath>Radio1 surrounding Label</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonSurroundingLabelTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonSurroundingLabelTest OK radioButton_SurroundingLabel r_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton identified by layout directly after</comment>
+    <command><d:select><d:wpath>RadioButton1 LayoutLabel after</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonLayoutAfterTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonLayoutAfterTest OK radioButton_LayoutAfter r_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton identified by layout directly after formated</comment>
+    <command><d:select><d:wpath>RadioButton2 LayoutLabel after formated</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonLayoutAfterFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonLayoutAfterFormatedTest OK radioButton_LayoutFormatedAfter r_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton identified by layout at right</comment>
+    <command><d:select><d:wpath>RadioButton1 LayoutLabel at right</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonLayoutRightTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonLayoutRightTest OK radioButton_LayoutRight r_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>RadioButton identified by layout at right formated</comment>
+    <command><d:select><d:wpath>RadioButton2 LayoutLabel right formated</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonLayoutRightFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonLayoutRightFormatedTest OK radioButton_LayoutRightFormated r_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>Disabled RadioButton</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlRadioButtonInput 'r_value' (id='radioButton_Disabled') (name='radioButton_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled RadioButton</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+</test-case>
