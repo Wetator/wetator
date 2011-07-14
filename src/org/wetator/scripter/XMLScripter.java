@@ -18,10 +18,14 @@ package org.wetator.scripter;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -49,7 +53,7 @@ import org.wetator.scripter.xml.model.ParameterType;
 
 /**
  * Scripter for XML files using the new test XSDs.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -85,7 +89,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
@@ -95,7 +99,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
@@ -108,7 +112,7 @@ public class XMLScripter implements IScripter {
 
     // now check the content
     try {
-      return isSupported(new FileReader(aFile));
+      return isSupported(createUTF8Reader(aFile));
     } catch (final IOException e) {
       throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
@@ -116,7 +120,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * This method is used by the WTE.
-   * 
+   *
    * @param aContent the content to check
    * @return true if this scripter is able to handle this content otherwise false
    */
@@ -170,13 +174,13 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
   public void script(final File aFile) throws WetatorException {
     try {
-      Reader tmpReader = new FileReader(aFile);
+      Reader tmpReader = createUTF8Reader(aFile);
       List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
       try {
         tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
@@ -194,7 +198,7 @@ public class XMLScripter implements IScripter {
 
       model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
 
-      tmpReader = new FileReader(aFile);
+      tmpReader = createUTF8Reader(aFile);
       try {
         commands = parseScript(tmpReader);
       } finally {
@@ -212,7 +216,7 @@ public class XMLScripter implements IScripter {
   /**
    * Scripts the given content by reading all commands.<br/>
    * This method is used by the WTE.
-   * 
+   *
    * @param aContent the content
    * @param aDirectory the directory to search for schema files; may be null
    * @throws WetatorException in case of error
@@ -378,9 +382,13 @@ public class XMLScripter implements IScripter {
     return tmpResult;
   }
 
+  private Reader createUTF8Reader(final File aFile) throws UnsupportedEncodingException, FileNotFoundException {
+    return new InputStreamReader(new FileInputStream(aFile), "UTF-8");
+  }
+
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#getCommands()
    */
   @Override
