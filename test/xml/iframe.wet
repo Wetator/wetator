@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd'>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>iframe.html</step>
-    <step command='Assert_Title'>Wetator / IFrame Test</step>
-    <step command='Assert_Content'>Wetator Wetator / IFrame Test Start content Wetator / IFrame-Set Test InputText Label OK Content after iframe_set.html iframe</step>
-    <step command='' comment='true'>Access a control inside the iframe</step>
-    <step command='Set'>InputText Label<optionalParameter>in iframe</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>GET Parameters Key Value InputTextTest OK POST</step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <comment></comment>
+    <command><d:open-url><d:url>iframe.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / IFrame Test</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>Wetator Wetator / IFrame Test Start content Wetator / IFrame-Set Test InputText Label OK Content after iframe_set.html iframe</d:content></d:assert-content></command>
+    <comment>Access a control inside the iframe</comment>
+    <command><d:set><d:wpath>InputText Label</d:wpath><d:value>in iframe</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value InputTextTest OK POST</d:content></d:assert-content></command>
+</test-case>

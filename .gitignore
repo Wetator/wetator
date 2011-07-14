@@ -43,3 +43,4 @@ lib_src/org.apache.poi
 lib_src/pdfbox-1.1.0-src.zip
 lib_src/poi-src-3.6-20091214.zip
 logs/*
+/wetator.config
