@@ -1,110 +1,111 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
-    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>not found</step>
-    <tst:step command='Assert_Fail'>Select, No selectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox with name</step>
-    <step command='Select'>checkBox_Name</step>
-    <step command='Click_On'>CheckBoxNameTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxNameTest OK checkBox_Name check_Name POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox with id</step>
-    <step command='Select'>checkBox_Id</step>
-    <step command='Click_On'>CheckBoxIdTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxIdTest OK checkBoxId_Name check_Id POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox with default selection</step>
-    <step command='Select'>checkBox_NameChecked</step>
-    <step command='Click_On'>CheckBoxNameValueTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxNameValueTest OK checkBox_NameChecked check_Checked POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by label with for attribute</step>
-    <step command='Select'>CheckBox Label with For</step>
-    <step command='Click_On'>CheckBoxLabelForTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLabelForTest OK checkBox_LabelFor check_LabelFor POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified identified by surrounding label</step>
-    <step command='Select'>CheckBox surrounding Label</step>
-    <step command='Click_On'>CheckBoxSurroundingLabelTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxSurroundingLabelTest OK checkBox_SurroundingLabel check_SurroundingLabel POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by layout directly after</step>
-    <step command='Select'>CheckBox LayoutLabel after</step>
-    <step command='Click_On'>CheckBoxLayoutAfterTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutAfterTest OK checkBox_LayoutAfter check_LayoutAfter POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by layout directly after formated</step>
-    <step command='Select'>CheckBox LayoutLabel after formated</step>
-    <step command='Click_On'>CheckBoxLayoutAfterFormatedTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutAfterFormatedTest OK checkBox_LayoutAfterFormated check_LayoutAfterFormated POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by layout at bottom</step>
-    <step command='Select'>CheckBox LayoutLabel at bottom</step>
-    <step command='Click_On'>CheckBoxLayoutBottomTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutBottomTest OK checkBox_LayoutBottom check_LayoutBottom POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by layout at bottom formated</step>
-    <step command='Select'>CheckBox LayoutLabel at bottom formated</step>
-    <step command='Click_On'>CheckBoxLayoutBottomFormatedTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutBottomFormatedTest OK checkBox_LayoutBottomFormated check_LayoutBottomFormated POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by layout at right</step>
-    <step command='Select'>CheckBox LayoutLabel at right</step>
-    <step command='Click_On'>CheckBoxLayoutRightTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutRightTest OK checkBox_LayoutRight check_LayoutRight POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>CheckBox identified by layout at right formated</step>
-    <step command='Select'>CheckBox LayoutLabel at right formated</step>
-    <step command='Click_On'>CheckBoxLayoutRightFormatedTest</step>
-    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutRightFormatedTest OK checkBox_LayoutRightFormated check_LayoutRightFormated POST</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>select.html</step>
-    <step command='Assert_Title'>Wetator / Select</step>
-    <step command='' comment='true'>Disabled CheckBox</step>
-    <tst:step command='Assert_Fail'>Select, The html element [HtmlCheckBoxInput (id='checkBox_Disabled') (name='checkBox_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled CheckBox</tst:optionalParameter></tst:step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, No selectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox with name</comment>
+    <command><d:select><d:wpath>checkBox_Name</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxNameTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxNameTest OK checkBox_Name check_Name POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox with id</comment>
+    <command><d:select><d:wpath>checkBox_Id</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxIdTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxIdTest OK checkBoxId_Name check_Id POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox with default selection</comment>
+    <command><d:select><d:wpath>checkBox_NameChecked</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxNameValueTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxNameValueTest OK checkBox_NameChecked check_Checked POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by label with for attribute</comment>
+    <command><d:select><d:wpath>CheckBox Label with For</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLabelForTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLabelForTest OK checkBox_LabelFor check_LabelFor POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified identified by surrounding label</comment>
+    <command><d:select><d:wpath>CheckBox surrounding Label</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxSurroundingLabelTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxSurroundingLabelTest OK checkBox_SurroundingLabel check_SurroundingLabel POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout directly after</comment>
+    <command><d:select><d:wpath>CheckBox LayoutLabel after</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutAfterTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutAfterTest OK checkBox_LayoutAfter check_LayoutAfter POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout directly after formated</comment>
+    <command><d:select><d:wpath>CheckBox LayoutLabel after formated</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutAfterFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutAfterFormatedTest OK checkBox_LayoutAfterFormated check_LayoutAfterFormated POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at bottom</comment>
+    <command><d:select><d:wpath>CheckBox LayoutLabel at bottom</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutBottomTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutBottomTest OK checkBox_LayoutBottom check_LayoutBottom POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at bottom formated</comment>
+    <command><d:select><d:wpath>CheckBox LayoutLabel at bottom formated</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutBottomFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutBottomFormatedTest OK checkBox_LayoutBottomFormated check_LayoutBottomFormated POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at right</comment>
+    <command><d:select><d:wpath>CheckBox LayoutLabel at right</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutRightTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutRightTest OK checkBox_LayoutRight check_LayoutRight POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at right formated</comment>
+    <command><d:select><d:wpath>CheckBox LayoutLabel at right formated</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutRightFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutRightFormatedTest OK checkBox_LayoutRightFormated check_LayoutRightFormated POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>Disabled CheckBox</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlCheckBoxInput (id='checkBox_Disabled') (name='checkBox_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled CheckBox</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+</test-case>

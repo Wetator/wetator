@@ -1,117 +1,118 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>simple submit</step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set input text</step>
-    <step command='Set'>InputText<optionalParameter>i</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace onKeyDown(inputText); onKeyPress(inputText); onKeyUp(inputText); OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set input password</step>
-    <step command='Set'>InputPassword<optionalParameter>i</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace onKeyDown(inputPassword); onKeyPress(inputPassword); onKeyUp(inputPassword); OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set textarea</step>
-    <step command='Set'>Textarea<optionalParameter>i</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace onKeyDown(textarea); onKeyPress(textarea); onKeyUp(textarea); OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set file upload</step>
-    <step command='Set'>Upload<optionalParameter>misc_files/test_file.txt</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='' comment='true'>not onKey event; this is the same the browser does</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>select single select</step>
-    <step command='Select'>SingleSelect, option2</step>
-    <step command='Click_On'>OK</step>
-    <step command='' comment='true'>not onKey event; this is the same the browser does</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>select multiple select</step>
-    <step command='Select'>MultipleSelect, option2</step>
-    <step command='Select'>MultipleSelect, option1</step>
-    <step command='Click_On'>OK</step>
-    <step command='' comment='true'>not onKey event; this is the same the browser does</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>select checkbox</step>
-    <step command='Select'>Checkbox</step>
-    <step command='Click_On'>OK</step>
-    <step command='' comment='true'>not onKey event; this is the same the browser does</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>select ratio button</step>
-    <step command='Select'>Radio1</step>
-    <step command='Click_On'>OK</step>
-    <step command='' comment='true'>not onKey event; this is the same the browser does</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set input text with default</step>
-    <step command='Set'>InputText with default<optionalParameter>i</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace onKeyDown(inputTextDefault); onKeyPress(inputTextDefault); onKeyUp(inputTextDefault); OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set input password with default</step>
-    <step command='Set'>InputPassword with default<optionalParameter>i</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace onKeyDown(inputPasswordDefault); onKeyPress(inputPasswordDefault); onKeyUp(inputPasswordDefault); OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set textarea with default</step>
-    <step command='Set'>Textarea with default<optionalParameter>i</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='Assert_Content'>Key Value eventTrace onKeyDown(textareaDefault); onKeyPress(textareaDefault); onKeyUp(textareaDefault); OnKeyTest OK</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>onkey.html</step>
-    <step command='Assert_Title'>Wetator / OnKey</step>
-    <step command='' comment='true'>set file upload with default</step>
-    <step command='Set'>Upload with default<optionalParameter>misc_files/test_file.txt</optionalParameter></step>
-    <step command='Click_On'>OK</step>
-    <step command='' comment='true'>not onKey event; this is the same the browser does</step>
-    <step command='Assert_Content'>Key Value eventTrace OnKeyTest OK</step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>simple submit</comment>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set input text</comment>
+    <command><d:set><d:wpath>InputText</d:wpath><d:value>i</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace onKeyDown(inputText); onKeyPress(inputText); onKeyUp(inputText); OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set input password</comment>
+    <command><d:set><d:wpath>InputPassword</d:wpath><d:value>i</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace onKeyDown(inputPassword); onKeyPress(inputPassword); onKeyUp(inputPassword); OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set textarea</comment>
+    <command><d:set><d:wpath>Textarea</d:wpath><d:value>i</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace onKeyDown(textarea); onKeyPress(textarea); onKeyUp(textarea); OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set file upload</comment>
+    <command><d:set><d:wpath>Upload</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <comment>not onKey event; this is the same the browser does</comment>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>select single select</comment>
+    <command><d:select><d:wpath>SingleSelect, option2</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <comment>not onKey event; this is the same the browser does</comment>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>select multiple select</comment>
+    <command><d:select><d:wpath>MultipleSelect, option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <comment>not onKey event; this is the same the browser does</comment>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>select checkbox</comment>
+    <command><d:select><d:wpath>Checkbox</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <comment>not onKey event; this is the same the browser does</comment>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>select ratio button</comment>
+    <command><d:select><d:wpath>Radio1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <comment>not onKey event; this is the same the browser does</comment>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set input text with default</comment>
+    <command><d:set><d:wpath>InputText with default</d:wpath><d:value>i</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace onKeyDown(inputTextDefault); onKeyPress(inputTextDefault); onKeyUp(inputTextDefault); OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set input password with default</comment>
+    <command><d:set><d:wpath>InputPassword with default</d:wpath><d:value>i</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace onKeyDown(inputPasswordDefault); onKeyPress(inputPasswordDefault); onKeyUp(inputPasswordDefault); OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set textarea with default</comment>
+    <command><d:set><d:wpath>Textarea with default</d:wpath><d:value>i</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value eventTrace onKeyDown(textareaDefault); onKeyPress(textareaDefault); onKeyUp(textareaDefault); OnKeyTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
+    <comment>set file upload with default</comment>
+    <command><d:set><d:wpath>Upload with default</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
+    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
+    <comment>not onKey event; this is the same the browser does</comment>
+    <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
+</test-case>
