@@ -1,106 +1,107 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
-    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>not found</step>
-    <tst:step command='Assert_Fail'>Assert Selected, No selectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect with name</step>
-    <step command='Assert_Selected'>multipleSelect_Name[], option1</step>
-    <step command='Assert_Selected'>multipleSelect_Name[], option2</step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelectOptGroup with name</step>
-    <step command='Assert_Selected'>multipleSelectOptgroup_Name[], blue</step>
-    <step command='Assert_Selected'>multipleSelectOptgroup_Name[], value1</step>
-    <step command='Assert_Selected'>multipleSelectOptgroup_Name[], value2</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect with id</step>
-    <step command='Assert_Selected'>multipleSelect_Id[], option2</step>
-    <step command='Assert_Selected'>multipleSelect_Id[], option3</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by label with for attribute</step>
-    <step command='Assert_Selected'>MultipleSelect Label, option3</step>
-    <step command='Assert_Selected'>MultipleSelect Label, option4</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by surrounding label</step>
-    <step command='Assert_Selected'>MultipleSelect surrounding Label, option1</step>
-    <step command='Assert_Selected'>MultipleSelect surrounding Label, option3</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by layout directly before</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel before, option1</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel before, option4</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by layout directly before formated</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel before formated, option1</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel before formated, option3</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by layout at top</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at top, option2</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at top, option4</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by layout at top formated</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at top formated, option1</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at top formated, option4</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by layout at left</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at left, option2</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at left, option3</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>MultipleSelect identified by layout at left formated</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at left formated, option2</step>
-    <step command='Assert_Selected'>MultipleSelect LayoutLabel at left formated, option4</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>Disabled MultipleSelect</step>
-    <step command='Assert_Selected'>Disabled MultipleSelect, option1</step>
-    <step command='Assert_Selected'>Disabled MultipleSelect, option4</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='Open_Url'>assert_selected.html</step>
-    <step command='Assert_Title'>Wetator / Assert Selected</step>
-    <step command='' comment='true'>Disabled MultipleSelect Option</step>
-    <step command='Assert_Selected'>Disabled MultipleSelect Option, option2</step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-    <step command='' comment='true'></step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Selected, No selectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect with name</comment>
+    <command><d:assert-selected><d:wpath>multipleSelect_Name[], option1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>multipleSelect_Name[], option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelectOptGroup with name</comment>
+    <command><d:assert-selected><d:wpath>multipleSelectOptgroup_Name[], blue</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>multipleSelectOptgroup_Name[], value1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>multipleSelectOptgroup_Name[], value2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect with id</comment>
+    <command><d:assert-selected><d:wpath>multipleSelect_Id[], option2</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>multipleSelect_Id[], option3</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by label with for attribute</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect Label, option3</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect Label, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by surrounding label</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect surrounding Label, option1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect surrounding Label, option3</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout directly before</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel before, option1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel before, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout directly before formated</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel before formated, option1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel before formated, option3</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at top</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at top, option2</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at top, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at top formated</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at top formated, option1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at top formated, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at left</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at left, option2</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at left, option3</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at left formated</comment>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at left formated, option2</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>MultipleSelect LayoutLabel at left formated, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>Disabled MultipleSelect</comment>
+    <command><d:assert-selected><d:wpath>Disabled MultipleSelect, option1</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>Disabled MultipleSelect, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>Disabled MultipleSelect Option</comment>
+    <command><d:assert-selected><d:wpath>Disabled MultipleSelect Option, option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+</test-case>

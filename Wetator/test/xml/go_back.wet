@@ -1,22 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
-    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
-    <step command='Open_Url'>simple_login.html</step>
-    <step command='Assert_Title'>Wetator / Simple Login</step>
-    <step command='' comment='true'>set fields by label and press the button</step>
-    <step command='Set'>User:<optionalParameter>WeT</optionalParameter></step>
-    <step command='Set'>Password:<optionalParameter>tew</optionalParameter></step>
-    <step command='Click_On'>Login</step>
-    <step command='Assert_Title'>Wetator / Request Snoopy</step>
-    <step command='Assert_Content'>POST Parameters, Key, Value, password, tew, userid, WeT</step>
-    <step command='' comment='true'>now we are going back</step>
-    <step command='Go_Back'></step>
-    <step command='Assert_Title'>Wetator / Simple Login</step>
-    <step command='Assert_Set' comment='true'>User:<optionalParameter>WeT</optionalParameter></step>
-    <step command='Set' comment='true'>Password:</step>
-    <tst:step command='Assert_Fail'>Go Back, Walking trough the history failed (steps: 1 currentPos: -1 historySize: 2).</tst:step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>simple_login.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Simple Login</d:title></d:assert-title></command>
+    <comment>set fields by label and press the button</comment>
+    <command><d:set><d:wpath>User:</d:wpath><d:value>WeT</d:value></d:set></command>
+    <command><d:set><d:wpath>Password:</d:wpath><d:value>tew</d:value></d:set></command>
+    <command><d:click-on><d:wpath>Login</d:wpath></d:click-on></command>
+    <command><d:assert-title><d:title>Wetator / Request Snoopy</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>POST Parameters, Key, Value, password, tew, userid, WeT</d:content></d:assert-content></command>
+    <comment>now we are going back</comment>
+    <command><d:go-back></d:go-back></command>
+    <command><d:assert-title><d:title>Wetator / Simple Login</d:title></d:assert-title></command>
+    <command disabled="true"><d:assert-set><d:wpath>User:</d:wpath><d:value>WeT</d:value></d:assert-set></command>
+    <command disabled="true"><d:set><d:wpath>Password:</d:wpath></d:set></command>
+    <command><tst:assert-fail><tst:command-and-message>Go Back, Walking trough the history failed (steps: 1 currentPos: -1 historySize: 2).</tst:command-and-message></tst:assert-fail></command>
+</test-case>

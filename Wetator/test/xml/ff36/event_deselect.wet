@@ -1,30 +1,31 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<testcase
-    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
-    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
-    <step command='Open_Url'>event_handler.html</step>
-    <step command='Assert_Title'>Wetator / Event Handler</step>
-    <step command='' comment='true'>Deselect for enabled elements</step>
-    <step command='Click_On'>Clear</step>
-    <tst:step command='Assert_Fail'>Deselect, The html element [HtmlOption 'option1' (id='singleSelect_o_value1') part of [HtmlSelect (id='singleSelect') (name='singleSelect')]] does not support the deselect operation.<tst:optionalParameter>SingleSelect, option1</tst:optionalParameter></tst:step>
-    <step command='Assert_Content'>Handler OK</step>
-    <step command='Click_On'>Clear</step>
-    <step command='Deselect'>MultipleSelect, option1</step>
-    <step command='Assert_Content'>Handler mousedown [multipleSelect_o_value1] [1] focus [multipleSelect] [-] mouseup [multipleSelect_o_value1] [1] change [multipleSelect] [-] click [multipleSelect_o_value1] [1] OK</step>
-    <step command='Click_On'>Clear</step>
-    <step command='Deselect'>Checkbox</step>
-    <step command='Assert_Content'>Handler mousedown [checkbox] [1] focus [checkbox] [-] mouseup [checkbox] [1] click [checkbox] [1] change [checkbox] [-] OK</step>
-    <step command='' comment='true'>Deselect for disabled elements</step>
-    <step command='Click_On'>Clear</step>
-    <tst:step command='Assert_Fail'>Deselect, The html element [HtmlOption 'option1' (id='singleSelectDisabled_o_value1') part of [HtmlSelect (id='singleSelectDisabled') (name='singleSelectDisabled')]] does not support the deselect operation.<tst:optionalParameter>singleSelectDisabled_o_value1</tst:optionalParameter></tst:step>
-    <step command='Assert_Content'>Handler OK</step>
-    <step command='Click_On'>Clear</step>
-    <tst:step command='Assert_Fail'>Deselect, The html element [HtmlOption 'option1' (id='multipleSelectDisabled_o_value1') part of [HtmlSelect (id='multipleSelectDisabled') (name='multipleSelectDisabled')]] is disabled. Setting a value is not possible.<tst:optionalParameter>multipleSelectDisabled_o_value1</tst:optionalParameter></tst:step>
-    <step command='Assert_Content'>Handler OK</step>
-    <step command='Click_On'>Clear</step>
-    <tst:step command='Assert_Fail'>Deselect, The html element [HtmlCheckBoxInput (id='checkboxDisabled') (name='checkboxDisabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>checkboxDisabled</tst:optionalParameter></tst:step>
-    <step command='Assert_Content'>Handler OK</step>
-</testcase>
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>event_handler.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
+    <comment>Deselect for enabled elements</comment>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, The html element [HtmlOption 'option1' (id='singleSelect_o_value1') part of [HtmlSelect (id='singleSelect') (name='singleSelect')]] does not support the deselect operation.</tst:command-and-message><tst:parameter1>SingleSelect, option1</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:deselect><d:wpath>MultipleSelect, option1</d:wpath></d:deselect></command>
+    <command><d:assert-content><d:content>Handler mousedown [multipleSelect_o_value1] [1] focus [multipleSelect] [-] mouseup [multipleSelect_o_value1] [1] change [multipleSelect] [-] click [multipleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:deselect><d:wpath>Checkbox</d:wpath></d:deselect></command>
+    <command><d:assert-content><d:content>Handler mousedown [checkbox] [1] focus [checkbox] [-] mouseup [checkbox] [1] click [checkbox] [1] change [checkbox] [-] OK</d:content></d:assert-content></command>
+    <comment>Deselect for disabled elements</comment>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, The html element [HtmlOption 'option1' (id='singleSelectDisabled_o_value1') part of [HtmlSelect (id='singleSelectDisabled') (name='singleSelectDisabled')]] does not support the deselect operation.</tst:command-and-message><tst:parameter1>singleSelectDisabled_o_value1</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, The html element [HtmlOption 'option1' (id='multipleSelectDisabled_o_value1') part of [HtmlSelect (id='multipleSelectDisabled') (name='multipleSelectDisabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>multipleSelectDisabled_o_value1</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, The html element [HtmlCheckBoxInput (id='checkboxDisabled') (name='checkboxDisabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>checkboxDisabled</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+</test-case>

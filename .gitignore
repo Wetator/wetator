@@ -43,6 +43,7 @@ Wetator/lib_src/org.apache.poi
 Wetator/lib_src/pdfbox-1.1.0-src.zip
 Wetator/lib_src/poi-src-3.6-20091214.zip
 Wetator/logs/*
+Wetator/wetator.config
 /build
 /deploy
 wetator-jenkins-plugin/infinitest.filters
