@@ -1,20 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
-    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <comment>now the javascript game</comment>
-    <command><d:open-url><d:url>anchor_inside_page.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Anchor Inside Page</d:title></d:assert-title></command>
-    <command><d:click-on><d:wpath>open popup and jump to 'Chapter 1'</d:wpath></d:click-on></command>
-    <command><d:close-window></d:close-window></command>
-    <comment>unknown anchor</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No id/anchor found for ref 'chapter3'.</tst:command-and-message><tst:parameter1>open popup and jump to non existing anchor</tst:parameter1></tst:assert-fail></command>
-    <command><d:close-window></d:close-window></command>
-    <comment>duplicate anchor</comment>
-    <command><d:click-on><d:wpath>open popup and jump to duplicate anchor</d:wpath></d:click-on></command>
-    <command><d:close-window></d:close-window></command>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='' comment='true'>now the javascript game</step>
+    <step command='Open_Url'>anchor_inside_page.html</step>
+    <step command='Assert_Title'>Wetator / Anchor Inside Page</step>
+    <step command='Click_On'>open popup and jump to 'Chapter 1'</step>
+    <step command='Close_Window'></step>
+    <step command='' comment='true'>unknown anchor</step>
+    <tst:step command='Assert_Fail'>Click On, No id/anchor found for ref 'chapter3'.<tst:optionalParameter>open popup and jump to non existing anchor</tst:optionalParameter></tst:step>
+    <step command='Close_Window'></step>
+    <step command='' comment='true'>duplicate anchor</step>
+    <step command='Click_On'>open popup and jump to duplicate anchor</step>
+    <step command='Close_Window'></step>
+</testcase>

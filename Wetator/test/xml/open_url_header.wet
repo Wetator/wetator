@@ -1,12 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <comment>redirect via http header</comment>
-    <command><d:open-url><d:url>snoopy.php</d:url></d:open-url></command>
-    <command><d:assert-content><d:content>Headers, Accept-Language, en-us\,en;q=0.8\,de-de;q=0.5\,de;q=0.3</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>User-Agent, Mozilla</d:content></d:assert-content></command>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='' comment='true'>redirect via http header</step>
+    <step command='Open_Url'>snoopy.php</step>
+    <step command='Assert_Content'>Headers, Accept-Language, en-us\,en;q=0.8\,de-de;q=0.5\,de;q=0.3</step>
+    <step command='Assert_Content'>User-Agent, Mozilla</step>
+</testcase>

@@ -1,59 +1,58 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
-    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <comment></comment>
-    <command><d:open-url><d:url>mouse_over_after.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Mouse Over After</d:title></d:assert-title></command>
-    <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
-    <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Click after this text, Gurkensalat</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_plaintext_after_name, Submit</d:content></d:assert-content></command>
-    <comment></comment>
-    <command><d:open-url><d:url>mouse_over_after.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Mouse Over After</d:title></d:assert-title></command>
-    <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Click after this formated text, Gurkensalat</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_plaintext_after_name, Submit</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>mouse_over_after.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
-    <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
-    <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Click after this text, xt is style</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_formatedtext_after_name, Submit</d:content></d:assert-content></command>
-    <comment></comment>
-    <command><d:open-url><d:url>mouse_over_after.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
-    <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Click after this formated text, xt is style</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_formatedtext_after_name, Submit</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>mouse_over_after.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
-    <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
-    <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Click after this text, Button will go away</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_timeout_after_name, Submit</d:content></d:assert-content></command>
-    <comment></comment>
-    <command><d:open-url><d:url>mouse_over_after.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
-    <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Click after this formated text, Button will go away</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_timeout_after_name, Submit</d:content></d:assert-content></command>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>mouse_over_after.html</step>
+    <step command='Assert_Title'>Wetator / Mouse Over After</step>
+    <step command='' comment='true'>button is not visible</step>
+    <tst:step command='Assert_Fail'>Click On, No clickable html element found for 'Submit'.<tst:optionalParameter>Submit</tst:optionalParameter></tst:step>
+    <step command='' comment='true'>move mouse over the button</step>
+    <step command='Mouse_Over'>Click after this text, Gurkensalat</step>
+    <step command='Click_On'>Submit</step>
+    <step command='Assert_Content'>GET Parameters, Key, Value, b_plaintext_after_name, Submit</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>mouse_over_after.html</step>
+    <step command='Assert_Title'>Wetator / Mouse Over After</step>
+    <step command='' comment='true'>move mouse over the button</step>
+    <step command='Mouse_Over'>Click after this formated text, Gurkensalat</step>
+    <step command='Click_On'>Submit</step>
+    <step command='Assert_Content'>GET Parameters, Key, Value, b_plaintext_after_name, Submit</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>mouse_over_after.html</step>
+    <step command='Assert_Title'>Wetator / Mouse Over</step>
+    <step command='' comment='true'>button is not visible</step>
+    <tst:step command='Assert_Fail'>Click On, No clickable html element found for 'Submit'.<tst:optionalParameter>Submit</tst:optionalParameter></tst:step>
+    <step command='' comment='true'>move mouse over the button</step>
+    <step command='Mouse_Over'>Click after this text, xt is style</step>
+    <step command='Click_On'>Submit</step>
+    <step command='Assert_Content'>GET Parameters, Key, Value, b_formatedtext_after_name, Submit</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>mouse_over_after.html</step>
+    <step command='Assert_Title'>Wetator / Mouse Over</step>
+    <step command='' comment='true'>move mouse over the button</step>
+    <step command='Mouse_Over'>Click after this formated text, xt is style</step>
+    <step command='Click_On'>Submit</step>
+    <step command='Assert_Content'>GET Parameters, Key, Value, b_formatedtext_after_name, Submit</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>mouse_over_after.html</step>
+    <step command='Assert_Title'>Wetator / Mouse Over</step>
+    <step command='' comment='true'>button is not visible</step>
+    <tst:step command='Assert_Fail'>Click On, No clickable html element found for 'Submit'.<tst:optionalParameter>Submit</tst:optionalParameter></tst:step>
+    <step command='' comment='true'>move mouse over the button</step>
+    <step command='Mouse_Over'>Click after this text, Button will go away</step>
+    <step command='Click_On'>Submit</step>
+    <step command='Assert_Content'>GET Parameters, Key, Value, b_timeout_after_name, Submit</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>mouse_over_after.html</step>
+    <step command='Assert_Title'>Wetator / Mouse Over</step>
+    <step command='' comment='true'>move mouse over the button</step>
+    <step command='Mouse_Over'>Click after this formated text, Button will go away</step>
+    <step command='Click_On'>Submit</step>
+    <step command='Assert_Content'>GET Parameters, Key, Value, b_timeout_after_name, Submit</step>
+</testcase>

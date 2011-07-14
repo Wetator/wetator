@@ -1,389 +1,388 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
-    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>not found</comment>
-    <command><tst:assert-fail><tst:command-and-message>Set, No setable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText with name</comment>
-    <command><d:set><d:wpath>inputText_Name</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextNameTest OK inputText_Name testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText with id</comment>
-    <command><d:set><d:wpath>inputText_Id</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextIdTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextIdTest OK inputTextId_Name testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText try overwrite</comment>
-    <command><d:set><d:wpath>inputText_Name_Value</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextNameValueTest OK inputText_Name_Value testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText try cleanup</comment>
-    <command><d:set><d:wpath>inputText_Name_Value</d:wpath></d:set></command>
-    <command><d:click-on><d:wpath>InputTextNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextNameValueTest OK inputText_Name_Value POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by label with for attribute</comment>
-    <command><d:set><d:wpath>InputText Label with For</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLabelForTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLabelForTest OK inputText_LabelFor testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by surrounding label</comment>
-    <command><d:set><d:wpath>InputText surrounding Label</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextSurroundingLabelTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextSurroundingLabelTest OK inputText_SurroundingLabel testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by layout directly before</comment>
-    <command><d:set><d:wpath>InputText LayoutLabel before</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLayoutBeforeTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLayoutBeforeTest OK inputText_LayoutBefore testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by layout directly before formated</comment>
-    <command><d:set><d:wpath>InputText LayoutLabel before formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLayoutBeforeFormatedTest OK inputText_LayoutBeforeFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by layout at top</comment>
-    <command><d:set><d:wpath>InputText LayoutLabel at top</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLayoutTopTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLayoutTopTest OK inputText_LayoutTop testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by layout at top formated</comment>
-    <command><d:set><d:wpath>InputText LayoutLabel at top formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLayoutTopFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLayoutTopFormatedTest OK inputText_LayoutTopFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by layout at left</comment>
-    <command><d:set><d:wpath>InputText LayoutLabel at left</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLayoutLeftTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLayoutLeftTest OK inputText_LayoutLeft testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText identified by layout at left formated</comment>
-    <command><d:set><d:wpath>InputText LayoutLabel at left formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextLayoutLeftFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextLayoutLeftFormatedTest OK inputText_LayoutLeftFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>disabled InputText</comment>
-    <command><tst:assert-fail><tst:command-and-message>Set, The html element [HtmlTextInput (id='inputText_Disabled') (name='inputText_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled InputText</tst:parameter1></tst:assert-fail></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Overwrite InputText</comment>
-    <command><d:set><d:wpath>InputText with value - overwrite</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextOverwriteTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextOverwriteTest OK inputText_overwrite testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Overwrite InputText with nothing</comment>
-    <command><d:set><d:wpath>InputText with value - overwrite</d:wpath></d:set></command>
-    <command><d:click-on><d:wpath>InputTextOverwriteTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextOverwriteTest OK inputText_overwrite POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputText with maxlength</comment>
-    <command><d:set><d:wpath>InputText with maxlength</d:wpath><d:value>123456.0</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputTextMaxlengthTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputTextMaxlengthTest OK inputText_maxlength 1234 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword with name</comment>
-    <command><d:set><d:wpath>inputPassword_Name</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordNameTest OK inputPassword_Name testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword with id</comment>
-    <command><d:set><d:wpath>inputPassword_Id</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordIdTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordIdTest OK inputPasswordId_Name testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword try overwrite</comment>
-    <command><d:set><d:wpath>inputPassword_Name_Value</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordNameValueTest OK inputPassword_Name_Value testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword try cleanup</comment>
-    <command><d:set><d:wpath>inputPassword_Name_Value</d:wpath></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordNameValueTest OK inputPassword_Name_Value POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by label with for attribute</comment>
-    <command><d:set><d:wpath>InputPassword Label with For</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLabelForTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLabelForTest OK inputPassword_LabelFor testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by surrounding label</comment>
-    <command><d:set><d:wpath>InputPassword surrounding Label</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordSurroundingLabelTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordSurroundingLabelTest OK inputPassword_SurroundingLabel testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by layout directly before</comment>
-    <command><d:set><d:wpath>InputPassword LayoutLabel before</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLayoutBeforeTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutBeforeTest OK inputPassword_LayoutBefore testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by layout directly before formated</comment>
-    <command><d:set><d:wpath>InputPassword LayoutLabel before formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutBeforeFormatedTest OK inputPassword_LayoutBeforeFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by layout at top</comment>
-    <command><d:set><d:wpath>InputPassword LayoutLabel at top</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLayoutTopTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutTopTest OK inputPassword_LayoutTop testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by layout at top formated</comment>
-    <command><d:set><d:wpath>InputPassword LayoutLabel at top formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLayoutTopFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutTopFormatedTest OK inputPassword_LayoutTopFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by layout at left</comment>
-    <command><d:set><d:wpath>InputPassword LayoutLabel at left</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLayoutLeftTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutLeftTest OK inputPassword_LayoutLeft testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword identified by layout at left formated</comment>
-    <command><d:set><d:wpath>InputPassword LayoutLabel at left formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordLayoutLeftFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutLeftFormatedTest OK inputPassword_LayoutLeftFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Disabled InputPassword</comment>
-    <command><tst:assert-fail><tst:command-and-message>Set, The html element [HtmlPasswordInput (id='inputPassword_Disabled') (name='inputPassword_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled InputPassword</tst:parameter1></tst:assert-fail></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Overwrite InputPassword</comment>
-    <command><d:set><d:wpath>InputPassword with value - overwrite</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordOverwriteTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordOverwriteTest OK inputPassword_overwrite testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Overwrite InputPassword with nothing</comment>
-    <command><d:set><d:wpath>InputPassword with value - overwrite</d:wpath></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordOverwriteTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordOverwriteTest OK inputPassword_overwrite POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>InputPassword with maxlength</comment>
-    <command><d:set><d:wpath>InputPassword with maxlength</d:wpath><d:value>123456.0</d:value></d:set></command>
-    <command><d:click-on><d:wpath>InputPasswordMaxlengthTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordMaxlengthTest OK inputPassword_maxlength 1234 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea with name</comment>
-    <command><d:set><d:wpath>textArea_Name</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaNameTest OK textArea_Name testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea with id</comment>
-    <command><d:set><d:wpath>textArea_Id</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaIdTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaIdTest OK textAreaId_Name testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea try overwrite</comment>
-    <command><d:set><d:wpath>textArea_Name_Value</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaNameValueTest OK textArea_Name_Value testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea try to cleanup</comment>
-    <command><d:set><d:wpath>textArea_Name_Value</d:wpath></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaNameValueTest OK textArea_Name_Value POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by label with for attribute</comment>
-    <command><d:set><d:wpath>TextArea Label with For</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLabelForTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLabelForTest OK textArea_LabelFor testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by surrounding label</comment>
-    <command><d:set><d:wpath>TextArea surrounding Label</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaSurroundingLabelTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaSurroundingLabelTest OK textArea_SurroundingLabel testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by layout directly before</comment>
-    <command><d:set><d:wpath>TextArea LayoutLabel before</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLayoutBeforeTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLayoutBeforeTest OK textArea_LayoutBefore testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by layout directly before formated</comment>
-    <command><d:set><d:wpath>TextArea LayoutLabel before formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLayoutBeforeFormatedTest OK textArea_LayoutBeforeFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by layout at top</comment>
-    <command><d:set><d:wpath>TextArea LayoutLabel at top</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLayoutTopTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLayoutTopTest OK textArea_LayoutTop testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by layout at top formated</comment>
-    <command><d:set><d:wpath>TextArea LayoutLabel at top formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLayoutTopFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLayoutTopFormatedTest OK textArea_LayoutTopFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by layout at left</comment>
-    <command><d:set><d:wpath>TextArea LayoutLabel at left</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLayoutLeftTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLayoutLeftTest OK textArea_LayoutLeft testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>TextArea identified by layout at left formated</comment>
-    <command><d:set><d:wpath>TextArea LayoutLabel at left formated</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaLayoutLeftFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaLayoutLeftFormatedTest OK textArea_LayoutLeftFormated testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Disabled TextArea</comment>
-    <command><tst:assert-fail><tst:command-and-message>Set, The html element [HtmlTextArea (name='textArea_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled TextArea</tst:parameter1></tst:assert-fail></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Overwrite TextArea</comment>
-    <command><d:set><d:wpath>TextArea with value - overwrite</d:wpath><d:value>testValue</d:value></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaOverwriteTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaOverwriteTest OK textArea_overwrite testValue POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
-    <comment>Overwrite TextArea with nothing</comment>
-    <command><d:set><d:wpath>TextArea with value - overwrite</d:wpath></d:set></command>
-    <command><d:click-on><d:wpath>TextAreaOverwriteTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaOverwriteTest OK textArea_overwrite POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Set, No setable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText with name</step>
+    <step command='Set'>inputText_Name<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextNameTest OK inputText_Name testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText with id</step>
+    <step command='Set'>inputText_Id<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextIdTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextIdTest OK inputTextId_Name testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText try overwrite</step>
+    <step command='Set'>inputText_Name_Value<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextNameValueTest OK inputText_Name_Value testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText try cleanup</step>
+    <step command='Set'>inputText_Name_Value</step>
+    <step command='Click_On'>InputTextNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextNameValueTest OK inputText_Name_Value POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by label with for attribute</step>
+    <step command='Set'>InputText Label with For<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLabelForTest OK inputText_LabelFor testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by surrounding label</step>
+    <step command='Set'>InputText surrounding Label<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextSurroundingLabelTest OK inputText_SurroundingLabel testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by layout directly before</step>
+    <step command='Set'>InputText LayoutLabel before<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLayoutBeforeTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLayoutBeforeTest OK inputText_LayoutBefore testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by layout directly before formated</step>
+    <step command='Set'>InputText LayoutLabel before formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLayoutBeforeFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLayoutBeforeFormatedTest OK inputText_LayoutBeforeFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by layout at top</step>
+    <step command='Set'>InputText LayoutLabel at top<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLayoutTopTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLayoutTopTest OK inputText_LayoutTop testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by layout at top formated</step>
+    <step command='Set'>InputText LayoutLabel at top formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLayoutTopFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLayoutTopFormatedTest OK inputText_LayoutTopFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by layout at left</step>
+    <step command='Set'>InputText LayoutLabel at left<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLayoutLeftTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLayoutLeftTest OK inputText_LayoutLeft testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText identified by layout at left formated</step>
+    <step command='Set'>InputText LayoutLabel at left formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextLayoutLeftFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextLayoutLeftFormatedTest OK inputText_LayoutLeftFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>disabled InputText</step>
+    <tst:step command='Assert_Fail'>Set, The html element [HtmlTextInput (id='inputText_Disabled') (name='inputText_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled InputText</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Overwrite InputText</step>
+    <step command='Set'>InputText with value - overwrite<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextOverwriteTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextOverwriteTest OK inputText_overwrite testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Overwrite InputText with nothing</step>
+    <step command='Set'>InputText with value - overwrite</step>
+    <step command='Click_On'>InputTextOverwriteTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextOverwriteTest OK inputText_overwrite POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputText with maxlength</step>
+    <step command='Set'>InputText with maxlength<optionalParameter>123456.0</optionalParameter></step>
+    <step command='Click_On'>InputTextMaxlengthTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextMaxlengthTest OK inputText_maxlength 1234 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword with name</step>
+    <step command='Set'>inputPassword_Name<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordNameTest OK inputPassword_Name testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword with id</step>
+    <step command='Set'>inputPassword_Id<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordIdTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordIdTest OK inputPasswordId_Name testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword try overwrite</step>
+    <step command='Set'>inputPassword_Name_Value<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordNameValueTest OK inputPassword_Name_Value testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword try cleanup</step>
+    <step command='Set'>inputPassword_Name_Value</step>
+    <step command='Click_On'>InputPasswordNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordNameValueTest OK inputPassword_Name_Value POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by label with for attribute</step>
+    <step command='Set'>InputPassword Label with For<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLabelForTest OK inputPassword_LabelFor testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by surrounding label</step>
+    <step command='Set'>InputPassword surrounding Label<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordSurroundingLabelTest OK inputPassword_SurroundingLabel testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by layout directly before</step>
+    <step command='Set'>InputPassword LayoutLabel before<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLayoutBeforeTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLayoutBeforeTest OK inputPassword_LayoutBefore testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by layout directly before formated</step>
+    <step command='Set'>InputPassword LayoutLabel before formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLayoutBeforeFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLayoutBeforeFormatedTest OK inputPassword_LayoutBeforeFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at top</step>
+    <step command='Set'>InputPassword LayoutLabel at top<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLayoutTopTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLayoutTopTest OK inputPassword_LayoutTop testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at top formated</step>
+    <step command='Set'>InputPassword LayoutLabel at top formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLayoutTopFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLayoutTopFormatedTest OK inputPassword_LayoutTopFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at left</step>
+    <step command='Set'>InputPassword LayoutLabel at left<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLayoutLeftTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLayoutLeftTest OK inputPassword_LayoutLeft testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at left formated</step>
+    <step command='Set'>InputPassword LayoutLabel at left formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordLayoutLeftFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordLayoutLeftFormatedTest OK inputPassword_LayoutLeftFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Disabled InputPassword</step>
+    <tst:step command='Assert_Fail'>Set, The html element [HtmlPasswordInput (id='inputPassword_Disabled') (name='inputPassword_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled InputPassword</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Overwrite InputPassword</step>
+    <step command='Set'>InputPassword with value - overwrite<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputPasswordOverwriteTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordOverwriteTest OK inputPassword_overwrite testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Overwrite InputPassword with nothing</step>
+    <step command='Set'>InputPassword with value - overwrite</step>
+    <step command='Click_On'>InputPasswordOverwriteTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordOverwriteTest OK inputPassword_overwrite POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>InputPassword with maxlength</step>
+    <step command='Set'>InputPassword with maxlength<optionalParameter>123456.0</optionalParameter></step>
+    <step command='Click_On'>InputPasswordMaxlengthTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputPasswordMaxlengthTest OK inputPassword_maxlength 1234 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea with name</step>
+    <step command='Set'>textArea_Name<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaNameTest OK textArea_Name testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea with id</step>
+    <step command='Set'>textArea_Id<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaIdTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaIdTest OK textAreaId_Name testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea try overwrite</step>
+    <step command='Set'>textArea_Name_Value<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaNameValueTest OK textArea_Name_Value testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea try to cleanup</step>
+    <step command='Set'>textArea_Name_Value</step>
+    <step command='Click_On'>TextAreaNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaNameValueTest OK textArea_Name_Value POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by label with for attribute</step>
+    <step command='Set'>TextArea Label with For<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLabelForTest OK textArea_LabelFor testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by surrounding label</step>
+    <step command='Set'>TextArea surrounding Label<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaSurroundingLabelTest OK textArea_SurroundingLabel testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by layout directly before</step>
+    <step command='Set'>TextArea LayoutLabel before<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLayoutBeforeTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLayoutBeforeTest OK textArea_LayoutBefore testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by layout directly before formated</step>
+    <step command='Set'>TextArea LayoutLabel before formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLayoutBeforeFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLayoutBeforeFormatedTest OK textArea_LayoutBeforeFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by layout at top</step>
+    <step command='Set'>TextArea LayoutLabel at top<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLayoutTopTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLayoutTopTest OK textArea_LayoutTop testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by layout at top formated</step>
+    <step command='Set'>TextArea LayoutLabel at top formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLayoutTopFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLayoutTopFormatedTest OK textArea_LayoutTopFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by layout at left</step>
+    <step command='Set'>TextArea LayoutLabel at left<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLayoutLeftTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLayoutLeftTest OK textArea_LayoutLeft testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>TextArea identified by layout at left formated</step>
+    <step command='Set'>TextArea LayoutLabel at left formated<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaLayoutLeftFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaLayoutLeftFormatedTest OK textArea_LayoutLeftFormated testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Disabled TextArea</step>
+    <tst:step command='Assert_Fail'>Set, The html element [HtmlTextArea (name='textArea_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled TextArea</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Overwrite TextArea</step>
+    <step command='Set'>TextArea with value - overwrite<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>TextAreaOverwriteTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaOverwriteTest OK textArea_overwrite testValue POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='' comment='true'>Overwrite TextArea with nothing</step>
+    <step command='Set'>TextArea with value - overwrite</step>
+    <step command='Click_On'>TextAreaOverwriteTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value TextAreaOverwriteTest OK textArea_overwrite POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

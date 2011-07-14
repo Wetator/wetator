@@ -1,39 +1,38 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
-    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <comment>hard coded url</comment>
-    <command><d:open-url><d:url>http://www.gebit.de</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>GEBIT Solutions*</d:title></d:assert-title></command>
-    <comment>with starting slash</comment>
-    <command><d:open-url><d:url>/assert_title.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
-    <comment>without starting slash</comment>
-    <command><d:open-url><d:url>assert_title.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
-    <comment>with dot</comment>
-    <command><d:open-url><d:url>./assert_title.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
-    <command><d:open-url><d:url>/./assert_title.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
-    <comment>failure test</comment>
-    <command><tst:assert-fail><tst:command-and-message>Open Url, Opening url '*http_header.php?code=400' fails with server error '400 Bad Request for *http_header.php?code=400'.</tst:command-and-message><tst:parameter1>http_header.php?code=400</tst:parameter1></tst:assert-fail></command>
-    <command><tst:assert-fail><tst:command-and-message>Open Url, Opening url '*http_header.php?code=404' fails with server error '404 Not Found for *http_header.php?code=404'.</tst:command-and-message><tst:parameter1>http_header.php?code=404</tst:parameter1></tst:assert-fail></command>
-    <command><tst:assert-fail><tst:command-and-message>Open Url, Opening url '*http_header.php?code=500' fails with server error '500 Server Error for *http_header.php?code=500'.</tst:command-and-message><tst:parameter1>http_header.php?code=500</tst:parameter1></tst:assert-fail></command>
-    <comment>final test</comment>
-    <command><d:open-url><d:url>assert_title.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
-    <comment>test for unused parameter</comment>
-    <command><tst:assert-fail><tst:command-and-message>Open Url, The command 'open-url' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>assert_title.html</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
-    <comment>test for parameter support</comment>
-    <command><d:open-url><d:url>assert_title.html?secret=${wet}</d:url></d:open-url></command>
-    <comment>test for secret parts of the url</comment>
-    <command><d:open-url><d:url>assert_title.html?secret=${wet-secret}</d:url></d:open-url></command>
-    <comment></comment>
-    <comment>Test not escaped</comment>
-    <command><tst:assert-fail><tst:command-and-message>Open Url, Opening url '*assert_title.html?param=abc%$1234' fails with server error 'Unable to create URI from URL: *assert_title.html?param=abc%$1234 (reason: Malformed escape pair at index *: *assert_title.html?param=abc%$1234)'.</tst:command-and-message><tst:parameter1>assert_title.html?param=abc%$1234</tst:parameter1></tst:assert-fail></command>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='' comment='true'>hard coded url</step>
+    <step command='Open_Url'>http://www.gebit.de</step>
+    <step command='Assert_Title'>GEBIT Solutions*</step>
+    <step command='' comment='true'>with starting slash</step>
+    <step command='Open_Url'>/assert_title.html</step>
+    <step command='Assert_Title'>Wetator / Assert Title</step>
+    <step command='' comment='true'>without starting slash</step>
+    <step command='Open_Url'>assert_title.html</step>
+    <step command='Assert_Title'>Wetator / Assert Title</step>
+    <step command='' comment='true'>with dot</step>
+    <step command='Open_Url'>./assert_title.html</step>
+    <step command='Assert_Title'>Wetator / Assert Title</step>
+    <step command='Open_Url'>/./assert_title.html</step>
+    <step command='Assert_Title'>Wetator / Assert Title</step>
+    <step command='' comment='true'>failure test</step>
+    <tst:step command='Assert_Fail'>Open Url, Opening url '*http_header.php?code=400' fails with server error '400 Bad Request for *http_header.php?code=400'.<tst:optionalParameter>http_header.php?code=400</tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'>Open Url, Opening url '*http_header.php?code=404' fails with server error '404 Not Found for *http_header.php?code=404'.<tst:optionalParameter>http_header.php?code=404</tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'>Open Url, Opening url '*http_header.php?code=500' fails with server error '500 Server Error for *http_header.php?code=500'.<tst:optionalParameter>http_header.php?code=500</tst:optionalParameter></tst:step>
+    <step command='' comment='true'>final test</step>
+    <step command='Open_Url'>assert_title.html</step>
+    <step command='Assert_Title'>Wetator / Assert Title</step>
+    <step command='' comment='true'>test for unused parameter</step>
+    <tst:step command='Assert_Fail'>Open Url, The command 'open-url' does not use the value 'unused' provided in column 2.<tst:optionalParameter>assert_title.html</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <step command='' comment='true'>test for parameter support</step>
+    <step command='Open_Url'>assert_title.html?secret=${wet}</step>
+    <step command='' comment='true'>test for secret parts of the url</step>
+    <step command='Open_Url'>assert_title.html?secret=${wet-secret}</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>Test not escaped</step>
+    <tst:step command='Assert_Fail'>Open Url, Opening url '*assert_title.html?param=abc%$1234' fails with server error 'Unable to create URI from URL: *assert_title.html?param=abc%$1234 (reason: Malformed escape pair at index *: *assert_title.html?param=abc%$1234)'.<tst:optionalParameter>assert_title.html?param=abc%$1234</tst:optionalParameter></tst:step>
+</testcase>
