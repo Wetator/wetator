@@ -1,131 +1,130 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>simple submit</comment>
-    <command><d:click-on><d:wpath>submitTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>focus [submitTest] [-] click [submitTest] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [submitTest] [-] click [submitTest] [-] blur [submitTest] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>simple reset</comment>
-    <command><d:click-on><d:wpath>resetTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>focus [resetTest] [-] click [resetTest] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [resetTest] [-] click [resetTest] [-] blur [resetTest] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>simple button</comment>
-    <command><d:click-on><d:wpath>buttonTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>focus [buttonTest] [-] click [buttonTest] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [buttonTest] [-] click [buttonTest] [-] blur [buttonTest] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>set input text</comment>
-    <command><d:set><d:wpath>InputText</d:wpath><d:value>nj</d:value></d:set></command>
-    <command><d:assert-content><d:content>focus [inputText] [-] click [inputText] [-] keydown [inputText] [78] keypress [inputText] [110] keyup [inputText] [78] keydown [inputText] [74] keypress [inputText] [106] keyup [inputText] [74] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [inputText] [-] click [inputText] [-] keydown [inputText] [78] keypress [inputText] [110] keyup [inputText] [78] keydown [inputText] [74] keypress [inputText] [106] keyup [inputText] [74] change [inputText] [-] blur [inputText] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>set input password</comment>
-    <command><d:set><d:wpath>InputPassword</d:wpath><d:value>nj</d:value></d:set></command>
-    <command><d:assert-content><d:content>focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>set textarea</comment>
-    <command><d:set><d:wpath>Textarea</d:wpath><d:value>nj</d:value></d:set></command>
-    <command><d:assert-content><d:content>focus [textarea] [-] click [textarea] [-] keydown [textarea] [78] keypress [textarea] [110] keyup [textarea] [78] keydown [textarea] [74] keypress [textarea] [106] keyup [textarea] [74] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [textarea] [-] click [textarea] [-] keydown [textarea] [78] keypress [textarea] [110] keyup [textarea] [78] keydown [textarea] [74] keypress [textarea] [106] keyup [textarea] [74] change [textarea] [-] blur [textarea] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>set file upload</comment>
-    <command><d:set><d:wpath>Upload</d:wpath><d:value>../misc_files/test_file.txt</d:value></d:set></command>
-    <command><d:assert-content><d:content>focus [upload] [-] click [upload] [-] blur [upload] [-] change [upload] [-] focus [upload] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <comment>not onFocus/onBlur event; this is the same the browser does</comment>
-    <command><d:assert-content><d:content>eventTrace focus [upload] [-] click [upload] [-] blur [upload] [-] change [upload] [-] focus [upload] [-] blur [upload] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>select single select</comment>
-    <command><d:select><d:wpath>SingleSelect, option1</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>focus [singleSelect] [-] change [singleSelect] [-] click [singleSelect] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>select single select</comment>
-    <command><d:select><d:wpath>SingleSelect, option2</d:wpath></d:select></command>
-    <command><d:select><d:wpath>SingleSelect, option1</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>focus [buttonTest] [-] click [buttonTest] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>select multiple select</comment>
-    <command><d:select><d:wpath>MultipleSelect, option2</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>focus [buttonTest] [-] click [buttonTest] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>select checkbox</comment>
-    <command><d:select><d:wpath>Checkbox</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>focus [checkbox] [-] click [checkbox] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [checkbox] [-] click [checkbox] [-] change [checkbox] [-] blur [checkbox] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>select ratio button</comment>
-    <command><d:select><d:wpath>Radio1</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>focus [radioGroup] [-] click [radioGroup] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>event_handler_old.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
-    <comment>select ratio button</comment>
-    <command><d:select><d:wpath>Radio1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>Radio2</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] focus [radioGroup] [-] click [radioGroup] [-] OK</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>eventTrace focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] OnFocusOnBlurTest</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>simple submit</step>
+    <step command='Click_On'>submitTest</step>
+    <step command='Assert_Content'>focus [submitTest] [-] click [submitTest] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [submitTest] [-] click [submitTest] [-] blur [submitTest] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>simple reset</step>
+    <step command='Click_On'>resetTest</step>
+    <step command='Assert_Content'>focus [resetTest] [-] click [resetTest] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [resetTest] [-] click [resetTest] [-] blur [resetTest] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>simple button</step>
+    <step command='Click_On'>buttonTest</step>
+    <step command='Assert_Content'>focus [buttonTest] [-] click [buttonTest] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [buttonTest] [-] click [buttonTest] [-] blur [buttonTest] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set input text</step>
+    <step command='Set'>InputText<optionalParameter>nj</optionalParameter></step>
+    <step command='Assert_Content'>focus [inputText] [-] click [inputText] [-] keydown [inputText] [78] keypress [inputText] [110] keyup [inputText] [78] keydown [inputText] [74] keypress [inputText] [106] keyup [inputText] [74] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [inputText] [-] click [inputText] [-] keydown [inputText] [78] keypress [inputText] [110] keyup [inputText] [78] keydown [inputText] [74] keypress [inputText] [106] keyup [inputText] [74] change [inputText] [-] blur [inputText] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set input password</step>
+    <step command='Set'>InputPassword<optionalParameter>nj</optionalParameter></step>
+    <step command='Assert_Content'>focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set textarea</step>
+    <step command='Set'>Textarea<optionalParameter>nj</optionalParameter></step>
+    <step command='Assert_Content'>focus [textarea] [-] click [textarea] [-] keydown [textarea] [78] keypress [textarea] [110] keyup [textarea] [78] keydown [textarea] [74] keypress [textarea] [106] keyup [textarea] [74] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [textarea] [-] click [textarea] [-] keydown [textarea] [78] keypress [textarea] [110] keyup [textarea] [78] keydown [textarea] [74] keypress [textarea] [106] keyup [textarea] [74] change [textarea] [-] blur [textarea] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set file upload</step>
+    <step command='Set'>Upload<optionalParameter>../misc_files/test_file.txt</optionalParameter></step>
+    <step command='Assert_Content'>focus [upload] [-] click [upload] [-] blur [upload] [-] change [upload] [-] focus [upload] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='' comment='true'>not onFocus/onBlur event; this is the same the browser does</step>
+    <step command='Assert_Content'>eventTrace focus [upload] [-] click [upload] [-] blur [upload] [-] change [upload] [-] focus [upload] [-] blur [upload] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select single select</step>
+    <step command='Select'>SingleSelect, option1</step>
+    <step command='Assert_Content'>focus [singleSelect] [-] change [singleSelect] [-] click [singleSelect] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select single select</step>
+    <step command='Select'>SingleSelect, option2</step>
+    <step command='Select'>SingleSelect, option1</step>
+    <step command='Assert_Content'>focus [buttonTest] [-] click [buttonTest] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select multiple select</step>
+    <step command='Select'>MultipleSelect, option2</step>
+    <step command='Select'>MultipleSelect, option1</step>
+    <step command='Assert_Content'>focus [buttonTest] [-] click [buttonTest] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [inputPassword] [-] click [inputPassword] [-] keydown [inputPassword] [78] keypress [inputPassword] [110] keyup [inputPassword] [78] keydown [inputPassword] [74] keypress [inputPassword] [106] keyup [inputPassword] [74] change [inputPassword] [-] blur [inputPassword] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select checkbox</step>
+    <step command='Select'>Checkbox</step>
+    <step command='Assert_Content'>focus [checkbox] [-] click [checkbox] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [checkbox] [-] click [checkbox] [-] change [checkbox] [-] blur [checkbox] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select ratio button</step>
+    <step command='Select'>Radio1</step>
+    <step command='Assert_Content'>focus [radioGroup] [-] click [radioGroup] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler_old.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select ratio button</step>
+    <step command='Select'>Radio1</step>
+    <step command='Select'>Radio2</step>
+    <step command='Assert_Content'>focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] focus [radioGroup] [-] click [radioGroup] [-] OK</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>eventTrace focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] focus [radioGroup] [-] click [radioGroup] [-] change [radioGroup] [-] blur [radioGroup] [-] OnFocusOnBlurTest</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

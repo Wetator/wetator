@@ -1,136 +1,135 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
-    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>not found</comment>
-    <command><tst:assert-fail><tst:command-and-message>Deselect, No deselectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect with name</comment>
-    <command><d:deselect><d:wpath>multipleSelect_Name[], option2</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>multipleSelect_Name[], option4</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectNameTest OK multipleSelect_Name[] o_value1\, o_value3 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelectOptGroup with name</comment>
-    <command><d:deselect><d:wpath>multipleSelectOptgroup_Name[], blue</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>multipleSelectOptgroup_Name[], value1</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>multipleSelectOptgroup_Name[], value2</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectOptGroupNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectOptGroupNameTest OK multipleSelectOptgroup_Name[] o_red\, o_green POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect with id</comment>
-    <command><d:deselect><d:wpath>multipleSelect_Id, option3</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>multipleSelect_Id, option4</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectIdTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectIdTest OK multipleSelect_Id[] o_value1\, o_value2 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect with default selection</comment>
-    <command><d:deselect><d:wpath>multipleSelect_NameValue[], option4</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>multipleSelect_NameValue[], option1</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectNameValueTest OK multipleSelect_NameValue[] o_value2 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by label with for attribute</comment>
-    <command><d:deselect><d:wpath>MultipleSelect Label with For, option1</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>MultipleSelect Label with For, option2</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLabelForTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLabelForTest OK multipleSelect_LabelFor[] o_value3\, o_value4 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified identified by surrounding label</comment>
-    <command><d:deselect><d:wpath>MultipleSelect surrounding Label, option3</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectSurroundingLabelTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectSurroundingLabelTest OK multipleSelect_SurroundingLabel[] o_value1\, o_value2\, o_value4 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout directly before</comment>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel before, option3</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel before, option2</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLayoutBeforeTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutBeforeTest OK multipleSelect_LayoutBefore[] o_value1\, o_value4 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout directly before formated</comment>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel before formated, option2</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutBeforeFormatedTest OK multipleSelect_LayoutBeforeFormated[] o_value1\, o_value3\, o_value4 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout at top</comment>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at top, option3</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLayoutTopTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutTopTest OK multipleSelect_LayoutTop[] o_value1\, o_value2\, o_value4 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout at top formated</comment>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at top formated, option4</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at top formated, option1</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLayoutTopFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutTopFormatedTest OK multipleSelect_LayoutTopFormated[] o_value2\, o_value3 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout at left</comment>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at left, option1</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at left, option3</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLayoutLeftTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutLeftTest OK multipleSelect_LayoutLeft[] o_value2\, o_value4 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout at left formated</comment>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at left formated, option2</d:wpath></d:deselect></command>
-    <command><d:deselect><d:wpath>MultipleSelect LayoutLabel at left formated, option4</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLayoutLeftFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutLeftFormatedTest OK multipleSelect_LayoutLeftFormated[] o_value1\, o_value3 POST</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>MultipleSelect identified by layout at left formated</comment>
-    <command><d:deselect><d:wpath>MultipleSelect Label at left; text entry between, option3</d:wpath></d:deselect></command>
-    <command><d:click-on><d:wpath>MultipleSelectLabelLeftTextBetweenTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLabelLeftTextBetweenTest OK inputText_between multipleSelect_LabelLeft_TextBetween[] o_value1\, o_value2\, o_value4</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
-    <comment>Disabled MultipleSelect</comment>
-    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlOption 'option1' part of [HtmlSelect (id='multipleSelect_Disabled') (name='multipleSelect_Disabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled MultipleSelect, option1</tst:parameter1></tst:assert-fail></command>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-    <comment></comment>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Deselect, No deselectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect with name</step>
+    <step command='Deselect'>multipleSelect_Name[], option2</step>
+    <step command='Deselect'>multipleSelect_Name[], option4</step>
+    <step command='Click_On'>MultipleSelectNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectNameTest OK multipleSelect_Name[] o_value1\, o_value3 POST</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelectOptGroup with name</step>
+    <step command='Deselect'>multipleSelectOptgroup_Name[], blue</step>
+    <step command='Deselect'>multipleSelectOptgroup_Name[], value1</step>
+    <step command='Deselect'>multipleSelectOptgroup_Name[], value2</step>
+    <step command='Click_On'>MultipleSelectOptGroupNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectOptGroupNameTest OK multipleSelectOptgroup_Name[] o_red\, o_green POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect with id</step>
+    <step command='Deselect'>multipleSelect_Id, option3</step>
+    <step command='Deselect'>multipleSelect_Id, option4</step>
+    <step command='Click_On'>MultipleSelectIdTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectIdTest OK multipleSelect_Id[] o_value1\, o_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect with default selection</step>
+    <step command='Deselect'>multipleSelect_NameValue[], option4</step>
+    <step command='Deselect'>multipleSelect_NameValue[], option1</step>
+    <step command='Click_On'>MultipleSelectNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectNameValueTest OK multipleSelect_NameValue[] o_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by label with for attribute</step>
+    <step command='Deselect'>MultipleSelect Label with For, option1</step>
+    <step command='Deselect'>MultipleSelect Label with For, option2</step>
+    <step command='Click_On'>MultipleSelectLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLabelForTest OK multipleSelect_LabelFor[] o_value3\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified identified by surrounding label</step>
+    <step command='Deselect'>MultipleSelect surrounding Label, option3</step>
+    <step command='Click_On'>MultipleSelectSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectSurroundingLabelTest OK multipleSelect_SurroundingLabel[] o_value1\, o_value2\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout directly before</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel before, option3</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel before, option2</step>
+    <step command='Click_On'>MultipleSelectLayoutBeforeTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLayoutBeforeTest OK multipleSelect_LayoutBefore[] o_value1\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout directly before formated</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel before formated, option2</step>
+    <step command='Click_On'>MultipleSelectLayoutBeforeFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLayoutBeforeFormatedTest OK multipleSelect_LayoutBeforeFormated[] o_value1\, o_value3\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout at top</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at top, option3</step>
+    <step command='Click_On'>MultipleSelectLayoutTopTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLayoutTopTest OK multipleSelect_LayoutTop[] o_value1\, o_value2\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout at top formated</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at top formated, option4</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at top formated, option1</step>
+    <step command='Click_On'>MultipleSelectLayoutTopFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLayoutTopFormatedTest OK multipleSelect_LayoutTopFormated[] o_value2\, o_value3 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout at left</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at left, option1</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at left, option3</step>
+    <step command='Click_On'>MultipleSelectLayoutLeftTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLayoutLeftTest OK multipleSelect_LayoutLeft[] o_value2\, o_value4 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout at left formated</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at left formated, option2</step>
+    <step command='Deselect'>MultipleSelect LayoutLabel at left formated, option4</step>
+    <step command='Click_On'>MultipleSelectLayoutLeftFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLayoutLeftFormatedTest OK multipleSelect_LayoutLeftFormated[] o_value1\, o_value3 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>MultipleSelect identified by layout at left formated</step>
+    <step command='Deselect'>MultipleSelect Label at left; text entry between, option3</step>
+    <step command='Click_On'>MultipleSelectLabelLeftTextBetweenTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value MultipleSelectLabelLeftTextBetweenTest OK inputText_between multipleSelect_LabelLeft_TextBetween[] o_value1\, o_value2\, o_value4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>Disabled MultipleSelect</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlOption 'option1' part of [HtmlSelect (id='multipleSelect_Disabled') (name='multipleSelect_Disabled')]] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled MultipleSelect, option1</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

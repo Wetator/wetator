@@ -1,26 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<test-case
-    xmlns='http://www.wetator.org/xsd/test-case'
-    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
-    version='1.0.0'>
-    <command><d:open-url><d:url>ajax/prototype/prototype_ajax.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / AJAX with Prototype</d:title></d:assert-title></command>
-    <comment>add content via AJAX</comment>
-    <comment>check the original content</comment>
-    <command><d:assert-content><d:content>Click to start AJAX demo...</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>Click to start AJAX demo</d:wpath></d:click-on></command>
-    <comment></comment>
-    <command><d:assert-content><d:content>This is some text transferred to the client via AJAX.</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
-    <command><d:open-url><d:url>ajax/prototype/prototype_ajax.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / AJAX with Prototype</d:title></d:assert-title></command>
-    <comment>change content via javascript loaded with AJAX</comment>
-    <comment>check the original content</comment>
-    <command><d:assert-content><d:content>Click to start AJAX Javascript demo...</d:content></d:assert-content></command>
-    <command><d:click-on><d:wpath>Click to start AJAX Javascript demo</d:wpath></d:click-on></command>
-    <comment></comment>
-    <command><d:assert-content><d:content>Click to start AJAX Javascript demo... Javascript Execute</d:content></d:assert-content></command>
-</test-case>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>ajax/prototype/prototype_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with Prototype</step>
+    <step command='' comment='true'>add content via AJAX</step>
+    <step command='' comment='true'>check the original content</step>
+    <step command='Assert_Content'>Click to start AJAX demo...</step>
+    <step command='Click_On'>Click to start AJAX demo</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Content'>This is some text transferred to the client via AJAX.</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>ajax/prototype/prototype_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with Prototype</step>
+    <step command='' comment='true'>change content via javascript loaded with AJAX</step>
+    <step command='' comment='true'>check the original content</step>
+    <step command='Assert_Content'>Click to start AJAX Javascript demo...</step>
+    <step command='Click_On'>Click to start AJAX Javascript demo</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Content'>Click to start AJAX Javascript demo... Javascript Execute</step>
+</testcase>
