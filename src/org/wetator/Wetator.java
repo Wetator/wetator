@@ -22,8 +22,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.core.WetatorEngine;
 import org.wetator.core.IProgressListener;
+import org.wetator.core.WetatorEngine;
 import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.progresslistener.StdOutProgressListener;

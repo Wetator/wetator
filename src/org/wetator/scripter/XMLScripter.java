@@ -20,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -53,7 +52,7 @@ import org.wetator.scripter.xml.model.ParameterType;
 
 /**
  * Scripter for XML files using the new test XSDs.
- *
+ * 
  * @author frank.danek
  * @author tobwoerk
  */
@@ -89,7 +88,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
@@ -99,7 +98,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
@@ -120,7 +119,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * This method is used by the WTE.
-   *
+   * 
    * @param aContent the content to check
    * @return true if this scripter is able to handle this content otherwise false
    */
@@ -174,7 +173,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
@@ -216,7 +215,7 @@ public class XMLScripter implements IScripter {
   /**
    * Scripts the given content by reading all commands.<br/>
    * This method is used by the WTE.
-   *
+   * 
    * @param aContent the content
    * @param aDirectory the directory to search for schema files; may be null
    * @throws WetatorException in case of error
@@ -388,7 +387,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see org.wetator.core.IScripter#getCommands()
    */
   @Override
