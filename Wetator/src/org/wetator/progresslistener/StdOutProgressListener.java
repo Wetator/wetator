@@ -24,9 +24,9 @@ import org.apache.commons.lang.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
-import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.WetatorEngine;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Output;
 
