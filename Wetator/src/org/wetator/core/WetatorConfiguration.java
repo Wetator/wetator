@@ -236,7 +236,8 @@ public final class WetatorConfiguration {
       final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
-      throw new WetatorException("Config  The base directory '" + aBaseDirectory.getAbsolutePath() + "' does not exist.");
+      throw new WetatorException("Config  The base directory '" + aBaseDirectory.getAbsolutePath()
+          + "' does not exist.");
     }
 
     LOG.info("Config  Base directory is '" + aBaseDirectory.getAbsolutePath() + "'");
@@ -330,15 +331,16 @@ public final class WetatorConfiguration {
     for (String tmpCommandSetClassName : tmpCommandSetClassNames) {
       tmpCommandSetClassName = tmpCommandSetClassName.trim();
       if (!StringUtils.isEmpty(tmpCommandSetClassName)) {
+        Class<?> tmpClass = null;
         try {
-          Class<? extends ICommandSet> tmpClass;
           try {
             tmpClass = ClassUtils.getClass(tmpCommandSetClassName);
           } catch (final ClassNotFoundException e) {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
           }
-          final ICommandSet tmpCommandSet = tmpClass.newInstance();
+          Class<? extends ICommandSet> tmpICommandSetClass = (Class<? extends ICommandSet>) tmpClass;
+          final ICommandSet tmpCommandSet = tmpICommandSetClass.newInstance();
           commandSets.add(tmpCommandSet);
           LOG.info("Config:  command set '" + tmpCommandSetClassName + "' registered.");
         } catch (final ClassNotFoundException e) {
@@ -364,6 +366,18 @@ public final class WetatorConfiguration {
             LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
           } else {
             LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
+          if (null != tmpClass) {
+            ClassLoader tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+
+            tmpClass = ICommandSet.class;
+            tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
           }
         }
       }

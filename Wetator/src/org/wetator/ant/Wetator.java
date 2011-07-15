@@ -67,7 +67,6 @@ public class Wetator extends Task {
             + " Ant: Fileset is required (define a fileset for all your test files).");
       }
 
-      final WetatorEngine tmpWetatorEngine = new WetatorEngine();
       if (classpath != null) {
         log("Classpath:", Project.MSG_INFO);
         final String[] tmpPaths = classpath.list();
@@ -82,6 +81,8 @@ public class Wetator extends Task {
         tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath, false);
         tmpAntClassLoader.setThreadContextLoader();
       }
+
+      final WetatorEngine tmpWetatorEngine = new WetatorEngine();
 
       // configuration is relative to the base dir of the project
       final File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
