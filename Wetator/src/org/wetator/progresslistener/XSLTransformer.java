@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -69,7 +70,34 @@ public final class XSLTransformer {
 
       try {
         final StreamSource tmpXlsStreamSource = new StreamSource(tmpXslFile);
-        final Transformer tmpTransformer = TransformerFactory.newInstance().newTransformer(tmpXlsStreamSource);
+
+        final TransformerFactory tmpTransformerFactory = TransformerFactory.newInstance();
+        tmpTransformerFactory.setErrorListener(new ErrorListener() {
+          @Override
+          public void warning(final TransformerException anException) throws TransformerException {
+            LOG.warn("Problem parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "' (" + anException.getMessage()
+                + ").");
+          }
+
+          @Override
+          public void fatalError(final TransformerException anException) throws TransformerException {
+            LOG.error("Parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "' failed (" + anException.getMessage()
+                + ").");
+          }
+
+          @Override
+          public void error(final TransformerException anException) throws TransformerException {
+            LOG.error("Problem parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "' failed ("
+                + anException.getMessage() + ").");
+          }
+        });
+        final Transformer tmpTransformer = tmpTransformerFactory.newTransformer(tmpXlsStreamSource);
+        // if building the transformer fails, then
+        // we got null here (instead of an exception)
+        if (null == tmpTransformer) {
+          LOG.error("Problem parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.");
+          return;
+        }
 
         final StreamSource tmpXmlStreamSource = new StreamSource(xmlResultFile);
 
@@ -89,6 +117,8 @@ public final class XSLTransformer {
         LOG.error("Problem applying XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
       } catch (final IOException e) {
         LOG.error("Problem writing Report '" + tmpResultFile.getAbsolutePath() + "'. Aborting.", e);
+      } catch (final Exception e) {
+        LOG.error("Problem applying XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
       }
     }
   }
