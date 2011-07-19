@@ -147,7 +147,7 @@ public final class ExcelScripter implements IScripter {
 
           tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
           // normalize command name
-          if (StringUtils.isNotEmpty(tmpCommentString)) {
+          if (StringUtils.isNotEmpty(tmpCommandName)) {
             tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
           }
           tmpCommandName = new NormalizedString(tmpCommandName).toString();
