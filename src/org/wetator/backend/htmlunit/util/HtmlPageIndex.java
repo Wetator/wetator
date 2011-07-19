@@ -41,6 +41,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlHead;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
@@ -370,6 +371,8 @@ public class HtmlPageIndex {
         appendDomText((DomText) aDomNode);
       } else if (aDomNode instanceof HtmlInlineFrame) {
         appendHtmlInlineFrame((HtmlInlineFrame) aDomNode);
+      } else if (aDomNode instanceof HtmlFrame) {
+        appendHtmlFrame((HtmlFrame) aDomNode);
       } else if (aDomNode instanceof HtmlBreak) {
         text.append(" ");
         textWithoutFormControls.append(" ");
@@ -448,6 +451,13 @@ public class HtmlPageIndex {
 
   private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame) {
     final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
+    if (tmpPage instanceof HtmlPage) {
+      parseDomNode((HtmlPage) tmpPage);
+    }
+  }
+
+  private void appendHtmlFrame(final HtmlFrame anHtmlFrame) {
+    final Page tmpPage = anHtmlFrame.getEnclosedPage();
     if (tmpPage instanceof HtmlPage) {
       parseDomNode((HtmlPage) tmpPage);
     }
