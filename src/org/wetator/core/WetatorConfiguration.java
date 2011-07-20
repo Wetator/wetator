@@ -339,8 +339,8 @@ public final class WetatorConfiguration {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
           }
-          Class<? extends ICommandSet> tmpICommandSetClass = (Class<? extends ICommandSet>) tmpClass;
-          final ICommandSet tmpCommandSet = tmpICommandSetClass.newInstance();
+          final Class<? extends ICommandSet> tmpCommandSetClass = (Class<? extends ICommandSet>) tmpClass;
+          final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
           commandSets.add(tmpCommandSet);
           LOG.info("Config:  command set '" + tmpCommandSetClassName + "' registered.");
         } catch (final ClassNotFoundException e) {
