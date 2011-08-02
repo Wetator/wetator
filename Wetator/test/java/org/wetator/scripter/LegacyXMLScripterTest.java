@@ -43,7 +43,7 @@ public class LegacyXMLScripterTest {
     tmpLegacyXMLScripter.script(tmpFile);
 
     List<Command> tmpCommands = tmpLegacyXMLScripter.getCommands();
-    Assert.assertEquals(9, tmpCommands.size());
+    Assert.assertEquals(10, tmpCommands.size());
 
     Command tmpCommand = tmpCommands.get(0);
     Assert.assertTrue(tmpCommand.isComment());
@@ -64,7 +64,7 @@ public class LegacyXMLScripterTest {
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("set", tmpCommand.getName());
     Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
-    Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
 
     tmpCommand = tmpCommands.get(4);
     Assert.assertFalse(tmpCommand.isComment());
@@ -83,6 +83,16 @@ public class LegacyXMLScripterTest {
         .getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
+
+    tmpCommand = tmpCommands.get(8);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+
+    tmpCommand = tmpCommands.get(9);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
   }
