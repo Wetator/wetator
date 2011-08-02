@@ -7,10 +7,11 @@
     <step command='' comment='true'>Just a comment</step>
     <step command='Open_Url'>set.html</step>
     <step command='Assert_Title'>Wetator / Set</step>
-    <step command='Set'>inputText_Name<optionalParameter>testValue</optionalParameter></step>
+    <step command='Set'>inputText_Name<optionalParameter> testValue </optionalParameter></step>
     <step command='Click_On'>InputTextNameTest</step>
     <step command='Click_On' comment='true'>Just another comment</step>
     <step command='Assert_Content'>GET Parameters Key Value inputText_Name testValue InputTextNameTest OK</step>
+    <step command='Assert_Set'>inputText_Name<optionalParameter> testValue </optionalParameter></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
 </testcase>

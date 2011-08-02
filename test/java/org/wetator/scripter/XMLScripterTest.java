@@ -123,7 +123,7 @@ public class XMLScripterTest {
     tmpXMLScripter.script(new File("test/java/org/wetator/test/resource/junit2.xml"));
 
     List<Command> tmpCommands = tmpXMLScripter.getCommands();
-    Assert.assertEquals(9, tmpCommands.size());
+    Assert.assertEquals(10, tmpCommands.size());
 
     Command tmpCommand = tmpCommands.get(0);
     Assert.assertTrue(tmpCommand.isComment());
@@ -144,7 +144,7 @@ public class XMLScripterTest {
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("set", tmpCommand.getName());
     Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
-    Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
 
     tmpCommand = tmpCommands.get(4);
     Assert.assertFalse(tmpCommand.isComment());
@@ -163,10 +163,16 @@ public class XMLScripterTest {
         .getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
+
+    tmpCommand = tmpCommands.get(8);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
 
-    tmpCommand = tmpCommands.get(8);
+    tmpCommand = tmpCommands.get(9);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
   }
@@ -264,7 +270,7 @@ public class XMLScripterTest {
     tmpXMLScripter.script(tmpContent, null);
 
     List<Command> tmpCommands = tmpXMLScripter.getCommands();
-    Assert.assertEquals(9, tmpCommands.size());
+    Assert.assertEquals(10, tmpCommands.size());
 
     Command tmpCommand = tmpCommands.get(0);
     Assert.assertTrue(tmpCommand.isComment());
@@ -285,7 +291,7 @@ public class XMLScripterTest {
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("set", tmpCommand.getName());
     Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
-    Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
 
     tmpCommand = tmpCommands.get(4);
     Assert.assertFalse(tmpCommand.isComment());
@@ -304,10 +310,16 @@ public class XMLScripterTest {
         .getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
+
+    tmpCommand = tmpCommands.get(8);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
 
-    tmpCommand = tmpCommands.get(8);
+    tmpCommand = tmpCommands.get(9);
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals("", tmpCommand.getName());
   }
