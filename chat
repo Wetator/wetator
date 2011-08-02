@@ -91,3 +91,14 @@ frank.danek 2011-05-07 00:15: Nabend! Soweit ich das sehe ist der neue XMLScript
 
 frank.danek 2011-05-11 22:45: Es ist angerichtet! Der neue XMLScripter ist im Trunk, alle Test laufen -> sieht gut aus!
 	Next Stop: kill the wet-prefix
+
+frank.danek 2011-08-02 23:10: Nabend! Brauchen wir den Inhalt des Verzeichnisses webpages noch?
+	- dtd -> würde ich sagen, kann weg
+	- testcases -> brauchen wir noch!
+	- xsd -> brauchen wir noch!
+	- Rest -> kann meines Erachtens weg
+	@rbri: ich würde gerne das wetator-jenkins-plugin auf der Homepage anbieten. Aber irgendwie habe ich keinen Plan, wie ich das in das gleiche
+	Verzeichnis bekomme, wie die restlichen Downloads. Hilfe!
+	Davon abgesehen habe ich gerade die neuen XSDs hochgeladen. Die sind also ab sofort unter /xsd/* verfügbar.
+	@all: der WTE funktioniert unter Indigo und auch sonst scheint das zumindest nicht schlechter zu funktionieren als Helios. Spricht irgendetwas
+	gegen einen Umzug? (außer, dass ihr ein neues Eclipse einrichten müsstet)
