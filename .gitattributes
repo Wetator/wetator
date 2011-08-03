@@ -13,6 +13,7 @@ Wetator/build-properties.xml -text
 Wetator/build.properties -text
 Wetator/build.xml -text
 Wetator/chat -text
+Wetator/exceptions.txt -text svneol=unset#text/plain
 Wetator/ivy.xml -text svneol=unset#text/plain
 Wetator/ivysettings.xml -text svneol=unset#text/plain
 Wetator/readme.txt -text svneol=unset#text/plain
