@@ -20,14 +20,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.test.junit.BrowserRunner.BrowserTest;
+import org.wetator.test.junit.BrowserRunner.IBrowserTest;
 import org.wetator.test.junit.BrowserRunner.Browsers;
 
 /**
  * @author frank.danek
  */
 @RunWith(BrowserRunner.class)
-public class BrowserRunnerTest implements BrowserTest {
+public class BrowserRunnerTest implements IBrowserTest {
 
   private static boolean firstFound;
 
@@ -64,7 +64,7 @@ public class BrowserRunnerTest implements BrowserTest {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.test.junit.BrowserRunner.BrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
+   * @see org.wetator.test.junit.BrowserRunner.IBrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
   public void setBrowser(BrowserType aBrowserType) {

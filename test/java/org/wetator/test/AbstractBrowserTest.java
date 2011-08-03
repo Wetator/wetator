@@ -17,14 +17,14 @@
 package org.wetator.test;
 
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.test.junit.BrowserRunner.BrowserTest;
+import org.wetator.test.junit.BrowserRunner.IBrowserTest;
 
 /**
  * Base test class for all tests that methods need to be run with different browsers.
  * 
  * @author frank.danek
  */
-public abstract class AbstractBrowserTest implements BrowserTest {
+public abstract class AbstractBrowserTest implements IBrowserTest {
 
   private BrowserType browserType;
 
@@ -38,7 +38,7 @@ public abstract class AbstractBrowserTest implements BrowserTest {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.test.junit.BrowserRunner.BrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
+   * @see org.wetator.test.junit.BrowserRunner.IBrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
   public void setBrowser(BrowserType aBrowserType) {
