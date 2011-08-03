@@ -72,7 +72,6 @@ public final class WetatorEngine {
    * @throws WetatorException in case of problems
    */
   public void init() throws WetatorException {
-    informListenersInit();
     init(readConfiguration());
   }
 
@@ -83,6 +82,8 @@ public final class WetatorEngine {
    * @throws WetatorException in case of problems
    */
   public void init(final WetatorConfiguration aConfiguration) throws WetatorException {
+    informListenersInit();
+
     configuration = aConfiguration;
     if (configFileName == null) {
       configFileName = "";
@@ -95,7 +96,7 @@ public final class WetatorEngine {
     commandSets = getConfiguration().getCommandSets();
 
     // setup the browser
-    final HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
+    final IBrowser tmpBrowser = new HtmlUnitBrowser(this);
     setBrowser(tmpBrowser);
   }
 
