@@ -20,12 +20,12 @@ import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 
 /**
- * This interface marks all selectable {@link Control}s. These controls are returned by
+ * This interface marks all selectable {@link IControl}s. These controls are returned by
  * {@link org.wetator.backend.IControlFinder#getAllSelectables(org.wetator.backend.WPath)}.
  * 
  * @author frank.danek
  */
-public interface Selectable extends Control {
+public interface ISelectable extends IControl {
 
   /**
    * Selects the control.

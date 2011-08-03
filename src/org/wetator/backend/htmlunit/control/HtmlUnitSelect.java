@@ -57,7 +57,7 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {

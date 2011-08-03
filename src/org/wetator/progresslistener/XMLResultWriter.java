@@ -27,7 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.IProgressListener;
@@ -160,7 +160,7 @@ public class XMLResultWriter implements IProgressListener {
       for (ICommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
       }
-      for (Class<? extends Control> tmpControl : tmpConfiguration.getControls()) {
+      for (Class<? extends IControl> tmpControl : tmpConfiguration.getControls()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
       }
       for (IScripter tmpScripter : tmpConfiguration.getScripters()) {
@@ -205,8 +205,8 @@ public class XMLResultWriter implements IProgressListener {
         printEndTag(TAG_COMMAND_SET);
       }
 
-      final List<Class<? extends Control>> tmpControls = tmpConfiguration.getControls();
-      for (Class<? extends Control> tmpControl : tmpControls) {
+      final List<Class<? extends IControl>> tmpControls = tmpConfiguration.getControls();
+      for (Class<? extends IControl> tmpControl : tmpControls) {
         printStartTagOpener(TAG_CONTROL);
         output.print("class=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpControl.getClass().toString()));

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
@@ -32,9 +32,9 @@ import org.wetator.core.searchpattern.SearchPattern;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link Control}.<br />
+ * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link IControl}.<br />
  * Implement {@link #addMatchers(WPath, HtmlElement, List)} to add the matcher to use and
- * {@link #createControl(HtmlElement)} to create a {@link Control} for an {@link HtmlElement}.
+ * {@link #createControl(HtmlElement)} to create a {@link IControl} for an {@link HtmlElement}.
  * 
  * @author frank.danek
  */
@@ -99,5 +99,5 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
    * @param aHtmlElement the {@link HtmlElement} to create the control for
    * @return the created control
    */
-  protected abstract Control createControl(HtmlElement aHtmlElement);
+  protected abstract IControl createControl(HtmlElement aHtmlElement);
 }

@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * The identifiers must be added by {@link #addIdentifier(Class)} or {@link #addIdentifiers(List)} before
  * executing {@link #find(WPath)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
  * a match is found. So the returned {@link WeightedControlList} may contain multiple
- * {@link org.wetator.backend.control.Control}s (multiple times).
+ * {@link org.wetator.backend.control.IControl}s (multiple times).
  * 
  * @author frank.danek
  */

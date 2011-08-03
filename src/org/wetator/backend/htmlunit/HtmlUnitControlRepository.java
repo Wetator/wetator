@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
-import org.wetator.backend.control.Clickable;
-import org.wetator.backend.control.Control;
-import org.wetator.backend.control.Deselectable;
-import org.wetator.backend.control.Selectable;
-import org.wetator.backend.control.Settable;
+import org.wetator.backend.control.IClickable;
+import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.IDeselectable;
+import org.wetator.backend.control.ISelectable;
+import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -55,9 +55,9 @@ public class HtmlUnitControlRepository {
   /**
    * @param aControlClassList the classes of the controls to add
    */
-  public void addAll(final List<Class<? extends Control>> aControlClassList) {
+  public void addAll(final List<Class<? extends IControl>> aControlClassList) {
     if (aControlClassList != null) {
-      for (Class<? extends Control> tmpControlClass : aControlClassList) {
+      for (Class<? extends IControl> tmpControlClass : aControlClassList) {
         add(tmpControlClass);
       }
     }
@@ -67,7 +67,7 @@ public class HtmlUnitControlRepository {
    * @param aControlClass the class of the control to add
    */
   @SuppressWarnings("unchecked")
-  public void add(final Class<? extends Control> aControlClass) {
+  public void add(final Class<? extends IControl> aControlClass) {
     if (aControlClass == null) {
       return;
     }
@@ -99,19 +99,19 @@ public class HtmlUnitControlRepository {
             .asList(tmpIdentifiers.value());
 
         boolean tmpFound = false;
-        if (Settable.class.isAssignableFrom(aControlClass)) {
+        if (ISettable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
           settableIdentifiers.addAll(tmpIdentifierClasses);
         }
-        if (Clickable.class.isAssignableFrom(aControlClass)) {
+        if (IClickable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
           clickableIdentifiers.addAll(tmpIdentifierClasses);
         }
-        if (Selectable.class.isAssignableFrom(aControlClass)) {
+        if (ISelectable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
           selectableIdentifiers.addAll(tmpIdentifierClasses);
         }
-        if (Deselectable.class.isAssignableFrom(aControlClass)) {
+        if (IDeselectable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
           deselectableIdentifiers.addAll(tmpIdentifierClasses);
         }

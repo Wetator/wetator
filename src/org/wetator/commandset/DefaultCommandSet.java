@@ -34,10 +34,10 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.control.Control;
-import org.wetator.backend.control.Deselectable;
-import org.wetator.backend.control.Selectable;
-import org.wetator.backend.control.Settable;
+import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.IDeselectable;
+import org.wetator.backend.control.ISelectable;
+import org.wetator.backend.control.ISettable;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Variable;
@@ -181,11 +181,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
 
-      Settable tmpControl = null;
+      ISettable tmpControl = null;
       // in case of no input use the first 'usable' field on the page
       if (tmpWPath.isEmpty()) {
         for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
-          tmpControl = (Settable) tmpEntry.getControl();
+          tmpControl = (ISettable) tmpEntry.getControl();
           if (!tmpControl.isDisabled(aContext)) {
             break;
           }
@@ -196,7 +196,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
         aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       } else {
-        tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+        tmpControl = (ISettable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
             "noSetableHtmlElmentFound");
 
       }
@@ -230,7 +230,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noClickableHtmlElmentFound");
       tmpControl.click(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -261,7 +261,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "no2ClickableHtmlElmentFound");
       tmpControl.clickDouble(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -292,7 +292,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath, "7");
+      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath, "7");
       tmpControl.clickRight(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -319,7 +319,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSelectableHtmlElmentFound");
       tmpControl.select(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -347,7 +347,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
-      final Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+      final IDeselectable tmpControl = (IDeselectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
       tmpControl.deselect(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -382,7 +382,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
       tmpControl.mouseOver(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -524,7 +524,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final Control tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
@@ -555,7 +555,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
-      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final ISettable tmpControl = (ISettable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSetableHtmlElmentFound");
 
       tmpControl.assertValue(aContext, tmpValueParam);
@@ -582,7 +582,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSelectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
@@ -610,7 +610,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noDeselectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);

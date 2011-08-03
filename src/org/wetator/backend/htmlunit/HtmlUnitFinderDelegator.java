@@ -32,7 +32,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * This is the HtmlUnit specific implementation of a {@link IControlFinder}. All requests for
- * {@link org.wetator.backend.control.Control}s are delegated to the specific finder.
+ * {@link org.wetator.backend.control.IControl}s are delegated to the specific finder.
  * 
  * @author frank.danek
  */

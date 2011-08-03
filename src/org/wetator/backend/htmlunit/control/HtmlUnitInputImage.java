@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.Clickable;
+import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
  */
 @ForHtmlElement(HtmlImageInput.class)
 @IdentifiedBy(HtmlUnitInputImageIdentifier.class)
-public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> implements Clickable {
+public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> implements IClickable {
 
   /**
    * The constructor.
@@ -59,7 +59,7 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {

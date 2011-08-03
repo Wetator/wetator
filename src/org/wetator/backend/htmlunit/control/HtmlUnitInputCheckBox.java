@@ -18,7 +18,7 @@ package org.wetator.backend.htmlunit.control;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.wetator.backend.control.Deselectable;
+import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
@@ -40,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
  */
 @ForHtmlElement(HtmlCheckBoxInput.class)
 @IdentifiedBy(HtmlUnitInputCheckBoxIdentifier.class)
-public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput> implements Deselectable {
+public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput> implements IDeselectable {
 
   /**
    * The constructor.
@@ -64,7 +64,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Selectable#select(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
   public void select(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -96,7 +96,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Selectable#isSelected(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -108,7 +108,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Deselectable#deselect(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
   public void deselect(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -141,7 +141,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {

@@ -19,7 +19,7 @@ package org.wetator.backend;
 import java.net.URL;
 import java.util.List;
 
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.SecretString;
 
@@ -186,7 +186,7 @@ public interface IBrowser {
    * 
    * @param aControls the controls to be highlighted
    */
-  public void saveCurrentWindowToLog(Control... aControls);
+  public void saveCurrentWindowToLog(IControl... aControls);
 
   /**
    * Goes back (simulates the browser's back button) in the current window.

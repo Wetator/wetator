@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
@@ -112,7 +112,7 @@ public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected Control createControl(final HtmlElement aHtmlElement) {
+  protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitSelect((HtmlSelect) aHtmlElement);
   }
 }

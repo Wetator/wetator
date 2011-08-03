@@ -28,7 +28,7 @@ import org.wetator.exception.AssertionFailedException;
  * @author rbri
  * @author frank.danek
  */
-public interface Control {
+public interface IControl {
 
   /**
    * @return the description of the control
@@ -85,7 +85,7 @@ public interface Control {
    * @param aControl the control to compare with
    * @return true, if the given control has the same backend control
    */
-  public boolean hasSameBackendControl(Control aControl);
+  public boolean hasSameBackendControl(IControl aControl);
 
   /**
    * Retrieves the style to be used for highlight this control from the configuration

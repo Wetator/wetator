@@ -36,7 +36,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.exception.WetatorException;
 import org.wetator.scripter.ExcelScripter;
@@ -67,7 +67,7 @@ public final class WetatorConfiguration {
    */
   public static final String PROPERTY_COMMAND_SETS = PROPERTY_PREFIX + "commandSets";
   /**
-   * The property name to set the supported {@link Control}s.
+   * The property name to set the supported {@link IControl}s.
    */
   public static final String PROPERTY_CONTROLS = PROPERTY_PREFIX + "controls";
   /**
@@ -143,7 +143,7 @@ public final class WetatorConfiguration {
 
   private List<IScripter> scripters;
   private List<ICommandSet> commandSets;
-  private List<Class<? extends Control>> controls;
+  private List<Class<? extends IControl>> controls;
   private String baseUrl;
 
   private File outputDir;
@@ -283,7 +283,7 @@ public final class WetatorConfiguration {
     }
 
     // controls
-    controls = new LinkedList<Class<? extends Control>>();
+    controls = new LinkedList<Class<? extends IControl>>();
     readControls(tmpProperties);
 
     String tmpValue;
@@ -596,7 +596,7 @@ public final class WetatorConfiguration {
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpControlClassName);
           }
           @SuppressWarnings("unchecked")
-          final Class<? extends Control> tmpControlClass = (Class<? extends Control>) tmpClass;
+          final Class<? extends IControl> tmpControlClass = (Class<? extends IControl>) tmpClass;
           controls.add(tmpControlClass);
           LOG.info("Configuration: Control '" + tmpControlClassName + "' registered.");
         } catch (final ClassNotFoundException e) {
@@ -638,7 +638,7 @@ public final class WetatorConfiguration {
   /**
    * @return the controls
    */
-  public List<Class<? extends Control>> getControls() {
+  public List<Class<? extends IControl>> getControls() {
     return controls;
   }
 

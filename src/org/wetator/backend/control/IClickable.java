@@ -16,24 +16,14 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
-
 /**
- * This interface marks all deselectable {@link Control}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllDeselectables(org.wetator.backend.WPath)}. All deselectable control
- * are also
- * selectable.
+ * This interface marks all clickable {@link IControl}s. These controls are returned by
+ * {@link org.wetator.backend.IControlFinder#getAllClickables(org.wetator.backend.WPath)}.<br/>
+ * As all controls implement {@link #click(org.wetator.core.WetatorContext)} no additional action needs to be
+ * implemented.
  * 
  * @author frank.danek
  */
-public interface Deselectable extends Selectable {
-
-  /**
-   * Deselects the control.
-   * 
-   * @param aContext the context
-   * @throws AssertionFailedException if the control supports no deselect
-   */
-  public void deselect(WetatorContext aContext) throws AssertionFailedException;
+public interface IClickable extends IControl {
+  // nothing so far
 }

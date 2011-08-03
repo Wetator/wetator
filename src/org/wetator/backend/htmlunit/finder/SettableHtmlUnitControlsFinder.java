@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 /**
  * In addition to the {@link IdentifierBasedHtmlUnitControlsFinder} this finder has a special support for empty
  * searches. This is needed for some search engines which have no label in front of their input field. Currently the
- * following settable {@link org.wetator.backend.control.Control}s are supported:
+ * following settable {@link org.wetator.backend.control.IControl}s are supported:
  * <ul>
  * <li>{@link HtmlUnitInputFile}</li>
  * <li>{@link HtmlUnitInputPassword}</li>

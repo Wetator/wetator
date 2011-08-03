@@ -24,7 +24,7 @@ import org.wetator.exception.WetatorException;
 import org.wetator.util.SecretString;
 
 /**
- * A wpath contains the nodes describing the path to a {@link org.wetator.backend.control.Control}.<br/>
+ * A wpath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.<br/>
  * 
  * @author frank.danek
  */

@@ -37,7 +37,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
@@ -471,17 +471,17 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(org.wetator.backend.control.Control[])
+   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(org.wetator.backend.control.IControl[])
    */
   @Override
-  public void saveCurrentWindowToLog(final Control... aControls) {
+  public void saveCurrentWindowToLog(final IControl... aControls) {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
       try {
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          for (Control tmpControl : aControls) {
+          for (IControl tmpControl : aControls) {
             tmpControl.addHighlightStyle(wetatorEngine.getConfiguration());
           }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
