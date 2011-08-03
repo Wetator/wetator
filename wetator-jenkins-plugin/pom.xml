@@ -11,7 +11,7 @@
     <name>Wetator Report Plug-in</name>
     <groupId>org.wetator</groupId>
     <artifactId>wetator-jenkins-plugin</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
     <url>http://www.wetator.org</url>
