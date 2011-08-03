@@ -32,7 +32,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 /**
  * This custom runner implements browser parameterized tests. When running a test class, each method is run for all
  * {@link BrowserType}s annotated by {@link Browsers}.<br/>
- * Only work correctly if the test class implements {@link BrowserTest}.<br/>
+ * Only work correctly if the test class implements {@link IBrowserTest}.<br/>
  * For example, write:
  * 
  * <pre>
@@ -69,7 +69,7 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
   @Override
   protected List<FrameworkMethod> computeTestMethods() {
     List<FrameworkMethod> tmpMethods = super.computeTestMethods();
-    if (!BrowserTest.class.isAssignableFrom(getTestClass().getJavaClass())) {
+    if (!IBrowserTest.class.isAssignableFrom(getTestClass().getJavaClass())) {
       // the test class not implements BrowserTest
       return tmpMethods;
     }
@@ -101,11 +101,11 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
    */
   @Override
   protected Statement methodInvoker(FrameworkMethod aMethod, Object aTest) {
-    if (aMethod instanceof BrowserFrameworkMethod && aTest instanceof BrowserTest) {
+    if (aMethod instanceof BrowserFrameworkMethod && aTest instanceof IBrowserTest) {
       // we have a BrowserFrameworkMethod and an implementation of BrowserTest -> set the browser of the test to the
       // browser given by the BrowserFrameworkMethod
       BrowserFrameworkMethod tmpBrowserMethod = (BrowserFrameworkMethod) aMethod;
-      BrowserTest tmpWebServerTest = (BrowserTest) aTest;
+      IBrowserTest tmpWebServerTest = (IBrowserTest) aTest;
       tmpWebServerTest.setBrowser(tmpBrowserMethod.getBrowser());
     }
     return super.methodInvoker(aMethod, aTest);
@@ -144,7 +144,7 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
    * 
    * @author frank.danek
    */
-  public static interface BrowserTest {
+  public static interface IBrowserTest {
 
     /**
      * @param aBrowserType the browser to set
