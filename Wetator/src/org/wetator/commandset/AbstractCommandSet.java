@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
@@ -130,7 +130,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @return the first control from the list
    * @throws AssertionFailedException if the list is empty
    */
-  protected Control getRequiredFirstHtmlElementFrom(final WetatorContext aContext,
+  protected IControl getRequiredFirstHtmlElementFrom(final WetatorContext aContext,
       final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNoElementFoundKey)
       throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {

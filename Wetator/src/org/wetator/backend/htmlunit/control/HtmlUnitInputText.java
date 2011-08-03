@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.wetator.backend.control.Settable;
+import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
@@ -47,7 +47,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
  */
 @ForHtmlElement(HtmlTextInput.class)
 @IdentifiedBy(HtmlUnitInputTextIdentifier.class)
-public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implements Settable {
+public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implements ISettable {
 
   /**
    * The constructor.
@@ -71,7 +71,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
+   * @see org.wetator.backend.control.ISettable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
    *      java.io.File)
    */
   @Override
@@ -139,7 +139,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
@@ -150,7 +150,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {

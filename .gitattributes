@@ -30,11 +30,11 @@ Wetator/src/org/wetator/backend/IBrowser.java -text
 Wetator/src/org/wetator/backend/IControlFinder.java -text
 Wetator/src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/backend/WeightedControlList.java -text
-Wetator/src/org/wetator/backend/control/Clickable.java -text svneol=unset#text/plain
-Wetator/src/org/wetator/backend/control/Control.java -text
-Wetator/src/org/wetator/backend/control/Deselectable.java -text svneol=unset#text/plain
-Wetator/src/org/wetator/backend/control/Selectable.java -text svneol=unset#text/plain
-Wetator/src/org/wetator/backend/control/Settable.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/backend/control/IClickable.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/backend/control/IControl.java -text
+Wetator/src/org/wetator/backend/control/IDeselectable.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/backend/control/ISelectable.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/backend/control/ISettable.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
 Wetator/src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain

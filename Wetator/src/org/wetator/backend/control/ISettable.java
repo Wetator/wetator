@@ -23,12 +23,12 @@ import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.SecretString;
 
 /**
- * This interface marks all settable {@link Control}s. These controls are returned by
+ * This interface marks all settable {@link IControl}s. These controls are returned by
  * {@link org.wetator.backend.IControlFinder#getAllSettables(org.wetator.backend.WPath)}.
  * 
  * @author frank.danek
  */
-public interface Settable extends Control {
+public interface ISettable extends IControl {
 
   /**
    * Sets the value of the control.

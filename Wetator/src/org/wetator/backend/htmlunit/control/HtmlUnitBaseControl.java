@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
@@ -45,13 +45,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * This is the base implementation of a {@link Control} using HtmlUnit as backend.
+ * This is the base implementation of a {@link IControl} using HtmlUnit as backend.
  * 
  * @param <T> the type of the {@link HtmlElement}.
  * @author rbri
  * @author frank.danek
  */
-public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
+public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
   private T htmlElement;
 
@@ -67,10 +67,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#hasSameBackendControl(org.wetator.backend.control.Control)
+   * @see org.wetator.backend.control.IControl#hasSameBackendControl(org.wetator.backend.control.IControl)
    */
   @Override
-  public boolean hasSameBackendControl(final Control aControl) {
+  public boolean hasSameBackendControl(final IControl aControl) {
     if (aControl instanceof HtmlUnitBaseControl<?>) {
       final HtmlUnitBaseControl<?> tmpHtmlUnitControl = (HtmlUnitBaseControl<?>) aControl;
 
@@ -89,7 +89,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#click(WetatorContext)
+   * @see org.wetator.backend.control.IControl#click(WetatorContext)
    */
   @Override
   public void click(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -124,7 +124,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#clickDouble(WetatorContext)
+   * @see org.wetator.backend.control.IControl#clickDouble(WetatorContext)
    */
   @Override
   public void clickDouble(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -159,7 +159,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#clickRight(WetatorContext)
+   * @see org.wetator.backend.control.IControl#clickRight(WetatorContext)
    */
   @Override
   public void clickRight(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -194,7 +194,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#mouseOver(WetatorContext)
+   * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
    */
   @Override
   public void mouseOver(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -231,7 +231,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -279,7 +279,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean hasFocus(final WetatorContext aWetatorContext) throws AssertionFailedException {
@@ -296,7 +296,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#getDescribingText()
+   * @see org.wetator.backend.control.IControl#getDescribingText()
    */
   @Override
   public String getDescribingText() {
@@ -326,7 +326,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#addHighlightStyle(WetatorConfiguration)
+   * @see org.wetator.backend.control.IControl#addHighlightStyle(WetatorConfiguration)
    */
   @Override
   public void addHighlightStyle(final WetatorConfiguration aConfiguration) {

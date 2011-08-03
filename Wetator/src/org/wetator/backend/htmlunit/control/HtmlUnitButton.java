@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.Clickable;
+import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
  */
 @ForHtmlElement(HtmlButton.class)
 @IdentifiedBy(HtmlUnitButtonIdentifier.class)
-public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements Clickable {
+public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements IClickable {
 
   /**
    * The constructor.
@@ -58,7 +58,7 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements C
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {

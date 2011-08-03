@@ -19,7 +19,7 @@ package org.wetator.backend.htmlunit.control.identifier;
 import java.util.List;
 
 import org.wetator.backend.WPath;
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
@@ -98,7 +98,7 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIden
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected Control createControl(final HtmlElement aHtmlElement) {
+  protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitInputRadioButton((HtmlRadioButtonInput) aHtmlElement);
   }
 }

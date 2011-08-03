@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.Clickable;
+import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
  */
 @ForHtmlElement(HtmlSubmitInput.class)
 @IdentifiedBy(HtmlUnitInputSubmitIdentifier.class)
-public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> implements Clickable {
+public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> implements IClickable {
 
   /**
    * The constructor.
@@ -59,7 +59,7 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {

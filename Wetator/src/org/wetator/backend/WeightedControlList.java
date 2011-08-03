@@ -21,10 +21,10 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.wetator.backend.control.Control;
+import org.wetator.backend.control.IControl;
 
 /**
- * List to store {@link Control}s together with some 'weight' information. Then it is possible to sort the list by this
+ * List to store {@link IControl}s together with some 'weight' information. Then it is possible to sort the list by this
  * criterion.
  * 
  * @author rbri
@@ -98,7 +98,7 @@ public final class WeightedControlList {
    * The class for the WeightedControlList entries.
    */
   public static final class Entry {
-    private Control control;
+    private IControl control;
     private FoundType foundType;
     private int coverage;
     private int distance;
@@ -107,7 +107,7 @@ public final class WeightedControlList {
     /**
      * @return the encapsulated control
      */
-    public Control getControl() {
+    public IControl getControl() {
       return control;
     }
 
@@ -185,7 +185,7 @@ public final class WeightedControlList {
    * @param aDistance the distance
    * @param aStart the start
    */
-  public void add(final Control aControl, final FoundType aFoundType, final int aCoverage, final int aDistance,
+  public void add(final IControl aControl, final FoundType aFoundType, final int aCoverage, final int aDistance,
       final int aStart) {
     final Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
@@ -207,11 +207,11 @@ public final class WeightedControlList {
 
     final List<Entry> tmpResult = new LinkedList<Entry>();
     for (Entry tmpEntry : entries) {
-      final Control tmpControl = tmpEntry.getControl();
+      final IControl tmpControl = tmpEntry.getControl();
 
       boolean tmpNotPresent = true;
       for (Entry tmpResultEntry : tmpResult) {
-        final Control tmpResultControl = tmpResultEntry.getControl();
+        final IControl tmpResultControl = tmpResultEntry.getControl();
         if (tmpResultControl.hasSameBackendControl(tmpControl)) {
           tmpNotPresent = false;
           break;
