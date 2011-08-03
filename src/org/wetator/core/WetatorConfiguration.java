@@ -177,13 +177,12 @@ public final class WetatorConfiguration {
   public WetatorConfiguration(final File aConfigurationPropertyFile, final Map<String, String> anExternalPropertiesMap) {
     super();
 
-    LOG.info("Config  Configuration file is '" + aConfigurationPropertyFile.getAbsolutePath() + "'");
+    LOG.info("Configuration: Configuration file is '" + aConfigurationPropertyFile.getAbsolutePath() + "'");
     // lets do some validations first
     if (!aConfigurationPropertyFile.exists()) {
       throw new WetatorException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
           + "' does not exist.");
     }
-
     if (!aConfigurationPropertyFile.canRead()) {
       throw new WetatorException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
           + "' is not readable.");
@@ -231,18 +230,14 @@ public final class WetatorConfiguration {
     initialize(aBaseDirectory, aConfigurationProperties, anExternalPropertiesMap);
   }
 
-  @SuppressWarnings("unchecked")
   private void initialize(final File aBaseDirectory, final Properties aConfigurationProperties,
       final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
-      throw new WetatorException("Config  The base directory '" + aBaseDirectory.getAbsolutePath()
-          + "' does not exist.");
+      throw new WetatorException("The base directory '" + aBaseDirectory.getAbsolutePath() + "' does not exist.");
     }
 
-    LOG.info("Config  Base directory is '" + aBaseDirectory.getAbsolutePath() + "'");
-
-    String tmpValue;
+    LOG.info("Configuration: Base directory is '" + aBaseDirectory.getAbsolutePath() + "'");
 
     // we start with the given configuration properties
     final Properties tmpProperties = aConfigurationProperties;
@@ -275,141 +270,23 @@ public final class WetatorConfiguration {
 
     // scripters
     scripters = new LinkedList<IScripter>();
-
-    IScripter tmpScripter;
-    tmpScripter = new XMLScripter();
-    scripters.add(tmpScripter);
-    LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
-    tmpScripter = new LegacyXMLScripter();
-    scripters.add(tmpScripter);
-    LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
-    tmpScripter = new ExcelScripter();
-    scripters.add(tmpScripter);
-    LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
-
-    tmpValue = tmpProperties.getProperty(PROPERTY_SCRIPTERS, "");
-    final List<String> tmpScripterClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
-
-    for (String tmpScripterClassName : tmpScripterClassNames) {
-      tmpScripterClassName = tmpScripterClassName.trim();
-      if (!StringUtils.isEmpty(tmpScripterClassName)) {
-        try {
-          Class<? extends IScripter> tmpClass;
-          try {
-            tmpClass = ClassUtils.getClass(tmpScripterClassName);
-          } catch (final ClassNotFoundException e) {
-            // make Ant happy
-            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
-          }
-          final IScripter tmpIScripter = tmpClass.newInstance();
-          scripters.add(tmpIScripter);
-          LOG.info("Config  scripter '" + tmpScripterClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        } catch (final InstantiationException e) {
-          LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        } catch (final IllegalAccessException e) {
-          LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        } catch (final ClassCastException e) {
-          LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        }
-      }
-    }
-    for (IScripter tmpWebScripter : scripters) {
-      tmpWebScripter.initialize(tmpProperties);
+    readScripters(tmpProperties);
+    for (IScripter tmpScripter : scripters) {
+      tmpScripter.initialize(tmpProperties);
     }
 
     // command sets
     commandSets = new LinkedList<ICommandSet>();
-
-    tmpValue = tmpProperties.getProperty(PROPERTY_COMMAND_SETS, "");
-    final List<String> tmpCommandSetClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
-
-    // add default command first
-    tmpCommandSetClassNames.add(0, DefaultCommandSet.class.getName());
-
-    for (String tmpCommandSetClassName : tmpCommandSetClassNames) {
-      tmpCommandSetClassName = tmpCommandSetClassName.trim();
-      if (!StringUtils.isEmpty(tmpCommandSetClassName)) {
-        Class<?> tmpClass = null;
-        try {
-          try {
-            tmpClass = ClassUtils.getClass(tmpCommandSetClassName);
-          } catch (final ClassNotFoundException e) {
-            // make Ant happy
-            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
-          }
-          final Class<? extends ICommandSet> tmpCommandSetClass = (Class<? extends ICommandSet>) tmpClass;
-          final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
-          commandSets.add(tmpCommandSet);
-          LOG.info("Config:  command set '" + tmpCommandSetClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final InstantiationException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final IllegalAccessException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final ClassCastException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-          if (null != tmpClass) {
-            ClassLoader tmpClassLoader = tmpClass.getClassLoader();
-            LOG.error("         '" + tmpClass.getName() + "' loaded from "
-                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
-                + tmpClassLoader.toString() + ").");
-
-            tmpClass = ICommandSet.class;
-            tmpClassLoader = tmpClass.getClassLoader();
-            LOG.error("         '" + tmpClass.getName() + "' loaded from "
-                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
-                + tmpClassLoader.toString() + ").");
-          }
-        }
-      }
-    }
+    readCommandSets(tmpProperties);
     for (ICommandSet tmpCommandSet : commandSets) {
       tmpCommandSet.initialize(tmpProperties);
     }
 
     // controls
     controls = new LinkedList<Class<? extends Control>>();
+    readControls(tmpProperties);
 
-    tmpValue = tmpProperties.getProperty(PROPERTY_CONTROLS, "");
-    final List<String> tmpControlClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
-
-    for (String tmpControlClassName : tmpControlClassNames) {
-      tmpControlClassName = tmpControlClassName.trim();
-      if (!StringUtils.isEmpty(tmpControlClassName)) {
-        try {
-          Class<? extends Control> tmpClass;
-          try {
-            tmpClass = ClassUtils.getClass(tmpControlClassName);
-          } catch (final ClassNotFoundException e) {
-            // make Ant happy
-            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpControlClassName);
-          }
-          controls.add(tmpClass);
-          LOG.info("Config  control '" + tmpControlClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          LOG.error("Config  Can't load control '" + tmpControlClassName + "'.", e);
-        }
-      }
-    }
+    String tmpValue;
 
     // outputDir
     tmpValue = tmpProperties.getProperty(PROPERTY_OUTPUT_DIR, DEFAULT_OUTPUT_DIR);
@@ -421,14 +298,14 @@ public final class WetatorConfiguration {
 
     tmpValue = tmpProperties.getProperty(PROPERTY_DISTINCT_OUTPUT, DEFAULT_DISTINCT_OUTPUT);
     final boolean tmpDistinctOutput = Boolean.parseBoolean(tmpValue);
-    LOG.info("Config  DistinctOutput is '" + tmpDistinctOutput + "'");
+    LOG.info("Configuration: DistinctOutput is '" + tmpDistinctOutput + "'");
     if (tmpDistinctOutput) {
       final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
       outputDir = new File(outputDir, tmpFormater.format(new Date()));
     }
 
     FileUtil.createOutputDir(outputDir);
-    LOG.info("Config  OutputDir is '" + outputDir.getAbsolutePath() + "'");
+    LOG.info("Configuration: OutputDir is '" + outputDir.getAbsolutePath() + "'");
 
     // baseUrl
     tmpValue = tmpProperties.getProperty(PROPERTY_BASE_URL, "");
@@ -491,7 +368,6 @@ public final class WetatorConfiguration {
           tmpString = tmpString.replaceAll("^\\*", ".*");
           proxyHostsToBypass.add(tmpString);
         }
-
       }
 
       tmpValue = tmpProperties.getProperty(PROPERTY_PROXY_USER, "");
@@ -499,6 +375,7 @@ public final class WetatorConfiguration {
       if (StringUtils.isNotEmpty(tmpValue)) {
         proxyUser = new SecretString(tmpValue, false);
 
+        // read the rest only if needed
         tmpValue = tmpProperties.getProperty(PROPERTY_PROXY_PASSWORD, "");
         tmpProperties.remove(PROPERTY_PROXY_PASSWORD);
         proxyPassword = new SecretString(tmpValue, true);
@@ -534,11 +411,15 @@ public final class WetatorConfiguration {
           // template file is relative to the base directory
           tmpTemplateFile = new File(aBaseDirectory, tmpString);
         }
-        if (tmpTemplateFile.exists()) {
-          xslTemplates.add(tmpTemplateFile.getAbsolutePath());
-        } else {
-          throw new WetatorException("Configured XSL template '" + tmpTemplateFile.getAbsolutePath() + "' not found.");
+        if (!tmpTemplateFile.exists()) {
+          throw new WetatorException("The configured XSL template '" + tmpTemplateFile.getAbsolutePath()
+              + "' does not exist.");
         }
+        if (!tmpTemplateFile.canRead()) {
+          throw new WetatorException("The configured XSL template '" + tmpTemplateFile.getAbsolutePath()
+              + "' is not readable.");
+        }
+        xslTemplates.add(tmpTemplateFile.getAbsolutePath());
       }
     }
 
@@ -559,7 +440,192 @@ public final class WetatorConfiguration {
       }
     }
 
-    LOG.debug("Config  Reading of the configuration finished'");
+    LOG.debug("Configuration: Reading of the configuration finished");
+  }
+
+  private void readScripters(final Properties aProperties) {
+    // add default scripters first
+    IScripter tmpDefaultScripter;
+    tmpDefaultScripter = new XMLScripter();
+    scripters.add(tmpDefaultScripter);
+    LOG.info("Configuration: Scripter '" + tmpDefaultScripter.getClass().getName() + "' registered.");
+    tmpDefaultScripter = new LegacyXMLScripter();
+    scripters.add(tmpDefaultScripter);
+    LOG.info("Configuration: Scripter '" + tmpDefaultScripter.getClass().getName() + "' registered.");
+    tmpDefaultScripter = new ExcelScripter();
+    scripters.add(tmpDefaultScripter);
+    LOG.info("Configuration: Scripter '" + tmpDefaultScripter.getClass().getName() + "' registered.");
+
+    final String tmpValue = aProperties.getProperty(PROPERTY_SCRIPTERS, "");
+    final List<String> tmpScripterClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+
+    for (String tmpScripterClassName : tmpScripterClassNames) {
+      tmpScripterClassName = tmpScripterClassName.trim();
+      if (!StringUtils.isEmpty(tmpScripterClassName)) {
+        Class<?> tmpClass = null;
+        try {
+          try {
+            tmpClass = ClassUtils.getClass(tmpScripterClassName);
+          } catch (final ClassNotFoundException e) {
+            // make Ant happy
+            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
+          }
+          @SuppressWarnings("unchecked")
+          final Class<? extends IScripter> tmpScripterClass = (Class<? extends IScripter>) tmpClass;
+          final IScripter tmpIScripter = tmpScripterClass.newInstance();
+          scripters.add(tmpIScripter);
+          LOG.info("Configuration: Scripter '" + tmpScripterClassName + "' registered.");
+        } catch (final ClassNotFoundException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final InstantiationException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final IllegalAccessException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final ClassCastException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
+          }
+          if (null != tmpClass) {
+            ClassLoader tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+
+            tmpClass = ICommandSet.class;
+            tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+          }
+        }
+      }
+    }
+  }
+
+  private void readCommandSets(final Properties aProperties) {
+    final String tmpValue = aProperties.getProperty(PROPERTY_COMMAND_SETS, "");
+    final List<String> tmpCommandSetClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+
+    // add default command sets first
+    tmpCommandSetClassNames.add(0, DefaultCommandSet.class.getName());
+
+    for (String tmpCommandSetClassName : tmpCommandSetClassNames) {
+      tmpCommandSetClassName = tmpCommandSetClassName.trim();
+      if (!StringUtils.isEmpty(tmpCommandSetClassName)) {
+        Class<?> tmpClass = null;
+        try {
+          try {
+            tmpClass = ClassUtils.getClass(tmpCommandSetClassName);
+          } catch (final ClassNotFoundException e) {
+            // make Ant happy
+            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
+          }
+          @SuppressWarnings("unchecked")
+          final Class<? extends ICommandSet> tmpCommandSetClass = (Class<? extends ICommandSet>) tmpClass;
+          final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
+          commandSets.add(tmpCommandSet);
+          LOG.info("Configuration: Command set '" + tmpCommandSetClassName + "' registered.");
+        } catch (final ClassNotFoundException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final InstantiationException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final IllegalAccessException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final ClassCastException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
+          if (null != tmpClass) {
+            ClassLoader tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+
+            tmpClass = ICommandSet.class;
+            tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+          }
+        }
+      }
+    }
+  }
+
+  private void readControls(final Properties aProperties) {
+    final String tmpValue = aProperties.getProperty(PROPERTY_CONTROLS, "");
+    final List<String> tmpControlClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+
+    for (String tmpControlClassName : tmpControlClassNames) {
+      tmpControlClassName = tmpControlClassName.trim();
+      if (!StringUtils.isEmpty(tmpControlClassName)) {
+        Class<?> tmpClass = null;
+        try {
+          try {
+            tmpClass = ClassUtils.getClass(tmpControlClassName);
+          } catch (final ClassNotFoundException e) {
+            // make Ant happy
+            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpControlClassName);
+          }
+          @SuppressWarnings("unchecked")
+          final Class<? extends Control> tmpControlClass = (Class<? extends Control>) tmpClass;
+          controls.add(tmpControlClass);
+          LOG.info("Configuration: Control '" + tmpControlClassName + "' registered.");
+        } catch (final ClassNotFoundException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load control '" + tmpControlClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load control '" + tmpControlClassName + "' (" + e.toString() + ").");
+          }
+        } catch (final ClassCastException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load control '" + tmpControlClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load control '" + tmpControlClassName + "' (" + e.toString() + ").");
+          }
+          if (null != tmpClass) {
+            ClassLoader tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+
+            tmpClass = ICommandSet.class;
+            tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+          }
+        }
+      }
+    }
   }
 
   /**
