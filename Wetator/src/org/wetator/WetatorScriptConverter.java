@@ -88,7 +88,7 @@ public final class WetatorScriptConverter {
       }
       tmpConverter.setScripter(tmpIScripter);
       tmpConverter.setCreator(tmpCreator);
-      final File[] tmpFiles = DialogUtil.chooseFiles();
+      final File[] tmpFiles = DialogUtil.chooseFiles(null);
       if (null == tmpFiles || (tmpFiles.length < 1)) {
         return;
       }

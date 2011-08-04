@@ -73,7 +73,12 @@ public final class Wetator {
       tmpWetatorEngine.init();
 
       if (tmpFileNames.isEmpty()) {
-        final File[] tmpFiles = DialogUtil.chooseFiles();
+        String tmpPropertyKey = null;
+        final File tmpConfigFile = tmpWetatorEngine.getConfigFile();
+        if (null != tmpConfigFile) {
+          tmpPropertyKey = Integer.toString(tmpConfigFile.getAbsolutePath().hashCode());
+        }
+        final File[] tmpFiles = DialogUtil.chooseFiles(tmpPropertyKey);
         if (null == tmpFiles || (tmpFiles.length < 1)) {
           return;
         }
