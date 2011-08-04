@@ -21,6 +21,7 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
 
+import org.apache.commons.lang.StringUtils;
 import org.wetator.Wetator;
 import org.wetator.i18n.Messages;
 
@@ -36,12 +37,13 @@ public final class DialogUtil {
   /**
    * Helper for displaying a file selector dialog.
    * 
+   * @param aPropertyKey a special key for looking up the start directory.
    * @return the files
    */
-  public static File chooseFile() {
+  public static File chooseFile(final String aPropertyKey) {
     File[] tmpResult;
     // we can make this configurable later
-    tmpResult = chooseFilesSwing(false);
+    tmpResult = chooseFilesSwing(aPropertyKey, false);
     if (null == tmpResult) {
       return null;
     }
@@ -51,12 +53,13 @@ public final class DialogUtil {
   /**
    * Helper for displaying a file selector dialog.
    * 
+   * @param aPropertyKey a special key for looking up the start directory.
    * @return the files
    */
-  public static File[] chooseFiles() {
+  public static File[] chooseFiles(final String aPropertyKey) {
     File[] tmpResult;
     // we can make this configurable later
-    tmpResult = chooseFilesSwing(true);
+    tmpResult = chooseFilesSwing(aPropertyKey, true);
 
     return tmpResult;
   }
@@ -64,12 +67,26 @@ public final class DialogUtil {
   /**
    * Displays a file selector dialog using swing.
    * 
+   * @param aPropertyKey a special key for looking up the start directory.
    * @param aMultiSelectionFlag if true multiple files can be selected.
    * @return the selected files.
    */
-  protected static File[] chooseFilesSwing(final boolean aMultiSelectionFlag) {
+  protected static File[] chooseFilesSwing(final String aPropertyKey, final boolean aMultiSelectionFlag) {
     final Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
-    final String tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
+
+    String tmpLastDirName = null;
+
+    if (null != aPropertyKey) {
+      tmpLastDirName = tmpPreferences.get(LAST_DIR + "_" + aPropertyKey, "");
+      final File tmpLastDir = new File(tmpLastDirName);
+      if (!tmpLastDir.exists() || !tmpLastDir.isDirectory()) {
+        tmpLastDirName = null;
+      }
+    }
+
+    if (StringUtils.isBlank(tmpLastDirName)) {
+      tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
+    }
 
     File tmpLastDir = new File(tmpLastDirName);
     if (!tmpLastDir.exists() || !tmpLastDir.isDirectory()) {
@@ -91,6 +108,9 @@ public final class DialogUtil {
 
           if (tmpSelectedFiles.length > 0) {
             tmpPreferences.put(LAST_DIR, tmpSelectedFiles[0].getParentFile().getAbsolutePath());
+            if (null != aPropertyKey) {
+              tmpPreferences.put(LAST_DIR + "_" + aPropertyKey, tmpSelectedFiles[0].getParentFile().getAbsolutePath());
+            }
           }
 
           return tmpSelectedFiles;
