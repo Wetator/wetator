@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;

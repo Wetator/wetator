@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.commons.lang.reflect.MethodUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
