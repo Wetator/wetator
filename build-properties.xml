@@ -5,7 +5,7 @@
     <name>Wetator</name>
     <version>0_9_6_beta6</version>
     <jar-basename>wetator</jar-basename>
-    <vendor>Ronald Brill</vendor>
+    <vendor>wetator.org</vendor>
   </application>
 
   <dir>

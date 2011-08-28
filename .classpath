@@ -41,7 +41,7 @@
 	<classpathentry kind="lib" path="lib/httpclient-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.10-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.10-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.10-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.9.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
