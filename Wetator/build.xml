@@ -276,6 +276,11 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="build.xml" />
             </zipfileset>
 
+            <zipfileset dir="${dir.samples}" prefix="samples">
+                <include name="google_search/**" />
+                <exclude name="google_search/logs/**" />
+            </zipfileset>
+
             <zipfileset dir="${dir.xsl}" prefix="xsl">
             </zipfileset>
 
@@ -379,7 +384,7 @@ echo location of the Java Virtual Machine you want to use.
             file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
             todir="${basedir}/${dir.build}/test-release/ant"
         />
-    	
+
     	<echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Wetator Ant Test" basedir="${basedir}/${dir.build}/test-release/ant" default="run_wetator">
   <path id="wetator-classpath">
@@ -414,7 +419,7 @@ echo location of the Java Virtual Machine you want to use.
 
     	<input message="Please enter repo username:" addproperty="repo.user"/>
         <input message="Please enter repo password:" addproperty="repo.password"/>
-    	
+
         <wetator config="wetator-upload.cfg">
             <fileset dir=".">
                 <include name="wetator-upload.wet"/>
@@ -450,7 +455,7 @@ echo location of the Java Virtual Machine you want to use.
     <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
         <mkdir dir="${dir.lib}"/>
         <mkdir dir="${dir.lib-src}"/>
-        
+
         <delete includeemptydirs="true">
             <fileset dir="${dir.lib}" includes="**/*"/>
             <fileset dir="${dir.lib-src}" includes="**/*"/>

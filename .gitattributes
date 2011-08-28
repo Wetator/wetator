@@ -18,6 +18,7 @@ Wetator/ivy.xml -text svneol=unset#text/plain
 Wetator/ivysettings.xml -text svneol=unset#text/plain
 Wetator/readme.txt -text svneol=unset#text/plain
 Wetator/samples/ant/build.xml -text
+Wetator/samples/google_search/google.wet -text
 Wetator/samples/google_search/google.xls -text
 Wetator/samples/google_search/wetator.config -text
 Wetator/src/log4j.properties -text
