@@ -101,3 +101,41 @@
 		> catch WetatorException -> log.warn + sysout
 		> catch Throwable -> log.fatal + sysout
 	}
+
+
+# commands
+# * Validation
+# ** Invalid parameters -> Invalid test -> InvalidUsageExeception
+# ** Page is not a HTML page -> CommandExecutionException
+# * HtmlElement not found -> CommandExecutionException
+# * Control validation -> AssertionFailedException
+# ** Enabled
+# ** ReadOnly
+# * Control execution
+# ** assertion -> AssertionFailedException -> IBrowser.addFailure()
+# *** Why sum up AssertionFailedExceptions?
+# ** action -> CommandExecutionException
+# * Save to log fails -> ResourceException
+	Validation (e.g. getRequiredFirstParameterValues) -> AssertionFailedException
+	IBrowser.getControlFinder() -> AssertionFailedException
+	IControlFinder.getAll*() -> WetatorException
+	AbstractCommandSet.getRequiredFirstHtmlElementFrom() -> AssertionFailedException
+	IControl.*()
+		Validation (e.g. isDisabled) -> AssertionFailedException
+		try {
+			*
+		}
+		> catch *Exception -> IBrowser.addFailure()
+	IBrowser.saveCurrentWindowToLog()
+		try {
+			*
+		}
+		> catch WetatorException -> log.fatal
+
+
+# Exceptions
+# * ConfigurationException -> abort whole test run
+# * ResourceException -> abort whole test run
+# * CommandExecutionException -> abort test + mark following commands as not executed
+# ** AssertionFailedException -> continue with next command
+# ** InvalidUsageExeception -> abort test + mark following commands as not executed
