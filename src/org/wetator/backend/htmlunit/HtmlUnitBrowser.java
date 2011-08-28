@@ -31,8 +31,8 @@ import javax.swing.text.BadLocationException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;

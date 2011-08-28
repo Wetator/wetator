@@ -21,7 +21,7 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.Wetator;
 import org.wetator.i18n.Messages;
 

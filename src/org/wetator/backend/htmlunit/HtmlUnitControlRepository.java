@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDeselectable;
