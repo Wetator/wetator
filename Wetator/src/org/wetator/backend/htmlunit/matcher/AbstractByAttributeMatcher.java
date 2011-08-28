@@ -19,7 +19,7 @@ package org.wetator.backend.htmlunit.matcher;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;

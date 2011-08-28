@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;

@@ -19,7 +19,7 @@ package org.wetator.backend.htmlunit.util;
 import java.io.IOException;
 import java.net.URL;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 

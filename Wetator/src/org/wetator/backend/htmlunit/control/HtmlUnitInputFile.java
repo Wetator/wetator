@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;

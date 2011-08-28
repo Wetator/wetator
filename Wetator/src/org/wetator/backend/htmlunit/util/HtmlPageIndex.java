@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.NormalizedString;
 
