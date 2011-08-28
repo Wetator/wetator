@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>/</d:url></d:open-url></command>
+    <comment>It is a good idea to check for the right page early</comment>
+    <command><d:assert-title><d:title>Google</d:title></d:assert-title></command>
+    <comment>Let's fill the search box;
+if no name for the control to be set is given, the Wetator uses the first one</comment>
+    <command><d:set><d:wpath>q</d:wpath><d:value>Gebit Solutions</d:value></d:set></command>
+    <command><d:click-on><d:wpath>Search</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GEBIT Solutions: Die Java Profis</d:content></d:assert-content></command>
+    <comment>OK, we found something</comment>
+    <command><d:click-on><d:wpath>GEBIT Solutions: Die Java Profis</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Experten, Erfahrung, Kompetenz</d:content></d:assert-content></command>
+</test-case>
