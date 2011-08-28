@@ -102,3 +102,9 @@ frank.danek 2011-08-02 23:10: Nabend! Brauchen wir den Inhalt des Verzeichnisses
 	Davon abgesehen habe ich gerade die neuen XSDs hochgeladen. Die sind also ab sofort unter /xsd/* verfügbar.
 	@all: der WTE funktioniert unter Indigo und auch sonst scheint das zumindest nicht schlechter zu funktionieren als Helios. Spricht irgendetwas
 	gegen einen Umzug? (außer, dass ihr ein neues Eclipse einrichten müsstet)
+
+frank.danek 2011-08-28 19:45: Ich habs dann einfach mal gemacht:
+	- unsere IDE ist jetzt Eclipse Indigo (3.7).
+	- das Verzeichnis webpages ist aufgelöst.
+	Des weiteren habe ich unseren Track etwas aufgeräumt bzgl. der XSDs issues.
+	Als nächstes würde ich mich jetzt an das Exception Handling setzen...
