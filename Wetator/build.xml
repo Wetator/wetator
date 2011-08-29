@@ -330,19 +330,6 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
         </zip>
 
-        <!-- generate web zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}_web_${application.version}.zip">
-            <zipfileset dir="${dir.webpages}" >
-            </zipfileset>
-
-            <zipfileset dir="${dir.deploy}" prefix="download">
-                <include name="${application.jar-basename}_*${application.version}.zip" />
-                <exclude name="${application.jar-basename}_web_${application.version}.zip" />
-            </zipfileset>
-            <zipfileset dir="${dir.test-wet-src}" prefix="exceltests">
-            </zipfileset>
-        </zip>
-
     </target>
 
 
