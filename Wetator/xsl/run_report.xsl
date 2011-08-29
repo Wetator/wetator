@@ -20,7 +20,7 @@
     <xsl:variable name="testCaseCount" select="count(/wet/testcase)"/>
     <xsl:variable name="testStepCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment)])"/>
     <xsl:variable name="browserCount" select="count(/wet/testcase/testrun) div $testCaseCount"/>
-	<xsl:variable name="testCount" select="$testCaseCount * $browserCount"/>
+    <xsl:variable name="testCount" select="$testCaseCount * $browserCount"/>
 
     <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant-or-self::error)])"/>
     <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant-or-self::error)])"/>
@@ -204,27 +204,27 @@
                     <xsl:attribute name="bordercolor">
                         <xsl:value-of select="$lightGreyColor"/>
                     </xsl:attribute>
-				    <tr>
-						<td class="bold">
-							Tests:
-						</td>
-						<td style="padding-left: 5px;">
-					        <xsl:value-of select="$testCount"/>
-						</td>
-						<td class="bold" style="padding-left: 40px;">
-							 <img src="./images/failed.png" width="12" height="10" alt="failed" title="failed"/> Errors:
-						</td>
+                    <tr>
+                        <td class="bold">
+                            Tests:
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <xsl:value-of select="$testCount"/>
+                        </td>
+                        <td class="bold" style="padding-left: 40px;">
+                             <img src="./images/failed.png" width="12" height="10" alt="failed" title="failed"/> Errors:
+                        </td>
                         <td style="padding-left: 5px;">
                             <xsl:value-of select="$testFailureCount"/>
                         </td>
 
-						<td style="padding-left: 40px;">
-							Distribution:
-						</td>
-						<td style="padding-left: 5px;">
-						    <xsl:value-of select="$testCaseCount"/> TestCase<xsl:if test="$testCaseCount > 1">s</xsl:if>
-							/ <xsl:value-of select="$browserCount"/> Browser<xsl:if test="$browserCount > 1">s</xsl:if>
-						</td>
+                        <td style="padding-left: 40px;">
+                            Distribution:
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <xsl:value-of select="$testCaseCount"/> TestCase<xsl:if test="$testCaseCount > 1">s</xsl:if>
+                            / <xsl:value-of select="$browserCount"/> Browser<xsl:if test="$browserCount > 1">s</xsl:if>
+                        </td>
                         <td style="padding-left: 40px;">
                             Total Time:
                         </td>
@@ -233,7 +233,7 @@
                                 <xsl:with-param name="msecs" select="wet/executionTime"/>
                             </xsl:call-template>
                         </td>
-					</tr>
+                    </tr>
                 </table>
 
                 <table id="summaryoverview" class="overview" align="center" style="margin-top: 20px; text-align: center;"
@@ -599,7 +599,7 @@
                                 <xsl:with-param name="stepsGreen" select="$stepsGreenFirefox3_6"/>
                             </xsl:call-template>
                         </xsl:if>
-    				</table>
+                    </table>
                 </xsl:if>
 
                 <!-- Configuration & Variables -->
@@ -686,12 +686,12 @@
                     <xsl:attribute name="src">
                         <xsl:value-of select="$browserPicture"/>
                     </xsl:attribute>
-	                <xsl:attribute name="alt">
-	                    <xsl:value-of select="$browserName"/>
-	                </xsl:attribute>
-	                <xsl:attribute name="title">
-	                    <xsl:value-of select="$browserName"/>
-	                </xsl:attribute>
+                    <xsl:attribute name="alt">
+                        <xsl:value-of select="$browserName"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                        <xsl:value-of select="$browserName"/>
+                    </xsl:attribute>
                 </img>
             </td>
             <td>
@@ -1103,23 +1103,23 @@
 
     <xsl:template name="testcaseTable">
         <xsl:choose>
-	        <xsl:when test="count(command) > 0">
-	            <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
-	                <tr>
-	                    <th>Line</th>
-	                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-	                    <th>Command</th>
-	                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-	                    <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
-	                    <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
-	                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-	                    <th style="text-align: right;">Duration</th>
-	                </tr>
-	                <xsl:for-each select="./command">
-	                    <xsl:call-template name="command"/>
-	                </xsl:for-each>
-	            </table>
-	        </xsl:when>
+            <xsl:when test="count(command) > 0">
+                <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
+                    <tr>
+                        <th>Line</th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th>Command</th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
+                        <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th style="text-align: right;">Duration</th>
+                    </tr>
+                    <xsl:for-each select="./command">
+                        <xsl:call-template name="command"/>
+                    </xsl:for-each>
+                </table>
+            </xsl:when>
 
             <xsl:when test="count(descendant-or-self::error) &gt; 0">
                 <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">

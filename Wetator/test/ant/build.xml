@@ -59,7 +59,7 @@
 
     <target name="run_wetator_haltonfailure_false">
         <echo message="before wetator"/>
-    	<wetator config="wetator.config" haltonfailure="false">
+        <wetator config="wetator.config" haltonfailure="false">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="failure.wet"/>
@@ -89,7 +89,7 @@
         </wetator>
         <echo message="after wetator property failed = '${failed}'"/>
 
-    	<wetator config="wetator.config" failureproperty="failed">
+        <wetator config="wetator.config" failureproperty="failed">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="failure.wet"/>
