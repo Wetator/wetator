@@ -108,3 +108,5 @@ frank.danek 2011-08-28 19:45: Ich habs dann einfach mal gemacht:
 	- das Verzeichnis webpages ist aufgelöst.
 	Des weiteren habe ich unseren Track etwas aufgeräumt bzgl. der XSDs issues.
 	Als nächstes würde ich mich jetzt an das Exception Handling setzen...
+
+	Ach ja, wir haben jetzt eine Warning im StdOutProgressListener. @rbri: kannst du dir das bitte mal anschaun?

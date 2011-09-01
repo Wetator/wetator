@@ -73,21 +73,21 @@
     <comment></comment>
     <comment></comment>
     <comment>redirect without timeout</comment>
-    <command><d:open-url><d:url>redirect_js.php?target=testcases/assert_content.html</d:url></d:open-url></command>
+    <command><d:open-url><d:url>redirect_js.php?target=assert_content.html</d:url></d:open-url></command>
     <command><d:assert-content><d:content>Wetator / Assert Content</d:content></d:assert-content></command>
     <comment>redirect with simple timeout</comment>
-    <command><d:open-url><d:url>redirect_js.php?target=testcases/assert_content.html&amp;wait=3000</d:url></d:open-url></command>
+    <command><d:open-url><d:url>redirect_js.php?target=assert_content.html&amp;wait=3000</d:url></d:open-url></command>
     <command><d:assert-content><d:content>Wetator / Assert Content</d:content><d:wait>4.0</d:wait></d:assert-content></command>
     <comment>two redirects</comment>
-    <command><d:open-url><d:url>redirect_js.php?target=testcases/redirect_js.php&amp;wait=3000</d:url></d:open-url></command>
+    <command><d:open-url><d:url>redirect_js.php?target=redirect_js.php&amp;wait=3000</d:url></d:open-url></command>
     <command><d:assert-content><d:content>About Wetator is a small, flexible and extendable test automation tool</d:content><d:wait>5.0</d:wait></d:assert-content></command>
     <comment>redirect to pdf</comment>
-    <command><d:open-url><d:url>redirect_js.php?target=testcases/download/wet_test.pdf&amp;wait=3000</d:url></d:open-url></command>
+    <command><d:open-url><d:url>redirect_js.php?target=download/wet_test.pdf&amp;wait=3000</d:url></d:open-url></command>
     <command><d:assert-content><d:content>simple, PDF, file, WeT</d:content><d:wait>4.0</d:wait></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <comment>redirect with a long timeout and page check inbetween</comment>
-    <command><d:open-url><d:url>redirect_js.php?target=testcases/assert_content.html&amp;wait=2000</d:url></d:open-url></command>
+    <command><d:open-url><d:url>redirect_js.php?target=assert_content.html&amp;wait=2000</d:url></d:open-url></command>
     <command><d:assert-content><d:content>Wetator / Redirect via JavaScript</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Wetator / Assert Content</d:content><d:wait>4</d:wait></d:assert-content></command>
 </test-case>

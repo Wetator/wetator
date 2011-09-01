@@ -25,7 +25,7 @@
     </target>
 
 
-	<!-- ******************************************* -->
+    <!-- ******************************************* -->
     <!-- target load-wetator                         -->
     <!-- ******************************************* -->
     <target name="load-wetator">
@@ -38,7 +38,7 @@
     </target>
 
 
-	<!-- =================================
+    <!-- =================================
           target: load-ivy
          ================================= -->
     <target name="load-ivy">
@@ -330,19 +330,6 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
         </zip>
 
-        <!-- generate web zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}_web_${application.version}.zip">
-            <zipfileset dir="${dir.webpages}" >
-            </zipfileset>
-
-            <zipfileset dir="${dir.deploy}" prefix="download">
-                <include name="${application.jar-basename}_*${application.version}.zip" />
-                <exclude name="${application.jar-basename}_web_${application.version}.zip" />
-            </zipfileset>
-            <zipfileset dir="${dir.test-wet-src}" prefix="exceltests">
-            </zipfileset>
-        </zip>
-
     </target>
 
 
@@ -350,7 +337,7 @@ echo location of the Java Virtual Machine you want to use.
     <!-- target test-release                         -->
     <!-- ******************************************* -->
     <target name="test-release" description="test the wetator release artefacts" >
-    	<echo message="Testing version: ${application.version}"></echo>
+        <echo message="Testing version: ${application.version}"></echo>
         <echo></echo>
 
         <!-- new dir for the tests -->
@@ -358,21 +345,21 @@ echo location of the Java Virtual Machine you want to use.
         <mkdir dir="${dir.build}/test-release" />
 
         <!-- test the application -->
-    	<unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
-    	<copy
-    		file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
-    		todir="${basedir}/${dir.build}/test-release/app"
-    	/>
+        <unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
         <copy
             file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
             todir="${basedir}/${dir.build}/test-release/app"
         />
 
-    	<exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
-    	    <arg value="/c"/>
-    	    <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
+        <exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
+            <arg value="/c"/>
+            <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
             <arg value="google.xls"/>
-    	</exec>
+        </exec>
 
         <!-- test the ant task -->
         <unzip src="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip" dest="${dir.build}/test-release/ant" />
@@ -385,7 +372,7 @@ echo location of the Java Virtual Machine you want to use.
             todir="${basedir}/${dir.build}/test-release/ant"
         />
 
-    	<echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+        <echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Wetator Ant Test" basedir="${basedir}/${dir.build}/test-release/ant" default="run_wetator">
   <path id="wetator-classpath">
     <fileset dir="./lib" includes="**/**.jar"/>
@@ -411,13 +398,13 @@ echo location of the Java Virtual Machine you want to use.
         </exec>
     </target>
 
-	<!-- ******************************************* -->
+    <!-- ******************************************* -->
     <!-- target upload-jar-to-repo                   -->
     <!-- ******************************************* -->
     <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to repo"
         depends="load-wetator">
 
-    	<input message="Please enter repo username:" addproperty="repo.user"/>
+        <input message="Please enter repo username:" addproperty="repo.user"/>
         <input message="Please enter repo password:" addproperty="repo.password"/>
 
         <wetator config="wetator-upload.cfg">
@@ -435,7 +422,7 @@ echo location of the Java Virtual Machine you want to use.
           target: resolve
          ================================= -->
     <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
-    	<ivy:configure />
+        <ivy:configure />
         <ivy:resolve />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle" />
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />

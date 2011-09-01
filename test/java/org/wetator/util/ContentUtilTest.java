@@ -36,8 +36,7 @@ public class ContentUtilTest {
     tmpExpected.append(" ");
     tmpExpected.append("This file is used to test WeT.");
 
-    String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream(
-        "webpages/testcases/download/wet_test.pdf"));
+    String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -46,8 +45,7 @@ public class ContentUtilTest {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
-    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream(
-        "webpages/testcases/download/wet_test.rtf"));
+    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -58,8 +56,7 @@ public class ContentUtilTest {
     tmpExpected.append(" ");
     tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
 
-    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream(
-        "webpages/testcases/download/wet_test.xls"));
+    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 }
