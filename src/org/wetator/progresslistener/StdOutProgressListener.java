@@ -47,7 +47,6 @@ public class StdOutProgressListener implements IProgressListener {
   private long failureCount;
   private long ignoredCount;
   private int dotCount;
-  private int contextDeep;
 
   /**
    * The constructor.
@@ -85,7 +84,6 @@ public class StdOutProgressListener implements IProgressListener {
     errorCount = 0;
     failureCount = 0;
     ignoredCount = 0;
-    contextDeep = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
@@ -150,7 +148,6 @@ public class StdOutProgressListener implements IProgressListener {
     output.indent();
     println(aBrowserName);
     dotCount = 1;
-    contextDeep = 0;
   }
 
   /**
@@ -160,7 +157,6 @@ public class StdOutProgressListener implements IProgressListener {
    */
   @Override
   public void testFileStart(final String aFileName) {
-    contextDeep++;
   }
 
   /**
@@ -236,7 +232,6 @@ public class StdOutProgressListener implements IProgressListener {
    */
   @Override
   public void testFileEnd() {
-    contextDeep--;
   }
 
   /**
