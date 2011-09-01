@@ -16,12 +16,13 @@
 
 package org.wetator.core;
 
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandExecutionException;
 
 /**
  * The interface every implemented command fulfills.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface ICommandImplementation {
 
@@ -31,8 +32,10 @@ public interface ICommandImplementation {
    * 
    * @param aContext The current {@link WetatorContext}.
    * @param aCommand The {@link Command} to execute.
-   * @throws AssertionFailedException in case of a wrong assertion (if the command is an assert).
+   * @throws org.wetator.exception.AssertionFailedException in case of a wrong assertion (if the command is an assert).
+   * @throws org.wetator.exception.WrongCommandUsageException in case of a wrong command usage.
+   * @throws CommandExecutionException in case of a problem executing the command.
    */
-  public void execute(WetatorContext aContext, Command aCommand) throws AssertionFailedException;
+  public void execute(WetatorContext aContext, Command aCommand) throws CommandExecutionException;
 
 }

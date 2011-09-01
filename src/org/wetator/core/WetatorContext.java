@@ -25,8 +25,9 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandExecutionException;
 import org.wetator.exception.WetatorException;
-import org.wetator.util.Assert;
+import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
 
@@ -46,6 +47,8 @@ public class WetatorContext {
   private List<Variable> variables; // store them in defined order
 
   private WetatorContext parentContext;
+
+  private boolean errorOccurred;
 
   /**
    * Constructor for a root context.
@@ -72,6 +75,7 @@ public class WetatorContext {
     this(aContext.engine, aFile, aContext.browserType);
 
     parentContext = aContext;
+    errorOccurred = aContext.errorOccurred;
   }
 
   /**
@@ -143,58 +147,8 @@ public class WetatorContext {
     return new SecretString(tmpResultValue, tmpResultValueForPrint);
   }
 
-  private void executeCommand(final Command aCommand) {
-    engine.informListenersExecuteCommandStart(this, aCommand);
-    try {
-      if (aCommand.isComment()) {
-        LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
-      } else {
-        try {
-          determineAndExecuteCommandImpl(aCommand);
-          engine.informListenersExecuteCommandSuccess();
-        } catch (final AssertionFailedException e) {
-          engine.informListenersExecuteCommandFailure(e);
-        } catch (final WetatorException e) {
-          engine.informListenersExecuteCommandError(e);
-          throw e;
-        }
-      }
-    } finally {
-      engine.informListenersExecuteCommandEnd();
-    }
-  }
-
   /**
-   * Determines the command implementation for the given {@link Command} and executes it.
-   * 
-   * @param aCommand the command to be executed
-   * @throws AssertionFailedException if no command implementation was found or the execution fails
-   */
-  public void determineAndExecuteCommandImpl(final Command aCommand) throws AssertionFailedException {
-    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
-    if (null == tmpCommandImplementation) {
-      Assert.fail("unsupportedCommand",
-          new String[] { aCommand.getName(), getFile().getAbsolutePath(), "" + aCommand.getLineNo() });
-    }
-
-    final IBrowser tmpBrowser = getBrowser();
-    LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
-    try {
-      tmpCommandImplementation.execute(this, aCommand);
-    } catch (final AssertionFailedException e) {
-      tmpBrowser.checkAndResetFailures();
-      throw e;
-    }
-    final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
-    if (null != tmpFailed) {
-      throw tmpFailed;
-    }
-  }
-
-  /**
-   * Processes the associated test file by<br>
-   * reading all the command from the file and <br>
-   * executing every single command.
+   * Processes the associated test file by reading all the command from the file and executing every single command.
    */
   public void execute() {
     final File tmpFile = getFile();
@@ -207,9 +161,67 @@ public class WetatorContext {
         executeCommand(tmpCommand);
       }
     } catch (final WetatorException e) {
+      // TODO remove?
       engine.informListenersExecuteCommandError(e);
     } finally {
       engine.informListenersTestFileEnd();
+    }
+  }
+
+  private void executeCommand(final Command aCommand) {
+    engine.informListenersExecuteCommandStart(this, aCommand);
+    try {
+      if (aCommand.isComment()) {
+        LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
+      } else {
+        try {
+          determineAndExecuteCommandImpl(aCommand);
+          if (!errorOccurred) {
+            engine.informListenersExecuteCommandSuccess();
+          } else {
+            engine.informListenersExecuteCommandIgnored();
+          }
+        } catch (final AssertionFailedException e) {
+          engine.informListenersExecuteCommandFailure(e);
+        } catch (final Exception e) {
+          engine.informListenersExecuteCommandError(e);
+          errorOccurred = true;
+        }
+      }
+    } finally {
+      engine.informListenersExecuteCommandEnd();
+    }
+  }
+
+  /**
+   * Determines the command implementation for the given {@link Command} and executes it.
+   * 
+   * @param aCommand the command to be executed
+   * @throws org.wetator.exception.AssertionFailedException in case of a wrong assertion (if the command is an assert).
+   * @throws org.wetator.exception.WrongCommandUsageException in case of a wrong command usage.
+   * @throws CommandExecutionException in case of a problem executing the command.
+   */
+  public void determineAndExecuteCommandImpl(final Command aCommand) throws CommandExecutionException {
+    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
+    if (null == tmpCommandImplementation) {
+      throw new CommandExecutionException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
+          getFile().getAbsolutePath(), "" + aCommand.getLineNo() }));
+    }
+
+    // execute the command only if no error occurred so far or the command should be executed even if an error occurred
+    if (!errorOccurred || tmpCommandImplementation.getClass().getAnnotation(ForceExecution.class) != null) {
+      final IBrowser tmpBrowser = getBrowser();
+      LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
+      try {
+        tmpCommandImplementation.execute(this, aCommand);
+      } catch (final CommandExecutionException e) {
+        tmpBrowser.checkAndResetFailures();
+        throw e;
+      }
+      final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
+      if (null != tmpFailed) {
+        throw tmpFailed;
+      }
     }
   }
 

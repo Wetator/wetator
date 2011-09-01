@@ -18,8 +18,8 @@ package org.wetator.test;
 
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
-import org.wetator.core.WetatorEngine;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.WetatorEngine;
 import org.wetator.exception.AssertionFailedException;
 
 /**
@@ -30,6 +30,7 @@ public class JUnitProgressListener implements IProgressListener {
   private int steps;
   private int errors;
   private int failures;
+  private int ignored;
 
   /**
    * {@inheritDoc}
@@ -92,6 +93,17 @@ public class JUnitProgressListener implements IProgressListener {
   @Override
   public void executeCommandSuccess() {
     steps++;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#executeCommandIgnored()
+   */
+  @Override
+  public void executeCommandIgnored() {
+    steps++;
+    ignored++;
   }
 
   /**
@@ -223,6 +235,13 @@ public class JUnitProgressListener implements IProgressListener {
    */
   public int getFailures() {
     return failures;
+  }
+
+  /**
+   * @return the ignored
+   */
+  public int getIgnored() {
+    return ignored;
   }
 
 }

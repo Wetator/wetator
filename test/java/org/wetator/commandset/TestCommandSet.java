@@ -24,6 +24,7 @@ import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandExecutionException;
 import org.wetator.util.Assert;
 import org.wetator.util.NormalizedString;
 import org.wetator.util.SecretString;
@@ -55,7 +56,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   public final class CommandAssertFail implements ICommandImplementation {
     @Override
-    public void execute(WetatorContext aContext, Command aCommand) throws AssertionFailedException {
+    public void execute(WetatorContext aContext, Command aCommand) throws CommandExecutionException {
 
       List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
       SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aContext);

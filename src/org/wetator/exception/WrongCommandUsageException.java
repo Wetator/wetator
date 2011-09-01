@@ -17,21 +17,20 @@
 package org.wetator.exception;
 
 /**
- * This exception is thrown if an assertion fails.
+ * This exception is thrown for a wrong usage of a command.
  * 
- * @author rbri
  * @author frank.danek
  */
-public class AssertionFailedException extends CommandExecutionException {
+public class WrongCommandUsageException extends CommandExecutionException {
 
-  private static final long serialVersionUID = -1587032805061848761L;
+  private static final long serialVersionUID = 1008530384322847811L;
 
   /**
    * The constructor.
    * 
    * @param aMessage the message text
    */
-  public AssertionFailedException(final String aMessage) {
+  public WrongCommandUsageException(final String aMessage) {
     super(aMessage);
   }
 
@@ -39,9 +38,9 @@ public class AssertionFailedException extends CommandExecutionException {
    * The constructor.
    * 
    * @param aMessage the message text
-   * @param aCause the cause
+   * @param aThrowable the reason of this exception
    */
-  public AssertionFailedException(final String aMessage, final Throwable aCause) {
-    super(aMessage, aCause);
+  public WrongCommandUsageException(final String aMessage, final Throwable aThrowable) {
+    super(aMessage, aThrowable);
   }
 }

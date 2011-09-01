@@ -45,6 +45,7 @@ public class StdOutProgressListener implements IProgressListener {
   private long stepsCount;
   private long errorCount;
   private long failureCount;
+  private long ignoredCount;
   private int dotCount;
   private int contextDeep;
 
@@ -83,6 +84,7 @@ public class StdOutProgressListener implements IProgressListener {
     stepsCount = 0;
     errorCount = 0;
     failureCount = 0;
+    ignoredCount = 0;
     contextDeep = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
@@ -218,6 +220,18 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#executeCommandIgnored()
+   */
+  @Override
+  public void executeCommandIgnored() {
+    stepsCount++;
+    ignoredCount++;
+    printProgressSign("i");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
@@ -254,7 +268,8 @@ public class StdOutProgressListener implements IProgressListener {
   public void end(final WetatorEngine aWetatorEngine) {
     // print summary
     println("");
-    println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
+    println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount + ", Ignored: "
+        + ignoredCount);
   }
 
   /**
@@ -340,4 +355,12 @@ public class StdOutProgressListener implements IProgressListener {
   public long getFailureCount() {
     return failureCount;
   }
+
+  /**
+   * @return the ignoredCount
+   */
+  public long getIgnoredCount() {
+    return ignoredCount;
+  }
+
 }

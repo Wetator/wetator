@@ -105,7 +105,7 @@
 
 # commands
 # * Validation
-# ** Invalid parameters -> Invalid test -> InvalidUsageExeception
+# ** Invalid parameters -> Invalid test -> WrongCommandUsageExeception
 # ** Page is not a HTML page -> CommandExecutionException
 # * HtmlElement not found -> CommandExecutionException
 # * Control validation -> AssertionFailedException

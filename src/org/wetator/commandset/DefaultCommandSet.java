@@ -39,6 +39,7 @@ import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.core.Command;
+import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorContext;
@@ -123,6 +124,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Use Module'.
    */
+  @ForceExecution
   public final class CommandUseModule implements ICommandImplementation {
     /**
      * {@inheritDoc}
@@ -319,8 +321,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noSelectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noSelectableHtmlElmentFound");
       tmpControl.select(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -582,8 +584,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noSelectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noSelectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -610,8 +612,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noDeselectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noDeselectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
@@ -621,6 +623,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Exec Java'.
    */
+  @ForceExecution
   public final class CommandExecJava implements ICommandImplementation {
     /**
      * {@inheritDoc}

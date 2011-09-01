@@ -79,6 +79,11 @@ public interface IProgressListener {
   public void executeCommandSuccess();
 
   /**
+   * This is called if a command was ignored.
+   */
+  public void executeCommandIgnored();
+
+  /**
    * This is called if a the execution of a command resulted in a failure.
    * 
    * @param anAssertionFailedException the failure
@@ -141,4 +146,5 @@ public interface IProgressListener {
    * @param aParameterArray the parameters for the message
    */
   public void info(String aMessageKey, String[] aParameterArray);
+
 }

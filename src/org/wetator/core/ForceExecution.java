@@ -14,34 +14,23 @@
  */
 
 
-package org.wetator.exception;
+package org.wetator.core;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * This exception is thrown if an assertion fails.
+ * This annotation signals that the annotated implementation of the interface {@link ICommandImplementation} should be
+ * executed even in case of previous errors.
  * 
- * @author rbri
  * @author frank.danek
  */
-public class AssertionFailedException extends CommandExecutionException {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface ForceExecution {
 
-  private static final long serialVersionUID = -1587032805061848761L;
-
-  /**
-   * The constructor.
-   * 
-   * @param aMessage the message text
-   */
-  public AssertionFailedException(final String aMessage) {
-    super(aMessage);
-  }
-
-  /**
-   * The constructor.
-   * 
-   * @param aMessage the message text
-   * @param aCause the cause
-   */
-  public AssertionFailedException(final String aMessage, final Throwable aCause) {
-    super(aMessage, aCause);
-  }
 }

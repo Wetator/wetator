@@ -379,6 +379,15 @@ public final class WetatorEngine {
   }
 
   /**
+   * Informs all listeners about 'executeCommandIgnored'.
+   */
+  protected void informListenersExecuteCommandIgnored() {
+    for (IProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandIgnored();
+    }
+  }
+
+  /**
    * Informs all listeners about 'executeCommandFailure'.
    * 
    * @param anAssertionFailedException The exception thrown by the failed command.

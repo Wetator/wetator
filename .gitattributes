@@ -110,6 +110,7 @@ src/org/wetator/commandset/DefaultCommandSet.java -text
 src/org/wetator/commandset/IncubatorCommandSet.java -text
 src/org/wetator/commandset/SqlCommandSet.java -text
 src/org/wetator/core/Command.java -text
+src/org/wetator/core/ForceExecution.java -text svneol=unset#text/plain
 src/org/wetator/core/ICommandImplementation.java -text
 src/org/wetator/core/ICommandSet.java -text
 src/org/wetator/core/IProgressListener.java -text
@@ -127,7 +128,11 @@ src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 src/org/wetator/core/searchpattern/SearchPattern.java -text
 src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
 src/org/wetator/exception/AssertionFailedException.java -text
+src/org/wetator/exception/CommandExecutionException.java -text svneol=unset#text/plain
+src/org/wetator/exception/ConfigurationException.java -text svneol=unset#text/plain
+src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain
 src/org/wetator/exception/WetatorException.java -text
+src/org/wetator/exception/WrongCommandUsageException.java -text svneol=unset#text/plain
 src/org/wetator/gui/DialogUtil.java -text
 src/org/wetator/i18n/Messages.java -text
 src/org/wetator/progresslistener/StdOutProgressListener.java -text

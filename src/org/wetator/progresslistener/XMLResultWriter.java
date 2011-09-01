@@ -78,6 +78,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_PROPERTY = "property";
   private static final String TAG_COMMAND_SET = "commandSet";
   private static final String TAG_CONTROL = "control";
+  private static final String TAG_IGNORED = "ignored";
 
   private Writer writer;
   private Output output;
@@ -350,6 +351,21 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#executeCommandIgnored()
+   */
+  @Override
+  public void executeCommandIgnored() {
+    try {
+      printStartTagOpener(TAG_IGNORED);
+      output.println("/>");
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
    */
   @Override
@@ -583,4 +599,5 @@ public class XMLResultWriter implements IProgressListener {
   private void flush() throws IOException {
     output.flush();
   }
+
 }
