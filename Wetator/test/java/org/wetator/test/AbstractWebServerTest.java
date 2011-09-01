@@ -52,7 +52,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
   /** The listener port for the web server. */
   public static final int DEFAULT_PORT = Integer.valueOf(System.getProperty("wetator.test.port", "4711"));
-  protected static final String DEFAULT_DOCUMENT_ROOT = "webpages";
+  protected static final String DEFAULT_DOCUMENT_ROOT = "test/webpage";
 
   private static Server server;
 
@@ -81,7 +81,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
     // servlets
     ServletContextHandler tmpContextHandler = new ServletContextHandler();
-    tmpContextHandler.setContextPath("/testcases");
+    tmpContextHandler.setContextPath("/");
     tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
@@ -126,8 +126,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   @Before
   public void createWetatorEngine() {
     Properties tmpProperties = new Properties();
-    tmpProperties
-        .setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/testcases");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/");
     if (getBrowser() != null) {
       tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, getBrowser().getSymbol());
     }

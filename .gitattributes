@@ -305,6 +305,7 @@ Wetator/test/webpage/htmlunit_javascript.html -text
 Wetator/test/webpage/http_header.php -text
 Wetator/test/webpage/iframe.html -text
 Wetator/test/webpage/iframe_set.html -text
+Wetator/test/webpage/index.html -text svneol=unset#text/plain
 Wetator/test/webpage/javascript_boxover.html -text
 Wetator/test/webpage/javascript_error.html -text
 Wetator/test/webpage/javascript_jquery.html -text
@@ -700,6 +701,7 @@ Wetator/test/webpage/sword4.png -text
 Wetator/test/webpage/testcases.html -text
 Wetator/test/webpage/wait_for.html -text
 Wetator/test/webpage/wait_for2.html -text
+Wetator/test/webpage/wet.css -text svneol=unset#text/plain
 Wetator/test/xml/ajax_jquery.wet -text svneol=unset#text/plain
 Wetator/test/xml/ajax_prototype.wet -text svneol=unset#text/plain
 Wetator/test/xml/assert_content.wet -text svneol=unset#text/plain
