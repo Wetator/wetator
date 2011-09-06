@@ -32,6 +32,8 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.util.Output;
 import org.wetator.util.XMLUtil;
 
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomDocumentType;
@@ -372,9 +374,21 @@ public final class XHtmlOutputter {
 
           if (tmpIsHtmlInlineFrame && ("src".equals(tmpAttributeName))) {
             final HtmlInlineFrame tmpInlineFrame = (HtmlInlineFrame) aDomNode;
-            final String tmpStoredFileName = responseStore.storePage(tmpInlineFrame.getEnclosedPage());
-            if (null != tmpStoredFileName) {
-              tmpAttributeValue = "../" + tmpStoredFileName;
+
+            // prevent NPE
+            final WebWindow tmpWebWindow = tmpInlineFrame.getEnclosedWindow();
+            if (null == tmpWebWindow) {
+              LOG.warn("HtmlInlineFrame with enclosed EnclosedWindow == null (" + tmpInlineFrame.toString() + ").");
+            } else {
+              final Page tmpPage = tmpWebWindow.getEnclosedPage();
+              if (null == tmpPage) {
+                LOG.warn("HtmlInlineFrame with enclosed EnclosedPage == null (" + tmpInlineFrame.toString() + ").");
+              } else {
+                final String tmpStoredFileName = responseStore.storePage(tmpPage);
+                if (null != tmpStoredFileName) {
+                  tmpAttributeValue = "../" + tmpStoredFileName;
+                }
+              }
             }
           }
 
