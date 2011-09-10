@@ -175,9 +175,12 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
 
-    // TODO maybe we have to do more here
     if (null != webClient) {
+      // TODO maybe we have to do more here
       try {
+        // unset the onbeforeunload handler to avoid it interfering
+        webClient.setOnbeforeunloadHandler(null);
+
         webClient.closeAllWindows();
       } catch (final ScriptException e) {
         // TODO handle exception
@@ -251,7 +254,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     try {
       webClient.setUseInsecureSSL(true);
     } catch (final GeneralSecurityException e) {
-      // TODO Auto-generated catch block
+      // TODO handle exception
       e.printStackTrace();
     }
   }
