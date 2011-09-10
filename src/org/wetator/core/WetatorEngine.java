@@ -37,7 +37,7 @@ import org.wetator.progresslistener.XMLResultWriter;
  * @author rbri
  * @author frank.danek
  */
-public final class WetatorEngine {
+public class WetatorEngine {
   private static final Log LOG = LogFactory.getLog(WetatorEngine.class);
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
@@ -96,8 +96,15 @@ public final class WetatorEngine {
     commandSets = getConfiguration().getCommandSets();
 
     // setup the browser
-    final IBrowser tmpBrowser = new HtmlUnitBrowser(this);
+    final IBrowser tmpBrowser = createBrowser();
     setBrowser(tmpBrowser);
+  }
+
+  /**
+   * @return the {@link IBrowser} to use for executing the tests
+   */
+  protected IBrowser createBrowser() {
+    return new HtmlUnitBrowser(this);
   }
 
   /**
@@ -146,18 +153,19 @@ public final class WetatorEngine {
               // setup the context
               final WetatorContext tmpWetatorContext = new WetatorContext(this, tmpFile, tmpBrowserType);
               tmpWetatorContext.execute();
+            } catch (final RuntimeException e) {
+              // TODO continue with next browser?
+              informListenersError(e);
             } finally {
               informListenersTestRunEnd();
             }
           }
         } catch (final Throwable e) {
-          // TODO what to do with exceptions?
-          // informListenersWarn("testCaseError", new String[] {e.getMessage()});
-          e.printStackTrace();
+          // this is the last place to handle exceptions for a test case
+          informListenersError(e);
         } finally {
           informListenersTestCaseEnd();
         }
-
       }
     } finally {
       informListenersEnd();
@@ -169,10 +177,18 @@ public final class WetatorEngine {
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link Command}s.
-   * @throws WetatorException if no {@link IScripter} can be found for the given file.
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
+   * @throws WetatorException if no {@link IScripter} can be found for the given file or an error occurs parsing the
+   *         given file
    */
-  protected List<Command> readCommandsFromFile(final File aFile) throws WetatorException {
+  protected List<Command> readCommandsFromFile(final File aFile) {
     final IScripter tmpScripter = createScripter(aFile);
+    if (tmpScripter == null) {
+      // TODO which exception?
+      throw new WetatorException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
+    }
+
+    tmpScripter.script(aFile);
     final List<Command> tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
@@ -186,11 +202,10 @@ public final class WetatorEngine {
   private IScripter createScripter(final File aFile) {
     for (IScripter tmpScripter : scripter) {
       if (tmpScripter.isSupported(aFile)) {
-        tmpScripter.script(aFile);
         return tmpScripter;
       }
     }
-    throw new WetatorException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
+    return null;
   }
 
   /**
@@ -442,6 +457,17 @@ public final class WetatorEngine {
   protected void informListenersEnd() {
     for (IProgressListener tmpListener : progressListener) {
       tmpListener.end(this);
+    }
+  }
+
+  /**
+   * Informs all listeners about 'error'.
+   * 
+   * @param aThrowable the exception thrown
+   */
+  public void informListenersError(final Throwable aThrowable) {
+    for (IProgressListener tmpListener : progressListener) {
+      tmpListener.error(aThrowable);
     }
   }
 

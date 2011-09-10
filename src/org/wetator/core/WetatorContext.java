@@ -26,7 +26,6 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.CommandExecutionException;
-import org.wetator.exception.WetatorException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
@@ -75,6 +74,7 @@ public class WetatorContext {
     this(aContext.engine, aFile, aContext.browserType);
 
     parentContext = aContext;
+    // do not use setErrorOccurred here as it would also reset the value in the parent context
     errorOccurred = aContext.errorOccurred;
   }
 
@@ -148,7 +148,10 @@ public class WetatorContext {
   }
 
   /**
-   * Processes the associated test file by reading all the command from the file and executing every single command.
+   * Processes the associated test file by reading all the commands from the file and executing every single command.
+   * 
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
+   * @throws org.wetator.exception.WetatorException in case of problems parsing the file
    */
   public void execute() {
     final File tmpFile = getFile();
@@ -160,9 +163,6 @@ public class WetatorContext {
       for (Command tmpCommand : tmpCommands) {
         executeCommand(tmpCommand);
       }
-    } catch (final WetatorException e) {
-      // TODO remove?
-      engine.informListenersExecuteCommandError(e);
     } finally {
       engine.informListenersTestFileEnd();
     }
@@ -175,8 +175,7 @@ public class WetatorContext {
         LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
       } else {
         try {
-          determineAndExecuteCommandImpl(aCommand);
-          if (!errorOccurred) {
+          if (determineAndExecuteCommandImpl(aCommand)) {
             engine.informListenersExecuteCommandSuccess();
           } else {
             engine.informListenersExecuteCommandIgnored();
@@ -185,7 +184,7 @@ public class WetatorContext {
           engine.informListenersExecuteCommandFailure(e);
         } catch (final Exception e) {
           engine.informListenersExecuteCommandError(e);
-          errorOccurred = true;
+          setErrorOccurred(true);
         }
       }
     } finally {
@@ -197,11 +196,12 @@ public class WetatorContext {
    * Determines the command implementation for the given {@link Command} and executes it.
    * 
    * @param aCommand the command to be executed
+   * @return true if the command was executed, false if the command was ignored
    * @throws org.wetator.exception.AssertionFailedException in case of a wrong assertion (if the command is an assert).
    * @throws org.wetator.exception.WrongCommandUsageException in case of a wrong command usage.
    * @throws CommandExecutionException in case of a problem executing the command.
    */
-  public void determineAndExecuteCommandImpl(final Command aCommand) throws CommandExecutionException {
+  public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandExecutionException {
     final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
       throw new CommandExecutionException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
@@ -209,7 +209,7 @@ public class WetatorContext {
     }
 
     // execute the command only if no error occurred so far or the command should be executed even if an error occurred
-    if (!errorOccurred || tmpCommandImplementation.getClass().getAnnotation(ForceExecution.class) != null) {
+    if (!errorOccurred || tmpCommandImplementation.getClass().isAnnotationPresent(ForceExecution.class)) {
       final IBrowser tmpBrowser = getBrowser();
       LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
       try {
@@ -217,19 +217,24 @@ public class WetatorContext {
       } catch (final CommandExecutionException e) {
         tmpBrowser.checkAndResetFailures();
         throw e;
+      } catch (final RuntimeException e) {
+        tmpBrowser.checkAndResetFailures();
+        throw e;
       }
       final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
       if (null != tmpFailed) {
         throw tmpFailed;
       }
+      return true;
     }
+    return false;
   }
 
   /**
    * Informs all listeners about 'warn'.
    * 
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameterArray the message parameters
    */
   public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
     engine.informListenersWarn(aMessageKey, aParameterArray);
@@ -238,10 +243,22 @@ public class WetatorContext {
   /**
    * Informs all listeners about 'info'.
    * 
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the information
+   * @param aParameterArray the message parameters
    */
   public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
     engine.informListenersInfo(aMessageKey, aParameterArray);
+  }
+
+  /**
+   * Sets the errorOccurred to the given value. Additionally if a parent context is present it is set there, too.
+   * 
+   * @param anErrorOccurred the errorOccurred to set
+   */
+  private void setErrorOccurred(final boolean anErrorOccurred) {
+    errorOccurred = anErrorOccurred;
+    if (parentContext != null) {
+      parentContext.setErrorOccurred(anErrorOccurred);
+    }
   }
 }

@@ -36,6 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
+import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 
 /**
@@ -73,35 +74,17 @@ public final class LegacyXMLScripter implements IScripter {
   public static final String A_COMMENT = "comment";
 
   private File file;
-  private InputStream inputStream;
-  private XMLStreamReader reader;
 
   private List<Command> commands;
 
   /**
-   * Standard constructor.
-   */
-  public LegacyXMLScripter() {
-    super();
-  }
-
-  /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IScripter#script(java.io.File)
+   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
-  public void script(final File aFile) throws WetatorException {
-    file = aFile;
-
-    commands = readCommands();
-  }
-
-  /**
-   * @return the file
-   */
-  public File getFile() {
-    return file;
+  public void initialize(final Properties aConfiguration) {
+    // nothing to do
   }
 
   /**
@@ -135,7 +118,7 @@ public final class LegacyXMLScripter implements IScripter {
         }
       }
     } catch (final IOException e) {
-      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     } finally {
       if (tmpReader != null) {
         try {
@@ -149,93 +132,120 @@ public final class LegacyXMLScripter implements IScripter {
     return false;
   }
 
-  private List<Command> readCommands() throws WetatorException {
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IScripter#script(java.io.File)
+   */
+  @Override
+  public void script(final File aFile) {
+    file = aFile;
+
+    commands = readCommands();
+  }
+
+  private List<Command> readCommands() {
     final List<Command> tmpResult = new ArrayList<Command>();
 
+    InputStream tmpInputStream = null;
     try {
-      inputStream = new FileInputStream(file);
+      tmpInputStream = new FileInputStream(file);
     } catch (final FileNotFoundException e) {
-      throw new WetatorException("File '" + getFile().getAbsolutePath() + "' not available.", e);
-    }
-    final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
-    try {
-      reader = tmpFactory.createXMLStreamReader(inputStream);
-    } catch (final XMLStreamException e) {
-      throw new WetatorException("Error creating reader for file '" + getFile().getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + file.getAbsolutePath() + "'.", e);
     }
 
+    XMLStreamReader tmpReader = null;
     try {
-      Command tmpCommand = null;
-      while (reader.hasNext()) {
-        if (reader.next() == XMLStreamConstants.START_ELEMENT) {
-          if (E_STEP.equals(reader.getLocalName())) {
-            String tmpCommandName = reader.getAttributeValue(null, A_COMMAND);
-            // normalize command name
-            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
-
-            // comment handling
-            boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
-            if (!tmpIsComment) {
-              final String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
-              if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-                tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
-              }
-            }
-
-            // build command
-            tmpCommand = new Command(tmpCommandName, tmpIsComment);
-            tmpCommand.setLineNo(tmpResult.size() + 1);
-
-            // go to CHARACTER event (parameter) if there
-            final StringBuilder tmpParameters = new StringBuilder("");
-            while (reader.next() == XMLStreamConstants.CHARACTERS) {
-              tmpParameters.append(reader.getText());
-            }
-
-            final String tmpParameterValue = tmpParameters.toString();
-            if (StringUtils.isNotEmpty(tmpParameterValue)) {
-              tmpCommand.setFirstParameter(new Parameter(tmpParameterValue));
-            }
-          }
-          if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
-            final String tmpOptionalParameter = reader.getElementText();
-            if (null == tmpCommand) {
-              throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath()
-                  + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
-            }
-
-            if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
-              tmpCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
-            }
-            reader.next();
-          }
-          if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
-            final String tmpOptionalParameter = reader.getElementText();
-            if (null == tmpCommand) {
-              throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath()
-                  + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
-            }
-
-            if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
-              tmpCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
-            }
-            reader.next();
-          }
-        }
-        if (reader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(reader.getLocalName())) {
-          tmpResult.add(tmpCommand);
-        }
+      final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
+      try {
+        tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
+      } catch (final XMLStreamException e) {
+        // TODO which exception?
+        throw new WetatorException("Error creating reader for file '" + file.getAbsolutePath() + "'.", e);
       }
 
-      return tmpResult;
-    } catch (final XMLStreamException e) {
-      throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
-    } finally {
       try {
-        reader.close();
-        inputStream.close();
-      } catch (final Exception e) {
-        throw new WetatorException("Problem closing resources for file '" + getFile().getAbsolutePath() + "'.", e);
+        Command tmpCommand = null;
+        while (tmpReader.hasNext()) {
+          if (tmpReader.next() == XMLStreamConstants.START_ELEMENT) {
+            if (E_STEP.equals(tmpReader.getLocalName())) {
+              String tmpCommandName = tmpReader.getAttributeValue(null, A_COMMAND);
+              // normalize command name
+              tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
+
+              // comment handling
+              boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
+              if (!tmpIsComment) {
+                final String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_COMMENT);
+                if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
+                  tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
+                }
+              }
+
+              // build command
+              tmpCommand = new Command(tmpCommandName, tmpIsComment);
+              tmpCommand.setLineNo(tmpResult.size() + 1);
+
+              // go to CHARACTER event (parameter) if there
+              final StringBuilder tmpParameters = new StringBuilder("");
+              while (tmpReader.next() == XMLStreamConstants.CHARACTERS) {
+                tmpParameters.append(tmpReader.getText());
+              }
+
+              final String tmpParameterValue = tmpParameters.toString();
+              if (StringUtils.isNotEmpty(tmpParameterValue)) {
+                tmpCommand.setFirstParameter(new Parameter(tmpParameterValue));
+              }
+            }
+            if (E_OPTIONAL_PARAMETER.equals(tmpReader.getLocalName())) {
+              final String tmpOptionalParameter = tmpReader.getElementText();
+              if (null == tmpCommand) {
+                throw new WetatorException("Error parsing file '" + file.getAbsolutePath()
+                    + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
+              }
+
+              if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
+                tmpCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
+              }
+              tmpReader.next();
+            }
+            if (E_OPTIONAL_PARAMETER2.equals(tmpReader.getLocalName())) {
+              final String tmpOptionalParameter = tmpReader.getElementText();
+              if (null == tmpCommand) {
+                throw new WetatorException("Error parsing file '" + file.getAbsolutePath()
+                    + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
+              }
+
+              if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
+                tmpCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
+              }
+              tmpReader.next();
+            }
+          }
+          if (tmpReader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(tmpReader.getLocalName())) {
+            tmpResult.add(tmpCommand);
+          }
+        }
+
+        return tmpResult;
+      } catch (final XMLStreamException e) {
+        // TODO which exception?
+        throw new WetatorException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+      }
+    } finally {
+      if (tmpReader != null) {
+        try {
+          tmpReader.close();
+        } catch (final Exception e) {
+          // bad luck
+        }
+      }
+      if (tmpInputStream != null) {
+        try {
+          tmpInputStream.close();
+        } catch (final Exception e) {
+          // bad luck
+        }
       }
     }
   }
@@ -248,15 +258,5 @@ public final class LegacyXMLScripter implements IScripter {
   @Override
   public List<Command> getCommands() {
     return commands;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
-  @Override
-  public void initialize(final Properties aConfiguration) {
-    // nothing to do
   }
 }

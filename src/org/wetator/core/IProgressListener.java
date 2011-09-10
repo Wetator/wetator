@@ -132,6 +132,13 @@ public interface IProgressListener {
   public void responseStored(String aResponseFileName);
 
   /**
+   * This is called to log an error.
+   * 
+   * @param aThrowable the exception thrown
+   */
+  public void error(Throwable aThrowable);
+
+  /**
    * This is called to log a warning.
    * 
    * @param aMessageKey the message key

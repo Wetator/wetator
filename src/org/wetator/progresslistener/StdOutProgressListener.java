@@ -172,39 +172,6 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandEnd()
-   */
-  @Override
-  public void executeCommandEnd() {
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
-   */
-  @Override
-  public void executeCommandError(final Throwable aThrowable) {
-    stepsCount++;
-    errorCount++;
-    printProgressSign("E");
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
-   */
-  @Override
-  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
-    stepsCount++;
-    failureCount++;
-    printProgressSign("F");
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
@@ -223,6 +190,39 @@ public class StdOutProgressListener implements IProgressListener {
     stepsCount++;
     ignoredCount++;
     printProgressSign("i");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
+   */
+  @Override
+  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
+    stepsCount++;
+    failureCount++;
+    printProgressSign("F");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
+   */
+  @Override
+  public void executeCommandError(final Throwable aThrowable) {
+    stepsCount++;
+    errorCount++;
+    printProgressSign("E");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#executeCommandEnd()
+   */
+  @Override
+  public void executeCommandEnd() {
   }
 
   /**
@@ -274,6 +274,16 @@ public class StdOutProgressListener implements IProgressListener {
    */
   @Override
   public void responseStored(final String aResponseFileName) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
+   */
+  @Override
+  public void error(final Throwable aThrowable) {
+    aThrowable.printStackTrace();
   }
 
   /**

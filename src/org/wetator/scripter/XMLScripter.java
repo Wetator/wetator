@@ -43,6 +43,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
+import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.ModelBuilder;
 import org.wetator.scripter.xml.SchemaFinder;
@@ -113,7 +114,7 @@ public class XMLScripter implements IScripter {
     try {
       return isSupported(createUTF8Reader(aFile));
     } catch (final IOException e) {
-      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
   }
 
@@ -122,13 +123,14 @@ public class XMLScripter implements IScripter {
    * 
    * @param aContent the content to check
    * @return true if this scripter is able to handle this content otherwise false
+   * @throws ResourceException in case of problems reading the file
    */
   public boolean isSupported(final String aContent) {
     // now check the content
     try {
       return isSupported(new StringReader(aContent));
     } catch (final IOException e) {
-      throw new WetatorException("Could not read content.", e);
+      throw new ResourceException("Could not read content.", e);
     }
   }
 
@@ -177,18 +179,16 @@ public class XMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
-  public void script(final File aFile) throws WetatorException {
+  public void script(final File aFile) {
+    Reader tmpReader = null;
     try {
-      Reader tmpReader = createUTF8Reader(aFile);
+      tmpReader = createUTF8Reader(aFile);
       List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
       try {
-        tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-      } finally {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // ignore;
-        }
+        tmpReader.close();
+      } catch (final IOException e) {
+        // bad luck
       }
 
       addDefaultSchemas(tmpSchemas);
@@ -198,17 +198,20 @@ public class XMLScripter implements IScripter {
       model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
 
       tmpReader = createUTF8Reader(aFile);
-      try {
-        commands = parseScript(tmpReader);
-      } finally {
+      commands = parseScript(tmpReader);
+    } catch (final IOException e) {
+      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+    } catch (final Exception e) {
+      // TODO which exception?
+      throw new WetatorException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+    } finally {
+      if (tmpReader != null) {
         try {
           tmpReader.close();
         } catch (final IOException e) {
-          // ignore;
+          // ignore
         }
       }
-    } catch (final Exception e) {
-      throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
   }
 
@@ -218,32 +221,36 @@ public class XMLScripter implements IScripter {
    * 
    * @param aContent the content
    * @param aDirectory the directory to search for schema files; may be null
+   * @throws ResourceException in case of problems reading the file
    * @throws WetatorException in case of error
    */
   public void script(final String aContent, final File aDirectory) throws WetatorException {
+    Reader tmpReader = null;
     try {
-      final Reader tmpReader = new StringReader(aContent);
-      try {
-        List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
-        tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-        tmpReader.reset();
+      tmpReader = new StringReader(aContent);
+      List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
+      tmpReader.reset();
 
-        addDefaultSchemas(tmpSchemas);
-        removeDuplicateSchemas(tmpSchemas);
-        schemas = tmpSchemas;
+      addDefaultSchemas(tmpSchemas);
+      removeDuplicateSchemas(tmpSchemas);
+      schemas = tmpSchemas;
 
-        model = new ModelBuilder(tmpSchemas, aDirectory);
+      model = new ModelBuilder(tmpSchemas, aDirectory);
 
-        commands = parseScript(tmpReader);
-      } finally {
+      commands = parseScript(tmpReader);
+    } catch (final IOException e) {
+      throw new ResourceException("Could not read content.", e);
+    } catch (final Exception e) {
+      throw new WetatorException("Error parsing content (" + e.getMessage() + ").", e);
+    } finally {
+      if (tmpReader != null) {
         try {
           tmpReader.close();
         } catch (final IOException e) {
-          // ignore;
+          // ignore
         }
       }
-    } catch (final Exception e) {
-      throw new WetatorException("Could not read content.", e);
     }
   }
 
@@ -258,7 +265,7 @@ public class XMLScripter implements IScripter {
     aSchemaList.addAll(tmpSchemaSet);
   }
 
-  private List<Command> parseScript(final Reader aContent) throws XMLStreamException, IOException {
+  private List<Command> parseScript(final Reader aContent) throws XMLStreamException {
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
     final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(aContent);
 
@@ -375,8 +382,20 @@ public class XMLScripter implements IScripter {
         }
       }
     } finally {
-      tmpReader.close();
-      aContent.close();
+      if (tmpReader != null) {
+        try {
+          tmpReader.close();
+        } catch (final Exception e) {
+          // bad luck
+        }
+      }
+      if (aContent != null) {
+        try {
+          aContent.close();
+        } catch (final Exception e) {
+          // bad luck
+        }
+      }
     }
     return tmpResult;
   }

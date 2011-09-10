@@ -51,6 +51,7 @@ import org.wetator.util.XMLUtil;
  * @author frank.danek
  */
 public class XMLResultWriter implements IProgressListener {
+
   private static final Log LOG = LogFactory.getLog(XMLResultWriter.class);
 
   private static final String TAG_WET = "wet";
@@ -325,22 +326,6 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandEnd()
-   */
-  @Override
-  public void executeCommandEnd() {
-    try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
-
-      printlnEndTag(TAG_COMMAND);
-    } catch (final IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
@@ -408,6 +393,22 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#executeCommandEnd()
+   */
+  @Override
+  public void executeCommandEnd() {
+    try {
+      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
+
+      printlnEndTag(TAG_COMMAND);
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
@@ -452,20 +453,6 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
-   */
-  @Override
-  public void responseStored(final String aResponseFileName) {
-    try {
-      printlnNode(TAG_RESPONSE, aResponseFileName);
-    } catch (final IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.wetator.core.IProgressListener#end(WetatorEngine)
    */
   @Override
@@ -481,6 +468,41 @@ public class XMLResultWriter implements IProgressListener {
         final XSLTransformer tmpXSLTransformer = new XSLTransformer(resultFile);
         tmpXSLTransformer.transform(xslTemplates, outputDir);
       }
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
+   */
+  @Override
+  public void responseStored(final String aResponseFileName) {
+    try {
+      printlnNode(TAG_RESPONSE, aResponseFileName);
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
+   */
+  @Override
+  public void error(final Throwable aThrowable) {
+    try {
+      printErrorStart(aThrowable);
+
+      final Throwable tmpThrowable = aThrowable.getCause();
+      if (null != tmpThrowable) {
+        error(tmpThrowable);
+      }
+      printErrorEnd();
+      flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }

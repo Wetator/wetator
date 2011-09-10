@@ -18,7 +18,6 @@ package org.wetator.scripter;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -39,6 +38,7 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
+import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 import org.wetator.util.NormalizedString;
 
@@ -46,8 +46,10 @@ import org.wetator.util.NormalizedString;
  * Scripter for excel files.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class ExcelScripter implements IScripter {
+
   private static final Log LOG = LogFactory.getLog(ExcelScripter.class);
 
   private static final String EXCEL_FILE_EXTENSION = ".xls";
@@ -61,29 +63,13 @@ public final class ExcelScripter implements IScripter {
   private List<Command> commands;
 
   /**
-   * Standard constructor.
-   */
-  public ExcelScripter() {
-    super();
-  }
-
-  /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IScripter#script(java.io.File)
+   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
-  public void script(final File aFile) throws WetatorException {
-    file = aFile;
-
-    commands = readCommands();
-  }
-
-  /**
-   * @return the file
-   */
-  public File getFile() {
-    return file;
+  public void initialize(final Properties aConfiguration) {
+    // nothing to do
   }
 
   /**
@@ -102,16 +88,25 @@ public final class ExcelScripter implements IScripter {
     return tmpResult;
   }
 
-  private List<Command> readCommands() throws WetatorException {
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IScripter#script(java.io.File)
+   */
+  @Override
+  public void script(final File aFile) {
+    file = aFile;
+
+    commands = readCommands();
+  }
+
+  private List<Command> readCommands() {
     final List<Command> tmpResult = new LinkedList<Command>();
 
-    final InputStream tmpInputStream;
+    InputStream tmpInputStream = null;
     try {
-      tmpInputStream = new FileInputStream(getFile().getAbsoluteFile());
-    } catch (final FileNotFoundException e) {
-      throw new WetatorException("File '" + getFile().getAbsolutePath() + "' not available.", e);
-    }
-    try {
+      tmpInputStream = new FileInputStream(file.getAbsoluteFile());
+
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
       final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
@@ -127,7 +122,8 @@ public final class ExcelScripter implements IScripter {
       }
 
       if (tmpSheetNo < 0) {
-        throw new WetatorException("No test sheet found in file '" + getFile().getAbsolutePath() + "'.");
+        // TODO which exception?
+        throw new WetatorException("No test sheet found in file '" + file.getAbsolutePath() + "'.");
       }
 
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
@@ -184,38 +180,20 @@ public final class ExcelScripter implements IScripter {
 
       return tmpResult;
     } catch (final IOException e) {
-      throw new WetatorException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + file.getAbsolutePath() + "'.", e);
     } finally {
-      try {
-        tmpInputStream.close();
-      } catch (final IOException e) {
-        throw new WetatorException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
+      if (tmpInputStream != null) {
+        try {
+          tmpInputStream.close();
+        } catch (final IOException e) {
+          // bad luck
+        }
       }
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IScripter#getCommands()
-   */
-  @Override
-  public List<Command> getCommands() {
-    return commands;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
-  @Override
-  public void initialize(final Properties aConfiguration) {
-    // nothing to do
-  }
-
   private String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
+      final FormulaEvaluator aFormulaEvaluator) {
 
     final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
@@ -238,7 +216,7 @@ public final class ExcelScripter implements IScripter {
   }
 
   private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
+      final FormulaEvaluator aFormulaEvaluator) {
     String tmpContent;
 
     tmpContent = readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
@@ -247,5 +225,15 @@ public final class ExcelScripter implements IScripter {
     }
 
     return new Parameter(tmpContent);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IScripter#getCommands()
+   */
+  @Override
+  public List<Command> getCommands() {
+    return commands;
   }
 }

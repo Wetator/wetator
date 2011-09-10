@@ -156,7 +156,7 @@ public final class ResponseStore {
 
       return tmpLogDir + "/" + tmpFileName;
     } catch (final IOException e) {
-      // TODO
+      // TODO handle exception
       throw new WetatorException("xxx");
     }
   }

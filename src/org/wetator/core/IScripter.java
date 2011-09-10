@@ -20,8 +20,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import org.wetator.exception.WetatorException;
-
 /**
  * The interface for scripters.<br/>
  * Scripters are responsible for reading an input file and parsing the commands.<br/>
@@ -38,8 +36,15 @@ import org.wetator.exception.WetatorException;
 public interface IScripter {
 
   /**
+   * @param aConfiguration the configuration to use for initialization
+   * @throws org.wetator.exception.ConfigurationException in case of problems during initialization
+   */
+  public void initialize(Properties aConfiguration);
+
+  /**
    * @param aFile the file to check
    * @return true if this scripter is able to handle this file otherwise false
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
   public boolean isSupported(File aFile);
 
@@ -47,17 +52,13 @@ public interface IScripter {
    * Scripts the given file by reading all commands.
    * 
    * @param aFile the file
-   * @throws WetatorException in case of error
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
+   * @throws org.wetator.exception.WetatorException in case of error
    */
-  public void script(File aFile) throws WetatorException;
+  public void script(File aFile);
 
   /**
    * @return the complete list of commands.
    */
   public List<Command> getCommands();
-
-  /**
-   * @param aConfiguration the configuration to use for initialization
-   */
-  public void initialize(Properties aConfiguration);
 }
