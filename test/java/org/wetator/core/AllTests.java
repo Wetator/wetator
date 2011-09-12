@@ -29,7 +29,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ org.wetator.core.searchpattern.AllTests.class, //
     CommandTest.class, //
     VariableTest.class, //
-    WetatorContextExecuteTest.class })
+    WetatorContextExecuteTest.class, //
+    WetatorEngineExecuteTestsTest.class })
 public final class AllTests {
 
   /**

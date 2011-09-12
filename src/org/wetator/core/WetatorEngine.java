@@ -108,8 +108,6 @@ public class WetatorEngine {
   }
 
   /**
-   * Returns the list of all test files.
-   * 
    * @return the list of all test files
    */
   public List<File> getTestFiles() {
@@ -119,8 +117,8 @@ public class WetatorEngine {
   /**
    * Adds a test file to be executed.
    * 
-   * @param aFile the test file to be added.
-   * @throws WetatorException if the test file does not exist.
+   * @param aFile the test file to be added
+   * @throws WetatorException if the test file does not exist
    */
   public void addTestFile(final File aFile) {
     if (!aFile.exists()) {
@@ -133,25 +131,22 @@ public class WetatorEngine {
    * Executes the tests.
    */
   public void executeTests() {
-    // create new result writer and call the init() method.
-    final XMLResultWriter tmpResultWriter = new XMLResultWriter();
-    tmpResultWriter.init(this);
-    addProgressListener(tmpResultWriter);
+    addDefaultProgressListeners();
 
     informListenersStart();
     try {
-      for (File tmpFile : files) {
+      for (File tmpFile : getTestFiles()) {
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
         informListenersTestCaseStart(tmpFile.getName());
         try {
-          for (BrowserType tmpBrowserType : configuration.getBrowserTypes()) {
+          for (BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
             try {
               // new session for every (root) file and browser
               getBrowser().startNewSession(tmpBrowserType);
 
               // setup the context
-              final WetatorContext tmpWetatorContext = new WetatorContext(this, tmpFile, tmpBrowserType);
+              final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
               tmpWetatorContext.execute();
             } catch (final RuntimeException e) {
               // TODO continue with next browser?
@@ -170,6 +165,28 @@ public class WetatorEngine {
     } finally {
       informListenersEnd();
     }
+  }
+
+  /**
+   * Adds the default {@link IProgressListener}.
+   * <ul>
+   * <li>{@link XMLResultWriter}</li>
+   * </ul>
+   */
+  protected void addDefaultProgressListeners() {
+    // create new result writer and call the init() method.
+    final XMLResultWriter tmpResultWriter = new XMLResultWriter();
+    tmpResultWriter.init(this);
+    addProgressListener(tmpResultWriter);
+  }
+
+  /**
+   * @param aFile the file to execute
+   * @param aBrowserType the browser type to use
+   * @return the {@link WetatorContext} to use for executing the given file
+   */
+  protected WetatorContext createWetatorContext(final File aFile, final BrowserType aBrowserType) {
+    return new WetatorContext(this, aFile, aBrowserType);
   }
 
   /**

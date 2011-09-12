@@ -53,7 +53,7 @@ import org.wetator.util.StringUtil;
  * @author frank.danek
  */
 // TODO we have to split this into one common part and one part for configuring the backend
-public final class WetatorConfiguration {
+public class WetatorConfiguration {
   private static final Log LOG = LogFactory.getLog(WetatorConfiguration.class);
 
   /**

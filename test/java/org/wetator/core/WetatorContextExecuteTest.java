@@ -89,15 +89,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpContext, command1, commandImplementation1);
+    assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -125,15 +118,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandFailure(tmpInOrder, tmpContext, command1, commandImplementation1);
+    assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -160,14 +146,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(CommandExecutionException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, CommandExecutionException.class);
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -196,14 +176,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(WrongCommandUsageException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, WrongCommandUsageException.class);
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -232,14 +206,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(RuntimeException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, RuntimeException.class);
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -268,17 +236,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpSubContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpSubContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -310,17 +271,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandFailure(tmpInOrder, tmpContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpSubContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpSubContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -351,16 +305,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(CommandExecutionException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, CommandExecutionException.class);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpSubContext, command2);
@@ -393,16 +341,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(WrongCommandUsageException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, WrongCommandUsageException.class);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpSubContext, command2);
@@ -435,16 +377,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(RuntimeException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, RuntimeException.class);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpSubContext, command2);
@@ -473,17 +409,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpSubContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpSubContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -515,17 +444,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpSubContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandFailure(tmpInOrder, tmpSubContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -556,16 +478,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpSubContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(CommandExecutionException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, CommandExecutionException.class);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -598,16 +514,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpSubContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(WrongCommandUsageException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, WrongCommandUsageException.class);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -640,16 +550,10 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpSubContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpSubContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(RuntimeException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, RuntimeException.class);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -680,9 +584,7 @@ public class WetatorContextExecuteTest {
     tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
     tmpInOrder.verify(engine).informListenersExecuteCommandError(any(CommandExecutionException.class));
     tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandIgnored();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation2, never()).execute(tmpContext, command2);
@@ -711,15 +613,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandFailure(tmpInOrder, tmpContext, command1, commandImplementation1);
+    assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -750,15 +645,8 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
-    tmpInOrder.verify(commandImplementation1).execute(tmpContext, command1);
-    tmpInOrder.verify(browser).checkAndResetFailures();
-    tmpInOrder.verify(engine).informListenersExecuteCommandError(any(CommandExecutionException.class));
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
-    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command2);
-    tmpInOrder.verify(commandImplementation2).execute(tmpContext, command2);
-    tmpInOrder.verify(engine).informListenersExecuteCommandSuccess();
-    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, CommandExecutionException.class);
+    assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
@@ -836,6 +724,40 @@ public class WetatorContextExecuteTest {
     verify(commandImplementation1, never()).execute(tmpContext, command1);
     verify(commandImplementation2, never()).execute(tmpContext, command2);
     verify(browser, never()).checkAndResetFailures();
+  }
+
+  private void assertCommandSuccess(InOrder anInOrder, WetatorContext aContext, Command aCommand,
+      ICommandImplementation anImplementation) throws CommandExecutionException {
+    anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
+    anInOrder.verify(anImplementation).execute(aContext, aCommand);
+    anInOrder.verify(browser).checkAndResetFailures();
+    anInOrder.verify(engine).informListenersExecuteCommandSuccess();
+    anInOrder.verify(engine).informListenersExecuteCommandEnd();
+  }
+
+  private void assertCommandFailure(InOrder anInOrder, WetatorContext aContext, Command aCommand,
+      ICommandImplementation anImplementation) throws CommandExecutionException {
+    anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
+    anInOrder.verify(anImplementation).execute(aContext, aCommand);
+    anInOrder.verify(browser).checkAndResetFailures();
+    anInOrder.verify(engine).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
+    anInOrder.verify(engine).informListenersExecuteCommandEnd();
+  }
+
+  private void assertCommandError(InOrder anInOrder, WetatorContext aContext, Command aCommand,
+      ICommandImplementation anImplementation, Class<? extends Throwable> aThrowableClass)
+      throws CommandExecutionException {
+    anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
+    anInOrder.verify(anImplementation).execute(aContext, aCommand);
+    anInOrder.verify(browser).checkAndResetFailures();
+    anInOrder.verify(engine).informListenersExecuteCommandError(any(aThrowableClass));
+    anInOrder.verify(engine).informListenersExecuteCommandEnd();
+  }
+
+  private void assertCommandIgnored(InOrder anInOrder, WetatorContext aContext, Command aCommand) {
+    anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
+    anInOrder.verify(engine).informListenersExecuteCommandIgnored();
+    anInOrder.verify(engine).informListenersExecuteCommandEnd();
   }
 
   /**
