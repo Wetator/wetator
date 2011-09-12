@@ -40,6 +40,7 @@ import org.wetator.util.Assert;
  * @author rbri
  */
 public abstract class AbstractCommandSet implements ICommandSet {
+
   private static final Log LOG = LogFactory.getLog(AbstractCommandSet.class);
 
   private List<String> initializationMessages;

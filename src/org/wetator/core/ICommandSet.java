@@ -33,6 +33,7 @@ public interface ICommandSet {
    * {@link #getInitializationMessages()}.
    * 
    * @param aConfiguration The configuration properties.
+   * @throws org.wetator.exception.ConfigurationException in case of problems during initialization
    */
   public void initialize(Properties aConfiguration);
 
@@ -47,8 +48,8 @@ public interface ICommandSet {
   public void cleanup();
 
   /**
-   * Returns the {@link ICommandImplementation} for the given command name or null, if no
-   * {@link ICommandImplementation} was found.
+   * Returns the {@link ICommandImplementation} for the given command name or null, if no {@link ICommandImplementation}
+   * was found.
    * 
    * @param aCommandName The name of the {@link ICommandImplementation}.
    * @return The found {@link ICommandImplementation}.

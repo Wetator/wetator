@@ -38,6 +38,7 @@ import org.wetator.progresslistener.XMLResultWriter;
  * @author frank.danek
  */
 public class WetatorEngine {
+
   private static final Log LOG = LogFactory.getLog(WetatorEngine.class);
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
@@ -55,12 +56,8 @@ public class WetatorEngine {
 
   /**
    * The constructor.
-   * 
-   * @throws WetatorException in case of problems
    */
-  public WetatorEngine() throws WetatorException {
-    super();
-
+  public WetatorEngine() {
     files = new LinkedList<File>();
     progressListener = new LinkedList<IProgressListener>();
   }
@@ -69,9 +66,9 @@ public class WetatorEngine {
    * Initializes the wetator engine. The configuration is read from the configuration file got by
    * {@link #getConfigFile()}.
    * 
-   * @throws WetatorException in case of problems
+   * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
    */
-  public void init() throws WetatorException {
+  public void init() {
     init(readConfiguration());
   }
 
@@ -79,9 +76,8 @@ public class WetatorEngine {
    * Initializes the wetator engine using the given configuration.
    * 
    * @param aConfiguration the configuration to use
-   * @throws WetatorException in case of problems
    */
-  public void init(final WetatorConfiguration aConfiguration) throws WetatorException {
+  public void init(final WetatorConfiguration aConfiguration) {
     informListenersInit();
 
     configuration = aConfiguration;
@@ -98,6 +94,11 @@ public class WetatorEngine {
     // setup the browser
     final IBrowser tmpBrowser = createBrowser();
     setBrowser(tmpBrowser);
+  }
+
+  private WetatorConfiguration readConfiguration() {
+    final File tmpConfigFile = getConfigFile();
+    return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
   }
 
   /**
@@ -209,11 +210,6 @@ public class WetatorEngine {
     final List<Command> tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
-  }
-
-  private WetatorConfiguration readConfiguration() throws WetatorException {
-    final File tmpConfigFile = getConfigFile();
-    return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
   }
 
   private IScripter createScripter(final File aFile) {
