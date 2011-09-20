@@ -21,6 +21,7 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -28,15 +29,44 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HtmlPageIndexTest {
 
+  private void testAsText(final String anExpected, final String anHtmlCode) throws IOException {
+    testAsText(anExpected, anExpected, anHtmlCode);
+  }
+
+  @SuppressWarnings("deprecation")
+  private void testAsText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
+      throws IOException {
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    Assert.assertEquals(anExpected, tmpResult.getText());
+    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_7, anHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    Assert.assertEquals(anExpected, tmpResult.getText());
+    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    Assert.assertEquals(anExpected, tmpResult.getText());
+    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3, anHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    Assert.assertEquals(anExpected, tmpResult.getText());
+    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    Assert.assertEquals(anExpected, tmpResult.getText());
+    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+  }
+
   @Test
   public void testAsText_EmptyPage() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "";
-    Assert.assertEquals(tmpExpected, tmpResult.getText());
-    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+    testAsText("", tmpHtmlCode);
   }
 
   @Test
@@ -44,25 +74,57 @@ public class HtmlPageIndexTest {
     String tmpHtmlCode = "<html>" + "<head>" + "<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
         + "<title>Page Title</title>" + "</head>" + "<body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-    String tmpExpected = "Paragraph 1 Paragraph 2";
-    Assert.assertEquals(tmpExpected, tmpResult.getText());
-    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+    testAsText("Paragraph 1 Paragraph 2", tmpHtmlCode);
   }
 
   @Test
   public void testAsText_Paragraph() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    testAsText("Paragraph 1 Paragraph 2", tmpHtmlCode);
+  }
 
-    String tmpExpected = "Paragraph 1 Paragraph 2";
-    Assert.assertEquals(tmpExpected, tmpResult.getText());
-    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+  @Test
+  public void testAsText_Formatting() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>" + "<b>1</b>" + "<big>2</big>" + "<em>3</em>" + "<i>4</i>"
+        + "<small>5</small>" + "<strong>6</strong>" + "<sub>7</sub>" + "<sup>8</sup>" + "<ins>9</ins>"
+        + "<del>10</del>" + "</body></html>";
+
+    testAsText("1 2 3 4 5 6 7 8 9 10", tmpHtmlCode);
+  }
+
+  @Test
+  public void testAsText_ComputerOutput() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>" + "<code>1</code>" + "<kbd>2</kbd>" + "<samp>3</samp>" + "<tt>4</tt>"
+        + "<var>5</var>" + "<pre>6</pre>" + "</body></html>";
+
+    testAsText("1 2 3 4 5 6", tmpHtmlCode);
+  }
+
+  @Test
+  public void testAsText_CitationQuotationDefinition() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>" + "<abbr title='a'>1</abbr>" + "<acronym title='b'>2</acronym>"
+        + "<q>3</q>" + "<cite>4</cite>" + "<dfn>5</dfn>" + "</body></html>";
+
+    testAsText("1 2 \"3\" 4 5", tmpHtmlCode);
+  }
+
+  @Test
+  public void testAsText_Mix() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>This t<font color='red'>ex</font>t is <b>styled</b>.</p>"
+        + "</body></html>";
+
+    testAsText("This text is styled.", tmpHtmlCode);
+  }
+
+  @Test
+  public void testAsText_Mix2() throws IOException {
+    String tmpHtmlCode = "<html><body><table><tr>"
+        + "<td style='color:#222288'>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>"
+        + "</tr></table></body></html>";
+
+    testAsText("Table Clickable formated text", tmpHtmlCode);
   }
 
   @Test
@@ -139,9 +201,7 @@ public class HtmlPageIndexTest {
         + "<input name='ResetInput' type='reset' value='resetInputValue'>" //
         + "</form>" //
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     String tmpExpected = "PageStart " //
         + "LegendLabel " //
         + "LabelLabel " //
@@ -176,14 +236,16 @@ public class HtmlPageIndexTest {
         + "submitInputValue " //
         + "resetInputValue";
 
-    Assert.assertEquals(tmpExpected, tmpResult.getText());
-
-    tmpExpected = "PageStart " //
+    String tmpExpected2 = "PageStart " //
         + "LegendLabel " //
         + "LabelLabel " //
         + "radioInputLabel1 radioInputLabel2 " //
         + "checkboxInputLabel1 checkboxInputLabel2";
-    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+
+    testAsText(tmpExpected, tmpExpected2, tmpHtmlCode);
+
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("PageStart", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLegend")));
     Assert.assertEquals("PageStart LegendLabel", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLabel")));
