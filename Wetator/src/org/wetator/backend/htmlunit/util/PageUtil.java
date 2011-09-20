@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
@@ -46,8 +47,21 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
+    return constructHtmlPage(BrowserVersion.getDefault(), anHtmlCode);
+  }
+
+  /**
+   * Helper for tests.
+   * 
+   * @param aBrowserVersion the browser to simulate
+   * @param anHtmlCode the html source of the page
+   * @return the HtmlPage result of parsing the source
+   * @throws IOException in case of problems
+   */
+  public static HtmlPage constructHtmlPage(final BrowserVersion aBrowserVersion, final String anHtmlCode)
+      throws IOException {
     final StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.wetator.org/test.html"));
-    final WebClient tmpWebClient = new WebClient();
+    final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;

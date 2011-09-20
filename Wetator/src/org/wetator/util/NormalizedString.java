@@ -98,6 +98,26 @@ public class NormalizedString {
   }
 
   /**
+   * Appends a single blank at the end (if needed).
+   * This method is here for performance.
+   * 
+   * @return a reference to this object.
+   */
+  public NormalizedString appendBlank() {
+    if (isAppendDisabled) {
+      return this;
+    }
+
+    final boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
+    if (tmpBlank) {
+      return this;
+    }
+
+    content.append(' ');
+    return this;
+  }
+
+  /**
    * Returns a new <code>String</code> that contains a subsequence of
    * characters currently contained in this sequence. The
    * substring begins at the specified <code>start</code> and
