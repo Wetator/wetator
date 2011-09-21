@@ -128,6 +128,13 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void testAsText_Mix3() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>Fi<font color='red'>eld</font>4</p>" + "</body></html>";
+
+    testAsText("Field4", tmpHtmlCode);
+  }
+
+  @Test
   public void testAsText_AllControls() throws IOException {
     String tmpHtmlCode = "<html><body>" //
         + "<p>PageStart</p>" //

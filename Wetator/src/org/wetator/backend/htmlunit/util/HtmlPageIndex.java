@@ -31,14 +31,23 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlAbbreviated;
+import com.gargoylesoftware.htmlunit.html.HtmlAcronym;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
+import com.gargoylesoftware.htmlunit.html.HtmlBig;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
+import com.gargoylesoftware.htmlunit.html.HtmlBold;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlCitation;
+import com.gargoylesoftware.htmlunit.html.HtmlCode;
+import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
+import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlFrame;
@@ -55,6 +64,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
+import com.gargoylesoftware.htmlunit.html.HtmlItalic;
+import com.gargoylesoftware.htmlunit.html.HtmlKeyboard;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlLegend;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
@@ -63,20 +75,28 @@ import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
+import com.gargoylesoftware.htmlunit.html.HtmlPreformattedText;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSample;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import com.gargoylesoftware.htmlunit.html.HtmlSmall;
+import com.gargoylesoftware.htmlunit.html.HtmlStrong;
 import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSubscript;
+import com.gargoylesoftware.htmlunit.html.HtmlSuperscript;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableHeader;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+import com.gargoylesoftware.htmlunit.html.HtmlTeletype;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
+import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 
 /**
@@ -363,10 +383,11 @@ public class HtmlPageIndex {
     positionsWithoutFormControls.put(aDomNode, tmpFindSpotWFC);
 
     if (aDomNode.isDisplayed()) {
-      if (aDomNode instanceof HtmlElement) {
+      final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
+      if (tmpIsHtmlElement) {
         visibleHtmlElements.add((HtmlElement) aDomNode);
 
-        if (lastOneWasHtmlElement) {
+        if (isFormatElement(aDomNode) && lastOneWasHtmlElement) {
           // IE suppresses whitespace between two elements
           // e.g. <b>Hello</b> <i>World</i>
           text.appendBlank();
@@ -420,14 +441,7 @@ public class HtmlPageIndex {
       } else if (aDomNode instanceof HtmlInlineQuotation) {
         appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode);
       } else {
-        final boolean tmpIsBlock = (aDomNode instanceof HtmlDivision) || (aDomNode instanceof HtmlParagraph)
-            || (aDomNode instanceof HtmlTable) || (aDomNode instanceof HtmlTableRow)
-            || (aDomNode instanceof HtmlTableHeader) || (aDomNode instanceof HtmlTableDataCell)
-            || (aDomNode instanceof HtmlTableCell) || (aDomNode instanceof HtmlUnorderedList)
-            || (aDomNode instanceof HtmlHeading1) || (aDomNode instanceof HtmlHeading2)
-            || (aDomNode instanceof HtmlHeading3) || (aDomNode instanceof HtmlHeading4)
-            || (aDomNode instanceof HtmlHeading5) || (aDomNode instanceof HtmlHeading6)
-            || (aDomNode instanceof HtmlListItem);
+        final boolean tmpIsBlock = isBlock(aDomNode);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
@@ -439,8 +453,8 @@ public class HtmlPageIndex {
         }
       }
 
-      lastOneWasHtmlElement = aDomNode instanceof HtmlElement;
-      if (lastOneWasHtmlElement) {
+      lastOneWasHtmlElement = tmpIsHtmlElement;
+      if (tmpIsHtmlElement) {
         visibleHtmlElementsBottomUp.add((HtmlElement) aDomNode);
       }
     }
@@ -624,5 +638,27 @@ public class HtmlPageIndex {
     parseChildren(anHtmlInlineQuotation);
     text.append("\" ");
     textWithoutFormControls.append("\" ");
+  }
+
+  private boolean isBlock(final DomNode aDomNode) {
+    return (aDomNode instanceof HtmlDivision) || (aDomNode instanceof HtmlParagraph) || (aDomNode instanceof HtmlTable)
+        || (aDomNode instanceof HtmlTableRow) || (aDomNode instanceof HtmlTableHeader)
+        || (aDomNode instanceof HtmlTableDataCell) || (aDomNode instanceof HtmlTableCell)
+        || (aDomNode instanceof HtmlUnorderedList) || (aDomNode instanceof HtmlHeading1)
+        || (aDomNode instanceof HtmlHeading2) || (aDomNode instanceof HtmlHeading3)
+        || (aDomNode instanceof HtmlHeading4) || (aDomNode instanceof HtmlHeading5)
+        || (aDomNode instanceof HtmlHeading6) || (aDomNode instanceof HtmlListItem);
+  }
+
+  private boolean isFormatElement(final DomNode aDomNode) {
+    return (aDomNode instanceof HtmlItalic) || (aDomNode instanceof HtmlBold) || (aDomNode instanceof HtmlBig)
+        || (aDomNode instanceof HtmlEmphasis) || (aDomNode instanceof HtmlSmall) || (aDomNode instanceof HtmlStrong)
+        || (aDomNode instanceof HtmlSubscript) || (aDomNode instanceof HtmlSuperscript)
+        || (aDomNode instanceof HtmlInsertedText) || (aDomNode instanceof HtmlDeletedText)
+        || (aDomNode instanceof HtmlCode) || (aDomNode instanceof HtmlKeyboard) || (aDomNode instanceof HtmlSample)
+        || (aDomNode instanceof HtmlPreformattedText) || (aDomNode instanceof HtmlTeletype)
+        || (aDomNode instanceof HtmlVariable) || (aDomNode instanceof HtmlAbbreviated)
+        || (aDomNode instanceof HtmlInlineQuotation) || (aDomNode instanceof HtmlCitation)
+        || (aDomNode instanceof HtmlAcronym) || (aDomNode instanceof HtmlDefinition);
   }
 }
