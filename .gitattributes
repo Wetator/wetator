@@ -171,6 +171,7 @@ Wetator/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/excel/default_command_set.xls -text
 Wetator/test/excel/modules/module.xls -text
+Wetator/test/excel/sql.xls -text
 Wetator/test/java/org/wetator/AllTests.java -text
 Wetator/test/java/org/wetator/automatonTest.jpage -text
 Wetator/test/java/org/wetator/backend/AllTests.java -text
