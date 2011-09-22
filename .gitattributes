@@ -171,6 +171,7 @@ test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
 test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 test/excel/default_command_set.xls -text
 test/excel/modules/module.xls -text
+test/excel/sql.xls -text
 test/java/org/wetator/AllTests.java -text
 test/java/org/wetator/automatonTest.jpage -text
 test/java/org/wetator/backend/AllTests.java -text
