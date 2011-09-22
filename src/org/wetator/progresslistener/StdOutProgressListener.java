@@ -19,6 +19,7 @@ package org.wetator.progresslistener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Version;
@@ -46,6 +47,8 @@ public class StdOutProgressListener implements IProgressListener {
   private long errorCount;
   private long failureCount;
   private int dotCount;
+  private int testFileCout;
+  private int processedTestFileCout;
 
   /**
    * The constructor.
@@ -82,6 +85,7 @@ public class StdOutProgressListener implements IProgressListener {
     stepsCount = 0;
     errorCount = 0;
     failureCount = 0;
+    processedTestFileCout = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
@@ -106,13 +110,16 @@ public class StdOutProgressListener implements IProgressListener {
       }
     }
 
-    if (aWetatorEngine.getTestFiles().isEmpty()) {
+    List<File> tmpTestFiles = aWetatorEngine.getTestFiles();
+    testFileCout = tmpTestFiles.size();
+
+    if (tmpTestFiles.isEmpty()) {
       println("TestFiles: none");
       return;
     }
 
     boolean tmpFirst = true;
-    for (File tmpTestFile : aWetatorEngine.getTestFiles()) {
+    for (File tmpTestFile : tmpTestFiles) {
       if (tmpFirst) {
         println("TestFiles:  '" + tmpTestFile.getAbsolutePath() + "'");
         tmpFirst = false;
@@ -133,7 +140,8 @@ public class StdOutProgressListener implements IProgressListener {
    */
   @Override
   public void testCaseStart(final String aTestName) {
-    println("Test: '" + aTestName + "'");
+    processedTestFileCout++;
+    println("Test: '" + aTestName + "' (" + processedTestFileCout + "/" + testFileCout + ")");
   }
 
   /**
