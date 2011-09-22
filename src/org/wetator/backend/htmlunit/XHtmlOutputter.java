@@ -41,12 +41,22 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNamespaceNode;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlAbbreviated;
+import com.gargoylesoftware.htmlunit.html.HtmlAcronym;
 import com.gargoylesoftware.htmlunit.html.HtmlArea;
 import com.gargoylesoftware.htmlunit.html.HtmlBase;
+import com.gargoylesoftware.htmlunit.html.HtmlBig;
+import com.gargoylesoftware.htmlunit.html.HtmlBold;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlCitation;
+import com.gargoylesoftware.htmlunit.html.HtmlCode;
+import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
+import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
+import com.gargoylesoftware.htmlunit.html.HtmlFont;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading3;
@@ -59,6 +69,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
+import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
+import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
+import com.gargoylesoftware.htmlunit.html.HtmlItalic;
+import com.gargoylesoftware.htmlunit.html.HtmlKeyboard;
 import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlMeta;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -66,14 +80,22 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlParameter;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPreformattedText;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSample;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import com.gargoylesoftware.htmlunit.html.HtmlSmall;
+import com.gargoylesoftware.htmlunit.html.HtmlStrong;
 import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSubscript;
+import com.gargoylesoftware.htmlunit.html.HtmlSuperscript;
+import com.gargoylesoftware.htmlunit.html.HtmlTeletype;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
+import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 
 /**
  * Helper methods to write the HtmlUnit page as XHtml to a file.
@@ -85,6 +107,7 @@ public final class XHtmlOutputter {
 
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
+  private static final Set<String> FORMAT_TAGS;
   private static final Set<String> IGNORED_ATTRIBUTES;
 
   private HtmlPage htmlPage;
@@ -129,6 +152,32 @@ public final class XHtmlOutputter {
     SINGLE_LINE_TAGS.add(HtmlOption.class.getName());
     // TextArea because the content is preformated
     SINGLE_LINE_TAGS.add(HtmlTextArea.class.getName());
+
+    FORMAT_TAGS = new HashSet<String>();
+    FORMAT_TAGS.add(HtmlFont.class.getName());
+    FORMAT_TAGS.add(HtmlItalic.class.getName());
+    FORMAT_TAGS.add(HtmlBold.class.getName());
+    FORMAT_TAGS.add(HtmlBig.class.getName());
+    FORMAT_TAGS.add(HtmlEmphasis.class.getName());
+    FORMAT_TAGS.add(HtmlSmall.class.getName());
+    FORMAT_TAGS.add(HtmlStrong.class.getName());
+    FORMAT_TAGS.add(HtmlSubscript.class.getName());
+    FORMAT_TAGS.add(HtmlSuperscript.class.getName());
+    FORMAT_TAGS.add(HtmlInsertedText.class.getName());
+    FORMAT_TAGS.add(HtmlDeletedText.class.getName());
+    FORMAT_TAGS.add(HtmlCode.class.getName());
+    FORMAT_TAGS.add(HtmlKeyboard.class.getName());
+    FORMAT_TAGS.add(HtmlSample.class.getName());
+    FORMAT_TAGS.add(HtmlPreformattedText.class.getName());
+    FORMAT_TAGS.add(HtmlTeletype.class.getName());
+    FORMAT_TAGS.add(HtmlVariable.class.getName());
+    FORMAT_TAGS.add(HtmlAbbreviated.class.getName());
+    FORMAT_TAGS.add(HtmlInlineQuotation.class.getName());
+    FORMAT_TAGS.add(HtmlCitation.class.getName());
+    FORMAT_TAGS.add(HtmlAcronym.class.getName());
+    FORMAT_TAGS.add(HtmlDefinition.class.getName());
+
+    SINGLE_LINE_TAGS.addAll(FORMAT_TAGS);
 
     IGNORED_ATTRIBUTES = new HashSet<String>();
     IGNORED_ATTRIBUTES.add("onclick");
@@ -262,7 +311,8 @@ public final class XHtmlOutputter {
       if (StringUtils.isEmpty(tmpText)) {
         output.print(tmpText);
       } else {
-        if (aDomNode.getParentNode() instanceof HtmlStyle) {
+        final DomNode tmpParentNode = aDomNode.getParentNode();
+        if (tmpParentNode instanceof HtmlStyle) {
           output.indent();
 
           // process all url(....) inside
@@ -271,7 +321,7 @@ public final class XHtmlOutputter {
 
           output.println(tmpText);
           output.unindent();
-        } else if (SINGLE_LINE_TAGS.contains(aDomNode.getParentNode().getClass().getName())) {
+        } else if (SINGLE_LINE_TAGS.contains(tmpParentNode.getClass().getName())) {
           output.print(xMLUtil.normalizeBodyValue(tmpText));
         } else {
           output.println(xMLUtil.normalizeBodyValue(tmpText));
@@ -299,7 +349,12 @@ public final class XHtmlOutputter {
       if (!EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print("</");
         output.print(determineTag(aDomNode));
-        output.println(">");
+
+        if (FORMAT_TAGS.contains(aDomNode.getClass().getName())) {
+          output.print(">");
+        } else {
+          output.println(">");
+        }
       }
     } else if (aDomNode instanceof DomText) {
       // nothing to do
