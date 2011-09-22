@@ -110,7 +110,7 @@ public class StdOutProgressListener implements IProgressListener {
       }
     }
 
-    List<File> tmpTestFiles = aWetatorEngine.getTestFiles();
+    final List<File> tmpTestFiles = aWetatorEngine.getTestFiles();
     testFileCout = tmpTestFiles.size();
 
     if (tmpTestFiles.isEmpty()) {
