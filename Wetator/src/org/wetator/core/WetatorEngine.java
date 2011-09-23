@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
+import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetatorException;
 import org.wetator.progresslistener.XMLResultWriter;
@@ -184,13 +185,32 @@ public final class WetatorEngine {
   }
 
   private IScripter createScripter(final File aFile) {
+    final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<IScripter.IsSupportedResult>();
     for (IScripter tmpScripter : scripter) {
-      if (tmpScripter.isSupported(aFile)) {
+      final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(aFile);
+      if (IScripter.IS_SUPPORTED == tmpResult) {
         tmpScripter.script(aFile);
         return tmpScripter;
       }
+      tmpResults.add(tmpResult);
     }
-    throw new WetatorException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
+
+    // construct an detailed error message
+    final StringBuilder tmpMessage = new StringBuilder("No scripter found for file '");
+    tmpMessage.append(aFile.getAbsolutePath()).append("' (");
+
+    boolean tmpIsFirst = true;
+    for (IsSupportedResult tmpIsSupportedResult : tmpResults) {
+      if (!tmpIsFirst) {
+        tmpMessage.append("; ");
+      }
+      tmpMessage.append(tmpIsSupportedResult.getMessage());
+      tmpIsFirst = false;
+    }
+
+    tmpMessage.append(").");
+
+    throw new WetatorException(tmpMessage.toString());
   }
 
   /**

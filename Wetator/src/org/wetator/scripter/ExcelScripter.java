@@ -92,14 +92,15 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public boolean isSupported(final File aFile) {
-    String tmpFileName;
-    boolean tmpResult;
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
+    final String tmpFileName = aFile.getName().toLowerCase();
+    final boolean tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
+    if (tmpResult) {
+      return IScripter.IS_SUPPORTED;
+    }
 
-    tmpFileName = aFile.getName().toLowerCase();
-    tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
-
-    return tmpResult;
+    return new IScripter.IsSupportedResult("File '" + aFile.getName()
+        + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
   }
 
   private List<Command> readCommands() throws WetatorException {

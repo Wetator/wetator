@@ -110,11 +110,14 @@ public final class LegacyXMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public boolean isSupported(final File aFile) {
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
-      return false;
+    final boolean tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
+    if (!tmpResult) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by LegacyXMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '"
+          + XML_FILE_EXTENSION + "'.");
     }
 
     // now check root element and schema
@@ -131,7 +134,7 @@ public final class LegacyXMLScripter implements IScripter {
           break;
         }
         if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
-          return true;
+          return IScripter.IS_SUPPORTED;
         }
       }
     } catch (final IOException e) {
@@ -146,7 +149,8 @@ public final class LegacyXMLScripter implements IScripter {
       }
     }
 
-    return false;
+    return new IScripter.IsSupportedResult("File '" + aFile.getName()
+        + "' not supported by LegacyXMLScripter. Parsing the file failed.");
   }
 
   private List<Command> readCommands() throws WetatorException {
@@ -229,7 +233,8 @@ public final class LegacyXMLScripter implements IScripter {
 
       return tmpResult;
     } catch (final XMLStreamException e) {
-      throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+      throw new WetatorException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").",
+          e);
     } finally {
       try {
         reader.close();
