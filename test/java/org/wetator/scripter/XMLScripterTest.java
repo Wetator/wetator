@@ -26,6 +26,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
+import org.wetator.core.IScripter;
 import org.wetator.scripter.xml.XMLSchema;
 
 /**
@@ -38,13 +39,22 @@ public class XMLScripterTest {
   @Test
   public void supportedFile() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    Assert.assertTrue(tmpXMLScripter.isSupported(new File("test/java/org/wetator/test/resource/junit2.xml")));
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
   }
 
   @Test
   public void unsupportedFile() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    Assert.assertFalse(tmpXMLScripter.isSupported(new File("test/java/org/wetator/test/resource/junit.wet")));
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'junit.wet' not supported by XMLScripter. Parsing the file failed.",
+        tmpResult.getMessage());
   }
 
   @Test

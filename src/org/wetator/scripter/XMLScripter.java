@@ -102,19 +102,28 @@ public class XMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public boolean isSupported(final File aFile) {
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
-      return false;
+    boolean tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
+    if (!tmpResult) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by XMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '" + XML_FILE_EXTENSION
+          + "'.");
     }
 
     // now check the content
     try {
-      return isSupported(createUTF8Reader(aFile));
+      tmpResult = isSupported(createUTF8Reader(aFile));
+      if (!tmpResult) {
+        return new IScripter.IsSupportedResult("File '" + aFile.getName()
+            + "' not supported by XMLScripter. Parsing the file failed.");
+      }
     } catch (final IOException e) {
       throw new WetatorException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
+
+    return IScripter.IS_SUPPORTED;
   }
 
   /**
