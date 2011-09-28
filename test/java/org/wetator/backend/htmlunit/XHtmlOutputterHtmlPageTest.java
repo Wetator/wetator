@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -32,57 +33,163 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class XHtmlOutputterHtmlPageTest {
 
   private static final String LEADING = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"
-      + "<html>\n<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"></head>\n";
-  private static final String TRAILING = "\n</html>\n";
+      + "<html>\n<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"></head><body>\n";
+  private static final String TRAILING = "\n</body></html>\n";
 
   private static final String EXPECTED_LEADING = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> "
-      + "<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/> </head> ";
-  private static final String EXPECTED_TRAILING = " </html>";
+      + "<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/> </head> <body>";
+  private static final String EXPECTED_TRAILING = "</body> </html>";
+
+  @SuppressWarnings("deprecation")
+  private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_7, anHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3, anHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
 
   @Test
-  public void testSimple() throws IOException {
+  public void emptyPage() throws IOException {
     String tmpHtmlCode = LEADING + TRAILING;
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-
-    String tmpExpected = EXPECTED_LEADING + "<body> </body>" + EXPECTED_TRAILING;
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    String tmpExpected = EXPECTED_LEADING + " " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
-  public void testSimpleWithJavascript() throws IOException {
-    String tmpHtmlCode = LEADING + "<body><h1>Test</h1>"
-        + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + TRAILING;
-
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-
-    String tmpExpected = EXPECTED_LEADING + "<body> <h1>Test</h1> </body>" + EXPECTED_TRAILING;
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  public void simplePage() throws IOException {
+    String tmpHtmlCode = LEADING + "<p>Paragraph 1</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
-  public void testSpecialChars() throws IOException {
-    String tmpHtmlCode = LEADING
-        + "<body><h1>&#956;g 1&ensp;2&emsp;3&thinsp;4</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option></body>"
+  public void paragraph() throws IOException {
+    String tmpHtmlCode = LEADING + "<p>Paragraph 1</p><p>Paragraph 2</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> <p>Paragraph 2</p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void font() throws IOException {
+    String tmpHtmlCode = LEADING + "<p><font color='red'>red</font> <font color='green'>green</font></p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING
+        + " <p><font color=\"red\">red</font> <font color=\"green\">green</font></p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void span() throws IOException {
+    String tmpHtmlCode = LEADING + "<p><span> 17.11 </span> mg" + "</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p><span> 17.11 </span> mg</p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void formatting() {
+    // TODO different Results in IE and FF
+
+    // String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+    // + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p>" + TRAILING;
+    // String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+    // + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p> " + EXPECTED_TRAILING;
+    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void computerOutput() {
+    // TODO different Results in IE and FF
+
+    // String tmpHtmlCode = LEADING + "<p>"
+    // + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p>" + TRAILING;
+    // String tmpExpected = EXPECTED_LEADING + " <p>"
+    // + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p> "
+    // + EXPECTED_TRAILING;
+    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void citationQuotationDefinition() {
+    // TODO different Results in IE and FF
+
+    // String tmpHtmlCode = LEADING + "<p>"
+    // + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p>"
+    // + TRAILING;
+    // String tmpExpected = EXPECTED_LEADING + " <p>"
+    // + "<abbr title=\"a\">1</abbr> <acronym title=\"b\">2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p> "
+    // + EXPECTED_TRAILING;
+    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void mix() throws IOException {
+    String tmpHtmlCode = LEADING + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>This t<font color=\"red\">ext</font> is <b>styled</b>.</p> "
+        + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void mix2() {
+    // TODO different Results in IE and FF
+
+    // String tmpHtmlCode = LEADING + "<table><tr>"
+    // + "<td>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>" + "</tr></table>" + TRAILING;
+    // String tmpExpected = EXPECTED_LEADING + " <table> <tbody align=\"left\"> <tr> "
+    // + "<td> Table C <font color=\"red\">lickable</font> <b>forma<i>ted</i> t</b>ext </td> "
+    // + "</tr> </tbody> </table> " + EXPECTED_TRAILING;
+    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void mix3() throws IOException {
+    String tmpHtmlCode = LEADING + "<p>Fi<font color='red'>eld</font>4</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>Fi<font color=\"red\">eld</font>4</p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void simpleWithJavascript() throws IOException {
+    String tmpHtmlCode = LEADING + "<h1>Test</h1>" + "<script type=\"text/javascript\">alert('WETATOR');</script>"
         + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <h1>Test</h1> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-
-    String tmpExpected = EXPECTED_LEADING + "<body> " + "<h1>&#956;g 1&#8194;2&#8195;3&#8201;4</h1>"
+  @Test
+  public void specialChars() throws IOException {
+    String tmpHtmlCode = LEADING
+        + "<h1>&#956;g 1&nbsp;2&ensp;3&emsp;4&thinsp;5</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
+        + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1 2&#8194;3&#8195;4&#8201;5</h1>"
         + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select> "
-        + "</body>" + EXPECTED_TRAILING;
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+        + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 }
