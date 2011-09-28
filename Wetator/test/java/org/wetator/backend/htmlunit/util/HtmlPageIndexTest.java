@@ -94,6 +94,13 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void testAsText_Span() throws IOException {
+    String tmpHtmlCode = "<html><body><p>" + "<span> 17.11 </span> mg" + "</p></body></html>";
+
+    testAsText("17.11 mg", tmpHtmlCode);
+  }
+
+  @Test
   public void testAsText_Formatting() throws IOException {
     String tmpHtmlCode = "<html><body><p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p></body></html>";
