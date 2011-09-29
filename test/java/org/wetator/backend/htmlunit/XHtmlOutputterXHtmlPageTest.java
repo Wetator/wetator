@@ -24,7 +24,8 @@ import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 
 /**
  * @author rbri
@@ -41,31 +42,58 @@ public class XHtmlOutputterXHtmlPageTest {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> ";
   private static final String EXPECTED_TRAILING = " </html>";
 
+  @SuppressWarnings("deprecation")
+  private void testXHtmlOutput(final String anExpected, final String anXHtmlCode) throws IOException {
+    XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anXHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER_7, anXHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anXHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_3, anXHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_3_6, anXHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
+
   @Test
   public void testSimple() throws IOException {
     String tmpXHtmlCode = LEADING + TRAILING;
-    HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
-
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
-
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-
     String tmpExpected = EXPECTED_LEADING + "<body> </body>" + EXPECTED_TRAILING;
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    testXHtmlOutput(tmpExpected, tmpXHtmlCode);
   }
 
   @Test
   public void testSimpleWithJavascript() throws IOException {
     String tmpXHtmlCode = LEADING + "<body><h1>Test</h1>"
         + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + TRAILING;
-
-    HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-
     String tmpExpected = EXPECTED_LEADING + "<head> </head> <body> <h1>Test</h1> </body>" + EXPECTED_TRAILING;
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    testXHtmlOutput(tmpExpected, tmpXHtmlCode);
+  }
+
+  @Test
+  public void specialChars() throws IOException {
+    String tmpHtmlCode = LEADING + "<h1>1&#160;2</h1>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + "<head> </head> <body> <h1>1 2</h1> </body>" + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 }
