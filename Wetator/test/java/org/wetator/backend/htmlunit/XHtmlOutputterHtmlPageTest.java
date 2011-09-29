@@ -185,9 +185,9 @@ public class XHtmlOutputterHtmlPageTest {
   @Test
   public void specialChars() throws IOException {
     String tmpHtmlCode = LEADING
-        + "<h1>&#956;g 1&nbsp;2&ensp;3&emsp;4&thinsp;5</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
+        + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
         + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1 2&#8194;3&#8195;4&#8201;5</h1>"
+    String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1 2 3&#8194;4&#8195;5&#8201;6</h1>"
         + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
