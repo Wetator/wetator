@@ -99,7 +99,8 @@ public class Wetator extends Task {
       final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
 
       for (int i = 0; i < tmpListOfFiles.length; i++) {
-        tmpWetatorEngine.addTestFile(new File(tmpDirScanner.getBasedir(), tmpListOfFiles[i]));
+        final String tmpFileName = tmpListOfFiles[i];
+        tmpWetatorEngine.addTestCase(tmpFileName, new File(tmpDirScanner.getBasedir(), tmpFileName));
       }
 
       tmpWetatorEngine.executeTests();

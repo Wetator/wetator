@@ -115,6 +115,7 @@ Wetator/src/org/wetator/core/ICommandSet.java -text
 Wetator/src/org/wetator/core/IProgressListener.java -text
 Wetator/src/org/wetator/core/IScripter.java -text
 Wetator/src/org/wetator/core/Parameter.java -text
+Wetator/src/org/wetator/core/TestCase.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/core/Variable.java -text
 Wetator/src/org/wetator/core/WetatorConfiguration.java -text
 Wetator/src/org/wetator/core/WetatorContext.java -text

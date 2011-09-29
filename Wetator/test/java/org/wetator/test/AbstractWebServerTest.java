@@ -179,7 +179,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   }
 
   protected void executeTestFile(File aTestFile) {
-    wetatorEngine.addTestFile(aTestFile);
+    wetatorEngine.addTestCase(aTestFile.getName(), aTestFile);
     wetatorEngine.executeTests();
   }
 
