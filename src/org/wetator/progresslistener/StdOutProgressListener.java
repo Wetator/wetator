@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
+import org.wetator.core.TestCase;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
@@ -110,22 +111,22 @@ public class StdOutProgressListener implements IProgressListener {
       }
     }
 
-    final List<File> tmpTestFiles = aWetatorEngine.getTestFiles();
-    testFileCout = tmpTestFiles.size();
+    final List<TestCase> tmpTestCases = aWetatorEngine.getTestCases();
+    testFileCout = tmpTestCases.size();
 
-    if (tmpTestFiles.isEmpty()) {
+    if (tmpTestCases.isEmpty()) {
       println("TestFiles: none");
       return;
     }
 
     boolean tmpFirst = true;
-    for (File tmpTestFile : tmpTestFiles) {
+    for (TestCase tmpTestCase : tmpTestCases) {
       if (tmpFirst) {
-        println("TestFiles:  '" + tmpTestFile.getAbsolutePath() + "'");
+        println("TestFiles:  '" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
         tmpFirst = false;
         output.indent().indent().indent().indent().indent().indent();
       } else {
-        println("'" + tmpTestFile.getAbsolutePath() + "'");
+        println("'" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
       }
       if (!tmpFirst) {
         output.unindent().unindent().unindent().unindent().unindent().unindent();
@@ -141,7 +142,7 @@ public class StdOutProgressListener implements IProgressListener {
   @Override
   public void testCaseStart(final String aTestName) {
     processedTestFileCout++;
-    println("Test: '" + aTestName + "' (" + processedTestFileCout + "/" + testFileCout + ")");
+    println("TestCase: '" + aTestName + "' (" + processedTestFileCout + "/" + testFileCout + ")");
   }
 
   /**

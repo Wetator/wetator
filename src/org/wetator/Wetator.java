@@ -84,11 +84,13 @@ public final class Wetator {
         }
 
         for (int i = 0; i < tmpFiles.length; i++) {
-          tmpWetatorEngine.addTestFile(tmpFiles[i]);
+          final File tmpFile = tmpFiles[i];
+          tmpWetatorEngine.addTestCase(tmpFile.getName(), tmpFile);
         }
       } else {
         for (String tmpFileName : tmpFileNames) {
-          tmpWetatorEngine.addTestFile(new File(tmpFileName));
+          final File tmpFile = new File(tmpFileName);
+          tmpWetatorEngine.addTestCase(tmpFileName, tmpFile);
         }
       }
 

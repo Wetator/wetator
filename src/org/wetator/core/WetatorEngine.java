@@ -46,7 +46,7 @@ public final class WetatorEngine {
 
   private String configFileName;
   private Map<String, String> externalProperties;
-  private List<File> files;
+  private List<TestCase> testCases;
 
   private WetatorConfiguration configuration;
   private IBrowser browser;
@@ -62,7 +62,7 @@ public final class WetatorEngine {
   public WetatorEngine() throws WetatorException {
     super();
 
-    files = new LinkedList<File>();
+    testCases = new LinkedList<TestCase>();
     progressListener = new LinkedList<IProgressListener>();
   }
 
@@ -102,25 +102,26 @@ public final class WetatorEngine {
   }
 
   /**
-   * Returns the list of all test files.
+   * Returns the list of all test cases.
    * 
-   * @return the list of all test files
+   * @return the list of all test cases
    */
-  public List<File> getTestFiles() {
-    return files;
+  public List<TestCase> getTestCases() {
+    return testCases;
   }
 
   /**
    * Adds a test file to be executed.
    * 
+   * @param aName the name of the test file to be added.
    * @param aFile the test file to be added.
    * @throws WetatorException if the test file does not exist.
    */
-  public void addTestFile(final File aFile) {
+  public void addTestCase(final String aName, final File aFile) {
     if (!aFile.exists()) {
       throw new WetatorException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
-    files.add(aFile);
+    testCases.add(new TestCase(aName, aFile));
   }
 
   /**
@@ -134,9 +135,10 @@ public final class WetatorEngine {
 
     informListenersStart();
     try {
-      for (File tmpFile : files) {
+      for (TestCase tmpTestCase : testCases) {
+        final File tmpFile = tmpTestCase.getFile();
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-        informListenersTestCaseStart(tmpFile.getName());
+        informListenersTestCaseStart(tmpTestCase.getName());
         try {
           for (BrowserType tmpBrowserType : configuration.getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
