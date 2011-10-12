@@ -38,6 +38,21 @@ import org.apache.poi.ss.usermodel.Cell;
  */
 public final class ContentUtil {
   private static final int MAX_LENGTH = 4000;
+  private static final String MORE = " ...";
+
+  /**
+   * Converts a text document to string.
+   * 
+   * @param aContent the input
+   * @return the normalizes content string
+   */
+  public static String getTxtContentAsString(final String aContent) {
+    final NormalizedString tmpResult = new NormalizedString(aContent);
+    if (tmpResult.length() > MAX_LENGTH) {
+      return tmpResult.substring(0, MAX_LENGTH) + MORE;
+    }
+    return tmpResult.toString();
+  }
 
   /**
    * Converts a pdf document to string.
@@ -53,6 +68,9 @@ public final class ContentUtil {
       final PDFTextStripper tmpStripper = new PDFTextStripper();
       final String tmpContentAsText = tmpStripper.getText(tmpDocument);
       final NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
+      if (tmpResult.length() > MAX_LENGTH) {
+        return tmpResult.substring(0, MAX_LENGTH) + MORE;
+      }
       return tmpResult.toString();
     } finally {
       tmpDocument.close();
@@ -75,7 +93,7 @@ public final class ContentUtil {
     final int tmpLength = Math.min(tmpDocument.getLength(), MAX_LENGTH);
     final NormalizedString tmpResult = new NormalizedString(tmpDocument.getText(0, tmpLength));
     if (tmpDocument.getLength() > MAX_LENGTH) {
-      tmpResult.append(" ...");
+      tmpResult.append(MORE);
     }
     return tmpResult.toString();
   }
@@ -110,8 +128,7 @@ public final class ContentUtil {
 
           // check after each row
           if (tmpResult.length() > MAX_LENGTH) {
-            tmpResult.append(" ...");
-            return tmpResult.toString();
+            return tmpResult.substring(0, MAX_LENGTH) + MORE;
           }
 
           tmpResult.append(" ");

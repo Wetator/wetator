@@ -59,4 +59,13 @@ public class ContentUtilTest {
     String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
+
+  @Test
+  public void testGetTxtContentAsString() {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("Some content line two Hallo Wetator.");
+
+    String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.");
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
 }
