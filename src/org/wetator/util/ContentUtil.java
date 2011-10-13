@@ -18,6 +18,7 @@ package org.wetator.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -29,7 +30,9 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.format.CellDateFormatter;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
@@ -151,26 +154,28 @@ public final class ContentUtil {
 
     tmpCellType = tmpCell.getCellType();
 
-    switch (tmpCellType) {
-      case Cell.CELL_TYPE_BLANK:
-        tmpResult = "";
-        break;
-      case Cell.CELL_TYPE_STRING:
-        tmpResult = tmpCell.getRichStringCellValue().getString();
-        break;
-      case Cell.CELL_TYPE_NUMERIC:
-        tmpResult = "" + tmpCell.getNumericCellValue();
-        break;
+    if (Cell.CELL_TYPE_BLANK == tmpCellType) {
+      tmpResult = "";
+    } else if (Cell.CELL_TYPE_STRING == tmpCellType) {
+      tmpResult = tmpCell.getRichStringCellValue().getString();
+    } else if (Cell.CELL_TYPE_NUMERIC == tmpCellType) {
+      final double tmpNumeric = tmpCell.getNumericCellValue();
 
-      // deal with the other possible cases
-      case Cell.CELL_TYPE_BOOLEAN:
-        // ignore
-      case Cell.CELL_TYPE_ERROR:
-        // ignore
-      case Cell.CELL_TYPE_FORMULA:
-        // ignore
-      default:
-        // ignore
+      if (DateUtil.isCellDateFormatted(tmpCell)) {
+        final Date tmpDate = DateUtil.getJavaDate(tmpNumeric);
+        final String tmpDateFormat = tmpCell.getCellStyle().getDataFormatString();
+        tmpResult = new CellDateFormatter(tmpDateFormat).format(tmpDate);
+      } else {
+        tmpResult = "" + tmpNumeric;
+      }
+    } else if (Cell.CELL_TYPE_BOOLEAN == tmpCellType) {
+      // ignore
+    } else if (Cell.CELL_TYPE_ERROR == tmpCellType) {
+      // ignore
+    } else if (Cell.CELL_TYPE_FORMULA == tmpCellType) {
+      // ignore
+    } else {
+      // ignore
     }
     return tmpResult;
   }
