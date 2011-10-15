@@ -183,8 +183,15 @@ public final class ResponseStore {
       // did we already download this
       String tmpFileName = fileNames.get(tmpFullContentUrl.toExternalForm());
       if (null == tmpFileName) {
-        // read data
-        final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpFullContentUrl));
+        // read data form url
+        // set the referer header like the browser does
+        final WebRequest tmpRequest = new WebRequest(tmpFullContentUrl);
+        tmpRequest.setAdditionalHeader("Referer", aBaseUrl.toExternalForm());
+        final WebResponse tmpWebResponse = webClient.loadWebResponse(tmpRequest);
+
+        // TODO we have to check the result code
+        // see Ticket #42
+        // webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
 
         // create path
         tmpFileName = tmpFullContentUrl.getPath();
