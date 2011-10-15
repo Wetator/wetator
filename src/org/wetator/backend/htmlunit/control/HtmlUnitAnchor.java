@@ -25,6 +25,7 @@ import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.BackendException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
@@ -53,7 +54,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetatorContext)
    */
   @Override
-  public void click(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void click(final WetatorContext aWetatorContext) throws BackendException {
     super.click(aWetatorContext);
 
     try {

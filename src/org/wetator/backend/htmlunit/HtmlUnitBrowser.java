@@ -63,6 +63,7 @@ import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.BackendException;
 import org.wetator.exception.WetatorException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
@@ -265,7 +266,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(final URL aUrl) throws AssertionFailedException {
+  public void openUrl(final URL aUrl) throws AssertionFailedException, BackendException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
@@ -277,10 +278,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     } catch (final FailingHttpStatusCodeException e) {
       addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     } catch (final UnknownHostException e) {
-      addFailure("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      throwBackendException("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
+    } catch (final BackendException e) {
+      throw e;
     } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
-      addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      throwBackendException("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     }
 
     final String tmpRef = aUrl.getRef();
@@ -396,10 +399,10 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
    */
   @Override
-  public void closeWindow(final SecretString aWindowName) throws AssertionFailedException {
+  public void closeWindow(final SecretString aWindowName) throws BackendException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
-      Assert.fail("noWindowToClose", null);
+      throwBackendException("noWindowToClose", null);
     }
 
     if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
@@ -417,7 +420,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           return;
         }
       }
-      Assert.fail("noWindowToClose", null);
+      throwBackendException("noWindowToClose", null);
     }
 
     final SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
@@ -438,7 +441,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
     }
-    Assert.fail("noWindowByNameToClose", new String[] { aWindowName.toString() });
+    throwBackendException("noWindowByNameToClose", new String[] { aWindowName.toString() });
   }
 
   /**
@@ -447,27 +450,25 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
    */
   @Override
-  public void goBackInCurrentWindow(final int aSteps) throws AssertionFailedException {
+  public void goBackInCurrentWindow(final int aSteps) throws BackendException {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
-      Assert.fail("noWebWindow", null);
+      throwBackendException("noWebWindow", null);
     }
 
     final History tmpHistory = tmpCurrentWindow.getHistory();
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
-      Assert.fail(
-          "outsideHistory",
-          new String[] { Integer.toString(aSteps), Integer.toString(tmpIndexPos),
-              Integer.toString(tmpHistory.getLength()) });
+      throwBackendException("outsideHistory", new String[] { Integer.toString(aSteps), Integer.toString(tmpIndexPos),
+          Integer.toString(tmpHistory.getLength()) });
     }
 
     try {
       tmpHistory.go(-1 * aSteps);
     } catch (final IOException e) {
-      Assert.fail("historyFailed", new String[] { e.getMessage() });
+      throwBackendException("historyFailed", new String[] { e.getMessage() });
     }
   }
 
@@ -500,9 +501,10 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Checks if the url contains a hash, that the matching anchor is on the page.
    * 
    * @param aRef the hash from the url
-   * @throws AssertionFailedException if no matisching anchor found
+   * @throws AssertionFailedException if no matching anchor found
+   * @throws BackendException if there is no current page
    */
-  protected void checkAnchor(final String aRef) throws AssertionFailedException {
+  protected void checkAnchor(final String aRef) throws AssertionFailedException, BackendException {
     // check the anchor part of the url
     final Page tmpPage = getCurrentPage();
     PageUtil.checkAnchor(aRef, tmpPage);
@@ -560,14 +562,14 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   }
 
-  private Page getCurrentPage() throws AssertionFailedException {
+  private Page getCurrentPage() throws BackendException {
     final WebWindow tmpWebWindow = webClient.getCurrentWindow();
     if (null == tmpWebWindow) {
-      Assert.fail("noWebWindow", null);
+      throwBackendException("noWebWindow", null);
     }
     final Page tmpPage = tmpWebWindow.getEnclosedPage();
     if (null == tmpPage) {
-      Assert.fail("noPageInWebWindow", null);
+      throwBackendException("noPageInWebWindow", null);
     }
 
     return tmpPage;
@@ -597,15 +599,15 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Returns the current HtmlPage.
    * 
    * @return the current HtmlPage
-   * @throws AssertionFailedException if the current page is not a HtmlPage
+   * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
-  public HtmlPage getCurrentHtmlPage() throws AssertionFailedException {
+  public HtmlPage getCurrentHtmlPage() throws BackendException {
     final Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       return (HtmlPage) tmpPage;
     }
 
-    Assert.fail("noHtmlPage", new String[] { tmpPage.getClass().toString() });
+    throwBackendException("noHtmlPage", new String[] { tmpPage.getClass().toString() });
     return null;
   }
 
@@ -615,7 +617,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#getControlFinder()
    */
   @Override
-  public IControlFinder getControlFinder() throws AssertionFailedException {
+  public IControlFinder getControlFinder() throws BackendException {
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
@@ -627,7 +629,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#waitForImmediateJobs()
    */
   @Override
-  public void waitForImmediateJobs() throws AssertionFailedException {
+  public void waitForImmediateJobs() throws BackendException {
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       // try with wait
@@ -662,7 +664,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionFailedException {
+      throws AssertionFailedException, BackendException {
     final long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
 
     // remember the page at start to be able to detect page changes
@@ -714,7 +716,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionFailedException {
+      throws AssertionFailedException, BackendException {
     final long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
 
     // remember the page at start to be able to detect page changes
@@ -890,12 +892,38 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @throws AssertionFailedException
    * @see org.wetator.backend.IBrowser#bookmarkPage(String)
    */
   @Override
-  public void bookmarkPage(final String aBookmarkName) throws AssertionFailedException {
-    final URL tmpUrl = getCurrentHtmlPage().getWebResponse().getWebRequest().getUrl();
+  public void bookmarkPage(final String aBookmarkName) throws BackendException {
+    final URL tmpUrl = getCurrentPage().getWebResponse().getWebRequest().getUrl();
     saveBookmark(aBookmarkName, tmpUrl);
+  }
+
+  /**
+   * Throws a BackendException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws BackendException the created exception
+   */
+  protected void throwBackendException(final String aMessageKey, final Object[] aParameterArray)
+      throws BackendException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new BackendException(tmpMessage);
+  }
+
+  /**
+   * Throws a BackendException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @param aThrowable the cause
+   * @throws BackendException the created exception
+   */
+  protected void throwBackendException(final String aMessageKey, final Object[] aParameterArray,
+      final Throwable aThrowable) throws BackendException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new BackendException(tmpMessage, aThrowable);
   }
 }

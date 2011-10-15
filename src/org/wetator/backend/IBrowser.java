@@ -21,15 +21,14 @@ import java.util.List;
 
 import org.wetator.backend.control.IControl;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.BackendException;
 import org.wetator.util.SecretString;
 
 /**
  * The interface for all browsers.
- * This is more or less a tagging interface.
- * Every command has to check for the right
- * implementation.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface IBrowser {
 
@@ -130,28 +129,31 @@ public interface IBrowser {
   };
 
   /**
-   * Returns the {@link IControlFinder} for this backend.
-   * Every supported backend has his own ControlFinder.
+   * Returns the {@link IControlFinder} for this browser.
+   * Every supported browser has its own ControlFinder.
    * 
-   * @return the ControlFinder for this backend
-   * @throws AssertionFailedException in case of error
+   * @return the ControlFinder for this browser
+   * @throws BackendException if no ControlFinder could be found for the current page, e.g. because the page is not a
+   *         HTML page
    */
-  public IControlFinder getControlFinder() throws AssertionFailedException;
+  public IControlFinder getControlFinder() throws BackendException;
 
   /**
-   * Opens the given URL in the current window.
+   * Opens the given URL in the current window.<br/>
+   * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    * 
    * @param aUrl the URL to open
-   * @throws AssertionFailedException in case of error
+   * @throws AssertionFailedException if the URL contains an anchor that is not found on the opened page
+   * @throws BackendException in case of problems opening the URL
    */
-  public void openUrl(URL aUrl) throws AssertionFailedException;
+  public void openUrl(URL aUrl) throws AssertionFailedException, BackendException;
 
   /**
-   * Wait until the 'immediate' javascript jobs are finished.
+   * Wait until the 'immediate' JavaScript jobs are finished.
    * 
-   * @throws AssertionFailedException in case of error
+   * @throws BackendException in case of problems
    */
-  public void waitForImmediateJobs() throws AssertionFailedException;
+  public void waitForImmediateJobs() throws BackendException;
 
   /**
    * Checks, if the page title contains the given list of strings.<br>
@@ -163,9 +165,10 @@ public interface IBrowser {
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
    * @throws AssertionFailedException if the content was not available
+   * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
   public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
-      throws AssertionFailedException;
+      throws AssertionFailedException, BackendException;
 
   /**
    * Checks, if the page content contains the given list of strings.<br>
@@ -177,9 +180,10 @@ public interface IBrowser {
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
    * @throws AssertionFailedException if the content was not available
+   * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
   public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
-      throws AssertionFailedException;
+      throws AssertionFailedException, BackendException;
 
   /**
    * Saves the content of the current window to the log.
@@ -192,17 +196,17 @@ public interface IBrowser {
    * Goes back (simulates the browser's back button) in the current window.
    * 
    * @param aSteps the number of steps to go back
-   * @throws AssertionFailedException in case of error
+   * @throws BackendException in case of error
    */
-  public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
+  public void goBackInCurrentWindow(int aSteps) throws BackendException;
 
   /**
    * Closes the window with the given name.
    * 
    * @param aWindowName the name
-   * @throws AssertionFailedException in case of error
+   * @throws BackendException in case of error
    */
-  public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
+  public void closeWindow(SecretString aWindowName) throws BackendException;
 
   /**
    * Starts a new browser session.<br/>
@@ -232,9 +236,9 @@ public interface IBrowser {
    * Stores the current page as a bookmark with the given name.
    * 
    * @param aBookmarkName the name of the bookmark
-   * @throws AssertionFailedException in case of problems
+   * @throws BackendException in case of problems
    */
-  public void bookmarkPage(String aBookmarkName) throws AssertionFailedException;
+  public void bookmarkPage(String aBookmarkName) throws BackendException;
 
   /**
    * The backend manages a list of exceptions detected during the execution
@@ -251,6 +255,7 @@ public interface IBrowser {
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @param aCause the original problem
+   * @see #addFailure(AssertionFailedException)
    */
   public void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause);
 

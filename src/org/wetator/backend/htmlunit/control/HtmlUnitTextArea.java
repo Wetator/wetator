@@ -30,6 +30,7 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.BackendException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -73,11 +74,15 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
-      throws AssertionFailedException {
+      throws BackendException {
     final HtmlTextArea tmpHtmlTextArea = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlTextArea.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
-    Assert.assertTrue(!tmpHtmlTextArea.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
+    if (tmpHtmlTextArea.isDisabled()) {
+      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+    }
+    if (tmpHtmlTextArea.isReadOnly()) {
+      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+    }
 
     try {
       tmpHtmlTextArea.click();
@@ -109,8 +114,8 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      throw e;
     } catch (final Throwable e) {
       aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
@@ -119,7 +124,8 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
+   *      org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)

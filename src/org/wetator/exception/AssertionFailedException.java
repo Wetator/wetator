@@ -22,7 +22,7 @@ package org.wetator.exception;
  * @author rbri
  * @author frank.danek
  */
-public class AssertionFailedException extends CommandExecutionException {
+public class AssertionFailedException extends Exception {
 
   private static final long serialVersionUID = -1587032805061848761L;
 

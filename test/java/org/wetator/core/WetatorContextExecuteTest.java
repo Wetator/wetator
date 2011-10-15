@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.CommandExecutionException;
 import org.wetator.exception.ResourceException;
@@ -101,13 +102,14 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was an {@link AssertionFailedException}, all following commands should be executed.
+   * Assertion: If there was a {@link CommandExecutionException} containing an {@link AssertionFailedException}, all
+   * following commands should be executed.
    */
   @Test
   public void assertionFailedException() throws CommandExecutionException {
     // setup
-    doThrow(new AssertionFailedException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker", new AssertionFailedException("mocker"));
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
@@ -129,13 +131,14 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was an {@link CommandExecutionException}, all following commands should be ignored.
+   * Assertion: If there was a {@link CommandExecutionException} containing an {@link ActionFailedException}, all
+   * following commands should be ignored.
    */
   @Test
-  public void commandExecutionException() throws CommandExecutionException {
+  public void actionFailedException() throws CommandExecutionException {
     // setup
-    doThrow(new CommandExecutionException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker", new ActionFailedException("mocker"));
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
@@ -146,7 +149,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, CommandExecutionException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
@@ -159,13 +162,13 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was an {@link WrongCommandUsageException}, all following commands should be ignored.
+   * Assertion: If there was a {@link WrongCommandUsageException}, all following commands should be ignored.
    */
   @Test
   public void wrongCommandUsageException() throws CommandExecutionException {
     // setup
-    doThrow(new WrongCommandUsageException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new WrongCommandUsageException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
@@ -176,7 +179,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, WrongCommandUsageException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
@@ -189,13 +192,13 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was an {@link RuntimeException}, all following commands should be ignored.
+   * Assertion: If there was a {@link CommandExecutionException}, all following commands should be ignored.
    */
   @Test
-  public void runtimeException() throws CommandExecutionException {
+  public void commandExecutionException() throws CommandExecutionException {
     // setup
-    doThrow(new RuntimeException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
@@ -206,7 +209,37 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, RuntimeException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+
+    verify(commandImplementation2, never()).execute(tmpContext, command2);
+    verify(engine, never()).informListenersExecuteCommandSuccess();
+    verify(engine, never()).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
+    verify(engine).informListenersExecuteCommandError(any(Throwable.class));
+  }
+
+  /**
+   * Test for the context.<br/>
+   * <br/>
+   * Assertion: If there was a {@link RuntimeException}, all following commands should be ignored.
+   */
+  @Test
+  public void runtimeException() throws CommandExecutionException {
+    // setup
+    Exception tmpException = new RuntimeException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
+
+    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
+
+    // run
+    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
+    tmpContext.execute();
+
+    // assert
+    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
@@ -250,14 +283,14 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the sub context.<br/>
    * <br/>
-   * Assertion: If there was an {@link AssertionFailedException} in the context, all commands should be executed in the
-   * sub context.
+   * Assertion: If there was a {@link CommandExecutionException} containing an {@link AssertionFailedException} in the
+   * context, all commands should be executed in the sub context.
    */
   @Test
   public void assertionFailedExceptionBeforeSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new AssertionFailedException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker", new AssertionFailedException("mocker"));
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
@@ -284,14 +317,14 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the sub context.<br/>
    * <br/>
-   * Assertion: If there was a {@link CommandExecutionException} in the context, all following commands should be
-   * ignored in the sub context.
+   * Assertion: If there was a {@link CommandExecutionException} containing a {@link ActionFailedException} in the
+   * context, all following commands should be ignored in the sub context.
    */
   @Test
-  public void commandExecutionExceptionBeforeSubContext() throws CommandExecutionException {
+  public void actionFailedExceptionBeforeSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new CommandExecutionException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker", new ActionFailedException("mocker"));
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
@@ -305,7 +338,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, CommandExecutionException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
@@ -326,8 +359,8 @@ public class WetatorContextExecuteTest {
   @Test
   public void wrongCommandUsageExceptionBeforeSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new WrongCommandUsageException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new WrongCommandUsageException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
@@ -341,7 +374,43 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, WrongCommandUsageException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+    tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
+    assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+
+    verify(commandImplementation2, never()).execute(tmpSubContext, command2);
+    verify(engine, never()).informListenersExecuteCommandSuccess();
+    verify(engine, never()).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
+    verify(engine).informListenersExecuteCommandError(any(Throwable.class));
+  }
+
+  /**
+   * Test for the sub context.<br/>
+   * <br/>
+   * Assertion: If there was a {@link CommandExecutionException} in the context, all following commands should be
+   * ignored in the sub context.
+   */
+  @Test
+  public void commandExecutionExceptionBeforeSubContext() throws CommandExecutionException {
+    // setup
+    Exception tmpException = new CommandExecutionException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
+
+    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+
+    // run
+    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
+    tmpContext.execute();
+    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    tmpSubContext.execute();
+
+    // assert
+    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
@@ -362,8 +431,8 @@ public class WetatorContextExecuteTest {
   @Test
   public void runtimeExceptionBeforeSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new RuntimeException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new RuntimeException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
@@ -377,7 +446,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, RuntimeException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandIgnored(tmpInOrder, tmpSubContext, command2);
@@ -423,14 +492,14 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the sub context.<br/>
    * <br/>
-   * Assertion: If there was an {@link AssertionFailedException} in the sub context, all commands should be executed in
-   * the context.
+   * Assertion: If there was a {@link CommandExecutionException} containing an {@link AssertionFailedException} in the
+   * sub context, all commands should be executed in the context.
    */
   @Test
   public void assertionFailedExceptionInSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new AssertionFailedException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker", new AssertionFailedException("mocker"));
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
@@ -457,14 +526,14 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the sub context.<br/>
    * <br/>
-   * Assertion: If there was a {@link CommandExecutionException} in the sub context, all following commands should be
-   * ignored in the context.
+   * Assertion: If there was a {@link CommandExecutionException} containing a {@link ActionFailedException} in the
+   * sub context, all following commands should be ignored in the context.
    */
   @Test
-  public void commandExecutionExceptionInSubContext() throws CommandExecutionException {
+  public void actionFailedExceptionInSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new CommandExecutionException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker", new WrongCommandUsageException("mocker"));
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
@@ -478,7 +547,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, CommandExecutionException.class);
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -499,8 +568,8 @@ public class WetatorContextExecuteTest {
   @Test
   public void wrongCommandUsageExceptionInSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new WrongCommandUsageException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new WrongCommandUsageException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
@@ -514,7 +583,43 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, WrongCommandUsageException.class);
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+    tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
+    assertCommandIgnored(tmpInOrder, tmpContext, command2);
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+
+    verify(commandImplementation2, never()).execute(tmpContext, command2);
+    verify(engine, never()).informListenersExecuteCommandSuccess();
+    verify(engine, never()).informListenersExecuteCommandFailure(any(AssertionFailedException.class));
+    verify(engine).informListenersExecuteCommandError(any(Throwable.class));
+  }
+
+  /**
+   * Test for the sub context.<br/>
+   * <br/>
+   * Assertion: If there was a {@link CommandExecutionException} in the sub context, all following commands should be
+   * ignored in the context.
+   */
+  @Test
+  public void commandExecutionExceptionInSubContext() throws CommandExecutionException {
+    // setup
+    Exception tmpException = new CommandExecutionException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
+
+    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+
+    // run
+    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
+    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    tmpSubContext.execute();
+    tmpContext.execute();
+
+    // assert
+    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -535,8 +640,8 @@ public class WetatorContextExecuteTest {
   @Test
   public void runtimeExceptionInSubContext() throws CommandExecutionException {
     // setup
-    doThrow(new RuntimeException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new RuntimeException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
@@ -550,7 +655,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, RuntimeException.class);
+    assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -602,9 +707,9 @@ public class WetatorContextExecuteTest {
   @Test
   public void storedAssertionFailedException() throws CommandExecutionException {
     // setup
+    AssertionFailedException tmpException = new AssertionFailedException("mocker");
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
-    when(browser.checkAndResetFailures()).thenReturn(new AssertionFailedException("mocker"),
-        (AssertionFailedException) null);
+    when(browser.checkAndResetFailures()).thenReturn(tmpException, (AssertionFailedException) null);
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
@@ -632,8 +737,8 @@ public class WetatorContextExecuteTest {
     // setup
     ICommandImplementation tmpForceExecution = new ForceExecutionCommand(commandImplementation2);
 
-    doThrow(new CommandExecutionException("mocker")).when(commandImplementation1).execute(any(WetatorContext.class),
-        any(Command.class));
+    Exception tmpException = new CommandExecutionException("mocker");
+    doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
     when(engine.getCommandImplementationFor("command2")).thenReturn(tmpForceExecution);
@@ -645,7 +750,7 @@ public class WetatorContextExecuteTest {
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
-    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, CommandExecutionException.class);
+    assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
@@ -745,12 +850,11 @@ public class WetatorContextExecuteTest {
   }
 
   private void assertCommandError(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation, Class<? extends Throwable> aThrowableClass)
-      throws CommandExecutionException {
+      ICommandImplementation anImplementation, Throwable aThrowable) throws CommandExecutionException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
-    anInOrder.verify(engine).informListenersExecuteCommandError(any(aThrowableClass));
+    anInOrder.verify(engine).informListenersExecuteCommandError(aThrowable);
     anInOrder.verify(engine).informListenersExecuteCommandEnd();
   }
 

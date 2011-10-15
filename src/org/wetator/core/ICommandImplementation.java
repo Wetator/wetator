@@ -32,9 +32,8 @@ public interface ICommandImplementation {
    * 
    * @param aContext The current {@link WetatorContext}.
    * @param aCommand The {@link Command} to execute.
-   * @throws org.wetator.exception.AssertionFailedException in case of a wrong assertion (if the command is an assert).
-   * @throws org.wetator.exception.WrongCommandUsageException in case of a wrong command usage.
-   * @throws CommandExecutionException in case of a problem executing the command.
+   * @throws CommandExecutionException in case of a problem executing the command. The containing cause signals the
+   *         cause of this exception.
    */
   public void execute(WetatorContext aContext, Command aCommand) throws CommandExecutionException;
 

@@ -38,6 +38,7 @@ import org.wetator.util.VariableReplaceUtil;
  * @author rbri
  */
 public class WetatorContext {
+
   private static final Log LOG = LogFactory.getLog(WetatorContext.class);
 
   private WetatorEngine engine;
@@ -180,8 +181,14 @@ public class WetatorContext {
           } else {
             engine.informListenersExecuteCommandIgnored();
           }
-        } catch (final AssertionFailedException e) {
-          engine.informListenersExecuteCommandFailure(e);
+        } catch (final CommandExecutionException e) {
+          final Throwable tmpCause = e.getCause();
+          if (tmpCause != null && tmpCause != e && tmpCause instanceof AssertionFailedException) {
+            engine.informListenersExecuteCommandFailure((AssertionFailedException) tmpCause);
+          } else {
+            engine.informListenersExecuteCommandError(e);
+            setErrorOccurred(true);
+          }
         } catch (final Exception e) {
           engine.informListenersExecuteCommandError(e);
           setErrorOccurred(true);
@@ -197,8 +204,6 @@ public class WetatorContext {
    * 
    * @param aCommand the command to be executed
    * @return true if the command was executed, false if the command was ignored
-   * @throws org.wetator.exception.AssertionFailedException in case of a wrong assertion (if the command is an assert).
-   * @throws org.wetator.exception.WrongCommandUsageException in case of a wrong command usage.
    * @throws CommandExecutionException in case of a problem executing the command.
    */
   public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandExecutionException {
@@ -223,7 +228,9 @@ public class WetatorContext {
       }
       final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
       if (null != tmpFailed) {
-        throw tmpFailed;
+        // TODO i18n
+        throw new CommandExecutionException("Failure occured executing the command '" + aCommand.getName() + "'.",
+            tmpFailed);
       }
       return true;
     }

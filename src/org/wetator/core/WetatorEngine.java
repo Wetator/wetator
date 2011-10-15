@@ -27,6 +27,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 import org.wetator.progresslistener.XMLResultWriter;
 
@@ -119,11 +120,14 @@ public class WetatorEngine {
    * Adds a test file to be executed.
    * 
    * @param aFile the test file to be added
-   * @throws WetatorException if the test file does not exist
+   * @throws ResourceException if the test file does not exist or is not readable
    */
   public void addTestFile(final File aFile) {
     if (!aFile.exists()) {
-      throw new WetatorException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new ResourceException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      throw new ResourceException("The test file '" + aFile.getAbsolutePath() + "' is not readable.");
     }
     files.add(aFile);
   }

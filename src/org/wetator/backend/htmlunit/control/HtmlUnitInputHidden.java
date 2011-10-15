@@ -26,6 +26,7 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.BackendException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -69,11 +70,15 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
-      throws AssertionFailedException {
+      throws BackendException {
     final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlHiddenInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
-    Assert.assertTrue(!tmpHtmlHiddenInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
+    if (tmpHtmlHiddenInput.isDisabled()) {
+      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+    }
+    if (tmpHtmlHiddenInput.isReadOnly()) {
+      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+    }
 
     try {
       final String tmpValue = aValue.getValue();
@@ -87,8 +92,8 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      throw e;
     } catch (final Throwable e) {
       aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
@@ -97,7 +102,8 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
+   *      org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)

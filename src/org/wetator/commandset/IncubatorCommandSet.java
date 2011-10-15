@@ -28,6 +28,7 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandExecutionException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -61,9 +62,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -83,8 +85,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
-      final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
-      Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
+      try {
+        final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
+        Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
+      }
     }
   }
 
@@ -98,16 +104,23 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
-      Assert.assertNotNull(tmpUrl, "unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+      if (tmpUrl == null) {
+        throwCommandExecutionException("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+      }
 
       aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
-      tmpBrowser.openUrl(tmpUrl);
+      try {
+        tmpBrowser.openUrl(tmpUrl);
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
+      }
 
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -123,9 +136,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       tmpBrowser.bookmarkPage(tmpBookmarkName.getValue());
@@ -142,9 +156,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpWaitTime = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       try {

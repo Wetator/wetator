@@ -127,7 +127,9 @@ src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 src/org/wetator/core/searchpattern/SearchPattern.java -text
 src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
+src/org/wetator/exception/ActionFailedException.java -text svneol=unset#text/plain
 src/org/wetator/exception/AssertionFailedException.java -text
+src/org/wetator/exception/BackendException.java -text svneol=unset#text/plain
 src/org/wetator/exception/CommandExecutionException.java -text svneol=unset#text/plain
 src/org/wetator/exception/ConfigurationException.java -text svneol=unset#text/plain
 src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain

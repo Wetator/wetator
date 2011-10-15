@@ -26,7 +26,7 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
-import org.wetator.util.Assert;
+import org.wetator.exception.BackendException;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -67,10 +67,15 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void select(final WetatorContext aWetatorContext) throws BackendException {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlRadioButtonInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    if (tmpHtmlRadioButtonInput.isDisabled()) {
+      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+    }
+    if (tmpHtmlRadioButtonInput.isReadOnly()) {
+      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+    }
 
     try {
       if (!tmpHtmlRadioButtonInput.isChecked()) {
@@ -85,8 +90,8 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      throw e;
     } catch (final Throwable e) {
       aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }

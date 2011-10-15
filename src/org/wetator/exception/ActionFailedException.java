@@ -14,25 +14,33 @@
  */
 
 
-package org.wetator.backend.control;
-
-import org.wetator.core.WetatorContext;
-import org.wetator.exception.BackendException;
+package org.wetator.exception;
 
 /**
- * This interface marks all deselectable {@link IControl}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllDeselectables(org.wetator.backend.WPath)}. All deselectable control
- * are also selectable.
+ * This exception is thrown if an action fails.
  * 
  * @author frank.danek
  */
-public interface IDeselectable extends ISelectable {
+public class ActionFailedException extends Exception {
+
+  private static final long serialVersionUID = -1505280422011251460L;
 
   /**
-   * Deselects the control.
+   * The constructor.
    * 
-   * @param aContext the context
-   * @throws BackendException if an error occurred during the deselect
+   * @param aMessage the message text
    */
-  public void deselect(WetatorContext aContext) throws BackendException;
+  public ActionFailedException(final String aMessage) {
+    super(aMessage);
+  }
+
+  /**
+   * The constructor.
+   * 
+   * @param aMessage the message text
+   * @param aCause the cause
+   */
+  public ActionFailedException(final String aMessage, final Throwable aCause) {
+    super(aMessage, aCause);
+  }
 }

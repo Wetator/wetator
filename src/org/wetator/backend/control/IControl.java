@@ -19,6 +19,7 @@ package org.wetator.backend.control;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.BackendException;
 
 /**
  * The common interface for a control.<br/>
@@ -53,33 +54,33 @@ public interface IControl {
    * Simulates moving the mouse over the control.
    * 
    * @param aContext the context
-   * @throws AssertionFailedException if the the control has no support for mouse events
+   * @throws BackendException if an error occurred during the mouse over
    */
-  public void mouseOver(WetatorContext aContext) throws AssertionFailedException;
+  public void mouseOver(WetatorContext aContext) throws BackendException;
 
   /**
    * Simulates a mouse click on the control.
    * 
    * @param aContext the context
-   * @throws AssertionFailedException if the the control has no support for clicks
+   * @throws BackendException if an error occurred during the click
    */
-  public void click(WetatorContext aContext) throws AssertionFailedException;
+  public void click(WetatorContext aContext) throws BackendException;
 
   /**
    * Simulates a mouse double click on the control.
    * 
    * @param aContext the context
-   * @throws AssertionFailedException if the the control has no support for clicks
+   * @throws BackendException if an error occurred during the double click
    */
-  public void clickDouble(WetatorContext aContext) throws AssertionFailedException;
+  public void clickDouble(WetatorContext aContext) throws BackendException;
 
   /**
    * Simulates a mouse right click on the control.
    * 
    * @param aContext the context
-   * @throws AssertionFailedException if the the control has no support for clicks
+   * @throws BackendException if an error occurred during the right click
    */
-  public void clickRight(WetatorContext aContext) throws AssertionFailedException;
+  public void clickRight(WetatorContext aContext) throws BackendException;
 
   /**
    * @param aControl the control to compare with

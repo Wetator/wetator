@@ -32,7 +32,9 @@ import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
-import org.wetator.util.Assert;
+import org.wetator.exception.CommandExecutionException;
+import org.wetator.exception.WrongCommandUsageException;
+import org.wetator.i18n.Messages;
 
 /**
  * A parent class for command sets.
@@ -129,13 +131,13 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @param aWPath the wpath (only needed for the warning message)
    * @param aNoElementFoundKey the key used to resolve the 'no element found' message.
    * @return the first control from the list
-   * @throws AssertionFailedException if the list is empty
+   * @throws CommandExecutionException if the list is empty
    */
   protected IControl getRequiredFirstHtmlElementFrom(final WetatorContext aContext,
       final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNoElementFoundKey)
-      throws AssertionFailedException {
+      throws CommandExecutionException {
     if (aWeightedControlList.isEmpty()) {
-      Assert.fail(aNoElementFoundKey, new String[] { aWPath.toString() });
+      throwCommandExecutionException(aNoElementFoundKey, new String[] { aWPath.toString() });
     }
 
     final List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();
@@ -151,5 +153,55 @@ public abstract class AbstractCommandSet implements ICommandSet {
     }
 
     return tmpEntry.getControl();
+  }
+
+  /**
+   * Throws a {@link CommandExecutionException} containing an {@link AssertionFailedException} with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws CommandExecutionException the created exception
+   */
+  protected void assertionFailed(final String aMessageKey, final Object[] aParameterArray)
+      throws CommandExecutionException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    assertionFailed(new AssertionFailedException(tmpMessage));
+  }
+
+  /**
+   * Throws a {@link CommandExecutionException} containing the given {@link AssertionFailedException}.
+   * 
+   * @param anException the AssertionFailedException
+   * @throws CommandExecutionException the created exception
+   */
+  protected void assertionFailed(final AssertionFailedException anException) throws CommandExecutionException {
+    // TODO i18n
+    throw new CommandExecutionException("Assertion failed.", anException);
+  }
+
+  /**
+   * Throws a WrongCommandUsageException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws WrongCommandUsageException the created exception
+   */
+  protected void wrongCommandUsage(final String aMessageKey, final Object[] aParameterArray)
+      throws WrongCommandUsageException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new WrongCommandUsageException(tmpMessage);
+  }
+
+  /**
+   * Throws a CommandExecutionException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws CommandExecutionException the created exception
+   */
+  protected void throwCommandExecutionException(final String aMessageKey, final Object[] aParameterArray)
+      throws CommandExecutionException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new CommandExecutionException(tmpMessage);
   }
 }

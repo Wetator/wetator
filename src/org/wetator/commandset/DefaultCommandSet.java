@@ -44,6 +44,8 @@ import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandExecutionException;
+import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -91,10 +93,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpUrlParam = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       try {
         // create the complete URL
@@ -115,7 +117,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final IBrowser tmpBrowser = getBrowser(aContext);
         tmpBrowser.openUrl(tmpUrl);
       } catch (final MalformedURLException e) {
-        Assert.fail("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
+        throwCommandExecutionException("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
       }
       getBrowser(aContext).saveCurrentWindowToLog();
     }
@@ -132,10 +136,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws WrongCommandUsageException {
       final SecretString tmpModuleParam = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpModuleParameters = aCommand.getSecondParameterValues(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final String tmpModule = tmpModuleParam.getValue();
 
@@ -169,13 +173,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getFirstParameterValues(aContext));
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
       }
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpElementFinder = tmpBrowser.getControlFinder();
@@ -188,19 +192,23 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (tmpWPath.isEmpty()) {
         for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
           tmpControl = (ISettable) tmpEntry.getControl();
-          if (!tmpControl.isDisabled(aContext)) {
-            break;
+          try {
+            if (!tmpControl.isDisabled(aContext)) {
+              break;
+            }
+          } catch (final AssertionFailedException e) {
+            // TODO may this happen?
+            assertionFailed(e);
           }
         }
 
         if (null == tmpControl) {
-          Assert.fail("noSetableHtmlElmentFound", new String[] { tmpWPath.toString() });
+          throwCommandExecutionException("noSetableHtmlElmentFound", new String[] { tmpWPath.toString() });
         }
         aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       } else {
         tmpControl = (ISettable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
             "noSetableHtmlElmentFound");
-
       }
 
       tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
@@ -218,10 +226,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -249,10 +257,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -280,10 +288,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -310,10 +318,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -338,10 +346,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -366,10 +374,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -401,10 +409,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpWindowNameParam = aCommand.getFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       tmpBrowser.closeWindow(tmpWindowNameParam);
@@ -422,16 +430,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpStepsParam = aCommand.getFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       int tmpSteps = 1;
       if (null != tmpStepsParam) {
         try {
           tmpSteps = Integer.parseInt(tmpStepsParam.getValue());
         } catch (final Exception e) {
+          // TODO throw WrongCommandUsageException?
           aContext.informListenersWarn("stepsNotANumber",
               new String[] { tmpStepsParam.toString(), Integer.toString(tmpSteps) });
         }
@@ -453,19 +462,24 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final List<SecretString> tmpExpected = aCommand.getRequiredFirstParameterValues(aContext);
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
       }
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
-      if (tmpContentChanged) {
-        tmpBrowser.saveCurrentWindowToLog();
+      try {
+        final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
+        if (tmpContentChanged) {
+          tmpBrowser.saveCurrentWindowToLog();
+        }
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
       }
     }
   }
@@ -480,19 +494,24 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final List<SecretString> tmpExpected = aCommand.getRequiredFirstParameterValues(aContext);
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
       }
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
-      if (tmpContentChanged) {
-        tmpBrowser.saveCurrentWindowToLog();
+      try {
+        final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+        if (tmpContentChanged) {
+          tmpBrowser.saveCurrentWindowToLog();
+        }
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
       }
     }
   }
@@ -507,9 +526,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -529,8 +549,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
-      final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
-      Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
+      try {
+        final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
+        Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
+      }
     }
   }
 
@@ -544,12 +568,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
       }
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -560,7 +585,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISettable tmpControl = (ISettable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSetableHtmlElmentFound");
 
-      tmpControl.assertValue(aContext, tmpValueParam);
+      try {
+        tmpControl.assertValue(aContext, tmpValueParam);
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
+      }
     }
   }
 
@@ -574,9 +603,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -587,8 +617,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noSelectableHtmlElmentFound");
 
-      final boolean tmpIsSelected = tmpControl.isSelected(aContext);
-      Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
+      try {
+        final boolean tmpIsSelected = tmpControl.isSelected(aContext);
+        Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
+      }
     }
   }
 
@@ -602,9 +636,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
@@ -615,8 +650,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
 
-      final boolean tmpIsSelected = tmpControl.isSelected(aContext);
-      Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
+      try {
+        final boolean tmpIsSelected = tmpControl.isSelected(aContext);
+        Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
+      } catch (final AssertionFailedException e) {
+        assertionFailed(e);
+      }
     }
   }
 
@@ -632,19 +671,20 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
       final SecretString tmpCall = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpMethodParameters = aCommand.getSecondParameterValues(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final String tmpCallString = tmpCall.toString();
       final int tmpLastDotPos = tmpCallString.lastIndexOf('.');
       if (tmpLastDotPos < 0) {
-        Assert.fail("javaExecSyntax", new String[] { tmpCallString });
+        wrongCommandUsage("javaExecSyntax", new String[] { tmpCallString });
       }
 
       String tmpClassName = tmpCallString.substring(0, tmpLastDotPos);
       if (StringUtils.isEmpty(tmpClassName)) {
-        Assert.fail("javaExecSyntax", new String[] { tmpCallString });
+        wrongCommandUsage("javaExecSyntax", new String[] { tmpCallString });
       }
       if (tmpClassName.endsWith("()")) {
         tmpClassName = tmpClassName.substring(0, tmpClassName.length() - 2);
@@ -652,7 +692,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       String tmpMethodName = tmpCallString.substring(tmpLastDotPos + 1);
       if (StringUtils.isEmpty(tmpMethodName)) {
-        Assert.fail("javaExecSyntax", new String[] { tmpCallString });
+        wrongCommandUsage("javaExecSyntax", new String[] { tmpCallString });
       }
       if (tmpMethodName.endsWith("()")) {
         tmpMethodName = tmpMethodName.substring(0, tmpMethodName.length() - 2);
@@ -688,7 +728,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpMethodLabel.append(')');
 
         if (null == tmpMethod) {
-          Assert.fail("javaExecMethodNotFound", new String[] { tmpClassName, tmpMethodLabel.toString() });
+          throwCommandExecutionException("javaExecMethodNotFound",
+              new String[] { tmpClassName, tmpMethodLabel.toString() });
         }
 
         Object tmpReceiver = null;
@@ -708,35 +749,37 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       } catch (final NoClassDefFoundError e) {
         aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
-        Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
+        throwCommandExecutionException("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
       } catch (final ClassNotFoundException e) {
         aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
-        Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
+        throwCommandExecutionException("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
       } catch (final IllegalArgumentException e) {
-        Assert.fail("javaExecIllegalArgument", new String[] { tmpClassName, tmpMethodLabel.toString(),
-            tmpMethodParameters.toString(), e.getMessage() });
+        throwCommandExecutionException("javaExecIllegalArgument",
+            new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getMessage() });
       } catch (final IllegalAccessException e) {
         aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-        Assert.fail("javaExecIllegalAccess", new String[] { tmpClassName, tmpMethodLabel.toString(),
+        throwCommandExecutionException("javaExecIllegalAccess", new String[] { tmpClassName, tmpMethodLabel.toString(),
             tmpMethodParameters.toString(), e.getMessage() });
       } catch (final InvocationTargetException e) {
         aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
-          Assert.fail("javaExecInvocationTarget", new String[] { tmpClassName, tmpMethodLabel.toString(),
-              tmpMethodParameters.toString(), e.toString() });
+          throwCommandExecutionException("javaExecInvocationTarget",
+              new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString() });
         } else {
-          Assert.fail("javaExecInvocationTarget", new String[] { tmpClassName, tmpMethodLabel.toString(),
-              tmpMethodParameters.toString(), e.getCause().toString() });
+          throwCommandExecutionException("javaExecInvocationTarget",
+              new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(),
+                  e.getCause().toString() });
         }
       } catch (final InstantiationException e) {
         aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
-          Assert.fail("javaExecInstantiation", new String[] { tmpClassName, tmpMethodLabel.toString(),
-              tmpMethodParameters.toString(), e.toString() });
+          throwCommandExecutionException("javaExecInstantiation",
+              new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString() });
         } else {
-          Assert.fail("javaExecInstantiation", new String[] { tmpClassName, tmpMethodLabel.toString(),
-              tmpMethodParameters.toString(), e.getCause().toString() });
+          throwCommandExecutionException("javaExecInstantiation",
+              new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(),
+                  e.getCause().toString() });
         }
       }
     }
