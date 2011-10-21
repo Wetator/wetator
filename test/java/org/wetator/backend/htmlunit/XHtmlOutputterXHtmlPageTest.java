@@ -93,7 +93,7 @@ public class XHtmlOutputterXHtmlPageTest {
   @Test
   public void specialChars() throws IOException {
     String tmpHtmlCode = LEADING + "<h1>1&#160;2</h1>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + "<head> </head> <body> <h1>1 2</h1> </body>" + EXPECTED_TRAILING;
+    String tmpExpected = EXPECTED_LEADING + "<head> </head> <body> <h1>1&#160;2</h1> </body>" + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 }
