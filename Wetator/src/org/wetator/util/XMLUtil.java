@@ -16,8 +16,6 @@
 
 package org.wetator.util;
 
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 
 /**
  * XmlUtil contains some useful helpers for XML-File handling.
@@ -26,7 +24,7 @@ import java.nio.charset.CharsetEncoder;
  */
 public class XMLUtil {
 
-  private CharsetEncoder charsetEncoder;
+  // private CharsetEncoder charsetEncoder;
 
   /**
    * The constructor.
@@ -34,7 +32,8 @@ public class XMLUtil {
    * @param anEncoding the encoding used for the file
    */
   public XMLUtil(final String anEncoding) {
-    charsetEncoder = Charset.forName(anEncoding).newEncoder();
+    super();
+    // charsetEncoder = Charset.forName(anEncoding).newEncoder();
   }
 
   /**
@@ -82,7 +81,7 @@ public class XMLUtil {
         tmpResult.append("&amp;");
         i++;
         break;
-      } else if (!charsetEncoder.canEncode(tmpChar)) {
+      } else if (!canEncode(tmpChar)) {
         tmpResult = new StringBuffer(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
         tmpResult.append(";");
@@ -112,7 +111,7 @@ public class XMLUtil {
           }
 
           default: {
-            if (charsetEncoder.canEncode(tmpChar)) {
+            if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
               tmpResult.append("&#" + (int) tmpChar);
@@ -184,7 +183,7 @@ public class XMLUtil {
         tmpResult.append("&quot;");
         i++;
         break;
-      } else if (!charsetEncoder.canEncode(tmpChar)) {
+      } else if (!canEncode(tmpChar)) {
         tmpResult = new StringBuffer(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
         tmpResult.append(";");
@@ -221,7 +220,7 @@ public class XMLUtil {
           }
 
           default: {
-            if (charsetEncoder.canEncode(tmpChar)) {
+            if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
               tmpResult.append("&#" + (int) tmpChar);
@@ -236,5 +235,12 @@ public class XMLUtil {
       return aString;
     }
     return tmpResult.toString();
+  }
+
+  private boolean canEncode(final char aChar) {
+    // return charsetEncoder.canEncode(aChar);
+    // we have som problems with this, so lets stay
+    // at the save side
+    return aChar < 128;
   }
 }
