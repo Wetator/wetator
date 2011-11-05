@@ -146,7 +146,7 @@ public class XMLScriptCreator implements IScriptCreator {
               if (tmpCommand.isComment()) {
                 tmpWriter.writeStartElement(E_COMMENT);
 
-                StringBuilder tmpContent = new StringBuilder();
+                final StringBuilder tmpContent = new StringBuilder();
                 if (!StringUtils.isEmpty(tmpCommand.getName())) {
                   tmpContent.append(tmpCommand.getName());
                 }
