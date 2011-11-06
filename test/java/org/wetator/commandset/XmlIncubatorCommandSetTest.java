@@ -34,12 +34,22 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   private static final String BASE_FOLDER = "test/xml/incubator/";
 
+   @Test
+   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
+   public void bookmark() {
+   executeTestFile("bookmark.xml");
+  
+   Assert.assertEquals(11, getSteps());
+   Assert.assertEquals(0, getFailures());
+   Assert.assertEquals(0, getErrors());
+   }
+  
   @Test
-  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void bookmark() {
-    executeTestFile("bookmark.xml");
+  @Browsers({ BrowserType.FIREFOX_3_6 })
+  public void applet() {
+    executeTestFile("applet.xml");
 
-    Assert.assertEquals(11, getSteps());
+    Assert.assertEquals(4, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

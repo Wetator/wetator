@@ -16,20 +16,28 @@
 
 package org.wetator.commandset;
 
+import java.applet.Applet;
 import java.net.URL;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
+
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlApplet;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * The implementation of all experimental commands that Wetator
@@ -48,7 +56,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
     // still there to solve some strange situations
-    registerCommand("wait", new CommandWait());
+
+    registerCommand("run-applet", new CommandRunApplet());
   }
 
   /**
@@ -155,6 +164,43 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         e.printStackTrace();
       }
       tmpBrowser.saveCurrentWindowToLog();
+    }
+  }
+
+  /**
+   * Command 'Wait'.
+   */
+  public final class CommandRunApplet implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+      final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
+      aCommand.assertNoUnusedSecondParameter(aContext);
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      if (tmpBrowser instanceof HtmlUnitBrowser) {
+        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+        final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
+        final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
+        for (HtmlElement tmpAppletElement : tmpAppletElements) {
+          final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
+          if (null == tmpAppletName || StringUtils.isEmpty(tmpAppletName.getValue())
+              || tmpAppletName.getValue().equals(tmpHtmlApplet.getNameAttribute())) {
+            try {
+              final Applet tmpApplet = tmpHtmlApplet.getApplet();
+              tmpApplet.stop();
+              tmpApplet.destroy();
+            } catch (final Exception e) {
+              throw new AssertionFailedException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
+            }
+          }
+        }
+        // TODO warn if nothing found for name or no applet on the page
+      }
     }
   }
 

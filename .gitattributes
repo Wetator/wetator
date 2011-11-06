@@ -307,6 +307,9 @@ test/webpage/htmlunit_javascript.html -text
 test/webpage/http_header.php -text
 test/webpage/iframe.html -text
 test/webpage/iframe_set.html -text
+test/webpage/incubator/GSort.class -text
+test/webpage/incubator/Panorado.jar -text
+test/webpage/incubator/applet.html -text
 test/webpage/index.html -text svneol=unset#text/plain
 test/webpage/javascript_boxover.html -text
 test/webpage/javascript_error.html -text
@@ -745,6 +748,7 @@ test/xml/ie8/event_deselect.wet -text
 test/xml/ie8/event_mouseOver.wet -text
 test/xml/ie8/event_select.wet -text
 test/xml/iframe.wet -text
+test/xml/incubator/applet.xml -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
 test/xml/jquery.wet -text svneol=unset#text/plain
