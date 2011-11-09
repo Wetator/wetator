@@ -106,8 +106,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   protected WetatorEngine wetatorEngine;
   /** The list of failures ({@link AssertionFailedException}s). */
   protected List<AssertionFailedException> failures;
-  /** ImmediateJobsTimeout. */
-  protected long immediateJobsTimeout;
+  /** jsTimeout. */
+  protected long jsTimeoutInMillis;
   /** The map containing the bookmarks. */
   protected Map<String, URL> bookmarks;
 
@@ -133,10 +133,8 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // response store
     final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
+    jsTimeoutInMillis = tmpConfiguration.getJsTimeoutInSeconds() * 1000L;
     responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
-
-    // TODO read from config
-    immediateJobsTimeout = 1000L;
 
     // add the default controls
     controlRepository.add(HtmlUnitAnchor.class);
@@ -628,7 +626,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       // try with wait
-      long tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
+      long tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       while (System.currentTimeMillis() < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
@@ -647,7 +645,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (!(tmpPage instanceof HtmlPage)) {
           break;
         }
-        tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
+        tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       }
     }
   }
@@ -660,7 +658,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   @Override
   public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
       throws AssertionFailedException {
-    final long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
+    final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
     // remember the page at start to be able to detect page changes
     final Page tmpStartPage = getCurrentPage();
@@ -712,7 +710,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   @Override
   public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
       throws AssertionFailedException {
-    final long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
+    final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
     // remember the page at start to be able to detect page changes
     final Page tmpStartPage = getCurrentPage();
