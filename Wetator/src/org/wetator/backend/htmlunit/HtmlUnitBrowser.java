@@ -622,8 +622,9 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#waitForImmediateJobs()
    */
   @Override
-  public void waitForImmediateJobs() throws AssertionFailedException {
+  public boolean waitForImmediateJobs() throws AssertionFailedException {
     Page tmpPage = getCurrentPage();
+    int tmpJobCount = 0;
     if (tmpPage instanceof HtmlPage) {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
@@ -631,7 +632,8 @@ public final class HtmlUnitBrowser implements IBrowser {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
-        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+        tmpJobCount = tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobCount > 0) {
           continue;
         }
 
@@ -648,6 +650,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       }
     }
+    return tmpJobCount > 0;
   }
 
   /**
@@ -660,8 +663,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws AssertionFailedException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
-    // remember the page at start to be able to detect page changes
-    final Page tmpStartPage = getCurrentPage();
+    boolean tmpPageChanged = false;
 
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
@@ -672,11 +674,12 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
         try {
           Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
-          return tmpStartPage != tmpPage;
+          return tmpPageChanged;
         } catch (final AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
         }
 
+        tmpPageChanged = true;
         final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
         if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
           continue;
@@ -699,7 +702,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
     final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
     Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
-    return tmpStartPage != tmpPage;
+    return tmpPageChanged;
   }
 
   /**
@@ -712,8 +715,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws AssertionFailedException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
-    // remember the page at start to be able to detect page changes
-    final Page tmpStartPage = getCurrentPage();
+    boolean tmpPageChanged = false;
 
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
@@ -724,11 +726,12 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         try {
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-          return tmpStartPage != tmpPage;
+          return tmpPageChanged;
         } catch (final AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
         }
 
+        tmpPageChanged = true;
         final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
         if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
           continue;
@@ -755,21 +758,21 @@ public final class HtmlUnitBrowser implements IBrowser {
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
       final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpStartPage != tmpPage;
+      return tmpPageChanged;
     }
 
     if (tmpPage instanceof XmlPage) {
       final XmlPage tmpXmlPage = (XmlPage) tmpPage;
       final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpStartPage != tmpPage;
+      return tmpPageChanged;
     }
 
     if (tmpPage instanceof TextPage) {
       final TextPage tmpTextPage = (TextPage) tmpPage;
       final String tmpContentAsText = tmpTextPage.getContent();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpStartPage != tmpPage;
+      return tmpPageChanged;
     }
 
     final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
@@ -779,10 +782,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpContentAsText = ContentUtil
             .getPdfContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       } catch (final IOException e) {
         Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       }
     }
 
@@ -791,10 +794,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpContentAsText = ContentUtil
             .getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       } catch (final IOException e) {
         Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       }
     }
 
@@ -803,18 +806,18 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpContentAsText = ContentUtil
             .getRtfContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       } catch (final IOException e) {
         Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       } catch (final BadLocationException e) {
         Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpStartPage != tmpPage;
+        return tmpPageChanged;
       }
     }
 
     Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
-    return tmpStartPage != tmpPage;
+    return tmpPageChanged;
   }
 
   /**

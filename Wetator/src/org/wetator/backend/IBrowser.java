@@ -149,9 +149,10 @@ public interface IBrowser {
   /**
    * Wait until the 'immediate' javascript jobs are finished.
    * 
+   * @return true, if still some javascript jobs pending
    * @throws AssertionFailedException in case of error
    */
-  public void waitForImmediateJobs() throws AssertionFailedException;
+  public boolean waitForImmediateJobs() throws AssertionFailedException;
 
   /**
    * Checks, if the page title contains the given list of strings.<br>
