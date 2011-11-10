@@ -319,8 +319,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noSelectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noSelectableHtmlElmentFound");
       tmpControl.select(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -461,9 +461,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
-      if (tmpContentChanged) {
+      try {
+        final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
+        if (tmpContentChanged) {
+          tmpBrowser.saveCurrentWindowToLog();
+        }
+      } catch (final AssertionFailedException e) {
+        // save the current window if failed
         tmpBrowser.saveCurrentWindowToLog();
+        throw e;
       }
     }
   }
@@ -488,9 +494,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
-      if (tmpContentChanged) {
+      try {
+        final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+        if (tmpContentChanged) {
+          tmpBrowser.saveCurrentWindowToLog();
+        }
+      } catch (final AssertionFailedException e) {
+        // save the current window if failed
         tmpBrowser.saveCurrentWindowToLog();
+        throw e;
       }
     }
   }
@@ -582,8 +594,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noSelectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noSelectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -610,8 +622,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noDeselectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noDeselectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
