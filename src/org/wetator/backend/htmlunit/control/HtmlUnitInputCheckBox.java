@@ -25,7 +25,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIden
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.BackendException;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
@@ -67,14 +67,14 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws BackendException {
+  public void select(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     if (tmpHtmlCheckBoxInput.isDisabled()) {
-      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+      actionFailed("elementDisabled", new String[] { getDescribingText() });
     }
     if (tmpHtmlCheckBoxInput.isReadOnly()) {
-      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+      actionFailed("elementReadOnly", new String[] { getDescribingText() });
     }
 
     try {
@@ -94,7 +94,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -104,7 +104,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isSelected(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isSelected(final WetatorContext aWetatorContext) {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     return tmpHtmlCheckBoxInput.isChecked();
@@ -116,14 +116,14 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
-  public void deselect(final WetatorContext aWetatorContext) throws BackendException {
+  public void deselect(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     if (tmpHtmlCheckBoxInput.isDisabled()) {
-      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+      actionFailed("elementDisabled", new String[] { getDescribingText() });
     }
     if (tmpHtmlCheckBoxInput.isReadOnly()) {
-      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+      actionFailed("elementReadOnly", new String[] { getDescribingText() });
     }
 
     try {
@@ -143,7 +143,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -153,7 +153,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     return tmpHtmlCheckBoxInput.isDisabled();

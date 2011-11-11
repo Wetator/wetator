@@ -17,8 +17,7 @@
 package org.wetator.backend.control;
 
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.BackendException;
+import org.wetator.exception.ActionFailedException;
 
 /**
  * This interface marks all selectable {@link IControl}s. These controls are returned by
@@ -32,14 +31,14 @@ public interface ISelectable extends IControl {
    * Selects the control.
    * 
    * @param aContext the context
-   * @throws BackendException if an error occurred during the select
+   * @throws ActionFailedException if an error occurred during the select
    */
-  public void select(WetatorContext aContext) throws BackendException;
+  public void select(WetatorContext aContext) throws ActionFailedException;
 
   /**
    * @param aContext the context
    * @return true, if the control is selected
-   * @throws AssertionFailedException if the check is not supported for the control
+   * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported for the control
    */
-  public boolean isSelected(WetatorContext aContext) throws AssertionFailedException;
+  public boolean isSelected(WetatorContext aContext);
 }

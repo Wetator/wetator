@@ -22,6 +22,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
+import org.wetator.core.IScripter;
 import org.wetator.exception.WetatorException;
 
 /**
@@ -38,7 +39,8 @@ public class LegacyXMLScripterTest {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
 
-    Assert.assertTrue(tmpLegacyXMLScripter.isSupported(tmpFile));
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpLegacyXMLScripter.script(tmpFile);
 
@@ -103,6 +105,12 @@ public class LegacyXMLScripterTest {
   @Test
   public void unsupported() throws WetatorException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
-    Assert.assertFalse(tmpLegacyXMLScripter.isSupported(new File("test/java/org/wetator/test/resource/junit2.xml")));
+    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'junit2.xml' not supported by LegacyXMLScripter. Parsing the file failed.",
+        tmpResult.getMessage());
   }
 }

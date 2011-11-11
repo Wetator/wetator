@@ -19,8 +19,8 @@ package org.wetator.backend.control;
 import java.io.File;
 
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.BackendException;
 import org.wetator.util.SecretString;
 
 /**
@@ -38,9 +38,9 @@ public interface ISettable extends IControl {
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
    *        aDirectory points to the directory for searching the file
-   * @throws BackendException if an error occurred during the set
+   * @throws ActionFailedException if an error occurred during the set
    */
-  public void setValue(WetatorContext aContext, SecretString aValue, File aDirectory) throws BackendException;
+  public void setValue(WetatorContext aContext, SecretString aValue, File aDirectory) throws ActionFailedException;
 
   /**
    * Asserts that the value of the control is equal to the given (expected) value.

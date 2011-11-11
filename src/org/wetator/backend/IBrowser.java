@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.List;
 
 import org.wetator.backend.control.IControl;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.BackendException;
 import org.wetator.util.SecretString;
@@ -143,10 +144,11 @@ public interface IBrowser {
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    * 
    * @param aUrl the URL to open
+   * @throws ActionFailedException if opening the URL fails
    * @throws AssertionFailedException if the URL contains an anchor that is not found on the opened page
    * @throws BackendException in case of problems opening the URL
    */
-  public void openUrl(URL aUrl) throws AssertionFailedException, BackendException;
+  public void openUrl(URL aUrl) throws ActionFailedException, AssertionFailedException, BackendException;
 
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
@@ -196,17 +198,17 @@ public interface IBrowser {
    * Goes back (simulates the browser's back button) in the current window.
    * 
    * @param aSteps the number of steps to go back
-   * @throws BackendException in case of error
+   * @throws ActionFailedException if going back fails
    */
-  public void goBackInCurrentWindow(int aSteps) throws BackendException;
+  public void goBackInCurrentWindow(int aSteps) throws ActionFailedException;
 
   /**
    * Closes the window with the given name.
    * 
    * @param aWindowName the name
-   * @throws BackendException in case of error
+   * @throws ActionFailedException if finding or closing the window fails
    */
-  public void closeWindow(SecretString aWindowName) throws BackendException;
+  public void closeWindow(SecretString aWindowName) throws ActionFailedException;
 
   /**
    * Starts a new browser session.<br/>
@@ -241,8 +243,8 @@ public interface IBrowser {
   public void bookmarkPage(String aBookmarkName) throws BackendException;
 
   /**
-   * The backend manages a list of exceptions detected during the execution
-   * of an action. This exceptions are collected. Normally such an exception doesn't stop
+   * The browser manages a list of failures detected during the execution
+   * of an action. This failures are collected. Normally such a failure doesn't stop
    * the processing of the action.<br>
    * 
    * @param aFailure the original problem
@@ -250,8 +252,9 @@ public interface IBrowser {
   public void addFailure(AssertionFailedException aFailure);
 
   /**
-   * Helper.
+   * Helper to store a failure.
    * 
+   * @see #addFailure(AssertionFailedException)
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @param aCause the original problem

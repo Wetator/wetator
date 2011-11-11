@@ -86,33 +86,47 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void testAsText_Font() throws IOException {
+    String tmpHtmlCode = "<html><body><p>" + "<font color='red'>red</font> <font color='green'>green</font>"
+        + "</p></body></html>";
+
+    testAsText("red green", tmpHtmlCode);
+  }
+
+  @Test
+  public void testAsText_Span() throws IOException {
+    String tmpHtmlCode = "<html><body><p>" + "<span> 17.11 </span> mg" + "</p></body></html>";
+
+    testAsText("17.11 mg", tmpHtmlCode);
+  }
+
+  @Test
   public void testAsText_Formatting() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>" + "<b>1</b>" + "<big>2</big>" + "<em>3</em>" + "<i>4</i>"
-        + "<small>5</small>" + "<strong>6</strong>" + "<sub>7</sub>" + "<sup>8</sup>" + "<ins>9</ins>"
-        + "<del>10</del>" + "</body></html>";
+    String tmpHtmlCode = "<html><body><p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+        + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p></body></html>";
 
     testAsText("1 2 3 4 5 6 7 8 9 10", tmpHtmlCode);
   }
 
   @Test
   public void testAsText_ComputerOutput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>" + "<code>1</code>" + "<kbd>2</kbd>" + "<samp>3</samp>" + "<tt>4</tt>"
-        + "<var>5</var>" + "<pre>6</pre>" + "</body></html>";
-
+    String tmpHtmlCode = "<html><body><p>"
+        + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p></body></html>";
     testAsText("1 2 3 4 5 6", tmpHtmlCode);
   }
 
   @Test
   public void testAsText_CitationQuotationDefinition() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>" + "<abbr title='a'>1</abbr>" + "<acronym title='b'>2</acronym>"
-        + "<q>3</q>" + "<cite>4</cite>" + "<dfn>5</dfn>" + "</body></html>";
+    String tmpHtmlCode = "<html><body><p>"
+        + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>"
+        + "</p></body></html>";
 
     testAsText("1 2 \"3\" 4 5", tmpHtmlCode);
   }
 
   @Test
   public void testAsText_Mix() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>This t<font color='red'>ex</font>t is <b>styled</b>.</p>"
+    String tmpHtmlCode = "<html><body>" + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>"
         + "</body></html>";
 
     testAsText("This text is styled.", tmpHtmlCode);
@@ -125,6 +139,13 @@ public class HtmlPageIndexTest {
         + "</tr></table></body></html>";
 
     testAsText("Table Clickable formated text", tmpHtmlCode);
+  }
+
+  @Test
+  public void testAsText_Mix3() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>Fi<font color='red'>eld</font>4</p>" + "</p></body></html>";
+
+    testAsText("Field4", tmpHtmlCode);
   }
 
   @Test

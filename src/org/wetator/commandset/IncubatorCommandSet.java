@@ -16,6 +16,7 @@
 
 package org.wetator.commandset;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Properties;
 
@@ -27,8 +28,10 @@ import org.wetator.backend.control.IControl;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.CommandExecutionException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -112,17 +115,18 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
       if (tmpUrl == null) {
-        throwCommandExecutionException("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+        actionFailed("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
       }
 
       aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
       try {
         tmpBrowser.openUrl(tmpUrl);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
       } catch (final AssertionFailedException e) {
         assertionFailed(e);
       }
-
-      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -157,19 +161,28 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
-      final SecretString tmpWaitTime = aCommand.getRequiredFirstParameterValue(aContext);
+      final SecretString tmpWaitTimeString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
+      long tmpWaitTime = 0;
+      try {
+        final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
+        tmpWaitTime = tmpValue.longValueExact();
+      } catch (final NumberFormatException e) {
+        wrongCommandUsage("integerParameterExpected", new String[] { "wait", tmpWaitTimeString.toString(), "1" });
+      } catch (final ArithmeticException e) {
+        wrongCommandUsage("integerParameterExpected", new String[] { "wait", tmpWaitTimeString.toString(), "1" });
+      }
+
       final IBrowser tmpBrowser = getBrowser(aContext);
       try {
-        Thread.sleep(Long.parseLong(tmpWaitTime.getValue()) * 1000L);
-      } catch (final NumberFormatException e) {
-        e.printStackTrace();
+        Thread.sleep(tmpWaitTime * 1000L);
+        tmpBrowser.saveCurrentWindowToLog();
       } catch (final InterruptedException e) {
-        e.printStackTrace();
+        final String tmpMessage = Messages.getMessage("waitError", null);
+        actionFailed(new ActionFailedException(tmpMessage, e));
       }
-      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 

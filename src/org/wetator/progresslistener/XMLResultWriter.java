@@ -33,6 +33,7 @@ import org.wetator.core.ICommandSet;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
+import org.wetator.core.TestCase;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
@@ -218,8 +219,8 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_CONFIGURATION);
 
       printlnNode(TAG_START_TIME, StringUtil.formatDate(new Date()));
-      for (File tmpFile : aWetatorEngine.getTestFiles()) {
-        printlnNode(TAG_TEST_FILE, tmpFile.getAbsolutePath());
+      for (TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
+        printlnNode(TAG_TEST_FILE, tmpTestCase.getFile().getAbsolutePath());
       }
 
       executionStartTime = System.currentTimeMillis();

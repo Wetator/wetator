@@ -25,7 +25,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonI
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.BackendException;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
@@ -67,14 +67,14 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws BackendException {
+  public void select(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     if (tmpHtmlRadioButtonInput.isDisabled()) {
-      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+      actionFailed("elementDisabled", new String[] { getDescribingText() });
     }
     if (tmpHtmlRadioButtonInput.isReadOnly()) {
-      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+      actionFailed("elementReadOnly", new String[] { getDescribingText() });
     }
 
     try {
@@ -93,7 +93,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -103,7 +103,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isSelected(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isSelected(final WetatorContext aWetatorContext) {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     return tmpHtmlRadioButtonInput.isChecked();
@@ -115,7 +115,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     return tmpHtmlRadioButtonInput.isDisabled();

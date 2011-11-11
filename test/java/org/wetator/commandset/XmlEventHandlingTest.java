@@ -110,7 +110,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ie6/event_handler.wet");
 
     Assert.assertEquals(81, getSteps());
-    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(15, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -120,7 +120,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ff36/event_handler.wet");
 
     Assert.assertEquals(81, getSteps());
-    Assert.assertEquals(19, getFailures());
+    Assert.assertEquals(18, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 

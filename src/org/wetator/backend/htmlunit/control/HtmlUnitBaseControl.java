@@ -29,10 +29,10 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.BackendException;
+import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
-import org.wetator.util.Assert;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
@@ -94,7 +94,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#click(WetatorContext)
    */
   @Override
-  public void click(final WetatorContext aWetatorContext) throws BackendException {
+  public void click(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -119,7 +119,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -129,7 +129,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#clickDouble(WetatorContext)
    */
   @Override
-  public void clickDouble(final WetatorContext aWetatorContext) throws BackendException {
+  public void clickDouble(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -154,7 +154,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -164,7 +164,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#clickRight(WetatorContext)
    */
   @Override
-  public void clickRight(final WetatorContext aWetatorContext) throws BackendException {
+  public void clickRight(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -189,7 +189,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -199,7 +199,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
    */
   @Override
-  public void mouseOver(final WetatorContext aWetatorContext) throws BackendException {
+  public void mouseOver(final WetatorContext aWetatorContext) throws ActionFailedException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -228,7 +228,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -238,7 +238,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
     boolean tmpSupported = false;
 
@@ -274,7 +274,8 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     if (!tmpSupported) {
-      Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+      throw new UnsupportedOperationException(tmpMessage);
     }
 
     return false;
@@ -286,7 +287,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#hasFocus(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean hasFocus(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean hasFocus(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
@@ -350,16 +351,29 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
   }
 
   /**
-   * Throws a BackendException with the given message.
+   * Throws a ActionFailedException with the given message.
    * 
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
-   * @throws BackendException the created exception
+   * @throws ActionFailedException the created exception
    */
-  protected void throwBackendException(final String aMessageKey, final Object[] aParameterArray)
-      throws BackendException {
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionFailedException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new BackendException(tmpMessage);
+    throw new ActionFailedException(tmpMessage);
+  }
+
+  /**
+   * Throws a ActionFailedException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @param aThrowable the cause
+   * @throws ActionFailedException the created exception
+   */
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
+      throws ActionFailedException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new ActionFailedException(tmpMessage, aThrowable);
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {

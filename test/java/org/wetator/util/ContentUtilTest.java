@@ -55,8 +55,29 @@ public class ContentUtilTest {
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
     tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Data Test]");
+    tmpExpected.append(" String plain text");
+    tmpExpected.append(" String(int) 4711");
+    tmpExpected.append(" int 123");
+    tmpExpected.append(" float 14,3");
+    tmpExpected.append(" float (rounded) 1,70");
+    tmpExpected.append(" currency 4,33");
+    tmpExpected.append(" percent 3%");
+    tmpExpected.append(" date 7/14/11");
+    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" formula 124,70");
 
     String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void testGetTxtContentAsString() {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("Some content line two Hallo Wetator.");
+
+    String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.");
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 }

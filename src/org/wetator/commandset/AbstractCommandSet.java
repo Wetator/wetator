@@ -31,6 +31,7 @@ import org.wetator.backend.control.IControl;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.CommandExecutionException;
 import org.wetator.exception.WrongCommandUsageException;
@@ -177,6 +178,30 @@ public abstract class AbstractCommandSet implements ICommandSet {
   protected void assertionFailed(final AssertionFailedException anException) throws CommandExecutionException {
     // TODO i18n
     throw new CommandExecutionException("Assertion failed.", anException);
+  }
+
+  /**
+   * Throws a {@link CommandExecutionException} containing an {@link ActionFailedException} with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws CommandExecutionException the created exception
+   */
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray)
+      throws CommandExecutionException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    actionFailed(new ActionFailedException(tmpMessage));
+  }
+
+  /**
+   * Throws a {@link CommandExecutionException} containing the given {@link ActionFailedException}.
+   * 
+   * @param anException the AssertionFailedException
+   * @throws CommandExecutionException the created exception
+   */
+  protected void actionFailed(final ActionFailedException anException) throws CommandExecutionException {
+    // TODO i18n
+    throw new CommandExecutionException("Action failed.", anException);
   }
 
   /**

@@ -62,9 +62,9 @@ import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.BackendException;
-import org.wetator.exception.WetatorException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.ContentUtil;
@@ -266,7 +266,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(final URL aUrl) throws AssertionFailedException, BackendException {
+  public void openUrl(final URL aUrl) throws ActionFailedException, AssertionFailedException, BackendException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
@@ -278,12 +278,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     } catch (final FailingHttpStatusCodeException e) {
       addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     } catch (final UnknownHostException e) {
-      throwBackendException("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      actionFailed("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
-      throwBackendException("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      actionFailed("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     }
 
     final String tmpRef = aUrl.getRef();
@@ -399,10 +399,10 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
    */
   @Override
-  public void closeWindow(final SecretString aWindowName) throws BackendException {
+  public void closeWindow(final SecretString aWindowName) throws ActionFailedException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
-      throwBackendException("noWindowToClose", null);
+      actionFailed("noWindowToClose", null);
     }
 
     if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
@@ -420,7 +420,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           return;
         }
       }
-      throwBackendException("noWindowToClose", null);
+      actionFailed("noWindowToClose", null);
     }
 
     final SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
@@ -441,7 +441,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
     }
-    throwBackendException("noWindowByNameToClose", new String[] { aWindowName.toString() });
+    actionFailed("noWindowByNameToClose", new String[] { aWindowName.toString() });
   }
 
   /**
@@ -450,25 +450,27 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
    */
   @Override
-  public void goBackInCurrentWindow(final int aSteps) throws BackendException {
+  public void goBackInCurrentWindow(final int aSteps) throws ActionFailedException {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
-      throwBackendException("noWebWindow", null);
+      actionFailed("noWebWindow", null);
     }
 
     final History tmpHistory = tmpCurrentWindow.getHistory();
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
-      throwBackendException("outsideHistory", new String[] { Integer.toString(aSteps), Integer.toString(tmpIndexPos),
-          Integer.toString(tmpHistory.getLength()) });
+      actionFailed(
+          "outsideHistory",
+          new String[] { Integer.toString(aSteps), Integer.toString(tmpIndexPos),
+              Integer.toString(tmpHistory.getLength()) });
     }
 
     try {
       tmpHistory.go(-1 * aSteps);
     } catch (final IOException e) {
-      throwBackendException("historyFailed", new String[] { e.getMessage() });
+      actionFailed("historyFailed", new String[] { e.getMessage() });
     }
   }
 
@@ -491,7 +493,8 @@ public final class HtmlUnitBrowser implements IBrowser {
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
-      } catch (final WetatorException e) {
+      } catch (final Throwable e) {
+        // TODO error handling
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
     }
@@ -898,6 +901,32 @@ public final class HtmlUnitBrowser implements IBrowser {
   public void bookmarkPage(final String aBookmarkName) throws BackendException {
     final URL tmpUrl = getCurrentPage().getWebResponse().getWebRequest().getUrl();
     saveBookmark(aBookmarkName, tmpUrl);
+  }
+
+  /**
+   * Throws a ActionFailedException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws ActionFailedException the created exception
+   */
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionFailedException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new ActionFailedException(tmpMessage);
+  }
+
+  /**
+   * Throws a ActionFailedException with the given message.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @param aThrowable the cause
+   * @throws ActionFailedException the created exception
+   */
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
+      throws ActionFailedException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new ActionFailedException(tmpMessage, aThrowable);
   }
 
   /**

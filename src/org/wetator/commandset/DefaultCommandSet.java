@@ -43,6 +43,7 @@ import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.CommandExecutionException;
 import org.wetator.exception.WrongCommandUsageException;
@@ -117,7 +118,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final IBrowser tmpBrowser = getBrowser(aContext);
         tmpBrowser.openUrl(tmpUrl);
       } catch (final MalformedURLException e) {
-        throwCommandExecutionException("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
+        actionFailed("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
       } catch (final AssertionFailedException e) {
         assertionFailed(e);
       }
@@ -192,13 +195,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (tmpWPath.isEmpty()) {
         for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
           tmpControl = (ISettable) tmpEntry.getControl();
-          try {
-            if (!tmpControl.isDisabled(aContext)) {
-              break;
-            }
-          } catch (final AssertionFailedException e) {
-            // TODO may this happen?
-            assertionFailed(e);
+          if (!tmpControl.isDisabled(aContext)) {
+            break;
           }
         }
 
@@ -211,8 +209,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             "noSetableHtmlElmentFound");
       }
 
-      tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
-      tmpBrowser.saveCurrentWindowToLog();
+      try {
+        tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -242,8 +244,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noClickableHtmlElmentFound");
-      tmpControl.click(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpControl.click(aContext);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -273,8 +280,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "no2ClickableHtmlElmentFound");
-      tmpControl.clickDouble(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpControl.clickDouble(aContext);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -303,8 +315,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath, "7");
-      tmpControl.clickRight(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpControl.clickRight(aContext);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -331,8 +348,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noSelectableHtmlElmentFound");
-      tmpControl.select(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpControl.select(aContext);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -359,8 +381,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IDeselectable tmpControl = (IDeselectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
-      tmpControl.deselect(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpControl.deselect(aContext);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -394,8 +421,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
-      tmpControl.mouseOver(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpControl.mouseOver(aContext);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -415,8 +447,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      tmpBrowser.closeWindow(tmpWindowNameParam);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpBrowser.closeWindow(tmpWindowNameParam);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -447,8 +484,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      tmpBrowser.goBackInCurrentWindow(tmpSteps);
-      tmpBrowser.saveCurrentWindowToLog();
+
+      try {
+        tmpBrowser.goBackInCurrentWindow(tmpSteps);
+        tmpBrowser.saveCurrentWindowToLog();
+      } catch (final ActionFailedException e) {
+        actionFailed(e);
+      }
     }
   }
 
@@ -473,6 +515,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       final IBrowser tmpBrowser = getBrowser(aContext);
+
       try {
         final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
         if (tmpContentChanged) {
@@ -505,6 +548,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       final IBrowser tmpBrowser = getBrowser(aContext);
+
       try {
         final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
         if (tmpContentChanged) {

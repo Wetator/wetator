@@ -19,11 +19,13 @@ package org.wetator.progresslistener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
+import org.wetator.core.TestCase;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
@@ -47,6 +49,8 @@ public class StdOutProgressListener implements IProgressListener {
   private long failureCount;
   private long ignoredCount;
   private int dotCount;
+  private int testFileCout;
+  private int processedTestFileCout;
 
   /**
    * The constructor.
@@ -84,6 +88,7 @@ public class StdOutProgressListener implements IProgressListener {
     errorCount = 0;
     failureCount = 0;
     ignoredCount = 0;
+    processedTestFileCout = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
@@ -108,19 +113,22 @@ public class StdOutProgressListener implements IProgressListener {
       }
     }
 
-    if (aWetatorEngine.getTestFiles().isEmpty()) {
+    final List<TestCase> tmpTestCases = aWetatorEngine.getTestCases();
+    testFileCout = tmpTestCases.size();
+
+    if (tmpTestCases.isEmpty()) {
       println("TestFiles: none");
       return;
     }
 
     boolean tmpFirst = true;
-    for (File tmpTestFile : aWetatorEngine.getTestFiles()) {
+    for (TestCase tmpTestCase : tmpTestCases) {
       if (tmpFirst) {
-        println("TestFiles:  '" + tmpTestFile.getAbsolutePath() + "'");
+        println("TestFiles:  '" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
         tmpFirst = false;
         output.indent().indent().indent().indent().indent().indent();
       } else {
-        println("'" + tmpTestFile.getAbsolutePath() + "'");
+        println("'" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
       }
       if (!tmpFirst) {
         output.unindent().unindent().unindent().unindent().unindent().unindent();
@@ -135,7 +143,8 @@ public class StdOutProgressListener implements IProgressListener {
    */
   @Override
   public void testCaseStart(final String aTestName) {
-    println("Test: '" + aTestName + "'");
+    processedTestFileCout++;
+    println("TestCase: '" + aTestName + "' (" + processedTestFileCout + "/" + testFileCout + ")");
   }
 
   /**

@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.control;
 
 import java.io.File;
-import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -28,6 +27,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifi
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.BackendException;
 import org.wetator.util.Assert;
@@ -77,26 +77,28 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
    */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
-      throws BackendException {
+      throws ActionFailedException {
     final HtmlTextInput tmpHtmlTextInput = getHtmlElement();
 
     if (tmpHtmlTextInput.isDisabled()) {
-      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+      actionFailed("elementDisabled", new String[] { getDescribingText() });
     }
     if (tmpHtmlTextInput.isReadOnly()) {
-      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+      actionFailed("elementReadOnly", new String[] { getDescribingText() });
     }
 
     try {
       tmpHtmlTextInput.click();
-    } catch (final IOException e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    } catch (final BackendException e) {
+      throw e;
+    } catch (final Throwable e) {
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
 
     try {
@@ -137,7 +139,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -159,7 +161,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlTextInput tmpHtmlTextInput = getHtmlElement();
 
     return tmpHtmlTextInput.isDisabled() || tmpHtmlTextInput.isReadOnly();

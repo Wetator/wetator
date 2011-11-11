@@ -18,13 +18,12 @@ package org.wetator.backend.control;
 
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.BackendException;
+import org.wetator.exception.ActionFailedException;
 
 /**
  * The common interface for a control.<br/>
  * It includes the actions and checks valid for all controls. If a control does not support an action or a check, an
- * {@link AssertionFailedException} is thrown when calling this action or check.
+ * {@link org.wetator.exception.UnsupportedOperationException} is thrown when calling this action or check.
  * 
  * @author rbri
  * @author frank.danek
@@ -39,48 +38,48 @@ public interface IControl {
   /**
    * @param aContext the context
    * @return true, if the control is disabled
-   * @throws AssertionFailedException if the check is not supported by the control
+   * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported by the control
    */
-  public boolean isDisabled(WetatorContext aContext) throws AssertionFailedException;
+  public boolean isDisabled(WetatorContext aContext);
 
   /**
    * @param aContext the context
    * @return true, if the control has the focus
-   * @throws AssertionFailedException if the check is not supported by the control
+   * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported by the control
    */
-  public boolean hasFocus(final WetatorContext aContext) throws AssertionFailedException;
+  public boolean hasFocus(final WetatorContext aContext);
 
   /**
    * Simulates moving the mouse over the control.
    * 
    * @param aContext the context
-   * @throws BackendException if an error occurred during the mouse over
+   * @throws ActionFailedException if an error occurred during the mouse over
    */
-  public void mouseOver(WetatorContext aContext) throws BackendException;
+  public void mouseOver(WetatorContext aContext) throws ActionFailedException;
 
   /**
    * Simulates a mouse click on the control.
    * 
    * @param aContext the context
-   * @throws BackendException if an error occurred during the click
+   * @throws ActionFailedException if an error occurred during the click
    */
-  public void click(WetatorContext aContext) throws BackendException;
+  public void click(WetatorContext aContext) throws ActionFailedException;
 
   /**
    * Simulates a mouse double click on the control.
    * 
    * @param aContext the context
-   * @throws BackendException if an error occurred during the double click
+   * @throws ActionFailedException if an error occurred during the double click
    */
-  public void clickDouble(WetatorContext aContext) throws BackendException;
+  public void clickDouble(WetatorContext aContext) throws ActionFailedException;
 
   /**
    * Simulates a mouse right click on the control.
    * 
    * @param aContext the context
-   * @throws BackendException if an error occurred during the right click
+   * @throws ActionFailedException if an error occurred during the right click
    */
-  public void clickRight(WetatorContext aContext) throws BackendException;
+  public void clickRight(WetatorContext aContext) throws ActionFailedException;
 
   /**
    * @param aControl the control to compare with

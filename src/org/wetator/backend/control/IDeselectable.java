@@ -17,7 +17,7 @@
 package org.wetator.backend.control;
 
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.BackendException;
+import org.wetator.exception.ActionFailedException;
 
 /**
  * This interface marks all deselectable {@link IControl}s. These controls are returned by
@@ -32,7 +32,7 @@ public interface IDeselectable extends ISelectable {
    * Deselects the control.
    * 
    * @param aContext the context
-   * @throws BackendException if an error occurred during the deselect
+   * @throws ActionFailedException if an error occurred during the deselect
    */
-  public void deselect(WetatorContext aContext) throws BackendException;
+  public void deselect(WetatorContext aContext) throws ActionFailedException;
 }

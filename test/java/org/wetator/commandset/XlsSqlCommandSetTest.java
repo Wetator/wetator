@@ -35,9 +35,9 @@ public class XlsSqlCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/excel/";
 
   @Test
-  @Browsers( { BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void sql() {
-    executeTestFile("sql.xls");
+    executeTestFile("sql_command_set.xls");
 
     Assert.assertEquals(40, getSteps());
     Assert.assertEquals(0, getFailures());

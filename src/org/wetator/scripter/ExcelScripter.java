@@ -22,24 +22,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.eval.NotImplementedException;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
 import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
+import org.wetator.util.ContentUtil;
 import org.wetator.util.NormalizedString;
 
 /**
@@ -49,8 +44,6 @@ import org.wetator.util.NormalizedString;
  * @author frank.danek
  */
 public final class ExcelScripter implements IScripter {
-
-  private static final Log LOG = LogFactory.getLog(ExcelScripter.class);
 
   private static final String EXCEL_FILE_EXTENSION = ".xls";
   private static final int COMMENT_COLUMN_NO = 0;
@@ -78,14 +71,15 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public boolean isSupported(final File aFile) {
-    String tmpFileName;
-    boolean tmpResult;
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
+    final String tmpFileName = aFile.getName().toLowerCase();
+    final boolean tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
+    if (tmpResult) {
+      return IScripter.IS_SUPPORTED;
+    }
 
-    tmpFileName = aFile.getName().toLowerCase();
-    tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
-
-    return tmpResult;
+    return new IScripter.IsSupportedResult("File '" + aFile.getName()
+        + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
   }
 
   /**
@@ -138,10 +132,10 @@ public final class ExcelScripter implements IScripter {
         tmpRow = tmpSheet.getRow(tmpLine);
         // strange case but it really happens
         if (null != tmpRow) {
-          tmpCommentString = readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator);
+          tmpCommentString = ContentUtil.readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator);
           tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
-          tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
+          tmpCommandName = ContentUtil.readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
           // normalize command name
           if (StringUtils.isNotEmpty(tmpCommandName)) {
             tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
@@ -192,34 +186,11 @@ public final class ExcelScripter implements IScripter {
     }
   }
 
-  private String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) {
-
-    final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
-    if (null == tmpCell) {
-      return null;
-    }
-
-    final DataFormatter tmpDataFormatter = new DataFormatter(Locale.getDefault());
-    try {
-      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
-      return tmpResult;
-    } catch (final NotImplementedException e) {
-      String tmpMsg = e.getMessage();
-      if (null != e.getCause()) {
-        tmpMsg = tmpMsg + " (" + e.getCause().toString() + ")";
-      }
-      LOG.error(tmpMsg);
-      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
-      return tmpResult;
-    }
-  }
-
   private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
       final FormulaEvaluator aFormulaEvaluator) {
     String tmpContent;
 
-    tmpContent = readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
+    tmpContent = ContentUtil.readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
     if (StringUtils.isEmpty(tmpContent)) {
       return null;
     }

@@ -18,18 +18,24 @@ package org.wetator.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.wetator.exception.WetatorException;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
@@ -37,7 +43,24 @@ import org.apache.poi.ss.usermodel.Cell;
  * @author rbri
  */
 public final class ContentUtil {
+  private static final Log LOG = LogFactory.getLog(ContentUtil.class);
+
   private static final int MAX_LENGTH = 4000;
+  private static final String MORE = " ...";
+
+  /**
+   * Converts a text document to string.
+   * 
+   * @param aContent the input
+   * @return the normalizes content string
+   */
+  public static String getTxtContentAsString(final String aContent) {
+    final NormalizedString tmpResult = new NormalizedString(aContent);
+    if (tmpResult.length() > MAX_LENGTH) {
+      return tmpResult.substring(0, MAX_LENGTH) + MORE;
+    }
+    return tmpResult.toString();
+  }
 
   /**
    * Converts a pdf document to string.
@@ -53,6 +76,9 @@ public final class ContentUtil {
       final PDFTextStripper tmpStripper = new PDFTextStripper();
       final String tmpContentAsText = tmpStripper.getText(tmpDocument);
       final NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
+      if (tmpResult.length() > MAX_LENGTH) {
+        return tmpResult.substring(0, MAX_LENGTH) + MORE;
+      }
       return tmpResult.toString();
     } finally {
       tmpDocument.close();
@@ -75,7 +101,7 @@ public final class ContentUtil {
     final int tmpLength = Math.min(tmpDocument.getLength(), MAX_LENGTH);
     final NormalizedString tmpResult = new NormalizedString(tmpDocument.getText(0, tmpLength));
     if (tmpDocument.getLength() > MAX_LENGTH) {
-      tmpResult.append(" ...");
+      tmpResult.append(MORE);
     }
     return tmpResult.toString();
   }
@@ -90,6 +116,7 @@ public final class ContentUtil {
   public static String getXlsContentAsString(final InputStream anInputStream) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
     final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
+    final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
     for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
@@ -101,7 +128,7 @@ public final class ContentUtil {
         final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
         if (null != tmpRow) {
           for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
-            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
+            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator);
             if (null != tmpCellValue) {
               tmpResult.append(tmpCellValue);
               tmpResult.append(" ");
@@ -110,8 +137,7 @@ public final class ContentUtil {
 
           // check after each row
           if (tmpResult.length() > MAX_LENGTH) {
-            tmpResult.append(" ...");
-            return tmpResult.toString();
+            return tmpResult.substring(0, MAX_LENGTH) + MORE;
           }
 
           tmpResult.append(" ");
@@ -122,40 +148,36 @@ public final class ContentUtil {
     return tmpResult.toString();
   }
 
-  private static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo) {
-    String tmpResult = null;
-    HSSFCell tmpCell;
-    int tmpCellType;
-
-    tmpCell = aRow.getCell(aColumnsNo);
+  /**
+   * Reads the content of an excel cell and converts it into the string
+   * visible in the excel sheet.
+   * 
+   * @param aRow the row
+   * @param aColumnsNo the column
+   * @param aFormulaEvaluator the formula Evaluator
+   * @return the display string
+   * @throws WetatorException in case of error
+   */
+  public static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
+      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
+    final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
+      return null;
+    }
+
+    final DataFormatter tmpDataFormatter = new DataFormatter(Locale.getDefault());
+    try {
+      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
+      return tmpResult;
+    } catch (final NotImplementedException e) {
+      String tmpMsg = e.getMessage();
+      if (null != e.getCause()) {
+        tmpMsg = tmpMsg + " (" + e.getCause().toString() + ")";
+      }
+      LOG.error(tmpMsg);
+      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
       return tmpResult;
     }
-
-    tmpCellType = tmpCell.getCellType();
-
-    switch (tmpCellType) {
-      case Cell.CELL_TYPE_BLANK:
-        tmpResult = "";
-        break;
-      case Cell.CELL_TYPE_STRING:
-        tmpResult = tmpCell.getRichStringCellValue().getString();
-        break;
-      case Cell.CELL_TYPE_NUMERIC:
-        tmpResult = "" + tmpCell.getNumericCellValue();
-        break;
-
-      // deal with the other possible cases
-      case Cell.CELL_TYPE_BOOLEAN:
-        // ignore
-      case Cell.CELL_TYPE_ERROR:
-        // ignore
-      case Cell.CELL_TYPE_FORMULA:
-        // ignore
-      default:
-        // ignore
-    }
-    return tmpResult;
   }
 
   /**

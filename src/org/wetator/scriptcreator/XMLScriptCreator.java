@@ -141,41 +141,69 @@ public class XMLScriptCreator implements IScriptCreator {
             tmpWriter.writeEndElement();
             tmpWriter.writeCharacters("\n");
           } else {
-            tmpWriter.writeStartElement(E_COMMAND);
-            if (tmpCommand.isComment()) {
-              tmpWriter.writeAttribute(A_DISABLED, "true");
-            }
-
             final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
             if (tmpCommandType == null) {
-              throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
-            }
-            tmpWriter.writeStartElement(tmpCommandType.getNamespace(), tmpCommandType.getName());
+              if (tmpCommand.isComment()) {
+                tmpWriter.writeStartElement(E_COMMENT);
 
-            final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes();
-            final String[] tmpParameterValues = new String[tmpParameterTypes.size()];
-            if (tmpParameterValues.length >= 1 && tmpCommand.getFirstParameter() != null) {
-              tmpParameterValues[0] = tmpCommand.getFirstParameter().getValue();
-            }
-            if (tmpParameterValues.length >= 2 && tmpCommand.getSecondParameter() != null) {
-              tmpParameterValues[1] = tmpCommand.getSecondParameter().getValue();
-            }
-            if (tmpParameterValues.length >= 3 && tmpCommand.getThirdParameter() != null) {
-              tmpParameterValues[2] = tmpCommand.getThirdParameter().getValue();
-            }
-            int i = 0;
-            for (ParameterType tmpParameterType : tmpParameterTypes) {
-              if (StringUtils.isNotEmpty(tmpParameterValues[i])) {
-                tmpWriter.writeStartElement(tmpParameterType.getNamespace(), tmpParameterType.getName());
-                writeContent(tmpWriter, tmpParameterValues[i]);
+                final StringBuilder tmpContent = new StringBuilder();
+                if (!StringUtils.isEmpty(tmpCommand.getName())) {
+                  tmpContent.append(tmpCommand.getName());
+                }
+
+                if (tmpCommand.getFirstParameter() != null) {
+                  if (tmpContent.length() > 0) {
+                    tmpContent.append(" - ");
+                  }
+                  tmpContent.append(tmpCommand.getFirstParameter().getValue());
+                }
+
+                if (tmpCommand.getSecondParameter() != null) {
+                  if (tmpContent.length() > 0) {
+                    tmpContent.append(" - ");
+                  }
+                  tmpContent.append(tmpCommand.getSecondParameter().getValue());
+                }
+
+                writeContent(tmpWriter, tmpContent.toString());
                 tmpWriter.writeEndElement();
+                tmpWriter.writeCharacters("\n");
+              } else {
+                throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
               }
-              i++;
-            }
+            } else {
+              tmpWriter.writeStartElement(E_COMMAND);
+              if (tmpCommand.isComment()) {
+                tmpWriter.writeAttribute(A_DISABLED, "true");
+              }
 
-            tmpWriter.writeEndElement();
-            tmpWriter.writeEndElement();
-            tmpWriter.writeCharacters("\n");
+              tmpWriter.writeStartElement(tmpCommandType.getNamespace(), tmpCommandType.getName());
+
+              final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes();
+              final String[] tmpParameterValues = new String[tmpParameterTypes.size()];
+              if (tmpParameterValues.length >= 1 && tmpCommand.getFirstParameter() != null) {
+                tmpParameterValues[0] = tmpCommand.getFirstParameter().getValue();
+              }
+              if (tmpParameterValues.length >= 2 && tmpCommand.getSecondParameter() != null) {
+                tmpParameterValues[1] = tmpCommand.getSecondParameter().getValue();
+              }
+              if (tmpParameterValues.length >= 3 && tmpCommand.getThirdParameter() != null) {
+                tmpParameterValues[2] = tmpCommand.getThirdParameter().getValue();
+              }
+              int i = 0;
+              for (ParameterType tmpParameterType : tmpParameterTypes) {
+                if (StringUtils.isNotEmpty(tmpParameterValues[i])) {
+                  tmpWriter.writeStartElement(tmpParameterType.getNamespace(), tmpParameterType.getName());
+                  writeContent(tmpWriter, tmpParameterValues[i]);
+                  tmpWriter.writeEndElement();
+                }
+                i++;
+              }
+
+              tmpWriter.writeEndElement();
+              tmpWriter.writeEndElement();
+              tmpWriter.writeCharacters("\n");
+            }
           }
         }
         tmpWriter.writeEndElement();

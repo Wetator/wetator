@@ -34,8 +34,8 @@ import org.wetator.exception.ResourceException;
  */
 public class WetatorEngineExecuteTestsTest {
 
-  private File file1;
-  private File file2;
+  private TestCase testCase1;
+  private TestCase testCase2;
 
   private WetatorConfiguration configuration;
 
@@ -50,8 +50,8 @@ public class WetatorEngineExecuteTestsTest {
 
   @Before
   public void setupMocks() {
-    file1 = new File("file1");
-    file2 = new File("file2");
+    testCase1 = new TestCase("testCase1", new File("file1"));
+    testCase2 = new TestCase("testCase2", new File("file2"));
 
     configuration = mock(WetatorConfiguration.class);
 
@@ -68,7 +68,7 @@ public class WetatorEngineExecuteTestsTest {
 
     when(engine.getConfiguration()).thenReturn(configuration);
     when(engine.getBrowser()).thenReturn(browser);
-    when(engine.getTestFiles()).thenReturn(Arrays.asList(file1, file2));
+    when(engine.getTestCases()).thenReturn(Arrays.asList(testCase1, testCase2));
     when(engine.createWetatorContext(any(File.class), any(BrowserType.class))).thenReturn(context);
     doCallRealMethod().when(engine).executeTests();
   }
@@ -87,13 +87,13 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file1.getName());
-    assertTestRun(tmpInOrder, file1, browserType1);
-    assertTestRun(tmpInOrder, file1, browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    assertTestRun(tmpInOrder, testCase1.getFile(), browserType1);
+    assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file2.getName());
-    assertTestRun(tmpInOrder, file2, browserType1);
-    assertTestRun(tmpInOrder, file2, browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
@@ -118,16 +118,16 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).informListenersError(any(RuntimeException.class));
     tmpInOrder.verify(engine).informListenersTestRunEnd();
-    assertTestRun(tmpInOrder, file1, browserType2);
+    assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file2.getName());
-    assertTestRun(tmpInOrder, file2, browserType1);
-    assertTestRun(tmpInOrder, file2, browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
@@ -152,16 +152,16 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).informListenersError(any(ResourceException.class));
     tmpInOrder.verify(engine).informListenersTestRunEnd();
-    assertTestRun(tmpInOrder, file1, browserType2);
+    assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file2.getName());
-    assertTestRun(tmpInOrder, file2, browserType1);
-    assertTestRun(tmpInOrder, file2, browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
@@ -188,16 +188,16 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).informListenersError(any(RuntimeException.class));
     tmpInOrder.verify(engine).informListenersTestRunEnd();
-    assertTestRun(tmpInOrder, file1, browserType2);
+    assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(file2.getName());
-    assertTestRun(tmpInOrder, file2, browserType1);
-    assertTestRun(tmpInOrder, file2, browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 

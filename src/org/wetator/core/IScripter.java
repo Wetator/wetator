@@ -42,11 +42,43 @@ public interface IScripter {
   public void initialize(Properties aConfiguration);
 
   /**
+   * The result for the isSupported method call.
+   * This offers a way to transport some info message.
+   */
+  public static final class IsSupportedResult {
+    private String message;
+
+    /**
+     * Constructor.
+     * 
+     * @param aMessage the message
+     */
+    public IsSupportedResult(final String aMessage) {
+      message = aMessage;
+    }
+
+    /**
+     * Getter for the message.
+     * 
+     * @return the message
+     */
+    public String getMessage() {
+      return message;
+    }
+  }
+
+  /**
+   * Success as singleton.
+   */
+  public static final IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
+
+  /**
    * @param aFile the file to check
-   * @return true if this scripter is able to handle this file otherwise false
+   * @return IS_SUPPORTED if this scripter is able to handle this file otherwise an
+   *         IsSupportedResult containing a details description.
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public boolean isSupported(File aFile);
+  public IsSupportedResult isSupported(File aFile);
 
   /**
    * Scripts the given file by reading all commands.

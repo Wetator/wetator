@@ -25,6 +25,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.BackendException;
 import org.wetator.util.Assert;
@@ -70,14 +71,14 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
-      throws BackendException {
+      throws ActionFailedException {
     final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
     if (tmpHtmlHiddenInput.isDisabled()) {
-      throwBackendException("elementDisabled", new String[] { getDescribingText() });
+      actionFailed("elementDisabled", new String[] { getDescribingText() });
     }
     if (tmpHtmlHiddenInput.isReadOnly()) {
-      throwBackendException("elementReadOnly", new String[] { getDescribingText() });
+      actionFailed("elementReadOnly", new String[] { getDescribingText() });
     }
 
     try {
@@ -95,7 +96,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
 
@@ -117,7 +118,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
     return tmpHtmlHiddenInput.isDisabled();

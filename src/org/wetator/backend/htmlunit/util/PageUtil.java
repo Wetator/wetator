@@ -75,9 +75,22 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static XHtmlPage constructXHtmlPage(final String anXHtmlCode) throws IOException {
+    return constructXHtmlPage(BrowserVersion.getDefault(), anXHtmlCode);
+  }
+
+  /**
+   * Helper for tests.
+   * 
+   * @param aBrowserVersion the browser to simulate
+   * @param anXHtmlCode the XHtml source of the page
+   * @return the XHtmlPage result of parsing the source
+   * @throws IOException in case of problems
+   */
+  public static XHtmlPage constructXHtmlPage(final BrowserVersion aBrowserVersion, final String anXHtmlCode)
+      throws IOException {
     final StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode, new URL(
         "http://www.wetator.org/test.xhtml"));
-    final WebClient tmpWebClient = new WebClient();
+    final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;

@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
+import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
@@ -47,7 +48,7 @@ public class WetatorEngine {
 
   private String configFileName;
   private Map<String, String> externalProperties;
-  private List<File> files;
+  private List<TestCase> testCases;
 
   private WetatorConfiguration configuration;
   private IBrowser browser;
@@ -59,7 +60,7 @@ public class WetatorEngine {
    * The constructor.
    */
   public WetatorEngine() {
-    files = new LinkedList<File>();
+    testCases = new LinkedList<TestCase>();
     progressListener = new LinkedList<IProgressListener>();
   }
 
@@ -110,26 +111,27 @@ public class WetatorEngine {
   }
 
   /**
-   * @return the list of all test files
+   * @return the list of all test cases
    */
-  public List<File> getTestFiles() {
-    return files;
+  public List<TestCase> getTestCases() {
+    return testCases;
   }
 
   /**
    * Adds a test file to be executed.
    * 
+   * @param aName the name of the test file to be added
    * @param aFile the test file to be added
    * @throws ResourceException if the test file does not exist or is not readable
    */
-  public void addTestFile(final File aFile) {
+  public void addTestCase(final String aName, final File aFile) {
     if (!aFile.exists()) {
       throw new ResourceException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
     if (!aFile.isFile() || !aFile.canRead()) {
       throw new ResourceException("The test file '" + aFile.getAbsolutePath() + "' is not readable.");
     }
-    files.add(aFile);
+    testCases.add(new TestCase(aName, aFile));
   }
 
   /**
@@ -140,9 +142,10 @@ public class WetatorEngine {
 
     informListenersStart();
     try {
-      for (File tmpFile : getTestFiles()) {
+      for (TestCase tmpTestCase : getTestCases()) {
+        final File tmpFile = tmpTestCase.getFile();
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-        informListenersTestCaseStart(tmpFile.getName());
+        informListenersTestCaseStart(tmpTestCase.getName());
         try {
           for (BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
@@ -217,12 +220,32 @@ public class WetatorEngine {
   }
 
   private IScripter createScripter(final File aFile) {
+    final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<IScripter.IsSupportedResult>();
     for (IScripter tmpScripter : scripter) {
-      if (tmpScripter.isSupported(aFile)) {
+      final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(aFile);
+      if (IScripter.IS_SUPPORTED == tmpResult) {
         return tmpScripter;
       }
+      tmpResults.add(tmpResult);
     }
-    return null;
+
+    // construct an detailed error message
+    final StringBuilder tmpMessage = new StringBuilder("No scripter found for file '");
+    tmpMessage.append(aFile.getAbsolutePath()).append("' (");
+
+    boolean tmpIsFirst = true;
+    for (IsSupportedResult tmpIsSupportedResult : tmpResults) {
+      if (!tmpIsFirst) {
+        tmpMessage.append("; ");
+      }
+      tmpMessage.append(tmpIsSupportedResult.getMessage());
+      tmpIsFirst = false;
+    }
+
+    tmpMessage.append(").");
+
+    // TODO this is bullshit. better is just to return null and let the caller handle it.
+    throw new WetatorException(tmpMessage.toString());
   }
 
   /**
