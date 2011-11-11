@@ -80,6 +80,11 @@ public class WetatorConfiguration {
    */
   public static final String PROPERTY_BASE_URL = PROPERTY_PREFIX + "baseUrl";
 
+  /**
+   * The property name to set the javascript timeout.
+   */
+  public static final String PROPERTY_JAVASCRIPT_TIMEOUT = PROPERTY_PREFIX + "jsTimeout";
+
   // output
   /**
    * The property name to set the output directory.
@@ -146,6 +151,7 @@ public class WetatorConfiguration {
   private List<ICommandSet> commandSets;
   private List<Class<? extends IControl>> controls;
   private String baseUrl;
+  private int jsTimeoutInSeconds;
 
   private File outputDir;
   private List<String> xslTemplates;
@@ -327,6 +333,17 @@ public class WetatorConfiguration {
       throw new ConfigurationException("The required property '" + PROPERTY_BASE_URL + "' is not set.");
     }
     baseUrl = tmpValue;
+
+    // jsTimeout
+    tmpValue = tmpProperties.getProperty(PROPERTY_JAVASCRIPT_TIMEOUT, "1");
+    try {
+      jsTimeoutInSeconds = Integer.parseInt(tmpValue);
+    } catch (final NumberFormatException e) {
+      throw new ConfigurationException("The property '" + PROPERTY_JAVASCRIPT_TIMEOUT + "' is no integer.");
+    }
+    if (jsTimeoutInSeconds < 1) {
+      throw new ConfigurationException("The property '" + PROPERTY_JAVASCRIPT_TIMEOUT + "' is less than 1.");
+    }
 
     // browserVersion
     tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER_TYPE, "");
@@ -667,6 +684,13 @@ public class WetatorConfiguration {
    */
   public String getBaseUrl() {
     return baseUrl;
+  }
+
+  /**
+   * @return the configured javaascript timeout
+   */
+  public int getJsTimeoutInSeconds() {
+    return jsTimeoutInSeconds;
   }
 
   /**

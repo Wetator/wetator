@@ -42,7 +42,7 @@
 	<classpathentry kind="lib" path="lib/htmlunit-2.10-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.10-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.15.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/mockito-core-1.8.5.jar" sourcepath="E:/Frank/.m2/repository/org/mockito/mockito-core/1.8.5/mockito-core-1.8.5-sources.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-core-1.8.5.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/cssparser-0.9.6.jar"/>

@@ -105,11 +105,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         if (tmpUrlToLower.startsWith("http://") || tmpUrlToLower.startsWith("https://")) {
           aContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
         } else {
-          if (!tmpUrlParam.startsWith("/")) {
+          final String tmpBaseUrl = aContext.getConfiguration().getBaseUrl();
+          if (!tmpUrlParam.startsWith("/") && !tmpBaseUrl.endsWith("/")) {
             tmpUrlParam.prefixWith("/");
           }
-
-          tmpUrlParam.prefixWith(aContext.getConfiguration().getBaseUrl());
+          tmpUrlParam.prefixWith(tmpBaseUrl);
         }
 
         final URL tmpUrl = new URL(tmpUrlParam.getValue());
@@ -522,6 +522,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           tmpBrowser.saveCurrentWindowToLog();
         }
       } catch (final AssertionFailedException e) {
+        // save the current window if failed
+        tmpBrowser.saveCurrentWindowToLog();
         assertionFailed(e);
       }
     }
@@ -555,6 +557,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           tmpBrowser.saveCurrentWindowToLog();
         }
       } catch (final AssertionFailedException e) {
+        // save the current window if failed
+        tmpBrowser.saveCurrentWindowToLog();
         assertionFailed(e);
       }
     }

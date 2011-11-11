@@ -153,9 +153,10 @@ public interface IBrowser {
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
    * 
+   * @return true, if still some javascript jobs pending
    * @throws BackendException in case of problems
    */
-  public void waitForImmediateJobs() throws BackendException;
+  public boolean waitForImmediateJobs() throws BackendException;
 
   /**
    * Checks, if the page title contains the given list of strings.<br>
