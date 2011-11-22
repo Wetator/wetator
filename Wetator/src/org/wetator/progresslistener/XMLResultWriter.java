@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.Version;
@@ -518,7 +519,12 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printErrorStart(final Throwable aThrowable) throws IOException {
     printlnStartTag(TAG_ERROR);
-    printlnNode(TAG_MESSAGE, aThrowable.getMessage());
+
+    String tmpMessage = aThrowable.getMessage();
+    if (StringUtils.isBlank(tmpMessage)) {
+      tmpMessage = aThrowable.toString();
+    }
+    printlnNode(TAG_MESSAGE, tmpMessage);
 
     // TODO trace
   }
