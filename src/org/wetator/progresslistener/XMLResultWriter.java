@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.Version;
@@ -74,6 +75,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_LEVEL = "level";
   private static final String TAG_MESSAGE = "message";
   private static final String TAG_ERROR = "error";
+  private static final String TAG_ERROR_STACK_TRACE = "stacktrace";
   private static final String TAG_CONFIGURATION = "configuration";
   private static final String TAG_VARIABLES = "variables";
   private static final String TAG_VARIABLE = "variable";
@@ -182,11 +184,11 @@ public class XMLResultWriter implements IProgressListener {
       final List<Variable> tmpVariables = tmpConfiguration.getVariables();
       for (Variable tmpVariable : tmpVariables) {
         printStartTagOpener(TAG_VARIABLE);
-        output.print("name=\"");
+        output.print(" name=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpVariable.getName()));
         output.print("\" value=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpVariable.getValue().toString()));
-        output.println("\" />");
+        output.println("\"/>");
       }
 
       printlnEndTag(TAG_VARIABLES);
@@ -194,9 +196,9 @@ public class XMLResultWriter implements IProgressListener {
       final List<ICommandSet> tmpCommandSets = tmpConfiguration.getCommandSets();
       for (ICommandSet tmpCommandSet : tmpCommandSets) {
         printStartTagOpener(TAG_COMMAND_SET);
-        output.print("class=\"");
+        output.print(" class=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));
-        output.println("\" >");
+        output.println("\">");
 
         output.indent();
         for (String tmpMessage : tmpCommandSet.getInitializationMessages()) {
@@ -210,9 +212,9 @@ public class XMLResultWriter implements IProgressListener {
       final List<Class<? extends IControl>> tmpControls = tmpConfiguration.getControls();
       for (Class<? extends IControl> tmpControl : tmpControls) {
         printStartTagOpener(TAG_CONTROL);
-        output.print("class=\"");
+        output.print(" class=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpControl.getClass().toString()));
-        output.println("\" />");
+        output.println("\"/>");
       }
 
       printlnEndTag(TAG_CONFIGURATION);
@@ -237,7 +239,7 @@ public class XMLResultWriter implements IProgressListener {
   public void testCaseStart(final String aTestName) {
     try {
       printStartTagOpener(TAG_TESTCASE);
-      output.print("name=\"");
+      output.print(" name=\"");
       output.print(xMLUtil.normalizeAttributeValue(aTestName));
       output.println("\">");
       output.indent();
@@ -255,7 +257,7 @@ public class XMLResultWriter implements IProgressListener {
   public void testRunStart(final String aBrowserName) {
     try {
       printStartTagOpener(TAG_TESTRUN);
-      output.print("browser=\"");
+      output.print(" browser=\"");
       output.print(xMLUtil.normalizeAttributeValue(aBrowserName));
       output.println("\">");
       output.indent();
@@ -273,7 +275,7 @@ public class XMLResultWriter implements IProgressListener {
   public void testFileStart(final String aFileName) {
     try {
       printStartTagOpener(TAG_TESTFILE);
-      output.print("file=\"");
+      output.print(" file=\"");
       output.print(xMLUtil.normalizeAttributeValue(aFileName));
       output.println("\">");
       output.indent();
@@ -292,13 +294,13 @@ public class XMLResultWriter implements IProgressListener {
   public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
-      output.print("name=\"");
+      output.print(" name=\"");
       output.print(xMLUtil.normalizeAttributeValue(aCommand.getName()));
       output.print("\" line=\"" + aCommand.getLineNo());
       if (aCommand.isComment()) {
         output.print("\" isComment=\"true");
       }
-      output.println("\" >");
+      output.println("\">");
       output.indent();
 
       Parameter tmpParameter = aCommand.getFirstParameter();
@@ -379,13 +381,35 @@ public class XMLResultWriter implements IProgressListener {
   public void executeCommandError(final Throwable aThrowable) {
     try {
       printErrorStart(aThrowable);
+      printErrorMessageStack(aThrowable.getCause());
+
+      // the stack trace
+      printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+      printErrorEnd();
+      flush();
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * Helper to print the error message stack.
+   * 
+   * @param aThrowable
+   */
+  private void printErrorMessageStack(final Throwable aThrowable) {
+    if (null == aThrowable) {
+      return;
+    }
+    try {
+      printErrorStart(aThrowable);
 
       final Throwable tmpThrowable = aThrowable.getCause();
       if (null != tmpThrowable) {
-        executeCommandError(tmpThrowable);
+        printErrorMessageStack(tmpThrowable);
       }
+
       printErrorEnd();
-      flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -525,8 +549,6 @@ public class XMLResultWriter implements IProgressListener {
       tmpMessage = aThrowable.toString();
     }
     printlnNode(TAG_MESSAGE, tmpMessage);
-
-    // TODO trace
   }
 
   private void printErrorEnd() throws IOException {
@@ -535,7 +557,7 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printConfigurationProperty(final String aKey, final String aValue) throws IOException {
     printStartTagOpener(TAG_PROPERTY);
-    output.print("key=\"");
+    output.print(" key=\"");
     output.print(xMLUtil.normalizeAttributeValue(aKey));
     if (null != aValue) {
       output.print("\" value=\"");
@@ -546,7 +568,7 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printConfigurationProperty(final String aKey, final SecretString aValue) throws IOException {
     printStartTagOpener(TAG_PROPERTY);
-    output.print("key=\"");
+    output.print(" key=\"");
     output.print(xMLUtil.normalizeAttributeValue(aKey));
     if (null != aValue) {
       output.print("\" value=\"");
@@ -584,7 +606,7 @@ public class XMLResultWriter implements IProgressListener {
   }
 
   private void printStartTagOpener(final String aName) throws IOException {
-    output.print("<").print(aName).print(" id=\"" + tagId++).print("\" ");
+    output.print("<").print(aName).print(" id=\"" + tagId++).print("\"");
   }
 
   private void flush() throws IOException {
