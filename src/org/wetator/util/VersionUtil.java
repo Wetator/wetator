@@ -17,8 +17,11 @@
 package org.wetator.util;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.jar.Attributes;
 import java.util.jar.Attributes.Name;
+import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
@@ -46,6 +49,30 @@ public final class VersionUtil {
     if (StringUtils.isNotBlank(tmpPath) && tmpPath.lastIndexOf('/') > -1) {
       tmpPath = tmpPath.substring(tmpPath.lastIndexOf('/') + 1);
       return tmpPath;
+    }
+    return "unknown";
+  }
+
+  /**
+   * Returns the name of the jar file the class is loaded from.
+   * 
+   * @param aClass a class that is known to be loaded form the jar
+   *        in question
+   * @return the name of the jar file or "unknown"
+   */
+  public static String determineCreationDateFromJarFileName(final Class<?> aClass) {
+    final String tmpPath = aClass.getProtectionDomain().getCodeSource().getLocation().getPath();
+    try {
+      final JarFile tmpJar = new JarFile(tmpPath);
+      String tmpClassFile = aClass.getName();
+      tmpClassFile = tmpClassFile.replace('.', '/');
+      tmpClassFile = tmpClassFile + ".class";
+      final JarEntry tmpJarEntry = tmpJar.getJarEntry(tmpClassFile);
+      final Date tmpDate = new Date(tmpJarEntry.getTime());
+
+      return new SimpleDateFormat("yyyy-MM-dd").format(tmpDate);
+    } catch (final IOException e) {
+      // ignore
     }
     return "unknown";
   }

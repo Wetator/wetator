@@ -153,19 +153,25 @@ public class XMLResultWriter implements IProgressListener {
       // wetator libs
       printlnStartTag(TAG_LIBS);
 
-      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(WebClient.class));
-      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(Function.class));
-      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(CSSOMParser.class));
+      String tmpInfo = null;
 
-      final Class<?>[] tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class,
-          IOUtils.class, Log.class, Header.class, HttpClient.class, HttpMultipart.class };
+      Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
       for (int i = 0; i < tmpLibs.length; i++) {
-        String tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null);
+        tmpInfo = VersionUtil.determineVersionFromJarFileName(tmpLibs[i]);
+        tmpInfo = tmpInfo + " (" + VersionUtil.determineCreationDateFromJarFileName(tmpLibs[i]) + ")";
+        printlnNode(TAG_LIB, tmpInfo);
+      }
+      printlnNode(TAG_LIB, org.cyberneko.html.Version.getVersion());
+
+      tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class, IOUtils.class,
+          Log.class, Header.class, HttpClient.class, HttpMultipart.class };
+      for (int i = 0; i < tmpLibs.length; i++) {
+        tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null);
         tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null);
         printlnNode(TAG_LIB, tmpInfo);
       }
 
-      String tmpInfo = VersionUtil.determineTitleFromJarManifest(Logger.class, "org.apache.log4j");
+      tmpInfo = VersionUtil.determineTitleFromJarManifest(Logger.class, "org.apache.log4j");
       tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(Logger.class, "org.apache.log4j");
       printlnNode(TAG_LIB, tmpInfo);
 
