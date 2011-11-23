@@ -22,11 +22,21 @@ import java.io.Writer;
 import java.util.Date;
 import java.util.List;
 
+import net.sourceforge.htmlunit.corejs.javascript.Function;
+
+import org.apache.commons.codec.StringEncoder;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.fontbox.util.BoundingBox;
+import org.apache.http.Header;
+import org.apache.http.client.HttpClient;
+import org.apache.http.entity.mime.HttpMultipart;
+import org.apache.log4j.Logger;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -45,7 +55,13 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Output;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
+import org.wetator.util.VersionUtil;
 import org.wetator.util.XMLUtil;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.steadystate.css.parser.CSSOMParser;
+
+import dk.brics.automaton.Automaton;
 
 /**
  * The class that generates the XML output.
@@ -58,6 +74,8 @@ public class XMLResultWriter implements IProgressListener {
 
   private static final String TAG_WET = "wet";
   private static final String TAG_ABOUT = "about";
+  private static final String TAG_LIBS = "libraries";
+  private static final String TAG_LIB = "library";
   private static final String TAG_PRODUCT = "product";
   private static final String TAG_VERSION = "version";
   private static final String TAG_BUILD = "build";
@@ -125,11 +143,55 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnStartTag(TAG_WET);
 
+      // about wetator
       printlnStartTag(TAG_ABOUT);
 
       printlnNode(TAG_PRODUCT, Version.getProductName());
       printlnNode(TAG_VERSION, Version.getVersion());
       printlnNode(TAG_BUILD, Version.getBuild());
+
+      // wetator libs
+      printlnStartTag(TAG_LIBS);
+
+      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(WebClient.class));
+      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(Function.class));
+      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(CSSOMParser.class));
+
+      final Class<?>[] tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class,
+          IOUtils.class, Log.class, Header.class, HttpClient.class, HttpMultipart.class };
+      for (int i = 0; i < tmpLibs.length; i++) {
+        String tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null);
+        tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null);
+        printlnNode(TAG_LIB, tmpInfo);
+      }
+
+      String tmpInfo = VersionUtil.determineTitleFromJarManifest(Logger.class, "org.apache.log4j");
+      tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(Logger.class, "org.apache.log4j");
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = VersionUtil.determineVersionFromJarFileName(Automaton.class);
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.poi.Version.getProduct() + " " + org.apache.poi.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = "PDF Box " + org.apache.pdfbox.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = VersionUtil.determineBundleNameFromJarManifest(BoundingBox.class, null);
+      tmpInfo = tmpInfo + " " + VersionUtil.determineBundleVersionFromJarManifest(BoundingBox.class, null);
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.xmlcommons.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.xerces.impl.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.xalan.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      printlnEndTag(TAG_LIBS);
 
       printlnEndTag(TAG_ABOUT);
 
