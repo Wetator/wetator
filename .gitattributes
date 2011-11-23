@@ -159,6 +159,7 @@ Wetator/src/org/wetator/util/Output.java -text
 Wetator/src/org/wetator/util/SecretString.java -text
 Wetator/src/org/wetator/util/StringUtil.java -text
 Wetator/src/org/wetator/util/VariableReplaceUtil.java -text
+Wetator/src/org/wetator/util/VersionUtil.java -text
 Wetator/src/org/wetator/util/XMLUtil.java -text
 Wetator/src/wetator.config -text
 Wetator/test/MouseEvents.xls -text
