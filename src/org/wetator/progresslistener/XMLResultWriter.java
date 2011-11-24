@@ -19,8 +19,11 @@ package org.wetator.progresslistener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import net.sourceforge.htmlunit.corejs.javascript.Function;
 
@@ -76,6 +79,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_ABOUT = "about";
   private static final String TAG_LIBS = "libraries";
   private static final String TAG_LIB = "library";
+  private static final String TAG_JAVA = "java";
   private static final String TAG_PRODUCT = "product";
   private static final String TAG_VERSION = "version";
   private static final String TAG_BUILD = "build";
@@ -198,6 +202,23 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_LIB, tmpInfo);
 
       printlnEndTag(TAG_LIBS);
+
+      // java info
+      printlnStartTag(TAG_JAVA);
+      final Set<Object> tmpKeys = System.getProperties().keySet();
+      final List<String> tmpProperties = new ArrayList<String>(tmpKeys.size());
+      for (Object tmpObject : tmpKeys) {
+        tmpProperties.add(tmpObject.toString());
+      }
+      Collections.sort(tmpProperties);
+      for (String tmpProperty : tmpProperties) {
+        String tmpValue = System.getProperty(tmpProperty);
+        tmpValue = tmpValue.replace("\n", "\\n");
+        tmpValue = tmpValue.replace("\r", "\\r");
+        tmpValue = tmpValue.replace("\t", "\\t");
+        printlnNode(tmpProperty, tmpValue);
+      }
+      printlnEndTag(TAG_JAVA);
 
       printlnEndTag(TAG_ABOUT);
 
