@@ -55,9 +55,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("assert-focus", new CommandAssertFocus());
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
-    // still there to solve some strange situations
 
     registerCommand("run-applet", new CommandRunApplet());
+
+    // still there to solve some strange situations
+    registerCommand("wait", new CommandWait());
   }
 
   /**
