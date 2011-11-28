@@ -16,7 +16,6 @@
 
 package org.wetator.util;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.jar.Attributes;
@@ -71,7 +70,7 @@ public final class VersionUtil {
       final Date tmpDate = new Date(tmpJarEntry.getTime());
 
       return new SimpleDateFormat("yyyy-MM-dd").format(tmpDate);
-    } catch (final IOException e) {
+    } catch (final Throwable e) {
       // ignore
     }
     return "unknown";
@@ -143,7 +142,7 @@ public final class VersionUtil {
       if (StringUtils.isNotBlank(tmpTitle)) {
         return tmpTitle;
       }
-    } catch (final IOException e) {
+    } catch (final Throwable e) {
       // ignore
     }
     return "unknown";
