@@ -30,6 +30,7 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Property;
+import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.wetator.Version;
@@ -46,6 +47,7 @@ public class Wetator extends Task {
   private Path classpath;
   private FileSet fileset;
   private List<Property> properties = new ArrayList<Property>();
+  private List<Environment.Variable> sysproperties = new ArrayList<Environment.Variable>();
   private boolean haltOnFailure;
   private String failureProperty;
 
@@ -81,6 +83,14 @@ public class Wetator extends Task {
         // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
         tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath, false);
         tmpAntClassLoader.setThreadContextLoader();
+      }
+
+      // process sysproperties
+      for (Environment.Variable tmpVar : sysproperties) {
+        final String tmpKey = tmpVar.getKey();
+        if (null != tmpKey && tmpKey.length() > 0) {
+          System.setProperty(tmpKey, tmpVar.getValue());
+        }
       }
 
       final WetatorEngine tmpWetatorEngine = new WetatorEngine();
@@ -223,6 +233,15 @@ public class Wetator extends Task {
    */
   public void addProperty(final Property aProperty) {
     properties.add(aProperty);
+  }
+
+  /**
+   * Adds a system property.
+   * 
+   * @param anEnvironmentVariable the new proptery
+   */
+  public void addSysproperty(final Environment.Variable anEnvironmentVariable) {
+    sysproperties.add(anEnvironmentVariable);
   }
 
   /**
