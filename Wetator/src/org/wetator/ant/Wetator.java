@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -120,7 +121,11 @@ public class Wetator extends Task {
       }
 
     } catch (final Throwable e) {
-      throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
+      String tmpMessage = e.getMessage();
+      if (StringUtils.isBlank(tmpMessage)) {
+        tmpMessage = e.toString();
+      }
+      throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpMessage + ")", e);
     } finally {
       if (null != tmpAntClassLoader) {
         // cleanup
@@ -153,10 +158,12 @@ public class Wetator extends Task {
         log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
             Project.MSG_INFO);
       } else {
-        tmpAntPropertyCount++;
-        tmpOurProperties.put(ANT_PROPERTY_PREFIX + tmpKey, tmpProjectProperties.get(tmpKey));
-        log("set property '" + ANT_PROPERTY_PREFIX + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey)
-            + "' (from project)", Project.MSG_VERBOSE); // don't log all the ant props
+        if (null == System.getProperty(tmpKey)) {
+          tmpAntPropertyCount++;
+          tmpOurProperties.put(ANT_PROPERTY_PREFIX + tmpKey, tmpProjectProperties.get(tmpKey));
+          log("set property '" + ANT_PROPERTY_PREFIX + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey)
+              + "' (from project)", Project.MSG_VERBOSE); // don't log all the ant props
+        }
       }
     }
 
