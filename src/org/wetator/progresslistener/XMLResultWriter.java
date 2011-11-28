@@ -276,7 +276,13 @@ public class XMLResultWriter implements IProgressListener {
         output.print(" name=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpVariable.getName()));
         output.print("\" value=\"");
-        output.print(xMLUtil.normalizeAttributeValue(tmpVariable.getValue().toString()));
+
+        String tmpValue = tmpVariable.getValue().toString();
+        tmpValue = tmpValue.replace("\n", "\\n");
+        tmpValue = tmpValue.replace("\r", "\\r");
+        tmpValue = tmpValue.replace("\t", "\\t");
+
+        output.print(xMLUtil.normalizeAttributeValue(tmpValue));
         output.println("\"/>");
       }
 
