@@ -42,8 +42,6 @@ import org.wetator.core.WetatorEngine;
  * @author rbri
  */
 public class Wetator extends Task {
-  private static final String ANT_PROPERTY_PREFIX = "$ant.";
-
   private String config;
   private Path classpath;
   private FileSet fileset;
@@ -143,7 +141,6 @@ public class Wetator extends Task {
   @SuppressWarnings("unchecked")
   protected Map<String, String> getPropertiesFromAnt() {
     final Map<String, String> tmpOurProperties = new HashMap<String, String>();
-    int tmpAntPropertyCount = 0;
 
     // read the properties from project
     final Map<String, String> tmpProjectProperties = getProject().getProperties();
@@ -157,19 +154,12 @@ public class Wetator extends Task {
         tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
         log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
             Project.MSG_INFO);
-      } else {
-        if (null == System.getProperty(tmpKey)) {
-          tmpAntPropertyCount++;
-          tmpOurProperties.put(ANT_PROPERTY_PREFIX + tmpKey, tmpProjectProperties.get(tmpKey));
-          log("set property '" + ANT_PROPERTY_PREFIX + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey)
-              + "' (from project)", Project.MSG_VERBOSE); // don't log all the ant props
-        }
       }
     }
 
     // read the properties from property sets
     for (Property tmpProperty : properties) {
-      String tmpName = tmpProperty.getName();
+      final String tmpName = tmpProperty.getName();
       if (tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
         log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
@@ -177,16 +167,7 @@ public class Wetator extends Task {
           || tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
         log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
-      } else {
-        // make all the other configured properties also available
-        tmpName = "$" + tmpName;
-        tmpOurProperties.put(tmpName, tmpProperty.getValue());
-        log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
       }
-    }
-
-    if (tmpAntPropertyCount > 0) {
-      log("" + tmpAntPropertyCount + " ant properties available as: $ant.[ant property name]", Project.MSG_INFO);
     }
 
     return tmpOurProperties;
