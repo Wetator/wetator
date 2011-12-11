@@ -97,6 +97,7 @@ src/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcher.java -text svn
 src/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcher.java -text
 src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/util/ContentTypeUtil.java -text

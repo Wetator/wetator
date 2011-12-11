@@ -22,6 +22,14 @@
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox with title</comment>
+    <command><d:select><d:wpath>CheckBox Title</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxTitleTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxTitleTest OK checkBoxTitle_Name check_Title POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>CheckBox with id</comment>
     <command><d:select><d:wpath>checkBox_Id</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxIdTest</d:wpath></d:click-on></command>
