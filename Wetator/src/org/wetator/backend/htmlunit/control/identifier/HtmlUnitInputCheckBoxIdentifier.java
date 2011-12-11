@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
+import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
@@ -46,6 +47,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * </ul>
  * 
  * @author frank.danek
+ * @author rbri
  */
 public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentifier {
 
@@ -81,6 +83,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
       if (aHtmlElement instanceof HtmlCheckBoxInput) {
         aMatchers.add(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
       } else if (aHtmlElement instanceof HtmlLabel) {

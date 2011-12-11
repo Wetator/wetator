@@ -20,6 +20,12 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>CheckBox with title</comment>
+    <command><d:assert-deselected><d:wpath>CheckBox Title</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
     <comment>CheckBox with id</comment>
     <command><d:assert-deselected><d:wpath>checkBox_Id</d:wpath></d:assert-deselected></command>
     <comment></comment>

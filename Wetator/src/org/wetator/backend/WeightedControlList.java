@@ -56,6 +56,9 @@ public final class WeightedControlList {
     /** Found by inner image title attribute match. */
     BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
 
+    /** Found by title attribute match. */
+    BY_TITLE_ATTRIBUTE(3500),
+
     /** Found by label text match. */
     BY_LABEL_TEXT(3000),
 
