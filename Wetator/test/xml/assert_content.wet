@@ -90,4 +90,12 @@
     <command><d:open-url><d:url>redirect_js.php?target=assert_content.html&amp;wait=2000</d:url></d:open-url></command>
     <command><d:assert-content><d:content>Wetator / Redirect via JavaScript</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Wetator / Assert Content</d:content><d:wait>4</d:wait></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Frameset</comment>
+    <command><d:open-url><d:url>assert_content_frameset.html</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>Wetator / Frameset Content1 My Frameset Content 1 Wetator / Frameset Content2 My Frameset Content 2 Wetator / Frameset Content3 My Frameset Content 3 Wetator / Frameset Content4 My Frameset Content 4 Wetator / Frameset Content5 My Frameset Content 5 Wetator / Frameset Content6 My Frameset Content 6</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_content_frameset2.html</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>Wetator / Frameset Content1 My Frameset Content 1 Wetator / Frameset Content2 My Frameset Content 2 Wetator / Frameset Content3 My Frameset Content 3 Wetator / Frameset Content4 My Frameset Content 4 Wetator / Frameset Content5 My Frameset Content 5 Wetator / Frameset Content6 My Frameset Content 6</d:content></d:assert-content></command>
 </test-case>

@@ -34,6 +34,7 @@ import org.wetator.util.XMLUtil;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebWindow;
+import com.gargoylesoftware.htmlunit.html.BaseFrame;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomDocumentType;
@@ -68,7 +69,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlHorizontalRule;
 import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
 import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
 import com.gargoylesoftware.htmlunit.html.HtmlItalic;
@@ -382,7 +382,7 @@ public final class XHtmlOutputter {
       }
 
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
-      final boolean tmpIsHtmlInlineFrame = tmpHtmlElement instanceof HtmlInlineFrame;
+      final boolean tmpIsHtmlFrame = tmpHtmlElement instanceof BaseFrame;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
       final boolean tmpIsHtmlSubmitInput = tmpHtmlElement instanceof HtmlSubmitInput;
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
@@ -427,17 +427,17 @@ public final class XHtmlOutputter {
             }
           }
 
-          if (tmpIsHtmlInlineFrame && ("src".equals(tmpAttributeName))) {
-            final HtmlInlineFrame tmpInlineFrame = (HtmlInlineFrame) aDomNode;
+          if (tmpIsHtmlFrame && ("src".equals(tmpAttributeName))) {
+            final BaseFrame tmpFrame = (BaseFrame) aDomNode;
 
             // prevent NPE
-            final WebWindow tmpWebWindow = tmpInlineFrame.getEnclosedWindow();
+            final WebWindow tmpWebWindow = tmpFrame.getEnclosedWindow();
             if (null == tmpWebWindow) {
-              LOG.warn("HtmlInlineFrame with enclosed EnclosedWindow == null (" + tmpInlineFrame.toString() + ").");
+              LOG.warn("Frame with enclosed EnclosedWindow == null (" + tmpFrame.toString() + ").");
             } else {
               final Page tmpPage = tmpWebWindow.getEnclosedPage();
               if (null == tmpPage) {
-                LOG.warn("HtmlInlineFrame with enclosed EnclosedPage == null (" + tmpInlineFrame.toString() + ").");
+                LOG.warn("Frame with enclosed EnclosedPage == null (" + tmpFrame.toString() + ").");
               } else {
                 final String tmpStoredFileName = responseStore.storePage(tmpPage);
                 if (null != tmpStoredFileName) {

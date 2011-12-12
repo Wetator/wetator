@@ -290,6 +290,8 @@ Wetator/test/webpage/ajax/prototype/ajax_test.txt -text
 Wetator/test/webpage/ajax/prototype/prototype_ajax.html -text
 Wetator/test/webpage/anchor_inside_page.html -text
 Wetator/test/webpage/assert_content.html -text
+Wetator/test/webpage/assert_content_frameset.html -text
+Wetator/test/webpage/assert_content_frameset2.html -text
 Wetator/test/webpage/assert_disabled.html -text
 Wetator/test/webpage/assert_selected.html -text
 Wetator/test/webpage/assert_set.html -text
@@ -305,6 +307,12 @@ Wetator/test/webpage/download/wet_test.xls -text
 Wetator/test/webpage/event_handler.html -text svneol=unset#text/plain
 Wetator/test/webpage/event_handler_old.html -text svneol=unset#text/plain
 Wetator/test/webpage/favicon.ico -text
+Wetator/test/webpage/frameset_content/frameset_c1.html -text
+Wetator/test/webpage/frameset_content/frameset_c2.html -text
+Wetator/test/webpage/frameset_content/frameset_c3.html -text
+Wetator/test/webpage/frameset_content/frameset_c4.html -text
+Wetator/test/webpage/frameset_content/frameset_c5.html -text
+Wetator/test/webpage/frameset_content/frameset_c6.html -text
 Wetator/test/webpage/htmlunit_javascript.html -text
 Wetator/test/webpage/http_header.php -text
 Wetator/test/webpage/iframe.html -text
