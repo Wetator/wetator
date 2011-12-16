@@ -295,8 +295,8 @@ public final class HtmlUnitBrowser implements IBrowser {
         checkAnchor(tmpRef);
       }
     } catch (final AssertionException e) {
-      // TODO is this a failure or an error?
-      addFailure(e);
+      // we are in an action so build the correct exception
+      throw new ActionException(e.getMessage(), e.getCause());
     }
   }
 
@@ -572,6 +572,8 @@ public final class HtmlUnitBrowser implements IBrowser {
           try {
             PageUtil.checkAnchor(tmpRef, tmpNewPage);
           } catch (final AssertionException e) {
+            // TODO this is now inconsistent because open-url and click-on for an anchor throw an ActionException (as
+            // they are actions)
             htmlUnitBrowser.addFailure(e);
           }
         }

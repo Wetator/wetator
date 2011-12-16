@@ -65,8 +65,8 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
         PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
       }
     } catch (final AssertionException e) {
-      // TODO is this a failure or an error?
-      aWetatorContext.getBrowser().addFailure(e);
+      // we are in an action so build the correct exception
+      throw new ActionException(e.getMessage(), e.getCause());
     }
   }
 

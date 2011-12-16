@@ -32,7 +32,6 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
-import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
@@ -223,7 +222,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               tmpApplet.destroy();
             } catch (final Exception e) {
               // TODO is this an assertion or an action?
-              throw new AssertionException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
+              throw new ActionException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
             }
           }
         }
