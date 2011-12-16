@@ -23,9 +23,9 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.CommandExecutionException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.CommandException;
 import org.wetator.util.Assert;
 import org.wetator.util.NormalizedString;
 import org.wetator.util.SecretString;
@@ -57,7 +57,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   public final class CommandAssertFail implements ICommandImplementation {
     @Override
-    public void execute(WetatorContext aContext, Command aCommand) throws CommandExecutionException {
+    public void execute(WetatorContext aContext, Command aCommand) throws CommandException {
       List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
       SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aContext);
 
@@ -76,11 +76,11 @@ public final class TestCommandSet extends AbstractCommandSet {
       Throwable tmpException = null;
       try {
         aContext.determineAndExecuteCommandImpl(tmpCommand);
-      } catch (CommandExecutionException e) {
+      } catch (CommandException e) {
         tmpException = e;
         Throwable tmpCause = e.getCause();
         if (tmpCause != null && tmpCause != e) {
-          if (tmpCause instanceof ActionFailedException || tmpCause instanceof AssertionFailedException) {
+          if (tmpCause instanceof ActionException || tmpCause instanceof AssertionException) {
             tmpException = tmpCause;
           }
         }
@@ -97,9 +97,9 @@ public final class TestCommandSet extends AbstractCommandSet {
         } else {
           Assert.fail("expectedErrorNotThrown", null);
         }
-      } catch (AssertionFailedException e) {
+      } catch (AssertionException e) {
         // TODO i18n
-        throw new CommandExecutionException("Assertion failed.", e);
+        throw new CommandException("Assertion failed.", e);
       }
     }
   }

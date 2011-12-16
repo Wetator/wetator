@@ -29,7 +29,7 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
+import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
@@ -94,7 +94,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#click(WetatorContext)
    */
   @Override
-  public void click(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void click(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -129,7 +129,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#clickDouble(WetatorContext)
    */
   @Override
-  public void clickDouble(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void clickDouble(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -164,7 +164,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#clickRight(WetatorContext)
    */
   @Override
-  public void clickRight(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void clickRight(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -199,7 +199,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
    */
   @Override
-  public void mouseOver(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -351,31 +351,31 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
   }
 
   /**
-   * Throws a ActionFailedException with the given message.
+   * Throws a ActionException with the given message.
    * 
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
-   * @throws ActionFailedException the created exception
+   * @throws ActionException the created exception
    */
   // TODO duplicated in HtmlUnitBrowser -> unify
-  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionFailedException {
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new ActionFailedException(tmpMessage);
+    throw new ActionException(tmpMessage);
   }
 
   /**
-   * Throws a ActionFailedException with the given message.
+   * Throws a ActionException with the given message.
    * 
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @param aThrowable the cause
-   * @throws ActionFailedException the created exception
+   * @throws ActionException the created exception
    */
   // TODO duplicated in HtmlUnitBrowser -> unify
   protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
-      throws ActionFailedException {
+      throws ActionException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new ActionFailedException(tmpMessage, aThrowable);
+    throw new ActionException(tmpMessage, aThrowable);
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {

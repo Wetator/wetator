@@ -22,7 +22,7 @@ package org.wetator.exception;
  * @author rbri
  * @author frank.danek
  */
-public class AssertionFailedException extends Exception {
+public class AssertionException extends CommandException {
 
   private static final long serialVersionUID = -1587032805061848761L;
 
@@ -31,7 +31,7 @@ public class AssertionFailedException extends Exception {
    * 
    * @param aMessage the message text
    */
-  public AssertionFailedException(final String aMessage) {
+  public AssertionException(final String aMessage) {
     super(aMessage);
   }
 
@@ -41,7 +41,7 @@ public class AssertionFailedException extends Exception {
    * @param aMessage the message text
    * @param aCause the cause
    */
-  public AssertionFailedException(final String aMessage, final Throwable aCause) {
+  public AssertionException(final String aMessage, final Throwable aCause) {
     super(aMessage, aCause);
   }
 }

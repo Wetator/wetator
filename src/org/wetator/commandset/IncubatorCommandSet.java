@@ -31,9 +31,10 @@ import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.CommandExecutionException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.CommandException;
+import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -76,7 +77,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -99,12 +100,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
-      try {
-        final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
-        Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
-      } catch (final AssertionFailedException e) {
-        assertionFailed(e);
-      }
+      final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
+      Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
     }
   }
 
@@ -118,7 +115,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -126,16 +123,13 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
       if (tmpUrl == null) {
-        actionFailed("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+        final String tmpMessage = Messages.getMessage("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+        throw new ActionException(tmpMessage);
       }
 
       aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
-      try {
-        tmpBrowser.openUrl(tmpUrl);
-        tmpBrowser.saveCurrentWindowToLog();
-      } catch (final ActionFailedException e) {
-        actionFailed(e);
-      }
+      tmpBrowser.openUrl(tmpUrl);
+      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -149,7 +143,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -169,7 +163,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
       final SecretString tmpWaitTimeString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -179,9 +173,13 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
         tmpWaitTime = tmpValue.longValueExact();
       } catch (final NumberFormatException e) {
-        wrongCommandUsage("integerParameterExpected", new String[] { "wait", tmpWaitTimeString.toString(), "1" });
+        final String tmpMessage = Messages.getMessage("integerParameterExpected", new String[] { "wait",
+            tmpWaitTimeString.toString(), "1" });
+        throw new WrongCommandUsageException(tmpMessage);
       } catch (final ArithmeticException e) {
-        wrongCommandUsage("integerParameterExpected", new String[] { "wait", tmpWaitTimeString.toString(), "1" });
+        final String tmpMessage = Messages.getMessage("integerParameterExpected", new String[] { "wait",
+            tmpWaitTimeString.toString(), "1" });
+        throw new WrongCommandUsageException(tmpMessage);
       }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
@@ -190,7 +188,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         tmpBrowser.saveCurrentWindowToLog();
       } catch (final InterruptedException e) {
         final String tmpMessage = Messages.getMessage("waitError", null);
-        actionFailed(new ActionFailedException(tmpMessage, e));
+        throw new ActionException(tmpMessage, e);
       }
     }
   }
@@ -205,7 +203,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandExecutionException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
       final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -225,8 +223,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               tmpApplet.destroy();
             } catch (final Exception e) {
               // TODO is this an assertion or an action?
-              assertionFailed(new AssertionFailedException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute()
-                  + ").", e));
+              throw new AssertionException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
             }
           }
         }

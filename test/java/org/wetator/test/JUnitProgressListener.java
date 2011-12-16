@@ -20,7 +20,7 @@ import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 
 /**
  * @author frank.danek
@@ -117,10 +117,10 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
+   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
-  public void executeCommandFailure(AssertionFailedException aAnAssertionFailedException) {
+  public void executeCommandFailure(AssertionException aAnAssertionException) {
     steps++;
     failures++;
   }

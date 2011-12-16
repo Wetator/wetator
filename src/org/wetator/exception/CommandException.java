@@ -21,7 +21,7 @@ package org.wetator.exception;
  * 
  * @author frank.danek
  */
-public class CommandExecutionException extends Exception {
+public class CommandException extends Exception {
 
   private static final long serialVersionUID = 1008530384322847811L;
 
@@ -30,7 +30,7 @@ public class CommandExecutionException extends Exception {
    * 
    * @param aMessage the message text
    */
-  public CommandExecutionException(final String aMessage) {
+  public CommandException(final String aMessage) {
     super(aMessage);
   }
 
@@ -40,7 +40,7 @@ public class CommandExecutionException extends Exception {
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */
-  public CommandExecutionException(final String aMessage, final Throwable aThrowable) {
+  public CommandException(final String aMessage, final Throwable aThrowable) {
     super(aMessage, aThrowable);
   }
 }

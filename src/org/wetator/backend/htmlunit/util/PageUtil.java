@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 import org.wetator.util.Assert;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
@@ -101,9 +101,9 @@ public final class PageUtil {
    * 
    * @param aRef the anchor ref
    * @param aPage the page
-   * @throws AssertionFailedException if the anchor is not on the page
+   * @throws AssertionException if the anchor is not on the page
    */
-  public static void checkAnchor(final String aRef, final Page aPage) throws AssertionFailedException {
+  public static void checkAnchor(final String aRef, final Page aPage) throws AssertionException {
     if (null == aPage) {
       return;
     }

@@ -20,8 +20,8 @@ import java.net.URL;
 import java.util.List;
 
 import org.wetator.backend.control.IControl;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.util.SecretString;
 
@@ -144,10 +144,10 @@ public interface IBrowser {
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    * 
    * @param aUrl the URL to open
-   * @throws ActionFailedException if opening the URL fails
+   * @throws ActionException if opening the URL fails
    * @throws BackendException in case of problems opening the URL
    */
-  public void openUrl(URL aUrl) throws ActionFailedException, BackendException;
+  public void openUrl(URL aUrl) throws ActionException, BackendException;
 
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
@@ -161,31 +161,31 @@ public interface IBrowser {
    * Checks, if the page title contains the given list of strings.<br>
    * If the text is not found, than this method waits at aTimeoutInSeconds
    * and checks the title again. If the text is still not found than an
-   * AssertionFailedException is thrown.
+   * AssertionException is thrown.
    * 
    * @param aTitleToWaitFor the expected text (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
-   * @throws AssertionFailedException if the content was not available
+   * @throws AssertionException if the content was not available
    * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
   public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
-      throws AssertionFailedException, BackendException;
+      throws AssertionException, BackendException;
 
   /**
    * Checks, if the page content contains the given list of strings.<br>
    * If the content is not found, than this method waits at aTimeoutInSeconds
    * and checks the content again. If the content is still not found than an
-   * AssertionFailedException is thrown.
+   * AssertionException is thrown.
    * 
    * @param aContentToWaitFor the expected content (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
-   * @throws AssertionFailedException if the content was not available
+   * @throws AssertionException if the content was not available
    * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
   public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
-      throws AssertionFailedException, BackendException;
+      throws AssertionException, BackendException;
 
   /**
    * Saves the content of the current window to the log.
@@ -198,17 +198,17 @@ public interface IBrowser {
    * Goes back (simulates the browser's back button) in the current window.
    * 
    * @param aSteps the number of steps to go back
-   * @throws ActionFailedException if going back fails
+   * @throws ActionException if going back fails
    */
-  public void goBackInCurrentWindow(int aSteps) throws ActionFailedException;
+  public void goBackInCurrentWindow(int aSteps) throws ActionException;
 
   /**
    * Closes the window with the given name.
    * 
    * @param aWindowName the name
-   * @throws ActionFailedException if finding or closing the window fails
+   * @throws ActionException if finding or closing the window fails
    */
-  public void closeWindow(SecretString aWindowName) throws ActionFailedException;
+  public void closeWindow(SecretString aWindowName) throws ActionException;
 
   /**
    * Starts a new browser session.<br/>
@@ -249,23 +249,23 @@ public interface IBrowser {
    * 
    * @param aFailure the original problem
    */
-  public void addFailure(AssertionFailedException aFailure);
+  public void addFailure(AssertionException aFailure);
 
   /**
    * Helper to store a failure.
    * 
-   * @see #addFailure(AssertionFailedException)
+   * @see #addFailure(AssertionException)
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @param aCause the original problem
-   * @see #addFailure(AssertionFailedException)
+   * @see #addFailure(AssertionException)
    */
   public void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause);
 
   /**
    * This logs all collected exceptions and resets the list.
    * 
-   * @return the first {@link AssertionFailedException} in the list or null if the list is empty
+   * @return the first {@link AssertionException} in the list or null if the list is empty
    */
-  public AssertionFailedException checkAndResetFailures();
+  public AssertionException checkAndResetFailures();
 }

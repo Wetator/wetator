@@ -31,10 +31,7 @@ import org.wetator.backend.control.IControl;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.CommandExecutionException;
-import org.wetator.exception.WrongCommandUsageException;
+import org.wetator.exception.CommandException;
 import org.wetator.i18n.Messages;
 
 /**
@@ -124,7 +121,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   /**
    * Returns the first control from the WeightedControlList.<br>
-   * If the list is empty an AssertionFailedException is thrown.<br>
+   * If the list is empty an AssertionException is thrown.<br>
    * If the list has elements for more than one control then some warnings are fired.
    * 
    * @param aContext the context
@@ -132,13 +129,14 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @param aWPath the wpath (only needed for the warning message)
    * @param aNoElementFoundKey the key used to resolve the 'no element found' message.
    * @return the first control from the list
-   * @throws CommandExecutionException if the list is empty
+   * @throws CommandException if the list is empty
    */
   protected IControl getRequiredFirstHtmlElementFrom(final WetatorContext aContext,
       final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNoElementFoundKey)
-      throws CommandExecutionException {
+      throws CommandException {
     if (aWeightedControlList.isEmpty()) {
-      throwCommandExecutionException(aNoElementFoundKey, new String[] { aWPath.toString() });
+      final String tmpMessage = Messages.getMessage(aNoElementFoundKey, new String[] { aWPath.toString() });
+      throw new CommandException(tmpMessage);
     }
 
     final List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();
@@ -154,77 +152,5 @@ public abstract class AbstractCommandSet implements ICommandSet {
     }
 
     return tmpEntry.getControl();
-  }
-
-  /**
-   * Throws a {@link CommandExecutionException} containing an {@link AssertionFailedException} with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @throws CommandExecutionException the created exception
-   */
-  protected void assertionFailed(final String aMessageKey, final Object[] aParameterArray)
-      throws CommandExecutionException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    assertionFailed(new AssertionFailedException(tmpMessage));
-  }
-
-  /**
-   * Throws a {@link CommandExecutionException} containing the given {@link AssertionFailedException}.
-   * 
-   * @param anException the AssertionFailedException
-   * @throws CommandExecutionException the created exception
-   */
-  protected void assertionFailed(final AssertionFailedException anException) throws CommandExecutionException {
-    throw new CommandExecutionException("Assertion failed.", anException);
-  }
-
-  /**
-   * Throws a {@link CommandExecutionException} containing an {@link ActionFailedException} with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @throws CommandExecutionException the created exception
-   */
-  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray)
-      throws CommandExecutionException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    actionFailed(new ActionFailedException(tmpMessage));
-  }
-
-  /**
-   * Throws a {@link CommandExecutionException} containing the given {@link ActionFailedException}.
-   * 
-   * @param anException the AssertionFailedException
-   * @throws CommandExecutionException the created exception
-   */
-  protected void actionFailed(final ActionFailedException anException) throws CommandExecutionException {
-    throw new CommandExecutionException("Action failed.", anException);
-  }
-
-  /**
-   * Throws a WrongCommandUsageException with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @throws WrongCommandUsageException the created exception
-   */
-  protected void wrongCommandUsage(final String aMessageKey, final Object[] aParameterArray)
-      throws WrongCommandUsageException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new WrongCommandUsageException(tmpMessage);
-  }
-
-  /**
-   * Throws a CommandExecutionException with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @throws CommandExecutionException the created exception
-   */
-  protected void throwCommandExecutionException(final String aMessageKey, final Object[] aParameterArray)
-      throws CommandExecutionException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new CommandExecutionException(tmpMessage);
   }
 }

@@ -27,7 +27,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.IScripter.IsSupportedResult;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 import org.wetator.progresslistener.XMLResultWriter;
@@ -440,11 +440,11 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'executeCommandFailure'.
    * 
-   * @param anAssertionFailedException The exception thrown by the failed command.
+   * @param anAssertionException The exception thrown by the failed command.
    */
-  protected void informListenersExecuteCommandFailure(final AssertionFailedException anAssertionFailedException) {
+  protected void informListenersExecuteCommandFailure(final AssertionException anAssertionException) {
     for (IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandFailure(anAssertionFailedException);
+      tmpListener.executeCommandFailure(anAssertionException);
     }
   }
 

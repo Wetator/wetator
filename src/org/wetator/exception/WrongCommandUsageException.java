@@ -21,7 +21,7 @@ package org.wetator.exception;
  * 
  * @author frank.danek
  */
-public class WrongCommandUsageException extends CommandExecutionException {
+public class WrongCommandUsageException extends CommandException {
 
   private static final long serialVersionUID = 1008530384322847811L;
 

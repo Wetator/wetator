@@ -24,9 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.CommandExecutionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.CommandException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
@@ -182,20 +181,8 @@ public class WetatorContext {
           } else {
             engine.informListenersExecuteCommandIgnored();
           }
-        } catch (final CommandExecutionException e) {
-          final Throwable tmpCause = e.getCause();
-          if (tmpCause != null && tmpCause != e) {
-            // TODO it is not so nice to look into the the cause (split up again into the AFEs)
-            if (tmpCause instanceof AssertionFailedException) {
-              engine.informListenersExecuteCommandFailure((AssertionFailedException) tmpCause);
-            } else if (tmpCause instanceof ActionFailedException) {
-              engine.informListenersExecuteCommandError(tmpCause);
-              setErrorOccurred(true);
-            } else {
-              engine.informListenersExecuteCommandError(e);
-              setErrorOccurred(true);
-            }
-          }
+        } catch (final AssertionException e) {
+          engine.informListenersExecuteCommandFailure(e);
         } catch (final Exception e) {
           engine.informListenersExecuteCommandError(e);
           setErrorOccurred(true);
@@ -211,12 +198,12 @@ public class WetatorContext {
    * 
    * @param aCommand the command to be executed
    * @return true if the command was executed, false if the command was ignored
-   * @throws CommandExecutionException in case of a problem executing the command.
+   * @throws CommandException in case of a problem executing the command
    */
-  public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandExecutionException {
+  public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandException {
     final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
-      throw new CommandExecutionException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
+      throw new CommandException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
           getFile().getAbsolutePath(), "" + aCommand.getLineNo() }));
     }
 
@@ -226,17 +213,16 @@ public class WetatorContext {
       LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
       try {
         tmpCommandImplementation.execute(this, aCommand);
-      } catch (final CommandExecutionException e) {
+      } catch (final CommandException e) {
         tmpBrowser.checkAndResetFailures();
         throw e;
       } catch (final RuntimeException e) {
         tmpBrowser.checkAndResetFailures();
         throw e;
       }
-      final AssertionFailedException tmpFailure = tmpBrowser.checkAndResetFailures();
+      final AssertionException tmpFailure = tmpBrowser.checkAndResetFailures();
       if (null != tmpFailure) {
-        throw new CommandExecutionException("Failure occured executing the command '" + aCommand.getName() + "'.",
-            tmpFailure);
+        throw tmpFailure;
       }
       return true;
     }

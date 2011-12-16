@@ -24,8 +24,8 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
@@ -54,7 +54,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetatorContext)
    */
   @Override
-  public void click(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void click(final WetatorContext aWetatorContext) throws ActionException {
     super.click(aWetatorContext);
 
     try {
@@ -64,7 +64,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
         tmpHref = tmpHref.substring(1);
         PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
       }
-    } catch (final AssertionFailedException e) {
+    } catch (final AssertionException e) {
       // TODO is this a failure or an error?
       aWetatorContext.getBrowser().addFailure(e);
     }

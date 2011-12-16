@@ -17,7 +17,7 @@
 package org.wetator.backend.control;
 
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
+import org.wetator.exception.ActionException;
 
 /**
  * This interface marks all selectable {@link IControl}s. These controls are returned by
@@ -31,9 +31,9 @@ public interface ISelectable extends IControl {
    * Selects the control.
    * 
    * @param aContext the context
-   * @throws ActionFailedException if an error occurred during the select
+   * @throws ActionException if an error occurred during the select
    */
-  public void select(WetatorContext aContext) throws ActionFailedException;
+  public void select(WetatorContext aContext) throws ActionException;
 
   /**
    * @param aContext the context

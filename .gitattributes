@@ -129,10 +129,10 @@ src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 src/org/wetator/core/searchpattern/SearchPattern.java -text
 src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
-src/org/wetator/exception/ActionFailedException.java -text svneol=unset#text/plain
-src/org/wetator/exception/AssertionFailedException.java -text
+src/org/wetator/exception/ActionException.java -text svneol=unset#text/plain
+src/org/wetator/exception/AssertionException.java -text
 src/org/wetator/exception/BackendException.java -text svneol=unset#text/plain
-src/org/wetator/exception/CommandExecutionException.java -text svneol=unset#text/plain
+src/org/wetator/exception/CommandException.java -text svneol=unset#text/plain
 src/org/wetator/exception/ConfigurationException.java -text svneol=unset#text/plain
 src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain
 src/org/wetator/exception/UnsupportedOperationException.java -text svneol=unset#text/plain
@@ -800,6 +800,7 @@ test/xml/set_upload.wet -text svneol=unset#text/plain
 test/xml/sql/sql.wet -text svneol=unset#text/plain
 test/xml/use_module.wet -text svneol=unset#text/plain
 test/xml/wait.wet -text svneol=unset#text/plain
+/tobwoerk -text
 /wetator-upload.cfg -text
 /wetator-upload.wet -text
 xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain

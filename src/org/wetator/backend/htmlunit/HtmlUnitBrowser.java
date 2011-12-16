@@ -62,8 +62,8 @@ import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.SearchPattern;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.ResourceException;
 import org.wetator.i18n.Messages;
@@ -106,8 +106,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   protected ResponseStore responseStore;
   /** WetatorEngine. */
   protected WetatorEngine wetatorEngine;
-  /** The list of failures ({@link AssertionFailedException}s). */
-  protected List<AssertionFailedException> failures;
+  /** The list of failures ({@link AssertionException}s). */
+  protected List<AssertionException> failures;
   /** jsTimeout. */
   protected long jsTimeoutInMillis;
   /** The map containing the bookmarks. */
@@ -130,7 +130,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     // httpclient should accept all cookies
     System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
 
-    failures = new LinkedList<AssertionFailedException>();
+    failures = new LinkedList<AssertionException>();
     wetatorEngine = aWetatorEngine;
 
     // response store
@@ -265,7 +265,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(final URL aUrl) throws ActionFailedException, BackendException {
+  public void openUrl(final URL aUrl) throws ActionException, BackendException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
@@ -290,7 +290,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (StringUtils.isNotEmpty(tmpRef)) {
         checkAnchor(tmpRef);
       }
-    } catch (final AssertionFailedException e) {
+    } catch (final AssertionException e) {
       // TODO is this a failure or an error?
       addFailure(e);
     }
@@ -403,7 +403,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
    */
   @Override
-  public void closeWindow(final SecretString aWindowName) throws ActionFailedException {
+  public void closeWindow(final SecretString aWindowName) throws ActionException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
       actionFailed("noWindowToClose", null);
@@ -454,7 +454,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
    */
   @Override
-  public void goBackInCurrentWindow(final int aSteps) throws ActionFailedException {
+  public void goBackInCurrentWindow(final int aSteps) throws ActionException {
     final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
@@ -509,10 +509,10 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Checks if the url contains a hash, that the matching anchor is on the page.
    * 
    * @param aRef the hash from the url
-   * @throws AssertionFailedException if no matching anchor found
+   * @throws AssertionException if no matching anchor found
    * @throws BackendException if there is no current page
    */
-  protected void checkAnchor(final String aRef) throws AssertionFailedException, BackendException {
+  protected void checkAnchor(final String aRef) throws AssertionException, BackendException {
     // check the anchor part of the url
     final Page tmpPage = getCurrentPage();
     PageUtil.checkAnchor(aRef, tmpPage);
@@ -561,7 +561,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (StringUtils.isNotEmpty(tmpRef)) {
           try {
             PageUtil.checkAnchor(tmpRef, tmpNewPage);
-          } catch (final AssertionFailedException e) {
+          } catch (final AssertionException e) {
             htmlUnitBrowser.addFailure(e);
           }
         }
@@ -675,7 +675,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionFailedException, BackendException {
+      throws AssertionException, BackendException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
     boolean tmpPageChanged = false;
@@ -690,7 +690,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         try {
           Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
           return tmpPageChanged;
-        } catch (final AssertionFailedException e) {
+        } catch (final AssertionException e) {
           // ok, not found, maybe we have to be more patient
         }
 
@@ -727,7 +727,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionFailedException, BackendException {
+      throws AssertionException, BackendException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
     boolean tmpPageChanged = false;
@@ -742,7 +742,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         try {
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpPageChanged;
-        } catch (final AssertionFailedException e) {
+        } catch (final AssertionException e) {
           // ok, not found, maybe we have to be more patient
         }
 
@@ -843,7 +843,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   @Override
   public void addFailure(final String aMessageKey, final Object[] aParameterArray, final Throwable aCause) {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    final AssertionFailedException tmpFailure = new AssertionFailedException(tmpMessage, aCause);
+    final AssertionException tmpFailure = new AssertionException(tmpMessage, aCause);
     addFailure(tmpFailure);
   }
 
@@ -853,7 +853,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
-  public void addFailure(final AssertionFailedException aFailure) {
+  public void addFailure(final AssertionException aFailure) {
     failures.add(aFailure);
   }
 
@@ -863,20 +863,20 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#checkAndResetFailures()
    */
   @Override
-  public AssertionFailedException checkAndResetFailures() {
+  public AssertionException checkAndResetFailures() {
     if (failures.isEmpty()) {
       return null;
     }
 
-    final AssertionFailedException tmpResult = failures.get(0);
-    for (AssertionFailedException tmpException : failures) {
+    final AssertionException tmpResult = failures.get(0);
+    for (AssertionException tmpException : failures) {
       final Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
         wetatorEngine.informListenersWarn("pageError",
             new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
       }
     }
-    failures = new LinkedList<AssertionFailedException>();
+    failures = new LinkedList<AssertionException>();
     return tmpResult;
   }
 
@@ -912,31 +912,31 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   /**
-   * Throws a ActionFailedException with the given message.
+   * Throws a ActionException with the given message.
    * 
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
-   * @throws ActionFailedException the created exception
+   * @throws ActionException the created exception
    */
   // TODO duplicated in HtmlUnitBaseControl -> unify
-  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionFailedException {
+  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new ActionFailedException(tmpMessage);
+    throw new ActionException(tmpMessage);
   }
 
   /**
-   * Throws a ActionFailedException with the given message.
+   * Throws a ActionException with the given message.
    * 
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @param aThrowable the cause
-   * @throws ActionFailedException the created exception
+   * @throws ActionException the created exception
    */
   // TODO duplicated in HtmlUnitBaseControl -> unify
   protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
-      throws ActionFailedException {
+      throws ActionException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new ActionFailedException(tmpMessage, aThrowable);
+    throw new ActionException(tmpMessage, aThrowable);
   }
 
   /**

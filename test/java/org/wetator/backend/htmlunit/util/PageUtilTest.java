@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -36,8 +36,8 @@ public class PageUtilTest {
 
     try {
       PageUtil.checkAnchor("ref", tmpHtmlPage);
-      Assert.fail("AssertionFailedException expected");
-    } catch (AssertionFailedException e) {
+      Assert.fail("AssertionException expected");
+    } catch (AssertionException e) {
       Assert.assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
     }
   }
@@ -50,14 +50,14 @@ public class PageUtilTest {
 
     try {
       PageUtil.checkAnchor("ref", tmpHtmlPage);
-      Assert.fail("AssertionFailedException expected");
-    } catch (AssertionFailedException e) {
+      Assert.fail("AssertionException expected");
+    } catch (AssertionException e) {
       Assert.assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
     }
   }
 
   @Test
-  public void testCheckAnchor_ById() throws IOException, AssertionFailedException {
+  public void testCheckAnchor_ById() throws IOException, AssertionException {
     String tmpHtmlCode = "<html><head>" + "<title>Page Title</title></head>" + "<body>"
         + "<p>Paragraph 1 <a id='ref'>Anchor</a></p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -66,7 +66,7 @@ public class PageUtilTest {
   }
 
   @Test
-  public void testCheckAnchor_ByName() throws IOException, AssertionFailedException {
+  public void testCheckAnchor_ByName() throws IOException, AssertionException {
     String tmpHtmlCode = "<html><head>" + "<title>Page Title</title></head>" + "<body>"
         + "<p>Paragraph 1 <a name='ref'>Anchor</a></p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);

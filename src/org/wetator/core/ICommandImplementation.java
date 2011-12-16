@@ -16,7 +16,7 @@
 
 package org.wetator.core;
 
-import org.wetator.exception.CommandExecutionException;
+import org.wetator.exception.CommandException;
 
 /**
  * The interface every implemented command fulfills.
@@ -32,9 +32,8 @@ public interface ICommandImplementation {
    * 
    * @param aContext The current {@link WetatorContext}.
    * @param aCommand The {@link Command} to execute.
-   * @throws CommandExecutionException in case of a problem executing the command. The containing cause signals the
-   *         cause of this exception.
+   * @throws CommandException in case of a problem executing the command.
    */
-  public void execute(WetatorContext aContext, Command aCommand) throws CommandExecutionException;
+  public void execute(WetatorContext aContext, Command aCommand) throws CommandException;
 
 }

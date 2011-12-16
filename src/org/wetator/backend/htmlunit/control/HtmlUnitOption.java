@@ -26,7 +26,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionInSelectIde
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
+import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
@@ -68,7 +68,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void select(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     if (tmpHtmlOption.isDisabled()) {
@@ -116,7 +116,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
    * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
-  public void deselect(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void deselect(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     if (tmpHtmlOption.isDisabled()) {
@@ -147,7 +147,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final ActionFailedException e) {
+    } catch (final ActionException e) {
       throw e;
     } catch (final BackendException e) {
       throw e;

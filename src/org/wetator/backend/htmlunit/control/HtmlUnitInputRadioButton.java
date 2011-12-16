@@ -25,7 +25,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonI
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
+import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
@@ -67,7 +67,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws ActionFailedException {
+  public void select(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     if (tmpHtmlRadioButtonInput.isDisabled()) {

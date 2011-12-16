@@ -18,7 +18,7 @@ package org.wetator.backend.control;
 
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
+import org.wetator.exception.ActionException;
 
 /**
  * The common interface for a control.<br/>
@@ -53,33 +53,33 @@ public interface IControl {
    * Simulates moving the mouse over the control.
    * 
    * @param aContext the context
-   * @throws ActionFailedException if an error occurred during the mouse over
+   * @throws ActionException if an error occurred during the mouse over
    */
-  public void mouseOver(WetatorContext aContext) throws ActionFailedException;
+  public void mouseOver(WetatorContext aContext) throws ActionException;
 
   /**
    * Simulates a mouse click on the control.
    * 
    * @param aContext the context
-   * @throws ActionFailedException if an error occurred during the click
+   * @throws ActionException if an error occurred during the click
    */
-  public void click(WetatorContext aContext) throws ActionFailedException;
+  public void click(WetatorContext aContext) throws ActionException;
 
   /**
    * Simulates a mouse double click on the control.
    * 
    * @param aContext the context
-   * @throws ActionFailedException if an error occurred during the double click
+   * @throws ActionException if an error occurred during the double click
    */
-  public void clickDouble(WetatorContext aContext) throws ActionFailedException;
+  public void clickDouble(WetatorContext aContext) throws ActionException;
 
   /**
    * Simulates a mouse right click on the control.
    * 
    * @param aContext the context
-   * @throws ActionFailedException if an error occurred during the right click
+   * @throws ActionException if an error occurred during the right click
    */
-  public void clickRight(WetatorContext aContext) throws ActionFailedException;
+  public void clickRight(WetatorContext aContext) throws ActionException;
 
   /**
    * @param aControl the control to compare with

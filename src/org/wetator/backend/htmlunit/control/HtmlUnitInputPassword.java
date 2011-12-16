@@ -28,8 +28,8 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIden
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionFailedException;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -78,7 +78,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
    */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
-      throws ActionFailedException {
+      throws ActionException {
     final HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
     if (tmpHtmlPasswordInput.isDisabled()) {
@@ -151,7 +151,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
    */
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
-      throws AssertionFailedException {
+      throws AssertionException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 

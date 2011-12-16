@@ -53,7 +53,7 @@ import org.wetator.core.Variable;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Output;
 import org.wetator.util.SecretString;
@@ -450,14 +450,14 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
+   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
-  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
+  public void executeCommandFailure(final AssertionException anAssertionException) {
     try {
-      printErrorStart(anAssertionFailedException);
+      printErrorStart(anAssertionException);
 
-      final Throwable tmpThrowable = anAssertionFailedException.getCause();
+      final Throwable tmpThrowable = anAssertionException.getCause();
       if (null != tmpThrowable) {
         executeCommandError(tmpThrowable);
       }

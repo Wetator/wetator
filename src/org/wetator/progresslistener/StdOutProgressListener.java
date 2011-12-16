@@ -29,7 +29,7 @@ import org.wetator.core.TestCase;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 import org.wetator.util.Output;
 
 /**
@@ -204,10 +204,10 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
+   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
-  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
+  public void executeCommandFailure(final AssertionException anAssertionException) {
     stepsCount++;
     failureCount++;
     printProgressSign("F");
