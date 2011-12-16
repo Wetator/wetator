@@ -33,7 +33,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertContent() {
     executeTestFile("assert_content.wet");
 
-    Assert.assertEquals(59, getSteps());
+    Assert.assertEquals(63, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -42,7 +42,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertDeselectedCheckbox() {
     executeTestFile("assert_deselected_checkbox.wet");
 
-    Assert.assertEquals(36, getSteps());
+    Assert.assertEquals(39, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -87,7 +87,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedCheckbox() {
     executeTestFile("assert_selected_checkbox.wet");
 
-    Assert.assertEquals(36, getSteps());
+    Assert.assertEquals(39, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -168,7 +168,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void deselectCheckbox() {
     executeTestFile("deselect_checkbox.wet");
 
-    Assert.assertEquals(61, getSteps());
+    Assert.assertEquals(66, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -276,7 +276,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectCheckboxAfter() {
     executeTestFile("select_checkbox_after.wet");
 
-    Assert.assertEquals(50, getSteps());
+    Assert.assertEquals(55, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -285,7 +285,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectCheckbox() {
     executeTestFile("select_checkbox.wet");
 
-    Assert.assertEquals(61, getSteps());
+    Assert.assertEquals(66, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

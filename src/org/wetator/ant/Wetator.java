@@ -23,12 +23,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Property;
+import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.wetator.Version;
@@ -45,6 +47,7 @@ public class Wetator extends Task {
   private Path classpath;
   private FileSet fileset;
   private List<Property> properties = new ArrayList<Property>();
+  private List<Environment.Variable> sysproperties = new ArrayList<Environment.Variable>();
   private boolean haltOnFailure;
   private String failureProperty;
 
@@ -80,6 +83,14 @@ public class Wetator extends Task {
         // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
         tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath, false);
         tmpAntClassLoader.setThreadContextLoader();
+      }
+
+      // process sysproperties
+      for (Environment.Variable tmpVar : sysproperties) {
+        final String tmpKey = tmpVar.getKey();
+        if (null != tmpKey && tmpKey.length() > 0) {
+          System.setProperty(tmpKey, tmpVar.getValue());
+        }
       }
 
       final WetatorEngine tmpWetatorEngine = new WetatorEngine();
@@ -118,7 +129,11 @@ public class Wetator extends Task {
       }
 
     } catch (final Throwable e) {
-      throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
+      String tmpMessage = e.getMessage();
+      if (StringUtils.isBlank(tmpMessage)) {
+        tmpMessage = e.toString();
+      }
+      throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpMessage + ")", e);
     } finally {
       if (null != tmpAntClassLoader) {
         // cleanup
@@ -135,9 +150,10 @@ public class Wetator extends Task {
    */
   @SuppressWarnings("unchecked")
   protected Map<String, String> getPropertiesFromAnt() {
+    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
+
     // read the properties from project
     final Map<String, String> tmpProjectProperties = getProject().getProperties();
-    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
     final Set<String> tmpKeys = tmpProjectProperties.keySet();
     for (String tmpKey : tmpKeys) {
       if (tmpKey.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
@@ -155,12 +171,12 @@ public class Wetator extends Task {
     for (Property tmpProperty : properties) {
       final String tmpName = tmpProperty.getName();
       if (tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
-        log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
+        log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
       } else if (tmpName.startsWith(WetatorConfiguration.PROPERTY_PREFIX)
           || tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
-        log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
+        log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
       }
     }
 
@@ -217,6 +233,15 @@ public class Wetator extends Task {
    */
   public void addProperty(final Property aProperty) {
     properties.add(aProperty);
+  }
+
+  /**
+   * Adds a system property.
+   * 
+   * @param anEnvironmentVariable the new proptery
+   */
+  public void addSysproperty(final Environment.Variable anEnvironmentVariable) {
+    sysproperties.add(anEnvironmentVariable);
   }
 
   /**

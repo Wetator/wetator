@@ -53,6 +53,9 @@
             <property name="$user" value="dobby"/>
             <!-- to define a secret property you need $$$ -->
             <property name="$$$password" value="secret"/>
+
+            <!-- support for sysproperties -->
+            <sysproperty key="sysuser" value="bolly"/>
         </wetator>
     </target>
 

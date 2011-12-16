@@ -97,6 +97,7 @@ src/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcher.java -text svn
 src/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcher.java -text
 src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/util/ContentTypeUtil.java -text
@@ -167,6 +168,7 @@ src/org/wetator/util/Output.java -text
 src/org/wetator/util/SecretString.java -text
 src/org/wetator/util/StringUtil.java -text
 src/org/wetator/util/VariableReplaceUtil.java -text
+src/org/wetator/util/VersionUtil.java -text
 src/org/wetator/util/XMLUtil.java -text
 src/wetator.config -text
 test/MouseEvents.xls -text
@@ -298,6 +300,8 @@ test/webpage/ajax/prototype/ajax_test.txt -text
 test/webpage/ajax/prototype/prototype_ajax.html -text
 test/webpage/anchor_inside_page.html -text
 test/webpage/assert_content.html -text
+test/webpage/assert_content_frameset.html -text
+test/webpage/assert_content_frameset2.html -text
 test/webpage/assert_disabled.html -text
 test/webpage/assert_selected.html -text
 test/webpage/assert_set.html -text
@@ -313,6 +317,12 @@ test/webpage/download/wet_test.xls -text
 test/webpage/event_handler.html -text svneol=unset#text/plain
 test/webpage/event_handler_old.html -text svneol=unset#text/plain
 test/webpage/favicon.ico -text
+test/webpage/frameset_content/frameset_c1.html -text
+test/webpage/frameset_content/frameset_c2.html -text
+test/webpage/frameset_content/frameset_c3.html -text
+test/webpage/frameset_content/frameset_c4.html -text
+test/webpage/frameset_content/frameset_c5.html -text
+test/webpage/frameset_content/frameset_c6.html -text
 test/webpage/htmlunit_javascript.html -text
 test/webpage/http_header.php -text
 test/webpage/iframe.html -text

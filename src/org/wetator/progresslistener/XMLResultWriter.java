@@ -19,12 +19,27 @@ package org.wetator.progresslistener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import net.sourceforge.htmlunit.corejs.javascript.Function;
+
+import org.apache.commons.codec.StringEncoder;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.fontbox.util.BoundingBox;
+import org.apache.http.Header;
+import org.apache.http.client.HttpClient;
+import org.apache.http.entity.mime.HttpMultipart;
+import org.apache.log4j.Logger;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -43,7 +58,13 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Output;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
+import org.wetator.util.VersionUtil;
 import org.wetator.util.XMLUtil;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.steadystate.css.parser.CSSOMParser;
+
+import dk.brics.automaton.Automaton;
 
 /**
  * The class that generates the XML output.
@@ -57,6 +78,9 @@ public class XMLResultWriter implements IProgressListener {
 
   private static final String TAG_WET = "wet";
   private static final String TAG_ABOUT = "about";
+  private static final String TAG_LIBS = "libraries";
+  private static final String TAG_LIB = "library";
+  private static final String TAG_JAVA = "java";
   private static final String TAG_PRODUCT = "product";
   private static final String TAG_VERSION = "version";
   private static final String TAG_BUILD = "build";
@@ -74,6 +98,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_LEVEL = "level";
   private static final String TAG_MESSAGE = "message";
   private static final String TAG_ERROR = "error";
+  private static final String TAG_ERROR_STACK_TRACE = "stacktrace";
   private static final String TAG_CONFIGURATION = "configuration";
   private static final String TAG_VARIABLES = "variables";
   private static final String TAG_VARIABLE = "variable";
@@ -124,11 +149,78 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnStartTag(TAG_WET);
 
+      // about wetator
       printlnStartTag(TAG_ABOUT);
 
       printlnNode(TAG_PRODUCT, Version.getProductName());
       printlnNode(TAG_VERSION, Version.getVersion());
       printlnNode(TAG_BUILD, Version.getBuild());
+
+      // wetator libs
+      printlnStartTag(TAG_LIBS);
+
+      String tmpInfo = null;
+
+      Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
+      for (int i = 0; i < tmpLibs.length; i++) {
+        tmpInfo = VersionUtil.determineVersionFromJarFileName(tmpLibs[i]);
+        tmpInfo = tmpInfo + " (" + VersionUtil.determineCreationDateFromJarFileName(tmpLibs[i]) + ")";
+        printlnNode(TAG_LIB, tmpInfo);
+      }
+      printlnNode(TAG_LIB, org.cyberneko.html.Version.getVersion());
+
+      tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class, IOUtils.class,
+          Log.class, Header.class, HttpClient.class, HttpMultipart.class };
+      for (int i = 0; i < tmpLibs.length; i++) {
+        tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null);
+        tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null);
+        printlnNode(TAG_LIB, tmpInfo);
+      }
+
+      tmpInfo = VersionUtil.determineTitleFromJarManifest(Logger.class, "org.apache.log4j");
+      tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(Logger.class, "org.apache.log4j");
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = VersionUtil.determineVersionFromJarFileName(Automaton.class);
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.poi.Version.getProduct() + " " + org.apache.poi.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = "PDF Box " + org.apache.pdfbox.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = VersionUtil.determineBundleNameFromJarManifest(BoundingBox.class, null);
+      tmpInfo = tmpInfo + " " + VersionUtil.determineBundleVersionFromJarManifest(BoundingBox.class, null);
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.xmlcommons.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.xerces.impl.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      tmpInfo = org.apache.xalan.Version.getVersion();
+      printlnNode(TAG_LIB, tmpInfo);
+
+      printlnEndTag(TAG_LIBS);
+
+      // java info
+      printlnStartTag(TAG_JAVA);
+      final Set<Object> tmpKeys = System.getProperties().keySet();
+      final List<String> tmpProperties = new ArrayList<String>(tmpKeys.size());
+      for (Object tmpObject : tmpKeys) {
+        tmpProperties.add(tmpObject.toString());
+      }
+      Collections.sort(tmpProperties);
+      for (String tmpProperty : tmpProperties) {
+        String tmpValue = System.getProperty(tmpProperty);
+        tmpValue = tmpValue.replace("\n", "\\n");
+        tmpValue = tmpValue.replace("\r", "\\r");
+        tmpValue = tmpValue.replace("\t", "\\t");
+        printlnNode(tmpProperty, tmpValue);
+      }
+      printlnEndTag(TAG_JAVA);
 
       printlnEndTag(TAG_ABOUT);
 
@@ -183,11 +275,17 @@ public class XMLResultWriter implements IProgressListener {
       final List<Variable> tmpVariables = tmpConfiguration.getVariables();
       for (Variable tmpVariable : tmpVariables) {
         printStartTagOpener(TAG_VARIABLE);
-        output.print("name=\"");
+        output.print(" name=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpVariable.getName()));
         output.print("\" value=\"");
-        output.print(xMLUtil.normalizeAttributeValue(tmpVariable.getValue().toString()));
-        output.println("\" />");
+
+        String tmpValue = tmpVariable.getValue().toString();
+        tmpValue = tmpValue.replace("\n", "\\n");
+        tmpValue = tmpValue.replace("\r", "\\r");
+        tmpValue = tmpValue.replace("\t", "\\t");
+
+        output.print(xMLUtil.normalizeAttributeValue(tmpValue));
+        output.println("\"/>");
       }
 
       printlnEndTag(TAG_VARIABLES);
@@ -195,9 +293,9 @@ public class XMLResultWriter implements IProgressListener {
       final List<ICommandSet> tmpCommandSets = tmpConfiguration.getCommandSets();
       for (ICommandSet tmpCommandSet : tmpCommandSets) {
         printStartTagOpener(TAG_COMMAND_SET);
-        output.print("class=\"");
+        output.print(" class=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));
-        output.println("\" >");
+        output.println("\">");
 
         output.indent();
         for (String tmpMessage : tmpCommandSet.getInitializationMessages()) {
@@ -211,9 +309,9 @@ public class XMLResultWriter implements IProgressListener {
       final List<Class<? extends IControl>> tmpControls = tmpConfiguration.getControls();
       for (Class<? extends IControl> tmpControl : tmpControls) {
         printStartTagOpener(TAG_CONTROL);
-        output.print("class=\"");
+        output.print(" class=\"");
         output.print(xMLUtil.normalizeAttributeValue(tmpControl.getClass().toString()));
-        output.println("\" />");
+        output.println("\"/>");
       }
 
       printlnEndTag(TAG_CONFIGURATION);
@@ -238,7 +336,7 @@ public class XMLResultWriter implements IProgressListener {
   public void testCaseStart(final String aTestName) {
     try {
       printStartTagOpener(TAG_TESTCASE);
-      output.print("name=\"");
+      output.print(" name=\"");
       output.print(xMLUtil.normalizeAttributeValue(aTestName));
       output.println("\">");
       output.indent();
@@ -256,7 +354,7 @@ public class XMLResultWriter implements IProgressListener {
   public void testRunStart(final String aBrowserName) {
     try {
       printStartTagOpener(TAG_TESTRUN);
-      output.print("browser=\"");
+      output.print(" browser=\"");
       output.print(xMLUtil.normalizeAttributeValue(aBrowserName));
       output.println("\">");
       output.indent();
@@ -274,7 +372,7 @@ public class XMLResultWriter implements IProgressListener {
   public void testFileStart(final String aFileName) {
     try {
       printStartTagOpener(TAG_TESTFILE);
-      output.print("file=\"");
+      output.print(" file=\"");
       output.print(xMLUtil.normalizeAttributeValue(aFileName));
       output.println("\">");
       output.indent();
@@ -293,13 +391,13 @@ public class XMLResultWriter implements IProgressListener {
   public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
-      output.print("name=\"");
+      output.print(" name=\"");
       output.print(xMLUtil.normalizeAttributeValue(aCommand.getName()));
       output.print("\" line=\"" + aCommand.getLineNo());
       if (aCommand.isComment()) {
         output.print("\" isComment=\"true");
       }
-      output.println("\" >");
+      output.println("\">");
       output.indent();
 
       Parameter tmpParameter = aCommand.getFirstParameter();
@@ -379,13 +477,35 @@ public class XMLResultWriter implements IProgressListener {
   public void executeCommandError(final Throwable aThrowable) {
     try {
       printErrorStart(aThrowable);
+      printErrorMessageStack(aThrowable.getCause());
+
+      // the stack trace
+      printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+      printErrorEnd();
+      flush();
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * Helper to print the error message stack.
+   * 
+   * @param aThrowable
+   */
+  private void printErrorMessageStack(final Throwable aThrowable) {
+    if (null == aThrowable) {
+      return;
+    }
+    try {
+      printErrorStart(aThrowable);
 
       final Throwable tmpThrowable = aThrowable.getCause();
       if (null != tmpThrowable) {
-        executeCommandError(tmpThrowable);
+        printErrorMessageStack(tmpThrowable);
       }
+
       printErrorEnd();
-      flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -556,9 +676,12 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printErrorStart(final Throwable aThrowable) throws IOException {
     printlnStartTag(TAG_ERROR);
-    printlnNode(TAG_MESSAGE, aThrowable.getMessage());
 
-    // TODO trace
+    String tmpMessage = aThrowable.getMessage();
+    if (StringUtils.isBlank(tmpMessage)) {
+      tmpMessage = aThrowable.toString();
+    }
+    printlnNode(TAG_MESSAGE, tmpMessage);
   }
 
   private void printErrorEnd() throws IOException {
@@ -567,7 +690,7 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printConfigurationProperty(final String aKey, final String aValue) throws IOException {
     printStartTagOpener(TAG_PROPERTY);
-    output.print("key=\"");
+    output.print(" key=\"");
     output.print(xMLUtil.normalizeAttributeValue(aKey));
     if (null != aValue) {
       output.print("\" value=\"");
@@ -578,7 +701,7 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printConfigurationProperty(final String aKey, final SecretString aValue) throws IOException {
     printStartTagOpener(TAG_PROPERTY);
-    output.print("key=\"");
+    output.print(" key=\"");
     output.print(xMLUtil.normalizeAttributeValue(aKey));
     if (null != aValue) {
       output.print("\" value=\"");
@@ -616,7 +739,7 @@ public class XMLResultWriter implements IProgressListener {
   }
 
   private void printStartTagOpener(final String aName) throws IOException {
-    output.print("<").print(aName).print(" id=\"" + tagId++).print("\" ");
+    output.print("<").print(aName).print(" id=\"" + tagId++).print("\"");
   }
 
   private void flush() throws IOException {
