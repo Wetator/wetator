@@ -30,6 +30,7 @@ import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -81,10 +82,12 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     final HtmlTextInput tmpHtmlTextInput = getHtmlElement();
 
     if (tmpHtmlTextInput.isDisabled()) {
-      actionFailed("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
     }
     if (tmpHtmlTextInput.isReadOnly()) {
-      actionFailed("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
     }
 
     try {
@@ -98,7 +101,9 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
 
     try {
@@ -139,7 +144,9 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 

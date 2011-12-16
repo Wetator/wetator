@@ -32,6 +32,7 @@ import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -81,10 +82,12 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
     final HtmlFileInput tmpHtmlFileInput = getHtmlElement();
 
     if (tmpHtmlFileInput.isDisabled()) {
-      actionFailed("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
     }
     if (tmpHtmlFileInput.isReadOnly()) {
-      actionFailed("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
     }
 
     try {
@@ -114,7 +117,8 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
         // validate file
         if (!tmpFile.exists()) {
-          actionFailed("fileNotFound", new String[] { tmpFile.getAbsolutePath() });
+          final String tmpMessage = Messages.getMessage("fileNotFound", new String[] { tmpFile.getAbsolutePath() });
+          throw new ActionException(tmpMessage);
         }
 
         // simulate events during file selection via file dialog
@@ -134,7 +138,9 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 

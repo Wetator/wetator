@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -71,10 +72,12 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     if (tmpHtmlRadioButtonInput.isDisabled()) {
-      actionFailed("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
     }
     if (tmpHtmlRadioButtonInput.isReadOnly()) {
-      actionFailed("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
     }
 
     try {
@@ -93,7 +96,9 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 

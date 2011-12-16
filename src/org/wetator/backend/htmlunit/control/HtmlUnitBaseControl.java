@@ -119,7 +119,9 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -154,7 +156,9 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -189,7 +193,9 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -228,7 +234,9 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     } catch (final BackendException e) {
       throw e;
     } catch (final Throwable e) {
-      actionFailed("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -348,34 +356,6 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     tmpStyle.append("-webkit-border-radius: 5px;");
 
     tmpHtmlElement.setAttribute("style", tmpStyle.toString());
-  }
-
-  /**
-   * Throws a ActionException with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @throws ActionException the created exception
-   */
-  // TODO duplicated in HtmlUnitBrowser -> unify
-  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new ActionException(tmpMessage);
-  }
-
-  /**
-   * Throws a ActionException with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @param aThrowable the cause
-   * @throws ActionException the created exception
-   */
-  // TODO duplicated in HtmlUnitBrowser -> unify
-  protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
-      throws ActionException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new ActionException(tmpMessage, aThrowable);
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
