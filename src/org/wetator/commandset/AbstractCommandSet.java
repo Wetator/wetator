@@ -176,7 +176,6 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @throws CommandExecutionException the created exception
    */
   protected void assertionFailed(final AssertionFailedException anException) throws CommandExecutionException {
-    // TODO i18n
     throw new CommandExecutionException("Assertion failed.", anException);
   }
 
@@ -200,7 +199,6 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @throws CommandExecutionException the created exception
    */
   protected void actionFailed(final ActionFailedException anException) throws CommandExecutionException {
-    // TODO i18n
     throw new CommandExecutionException("Action failed.", anException);
   }
 

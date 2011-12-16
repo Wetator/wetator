@@ -357,6 +357,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @param aParameterArray the parameters as array
    * @throws ActionFailedException the created exception
    */
+  // TODO duplicated in HtmlUnitBrowser -> unify
   protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionFailedException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
     throw new ActionFailedException(tmpMessage);
@@ -370,6 +371,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @param aThrowable the cause
    * @throws ActionFailedException the created exception
    */
+  // TODO duplicated in HtmlUnitBrowser -> unify
   protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
       throws ActionFailedException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);

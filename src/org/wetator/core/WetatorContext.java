@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.CommandExecutionException;
 import org.wetator.i18n.Messages;
@@ -183,11 +184,17 @@ public class WetatorContext {
           }
         } catch (final CommandExecutionException e) {
           final Throwable tmpCause = e.getCause();
-          if (tmpCause != null && tmpCause != e && tmpCause instanceof AssertionFailedException) {
-            engine.informListenersExecuteCommandFailure((AssertionFailedException) tmpCause);
-          } else {
-            engine.informListenersExecuteCommandError(e);
-            setErrorOccurred(true);
+          if (tmpCause != null && tmpCause != e) {
+            // TODO it is not so nice to look into the the cause (split up again into the AFEs)
+            if (tmpCause instanceof AssertionFailedException) {
+              engine.informListenersExecuteCommandFailure((AssertionFailedException) tmpCause);
+            } else if (tmpCause instanceof ActionFailedException) {
+              engine.informListenersExecuteCommandError(tmpCause);
+              setErrorOccurred(true);
+            } else {
+              engine.informListenersExecuteCommandError(e);
+              setErrorOccurred(true);
+            }
           }
         } catch (final Exception e) {
           engine.informListenersExecuteCommandError(e);
@@ -226,11 +233,10 @@ public class WetatorContext {
         tmpBrowser.checkAndResetFailures();
         throw e;
       }
-      final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
-      if (null != tmpFailed) {
-        // TODO i18n
+      final AssertionFailedException tmpFailure = tmpBrowser.checkAndResetFailures();
+      if (null != tmpFailure) {
         throw new CommandExecutionException("Failure occured executing the command '" + aCommand.getName() + "'.",
-            tmpFailed);
+            tmpFailure);
       }
       return true;
     }

@@ -133,8 +133,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         tmpBrowser.saveCurrentWindowToLog();
       } catch (final ActionFailedException e) {
         actionFailed(e);
-      } catch (final AssertionFailedException e) {
-        assertionFailed(e);
       }
     }
   }

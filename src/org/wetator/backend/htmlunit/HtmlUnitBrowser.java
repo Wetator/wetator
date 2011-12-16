@@ -65,6 +65,7 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.ActionFailedException;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.BackendException;
+import org.wetator.exception.ResourceException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.ContentUtil;
@@ -264,7 +265,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(final URL aUrl) throws ActionFailedException, AssertionFailedException, BackendException {
+  public void openUrl(final URL aUrl) throws ActionFailedException, BackendException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
@@ -284,9 +285,14 @@ public final class HtmlUnitBrowser implements IBrowser {
       actionFailed("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     }
 
-    final String tmpRef = aUrl.getRef();
-    if (StringUtils.isNotEmpty(tmpRef)) {
-      checkAnchor(tmpRef);
+    try {
+      final String tmpRef = aUrl.getRef();
+      if (StringUtils.isNotEmpty(tmpRef)) {
+        checkAnchor(tmpRef);
+      }
+    } catch (final AssertionFailedException e) {
+      // TODO is this a failure or an error?
+      addFailure(e);
     }
   }
 
@@ -491,8 +497,9 @@ public final class HtmlUnitBrowser implements IBrowser {
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
+      } catch (final ResourceException e) {
+        LOG.warn("Saving page failed!", e);
       } catch (final Throwable e) {
-        // TODO error handling
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
     }
@@ -911,6 +918,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @param aParameterArray the parameters as array
    * @throws ActionFailedException the created exception
    */
+  // TODO duplicated in HtmlUnitBaseControl -> unify
   protected void actionFailed(final String aMessageKey, final Object[] aParameterArray) throws ActionFailedException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
     throw new ActionFailedException(tmpMessage);
@@ -924,6 +932,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @param aThrowable the cause
    * @throws ActionFailedException the created exception
    */
+  // TODO duplicated in HtmlUnitBaseControl -> unify
   protected void actionFailed(final String aMessageKey, final Object[] aParameterArray, final Throwable aThrowable)
       throws ActionFailedException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
@@ -941,19 +950,5 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws BackendException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
     throw new BackendException(tmpMessage);
-  }
-
-  /**
-   * Throws a BackendException with the given message.
-   * 
-   * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
-   * @param aThrowable the cause
-   * @throws BackendException the created exception
-   */
-  protected void throwBackendException(final String aMessageKey, final Object[] aParameterArray,
-      final Throwable aThrowable) throws BackendException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new BackendException(tmpMessage, aThrowable);
   }
 }

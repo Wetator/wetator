@@ -36,7 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.ResourceException;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -46,10 +46,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.UrlUtils;
 
 /**
- * Simple store that manages the storage
- * of the different responses.
+ * Simple store that manages the storage of the different responses.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class ResponseStore {
   private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
@@ -127,12 +127,13 @@ public final class ResponseStore {
    * @return the file name used for this page
    */
   public String storePage(final Page aPage) {
+    File tmpFile = null;
     try {
       String tmpFileName = "response_" + getUniqueId();
       final String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
 
       tmpFileName = tmpFileName + "." + tmpSuffix;
-      final File tmpFile = new File(storeDir, tmpFileName);
+      tmpFile = new File(storeDir, tmpFileName);
 
       if (aPage instanceof HtmlPage) {
         final XHtmlOutputter tmpHtmlOutputter = new XHtmlOutputter((HtmlPage) aPage, this);
@@ -156,8 +157,7 @@ public final class ResponseStore {
 
       return tmpLogDir + "/" + tmpFileName;
     } catch (final IOException e) {
-      // TODO handle exception
-      throw new WetatorException("xxx");
+      throw new ResourceException("Could not write file '" + tmpFile.getAbsolutePath() + "'.", e);
     }
   }
 
@@ -176,7 +176,7 @@ public final class ResponseStore {
       final URL tmpFullContentUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aBaseUrl, aContentUrl));
       final String tmpBaseHost = aBaseUrl.getHost();
       if ((null == tmpBaseHost) || !tmpBaseHost.equals(tmpFullContentUrl.getHost())) {
-        LOG.info("Ignoring url '" + tmpFullContentUrl.toExternalForm() + "' (wrong host).");
+        LOG.info("Ignoring URL '" + tmpFullContentUrl.toExternalForm() + "' (wrong host).");
         return null;
       }
 

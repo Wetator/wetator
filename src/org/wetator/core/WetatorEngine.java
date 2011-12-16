@@ -157,7 +157,7 @@ public class WetatorEngine {
               final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
               tmpWetatorContext.execute();
             } catch (final RuntimeException e) {
-              // TODO continue with next browser?
+              // TODO this way we continue with the next browser. is this correct?
               informListenersError(e);
             } finally {
               informListenersTestRunEnd();
@@ -208,10 +208,6 @@ public class WetatorEngine {
    */
   protected List<Command> readCommandsFromFile(final File aFile) {
     final IScripter tmpScripter = createScripter(aFile);
-    if (tmpScripter == null) {
-      // TODO which exception?
-      throw new WetatorException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
-    }
 
     tmpScripter.script(aFile);
     final List<Command> tmpResult = tmpScripter.getCommands();
@@ -229,7 +225,7 @@ public class WetatorEngine {
       tmpResults.add(tmpResult);
     }
 
-    // construct an detailed error message
+    // construct a detailed error message
     final StringBuilder tmpMessage = new StringBuilder("No scripter found for file '");
     tmpMessage.append(aFile.getAbsolutePath()).append("' (");
 
@@ -244,7 +240,6 @@ public class WetatorEngine {
 
     tmpMessage.append(").");
 
-    // TODO this is bullshit. better is just to return null and let the caller handle it.
     throw new WetatorException(tmpMessage.toString());
   }
 

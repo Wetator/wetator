@@ -145,10 +145,9 @@ public interface IBrowser {
    * 
    * @param aUrl the URL to open
    * @throws ActionFailedException if opening the URL fails
-   * @throws AssertionFailedException if the URL contains an anchor that is not found on the opened page
    * @throws BackendException in case of problems opening the URL
    */
-  public void openUrl(URL aUrl) throws ActionFailedException, AssertionFailedException, BackendException;
+  public void openUrl(URL aUrl) throws ActionFailedException, BackendException;
 
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.

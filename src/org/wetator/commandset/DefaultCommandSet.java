@@ -121,8 +121,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         actionFailed("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
       } catch (final ActionFailedException e) {
         actionFailed(e);
-      } catch (final AssertionFailedException e) {
-        assertionFailed(e);
       }
       getBrowser(aContext).saveCurrentWindowToLog();
     }
@@ -476,10 +474,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (null != tmpStepsParam) {
         try {
           tmpSteps = Integer.parseInt(tmpStepsParam.getValue());
-        } catch (final Exception e) {
-          // TODO throw WrongCommandUsageException?
-          aContext.informListenersWarn("stepsNotANumber",
-              new String[] { tmpStepsParam.toString(), Integer.toString(tmpSteps) });
+        } catch (final NumberFormatException e) {
+          wrongCommandUsage("stepsNotANumber", new String[] { tmpStepsParam.toString(), Integer.toString(tmpSteps) });
         }
       }
 

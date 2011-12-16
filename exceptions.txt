@@ -106,16 +106,16 @@
 # commands
 # * Validation
 # ** Invalid parameters -> Invalid test -> WrongCommandUsageExeception
-# ** Page is not a HTML page -> CommandExecutionException
+# ** Page is not a HTML page ->BackendException (or CommandExecutionException?)
 # * HtmlElement not found -> CommandExecutionException
-# * Control validation -> AssertionFailedException
+# * Control validation -> ActionFailedException
 # ** Enabled
 # ** ReadOnly
 # * Control execution
-# ** assertion -> AssertionFailedException -> IBrowser.addFailure()
-# *** Why sum up AssertionFailedExceptions?
-# ** action -> CommandExecutionException
-# * Save to log fails -> ResourceException
+# ** assertion -> AssertionFailedException
+# ** action -> ActionFailedException
+# ** javascript -> IBrowser.addFailure()
+# * Save to log fails -> warn
 	Validation (e.g. getRequiredFirstParameterValues) -> AssertionFailedException
 	IBrowser.getControlFinder() -> AssertionFailedException
 	IControlFinder.getAll*() -> WetatorException
@@ -134,8 +134,39 @@
 
 
 # Exceptions
+# ==========
+#
+# Which for what?
+# ---------------
+# * General
+# ** Something goes wrong during the initialization/in the configuration -> ConfigurationException[R]
+# ** Something goes wrong reading a test file -> ResourceException[R]
+# ** Something goes wrong writing a response -> ResourceException[R]
+# * Browser/Control
+# ** No current page (no Open URL yet) -> ? (currently BackendException[R])
+# ** Control does not support an operation (e.g. isDisabled) -> UnsupportedOperationException[R]
+# ** Action
+# *** Validating the control fails -> ActionFailedException
+# *** Execution fails -> ActionFailedException
+# *** Javascript fails -> AssertionFailedException -> IBrowser.addFailure()
+# *** Anchor not found -> ? (currently AssertionFailedException -> IBrowser.addFailure())
+# ** Assertion
+# *** Execution fails -> AssertionFailedException
+# * Command
+# ** Validating the parameters fails -> WrongCommandUsageExeception
+# ** Page is not a HTML page -> ? (currently BackendException[R])
+# ** HtmlElement not found -> CommandExecutionException
+# ** ActionFailedException -> CommandExecutionException
+# ** AssertionFailedException -> CommandExecutionException
+#
+# How to react?
+# -------------
 # * ConfigurationException -> abort whole test run
 # * ResourceException -> abort whole test run
 # * CommandExecutionException -> abort test + mark following commands as not executed
-# ** AssertionFailedException -> continue with next command
-# ** InvalidUsageExeception -> abort test + mark following commands as not executed
+# ** -> AssertionFailedException -> continue with next command
+# ** -> ActionFailedException -> abort test + mark following commands as not executed
+# ** WrongCommandUsageExeception -> abort test + mark following commands as not executed
+# * UnsupportedOperationException -> abort test + mark following commands as not executed
+# * BackendException -> abort whole test run
+# * WetatorException -> abort whole test run
