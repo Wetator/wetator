@@ -95,8 +95,6 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final BackendException e) {
-      throw e;
     } catch (final Throwable e) {
       final String tmpMessage = Messages
           .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
@@ -122,7 +120,9 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      throw e;
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
       final String tmpMessage = Messages
           .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });

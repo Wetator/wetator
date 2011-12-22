@@ -93,6 +93,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_COMMAND = "command";
   private static final String TAG_FIRST_PARAM = "param0";
   private static final String TAG_SECOND_PARAM = "param1";
+  private static final String TAG_THIRD_PARAM = "param2";
   private static final String TAG_RESPONSE = "response";
   private static final String TAG_LOG = "log";
   private static final String TAG_LEVEL = "level";
@@ -416,6 +417,14 @@ public class XMLResultWriter implements IProgressListener {
       printEndTag(TAG_SECOND_PARAM);
       output.println();
 
+      tmpParameter = aCommand.getThirdParameter();
+      printStartTag(TAG_THIRD_PARAM);
+      if (null != tmpParameter) {
+        output.print(xMLUtil.normalizeBodyValue(tmpParameter.getValue(aContext).toString()));
+      }
+      printEndTag(TAG_THIRD_PARAM);
+      output.println();
+
       commandExecutionStartTime = System.currentTimeMillis();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
@@ -617,11 +626,10 @@ public class XMLResultWriter implements IProgressListener {
   public void error(final Throwable aThrowable) {
     try {
       printErrorStart(aThrowable);
+      printErrorMessageStack(aThrowable.getCause());
 
-      final Throwable tmpThrowable = aThrowable.getCause();
-      if (null != tmpThrowable) {
-        error(tmpThrowable);
-      }
+      // the stack trace
+      printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
       printErrorEnd();
       flush();
     } catch (final IOException e) {

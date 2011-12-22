@@ -145,9 +145,8 @@ public interface IBrowser {
    * 
    * @param aUrl the URL to open
    * @throws ActionException if opening the URL fails
-   * @throws BackendException in case of problems opening the URL
    */
-  public void openUrl(URL aUrl) throws ActionException, BackendException;
+  public void openUrl(URL aUrl) throws ActionException;
 
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
@@ -167,10 +166,9 @@ public interface IBrowser {
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
    * @throws AssertionException if the content was not available
-   * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
   public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
-      throws AssertionException, BackendException;
+      throws AssertionException;
 
   /**
    * Checks, if the page content contains the given list of strings.<br>
@@ -182,10 +180,9 @@ public interface IBrowser {
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
    * @throws AssertionException if the content was not available
-   * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
   public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
-      throws AssertionException, BackendException;
+      throws AssertionException;
 
   /**
    * Saves the content of the current window to the log.
@@ -238,9 +235,9 @@ public interface IBrowser {
    * Stores the current page as a bookmark with the given name.
    * 
    * @param aBookmarkName the name of the bookmark
-   * @throws BackendException in case of problems
+   * @throws ActionException in case of problems
    */
-  public void bookmarkPage(String aBookmarkName) throws BackendException;
+  public void bookmarkPage(String aBookmarkName) throws ActionException;
 
   /**
    * The browser manages a list of failures detected during the execution

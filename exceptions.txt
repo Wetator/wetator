@@ -1,138 +1,3 @@
-	Wetator.main() {
-		try {
-# init
-			WetatorEngine()
-			WetatorEngine.init() {
-				WetatorEngine.readConfiguration() {
-					WetatorConfiguration() {
-						!aConfigurationPropertyFile.exists() -> WetatorException
-						!aConfigurationPropertyFile.canRead() -> WetatorException
-						read properties -> IOException -> WetatorException
-						WetatorConfiguration.initialize() {
-							!aBaseDirectory.exists() -> WetatorException
-							Can't load scripter -> log.error
-							IScripter.initialize() -> ???
-							Can't load command set -> log.error
-							ICommandSet.initialize() -> ???
-							Can't load control -> log.error
-							isEmpty(baseUrl) -> WetatorException
-							Unsupported browser -> log.warn
-							isNoInt(proxyPort) -> WetatorException
-							!tmpTemplateFile.exists() -> WetatorException
-						}
-					}
-				}
-				HtmlUnitBrowser() -> ???
-			}
-# setup
-			WetatorEngine.addTestFile() {
-				!aFile.exists() -> WetatorException
-			}
-# run
-			WetatorEngine.executeTests {
-# run - prepare once
-				XMLResultWriter.init() {
-					try {
-						FileWriterWithEncoding() -> IOException
-						XMLUtil() -> multiple RuntimeExceptions
-						print* -> IOException
-					}
-					> catch IOException -> log.error
-				}
-# run - prepare per test
-				try {
-					IBrowser[HtmlUnitBrowser].startNewSession {
-						try {
-							WebClient.closeAllWindows() -> ???
-						}
-						> catch ScriptException -> e.printStackTrace
-						WebClient() -> ???
-						try {
-							WebClient.setUseInsecureSSL() -> GeneralSecurityException
-						}
-						> catch GeneralSecurityException -> e.printStackTrace
-					}
-# run - test
-					WetatorContext.execute() {
-						try {
-# run - test - read
-							WetatorEngine.readCommandsFromFile() {
-								WetatorEngine.createScripter() {
-									XMLScripter.isSupported() {
-										try {
-											* -> IOException
-										}
-										> catch IOException -> WetatorException
-									}
-									XMLScripter.script() {
-										try {
-											XMLScripter.createUTF8Reader() -> IOException
-											SchemaFinder() -> IOException, XMLStreamException
-											ModelBuilder() -> IOException, SAXException, WetatorException
-											XMLScripter.parseScript() -> IOException, XMLStreamException
-										}
-										> catch Exception -> WetatorException
-										No scripter found -> WetatorException
-									}
-								}
-							}
-# run - test - exec
-							WetatorContext.executeCommand() {
-								try {
-									WetatorContext.determineAndExecuteCommandImpl() {
-										unsupportedCommand -> AssertionException
-										try {
-											ICommandImplementation.execute() -> WetatorException, AssertionException
-										}
-										> catch AssertionException -> throw
-										IBrowser.checkAndResetFailures() -> AssertionException
-									}
-								}
-								> catch AssertionException -> listeners.executeCommandFailure
-								> catch WetatorException -> listeners.executeCommandError + throw
-							}
-						}
-						> catch WetatorException -> listeners.executeCommandError
-					}
-				}
-				> catch Throwable -> e.printStackTrace
-			}
-		}
-		> catch WetatorException -> log.warn + sysout
-		> catch Throwable -> log.fatal + sysout
-	}
-
-
-# commands
-# * Validation
-# ** Invalid parameters -> Invalid test -> WrongCommandUsageExeception
-# ** Page is not a HTML page ->BackendException (or CommandException?)
-# * HtmlElement not found -> CommandException
-# * Control validation -> ActionException
-# ** Enabled
-# ** ReadOnly
-# * Control execution
-# ** assertion -> AssertionException
-# ** action -> ActionException
-# ** javascript -> IBrowser.addFailure()
-# * Save to log fails -> warn
-	Validation (e.g. getRequiredFirstParameterValues) -> AssertionException
-	IBrowser.getControlFinder() -> AssertionException
-	IControlFinder.getAll*() -> WetatorException
-	AbstractCommandSet.getRequiredFirstHtmlElementFrom() -> AssertionException
-	IControl.*()
-		Validation (e.g. isDisabled) -> AssertionException
-		try {
-			*
-		}
-		> catch *Exception -> IBrowser.addFailure()
-	IBrowser.saveCurrentWindowToLog()
-		try {
-			*
-		}
-		> catch WetatorException -> log.fatal
-
-
 # Exceptions
 # ==========
 #
@@ -143,30 +8,31 @@
 # ** Something goes wrong reading a test file -> ResourceException[R]
 # ** Something goes wrong writing a response -> ResourceException[R]
 # * Browser/Control
-# ** No current page (no Open URL yet) -> ? (currently BackendException[R])
+# ** No current page (no Open URL yet) -> BackendException
+# ** Page is not a HTML page -> BackendException
 # ** Control does not support an operation (e.g. isDisabled) -> UnsupportedOperationException[R]
 # ** Action
 # *** Validating the control fails -> ActionException
 # *** Execution fails -> ActionException
 # *** Javascript fails -> AssertionException -> IBrowser.addFailure()
-# *** Anchor not found -> ? (currently AssertionException -> IBrowser.addFailure())
+# *** Anchor not found -> ActionException
 # ** Assertion
 # *** Execution fails -> AssertionException
 # * Command
 # ** Validating the parameters fails -> WrongCommandUsageExeception
-# ** Page is not a HTML page -> ? (currently BackendException[R])
 # ** HtmlElement not found -> CommandException
-# ** ActionException -> CommandException
-# ** AssertionException -> CommandException
+# ** Action fails -> ActionException
+# ** Assertion fails -> AssertionException
 #
 # How to react?
 # -------------
 # * ConfigurationException -> abort whole test run
 # * ResourceException -> abort whole test run
 # * CommandException -> abort test + mark following commands as not executed
-# ** -> AssertionException -> continue with next command
-# ** -> ActionException -> abort test + mark following commands as not executed
+# ** AssertionException -> continue with next command
+# ** ActionException -> abort test + mark following commands as not executed
 # ** WrongCommandUsageExeception -> abort test + mark following commands as not executed
 # * UnsupportedOperationException -> abort test + mark following commands as not executed
-# * BackendException -> abort whole test run
-# * WetatorException -> abort whole test run
+# * WetatorException
+# ** before test execution -> abort whole test run
+# ** during test execution -> abort test + mark following commands as not executed

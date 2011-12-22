@@ -140,7 +140,9 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      throw e;
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
       final String tmpMessage = Messages
           .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });

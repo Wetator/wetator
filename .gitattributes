@@ -800,7 +800,6 @@ test/xml/set_upload.wet -text svneol=unset#text/plain
 test/xml/sql/sql.wet -text svneol=unset#text/plain
 test/xml/use_module.wet -text svneol=unset#text/plain
 test/xml/wait.wet -text svneol=unset#text/plain
-/tobwoerk -text
 /wetator-upload.cfg -text
 /wetator-upload.wet -text
 xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain

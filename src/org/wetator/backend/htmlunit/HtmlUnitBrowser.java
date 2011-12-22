@@ -265,7 +265,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(final URL aUrl) throws ActionException, BackendException {
+  public void openUrl(final URL aUrl) throws ActionException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
@@ -281,7 +281,8 @@ public final class HtmlUnitBrowser implements IBrowser {
           new String[] { aUrl.toString(), e.getMessage() });
       throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
-      throw e;
+      final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
       final String tmpMessage = Messages
@@ -297,6 +298,9 @@ public final class HtmlUnitBrowser implements IBrowser {
     } catch (final AssertionException e) {
       // we are in an action so build the correct exception
       throw new ActionException(e.getMessage(), e.getCause());
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -689,48 +693,54 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionException, BackendException {
+      throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
     boolean tmpPageChanged = false;
 
-    Page tmpPage = getCurrentPage();
-    if (tmpPage instanceof HtmlPage) {
-      // try with wait
-      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
-      while (System.currentTimeMillis() < tmpEndTime) {
-        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-        try {
-          Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
-          return tmpPageChanged;
-        } catch (final AssertionException e) {
-          // ok, not found, maybe we have to be more patient
-        }
+    try {
+      Page tmpPage = getCurrentPage();
+      if (tmpPage instanceof HtmlPage) {
+        // try with wait
+        long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+        while (System.currentTimeMillis() < tmpEndTime) {
+          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+          final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+          try {
+            Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+            return tmpPageChanged;
+          } catch (final AssertionException e) {
+            // ok, not found, maybe we have to be more patient
+          }
 
-        tmpPageChanged = true;
-        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
-          continue;
-        }
+          tmpPageChanged = true;
+          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+          if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+            continue;
+          }
 
-        if (tmpPage == getCurrentPage()) {
-          break;
-        }
+          if (tmpPage == getCurrentPage()) {
+            break;
+          }
 
-        // current page is changed, we have to make at least one try
-        // reset the timeout
-        tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
-          break;
+          // current page is changed, we have to make at least one try
+          // reset the timeout
+          tmpPage = getCurrentPage();
+          if (!(tmpPage instanceof HtmlPage)) {
+            break;
+          }
+          tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
         }
-        tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       }
+
+      final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
+      final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+      Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      throw new AssertionException(tmpMessage, e);
     }
 
-    final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-    final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-    Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
     return tmpPageChanged;
   }
 
@@ -741,111 +751,117 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionException, BackendException {
+      throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
     boolean tmpPageChanged = false;
 
-    Page tmpPage = getCurrentPage();
-    if (tmpPage instanceof HtmlPage) {
-      // try with wait
-      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
-      while (System.currentTimeMillis() < tmpEndTime) {
+    try {
+      Page tmpPage = getCurrentPage();
+      if (tmpPage instanceof HtmlPage) {
+        // try with wait
+        long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+        while (System.currentTimeMillis() < tmpEndTime) {
+          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+          final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+          try {
+            Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+            return tmpPageChanged;
+          } catch (final AssertionException e) {
+            // ok, not found, maybe we have to be more patient
+          }
+
+          tmpPageChanged = true;
+          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+          if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+            continue;
+          }
+
+          // current page is changed, we have to make another try
+          if (tmpPage == getCurrentPage()) {
+            break;
+          }
+
+          // current page is changed, we have to make at least one try
+          // reset the timeout
+          tmpPage = getCurrentPage();
+          if (!(tmpPage instanceof HtmlPage)) {
+            break;
+          }
+          tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+        }
+      }
+
+      tmpPage = getCurrentPage();
+
+      if (tmpPage instanceof HtmlPage) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        return tmpPageChanged;
+      }
+
+      if (tmpPage instanceof XmlPage) {
+        final XmlPage tmpXmlPage = (XmlPage) tmpPage;
+        final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
+        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        return tmpPageChanged;
+      }
+
+      if (tmpPage instanceof TextPage) {
+        final TextPage tmpTextPage = (TextPage) tmpPage;
+        final String tmpContentAsText = tmpTextPage.getContent();
+        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        return tmpPageChanged;
+      }
+
+      final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
+
+      if (ContentType.PDF == tmpContentType) {
         try {
+          final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpPage.getWebResponse()
+              .getContentAsStream());
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpPageChanged;
-        } catch (final AssertionException e) {
-          // ok, not found, maybe we have to be more patient
+        } catch (final IOException e) {
+          Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
         }
+      }
 
-        tmpPageChanged = true;
-        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
-          continue;
+      if (ContentType.XLS == tmpContentType) {
+        try {
+          final String tmpContentAsText = ContentUtil.getXlsContentAsString(tmpPage.getWebResponse()
+              .getContentAsStream());
+          Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
         }
+      }
 
-        // current page is changed, we have to make another try
-        if (tmpPage == getCurrentPage()) {
-          break;
+      if (ContentType.RTF == tmpContentType) {
+        try {
+          final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpPage.getWebResponse()
+              .getContentAsStream());
+          Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        } catch (final BadLocationException e) {
+          Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
         }
-
-        // current page is changed, we have to make at least one try
-        // reset the timeout
-        tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
-          break;
-        }
-        tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       }
+
+      Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      throw new AssertionException(tmpMessage, e);
     }
 
-    tmpPage = getCurrentPage();
-
-    if (tmpPage instanceof HtmlPage) {
-      final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-      final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpPageChanged;
-    }
-
-    if (tmpPage instanceof XmlPage) {
-      final XmlPage tmpXmlPage = (XmlPage) tmpPage;
-      final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpPageChanged;
-    }
-
-    if (tmpPage instanceof TextPage) {
-      final TextPage tmpTextPage = (TextPage) tmpPage;
-      final String tmpContentAsText = tmpTextPage.getContent();
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpPageChanged;
-    }
-
-    final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
-
-    if (ContentType.PDF == tmpContentType) {
-      try {
-        final String tmpContentAsText = ContentUtil
-            .getPdfContentAsString(tmpPage.getWebResponse().getContentAsStream());
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpPageChanged;
-      } catch (final IOException e) {
-        Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
-      }
-    }
-
-    if (ContentType.XLS == tmpContentType) {
-      try {
-        final String tmpContentAsText = ContentUtil
-            .getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpPageChanged;
-      } catch (final IOException e) {
-        Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
-      }
-    }
-
-    if (ContentType.RTF == tmpContentType) {
-      try {
-        final String tmpContentAsText = ContentUtil
-            .getRtfContentAsString(tmpPage.getWebResponse().getContentAsStream());
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpPageChanged;
-      } catch (final IOException e) {
-        Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
-      } catch (final BadLocationException e) {
-        Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
-      }
-    }
-
-    Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
     return tmpPageChanged;
   }
 
@@ -920,8 +936,13 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#bookmarkPage(String)
    */
   @Override
-  public void bookmarkPage(final String aBookmarkName) throws BackendException {
-    final URL tmpUrl = getCurrentPage().getWebResponse().getWebRequest().getUrl();
-    saveBookmark(aBookmarkName, tmpUrl);
+  public void bookmarkPage(final String aBookmarkName) throws ActionException {
+    try {
+      final URL tmpUrl = getCurrentPage().getWebResponse().getWebRequest().getUrl();
+      saveBookmark(aBookmarkName, tmpUrl);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
+    }
   }
 }

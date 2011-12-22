@@ -32,6 +32,8 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.BackendException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
@@ -82,7 +84,13 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      IControlFinder tmpControlFinder;
+      try {
+        tmpControlFinder = tmpBrowser.getControlFinder();
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new AssertionException(tmpMessage, e);
+      }
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -207,26 +215,31 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
-      final IBrowser tmpBrowser = getBrowser(aContext);
-      if (tmpBrowser instanceof HtmlUnitBrowser) {
-        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
-        final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
-        final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
-        for (HtmlElement tmpAppletElement : tmpAppletElements) {
-          final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
-          if (null == tmpAppletName || StringUtils.isEmpty(tmpAppletName.getValue())
-              || tmpAppletName.getValue().equals(tmpHtmlApplet.getNameAttribute())) {
-            try {
-              final Applet tmpApplet = tmpHtmlApplet.getApplet();
-              tmpApplet.stop();
-              tmpApplet.destroy();
-            } catch (final Exception e) {
-              // TODO is this an assertion or an action?
-              throw new ActionException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
+      try {
+        final IBrowser tmpBrowser = getBrowser(aContext);
+        if (tmpBrowser instanceof HtmlUnitBrowser) {
+          final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+          final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
+          final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
+          for (HtmlElement tmpAppletElement : tmpAppletElements) {
+            final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
+            if (null == tmpAppletName || StringUtils.isEmpty(tmpAppletName.getValue())
+                || tmpAppletName.getValue().equals(tmpHtmlApplet.getNameAttribute())) {
+              try {
+                final Applet tmpApplet = tmpHtmlApplet.getApplet();
+                tmpApplet.stop();
+                tmpApplet.destroy();
+              } catch (final Exception e) {
+                // TODO is this an assertion or an action?
+                throw new ActionException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
+              }
             }
           }
+          // TODO warn if nothing found for name or no applet on the page
         }
-        // TODO warn if nothing found for name or no applet on the page
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new ActionException(tmpMessage, e);
       }
     }
   }

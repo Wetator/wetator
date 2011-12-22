@@ -21,7 +21,7 @@ package org.wetator.exception;
  * 
  * @author frank.danek
  */
-public class BackendException extends RuntimeException {
+public class BackendException extends Exception {
 
   private static final long serialVersionUID = -6209417354479920386L;
 
