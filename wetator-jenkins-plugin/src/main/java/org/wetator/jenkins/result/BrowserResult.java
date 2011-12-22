@@ -59,7 +59,7 @@ public class BrowserResult extends AbstractBaseResult {
    * @return the url relative to the parent {@link TestFileResult}
    */
   public String getRelativeUrl() {
-    return getName();
+    return safe(getName());
   }
 
   /**
@@ -223,7 +223,7 @@ public class BrowserResult extends AbstractBaseResult {
    */
   public Object getDynamic(String token, StaplerRequest req, StaplerResponse rsp) {
     // the method parameters must be raw (without leading a) to make stapler work
-    if (token.equals("/" + getName())) {
+    if (token.equals("/" + safe(getName()))) {
       return this;
     }
     return null;

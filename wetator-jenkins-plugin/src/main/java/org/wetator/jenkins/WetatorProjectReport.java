@@ -136,17 +136,28 @@ public class WetatorProjectReport implements ProminentProjectAction {
    *         such build
    */
   public AbstractBuild<?, ?> getLastCompletedBuild() {
-    AbstractBuild<?, ?> tmpLastBuild = project.getLastCompletedBuild();
-    while (tmpLastBuild != null
-        && (tmpLastBuild.isBuilding() || tmpLastBuild.getAction(WetatorBuildReport.class) == null)) {
-      tmpLastBuild = tmpLastBuild.getPreviousBuild();
+    final AbstractBuild<?, ?> tmpLastSuccessfulBuild = project.getLastSuccessfulBuild();
+
+    AbstractBuild<?, ?> tmpLastBuildWithBuildReport = project.getLastBuild();
+    while (tmpLastBuildWithBuildReport != null) {
+      WetatorBuildReport tmpBuildReport = tmpLastBuildWithBuildReport.getAction(WetatorBuildReport.class);
+      if (tmpBuildReport != null) {
+        return tmpLastBuildWithBuildReport;
+      }
+      if (tmpLastBuildWithBuildReport == tmpLastSuccessfulBuild) {
+        // if even the last successful build didn't produce a WetatorBuildReport,
+        // that means we just don't have any tests configured.
+        return null;
+      }
+      tmpLastBuildWithBuildReport = tmpLastBuildWithBuildReport.getPreviousBuild();
     }
-    return tmpLastBuild;
+
+    return null;
   }
 
   /**
-   * @return the {@link WetatorBuildReport} attached to the last completed build or <code>null</code> if there is no
-   *         such build
+   * @return the {@link WetatorBuildReport} attached to the last completed build having such a report or
+   *         <code>null</code> if there is no such build
    */
   public WetatorBuildReport getLastCompletedBuildReport() {
     AbstractBuild<?, ?> tmpBuild = getLastCompletedBuild();
@@ -266,11 +277,12 @@ public class WetatorProjectReport implements ProminentProjectAction {
 
     DataSetBuilder<String, NumberOnlyBuildLabel> tmpDataSetBuilder = new DataSetBuilder<String, NumberOnlyBuildLabel>();
 
-    for (AbstractBuild<?, ?> tmpBuild = project.getLastBuild(); tmpBuild != null; tmpBuild = tmpBuild
+    for (AbstractBuild<?, ?> tmpBuild = getLastCompletedBuild(); tmpBuild != null; tmpBuild = tmpBuild
         .getPreviousBuild()) {
       WetatorBuildReport tmpReport = tmpBuild.getAction(WetatorBuildReport.class);
       if (tmpReport == null || tmpReport.build == null) {
-        break;
+        // no report so just ignore the build
+        continue;
       }
       tmpDataSetBuilder.add(tmpReport.getFailCount(), "failed", new NumberOnlyBuildLabel(tmpReport.build));
       if (!tmpFailureOnly) {
@@ -340,9 +352,11 @@ public class WetatorProjectReport implements ProminentProjectAction {
         NumberOnlyBuildLabel tmpLabel = (NumberOnlyBuildLabel) aCategoryDataset.getColumnKey(aColumn);
         WetatorBuildReport tmpBuildReport = tmpLabel.build.getAction(WetatorBuildReport.class);
         if (aRow == 0) {
-          return String.valueOf(Messages.WetatorBuildReport_fail(tmpLabel.build.getNumber(), tmpBuildReport.getFailCount()));
+          return String.valueOf(Messages.WetatorBuildReport_fail(tmpLabel.build.getNumber(),
+              tmpBuildReport.getFailCount()));
         }
-        return String.valueOf(Messages.WetatorBuildReport_test(tmpLabel.build.getNumber(), tmpBuildReport.getTotalCount()));
+        return String.valueOf(Messages.WetatorBuildReport_test(tmpLabel.build.getNumber(),
+            tmpBuildReport.getTotalCount()));
       }
     };
     tmpPlot.setRenderer(tmpAreaRenderer);

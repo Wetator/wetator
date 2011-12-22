@@ -169,12 +169,12 @@ public class TestFileResult extends AbstractBaseResult {
    */
   public Object getDynamic(String token, StaplerRequest req, StaplerResponse rsp) {
     // the method parameters must be raw (without leading a) to make stapler work
-    if (token.equals("/" + getName())) {
+    if (token.equals("/" + safe(getName()))) {
       return this;
     }
     if (browserResults != null) {
       for (BrowserResult tmpBrowserResult : browserResults) {
-        if (token.equals(tmpBrowserResult.getName())) {
+        if (token.equals(safe(tmpBrowserResult.getName()))) {
           return tmpBrowserResult;
         }
       }

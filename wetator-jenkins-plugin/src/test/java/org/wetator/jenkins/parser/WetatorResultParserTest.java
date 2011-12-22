@@ -98,6 +98,31 @@ public class WetatorResultParserTest {
   }
 
   @Test
+  public void oneTestcaseOneBrowserOneTestfileOneCommandFolderTestCase() throws XMLStreamException, IOException {
+    String tmpResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
+        + "<wet><startTime>20.12.2010 07:11:07</startTime>"
+        + "<testcase name=\"test/sample.wet\"><testrun browser=\"Firefox3.6\"><testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command></testfile></testrun></testcase>"
+        + "<executionTime>1234</executionTime></wet>";
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      assertTestResults(1, 0, 1234, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      assertTestResult("20.12.2010 07:11:07", 1, 0, 1234, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      assertTestFileResult("test/sample.wet", "/public/sample.wet", 1, 0, 12, 1, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      assertBrowserResult("Firefox3.6", "test/sample.wet[Firefox3.6]", 1, 0, 12, true, tmpBrowserResult);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
   public void oneTestcaseOneBrowserOneTestfileTwoCommands() throws XMLStreamException, IOException {
     String tmpResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
         + "<wet><startTime>20.12.2010 07:11:07</startTime>"

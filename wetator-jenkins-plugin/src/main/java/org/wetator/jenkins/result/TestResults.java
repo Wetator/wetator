@@ -42,6 +42,7 @@ public class TestResults extends AbstractBaseResult {
   private transient int passCount;
   private transient int failCount;
   private transient Map<String, TestFileResult> testFileMap = new HashMap<String, TestFileResult>();
+  private transient Map<String, TestFileResult> testFileUrlMap = new HashMap<String, TestFileResult>();
 
   /**
    * The constructor.
@@ -144,7 +145,7 @@ public class TestResults extends AbstractBaseResult {
   /**
    * @param testFileMap the testFileMap to set
    */
-  public void setTestFileMapp(Map<String, TestFileResult> testFileMap) {
+  public void setTestFileMap(Map<String, TestFileResult> testFileMap) {
     this.testFileMap = testFileMap;
   }
 
@@ -261,6 +262,7 @@ public class TestResults extends AbstractBaseResult {
     passedTests = new ArrayList<BrowserResult>();
     failedTests = new ArrayList<BrowserResult>();
     testFileMap = new HashMap<String, TestFileResult>();
+    testFileUrlMap = new HashMap<String, TestFileResult>();
     for (TestResult tmpTestResult : testResults) {
       tmpTestResult.tally();
       duration += tmpTestResult.getDuration();
@@ -268,6 +270,7 @@ public class TestResults extends AbstractBaseResult {
       for (TestFileResult tmpTestFileResult : tmpTestResult.getTestFileResults()) {
         String tmpFileName = tmpTestFileResult.getName();
         testFileMap.put(tmpFileName, tmpTestFileResult);
+        testFileUrlMap.put(safe(tmpFileName), tmpTestFileResult);
       }
     }
     for (String tmpFileName : testFileMap.keySet()) {
@@ -290,6 +293,6 @@ public class TestResults extends AbstractBaseResult {
    */
   public Object getDynamic(String token, StaplerRequest request, StaplerResponse response) {
     // the method parameters must be raw (without leading a) to make stapler work
-    return testFileMap.get(token);
+    return testFileUrlMap.get(token);
   }
 }

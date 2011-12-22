@@ -65,7 +65,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
    */
   @Override
   public String getSearchUrl() {
-    return getName();
+    return safe(getName());
   }
 
   /**
@@ -125,10 +125,18 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
   }
 
   /**
+   * Replaces URL-unsafe characters.
+   */
+  public static String safe(String s) {
+    // 3 replace calls is still 2-3x faster than a regex replaceAll
+    return s.replace('/', '_').replace('\\', '_').replace(':', '_');
+  }
+
+  /**
    * @return URL relative to the {@link WetatorBuildReport}
    */
   public String getUrl() {
-    return getName();
+    return safe(getName());
   }
 
   /**
