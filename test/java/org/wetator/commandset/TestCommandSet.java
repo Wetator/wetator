@@ -23,8 +23,6 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionException;
-import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
 import org.wetator.util.Assert;
 import org.wetator.util.NormalizedString;
@@ -76,30 +74,17 @@ public final class TestCommandSet extends AbstractCommandSet {
       Throwable tmpException = null;
       try {
         aContext.determineAndExecuteCommandImpl(tmpCommand);
-      } catch (CommandException e) {
-        tmpException = e;
-        Throwable tmpCause = e.getCause();
-        if (tmpCause != null && tmpCause != e) {
-          if (tmpCause instanceof ActionException || tmpCause instanceof AssertionException) {
-            tmpException = tmpCause;
-          }
-        }
       } catch (Exception e) {
-        // TODO distinguish between failure and error
+        // TODO distinguish between failure and error?
         tmpException = e;
       }
 
-      try {
-        if (tmpException != null) {
-          NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
-          Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
-              "wrongErrorMessage", null);
-        } else {
-          Assert.fail("expectedErrorNotThrown", null);
-        }
-      } catch (AssertionException e) {
-        // TODO i18n
-        throw new CommandException("Assertion failed.", e);
+      if (tmpException != null) {
+        NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
+        Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
+            "wrongErrorMessage", null);
+      } else {
+        Assert.fail("expectedErrorNotThrown", null);
       }
     }
   }
