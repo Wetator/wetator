@@ -35,7 +35,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.wetator.exception.WetatorException;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
@@ -156,10 +155,9 @@ public final class ContentUtil {
    * @param aColumnsNo the column
    * @param aFormulaEvaluator the formula Evaluator
    * @return the display string
-   * @throws WetatorException in case of error
    */
   public static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
+      final FormulaEvaluator aFormulaEvaluator) {
     final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
       return null;

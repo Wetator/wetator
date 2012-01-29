@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
+import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 
 /**
@@ -31,13 +32,58 @@ import org.wetator.exception.WetatorException;
  */
 public class LegacyXMLScripterTest {
 
-  /**
-   * @throws WetatorException if something goes wrong
-   */
   @Test
-  public void supported() throws WetatorException {
+  public void fileNotFound() {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
+    File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xml");
+    try {
+      tmpLegacyXMLScripter.isSupported(tmpFile);
+      Assert.fail("ResourceException expected");
+    } catch (ResourceException e) {
+      // expected
+    }
+  }
+
+  @Test
+  public void unsupportedExtension() {
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
+
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'excel.xls' not supported by LegacyXMLScripter. Extension is not '.wet' or '.xml'.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void emptyXML() {
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/empty.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'empty.xml' not supported by LegacyXMLScripter. Parsing the file failed.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void emptyWET() {
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/empty.wet");
+
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'empty.wet' not supported by LegacyXMLScripter. Parsing the file failed.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void supportedXML() {
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
 
     IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
@@ -99,18 +145,97 @@ public class LegacyXMLScripterTest {
     Assert.assertEquals("", tmpCommand.getName());
   }
 
-  /**
-   * @throws WetatorException if something goes wrong
-   */
   @Test
-  public void unsupported() throws WetatorException {
+  public void supportedWET() {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.wet");
+
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    tmpLegacyXMLScripter.script(tmpFile);
+
+    List<Command> tmpCommands = tmpLegacyXMLScripter.getCommands();
+    Assert.assertEquals(10, tmpCommands.size());
+
+    Command tmpCommand = tmpCommands.get(0);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+    Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(1);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("open-url", tmpCommand.getName());
+    Assert.assertEquals("set.html", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(2);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-title", tmpCommand.getName());
+    Assert.assertEquals("Wetator / Set", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(3);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
+
+    tmpCommand = tmpCommands.get(4);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("click-on", tmpCommand.getName());
+    Assert.assertEquals("InputTextNameTest", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(5);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("click-on", tmpCommand.getName());
+    Assert.assertEquals("Just another comment", tmpCommand.getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(6);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
+        .getFirstParameter().getValue());
+
+    tmpCommand = tmpCommands.get(7);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-set", tmpCommand.getName());
+    Assert.assertEquals("inputText_Name", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals(" testValue ", tmpCommand.getSecondParameter().getValue());
+
+    tmpCommand = tmpCommands.get(8);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+
+    tmpCommand = tmpCommands.get(9);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+  }
+
+  @Test
+  public void unsupportedXML() {
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/xml.xml");
 
     IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
 
-    Assert.assertEquals("File 'junit2.xml' not supported by LegacyXMLScripter. Parsing the file failed.",
+    Assert.assertEquals("File 'xml.xml' not supported by LegacyXMLScripter. Parsing the file failed.",
         tmpResult.getMessage());
+  }
+
+  @Test
+  public void malformed() {
+    LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXMLMalformed.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    try {
+      tmpLegacyXMLScripter.script(tmpFile);
+      // TODO which exception to we expect here?
+      Assert.fail("WetatorException expected");
+    } catch (WetatorException e) {
+      // excepted
+    }
   }
 }

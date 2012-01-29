@@ -22,6 +22,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
+import org.wetator.core.IScripter;
+import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 
 /**
@@ -30,9 +32,33 @@ import org.wetator.exception.WetatorException;
 public class ExcelScripterTest {
 
   @Test
+  public void fileNotFound() {
+    ExcelScripter tmpExcelScripter = new ExcelScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xls");
+    try {
+      tmpExcelScripter.isSupported(tmpFile);
+      Assert.fail("ResourceException expected");
+    } catch (ResourceException e) {
+      // expected
+    }
+  }
+
+  @Test
+  public void unsupportedExtension() {
+    ExcelScripter tmpExcelScripter = new ExcelScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'legacyXML.xml' not supported by ExcelScripter. Extension is not '.xls'.",
+        tmpResult.getMessage());
+  }
+
+  @Test
   public void supported() throws WetatorException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
-    tmpExcelScripter.script(new File("test/java/org/wetator/test/resource/junit.xls"));
+    tmpExcelScripter.script(new File("test/java/org/wetator/test/resource/excel.xls"));
 
     List<Command> tmpCommands = tmpExcelScripter.getCommands();
     Assert.assertEquals(17, tmpCommands.size());
@@ -142,5 +168,22 @@ public class ExcelScripterTest {
     Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )", tmpCommand.getFirstParameter()
         .getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
+  }
+
+  @Test
+  public void malformed() {
+    ExcelScripter tmpExcelScripter = new ExcelScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/excelMalformed.xls");
+
+    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    try {
+      tmpExcelScripter.script(tmpFile);
+      // TODO which exception to we expect here?
+      Assert.fail("WetatorException expected");
+    } catch (WetatorException e) {
+      // excepted
+    }
   }
 }

@@ -74,6 +74,11 @@ public final class ExcelScripter implements IScripter {
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     final String tmpFileName = aFile.getName().toLowerCase();
     final boolean tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
+
+    if (!aFile.exists()) {
+      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.");
+    }
+
     if (tmpResult) {
       return IScripter.IS_SUPPORTED;
     }
@@ -116,7 +121,7 @@ public final class ExcelScripter implements IScripter {
       }
 
       if (tmpSheetNo < 0) {
-        // TODO which exception?
+        // TODO which exception? this is an invalid input! -> checked
         throw new WetatorException("No test sheet found in file '" + file.getAbsolutePath() + "'.");
       }
 
@@ -174,7 +179,8 @@ public final class ExcelScripter implements IScripter {
 
       return tmpResult;
     } catch (final IOException e) {
-      throw new ResourceException("Could not read file '" + file.getAbsolutePath() + "'.", e);
+      // TODO which exception? mostly this is an invalid input! (FileNotFound is checked before) -> checked?
+      throw new WetatorException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
     } finally {
       if (tmpInputStream != null) {
         try {

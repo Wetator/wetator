@@ -164,7 +164,7 @@ public final class LegacyXMLScripter implements IScripter {
       try {
         tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
       } catch (final XMLStreamException e) {
-        // TODO which exception?
+        // TODO which exception? mostly this is an invalid input! -> checked?
         throw new WetatorException("Error creating reader for file '" + file.getAbsolutePath() + "'.", e);
       }
 
@@ -204,6 +204,7 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_OPTIONAL_PARAMETER.equals(tmpReader.getLocalName())) {
               final String tmpOptionalParameter = tmpReader.getElementText();
               if (null == tmpCommand) {
+                // TODO which exception? this is an invalid input! -> checked
                 throw new WetatorException("Error parsing file '" + file.getAbsolutePath()
                     + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
               }
@@ -216,6 +217,7 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_OPTIONAL_PARAMETER2.equals(tmpReader.getLocalName())) {
               final String tmpOptionalParameter = tmpReader.getElementText();
               if (null == tmpCommand) {
+                // TODO which exception? this is an invalid input! -> checked
                 throw new WetatorException("Error parsing file '" + file.getAbsolutePath()
                     + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
               }
@@ -233,7 +235,7 @@ public final class LegacyXMLScripter implements IScripter {
 
         return tmpResult;
       } catch (final XMLStreamException e) {
-        // TODO which exception?
+        // TODO which exception? mostly this is an invalid input! -> checked?
         throw new WetatorException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
       }
     } finally {
