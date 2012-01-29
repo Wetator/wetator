@@ -30,6 +30,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ org.wetator.scripter.xml.AllTests.class, //
     ExcelScripterTest.class, //
     LegacyXMLScripterTest.class, //
+    WikiTextScripterTest.class, //
     XMLScripterTest.class })
 public final class AllTests {
 
