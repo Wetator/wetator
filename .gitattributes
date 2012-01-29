@@ -140,6 +140,7 @@ src/org/wetator/scriptcreator/LegacyXMLScriptCreator.java -text svneol=unset#tex
 src/org/wetator/scriptcreator/XMLScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scripter/ExcelScripter.java -text
 src/org/wetator/scripter/LegacyXMLScripter.java -text svneol=unset#text/plain
+src/org/wetator/scripter/WikiTextScripter.java -text
 src/org/wetator/scripter/XMLScripter.java -text svneol=unset#text/plain
 src/org/wetator/scripter/xml/LocalEntityResolver.java -text svneol=unset#text/plain
 src/org/wetator/scripter/xml/ModelBuilder.java -text svneol=unset#text/plain
@@ -248,6 +249,7 @@ test/java/org/wetator/scriptcreator/ManualXMLScriptCreatorTest.java -text svneol
 test/java/org/wetator/scripter/AllTests.java -text
 test/java/org/wetator/scripter/ExcelScripterTest.java -text
 test/java/org/wetator/scripter/LegacyXMLScripterTest.java -text svneol=unset#text/plain
+test/java/org/wetator/scripter/WikiTextScripterTest.java -text
 test/java/org/wetator/scripter/XMLScripterTest.java -text svneol=unset#text/plain
 test/java/org/wetator/scripter/xml/AllTests.java -text svneol=unset#text/plain
 test/java/org/wetator/scripter/xml/LocalEntityResolverTest.java -text svneol=unset#text/plain
@@ -269,6 +271,7 @@ test/java/org/wetator/test/resource/emptyWrongDefault.xml -text svneol=unset#tex
 test/java/org/wetator/test/resource/invalid-command-set.xsd -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/junit.wett -text
 test/java/org/wetator/test/resource/junit.xls -text
 test/java/org/wetator/test/resource/junit2.xml -text svneol=unset#text/plain
 test/java/org/wetator/util/AllTests.java -text

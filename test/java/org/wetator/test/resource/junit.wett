@@ -1,0 +1,11 @@
+# Just a comment
+
+Open-Url        || set.html
+
+Assert-Title    || Wetator / Set
+Set             || inputText_Name       || testValue
+Click On        || InputTextNameTest
+// Click-On        || Just another comment
+
+Assert Content  || GET Parameters Key Value inputText_Name testValue InputTextNameTest OK
+assert-set      || InputText_Name        || testValue
