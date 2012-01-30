@@ -28,6 +28,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 import org.wetator.progresslistener.XMLResultWriter;
@@ -156,6 +157,9 @@ public class WetatorEngine {
               // setup the context
               final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
               tmpWetatorContext.execute();
+            } catch (final InvalidInputException e) {
+              // TODO this way we continue with the next browser. is this correct?
+              informListenersError(e);
             } catch (final RuntimeException e) {
               // TODO this way we continue with the next browser. is this correct?
               informListenersError(e);
@@ -202,11 +206,12 @@ public class WetatorEngine {
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link Command}s.
+   * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    * @throws WetatorException if no {@link IScripter} can be found for the given file or an error occurs parsing the
    *         given file
    */
-  protected List<Command> readCommandsFromFile(final File aFile) {
+  protected List<Command> readCommandsFromFile(final File aFile) throws InvalidInputException {
     final IScripter tmpScripter = createScripter(aFile);
 
     tmpScripter.script(aFile);

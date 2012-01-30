@@ -29,7 +29,8 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.ImplementationException;
+import org.wetator.scripter.ParseException;
 import org.wetator.scripter.XMLScripter;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
@@ -67,13 +68,15 @@ public class ModelBuilder {
   private Map<String, CommandType> commandTypes = new LinkedHashMap<String, CommandType>();
 
   /**
-   * @param aSchemaMap the map containing the schemas to use (key = namespace URI)
+   * @param aSchemas the list containing the schemas to use
    * @param aSchemaDirectory the directory to search for schema files; may be null
-   * @throws SAXException in case of problems reading the file
    * @throws IOException in case of problems reading the file
+   * @throws SAXException in case of problems reading the file
+   * @throws ParseException in case of problems parsing the file
    */
-  public ModelBuilder(final List<XMLSchema> aSchemaMap, final File aSchemaDirectory) throws SAXException, IOException {
-    final XSSchemaSet tmpSchemaSet = parseSchemas(aSchemaMap, aSchemaDirectory);
+  public ModelBuilder(final List<XMLSchema> aSchemas, final File aSchemaDirectory) throws IOException, SAXException,
+      ParseException {
+    final XSSchemaSet tmpSchemaSet = parseSchemas(aSchemas, aSchemaDirectory);
     buildModel(tmpSchemaSet);
   }
 
@@ -99,10 +102,10 @@ public class ModelBuilder {
     return tmpCommandTypes;
   }
 
-  private XSSchemaSet parseSchemas(final List<XMLSchema> aSchemaList, final File aSchemaDirectory) throws SAXException,
-      IOException {
+  private XSSchemaSet parseSchemas(final List<XMLSchema> aSchemaList, final File aSchemaDirectory) throws IOException,
+      SAXException, ParseException {
     if (aSchemaList == null || aSchemaList.isEmpty()) {
-      throw new WetatorException("No schema to parse.");
+      throw new ImplementationException("No schema to parse.");
     }
 
     final EntityResolver tmpEntityResolver = new LocalEntityResolver(aSchemaDirectory);
@@ -114,24 +117,19 @@ public class ModelBuilder {
     for (XMLSchema tmpSchema : aSchemaList) {
       final InputSource tmpSource = tmpEntityResolver.resolveEntity(tmpSchema.getNamespace(), tmpSchema.getLocation());
       if (tmpSource != null) {
-        try {
-          tmpParser.parse(tmpSource);
-        } catch (final SAXException e) {
-          throw new WetatorException("Could not resolve schema file '" + tmpSchema.getNamespace() + "'.",
-              e.getException());
-        }
+        tmpParser.parse(tmpSource);
       } else {
-        throw new WetatorException("Could not resolve schema file '" + tmpSchema.getNamespace() + "'.");
+        throw new ParseException("Could not resolve schema file '" + tmpSchema.getNamespace() + "'.");
       }
     }
 
     return tmpParser.getResult();
   }
 
-  private void buildModel(final XSSchemaSet aSchemaSet) {
+  private void buildModel(final XSSchemaSet aSchemaSet) throws ParseException {
     final XSSchema tmpBaseSchema = aSchemaSet.getSchema(XMLScripter.BASE_SCHEMA.getNamespace());
     if (tmpBaseSchema == null) {
-      throw new WetatorException("No base schema '" + XMLScripter.BASE_SCHEMA.getNamespace() + "' found.");
+      throw new ParseException("No base schema '" + XMLScripter.BASE_SCHEMA.getNamespace() + "' found.");
     }
     baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);

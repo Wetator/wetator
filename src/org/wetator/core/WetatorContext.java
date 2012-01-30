@@ -26,6 +26,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
@@ -151,10 +152,11 @@ public class WetatorContext {
   /**
    * Processes the associated test file by reading all the commands from the file and executing every single command.
    * 
+   * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    * @throws org.wetator.exception.WetatorException in case of problems parsing the file
    */
-  public void execute() {
+  public void execute() throws InvalidInputException {
     final File tmpFile = getFile();
 
     engine.informListenersTestFileStart(tmpFile.getAbsolutePath());

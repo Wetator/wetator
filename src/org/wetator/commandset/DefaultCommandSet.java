@@ -47,6 +47,7 @@ import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
@@ -139,7 +140,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws WrongCommandUsageException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
       final SecretString tmpModuleParam = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpModuleParameters = aCommand.getSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -162,7 +163,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpWetatorContext.addVariable(tmpVariable);
         i++;
       }
-      tmpWetatorContext.execute();
+
+      try {
+        tmpWetatorContext.execute();
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidModule", new String[] { tmpModule, e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
     }
   }
 

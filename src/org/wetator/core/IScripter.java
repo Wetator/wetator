@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
+import org.wetator.exception.InvalidInputException;
+
 /**
  * The interface for scripters.<br/>
  * Scripters are responsible for reading an input file and parsing the commands.<br/>
@@ -32,6 +34,7 @@ import java.util.Properties;
  * 
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public interface IScripter {
 
@@ -84,10 +87,11 @@ public interface IScripter {
    * Scripts the given file by reading all commands.
    * 
    * @param aFile the file
+   * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    * @throws org.wetator.exception.WetatorException in case of error
    */
-  public void script(File aFile);
+  public void script(File aFile) throws InvalidInputException;
 
   /**
    * @return the complete list of commands.

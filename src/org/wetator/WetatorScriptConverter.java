@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
@@ -100,7 +101,7 @@ public final class WetatorScriptConverter {
       System.out.println("Begin converting...");
       tmpConverter.convert();
       System.out.println("Converting successfully completed.");
-    } catch (final WetatorException e) {
+    } catch (final Exception e) {
       e.printStackTrace();
       System.exit(1);
     }
@@ -115,9 +116,9 @@ public final class WetatorScriptConverter {
   }
 
   /**
-   * @throws WetatorException in case of errors
+   * @throws InvalidInputException in case of an invalid file
    */
-  public void convert() throws WetatorException {
+  public void convert() throws InvalidInputException {
     for (File tmpInputFile : inputFiles) {
       System.out.print("    Converting '" + tmpInputFile.getAbsolutePath() + "'...");
       scripter.script(tmpInputFile);

@@ -32,6 +32,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 import org.wetator.exception.WrongCommandUsageException;
 
@@ -79,7 +80,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If everything is ok, all commands should be executed.
    */
   @Test
-  public void ok() throws CommandException {
+  public void ok() throws CommandException, InvalidInputException {
     // setup
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
@@ -106,7 +107,7 @@ public class WetatorContextExecuteTest {
    * following commands should be executed.
    */
   @Test
-  public void assertionException() throws CommandException {
+  public void assertionException() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -135,7 +136,7 @@ public class WetatorContextExecuteTest {
    * following commands should be ignored.
    */
   @Test
-  public void actionException() throws CommandException {
+  public void actionException() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -165,7 +166,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If there was a {@link WrongCommandUsageException}, all following commands should be ignored.
    */
   @Test
-  public void wrongCommandUsageException() throws CommandException {
+  public void wrongCommandUsageException() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new WrongCommandUsageException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -195,7 +196,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If there was a {@link CommandException}, all following commands should be ignored.
    */
   @Test
-  public void commandException() throws CommandException {
+  public void commandException() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -225,7 +226,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If there was a {@link RuntimeException}, all following commands should be ignored.
    */
   @Test
-  public void runtimeException() throws CommandException {
+  public void runtimeException() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -255,7 +256,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If everything is ok in the context, all commands should be executed in the sub context.
    */
   @Test
-  public void okBeforeSubContext() throws CommandException {
+  public void okBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
@@ -287,7 +288,7 @@ public class WetatorContextExecuteTest {
    * context, all commands should be executed in the sub context.
    */
   @Test
-  public void assertionExceptionBeforeSubContext() throws CommandException {
+  public void assertionExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -321,7 +322,7 @@ public class WetatorContextExecuteTest {
    * context, all following commands should be ignored in the sub context.
    */
   @Test
-  public void actionExceptionBeforeSubContext() throws CommandException {
+  public void actionExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -357,7 +358,7 @@ public class WetatorContextExecuteTest {
    * ignored in the sub context.
    */
   @Test
-  public void wrongCommandUsageExceptionBeforeSubContext() throws CommandException {
+  public void wrongCommandUsageExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new WrongCommandUsageException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -393,7 +394,7 @@ public class WetatorContextExecuteTest {
    * ignored in the sub context.
    */
   @Test
-  public void commandExceptionBeforeSubContext() throws CommandException {
+  public void commandExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -429,7 +430,7 @@ public class WetatorContextExecuteTest {
    * sub context.
    */
   @Test
-  public void runtimeExceptionBeforeSubContext() throws CommandException {
+  public void runtimeExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -464,7 +465,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If everything is ok in the sub context, all commands should be executed in the context.
    */
   @Test
-  public void okInSubContext() throws CommandException {
+  public void okInSubContext() throws CommandException, InvalidInputException {
     // setup
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
@@ -496,7 +497,7 @@ public class WetatorContextExecuteTest {
    * sub context, all commands should be executed in the context.
    */
   @Test
-  public void assertionExceptionInSubContext() throws CommandException {
+  public void assertionExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -530,7 +531,7 @@ public class WetatorContextExecuteTest {
    * sub context, all following commands should be ignored in the context.
    */
   @Test
-  public void actionExceptionInSubContext() throws CommandException {
+  public void actionExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -566,7 +567,7 @@ public class WetatorContextExecuteTest {
    * ignored in the context.
    */
   @Test
-  public void wrongCommandUsageExceptionInSubContext() throws CommandException {
+  public void wrongCommandUsageExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new WrongCommandUsageException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -602,7 +603,7 @@ public class WetatorContextExecuteTest {
    * ignored in the context.
    */
   @Test
-  public void commandExceptionInSubContext() throws CommandException {
+  public void commandExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -638,7 +639,7 @@ public class WetatorContextExecuteTest {
    * the context.
    */
   @Test
-  public void runtimeExceptionInSubContext() throws CommandException {
+  public void runtimeExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
@@ -673,7 +674,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If no {@link ICommandImplementation} is found, all following commands should be ignored.
    */
   @Test
-  public void commandImplementationNotFound() throws CommandException {
+  public void commandImplementationNotFound() throws CommandException, InvalidInputException {
     // setup
     command1 = new Command("unknown", false);
 
@@ -705,7 +706,7 @@ public class WetatorContextExecuteTest {
    * executed.
    */
   @Test
-  public void storedAssertionException() throws CommandException {
+  public void storedAssertionException() throws CommandException, InvalidInputException {
     // setup
     AssertionException tmpException = new AssertionException("mocker");
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
@@ -733,7 +734,7 @@ public class WetatorContextExecuteTest {
    * should be executed.
    */
   @Test
-  public void forceExecution() throws CommandException {
+  public void forceExecution() throws CommandException, InvalidInputException {
     // setup
     ICommandImplementation tmpForceExecution = new ForceExecutionCommand(commandImplementation2);
 
@@ -765,7 +766,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If there was a {@link ResourceException} reading the commands, no commands (can and) should be executed.
    */
   @Test
-  public void readCommandsFromFileResourceException() throws CommandException {
+  public void readCommandsFromFileResourceException() throws CommandException, InvalidInputException {
     // setup
     when(engine.readCommandsFromFile(file1)).thenThrow(new ResourceException("mocker"));
 
@@ -801,7 +802,7 @@ public class WetatorContextExecuteTest {
    * Assertion: If there was a {@link RuntimeException} reading the commands, no commands (can and) should be executed.
    */
   @Test
-  public void readCommandsFromFileRuntimeException() throws CommandException {
+  public void readCommandsFromFileRuntimeException() throws CommandException, InvalidInputException {
     // setup
     when(engine.readCommandsFromFile(file1)).thenThrow(new RuntimeException("mocker"));
 

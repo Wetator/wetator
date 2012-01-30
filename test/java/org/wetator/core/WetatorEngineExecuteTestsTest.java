@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 
 /**
@@ -79,7 +80,7 @@ public class WetatorEngineExecuteTestsTest {
    * Assertion: If everything is ok, all commands for all browsers of all tests should be executed.
    */
   @Test
-  public void ok() {
+  public void ok() throws InvalidInputException {
     // run
     engine.executeTests();
 
@@ -107,7 +108,7 @@ public class WetatorEngineExecuteTestsTest {
    * should be aborted.
    */
   @Test
-  public void browserStartNewSessionRuntimeException() {
+  public void browserStartNewSessionRuntimeException() throws InvalidInputException {
     // setup
     doThrow(new RuntimeException("mocker")).doNothing().when(browser).startNewSession(browserType1);
 
@@ -141,7 +142,7 @@ public class WetatorEngineExecuteTestsTest {
    * should be aborted.
    */
   @Test
-  public void contextExecuteResourceException() {
+  public void contextExecuteResourceException() throws InvalidInputException {
     // setup
     doThrow(new ResourceException("mocker")).doNothing().when(context).execute();
 
@@ -177,7 +178,7 @@ public class WetatorEngineExecuteTestsTest {
    * should be aborted.
    */
   @Test
-  public void contextExecuteRuntimeException() {
+  public void contextExecuteRuntimeException() throws InvalidInputException {
     // setup
     doThrow(new RuntimeException("mocker")).doNothing().when(context).execute();
 
@@ -204,7 +205,7 @@ public class WetatorEngineExecuteTestsTest {
     verify(engine, times(1)).informListenersError(any(Throwable.class));
   }
 
-  private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) {
+  private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) throws InvalidInputException {
     anInOrder.verify(engine).informListenersTestRunStart(aBrowserType.getLabel());
     anInOrder.verify(browser).startNewSession(aBrowserType);
     anInOrder.verify(engine).createWetatorContext(aFile, aBrowserType);

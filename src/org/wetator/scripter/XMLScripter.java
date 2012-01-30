@@ -43,6 +43,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.ModelBuilder;
@@ -50,6 +51,7 @@ import org.wetator.scripter.xml.SchemaFinder;
 import org.wetator.scripter.xml.XMLSchema;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
+import org.xml.sax.SAXException;
 
 /**
  * Scripter for XML files using the new test XSDs.
@@ -188,7 +190,7 @@ public class XMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
-  public void script(final File aFile) {
+  public void script(final File aFile) throws InvalidInputException {
     Reader tmpReader = null;
     try {
       tmpReader = createUTF8Reader(aFile);
@@ -204,15 +206,22 @@ public class XMLScripter implements IScripter {
       removeDuplicateSchemas(tmpSchemas);
       schemas = tmpSchemas;
 
+      // TODO throw exception if no schemas found
       model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
 
       tmpReader = createUTF8Reader(aFile);
       commands = parseScript(tmpReader);
     } catch (final IOException e) {
       throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
-    } catch (final Exception e) {
+    } catch (final XMLStreamException e) {
       // TODO which exception?
       throw new WetatorException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+    } catch (final SAXException e) {
+      // TODO Auto-generated catch block
+      throw new WetatorException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+    } catch (final ParseException e) {
+      throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
+          e);
     } finally {
       if (tmpReader != null) {
         try {

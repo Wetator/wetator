@@ -27,6 +27,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.scripter.xml.XMLSchema;
 
 /**
@@ -58,7 +59,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasNoDefaultFromFile() {
+  public void schemasNoDefaultFromFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/emptyNoDefault.xml");
 
@@ -78,7 +79,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasWrongDefaultFromFile() {
+  public void schemasWrongDefaultFromFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/emptyWrongDefault.xml");
 
@@ -98,7 +99,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasFromFile() {
+  public void schemasFromFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/emptyMultipleSchemas.xml");
 
@@ -128,7 +129,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void scriptFile() {
+  public void scriptFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     tmpXMLScripter.script(new File("test/java/org/wetator/test/resource/xml.xml"));
 
