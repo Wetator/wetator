@@ -28,6 +28,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.exception.ImplementationException;
 import org.wetator.exception.WetatorException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -103,10 +104,11 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
             execute(tmpIdentifier);
           }
         } catch (final IllegalAccessException e) {
-          throw new WetatorException("Could not access identifier class '" + tmpIdentifierClass.getName() + "'.", e);
+          throw new ImplementationException(
+              "Could not access identifier class '" + tmpIdentifierClass.getName() + "'.", e);
         } catch (final InstantiationException e) {
-          throw new WetatorException("Could not instantiate identifier for class '" + tmpIdentifierClass.getName() + "'.",
-              e);
+          throw new ImplementationException("Could not instantiate identifier for class '"
+              + tmpIdentifierClass.getName() + "'.", e);
         }
       }
     }
@@ -131,7 +133,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
       try {
         tmpFuture.get();
       } catch (final InterruptedException e) {
-        throw new WetatorException("Exception waiting for executed threads.", e);
+        throw new RuntimeException("Exception waiting for executed threads.", e);
       } catch (final ExecutionException e) {
         throw new WetatorException("Exception occured in executed thread.", e.getCause());
       }

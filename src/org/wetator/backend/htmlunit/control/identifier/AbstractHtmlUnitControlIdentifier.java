@@ -19,13 +19,14 @@ package org.wetator.backend.htmlunit.control.identifier;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.ImplementationException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers.<br />
- * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.IControl} matching
+ * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.IControl}
+ * matching
  * a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use
  * {@link #isHtmlElementSupported(HtmlElement)}.
  * 
@@ -87,7 +88,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
   @Override
   public void run() {
     if (!initializedForAsynch) {
-      throw new WetatorException(getClass().getName()
+      throw new ImplementationException(getClass().getName()
           + " is not initialized to work asynchronously. Use initializeForAsynch().");
     }
     final WeightedControlList tmpResult = identify(wPath, htmlElement);
