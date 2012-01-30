@@ -24,6 +24,7 @@ import org.junit.runners.Suite.SuiteClasses;
 /**
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 @RunWith(Suite.class)
 @SuiteClasses({ org.wetator.backend.htmlunit.control.AllTests.class, //
@@ -32,6 +33,7 @@ import org.junit.runners.Suite.SuiteClasses;
     org.wetator.backend.htmlunit.util.AllTests.class, //
     HtmlUnitControlRepositoryTest.class, //
     HtmlUnitFinderDelegatorTest.class, //
+    XHtmlOutputterHtmlPageTest.class, //
     XHtmlOutputterXHtmlPageTest.class })
 public final class AllTests {
 
