@@ -79,9 +79,10 @@ public interface IScripter {
    * @param aFile the file to check
    * @return IS_SUPPORTED if this scripter is able to handle this file otherwise an
    *         IsSupportedResult containing a details description.
+   * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public IsSupportedResult isSupported(File aFile);
+  public IsSupportedResult isSupported(File aFile) throws InvalidInputException;
 
   /**
    * Scripts the given file by reading all commands.

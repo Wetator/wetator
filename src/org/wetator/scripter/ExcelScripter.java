@@ -18,6 +18,7 @@ package org.wetator.scripter;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -32,8 +33,7 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
-import org.wetator.exception.ResourceException;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.ContentUtil;
 import org.wetator.util.NormalizedString;
 
@@ -71,12 +71,12 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public IScripter.IsSupportedResult isSupported(final File aFile) {
+  public IScripter.IsSupportedResult isSupported(final File aFile) throws InvalidInputException {
     final String tmpFileName = aFile.getName().toLowerCase();
     final boolean tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
 
     if (!aFile.exists()) {
-      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.");
+      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.");
     }
 
     if (tmpResult) {
@@ -93,13 +93,13 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
-  public void script(final File aFile) {
+  public void script(final File aFile) throws InvalidInputException {
     file = aFile;
 
     commands = readCommands();
   }
 
-  private List<Command> readCommands() {
+  private List<Command> readCommands() throws InvalidInputException {
     final List<Command> tmpResult = new LinkedList<Command>();
 
     InputStream tmpInputStream = null;
@@ -121,8 +121,7 @@ public final class ExcelScripter implements IScripter {
       }
 
       if (tmpSheetNo < 0) {
-        // TODO which exception? this is an invalid input! -> checked
-        throw new WetatorException("No test sheet found in file '" + file.getAbsolutePath() + "'.");
+        throw new InvalidInputException("No test sheet found in file '" + file.getAbsolutePath() + "'.");
       }
 
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
@@ -178,9 +177,11 @@ public final class ExcelScripter implements IScripter {
       }
 
       return tmpResult;
+    } catch (final FileNotFoundException e) {
+      throw new InvalidInputException("Could not read file '" + file.getAbsolutePath() + "'.");
     } catch (final IOException e) {
-      // TODO which exception? mostly this is an invalid input! (FileNotFound is checked before) -> checked?
-      throw new WetatorException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+      throw new InvalidInputException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").",
+          e);
     } finally {
       if (tmpInputStream != null) {
         try {

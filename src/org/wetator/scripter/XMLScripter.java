@@ -45,7 +45,6 @@ import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
-import org.wetator.exception.WetatorException;
 import org.wetator.scripter.xml.ModelBuilder;
 import org.wetator.scripter.xml.SchemaFinder;
 import org.wetator.scripter.xml.XMLSchema;
@@ -105,7 +104,7 @@ public class XMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public IScripter.IsSupportedResult isSupported(final File aFile) {
+  public IScripter.IsSupportedResult isSupported(final File aFile) throws InvalidInputException {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
     boolean tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
@@ -122,8 +121,10 @@ public class XMLScripter implements IScripter {
         return new IScripter.IsSupportedResult("File '" + aFile.getName()
             + "' not supported by XMLScripter. Parsing the file failed.");
       }
+    } catch (final FileNotFoundException e) {
+      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.", e);
     } catch (final IOException e) {
-      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new InvalidInputException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     }
 
     return IScripter.IS_SUPPORTED;
@@ -202,23 +203,28 @@ public class XMLScripter implements IScripter {
         // bad luck
       }
 
+      if (null == tmpSchemas || tmpSchemas.isEmpty()) {
+        throw new InvalidInputException("No schemas found in file '" + aFile.getAbsolutePath() + "'.");
+      }
+
       addDefaultSchemas(tmpSchemas);
       removeDuplicateSchemas(tmpSchemas);
       schemas = tmpSchemas;
 
-      // TODO throw exception if no schemas found
       model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
 
       tmpReader = createUTF8Reader(aFile);
       commands = parseScript(tmpReader);
+    } catch (final FileNotFoundException e) {
+      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.", e);
     } catch (final IOException e) {
       throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
     } catch (final XMLStreamException e) {
-      // TODO which exception?
-      throw new WetatorException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+      throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
+          e);
     } catch (final SAXException e) {
-      // TODO Auto-generated catch block
-      throw new WetatorException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+      throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
+          e);
     } catch (final ParseException e) {
       throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
           e);
@@ -239,16 +245,19 @@ public class XMLScripter implements IScripter {
    * 
    * @param aContent the content
    * @param aDirectory the directory to search for schema files; may be null
+   * @throws InvalidInputException in case of an invalid file
    * @throws ResourceException in case of problems reading the file
-   * @throws WetatorException in case of error
    */
-  public void script(final String aContent, final File aDirectory) throws WetatorException {
+  public void script(final String aContent, final File aDirectory) throws InvalidInputException {
     Reader tmpReader = null;
     try {
       tmpReader = new StringReader(aContent);
       List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
       tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-      tmpReader.reset();
+
+      if (null == tmpSchemas || tmpSchemas.isEmpty()) {
+        throw new InvalidInputException("No schemas found in content.");
+      }
 
       addDefaultSchemas(tmpSchemas);
       removeDuplicateSchemas(tmpSchemas);
@@ -256,11 +265,16 @@ public class XMLScripter implements IScripter {
 
       model = new ModelBuilder(tmpSchemas, aDirectory);
 
+      tmpReader.reset();
       commands = parseScript(tmpReader);
     } catch (final IOException e) {
       throw new ResourceException("Could not read content.", e);
-    } catch (final Exception e) {
-      throw new WetatorException("Error parsing content (" + e.getMessage() + ").", e);
+    } catch (final XMLStreamException e) {
+      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
+    } catch (final SAXException e) {
+      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
+    } catch (final ParseException e) {
+      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
     } finally {
       if (tmpReader != null) {
         try {

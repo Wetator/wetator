@@ -23,28 +23,24 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
-import org.wetator.exception.ResourceException;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
 
 /**
  * @author rbri
+ * @author frank.danek
+ * @author tobwoerk
  */
 public class ExcelScripterTest {
 
-  @Test
-  public void fileNotFound() {
+  @Test(expected = InvalidInputException.class)
+  public void fileNotFound() throws InvalidInputException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xls");
-    try {
-      tmpExcelScripter.isSupported(tmpFile);
-      Assert.fail("ResourceException expected");
-    } catch (ResourceException e) {
-      // expected
-    }
+    tmpExcelScripter.isSupported(tmpFile);
   }
 
   @Test
-  public void unsupportedExtension() {
+  public void unsupportedExtension() throws InvalidInputException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
 
@@ -56,7 +52,7 @@ public class ExcelScripterTest {
   }
 
   @Test
-  public void supported() throws WetatorException {
+  public void supported() throws InvalidInputException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     tmpExcelScripter.script(new File("test/java/org/wetator/test/resource/excel.xls"));
 
@@ -170,20 +166,14 @@ public class ExcelScripterTest {
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
 
-  @Test
-  public void malformed() {
+  @Test(expected = InvalidInputException.class)
+  public void malformed() throws InvalidInputException {
     ExcelScripter tmpExcelScripter = new ExcelScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/excelMalformed.xls");
 
     IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
-    try {
-      tmpExcelScripter.script(tmpFile);
-      // TODO which exception to we expect here?
-      Assert.fail("WetatorException expected");
-    } catch (WetatorException e) {
-      // excepted
-    }
+    tmpExcelScripter.script(tmpFile);
   }
 }

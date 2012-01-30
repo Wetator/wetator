@@ -23,8 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
-import org.wetator.exception.ResourceException;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
 
 /**
  * @author tobwoerk
@@ -32,20 +31,16 @@ import org.wetator.exception.WetatorException;
  */
 public class LegacyXMLScripterTest {
 
-  @Test
-  public void fileNotFound() {
+  @Test(expected = InvalidInputException.class)
+  public void fileNotFound() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xml");
-    try {
-      tmpLegacyXMLScripter.isSupported(tmpFile);
-      Assert.fail("ResourceException expected");
-    } catch (ResourceException e) {
-      // expected
-    }
+
+    tmpLegacyXMLScripter.isSupported(tmpFile);
   }
 
   @Test
-  public void unsupportedExtension() {
+  public void unsupportedExtension() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
 
@@ -57,7 +52,7 @@ public class LegacyXMLScripterTest {
   }
 
   @Test
-  public void emptyXML() {
+  public void emptyXML() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/empty.xml");
 
@@ -69,7 +64,7 @@ public class LegacyXMLScripterTest {
   }
 
   @Test
-  public void emptyWET() {
+  public void emptyWET() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/empty.wet");
 
@@ -81,7 +76,7 @@ public class LegacyXMLScripterTest {
   }
 
   @Test
-  public void supportedXML() {
+  public void supportedXML() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
 
@@ -146,7 +141,7 @@ public class LegacyXMLScripterTest {
   }
 
   @Test
-  public void supportedWET() {
+  public void supportedWET() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.wet");
 
@@ -211,7 +206,7 @@ public class LegacyXMLScripterTest {
   }
 
   @Test
-  public void unsupportedXML() {
+  public void unsupportedXML() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/xml.xml");
 
@@ -222,20 +217,14 @@ public class LegacyXMLScripterTest {
         tmpResult.getMessage());
   }
 
-  @Test
-  public void malformed() {
+  @Test(expected = InvalidInputException.class)
+  public void malformed() throws InvalidInputException {
     LegacyXMLScripter tmpLegacyXMLScripter = new LegacyXMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/legacyXMLMalformed.xml");
 
     IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
-    try {
-      tmpLegacyXMLScripter.script(tmpFile);
-      // TODO which exception to we expect here?
-      Assert.fail("WetatorException expected");
-    } catch (WetatorException e) {
-      // excepted
-    }
+    tmpLegacyXMLScripter.script(tmpFile);
   }
 }

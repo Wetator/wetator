@@ -220,7 +220,7 @@ public class WetatorEngine {
     return tmpResult;
   }
 
-  private IScripter createScripter(final File aFile) {
+  private IScripter createScripter(final File aFile) throws InvalidInputException {
     final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<IScripter.IsSupportedResult>();
     for (IScripter tmpScripter : scripter) {
       final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(aFile);

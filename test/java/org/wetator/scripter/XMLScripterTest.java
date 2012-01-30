@@ -38,7 +38,7 @@ import org.wetator.scripter.xml.XMLSchema;
 public class XMLScripterTest {
 
   @Test
-  public void supportedFile() {
+  public void supportedFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/xml.xml");
 
@@ -47,7 +47,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void unsupportedFile() {
+  public void unsupportedFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.wet");
 
@@ -203,7 +203,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException {
+  public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/emptyNoDefault.xml"));
 
@@ -223,7 +223,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException {
+  public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream(
         "test/java/org/wetator/test/resource/emptyWrongDefault.xml"));
@@ -244,7 +244,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasFromContent() throws FileNotFoundException, IOException {
+  public void schemasFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream(
         "test/java/org/wetator/test/resource/emptyMultipleSchemas.xml"));
@@ -275,7 +275,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void scriptContent() throws FileNotFoundException, IOException {
+  public void scriptContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"));
     tmpXMLScripter.script(tmpContent, null);
