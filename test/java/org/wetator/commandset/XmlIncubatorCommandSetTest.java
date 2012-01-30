@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -34,19 +35,19 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   private static final String BASE_FOLDER = "test/xml/incubator/";
 
-   @Test
-   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-   public void bookmark() {
-   executeTestFile("bookmark.xml");
-  
-   Assert.assertEquals(11, getSteps());
-   Assert.assertEquals(0, getFailures());
-   Assert.assertEquals(0, getErrors());
-   }
-  
+  @Test
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
+  public void bookmark() throws InvalidInputException {
+    executeTestFile("bookmark.xml");
+
+    Assert.assertEquals(11, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void applet() {
+  public void applet() throws InvalidInputException {
     executeTestFile("applet.xml");
 
     Assert.assertEquals(4, getSteps());
@@ -54,7 +55,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) {
+  private void executeTestFile(String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

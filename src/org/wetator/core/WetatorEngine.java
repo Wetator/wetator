@@ -29,7 +29,6 @@ import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.exception.ResourceException;
 import org.wetator.progresslistener.XMLResultWriter;
 
 /**
@@ -123,14 +122,14 @@ public class WetatorEngine {
    * 
    * @param aName the name of the test file to be added
    * @param aFile the test file to be added
-   * @throws ResourceException if the test file does not exist or is not readable
+   * @throws InvalidInputException if the test file does not exist or is not readable
    */
-  public void addTestCase(final String aName, final File aFile) {
+  public void addTestCase(final String aName, final File aFile) throws InvalidInputException {
     if (!aFile.exists()) {
-      throw new ResourceException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new InvalidInputException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
     if (!aFile.isFile() || !aFile.canRead()) {
-      throw new ResourceException("The test file '" + aFile.getAbsolutePath() + "' is not readable.");
+      throw new InvalidInputException("The test file '" + aFile.getAbsolutePath() + "' is not readable.");
     }
     testCases.add(new TestCase(aName, aFile));
   }
