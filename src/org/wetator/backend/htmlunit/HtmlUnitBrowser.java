@@ -183,8 +183,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
         webClient.closeAllWindows();
       } catch (final ScriptException e) {
-        // TODO handle exception
-        e.printStackTrace();
+        LOG.warn("Could not close previous window.", e);
       }
     }
 
@@ -254,8 +253,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     try {
       webClient.setUseInsecureSSL(true);
     } catch (final GeneralSecurityException e) {
-      // TODO handle exception
-      e.printStackTrace();
+      // TODO add to report?
+      LOG.warn("Accepting insecure SSL-certificates not allowed.", e);
     }
   }
 

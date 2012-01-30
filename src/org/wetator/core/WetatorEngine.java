@@ -156,18 +156,15 @@ public class WetatorEngine {
               // setup the context
               final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
               tmpWetatorContext.execute();
-            } catch (final InvalidInputException e) {
-              // TODO this way we continue with the next browser. is this correct?
-              informListenersError(e);
             } catch (final RuntimeException e) {
-              // TODO this way we continue with the next browser. is this correct?
+              // => continue with next browser
               informListenersError(e);
             } finally {
               informListenersTestRunEnd();
             }
           }
         } catch (final Throwable e) {
-          // this is the last place to handle exceptions for a test case
+          // this is the last place to handle exceptions for a test case => continue with next test case
           informListenersError(e);
         } finally {
           informListenersTestCaseEnd();
