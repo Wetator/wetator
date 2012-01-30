@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byTextBefore() throws IOException {
+  public void byTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
@@ -63,7 +64,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
@@ -87,7 +88,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
@@ -110,7 +111,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byLabelText() throws IOException {
+  public void byLabelText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label id='LabelId1' for='MyFirstSelectId'>FirstSelectLabelText</label>"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -135,7 +136,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byLabelTextChild() throws IOException {
+  public void byLabelTextChild() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='LabelId1'>FirstSelectLabelText"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
@@ -159,7 +160,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byLabelText_TextBefore() throws IOException {
+  public void byLabelText_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label id='LabelId1' for='MyFirstSelectId'>FirstSelectLabelText</label>"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -185,7 +186,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byTextExact() throws IOException {
+  public void byTextExact() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<select id='MySelectId' name='MySelectName' size='2'>"
         + "<option id='MyOptionId1' value='o_value1'>option1</option>"
@@ -205,7 +206,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byTextWildcard() throws IOException {
+  public void byTextWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<select id='MySelectId' name='MySelectName' size='2'>" + "<option value='o_value1'>option1</option>"
         + "<option value='o_value2'>option2</option>" + "<option value='o_value3'>option3</option>" + "</select>"
@@ -224,7 +225,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byLabelExact() throws IOException {
+  public void byLabelExact() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<select id='MySelectId' name='MySelectName' size='2'>"
         + "<option label='MyLabel' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
@@ -243,7 +244,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byLabelWildcard() throws IOException {
+  public void byLabelWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<select id='MySelectId' name='MySelectName' size='2'>"
         + "<option label='MyLabel' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
@@ -262,7 +263,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byValueExact() throws IOException {
+  public void byValueExact() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<select id='MySelectId' name='MySelectName' size='2'>"
         + "<option label='MyLabel' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
@@ -281,7 +282,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void byValueWildcard() throws IOException {
+  public void byValueWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<select id='MySelectId' name='MySelectName' size='2'>"
         + "<option label='MyLabel' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"

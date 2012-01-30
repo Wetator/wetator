@@ -29,7 +29,6 @@ import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.exception.ImplementationException;
-import org.wetator.exception.WetatorException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
@@ -135,7 +134,10 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
       } catch (final InterruptedException e) {
         throw new RuntimeException("Exception waiting for executed threads.", e);
       } catch (final ExecutionException e) {
-        throw new WetatorException("Exception occured in executed thread.", e.getCause());
+        if (e.getCause() instanceof ImplementationException) {
+          throw (ImplementationException) e.getCause();
+        }
+        throw new ImplementationException("Exception occured in executed thread.", e.getCause());
       }
     }
   }

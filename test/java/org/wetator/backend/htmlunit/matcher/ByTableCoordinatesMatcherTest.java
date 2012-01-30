@@ -29,6 +29,7 @@ import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -41,7 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class ByTableCoordinatesMatcherTest {
 
   @Test
-  public void inTablePlain() throws IOException {
+  public void inTablePlain() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -78,7 +79,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableNestedX() throws IOException {
+  public void inTableNestedX() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -115,7 +116,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableNestedY() throws IOException {
+  public void inTableNestedY() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -152,7 +153,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableNestedCell() throws IOException {
+  public void inTableNestedCell() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -189,7 +190,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableNestedCellMultiple() throws IOException {
+  public void inTableNestedCellMultiple() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -227,7 +228,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableNestedTable() throws IOException {
+  public void inTableNestedTable() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -272,7 +273,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableDifferentTableX() throws IOException {
+  public void inTableDifferentTableX() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -323,7 +324,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableDifferentTableY() throws IOException {
+  public void inTableDifferentTableY() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -374,7 +375,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableOnlyX() throws IOException {
+  public void inTableOnlyX() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -412,7 +413,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableOnlyXWithPathBehind() throws IOException {
+  public void inTableOnlyXWithPathBehind() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -448,7 +449,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void inTableOnlyY() throws IOException {
+  public void inTableOnlyY() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -486,7 +487,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void findInMultipleTable() throws IOException {
+  public void findInMultipleTable() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -537,7 +538,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   private static List<MatchResult> match(String aHtmlCode, List<SecretString> aSearch,
-      Class<? extends HtmlElement> aClass, String... anHtmlElementIds) throws IOException {
+      Class<? extends HtmlElement> aClass, String... anHtmlElementIds) throws IOException, InvalidInputException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 

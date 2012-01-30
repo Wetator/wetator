@@ -35,6 +35,7 @@ import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
@@ -79,7 +80,15 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 

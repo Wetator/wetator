@@ -25,7 +25,6 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.exception.WetatorException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
 import org.wetator.scriptcreator.LegacyXMLScriptCreator;
@@ -165,12 +164,12 @@ public final class WetatorScriptConverter {
   /**
    * @param aFile
    *        the file to add
-   * @throws WetatorException
+   * @throws InvalidInputException
    *         if aFile does not exist
    */
-  public void addTestFile(final File aFile) throws WetatorException {
+  public void addTestFile(final File aFile) throws InvalidInputException {
     if (!aFile.exists()) {
-      throw new WetatorException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new InvalidInputException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
     inputFiles.add(aFile);
   }

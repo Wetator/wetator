@@ -30,7 +30,6 @@ import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
-import org.wetator.exception.WetatorException;
 import org.wetator.progresslistener.XMLResultWriter;
 
 /**
@@ -39,6 +38,7 @@ import org.wetator.progresslistener.XMLResultWriter;
  * 
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public class WetatorEngine {
 
@@ -206,10 +206,9 @@ public class WetatorEngine {
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link Command}s.
-   * @throws InvalidInputException in case of an invalid file
+   * @throws InvalidInputException if no {@link IScripter} can be found for the given file or an error occurs
+   *         reading/parsing the given file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
-   * @throws WetatorException if no {@link IScripter} can be found for the given file or an error occurs parsing the
-   *         given file
    */
   protected List<Command> readCommandsFromFile(final File aFile) throws InvalidInputException {
     final IScripter tmpScripter = createScripter(aFile);
@@ -245,7 +244,7 @@ public class WetatorEngine {
 
     tmpMessage.append(").");
 
-    throw new WetatorException(tmpMessage.toString());
+    throw new InvalidInputException(tmpMessage.toString());
   }
 
   /**

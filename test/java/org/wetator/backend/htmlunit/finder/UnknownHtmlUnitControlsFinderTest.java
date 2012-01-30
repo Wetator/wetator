@@ -28,6 +28,7 @@ import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -39,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class UnknownHtmlUnitControlsFinderTest {
 
   @Test
-  public void noHtml() throws IOException {
+  public void noHtml() throws IOException, InvalidInputException {
     String tmpHtmlCode = "";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -54,7 +55,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void noBody() throws IOException {
+  public void noBody() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html>" + "<head><title>MyTitle</title></head>" + "</html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -69,7 +70,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void empty() throws IOException {
+  public void empty() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -84,7 +85,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void textNotFound() throws IOException {
+  public void textNotFound() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -99,7 +100,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void textExact() throws IOException {
+  public void textExact() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -118,7 +119,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void textWildcard() throws IOException {
+  public void textWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -137,7 +138,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraphTextNotFound() throws IOException {
+  public void paragraphTextNotFound() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -152,7 +153,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraphTextExact() throws IOException {
+  public void paragraphTextExact() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -169,7 +170,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraphTextWildcard() throws IOException {
+  public void paragraphTextWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -186,7 +187,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraphFormatedTextExact() throws IOException {
+  public void paragraphFormatedTextExact() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -203,7 +204,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void manyParagraphs() throws IOException {
+  public void manyParagraphs() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -221,7 +222,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void manyParagraphs_MatchInside() throws IOException {
+  public void manyParagraphs_MatchInside() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -239,7 +240,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void ignoringElementForControl() throws IOException {
+  public void ignoringElementForControl() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);

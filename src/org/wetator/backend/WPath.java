@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -40,8 +40,9 @@ public class WPath {
    * The constructor.
    * 
    * @param aPathNodes the nodes of the path
+   * @throws InvalidInputException in case of an invalid {@link WPath}
    */
-  public WPath(final List<SecretString> aPathNodes) {
+  public WPath(final List<SecretString> aPathNodes) throws InvalidInputException {
     rawPath = aPathNodes;
     parseNodes();
   }
@@ -98,13 +99,13 @@ public class WPath {
     return SecretString.toString(rawPath);
   }
 
-  private void parseNodes() {
+  private void parseNodes() throws InvalidInputException {
     boolean tmpTableCoordinatesFinished = false;
     if (!rawPath.isEmpty()) {
       for (SecretString tmpNode : rawPath.subList(0, rawPath.size() - 1)) {
         if (tmpNode.startsWith("[") && tmpNode.endsWith("]") && !tmpNode.endsWith("\\]")) {
           if (tmpTableCoordinatesFinished) {
-            throw new WetatorException("Invalid WPath. Only one group of table coordinates allowed.");
+            throw new InvalidInputException("Invalid WPath. Only one group of table coordinates allowed.");
           }
           tableCoordinates.add(new TableCoordinate(tmpNode));
         } else {
@@ -146,12 +147,13 @@ public class WPath {
      * The constructor.
      * 
      * @param aTableCoordinates the {@link SecretString} containing the table coordinates
+     * @throws InvalidInputException in case of invalid table coordinates
      */
-    public TableCoordinate(final SecretString aTableCoordinates) {
+    public TableCoordinate(final SecretString aTableCoordinates) throws InvalidInputException {
       String tmpTableCoordinates = aTableCoordinates.getValue();
       String tmpTableCoordinatesString = aTableCoordinates.toString();
       if (!tmpTableCoordinates.startsWith("[") || !tmpTableCoordinates.endsWith("]")) {
-        throw new WetatorException(aTableCoordinates.toString() + " is not a valid table coordinate.");
+        throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
       }
       // cut away [ and ]
       tmpTableCoordinates = tmpTableCoordinates.substring(1, tmpTableCoordinates.length() - 1);
@@ -160,7 +162,7 @@ public class WPath {
         final String[] tmpCoordinates = tmpTableCoordinates.split(";");
         final String[] tmpCoordinatesString = tmpTableCoordinatesString.split(";");
         if (tmpCoordinates.length > 2) {
-          throw new WetatorException(aTableCoordinates.toString() + " is not a valid table coordinate.");
+          throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
         }
         if (!"".equals(tmpCoordinates[0].trim())) {
           coordinateX = new SecretString(tmpCoordinates[0].trim(), tmpCoordinatesString[0].trim());

@@ -184,7 +184,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
@@ -240,7 +248,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -278,7 +294,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -316,7 +340,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -353,7 +385,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -388,7 +428,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -423,7 +471,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -590,7 +646,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -634,7 +698,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
@@ -671,7 +743,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -706,7 +786,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      WPath tmpWPath;
+      try {
+        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidWPath",
+            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
+
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 

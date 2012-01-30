@@ -138,7 +138,6 @@ src/org/wetator/exception/ImplementationException.java -text svneol=unset#text/p
 src/org/wetator/exception/InvalidInputException.java -text svneol=unset#text/plain
 src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain
 src/org/wetator/exception/UnsupportedOperationException.java -text svneol=unset#text/plain
-src/org/wetator/exception/WetatorException.java -text
 src/org/wetator/exception/WrongCommandUsageException.java -text svneol=unset#text/plain
 src/org/wetator/gui/DialogUtil.java -text
 src/org/wetator/i18n/Messages.java -text

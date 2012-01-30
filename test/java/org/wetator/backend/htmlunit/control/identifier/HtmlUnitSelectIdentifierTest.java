@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyId' name='MySelectName' size='2'>"
         + "<option id='MyOptionId' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
         + "<option value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
@@ -56,7 +57,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byTextBefore() throws IOException {
+  public void byTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
@@ -79,7 +80,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byTextBeforeWildcard() throws IOException {
+  public void byTextBeforeWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
@@ -102,7 +103,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byTextPathBefore() throws IOException {
+  public void byTextPathBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
@@ -130,7 +131,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
@@ -153,7 +154,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabelText() throws IOException {
+  public void byLabelText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -175,7 +176,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabelTextChild() throws IOException {
+  public void byLabelTextChild() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyFirstLabelId'>FirstSelectLabelText"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"

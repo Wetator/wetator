@@ -154,7 +154,6 @@ public class WetatorContext {
    * 
    * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
-   * @throws org.wetator.exception.WetatorException in case of problems parsing the file
    */
   public void execute() throws InvalidInputException {
     final File tmpFile = getFile();

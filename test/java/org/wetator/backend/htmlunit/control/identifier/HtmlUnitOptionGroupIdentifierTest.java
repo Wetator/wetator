@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byLabelText() throws IOException {
+  public void byLabelText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
@@ -58,7 +59,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
