@@ -197,7 +197,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               tmpApplet.stop();
               tmpApplet.destroy();
             } catch (final Exception e) {
-              throw new AssertionFailedException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
+              throw new AssertionFailedException("Applet (" + tmpHtmlApplet.getNameAttribute() + ") usage failed ("
+                  + e.getMessage() + ").", e);
             }
           }
         }
