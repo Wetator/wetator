@@ -93,17 +93,26 @@ public final class LegacyXMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public IScripter.IsSupportedResult isSupported(final File aFile) throws InvalidInputException {
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    final boolean tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
-    if (!tmpResult) {
+    if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by LegacyXMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '"
           + XML_FILE_EXTENSION + "'.");
     }
 
-    // now check root element and schema
+    // second check the file accessibility
+    if (!aFile.exists()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by LegacyXMLScripter. Could not find file.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by LegacyXMLScripter. Could not read file.");
+    }
+
+    // third check the content (root element and schema)
     BufferedReader tmpReader = null;
     try {
       tmpReader = new BufferedReader(new FileReader(aFile));
@@ -120,8 +129,12 @@ public final class LegacyXMLScripter implements IScripter {
           return IScripter.IS_SUPPORTED;
         }
       }
+    } catch (final FileNotFoundException e) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by LegacyXMLScripter. Could not find file (reason: '" + e.getMessage() + "').");
     } catch (final IOException e) {
-      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.", e);
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by LegacyXMLScripter. Could not read file (reason: '" + e.getMessage() + "').");
     } finally {
       if (tmpReader != null) {
         try {
@@ -133,7 +146,7 @@ public final class LegacyXMLScripter implements IScripter {
     }
 
     return new IScripter.IsSupportedResult("File '" + aFile.getName()
-        + "' not supported by LegacyXMLScripter. Parsing the file failed.");
+        + "' not supported by LegacyXMLScripter. Could not parse file.");
   }
 
   /**

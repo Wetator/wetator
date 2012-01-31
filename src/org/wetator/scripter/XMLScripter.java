@@ -104,27 +104,37 @@ public class XMLScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public IScripter.IsSupportedResult isSupported(final File aFile) throws InvalidInputException {
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    boolean tmpResult = tmpFileName.endsWith(WET_FILE_EXTENSION) || tmpFileName.endsWith(XML_FILE_EXTENSION);
-    if (!tmpResult) {
+    if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by XMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '" + XML_FILE_EXTENSION
           + "'.");
     }
 
-    // now check the content
+    // second check the file accessibility
+    if (!aFile.exists()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by XMLScripter. Could not find file.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by XMLScripter. Could not read file.");
+    }
+
+    // third check the content
     try {
-      tmpResult = isSupported(createUTF8Reader(aFile));
-      if (!tmpResult) {
+      if (!isSupported(createUTF8Reader(aFile))) {
         return new IScripter.IsSupportedResult("File '" + aFile.getName()
-            + "' not supported by XMLScripter. Parsing the file failed.");
+            + "' not supported by XMLScripter. Could not parse file.");
       }
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.", e);
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by XMLScripter. Could not find file (reason: '" + e.getMessage() + "').");
     } catch (final IOException e) {
-      throw new InvalidInputException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by XMLScripter. Could not read file (reason: '" + e.getMessage() + "').");
     }
 
     return IScripter.IS_SUPPORTED;

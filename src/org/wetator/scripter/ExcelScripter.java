@@ -71,20 +71,25 @@ public final class ExcelScripter implements IScripter {
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
-  public IScripter.IsSupportedResult isSupported(final File aFile) throws InvalidInputException {
+  public IScripter.IsSupportedResult isSupported(final File aFile) {
+    // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    final boolean tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
+    if (!tmpFileName.endsWith(EXCEL_FILE_EXTENSION)) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
+    }
 
+    // second check the file accessibility
     if (!aFile.exists()) {
-      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.");
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by ExcelScripter. Could not find file.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by ExcelScripter. Could not read file.");
     }
 
-    if (tmpResult) {
-      return IScripter.IS_SUPPORTED;
-    }
-
-    return new IScripter.IsSupportedResult("File '" + aFile.getName()
-        + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
+    return IScripter.IS_SUPPORTED;
   }
 
   /**
