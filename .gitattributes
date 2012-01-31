@@ -150,6 +150,7 @@ src/org/wetator/scriptcreator/XMLScriptCreator.java -text svneol=unset#text/plai
 src/org/wetator/scripter/ExcelScripter.java -text
 src/org/wetator/scripter/LegacyXMLScripter.java -text svneol=unset#text/plain
 src/org/wetator/scripter/ParseException.java -text svneol=unset#text/plain
+src/org/wetator/scripter/WikiTextScripter.java -text
 src/org/wetator/scripter/XMLScripter.java -text svneol=unset#text/plain
 src/org/wetator/scripter/xml/LocalEntityResolver.java -text svneol=unset#text/plain
 src/org/wetator/scripter/xml/ModelBuilder.java -text svneol=unset#text/plain
@@ -260,6 +261,7 @@ test/java/org/wetator/scriptcreator/ManualXMLScriptCreatorTest.java -text svneol
 test/java/org/wetator/scripter/AllTests.java -text
 test/java/org/wetator/scripter/ExcelScripterTest.java -text
 test/java/org/wetator/scripter/LegacyXMLScripterTest.java -text svneol=unset#text/plain
+test/java/org/wetator/scripter/WikiTextScripterTest.java -text
 test/java/org/wetator/scripter/XMLScripterTest.java -text svneol=unset#text/plain
 test/java/org/wetator/scripter/xml/AllTests.java -text svneol=unset#text/plain
 test/java/org/wetator/scripter/xml/LocalEntityResolverTest.java -text svneol=unset#text/plain
@@ -287,6 +289,7 @@ test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unse
 test/java/org/wetator/test/resource/legacyXML.wet -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/legacyXML.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/wikiText.wett -text
 test/java/org/wetator/test/resource/xml.wet -text
 test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
 test/java/org/wetator/util/AllTests.java -text
@@ -808,6 +811,8 @@ test/xml/set_upload.wet -text svneol=unset#text/plain
 test/xml/sql/sql.wet -text svneol=unset#text/plain
 test/xml/use_module.wet -text svneol=unset#text/plain
 test/xml/wait.wet -text svneol=unset#text/plain
+tmp/wetresult_error.xml -text svneol=unset#text/plain
+tmp/wetresult_failure.xml -text svneol=unset#text/plain
 /wetator-upload.cfg -text
 /wetator-upload.wet -text
 xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain

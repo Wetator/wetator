@@ -183,7 +183,7 @@ public final class ExcelScripter implements IScripter {
 
       return tmpResult;
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException("Could not read file '" + file.getAbsolutePath() + "'.");
+      throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
     } catch (final IOException e) {
       throw new InvalidInputException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").",
           e);

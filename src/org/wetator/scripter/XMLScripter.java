@@ -131,10 +131,10 @@ public class XMLScripter implements IScripter {
       }
     } catch (final FileNotFoundException e) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Could not find file (reason: '" + e.getMessage() + "').");
+          + "' not supported by XMLScripter. Could not find file (" + e.getMessage() + ").");
     } catch (final IOException e) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Could not read file (reason: '" + e.getMessage() + "').");
+          + "' not supported by XMLScripter. Could not read file (" + e.getMessage() + ").");
     }
 
     return IScripter.IS_SUPPORTED;

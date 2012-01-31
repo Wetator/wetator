@@ -41,6 +41,7 @@ import org.wetator.commandset.DefaultCommandSet;
 import org.wetator.exception.ConfigurationException;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.LegacyXMLScripter;
+import org.wetator.scripter.WikiTextScripter;
 import org.wetator.scripter.XMLScripter;
 import org.wetator.util.FileUtil;
 import org.wetator.util.SecretString;
@@ -483,6 +484,9 @@ public class WetatorConfiguration {
     scripters.add(tmpDefaultScripter);
     LOG.info("Configuration: Scripter '" + tmpDefaultScripter.getClass().getName() + "' registered.");
     tmpDefaultScripter = new ExcelScripter();
+    scripters.add(tmpDefaultScripter);
+    LOG.info("Configuration: Scripter '" + tmpDefaultScripter.getClass().getName() + "' registered.");
+    tmpDefaultScripter = new WikiTextScripter();
     scripters.add(tmpDefaultScripter);
     LOG.info("Configuration: Scripter '" + tmpDefaultScripter.getClass().getName() + "' registered.");
 

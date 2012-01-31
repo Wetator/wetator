@@ -239,8 +239,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
                 tmpApplet.stop();
                 tmpApplet.destroy();
               } catch (final Exception e) {
-                // TODO is this an assertion or an action?
-                throw new ActionException("Applet usage failed (" + tmpHtmlApplet.getNameAttribute() + ").", e);
+                // TODO is this an assertion or an action? it was an assertion before
+                throw new ActionException("Applet (" + tmpHtmlApplet.getNameAttribute() + ") usage failed ("
+                        + e.getMessage() + ").", e);
               }
             }
           }
