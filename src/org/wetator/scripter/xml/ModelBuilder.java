@@ -143,7 +143,7 @@ public class ModelBuilder {
         final String tmpElementName = tmpElement.getName();
         final CommandType tmpExistingCommandType = commandTypes.get(tmpElementName);
         if (tmpExistingCommandType != null) {
-          throw new RuntimeException("Duplicate command '" + tmpElementName + "' found ('"
+          throw new ParseException("Duplicate command '" + tmpElementName + "' found ('"
               + tmpExistingCommandType.getNamespace() + "' and '" + tmpElement.getTargetNamespace() + "').");
         }
 
@@ -158,7 +158,7 @@ public class ModelBuilder {
           final String tmpParameterName = tmpParameterType.getName();
           for (ParameterType tmpCommandParameterType : tmpCommandType.getParameterTypes()) {
             if (tmpCommandParameterType.getName().equals(tmpParameterName)) {
-              throw new RuntimeException("Duplicate parameter '" + tmpElementName + "' found for command '"
+              throw new ParseException("Duplicate parameter '" + tmpElementName + "' found for command '"
                   + tmpCommandType.getNamespace() + ":" + tmpCommandType.getName() + "'.");
             }
           }
