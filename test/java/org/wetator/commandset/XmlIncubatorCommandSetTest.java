@@ -50,7 +50,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   public void applet() throws InvalidInputException {
     executeTestFile("applet.xml");
 
-    Assert.assertEquals(4, getSteps());
+    Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

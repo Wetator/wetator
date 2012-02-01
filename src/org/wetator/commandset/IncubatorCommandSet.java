@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -224,28 +225,39 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
+      boolean tmpAppletTested = false;
+      String tmpAppletNameValue = "";
+      if (null != tmpAppletName) {
+        tmpAppletNameValue = tmpAppletName.getValue();
+      }
       try {
         final IBrowser tmpBrowser = getBrowser(aContext);
         if (tmpBrowser instanceof HtmlUnitBrowser) {
           final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+
           final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
           final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
           for (HtmlElement tmpAppletElement : tmpAppletElements) {
             final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
-            if (null == tmpAppletName || StringUtils.isEmpty(tmpAppletName.getValue())
-                || tmpAppletName.getValue().equals(tmpHtmlApplet.getNameAttribute())) {
+            if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
+              aContext.informListenersInfo("runApplet", new String[] { tmpAppletNameValue });
+              tmpAppletTested = true;
               try {
                 final Applet tmpApplet = tmpHtmlApplet.getApplet();
                 tmpApplet.stop();
                 tmpApplet.destroy();
               } catch (final Exception e) {
+                aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
                 // TODO is this an assertion or an action? it was an assertion before
                 throw new ActionException("Applet (" + tmpHtmlApplet.getNameAttribute() + ") usage failed ("
-                        + e.getMessage() + ").", e);
+                    + e.getMessage() + ").", e);
               }
             }
           }
-          // TODO warn if nothing found for name or no applet on the page
+          if (!tmpAppletTested) {
+            // TODO is this an assertion or an action? it was an assertion before
+            throw new ActionException("Applet (" + tmpAppletNameValue + ") not found on page.");
+          }
         }
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });

@@ -910,13 +910,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           }
         }
       } catch (final NoClassDefFoundError e) {
-        aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
         final String tmpMessage = Messages.getMessage("javaExecClassNotFound",
             new String[] { tmpClassName, e.toString() });
         throw new CommandException(tmpMessage);
       } catch (final ClassNotFoundException e) {
-        aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
         final String tmpMessage = Messages.getMessage("javaExecClassNotFound",
             new String[] { tmpClassName, e.toString() });
@@ -926,12 +926,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getMessage() });
         throw new CommandException(tmpMessage);
       } catch (final IllegalAccessException e) {
-        aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         final String tmpMessage = Messages.getMessage("javaExecIllegalAccess", new String[] { tmpClassName,
             tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getMessage() });
         throw new CommandException(tmpMessage);
       } catch (final InvocationTargetException e) {
-        aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
           final String tmpMessage = Messages.getMessage("javaExecInvocationTarget", new String[] { tmpClassName,
               tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString() });
@@ -941,7 +941,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getCause().toString() });
         throw new CommandException(tmpMessage);
       } catch (final InstantiationException e) {
-        aContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
           final String tmpMessage = Messages.getMessage("javaExecInstantiation", new String[] { tmpClassName,
               tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString() });
