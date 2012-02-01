@@ -188,21 +188,25 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
         final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
         final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
+        boolean tmpAppletTested = false;
         for (HtmlElement tmpAppletElement : tmpAppletElements) {
           final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
           if (null == tmpAppletName || StringUtils.isEmpty(tmpAppletName.getValue())
               || tmpAppletName.getValue().equals(tmpHtmlApplet.getNameAttribute())) {
             try {
               final Applet tmpApplet = tmpHtmlApplet.getApplet();
+              aContext.informListenersInfo("runApplet", new String[] { tmpHtmlApplet.getNameAttribute() });
+              tmpAppletTested = true;
               tmpApplet.stop();
               tmpApplet.destroy();
             } catch (final Exception e) {
-              throw new AssertionFailedException("Applet (" + tmpHtmlApplet.getNameAttribute() + ") usage failed ("
-                  + e.getMessage() + ").", e);
+              Assert.fail("runAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
             }
           }
         }
-        // TODO warn if nothing found for name or no applet on the page
+        if (!tmpAppletTested) {
+          Assert.fail("runAppletNotFound", new String[] { tmpAppletName.getValue() });
+        }
       }
     }
   }
