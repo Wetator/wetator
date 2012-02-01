@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -186,26 +187,31 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       if (tmpBrowser instanceof HtmlUnitBrowser) {
         final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+        String tmpAppletNameValue = "";
+        if (null != tmpAppletName) {
+          tmpAppletNameValue = tmpAppletName.getValue();
+        }
+
         final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
         final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
         boolean tmpAppletTested = false;
         for (HtmlElement tmpAppletElement : tmpAppletElements) {
           final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
-          if (null == tmpAppletName || StringUtils.isEmpty(tmpAppletName.getValue())
-              || tmpAppletName.getValue().equals(tmpHtmlApplet.getNameAttribute())) {
+          if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
+            aContext.informListenersInfo("runApplet", new String[] { tmpAppletNameValue });
+            tmpAppletTested = true;
             try {
               final Applet tmpApplet = tmpHtmlApplet.getApplet();
-              aContext.informListenersInfo("runApplet", new String[] { tmpHtmlApplet.getNameAttribute() });
-              tmpAppletTested = true;
               tmpApplet.stop();
               tmpApplet.destroy();
             } catch (final Exception e) {
+              aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
               Assert.fail("runAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
             }
           }
         }
         if (!tmpAppletTested) {
-          Assert.fail("runAppletNotFound", new String[] { tmpAppletName.getValue() });
+          Assert.fail("runAppletNotFound", new String[] { tmpAppletNameValue });
         }
       }
     }
