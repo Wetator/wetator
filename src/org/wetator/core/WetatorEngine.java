@@ -156,6 +156,9 @@ public class WetatorEngine {
               // setup the context
               final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
               tmpWetatorContext.execute();
+            } catch (final InvalidInputException e) {
+              // TODO in case of an InvalidInputException we want to ignore the following browsers
+              throw e;
             } catch (final RuntimeException e) {
               // => continue with next browser
               informListenersError(e);

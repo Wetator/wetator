@@ -169,8 +169,6 @@ public class WetatorEngineExecuteTestsTest {
     verify(engine, times(1)).informListenersError(any(Throwable.class));
   }
 
-  // TODO what about WetatorException?
-
   /**
    * Test for the engine.<br/>
    * <br/>
@@ -195,6 +193,40 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersError(any(RuntimeException.class));
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseEnd();
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
+    assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
+    tmpInOrder.verify(engine).informListenersTestCaseEnd();
+    tmpInOrder.verify(engine).informListenersEnd();
+
+    verify(engine, times(1)).informListenersError(any(Throwable.class));
+  }
+
+  /**
+   * Test for the engine.<br/>
+   * <br/>
+   * Assertion: If there was an {@link InvalidInputException} executing a test file, the run for the current browser
+   * should be aborted.
+   */
+  @Test
+  public void contextExecuteInvalidInputException() throws InvalidInputException {
+    // setup
+    doThrow(new InvalidInputException("mocker")).doNothing().when(context).execute();
+
+    // run
+    engine.executeTests();
+
+    // assert
+    InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    tmpInOrder.verify(engine).addDefaultProgressListeners();
+    tmpInOrder.verify(engine).informListenersStart();
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
+    tmpInOrder.verify(browser).startNewSession(browserType1);
+    tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
+    tmpInOrder.verify(engine).informListenersError(any(InvalidInputException.class));
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);

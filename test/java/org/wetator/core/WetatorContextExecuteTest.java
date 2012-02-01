@@ -251,6 +251,43 @@ public class WetatorContextExecuteTest {
   }
 
   /**
+   * Test for the context.<br/>
+   * <br/>
+   * Assertion: If there was an {@link InvalidInputException} (during reading the commands), no commands should be
+   * executed and it should be thrown.
+   */
+  @Test
+  public void invalidInputException() throws CommandException, InvalidInputException {
+    // setup
+    Exception tmpException = new InvalidInputException("mocker");
+    doThrow(tmpException).when(engine).readCommandsFromFile(file1);
+
+    // run
+    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
+    try {
+      tmpContext.execute();
+      Assert.fail("InvalidInputException expected");
+    } catch (final InvalidInputException e) {
+      Assert.assertEquals(tmpException, e);
+    }
+
+    // assert
+    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+
+    verify(commandImplementation1, never()).execute(tmpContext, command1);
+    verify(commandImplementation2, never()).execute(tmpContext, command2);
+    verify(engine, never()).informListenersExecuteCommandStart(tmpContext, command1);
+    verify(engine, never()).informListenersExecuteCommandStart(tmpContext, command2);
+    verify(engine, never()).informListenersExecuteCommandSuccess();
+    verify(engine, never()).informListenersExecuteCommandIgnored();
+    verify(engine, never()).informListenersExecuteCommandFailure(any(AssertionException.class));
+    verify(engine, never()).informListenersExecuteCommandError(any(Throwable.class));
+    verify(engine, never()).informListenersExecuteCommandEnd();
+  }
+
+  /**
    * Test for the sub context.<br/>
    * <br/>
    * Assertion: If everything is ok in the context, all commands should be executed in the sub context.
