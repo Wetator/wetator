@@ -248,22 +248,20 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
                 tmpApplet.destroy();
               } catch (final Exception e) {
                 aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-                // TODO is this an assertion or an action? it was an assertion before
                 final String tmpMessage = Messages.getMessage("runAppletFailed",
                     new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
-                throw new ActionException(tmpMessage, e);
+                throw new AssertionException(tmpMessage, e);
               }
             }
           }
           if (!tmpAppletTested) {
-            // TODO is this an assertion or an action? it was an assertion before
             final String tmpMessage = Messages.getMessage("runAppletNotFound", new String[] { tmpAppletNameValue });
-            throw new ActionException(tmpMessage);
+            throw new AssertionException(tmpMessage);
           }
         }
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
+        throw new AssertionException(tmpMessage, e);
       }
     }
   }
