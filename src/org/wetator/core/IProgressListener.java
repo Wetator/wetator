@@ -108,6 +108,11 @@ public interface IProgressListener {
   public void testFileEnd();
 
   /**
+   * This is called after a run of a test case for one browser was ignored.
+   */
+  public void testRunIgnored();
+
+  /**
    * This is called after a run of a test case for one browser is finished.
    */
   public void testRunEnd();

@@ -553,6 +553,21 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#testRunIgnored()
+   */
+  @Override
+  public void testRunIgnored() {
+    try {
+      printStartTagOpener(TAG_IGNORED);
+      output.println("/>");
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override

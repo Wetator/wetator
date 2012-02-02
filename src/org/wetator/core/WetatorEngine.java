@@ -147,18 +147,24 @@ public class WetatorEngine {
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
         informListenersTestCaseStart(tmpTestCase.getName());
         try {
+          boolean tmpErrorOccurred = false;
           for (BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
             try {
-              // new session for every (root) file and browser
-              getBrowser().startNewSession(tmpBrowserType);
+              if (!tmpErrorOccurred) {
+                // new session for every (root) file and browser
+                getBrowser().startNewSession(tmpBrowserType);
 
-              // setup the context
-              final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
-              tmpWetatorContext.execute();
+                // setup the context
+                final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
+                tmpWetatorContext.execute();
+              } else {
+                informListenersTestRunIgnored();
+              }
             } catch (final InvalidInputException e) {
-              // TODO in case of an InvalidInputException we want to ignore the following browsers
-              throw e;
+              // the input won't be valid for the next browser => continue with next browser but ignore it
+              informListenersError(e);
+              tmpErrorOccurred = true;
             } catch (final RuntimeException e) {
               // => continue with next browser
               informListenersError(e);
@@ -468,6 +474,15 @@ public class WetatorEngine {
   protected void informListenersTestFileEnd() {
     for (IProgressListener tmpListener : progressListener) {
       tmpListener.testFileEnd();
+    }
+  }
+
+  /**
+   * Informs all listeners about 'testRunIgnored'.
+   */
+  protected void informListenersTestRunIgnored() {
+    for (IProgressListener tmpListener : progressListener) {
+      tmpListener.testRunIgnored();
     }
   }
 

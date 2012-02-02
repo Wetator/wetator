@@ -225,8 +225,11 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
-    tmpInOrder.verify(engine).informListenersTestRunEnd();
     tmpInOrder.verify(engine).informListenersError(any(InvalidInputException.class));
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
+    tmpInOrder.verify(engine).informListenersTestRunStart(browserType2.getLabel());
+    tmpInOrder.verify(engine).informListenersTestRunIgnored();
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);

@@ -159,6 +159,16 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#testRunIgnored()
+   */
+  @Override
+  public void testRunIgnored() {
+    // nothing
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override

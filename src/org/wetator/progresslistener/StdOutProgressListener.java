@@ -246,6 +246,15 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#testRunIgnored()
+   */
+  @Override
+  public void testRunIgnored() {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override
@@ -376,5 +385,4 @@ public class StdOutProgressListener implements IProgressListener {
   public long getIgnoredCount() {
     return ignoredCount;
   }
-
 }

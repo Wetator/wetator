@@ -813,6 +813,7 @@ test/xml/use_module.wet -text svneol=unset#text/plain
 test/xml/wait.wet -text svneol=unset#text/plain
 tmp/wetresult_error.xml -text svneol=unset#text/plain
 tmp/wetresult_failure.xml -text svneol=unset#text/plain
+tmp/wetresult_invalidinput.xml -text svneol=unset#text/plain
 /wetator-upload.cfg -text
 /wetator-upload.wet -text
 xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain
