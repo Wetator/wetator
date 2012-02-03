@@ -17,7 +17,9 @@
 package org.wetator.commandset;
 
 import java.applet.Applet;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -206,6 +208,21 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               tmpApplet.destroy();
             } catch (final Exception e) {
               aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+
+              // do a bit more and verify if all the jars are available
+              aContext.informListenersWarn("runAppletArchives", new String[] { tmpHtmlApplet.getArchiveAttribute() });
+              final List<URL> tmpJarUrls = tmpHtmlApplet.getArchiveUrls();
+              if (null != tmpJarUrls) {
+                for (URL tmpJarUrl : tmpJarUrls) {
+                  try {
+                    final InputStream tmpIs = tmpJarUrl.openStream();
+                    tmpIs.close();
+                  } catch (final Exception eUrl) {
+                    aContext.informListenersWarn("runAppletUnreachableJar",
+                        new String[] { tmpJarUrl.toString(), eUrl.toString() });
+                  }
+                }
+              }
               Assert.fail("runAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
             }
           }
