@@ -41,12 +41,28 @@ public class ContentUtilTest {
   }
 
   @Test
+  public void testGetPdfContentAsStringError() {
+    try {
+      ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
+      junit.framework.Assert.fail("IOException expected");
+    } catch (Exception e) {
+      org.junit.Assert.assertEquals("java.io.IOException: Error: Header doesn't contain versioninfo", e.toString());
+    }
+  }
+
+  @Test
   public void testGetRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
     String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void testGetRtfContentAsStringError() throws FileNotFoundException, IOException, BadLocationException {
+    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
+    org.junit.Assert.assertEquals("", tmpContent);
   }
 
   @Test
@@ -70,6 +86,17 @@ public class ContentUtilTest {
 
     String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void testGetXlsContentAsStringError() {
+    try {
+      ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+      junit.framework.Assert.fail("IOException expected");
+    } catch (Exception e) {
+      org.junit.Assert.assertEquals("java.io.IOException: "
+          + "Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0", e.toString());
+    }
   }
 
   @Test
