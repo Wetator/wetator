@@ -80,6 +80,7 @@ import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -776,11 +777,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
+    final WebResponse tmpResponse = tmpPage.getWebResponse();
 
     if (ContentType.PDF == tmpContentType) {
       try {
-        final String tmpContentAsText = ContentUtil
-            .getPdfContentAsString(tmpPage.getWebResponse().getContentAsStream());
+        final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
         return tmpPageChanged;
       } catch (final IOException e) {
@@ -790,21 +791,33 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     if (ContentType.XLS == tmpContentType) {
+      String tmpContentAsText = "";
       try {
-        final String tmpContentAsText = ContentUtil
-            .getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpPageChanged;
+        tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream());
       } catch (final IOException e) {
+        // some server send csv files with xls mime type
+        // so lets make another try
+        try {
+          tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+              tmpResponse.getContentCharset());
+
+          if (ContentUtil.isTxt(tmpContentAsText)) {
+            wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() });
+            Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+            return tmpPageChanged;
+          }
+        } catch (final IOException eAsString) {
+          Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
+        }
         Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
       }
+      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+      return tmpPageChanged;
     }
 
     if (ContentType.RTF == tmpContentType) {
       try {
-        final String tmpContentAsText = ContentUtil
-            .getRtfContentAsString(tmpPage.getWebResponse().getContentAsStream());
+        final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
         return tmpPageChanged;
       } catch (final IOException e) {
@@ -816,7 +829,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     }
 
-    Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
+    Assert.fail("unsupportedPageType", new String[] { tmpResponse.getContentType() });
     return tmpPageChanged;
   }
 

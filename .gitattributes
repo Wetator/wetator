@@ -307,6 +307,10 @@ Wetator/test/webpage/download/unknown_content_type.bin -text
 Wetator/test/webpage/download/wet_test.pdf -text
 Wetator/test/webpage/download/wet_test.rtf -text
 Wetator/test/webpage/download/wet_test.xls -text
+Wetator/test/webpage/download/wet_test_csv.xls -text
+Wetator/test/webpage/download/wet_test_error.pdf -text
+Wetator/test/webpage/download/wet_test_error.rtf -text
+Wetator/test/webpage/download/wet_test_error.xls -text
 Wetator/test/webpage/event_handler.html -text svneol=unset#text/plain
 Wetator/test/webpage/event_handler_old.html -text svneol=unset#text/plain
 Wetator/test/webpage/favicon.ico -text
