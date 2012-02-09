@@ -98,6 +98,42 @@ public class NormalizedString {
   }
 
   /**
+   * Appends the specified String to this sequence.
+   * 
+   * @param aString the string to append.
+   * @return a reference to this object.
+   */
+  public NormalizedString append(final char[] aChars, int aLength) {
+    if (null == aChars) {
+      return this;
+    }
+    if (isAppendDisabled) {
+      return this;
+    }
+    if (aLength < 1) {
+      return this;
+    }
+
+    boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
+
+    for (int i = 0; i < aLength; i++) {
+      final char tmpChar = aChars[i];
+      if (isWhitespace(tmpChar)) {
+        if (!tmpBlank) {
+          tmpBlank = true;
+          // don't use tmpChar here,
+          // we replace all whitespace with a blank
+          content.append(BLANK);
+        }
+      } else {
+        tmpBlank = false;
+        content.append(tmpChar);
+      }
+    }
+    return this;
+  }
+
+  /**
    * Appends a single blank at the end (if needed).
    * This method is here for performance.
    * 

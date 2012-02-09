@@ -307,6 +307,10 @@ test/webpage/download/unknown_content_type.bin -text
 test/webpage/download/wet_test.pdf -text
 test/webpage/download/wet_test.rtf -text
 test/webpage/download/wet_test.xls -text
+test/webpage/download/wet_test_csv.xls -text
+test/webpage/download/wet_test_error.pdf -text
+test/webpage/download/wet_test_error.rtf -text
+test/webpage/download/wet_test_error.xls -text
 test/webpage/event_handler.html -text svneol=unset#text/plain
 test/webpage/event_handler_old.html -text svneol=unset#text/plain
 test/webpage/favicon.ico -text

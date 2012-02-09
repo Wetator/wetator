@@ -18,6 +18,8 @@ package org.wetator.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Locale;
 
 import javax.swing.text.BadLocationException;
@@ -56,6 +58,33 @@ public final class ContentUtil {
    */
   public static String getTxtContentAsString(final String aContent) {
     final NormalizedString tmpResult = new NormalizedString(aContent);
+    if (tmpResult.length() > MAX_LENGTH) {
+      return tmpResult.substring(0, MAX_LENGTH) + MORE;
+    }
+    return tmpResult.toString();
+  }
+
+  /**
+   * Converts an InputStream to string.
+   * 
+   * @param anInputStream the input
+   * @param anEncoding the input stream encoding
+   * @return the normalizes content string
+   * @throws IOException in case of error
+   */
+  public static String getTxtContentAsString(final InputStream anInputStream, final String anEncoding)
+      throws IOException {
+    final NormalizedString tmpResult = new NormalizedString();
+    final Reader tmpReader = new InputStreamReader(anInputStream, anEncoding);
+    final char[] tmpCharBuffer = new char[1024];
+
+    int tmpChars = 0;
+    boolean tmpContinue = false;
+    do {
+      tmpChars = tmpReader.read(tmpCharBuffer);
+      tmpResult.append(tmpCharBuffer, tmpChars);
+      tmpContinue = (tmpChars > 0) && (tmpResult.length() <= MAX_LENGTH);
+    } while (tmpContinue);
     if (tmpResult.length() > MAX_LENGTH) {
       return tmpResult.substring(0, MAX_LENGTH) + MORE;
     }
@@ -178,6 +207,23 @@ public final class ContentUtil {
       final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
       return tmpResult;
     }
+  }
+
+  /**
+   * Tests if the text is 'readable'.
+   * 
+   * @param aText the input
+   * @return true, if the input contains enough charactes
+   */
+  public static boolean isTxt(final String aText) {
+    int tmpCharCount = 0;
+    for (int i = 0; i < aText.length(); i++) {
+      final char tmpChar = aText.charAt(i);
+      if (Character.isLetterOrDigit(tmpChar)) {
+        tmpCharCount++;
+      }
+    }
+    return (tmpCharCount * 1d / aText.length()) > 0.7;
   }
 
   /**
