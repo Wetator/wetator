@@ -804,6 +804,8 @@ Wetator/xsd/defaultCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/xsd/defaultCommandSet-0.9.5.xsd -text svneol=unset#text/plain
 Wetator/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
 Wetator/xsd/incubatorCommandSet-0.9.4.xsd -text svneol=unset#text/plain
+Wetator/xsd/incubatorCommandSet-0.9.5.xsd -text
+Wetator/xsd/incubatorCommandSet.xsd -text
 Wetator/xsd/sqlCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 Wetator/xsd/sqlCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
