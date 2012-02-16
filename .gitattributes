@@ -804,6 +804,8 @@ xsd/defaultCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/defaultCommandSet-0.9.5.xsd -text svneol=unset#text/plain
 xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
 xsd/incubatorCommandSet-0.9.4.xsd -text svneol=unset#text/plain
+xsd/incubatorCommandSet-0.9.5.xsd -text
+xsd/incubatorCommandSet.xsd -text
 xsd/sqlCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 xsd/sqlCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
