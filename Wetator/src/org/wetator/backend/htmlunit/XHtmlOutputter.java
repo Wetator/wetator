@@ -103,7 +103,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlVariable;
  * @author rbri
  */
 public final class XHtmlOutputter {
-  private static final Log LOG = LogFactory.getLog(XHtmlOutputter.class);;
+  private static final Log LOG = LogFactory.getLog(XHtmlOutputter.class);
 
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
