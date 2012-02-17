@@ -94,7 +94,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  * @author frank.danek
  */
 public final class HtmlUnitBrowser implements IBrowser {
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
+  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
 
   /** The maximum history size. */
   protected static final int MAX_HISTORY_SIZE = 15;

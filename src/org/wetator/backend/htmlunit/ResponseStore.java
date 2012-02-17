@@ -52,7 +52,7 @@ import com.gargoylesoftware.htmlunit.util.UrlUtils;
  * @author rbri
  */
 public final class ResponseStore {
-  private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
+  private static final Log LOG = LogFactory.getLog(ResponseStore.class);
   private static final Pattern CSS_URL_PATTERN = Pattern.compile("url\\(\\s*([\"']?)(.*?)([\"']?)\\s*\\)");
   private static final Pattern CSS_IMPORT_URL_PATTERN = Pattern.compile("@import\\s+([\"'])(.*?)([\"'])");
   private static final int MAX_FILE_NAME_LENGTH = 200;

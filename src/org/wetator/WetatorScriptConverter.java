@@ -42,7 +42,7 @@ import org.wetator.scripter.XMLScripter;
  */
 public final class WetatorScriptConverter {
 
-  private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);;
+  private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);
 
   private IScripter scripter;
   private IScriptCreator creator;
