@@ -164,9 +164,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       try {
         Thread.sleep(Long.parseLong(tmpWaitTime.getValue()) * 1000L);
       } catch (final NumberFormatException e) {
-        e.printStackTrace();
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
       } catch (final InterruptedException e) {
-        e.printStackTrace();
+        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
       }
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -207,28 +207,40 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               tmpApplet.stop();
               tmpApplet.destroy();
             } catch (final Exception e) {
-              aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-
               // do a bit more and verify if all the jars are available
-              aContext.informListenersWarn("runAppletArchives", new String[] { tmpHtmlApplet.getArchiveAttribute() });
-              final List<URL> tmpJarUrls = tmpHtmlApplet.getArchiveUrls();
-              if (null != tmpJarUrls) {
-                for (URL tmpJarUrl : tmpJarUrls) {
-                  try {
-                    final InputStream tmpIs = tmpJarUrl.openStream();
-                    tmpIs.close();
-                  } catch (final Exception eUrl) {
-                    aContext.informListenersWarn("runAppletUnreachableJar",
-                        new String[] { tmpJarUrl.toString(), eUrl.toString() });
-                  }
-                }
-              }
-              Assert.fail("runAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
+              aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+              checkArchiveAvailability(aContext, tmpHtmlApplet);
+
+              Assert.fail("runAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.toString() });
             }
           }
         }
         if (!tmpAppletTested) {
           Assert.fail("runAppletNotFound", new String[] { tmpAppletNameValue });
+        }
+      }
+    }
+
+    /**
+     * Check, if the defined applet archives are available for download.
+     * This is only done in case of an applet start error; this may create
+     * a hint, why the applet start call failed.
+     * 
+     * @param aContext
+     * @param aHtmlApplet
+     */
+    private void checkArchiveAvailability(final WetatorContext aContext, final HtmlApplet aHtmlApplet) {
+      aContext.informListenersWarn("runAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
+      final List<URL> tmpJarUrls = aHtmlApplet.getArchiveUrls();
+      if (null != tmpJarUrls) {
+        for (URL tmpJarUrl : tmpJarUrls) {
+          try {
+            final InputStream tmpIs = tmpJarUrl.openStream();
+            tmpIs.close();
+          } catch (final Exception eUrl) {
+            aContext.informListenersWarn("runAppletUnreachableJar",
+                new String[] { tmpJarUrl.toString(), eUrl.toString() });
+          }
         }
       }
     }
