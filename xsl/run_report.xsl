@@ -16,6 +16,7 @@
     <xsl:variable name="greyTableColor">#EEEEEE</xsl:variable>
     <xsl:variable name="lightGreyColor">#858588</xsl:variable>
     <xsl:variable name="lightGreyTableColor">#F8F8F8</xsl:variable>
+    <xsl:variable name="backgroundColor">#FFFFFF</xsl:variable>
 
     <xsl:variable name="noOfStepsInLine" select="150"/>
 
@@ -59,9 +60,10 @@
             <head>
                 <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <META http-equiv="content-style-type" content="text/css"/>
+                <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'/>
                 <title>Wetator - Test Result</title>
                 <style type="text/css">
-                    BODY {BACKGROUND-COLOR: #FFFFFF; FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, sans-serif; margin: 4px;}
+                    BODY {background-color: <xsl:value-of select="$backgroundColor"/>; font-size: 10pt; font-family: 'Droid Sans', arial, helvetica, sans-serif; margin: 4px;}
                     TABLE {font-size: 10pt; empty-cells: show; border-collapse: collapse; }
                     TABLE.overview {width: 80%;}
                     TH {FONT-WEIGHT: bold; COLOR: #FFFFFF; BACKGROUND-COLOR: <xsl:value-of select="$blueColor"/>; text-align: left;}
@@ -81,12 +83,13 @@
                     A:visited {COLOR: #768bc2; TEXT-DECORATION: none;}
                     A:active {COLOR: #768bc2; TEXT-DECORATION: none;}
                     A:hover {TEXT-DECORATION: none;}
-                    .step A:hover{width:13px;border:1px;}
                     A.linkToCommand {font-size: smaller; display: block;}
                     img {border: 0;}
                     DIV.header { color: #768bc2; margin-left: 10px; }
-                    DIV.header IMG { margin-left: -10px; border:0; }
+                    DIV.header img { margin-left: -10px; border:0; }
                     DIV.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
+
+                    .step A:hover{width:13px;border:1px;}
                     .smallBorder {border: 1px solid #999;}
                     .bold {font-weight: bold; }
                 </style>
@@ -207,8 +210,7 @@
 
             <body>
                 <a name="top"/>
-
-                <center><p><img src="images/wetator.png" alt="Wetator"/></p></center>
+                <center><a href="http://www.wetator.org"><img src="images/wetator.png" alt="Wetator"/></a></center>
 
                 <table align="center" frame="box" border="3" rules="none">
                     <xsl:attribute name="bordercolor">
