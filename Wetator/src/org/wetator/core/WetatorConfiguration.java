@@ -678,7 +678,7 @@ public final class WetatorConfiguration {
   }
 
   /**
-   * @return the configured javaascript timeout
+   * @return the configured javascript timeout
    */
   public int getJsTimeoutInSeconds() {
     return jsTimeoutInSeconds;
