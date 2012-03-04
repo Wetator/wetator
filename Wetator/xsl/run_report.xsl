@@ -89,6 +89,7 @@
                     DIV.header img { margin-left: -10px; border:0; }
                     DIV.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
 
+                    .center { margin-left: auto;margin-right: auto;text-align: center;width: 600px; }
                     .step A:hover{width:13px;border:1px;}
                     .smallBorder {border: 1px solid #999;}
                     .bold {font-weight: bold; }
@@ -210,7 +211,9 @@
 
             <body>
                 <a name="top"/>
-                <center><a href="http://www.wetator.org"><img src="images/wetator.png" alt="Wetator"/></a></center>
+                <div class="center">
+                  <a href="http://www.wetator.org"><img src="images/wetator.png" alt="Wetator"/></a>
+                </div>
 
                 <table align="center" frame="box" border="3" rules="none">
                     <xsl:attribute name="bordercolor"><xsl:value-of select="$lightGreyColor"/></xsl:attribute>
