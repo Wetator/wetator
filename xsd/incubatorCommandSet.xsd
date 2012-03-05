@@ -42,7 +42,7 @@
       <xs:enumeration value="Assert_Focus" />
       <xs:enumeration value="Save_Bookmark" />
       <xs:enumeration value="Open_Bookmark" />
-      <xs:enumeration value="Run_Applet" />
+      <xs:enumeration value="Assert_Applet" />
       <xs:enumeration value="Wait" />
     </xs:restriction>
   </xs:simpleType>

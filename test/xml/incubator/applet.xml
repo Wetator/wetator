@@ -8,8 +8,8 @@
     <step command='Open_Url'>incubator/applet.html</step>
     <step command='Assert_Title'>Wetator / Applet</step>
     <step command='Comment'>Test applet by name</step>
-    <step command='Run_Applet' comment='true'>GSort</step>
-    <step command='Run_Applet'>Panorado</step>
+    <step command='Assert_Applet' comment='true'>GSort</step>
+    <step command='Assert_Applet'>Panorado</step>
     <step command='Comment'>Test no applet on page</step>
     <step command='Open_Url'>assert_content.html</step>
     <step command='Assert_Fail'>Run Applet, No applet named 'Applet' found on the page.<tst:optionalParameter>Applet</tst:optionalParameter></step>
