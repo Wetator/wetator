@@ -59,7 +59,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
 
-    registerCommand("run-applet", new CommandRunApplet());
+    registerCommand("assert-applet", new CommandAssertApplet());
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
@@ -173,9 +173,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Wait'.
+   * Command 'AssertApplet'.
+   * Checks that an applet is runnable.
    */
-  public final class CommandRunApplet implements ICommandImplementation {
+  public final class CommandAssertApplet implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
@@ -200,7 +201,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         for (HtmlElement tmpAppletElement : tmpAppletElements) {
           final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
           if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
-            aContext.informListenersInfo("runApplet", new String[] { tmpAppletNameValue });
+            aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
             tmpAppletTested = true;
             try {
               final Applet tmpApplet = tmpHtmlApplet.getApplet();
@@ -211,12 +212,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
               checkArchiveAvailability(aContext, tmpHtmlApplet);
 
-              Assert.fail("runAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.toString() });
+              Assert.fail("assertAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.toString() });
             }
           }
         }
         if (!tmpAppletTested) {
-          Assert.fail("runAppletNotFound", new String[] { tmpAppletNameValue });
+          Assert.fail("assertAppletNotFound", new String[] { tmpAppletNameValue });
         }
       }
     }
@@ -230,7 +231,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @param aHtmlApplet
      */
     private void checkArchiveAvailability(final WetatorContext aContext, final HtmlApplet aHtmlApplet) {
-      aContext.informListenersWarn("runAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
+      aContext.informListenersWarn("assertAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
       final List<URL> tmpJarUrls = aHtmlApplet.getArchiveUrls();
       if (null != tmpJarUrls) {
         for (URL tmpJarUrl : tmpJarUrls) {
@@ -238,7 +239,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
             final InputStream tmpIs = tmpJarUrl.openStream();
             tmpIs.close();
           } catch (final Exception eUrl) {
-            aContext.informListenersWarn("runAppletUnreachableJar",
+            aContext.informListenersWarn("assertAppletUnreachableJar",
                 new String[] { tmpJarUrl.toString(), eUrl.toString() });
           }
         }

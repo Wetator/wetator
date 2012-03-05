@@ -91,7 +91,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="run-applet">
+    <xs:element name="assert-applet">
         <xs:annotation>
             <xs:documentation>Starts/stops the applet and checks for errors.</xs:documentation>
         </xs:annotation>
