@@ -38,7 +38,6 @@ Assert Fail       || Assert Title, The command 'assert-title' expects an integer
 # Click On                        
 Open Url          || click_on.html                       
 Click On          || InputTypeSubmit                     
-Open Url          || click_on.html                       
 Assert Fail       || Click On, The command 'click-on' requires a first parameter.                        
 Assert Fail       || Click On, The command 'click-on' does not use the value 'unused' provided in column 2. || Wetator || unused              
 #                               
@@ -103,7 +102,7 @@ Set                 || InputText Label || inputTextLabelValue
 Set                         
 Set                 || InputText Label                     
 #                               
-# Use  Module                     
+# Use Module                     
 Use Module          || modules/module.wett                      
 Assert Fail         || Use Module, The command 'use-module' requires a first parameter.                        
 Use Module          || modules/module.wett || Wetator                 

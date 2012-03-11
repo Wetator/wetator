@@ -25,17 +25,16 @@ import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 
 /**
- * @author frank.danek
  * @author rbri
  */
 @RunWith(BrowserRunner.class)
-public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
+public class LegacyXmlDefaultCommandSetTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/excel/";
+  private static final String BASE_FOLDER = "test/legacy_xml/";
 
   @Test
   public void defaultCommandSet() {
-    executeTestFile("default_command_set.xls");
+    executeTestFile("default_command_set.xml");
 
     Assert.assertEquals(64, getSteps());
     Assert.assertEquals(0, getFailures());

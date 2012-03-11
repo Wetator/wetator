@@ -220,7 +220,10 @@ Wetator/test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
 Wetator/test/java/org/wetator/commandset/AllTests.java -text
 Wetator/test/java/org/wetator/commandset/ExecTester.java -text
 Wetator/test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/commandset/LegacyXmlDefaultCommandSetTest.java -text
 Wetator/test/java/org/wetator/commandset/TestCommandSet.java -text
+Wetator/test/java/org/wetator/commandset/WettDefaultCommandSetTest.java -text
+Wetator/test/java/org/wetator/commandset/WettSqlCommandSetTest.java -text
 Wetator/test/java/org/wetator/commandset/XlsDefaultCommandSetTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/XlsSqlCommandSetTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
@@ -281,6 +284,8 @@ Wetator/test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#
 Wetator/test/java/org/wetator/util/StringUtilTest.java -text
 Wetator/test/java/org/wetator/util/VariableReplaceUtilUtilTest.java -text
 Wetator/test/java/org/wetator/util/XMLUtilTest.java -text
+Wetator/test/legacy_xml/default_command_set.xml -text
+Wetator/test/legacy_xml/modules/module.xml -text
 Wetator/test/webpage/ajax/jquery/ajax_javascript_test.js -text
 Wetator/test/webpage/ajax/jquery/ajax_options_birds.htms -text
 Wetator/test/webpage/ajax/jquery/ajax_options_fish.htms -text
