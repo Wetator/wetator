@@ -724,6 +724,9 @@ test/webpage/testcases.html -text
 test/webpage/wait_for.html -text
 test/webpage/wait_for2.html -text
 test/webpage/wet.css -text svneol=unset#text/plain
+test/wett/default_command_set.wett -text
+test/wett/modules/module.wett -text
+test/wett/sql_command_set.wett -text
 test/xml/ajax_jquery.wet -text svneol=unset#text/plain
 test/xml/ajax_prototype.wet -text svneol=unset#text/plain
 test/xml/assert_content.wet -text svneol=unset#text/plain

@@ -1,0 +1,109 @@
+#
+# Assert Content                      
+Open Url          || assert_content.html                     
+Assert Content    || Wetator / Assert Content                        
+Assert Fail       || Assert Content, The command 'assert-content' requires a first parameter.                        
+Assert Fail       || Assert Content, The command 'assert-content' expects an integer parameter value 'unused' in column 2. || Wetator || unused              
+#                               
+# Assert Deselected                       
+Open Url          || assert_deselected.html                      
+Assert Deselected || CheckBox Label                      
+Assert Fail       || Assert Deselected, The command 'assert-deselected' requires a first parameter.                      
+Assert Fail       || Assert Deselected, The command 'assert-deselected' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Assert Disabled
+Open Url          || assert_disabled.html                        
+Assert Disabled   || InputText Label                     
+Assert Fail       || Assert Disabled, The command 'assert-disabled' requires a first parameter.                      
+Assert Fail       || Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Assert Selected                     
+Open Url          || assert_selected.html                        
+Assert Selected   || Radio1 LabelFor                     
+Assert Fail       || Assert Selected, The command 'assert-selected' requires a first parameter.                      
+Assert Fail       || Assert Selected, The command 'assert-selected' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Assert Set                      
+Open Url          || assert_set.html                     
+Assert Set        || InputText Label || inputTextLabelValue                 
+Assert Fail       || Assert Set, The command 'assert-set' requires a first parameter.                        
+Assert Fail       || Assert Set, Wrong value: expected: <> but was: <inputTextLabelValue> || InputText Label                 
+#                               
+# Assert Title                        
+Open Url          || assert_content.html                     
+Assert Title      || Wetator / Assert Content                        
+Assert Fail       || Assert Title, The command 'assert-title' requires a first parameter.                        
+Assert Fail       || Assert Title, The command 'assert-title' expects an integer parameter value 'unused' in column 2. || Wetator || unused              
+#                               
+# Click On                        
+Open Url          || click_on.html                       
+Click On          || InputTypeSubmit                     
+Open Url          || click_on.html                       
+Assert Fail       || Click On, The command 'click-on' requires a first parameter.                        
+Assert Fail       || Click On, The command 'click-on' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Click Double On                     
+# Open Url          || click_double_on.html                        
+# Click On          || TODO                        
+# Open Url          || click_double_on.html                        
+Assert Fail       || Click Double On, The command 'click-double-on' requires a first parameter.                      
+Assert Fail       || Click Double On, The command 'click-double-on' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Click Right On                      
+# Open Url          || click_right_on.html                     
+# Click Right On    || TODO                        
+# Open Url          || click_right_on.html                     
+Assert Fail       || Click Right On, The command 'click-right-on' requires a first parameter.                        
+Assert Fail       || Click Right On, The command 'click-right-on' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Close Window                        
+# Open Url          || close_window.html                       
+# Close Window                            
+# Close Window      || TODO                        
+Assert Fail         || Close Window, The command 'close-window' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Deselect                        
+Open Url            || deselect.html                       
+Deselect            || CheckBox Label with For                     
+Assert Fail         || Deselect, The command 'deselect' requires a first parameter.                        
+Assert Fail         || Deselect, The command 'deselect' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Exec Java                       
+Exec Java           || org.wetator.commandset.ExecTester.staticVoidMethodWithoutParams                     
+Exec Java           || org.wetator.commandset.ExecTester.staticVoidMethodWithOneParam || one                 
+Assert Fail         || Exec Java, The command 'exec-java' requires a first parameter.                      
+Assert Fail         || Exec Java, The first parameter 'Wetator' is no valid method call. A valid call has to be like this: org.wetator.MyClass.myMethod. || Wetator || param               
+#                               
+# Go Back                     
+# Open Url            || go_back.html                        
+# Go Back                         
+# Go Back             || TODO                        
+Assert Fail         || Go Back, The command 'go-back' does not use the value 'unused' provided in column 2. || 1 || unused              
+#                               
+# Mouse Over                      
+Open Url            || mouse_over.html                     
+Mouse Over          || Gurkensalat                     
+Assert Fail         || Mouse Over, The command 'mouse-over' requires a first parameter.                        
+Assert Fail         || Mouse Over, The command 'mouse-over' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Open Url                        
+Open Url            || mouse_over.html                     
+Assert Fail         || Open Url, The command 'open-url' requires a first parameter.                        
+Assert Fail         || Open Url, The command 'open-url' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Select                      
+Open Url            || select.html                     
+Select              || Radio1 Label                        
+Assert Fail         || Select, The command 'select' requires a first parameter.                        
+Assert Fail         || Select, The command 'select' does not use the value 'unused' provided in column 2. || Wetator || unused              
+#                               
+# Set                     
+Open Url            || set.html                        
+Set                 || InputText Label || inputTextLabelValue                 
+Set                         
+Set                 || InputText Label                     
+#                               
+# Use  Module                     
+Use Module          || modules/module.wett                      
+Assert Fail         || Use Module, The command 'use-module' requires a first parameter.                        
+Use Module          || modules/module.wett || Wetator                 

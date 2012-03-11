@@ -1,0 +1,46 @@
+# Comment cleanup                     
+Exec SQL              || DROP TABLE IF EXISTS test_tbl                       
+Exec SQL              || @secondDb DROP TABLE IF EXISTS second_tbl                       
+# Comment default connection                      
+Exec SQL              || CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)                     
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)                       
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)                      
+Assert SQL            || SELECT * FROM test_tbl ORDER BY col2 || First, Second                   
+Assert SQL            || SELECT * FROM test_tbl ORDER BY col2 || First, 1, Second, 2                 
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('val9', 9)                        
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('val7', 7)                        
+Assert SQL            || SELECT * FROM test_tbl ORDER BY col2 || First, Second, val7, val9                   
+Assert SQL            || SELECT * FROM test_tbl ORDER BY col2 || First, 1,Second, 2, val7, 7, val9, 9                    
+Assert SQL            || SELECT col1 FROM test_tbl ORDER BY col2 || First, Second, val7, val9                   
+#   Comment second connection                       
+Exec SQL              || @secondDb CREATE TABLE second_tbl (col1 CHAR(20), col2 CHAR(2))                     
+Exec SQL              || @secondDb INSERT INTO second_tbl (col1, col2) VALUES ('Tester', 'aa')                       
+Exec SQL              || @secondDb INSERT INTO second_tbl (col1, col2) VALUES ('WeT', 'ab')                      
+Assert SQL            || @secondDb SELECT * FROM second_tbl ORDER BY col2 || Tester, WeT                 
+Assert SQL            || @secondDb SELECT * FROM second_tbl ORDER BY col2 || Tester, aa, WeT, ab                 
+#   Comment no blank after db name                      
+Assert SQL            || @secondDbSELECT * FROM second_tbl ORDER BY col2 || Tester, WeT                 
+Assert SQL            || @wetdbSELECT * FROM test_tbl ORDER BY col2 || First, 1, Second, 2                 
+#   Comment check content                       
+Open Url              || assert_content.html                     
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('Wetator / Assert Content', 10)                       
+Assert SQL in Content || SELECT col1 FROM test_tbl WHERE col2 = 10                       
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('Pferde', 11)                     
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('fressen', 12)                        
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('keinen', 13)                     
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('Gurkensalat', 14)                        
+Assert SQL in Content || SELECT col1 FROM test_tbl WHERE col2 > 10                       
+#   Comment content was a download                      
+Open Url              || download/download.txt                       
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('simple', 21)                     
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('text', 22)                       
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('file', 23)                       
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 24)                        
+Assert SQL in Content || SELECT col1 FROM test_tbl WHERE col2 > 20                       
+Open Url              || download/wet_test.pdf                       
+Assert Content        || simple, PDF, file, WeT                      
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('simple', 31)                     
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('PDF', 32)                        
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('file', 33)                       
+Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 44)                        
+Assert SQL in Content || SELECT col1 FROM test_tbl WHERE col2 > 30                       
