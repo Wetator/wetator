@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testcase xmlns='http://www.wetator.org/xsd/defaultCommandSet'>
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Assert Content</step>
+    <step command='Open_Url'>assert_content.html</step>
+    <step command='Assert_Content'>Wetator / Assert Content</step>
+    <step command='Assert_Fail'>Assert Content, The command 'assert-content' requires a first parameter.</step>
+    <step command='Assert_Fail'>Assert Content, The command 'assert-content' expects an integer parameter value 'unused' in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Assert Deselected</step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Deselected'>CheckBox Label</step>
+    <step command='Assert_Fail'>Assert Deselected, The command 'assert-deselected' requires a first parameter.</step>
+    <step command='Assert_Fail'>Assert Deselected, The command 'assert-deselected' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Assert_Disabled</step>
+    <step command='Open_Url'>assert_disabled.html</step>
+    <step command='Assert_Disabled'>InputText Label</step>
+    <step command='Assert_Fail'>Assert Disabled, The command 'assert-disabled' requires a first parameter.</step>
+    <step command='Assert_Fail'>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Assert Selected</step>
+    <step command='Open_Url'>assert_selected.html</step>
+    <step command='Assert_Selected'>Radio1 LabelFor</step>
+    <step command='Assert_Fail'>Assert Selected, The command 'assert-selected' requires a first parameter.</step>
+    <step command='Assert_Fail'>Assert Selected, The command 'assert-selected' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Assert Set</step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Set'>InputText Label<optionalParameter>inputTextLabelValue</optionalParameter></step>
+    <step command='Assert_Fail'>Assert Set, The command 'assert-set' requires a first parameter.</step>
+    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;inputTextLabelValue&gt;<optionalParameter>InputText Label</optionalParameter></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Assert Title</step>
+    <step command='Open_Url'>assert_content.html</step>
+    <step command='Assert_Title'>Wetator / Assert Content</step>
+    <step command='Assert_Fail'>Assert Title, The command 'assert-title' requires a first parameter.</step>
+    <step command='Assert_Fail'>Assert Title, The command 'assert-title' expects an integer parameter value 'unused' in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Click On</step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Click_On'>InputTypeSubmit</step>
+    <step command='Assert_Fail'>Click On, The command 'click-on' requires a first parameter.</step>
+    <step command='Assert_Fail'>Click On, The command 'click-on' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Click Double On</step>
+    <step comment='true' command='Open_Url'>click_double_on.html</step>
+    <step comment='true' command='Click_Double_On'>TODO</step>
+    <step command='Assert_Fail'>Click Double On, The command 'click-double-on' requires a first parameter.</step>
+    <step command='Assert_Fail'>Click Double On, The command 'click-double-on' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Click Right On</step>
+    <step comment='true' command='Open_Url'>click_right_on.html</step>
+    <step comment='true' command='Click_Right_On'>TODO</step>
+    <step command='Assert_Fail'>Click Right On, The command 'click-right-on' requires a first parameter.</step>
+    <step command='Assert_Fail'>Click Right On, The command 'click-right-on' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Close Window</step>
+    <step comment='true' command='Open_Url'>close_window.html</step>
+    <step comment='true' command='Close_Window'>TODO</step>
+    <step command='Assert_Fail'>Close Window, The command 'close-window' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Deselect</step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Deselect'>CheckBox Label with For</step>
+    <step command='Assert_Fail'>Deselect, The command 'deselect' requires a first parameter.</step>
+    <step command='Assert_Fail'>Deselect, The command 'deselect' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Exec Java</step>
+    <step command='Exec_Java'>org.wetator.commandset.ExecTester.staticVoidMethodWithoutParams</step>
+    <step command='Exec_Java'>org.wetator.commandset.ExecTester.staticVoidMethodWithOneParam<optionalParameter>one</optionalParameter></step>
+    <step command='Assert_Fail'>Exec Java, The command 'exec-java' requires a first parameter.</step>
+    <step command='Assert_Fail'>Exec Java, The first parameter 'Wetator' is no valid method call. A valid call has to be like this: org.wetator.MyClass.myMethod.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Go Back</step>
+    <step comment='true' command='Open_Url'>go_back.html</step>
+    <step comment='true' command='Go_Back'>TODO</step>
+    <step command='Assert_Fail'>Go Back, The command 'go-back' does not use the value 'unused' provided in column 2.<optionalParameter>1</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Mouse Over</step>
+    <step command='Open_Url'>mouse_over.html</step>
+    <step command='Mouse_Over'>Gurkensalat</step>
+    <step command='Assert_Fail'>Mouse Over, The command 'mouse-over' requires a first parameter.</step>
+    <step command='Assert_Fail'>Mouse Over, The command 'mouse-over' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Open Url</step>
+    <step command='Open_Url'>mouse_over.html</step>
+    <step command='Assert_Fail'>Open Url, The command 'open-url' requires a first parameter.</step>
+    <step command='Assert_Fail'>Open Url, The command 'open-url' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Select</step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Select'>Radio1 Label</step>
+    <step command='Assert_Fail'>Select, The command 'select' requires a first parameter.</step>
+    <step command='Assert_Fail'>Select, The command 'select' does not use the value 'unused' provided in column 2.<optionalParameter>Wetator</optionalParameter><optionalParameter2>unused</optionalParameter2></step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Set</step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Set'>InputText Label<optionalParameter>inputTextLabelValue</optionalParameter></step>
+    <step command='Set'></step>
+    <step command='Set'>InputText Label</step>
+
+    <step comment='true' command=''></step>
+    <step comment='true' command=''>Use Module</step>
+    <step command='Use_Module'>modules/module.xml</step>
+    <step command='Assert_Fail'>Use Module, The command 'use-module' requires a first parameter.</step>
+    <step command='Use_Module'>modules/module.xml<optionalParameter>Wetator</optionalParameter></step>
+</testcase>

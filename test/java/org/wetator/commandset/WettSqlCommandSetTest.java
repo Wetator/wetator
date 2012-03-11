@@ -25,19 +25,18 @@ import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 
 /**
- * @author frank.danek
  * @author rbri
  */
 @RunWith(BrowserRunner.class)
-public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
+public class WettSqlCommandSetTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/excel/";
+  private static final String BASE_FOLDER = "test/wett/";
 
   @Test
-  public void defaultCommandSet() {
-    executeTestFile("default_command_set.xls");
+  public void sql() {
+    executeTestFile("sql_command_set.wett");
 
-    Assert.assertEquals(64, getSteps());
+    Assert.assertEquals(40, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

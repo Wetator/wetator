@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testcase xmlns='http://www.wetator.org/xsd/defaultCommandSet'>
+    <step comment='true' command=''>Comment inside module</step>
+    <step command='Open_Url'>assert_content.html</step>
+    <step command='Assert Title'>Wetator / Assert Content</step>
+    <step comment='true' command=''>Comment module finished</step>
+</testcase>
