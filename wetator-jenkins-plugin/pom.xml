@@ -10,7 +10,7 @@
     <name>Wetator Report Plug-in</name>
     <groupId>org.wetator</groupId>
     <artifactId>wetator-jenkins-plugin</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
     <url>http://www.wetator.org</url>
@@ -53,7 +53,7 @@
                         <svn>javasvn</svn>
                     </providerImplementations>
                     <tagBase>https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin</tagBase>
-                    <goals>install</goals>
+<!--                     <goals>install</goals> -->
                 </configuration>
                 <version>2.2.2</version>
                 <dependencies>
