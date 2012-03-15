@@ -47,6 +47,7 @@
                     </providerImplementations>
                     <tagBase>https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin</tagBase>
                 </configuration>
+                <version>2.2.2</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
