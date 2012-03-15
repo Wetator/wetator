@@ -10,7 +10,7 @@
     <name>Wetator Report Plug-in</name>
     <groupId>org.wetator</groupId>
     <artifactId>wetator-jenkins-plugin</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
     <url>http://www.wetator.org</url>
@@ -31,6 +31,14 @@
     	<developerConnection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</developerConnection>
     	<url>https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</url>
     </scm>
+    <distributionManagement>
+      <!-- Publish the versioned releases here -->
+      <repository>
+        <id>local</id>
+        <name>Local folder</name>
+        <url>file://${project.basedir}/deploy</url>
+      </repository>
+    </distributionManagement>
     <organization>
     	<name>wetator.org</name>
     	<url>http://www.wetator.org</url>
