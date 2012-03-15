@@ -853,6 +853,7 @@ wetator-jenkins-plugin/.settings/org.maven.ide.eclipse.prefs -text svneol=unset#
 wetator-jenkins-plugin/LICENSE.txt -text svneol=unset#text/plain
 wetator-jenkins-plugin/ToDo.txt -text svneol=unset#text/plain
 wetator-jenkins-plugin/pom.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/readme.txt -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/History.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/PluginImpl.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/java/org/wetator/jenkins/WetatorBuildReport.java -text svneol=unset#text/plain
