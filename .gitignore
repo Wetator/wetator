@@ -46,6 +46,7 @@ Wetator/logs/*
 Wetator/wetator.config
 /build
 /deploy
+wetator-jenkins-plugin/deploy/org
 wetator-jenkins-plugin/infinitest.filters
 wetator-jenkins-plugin/target
 wetator-jenkins-plugin/work
