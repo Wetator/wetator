@@ -444,12 +444,15 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void goBackInCurrentWindow(final int aSteps) throws AssertionFailedException {
-    final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
       Assert.fail("noWebWindow", null);
     }
 
+    // sometimes the current window in HtmlUnit is an
+    // iFrame; but we need the topmost one
+    tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
     final History tmpHistory = tmpCurrentWindow.getHistory();
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
@@ -474,10 +477,13 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void saveCurrentWindowToLog(final IControl... aControls) {
-    final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
       try {
+        // sometimes the current window in HtmlUnit is an
+        // iFrame; but we need the topmost one
+        tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
           for (IControl tmpControl : aControls) {
@@ -557,10 +563,14 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private Page getCurrentPage() throws AssertionFailedException {
-    final WebWindow tmpWebWindow = webClient.getCurrentWindow();
+    WebWindow tmpWebWindow = webClient.getCurrentWindow();
     if (null == tmpWebWindow) {
       Assert.fail("noWebWindow", null);
     }
+
+    // sometimes the current window in HtmlUnit is an
+    // iFrame; but we need the topmost one
+    tmpWebWindow = tmpWebWindow.getTopWindow();
     final Page tmpPage = tmpWebWindow.getEnclosedPage();
     if (null == tmpPage) {
       Assert.fail("noPageInWebWindow", null);
