@@ -11,6 +11,7 @@
     <xsl:variable name="failedColor">#E75013</xsl:variable>
     <xsl:variable name="vacantOkColor">#DFEFAD</xsl:variable>
     <xsl:variable name="vacantFailedColor">#FFBCBC</xsl:variable>
+    <xsl:variable name="ignoredColor">#FFFFFF</xsl:variable>
     <xsl:variable name="blueColor">#00769C</xsl:variable>
     <xsl:variable name="greyColor">#57575A</xsl:variable>
     <xsl:variable name="lightGreyColor">#858588</xsl:variable>
@@ -25,11 +26,12 @@
     <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant-or-self::error)])"/>
     <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant-or-self::error)])"/>
 
-    <xsl:variable name="stepsOk" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
-    <xsl:variable name="stepsGreen" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error)])"/>
+    <xsl:variable name="stepsOk" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error) and not(ignored)])"/>
+    <xsl:variable name="stepsGreen" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error) and not(ignored)])"/>
     <xsl:variable name="stepsRed" select="$testStepCount - $stepsGreen"/>
-    <xsl:variable name="stepsVacantFailed" select="$testStepCount - $testCaseFailureCount - $stepsGreen"/>
     <xsl:variable name="stepsVacantOk" select="$testStepCount - $testCaseFailureCount - $stepsVacantFailed - $stepsOk"/>
+    <xsl:variable name="stepsVacantFailed" select="$testStepCount - $testCaseFailureCount - $stepsGreen"/>
+    <xsl:variable name="stepsIgnored" select="count(/wet/testcase/testrun/testfile/command/ignored)"/>
 
     <xsl:variable name="testFailurePercentage" select="ceiling($testFailureCount * 100 div $testCount)"/>
     <xsl:variable name="testSuccessPercentage" select="100 - $testFailurePercentage"/>
@@ -38,7 +40,8 @@
     <xsl:variable name="testCaseSuccessPercentage" select="100 - $testCaseFailurePercentage"/>
 
     <xsl:variable name="stepsGreenPercent" select="format-number($stepsGreen * 100 div $testStepCount, '#')"/>
-    <xsl:variable name="stepsRedPercent" select="format-number(100 - $stepsGreenPercent, '#')"/>
+    <xsl:variable name="stepsIgnoredPercent" select="format-number($stepsIgnored * 100 div $testStepCount, '#')"/>
+    <xsl:variable name="stepsRedPercent" select="format-number(100 - $stepsGreenPercent - $stepsIgnoredPercent, '#')"/>
     <xsl:variable name="stepsOkPercent" select="format-number($stepsOk * 100 div $testStepCount, '#')"/>
     <xsl:variable name="stepsVacantOkPercent" select="format-number($stepsGreenPercent - $stepsOkPercent, '#')"/>
     <xsl:variable name="stepsFailedPercent" select="format-number($testCaseFailureCount * 100 div $testStepCount, '#')"/>
@@ -266,7 +269,7 @@
                                     <xsl:value-of select="$failedColor"/>
                                 </xsl:attribute>
                                 <xsl:attribute name="title">
-                                    <xsl:value-of select="'Failed tests'"/>
+                                    <xsl:value-of select="'failed tests'"/>
                                 </xsl:attribute>
                                 <xsl:value-of select="$testFailurePercentage"/>%
                             </td>
@@ -280,7 +283,7 @@
                                     <xsl:value-of select="$okColor"/>
                                 </xsl:attribute>
                                 <xsl:attribute name="title">
-                                    <xsl:value-of select="'Successful tests'"/>
+                                    <xsl:value-of select="'successful tests'"/>
                                 </xsl:attribute>
                                 <xsl:value-of select="$testSuccessPercentage"/>%
                             </td>
@@ -312,7 +315,7 @@
                                                     <xsl:value-of select="$failedColor"/>
                                                 </xsl:attribute>
                                                 <xsl:attribute name="title">
-                                                    <xsl:value-of select="'Failed test cases'"/>
+                                                    <xsl:value-of select="'failed test cases'"/>
                                                 </xsl:attribute>
                                                 <xsl:value-of select="$testCaseFailurePercentage"/>%
                                             </td>
@@ -326,7 +329,7 @@
                                                     <xsl:value-of select="$okColor"/>
                                                 </xsl:attribute>
                                                 <xsl:attribute name="title">
-                                                    <xsl:value-of select="'Successful test cases'"/>
+                                                    <xsl:value-of select="'successful test cases'"/>
                                                 </xsl:attribute>
                                                 <xsl:value-of select="$testCaseSuccessPercentage"/>%
                                             </td>
@@ -358,7 +361,7 @@
                                                 <xsl:value-of select="$failedColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Failed steps'"/>
+                                                <xsl:value-of select="'failed steps'"/>
                                             </xsl:attribute>
                                             <xsl:if test="$stepsFailedPercent >= 3">
                                                 <xsl:value-of select="$stepsFailedPercent"/>%
@@ -372,7 +375,7 @@
                                                 <xsl:value-of select="$failedColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Failed steps'"/>
+                                                <xsl:value-of select="'failed steps'"/>
                                             </xsl:attribute>
                                         </td>
                                     </xsl:if>
@@ -387,7 +390,7 @@
                                                 <xsl:value-of select="$vacantFailedColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Vacant failed steps'"/>
+                                                <xsl:value-of select="'vacant failed steps'"/>
                                             </xsl:attribute>
                                             <xsl:if test="$stepsVacantFailedPercent >= 3">
                                                 <xsl:value-of select="$stepsVacantFailedPercent"/>%
@@ -401,7 +404,7 @@
                                                 <xsl:value-of select="$vacantFailedColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Vacant failed steps'"/>
+                                                <xsl:value-of select="'vacant failed steps'"/>
                                             </xsl:attribute>
                                         </td>
                                     </xsl:if>
@@ -416,7 +419,7 @@
                                                 <xsl:value-of select="$okColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Successful steps'"/>
+                                                <xsl:value-of select="'successful steps'"/>
                                             </xsl:attribute>
                                             <xsl:if test="$stepsOkPercent >= 3">
                                                 <xsl:value-of select="$stepsOkPercent"/>%
@@ -430,7 +433,7 @@
                                                 <xsl:value-of select="$okColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Successful steps'"/>
+                                                <xsl:value-of select="'successful steps'"/>
                                             </xsl:attribute>
                                         </td>
                                     </xsl:if>
@@ -445,7 +448,7 @@
                                                 <xsl:value-of select="$vacantOkColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Vacant successful steps'"/>
+                                                <xsl:value-of select="'vacant successful steps'"/>
                                             </xsl:attribute>
                                             <xsl:if test="$stepsVacantOkPercent >= 3">
                                                 <xsl:value-of select="$stepsVacantOkPercent"/>%
@@ -459,7 +462,36 @@
                                                 <xsl:value-of select="$vacantOkColor"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="title">
-                                                <xsl:value-of select="'Vacant successful steps'"/>
+                                                <xsl:value-of select="'vacant successful steps'"/>
+                                            </xsl:attribute>
+                                        </td>
+                                    </xsl:if>
+                                    
+                                    <!-- ignored steps -->
+                                    <xsl:if test="$stepsIgnoredPercent > 0">
+                                        <td class="smallBorder" style="text-align: center;">
+                                            <xsl:attribute name="width">
+                                                <xsl:value-of select="$stepsIgnoredPercent"/>%
+                                            </xsl:attribute>
+                                            <xsl:attribute name="bgcolor">
+                                                <xsl:value-of select="$ignoredColor"/>
+                                            </xsl:attribute>
+                                            <xsl:attribute name="title">
+                                                <xsl:value-of select="'ignored steps'"/>
+                                            </xsl:attribute>
+                                            <xsl:if test="$stepsIgnoredPercent >= 3">
+                                                <xsl:value-of select="$stepsIgnoredPercent"/>%
+                                            </xsl:if>
+                                        </td>
+                                    </xsl:if>
+                                    <xsl:if test="$stepsIgnoredPercent = 0 and $stepsIgnored > 0">
+                                        <td class="smallBorder">
+                                            <xsl:attribute name="width">1%</xsl:attribute>
+                                            <xsl:attribute name="bgcolor">
+                                                <xsl:value-of select="$ignoredColor"/>
+                                            </xsl:attribute>
+                                            <xsl:attribute name="title">
+                                                <xsl:value-of select="'ignored steps'"/>
                                             </xsl:attribute>
                                         </td>
                                     </xsl:if>
@@ -986,6 +1018,7 @@
                                     <xsl:variable name="noOfErrors" select="sum(descendant-or-self::error)"/>
                                     <xsl:variable name="noOfSubSteps" select="count(descendant::command[not(@isComment)])"/>
                                     <xsl:variable name="vacant" select="preceding-sibling::*[descendant-or-self::error]"/>
+                                    <xsl:variable name="ignored" select="ignored"/>
 
                                     <!-- start new line if needed -->
                                     <xsl:if test="(position() mod $noOfStepsInLine = 1) and (position() &gt; 1)">
@@ -997,6 +1030,9 @@
                                             <xsl:choose>
                                                 <xsl:when test="$noOfErrors = 0">
                                                     <xsl:choose>
+                                                        <xsl:when test="$ignored">
+                                                            <xsl:value-of select="$ignoredColor"/>
+                                                        </xsl:when>
                                                         <xsl:when test="$vacant">
                                                             <xsl:value-of select="$vacantOkColor"/>
                                                         </xsl:when>
