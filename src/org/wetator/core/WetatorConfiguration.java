@@ -95,7 +95,7 @@ public class WetatorConfiguration {
   /**
    * The property name to set whether a distinct output directory should be used.
    */
-  public static final String PROPERTY_DISTINCT_OUTPUT = PROPERTY_PREFIX + "distinctOutput";;
+  public static final String PROPERTY_DISTINCT_OUTPUT = PROPERTY_PREFIX + "distinctOutput";
   private static final String DEFAULT_DISTINCT_OUTPUT = "false";
   /**
    * The property name to set the XSL templates used to transform the output.
@@ -691,7 +691,7 @@ public class WetatorConfiguration {
   }
 
   /**
-   * @return the configured javaascript timeout
+   * @return the configured javascript timeout
    */
   public int getJsTimeoutInSeconds() {
     return jsTimeoutInSeconds;

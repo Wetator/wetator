@@ -109,6 +109,34 @@ public class NormalizedStringTest {
   }
 
   @Test
+  public void testAppendChars() {
+    NormalizedString tmpResult = new NormalizedString();
+
+    org.junit.Assert.assertEquals(0, tmpResult.length());
+    org.junit.Assert.assertEquals("", tmpResult.toString());
+
+    tmpResult.append(new char[] { }, 0);
+    org.junit.Assert.assertEquals(0, tmpResult.length());
+    org.junit.Assert.assertEquals("", tmpResult.toString());
+
+    tmpResult.append(new char[] { }, -1);
+    org.junit.Assert.assertEquals(0, tmpResult.length());
+    org.junit.Assert.assertEquals("", tmpResult.toString());
+
+    tmpResult.append(new char[] { 'a', 'b' }, 2);
+    org.junit.Assert.assertEquals(2, tmpResult.length());
+    org.junit.Assert.assertEquals("ab", tmpResult.toString());
+
+    tmpResult.append(new char[] { 'x', 'y', 'z' }, 2);
+    org.junit.Assert.assertEquals(4, tmpResult.length());
+    org.junit.Assert.assertEquals("abxy", tmpResult.toString());
+
+    tmpResult.append(new char[] { ' ' }, 1);
+    org.junit.Assert.assertEquals(4, tmpResult.length());
+    org.junit.Assert.assertEquals("abxy", tmpResult.toString());
+  }
+
+  @Test
   public void testSubstring_Empty() {
     NormalizedString tmpTestable = new NormalizedString();
 

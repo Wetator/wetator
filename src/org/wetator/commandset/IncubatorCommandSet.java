@@ -17,8 +17,10 @@
 package org.wetator.commandset;
 
 import java.applet.Applet;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -64,7 +66,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
     registerCommand("wait", new CommandWait());
-    registerCommand("run-applet", new CommandRunApplet());
+    registerCommand("assert-applet", new CommandAssertApplet());
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
@@ -211,9 +213,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Run Applet'.
+   * Command 'AssertApplet'.
+   * Checks that an applet is runnable.
    */
-  public final class CommandRunApplet implements ICommandImplementation {
+  public final class CommandAssertApplet implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
@@ -240,14 +243,17 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           for (HtmlElement tmpAppletElement : tmpAppletElements) {
             final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
             if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
-              aContext.informListenersInfo("runApplet", new String[] { tmpAppletNameValue });
+              aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
               tmpAppletTested = true;
               try {
                 final Applet tmpApplet = tmpHtmlApplet.getApplet();
                 tmpApplet.stop();
                 tmpApplet.destroy();
               } catch (final Exception e) {
+                // do a bit more and verify if all the jars are available
                 aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+                checkArchiveAvailability(aContext, tmpHtmlApplet);
+
                 final String tmpMessage = Messages.getMessage("runAppletFailed",
                     new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
                 throw new AssertionException(tmpMessage, e);
@@ -262,6 +268,30 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
         throw new AssertionException(tmpMessage, e);
+      }
+    }
+
+    /**
+     * Check, if the defined applet archives are available for download.
+     * This is only done in case of an applet start error; this may create
+     * a hint, why the applet start call failed.
+     * 
+     * @param aContext
+     * @param aHtmlApplet
+     */
+    private void checkArchiveAvailability(final WetatorContext aContext, final HtmlApplet aHtmlApplet) {
+      aContext.informListenersWarn("assertAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
+      final List<URL> tmpJarUrls = aHtmlApplet.getArchiveUrls();
+      if (null != tmpJarUrls) {
+        for (URL tmpJarUrl : tmpJarUrls) {
+          try {
+            final InputStream tmpIs = tmpJarUrl.openStream();
+            tmpIs.close();
+          } catch (final Exception eUrl) {
+            aContext.informListenersWarn("assertAppletUnreachableJar",
+                new String[] { tmpJarUrl.toString(), eUrl.toString() });
+          }
+        }
       }
     }
   }

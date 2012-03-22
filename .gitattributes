@@ -230,7 +230,11 @@ test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
 test/java/org/wetator/commandset/AllTests.java -text
 test/java/org/wetator/commandset/ExecTester.java -text
 test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/LegacyXmlDefaultCommandSetTest.java -text
+test/java/org/wetator/commandset/LegacyXmlSqlCommandSetTest.java -text
 test/java/org/wetator/commandset/TestCommandSet.java -text
+test/java/org/wetator/commandset/WettDefaultCommandSetTest.java -text
+test/java/org/wetator/commandset/WettSqlCommandSetTest.java -text
 test/java/org/wetator/commandset/XlsDefaultCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/wetator/commandset/XlsSqlCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/wetator/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
@@ -299,6 +303,9 @@ test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/pla
 test/java/org/wetator/util/StringUtilTest.java -text
 test/java/org/wetator/util/VariableReplaceUtilUtilTest.java -text
 test/java/org/wetator/util/XMLUtilTest.java -text
+test/legacy_xml/default_command_set.xml -text
+test/legacy_xml/modules/module.xml -text
+test/legacy_xml/sql_command_set.xml -text
 test/webpage/ajax/jquery/ajax_javascript_test.js -text
 test/webpage/ajax/jquery/ajax_options_birds.htms -text
 test/webpage/ajax/jquery/ajax_options_fish.htms -text
@@ -325,6 +332,10 @@ test/webpage/download/unknown_content_type.bin -text
 test/webpage/download/wet_test.pdf -text
 test/webpage/download/wet_test.rtf -text
 test/webpage/download/wet_test.xls -text
+test/webpage/download/wet_test_csv.xls -text
+test/webpage/download/wet_test_error.pdf -text
+test/webpage/download/wet_test_error.rtf -text
+test/webpage/download/wet_test_error.xls -text
 test/webpage/event_handler.html -text svneol=unset#text/plain
 test/webpage/event_handler_old.html -text svneol=unset#text/plain
 test/webpage/favicon.ico -text
@@ -738,6 +749,9 @@ test/webpage/testcases.html -text
 test/webpage/wait_for.html -text
 test/webpage/wait_for2.html -text
 test/webpage/wet.css -text svneol=unset#text/plain
+test/wett/default_command_set.wett -text
+test/wett/modules/module.wett -text
+test/wett/sql_command_set.wett -text
 test/xml/ajax_jquery.wet -text svneol=unset#text/plain
 test/xml/ajax_prototype.wet -text svneol=unset#text/plain
 test/xml/assert_content.wet -text svneol=unset#text/plain
@@ -816,11 +830,16 @@ tmp/wetresult_failure.xml -text svneol=unset#text/plain
 tmp/wetresult_invalidinput.xml -text svneol=unset#text/plain
 /wetator-upload.cfg -text
 /wetator-upload.wet -text
+xsd/default-command-set-1.0.0.xsd -text
 xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 xsd/defaultCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/defaultCommandSet-0.9.5.xsd -text svneol=unset#text/plain
+xsd/defaultCommandSet-1.0.xsd -text
 xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
+xsd/incubator-command-set-1.0.0.xsd -text
 xsd/incubatorCommandSet-0.9.4.xsd -text svneol=unset#text/plain
+xsd/incubatorCommandSet-0.9.5.xsd -text
+xsd/incubatorCommandSet.xsd -text
 xsd/sqlCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 xsd/sqlCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/sqlCommandSet.xsd -text svneol=unset#text/plain

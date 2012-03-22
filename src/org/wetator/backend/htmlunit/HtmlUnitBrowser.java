@@ -82,6 +82,7 @@ import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -95,7 +96,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  * @author frank.danek
  */
 public final class HtmlUnitBrowser implements IBrowser {
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
+  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
 
   /** The maximum history size. */
   protected static final int MAX_HISTORY_SIZE = 15;
@@ -465,13 +466,16 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void goBackInCurrentWindow(final int aSteps) throws ActionException {
-    final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
       final String tmpMessage = Messages.getMessage("noWebWindow", null);
       throw new ActionException(tmpMessage);
     }
 
+    // sometimes the current window in HtmlUnit is an
+    // iFrame; but we need the topmost one
+    tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
     final History tmpHistory = tmpCurrentWindow.getHistory();
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
@@ -498,10 +502,13 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void saveCurrentWindowToLog(final IControl... aControls) {
-    final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
       try {
+        // sometimes the current window in HtmlUnit is an
+        // iFrame; but we need the topmost one
+        tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
           for (IControl tmpControl : aControls) {
@@ -586,11 +593,15 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private Page getCurrentPage() throws BackendException {
-    final WebWindow tmpWebWindow = webClient.getCurrentWindow();
+    WebWindow tmpWebWindow = webClient.getCurrentWindow();
     if (null == tmpWebWindow) {
       final String tmpMessage = Messages.getMessage("noWebWindow", null);
       throw new BackendException(tmpMessage);
     }
+
+    // sometimes the current window in HtmlUnit is an
+    // iFrame; but we need the topmost one
+    tmpWebWindow = tmpWebWindow.getTopWindow();
     final Page tmpPage = tmpWebWindow.getEnclosedPage();
     if (null == tmpPage) {
       final String tmpMessage = Messages.getMessage("noPageInWebWindow", null);
@@ -815,11 +826,11 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
+      final WebResponse tmpResponse = tmpPage.getWebResponse();
 
       if (ContentType.PDF == tmpContentType) {
         try {
-          final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpPage.getWebResponse()
-              .getContentAsStream());
+          final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpPageChanged;
         } catch (final IOException e) {
@@ -829,21 +840,33 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       if (ContentType.XLS == tmpContentType) {
+        String tmpContentAsText = "";
         try {
-          final String tmpContentAsText = ContentUtil.getXlsContentAsString(tmpPage.getWebResponse()
-              .getContentAsStream());
-          Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-          return tmpPageChanged;
+          tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream());
         } catch (final IOException e) {
+          // some server send csv files with xls mime type
+          // so lets make another try
+          try {
+            tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+                tmpResponse.getContentCharset());
+
+            if (ContentUtil.isTxt(tmpContentAsText)) {
+              wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() });
+              Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+              return tmpPageChanged;
+            }
+          } catch (final IOException eAsString) {
+            Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
+          }
           Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-          return tmpPageChanged;
         }
+        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        return tmpPageChanged;
       }
 
       if (ContentType.RTF == tmpContentType) {
         try {
-          final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpPage.getWebResponse()
-              .getContentAsStream());
+          final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpPageChanged;
         } catch (final IOException e) {

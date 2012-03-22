@@ -26,8 +26,10 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ XmlDefaultCommandSetTest.class, XmlEventHandlingTest.class, XmlIncubatorCommandSetTest.class,
-    XmlOtherTest.class, XmlSqlCommandSetTest.class, XlsDefaultCommandSetTest.class })
+@SuiteClasses({ LegacyXmlDefaultCommandSetTest.class, LegacyXmlSqlCommandSetTest.class,
+    WettDefaultCommandSetTest.class, WettSqlCommandSetTest.class, XlsDefaultCommandSetTest.class,
+    XlsSqlCommandSetTest.class, XmlDefaultCommandSetTest.class, XmlEventHandlingTest.class,
+    XmlIncubatorCommandSetTest.class, XmlOtherTest.class, XmlSqlCommandSetTest.class })
 public final class AllTests {
 
   /**
