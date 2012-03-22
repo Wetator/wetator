@@ -110,3 +110,6 @@ frank.danek 2011-08-28 19:45: Ich habs dann einfach mal gemacht:
 	Als nächstes würde ich mich jetzt an das Exception Handling setzen...
 
 	Ach ja, wir haben jetzt eine Warning im StdOutProgressListener. @rbri: kannst du dir das bitte mal anschaun?
+
+frank.danek 2012-03-22 22:55: @rbri: Warum hat das Projekt Warnings? Warum laufen die Tests nicht durch?
+	Da lässt man dich mal 5 Minuten aus den Augen... tztztz ;)
