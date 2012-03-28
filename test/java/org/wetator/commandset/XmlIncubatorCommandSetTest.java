@@ -47,7 +47,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
   public void applet() {
-    executeTestFile("applet.xml");
+    executeTestFile("assert_applet.xml");
 
     Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());
