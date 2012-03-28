@@ -775,7 +775,7 @@ Wetator/test/xml/ie8/event_deselect.wet -text
 Wetator/test/xml/ie8/event_mouseOver.wet -text
 Wetator/test/xml/ie8/event_select.wet -text
 Wetator/test/xml/iframe.wet -text
-Wetator/test/xml/incubator/applet.xml -text
+Wetator/test/xml/incubator/assert_applet.xml -text
 Wetator/test/xml/incubator/assert_focus.xml -text
 Wetator/test/xml/incubator/bookmark.xml -text
 Wetator/test/xml/jquery.wet -text svneol=unset#text/plain
