@@ -98,12 +98,13 @@ public class NormalizedString {
   }
 
   /**
-   * Appends the specified String to this sequence.
+   * Appends the first aLength chars from the array to this sequence.
    * 
-   * @param aString the string to append.
+   * @param aChars the string to append.
+   * @param aLength the number of chars too append
    * @return a reference to this object.
    */
-  public NormalizedString append(final char[] aChars, int aLength) {
+  public NormalizedString append(final char[] aChars, final int aLength) {
     if (null == aChars) {
       return this;
     }
