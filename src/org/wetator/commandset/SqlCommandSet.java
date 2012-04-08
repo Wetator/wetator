@@ -36,6 +36,7 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -88,8 +89,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
@@ -124,13 +124,14 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
+
       final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aContext);
+      final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
       tmpSqlParam.trim();
       final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
@@ -168,7 +169,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       final String tmpResultString = tmpResult.toString().trim();
-      Assert.assertListMatch(tmpExpected, tmpResultString);
+      tmpPattern.matches(tmpResultString);
     }
   }
 
@@ -179,8 +180,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext,
-     *      org.wetator.core.Command)
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
