@@ -124,6 +124,7 @@ Wetator/src/org/wetator/core/WetatorEngine.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
+Wetator/src/org/wetator/core/searchpattern/ContentPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/SearchPattern.java -text
@@ -236,6 +237,7 @@ Wetator/test/java/org/wetator/core/AllTests.java -text
 Wetator/test/java/org/wetator/core/CommandTest.java -text
 Wetator/test/java/org/wetator/core/VariableTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/AllTests.java -text
+Wetator/test/java/org/wetator/core/searchpattern/ContentPatternTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternMatchesAtEndTest.java -text

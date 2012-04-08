@@ -61,6 +61,7 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionFailedException;
 import org.wetator.exception.WetatorException;
@@ -674,6 +675,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws AssertionFailedException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
+    final ContentPattern tmpPattern = new ContentPattern(aTitleToWaitFor);
     boolean tmpPageChanged = false;
 
     Page tmpPage = getCurrentPage();
@@ -684,7 +686,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
         try {
-          Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+          tmpPattern.matches(tmpCurrentTitle);
           return tmpPageChanged;
         } catch (final AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
@@ -712,7 +714,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
     final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-    Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+    tmpPattern.matches(tmpCurrentTitle);
     return tmpPageChanged;
   }
 
@@ -726,6 +728,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws AssertionFailedException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
+    final ContentPattern tmpPattern = new ContentPattern(aContentToWaitFor);
     boolean tmpPageChanged = false;
 
     Page tmpPage = getCurrentPage();
@@ -736,7 +739,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         try {
-          Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+          tmpPattern.matches(tmpContentAsText);
           return tmpPageChanged;
         } catch (final AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
@@ -768,21 +771,21 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (tmpPage instanceof HtmlPage) {
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
       final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+      tmpPattern.matches(tmpContentAsText);
       return tmpPageChanged;
     }
 
     if (tmpPage instanceof XmlPage) {
       final XmlPage tmpXmlPage = (XmlPage) tmpPage;
       final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+      tmpPattern.matches(tmpContentAsText);
       return tmpPageChanged;
     }
 
     if (tmpPage instanceof TextPage) {
       final TextPage tmpTextPage = (TextPage) tmpPage;
       final String tmpContentAsText = tmpTextPage.getContent();
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+      tmpPattern.matches(tmpContentAsText);
       return tmpPageChanged;
     }
 
@@ -792,7 +795,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (ContentType.PDF == tmpContentType) {
       try {
         final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       } catch (final IOException e) {
         Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
@@ -813,7 +816,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
           if (ContentUtil.isTxt(tmpContentAsText)) {
             wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() });
-            Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+            tmpPattern.matches(tmpContentAsText);
             return tmpPageChanged;
           }
         } catch (final IOException eAsString) {
@@ -821,14 +824,14 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
         Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
       }
-      Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+      tmpPattern.matches(tmpContentAsText);
       return tmpPageChanged;
     }
 
     if (ContentType.RTF == tmpContentType) {
       try {
         final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       } catch (final IOException e) {
         Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
