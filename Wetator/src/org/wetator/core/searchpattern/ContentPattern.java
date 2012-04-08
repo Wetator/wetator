@@ -30,23 +30,53 @@ import org.wetator.util.SecretString;
  * @author rbri
  */
 public class ContentPattern {
-  // private static final String NOT_OPERTOR = "~";
+  private static final String NOT_OPERTOR = "~";
 
   private List<SecretString> rawNodes;
   private List<PatternNode> nodes;
+  private List<List<PatternNode>> checks;
 
   /**
    * The constructor.
    * 
    * @param anExpectedNodes the nodes expected from the text
+   * @throws AssertionFailedException if provided pattern is empty or contains only negated nodes.
    */
-  public ContentPattern(final List<SecretString> anExpectedNodes) {
+  public ContentPattern(final List<SecretString> anExpectedNodes) throws AssertionFailedException {
     rawNodes = anExpectedNodes;
+
+    // not empty
+    if (anExpectedNodes == null || anExpectedNodes.isEmpty()) {
+      Assert.fail("emptyContentPattern", null);
+    }
     parseNodes();
 
-    // TODO validation
-    // not empty
+    // create checks
+    checks = new LinkedList<List<PatternNode>>();
+    constructChecks(0, new LinkedList<PatternNode>());
+
+    // validation
     // at least one positive node is required
+    if (checks.get(0).isEmpty()) {
+      Assert.fail("onlyNegatedContentPattern", new String[] { toString() });
+    }
+  }
+
+  private void constructChecks(final int aPos, final List<PatternNode> aNodes) {
+    if (aPos >= nodes.size()) {
+      checks.add(aNodes);
+      return;
+    }
+
+    final PatternNode tmpNode = nodes.get(aPos);
+
+    if (tmpNode.isNegated()) {
+      final List<PatternNode> tmpNodes = new LinkedList<PatternNode>();
+      tmpNodes.addAll(aNodes);
+      constructChecks(aPos + 1, tmpNodes);
+    }
+    aNodes.add(tmpNode);
+    constructChecks(aPos + 1, aNodes);
   }
 
   /**
@@ -57,17 +87,24 @@ public class ContentPattern {
    * @throws AssertionFailedException if the two strings are not the same
    */
   public void matches(final String aContent) throws AssertionFailedException {
-    // TODO check for at least one positive match
-    privateMatches(aContent);
+    // first the positive only check
+    // if this fails we have no need for check the negative ones also
+    final List<PatternNode> tmpNodes = checks.get(0);
+    privateMatches(tmpNodes, aContent);
+
+    // if we have negated parts, we have to check these also
+    for (int i = checks.size() - 1; i > 0; i--) {
+      privateMatchesNegated(checks.get(i), aContent);
+    }
   }
 
-  private void privateMatches(final String aContent) throws AssertionFailedException {
+  private void privateMatches(final List<PatternNode> aNodes, final String aContent) throws AssertionFailedException {
     int tmpStartPos = 0;
-    boolean tmpAssertFailed = false;
+    boolean tmpFailed = false;
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
 
-    for (PatternNode tmpNode : nodes) {
+    for (PatternNode tmpNode : aNodes) {
       final String tmpExpectedValue = tmpNode.getValue();
       final String tmpExpectedString = tmpNode.toString();
 
@@ -82,7 +119,7 @@ public class ContentPattern {
 
       if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
         // pattern not found
-        tmpAssertFailed = true;
+        tmpFailed = true;
 
         if (null == tmpPattern.firstOccurenceIn(aContent)) {
           // pattern is not in whole content too
@@ -102,10 +139,49 @@ public class ContentPattern {
       }
     }
 
-    if (tmpAssertFailed) {
+    if (tmpFailed) {
       // TODO maybe we have to limit the length of the content here
       Assert.fail("contentsFailed", new String[] { "{", "}", "[", "]", tmpResultMessage.toString(), aContent });
     }
+  }
+
+  private void privateMatchesNegated(final List<PatternNode> aNodes, final String aContent)
+      throws AssertionFailedException {
+    int tmpStartPos = 0;
+    final StringBuilder tmpResultMessage = new StringBuilder();
+    String tmpContent = aContent;
+
+    for (PatternNode tmpNode : aNodes) {
+      final String tmpExpectedValue = tmpNode.getValue();
+      final String tmpExpectedString = tmpNode.toString();
+
+      final SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedValue);
+
+      tmpContent = tmpContent.substring(tmpStartPos);
+      final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
+
+      if (tmpResultMessage.length() > 0) {
+        tmpResultMessage.append(", ");
+      }
+
+      if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
+        // pattern not found
+        return;
+      }
+
+      // pattern found
+      if (tmpNode.isNegated()) {
+        tmpResultMessage.append(NOT_OPERTOR + tmpExpectedString);
+      } else {
+        tmpResultMessage.append(tmpExpectedString);
+      }
+
+      // continue search for other parts from here on
+      tmpStartPos = tmpFoundSpot.endPos;
+    }
+
+    // TODO maybe we have to limit the length of the content here
+    Assert.fail("contentsFoundButNegated", new String[] { tmpResultMessage.toString(), aContent });
   }
 
   /**
@@ -128,7 +204,7 @@ public class ContentPattern {
   /**
    * Internal helper class.<br/>
    */
-  final class PatternNode {
+  static final class PatternNode {
     private SecretString value;
     private boolean isNegated;
 
@@ -138,8 +214,20 @@ public class ContentPattern {
      * @param aNode the SecretString this is based on
      */
     public PatternNode(final SecretString aNode) {
+      String tmpValue = aNode.getValue();
+      if (tmpValue.startsWith(NOT_OPERTOR)) {
+        // TODO escaping?
+        isNegated = true;
+        tmpValue = tmpValue.substring(1);
+        String tmpPrintValue = aNode.toString();
+        if (tmpPrintValue.startsWith(NOT_OPERTOR)) {
+          tmpPrintValue = tmpPrintValue.substring(1);
+        }
+        value = new SecretString(tmpValue, tmpPrintValue);
+        return;
+      }
+
       value = aNode;
-      // isNegated = aNode.startsWith(NOT_OPERTOR);
     }
 
     /**
