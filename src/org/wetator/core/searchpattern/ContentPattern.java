@@ -69,12 +69,12 @@ public class ContentPattern {
     }
 
     final PatternNode tmpNode = nodes.get(aPos);
-
     if (tmpNode.isNegated()) {
       final List<PatternNode> tmpNodes = new LinkedList<PatternNode>();
       tmpNodes.addAll(aNodes);
       constructChecks(aPos + 1, tmpNodes);
     }
+
     aNodes.add(tmpNode);
     constructChecks(aPos + 1, aNodes);
   }
@@ -104,18 +104,22 @@ public class ContentPattern {
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
 
-    for (PatternNode tmpNode : aNodes) {
-      final String tmpExpectedValue = tmpNode.getValue();
-      final String tmpExpectedString = tmpNode.toString();
+    for (PatternNode tmpNode : nodes) {
+      if (tmpResultMessage.length() > 0) {
+        tmpResultMessage.append(", ");
+      }
 
+      final String tmpExpectedString = tmpNode.toString();
+      if (!aNodes.contains(tmpNode)) {
+        tmpResultMessage.append(tmpExpectedString);
+        continue;
+      }
+
+      final String tmpExpectedValue = tmpNode.getValue();
       final SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedValue);
 
       tmpContent = tmpContent.substring(tmpStartPos);
       final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
-
-      if (tmpResultMessage.length() > 0) {
-        tmpResultMessage.append(", ");
-      }
 
       if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
         // pattern not found
@@ -151,27 +155,30 @@ public class ContentPattern {
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
 
-    for (PatternNode tmpNode : aNodes) {
-      final String tmpExpectedValue = tmpNode.getValue();
-      final String tmpExpectedString = tmpNode.toString();
+    for (PatternNode tmpNode : nodes) {
+      if (tmpResultMessage.length() > 0) {
+        tmpResultMessage.append(", ");
+      }
 
+      final String tmpExpectedString = tmpNode.toString();
+      if (!aNodes.contains(tmpNode)) {
+        tmpResultMessage.append(tmpExpectedString);
+        continue;
+      }
+
+      final String tmpExpectedValue = tmpNode.getValue();
       final SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedValue);
 
       tmpContent = tmpContent.substring(tmpStartPos);
       final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
 
-      if (tmpResultMessage.length() > 0) {
-        tmpResultMessage.append(", ");
-      }
-
       if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
-        // pattern not found
         return;
       }
 
       // pattern found
       if (tmpNode.isNegated()) {
-        tmpResultMessage.append(NOT_OPERTOR + tmpExpectedString);
+        tmpResultMessage.append("{" + tmpExpectedString + "}");
       } else {
         tmpResultMessage.append(tmpExpectedString);
       }
@@ -181,7 +188,7 @@ public class ContentPattern {
     }
 
     // TODO maybe we have to limit the length of the content here
-    Assert.fail("contentsFoundButNegated", new String[] { tmpResultMessage.toString(), aContent });
+    Assert.fail("contentsFoundButNegated", new String[] { "{", "}", tmpResultMessage.toString(), aContent });
   }
 
   /**
@@ -204,9 +211,10 @@ public class ContentPattern {
   /**
    * Internal helper class.<br/>
    */
-  static final class PatternNode {
+  static final class PatternNode implements Cloneable {
     private SecretString value;
     private boolean isNegated;
+    private boolean isIgnored;
 
     /**
      * Constructor.
@@ -244,6 +252,9 @@ public class ContentPattern {
      */
     @Override
     public String toString() {
+      if (isNegated) {
+        return NOT_OPERTOR + value.toString();
+      }
       return value.toString();
     }
 
@@ -252,6 +263,25 @@ public class ContentPattern {
      */
     public boolean isNegated() {
       return isNegated;
+    }
+
+    /**
+     * @return the isIgnored
+     */
+    public boolean isIgnored() {
+      return isIgnored;
+    }
+
+    /**
+     * Set the isIgnored property to true.
+     */
+    public void setIgnored() {
+      isIgnored = true;
+    }
+
+    @Override
+    public PatternNode clone() throws CloneNotSupportedException {
+      return (PatternNode) super.clone();
     }
   }
 }
