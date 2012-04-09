@@ -118,7 +118,7 @@ public class ContentPatternTest {
   }
 
   @Test
-  public void testAssertListMatch_NegatedInvalid() {
+  public void pattern_negatedInvalid() {
     List<SecretString> tmpExpected = new LinkedList<SecretString>();
     tmpExpected.add(new SecretString("~a", "~a"));
     try {
