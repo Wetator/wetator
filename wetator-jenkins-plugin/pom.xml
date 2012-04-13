@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
@@ -15,8 +16,8 @@
 
     <url>http://www.wetator.org</url>
     <issueManagement>
-    	<system>Trac</system>
-    	<url>https://www2.hosted-projects.com/trac/rbri/wetator/report</url>
+        <system>Trac</system>
+        <url>https://www2.hosted-projects.com/trac/rbri/wetator/report</url>
     </issueManagement>
     <inceptionYear>2008</inceptionYear>
     <developers>
@@ -27,34 +28,42 @@
     </developers>
 
     <scm>
-    	<connection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</connection>
-    	<developerConnection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</developerConnection>
-    	<url>https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</url>
+        <connection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</connection>
+        <developerConnection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</developerConnection>
+        <url>https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</url>
     </scm>
     <distributionManagement>
-      <!-- Publish the versioned releases here -->
-      <repository>
-        <id>local</id>
-        <name>Local folder</name>
-        <url>file://${project.basedir}/../../deploy</url>
-      </repository>
+        <!-- Publish the versioned releases here -->
+        <repository>
+            <id>local</id>
+            <name>Local folder</name>
+            <url>file://${project.basedir}/../../deploy</url>
+        </repository>
     </distributionManagement>
     <organization>
-    	<name>wetator.org</name>
-    	<url>http://www.wetator.org</url>
+        <name>wetator.org</name>
+        <url>http://www.wetator.org</url>
     </organization>
     <build>
-    	<plugins>
-    		<plugin>
-    			<groupId>org.apache.maven.plugins</groupId>
-    			<artifactId>maven-release-plugin</artifactId>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <providerImplementations>
                         <svn>javasvn</svn>
                     </providerImplementations>
                     <tagBase>https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin</tagBase>
                 </configuration>
-                <version>2.2.2</version>
+                <version>2.2.2</version><!--$NO-MVN-MAN-VER$-->
                 <dependencies>
                     <dependency>
                         <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
@@ -62,8 +71,160 @@
                         <version>1.15</version>
                     </dependency>
                 </dependencies>
-    		</plugin>
-    	</plugins>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>build-helper-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>add-eclipse-sources</id>
+                  <phase>generate-sources</phase>
+                  <goals>
+                      <goal>add-source</goal>
+                  </goals>
+                  <configuration>
+                  <sources>
+                      <source>${basedir}/target/generated-sources/localizer</source>
+                  </sources>
+               </configuration>
+              </execution>
+              </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.cloudbees</groupId>
+                                        <artifactId>
+                                            maven-license-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.4,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>process</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-enforcer-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>display-info</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.kohsuke</groupId>
+                                        <artifactId>
+                                            access-modifier-checker
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>enforce</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.jenkins-ci.tools
+                                        </groupId>
+                                        <artifactId>
+                                            maven-hpi-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.67,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>test-hpl</goal>
+                                            <goal>
+                                                resolve-test-dependencies
+                                            </goal>
+                                            <goal>apt-compile</goal>
+                                            <goal>insert-test</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.codehaus.groovy.maven
+                                        </groupId>
+                                        <artifactId>
+                                            gmaven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>
+                                                generateTestStubs
+                                            </goal>
+                                            <goal>testCompile</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.jvnet.localizer
+                                        </groupId>
+                                        <artifactId>
+                                            maven-localizer-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.12,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <repositories>

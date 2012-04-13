@@ -4,6 +4,9 @@ Currently we use
     Eclipse 3.7.2 (Indigo)
     Eclipse Checkstyle Plugin 5.5.0
     Maven 3.0.4
+with optionally
+	Eclipse m2e Plugin 1.0
+	m2e connector for build-helper-maven-plugin	0.14
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 
