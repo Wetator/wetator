@@ -103,8 +103,7 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was a {@link CommandException} containing an {@link AssertionException}, all
-   * following commands should be executed.
+   * Assertion: If there was an {@link AssertionException}, all following commands should be executed.
    */
   @Test
   public void assertionException() throws CommandException, InvalidInputException {
@@ -132,8 +131,7 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was a {@link CommandException} containing an {@link ActionException}, all
-   * following commands should be ignored.
+   * Assertion: If there was an {@link ActionException}, all following commands should be ignored.
    */
   @Test
   public void actionException() throws CommandException, InvalidInputException {

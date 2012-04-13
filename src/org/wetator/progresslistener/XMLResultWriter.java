@@ -108,7 +108,6 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_CONTROL = "control";
   private static final String TAG_IGNORED = "ignored";
 
-  private Writer writer;
   private Output output;
   private XMLUtil xMLUtil;
   private File resultFile;
@@ -140,8 +139,8 @@ public class XMLResultWriter implements IProgressListener {
       xslTemplates = tmpConfiguration.getXslTemplates();
       resultFile = new File(outputDir, "wetresult.xml");
 
-      writer = new FileWriterWithEncoding(resultFile, "UTF-8");
-      output = new Output(writer, "  ");
+      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8");
+      output = new Output(tmpWriter, "  ");
       xMLUtil = new XMLUtil("UTF-8");
 
       // start writing
@@ -606,8 +605,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - executionStartTime));
 
       printlnEndTag(TAG_WET);
-      output.flush();
-      writer.close();
+      output.close();
 
       if (!xslTemplates.isEmpty()) {
         final XSLTransformer tmpXSLTransformer = new XSLTransformer(resultFile);

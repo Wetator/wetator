@@ -49,6 +49,13 @@ public class WetatorEngineExecuteTestsTest {
 
   private WetatorContext context;
 
+  /**
+   * The setting.
+   * <ul>
+   * <li>2 TestCases</li>
+   * <li>2 Browsers (IE6, FF3.6)</li>
+   * </ul>
+   */
   @Before
   public void setupMocks() {
     testCase1 = new TestCase("testCase1", new File("file1"));
@@ -77,7 +84,7 @@ public class WetatorEngineExecuteTestsTest {
   /**
    * Test for the engine.<br/>
    * <br/>
-   * Assertion: If everything is ok, all commands for all browsers of all tests should be executed.
+   * Assertion: If everything is ok, the commands for all browsers of all tests should be executed.
    */
   @Test
   public void ok() throws InvalidInputException {
@@ -105,7 +112,8 @@ public class WetatorEngineExecuteTestsTest {
    * Test for the engine.<br/>
    * <br/>
    * Assertion: If there was a {@link RuntimeException} starting a new session, the run for the current browser
-   * should be aborted.
+   * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
+   * of the other test should be executed.
    */
   @Test
   public void browserStartNewSessionRuntimeException() throws InvalidInputException {
@@ -139,12 +147,14 @@ public class WetatorEngineExecuteTestsTest {
    * Test for the engine.<br/>
    * <br/>
    * Assertion: If there was a {@link ResourceException} executing a test file, the run for the current browser
-   * should be aborted.
+   * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
+   * of the other test should be executed.
    */
   @Test
   public void contextExecuteResourceException() throws InvalidInputException {
     // setup
-    doThrow(new ResourceException("mocker")).doNothing().when(context).execute();
+    Exception tmpException = new ResourceException("mocker");
+    doThrow(tmpException).doNothing().when(context).execute();
 
     // run
     engine.executeTests();
@@ -156,7 +166,9 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
-    tmpInOrder.verify(engine).informListenersError(any(ResourceException.class));
+    tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
+    tmpInOrder.verify(context).execute();
+    tmpInOrder.verify(engine).informListenersError(tmpException);
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -173,12 +185,14 @@ public class WetatorEngineExecuteTestsTest {
    * Test for the engine.<br/>
    * <br/>
    * Assertion: If there was a {@link RuntimeException} executing a test file, the run for the current browser
-   * should be aborted.
+   * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
+   * of the other test should be executed.
    */
   @Test
   public void contextExecuteRuntimeException() throws InvalidInputException {
     // setup
-    doThrow(new RuntimeException("mocker")).doNothing().when(context).execute();
+    Exception tmpException = new RuntimeException("mocker");
+    doThrow(tmpException).doNothing().when(context).execute();
 
     // run
     engine.executeTests();
@@ -190,7 +204,9 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
-    tmpInOrder.verify(engine).informListenersError(any(RuntimeException.class));
+    tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
+    tmpInOrder.verify(context).execute();
+    tmpInOrder.verify(engine).informListenersError(tmpException);
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -207,12 +223,14 @@ public class WetatorEngineExecuteTestsTest {
    * Test for the engine.<br/>
    * <br/>
    * Assertion: If there was an {@link InvalidInputException} executing a test file, the run for the current browser
-   * should be aborted.
+   * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
+   * of the other test should be executed.
    */
   @Test
   public void contextExecuteInvalidInputException() throws InvalidInputException {
     // setup
-    doThrow(new InvalidInputException("mocker")).doNothing().when(context).execute();
+    Exception tmpException = new InvalidInputException("mocker");
+    doThrow(tmpException).doNothing().when(context).execute();
 
     // run
     engine.executeTests();
@@ -225,7 +243,8 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
-    tmpInOrder.verify(engine).informListenersError(any(InvalidInputException.class));
+    tmpInOrder.verify(context).execute();
+    tmpInOrder.verify(engine).informListenersError(tmpException);
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType2.getLabel());
     tmpInOrder.verify(engine).informListenersTestRunIgnored();
