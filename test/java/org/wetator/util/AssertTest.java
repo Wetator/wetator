@@ -16,9 +16,6 @@
 
 package org.wetator.util;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Test;
 import org.wetator.exception.AssertionException;
 
@@ -109,50 +106,6 @@ public class AssertTest {
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <****> but was: <****>", e.getMessage());
-    }
-  }
-
-  @Test
-  public void testAssertListMatch_Dots() throws AssertionException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("def", "def"));
-    tmpExpected.add(new SecretString("...", "..."));
-
-    Assert.assertListMatch(tmpExpected, " abc def ghi ... xyz");
-  }
-
-  @Test
-  public void testAssertListMatch_1() throws AssertionException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("GET Parameters", "GET Parameters"));
-    tmpExpected.add(new SecretString("Key", "Key"));
-    tmpExpected.add(new SecretString("Value", "Value"));
-    tmpExpected.add(new SecretString("inputText_Name_Value InputTextNameValueTest",
-        "inputText_Name_Value InputTextNameValueTest"));
-    tmpExpected.add(new SecretString("OK", "OK"));
-
-    Assert
-        .assertListMatch(
-            tmpExpected,
-            "Request Snoopy @ rbri.de / rbri.org Home Projects NewView ProjectX jRipper WeT Links Imprint GET Parameters Key Value inputText_Name_Value InputTextNameValueTest OK POST Parameters Key Value Headers Key Value Host www.rbri.org User-Agent Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1 Accept-Language en-us,en;q=0.8,de-de;q=0.5,de;q=0.3 Referer http://wet.rbri.org/testcases/set.html Accept */* © rbri 2007, 2008");
-  }
-
-  @Test
-  public void testAssertListMatch_WrongOrder() {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("Pferde", "Pferde"));
-    tmpExpected.add(new SecretString("keinen", "keinen"));
-    tmpExpected.add(new SecretString("fressen", "fressen"));
-    tmpExpected.add(new SecretString("Gurkensalat", "Gurkensalat"));
-
-    try {
-      Assert.assertListMatch(tmpExpected, "Pferde fressen keinen Gurkensalat");
-      org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
-      org.junit.Assert
-          .assertEquals(
-              "Expected content(s) {not found} or [in wrong order]: 'Pferde, keinen, [fressen], Gurkensalat' (content: 'Pferde fressen keinen Gurkensalat').",
-              e.getMessage());
     }
   }
 

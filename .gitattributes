@@ -125,6 +125,7 @@ src/org/wetator/core/WetatorEngine.java -text
 src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
+src/org/wetator/core/searchpattern/ContentPattern.java -text
 src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 src/org/wetator/core/searchpattern/SearchPattern.java -text
@@ -248,6 +249,7 @@ test/java/org/wetator/core/VariableTest.java -text
 test/java/org/wetator/core/WetatorContextExecuteTest.java -text svneol=unset#text/plain
 test/java/org/wetator/core/WetatorEngineExecuteTestsTest.java -text svneol=unset#text/plain
 test/java/org/wetator/core/searchpattern/AllTests.java -text
+test/java/org/wetator/core/searchpattern/ContentPatternTest.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternMatchesAtEndTest.java -text
@@ -793,7 +795,7 @@ test/xml/ie8/event_deselect.wet -text
 test/xml/ie8/event_mouseOver.wet -text
 test/xml/ie8/event_select.wet -text
 test/xml/iframe.wet -text
-test/xml/incubator/applet.xml -text
+test/xml/incubator/assert_applet.xml -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
 test/xml/jquery.wet -text svneol=unset#text/plain

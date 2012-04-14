@@ -36,10 +36,11 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
-import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
 
@@ -135,6 +136,14 @@ public final class SqlCommandSet extends AbstractCommandSet {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
+      final ContentPattern tmpPattern;
+      try {
+        tmpPattern = new ContentPattern(tmpExpected);
+      } catch (final InvalidInputException e) {
+        final String tmpMessage = Messages.getMessage("invalidContentPattern",
+            new String[] { SecretString.toString(tmpExpected), e.getMessage() });
+        throw new CommandException(tmpMessage, e);
+      }
 
       tmpSqlParam.trim();
       final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
@@ -174,7 +183,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       final String tmpResultString = tmpResult.toString().trim();
-      Assert.assertListMatch(tmpExpected, tmpResultString);
+      tmpPattern.matches(tmpResultString);
     }
   }
 

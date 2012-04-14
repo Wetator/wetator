@@ -47,8 +47,8 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void applet() throws InvalidInputException {
-    executeTestFile("applet.xml");
+  public void assertApplet() throws InvalidInputException {
+    executeTestFile("assert_applet.xml");
 
     Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());

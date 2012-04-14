@@ -16,10 +16,7 @@
 
 package org.wetator.util;
 
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionException;
 import org.wetator.i18n.Messages;
@@ -261,60 +258,6 @@ public final class Assert {
     }
     // TODO really use anExpectedString and aCurrentString instead of tmpExpected and tmpCurrent
     return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
-  }
-
-  /**
-   * Asserts that a list of strings is part of the content in the given order.
-   * Otherwise throws an AssertionException.
-   * 
-   * @param anExpected the list of Strings to check
-   * @param aContent a String to check
-   * @throws AssertionException if the two strings are not the same
-   */
-  public static void assertListMatch(final List<SecretString> anExpected, final String aContent)
-      throws AssertionException {
-    // TODO i18n
-    int tmpStartPos = 0;
-    boolean tmpAssertFailed = false;
-    final StringBuilder tmpResultMessage = new StringBuilder();
-    String tmpContent = aContent;
-
-    for (SecretString tmpExpceted : anExpected) {
-      final String tmpExpectedString = tmpExpceted.getValue();
-      final SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedString);
-
-      tmpContent = tmpContent.substring(tmpStartPos);
-      final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
-
-      if (tmpResultMessage.length() > 0) {
-        tmpResultMessage.append(", ");
-      }
-
-      if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
-        // pattern not found
-        tmpAssertFailed = true;
-
-        if (null == tmpPattern.firstOccurenceIn(aContent)) {
-          // pattern is not in whole content too
-          tmpResultMessage.append("{" + tmpExpceted.toString() + "}");
-        } else {
-          // pattern is somewhere before one of the previous tokens =>
-          // wrong order
-          tmpResultMessage.append("[" + tmpExpceted.toString() + "]");
-        }
-        tmpStartPos = 0;
-      } else {
-        tmpResultMessage.append(tmpExpceted.toString());
-
-        // continue search for other parts from here on
-        tmpStartPos = tmpFoundSpot.endPos;
-      }
-    }
-
-    if (tmpAssertFailed) {
-      // TODO maybe we have to limit the length of the content here
-      Assert.fail("contentsFailed", new String[] { "{", "}", "[", "]", tmpResultMessage.toString(), aContent });
-    }
   }
 
   /**

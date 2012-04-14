@@ -61,10 +61,12 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
@@ -706,6 +708,16 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
+    final ContentPattern tmpPattern;
+    try {
+      tmpPattern = new ContentPattern(aTitleToWaitFor);
+    } catch (final InvalidInputException e) {
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { SecretString.toString(aTitleToWaitFor), e.getMessage() });
+      // TODO is this really an AssertionException?
+      // TODO better pass the ContentPattern as parameter?
+      throw new AssertionException(tmpMessage, e);
+    }
     boolean tmpPageChanged = false;
 
     try {
@@ -717,7 +729,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
           final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
           try {
-            Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+            tmpPattern.matches(tmpCurrentTitle);
             return tmpPageChanged;
           } catch (final AssertionException e) {
             // ok, not found, maybe we have to be more patient
@@ -745,7 +757,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
       final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-      Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+      tmpPattern.matches(tmpCurrentTitle);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);
@@ -764,6 +776,16 @@ public final class HtmlUnitBrowser implements IBrowser {
       throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
+    final ContentPattern tmpPattern;
+    try {
+      tmpPattern = new ContentPattern(aContentToWaitFor);
+    } catch (final InvalidInputException e) {
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { SecretString.toString(aContentToWaitFor), e.getMessage() });
+      // TODO is this really an AssertionException?
+      // TODO better pass the ContentPattern as parameter?
+      throw new AssertionException(tmpMessage, e);
+    }
     boolean tmpPageChanged = false;
 
     try {
@@ -775,7 +797,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
           final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
           try {
-            Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+            tmpPattern.matches(tmpContentAsText);
             return tmpPageChanged;
           } catch (final AssertionException e) {
             // ok, not found, maybe we have to be more patient
@@ -807,21 +829,21 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (tmpPage instanceof HtmlPage) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
       if (tmpPage instanceof XmlPage) {
         final XmlPage tmpXmlPage = (XmlPage) tmpPage;
         final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
       if (tmpPage instanceof TextPage) {
         final TextPage tmpTextPage = (TextPage) tmpPage;
         final String tmpContentAsText = tmpTextPage.getContent();
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
@@ -831,7 +853,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (ContentType.PDF == tmpContentType) {
         try {
           final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
-          Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+          tmpPattern.matches(tmpContentAsText);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
@@ -852,7 +874,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
             if (ContentUtil.isTxt(tmpContentAsText)) {
               wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() });
-              Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+              tmpPattern.matches(tmpContentAsText);
               return tmpPageChanged;
             }
           } catch (final IOException eAsString) {
@@ -860,14 +882,14 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
           Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
         }
-        Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
       if (ContentType.RTF == tmpContentType) {
         try {
           final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
-          Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
+          tmpPattern.matches(tmpContentAsText);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
