@@ -2,6 +2,7 @@
 Wetator/.checkstyle -text
 Wetator/.classpath -text
 Wetator/.project -text
+Wetator/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
 Wetator/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 Wetator/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 Wetator/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
