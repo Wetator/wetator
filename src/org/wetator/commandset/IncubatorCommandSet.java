@@ -254,14 +254,14 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
                 aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
                 checkArchiveAvailability(aContext, tmpHtmlApplet);
 
-                final String tmpMessage = Messages.getMessage("runAppletFailed",
+                final String tmpMessage = Messages.getMessage("assertAppletFailed",
                     new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
                 throw new AssertionException(tmpMessage, e);
               }
             }
           }
           if (!tmpAppletTested) {
-            final String tmpMessage = Messages.getMessage("runAppletNotFound", new String[] { tmpAppletNameValue });
+            final String tmpMessage = Messages.getMessage("assertAppletNotFound", new String[] { tmpAppletNameValue });
             throw new AssertionException(tmpMessage);
           }
         }
