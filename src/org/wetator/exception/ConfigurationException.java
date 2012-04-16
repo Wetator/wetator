@@ -17,9 +17,10 @@
 package org.wetator.exception;
 
 /**
- * This exception is thrown for technical problems.
+ * This exception is thrown for configuration initialization problems.
  * 
  * @author frank.danek
+ * @author tobwoerk
  */
 public class ConfigurationException extends RuntimeException {
 

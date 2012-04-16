@@ -37,9 +37,10 @@ import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.searchpattern.ContentPattern;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
@@ -94,7 +95,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -117,7 +119,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       } catch (final SQLException e) {
         final String tmpMessage = Messages.getMessage("sqlFailes",
             new String[] { tmpSqlParam.toString(), e.getMessage() });
-        throw new CommandException(tmpMessage);
+        throw new ActionException(tmpMessage);
       }
     }
   }
@@ -132,18 +134,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
-      final ContentPattern tmpPattern;
-      try {
-        tmpPattern = new ContentPattern(tmpExpected);
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidContentPattern",
-            new String[] { SecretString.toString(tmpExpected), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+      final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
       tmpSqlParam.trim();
       final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
@@ -179,7 +175,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       } catch (final SQLException e) {
         final String tmpMessage = Messages.getMessage("sqlFailes",
             new String[] { tmpSqlParam.toString(), e.getMessage() });
-        throw new CommandException(tmpMessage);
+        throw new AssertionException(tmpMessage, e);
       }
 
       final String tmpResultString = tmpResult.toString().trim();
@@ -197,7 +193,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
@@ -242,7 +239,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       } catch (final SQLException e) {
         final String tmpMessage = Messages.getMessage("sqlFailes",
             new String[] { tmpSqlParam.toString(), e.getMessage() });
-        throw new CommandException(tmpMessage);
+        throw new AssertionException(tmpMessage, e);
       }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
@@ -325,11 +322,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * @param aContext the context
    * @param aParameter the parameter
    * @return the connection name
-   * @throws WrongCommandUsageException if no connection is defined within the given parameter and no default connection
+   * @throws InvalidInputException if no connection is defined within the given parameter and no default connection
    *         defined
    */
   protected String extractConnectionName(final WetatorContext aContext, final SecretString aParameter)
-      throws WrongCommandUsageException {
+      throws InvalidInputException {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
       for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
@@ -343,7 +340,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
     if (null == defaultConnectionName) {
       final String tmpMessage = Messages.getMessage("noDefaultConnection", null);
-      throw new WrongCommandUsageException(tmpMessage);
+      throw new InvalidInputException(tmpMessage);
     }
     return defaultConnectionName;
   }

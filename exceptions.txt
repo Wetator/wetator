@@ -19,20 +19,19 @@
 # ** Assertion
 # *** Execution fails -> AssertionException
 # * Command
-# ** Validating the parameters fails -> WrongCommandUsageExeception
+# ** Validating the parameters fails -> InvalidInputException
 # ** HtmlElement not found -> CommandException
 # ** Action fails -> ActionException
 # ** Assertion fails -> AssertionException
 #
 # How to react?
 # -------------
+# * BackendException -> error info by backend -> let command decide
 # * ConfigurationException -> abort whole test run
-# * ResourceException -> abort whole test run
 # * CommandException -> abort test + mark following commands as not executed
-# ** AssertionException -> continue with next command
 # ** ActionException -> abort test + mark following commands as not executed
-# ** WrongCommandUsageExeception -> abort test + mark following commands as not executed
+# ** AssertionException -> continue with next command
+# * ImplementationException -> abort whole test run
+# * InvalidInputException -> abort test + mark following commands as not executed + mark test case for following browsers as not executed 
+# * ResourceException -> abort whole test run
 # * UnsupportedOperationException -> abort test + mark following commands as not executed
-# * WetatorException
-# ** before test execution -> abort whole test run
-# ** during test execution -> abort test + mark following commands as not executed

@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.wetator.exception.InvalidInputException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 
 /**
@@ -105,7 +106,10 @@ public class WPath {
       for (SecretString tmpNode : rawPath.subList(0, rawPath.size() - 1)) {
         if (tmpNode.startsWith("[") && tmpNode.endsWith("]") && !tmpNode.endsWith("\\]")) {
           if (tmpTableCoordinatesFinished) {
-            throw new InvalidInputException("Invalid WPath. Only one group of table coordinates allowed.");
+            // TODO i18n
+            final String tmpMessage = Messages.getMessage("invalidWPath", new String[] {
+                SecretString.toString(rawPath), "Invalid WPath. Only one group of table coordinates allowed." });
+            throw new InvalidInputException(tmpMessage);
           }
           tableCoordinates.add(new TableCoordinate(tmpNode));
         } else {

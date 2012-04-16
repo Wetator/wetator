@@ -34,7 +34,6 @@ import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
-import org.wetator.exception.WrongCommandUsageException;
 
 /**
  * Tests for {@link WetatorContext}.
@@ -161,12 +160,13 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br/>
    * <br/>
-   * Assertion: If there was a {@link WrongCommandUsageException}, all following commands should be ignored.
+   * Assertion: If there was a {@link InvalidInputException} during execution of a command, all following commands
+   * should be ignored.
    */
   @Test
-  public void wrongCommandUsageException() throws CommandException, InvalidInputException {
+  public void invalidInputExceptionExecute() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new WrongCommandUsageException("mocker");
+    Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
@@ -255,7 +255,7 @@ public class WetatorContextExecuteTest {
    * executed and it should be thrown.
    */
   @Test
-  public void invalidInputException() throws CommandException, InvalidInputException {
+  public void invalidInputExceptionRead() throws CommandException, InvalidInputException {
     // setup
     Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(engine).readCommandsFromFile(file1);
@@ -389,13 +389,13 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the sub context.<br/>
    * <br/>
-   * Assertion: If there was a {@link WrongCommandUsageException} in the context, all following commands should be
+   * Assertion: If there was a {@link InvalidInputException} in the context, all following commands should be
    * ignored in the sub context.
    */
   @Test
-  public void wrongCommandUsageExceptionBeforeSubContext() throws CommandException, InvalidInputException {
+  public void invalidInputExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new WrongCommandUsageException("mocker");
+    Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
@@ -598,13 +598,13 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the sub context.<br/>
    * <br/>
-   * Assertion: If there was a {@link WrongCommandUsageException} in the sub context, all following commands should be
+   * Assertion: If there was a {@link InvalidInputException} in the sub context, all following commands should be
    * ignored in the context.
    */
   @Test
-  public void wrongCommandUsageExceptionInSubContext() throws CommandException, InvalidInputException {
+  public void invalidInputExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new WrongCommandUsageException("mocker");
+    Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(any(WetatorContext.class), any(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
@@ -868,7 +868,7 @@ public class WetatorContextExecuteTest {
   }
 
   private void assertCommandSuccess(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation) throws CommandException {
+      ICommandImplementation anImplementation) throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -877,7 +877,7 @@ public class WetatorContextExecuteTest {
   }
 
   private void assertCommandFailure(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation) throws CommandException {
+      ICommandImplementation anImplementation) throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -886,7 +886,7 @@ public class WetatorContextExecuteTest {
   }
 
   private void assertCommandError(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation, Throwable aThrowable) throws CommandException {
+      ICommandImplementation anImplementation, Throwable aThrowable) throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -913,7 +913,7 @@ public class WetatorContextExecuteTest {
     }
 
     @Override
-    public void execute(WetatorContext aContext, Command aCommand) throws CommandException {
+    public void execute(WetatorContext aContext, Command aCommand) throws CommandException, InvalidInputException {
       wrappedImplementation.execute(aContext, aCommand);
     }
   }

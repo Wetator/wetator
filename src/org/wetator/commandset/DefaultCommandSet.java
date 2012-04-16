@@ -48,7 +48,6 @@ import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.exception.WrongCommandUsageException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -97,7 +96,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpUrlParam = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -123,7 +123,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       } catch (final MalformedURLException e) {
         final String tmpMessage = Messages.getMessage("invalidUrl",
             new String[] { tmpUrlParam.toString(), e.getMessage() });
-        throw new ActionException(tmpMessage);
+        throw new InvalidInputException(tmpMessage);
       }
       getBrowser(aContext).saveCurrentWindowToLog();
     }
@@ -140,7 +140,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpModuleParam = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpModuleParameters = aCommand.getSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -168,7 +169,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpWetatorContext.execute();
       } catch (final InvalidInputException e) {
         final String tmpMessage = Messages.getMessage("invalidModule", new String[] { tmpModule, e.getMessage() });
-        throw new CommandException(tmpMessage, e);
+        throw new InvalidInputException(tmpMessage, e);
       }
     }
   }
@@ -183,15 +184,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getFirstParameterValues(aContext));
 
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
@@ -222,14 +217,18 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
 
         if (null == tmpControl) {
-          final String tmpMessage = Messages.getMessage("noSetableHtmlElmentFound",
+          final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
               new String[] { tmpWPath.toString() });
-          throw new CommandException(tmpMessage);
+          throw new ActionException(tmpMessage);
         }
         aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       } else {
-        tmpControl = (ISettable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-            "noSetableHtmlElmentFound");
+        tmpControl = (ISettable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+        if (null == tmpControl) {
+          final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
+              new String[] { tmpWPath.toString() });
+          throw new ActionException(tmpMessage);
+        }
       }
 
       tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
@@ -247,15 +246,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -275,8 +268,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noClickableHtmlElmentFound");
+      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noClickableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new ActionException(tmpMessage);
+      }
 
       tmpControl.click(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -293,15 +290,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -321,8 +312,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "no2ClickableHtmlElmentFound");
+      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("no2ClickableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new ActionException(tmpMessage);
+      }
 
       tmpControl.clickDouble(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -339,15 +334,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -367,7 +356,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath, "7");
+      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noRClickableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new ActionException(tmpMessage);
+      }
 
       tmpControl.clickRight(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -384,15 +378,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -409,8 +397,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
-          tmpWPath, "noSelectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noSelectableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new ActionException(tmpMessage);
+      }
 
       tmpControl.select(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -427,15 +419,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -452,8 +438,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
-      final IDeselectable tmpControl = (IDeselectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
-          tmpWPath, "noDeselectableHtmlElmentFound");
+      final IDeselectable tmpControl = (IDeselectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noDeselectableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new ActionException(tmpMessage);
+      }
 
       tmpControl.deselect(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -470,15 +460,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -502,8 +486,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noHtmlElementFound", new String[] { tmpWPath.toString() });
+        throw new ActionException(tmpMessage);
+      }
 
       tmpControl.mouseOver(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -520,7 +507,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpWindowNameParam = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -542,7 +530,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpStepsParam = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -554,7 +543,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         } catch (final NumberFormatException e) {
           final String tmpMessage = Messages.getMessage("stepsNotANumber", new String[] { tmpStepsParam.toString(),
               Integer.toString(tmpSteps) });
-          throw new WrongCommandUsageException(tmpMessage);
+          throw new InvalidInputException(tmpMessage);
         }
       }
 
@@ -575,7 +564,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final List<SecretString> tmpExpected = aCommand.getRequiredFirstParameterValues(aContext);
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
@@ -610,7 +600,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final List<SecretString> tmpExpected = aCommand.getRequiredFirstParameterValues(aContext);
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
@@ -645,15 +636,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -679,8 +664,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noHtmlElementFound", new String[] { tmpWPath.toString() });
+        throw new AssertionException(tmpMessage);
+      }
 
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
@@ -697,15 +685,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
@@ -725,8 +707,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
-      final ISettable tmpControl = (ISettable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noSetableHtmlElmentFound");
+      final ISettable tmpControl = (ISettable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages
+            .getMessage("noSettableHtmlElmentFound", new String[] { tmpWPath.toString() });
+        throw new AssertionException(tmpMessage);
+      }
 
       tmpControl.assertValue(aContext, tmpValueParam);
     }
@@ -742,15 +728,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -767,8 +747,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
-          tmpWPath, "noSelectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noSelectableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new AssertionException(tmpMessage);
+      }
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -785,15 +769,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
-      WPath tmpWPath;
-      try {
-        tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidWPath",
-            new String[] { aCommand.getFirstParameterValue(aContext).getValue(), e.getMessage() });
-        throw new CommandException(tmpMessage, e);
-      }
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -810,8 +788,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements,
-          tmpWPath, "noDeselectableHtmlElmentFound");
+      final ISelectable tmpControl = (ISelectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noDeselectableHtmlElmentFound",
+            new String[] { tmpWPath.toString() });
+        throw new AssertionException(tmpMessage);
+      }
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
@@ -830,7 +812,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpCall = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpMethodParameters = aCommand.getSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -839,13 +822,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final int tmpLastDotPos = tmpCallString.lastIndexOf('.');
       if (tmpLastDotPos < 0) {
         final String tmpMessage = Messages.getMessage("javaExecSyntax", new String[] { tmpCallString });
-        throw new WrongCommandUsageException(tmpMessage);
+        throw new InvalidInputException(tmpMessage);
       }
 
       String tmpClassName = tmpCallString.substring(0, tmpLastDotPos);
       if (StringUtils.isEmpty(tmpClassName)) {
         final String tmpMessage = Messages.getMessage("javaExecSyntax", new String[] { tmpCallString });
-        throw new WrongCommandUsageException(tmpMessage);
+        throw new InvalidInputException(tmpMessage);
       }
       if (tmpClassName.endsWith("()")) {
         tmpClassName = tmpClassName.substring(0, tmpClassName.length() - 2);
@@ -854,7 +837,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       String tmpMethodName = tmpCallString.substring(tmpLastDotPos + 1);
       if (StringUtils.isEmpty(tmpMethodName)) {
         final String tmpMessage = Messages.getMessage("javaExecSyntax", new String[] { tmpCallString });
-        throw new WrongCommandUsageException(tmpMessage);
+        throw new InvalidInputException(tmpMessage);
       }
       if (tmpMethodName.endsWith("()")) {
         tmpMethodName = tmpMethodName.substring(0, tmpMethodName.length() - 2);
@@ -892,7 +875,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         if (null == tmpMethod) {
           final String tmpMessage = Messages.getMessage("javaExecMethodNotFound", new String[] { tmpClassName,
               tmpMethodLabel.toString() });
-          throw new CommandException(tmpMessage);
+          throw new InvalidInputException(tmpMessage);
         }
 
         Object tmpReceiver = null;

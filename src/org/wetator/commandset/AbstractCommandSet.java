@@ -31,13 +31,13 @@ import org.wetator.backend.control.IControl;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.CommandException;
-import org.wetator.i18n.Messages;
 
 /**
  * A parent class for command sets.
  * 
  * @author rbri
+ * @author frank.danek
+ * @author tobwoerk
  */
 public abstract class AbstractCommandSet implements ICommandSet {
 
@@ -120,23 +120,18 @@ public abstract class AbstractCommandSet implements ICommandSet {
   }
 
   /**
-   * Returns the first control from the WeightedControlList.<br>
-   * If the list is empty an AssertionException is thrown.<br>
+   * Returns the first control from the WeightedControlList or null if no controls found.<br>
    * If the list has elements for more than one control then some warnings are fired.
    * 
    * @param aContext the context
    * @param aWeightedControlList the WeightedControlList
    * @param aWPath the wpath (only needed for the warning message)
-   * @param aNoElementFoundKey the key used to resolve the 'no element found' message.
-   * @return the first control from the list
-   * @throws CommandException if the list is empty
+   * @return the first control from the list or null
    */
-  protected IControl getRequiredFirstHtmlElementFrom(final WetatorContext aContext,
-      final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNoElementFoundKey)
-      throws CommandException {
+  protected IControl getFirstHtmlElementFrom(final WetatorContext aContext,
+      final WeightedControlList aWeightedControlList, final WPath aWPath) {
     if (aWeightedControlList.isEmpty()) {
-      final String tmpMessage = Messages.getMessage(aNoElementFoundKey, new String[] { aWPath.toString() });
-      throw new CommandException(tmpMessage);
+      return null;
     }
 
     final List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();

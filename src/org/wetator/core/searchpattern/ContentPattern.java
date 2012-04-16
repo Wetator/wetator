@@ -49,7 +49,8 @@ public class ContentPattern {
 
     // not empty
     if (anExpectedNodes == null || anExpectedNodes.isEmpty()) {
-      final String tmpMessage = Messages.getMessage("emptyContentPattern", null);
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { SecretString.toString(anExpectedNodes), Messages.getMessage("emptyContentPattern", null) });
       throw new InvalidInputException(tmpMessage);
     }
     parseNodes();
@@ -61,7 +62,10 @@ public class ContentPattern {
     // validation
     // at least one positive node is required
     if (checks.get(0).isEmpty()) {
-      final String tmpMessage = Messages.getMessage("onlyNegatedContentPattern", new String[] { toString() });
+      final String tmpMessage = Messages.getMessage(
+          "invalidContentPattern",
+          new String[] { SecretString.toString(anExpectedNodes),
+              Messages.getMessage("onlyNegatedContentPattern", new String[] { toString() }) });
       throw new InvalidInputException(tmpMessage);
     }
   }

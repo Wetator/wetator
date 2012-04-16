@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.exception.WrongCommandUsageException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 
@@ -211,14 +211,13 @@ public final class Command {
    * 
    * @param aContext the context
    * @return the list of secret strings (never null)
-   * @throws WrongCommandUsageException if the first parameter is not set
+   * @throws InvalidInputException if the first parameter is not set
    */
-  public List<SecretString> getRequiredFirstParameterValues(final WetatorContext aContext)
-      throws WrongCommandUsageException {
+  public List<SecretString> getRequiredFirstParameterValues(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
-      wrongUsage("emptyFirstParameter", new String[] { getName() });
+      invalidInput("emptyFirstParameter", new String[] { getName() });
     }
 
     return getFirstParameterValues(aContext);
@@ -230,13 +229,13 @@ public final class Command {
    * 
    * @param aContext the context
    * @return a secret string
-   * @throws WrongCommandUsageException if the first parameter is not set
+   * @throws InvalidInputException if the first parameter is not set
    */
-  public SecretString getRequiredFirstParameterValue(final WetatorContext aContext) throws WrongCommandUsageException {
+  public SecretString getRequiredFirstParameterValue(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
-      wrongUsage("emptyFirstParameter", new String[] { getName() });
+      invalidInput("emptyFirstParameter", new String[] { getName() });
     }
 
     final SecretString tmpFirstValue = tmpFirstParameter.getValue(aContext);
@@ -289,9 +288,9 @@ public final class Command {
    * 
    * @param aContext the context
    * @return a Long (or null if not set)
-   * @throws WrongCommandUsageException if the second parameter is not convertible into a long
+   * @throws InvalidInputException if the second parameter is not convertible into a long
    */
-  public Long getSecondParameterLongValue(final WetatorContext aContext) throws WrongCommandUsageException {
+  public Long getSecondParameterLongValue(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
@@ -307,10 +306,10 @@ public final class Command {
       final BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
       return Long.valueOf(tmpValue.longValueExact());
     } catch (final NumberFormatException e) {
-      wrongUsage("integerParameterExpected", new String[] { getName(),
+      invalidInput("integerParameterExpected", new String[] { getName(),
           tmpSecondParameter.getValue(aContext).toString(), "2" });
     } catch (final ArithmeticException e) {
-      wrongUsage("integerParameterExpected", new String[] { getName(),
+      invalidInput("integerParameterExpected", new String[] { getName(),
           tmpSecondParameter.getValue(aContext).toString(), "2" });
     }
     return null;
@@ -321,14 +320,14 @@ public final class Command {
    * 
    * @param aContext the context
    * @return the list of secret strings (never null)
-   * @throws WrongCommandUsageException if the second parameter is not set
+   * @throws InvalidInputException if the second parameter is not set
    */
   public List<SecretString> getRequiredSecondParameterValues(final WetatorContext aContext)
-      throws WrongCommandUsageException {
+      throws InvalidInputException {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
-      wrongUsage("emptySecondParameter", new String[] { getName() });
+      invalidInput("emptySecondParameter", new String[] { getName() });
     }
 
     return getSecondParameterValues(aContext);
@@ -340,13 +339,13 @@ public final class Command {
    * 
    * @param aContext the context
    * @return a secret string
-   * @throws WrongCommandUsageException if the second parameter is not set
+   * @throws InvalidInputException if the second parameter is not set
    */
-  public SecretString getRequiredSecondParameterValue(final WetatorContext aContext) throws WrongCommandUsageException {
+  public SecretString getRequiredSecondParameterValue(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
-      wrongUsage("emptySecondParameter", new String[] { getName() });
+      invalidInput("emptySecondParameter", new String[] { getName() });
     }
 
     final SecretString tmpSecondValue = tmpSecondParameter.getValue(aContext);
@@ -357,12 +356,12 @@ public final class Command {
    * Asserts that the second parameter is not set.
    * 
    * @param aContext the context
-   * @throws WrongCommandUsageException if the second parameter is set
+   * @throws InvalidInputException if the second parameter is set
    */
-  public void checkNoUnusedSecondParameter(final WetatorContext aContext) throws WrongCommandUsageException {
+  public void checkNoUnusedSecondParameter(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpParameter = getSecondParameter();
     if (null != tmpParameter) {
-      wrongUsage("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "2" });
+      invalidInput("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "2" });
     }
   }
 
@@ -370,18 +369,18 @@ public final class Command {
    * Asserts that the third parameter is not set.
    * 
    * @param aContext the context
-   * @throws WrongCommandUsageException if the third parameter is set
+   * @throws InvalidInputException if the third parameter is set
    */
-  public void checkNoUnusedThirdParameter(final WetatorContext aContext) throws WrongCommandUsageException {
+  public void checkNoUnusedThirdParameter(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpParameter = getThirdParameter();
     if (null != tmpParameter) {
-      wrongUsage("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "3" });
+      invalidInput("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "3" });
     }
   }
 
-  private static void wrongUsage(final String aMessageKey, final Object[] aParameterArray)
-      throws WrongCommandUsageException {
+  private static void invalidInput(final String aMessageKey, final Object[] aParameterArray)
+      throws InvalidInputException {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    throw new WrongCommandUsageException(tmpMessage);
+    throw new InvalidInputException(tmpMessage);
   }
 }

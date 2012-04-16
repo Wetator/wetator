@@ -200,11 +200,12 @@ public class WetatorContext {
    * @param aCommand the command to be executed
    * @return true if the command was executed, false if the command was ignored
    * @throws CommandException in case of a problem executing the command
+   * @throws InvalidInputException in case of invalid user input
    */
-  public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandException {
+  public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandException, InvalidInputException {
     final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
-      throw new CommandException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
+      throw new InvalidInputException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
           getFile().getAbsolutePath(), "" + aCommand.getLineNo() }));
     }
 
@@ -215,6 +216,9 @@ public class WetatorContext {
       try {
         tmpCommandImplementation.execute(this, aCommand);
       } catch (final CommandException e) {
+        tmpBrowser.checkAndResetFailures();
+        throw e;
+      } catch (final InvalidInputException e) {
         tmpBrowser.checkAndResetFailures();
         throw e;
       } catch (final RuntimeException e) {
