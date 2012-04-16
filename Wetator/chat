@@ -117,3 +117,10 @@ frank.danek 2012-03-22 22:55: @rbri: Warum hat das Projekt Warnings? Warum laufe
 rbri 2012-03-28 20:48: Warnungen sind wech, die Tests sind gefixt
 
 frank.danek 2012-04-16 19:16: @rbri: Es sind schon wieder zwei Tests kaputt...
+rbri 2012-04-16 20:58: @rbri: Bei mir schlagen nur die tests
+    supported(org.wetator.scripter.ExcelScripterTest) org.junit.ComparisonFailure: expected:<12[,]4> but was:<12[.]4>
+    und testGetXlsContentAsString(org.wetator.util.ContentUtilTest) org.junit.ComparisonFailure: expected:<...711 int 123 float 14[,3 float (rounded) 1,70 currency 4,33 percent 3% date 7/14/11 date (formated) 14-Jul-11 formula 124,]70> but was:<...711 int 123 float 14[.3 float (rounded) 1.70 currency * 4.33 € percent 3% date 7/14/11 date (formated) 14-Jul-11 formula 124.]70>
+    fehl.
+    Das liegt aber am locale. Wenn du/ihr da einen guten Vorschlag habt. Excel verhält sich halt auch bei verschiedenen
+    locales unterschieldlich.
+    
