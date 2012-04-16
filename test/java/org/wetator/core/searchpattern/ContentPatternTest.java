@@ -348,7 +348,8 @@ public class ContentPatternTest {
       new ContentPattern(tmpExpected);
       org.junit.Assert.fail("AssertionException expected");
     } catch (InvalidInputException e) {
-      org.junit.Assert.assertEquals("Pattern must contain one not negated term at least.", e.getMessage());
+      org.junit.Assert.assertEquals("Pattern '~a' is invalid (pattern must contain one not negated term at least).",
+          e.getMessage());
     }
   }
 }

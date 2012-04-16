@@ -31,6 +31,8 @@ import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 
 /**
+ * Tests for {@link WetatorEngine#executeTests()}.
+ * 
  * @author frank.danek
  */
 public class WetatorEngineExecuteTestsTest {
@@ -53,7 +55,7 @@ public class WetatorEngineExecuteTestsTest {
    * The setting.
    * <ul>
    * <li>2 TestCases</li>
-   * <li>2 Browsers (IE6, FF3.6)</li>
+   * <li>2 Browsers (IE8, FF3.6)</li>
    * </ul>
    */
   @Before
@@ -63,7 +65,7 @@ public class WetatorEngineExecuteTestsTest {
 
     configuration = mock(WetatorConfiguration.class);
 
-    browserType1 = BrowserType.INTERNET_EXPLORER_6;
+    browserType1 = BrowserType.INTERNET_EXPLORER_8;
     browserType2 = BrowserType.FIREFOX_3_6;
 
     browser = mock(IBrowser.class);
@@ -77,7 +79,7 @@ public class WetatorEngineExecuteTestsTest {
     when(engine.getConfiguration()).thenReturn(configuration);
     when(engine.getBrowser()).thenReturn(browser);
     when(engine.getTestCases()).thenReturn(Arrays.asList(testCase1, testCase2));
-    when(engine.createWetatorContext(any(File.class), any(BrowserType.class))).thenReturn(context);
+    when(engine.createWetatorContext(isA(File.class), isA(BrowserType.class))).thenReturn(context);
     doCallRealMethod().when(engine).executeTests();
   }
 
@@ -105,7 +107,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
-    verify(engine, never()).informListenersError(any(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -130,7 +132,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
-    tmpInOrder.verify(engine).informListenersError(any(RuntimeException.class));
+    tmpInOrder.verify(engine).informListenersError(isA(RuntimeException.class));
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -140,7 +142,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
-    verify(engine, times(1)).informListenersError(any(Throwable.class));
+    verify(engine, times(1)).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -178,7 +180,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
-    verify(engine, times(1)).informListenersError(any(Throwable.class));
+    verify(engine, times(1)).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -216,14 +218,14 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
-    verify(engine, times(1)).informListenersError(any(Throwable.class));
+    verify(engine, times(1)).informListenersError(isA(Throwable.class));
   }
 
   /**
    * Test for the engine.<br/>
    * <br/>
    * Assertion: If there was an {@link InvalidInputException} executing a test file, the run for the current browser
-   * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
+   * should be aborted. The commands for the other browser of this test should be ignored. The command for all browsers
    * of the other test should be executed.
    */
   @Test
@@ -256,7 +258,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
-    verify(engine, times(1)).informListenersError(any(Throwable.class));
+    verify(engine, times(1)).informListenersError(isA(Throwable.class));
   }
 
   private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) throws InvalidInputException {
