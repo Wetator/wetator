@@ -32,11 +32,12 @@ import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
 
 /**
- * The context that holds all information about
- * the current executed file and make
- * them available to the different commands.
+ * The context that holds all information about the current executed file and makes them available to the different
+ * commands.
  * 
  * @author rbri
+ * @author frank.danek
+ * @author tobwoerk
  */
 public class WetatorContext {
 
@@ -50,6 +51,7 @@ public class WetatorContext {
   private WetatorContext parentContext;
 
   private boolean errorOccurred;
+  private boolean invalidInput;
 
   /**
    * Constructor for a root context.
@@ -152,10 +154,11 @@ public class WetatorContext {
   /**
    * Processes the associated test file by reading all the commands from the file and executing every single command.
    * 
+   * @return false if execution failed due to invalid input
    * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public void execute() throws InvalidInputException {
+  public boolean execute() throws InvalidInputException {
     final File tmpFile = getFile();
 
     engine.informListenersTestFileStart(tmpFile.getAbsolutePath());
@@ -163,14 +166,20 @@ public class WetatorContext {
       final List<Command> tmpCommands = engine.readCommandsFromFile(tmpFile);
 
       for (Command tmpCommand : tmpCommands) {
-        executeCommand(tmpCommand);
+        if (!executeCommand(tmpCommand)) {
+          setInvalidInput(true);
+        }
       }
+    } catch (final InvalidInputException e) {
+      engine.informListenersError(e);
+      return false;
     } finally {
       engine.informListenersTestFileEnd();
     }
+    return !invalidInput;
   }
 
-  private void executeCommand(final Command aCommand) {
+  private boolean executeCommand(final Command aCommand) {
     engine.informListenersExecuteCommandStart(this, aCommand);
     try {
       if (aCommand.isComment()) {
@@ -184,6 +193,10 @@ public class WetatorContext {
           }
         } catch (final AssertionException e) {
           engine.informListenersExecuteCommandFailure(e);
+        } catch (final InvalidInputException e) {
+          engine.informListenersExecuteCommandError(e);
+          setErrorOccurred(true);
+          return false;
         } catch (final Exception e) {
           engine.informListenersExecuteCommandError(e);
           setErrorOccurred(true);
@@ -192,6 +205,7 @@ public class WetatorContext {
     } finally {
       engine.informListenersExecuteCommandEnd();
     }
+    return true;
   }
 
   /**
@@ -263,6 +277,18 @@ public class WetatorContext {
     errorOccurred = anErrorOccurred;
     if (parentContext != null) {
       parentContext.setErrorOccurred(anErrorOccurred);
+    }
+  }
+
+  /**
+   * Sets the invalidInput to the given value. Additionally if a parent context is present it is set there, too.
+   * 
+   * @param anInvalidInput the invalidInput to set
+   */
+  public void setInvalidInput(final boolean anInvalidInput) {
+    invalidInput = anInvalidInput;
+    if (parentContext != null) {
+      parentContext.setInvalidInput(anInvalidInput);
     }
   }
 }

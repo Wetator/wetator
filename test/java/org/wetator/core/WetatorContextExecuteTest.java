@@ -39,6 +39,7 @@ import org.wetator.exception.ResourceException;
  * Tests for {@link WetatorContext#execute()}.
  * 
  * @author frank.danek
+ * @author tobwoerk
  */
 public class WetatorContextExecuteTest {
 
@@ -85,7 +86,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -97,6 +98,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -114,7 +116,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -125,6 +127,7 @@ public class WetatorContextExecuteTest {
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -142,7 +145,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -155,6 +158,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -173,7 +177,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertFalse(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -186,6 +190,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -203,7 +208,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -216,6 +221,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -233,7 +239,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -246,6 +252,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -262,16 +269,13 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    try {
-      tmpContext.execute();
-      Assert.fail("InvalidInputException expected");
-    } catch (final InvalidInputException e) {
-      Assert.assertEquals(tmpException, e);
-    }
+    Assert.assertFalse(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
+    tmpInOrder.verify(engine).readCommandsFromFile(file1);
+    tmpInOrder.verify(engine).informListenersError(tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
 
     verify(commandImplementation1, never()).execute(tmpContext, command1);
@@ -283,6 +287,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
     verify(engine, never()).informListenersExecuteCommandEnd();
+    verify(engine, times(1)).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -298,9 +303,9 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -314,6 +319,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -333,9 +339,9 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -348,6 +354,7 @@ public class WetatorContextExecuteTest {
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -367,9 +374,9 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -384,6 +391,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -403,9 +411,9 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertFalse(tmpContext.execute());
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -420,6 +428,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -439,9 +448,9 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -456,6 +465,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -475,9 +485,9 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -492,6 +502,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -508,8 +519,8 @@ public class WetatorContextExecuteTest {
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
-    tmpContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -523,6 +534,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -543,8 +555,8 @@ public class WetatorContextExecuteTest {
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
-    tmpContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -557,6 +569,7 @@ public class WetatorContextExecuteTest {
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -577,8 +590,8 @@ public class WetatorContextExecuteTest {
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
-    tmpContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -593,6 +606,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -613,8 +627,8 @@ public class WetatorContextExecuteTest {
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
-    tmpContext.execute();
+    Assert.assertFalse(tmpSubContext.execute());
+    Assert.assertFalse(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -629,6 +643,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -649,8 +664,8 @@ public class WetatorContextExecuteTest {
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
-    tmpContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -665,6 +680,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -685,8 +701,8 @@ public class WetatorContextExecuteTest {
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
     WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
-    tmpSubContext.execute();
-    tmpContext.execute();
+    Assert.assertTrue(tmpSubContext.execute());
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -701,6 +717,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -717,7 +734,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertFalse(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -732,6 +749,7 @@ public class WetatorContextExecuteTest {
     verify(engine, never()).informListenersExecuteCommandSuccess();
     verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
     verify(engine).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -749,7 +767,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
@@ -760,6 +778,7 @@ public class WetatorContextExecuteTest {
 
     verify(engine, never()).informListenersExecuteCommandIgnored();
     verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   /**
@@ -781,7 +800,7 @@ public class WetatorContextExecuteTest {
 
     // run
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_3_6);
-    tmpContext.execute();
+    Assert.assertTrue(tmpContext.execute());
 
     // assert
     InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);

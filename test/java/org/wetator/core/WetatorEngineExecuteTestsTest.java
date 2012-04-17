@@ -34,6 +34,7 @@ import org.wetator.exception.ResourceException;
  * Tests for {@link WetatorEngine#executeTests()}.
  * 
  * @author frank.danek
+ * @author tobwoerk
  */
 public class WetatorEngineExecuteTestsTest {
 
@@ -90,6 +91,9 @@ public class WetatorEngineExecuteTestsTest {
    */
   @Test
   public void ok() throws InvalidInputException {
+    // setup
+    doReturn(Boolean.TRUE).when(context).execute();
+
     // run
     engine.executeTests();
 
@@ -120,6 +124,7 @@ public class WetatorEngineExecuteTestsTest {
   @Test
   public void browserStartNewSessionRuntimeException() throws InvalidInputException {
     // setup
+    doReturn(Boolean.TRUE).when(context).execute();
     doThrow(new RuntimeException("mocker")).doNothing().when(browser).startNewSession(browserType1);
 
     // run
@@ -156,7 +161,7 @@ public class WetatorEngineExecuteTestsTest {
   public void contextExecuteResourceException() throws InvalidInputException {
     // setup
     Exception tmpException = new ResourceException("mocker");
-    doThrow(tmpException).doNothing().when(context).execute();
+    doThrow(tmpException).doReturn(Boolean.TRUE).when(context).execute();
 
     // run
     engine.executeTests();
@@ -194,7 +199,7 @@ public class WetatorEngineExecuteTestsTest {
   public void contextExecuteRuntimeException() throws InvalidInputException {
     // setup
     Exception tmpException = new RuntimeException("mocker");
-    doThrow(tmpException).doNothing().when(context).execute();
+    doThrow(tmpException).doReturn(Boolean.TRUE).when(context).execute();
 
     // run
     engine.executeTests();
@@ -231,8 +236,7 @@ public class WetatorEngineExecuteTestsTest {
   @Test
   public void contextExecuteInvalidInputException() throws InvalidInputException {
     // setup
-    Exception tmpException = new InvalidInputException("mocker");
-    doThrow(tmpException).doNothing().when(context).execute();
+    doReturn(Boolean.FALSE).doReturn(Boolean.TRUE).when(context).execute();
 
     // run
     engine.executeTests();
@@ -246,7 +250,6 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
     tmpInOrder.verify(context).execute();
-    tmpInOrder.verify(engine).informListenersError(tmpException);
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType2.getLabel());
     tmpInOrder.verify(engine).informListenersTestRunIgnored();
@@ -258,7 +261,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
     tmpInOrder.verify(engine).informListenersEnd();
 
-    verify(engine, times(1)).informListenersError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
   private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) throws InvalidInputException {

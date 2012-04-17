@@ -143,6 +143,7 @@ public class WetatorEngine {
     informListenersStart();
     try {
       for (TestCase tmpTestCase : getTestCases()) {
+        boolean tmpValidInput = true;
         final File tmpFile = tmpTestCase.getFile();
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
         informListenersTestCaseStart(tmpTestCase.getName());
@@ -151,13 +152,13 @@ public class WetatorEngine {
           for (BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
             try {
-              if (!tmpErrorOccurred) {
+              if (!tmpErrorOccurred && tmpValidInput) {
                 // new session for every (root) file and browser
                 getBrowser().startNewSession(tmpBrowserType);
 
                 // setup the context
                 final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
-                tmpWetatorContext.execute();
+                tmpValidInput = tmpWetatorContext.execute();
               } else {
                 informListenersTestRunIgnored();
               }
