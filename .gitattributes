@@ -848,7 +848,6 @@ xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/testCommandSet.xsd -text svneol=unset#text/plain
-xsl/SimpleHtml.xsl -text svneol=unset#text/plain
 xsl/images/collapseall.png -text
 xsl/images/collapselog.png -text
 xsl/images/expandall.png -text
