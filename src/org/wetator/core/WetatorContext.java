@@ -155,10 +155,9 @@ public class WetatorContext {
    * Processes the associated test file by reading all the commands from the file and executing every single command.
    * 
    * @return false if execution failed due to invalid input
-   * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public boolean execute() throws InvalidInputException {
+  public boolean execute() {
     final File tmpFile = getFile();
 
     engine.informListenersTestFileStart(tmpFile.getAbsolutePath());

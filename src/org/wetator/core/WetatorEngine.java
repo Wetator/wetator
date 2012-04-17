@@ -159,13 +159,13 @@ public class WetatorEngine {
                 // setup the context
                 final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
                 tmpValidInput = tmpWetatorContext.execute();
+                if (!tmpValidInput) {
+                  // the input won't be valid for the next browser => continue with next browser but ignore it
+                  tmpErrorOccurred = true;
+                }
               } else {
                 informListenersTestRunIgnored();
               }
-            } catch (final InvalidInputException e) {
-              // the input won't be valid for the next browser => continue with next browser but ignore it
-              informListenersError(e);
-              tmpErrorOccurred = true;
             } catch (final RuntimeException e) {
               // => continue with next browser
               informListenersError(e);

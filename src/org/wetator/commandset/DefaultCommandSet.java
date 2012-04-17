@@ -165,12 +165,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         i++;
       }
 
-      try {
-        tmpWetatorContext.execute();
-      } catch (final InvalidInputException e) {
-        final String tmpMessage = Messages.getMessage("invalidModule", new String[] { tmpModule, e.getMessage() });
-        throw new InvalidInputException(tmpMessage, e);
-      }
+      tmpWetatorContext.execute();
     }
   }
 
