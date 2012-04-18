@@ -123,4 +123,15 @@ rbri 2012-04-16 20:58: @rbri: Bei mir schlagen nur die tests
     fehl.
     Das liegt aber am locale. Wenn du/ihr da einen guten Vorschlag habt. Excel verhält sich halt auch bei verschiedenen
     locales unterschieldlich.
-    
+
+frank.danek 2012-04-18 23:50: Das ist interessant. Bei mir schlagen zwar die gleichen Tests fehl, aber die Meldung ist eine andere.
+	ExcelScripterTest.supported: org.junit.ComparisonFailure: expected:<[12,99]> but was:<[* 12,99 €]>
+	at org.junit.Assert.assertEquals(Assert.java:125)
+	at org.junit.Assert.assertEquals(Assert.java:147)
+	at org.wetator.scripter.ExcelScripterTest.supported(ExcelScripterTest.java:94)
+	ContentUtilTest.testGetXlsContentAsString: org.junit.ComparisonFailure: expected:<...nded) 1,70 currency [4,33] percent 3% date 7/1...> but was:<...nded) 1,70 currency [* 4,33 €] percent 3% date 7/1...>
+	at org.junit.Assert.assertEquals(Assert.java:125)
+	at org.junit.Assert.assertEquals(Assert.java:147)
+	at org.wetator.util.ContentUtilTest.testGetXlsContentAsString(ContentUtilTest.java:92)
+	Für mich sieht das nicht nach einem Locale-Problem aus, sondern nach einem POI-"Problem". Wahrscheinlich hängt das mit der neues Version zusammen.
+	Wenn ich dir noch irgendwelche Infos liefern soll, sag bescheid.
