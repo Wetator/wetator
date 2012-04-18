@@ -134,6 +134,7 @@ public class ManualXMLResultWriterTest {
     writeCommand();
     writeCommandWithError();
     writeCommandIgnored();
+    writeCommentIgnored();
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
   }
@@ -182,6 +183,13 @@ public class ManualXMLResultWriterTest {
   private void writeComment() {
     Command tmpComment = createCommand(null, "comment value", true);
     resultWriter.executeCommandStart(context, tmpComment);
+    resultWriter.executeCommandEnd();
+  }
+
+  private void writeCommentIgnored() {
+    Command tmpComment = createCommand(null, "comment value", true);
+    resultWriter.executeCommandStart(context, tmpComment);
+    resultWriter.executeCommandIgnored();
     resultWriter.executeCommandEnd();
   }
 

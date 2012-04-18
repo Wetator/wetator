@@ -66,7 +66,7 @@
                     TD.message {background-color: #fff8dc; color: #666666; font-size: 10pt;}
                     TD.properties {background-color: #f8f8f8; font-size: 10pt;}
                     TD.error {background-color: #E75013;}
-                    TD.comment {background-color: #eeeeee; color: #717173;}
+                    TD.comment {background-color: #DDDDDD; color: #717173;}
                     TD.ignored {color: #717173;}
                     H1 {font-size: 12pt; color: #000000; margin-top:20px;}
                     H2 {font-size: 10pt; color: #4682b4; margin-top:16px;}
@@ -84,7 +84,8 @@
                     DIV.header IMG { margin-left: -10px; border:0; }
                     DIV.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
                     .smallBorder {border: 1px solid #999;}
-                    .bold {font-weight: bold; }
+                    .bold {font-weight: bold;}
+                    #debuginfo {display: none};
                 </style>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
@@ -235,10 +236,16 @@
                             <xsl:value-of select="$testCount"/>
                         </td>
                         <td class="bold" style="padding-left: 40px;">
-                             <img src="./images/failed.png" width="12" height="10" alt="failed" title="failed"/> Errors:
+                             <img src="./images/error.png" width="12" height="10" alt="failed" title="failed"/> Errors:
                         </td>
                         <td style="padding-left: 5px;">
                             <xsl:value-of select="$testErrorCount"/>
+                        </td>
+                        <td class="bold" style="padding-left: 40px;">
+                             <img src="./images/failure.png" width="12" height="10" alt="failed" title="failed"/> Failures:
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <xsl:value-of select="$testFailureCount"/>
                         </td>
 
                         <td style="padding-left: 40px;">
@@ -1035,7 +1042,8 @@
                         <table align="left" cellpadding="0" cellspacing="0">
                             <tr>
                                 <xsl:for-each select="./command[not(@isComment)]">
-                                    <xsl:variable name="noOfErrors" select="sum(descendant-or-self::error)"/>
+                                    <xsl:variable name="noOfFailures" select="sum(descendant::failure)"/>
+                                    <xsl:variable name="noOfErrors" select="sum(descendant::error)"/>
                                     <xsl:variable name="noOfSubSteps" select="count(descendant::command[not(@isComment)])"/>
                                     <xsl:variable name="vacant" select="preceding-sibling::*[descendant-or-self::error]"/>
                                     <xsl:variable name="ignored" select="ignored"/>
@@ -1048,6 +1056,9 @@
                                     <td class="step" width="4px">
                                         <xsl:attribute name="bgcolor">
                                             <xsl:choose>
+                                                <xsl:when test="$noOfFailures != 0">
+                                                    <xsl:value-of select="$blueColor"/>
+                                                </xsl:when>
                                                 <xsl:when test="$noOfErrors = 0">
                                                     <xsl:choose>
                                                         <xsl:when test="$ignored">
@@ -1177,6 +1188,7 @@
                 </table>
             </xsl:when>
 
+            <!-- TODO check neccessity of this -->
             <xsl:when test="count(descendant-or-self::error) &gt; 0">
                 <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
                     <tr>
@@ -1186,7 +1198,7 @@
                     <xsl:for-each select="error">
                     <tr>
                       <td>
-                        <img src="./images/failed.png" width="12" height="10" alt="failed"/>
+                        <img src="./images/error.png" width="12" height="10" alt="failed"/>
                       </td>
                       <td class="error">
                         <xsl:value-of select="message"/>
@@ -1201,11 +1213,11 @@
     <xsl:template name="command">
         <xsl:variable name="lineStyle">
             <xsl:choose>
-                <xsl:when test="@isComment">
-                    <xsl:text>comment topBorder</xsl:text>
-                </xsl:when>
                 <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
                     <xsl:text>ignored topBorder</xsl:text>
+                </xsl:when>
+                <xsl:when test="@isComment">
+                    <xsl:text>comment topBorder</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>light topBorder</xsl:text>
@@ -1233,8 +1245,11 @@
                     <xsl:when test="@isComment">
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
+                    <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
+                        <img src="./images/failure.png" width="12" height="10" alt="failed"/>
+                    </xsl:when>
                     <xsl:when test="(count(descendant-or-self::error)) &gt; 0">
-                        <img src="./images/failed.png" width="12" height="10" alt="failed"/>
+                        <img src="./images/error.png" width="12" height="10" alt="failed"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
                         <!-- nothing -->
@@ -1482,8 +1497,11 @@
     <!-- subroutines -->
     <xsl:template name="successIndicator">
         <xsl:choose>
+            <xsl:when test="count(descendant-or-self::failure) &gt; 0">
+                <img src="./images/error.png" width="12" height="10" alt="failed"/>
+            </xsl:when>
             <xsl:when test="count(descendant-or-self::error) &gt; 0">
-                <img src="./images/failed.png" width="12" height="10" alt="failed"/>
+                <img src="./images/error.png" width="12" height="10" alt="failed"/>
             </xsl:when>
             <xsl:otherwise>
                 <img src="./images/ok.png" width="12" height="10" alt="ok"/>

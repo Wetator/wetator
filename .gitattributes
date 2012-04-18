@@ -851,9 +851,10 @@ xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/testCommandSet.xsd -text svneol=unset#text/plain
 xsl/images/collapseall.png -text
 xsl/images/collapselog.png -text
+xsl/images/error.png -text
 xsl/images/expandall.png -text
 xsl/images/expandlog.png -text
-xsl/images/failed.png -text
+xsl/images/failure.png -text
 xsl/images/firefox.png -text
 xsl/images/ie6.png -text
 xsl/images/ie7.png -text
