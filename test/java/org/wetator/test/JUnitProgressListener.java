@@ -18,6 +18,7 @@ package org.wetator.test;
 
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
+import org.wetator.core.TestCase;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
 import org.wetator.exception.AssertionException;
@@ -55,10 +56,10 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#testCaseStart(java.lang.String)
+   * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
-  public void testCaseStart(String aTestName) {
+  public void testCaseStart(TestCase aTestCase) {
     // nothing
   }
 

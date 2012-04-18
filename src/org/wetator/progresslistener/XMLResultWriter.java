@@ -98,6 +98,8 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_LOG = "log";
   private static final String TAG_LEVEL = "level";
   private static final String TAG_MESSAGE = "message";
+  private static final String TAG_FAILURE = "failure";
+
   private static final String TAG_ERROR = "error";
   private static final String TAG_ERROR_STACK_TRACE = "stacktrace";
   private static final String TAG_CONFIGURATION = "configuration";
@@ -303,7 +305,7 @@ public class XMLResultWriter implements IProgressListener {
         }
         output.unindent();
 
-        printEndTag(TAG_COMMAND_SET);
+        printlnEndTag(TAG_COMMAND_SET);
       }
 
       final List<Class<? extends IControl>> tmpControls = tmpConfiguration.getControls();
@@ -330,14 +332,16 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#testCaseStart(String)
+   * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
-  public void testCaseStart(final String aTestName) {
+  public void testCaseStart(final TestCase aTestCase) {
     try {
       printStartTagOpener(TAG_TESTCASE);
       output.print(" name=\"");
-      output.print(xMLUtil.normalizeAttributeValue(aTestName));
+      output.print(xMLUtil.normalizeAttributeValue(aTestCase.getName()));
+      output.print("\" file=\"");
+      output.print(xMLUtil.normalizeAttributeValue(aTestCase.getFile().getAbsolutePath()));
       output.println("\">");
       output.indent();
     } catch (final IOException e) {
@@ -463,13 +467,13 @@ public class XMLResultWriter implements IProgressListener {
   @Override
   public void executeCommandFailure(final AssertionException anAssertionException) {
     try {
-      printErrorStart(anAssertionException);
+      printFailureStart(anAssertionException);
 
       final Throwable tmpThrowable = anAssertionException.getCause();
       if (null != tmpThrowable) {
-        executeCommandError(tmpThrowable);
+        printErrorMessageStack(tmpThrowable);
       }
-      printErrorEnd();
+      printFailureEnd();
       flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
@@ -491,29 +495,6 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
       printErrorEnd();
       flush();
-    } catch (final IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * Helper to print the error message stack.
-   * 
-   * @param aThrowable
-   */
-  private void printErrorMessageStack(final Throwable aThrowable) {
-    if (null == aThrowable) {
-      return;
-    }
-    try {
-      printErrorStart(aThrowable);
-
-      final Throwable tmpThrowable = aThrowable.getCause();
-      if (null != tmpThrowable) {
-        printErrorMessageStack(tmpThrowable);
-      }
-
-      printErrorEnd();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -695,6 +676,20 @@ public class XMLResultWriter implements IProgressListener {
     printlnEndTag(TAG_LOG);
   }
 
+  private void printFailureStart(final AssertionException anAssertionException) throws IOException {
+    printlnStartTag(TAG_FAILURE);
+
+    String tmpMessage = anAssertionException.getMessage();
+    if (StringUtils.isBlank(tmpMessage)) {
+      tmpMessage = anAssertionException.toString();
+    }
+    printlnNode(TAG_MESSAGE, tmpMessage);
+  }
+
+  private void printFailureEnd() throws IOException {
+    printlnEndTag(TAG_FAILURE);
+  }
+
   private void printErrorStart(final Throwable aThrowable) throws IOException {
     printlnStartTag(TAG_ERROR);
 
@@ -707,6 +702,24 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printErrorEnd() throws IOException {
     printlnEndTag(TAG_ERROR);
+  }
+
+  private void printErrorMessageStack(final Throwable aThrowable) {
+    if (null == aThrowable) {
+      return;
+    }
+    try {
+      printErrorStart(aThrowable);
+
+      final Throwable tmpThrowable = aThrowable.getCause();
+      if (null != tmpThrowable) {
+        printErrorMessageStack(tmpThrowable);
+      }
+
+      printErrorEnd();
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
   }
 
   private void printConfigurationProperty(final String aKey, final String aValue) throws IOException {

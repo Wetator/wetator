@@ -146,7 +146,7 @@ public class WetatorEngine {
         boolean tmpValidInput = true;
         final File tmpFile = tmpTestCase.getFile();
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-        informListenersTestCaseStart(tmpTestCase.getName());
+        informListenersTestCaseStart(tmpTestCase);
         try {
           boolean tmpErrorOccurred = false;
           for (BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
@@ -376,13 +376,13 @@ public class WetatorEngine {
   }
 
   /**
-   * Informs all listeners about 'testStart'.
+   * Informs all listeners about 'testCaseStart'.
    * 
-   * @param aTestName the file name of the test started.
+   * @param aTestCase the test case started.
    */
-  protected void informListenersTestCaseStart(final String aTestName) {
+  protected void informListenersTestCaseStart(final TestCase aTestCase) {
     for (IProgressListener tmpListener : progressListener) {
-      tmpListener.testCaseStart(aTestName);
+      tmpListener.testCaseStart(aTestCase);
     }
   }
 

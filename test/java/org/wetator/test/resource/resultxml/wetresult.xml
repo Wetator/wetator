@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="../../../../../../../xsl/run_report.xsl"?>
+
+<wet id="0">
+  <about id="1">
+    <product id="2">Wetator</product>
+    <version id="3">local build</version>
+    <build id="4"></build>
+    <libraries id="5">
+      <library id="6">example1.jar</library>
+      <library id="7">example2.jar</library>
+    </libraries>
+    <java id="8">
+    </java>
+  </about>
+  <configuration id="9">
+    <property id="10" key="prop1" value="propvalue1" />
+    <property id="11" key="prop2" value="propvalue2" />
+    <variables id="12">
+      <variable id="13" name="var1" value="varvalue1"/>
+      <variable id="14" name="var2" value="varvalue2"/>
+    </variables>
+    <commandSet id="15" class="class org.wetator.commandset.DefaultCommandSet">
+    </commandSet>
+    <commandSet id="16" class="class org.wetator.commandset.IncubatorCommandSet">
+    </commandSet>
+    <commandSet id="17" class="class org.wetator.commandset.SqlCommandSet">
+      <log id="18">
+        <level id="19">INFO</level>
+        <message id="20">DB wetdb (default): jdbc:hsqldb:mem:wetdb</message>
+      </log>
+      <log id="21">
+        <level id="22">INFO</level>
+        <message id="23">DB secondDb: jdbc:hsqldb:mem:second_db</message>
+      </log>
+    </commandSet>
+    <commandSet id="24" class="class org.wetator.commandset.TestCommandSet">
+    </commandSet>
+  </configuration>
+  <startTime id="25">17.04.2012 22:23:08</startTime>
+  <testFile id="26">/path/test.wet</testFile>
+  <testcase id="27" name="test.wet" file="/path/test.wet">
+    <testrun id="28" browser="IE8">
+      <testfile id="29" file="/path/test.wet">
+        <command id="30" name="" line="1" isComment="true">
+          <param0 id="31">comment</param0>
+          <param1 id="32"></param1>
+          <param2 id="33"></param2>
+          <executionTime id="34">0</executionTime>
+        </command>
+        <command id="35" name="open-url" line="2">
+          <param0 id="36">http://www.url.com</param0>
+          <param1 id="37"></param1>
+          <param2 id="38"></param2>
+          <executionTime id="39">11000</executionTime>
+        </command>
+        <command id="40" name="click-on" line="2">
+          <param0 id="41">click me</param0>
+          <param1 id="42"></param1>
+          <param2 id="43"></param2>
+          <executionTime id="44">33000</executionTime>
+        </command>
+        <command id="45" name="assert-content" line="2">
+          <param0 id="46">content</param0>
+          <param1 id="47"></param1>
+          <param2 id="48"></param2>
+          <executionTime id="49">5000</executionTime>
+        </command>
+        <command id="50" name="exec-java" line="2">
+          <param0 id="51">Class.main</param0>
+          <param1 id="52"></param1>
+          <param2 id="53"></param2>
+          <executionTime id="54">97000</executionTime>
+        </command>
+      </testfile>
+    </testrun>  
+    <testrun id="55" browser="Firefox3.6">
+      <testfile id="56" file="/path/test.wet">
+        <command id="57" name="" line="1" isComment="true">
+          <param0 id="58">comment</param0>
+          <param1 id="59"></param1>
+          <param2 id="60"></param2>
+          <executionTime id="61">0</executionTime>
+        </command>
+        <command id="62" name="open-url" line="2">
+          <param0 id="63">http://www.url.com</param0>
+          <param1 id="64"></param1>
+          <param2 id="65"></param2>
+          <executionTime id="66">12000</executionTime>
+        </command>
+        <command id="67" name="click-on" line="2">
+          <param0 id="68">click me</param0>
+          <param1 id="69"></param1>
+          <param2 id="70"></param2>
+          <executionTime id="71">33000</executionTime>
+        </command>
+        <command id="72" name="assert-content" line="2">
+          <param0 id="73">content</param0>
+          <param1 id="74"></param1>
+          <param2 id="75"></param2>
+          <executionTime id="76">5000</executionTime>
+        </command>
+        <command id="77" name="exec-java" line="2">
+          <param0 id="78">Class.main</param0>
+          <param1 id="79"></param1>
+          <param2 id="80"></param2>
+          <executionTime id="81">97000</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <executionTime id="82">300000</executionTime>
+</wet>

@@ -46,9 +46,9 @@ public interface IProgressListener {
   /**
    * This is called before a test case (grouping the browser runs) is started.<br/>
    * 
-   * @param aTestName the name of the test case
+   * @param aTestCase the test case
    */
-  public void testCaseStart(String aTestName);
+  public void testCaseStart(TestCase aTestCase);
 
   /**
    * This is called before a run of a test case for one browser is started.<br/>

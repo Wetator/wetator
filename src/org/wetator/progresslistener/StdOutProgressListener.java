@@ -139,12 +139,12 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#testCaseStart(String)
+   * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
-  public void testCaseStart(final String aTestName) {
+  public void testCaseStart(final TestCase aTestCase) {
     processedTestFileCout++;
-    println("TestCase: '" + aTestName + "' (" + processedTestFileCout + "/" + testFileCout + ")");
+    println("TestCase: '" + aTestCase.getName() + "' (" + processedTestFileCout + "/" + testFileCout + ")");
   }
 
   /**

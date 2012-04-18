@@ -27,7 +27,6 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 
 /**
@@ -90,7 +89,7 @@ public class WetatorEngineExecuteTestsTest {
    * Assertion: If everything is ok, the commands for all browsers of all tests should be executed.
    */
   @Test
-  public void ok() throws InvalidInputException {
+  public void ok() {
     // setup
     doReturn(Boolean.TRUE).when(context).execute();
 
@@ -101,11 +100,11 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType1);
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -122,7 +121,7 @@ public class WetatorEngineExecuteTestsTest {
    * of the other test should be executed.
    */
   @Test
-  public void browserStartNewSessionRuntimeException() throws InvalidInputException {
+  public void browserStartNewSessionRuntimeException() {
     // setup
     doReturn(Boolean.TRUE).when(context).execute();
     doThrow(new RuntimeException("mocker")).doNothing().when(browser).startNewSession(browserType1);
@@ -134,14 +133,14 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).informListenersError(isA(RuntimeException.class));
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -158,7 +157,7 @@ public class WetatorEngineExecuteTestsTest {
    * of the other test should be executed.
    */
   @Test
-  public void contextExecuteResourceException() throws InvalidInputException {
+  public void contextExecuteResourceException() {
     // setup
     Exception tmpException = new ResourceException("mocker");
     doThrow(tmpException).doReturn(Boolean.TRUE).when(context).execute();
@@ -170,7 +169,7 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
@@ -179,7 +178,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -196,7 +195,7 @@ public class WetatorEngineExecuteTestsTest {
    * of the other test should be executed.
    */
   @Test
-  public void contextExecuteRuntimeException() throws InvalidInputException {
+  public void contextExecuteRuntimeException() {
     // setup
     Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).doReturn(Boolean.TRUE).when(context).execute();
@@ -208,7 +207,7 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
@@ -217,7 +216,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     assertTestRun(tmpInOrder, testCase1.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -229,12 +228,12 @@ public class WetatorEngineExecuteTestsTest {
   /**
    * Test for the engine.<br/>
    * <br/>
-   * Assertion: If there was an {@link InvalidInputException} executing a test file, the run for the current browser
+   * Assertion: If the execution of a test file fails due to invalid input, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be ignored. The command for all browsers
    * of the other test should be executed.
    */
   @Test
-  public void contextExecuteInvalidInputException() throws InvalidInputException {
+  public void contextExecuteInvalidInputException() {
     // setup
     doReturn(Boolean.FALSE).doReturn(Boolean.TRUE).when(context).execute();
 
@@ -245,7 +244,7 @@ public class WetatorEngineExecuteTestsTest {
     InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
     tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
     tmpInOrder.verify(browser).startNewSession(browserType1);
     tmpInOrder.verify(engine).createWetatorContext(testCase1.getFile(), browserType1);
@@ -255,7 +254,7 @@ public class WetatorEngineExecuteTestsTest {
     tmpInOrder.verify(engine).informListenersTestRunIgnored();
     tmpInOrder.verify(engine).informListenersTestRunEnd();
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
-    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2.getName());
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType1);
     assertTestRun(tmpInOrder, testCase2.getFile(), browserType2);
     tmpInOrder.verify(engine).informListenersTestCaseEnd();
@@ -264,7 +263,7 @@ public class WetatorEngineExecuteTestsTest {
     verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
-  private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) throws InvalidInputException {
+  private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) {
     anInOrder.verify(engine).informListenersTestRunStart(aBrowserType.getLabel());
     anInOrder.verify(browser).startNewSession(aBrowserType);
     anInOrder.verify(engine).createWetatorContext(aFile, aBrowserType);
