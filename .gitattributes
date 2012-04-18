@@ -296,24 +296,6 @@ test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unse
 test/java/org/wetator/test/resource/legacyXML.wet -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/legacyXML.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=unset#text/plain
-test/java/org/wetator/test/resource/resultxml/images/collapseall.png -text
-test/java/org/wetator/test/resource/resultxml/images/collapselog.png -text
-test/java/org/wetator/test/resource/resultxml/images/expandall.png -text
-test/java/org/wetator/test/resource/resultxml/images/expandlog.png -text
-test/java/org/wetator/test/resource/resultxml/images/failed.png -text
-test/java/org/wetator/test/resource/resultxml/images/firefox.png -text
-test/java/org/wetator/test/resource/resultxml/images/ie6.png -text
-test/java/org/wetator/test/resource/resultxml/images/ie7.png -text
-test/java/org/wetator/test/resource/resultxml/images/ie8.png -text
-test/java/org/wetator/test/resource/resultxml/images/log_info.png -text
-test/java/org/wetator/test/resource/resultxml/images/log_warn.png -text
-test/java/org/wetator/test/resource/resultxml/images/next.png -text
-test/java/org/wetator/test/resource/resultxml/images/none.png -text
-test/java/org/wetator/test/resource/resultxml/images/ok.png -text
-test/java/org/wetator/test/resource/resultxml/images/previous.png -text
-test/java/org/wetator/test/resource/resultxml/images/response.png -text
-test/java/org/wetator/test/resource/resultxml/images/top.png -text
-test/java/org/wetator/test/resource/resultxml/images/wetator.png -text
 test/java/org/wetator/test/resource/resultxml/wetresult.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/wikiText.wett -text
 test/java/org/wetator/test/resource/xml.wet -text
