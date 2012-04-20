@@ -145,9 +145,10 @@ public class WetatorResultParser {
           } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/executionTime")) {
             tmpDuration += Long.valueOf(tmpReader.getElementText()).longValue();
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/error/message")) {
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile")
+              && (tmpPath.endsWith("/command/error/message") || tmpPath.endsWith("/command/failure/message"))) {
             if (tmpStepError == null) {
-              // only save the first error per browser run
+              // only save the first error or failure per browser run
               tmpStepError = new StepError();
               tmpStepError.setLine(tmpLine);
               tmpStepError.setCommand(tmpCommand);

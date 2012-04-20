@@ -1,108 +1,575 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<wet id="0" >
-  <about id="1" >
-    <product id="2" >Wetator</product>
-    <version id="3" >local build</version>
-    <build id="4" >2010121601</build>
+<wet id="0">
+  <about id="1">
+    <product id="2">Wetator</product>
+    <version id="3">local build</version>
+    <build id="4"></build>
+    <libraries id="5">
+      <library id="6">htmlunit-2.10-SNAPSHOT.jar (2012-03-18)</library>
+      <library id="7">htmlunit-core-js-2.10-SNAPSHOT.jar (2011-08-08)</library>
+      <library id="8">cssparser-0.9.7-SNAPSHOT.jar (2012-03-18)</library>
+      <library id="9">NekoHTML 1.9.15</library>
+      <library id="10">Commons Lang 3.1</library>
+      <library id="11">Commons Codec 1.5</library>
+      <library id="12">Commons Collections 3.2.1</library>
+      <library id="13">Commons IO 2.1</library>
+      <library id="14">Jakarta Commons Logging 1.1.1</library>
+      <library id="15">HttpComponents HttpCore 4.1.4</library>
+      <library id="16">HttpComponents HttpClient 4.1.3</library>
+      <library id="17">HttpComponents HttpMime 4.1.3</library>
+      <library id="18">log4j 1.2.16</library>
+      <library id="19">automaton-1.11.8.jar</library>
+      <library id="20">POI 3.8</library>
+      <library id="21">PDF Box 1.6.0</library>
+      <library id="22">Apache FontBox 1.6.0</library>
+      <library id="23">XmlCommonsExternal 1.3.04</library>
+      <library id="24">Xerces-J 2.9.1</library>
+      <library id="25">Xalan Java 2.7.1</library>
+    </libraries>
+    <java id="26">
+      <awt.toolkit id="27">sun.awt.windows.WToolkit</awt.toolkit>
+      <file.encoding id="28">Cp1252</file.encoding>
+      <file.encoding.pkg id="29">sun.io</file.encoding.pkg>
+      <file.separator id="30">\</file.separator>
+      <java.awt.graphicsenv id="31">sun.awt.Win32GraphicsEnvironment</java.awt.graphicsenv>
+      <java.awt.printerjob id="32">sun.awt.windows.WPrinterJob</java.awt.printerjob>
+      <java.class.path id="33">D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\bin;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\commons-collections-3.2.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\commons-logging-1.1.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\hsqldb-1.8.0.10.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\log4j-1.2.16.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\sac-1.3.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\serializer-2.7.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\xalan-2.7.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\xercesImpl-2.9.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\xml-apis-1.3.04.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\servlet-api-2.5.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\slf4j-api-1.6.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\slf4j-log4j12-1.6.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-client-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-continuation-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-http-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-io-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-security-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-server-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-servlet-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-servlets-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-util-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-webapp-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\jetty-xml-7.2.0.v20101020.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\automaton-1.11.8.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\relaxngDatatype-20020414.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\xsom-20081112.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\fontbox-1.6.0.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\pdfbox-1.6.0.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\htmlunit-2.10-SNAPSHOT.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\nekohtml-1.9.15.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\hamcrest-core-1.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\mockito-core-1.8.5.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\objenesis-1.0.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\commons-io-2.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\htmlunit-core-js-2.10-SNAPSHOT.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\commons-lang3-3.1.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\cssparser-0.9.7-SNAPSHOT.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\junit-4.10.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\httpclient-4.1.3.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\httpcore-4.1.4.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\httpmime-4.1.3.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\ant-1.8.3.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\commons-codec-1.5.jar;D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\lib\poi-3.8.jar;/C:/Eclipse_SuT_Indigo/configuration/org.eclipse.osgi/bundles/329/1/.cp/;/C:/Eclipse_SuT_Indigo/configuration/org.eclipse.osgi/bundles/327/1/.cp/;/C:/Eclipse_SuT_Indigo/configuration/org.eclipse.osgi/bundles/328/1/.cp/</java.class.path>
+      <java.class.version id="34">50.0</java.class.version>
+      <java.endorsed.dirs id="35">C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\endorsed</java.endorsed.dirs>
+      <java.ext.dirs id="36">C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\ext;C:\windows\Sun\Java\lib\ext</java.ext.dirs>
+      <java.home id="37">C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre</java.home>
+      <java.io.tmpdir id="38">C:\Users\psdnf\AppData\Local\Temp\</java.io.tmpdir>
+      <java.library.path id="39">C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\bin;.;C:\windows\Sun\Java\bin;C:\windows\system32;C:\windows;C:\Oracle\Oracle11g;C:\Oracle\Oracle11g\bin;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\ThinkPad\Bluetooth Software\;C:\Program Files\ThinkPad\Bluetooth Software\syswow64;C:\Program Files\Broadcom\WHL\;C:\Program Files\Broadcom\WHL\syswow64;C:\Program Files\Broadcom\WHL\SysWow64\;C:\Program Files\Broadcom\WHL\SysWow64\syswow64;C:\Program Files (x86)\PuTTY\;C:\Program Files (x86)\Common Files\MDL SHARED\ISIS;C:\PROGRA~2\mdl\MDLDraw3.0\lib;D:\Programme\MIT\Kerberos\bin</java.library.path>
+      <java.runtime.name id="40">Java(TM) SE Runtime Environment</java.runtime.name>
+      <java.runtime.version id="41">1.6.0_24-b07</java.runtime.version>
+      <java.specification.name id="42">Java Platform API Specification</java.specification.name>
+      <java.specification.vendor id="43">Sun Microsystems Inc.</java.specification.vendor>
+      <java.specification.version id="44">1.6</java.specification.version>
+      <java.vendor id="45">Sun Microsystems Inc.</java.vendor>
+      <java.vendor.url id="46">http://java.sun.com/</java.vendor.url>
+      <java.vendor.url.bug id="47">http://java.sun.com/cgi-bin/bugreport.cgi</java.vendor.url.bug>
+      <java.version id="48">1.6.0_24</java.version>
+      <java.vm.info id="49">mixed mode</java.vm.info>
+      <java.vm.name id="50">Java HotSpot(TM) Client VM</java.vm.name>
+      <java.vm.specification.name id="51">Java Virtual Machine Specification</java.vm.specification.name>
+      <java.vm.specification.vendor id="52">Sun Microsystems Inc.</java.vm.specification.vendor>
+      <java.vm.specification.version id="53">1.0</java.vm.specification.version>
+      <java.vm.vendor id="54">Sun Microsystems Inc.</java.vm.vendor>
+      <java.vm.version id="55">19.1-b02</java.vm.version>
+      <line.separator id="56">\r\n</line.separator>
+      <os.arch id="57">x86</os.arch>
+      <os.name id="58">Windows 7</os.name>
+      <os.version id="59">6.1</os.version>
+      <path.separator id="60">;</path.separator>
+      <sun.arch.data.model id="61">32</sun.arch.data.model>
+      <sun.boot.class.path id="62">C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\resources.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\rt.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\sunrsasign.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\jsse.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\jce.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\charsets.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\lib\modules\jdk.boot.jar;C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\classes</sun.boot.class.path>
+      <sun.boot.library.path id="63">C:\Eclipse_SuT_3.6\java\jdk1.6.0_24\jre\bin</sun.boot.library.path>
+      <sun.cpu.endian id="64">little</sun.cpu.endian>
+      <sun.cpu.isalist id="65">pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86</sun.cpu.isalist>
+      <sun.desktop id="66">windows</sun.desktop>
+      <sun.io.unicode.encoding id="67">UnicodeLittle</sun.io.unicode.encoding>
+      <sun.java.launcher id="68">SUN_STANDARD</sun.java.launcher>
+      <sun.jnu.encoding id="69">Cp1252</sun.jnu.encoding>
+      <sun.management.compiler id="70">HotSpot Client Compiler</sun.management.compiler>
+      <sun.os.patch.level id="71">Service Pack 1</sun.os.patch.level>
+      <user.country id="72">DE</user.country>
+      <user.dir id="73">D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception</user.dir>
+      <user.home id="74">C:\Users\psdnf</user.home>
+      <user.language id="75">de</user.language>
+      <user.name id="76">PSDNF</user.name>
+      <user.timezone id="77">Europe/Berlin</user.timezone>
+      <user.variant id="78"></user.variant>
+    </java>
   </about>
-  <configuration id="5" >
-    <property id="6" key="wetator.baseUrl" value="http://www.wetator.org" />
-    <property id="7" key="wetator.browser" value="Firefox3.6" />
-    <property id="8" key="wetator.acceptLanguage" value="en-us,en;q=0.8,de-de;q=0.5,de;q=0.3" />
-    <property id="9" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator\test\ant\..\..\logs" />
-    <property id="10" key="wetator.xslTemplates" value="E:\Java\workspaces\wetator\wetator\test\ant\..\..\xsl\SimpleHtml.xsl" />
-    <property id="11" key="wetator.commandSets" value="org.wetator.commandset.DefaultCommandSet" />
-    <property id="12" key="wetator.commandSets" value="org.wetator.commandset.SqlCommandSet" />
-    <property id="13" key="wetator.commandSets" value="org.wetator.commandset.TestCommandSet" />
-    <property id="14" key="wetator.scripters" value="org.wetator.scripter.XmlScripter" />
-    <property id="15" key="wetator.scripters" value="org.wetator.scripter.ExcelScripter" />
-    <property id="16" key="wetator.proxyHost" />
-    <property id="17" key="wetator.proxyPort" value="0" />
-    <property id="18" key="wetator.proxyUser" />
-    <property id="19" key="wetator.basicAuthUser" />
-    <variables id="20" >
-      <variable id="21" name="wet-secret" value="****" />
-      <variable id="22" name="wet" value="Wetator" />
-      <variable id="23" name="password" value="****" />
-      <variable id="24" name="user" value="dobby" />
-      <variable id="25" name="app_password" value="****" />
-      <variable id="26" name="app_user" value="dobby" />
+  <configuration id="79">
+    <property id="80" key="wetator.baseUrl" />
+    <property id="81" key="wetator.acceptLanguage" />
+    <property id="82" key="wetator.outputDir" value="D:\Eclipse_SuT_Projects\workspaces\wetator\wetator_exception\logs" />
+    <property id="83" key="wetator.xslTemplates" value="xsl/run_report.xsl" />
+    <property id="84" key="wetator.proxyHost" />
+    <property id="85" key="wetator.proxyPort" value="0" />
+    <property id="86" key="wetator.proxyUser" />
+    <property id="87" key="wetator.basicAuthUser" />
+    <variables id="88">
     </variables>
-    <commandSet id="27" class="class org.wetator.commandset.DefaultCommandSet" >
-    </commandSet><commandSet id="28" class="class org.wetator.commandset.SqlCommandSet" >
-      <log id="29" >
-        <level id="30" >INFO</level>
-        <message id="31" >DB wetdb (default): jdbc:hsqldb:mem:wetdb</message>
-      </log>
-      <log id="32" >
-        <level id="33" >INFO</level>
-        <message id="34" >DB secondDb: jdbc:hsqldb:mem:second_db</message>
-      </log>
-    </commandSet><commandSet id="35" class="class org.wetator.commandset.TestCommandSet" >
-    </commandSet></configuration>
-  <startTime id="36" >20.12.2010 07:11:07</startTime>
-  <testFile id="37" >E:\Java\workspaces\wetator\wetator\test\ant\sample.xls</testFile>
-  <testcase id="38" name="sample.xls">
-    <testrun id="39" browser="Firefox3.6">
-      <testfile id="40" file="E:\Java\workspaces\wetator\wetator\test\ant\sample.xls">
-        <command id="41" name="Aktion" line="1" isComment="true" >
-          <param0 id="42" >Parameter</param0>
-          <param1 id="43" >opt. Parameter</param1>
-          <executionTime id="44" >0</executionTime>
+  </configuration>
+  <startTime id="89">20.12.2010 07:11:07</startTime>
+  <testcase id="90" name="test1.wet" file="/public/test1.wet">
+    <testrun id="91" browser="IE8">
+      <testfile id="92" file="/public/test1.wet">
+        <command id="93" name="" line="1" isComment="true">
+          <param0 id="94">comment value</param0>
+          <param1 id="95"></param1>
+          <param2 id="96"></param2>
+          <executionTime id="97">0</executionTime>
         </command>
-        <command id="45" name="Comment" line="2" isComment="true" >
-          <param0 id="46" ></param0>
-          <param1 id="47" ></param1>
-          <executionTime id="48" >0</executionTime>
-        </command>
-        <command id="49" name="Open Url" line="3" >
-          <param0 id="50" >/</param0>
-          <param1 id="51" ></param1>
-          <log id="52" >
-            <level id="53" >INFO</level>
-            <message id="54" >Open url 'http://www.wetator.org/'.</message>
-          </log>
-          <response id="55" >responses_current/response_100000.html</response>
-          <executionTime id="56" >1170</executionTime>
-        </command>
-        <command id="57" name="Assert Title" line="4" >
-          <param0 id="58" >Wetator / Smarter web application testing</param0>
-          <param1 id="59" ></param1>
-          <executionTime id="60" >31</executionTime>
+        <command id="98" name="command" line="2">
+          <param0 id="99">command value</param0>
+          <param1 id="100"></param1>
+          <param2 id="101"></param2>
+          <executionTime id="102">3</executionTime>
         </command>
       </testfile>
     </testrun>
-    <testrun id="39" browser="IE6">
-      <testfile id="40" file="E:\Java\workspaces\wetator\wetator\test\ant\sample.xls">
-        <command id="41" name="Aktion" line="1" isComment="true" >
-          <param0 id="42" >Parameter</param0>
-          <param1 id="43" >opt. Parameter</param1>
-          <executionTime id="44" >0</executionTime>
+    <testrun id="103" browser="Firefox3.6">
+      <testfile id="104" file="/public/test1.wet">
+        <command id="105" name="" line="1" isComment="true">
+          <param0 id="106">comment value</param0>
+          <param1 id="107"></param1>
+          <param2 id="108"></param2>
+          <executionTime id="109">0</executionTime>
         </command>
-        <command id="45" name="Comment" line="2" isComment="true" >
-          <param0 id="46" ></param0>
-          <param1 id="47" ></param1>
-          <executionTime id="48" >0</executionTime>
-        </command>
-        <command id="49" name="Open Url" line="3" >
-          <param0 id="50" >/</param0>
-          <param1 id="51" ></param1>
-          <log id="52" >
-            <level id="53" >INFO</level>
-            <message id="54" >Open url 'http://www.wetator.org/'.</message>
-          </log>
-          <response id="55" >responses_current/response_100000.html</response>
-          <executionTime id="56" >1170</executionTime>
-        </command>
-        <command id="57" name="Assert Title" line="4" >
-          <param0 id="58" >Wetator / Smarter web application testing</param0>
-          <param1 id="59" ></param1>
-          <executionTime id="60" >32</executionTime>
-          <error><message>A really big problem</message></error>
+        <command id="110" name="command" line="2">
+          <param0 id="111">command value</param0>
+          <param1 id="112"></param1>
+          <param2 id="113"></param2>
+          <executionTime id="114">4</executionTime>
         </command>
       </testfile>
     </testrun>
   </testcase>
-  <executionTime id="61" >2215</executionTime>
+  <testcase id="115" name="test2.wet" file="/public/test2.wet">
+    <testrun id="116" browser="IE8">
+      <testfile id="117" file="/public/test2.wet">
+        <command id="118" name="" line="1" isComment="true">
+          <param0 id="119">comment value</param0>
+          <param1 id="120"></param1>
+          <param2 id="121"></param2>
+          <executionTime id="122">0</executionTime>
+        </command>
+        <command id="123" name="command" line="2">
+          <param0 id="124">command value</param0>
+          <param1 id="125"></param1>
+          <param2 id="126"></param2>
+          <executionTime id="127">5</executionTime>
+        </command>
+        <command id="128" name="command" line="3">
+          <param0 id="129">command value</param0>
+          <param1 id="130"></param1>
+          <param2 id="131"></param2>
+          <failure id="132">
+            <message id="133">test failure</message>
+          </failure>
+          <executionTime id="134">6</executionTime>
+        </command>
+        <command id="135" name="command" line="4">
+          <param0 id="136">command value</param0>
+          <param1 id="137"></param1>
+          <param2 id="138"></param2>
+          <executionTime id="139">7</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+    <testrun id="140" browser="Firefox3.6">
+      <testfile id="141" file="/public/test2.wet">
+        <command id="142" name="" line="1" isComment="true">
+          <param0 id="143">comment value</param0>
+          <param1 id="144"></param1>
+          <param2 id="145"></param2>
+          <executionTime id="146">0</executionTime>
+        </command>
+        <command id="147" name="command" line="2">
+          <param0 id="148">command value</param0>
+          <param1 id="149"></param1>
+          <param2 id="150"></param2>
+          <executionTime id="151">8</executionTime>
+        </command>
+        <command id="152" name="command" line="3">
+          <param0 id="153">command value</param0>
+          <param1 id="154"></param1>
+          <param2 id="155"></param2>
+          <failure id="156">
+            <message id="157">test failure</message>
+          </failure>
+          <executionTime id="158">9</executionTime>
+        </command>
+        <command id="159" name="command" line="4">
+          <param0 id="160">command value</param0>
+          <param1 id="161"></param1>
+          <param2 id="162"></param2>
+          <executionTime id="163">10</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <testcase id="164" name="test3.wet" file="/public/test3.wet">
+    <testrun id="165" browser="IE8">
+      <testfile id="166" file="/public/test3.wet">
+        <command id="167" name="" line="1" isComment="true">
+          <param0 id="168">comment value</param0>
+          <param1 id="169"></param1>
+          <param2 id="170"></param2>
+          <executionTime id="171">0</executionTime>
+        </command>
+        <command id="172" name="command" line="2">
+          <param0 id="173">command value</param0>
+          <param1 id="174"></param1>
+          <param2 id="175"></param2>
+          <executionTime id="176">11</executionTime>
+        </command>
+        <command id="177" name="command" line="3">
+          <param0 id="178">command value</param0>
+          <param1 id="179"></param1>
+          <param2 id="180"></param2>
+          <error id="181">
+            <message id="182">test error</message>
+            <stacktrace id="183">org.wetator.exception.ActionException: test error
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java:172)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java:135)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.test(ManualXMLResultWriterTest.java:88)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+</stacktrace>
+          </error>
+          <executionTime id="184">12</executionTime>
+        </command>
+        <command id="185" name="command" line="4">
+          <param0 id="186">command value</param0>
+          <param1 id="187"></param1>
+          <param2 id="188"></param2>
+          <ignored id="189"/>
+          <executionTime id="190">0</executionTime>
+        </command>
+        <command id="191" name="" line="5" isComment="true">
+          <param0 id="192">comment value</param0>
+          <param1 id="193"></param1>
+          <param2 id="194"></param2>
+          <ignored id="195"/>
+          <executionTime id="196">0</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+    <testrun id="197" browser="Firefox3.6">
+      <testfile id="198" file="/public/test3.wet">
+        <command id="199" name="" line="1" isComment="true">
+          <param0 id="200">comment value</param0>
+          <param1 id="201"></param1>
+          <param2 id="202"></param2>
+          <executionTime id="203">0</executionTime>
+        </command>
+        <command id="204" name="command" line="2">
+          <param0 id="205">command value</param0>
+          <param1 id="206"></param1>
+          <param2 id="207"></param2>
+          <executionTime id="208">13</executionTime>
+        </command>
+        <command id="209" name="command" line="3">
+          <param0 id="210">command value</param0>
+          <param1 id="211"></param1>
+          <param2 id="212"></param2>
+          <error id="213">
+            <message id="214">test error</message>
+            <stacktrace id="215">org.wetator.exception.ActionException: test error
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java:172)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java:135)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.test(ManualXMLResultWriterTest.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+</stacktrace>
+          </error>
+          <executionTime id="216">14</executionTime>
+        </command>
+        <command id="217" name="command" line="4">
+          <param0 id="218">command value</param0>
+          <param1 id="219"></param1>
+          <param2 id="220"></param2>
+          <ignored id="221"/>
+          <executionTime id="222">0</executionTime>
+        </command>
+        <command id="223" name="" line="5" isComment="true">
+          <param0 id="224">comment value</param0>
+          <param1 id="225"></param1>
+          <param2 id="226"></param2>
+          <ignored id="227"/>
+          <executionTime id="228">0</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <testcase id="229" name="test4.wet" file="/public/test4.wet">
+    <testrun id="230" browser="IE8">
+      <testfile id="231" file="/public/test4.wet">
+        <command id="232" name="" line="1" isComment="true">
+          <param0 id="233">comment value</param0>
+          <param1 id="234"></param1>
+          <param2 id="235"></param2>
+          <executionTime id="236">0</executionTime>
+        </command>
+        <command id="237" name="command" line="2">
+          <param0 id="238">command value</param0>
+          <param1 id="239"></param1>
+          <param2 id="240"></param2>
+          <executionTime id="241">15</executionTime>
+        </command>
+        <command id="242" name="command" line="3">
+          <param0 id="243">command value</param0>
+          <param1 id="244"></param1>
+          <param2 id="245"></param2>
+          <failure id="246">
+            <message id="247">test failure</message>
+          </failure>
+          <executionTime id="248">16</executionTime>
+        </command>
+        <command id="249" name="command" line="4">
+          <param0 id="250">command value</param0>
+          <param1 id="251"></param1>
+          <param2 id="252"></param2>
+          <executionTime id="253">17</executionTime>
+        </command>
+        <command id="254" name="command" line="5">
+          <param0 id="255">command value</param0>
+          <param1 id="256"></param1>
+          <param2 id="257"></param2>
+          <error id="258">
+            <message id="259">test error</message>
+            <stacktrace id="260">org.wetator.exception.ActionException: test error
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java:172)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeFailureAndErrorTestRun(ManualXMLResultWriterTest.java:150)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.test(ManualXMLResultWriterTest.java:94)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+</stacktrace>
+          </error>
+          <executionTime id="261">18</executionTime>
+        </command>
+        <command id="262" name="command" line="6">
+          <param0 id="263">command value</param0>
+          <param1 id="264"></param1>
+          <param2 id="265"></param2>
+          <ignored id="266"/>
+          <executionTime id="267">0</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+    <testrun id="268" browser="Firefox3.6">
+      <testfile id="269" file="/public/test4.wet">
+        <command id="270" name="" line="1" isComment="true">
+          <param0 id="271">comment value</param0>
+          <param1 id="272"></param1>
+          <param2 id="273"></param2>
+          <executionTime id="274">0</executionTime>
+        </command>
+        <command id="275" name="command" line="2">
+          <param0 id="276">command value</param0>
+          <param1 id="277"></param1>
+          <param2 id="278"></param2>
+          <executionTime id="279">19</executionTime>
+        </command>
+        <command id="280" name="command" line="3">
+          <param0 id="281">command value</param0>
+          <param1 id="282"></param1>
+          <param2 id="283"></param2>
+          <failure id="284">
+            <message id="285">test failure</message>
+          </failure>
+          <executionTime id="286">20</executionTime>
+        </command>
+        <command id="287" name="command" line="4">
+          <param0 id="288">command value</param0>
+          <param1 id="289"></param1>
+          <param2 id="290"></param2>
+          <executionTime id="291">21</executionTime>
+        </command>
+        <command id="292" name="command" line="5">
+          <param0 id="293">command value</param0>
+          <param1 id="294"></param1>
+          <param2 id="295"></param2>
+          <error id="296">
+            <message id="297">test error</message>
+            <stacktrace id="298">org.wetator.exception.ActionException: test error
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java:172)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeFailureAndErrorTestRun(ManualXMLResultWriterTest.java:150)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.test(ManualXMLResultWriterTest.java:95)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+</stacktrace>
+          </error>
+          <executionTime id="299">22</executionTime>
+        </command>
+        <command id="300" name="command" line="6">
+          <param0 id="301">command value</param0>
+          <param1 id="302"></param1>
+          <param2 id="303"></param2>
+          <ignored id="304"/>
+          <executionTime id="305">0</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <testcase id="306" name="test5.wet" file="/public/test5.wet">
+    <testrun id="307" browser="IE8">
+      <testfile id="308" file="/public/test5.wet">
+        <command id="309" name="" line="1" isComment="true">
+          <param0 id="310">comment value</param0>
+          <param1 id="311"></param1>
+          <param2 id="312"></param2>
+          <executionTime id="313">0</executionTime>
+        </command>
+        <command id="314" name="command" line="2">
+          <param0 id="315">command value</param0>
+          <param1 id="316"></param1>
+          <param2 id="317"></param2>
+          <executionTime id="318">23</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+    <testrun id="319" browser="Firefox3.6">
+      <testfile id="320" file="/public/test5.wet">
+        <command id="321" name="" line="1" isComment="true">
+          <param0 id="322">comment value</param0>
+          <param1 id="323"></param1>
+          <param2 id="324"></param2>
+          <executionTime id="325">0</executionTime>
+        </command>
+        <command id="326" name="command" line="2">
+          <param0 id="327">command value</param0>
+          <param1 id="328"></param1>
+          <param2 id="329"></param2>
+          <executionTime id="330">24</executionTime>
+        </command>
+        <command id="331" name="command" line="3">
+          <param0 id="332">command value</param0>
+          <param1 id="333"></param1>
+          <param2 id="334"></param2>
+          <error id="335">
+            <message id="336">test error</message>
+            <stacktrace id="337">org.wetator.exception.ActionException: test error
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java:172)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java:135)
+	at org.wetator.progresslistener.ManualXMLResultWriterTest.test(ManualXMLResultWriterTest.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+</stacktrace>
+          </error>
+          <executionTime id="338">25</executionTime>
+        </command>
+        <command id="339" name="command" line="4">
+          <param0 id="340">command value</param0>
+          <param1 id="341"></param1>
+          <param2 id="342"></param2>
+          <ignored id="343"/>
+          <executionTime id="344">0</executionTime>
+        </command>
+        <command id="345" name="" line="5" isComment="true">
+          <param0 id="346">comment value</param0>
+          <param1 id="347"></param1>
+          <param2 id="348"></param2>
+          <ignored id="349"/>
+          <executionTime id="350">0</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <executionTime id="351">347</executionTime>
 </wet>
