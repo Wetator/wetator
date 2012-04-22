@@ -12,8 +12,6 @@
     <xsl:variable name="blueColor">#00769C</xsl:variable>
     <xsl:variable name="greyColor">#57575A</xsl:variable>
     <xsl:variable name="lightGreyColor">#858588</xsl:variable>
-    <xsl:variable name="vacantgreenColor">#DFEFAD</xsl:variable>
-    <xsl:variable name="vacantorangeColor">#FFBCBC</xsl:variable>
     <xsl:variable name="ignoredColor">#FFFFFF</xsl:variable>
 
     <xsl:variable name="noOfStepsInLine" select="150"/>
@@ -1138,7 +1136,6 @@
                                     <xsl:variable name="noOfFailures" select="sum(descendant::failure)"/>
                                     <xsl:variable name="noOfErrors" select="sum(descendant::error)"/>
                                     <xsl:variable name="noOfSubSteps" select="count(descendant::command[not(@isComment)])"/>
-                                    <xsl:variable name="vacant" select="preceding-sibling::*[descendant-or-self::error]"/>
                                     <xsl:variable name="ignored" select="ignored"/>
 
                                     <!-- start new line if needed -->
@@ -1157,23 +1154,13 @@
                                                         <xsl:when test="$ignored">
                                                             <xsl:value-of select="$ignoredColor"/>
                                                         </xsl:when>
-                                                        <xsl:when test="$vacant">
-                                                            <xsl:value-of select="$vacantgreenColor"/>
-                                                        </xsl:when>
                                                         <xsl:otherwise>
                                                             <xsl:value-of select="$greenColor"/>
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:choose>
-                                                        <xsl:when test="$vacant">
-                                                            <xsl:value-of select="$vacantorangeColor"/>
-                                                        </xsl:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="$orangeColor"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
+                                                    <xsl:value-of select="$orangeColor"/>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:attribute>
@@ -1442,7 +1429,6 @@
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
         </tr>
 
-        <!-- TODO add failure -->
         <xsl:if test="count(descendant-or-self::failure) or count(descendant-or-self::error) &gt; 0">
             <tr>
                 <td class="light"/>
