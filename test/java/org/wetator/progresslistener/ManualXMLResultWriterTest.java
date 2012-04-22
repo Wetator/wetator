@@ -97,7 +97,7 @@ public class ManualXMLResultWriterTest {
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE8);
+    writeFailureTestRun(tmpTestCase, IE8);
     writeErrorTestRun(tmpTestCase, FF36);
     resultWriter.testCaseEnd();
 
@@ -134,7 +134,7 @@ public class ManualXMLResultWriterTest {
     writeCommand();
     writeCommandWithError();
     writeCommandIgnored();
-    writeCommentIgnored();
+    writeComment();
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
   }
@@ -183,13 +183,6 @@ public class ManualXMLResultWriterTest {
   private void writeComment() {
     Command tmpComment = createCommand(null, "comment value", true);
     resultWriter.executeCommandStart(context, tmpComment);
-    resultWriter.executeCommandEnd();
-  }
-
-  private void writeCommentIgnored() {
-    Command tmpComment = createCommand(null, "comment value", true);
-    resultWriter.executeCommandStart(context, tmpComment);
-    resultWriter.executeCommandIgnored();
     resultWriter.executeCommandEnd();
   }
 
