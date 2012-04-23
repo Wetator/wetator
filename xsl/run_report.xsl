@@ -36,7 +36,7 @@
     <xsl:variable name="stepsFailureCount" select="count(/wet/testcase/testrun/testfile/command/failure)"/>
     <xsl:variable name="stepsErrorCount" select="count(/wet/testcase/testrun/testfile/command/error)"/>
     <xsl:variable name="stepsIgnoredCount" select="count(/wet/testcase/testrun/testfile/command/ignored)"/>
-    <xsl:variable name="stepsNotOkCount" select="$testStepCount - $stepsFailureCount - $stepsErrorCount - $stepsIgnoredCount"/>
+    <xsl:variable name="stepsNotOkCount" select="$testStepCount - $stepsOkCount"/>
 
     <xsl:variable name="testCaseFailurePercentage" select="ceiling($testCaseFailureCount * 100 div $testCaseCount)"/>
     <xsl:variable name="testCaseErrorPercentage" select="ceiling($testCaseErrorCount * 100 div $testCaseCount)"/>
