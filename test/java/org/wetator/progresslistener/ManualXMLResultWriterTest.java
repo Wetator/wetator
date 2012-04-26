@@ -34,6 +34,8 @@ import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 
 /**
+ * Manual test for creating result files and according reports.
+ * 
  * @author tobwoerk
  * @author frank.danek
  */
@@ -67,7 +69,32 @@ public class ManualXMLResultWriterTest {
   }
 
   @Test
-  public void test() {
+  public void testForHomepage() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase("wetator_google");
+    resultWriter.testCaseStart(tmpTestCase);
+
+    lineNo = 1;
+    resultWriter.testRunStart(IE8);
+    resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
+    writeCommand(createCommand("open-url", "http://www.google.com"));
+    writeCommand(createCommand("set", "search", "Wetator"));
+    writeCommand(createCommand("click-on", "Google Search"));
+    writeCommand(createCommand("assert-content", "www.wetator.org"));
+    writeCommand(createCommand("click-on", "Wetator / Smart Web Application Testing"));
+    writeCommand(createCommand("assert-title", "Wetator / Smart Web Application Testing"));
+    writeCommand(createCommand("assert-content", "WETATOR IN A NUTSHELL Wetator is a tool"));
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
+
+    resultWriter.testCaseEnd();
+    resultWriter.end(engine);
+  }
+
+  @Test
+  public void testForRunReport() {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
@@ -154,27 +181,26 @@ public class ManualXMLResultWriterTest {
   }
 
   private void writeCommand() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value", false);
-    resultWriter.executeCommandStart(context, tmpCommand);
-    resultWriter.executeCommandEnd();
+    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    writeCommand(tmpCommand);
   }
 
   private void writeCommandWithFailure() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value", false);
+    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     resultWriter.executeCommandStart(context, tmpCommand);
     resultWriter.executeCommandFailure(new AssertionException("test failure"));
     resultWriter.executeCommandEnd();
   }
 
   private void writeCommandWithError() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value", false);
+    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     resultWriter.executeCommandStart(context, tmpCommand);
     resultWriter.executeCommandError(new ActionException("test error"));
     resultWriter.executeCommandEnd();
   }
 
   private void writeCommandIgnored() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value", false);
+    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     resultWriter.executeCommandStart(context, tmpCommand);
     resultWriter.executeCommandIgnored();
     resultWriter.executeCommandEnd();
@@ -182,8 +208,16 @@ public class ManualXMLResultWriterTest {
 
   private void writeComment() {
     Command tmpComment = createCommand(null, "comment value", true);
-    resultWriter.executeCommandStart(context, tmpComment);
+    writeCommand(tmpComment);
+  }
+
+  private void writeCommand(Command aCommand) {
+    resultWriter.executeCommandStart(context, aCommand);
     resultWriter.executeCommandEnd();
+  }
+
+  private Command createCommand(String aCommandName, String aParameterValue) {
+    return createCommand(aCommandName, aParameterValue, false);
   }
 
   private Command createCommand(String aCommandName, String aParameterValue, boolean anIsComment) {
@@ -194,8 +228,21 @@ public class ManualXMLResultWriterTest {
     return tmpCommand;
   }
 
+  private Command createCommand(String aCommandName, String aParameterValue, String aSecondParameterValue) {
+    Command tmpCommand = new Command(aCommandName, false);
+    tmpCommand.setLineNo(lineNo);
+    tmpCommand.setFirstParameter(new Parameter(aParameterValue));
+    tmpCommand.setSecondParameter(new Parameter(aSecondParameterValue));
+    lineNo++;
+    return tmpCommand;
+  }
+
   private TestCase createTestCase() {
     String tmpName = "test" + testNo++ + ".wet";
-    return new TestCase(tmpName, new File("/path/" + tmpName));
+    return createTestCase(tmpName);
+  }
+
+  private TestCase createTestCase(String aName) {
+    return new TestCase(aName, new File("/Test/" + aName));
   }
 }
