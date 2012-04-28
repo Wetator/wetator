@@ -113,8 +113,20 @@
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
                     }
                 }
-                function showOrHideAll(image, ie6, ie7, ie8, ff3, ff36) {
+                function showOrHideAll(image, ff3, ff36, ie6, ie7, ie8) {
                     if (image.src.indexOf("collapseall.png") != -1) {
+                        if (ff3 != null) {
+                            var tmpElement=document.getElementById(ff3);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ff3');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
+                        if (ff36 != null) {
+                            var tmpElement=document.getElementById(ff36);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ff36');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
                         if (ie6 != null) {
                             var tmpElement=document.getElementById(ie6);
                             tmpElement.style.display = "none";
@@ -131,22 +143,22 @@
                             var tmpElement=document.getElementById(ie8);
                             tmpElement.style.display = "none";
                             var browserImage=document.getElementById('ie8');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        if (ff3 != null) {
-                            var tmpElement=document.getElementById(ff3);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ff3');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        if (ff36 != null) {
-                            var tmpElement=document.getElementById(ff36);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ff36');
                             browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
                         }
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
                     } else if (image.src.indexOf("expandall.png") != -1) {
+                        if (ff3 != null) {
+                            var tmpElement=document.getElementById(ff3);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ff3');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
+                        if (ff36 != null) {
+                            var tmpElement=document.getElementById(ff36);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ff36');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
                         if (ie6 != null) {
                             var tmpElement=document.getElementById(ie6);
                             tmpElement.style.display = "";
@@ -163,18 +175,6 @@
                             var tmpElement=document.getElementById(ie8);
                             tmpElement.style.display = "";
                             var browserImage=document.getElementById('ie8');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        if (ff3 != null) {
-                            var tmpElement=document.getElementById(ff3);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ff3');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        if (ff36 != null) {
-                            var tmpElement=document.getElementById(ff36);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ff36');
                             browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
                         }
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
@@ -583,19 +583,33 @@
                                     <img src="images/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
                                         <xsl:attribute name="onclick">
                                             showOrHideAll(this
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">, 'ff3overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3')">, null</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">, 'ff3_6overview'</xsl:if>
+                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3.6')">, null</xsl:if>);
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE6'">, 'ie6overview'</xsl:if>
                                             <xsl:if test="not(/wet/testcase/testrun/@browser='IE6')">, null</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE7'">, 'ie7overview'</xsl:if>
                                             <xsl:if test="not(/wet/testcase/testrun/@browser='IE7')">, null</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8overview'</xsl:if>
                                             <xsl:if test="not(/wet/testcase/testrun/@browser='IE8')">, null</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">, 'ff3overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3')">, null</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">, 'ff3_6overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3.6')">, null</xsl:if>);
                                         </xsl:attribute>
                                     </img>
                                 </td>
+                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
+                                <td>
+                                    <span class="bold">FF3</span>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                    <img id="ff3" src="images/expandall.png" onclick="showOrHide(this, 'ff3overview')" alt="show/hide FF3 overview" style="cursor: pointer;"/>
+                                </td>
+                            </xsl:if>
+                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
+                                <td>
+                                    <span class="bold">FF3.6</span>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                    <img id="ff36" src="images/expandall.png" onclick="showOrHide(this, 'ff3_6overview')" alt="show/hide FF3.6 overview" style="cursor: pointer;"/>
+                                </td>
+                            </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='IE6'">
                                 <td>
                                     <span class="bold">IE6</span>
@@ -617,23 +631,53 @@
                                     <img id="ie8" src="images/expandall.png" onclick="showOrHide(this, 'ie8overview')" alt="show/hide IE8 overview" style="cursor: pointer;"/>
                                 </td>
                             </xsl:if>
-                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
-                                <td>
-                                    <span class="bold">FF3</span>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff3" src="images/expandall.png" onclick="showOrHide(this, 'ff3overview')" alt="show/hide FF3 overview" style="cursor: pointer;"/>
-                                </td>
-                            </xsl:if>
-                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
-                                <td>
-                                    <span class="bold">FF3.6</span>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff36" src="images/expandall.png" onclick="showOrHide(this, 'ff3_6overview')" alt="show/hide FF3.6 overview" style="cursor: pointer;"/>
-                                </td>
-                            </xsl:if>
                         </tr>
                     </table>
 
+                    <table id="ff3overview" class="overview" align="center" style="display: none; text-align: center;">
+                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
+                            <xsl:variable name="failedFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
+                            <xsl:variable name="errorsFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::error)])"/>
+                            <xsl:variable name="ignoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/ignored)"/>
+                            <xsl:variable name="stepsOkFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
+                            <xsl:variable name="stepsFailureFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/failure)"/>
+                            <xsl:variable name="stepsErrorFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/error)"/>
+                            <xsl:variable name="stepsIgnoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/ignored)"/>
+                            <xsl:call-template name="testBrowserOverview">
+                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+                                <xsl:with-param name="browserName">FF3</xsl:with-param>
+                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox3"/>
+                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox3"/>
+                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox3"/>
+                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox3"/>
+                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox3"/>
+                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox3"/>
+                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox3"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </table>
+                    <table id="ff3_6overview" class="overview" align="center" style="display: none; text-align: center;">
+                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
+                            <xsl:variable name="failedFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
+                            <xsl:variable name="errorsFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::error)])"/>
+                            <xsl:variable name="ignoredFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/ignored)"/>
+                            <xsl:variable name="stepsOkFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
+                            <xsl:variable name="stepsFailureFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/failure)"/>
+                            <xsl:variable name="stepsErrorFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/error)"/>
+                            <xsl:variable name="stepsIgnoredFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/ignored)"/>
+                            <xsl:call-template name="testBrowserOverview">
+                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+                                <xsl:with-param name="browserName">FF3.6</xsl:with-param>
+                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox3_6"/>
+                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox3_6"/>
+                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox3_6"/>
+                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox3_6"/>
+                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox3_6"/>
+                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox3_6"/>
+                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox3_6"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </table>
                     <table id="ie6overview" class="overview" align="center" style="display: none; text-align: center;">
                         <xsl:if test="/wet/testcase/testrun/@browser='IE6'">
                             <xsl:variable name="failedIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
@@ -697,50 +741,6 @@
                                 <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureIE8"/>
                                 <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorIE8"/>
                                 <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredIE8"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                    </table>
-                    <table id="ff3overview" class="overview" align="center" style="display: none; text-align: center;">
-                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
-                            <xsl:variable name="failedFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
-                            <xsl:variable name="errorsFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="ignoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/ignored)"/>
-                            <xsl:variable name="stepsOkFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
-                            <xsl:variable name="stepsFailureFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/failure)"/>
-                            <xsl:variable name="stepsErrorFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/error)"/>
-                            <xsl:variable name="stepsIgnoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/ignored)"/>
-                            <xsl:call-template name="testBrowserOverview">
-                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
-                                <xsl:with-param name="browserName">FF3</xsl:with-param>
-                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox3"/>
-                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox3"/>
-                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox3"/>
-                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox3"/>
-                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox3"/>
-                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox3"/>
-                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox3"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                    </table>
-                    <table id="ff3_6overview" class="overview" align="center" style="display: none; text-align: center;">
-                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
-                            <xsl:variable name="failedFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
-                            <xsl:variable name="errorsFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="ignoredFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/ignored)"/>
-                            <xsl:variable name="stepsOkFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
-                            <xsl:variable name="stepsFailureFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/failure)"/>
-                            <xsl:variable name="stepsErrorFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/error)"/>
-                            <xsl:variable name="stepsIgnoredFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/ignored)"/>
-                            <xsl:call-template name="testBrowserOverview">
-                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
-                                <xsl:with-param name="browserName">FF3.6</xsl:with-param>
-                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox3_6"/>
-                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox3_6"/>
-                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox3_6"/>
-                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox3_6"/>
-                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox3_6"/>
-                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox3_6"/>
-                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox3_6"/>
                             </xsl:call-template>
                         </xsl:if>
                     </table>
