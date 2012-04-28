@@ -1601,13 +1601,13 @@
     <xsl:template name="successIndicator">
         <xsl:choose>
             <xsl:when test="count(descendant-or-self::error) &gt; 0">
-                <img src="./images/error.png" width="12" height="10" alt="error"/>
+                <img src="./images/error.png" width="12" height="10" alt="error" title="error"/>
             </xsl:when>
             <xsl:when test="count(descendant-or-self::failure) &gt; 0">
-                <img src="./images/failure.png" width="12" height="10" alt="failure"/>
+                <img src="./images/failure.png" width="12" height="10" alt="failure" title="failure"/>
             </xsl:when>
             <xsl:otherwise>
-                <img src="./images/ok.png" width="12" height="10" alt="ok"/>
+                <img src="./images/ok.png" width="12" height="10" alt="success" title="success"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
