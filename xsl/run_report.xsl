@@ -1256,10 +1256,12 @@
             <xsl:when test="count(command) > 0">
                 <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
                     <tr>
-                        <th>Line</th>
-                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-                        <th>Command</th>
-                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th style="width: 30px;">Line</th>
+                        <!-- success marker -->
+                        <th style="width: 15px;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th style="width: 120px;">Command</th>
+                        <!-- module expand/collapse -->
+                        <th style="width: 20px;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
@@ -1310,7 +1312,7 @@
         <tr>
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
-            <xsl:text disable-output-escaping="yes">" align="right"&gt;</xsl:text>
+            <xsl:text disable-output-escaping="yes">" align="middle"&gt;</xsl:text>
             <a>
                 <xsl:attribute name="name">
                     <xsl:value-of select="@id"/>
@@ -1328,16 +1330,16 @@
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
-                        <img src="./images/failure.png" width="12" height="10" alt="failure"/>
+                        <img src="./images/failure.png" width="12" height="10" alt="failure" title="failure"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::error)) &gt; 0">
-                        <img src="./images/error.png" width="12" height="10" alt="error"/>
+                        <img src="./images/error.png" width="12" height="10" alt="error" title="error"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
                         <!-- nothing -->
                     </xsl:when>
                     <xsl:otherwise>
-                        <img src="./images/ok.png" width="12" height="10" alt="ok"/>
+                        <img src="./images/ok.png" width="12" height="10" alt="success" title="success"/>
                     </xsl:otherwise>
                 </xsl:choose>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
@@ -1405,7 +1407,7 @@
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
-                <xsl:if test="count(./log) &gt; 0">
+                <xsl:if test="count(./log) &gt; 0 or count(./error/stacktrace) &gt; 0">
                     <img src="images/expandlog.png" alt="Show/Hide log entries" style="cursor: pointer;">
                         <xsl:attribute name="id">
                             <xsl:text>showHide_log_</xsl:text>
@@ -1527,7 +1529,7 @@
             </tr>
         </xsl:if>
 
-        <xsl:if test="count(./log) &gt; 0">
+        <xsl:if test="count(./log) &gt; 0 or count(./error/stacktrace) &gt; 0">
             <tr style="display: none;">
                 <xsl:attribute name="id">
                     <xsl:text>log_</xsl:text>
@@ -1540,6 +1542,16 @@
                 <td class="light"/>
                 <td class="message" colspan="4">
                     <table cellpadding="1" cellspacing="0" width="100%">
+                        <xsl:for-each select="./error">
+                            <tr>
+                                <td>
+                                    <img src="./images/log_warn.png" width="11" height="11" alt="error"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="./stacktrace"/>
+                                </td>
+                            </tr>
+                        </xsl:for-each>
                         <xsl:for-each select="./log">
                             <tr>
                                 <td>
