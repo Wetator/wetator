@@ -37,7 +37,6 @@
 
     <xsl:variable name="testCaseFailurePercentage" select="format-number($testCaseFailureCount * 100 div $testCaseCount, '#')"/>
     <xsl:variable name="testCaseErrorPercentage" select="format-number($testCaseErrorCount * 100 div $testCaseCount, '#')"/>
-    <xsl:variable name="testCaseFailPercentage" select="format-number($testCaseFailCount * 100 div $testCaseCount, '#')"/>
     <xsl:variable name="testCaseOkPercentage" select="100 - $testCaseFailurePercentage - $testCaseErrorPercentage"/>
     <xsl:variable name="testFailurePercentage" select="format-number($testFailureCount * 100 div $testCount, '#')"/>
     <xsl:variable name="testErrorPercentage" select="format-number($testErrorCount * 100 div $testCount, '#')"/>
