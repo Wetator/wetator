@@ -540,6 +540,20 @@
                                     </xsl:if>
 
                                     <!-- ignored steps -->
+                                    <xsl:if test="$testStepCount = 0">
+                                        <td class="smallBorder ignored" style="text-align: center;">
+                                            <xsl:attribute name="width">
+                                                100%
+                                            </xsl:attribute>
+                                            <xsl:attribute name="bgcolor">
+                                                <xsl:value-of select="$ignoredColor"/>
+                                            </xsl:attribute>
+                                            <xsl:attribute name="title">
+                                                <xsl:value-of select="'ignored steps'"/>
+                                            </xsl:attribute>
+                                            100%
+                                        </td>
+                                    </xsl:if>
                                     <xsl:if test="$stepsIgnoredPercentage > 0">
                                         <td class="smallBorder ignored" style="text-align: center;">
                                             <xsl:attribute name="width">
