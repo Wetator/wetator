@@ -32,6 +32,7 @@ import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
+import org.wetator.exception.InvalidInputException;
 
 /**
  * Manual test for creating result files and according reports.
@@ -185,6 +186,32 @@ public class ManualXMLResultWriterTest {
     resultWriter.end(engine);
   }
 
+  @Test
+  public void invalidInputSoIgnoreRun() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+
+    resultWriter.testRunStart(IE8);
+    resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
+    writeCommand();
+    writeCommandWithError(createCommand("invalid-command", null),
+        new InvalidInputException("TestCase " + tmpTestCase.getName() + " is very invalid."));
+    writeCommandIgnored();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
+
+    resultWriter.testRunStart(FF36);
+    resultWriter.testRunIgnored();
+    resultWriter.testRunEnd();
+
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
   private void writeGreenTestRun(TestCase aTestCase, String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
@@ -247,9 +274,17 @@ public class ManualXMLResultWriterTest {
   }
 
   private void writeCommandWithError() {
+    writeCommandWithError(new ActionException("test error"));
+  }
+
+  private void writeCommandWithError(Exception anException) {
     Command tmpCommand = createCommand(COMMAND_NAME, "command value");
-    resultWriter.executeCommandStart(context, tmpCommand);
-    resultWriter.executeCommandError(new ActionException("test error"));
+    writeCommandWithError(tmpCommand, anException);
+  }
+
+  private void writeCommandWithError(Command aCommand, Exception anException) {
+    resultWriter.executeCommandStart(context, aCommand);
+    resultWriter.executeCommandError(anException);
     resultWriter.executeCommandEnd();
   }
 
