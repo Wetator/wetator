@@ -131,6 +131,23 @@ public class ManualXMLResultWriterTest {
   }
 
   @Test
+  public void blue() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeFailureTestRun(tmpTestCase, IE6);
+    writeFailureTestRun(tmpTestCase, IE7);
+    writeFailureTestRun(tmpTestCase, IE8);
+    writeFailureTestRun(tmpTestCase, FF3);
+    writeFailureTestRun(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  @Test
   public void mixed() {
     resultWriter.init(engine);
     resultWriter.start(engine);
