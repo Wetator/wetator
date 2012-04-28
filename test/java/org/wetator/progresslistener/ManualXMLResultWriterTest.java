@@ -42,7 +42,10 @@ import org.wetator.exception.AssertionException;
 public class ManualXMLResultWriterTest {
 
   private static final String COMMAND_NAME = "command";
+  private static final String IE6 = "IE6";
+  private static final String IE7 = "IE7";
   private static final String IE8 = "IE8";
+  private static final String FF3 = "Firefox3";
   private static final String FF36 = "Firefox3.6";
 
   private XMLResultWriter resultWriter = new XMLResultWriter();
@@ -69,7 +72,7 @@ public class ManualXMLResultWriterTest {
   }
 
   @Test
-  public void testForHomepage() {
+  public void homepage() {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
@@ -94,7 +97,41 @@ public class ManualXMLResultWriterTest {
   }
 
   @Test
-  public void testForRunReport() {
+  public void green() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeGreenTestRun(tmpTestCase, IE6);
+    writeGreenTestRun(tmpTestCase, IE7);
+    writeGreenTestRun(tmpTestCase, IE8);
+    writeGreenTestRun(tmpTestCase, FF3);
+    writeGreenTestRun(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  @Test
+  public void red() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeErrorTestRun(tmpTestCase, IE6);
+    writeErrorTestRun(tmpTestCase, IE7);
+    writeErrorTestRun(tmpTestCase, IE8);
+    writeErrorTestRun(tmpTestCase, FF3);
+    writeErrorTestRun(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  @Test
+  public void mixed() {
     resultWriter.init(engine);
     resultWriter.start(engine);
 

@@ -32,18 +32,18 @@
     <xsl:variable name="testNotOkCount" select="$testFailureCount + $testErrorCount"/>
     <xsl:variable name="testOkCount" select="$testCount - $testNotOkCount"/>
 
-    <xsl:variable name="stepsOkCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(failure) and not(error) and not(preceding-sibling::*/error) and not(ignored)])"/>
+    <xsl:variable name="stepsOkCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
     <xsl:variable name="stepsFailureCount" select="count(/wet/testcase/testrun/testfile/command/failure)"/>
     <xsl:variable name="stepsErrorCount" select="count(/wet/testcase/testrun/testfile/command/error)"/>
     <xsl:variable name="stepsIgnoredCount" select="count(/wet/testcase/testrun/testfile/command/ignored)"/>
     <xsl:variable name="stepsNotOkCount" select="$testStepCount - $stepsOkCount"/>
 
-    <xsl:variable name="testCaseFailurePercentage" select="ceiling($testCaseFailureCount * 100 div $testCaseCount)"/>
-    <xsl:variable name="testCaseErrorPercentage" select="ceiling($testCaseErrorCount * 100 div $testCaseCount)"/>
-    <xsl:variable name="testCaseFailPercentage" select="ceiling($testCaseFailCount * 100 div $testCaseCount)"/>
+    <xsl:variable name="testCaseFailurePercentage" select="format-number($testCaseFailureCount * 100 div $testCaseCount, '#')"/>
+    <xsl:variable name="testCaseErrorPercentage" select="format-number($testCaseErrorCount * 100 div $testCaseCount, '#')"/>
+    <xsl:variable name="testCaseFailPercentage" select="format-number($testCaseFailCount * 100 div $testCaseCount, '#')"/>
     <xsl:variable name="testCaseOkPercentage" select="100 - $testCaseFailurePercentage - $testCaseErrorPercentage"/>
-    <xsl:variable name="testFailurePercentage" select="ceiling($testFailureCount * 100 div $testCount)"/>
-    <xsl:variable name="testErrorPercentage" select="ceiling($testErrorCount * 100 div $testCount)"/>
+    <xsl:variable name="testFailurePercentage" select="format-number($testFailureCount * 100 div $testCount, '#')"/>
+    <xsl:variable name="testErrorPercentage" select="format-number($testErrorCount * 100 div $testCount, '#')"/>
     <xsl:variable name="testNotOkPercentage" select="$testFailurePercentage + $testErrorPercentage"/>
     <xsl:variable name="testOkPercentage" select="100 - $testFailurePercentage - $testErrorPercentage"/>
 
@@ -624,7 +624,7 @@
                         <xsl:if test="/wet/testcase/testrun/@browser='IE6'">
                             <xsl:variable name="failedIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
                             <xsl:variable name="errorsIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="stepsOkIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                            <xsl:variable name="stepsOkIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
                             <xsl:variable name="stepsFailureIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command/failure)"/>
                             <xsl:variable name="stepsErrorIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command/error)"/>
                             <xsl:variable name="stepsIgnoredIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command/ignored)"/>
@@ -644,7 +644,7 @@
                         <xsl:if test="/wet/testcase/testrun/@browser='IE7'">
                             <xsl:variable name="failedIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
                             <xsl:variable name="errorsIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="stepsOkIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                            <xsl:variable name="stepsOkIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
                             <xsl:variable name="stepsFailureIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command/failure)"/>
                             <xsl:variable name="stepsErrorIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command/error)"/>
                             <xsl:variable name="stepsIgnoredIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command/ignored)"/>
@@ -664,7 +664,7 @@
                         <xsl:if test="/wet/testcase/testrun/@browser='IE8'">
                             <xsl:variable name="failedIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
                             <xsl:variable name="errorsIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="stepsOkIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                            <xsl:variable name="stepsOkIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
                             <xsl:variable name="stepsFailureIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command/failure)"/>
                             <xsl:variable name="stepsErrorIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command/error)"/>
                             <xsl:variable name="stepsIgnoredIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command/ignored)"/>
@@ -684,7 +684,7 @@
                         <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
                             <xsl:variable name="failedFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
                             <xsl:variable name="errorsFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="stepsOkFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                            <xsl:variable name="stepsOkFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
                             <xsl:variable name="stepsFailureFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/failure)"/>
                             <xsl:variable name="stepsErrorFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/error)"/>
                             <xsl:variable name="stepsIgnoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command/ignored)"/>
@@ -704,7 +704,7 @@
                         <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
                             <xsl:variable name="failedFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
                             <xsl:variable name="errorsFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::error)])"/>
-                            <xsl:variable name="stepsOkFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                            <xsl:variable name="stepsOkFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
                             <xsl:variable name="stepsFailureFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/failure)"/>
                             <xsl:variable name="stepsErrorFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/error)"/>
                             <xsl:variable name="stepsIgnoredFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command/ignored)"/>
@@ -791,14 +791,15 @@
         <xsl:param name="stepsError" />
         <xsl:param name="stepsIgnored" />
 
-        <xsl:variable name="failurePercent" select="ceiling($failures * 100 div $testCaseCount)"/>
-        <xsl:variable name="errorPercent" select="ceiling($errors * 100 div $testCaseCount)"/>
+        <xsl:variable name="failurePercent" select="format-number($failures * 100 div $testCaseCount, '#')"/>
+        <xsl:variable name="errorPercent" select="format-number($errors * 100 div $testCaseCount, '#')"/>
         <xsl:variable name="okPercent" select="100 - $failurePercent - $errorPercent"/>
 
-        <xsl:variable name="stepsFailurePercentage" select="ceiling($stepsFailure * 100 div $testStepCount)"/>
-        <xsl:variable name="stepsErrorPercentage" select="ceiling($stepsError * 100 div $testStepCount)"/>
-        <xsl:variable name="stepsIgnoredPercentage" select="ceiling($stepsIgnored * 100 div $testStepCount)"/>
-        <xsl:variable name="stepsOkPercentage" select="100 - $stepsFailurePercentage - $stepsErrorPercentage - $stepsIgnoredPercentage"/>
+        <xsl:variable name="testStepCount" select="$stepsOk + $stepsFailure + $stepsError + $stepsIgnored"/>
+        <xsl:variable name="stepsFailurePercentage" select="format-number($stepsFailure * 100 div $testStepCount, '#')"/>
+        <xsl:variable name="stepsErrorPercentage" select="format-number($stepsError * 100 div $testStepCount, '#')"/>
+        <xsl:variable name="stepsOkPercentage" select="format-number($stepsOk * 100 div $testStepCount, '#')"/>
+        <xsl:variable name="stepsIgnoredPercentage" select="100 - $stepsOkPercentage - $stepsFailurePercentage - $stepsErrorPercentage"/>
 
         <tr>
             <td width="150px;">Tests in <xsl:value-of select="$browserName"/>
