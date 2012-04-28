@@ -742,15 +742,17 @@
 
 
                 <!-- test cases overview -->
-                <table width="100%" cellpadding="4" cellspacing="0" class="smallBorder" border="0">
+                <table width="100%" cellpadding="2" cellspacing="0" class="smallBorder" border="0">
                     <tr>
-                        <th>No</th>
-                        <th/>
+                        <th style="width: 30px;">No</th>
+                        <!-- success marker -->
+                        <th style="width: 15px;"/>
                         <th>Name</th>
+                        <!-- browser -->
                         <th/>
                         <th style="text-align: center;" colspan="2">Steps</th>
                         <th/>
-                        <th width="80%">Graph</th>
+                        <th style="width: 80%">Graph</th>
                         <th style="text-align: right;">Duration</th>
                     </tr>
 
@@ -1065,13 +1067,13 @@
 
     <xsl:template name="testcaseOverview">
         <tr>
-            <td align="right">
+            <td align="middle">
                 <xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
 
                 <xsl:number/>
             </td>
 
-            <td align="center">
+            <td>
                 <xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
 
                 <xsl:call-template name="successIndicator"/>
@@ -1121,9 +1123,9 @@
 
 
                     <td align="right">
-                         <xsl:value-of select="count(command[not(@isComment)])"/>
+                         <xsl:value-of select="count(command[not(@isComment) and not(ignored)])"/>
                     </td>
-                    <td align="right">
+                    <td align="left">
                          (<xsl:value-of select="count(descendant::command[not(@isComment)])"/>)
                     </td>
 
