@@ -381,7 +381,7 @@
                                     </xsl:attribute>
                                     <xsl:value-of select="$testCaseFailureCount"/></span></xsl:if>/<xsl:value-of select="$testCaseCount"/>)</xsl:if>
                             </td>
-                            <td>
+                            <td style="padding-right: 0;">
                                 <table class="bars" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <xsl:if test="$testCaseErrorPercentage > 0">
@@ -447,7 +447,7 @@
                                     </xsl:attribute>
                                     <xsl:value-of select="$stepsFailureCount"/></span></xsl:if>/<xsl:value-of select="$testStepCount"/>)</xsl:if>
                             </td>
-                        <td>
+                        <td style="padding-right: 0;">
                             <table class="bars" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <!-- error steps -->
@@ -878,7 +878,7 @@
                     </xsl:attribute>
                 </img>
             </td>
-            <td>
+            <td style="padding-right: 0;">
                 <table class="bars" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <xsl:if test="$browserTestErrorPercentage > 0">
@@ -962,7 +962,7 @@
                     </xsl:attribute>
                 </img>
             </td>
-            <td>
+            <td style="padding-right: 0;">
                 <table class="bars" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <!-- error steps -->
