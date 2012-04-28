@@ -187,7 +187,7 @@ public class ManualXMLResultWriterTest {
   }
 
   @Test
-  public void invalidInputSoIgnoreRun() {
+  public void invalidInputDuringCommandExecution() {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
@@ -197,9 +197,32 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunStart(IE8);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
-    writeCommandWithError(createCommand("invalid-command", null),
-        new InvalidInputException("TestCase " + tmpTestCase.getName() + " is very invalid."));
+    writeCommandWithError(createCommand("invalid-command", null), new InvalidInputException("Command in TestCase "
+        + tmpTestCase.getName() + " is very invalid."));
     writeCommandIgnored();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
+
+    resultWriter.testRunStart(FF36);
+    resultWriter.testRunIgnored();
+    resultWriter.testRunEnd();
+
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  @Test
+  public void invalidInputWhileReadingCommands() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+
+    resultWriter.testRunStart(IE8);
+    resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
+    resultWriter.error(new InvalidInputException("TestCase " + tmpTestCase.getName() + " is very invalid."));
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
 
