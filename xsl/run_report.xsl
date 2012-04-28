@@ -1262,7 +1262,7 @@
                         <th style="width: 120px;">Command</th>
                         <!-- module expand/collapse -->
                         <th style="width: 20px;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-                        <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
+                        <th style="width: 50%;"><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th style="text-align: right;">Duration</th>
