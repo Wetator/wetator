@@ -25,7 +25,9 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.wetator.jenkins.parser.AllTests.class })
+@SuiteClasses({ XStreamLegacyDeserializationTest.class, //
+    XStreamSerializationTest.class, //
+    org.wetator.jenkins.parser.AllTests.class })
 public final class AllTests {
 
   /**

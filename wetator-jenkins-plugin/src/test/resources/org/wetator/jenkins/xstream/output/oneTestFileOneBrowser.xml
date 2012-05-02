@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testResults>
+  <name>TestResults</name>
+  <duration>10</duration>
+  <testResults>
+    <testResult>
+      <name>123456789</name>
+      <duration>10</duration>
+      <testFileResults>
+        <testFileResult>
+          <name>Test.wet</name>
+          <fullName>/public/Test.wet</fullName>
+          <duration>2</duration>
+          <browserResults>
+            <browserResult>
+              <name>IE8</name>
+              <fullName>Test.wet[IE8]</fullName>
+              <duration>2</duration>
+              <failedSince>0</failedSince>
+            </browserResult>
+          </browserResults>
+        </testFileResult>
+      </testFileResults>
+    </testResult>
+  </testResults>
+</testResults>

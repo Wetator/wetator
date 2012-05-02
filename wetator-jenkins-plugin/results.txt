@@ -1,0 +1,34 @@
+Error
+	Type: ErrorType: ERROR,FAILURE
+	File: String: <TestFile>
+	Line: int
+	Command: String
+	Parameters: List<String>
+	Error: String
+
+Browser
+	Name: String: <Browser>
+	FullName: String: <TestFile>[<Browser>]
+	Duration: long: sum(CommandExecutionTime)
+	Errors: List<Error>
+	FailedSince: int: calculated
+	Skipped: boolean
+	FailCount: int: 0,1
+	SkipCount: int: 0,1
+	PassCount: int: 0,1
+
+TestFile
+	Name: String: <TestCase(=TestFile - Directory)>
+	FullName: String: <TestFile>
+	Duration: long: sum(BrowserDuration)
+	FailCount: int: sum(BrowserFailCount)
+	SkipCount: int: sum(BrowserSkipCount)
+	PassCount: int: sum(BrowserPassCount)
+
+Test
+	Name: String: <StartTime>
+	FullName: String: null
+	Duration: WetExecutionTime
+	FailCount: int: sum(TestFileFailCount)
+	SkipCount: int: sum(TestFileSkipCount)
+	PassCount: int: sum(TestFilePassCount)

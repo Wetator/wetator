@@ -111,8 +111,13 @@ public class WetatorResultParser {
           } else if (tmpPath.matches("/wet/testcase")) {
             tmpTestFileResult = new TestFileResult();
             String tmpTestcaseName = tmpReader.getAttributeValue(null, "name");
+            String tmpTestFileName = tmpReader.getAttributeValue(null, "file");
             tmpTestFileResult.setName(tmpTestcaseName);
-            tmpTestFileResult.setFullName(tmpTestcaseName);
+            if (tmpTestFileName != null && !"".equals(tmpTestFileName)) {
+              tmpTestFileResult.setFullName(tmpTestFileName);
+            } else {
+              tmpTestFileResult.setFullName(tmpTestcaseName);
+            }
             tmpBrowserResults = new ArrayList<BrowserResult>();
           } else if (tmpPath.matches("/wet/testcase/testrun")) {
             tmpBrowserResult = new BrowserResult();
