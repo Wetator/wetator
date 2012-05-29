@@ -28,8 +28,6 @@
 	<classpathentry kind="lib" path="lib/automaton-1.11.8.jar"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype-20020414.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20081112.jar" sourcepath="lib_src/xsom-20081112-sources.jar"/>
-	<classpathentry kind="lib" path="lib/fontbox-1.6.0.jar"/>
-	<classpathentry kind="lib" path="lib/pdfbox-1.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.10-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.10-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.10-SNAPSHOT.jar"/>
@@ -44,5 +42,7 @@
 	<classpathentry kind="lib" path="lib/cssparser-0.9.7.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.16-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox-1.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-1.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
