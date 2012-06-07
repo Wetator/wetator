@@ -1,0 +1,11 @@
+#
+# Sample wett script.
+# wett file have a simpel wiki like syntax '||' is used as separator
+#
+#
+open-url       || http://www.wetator.org
+assert-title   || WETATOR / Smart Web Application Testing
+#
+click-on       || Documentation
+assert-title   || WETATOR / Documentation
+assert-content || Documentation
