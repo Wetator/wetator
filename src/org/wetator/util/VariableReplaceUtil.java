@@ -72,6 +72,7 @@ public final class VariableReplaceUtil {
 
           // replace
           tmpResult.replace(tmpVarStartPos, tmpVarEndPos + VAR_END_SEQ.length(), tmpValue);
+          break; // first with the correct name wins
         }
       }
 
