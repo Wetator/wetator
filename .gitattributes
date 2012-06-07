@@ -22,6 +22,9 @@ samples/ant/build.xml -text
 samples/google_search/google.wet -text
 samples/google_search/google.xls -text
 samples/google_search/wetator.config -text
+samples/sample.wet -text
+samples/sample.wett -text
+samples/sample.xls -text
 src/log4j.properties -text
 src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
