@@ -72,12 +72,17 @@ public final class VariableReplaceUtil {
 
           // replace
           tmpResult.replace(tmpVarStartPos, tmpVarEndPos + VAR_END_SEQ.length(), tmpValue);
+
+          // found; move our startpos only to the start of the replace
+          tmpStartPos = tmpVarStartPos;
+
           break; // first with the correct name wins
         }
+
+        // done with this; move our startpos
+        tmpStartPos = tmpVarStartPos + VAR_START_SEQ.length();
       }
 
-      // done with this; move our startpos
-      tmpStartPos = tmpVarStartPos;
       tmpVarStartPos = tmpResult.indexOf(VAR_START_SEQ, tmpStartPos);
     }
 
