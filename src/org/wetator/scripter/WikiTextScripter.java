@@ -42,6 +42,10 @@ import org.wetator.util.NormalizedString;
 public final class WikiTextScripter implements IScripter {
 
   private static final String FILE_EXTENSION = ".wett";
+  private static final String COMMENT_LINE = "#";
+  private static final String COMMENT_LINE2 = "//";
+  private static final String SEPARATOR = "||";
+
   private static final int COMMAND_NAME_COLUMN_NO = 0;
   private static final int FIRST_PARAM_COLUMN_NO = 1;
   private static final int SECOND_PARAM_COLUMN_NO = 2;
@@ -118,15 +122,15 @@ public final class WikiTextScripter implements IScripter {
         }
 
         boolean tmpComment = false;
-        if (tmpLine.startsWith("#")) {
+        if (tmpLine.startsWith(COMMENT_LINE)) {
           tmpComment = true;
           tmpLine = tmpLine.substring(1);
-        } else if (tmpLine.startsWith("//")) {
+        } else if (tmpLine.startsWith(COMMENT_LINE2)) {
           tmpComment = true;
           tmpLine = tmpLine.substring(2);
         }
 
-        final String[] tmpParts = StringUtils.splitByWholeSeparator(tmpLine, "||");
+        final String[] tmpParts = StringUtils.splitByWholeSeparator(tmpLine, SEPARATOR);
 
         String tmpCommandName = "";
         if (tmpParts.length > COMMAND_NAME_COLUMN_NO) {

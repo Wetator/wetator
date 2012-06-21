@@ -46,8 +46,8 @@ public class VariableReplaceUtilUtilTest {
     tmpStringWithPlaceholders = "";
     tmpVariables = null;
 
-    org.junit.Assert.assertEquals("", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables,
-        false));
+    org.junit.Assert.assertEquals("",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -58,8 +58,8 @@ public class VariableReplaceUtilUtilTest {
     tmpStringWithPlaceholders = "abc";
     tmpVariables = null;
 
-    org.junit.Assert.assertEquals("abc", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables,
-        false));
+    org.junit.Assert.assertEquals("abc",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -70,8 +70,20 @@ public class VariableReplaceUtilUtilTest {
     tmpStringWithPlaceholders = "a ${var0} bc";
     tmpVariables = null;
 
-    org.junit.Assert.assertEquals("a ${var0} bc", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("a ${var0} bc",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
+  }
+
+  @Test
+  public void testReplaceVariable_OneVar_Unknown() {
+    List<Variable> tmpVariables = new LinkedList<Variable>();
+    Variable tmpVariable = new Variable("var0", "value0", false);
+    tmpVariables.add(tmpVariable);
+
+    String tmpStringWithPlaceholders = "a ${unknown} bc";
+
+    org.junit.Assert.assertEquals("a ${unknown} bc",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -82,8 +94,8 @@ public class VariableReplaceUtilUtilTest {
     tmpStringWithPlaceholders = "a ${var0bc";
     tmpVariables = null;
 
-    org.junit.Assert.assertEquals("a ${var0bc", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("a ${var0bc",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -94,8 +106,8 @@ public class VariableReplaceUtilUtilTest {
     tmpStringWithPlaceholders = "a ${var}}0bc";
     tmpVariables = null;
 
-    org.junit.Assert.assertEquals("a ${var}}0bc", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("a ${var}}0bc",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -106,8 +118,8 @@ public class VariableReplaceUtilUtilTest {
     tmpStringWithPlaceholders = "a ${var0} b ${var1} c";
     tmpVariables = null;
 
-    org.junit.Assert.assertEquals("a ${var0} b ${var1} c", VariableReplaceUtil.replaceVariables(
-        tmpStringWithPlaceholders, tmpVariables, false));
+    org.junit.Assert.assertEquals("a ${var0} b ${var1} c",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -121,8 +133,8 @@ public class VariableReplaceUtilUtilTest {
     tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
-    org.junit.Assert.assertEquals("value0", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("value0",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -136,8 +148,8 @@ public class VariableReplaceUtilUtilTest {
     tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
-    org.junit.Assert.assertEquals("value0abc", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("value0abc",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -151,8 +163,8 @@ public class VariableReplaceUtilUtilTest {
     tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
-    org.junit.Assert.assertEquals("value0de", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("value0de",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -168,8 +180,8 @@ public class VariableReplaceUtilUtilTest {
     tmpVariable = new Variable("var1", "value1", false);
     tmpVariables.add(tmpVariable);
 
-    org.junit.Assert.assertEquals("value0value1", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("value0value1",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -185,8 +197,8 @@ public class VariableReplaceUtilUtilTest {
     tmpVariable = new Variable("var1", "value1", false);
     tmpVariables.add(tmpVariable);
 
-    org.junit.Assert.assertEquals("value0value1 value0", VariableReplaceUtil.replaceVariables(
-        tmpStringWithPlaceholders, tmpVariables, false));
+    org.junit.Assert.assertEquals("value0value1 value0",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 
   @Test
@@ -202,7 +214,7 @@ public class VariableReplaceUtilUtilTest {
     tmpVariable = new Variable("var1", "value1", false);
     tmpVariables.add(tmpVariable);
 
-    org.junit.Assert.assertEquals("value1", VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders,
-        tmpVariables, false));
+    org.junit.Assert.assertEquals("value1",
+        VariableReplaceUtil.replaceVariables(tmpStringWithPlaceholders, tmpVariables, false));
   }
 }
