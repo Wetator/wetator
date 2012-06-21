@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
+import javax.swing.JWindow;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Wetator;
@@ -37,13 +38,15 @@ public final class DialogUtil {
   /**
    * Helper for displaying a file selector dialog.
    * 
+   * @param aWindow the root JWindow (to see something in the window
+   *        switch list (Atl+Tab)
    * @param aPropertyKey a special key for looking up the start directory.
    * @return the files
    */
-  public static File chooseFile(final String aPropertyKey) {
+  public static File chooseFile(final JWindow aWindow, final String aPropertyKey) {
     File[] tmpResult;
     // we can make this configurable later
-    tmpResult = chooseFilesSwing(aPropertyKey, false);
+    tmpResult = chooseFilesSwing(aWindow, aPropertyKey, false);
     if (null == tmpResult) {
       return null;
     }
@@ -53,13 +56,15 @@ public final class DialogUtil {
   /**
    * Helper for displaying a file selector dialog.
    * 
+   * @param aWindow the root JWindow (to see something in the window
+   *        switch list (Atl+Tab)
    * @param aPropertyKey a special key for looking up the start directory.
    * @return the files
    */
-  public static File[] chooseFiles(final String aPropertyKey) {
+  public static File[] chooseFiles(final JWindow aWindow, final String aPropertyKey) {
     File[] tmpResult;
     // we can make this configurable later
-    tmpResult = chooseFilesSwing(aPropertyKey, true);
+    tmpResult = chooseFilesSwing(aWindow, aPropertyKey, true);
 
     return tmpResult;
   }
@@ -67,11 +72,14 @@ public final class DialogUtil {
   /**
    * Displays a file selector dialog using swing.
    * 
+   * @param aWindow the root JWindow (to see something in the window
+   *        switch list (Atl+Tab)
    * @param aPropertyKey a special key for looking up the start directory.
    * @param aMultiSelectionFlag if true multiple files can be selected.
    * @return the selected files.
    */
-  protected static File[] chooseFilesSwing(final String aPropertyKey, final boolean aMultiSelectionFlag) {
+  protected static File[] chooseFilesSwing(final JWindow aWindow, final String aPropertyKey,
+      final boolean aMultiSelectionFlag) {
     final Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
 
     String tmpLastDirName = null;
@@ -99,8 +107,7 @@ public final class DialogUtil {
     tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
 
-    final int tmpChooserAction = tmpFileChooser.showOpenDialog(null);
-
+    final int tmpChooserAction = tmpFileChooser.showOpenDialog(aWindow);
     switch (tmpChooserAction) {
       case JFileChooser.APPROVE_OPTION:
         if (aMultiSelectionFlag) {
