@@ -31,6 +31,7 @@ public class TestResult extends AbstractBaseResult {
   private List<TestFileResult> testFileResults = new ArrayList<TestFileResult>();
 
   private transient int passCount;
+  private transient int skipCount;
   private transient int failCount;
 
   /**
@@ -70,6 +71,16 @@ public class TestResult extends AbstractBaseResult {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
+   */
+  @Override
+  public int getSkipCount() {
+    return skipCount;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.jenkins.result.AbstractBaseResult#getFailCount()
    */
   @Override
@@ -85,14 +96,13 @@ public class TestResult extends AbstractBaseResult {
   @Override
   public void tally() {
     passCount = 0;
+    skipCount = 0;
     failCount = 0;
     for (TestFileResult tmpTestFileResult : testFileResults) {
       tmpTestFileResult.tally();
-      if (tmpTestFileResult.isPassed()) {
-        passCount++;
-      } else {
-        failCount++;
-      }
+      passCount += tmpTestFileResult.getPassCount();
+      skipCount += tmpTestFileResult.getSkipCount();
+      failCount += tmpTestFileResult.getFailCount();
     }
   }
 }

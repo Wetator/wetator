@@ -37,9 +37,11 @@ public class TestResults extends AbstractBaseResult {
 
   private List<TestResult> testResults = new ArrayList<TestResult>();
   private transient List<BrowserResult> passedTests = new ArrayList<BrowserResult>();
+  private transient List<BrowserResult> skippedTests = new ArrayList<BrowserResult>();
   private transient List<BrowserResult> failedTests = new ArrayList<BrowserResult>();
   private transient int totalCount;
   private transient int passCount;
+  private transient int skipCount;
   private transient int failCount;
   private transient Map<String, TestFileResult> testFileMap = new HashMap<String, TestFileResult>();
   private transient Map<String, TestFileResult> testFileUrlMap = new HashMap<String, TestFileResult>();
@@ -80,6 +82,17 @@ public class TestResults extends AbstractBaseResult {
   }
 
   /**
+   * @return the skippedTests
+   */
+  public List<BrowserResult> getSkippedTests() {
+    return skippedTests;
+  }
+
+  public void setSkippedTests(List<BrowserResult> skippedTests) {
+    this.skippedTests = skippedTests;
+  }
+
+  /**
    * @return the passedTests
    */
   public List<BrowserResult> getPassedTests() {
@@ -116,6 +129,16 @@ public class TestResults extends AbstractBaseResult {
   @Override
   public int getPassCount() {
     return passCount;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
+   */
+  @Override
+  public int getSkipCount() {
+    return skipCount;
   }
 
   /**
@@ -231,12 +254,14 @@ public class TestResults extends AbstractBaseResult {
    */
   @Override
   public String toString() {
-    return "TestResults{" + "name='" + name + '\'' + ", totalTests=" + totalCount + ", failedTests=" + failCount + '}';
+    return "TestResults{" + "name='" + name + '\'' + ", totalCount=" + totalCount + ", skipCount=" + skipCount
+        + ", failCount=" + failCount + '}';
   }
 
   private void add(TestResults r, boolean tally) {
     testResults.addAll(r.getTestResults());
     failedTests.addAll(r.getFailedTests());
+    skippedTests.addAll(r.getSkippedTests());
     passedTests.addAll(r.getPassedTests());
     if (tally) {
       // save cycles while getting total results
@@ -260,6 +285,7 @@ public class TestResults extends AbstractBaseResult {
   public void tally() {
     duration = 0;
     passedTests = new ArrayList<BrowserResult>();
+    skippedTests = new ArrayList<BrowserResult>();
     failedTests = new ArrayList<BrowserResult>();
     testFileMap = new HashMap<String, TestFileResult>();
     testFileUrlMap = new HashMap<String, TestFileResult>();
@@ -276,11 +302,13 @@ public class TestResults extends AbstractBaseResult {
     for (String tmpFileName : testFileMap.keySet()) {
       TestFileResult tmpTestFileResult = testFileMap.get(tmpFileName);
       passedTests.addAll(tmpTestFileResult.getPassedTests());
+      skippedTests.addAll(tmpTestFileResult.getSkippedTests());
       failedTests.addAll(tmpTestFileResult.getFailedTests());
     }
     failCount = failedTests.size();
+    skipCount = skippedTests.size();
     passCount = passedTests.size();
-    totalCount = passCount + failCount;
+    totalCount = passCount + skipCount + failCount;
   }
 
   /**

@@ -16,7 +16,15 @@
               <name>IE8</name>
               <fullName>Test.wet[IE8]</fullName>
               <duration>2</duration>
-              <skipped>false</skipped>
+              <error>
+                <line>2</line>
+                <command>open-url</command>
+                <parameters>
+                  <string>param1</string>
+                  <string>param2</string>
+                </parameters>
+                <error>error</error>
+              </error>
               <failedSince>0</failedSince>
             </browserResult>
           </browserResults>

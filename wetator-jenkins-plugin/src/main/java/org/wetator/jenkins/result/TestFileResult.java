@@ -36,7 +36,9 @@ public class TestFileResult extends AbstractBaseResult {
   private List<BrowserResult> browserResults = new ArrayList<BrowserResult>();
 
   private transient List<BrowserResult> passedTests = new ArrayList<BrowserResult>();
+  private transient List<BrowserResult> skippedTests = new ArrayList<BrowserResult>();
   private transient List<BrowserResult> failedTests = new ArrayList<BrowserResult>();
+  private transient int skipCount;
   private transient int failCount;
   private transient int totalCount;
 
@@ -47,7 +49,17 @@ public class TestFileResult extends AbstractBaseResult {
    */
   @Override
   public int getPassCount() {
-    return totalCount - failCount;
+    return totalCount - skipCount - failCount;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
+   */
+  @Override
+  public int getSkipCount() {
+    return skipCount;
   }
 
   /**
@@ -100,6 +112,13 @@ public class TestFileResult extends AbstractBaseResult {
   }
 
   /**
+   * @return the skippedTests
+   */
+  public List<BrowserResult> getSkippedTests() {
+    return skippedTests;
+  }
+
+  /**
    * @return the failedTests
    */
   public List<BrowserResult> getFailedTests() {
@@ -128,15 +147,20 @@ public class TestFileResult extends AbstractBaseResult {
   @Override
   public void tally() {
     duration = 0;
+    skipCount = 0;
     failCount = 0;
     totalCount = 0;
     passedTests = new ArrayList<BrowserResult>();
+    skippedTests = new ArrayList<BrowserResult>();
     failedTests = new ArrayList<BrowserResult>();
     for (BrowserResult tmpBrowserResult : browserResults) {
       duration += tmpBrowserResult.getDuration();
       totalCount++;
       if (tmpBrowserResult.isPassed()) {
         passedTests.add(tmpBrowserResult);
+      } else if (tmpBrowserResult.isSkipped()) {
+        skippedTests.add(tmpBrowserResult);
+        skipCount++;
       } else {
         failedTests.add(tmpBrowserResult);
         failCount++;

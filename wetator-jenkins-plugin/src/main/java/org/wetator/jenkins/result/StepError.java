@@ -16,7 +16,6 @@
 
 package org.wetator.jenkins.result;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,14 +23,35 @@ import java.util.List;
  * 
  * @author frank.danek
  */
-public class StepError implements Serializable {
+public class StepError extends TestError {
 
   private static final long serialVersionUID = 3119972170800383706L;
 
+  private CauseType causeType;
   private int line;
   private String command;
   private List<String> parameters;
-  private String error;
+
+  /**
+   * The constructor.
+   */
+  public StepError() {
+    setType(ErrorType.STEP);
+  }
+
+  /**
+   * @return the causeType
+   */
+  public CauseType getCauseType() {
+    return causeType;
+  }
+
+  /**
+   * @param aCauseType the causeType to set
+   */
+  public void setCauseType(CauseType aCauseType) {
+    causeType = aCauseType;
+  }
 
   /**
    * @return the line
@@ -76,16 +96,10 @@ public class StepError implements Serializable {
   }
 
   /**
-   * @return the error
+   * @author frank.danek
    */
-  public String getError() {
-    return error;
-  }
-
-  /**
-   * @param aError the error to set
-   */
-  public void setError(String aError) {
-    error = aError;
+  public enum CauseType {
+    ERROR,
+    FAILURE
   }
 }

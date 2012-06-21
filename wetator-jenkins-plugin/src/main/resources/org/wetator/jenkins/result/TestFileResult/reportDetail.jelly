@@ -24,7 +24,7 @@
 
     <t:editableDescription permission="${it.owner.UPDATE}"/>
 
-    <j:if test="${it.total != 0}">
+    <j:if test="${it.totalCount != 0}">
         <h2>${%All Browsers}</h2>
         <table class="pane sortable">
             <tr>

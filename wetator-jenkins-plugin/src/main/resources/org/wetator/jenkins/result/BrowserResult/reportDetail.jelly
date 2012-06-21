@@ -28,7 +28,14 @@
     </p>
     <j:if test="${!it.passed}">
         <div style="text-align:right;">
-            ${%failingFor(it.age)}
+            <j:choose>
+                <j:when test="${it.skipped}">
+                    ${%skippedFor(it.age)}
+                </j:when>
+                <j:otherwise>
+                    ${%failingFor(it.age)}
+                </j:otherwise>
+            </j:choose>
 
             (${%since.before}<t:buildLink job="${it.owner.project}" number="${it.failedSince}"/>${%since.after})
         </div>
@@ -45,30 +52,48 @@
     <j:if test="${!empty(it.error)}">
         <j:set var="error" value="${it.error}" />
         <h3>${%Error Message}</h3>
-        <table class="pane sortable">
-            <tr>
-                <td class="pane-header">${%Line}</td>
-                <td class="pane-header">${%Command}</td>
-                <td class="pane-header">${%Parameters}</td>
-            </tr>
-            <tbody>
-                <tr>
-                    <td class="pane" style="text-align:right">${error.line}</td>
-                    <td class="pane">${error.command}</td>
-                    <td style="padding: 0px;">
-                        <table style="width: 100%; border-collapse: collapse">
-                            <tr>
-                                <j:forEach var="param" items="${error.parameters}">
-                                    <td class="pane">${param}</td>
-                                </j:forEach>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="pane" style="white-space: normal;" colspan="3">${error.error}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div>${%File}: ${error.file}</div>
+        <j:choose>
+            <j:when test="${error.type == 'TEST'}">
+                <div style="margin-top: 10px;">${error.error}</div>
+            </j:when>
+            <j:otherwise>
+                <div>${%Cause}:
+                    <j:choose>
+                        <j:when test="${error.causeType == 'FAILURE'}">
+                            ${%Failure}
+                        </j:when>
+                        <j:otherwise>
+                            ${%Error}
+                        </j:otherwise>
+                    </j:choose>
+                </div>
+                <table class="pane sortable">
+                    <tr>
+                        <td class="pane-header">${%Line}</td>
+                        <td class="pane-header">${%Command}</td>
+                        <td class="pane-header">${%Parameters}</td>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td class="pane" style="text-align:right">${error.line}</td>
+                            <td class="pane">${error.command}</td>
+                            <td style="padding: 0px;">
+                                <table style="width: 100%; border-collapse: collapse">
+                                    <tr>
+                                        <j:forEach var="param" items="${error.parameters}">
+                                            <td class="pane">${param}</td>
+                                        </j:forEach>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="pane" style="white-space: normal;" colspan="3">${error.error}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </j:otherwise>
+        </j:choose>
     </j:if>
 </j:jelly>

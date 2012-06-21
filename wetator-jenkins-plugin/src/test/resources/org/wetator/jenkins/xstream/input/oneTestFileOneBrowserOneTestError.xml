@@ -16,7 +16,11 @@
               <name>IE8</name>
               <fullName>Test.wet[IE8]</fullName>
               <duration>2</duration>
-              <skipped>false</skipped>
+              <error class="testError">
+                <type>TEST</type>
+                <file>/public/Test.wet</file>
+                <error>error</error>
+              </error>
               <failedSince>0</failedSince>
             </browserResult>
           </browserResults>

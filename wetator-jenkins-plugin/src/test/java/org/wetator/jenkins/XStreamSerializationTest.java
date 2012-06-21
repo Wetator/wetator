@@ -16,7 +16,6 @@
 
 package org.wetator.jenkins;
 
-import hudson.util.HeapSpaceStringConverter;
 import hudson.util.XStream2;
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +33,8 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
+import org.wetator.jenkins.result.StepError.CauseType;
+import org.wetator.jenkins.result.TestError;
 import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
@@ -51,14 +52,8 @@ import com.thoughtworks.xstream.XStream;
 public class XStreamSerializationTest {
 
   private static final XStream XSTREAM = new XStream2();
-
   static {
-    XSTREAM.alias("testResults", TestResults.class);
-    XSTREAM.alias("testResult", TestResult.class);
-    XSTREAM.alias("testFileResult", TestFileResult.class);
-    XSTREAM.alias("browserResult", BrowserResult.class);
-    XSTREAM.alias("stepError", StepError.class);
-    XSTREAM.registerConverter(new HeapSpaceStringConverter(), 100);
+    WetatorBuildReport.initializeXStream(XSTREAM);
   }
 
   private static final File RESULT_FILE = new File("work", PluginImpl.TEST_RESULTS_FILE_NAME);
@@ -200,7 +195,7 @@ public class XStreamSerializationTest {
   }
 
   @Test
-  public void oneTestFileOneBrowserOneError() throws Exception {
+  public void oneTestFileOneBrowserOneStepError() throws Exception {
     TestResults tmpResults = new TestResults("TestResults");
 
     TestResult tmpTest = new TestResult();
@@ -222,22 +217,24 @@ public class XStreamSerializationTest {
     tmpTestFile.setBrowserResults(tmpBrowserResults);
 
     StepError tmpError = new StepError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpError.setCauseType(CauseType.ERROR);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
     List<String> tmpParameters = new ArrayList<String>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
-    tmpError.setError("error");
     tmpBrowser.setError(tmpError);
 
     write(tmpResults);
 
-    assertResult("oneTestFileOneBrowserOneError.xml");
+    assertResult("oneTestFileOneBrowserOneStepError.xml");
   }
 
   @Test
-  public void oneTestFileTwoBrowserOneError() throws Exception {
+  public void oneTestFileTwoBrowserOneStepError() throws Exception {
     TestResults tmpResults = new TestResults("TestResults");
 
     TestResult tmpTest = new TestResult();
@@ -265,22 +262,24 @@ public class XStreamSerializationTest {
     tmpTestFile.setBrowserResults(tmpBrowserResults);
 
     StepError tmpError = new StepError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpError.setCauseType(CauseType.ERROR);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
     List<String> tmpParameters = new ArrayList<String>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
-    tmpError.setError("error");
     tmpBrowser.setError(tmpError);
 
     write(tmpResults);
 
-    assertResult("oneTestFileTwoBrowserOneError.xml");
+    assertResult("oneTestFileTwoBrowserOneStepError.xml");
   }
 
   @Test
-  public void twoTestFileOneBrowserOneError() throws Exception {
+  public void twoTestFileOneBrowserOneStepError() throws Exception {
     TestResults tmpResults = new TestResults("TestResults");
 
     TestResult tmpTest = new TestResult();
@@ -315,18 +314,271 @@ public class XStreamSerializationTest {
     tmpTestFile.setBrowserResults(tmpBrowserResults);
 
     StepError tmpError = new StepError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpError.setCauseType(CauseType.ERROR);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
     List<String> tmpParameters = new ArrayList<String>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
+    tmpBrowser.setError(tmpError);
+
+    write(tmpResults);
+
+    assertResult("twoTestFileOneBrowserOneStepError.xml");
+  }
+
+  @Test
+  public void oneTestFileOneBrowserOneStepFailure() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    TestResult tmpTest = new TestResult();
+    tmpTest.setName("123456789");
+    tmpTest.setDuration(10);
+    tmpResults.getTestResults().add(tmpTest);
+
+    TestFileResult tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test.wet");
+    tmpTestFile.setFullName("/public/Test.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    BrowserResult tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test.wet[IE8]");
+    tmpBrowser.setDuration(2);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    StepError tmpError = new StepError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpError.setCauseType(CauseType.FAILURE);
+    tmpError.setLine(2);
+    tmpError.setCommand("open-url");
+    List<String> tmpParameters = new ArrayList<String>();
+    tmpParameters.add("param1");
+    tmpParameters.add("param2");
+    tmpError.setParameters(tmpParameters);
+    tmpBrowser.setError(tmpError);
+
+    write(tmpResults);
+
+    assertResult("oneTestFileOneBrowserOneStepFailure.xml");
+  }
+
+  @Test
+  public void oneTestFileTwoBrowserOneStepFailure() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    TestResult tmpTest = new TestResult();
+    tmpTest.setName("123456789");
+    tmpTest.setDuration(10);
+    tmpResults.getTestResults().add(tmpTest);
+
+    TestFileResult tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test.wet");
+    tmpTestFile.setFullName("/public/Test.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    BrowserResult tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test.wet[IE8]");
+    tmpBrowser.setDuration(2);
+    tmpBrowserResults.add(tmpBrowser);
+
+    tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("FF3.6");
+    tmpBrowser.setFullName("Test.wet[FF3.6]");
+    tmpBrowser.setDuration(3);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    StepError tmpError = new StepError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpError.setCauseType(CauseType.FAILURE);
+    tmpError.setLine(2);
+    tmpError.setCommand("open-url");
+    List<String> tmpParameters = new ArrayList<String>();
+    tmpParameters.add("param1");
+    tmpParameters.add("param2");
+    tmpError.setParameters(tmpParameters);
+    tmpBrowser.setError(tmpError);
+
+    write(tmpResults);
+
+    assertResult("oneTestFileTwoBrowserOneStepFailure.xml");
+  }
+
+  @Test
+  public void twoTestFileOneBrowserOneStepFailure() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    TestResult tmpTest = new TestResult();
+    tmpTest.setName("123456789");
+    tmpTest.setDuration(10);
+    tmpResults.getTestResults().add(tmpTest);
+
+    TestFileResult tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test1.wet");
+    tmpTestFile.setFullName("/public/Test1.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    BrowserResult tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test1.wet[IE8]");
+    tmpBrowser.setDuration(2);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test2.wet");
+    tmpTestFile.setFullName("/public/Test2.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    tmpBrowserResults = new ArrayList<BrowserResult>();
+    tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test2.wet[IE8]");
+    tmpBrowser.setDuration(3);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    StepError tmpError = new StepError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpError.setCauseType(CauseType.FAILURE);
+    tmpError.setLine(2);
+    tmpError.setCommand("open-url");
+    List<String> tmpParameters = new ArrayList<String>();
+    tmpParameters.add("param1");
+    tmpParameters.add("param2");
+    tmpError.setParameters(tmpParameters);
+    tmpBrowser.setError(tmpError);
+
+    write(tmpResults);
+
+    assertResult("twoTestFileOneBrowserOneStepFailure.xml");
+  }
+
+  @Test
+  public void oneTestFileOneBrowserOneTestError() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    TestResult tmpTest = new TestResult();
+    tmpTest.setName("123456789");
+    tmpTest.setDuration(10);
+    tmpResults.getTestResults().add(tmpTest);
+
+    TestFileResult tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test.wet");
+    tmpTestFile.setFullName("/public/Test.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    BrowserResult tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test.wet[IE8]");
+    tmpBrowser.setDuration(2);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    TestError tmpError = new TestError();
+    tmpError.setFile("/public/Test.wet");
     tmpError.setError("error");
     tmpBrowser.setError(tmpError);
 
     write(tmpResults);
 
-    assertResult("twoTestFileOneBrowserOneError.xml");
+    assertResult("oneTestFileOneBrowserOneTestError.xml");
+  }
+
+  @Test
+  public void oneTestFileTwoBrowserOneTestError() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    TestResult tmpTest = new TestResult();
+    tmpTest.setName("123456789");
+    tmpTest.setDuration(10);
+    tmpResults.getTestResults().add(tmpTest);
+
+    TestFileResult tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test.wet");
+    tmpTestFile.setFullName("/public/Test.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    BrowserResult tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test.wet[IE8]");
+    tmpBrowser.setDuration(2);
+    tmpBrowserResults.add(tmpBrowser);
+
+    tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("FF3.6");
+    tmpBrowser.setFullName("Test.wet[FF3.6]");
+    tmpBrowser.setDuration(3);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    TestError tmpError = new TestError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpBrowser.setError(tmpError);
+
+    write(tmpResults);
+
+    assertResult("oneTestFileTwoBrowserOneTestError.xml");
+  }
+
+  @Test
+  public void twoTestFileOneBrowserOneTestError() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    TestResult tmpTest = new TestResult();
+    tmpTest.setName("123456789");
+    tmpTest.setDuration(10);
+    tmpResults.getTestResults().add(tmpTest);
+
+    TestFileResult tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test1.wet");
+    tmpTestFile.setFullName("/public/Test1.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    BrowserResult tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test1.wet[IE8]");
+    tmpBrowser.setDuration(2);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    tmpTestFile = new TestFileResult();
+    tmpTestFile.setName("Test2.wet");
+    tmpTestFile.setFullName("/public/Test2.wet");
+    tmpTest.getTestFileResults().add(tmpTestFile);
+
+    tmpBrowserResults = new ArrayList<BrowserResult>();
+    tmpBrowser = new BrowserResult();
+    tmpBrowser.setName("IE8");
+    tmpBrowser.setFullName("Test2.wet[IE8]");
+    tmpBrowser.setDuration(3);
+    tmpBrowserResults.add(tmpBrowser);
+    tmpTestFile.setBrowserResults(tmpBrowserResults);
+
+    TestError tmpError = new TestError();
+    tmpError.setFile("/public/Test.wet");
+    tmpError.setError("error");
+    tmpBrowser.setError(tmpError);
+
+    write(tmpResults);
+
+    assertResult("twoTestFileOneBrowserOneTestError.xml");
   }
 
   private void assertResult(String aFileName) throws IOException {

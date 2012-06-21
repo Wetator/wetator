@@ -166,6 +166,11 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
   public abstract int getPassCount();
 
   /**
+   * Gets the total number of skipped tests.
+   */
+  public abstract int getSkipCount();
+
+  /**
    * Gets the total number of failed tests.
    */
   public abstract int getFailCount();

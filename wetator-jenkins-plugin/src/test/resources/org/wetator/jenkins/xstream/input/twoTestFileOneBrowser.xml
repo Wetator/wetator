@@ -8,15 +8,27 @@
       <duration>10</duration>
       <testFileResults>
         <testFileResult>
-          <name>Test.wet</name>
-          <fullName>/public/Test.wet</fullName>
+          <name>Test1.wet</name>
+          <fullName>/public/Test1.wet</fullName>
           <duration>2</duration>
           <browserResults>
             <browserResult>
               <name>IE8</name>
-              <fullName>Test.wet[IE8]</fullName>
+              <fullName>Test1.wet[IE8]</fullName>
               <duration>2</duration>
-              <skipped>false</skipped>
+              <failedSince>0</failedSince>
+            </browserResult>
+          </browserResults>
+        </testFileResult>
+        <testFileResult>
+          <name>Test2.wet</name>
+          <fullName>/public/Test2.wet</fullName>
+          <duration>3</duration>
+          <browserResults>
+            <browserResult>
+              <name>IE8</name>
+              <fullName>Test2.wet[IE8]</fullName>
+              <duration>3</duration>
               <failedSince>0</failedSince>
             </browserResult>
           </browserResults>

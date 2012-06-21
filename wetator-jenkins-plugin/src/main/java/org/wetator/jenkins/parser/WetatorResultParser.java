@@ -40,6 +40,8 @@ import org.apache.tools.ant.types.FileSet;
 import org.wetator.jenkins.Messages;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
+import org.wetator.jenkins.result.StepError.CauseType;
+import org.wetator.jenkins.result.TestError;
 import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
@@ -86,11 +88,13 @@ public class WetatorResultParser {
       BrowserResult tmpBrowserResult = null;
       long tmpDuration = 0;
       int tmpLine = 0;
+      String tmpCurrentTestFile = null;
       String tmpCommand = null;
       String tmpParam0 = null;
       String tmpParam1 = null;
       String tmpParam2 = null;
       String tmpParam3 = null;
+      TestError tmpTestError = null;
       StepError tmpStepError = null;
 
       Path tmpPath = new Path();
@@ -124,10 +128,22 @@ public class WetatorResultParser {
             String tmpTestrunBrowser = tmpReader.getAttributeValue(null, "browser");
             tmpBrowserResult.setName(tmpTestrunBrowser);
             tmpBrowserResult.setFullName(tmpTestFileResult.getName() + "[" + tmpTestrunBrowser + "]");
+            tmpTestError = null;
             tmpStepError = null;
             tmpDuration = 0;
-          } else if (tmpPath.matches("/wet/testcase/testrun/testfile")) {
-            tmpTestFileResult.setFullName(tmpReader.getAttributeValue(null, "file"));
+          } else if (tmpPath.matches("/wet/testcase/testrun/ignored")) {
+            tmpBrowserResult.setSkipped(true);
+          } else if (tmpPath.endsWith("/testfile")) {
+            tmpCurrentTestFile = tmpReader.getAttributeValue(null, "file");
+            if (tmpPath.matches("/wet/testcase/testrun/testfile")) {
+              tmpTestFileResult.setFullName(tmpReader.getAttributeValue(null, "file"));
+            }
+          } else if (tmpPath.matches("/wet/testcase/testrun/testfile/error/message")) {
+            tmpTestError = new TestError();
+            tmpTestError.setFile(tmpCurrentTestFile);
+            tmpTestError.setError(tmpReader.getElementText());
+            tmpBrowserResult.setError(tmpTestError);
+            tmpPath.pop();
           } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command")) {
             tmpLine = Integer.valueOf(tmpReader.getAttributeValue(null, "line")).intValue();
             tmpCommand = tmpReader.getAttributeValue(null, "name");
@@ -155,7 +171,13 @@ public class WetatorResultParser {
             if (tmpStepError == null) {
               // only save the first error or failure per browser run
               tmpStepError = new StepError();
+              tmpStepError.setFile(tmpCurrentTestFile);
               tmpStepError.setLine(tmpLine);
+              if (tmpPath.endsWith("/command/failure/message")) {
+                tmpStepError.setCauseType(CauseType.FAILURE);
+              } else {
+                tmpStepError.setCauseType(CauseType.ERROR);
+              }
               tmpStepError.setCommand(tmpCommand);
               List<String> tmpParameters = new ArrayList<String>();
               if (tmpParam0 != null && !"".equals(tmpParam0)) {
@@ -180,7 +202,7 @@ public class WetatorResultParser {
           if (tmpPath.matches("/wet/testcase/testrun")) {
             tmpBrowserResult.setDuration(tmpDuration);
             tmpBrowserResults.add(tmpBrowserResult);
-            if (tmpStepError == null) {
+            if (tmpTestError == null && tmpStepError == null) {
               tmpTestResults.getPassedTests().add(tmpBrowserResult);
             } else {
               tmpTestResults.getFailedTests().add(tmpBrowserResult);

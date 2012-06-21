@@ -6,6 +6,8 @@
 
   @it     current TestResults
   @prev   previous TestResults
+  
+  both objects need to have .failCount and .totalCount properties
 -->
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
@@ -21,10 +23,19 @@
                <j:if test="${prev != null}">
                   (${h.getDiffString(it.failCount - prev.failCount)})
                </j:if>
+               <!-- Only show skips if there are some. -->
+               <j:if test="${it.skipCount > 0}">
+                  , ${%skipped(it.skipCount)}
+                  <j:if test="${prev!=null}">
+                     (${h.getDiffString(it.skipCount - prev.skipCount)})
+                  </j:if>
+               </j:if>
             </div>
             <div style="width:100%; height:1em; background-color: #729FCF">
                <!-- Failed tests part of the bar. -->
                <div style="width:${it.failCount * 100 / it.totalCount}%; height: 1em; background-color: #EF2929; float: left"></div>
+               <!-- Skipped tests part of the bar. -->
+               <div style="width:${it.skipCount * 100 / it.totalCount}%; height: 1em; background-color: #FCE94F; float: left"></div>
             </div>
             <div align="right">
                ${%tests(it.totalCount)}

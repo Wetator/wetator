@@ -1,9 +1,14 @@
-Error
-	Type: ErrorType: ERROR,FAILURE
+StepError
+	CauseType: ERROR,FAILURE
 	File: String: <TestFile>
 	Line: int
 	Command: String
 	Parameters: List<String>
+	Error: String
+
+TestError
+	Type: TEST,STEP
+	File: String: <TestFile>
 	Error: String
 
 Browser

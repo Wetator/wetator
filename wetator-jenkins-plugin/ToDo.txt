@@ -13,7 +13,7 @@ X		Save results as gzip
 X	ResultParser
 X		Make it steaming
 
-	Add link to SimpleHtml.xsl.html
+	Add link to run_report.xsl.html
 
 X	Update to current Jenkins
 

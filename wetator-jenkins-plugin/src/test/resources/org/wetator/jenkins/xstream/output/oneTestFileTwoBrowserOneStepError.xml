@@ -23,6 +23,18 @@
               <name>FF3.6</name>
               <fullName>Test.wet[FF3.6]</fullName>
               <duration>3</duration>
+              <error class="stepError">
+                <type>STEP</type>
+                <file>/public/Test.wet</file>
+                <error>error</error>
+                <causeType>ERROR</causeType>
+                <line>2</line>
+                <command>open-url</command>
+                <parameters>
+                  <string>param1</string>
+                  <string>param2</string>
+                </parameters>
+              </error>
               <skipped>false</skipped>
               <failedSince>0</failedSince>
             </browserResult>

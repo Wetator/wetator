@@ -65,6 +65,8 @@
                 <td class="pane-header" style="width:5em">${%Duration}</td>
                 <td class="pane-header" style="width:5em">${%Fail}</td>
                 <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">(${%diff})</td>
+                <td class="pane-header" style="width:5em">${%Skip}</td>
+                <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">(${%diff})</td>
                 <td class="pane-header" style="width:5em">${%Total}</td>
                 <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">(${%diff})</td>
             </tr>
@@ -81,6 +83,10 @@
                         <td class="pane" style="text-align:right">${tst.failCount}</td>
                         <td class="pane" style="text-align:right">
                             ${h.getDiffString(tst.failCount - prev.failCount)}
+                        </td>
+                        <td class="pane" style="text-align:right">${tst.skipCount}</td>
+                        <td class="pane" style="text-align:right">
+                            ${h.getDiffString(tst.skipCount - prev.skipCount)}
                         </td>
                         <td class="pane" style="text-align:right">${tst.totalCount}</td>
                         <td class="pane" style="text-align:right">

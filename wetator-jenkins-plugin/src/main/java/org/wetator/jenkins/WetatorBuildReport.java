@@ -42,9 +42,11 @@ import org.kohsuke.stapler.export.ExportedBean;
 import org.wetator.jenkins.result.AbstractBaseResult;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
+import org.wetator.jenkins.result.TestError;
 import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
+import org.wetator.jenkins.util.ErrorConverter;
 import org.wetator.jenkins.util.GZIPXMLFile;
 
 import com.thoughtworks.xstream.XStream;
@@ -335,6 +337,18 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     XSTREAM.alias("browserResult", BrowserResult.class);
     XSTREAM.alias("stepError", StepError.class);
     XSTREAM.registerConverter(new HeapSpaceStringConverter(), 100);
+  }
+
+  public static void initializeXStream(XStream anXStream) {
+    anXStream.alias("testResults", TestResults.class);
+    anXStream.alias("testResult", TestResult.class);
+    anXStream.alias("testFileResult", TestFileResult.class);
+    anXStream.alias("browserResult", BrowserResult.class);
+    anXStream.alias("stepError", StepError.class);
+    anXStream.alias("testError", TestError.class);
+    anXStream.registerConverter(new ErrorConverter(anXStream.getMapper(), anXStream.getConverterLookup()
+        .lookupConverterForType(TestError.class), anXStream.getReflectionProvider()));
+    anXStream.registerConverter(new HeapSpaceStringConverter(), 100);
   }
 
   /**

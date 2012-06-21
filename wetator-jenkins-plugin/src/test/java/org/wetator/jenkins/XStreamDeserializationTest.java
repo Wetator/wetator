@@ -34,6 +34,7 @@ import org.junit.Test;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
 import org.wetator.jenkins.result.StepError.CauseType;
+import org.wetator.jenkins.result.TestError;
 import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
@@ -43,22 +44,22 @@ import org.wetator.jenkins.util.GZIPXMLFile;
 import com.thoughtworks.xstream.XStream;
 
 /**
- * Tests the XStream deserialization of legacy XML.<br/>
+ * Tests the XStream deserialization of XML.<br/>
  * As the implementation is mainly private there is a copy in this test class. The original code is in
  * {@link WetatorBuildReport}.
  * 
  * @author frank.danek
  */
-public class XStreamLegacyDeserializationTest {
+public class XStreamDeserializationTest {
 
-  private static final Logger LOG = Logger.getLogger(XStreamLegacyDeserializationTest.class.getName());
+  private static final Logger LOG = Logger.getLogger(XStreamDeserializationTest.class.getName());
 
   private static final XStream XSTREAM = new XStream2();
   static {
     WetatorBuildReport.initializeXStream(XSTREAM);
   }
 
-  private static final String INPUT_DIR = "src/test/resources/org/wetator/jenkins/xstream/input/0.2/";
+  private static final String INPUT_DIR = "src/test/resources/org/wetator/jenkins/xstream/input/";
   private static final File RESULT_FILE = new File("work", PluginImpl.TEST_RESULTS_FILE_NAME);
 
   private GZIPXMLFile getDataFile() {
@@ -168,7 +169,7 @@ public class XStreamLegacyDeserializationTest {
     ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError(null, 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
     Assert.assertEquals("param1", tmpError.getParameters().get(0));
     Assert.assertEquals("param2", tmpError.getParameters().get(1));
   }
@@ -194,7 +195,7 @@ public class XStreamLegacyDeserializationTest {
     ResultAssert.assertBrowserResult("FF3.6", "Test.wet[FF3.6]", 3, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError(null, 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
     Assert.assertEquals("param1", tmpError.getParameters().get(0));
     Assert.assertEquals("param2", tmpError.getParameters().get(1));
   }
@@ -223,8 +224,158 @@ public class XStreamLegacyDeserializationTest {
     ResultAssert.assertBrowserResult("IE8", "Test2.wet[IE8]", 3, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError(null, 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
+    ResultAssert.assertStepError("/public/Test2.wet", 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
     Assert.assertEquals("param1", tmpError.getParameters().get(0));
     Assert.assertEquals("param2", tmpError.getParameters().get(1));
+  }
+
+  @Test
+  public void oneTestFileOneBrowserOneStepFailure() throws Exception {
+    gzip("oneTestFileOneBrowserOneStepFailure.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 10, 0, 0, 1, 1, tmpResults);
+
+    TestResult tmpTest = tmpResults.getTestResults().get(0);
+    ResultAssert.assertTestResult("123456789", 10, 0, 0, 1, 1, tmpTest);
+
+    TestFileResult tmpTestFile = tmpTest.getTestFileResults().get(0);
+    ResultAssert.assertTestFileResult("Test.wet", "/public/Test.wet", 2, 0, 0, 1, 1, tmpTestFile);
+
+    BrowserResult tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 0, 0, 1, false, false, tmpBrowser);
+
+    StepError tmpError = (StepError) tmpBrowser.getError();
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.FAILURE, "open-url", 2, "error", tmpError);
+    Assert.assertEquals("param1", tmpError.getParameters().get(0));
+    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+  }
+
+  @Test
+  public void oneTestFileTwoBrowserOneStepFailure() throws Exception {
+    gzip("oneTestFileTwoBrowserOneStepFailure.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 10, 1, 0, 1, 1, tmpResults);
+
+    TestResult tmpTest = tmpResults.getTestResults().get(0);
+    ResultAssert.assertTestResult("123456789", 10, 1, 0, 1, 1, tmpTest);
+
+    TestFileResult tmpTestFile = tmpTest.getTestFileResults().get(0);
+    ResultAssert.assertTestFileResult("Test.wet", "/public/Test.wet", 5, 1, 0, 1, 2, tmpTestFile);
+
+    BrowserResult tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 1, 0, 0, true, false, tmpBrowser);
+
+    tmpBrowser = tmpTestFile.getBrowserResults().get(1);
+    ResultAssert.assertBrowserResult("FF3.6", "Test.wet[FF3.6]", 3, 0, 0, 1, false, false, tmpBrowser);
+
+    StepError tmpError = (StepError) tmpBrowser.getError();
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.FAILURE, "open-url", 2, "error", tmpError);
+    Assert.assertEquals("param1", tmpError.getParameters().get(0));
+    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+  }
+
+  @Test
+  public void twoTestFileOneBrowserOneStepFailure() throws Exception {
+    gzip("twoTestFileOneBrowserOneStepFailure.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 10, 1, 0, 1, 1, tmpResults);
+
+    TestResult tmpTest = tmpResults.getTestResults().get(0);
+    ResultAssert.assertTestResult("123456789", 10, 1, 0, 1, 2, tmpTest);
+
+    TestFileResult tmpTestFile = tmpTest.getTestFileResults().get(0);
+    ResultAssert.assertTestFileResult("Test1.wet", "/public/Test1.wet", 2, 1, 0, 0, 1, tmpTestFile);
+
+    BrowserResult tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test1.wet[IE8]", 2, 1, 0, 0, true, false, tmpBrowser);
+
+    tmpTestFile = tmpTest.getTestFileResults().get(1);
+    ResultAssert.assertTestFileResult("Test2.wet", "/public/Test2.wet", 3, 0, 0, 1, 1, tmpTestFile);
+
+    tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test2.wet[IE8]", 3, 0, 0, 1, false, false, tmpBrowser);
+
+    StepError tmpError = (StepError) tmpBrowser.getError();
+    ResultAssert.assertStepError("/public/Test2.wet", 2, CauseType.FAILURE, "open-url", 2, "error", tmpError);
+    Assert.assertEquals("param1", tmpError.getParameters().get(0));
+    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+  }
+
+  @Test
+  public void oneTestFileOneBrowserOneTestError() throws Exception {
+    gzip("oneTestFileOneBrowserOneTestError.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 10, 0, 0, 1, 1, tmpResults);
+
+    TestResult tmpTest = tmpResults.getTestResults().get(0);
+    ResultAssert.assertTestResult("123456789", 10, 0, 0, 1, 1, tmpTest);
+
+    TestFileResult tmpTestFile = tmpTest.getTestFileResults().get(0);
+    ResultAssert.assertTestFileResult("Test.wet", "/public/Test.wet", 2, 0, 0, 1, 1, tmpTestFile);
+
+    BrowserResult tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 0, 0, 1, false, false, tmpBrowser);
+
+    TestError tmpError = tmpBrowser.getError();
+    ResultAssert.assertTestError("/public/Test.wet", "error", tmpError);
+  }
+
+  @Test
+  public void oneTestFileTwoBrowserOneTestError() throws Exception {
+    gzip("oneTestFileTwoBrowserOneTestError.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 10, 1, 0, 1, 1, tmpResults);
+
+    TestResult tmpTest = tmpResults.getTestResults().get(0);
+    ResultAssert.assertTestResult("123456789", 10, 1, 0, 1, 1, tmpTest);
+
+    TestFileResult tmpTestFile = tmpTest.getTestFileResults().get(0);
+    ResultAssert.assertTestFileResult("Test.wet", "/public/Test.wet", 5, 1, 0, 1, 2, tmpTestFile);
+
+    BrowserResult tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 1, 0, 0, true, false, tmpBrowser);
+
+    tmpBrowser = tmpTestFile.getBrowserResults().get(1);
+    ResultAssert.assertBrowserResult("FF3.6", "Test.wet[FF3.6]", 3, 0, 0, 1, false, false, tmpBrowser);
+
+    TestError tmpError = tmpBrowser.getError();
+    ResultAssert.assertTestError("/public/Test.wet", "error", tmpError);
+  }
+
+  @Test
+  public void twoTestFileOneBrowserOneTestError() throws Exception {
+    gzip("twoTestFileOneBrowserOneTestError.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 10, 1, 0, 1, 1, tmpResults);
+
+    TestResult tmpTest = tmpResults.getTestResults().get(0);
+    ResultAssert.assertTestResult("123456789", 10, 1, 0, 1, 2, tmpTest);
+
+    TestFileResult tmpTestFile = tmpTest.getTestFileResults().get(0);
+    ResultAssert.assertTestFileResult("Test1.wet", "/public/Test1.wet", 2, 1, 0, 0, 1, tmpTestFile);
+
+    BrowserResult tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test1.wet[IE8]", 2, 1, 0, 0, true, false, tmpBrowser);
+
+    tmpTestFile = tmpTest.getTestFileResults().get(1);
+    ResultAssert.assertTestFileResult("Test2.wet", "/public/Test2.wet", 3, 0, 0, 1, 1, tmpTestFile);
+
+    tmpBrowser = tmpTestFile.getBrowserResults().get(0);
+    ResultAssert.assertBrowserResult("IE8", "Test2.wet[IE8]", 3, 0, 0, 1, false, false, tmpBrowser);
+
+    TestError tmpError = tmpBrowser.getError();
+    ResultAssert.assertTestError("/public/Test.wet", "error", tmpError);
   }
 }

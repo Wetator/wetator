@@ -28,6 +28,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
+import org.wetator.jenkins.result.StepError.CauseType;
+import org.wetator.jenkins.result.TestError;
 import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
@@ -66,7 +68,7 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(0, 0, 0, 0, tmpTestResults);
+      ResultAssert.assertTestResults(0, 0, 0, 0, 0, tmpTestResults);
     } finally {
       tmpInputStream.close();
     }
@@ -86,16 +88,17 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 0, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 1, 0, 0, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 0, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
     } finally {
       tmpInputStream.close();
     }
@@ -115,16 +118,86 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 0, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 1, 0, 0, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 0, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("test/sample.wet", "/public/test/sample.wet", 12, 1, 0, 1, tmpTestFileResult);
+      ResultAssert
+          .assertTestFileResult("test/sample.wet", "/public/test/sample.wet", 12, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "test/sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "test/sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
+  public void oneTestcaseOneBrowserOneTestfileOneCommandOneError() throws XMLStreamException, IOException {
+    String tmpResult = createHeader() //
+        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
+        + "<testrun browser=\"Firefox3.6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Assert Title\" line=\"4\"><error><message>A really big problem</message></error><executionTime>12</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "</testcase>" //
+        + createFooter();
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      ResultAssert.assertTestResults(1234, 0, 0, 1, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 0, 1, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 0, 0, 1, 1, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 0, 0, 1, false, false,
+          tmpBrowserResult);
+
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample.wet", 4, CauseType.ERROR, "Assert Title", 0,
+          "A really big problem", tmpStepError);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
+  public void oneTestcaseOneBrowserOneTestfileOneCommandOneFailure() throws XMLStreamException, IOException {
+    String tmpResult = createHeader() //
+        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
+        + "<testrun browser=\"Firefox3.6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Assert Title\" line=\"4\"><failure><message>A really big problem</message></failure><executionTime>12</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "</testcase>" //
+        + createFooter();
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      ResultAssert.assertTestResults(1234, 0, 0, 1, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 0, 1, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 0, 0, 1, 1, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 0, 0, 1, false, false,
+          tmpBrowserResult);
+
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample.wet", 4, CauseType.FAILURE, "Assert Title", 0,
+          "A really big problem", tmpStepError);
     } finally {
       tmpInputStream.close();
     }
@@ -145,87 +218,24 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 0, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 1, 0, 0, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 0, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 1, 0, 0, true, false,
+          tmpBrowserResult);
     } finally {
       tmpInputStream.close();
     }
   }
 
   @Test
-  public void oneTestcaseOneBrowserOneTestfileOneError() throws XMLStreamException, IOException {
-    String tmpResult = createHeader() //
-        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
-        + "<testrun browser=\"Firefox3.6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Assert Title\" line=\"4\"><error><message>A really big problem</message></error><executionTime>12</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "</testcase>" //
-        + createFooter();
-    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
-    try {
-      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 0, 1, 1, tmpTestResults);
-
-      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
-
-      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 0, 1, 1, tmpTestFileResult);
-
-      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 0, 1, false, tmpBrowserResult);
-
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(4, "Assert Title", 0, "A really big problem", tmpStepError);
-    } finally {
-      tmpInputStream.close();
-    }
-  }
-
-  @Test
-  public void oneTestcaseOneBrowserOneTestfileOneFailure() throws XMLStreamException, IOException {
-    String tmpResult = createHeader() //
-        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
-        + "<testrun browser=\"Firefox3.6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Assert Title\" line=\"4\"><failure><message>A really big problem</message></failure><executionTime>12</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "</testcase>" //
-        + createFooter();
-    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
-    try {
-      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 0, 1, 1, tmpTestResults);
-
-      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
-
-      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 0, 1, 1, tmpTestFileResult);
-
-      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 0, 1, false, tmpBrowserResult);
-
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(4, "Assert Title", 0, "A really big problem", tmpStepError);
-    } finally {
-      tmpInputStream.close();
-    }
-  }
-
-  @Test
-  public void oneTestcaseOneBrowserOneTestfileTwoErrors() throws XMLStreamException, IOException {
+  public void oneTestcaseOneBrowserOneTestfileTwoCommandsTwoErrors() throws XMLStreamException, IOException {
     String tmpResult = createHeader() //
         + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
         + "<testrun browser=\"Firefox3.6\">" //
@@ -239,26 +249,28 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 0, 1, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 0, 0, 1, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 0, 1, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 1, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 0, 1, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 1, false, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 0, 1, false, false,
+          tmpBrowserResult);
 
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(4, "Assert Title", 0, "A really big problem", tmpStepError);
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample.wet", 4, CauseType.ERROR, "Assert Title", 0,
+          "A really big problem", tmpStepError);
     } finally {
       tmpInputStream.close();
     }
   }
 
   @Test
-  public void oneTestcaseOneBrowserOneTestfileTwoFailures() throws XMLStreamException, IOException {
+  public void oneTestcaseOneBrowserOneTestfileTwoCommandsTwoFailures() throws XMLStreamException, IOException {
     String tmpResult = createHeader() //
         + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
         + "<testrun browser=\"Firefox3.6\">" //
@@ -272,19 +284,183 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 0, 1, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 0, 0, 1, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 0, 1, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 1, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 0, 1, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 1, false, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 0, 1, false, false,
+          tmpBrowserResult);
 
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(4, "Assert Title", 0, "A really big problem", tmpStepError);
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample.wet", 4, CauseType.FAILURE, "Assert Title", 0,
+          "A really big problem", tmpStepError);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
+  public void oneTestcaseTwoBrowsersOneTestfileOneCommand() throws XMLStreamException, IOException {
+    String tmpResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
+        + "<wet><startTime>20.12.2010 07:11:07</startTime>"
+        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
+        + "<testrun browser=\"Firefox3.6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "<testrun browser=\"IE6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Open Url\" line=\"5\"><executionTime>23</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "</testcase>" //
+        + createFooter();
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      ResultAssert.assertTestResults(1234, 2, 0, 0, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 2, 0, 0, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 2, 0, 0, 2, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
+
+      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
+      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 23, 1, 0, 0, true, false, tmpBrowserResult);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
+  public void oneTestcaseTwoBrowsersOneTestfileOneCommandOneError() throws XMLStreamException, IOException {
+    String tmpResult = createHeader() //
+        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
+        + "<testrun browser=\"Firefox3.6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "<testrun browser=\"IE6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Open Url\" line=\"5\"><error><message>A really big problem</message></error><executionTime>23</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "</testcase>" //
+        + createFooter();
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      ResultAssert.assertTestResults(1234, 1, 0, 1, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 0, 1, 2, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
+
+      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
+      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 23, 0, 0, 1, false, false, tmpBrowserResult);
+
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample.wet", 5, CauseType.ERROR, "Open Url", 0, "A really big problem",
+          tmpStepError);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
+  public void oneTestcaseTwoBrowsersOneTestfileOneCommandOneFailure() throws XMLStreamException, IOException {
+    String tmpResult = createHeader() //
+        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
+        + "<testrun browser=\"Firefox3.6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "<testrun browser=\"IE6\">" //
+        + "<testfile file=\"/public/sample.wet\">"
+        + "<command name=\"Open Url\" line=\"5\"><failure><message>A really big problem</message></failure><executionTime>23</executionTime></command>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "</testcase>" //
+        + createFooter();
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      ResultAssert.assertTestResults(1234, 1, 0, 1, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 0, 1, 2, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
+
+      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
+      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 23, 0, 0, 1, false, false, tmpBrowserResult);
+
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample.wet", 5, CauseType.FAILURE, "Open Url", 0,
+          "A really big problem", tmpStepError);
+    } finally {
+      tmpInputStream.close();
+    }
+  }
+
+  @Test
+  public void oneTestcaseTwoBrowsersOneTestfileOneErrorOneIgnored() throws XMLStreamException, IOException {
+    String tmpResult = createHeader() //
+        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
+        + "<testrun browser=\"Firefox3.6\">" //
+        + "<testfile file=\"/public/sample.wet\">" //
+        + "<error><message>A really big problem</message></error>" //
+        + "</testfile>" //
+        + "</testrun>" //
+        + "<testrun browser=\"IE6\">" //
+        + "<ignored/>" //
+        + "</testrun>" //
+        + "</testcase>" //
+        + createFooter();
+    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
+    try {
+      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
+      ResultAssert.assertTestResults(1234, 0, 1, 1, 1, tmpTestResults);
+
+      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, 1, tmpTestResult);
+
+      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 0, 0, 1, 1, 2, tmpTestFileResult);
+
+      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 0, 0, 0, 1, false, false,
+          tmpBrowserResult);
+
+      TestError tmpTestError = tmpBrowserResult.getError();
+      ResultAssert.assertTestError("/public/sample.wet", "A really big problem", tmpTestError);
+
+      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
+      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 0, 0, 1, 0, false, true, tmpBrowserResult);
     } finally {
       tmpInputStream.close();
     }
@@ -311,22 +487,23 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 2, 0, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 2, 0, 0, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 2, 0, 2, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 2, 0, 0, 2, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(1);
-      ResultAssert.assertTestFileResult("sample2.wet", "/public/sample2.wet", 23, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample2.wet", "/public/sample2.wet", 23, 1, 0, 0, 1, tmpTestFileResult);
 
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE6", "sample2.wet[IE6]", 23, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("IE6", "sample2.wet[IE6]", 23, 1, 0, 0, true, false, tmpBrowserResult);
     } finally {
       tmpInputStream.close();
     }
@@ -353,25 +530,27 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 1, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 1, 0, 1, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 1, 2, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, 2, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(1);
-      ResultAssert.assertTestFileResult("sample2.wet", "/public/sample2.wet", 23, 0, 1, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample2.wet", "/public/sample2.wet", 23, 0, 0, 1, 1, tmpTestFileResult);
 
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE6", "sample2.wet[IE6]", 23, 0, 1, false, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("IE6", "sample2.wet[IE6]", 23, 0, 0, 1, false, false, tmpBrowserResult);
 
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(5, "Open Url", 0, "A really big problem", tmpStepError);
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample2.wet", 5, CauseType.ERROR, "Open Url", 0,
+          "A really big problem", tmpStepError);
     } finally {
       tmpInputStream.close();
     }
@@ -398,143 +577,27 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 1, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 1, 0, 1, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 1, 2, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, 2, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 12, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, 0, true, false,
+          tmpBrowserResult);
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(1);
-      ResultAssert.assertTestFileResult("sample2.wet", "/public/sample2.wet", 23, 0, 1, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample2.wet", "/public/sample2.wet", 23, 0, 0, 1, 1, tmpTestFileResult);
 
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE6", "sample2.wet[IE6]", 23, 0, 1, false, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("IE6", "sample2.wet[IE6]", 23, 0, 0, 1, false, false, tmpBrowserResult);
 
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(5, "Open Url", 0, "A really big problem", tmpStepError);
-    } finally {
-      tmpInputStream.close();
-    }
-  }
-
-  @Test
-  public void oneTestcaseTwoBrowsersOneTestfileOneCommand() throws XMLStreamException, IOException {
-    String tmpResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
-        + "<wet><startTime>20.12.2010 07:11:07</startTime>"
-        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
-        + "<testrun browser=\"Firefox3.6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "<testrun browser=\"IE6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Open Url\" line=\"5\"><executionTime>23</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "</testcase>" //
-        + createFooter();
-    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
-    try {
-      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 2, 0, 1, tmpTestResults);
-
-      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, tmpTestResult);
-
-      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 2, 0, 2, tmpTestFileResult);
-
-      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
-
-      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 23, 1, 0, true, tmpBrowserResult);
-    } finally {
-      tmpInputStream.close();
-    }
-  }
-
-  @Test
-  public void oneTestcaseTwoBrowsersOneTestfileOneCommandOneError() throws XMLStreamException, IOException {
-    String tmpResult = createHeader() //
-        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
-        + "<testrun browser=\"Firefox3.6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "<testrun browser=\"IE6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Open Url\" line=\"5\"><error><message>A really big problem</message></error><executionTime>23</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "</testcase>" //
-        + createFooter();
-    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
-    try {
-      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 1, 1, tmpTestResults);
-
-      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
-
-      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 1, 2, tmpTestFileResult);
-
-      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
-
-      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 23, 0, 1, false, tmpBrowserResult);
-
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(5, "Open Url", 0, "A really big problem", tmpStepError);
-    } finally {
-      tmpInputStream.close();
-    }
-  }
-
-  @Test
-  public void oneTestcaseTwoBrowsersOneTestfileOneCommandOneFailure() throws XMLStreamException, IOException {
-    String tmpResult = createHeader() //
-        + "<testcase name=\"sample.wet\" file=\"/public/sample.wet\">" //
-        + "<testrun browser=\"Firefox3.6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Assert Title\" line=\"4\"><executionTime>12</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "<testrun browser=\"IE6\">" //
-        + "<testfile file=\"/public/sample.wet\">"
-        + "<command name=\"Open Url\" line=\"5\"><failure><message>A really big problem</message></failure><executionTime>23</executionTime></command>" //
-        + "</testfile>" //
-        + "</testrun>" //
-        + "</testcase>" //
-        + createFooter();
-    InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
-    try {
-      TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 1, 1, tmpTestResults);
-
-      TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
-
-      TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 1, 2, tmpTestFileResult);
-
-      BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 12, 1, 0, true, tmpBrowserResult);
-
-      tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("IE6", "sample.wet[IE6]", 23, 0, 1, false, tmpBrowserResult);
-
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(5, "Open Url", 0, "A really big problem", tmpStepError);
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/sample2.wet", 5, CauseType.FAILURE, "Open Url", 0,
+          "A really big problem", tmpStepError);
     } finally {
       tmpInputStream.close();
     }
@@ -558,16 +621,17 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 1, 0, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 1, 0, 0, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 1, 0, 0, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 0, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 1, 0, 0, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 1, 0, 0, true, false,
+          tmpBrowserResult);
     } finally {
       tmpInputStream.close();
     }
@@ -592,19 +656,21 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 0, 1, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 0, 0, 1, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 0, 1, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 1, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 0, 1, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 1, false, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 0, 1, false, false,
+          tmpBrowserResult);
 
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(5, "Assert Content", 0, "A really big problem", tmpStepError);
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/module.wet", 5, CauseType.ERROR, "Assert Content", 0,
+          "A really big problem", tmpStepError);
     } finally {
       tmpInputStream.close();
     }
@@ -629,19 +695,21 @@ public class WetatorResultParserTest {
     InputStream tmpInputStream = new ByteArrayInputStream(tmpResult.getBytes());
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
-      ResultAssert.assertTestResults(1234, 0, 1, 1, tmpTestResults);
+      ResultAssert.assertTestResults(1234, 0, 0, 1, 1, tmpTestResults);
 
       TestResult tmpTestResult = tmpTestResults.getTestResults().get(0);
-      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 1, 1, tmpTestResult);
+      ResultAssert.assertTestResult("20.12.2010 07:11:07", 1234, 0, 0, 1, 1, tmpTestResult);
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 1, 1, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("sample.wet", "/public/sample.wet", 35, 0, 0, 1, 1, tmpTestFileResult);
 
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 1, false, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("Firefox3.6", "sample.wet[Firefox3.6]", 35, 0, 0, 1, false, false,
+          tmpBrowserResult);
 
-      StepError tmpStepError = tmpBrowserResult.getError();
-      ResultAssert.assertStepError(5, "Assert Content", 0, "A really big problem", tmpStepError);
+      StepError tmpStepError = (StepError) tmpBrowserResult.getError();
+      ResultAssert.assertStepError("/public/module.wet", 5, CauseType.FAILURE, "Assert Content", 0,
+          "A really big problem", tmpStepError);
     } finally {
       tmpInputStream.close();
     }
@@ -656,7 +724,7 @@ public class WetatorResultParserTest {
     try {
       TestResults tmpTestResults = WetatorResultParser.parse(tmpInputStream);
 
-      ResultAssert.assertTestResults(347, 3, 7, 1, tmpTestResults);
+      ResultAssert.assertTestResults(347, 3, 0, 7, 1, tmpTestResults);
       Assert.assertEquals(5, tmpTestResults.getTestFileMap().size());
       Assert.assertEquals(3, tmpTestResults.getPassedTests().size());
       Assert.assertEquals(7, tmpTestResults.getFailedTests().size());
@@ -667,46 +735,58 @@ public class WetatorResultParserTest {
       Assert.assertEquals(5, tmpTestResult.getTestFileResults().size());
 
       TestFileResult tmpTestFileResult = tmpTestResult.getTestFileResults().get(0);
-      ResultAssert.assertTestFileResult("test1.wet", "/public/test1.wet", 7, 2, 0, 2, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("test1.wet", "/public/test1.wet", 7, 2, 0, 0, 2, tmpTestFileResult);
       BrowserResult tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE8", "test1.wet[IE8]", 3, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("IE8", "test1.wet[IE8]", 3, 1, 0, 0, true, false, tmpBrowserResult);
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("Firefox3.6", "test1.wet[Firefox3.6]", 4, 1, 0, true, tmpBrowserResult);
+      ResultAssert
+          .assertBrowserResult("Firefox3.6", "test1.wet[Firefox3.6]", 4, 1, 0, 0, true, false, tmpBrowserResult);
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(1);
-      ResultAssert.assertTestFileResult("test2.wet", "/public/test2.wet", 45, 0, 2, 2, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("test2.wet", "/public/test2.wet", 45, 0, 0, 2, 2, tmpTestFileResult);
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE8", "test2.wet[IE8]", 18, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test failure", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("IE8", "test2.wet[IE8]", 18, 0, 0, 1, false, false, tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test2.wet", 3, CauseType.FAILURE, "command", 1, "test failure",
+          (StepError) tmpBrowserResult.getError());
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("Firefox3.6", "test2.wet[Firefox3.6]", 27, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test failure", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("Firefox3.6", "test2.wet[Firefox3.6]", 27, 0, 0, 1, false, false,
+          tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test2.wet", 3, CauseType.FAILURE, "command", 1, "test failure",
+          (StepError) tmpBrowserResult.getError());
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(2);
-      ResultAssert.assertTestFileResult("test3.wet", "/public/test3.wet", 50, 0, 2, 2, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("test3.wet", "/public/test3.wet", 50, 0, 0, 2, 2, tmpTestFileResult);
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE8", "test3.wet[IE8]", 23, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test error", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("IE8", "test3.wet[IE8]", 23, 0, 0, 1, false, false, tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test3.wet", 3, CauseType.ERROR, "command", 1, "test error",
+          (StepError) tmpBrowserResult.getError());
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("Firefox3.6", "test3.wet[Firefox3.6]", 27, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test error", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("Firefox3.6", "test3.wet[Firefox3.6]", 27, 0, 0, 1, false, false,
+          tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test3.wet", 3, CauseType.ERROR, "command", 1, "test error",
+          (StepError) tmpBrowserResult.getError());
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(3);
-      ResultAssert.assertTestFileResult("test4.wet", "/public/test4.wet", 148, 0, 2, 2, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("test4.wet", "/public/test4.wet", 148, 0, 0, 2, 2, tmpTestFileResult);
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE8", "test4.wet[IE8]", 66, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test failure", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("IE8", "test4.wet[IE8]", 66, 0, 0, 1, false, false, tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test4.wet", 3, CauseType.FAILURE, "command", 1, "test failure",
+          (StepError) tmpBrowserResult.getError());
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("Firefox3.6", "test4.wet[Firefox3.6]", 82, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test failure", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("Firefox3.6", "test4.wet[Firefox3.6]", 82, 0, 0, 1, false, false,
+          tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test4.wet", 3, CauseType.FAILURE, "command", 1, "test failure",
+          (StepError) tmpBrowserResult.getError());
 
       tmpTestFileResult = tmpTestResult.getTestFileResults().get(4);
-      ResultAssert.assertTestFileResult("test5.wet", "/public/test5.wet", 72, 1, 1, 2, tmpTestFileResult);
+      ResultAssert.assertTestFileResult("test5.wet", "/public/test5.wet", 72, 1, 0, 1, 2, tmpTestFileResult);
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(0);
-      ResultAssert.assertBrowserResult("IE8", "test5.wet[IE8]", 23, 1, 0, true, tmpBrowserResult);
+      ResultAssert.assertBrowserResult("IE8", "test5.wet[IE8]", 23, 1, 0, 0, true, false, tmpBrowserResult);
       tmpBrowserResult = tmpTestFileResult.getBrowserResults().get(1);
-      ResultAssert.assertBrowserResult("Firefox3.6", "test5.wet[Firefox3.6]", 49, 0, 1, false, tmpBrowserResult);
-      ResultAssert.assertStepError(3, "command", 1, "test error", tmpBrowserResult.getError());
+      ResultAssert.assertBrowserResult("Firefox3.6", "test5.wet[Firefox3.6]", 49, 0, 0, 1, false, false,
+          tmpBrowserResult);
+      ResultAssert.assertStepError("/public/test5.wet", 3, CauseType.ERROR, "command", 1, "test error",
+          (StepError) tmpBrowserResult.getError());
     } finally {
       tmpInputStream.close();
     }

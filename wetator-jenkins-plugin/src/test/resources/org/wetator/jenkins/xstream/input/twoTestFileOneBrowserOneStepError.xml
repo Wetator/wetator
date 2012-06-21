@@ -16,7 +16,6 @@
               <name>IE8</name>
               <fullName>Test1.wet[IE8]</fullName>
               <duration>2</duration>
-              <skipped>false</skipped>
               <failedSince>0</failedSince>
             </browserResult>
           </browserResults>
@@ -30,7 +29,18 @@
               <name>IE8</name>
               <fullName>Test2.wet[IE8]</fullName>
               <duration>3</duration>
-              <skipped>false</skipped>
+              <error>
+                <type>STEP</type>
+                <file>/public/Test2.wet</file>
+                <error>error</error>
+                <causeType>ERROR</causeType>
+                <line>2</line>
+                <command>open-url</command>
+                <parameters>
+                  <string>param1</string>
+                  <string>param2</string>
+                </parameters>
+              </error>
               <failedSince>0</failedSince>
             </browserResult>
           </browserResults>

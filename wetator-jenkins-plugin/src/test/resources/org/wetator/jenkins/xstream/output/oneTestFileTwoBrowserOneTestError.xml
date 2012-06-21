@@ -23,6 +23,11 @@
               <name>FF3.6</name>
               <fullName>Test.wet[FF3.6]</fullName>
               <duration>3</duration>
+              <error class="testError">
+                <type>TEST</type>
+                <file>/public/Test.wet</file>
+                <error>error</error>
+              </error>
               <skipped>false</skipped>
               <failedSince>0</failedSince>
             </browserResult>

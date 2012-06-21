@@ -39,7 +39,8 @@ public class BrowserResult extends AbstractBaseResult {
 
   private static final Logger LOG = Logger.getLogger(BrowserResult.class.getName());
 
-  private StepError error;
+  private TestError error;
+  private boolean skipped;
 
   /**
    * This test has been failing since this build number (not id.)
@@ -65,14 +66,14 @@ public class BrowserResult extends AbstractBaseResult {
   /**
    * @return the error if there was any
    */
-  public StepError getError() {
+  public TestError getError() {
     return error;
   }
 
   /**
    * @param error the error to set
    */
-  public void setError(StepError error) {
+  public void setError(TestError error) {
     this.error = error;
   }
 
@@ -92,11 +93,24 @@ public class BrowserResult extends AbstractBaseResult {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
+   */
+  @Override
+  public int getSkipCount() {
+    if (isSkipped()) {
+      return 1;
+    }
+    return 0;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.jenkins.result.AbstractBaseResult#getFailCount()
    */
   @Override
   public int getFailCount() {
-    if (!isPassed()) {
+    if (!isPassed() && !isSkipped()) {
       return 1;
     }
     return 0;
@@ -109,7 +123,22 @@ public class BrowserResult extends AbstractBaseResult {
    */
   @Override
   public boolean isPassed() {
-    return error == null;
+    return !skipped && error == null;
+  }
+
+  /**
+   * @return true if the test was not executed, false otherwise
+   */
+  @Exported(visibility = 9)
+  public boolean isSkipped() {
+    return skipped;
+  }
+
+  /**
+   * @param aSkipped the skipped to set
+   */
+  public void setSkipped(boolean aSkipped) {
+    skipped = aSkipped;
   }
 
   /**
@@ -128,6 +157,9 @@ public class BrowserResult extends AbstractBaseResult {
   @Exported(name = "status", visibility = 9)
   // because stapler notices suffix 's' and remove it
   public Status getStatus() {
+    if (skipped) {
+      return Status.SKIPPED;
+    }
     BrowserResult tmpPreviousResult = getPreviousResult();
     if (tmpPreviousResult == null) {
       return isPassed() ? Status.PASSED : Status.FAILED;
@@ -237,6 +269,11 @@ public class BrowserResult extends AbstractBaseResult {
      * This test runs OK, just like its previous run.
      */
     PASSED("result-passed", Messages._BrowserResult_Status_Passed(), true),
+    /**
+     * This test was skipped due to configuration or the
+     * failure or skipping of a method that it depends on.
+     */
+    SKIPPED("result-skipped", Messages._BrowserResult_Status_Skipped(), false),
     /**
      * This test failed, just like its previous run.
      */
