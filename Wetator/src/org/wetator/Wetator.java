@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JWindow;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.IProgressListener;
@@ -63,6 +65,7 @@ public final class Wetator {
     }
 
     WetatorEngine tmpWetatorEngine;
+    final JWindow tmpWindow = new JWindow();
     try {
       tmpWetatorEngine = new WetatorEngine();
       tmpWetatorEngine.addProgressListener(tmpProgressListener);
@@ -78,9 +81,9 @@ public final class Wetator {
         if (null != tmpConfigFile) {
           tmpPropertyKey = Integer.toString(tmpConfigFile.getAbsolutePath().hashCode());
         }
-        final File[] tmpFiles = DialogUtil.chooseFiles(tmpPropertyKey);
+        final File[] tmpFiles = DialogUtil.chooseFiles(tmpWindow, tmpPropertyKey);
         if (null == tmpFiles || (tmpFiles.length < 1)) {
-          return;
+          System.exit(0);
         }
 
         for (int i = 0; i < tmpFiles.length; i++) {
@@ -106,6 +109,8 @@ public final class Wetator {
       LOG.fatal("Wetator execution failed:", e);
       // System.exit is needed because we have started swing
       System.exit(1);
+    } finally {
+      tmpWindow.dispose();
     }
     System.exit(0);
   }

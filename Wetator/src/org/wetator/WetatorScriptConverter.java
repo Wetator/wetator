@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JWindow;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.core.Command;
@@ -75,6 +77,7 @@ public final class WetatorScriptConverter {
         + tmpScriptCreatorType + "' and output directory '" + tmpOutputDir + "'.");
 
     final WetatorScriptConverter tmpConverter = new WetatorScriptConverter();
+    final JWindow tmpWindow = new JWindow();
     try {
       final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
       final IScripter tmpIScripter = tmpScripter.getScripter();
@@ -88,9 +91,9 @@ public final class WetatorScriptConverter {
       }
       tmpConverter.setScripter(tmpIScripter);
       tmpConverter.setCreator(tmpCreator);
-      final File[] tmpFiles = DialogUtil.chooseFiles(null);
+      final File[] tmpFiles = DialogUtil.chooseFiles(tmpWindow, null);
       if (null == tmpFiles || (tmpFiles.length < 1)) {
-        return;
+        System.exit(0);
       }
 
       for (int i = 0; i < tmpFiles.length; i++) {
@@ -103,6 +106,8 @@ public final class WetatorScriptConverter {
     } catch (final WetatorException e) {
       e.printStackTrace();
       System.exit(1);
+    } finally {
+      tmpWindow.dispose();
     }
     System.exit(0);
   }
