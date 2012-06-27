@@ -67,6 +67,7 @@ public class XStreamSerializationTest {
     aResults.tally();
 
     // persist the data
+    RESULT_FILE.getParentFile().mkdirs();
     try {
       getDataFile().write(aResults);
     } catch (IOException e) {
