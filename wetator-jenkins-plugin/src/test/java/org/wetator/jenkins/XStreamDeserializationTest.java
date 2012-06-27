@@ -81,6 +81,7 @@ public class XStreamDeserializationTest {
 
   private void gzip(String aFileName) throws IOException {
     RESULT_FILE.delete();
+    RESULT_FILE.getParentFile().createNewFile();
     InputStream tmpInputStream = new FileInputStream(INPUT_DIR + aFileName);
     OutputStream tmpOutputStream = new GZIPOutputStream(new FileOutputStream(RESULT_FILE));
     IOUtils.copy(tmpInputStream, tmpOutputStream);
