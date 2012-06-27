@@ -837,13 +837,11 @@ Wetator/tmp/wetresult_failure.xml -text svneol=unset#text/plain
 Wetator/tmp/wetresult_invalidinput.xml -text svneol=unset#text/plain
 Wetator/wetator-upload.cfg -text
 Wetator/wetator-upload.wet -text
-Wetator/xsd/default-command-set-1.0.0.xsd -text
 Wetator/xsd/defaultCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 Wetator/xsd/defaultCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/xsd/defaultCommandSet-0.9.5.xsd -text svneol=unset#text/plain
 Wetator/xsd/defaultCommandSet-1.0.xsd -text
 Wetator/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
-Wetator/xsd/incubator-command-set-1.0.0.xsd -text
 Wetator/xsd/incubatorCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/xsd/incubatorCommandSet-0.9.5.xsd -text
 Wetator/xsd/incubatorCommandSet.xsd -text
