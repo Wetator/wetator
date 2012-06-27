@@ -91,4 +91,45 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="assert-applet">
+        <xs:annotation>
+            <xs:documentation>Starts/stops the applet and checks for errors.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tc:commandType">
+                    <xs:sequence>
+                        <xs:element name="name" type="tc:parameterType"
+                            minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>The name of the applet.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="wait">
+        <xs:annotation>
+            <xs:documentation>Waits the specified number of seconds.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tc:commandType">
+                    <xs:sequence>
+                        <xs:element name="wait" type="tc:parameterType"
+                            minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>The time to wait in seconds.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
