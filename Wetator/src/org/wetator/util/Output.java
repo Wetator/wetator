@@ -117,6 +117,19 @@ public final class Output {
   }
 
   /**
+   * Closes the output. Makes a {@link #flush()} first.
+   * 
+   * @return this (for convenience)
+   * @throws IOException in case of error
+   */
+  public Output close() throws IOException {
+    writer.flush();
+    writer.close();
+
+    return this;
+  }
+
+  /**
    * Indent the following.
    * 
    * @return this (for convenience)

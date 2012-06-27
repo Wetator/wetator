@@ -21,7 +21,6 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
-import org.wetator.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -34,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class HtmlUnitBaseControlTest {
 
   @Test
-  public void isDisabled() throws IOException, AssertionFailedException {
+  public void isDisabled() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button disabled='disabled' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>"
         + "</form>" + "</body></html>";
@@ -46,7 +45,7 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
-  public void isDisabled_Not() throws IOException, AssertionFailedException {
+  public void isDisabled_Not() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -57,7 +56,7 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
-  public void isDisabled_NotVisible() throws IOException, AssertionFailedException {
+  public void isDisabled_NotVisible() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button style='visible: none' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>"
         + "</button>" + "</form>" + "</body></html>";
@@ -69,7 +68,7 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
-  public void isDisabled_ReadOnlyAndDisabled() throws IOException, AssertionFailedException {
+  public void isDisabled_ReadOnlyAndDisabled() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly' disabled='disabled'/>"
         + "</form>" + "</body></html>";
@@ -81,7 +80,7 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
-  public void isDisabledGeneric_ReadOnly() throws IOException, AssertionFailedException {
+  public void isDisabledGeneric_ReadOnly() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>" + "</form>"
         + "</body></html>";
@@ -93,7 +92,7 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
-  public void isDisabled_ReadOnly() throws IOException, AssertionFailedException {
+  public void isDisabled_ReadOnly() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>" + "</form>"
         + "</body></html>";

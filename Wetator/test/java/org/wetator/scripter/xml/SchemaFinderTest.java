@@ -16,7 +16,6 @@
 
 package org.wetator.scripter.xml;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
@@ -34,24 +33,24 @@ import org.junit.Test;
 public class SchemaFinderTest {
 
   @Test(expected = XMLStreamException.class)
-  public void emptyInput() throws IOException, XMLStreamException {
+  public void emptyInput() throws XMLStreamException {
     new SchemaFinder(new StringReader(""));
   }
 
   @Test
-  public void noSchema() throws IOException, XMLStreamException {
+  public void noSchema() throws XMLStreamException {
     Assert.assertTrue(new SchemaFinder(new StringReader("<xml/>")).getSchemas().isEmpty());
   }
 
   @Test
-  public void defaultSchemaWithoutLocation() throws IOException, XMLStreamException {
+  public void defaultSchemaWithoutLocation() throws XMLStreamException {
     List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader(
         "<content xmlns='http://www.wetator.org/xsd/test-case' />")).getSchemas();
     Assert.assertEquals(0, tmpSchemas.size());
   }
 
   @Test
-  public void defaultSchema() throws IOException, XMLStreamException {
+  public void defaultSchema() throws XMLStreamException {
     List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
         + "xmlns='http://www.wetator.org/xsd/default' " //
         + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " //
@@ -64,7 +63,7 @@ public class SchemaFinderTest {
   }
 
   @Test
-  public void prefixSchema() throws IOException, XMLStreamException {
+  public void prefixSchema() throws XMLStreamException {
     List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
         + "xmlns:d='http://www.wetator.org/xsd/default' " //
         + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " //
@@ -77,7 +76,7 @@ public class SchemaFinderTest {
   }
 
   @Test
-  public void multipleSchemas() throws IOException, XMLStreamException {
+  public void multipleSchemas() throws XMLStreamException {
     List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
         + "xmlns='http://www.wetator.org/xsd/default' " //
         + "xmlns:a='http://www.wetator.org/xsd/schema-a' " //

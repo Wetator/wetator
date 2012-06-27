@@ -17,20 +17,20 @@
 package org.wetator.exception;
 
 /**
- * Signals a technical problem.
+ * This exception is thrown for problems accessing a resource.
  * 
- * @author rbri
+ * @author frank.danek
  */
-public class WetatorException extends RuntimeException {
+public class ResourceException extends RuntimeException {
 
-  private static final long serialVersionUID = 3757691195403775693L;
+  private static final long serialVersionUID = 1008530384322847811L;
 
   /**
    * The constructor.
    * 
    * @param aMessage the message text
    */
-  public WetatorException(final String aMessage) {
+  public ResourceException(final String aMessage) {
     super(aMessage);
   }
 
@@ -40,7 +40,7 @@ public class WetatorException extends RuntimeException {
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */
-  public WetatorException(final String aMessage, final Throwable aThrowable) {
+  public ResourceException(final String aMessage, final Throwable aThrowable) {
     super(aMessage, aThrowable);
   }
 }

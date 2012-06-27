@@ -138,5 +138,5 @@
     <comment>Option (in OptGroup)  with id</comment>
     <command><d:assert-disabled><d:wpath>option_red</d:wpath></d:assert-disabled></command>
     <comment>test for unused parameter</comment>
-    <command><tst:assert-fail><tst:command-and-message>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>inputText_Name</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>inputText_Name</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
 </test-case>

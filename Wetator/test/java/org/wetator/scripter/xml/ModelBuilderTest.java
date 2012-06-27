@@ -23,7 +23,8 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.ImplementationException;
+import org.wetator.scripter.ParseException;
 import org.wetator.scripter.xml.model.CommandType;
 import org.wetator.scripter.xml.model.ParameterType;
 import org.xml.sax.SAXException;
@@ -36,18 +37,18 @@ import org.xml.sax.SAXException;
  */
 public class ModelBuilderTest {
 
-  @Test(expected = WetatorException.class)
-  public void nullSchemaMap() throws SAXException, IOException {
+  @Test(expected = ImplementationException.class)
+  public void nullSchemaMap() throws IOException, SAXException, ParseException {
     new ModelBuilder(null, null);
   }
 
-  @Test(expected = WetatorException.class)
-  public void emptySchemaMap() throws SAXException, IOException {
+  @Test(expected = ImplementationException.class)
+  public void emptySchemaMap() throws IOException, SAXException, ParseException {
     new ModelBuilder(new ArrayList<XMLSchema>(), null);
   }
 
-  @Test(expected = WetatorException.class)
-  public void invalidSchema() throws SAXException, IOException {
+  @Test(expected = ParseException.class)
+  public void invalidSchema() throws IOException, SAXException, ParseException {
     List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/invalid-command-set",
         "test/java/org/wetator/test/resource/invalid-command-set.xsd"));
@@ -55,21 +56,21 @@ public class ModelBuilderTest {
   }
 
   @Test
-  public void noCommandSets() throws SAXException, IOException {
+  public void noCommandSets() throws IOException, SAXException, ParseException {
     List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
     Assert.assertEquals(0, new ModelBuilder(tmpSchemas, null).getCommandTypes().size());
   }
 
-  @Test(expected = WetatorException.class)
-  public void unknownCommandSet1() throws SAXException, IOException {
+  @Test(expected = ParseException.class)
+  public void unknownCommanddSet() throws IOException, SAXException, ParseException {
     List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/unknown", "unknown.xsd"));
     new ModelBuilder(tmpSchemas, null);
   }
 
   @Test
-  public void junitTestCommandSet() throws SAXException, IOException {
+  public void junitTestCommandSet() throws IOException, SAXException, ParseException {
     List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/junit-test-command-set",

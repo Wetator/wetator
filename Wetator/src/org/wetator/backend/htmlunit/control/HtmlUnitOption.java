@@ -26,8 +26,9 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionInSelectIde
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.util.Assert;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -68,15 +69,19 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void select(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlOption.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    if (tmpHtmlOption.isDisabled()) {
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
+    if (tmpHtmlOption.getEnclosingSelect().isDisabled()) {
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
 
     try {
-      Assert.assertTrue(!tmpHtmlOption.getEnclosingSelect().isDisabled(), "elementDisabled",
-          new String[] { getDescribingText() });
-
       if (!tmpHtmlOption.isSelected()) {
         tmpHtmlOption.click();
       }
@@ -89,10 +94,14 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -102,7 +111,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
    * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isSelected(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isSelected(final WetatorContext aWetatorContext) {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     return tmpHtmlOption.isSelected();
@@ -114,15 +123,21 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
    * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
-  public void deselect(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void deselect(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlOption.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    if (tmpHtmlOption.isDisabled()) {
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
 
     try {
-      final HtmlSelect tmpHtmpSelect = tmpHtmlOption.getEnclosingSelect();
-      if (tmpHtmpSelect.isMultipleSelectEnabled()) {
-        Assert.assertTrue(!tmpHtmpSelect.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+      final HtmlSelect tmpHtmlSelect = tmpHtmlOption.getEnclosingSelect();
+      if (tmpHtmlSelect.isMultipleSelectEnabled()) {
+        if (tmpHtmlSelect.isDisabled()) {
+          final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+          throw new ActionException(tmpMessage);
+        }
 
         if (tmpHtmlOption.isSelected()) {
           // TODO event support
@@ -130,7 +145,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
           // tmpHtmlOption.click(false, true, false);
         }
       } else {
-        Assert.fail("deselectNotSupported", new String[] { getDescribingText() });
+        final String tmpMessage = Messages.getMessage("deselectNotSupported", new String[] { getDescribingText() });
+        throw new ActionException(tmpMessage);
       }
 
       // wait for silence
@@ -141,10 +157,16 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final ActionException e) {
+      throw e;
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -154,7 +176,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     return tmpHtmlOption.isDisabled();

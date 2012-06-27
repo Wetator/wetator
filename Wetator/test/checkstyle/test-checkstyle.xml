@@ -40,7 +40,7 @@
         <property name="tokens" value="INTERFACE_DEF"/>
     </module>
     <module name="AvoidStarImport">
-      <property name="excludes" value="java.io,java.util,java.net,java.nio,java.nio.channels,java.lang.reflect,org.w3c.dom,org.xml.sax,java.awt,javax.swing,junit.framework"/>
+      <property name="excludes" value="java.io,java.util,java.net,java.nio,java.nio.channels,java.lang.reflect,org.w3c.dom,org.xml.sax,java.awt,javax.swing,junit.framework,org.mockito.Mockito,org.mockito.Matchers,org.junit.Assert"/>
     </module>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
@@ -111,7 +111,9 @@
     <module name="JavadocType"/>
     <module name="MethodTypeParameterName"/>
     <module name="ClassTypeParameterName"/>
-    <module name="AvoidStaticImport"/>
+    <module name="AvoidStaticImport">
+      <property name="excludes" value="org.mockito.Mockito.*,org.mockito.Matchers.*,org.junit.Assert.*"/>
+    </module>
     <module name="GenericWhitespace"/>
     <module name="AvoidInlineConditionals"/>
     <module name="EqualsAvoidNull"/>

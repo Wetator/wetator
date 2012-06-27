@@ -53,7 +53,7 @@ import org.wetator.core.Variable;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Output;
 import org.wetator.util.SecretString;
@@ -73,6 +73,7 @@ import dk.brics.automaton.Automaton;
  * @author frank.danek
  */
 public class XMLResultWriter implements IProgressListener {
+
   private static final Log LOG = LogFactory.getLog(XMLResultWriter.class);
 
   private static final String TAG_WET = "wet";
@@ -92,10 +93,13 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_COMMAND = "command";
   private static final String TAG_FIRST_PARAM = "param0";
   private static final String TAG_SECOND_PARAM = "param1";
+  private static final String TAG_THIRD_PARAM = "param2";
   private static final String TAG_RESPONSE = "response";
   private static final String TAG_LOG = "log";
   private static final String TAG_LEVEL = "level";
   private static final String TAG_MESSAGE = "message";
+  private static final String TAG_FAILURE = "failure";
+
   private static final String TAG_ERROR = "error";
   private static final String TAG_ERROR_STACK_TRACE = "stacktrace";
   private static final String TAG_CONFIGURATION = "configuration";
@@ -104,8 +108,8 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_PROPERTY = "property";
   private static final String TAG_COMMAND_SET = "commandSet";
   private static final String TAG_CONTROL = "control";
+  private static final String TAG_IGNORED = "ignored";
 
-  private Writer writer;
   private Output output;
   private XMLUtil xMLUtil;
   private File resultFile;
@@ -137,8 +141,8 @@ public class XMLResultWriter implements IProgressListener {
       xslTemplates = tmpConfiguration.getXslTemplates();
       resultFile = new File(outputDir, "wetresult.xml");
 
-      writer = new FileWriterWithEncoding(resultFile, "UTF-8");
-      output = new Output(writer, "  ");
+      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8");
+      output = new Output(tmpWriter, "  ");
       xMLUtil = new XMLUtil("UTF-8");
 
       // start writing
@@ -301,7 +305,7 @@ public class XMLResultWriter implements IProgressListener {
         }
         output.unindent();
 
-        printEndTag(TAG_COMMAND_SET);
+        printlnEndTag(TAG_COMMAND_SET);
       }
 
       final List<Class<? extends IControl>> tmpControls = tmpConfiguration.getControls();
@@ -328,14 +332,16 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#testCaseStart(String)
+   * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
-  public void testCaseStart(final String aTestName) {
+  public void testCaseStart(final TestCase aTestCase) {
     try {
       printStartTagOpener(TAG_TESTCASE);
       output.print(" name=\"");
-      output.print(xMLUtil.normalizeAttributeValue(aTestName));
+      output.print(xMLUtil.normalizeAttributeValue(aTestCase.getName()));
+      output.print("\" file=\"");
+      output.print(xMLUtil.normalizeAttributeValue(aTestCase.getFile().getAbsolutePath()));
       output.println("\">");
       output.indent();
     } catch (final IOException e) {
@@ -414,23 +420,15 @@ public class XMLResultWriter implements IProgressListener {
       printEndTag(TAG_SECOND_PARAM);
       output.println();
 
+      tmpParameter = aCommand.getThirdParameter();
+      printStartTag(TAG_THIRD_PARAM);
+      if (null != tmpParameter) {
+        output.print(xMLUtil.normalizeBodyValue(tmpParameter.getValue(aContext).toString()));
+      }
+      printEndTag(TAG_THIRD_PARAM);
+      output.println();
+
       commandExecutionStartTime = System.currentTimeMillis();
-    } catch (final IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IProgressListener#executeCommandEnd()
-   */
-  @Override
-  public void executeCommandEnd() {
-    try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
-
-      printlnEndTag(TAG_COMMAND);
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -449,18 +447,33 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
+   * @see org.wetator.core.IProgressListener#executeCommandIgnored()
    */
   @Override
-  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
+  public void executeCommandIgnored() {
     try {
-      printErrorStart(anAssertionFailedException);
+      printStartTagOpener(TAG_IGNORED);
+      output.println("/>");
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
 
-      final Throwable tmpThrowable = anAssertionFailedException.getCause();
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
+   */
+  @Override
+  public void executeCommandFailure(final AssertionException anAssertionException) {
+    try {
+      printFailureStart(anAssertionException);
+
+      final Throwable tmpThrowable = anAssertionException.getCause();
       if (null != tmpThrowable) {
-        executeCommandError(tmpThrowable);
+        printErrorMessageStack(tmpThrowable);
       }
-      printErrorEnd();
+      printFailureEnd();
       flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
@@ -488,23 +501,16 @@ public class XMLResultWriter implements IProgressListener {
   }
 
   /**
-   * Helper to print the error message stack.
+   * {@inheritDoc}
    * 
-   * @param aThrowable
+   * @see org.wetator.core.IProgressListener#executeCommandEnd()
    */
-  private void printErrorMessageStack(final Throwable aThrowable) {
-    if (null == aThrowable) {
-      return;
-    }
+  @Override
+  public void executeCommandEnd() {
     try {
-      printErrorStart(aThrowable);
+      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
 
-      final Throwable tmpThrowable = aThrowable.getCause();
-      if (null != tmpThrowable) {
-        printErrorMessageStack(tmpThrowable);
-      }
-
-      printErrorEnd();
+      printlnEndTag(TAG_COMMAND);
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -519,6 +525,21 @@ public class XMLResultWriter implements IProgressListener {
   public void testFileEnd() {
     try {
       printlnEndTag(TAG_TESTFILE);
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#testRunIgnored()
+   */
+  @Override
+  public void testRunIgnored() {
+    try {
+      printStartTagOpener(TAG_IGNORED);
+      output.println("/>");
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -557,6 +578,28 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#end(WetatorEngine)
+   */
+  @Override
+  public void end(final WetatorEngine aWetatorEngine) {
+    try {
+      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - executionStartTime));
+
+      printlnEndTag(TAG_WET);
+      output.close();
+
+      if (!xslTemplates.isEmpty()) {
+        final XSLTransformer tmpXSLTransformer = new XSLTransformer(resultFile);
+        tmpXSLTransformer.transform(xslTemplates, outputDir);
+      }
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
    */
   @Override
@@ -571,21 +614,18 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#end(WetatorEngine)
+   * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override
-  public void end(final WetatorEngine aWetatorEngine) {
+  public void error(final Throwable aThrowable) {
     try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - executionStartTime));
+      printErrorStart(aThrowable);
+      printErrorMessageStack(aThrowable.getCause());
 
-      printlnEndTag(TAG_WET);
-      output.flush();
-      writer.close();
-
-      if (!xslTemplates.isEmpty()) {
-        final XSLTransformer tmpXSLTransformer = new XSLTransformer(resultFile);
-        tmpXSLTransformer.transform(xslTemplates, outputDir);
-      }
+      // the stack trace
+      printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+      printErrorEnd();
+      flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -636,6 +676,20 @@ public class XMLResultWriter implements IProgressListener {
     printlnEndTag(TAG_LOG);
   }
 
+  private void printFailureStart(final AssertionException anAssertionException) throws IOException {
+    printlnStartTag(TAG_FAILURE);
+
+    String tmpMessage = anAssertionException.getMessage();
+    if (StringUtils.isBlank(tmpMessage)) {
+      tmpMessage = anAssertionException.toString();
+    }
+    printlnNode(TAG_MESSAGE, tmpMessage);
+  }
+
+  private void printFailureEnd() throws IOException {
+    printlnEndTag(TAG_FAILURE);
+  }
+
   private void printErrorStart(final Throwable aThrowable) throws IOException {
     printlnStartTag(TAG_ERROR);
 
@@ -648,6 +702,24 @@ public class XMLResultWriter implements IProgressListener {
 
   private void printErrorEnd() throws IOException {
     printlnEndTag(TAG_ERROR);
+  }
+
+  private void printErrorMessageStack(final Throwable aThrowable) {
+    if (null == aThrowable) {
+      return;
+    }
+    try {
+      printErrorStart(aThrowable);
+
+      final Throwable tmpThrowable = aThrowable.getCause();
+      if (null != tmpThrowable) {
+        printErrorMessageStack(tmpThrowable);
+      }
+
+      printErrorEnd();
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
   }
 
   private void printConfigurationProperty(final String aKey, final String aValue) throws IOException {
@@ -707,4 +779,5 @@ public class XMLResultWriter implements IProgressListener {
   private void flush() throws IOException {
     output.flush();
   }
+
 }

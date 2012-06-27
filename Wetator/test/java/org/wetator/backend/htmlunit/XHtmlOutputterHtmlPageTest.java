@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
@@ -112,39 +113,42 @@ public class XHtmlOutputterHtmlPageTest {
   }
 
   @Test
-  public void formatting() {
+  @Ignore
+  public void formatting() throws IOException {
     // TODO different Results in IE and FF
 
-    // String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
-    // + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p>" + TRAILING;
-    // String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
-    // + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p> " + EXPECTED_TRAILING;
-    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+    String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+        + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+        + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
-  public void computerOutput() {
+  @Ignore
+  public void computerOutput() throws IOException {
     // TODO different Results in IE and FF
 
-    // String tmpHtmlCode = LEADING + "<p>"
-    // + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p>" + TRAILING;
-    // String tmpExpected = EXPECTED_LEADING + " <p>"
-    // + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p> "
-    // + EXPECTED_TRAILING;
-    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+    String tmpHtmlCode = LEADING + "<p>"
+        + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>"
+        + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p> "
+        + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
-  public void citationQuotationDefinition() {
+  @Ignore
+  public void citationQuotationDefinition() throws IOException {
     // TODO different Results in IE and FF
 
-    // String tmpHtmlCode = LEADING + "<p>"
-    // + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p>"
-    // + TRAILING;
-    // String tmpExpected = EXPECTED_LEADING + " <p>"
-    // + "<abbr title=\"a\">1</abbr> <acronym title=\"b\">2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p> "
-    // + EXPECTED_TRAILING;
-    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+    String tmpHtmlCode = LEADING + "<p>"
+        + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p>"
+        + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p>"
+        + "<abbr title=\"a\">1</abbr> <acronym title=\"b\">2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p> "
+        + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
@@ -156,15 +160,16 @@ public class XHtmlOutputterHtmlPageTest {
   }
 
   @Test
-  public void mix2() {
+  @Ignore
+  public void mix2() throws IOException {
     // TODO different Results in IE and FF
 
-    // String tmpHtmlCode = LEADING + "<table><tr>"
-    // + "<td>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>" + "</tr></table>" + TRAILING;
-    // String tmpExpected = EXPECTED_LEADING + " <table> <tbody align=\"left\"> <tr> "
-    // + "<td> Table C <font color=\"red\">lickable</font> <b>forma<i>ted</i> t</b>ext </td> "
-    // + "</tr> </tbody> </table> " + EXPECTED_TRAILING;
-    // testXHtmlOutput(tmpExpected, tmpHtmlCode);
+    String tmpHtmlCode = LEADING + "<table><tr>"
+        + "<td>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>" + "</tr></table>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <table> <tbody align=\"left\"> <tr> "
+        + "<td> Table C <font color=\"red\">lickable</font> <b>forma<i>ted</i> t</b>ext </td> "
+        + "</tr> </tbody> </table> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test

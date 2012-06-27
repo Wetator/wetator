@@ -115,6 +115,7 @@ Wetator/src/org/wetator/commandset/DefaultCommandSet.java -text
 Wetator/src/org/wetator/commandset/IncubatorCommandSet.java -text
 Wetator/src/org/wetator/commandset/SqlCommandSet.java -text
 Wetator/src/org/wetator/core/Command.java -text
+Wetator/src/org/wetator/core/ForceExecution.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/core/ICommandImplementation.java -text
 Wetator/src/org/wetator/core/ICommandSet.java -text
 Wetator/src/org/wetator/core/IProgressListener.java -text
@@ -133,8 +134,15 @@ Wetator/src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/SearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
-Wetator/src/org/wetator/exception/AssertionFailedException.java -text
-Wetator/src/org/wetator/exception/WetatorException.java -text
+Wetator/src/org/wetator/exception/ActionException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/AssertionException.java -text
+Wetator/src/org/wetator/exception/BackendException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/CommandException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/ConfigurationException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/ImplementationException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/InvalidInputException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/UnsupportedOperationException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/gui/DialogUtil.java -text
 Wetator/src/org/wetator/i18n/Messages.java -text
 Wetator/src/org/wetator/progresslistener/StdOutProgressListener.java -text
@@ -145,6 +153,7 @@ Wetator/src/org/wetator/scriptcreator/LegacyXMLScriptCreator.java -text svneol=u
 Wetator/src/org/wetator/scriptcreator/XMLScriptCreator.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/ExcelScripter.java -text
 Wetator/src/org/wetator/scripter/LegacyXMLScripter.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/scripter/ParseException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/WikiTextScripter.java -text
 Wetator/src/org/wetator/scripter/XMLScripter.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/scripter/xml/LocalEntityResolver.java -text svneol=unset#text/plain
@@ -240,6 +249,8 @@ Wetator/test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=
 Wetator/test/java/org/wetator/core/AllTests.java -text
 Wetator/test/java/org/wetator/core/CommandTest.java -text
 Wetator/test/java/org/wetator/core/VariableTest.java -text
+Wetator/test/java/org/wetator/core/WetatorContextExecuteTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/core/WetatorEngineExecuteTestsTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/searchpattern/AllTests.java -text
 Wetator/test/java/org/wetator/core/searchpattern/ContentPatternTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
@@ -253,6 +264,7 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
 Wetator/test/java/org/wetator/i18n/AllTests.java -text
 Wetator/test/java/org/wetator/i18n/MessagesTest.java -text
 Wetator/test/java/org/wetator/progresslistener/AllTests.java -text
+Wetator/test/java/org/wetator/progresslistener/ManualXMLResultWriterTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/progresslistener/XMLResultWriterTest.java -text
 Wetator/test/java/org/wetator/progresslistener/XSLTransformerTest.java -text
 Wetator/test/java/org/wetator/scriptcreator/ManualXMLScriptCreatorTest.java -text svneol=unset#text/plain
@@ -275,15 +287,21 @@ Wetator/test/java/org/wetator/test/jetty/SnoopyServlet.java -text svneol=unset#t
 Wetator/test/java/org/wetator/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/empty.wet -text
+Wetator/test/java/org/wetator/test/resource/empty.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/emptyMultipleSchemas.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/emptyNoDefault.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/emptyWrongDefault.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/excel.xls -text
+Wetator/test/java/org/wetator/test/resource/excelMalformed.xls -text svneol=unset#application/octet-stream
 Wetator/test/java/org/wetator/test/resource/invalid-command-set.xsd -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/test/resource/junit.wett -text
-Wetator/test/java/org/wetator/test/resource/junit.xls -text
-Wetator/test/java/org/wetator/test/resource/junit2.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/legacyXML.wet -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/legacyXML.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/wikiText.wett -text
+Wetator/test/java/org/wetator/test/resource/xml.wet -text
+Wetator/test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/util/AllTests.java -text
 Wetator/test/java/org/wetator/util/AssertTest.java -text
 Wetator/test/java/org/wetator/util/ContentUtilTest.java -text
@@ -814,6 +832,9 @@ Wetator/test/xml/set_upload.wet -text svneol=unset#text/plain
 Wetator/test/xml/sql/sql.wet -text svneol=unset#text/plain
 Wetator/test/xml/use_module.wet -text svneol=unset#text/plain
 Wetator/test/xml/wait.wet -text svneol=unset#text/plain
+Wetator/tmp/wetresult_error.xml -text svneol=unset#text/plain
+Wetator/tmp/wetresult_failure.xml -text svneol=unset#text/plain
+Wetator/tmp/wetresult_invalidinput.xml -text svneol=unset#text/plain
 Wetator/wetator-upload.cfg -text
 Wetator/wetator-upload.wet -text
 Wetator/xsd/default-command-set-1.0.0.xsd -text
@@ -832,12 +853,12 @@ Wetator/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 Wetator/xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 Wetator/xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/xsd/testCommandSet.xsd -text svneol=unset#text/plain
-Wetator/xsl/SimpleHtml.xsl -text svneol=unset#text/plain
 Wetator/xsl/images/collapseall.png -text
 Wetator/xsl/images/collapselog.png -text
+Wetator/xsl/images/error.png -text
 Wetator/xsl/images/expandall.png -text
 Wetator/xsl/images/expandlog.png -text
-Wetator/xsl/images/failed.png -text
+Wetator/xsl/images/failure.png -text
 Wetator/xsl/images/firefox.png -text
 Wetator/xsl/images/ie6.png -text
 Wetator/xsl/images/ie7.png -text

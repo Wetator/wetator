@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -56,7 +57,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byIdWildcard() throws IOException {
+  public void byIdWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -73,7 +74,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byIdPart() throws IOException {
+  public void byIdPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -86,7 +87,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byId_TextBefore() throws IOException {
+  public void byId_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
 
@@ -104,7 +105,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byId_WrongTextBefore() throws IOException {
+  public void byId_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
 
@@ -118,7 +119,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -135,7 +136,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byNameWildcard() throws IOException {
+  public void byNameWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -152,7 +153,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byNamePart() throws IOException {
+  public void byNamePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -165,7 +166,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byName_TextBefore() throws IOException {
+  public void byName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
 
@@ -183,7 +184,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byName_WrongTextBefore() throws IOException {
+  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
 
@@ -197,7 +198,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byAlt() throws IOException {
+  public void byAlt() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>" + "</form>" + "</body></html>";
 
@@ -215,7 +216,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byAltWildcard() throws IOException {
+  public void byAltWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>" + "</form>" + "</body></html>";
 
@@ -233,7 +234,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byAltPart() throws IOException {
+  public void byAltPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
 
@@ -251,7 +252,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byAlt_TextBefore() throws IOException {
+  public void byAlt_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
 
@@ -270,7 +271,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byAlt_WrongTextBefore() throws IOException {
+  public void byAlt_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
 
@@ -284,7 +285,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byTitle() throws IOException {
+  public void byTitle() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>" + "</form>" + "</body></html>";
 
@@ -302,7 +303,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byTitleWildcard() throws IOException {
+  public void byTitleWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>" + "</form>" + "</body></html>";
 
@@ -320,7 +321,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byTitlePart() throws IOException {
+  public void byTitlePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>" + "</body></html>";
 
@@ -338,7 +339,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byTitle_TextBefore() throws IOException {
+  public void byTitle_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>" + "</body></html>";
 
@@ -357,7 +358,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byTitle_WrongTextBefore() throws IOException {
+  public void byTitle_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>" + "</body></html>";
 
@@ -371,7 +372,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byFileName() throws IOException {
+  public void byFileName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -389,7 +390,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byFileNameWildcard() throws IOException {
+  public void byFileNameWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -407,7 +408,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byFileNamePart() throws IOException {
+  public void byFileNamePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<img id='myId' name='MyName' src='picture.png'>"
         + "</form>" + "</body></html>";
 
@@ -420,7 +421,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byFileNameWithPath() throws IOException {
+  public void byFileNameWithPath() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myId' name='MyName' src='web/picture.png'>" + "</form>" + "</body></html>";
 
@@ -438,7 +439,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byFileName_TextBefore() throws IOException {
+  public void byFileName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
 
@@ -457,7 +458,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byFileName_WrongTextBefore() throws IOException {
+  public void byFileName_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<img id='myId' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
 
@@ -471,7 +472,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byIdNameAltTitleFileName() throws IOException {
+  public void byIdNameAltTitleFileName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='MyName' name='MyName' src='MyName' alt='MyName' title='MyName'>" + "</form>" + "</body></html>";
 
@@ -488,7 +489,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byAlt() throws IOException {
+  public void inAnchor_byAlt() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' alt='MyAlt'>" + "</a>" + "</form>"
         + "</body></html>";
@@ -507,7 +508,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byAlt_TextBefore() throws IOException {
+  public void inAnchor_byAlt_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' alt='MyAlt'>" + "</a>" + "</form>"
@@ -528,7 +529,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byTitle() throws IOException {
+  public void inAnchor_byTitle() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>"
         + "</body></html>";
@@ -547,7 +548,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byTitle_TextBefore() throws IOException {
+  public void inAnchor_byTitle_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>"
@@ -568,7 +569,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byFileName() throws IOException {
+  public void inAnchor_byFileName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>"
         + "</body></html>";
@@ -587,7 +588,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byFileNameWithPath() throws IOException {
+  public void inAnchor_byFileNameWithPath() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='web/picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>"
         + "</body></html>";
@@ -606,7 +607,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byFileName_TextBefore() throws IOException {
+  public void inAnchor_byFileName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>"
@@ -627,7 +628,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byName() throws IOException {
+  public void inAnchor_byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName'>" + "</a>" + "</form>" + "</body></html>";
 
@@ -645,7 +646,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byName_TextBefore() throws IOException {
+  public void inAnchor_byName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>"
@@ -666,7 +667,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inButton_byName() throws IOException {
+  public void inButton_byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img id='myInnerId' src='picture.png' name='MyImageName'>" + "</button>" + "</form>" + "</body></html>";
 
@@ -684,7 +685,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inButton_byAlt() throws IOException {
+  public void inButton_byAlt() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img id='myInnerId' src='picture.png' alt='MyImageAlt'>" + "</button>" + "</form>" + "</body></html>";
 
@@ -701,7 +702,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inButton_byTitle() throws IOException {
+  public void inButton_byTitle() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img id='myInnerId' src='picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
 
@@ -718,7 +719,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inButton_byFileName() throws IOException {
+  public void inButton_byFileName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img id='myInnerId' src='picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
 
@@ -735,7 +736,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inButton_byFileNameWithPath() throws IOException {
+  public void inButton_byFileNameWithPath() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img id='myInnerId' src='web/picture.png' title='MyImageTitle'>" + "</button>" + "</form>"
         + "</body></html>";

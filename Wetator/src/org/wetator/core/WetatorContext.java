@@ -24,20 +24,23 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.WetatorException;
-import org.wetator.util.Assert;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 import org.wetator.util.VariableReplaceUtil;
 
 /**
- * The context that holds all information about
- * the current executed file and make
- * them available to the different commands.
+ * The context that holds all information about the current executed file and makes them available to the different
+ * commands.
  * 
  * @author rbri
+ * @author frank.danek
+ * @author tobwoerk
  */
 public class WetatorContext {
+
   private static final Log LOG = LogFactory.getLog(WetatorContext.class);
 
   private WetatorEngine engine;
@@ -46,6 +49,9 @@ public class WetatorContext {
   private List<Variable> variables; // store them in defined order
 
   private WetatorContext parentContext;
+
+  private boolean errorOccurred;
+  private boolean invalidInput;
 
   /**
    * Constructor for a root context.
@@ -72,6 +78,8 @@ public class WetatorContext {
     this(aContext.engine, aFile, aContext.browserType);
 
     parentContext = aContext;
+    // do not use setErrorOccurred here as it would also reset the value in the parent context
+    errorOccurred = aContext.errorOccurred;
   }
 
   /**
@@ -143,60 +151,13 @@ public class WetatorContext {
     return new SecretString(tmpResultValue, tmpResultValueForPrint);
   }
 
-  private void executeCommand(final Command aCommand) {
-    engine.informListenersExecuteCommandStart(this, aCommand);
-    try {
-      if (aCommand.isComment()) {
-        LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
-      } else {
-        try {
-          determineAndExecuteCommandImpl(aCommand);
-          engine.informListenersExecuteCommandSuccess();
-        } catch (final AssertionFailedException e) {
-          engine.informListenersExecuteCommandFailure(e);
-        } catch (final WetatorException e) {
-          engine.informListenersExecuteCommandError(e);
-          throw e;
-        }
-      }
-    } finally {
-      engine.informListenersExecuteCommandEnd();
-    }
-  }
-
   /**
-   * Determines the command implementation for the given {@link Command} and executes it.
+   * Processes the associated test file by reading all the commands from the file and executing every single command.
    * 
-   * @param aCommand the command to be executed
-   * @throws AssertionFailedException if no command implementation was found or the execution fails
+   * @return false if execution failed due to invalid input
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public void determineAndExecuteCommandImpl(final Command aCommand) throws AssertionFailedException {
-    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
-    if (null == tmpCommandImplementation) {
-      Assert.fail("unsupportedCommand",
-          new String[] { aCommand.getName(), getFile().getAbsolutePath(), "" + aCommand.getLineNo() });
-    }
-
-    final IBrowser tmpBrowser = getBrowser();
-    LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
-    try {
-      tmpCommandImplementation.execute(this, aCommand);
-    } catch (final AssertionFailedException e) {
-      tmpBrowser.checkAndResetFailures();
-      throw e;
-    }
-    final AssertionFailedException tmpFailed = tmpBrowser.checkAndResetFailures();
-    if (null != tmpFailed) {
-      throw tmpFailed;
-    }
-  }
-
-  /**
-   * Processes the associated test file by<br>
-   * reading all the command from the file and <br>
-   * executing every single command.
-   */
-  public void execute() {
+  public boolean execute() {
     final File tmpFile = getFile();
 
     engine.informListenersTestFileStart(tmpFile.getAbsolutePath());
@@ -204,20 +165,93 @@ public class WetatorContext {
       final List<Command> tmpCommands = engine.readCommandsFromFile(tmpFile);
 
       for (Command tmpCommand : tmpCommands) {
-        executeCommand(tmpCommand);
+        if (!executeCommand(tmpCommand)) {
+          setInvalidInput(true);
+        }
       }
-    } catch (final WetatorException e) {
-      engine.informListenersExecuteCommandError(e);
+    } catch (final InvalidInputException e) {
+      engine.informListenersError(e);
+      return false;
     } finally {
       engine.informListenersTestFileEnd();
     }
+    return !invalidInput;
+  }
+
+  private boolean executeCommand(final Command aCommand) {
+    engine.informListenersExecuteCommandStart(this, aCommand);
+    try {
+      if (aCommand.isComment()) {
+        LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
+      } else {
+        try {
+          if (determineAndExecuteCommandImpl(aCommand)) {
+            engine.informListenersExecuteCommandSuccess();
+          } else {
+            engine.informListenersExecuteCommandIgnored();
+          }
+        } catch (final AssertionException e) {
+          engine.informListenersExecuteCommandFailure(e);
+        } catch (final InvalidInputException e) {
+          engine.informListenersExecuteCommandError(e);
+          setErrorOccurred(true);
+          return false;
+        } catch (final Exception e) {
+          engine.informListenersExecuteCommandError(e);
+          setErrorOccurred(true);
+        }
+      }
+    } finally {
+      engine.informListenersExecuteCommandEnd();
+    }
+    return true;
+  }
+
+  /**
+   * Determines the command implementation for the given {@link Command} and executes it.
+   * 
+   * @param aCommand the command to be executed
+   * @return true if the command was executed, false if the command was ignored
+   * @throws CommandException in case of a problem executing the command
+   * @throws InvalidInputException in case of invalid user input
+   */
+  public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandException, InvalidInputException {
+    final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
+    if (null == tmpCommandImplementation) {
+      throw new InvalidInputException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
+          getFile().getAbsolutePath(), "" + aCommand.getLineNo() }));
+    }
+
+    // execute the command only if no error occurred so far or the command should be executed even if an error occurred
+    if (!errorOccurred || tmpCommandImplementation.getClass().isAnnotationPresent(ForceExecution.class)) {
+      final IBrowser tmpBrowser = getBrowser();
+      LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
+      try {
+        tmpCommandImplementation.execute(this, aCommand);
+      } catch (final CommandException e) {
+        tmpBrowser.checkAndResetFailures();
+        throw e;
+      } catch (final InvalidInputException e) {
+        tmpBrowser.checkAndResetFailures();
+        throw e;
+      } catch (final RuntimeException e) {
+        tmpBrowser.checkAndResetFailures();
+        throw e;
+      }
+      final AssertionException tmpFailure = tmpBrowser.checkAndResetFailures();
+      if (null != tmpFailure) {
+        throw tmpFailure;
+      }
+      return true;
+    }
+    return false;
   }
 
   /**
    * Informs all listeners about 'warn'.
    * 
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameterArray the message parameters
    */
   public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
     engine.informListenersWarn(aMessageKey, aParameterArray);
@@ -226,10 +260,34 @@ public class WetatorContext {
   /**
    * Informs all listeners about 'info'.
    * 
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the information
+   * @param aParameterArray the message parameters
    */
   public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
     engine.informListenersInfo(aMessageKey, aParameterArray);
+  }
+
+  /**
+   * Sets the errorOccurred to the given value. Additionally if a parent context is present it is set there, too.
+   * 
+   * @param anErrorOccurred the errorOccurred to set
+   */
+  private void setErrorOccurred(final boolean anErrorOccurred) {
+    errorOccurred = anErrorOccurred;
+    if (parentContext != null) {
+      parentContext.setErrorOccurred(anErrorOccurred);
+    }
+  }
+
+  /**
+   * Sets the invalidInput to the given value. Additionally if a parent context is present it is set there, too.
+   * 
+   * @param anInvalidInput the invalidInput to set
+   */
+  public void setInvalidInput(final boolean anInvalidInput) {
+    invalidInput = anInvalidInput;
+    if (parentContext != null) {
+      parentContext.setInvalidInput(anInvalidInput);
+    }
   }
 }

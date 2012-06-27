@@ -23,7 +23,7 @@ import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Parameter;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandException;
 import org.wetator.util.Assert;
 import org.wetator.util.NormalizedString;
 import org.wetator.util.SecretString;
@@ -55,8 +55,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   public final class CommandAssertFail implements ICommandImplementation {
     @Override
-    public void execute(WetatorContext aContext, Command aCommand) throws AssertionFailedException {
-
+    public void execute(WetatorContext aContext, Command aCommand) throws CommandException {
       List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
       SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aContext);
 
@@ -72,16 +71,21 @@ public final class TestCommandSet extends AbstractCommandSet {
         tmpCommand.setSecondParameter(aCommand.getThirdParameter());
       }
 
+      Throwable tmpException = null;
       try {
         aContext.determineAndExecuteCommandImpl(tmpCommand);
-      } catch (AssertionFailedException e) {
-        NormalizedString tmpResult = new NormalizedString(e.getMessage());
-        Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
-            "wrongErrorMessage", null);
-        return;
+      } catch (Exception e) {
+        // TODO distinguish between failure and error?
+        tmpException = e;
       }
 
-      Assert.fail("expectedErrorNotThrown", null);
+      if (tmpException != null) {
+        NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
+        Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
+            "wrongErrorMessage", null);
+      } else {
+        Assert.fail("expectedErrorNotThrown", null);
+      }
     }
   }
 

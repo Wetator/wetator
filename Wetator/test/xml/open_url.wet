@@ -28,7 +28,7 @@
     <command><d:open-url><d:url>assert_title.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
     <comment>test for unused parameter</comment>
-    <command><tst:assert-fail><tst:command-and-message>Open Url, The command 'open-url' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>assert_title.html</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Open Url, The command 'open-url' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>assert_title.html</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
     <comment>test for parameter support</comment>
     <command><d:open-url><d:url>assert_title.html?secret=${wet}</d:url></d:open-url></command>
     <comment>test for secret parts of the url</comment>

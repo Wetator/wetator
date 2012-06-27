@@ -93,5 +93,5 @@
     <comment></comment>
     <comment>test for unused parameter</comment>
     <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Selected, The command 'assert-selected' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>SingleSelect LayoutLabel at left formated, option2</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Selected, The command 'assert-selected' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>SingleSelect LayoutLabel at left formated, option2</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
 </test-case>

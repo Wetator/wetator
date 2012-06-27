@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -36,7 +37,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void bookmark() {
+  public void bookmark() throws InvalidInputException {
     executeTestFile("bookmark.xml");
 
     Assert.assertEquals(11, getSteps());
@@ -46,7 +47,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void applet() {
+  public void assertApplet() throws InvalidInputException {
     executeTestFile("assert_applet.xml");
 
     Assert.assertEquals(6, getSteps());
@@ -54,7 +55,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) {
+  private void executeTestFile(String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

@@ -40,7 +40,7 @@
     <comment>error for required first parameter</comment>
     <command><tst:assert-fail><tst:command-and-message>Assert Content, The command 'assert-content' requires a first parameter.</tst:command-and-message></tst:assert-fail></command>
     <comment>error for wrong second parameter</comment>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, The command 'assert-content' expects an integer parameter value 'unused' in column 2.</tst:command-and-message><tst:parameter1>Pferde,fressen,keinen,Gurkensalat</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, The command 'assert-content' expects an integer parameter value 'unused' as parameter 2.</tst:command-and-message><tst:parameter1>Pferde,fressen,keinen,Gurkensalat</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
     <comment></comment>
     <comment>content type text</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>

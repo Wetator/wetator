@@ -107,7 +107,7 @@
     <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutLeftFormatedTest OK singleSelect_LayoutLeftFormated o_value2 POST</d:content></d:assert-content></command>
     <comment>test for unused parameter</comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
-    <command><tst:assert-fail><tst:command-and-message>Select, The command 'select' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>singleSelect_Name, option2</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The command 'select' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>singleSelect_Name, option2</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>

@@ -16,7 +16,6 @@
 
 package org.wetator.scripter.xml;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,10 +40,9 @@ public class SchemaFinder {
    * The constructor.
    * 
    * @param anXMLReader a reader reading the XML data
-   * @throws IOException in case of problems
    * @throws XMLStreamException in case of problems
    */
-  public SchemaFinder(final Reader anXMLReader) throws XMLStreamException, IOException {
+  public SchemaFinder(final Reader anXMLReader) throws XMLStreamException {
     findSchemas(anXMLReader);
   }
 
@@ -85,7 +83,11 @@ public class SchemaFinder {
         }
       }
     } finally {
-      tmpReader.close();
+      try {
+        tmpReader.close();
+      } catch (final XMLStreamException e) {
+        // ignore
+      }
     }
   }
 

@@ -29,8 +29,10 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.util.Assert;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.BackendException;
+import org.wetator.exception.UnsupportedOperationException;
+import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
@@ -92,7 +94,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#click(WetatorContext)
    */
   @Override
-  public void click(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void click(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -114,10 +116,14 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -127,7 +133,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#clickDouble(WetatorContext)
    */
   @Override
-  public void clickDouble(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void clickDouble(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -149,10 +155,14 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -162,7 +172,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#clickRight(WetatorContext)
    */
   @Override
-  public void clickRight(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void clickRight(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -184,10 +194,14 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -197,7 +211,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
    */
   @Override
-  public void mouseOver(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
@@ -223,8 +237,14 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -234,7 +254,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
     boolean tmpSupported = false;
 
@@ -270,7 +290,8 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     if (!tmpSupported) {
-      Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+      throw new UnsupportedOperationException(tmpMessage);
     }
 
     return false;
@@ -279,10 +300,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
+   * @see org.wetator.backend.control.IControl#hasFocus(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean hasFocus(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean hasFocus(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();

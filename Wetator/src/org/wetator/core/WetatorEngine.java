@@ -27,8 +27,8 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.IScripter.IsSupportedResult;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.XMLResultWriter;
 
 /**
@@ -37,8 +37,10 @@ import org.wetator.progresslistener.XMLResultWriter;
  * 
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
-public final class WetatorEngine {
+public class WetatorEngine {
+
   private static final Log LOG = LogFactory.getLog(WetatorEngine.class);
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
@@ -56,12 +58,8 @@ public final class WetatorEngine {
 
   /**
    * The constructor.
-   * 
-   * @throws WetatorException in case of problems
    */
-  public WetatorEngine() throws WetatorException {
-    super();
-
+  public WetatorEngine() {
     testCases = new LinkedList<TestCase>();
     progressListener = new LinkedList<IProgressListener>();
   }
@@ -70,9 +68,9 @@ public final class WetatorEngine {
    * Initializes the wetator engine. The configuration is read from the configuration file got by
    * {@link #getConfigFile()}.
    * 
-   * @throws WetatorException in case of problems
+   * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
    */
-  public void init() throws WetatorException {
+  public void init() {
     init(readConfiguration());
   }
 
@@ -80,9 +78,8 @@ public final class WetatorEngine {
    * Initializes the wetator engine using the given configuration.
    * 
    * @param aConfiguration the configuration to use
-   * @throws WetatorException in case of problems
    */
-  public void init(final WetatorConfiguration aConfiguration) throws WetatorException {
+  public void init(final WetatorConfiguration aConfiguration) {
     informListenersInit();
 
     configuration = aConfiguration;
@@ -97,13 +94,23 @@ public final class WetatorEngine {
     commandSets = getConfiguration().getCommandSets();
 
     // setup the browser
-    final IBrowser tmpBrowser = new HtmlUnitBrowser(this);
+    final IBrowser tmpBrowser = createBrowser();
     setBrowser(tmpBrowser);
   }
 
+  private WetatorConfiguration readConfiguration() {
+    final File tmpConfigFile = getConfigFile();
+    return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
+  }
+
   /**
-   * Returns the list of all test cases.
-   * 
+   * @return the {@link IBrowser} to use for executing the tests
+   */
+  protected IBrowser createBrowser() {
+    return new HtmlUnitBrowser(this);
+  }
+
+  /**
    * @return the list of all test cases
    */
   public List<TestCase> getTestCases() {
@@ -113,13 +120,16 @@ public final class WetatorEngine {
   /**
    * Adds a test file to be executed.
    * 
-   * @param aName the name of the test file to be added.
-   * @param aFile the test file to be added.
-   * @throws WetatorException if the test file does not exist.
+   * @param aName the name of the test file to be added
+   * @param aFile the test file to be added
+   * @throws InvalidInputException if the test file does not exist or is not readable
    */
-  public void addTestCase(final String aName, final File aFile) {
+  public void addTestCase(final String aName, final File aFile) throws InvalidInputException {
     if (!aFile.exists()) {
-      throw new WetatorException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new InvalidInputException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      throw new InvalidInputException("The test file '" + aFile.getAbsolutePath() + "' is not readable.");
     }
     testCases.add(new TestCase(aName, aFile));
   }
@@ -128,39 +138,47 @@ public final class WetatorEngine {
    * Executes the tests.
    */
   public void executeTests() {
-    // create new result writer and call the init() method.
-    final XMLResultWriter tmpResultWriter = new XMLResultWriter();
-    tmpResultWriter.init(this);
-    addProgressListener(tmpResultWriter);
+    addDefaultProgressListeners();
 
     informListenersStart();
     try {
-      for (TestCase tmpTestCase : testCases) {
+      for (TestCase tmpTestCase : getTestCases()) {
+        boolean tmpValidInput = true;
         final File tmpFile = tmpTestCase.getFile();
         LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-        informListenersTestCaseStart(tmpTestCase.getName());
+        informListenersTestCaseStart(tmpTestCase);
         try {
-          for (BrowserType tmpBrowserType : configuration.getBrowserTypes()) {
+          boolean tmpErrorOccurred = false;
+          for (BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
             try {
-              // new session for every (root) file and browser
-              getBrowser().startNewSession(tmpBrowserType);
+              if (!tmpErrorOccurred && tmpValidInput) {
+                // new session for every (root) file and browser
+                getBrowser().startNewSession(tmpBrowserType);
 
-              // setup the context
-              final WetatorContext tmpWetatorContext = new WetatorContext(this, tmpFile, tmpBrowserType);
-              tmpWetatorContext.execute();
+                // setup the context
+                final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
+                tmpValidInput = tmpWetatorContext.execute();
+                if (!tmpValidInput) {
+                  // the input won't be valid for the next browser => continue with next browser but ignore it
+                  tmpErrorOccurred = true;
+                }
+              } else {
+                informListenersTestRunIgnored();
+              }
+            } catch (final RuntimeException e) {
+              // => continue with next browser
+              informListenersError(e);
             } finally {
               informListenersTestRunEnd();
             }
           }
         } catch (final Throwable e) {
-          // TODO what to do with exceptions?
-          // informListenersWarn("testCaseError", new String[] {e.getMessage()});
-          e.printStackTrace();
+          // this is the last place to handle exceptions for a test case => continue with next test case
+          informListenersError(e);
         } finally {
           informListenersTestCaseEnd();
         }
-
       }
     } finally {
       informListenersEnd();
@@ -168,36 +186,56 @@ public final class WetatorEngine {
   }
 
   /**
+   * Adds the default {@link IProgressListener}.
+   * <ul>
+   * <li>{@link XMLResultWriter}</li>
+   * </ul>
+   */
+  protected void addDefaultProgressListeners() {
+    // create new result writer and call the init() method.
+    final XMLResultWriter tmpResultWriter = new XMLResultWriter();
+    tmpResultWriter.init(this);
+    addProgressListener(tmpResultWriter);
+  }
+
+  /**
+   * @param aFile the file to execute
+   * @param aBrowserType the browser type to use
+   * @return the {@link WetatorContext} to use for executing the given file
+   */
+  protected WetatorContext createWetatorContext(final File aFile, final BrowserType aBrowserType) {
+    return new WetatorContext(this, aFile, aBrowserType);
+  }
+
+  /**
    * Reads all commands of the given file and returns them in the same order they occur in the file.
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link Command}s.
-   * @throws WetatorException if no {@link IScripter} can be found for the given file.
+   * @throws InvalidInputException if no {@link IScripter} can be found for the given file or an error occurs
+   *         reading/parsing the given file
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  protected List<Command> readCommandsFromFile(final File aFile) throws WetatorException {
+  protected List<Command> readCommandsFromFile(final File aFile) throws InvalidInputException {
     final IScripter tmpScripter = createScripter(aFile);
+
+    tmpScripter.script(aFile);
     final List<Command> tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
   }
 
-  private WetatorConfiguration readConfiguration() throws WetatorException {
-    final File tmpConfigFile = getConfigFile();
-    return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
-  }
-
-  private IScripter createScripter(final File aFile) {
+  private IScripter createScripter(final File aFile) throws InvalidInputException {
     final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<IScripter.IsSupportedResult>();
     for (IScripter tmpScripter : scripter) {
       final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(aFile);
       if (IScripter.IS_SUPPORTED == tmpResult) {
-        tmpScripter.script(aFile);
         return tmpScripter;
       }
       tmpResults.add(tmpResult);
     }
 
-    // construct an detailed error message
+    // construct a detailed error message
     final StringBuilder tmpMessage = new StringBuilder("No scripter found for file '");
     tmpMessage.append(aFile.getAbsolutePath()).append("' (");
 
@@ -212,7 +250,7 @@ public final class WetatorEngine {
 
     tmpMessage.append(").");
 
-    throw new WetatorException(tmpMessage.toString());
+    throw new InvalidInputException(tmpMessage.toString());
   }
 
   /**
@@ -338,13 +376,13 @@ public final class WetatorEngine {
   }
 
   /**
-   * Informs all listeners about 'testStart'.
+   * Informs all listeners about 'testCaseStart'.
    * 
-   * @param aTestName the file name of the test started.
+   * @param aTestCase the test case started.
    */
-  protected void informListenersTestCaseStart(final String aTestName) {
+  protected void informListenersTestCaseStart(final TestCase aTestCase) {
     for (IProgressListener tmpListener : progressListener) {
-      tmpListener.testCaseStart(aTestName);
+      tmpListener.testCaseStart(aTestCase);
     }
   }
 
@@ -401,13 +439,22 @@ public final class WetatorEngine {
   }
 
   /**
+   * Informs all listeners about 'executeCommandIgnored'.
+   */
+  protected void informListenersExecuteCommandIgnored() {
+    for (IProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandIgnored();
+    }
+  }
+
+  /**
    * Informs all listeners about 'executeCommandFailure'.
    * 
-   * @param anAssertionFailedException The exception thrown by the failed command.
+   * @param anAssertionException The exception thrown by the failed command.
    */
-  protected void informListenersExecuteCommandFailure(final AssertionFailedException anAssertionFailedException) {
+  protected void informListenersExecuteCommandFailure(final AssertionException anAssertionException) {
     for (IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandFailure(anAssertionFailedException);
+      tmpListener.executeCommandFailure(anAssertionException);
     }
   }
 
@@ -428,6 +475,15 @@ public final class WetatorEngine {
   protected void informListenersTestFileEnd() {
     for (IProgressListener tmpListener : progressListener) {
       tmpListener.testFileEnd();
+    }
+  }
+
+  /**
+   * Informs all listeners about 'testRunIgnored'.
+   */
+  protected void informListenersTestRunIgnored() {
+    for (IProgressListener tmpListener : progressListener) {
+      tmpListener.testRunIgnored();
     }
   }
 
@@ -455,6 +511,17 @@ public final class WetatorEngine {
   protected void informListenersEnd() {
     for (IProgressListener tmpListener : progressListener) {
       tmpListener.end(this);
+    }
+  }
+
+  /**
+   * Informs all listeners about 'error'.
+   * 
+   * @param aThrowable the exception thrown
+   */
+  public void informListenersError(final Throwable aThrowable) {
+    for (IProgressListener tmpListener : progressListener) {
+      tmpListener.error(aThrowable);
     }
   }
 

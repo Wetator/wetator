@@ -16,7 +16,7 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <comment>test for warning about unused parameter</comment>
-    <command><tst:assert-fail><tst:command-and-message>Assert Title, The command 'assert-title' expects an integer parameter value 'unused' in column 2.</tst:command-and-message><tst:parameter1>Wetator / Assert Content</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Title, The command 'assert-title' expects an integer parameter value 'unused' as parameter 2.</tst:command-and-message><tst:parameter1>Wetator / Assert Content</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
     <comment>test for parameter support</comment>
     <command><d:assert-title><d:title>${wet} / Assert Content</d:title></d:assert-title></command>
     <comment>test for secret parts</comment>

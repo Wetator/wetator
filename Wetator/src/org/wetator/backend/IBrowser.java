@@ -20,16 +20,16 @@ import java.net.URL;
 import java.util.List;
 
 import org.wetator.backend.control.IControl;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.BackendException;
 import org.wetator.util.SecretString;
 
 /**
  * The interface for all browsers.
- * This is more or less a tagging interface.
- * Every command has to check for the right
- * implementation.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface IBrowser {
 
@@ -130,57 +130,59 @@ public interface IBrowser {
   };
 
   /**
-   * Returns the {@link IControlFinder} for this backend.
-   * Every supported backend has his own ControlFinder.
+   * Returns the {@link IControlFinder} for this browser.
+   * Every supported browser has its own ControlFinder.
    * 
-   * @return the ControlFinder for this backend
-   * @throws AssertionFailedException in case of error
+   * @return the ControlFinder for this browser
+   * @throws BackendException if no ControlFinder could be found for the current page, e.g. because the page is not a
+   *         HTML page
    */
-  public IControlFinder getControlFinder() throws AssertionFailedException;
+  public IControlFinder getControlFinder() throws BackendException;
 
   /**
-   * Opens the given URL in the current window.
+   * Opens the given URL in the current window.<br/>
+   * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    * 
    * @param aUrl the URL to open
-   * @throws AssertionFailedException in case of error
+   * @throws ActionException if opening the URL fails
    */
-  public void openUrl(URL aUrl) throws AssertionFailedException;
+  public void openUrl(URL aUrl) throws ActionException;
 
   /**
-   * Wait until the 'immediate' javascript jobs are finished.
+   * Wait until the 'immediate' JavaScript jobs are finished.
    * 
    * @return true, if still some javascript jobs pending
-   * @throws AssertionFailedException in case of error
+   * @throws BackendException in case of problems
    */
-  public boolean waitForImmediateJobs() throws AssertionFailedException;
+  public boolean waitForImmediateJobs() throws BackendException;
 
   /**
    * Checks, if the page title contains the given list of strings.<br>
    * If the text is not found, than this method waits at aTimeoutInSeconds
    * and checks the title again. If the text is still not found than an
-   * AssertionFailedException is thrown.
+   * AssertionException is thrown.
    * 
    * @param aTitleToWaitFor the expected text (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
-   * @throws AssertionFailedException if the content was not available
+   * @throws AssertionException if the content was not available
    */
   public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
-      throws AssertionFailedException;
+      throws AssertionException;
 
   /**
    * Checks, if the page content contains the given list of strings.<br>
    * If the content is not found, than this method waits at aTimeoutInSeconds
    * and checks the content again. If the content is still not found than an
-   * AssertionFailedException is thrown.
+   * AssertionException is thrown.
    * 
    * @param aContentToWaitFor the expected content (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
-   * @throws AssertionFailedException if the content was not available
+   * @throws AssertionException if the content was not available
    */
   public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
-      throws AssertionFailedException;
+      throws AssertionException;
 
   /**
    * Saves the content of the current window to the log.
@@ -193,17 +195,17 @@ public interface IBrowser {
    * Goes back (simulates the browser's back button) in the current window.
    * 
    * @param aSteps the number of steps to go back
-   * @throws AssertionFailedException in case of error
+   * @throws ActionException if going back fails
    */
-  public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
+  public void goBackInCurrentWindow(int aSteps) throws ActionException;
 
   /**
    * Closes the window with the given name.
    * 
    * @param aWindowName the name
-   * @throws AssertionFailedException in case of error
+   * @throws ActionException if finding or closing the window fails
    */
-  public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
+  public void closeWindow(SecretString aWindowName) throws ActionException;
 
   /**
    * Starts a new browser session.<br/>
@@ -233,32 +235,34 @@ public interface IBrowser {
    * Stores the current page as a bookmark with the given name.
    * 
    * @param aBookmarkName the name of the bookmark
-   * @throws AssertionFailedException in case of problems
+   * @throws ActionException in case of problems
    */
-  public void bookmarkPage(String aBookmarkName) throws AssertionFailedException;
+  public void bookmarkPage(String aBookmarkName) throws ActionException;
 
   /**
-   * The backend manages a list of exceptions detected during the execution
-   * of an action. This exceptions are collected. Normally such an exception doesn't stop
+   * The browser manages a list of failures detected during the execution
+   * of an action. This failures are collected. Normally such a failure doesn't stop
    * the processing of the action.<br>
    * 
    * @param aFailure the original problem
    */
-  public void addFailure(AssertionFailedException aFailure);
+  public void addFailure(AssertionException aFailure);
 
   /**
-   * Helper.
+   * Helper to store a failure.
    * 
+   * @see #addFailure(AssertionException)
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @param aCause the original problem
+   * @see #addFailure(AssertionException)
    */
   public void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause);
 
   /**
    * This logs all collected exceptions and resets the list.
    * 
-   * @return the first {@link AssertionFailedException} in the list or null if the list is empty
+   * @return the first {@link AssertionException} in the list or null if the list is empty
    */
-  public AssertionFailedException checkAndResetFailures();
+  public AssertionException checkAndResetFailures();
 }

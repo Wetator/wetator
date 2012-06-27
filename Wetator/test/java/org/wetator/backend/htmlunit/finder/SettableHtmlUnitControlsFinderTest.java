@@ -26,6 +26,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -37,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class SettableHtmlUnitControlsFinderTest {
 
   @Test
-  public void empty() throws IOException {
+  public void empty() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -51,7 +52,7 @@ public class SettableHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void hidden() throws IOException {
+  public void hidden() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='text' value='SetMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -66,7 +67,7 @@ public class SettableHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void firstInputFileOnPage() throws IOException {
+  public void firstInputFileOnPage() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='file' value='SetMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -83,7 +84,7 @@ public class SettableHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void firstInputPasswordOnPage() throws IOException {
+  public void firstInputPasswordOnPage() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='password' value='SetMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -100,7 +101,7 @@ public class SettableHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void firstInputTextOnPage() throws IOException {
+  public void firstInputTextOnPage() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='text' value='SetMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -117,7 +118,7 @@ public class SettableHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void firstTextAreaOnPage() throws IOException {
+  public void firstTextAreaOnPage() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea id='myId'>SetMe</textarea>" + "</form>"
         + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
