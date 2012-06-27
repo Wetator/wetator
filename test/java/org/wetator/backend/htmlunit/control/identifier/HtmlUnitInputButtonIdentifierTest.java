@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -55,7 +56,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byIdWildcard() throws IOException {
+  public void byIdWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -71,7 +72,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byIdPart() throws IOException {
+  public void byIdPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -84,7 +85,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byId_TextBefore() throws IOException {
+  public void byId_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='button' value='ClickMeAlso'>" + "</form>" + "</body></html>";
 
@@ -103,7 +104,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byId_WrongTextBefore() throws IOException {
+  public void byId_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -117,7 +118,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -134,7 +135,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byNameWildcard() throws IOException {
+  public void byNameWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -151,7 +152,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byNamePart() throws IOException {
+  public void byNamePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -164,7 +165,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byName_TextBefore() throws IOException {
+  public void byName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -182,7 +183,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byName_WrongTextBefore() throws IOException {
+  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -196,7 +197,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byText() throws IOException {
+  public void byText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -213,7 +214,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byTextWildcard() throws IOException {
+  public void byTextWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -230,7 +231,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byTextPart() throws IOException {
+  public void byTextPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -247,7 +248,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byText_TextBefore() throws IOException {
+  public void byText_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -265,7 +266,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byText_WrongTextBefore() throws IOException {
+  public void byText_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -279,7 +280,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byIdNameText() throws IOException {
+  public void byIdNameText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyName' type='button' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
 
@@ -296,7 +297,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTablePlain() throws IOException {
+  public void inTablePlain() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -336,7 +337,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableNestedX() throws IOException {
+  public void inTableNestedX() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -376,7 +377,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableNestedY() throws IOException {
+  public void inTableNestedY() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -416,7 +417,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableNestedCell() throws IOException {
+  public void inTableNestedCell() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -456,7 +457,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableNestedCellMultiple() throws IOException {
+  public void inTableNestedCellMultiple() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -501,7 +502,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableNestedTable() throws IOException {
+  public void inTableNestedTable() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -549,7 +550,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableDifferentTableX() throws IOException {
+  public void inTableDifferentTableX() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -605,7 +606,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableDifferentTableY() throws IOException {
+  public void inTableDifferentTableY() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -661,7 +662,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableOnlyX() throws IOException {
+  public void inTableOnlyX() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -704,7 +705,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableOnlyXWithPath() throws IOException {
+  public void inTableOnlyXWithPath() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -741,7 +742,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inTableOnlyY() throws IOException {
+  public void inTableOnlyY() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
@@ -784,7 +785,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void inMultipleTable() throws IOException {
+  public void inMultipleTable() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //

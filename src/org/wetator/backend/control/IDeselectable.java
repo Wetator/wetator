@@ -17,13 +17,12 @@
 package org.wetator.backend.control;
 
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
 
 /**
  * This interface marks all deselectable {@link IControl}s. These controls are returned by
  * {@link org.wetator.backend.IControlFinder#getAllDeselectables(org.wetator.backend.WPath)}. All deselectable control
- * are also
- * selectable.
+ * are also selectable.
  * 
  * @author frank.danek
  */
@@ -33,7 +32,7 @@ public interface IDeselectable extends ISelectable {
    * Deselects the control.
    * 
    * @param aContext the context
-   * @throws AssertionFailedException if the control supports no deselect
+   * @throws ActionException if an error occurred during the deselect
    */
-  public void deselect(WetatorContext aContext) throws AssertionFailedException;
+  public void deselect(WetatorContext aContext) throws ActionException;
 }

@@ -16,12 +16,15 @@
 
 package org.wetator.core;
 
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
 
 /**
  * The interface every implemented command fulfills.
  * 
  * @author rbri
+ * @author frank.danek
+ * @author tobwoerk
  */
 public interface ICommandImplementation {
 
@@ -29,10 +32,11 @@ public interface ICommandImplementation {
    * This method executes the given {@link Command}. The implementation of this method must contain the logic for
    * executing the {@link Command}.
    * 
-   * @param aContext The current {@link WetatorContext}.
-   * @param aCommand The {@link Command} to execute.
-   * @throws AssertionFailedException in case of a wrong assertion (if the command is an assert).
+   * @param aContext the current {@link WetatorContext}
+   * @param aCommand the {@link Command} to execute
+   * @throws CommandException in case of a problem executing the command
+   * @throws InvalidInputException in case of invalid user input
    */
-  public void execute(WetatorContext aContext, Command aCommand) throws AssertionFailedException;
+  public void execute(WetatorContext aContext, Command aCommand) throws CommandException, InvalidInputException;
 
 }

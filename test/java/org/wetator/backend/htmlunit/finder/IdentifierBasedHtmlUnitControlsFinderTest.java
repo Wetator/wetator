@@ -27,6 +27,7 @@ import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -38,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class IdentifierBasedHtmlUnitControlsFinderTest {
 
   @Test
-  public void empty() throws IOException {
+  public void empty() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -53,7 +54,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void hidden() throws IOException {
+  public void hidden() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -70,7 +71,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void visible() throws IOException {
+  public void visible() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);

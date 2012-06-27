@@ -25,8 +25,9 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonI
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.util.Assert;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -67,10 +68,17 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
-  public void select(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public void select(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlRadioButtonInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    if (tmpHtmlRadioButtonInput.isDisabled()) {
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
+    if (tmpHtmlRadioButtonInput.isReadOnly()) {
+      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
 
     try {
       if (!tmpHtmlRadioButtonInput.isChecked()) {
@@ -85,10 +93,14 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -98,7 +110,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isSelected(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isSelected(final WetatorContext aWetatorContext) {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     return tmpHtmlRadioButtonInput.isChecked();
@@ -110,7 +122,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     return tmpHtmlRadioButtonInput.isDisabled();

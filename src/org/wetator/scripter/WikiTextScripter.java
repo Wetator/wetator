@@ -29,15 +29,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.exception.ResourceException;
 import org.wetator.util.NormalizedString;
 
 /**
- * Scripter for text files.
+ * Scripter for wiki text files.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class WikiTextScripter implements IScripter {
+
   private static final String FILE_EXTENSION = ".wett";
   private static final String COMMENT_LINE = "#";
   private static final String COMMENT_LINE2 = "//";
@@ -52,29 +55,13 @@ public final class WikiTextScripter implements IScripter {
   private List<Command> commands;
 
   /**
-   * Standard constructor.
-   */
-  public WikiTextScripter() {
-    super();
-  }
-
-  /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IScripter#script(java.io.File)
+   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
-  public void script(final File aFile) throws WetatorException {
-    file = aFile;
-
-    commands = readCommands();
-  }
-
-  /**
-   * @return the file
-   */
-  public File getFile() {
-    return file;
+  public void initialize(final Properties aConfiguration) {
+    // nothing to do
   }
 
   /**
@@ -84,26 +71,45 @@ public final class WikiTextScripter implements IScripter {
    */
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
+    // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    final boolean tmpResult = tmpFileName.endsWith(FILE_EXTENSION);
-    if (tmpResult) {
-      return IScripter.IS_SUPPORTED;
+    if (!tmpFileName.endsWith(FILE_EXTENSION)) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by WikiTextScripter. Extension is not '" + FILE_EXTENSION + "'.");
     }
 
-    return new IScripter.IsSupportedResult("File '" + aFile.getName()
-        + "' not supported by WikiTextScripter. Extension is not '" + FILE_EXTENSION + "'.");
+    // second check the file accessibility
+    if (!aFile.exists()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by WikiTextScripter. Could not find file.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by WikiTextScripter. Could not read file.");
+    }
+
+    return IScripter.IS_SUPPORTED;
   }
 
-  private List<Command> readCommands() throws WetatorException {
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IScripter#script(java.io.File)
+   */
+  @Override
+  public void script(final File aFile) throws InvalidInputException {
+    file = aFile;
+
+    commands = readCommands();
+  }
+
+  private List<Command> readCommands() throws InvalidInputException {
     final List<Command> tmpResult = new LinkedList<Command>();
 
-    final BufferedReader tmpReader;
+    BufferedReader tmpReader = null;
     try {
-      tmpReader = new BufferedReader(new FileReader(getFile().getAbsoluteFile()));
-    } catch (final FileNotFoundException e) {
-      throw new WetatorException("File '" + getFile().getAbsolutePath() + "' not available.", e);
-    }
-    try {
+      tmpReader = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+
       int tmpLineNo = 0;
       String tmpLine;
       while (null != (tmpLine = tmpReader.readLine())) {
@@ -178,13 +184,17 @@ public final class WikiTextScripter implements IScripter {
         }
       }
       return tmpResult;
+    } catch (final FileNotFoundException e) {
+      throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
     } catch (final IOException e) {
-      throw new WetatorException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + file.getAbsolutePath() + "'.", e);
     } finally {
-      try {
-        tmpReader.close();
-      } catch (final IOException e) {
-        throw new WetatorException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
+      if (tmpReader != null) {
+        try {
+          tmpReader.close();
+        } catch (final IOException e) {
+          // ignore
+        }
       }
     }
   }
@@ -197,15 +207,5 @@ public final class WikiTextScripter implements IScripter {
   @Override
   public List<Command> getCommands() {
     return commands;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
-  @Override
-  public void initialize(final Properties aConfiguration) {
-    // nothing to do
   }
 }

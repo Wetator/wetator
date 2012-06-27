@@ -20,32 +20,68 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
 
 /**
  * The interface for scripters.<br/>
  * Scripters are responsible for reading an input file and parsing the commands.<br/>
  * Scripters are reused for many files. The flow is:
  * <ol>
- * <li>isSupported()</li>
- * <li>script()</li>
- * <li>getCommands()</li>
+ * <li>{@link #isSupported(File)}</li>
+ * <li>{@link #script(File)}</li>
+ * <li>{@link #getCommands()}</li>
  * </ol>
  * 
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public interface IScripter {
 
   /**
-   * The result for the isSupported method call.
+   * This result is used to signal that a scripter supports the given file.<br>
+   * For performance reason always compare to this result when checking.
+   */
+  public static final IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
+
+  /**
+   * @param aConfiguration the configuration to use for initialization
+   * @throws org.wetator.exception.ConfigurationException in case of problems during initialization
+   */
+  public void initialize(Properties aConfiguration);
+
+  /**
+   * @param aFile the file to check
+   * @return {@link #IS_SUPPORTED} if this scripter is able to handle the given file otherwise an
+   *         {@link IsSupportedResult} containing a detailed description, why the file is not supported
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
+   */
+  public IsSupportedResult isSupported(File aFile);
+
+  /**
+   * Scripts the given file by reading all commands.
+   * 
+   * @param aFile the file
+   * @throws InvalidInputException in case of an invalid file
+   * @throws org.wetator.exception.ResourceException in case of problems reading the file
+   */
+  public void script(File aFile) throws InvalidInputException;
+
+  /**
+   * @return the complete list of commands.
+   */
+  public List<Command> getCommands();
+
+  /**
+   * The result for the {@link IScripter#isSupported(File)} method call.<br/>
    * This offers a way to transport some info message.
    */
   public static final class IsSupportedResult {
+
     private String message;
 
     /**
-     * Constructor.
+     * The constructor.
      * 
      * @param aMessage the message
      */
@@ -54,42 +90,10 @@ public interface IScripter {
     }
 
     /**
-     * Getter for the message.
-     * 
      * @return the message
      */
     public String getMessage() {
       return message;
     }
   }
-
-  /**
-   * Success as singleton.
-   */
-  public static final IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
-
-  /**
-   * @param aFile the file to check
-   * @return IS_SUPPORTED if this scripter is able to handle this file otherwise an
-   *         IsSupportedResult containing a details description.
-   */
-  public IsSupportedResult isSupported(File aFile);
-
-  /**
-   * Scripts the given file by reading all commands.
-   * 
-   * @param aFile the file
-   * @throws WetatorException in case of error
-   */
-  public void script(File aFile) throws WetatorException;
-
-  /**
-   * @return the complete list of commands.
-   */
-  public List<Command> getCommands();
-
-  /**
-   * @param aConfiguration the configuration to use for initialization
-   */
-  public void initialize(Properties aConfiguration);
 }

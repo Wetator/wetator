@@ -27,41 +27,112 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.scripter.xml.XMLSchema;
 
 /**
- * Test for {@link XMLScripter}.
+ * Tests for {@link XMLScripter}.
  * 
  * @author frank.danek
  */
 public class XMLScripterTest {
 
   @Test
-  public void supportedFile() {
+  public void unsupportedExtension() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit2.xml");
+    File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'excel.xls' not supported by XMLScripter. Extension is not '.wet' or '.xml'.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void fileNotFound() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'doesNotExist.xml' not supported by XMLScripter. Could not find file.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void emptyFileXML() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/empty.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'empty.xml' not supported by XMLScripter. Could not parse file.", tmpResult.getMessage());
+  }
+
+  @Test
+  public void emptyFileWET() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/empty.wet");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'empty.wet' not supported by XMLScripter. Could not parse file.", tmpResult.getMessage());
+  }
+
+  @Test
+  public void unsupportedFileXML() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'legacyXML.xml' not supported by XMLScripter. Could not parse file.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void unsupportedFileWET() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.wet");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+
+    Assert.assertEquals("File 'legacyXML.wet' not supported by XMLScripter. Could not parse file.",
+        tmpResult.getMessage());
+  }
+
+  @Test
+  public void supportedFileXML() {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/xml.xml");
 
     IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
   }
 
   @Test
-  public void unsupportedFile() {
+  public void supportedFileWET() {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/junit.wet");
+    File tmpFile = new File("test/java/org/wetator/test/resource/xml.wet");
 
     IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
-
-    Assert.assertEquals("File 'junit.wet' not supported by XMLScripter. Parsing the file failed.",
-        tmpResult.getMessage());
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
   }
 
   @Test
-  public void schemasNoDefaultFromFile() {
+  public void schemasNoDefaultFromFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/emptyNoDefault.xml");
 
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
     tmpXMLScripter.script(tmpFile);
 
     Assert.assertEquals(2, tmpXMLScripter.getSchemas().size());
@@ -78,10 +149,13 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasWrongDefaultFromFile() {
+  public void schemasWrongDefaultFromFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/emptyWrongDefault.xml");
 
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
     tmpXMLScripter.script(tmpFile);
 
     Assert.assertEquals(2, tmpXMLScripter.getSchemas().size());
@@ -98,9 +172,12 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasFromFile() {
+  public void schemasFromFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     File tmpFile = new File("test/java/org/wetator/test/resource/emptyMultipleSchemas.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpXMLScripter.script(tmpFile);
 
@@ -128,9 +205,14 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void scriptFile() {
+  public void scriptFile() throws InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    tmpXMLScripter.script(new File("test/java/org/wetator/test/resource/junit2.xml"));
+    File tmpFile = new File("test/java/org/wetator/test/resource/xml.xml");
+
+    IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    tmpXMLScripter.script(tmpFile);
 
     List<Command> tmpCommands = tmpXMLScripter.getCommands();
     Assert.assertEquals(10, tmpCommands.size());
@@ -188,21 +270,28 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void supportedContent() throws FileNotFoundException, IOException {
+  public void emptyContent() throws FileNotFoundException, IOException {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit2.xml"));
-    Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/empty.xml"));
+    Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
 
   @Test
   public void unsupportedContent() throws FileNotFoundException, IOException {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit.wet"));
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/legacyXML.wet"));
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
 
   @Test
-  public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException {
+  public void supportedContent() throws FileNotFoundException, IOException {
+    XMLScripter tmpXMLScripter = new XMLScripter();
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"));
+    Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
+  }
+
+  @Test
+  public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/emptyNoDefault.xml"));
 
@@ -222,7 +311,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException {
+  public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream(
         "test/java/org/wetator/test/resource/emptyWrongDefault.xml"));
@@ -243,7 +332,7 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void schemasFromContent() throws FileNotFoundException, IOException {
+  public void schemasFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
     String tmpContent = IOUtils.toString(new FileInputStream(
         "test/java/org/wetator/test/resource/emptyMultipleSchemas.xml"));
@@ -274,9 +363,9 @@ public class XMLScripterTest {
   }
 
   @Test
-  public void scriptContent() throws FileNotFoundException, IOException {
+  public void scriptContent() throws FileNotFoundException, IOException, InvalidInputException {
     XMLScripter tmpXMLScripter = new XMLScripter();
-    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/junit2.xml"));
+    String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"));
     tmpXMLScripter.script(tmpContent, null);
 
     List<Command> tmpCommands = tmpXMLScripter.getCommands();

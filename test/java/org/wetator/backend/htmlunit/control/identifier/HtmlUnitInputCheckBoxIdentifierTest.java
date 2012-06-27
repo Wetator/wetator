@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -57,7 +58,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byIdWildcard() throws IOException {
+  public void byIdWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -75,7 +76,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byIdPart() throws IOException {
+  public void byIdPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -89,7 +90,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byId_TextBefore() throws IOException {
+  public void byId_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -108,7 +109,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byId_WrongTextBefore() throws IOException {
+  public void byId_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -123,7 +124,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -141,7 +142,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byNameWildcard() throws IOException {
+  public void byNameWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -159,7 +160,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byNamePart() throws IOException {
+  public void byNamePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -173,7 +174,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byName_TextBefore() throws IOException {
+  public void byName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -192,7 +193,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byName_WrongTextBefore() throws IOException {
+  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -207,7 +208,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextAfter() throws IOException {
+  public void byTextAfter() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -225,7 +226,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextAfterWildcard() throws IOException {
+  public void byTextAfterWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -243,7 +244,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextAfterPart() throws IOException {
+  public void byTextAfterPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -261,7 +262,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextAfter_TextBefore() throws IOException {
+  public void byTextAfter_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -280,7 +281,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextAfter_WrongTextBefore() throws IOException {
+  public void byTextAfter_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -295,7 +296,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabel_Text() throws IOException {
+  public void byLabel_Text() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
@@ -316,7 +317,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabel_TextWildcard() throws IOException {
+  public void byLabel_TextWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
@@ -337,7 +338,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabel_TextPart() throws IOException {
+  public void byLabel_TextPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
@@ -358,7 +359,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabel_Text_TextBefore() throws IOException {
+  public void byLabel_Text_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
@@ -380,7 +381,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabel_Text_WrongTextBefore() throws IOException {
+  public void byLabel_Text_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
@@ -398,7 +399,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabelChild_Text() throws IOException {
+  public void byLabelChild_Text() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyLabelId1'>FirstLabelText"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
         + "<label id='MyLabelId2'>SecondLabelText"
@@ -418,7 +419,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabelChild_TextWildcard() throws IOException {
+  public void byLabelChild_TextWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyLabelId1'>FirstLabelText"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
         + "<label id='MyLabelId2'>SecondLabelText"
@@ -438,7 +439,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabelChild_TextPart() throws IOException {
+  public void byLabelChild_TextPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyLabelId1'>FirstLabelText"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
         + "<label id='MyLabelId2'>SecondLabelText"
@@ -458,7 +459,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabelChild_Text_TextBefore() throws IOException {
+  public void byLabelChild_Text_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='MyLabelId1'>FirstLabelText"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
@@ -480,7 +481,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabelChild_Text_WrongTextBefore() throws IOException {
+  public void byLabelChild_Text_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='MyLabelId1'>FirstLabelText"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"

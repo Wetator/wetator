@@ -21,6 +21,7 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 
@@ -34,15 +35,15 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/excel/";
 
   @Test
-  public void defaultCommandSet() {
+  public void defaultCommandSet() throws InvalidInputException {
     executeTestFile("default_command_set.xls");
 
-    Assert.assertEquals(64, getSteps());
+    Assert.assertEquals(65, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) {
+  private void executeTestFile(String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

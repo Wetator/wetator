@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.control;
 
 import java.io.File;
-import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -29,7 +28,10 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifie
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -73,22 +75,30 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
-      throws AssertionFailedException {
+      throws ActionException {
     final HtmlTextArea tmpHtmlTextArea = getHtmlElement();
 
-    Assert.assertTrue(!tmpHtmlTextArea.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
-    Assert.assertTrue(!tmpHtmlTextArea.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
+    if (tmpHtmlTextArea.isDisabled()) {
+      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
+    if (tmpHtmlTextArea.isReadOnly()) {
+      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      throw new ActionException(tmpMessage);
+    }
 
     try {
       tmpHtmlTextArea.click();
-    } catch (final IOException e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    } catch (final Throwable e) {
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
 
     try {
@@ -109,21 +119,26 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final AssertionFailedException e) {
-      aWetatorContext.getBrowser().addFailure(e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
+   *      org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
-      throws AssertionFailedException {
+      throws AssertionException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getText(), "expectedValueNotFound", null);
   }
 
@@ -133,7 +148,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) throws AssertionFailedException {
+  public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlTextArea tmpHtmlTextArea = getHtmlElement();
 
     return tmpHtmlTextArea.isDisabled() || tmpHtmlTextArea.isReadOnly();

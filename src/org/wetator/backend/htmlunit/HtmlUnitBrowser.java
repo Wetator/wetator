@@ -63,8 +63,11 @@ import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.core.searchpattern.SearchPattern;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.BackendException;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.exception.ResourceException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.ContentUtil;
@@ -106,8 +109,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   protected ResponseStore responseStore;
   /** WetatorEngine. */
   protected WetatorEngine wetatorEngine;
-  /** The list of failures ({@link AssertionFailedException}s). */
-  protected List<AssertionFailedException> failures;
+  /** The list of failures ({@link AssertionException}s). */
+  protected List<AssertionException> failures;
   /** jsTimeout. */
   protected long jsTimeoutInMillis;
   /** The map containing the bookmarks. */
@@ -130,7 +133,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     // httpclient should accept all cookies
     System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
 
-    failures = new LinkedList<AssertionFailedException>();
+    failures = new LinkedList<AssertionException>();
     wetatorEngine = aWetatorEngine;
 
     // response store
@@ -175,13 +178,15 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
 
-    // TODO maybe we have to do more here
     if (null != webClient) {
+      // TODO maybe we have to do more here
       try {
+        // unset the onbeforeunload handler to avoid it interfering
+        webClient.setOnbeforeunloadHandler(null);
+
         webClient.closeAllWindows();
       } catch (final ScriptException e) {
-        // TODO handle exception
-        e.printStackTrace();
+        LOG.warn("Could not close previous window.", e);
       }
     }
 
@@ -251,8 +256,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     try {
       webClient.setUseInsecureSSL(true);
     } catch (final GeneralSecurityException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      // TODO add to report?
+      LOG.warn("Accepting insecure SSL-certificates not allowed.", e);
     }
   }
 
@@ -262,7 +267,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(final URL aUrl) throws AssertionFailedException {
+  public void openUrl(final URL aUrl) throws ActionException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
@@ -274,15 +279,30 @@ public final class HtmlUnitBrowser implements IBrowser {
     } catch (final FailingHttpStatusCodeException e) {
       addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     } catch (final UnknownHostException e) {
-      addFailure("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      final String tmpMessage = Messages.getMessage("unknownHostError",
+          new String[] { aUrl.toString(), e.getMessage() });
+      throw new ActionException(tmpMessage, e);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
-      addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      final String tmpMessage = Messages
+          .getMessage("openServerError", new String[] { aUrl.toString(), e.getMessage() });
+      throw new ActionException(tmpMessage, e);
     }
 
-    final String tmpRef = aUrl.getRef();
-    if (StringUtils.isNotEmpty(tmpRef)) {
-      checkAnchor(tmpRef);
+    try {
+      final String tmpRef = aUrl.getRef();
+      if (StringUtils.isNotEmpty(tmpRef)) {
+        checkAnchor(tmpRef);
+      }
+    } catch (final AssertionException e) {
+      // we are in an action so build the correct exception
+      throw new ActionException(e.getMessage(), e.getCause());
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
     }
   }
 
@@ -393,10 +413,11 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
    */
   @Override
-  public void closeWindow(final SecretString aWindowName) throws AssertionFailedException {
+  public void closeWindow(final SecretString aWindowName) throws ActionException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
-      Assert.fail("noWindowToClose", null);
+      final String tmpMessage = Messages.getMessage("noWindowToClose", null);
+      throw new ActionException(tmpMessage);
     }
 
     if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
@@ -414,7 +435,8 @@ public final class HtmlUnitBrowser implements IBrowser {
           return;
         }
       }
-      Assert.fail("noWindowToClose", null);
+      final String tmpMessage = Messages.getMessage("noWindowToClose", null);
+      throw new ActionException(tmpMessage);
     }
 
     final SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
@@ -435,7 +457,8 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
     }
-    Assert.fail("noWindowByNameToClose", new String[] { aWindowName.toString() });
+    final String tmpMessage = Messages.getMessage("noWindowByNameToClose", new String[] { aWindowName.toString() });
+    throw new ActionException(tmpMessage);
   }
 
   /**
@@ -444,11 +467,12 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
    */
   @Override
-  public void goBackInCurrentWindow(final int aSteps) throws AssertionFailedException {
+  public void goBackInCurrentWindow(final int aSteps) throws ActionException {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
-      Assert.fail("noWebWindow", null);
+      final String tmpMessage = Messages.getMessage("noWebWindow", null);
+      throw new ActionException(tmpMessage);
     }
 
     // sometimes the current window in HtmlUnit is an
@@ -458,16 +482,18 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
-      Assert.fail(
+      final String tmpMessage = Messages.getMessage(
           "outsideHistory",
           new String[] { Integer.toString(aSteps), Integer.toString(tmpIndexPos),
               Integer.toString(tmpHistory.getLength()) });
+      throw new ActionException(tmpMessage);
     }
 
     try {
       tmpHistory.go(-1 * aSteps);
     } catch (final IOException e) {
-      Assert.fail("historyFailed", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("historyFailed", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage);
     }
   }
 
@@ -493,7 +519,9 @@ public final class HtmlUnitBrowser implements IBrowser {
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
-      } catch (final WetatorException e) {
+      } catch (final ResourceException e) {
+        LOG.warn("Saving page failed!", e);
+      } catch (final Throwable e) {
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
     }
@@ -503,9 +531,10 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Checks if the url contains a hash, that the matching anchor is on the page.
    * 
    * @param aRef the hash from the url
-   * @throws AssertionFailedException if no matisching anchor found
+   * @throws AssertionException if no matching anchor found
+   * @throws BackendException if there is no current page
    */
-  protected void checkAnchor(final String aRef) throws AssertionFailedException {
+  protected void checkAnchor(final String aRef) throws AssertionException, BackendException {
     // check the anchor part of the url
     final Page tmpPage = getCurrentPage();
     PageUtil.checkAnchor(aRef, tmpPage);
@@ -554,7 +583,9 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (StringUtils.isNotEmpty(tmpRef)) {
           try {
             PageUtil.checkAnchor(tmpRef, tmpNewPage);
-          } catch (final AssertionFailedException e) {
+          } catch (final AssertionException e) {
+            // TODO this is now inconsistent because open-url and click-on for an anchor throw an ActionException (as
+            // they are actions)
             htmlUnitBrowser.addFailure(e);
           }
         }
@@ -563,10 +594,11 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   }
 
-  private Page getCurrentPage() throws AssertionFailedException {
+  private Page getCurrentPage() throws BackendException {
     WebWindow tmpWebWindow = webClient.getCurrentWindow();
     if (null == tmpWebWindow) {
-      Assert.fail("noWebWindow", null);
+      final String tmpMessage = Messages.getMessage("noWebWindow", null);
+      throw new BackendException(tmpMessage);
     }
 
     // sometimes the current window in HtmlUnit is an
@@ -574,7 +606,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     tmpWebWindow = tmpWebWindow.getTopWindow();
     final Page tmpPage = tmpWebWindow.getEnclosedPage();
     if (null == tmpPage) {
-      Assert.fail("noPageInWebWindow", null);
+      final String tmpMessage = Messages.getMessage("noPageInWebWindow", null);
+      throw new BackendException(tmpMessage);
     }
 
     return tmpPage;
@@ -604,16 +637,16 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Returns the current HtmlPage.
    * 
    * @return the current HtmlPage
-   * @throws AssertionFailedException if the current page is not a HtmlPage
+   * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
-  public HtmlPage getCurrentHtmlPage() throws AssertionFailedException {
+  public HtmlPage getCurrentHtmlPage() throws BackendException {
     final Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       return (HtmlPage) tmpPage;
     }
 
-    Assert.fail("noHtmlPage", new String[] { tmpPage.getClass().toString() });
-    return null;
+    final String tmpMessage = Messages.getMessage("noHtmlPage", new String[] { tmpPage.getClass().toString() });
+    throw new BackendException(tmpMessage);
   }
 
   /**
@@ -622,7 +655,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#getControlFinder()
    */
   @Override
-  public IControlFinder getControlFinder() throws AssertionFailedException {
+  public IControlFinder getControlFinder() throws BackendException {
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
@@ -634,7 +667,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#waitForImmediateJobs()
    */
   @Override
-  public boolean waitForImmediateJobs() throws AssertionFailedException {
+  public boolean waitForImmediateJobs() throws BackendException {
     Page tmpPage = getCurrentPage();
     int tmpJobCount = 0;
     if (tmpPage instanceof HtmlPage) {
@@ -672,49 +705,64 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionFailedException {
+      throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
-    final ContentPattern tmpPattern = new ContentPattern(aTitleToWaitFor);
+    final ContentPattern tmpPattern;
+    try {
+      tmpPattern = new ContentPattern(aTitleToWaitFor);
+    } catch (final InvalidInputException e) {
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { SecretString.toString(aTitleToWaitFor), e.getMessage() });
+      // TODO is this really an AssertionException?
+      // TODO better pass the ContentPattern as parameter?
+      throw new AssertionException(tmpMessage, e);
+    }
     boolean tmpPageChanged = false;
 
-    Page tmpPage = getCurrentPage();
-    if (tmpPage instanceof HtmlPage) {
-      // try with wait
-      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
-      while (System.currentTimeMillis() < tmpEndTime) {
-        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-        try {
-          tmpPattern.matches(tmpCurrentTitle);
-          return tmpPageChanged;
-        } catch (final AssertionFailedException e) {
-          // ok, not found, maybe we have to be more patient
-        }
+    try {
+      Page tmpPage = getCurrentPage();
+      if (tmpPage instanceof HtmlPage) {
+        // try with wait
+        long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+        while (System.currentTimeMillis() < tmpEndTime) {
+          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+          final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+          try {
+            tmpPattern.matches(tmpCurrentTitle);
+            return tmpPageChanged;
+          } catch (final AssertionException e) {
+            // ok, not found, maybe we have to be more patient
+          }
 
-        tmpPageChanged = true;
-        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
-          continue;
-        }
+          tmpPageChanged = true;
+          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+          if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+            continue;
+          }
 
-        if (tmpPage == getCurrentPage()) {
-          break;
-        }
+          if (tmpPage == getCurrentPage()) {
+            break;
+          }
 
-        // current page is changed, we have to make at least one try
-        // reset the timeout
-        tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
-          break;
+          // current page is changed, we have to make at least one try
+          // reset the timeout
+          tmpPage = getCurrentPage();
+          if (!(tmpPage instanceof HtmlPage)) {
+            break;
+          }
+          tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
         }
-        tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       }
+
+      final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
+      final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+      tmpPattern.matches(tmpCurrentTitle);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      throw new AssertionException(tmpMessage, e);
     }
 
-    final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-    final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-    tmpPattern.matches(tmpCurrentTitle);
     return tmpPageChanged;
   }
 
@@ -725,124 +773,139 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
-      throws AssertionFailedException {
+      throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
-    final ContentPattern tmpPattern = new ContentPattern(aContentToWaitFor);
+    final ContentPattern tmpPattern;
+    try {
+      tmpPattern = new ContentPattern(aContentToWaitFor);
+    } catch (final InvalidInputException e) {
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { SecretString.toString(aContentToWaitFor), e.getMessage() });
+      // TODO is this really an AssertionException?
+      // TODO better pass the ContentPattern as parameter?
+      throw new AssertionException(tmpMessage, e);
+    }
     boolean tmpPageChanged = false;
 
-    Page tmpPage = getCurrentPage();
-    if (tmpPage instanceof HtmlPage) {
-      // try with wait
-      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
-      while (System.currentTimeMillis() < tmpEndTime) {
-        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-        try {
-          tmpPattern.matches(tmpContentAsText);
-          return tmpPageChanged;
-        } catch (final AssertionFailedException e) {
-          // ok, not found, maybe we have to be more patient
-        }
-
-        tmpPageChanged = true;
-        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
-          continue;
-        }
-
-        // current page is changed, we have to make another try
-        if (tmpPage == getCurrentPage()) {
-          break;
-        }
-
-        // current page is changed, we have to make at least one try
-        // reset the timeout
-        tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
-          break;
-        }
-        tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
-      }
-    }
-
-    tmpPage = getCurrentPage();
-
-    if (tmpPage instanceof HtmlPage) {
-      final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-      final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-      tmpPattern.matches(tmpContentAsText);
-      return tmpPageChanged;
-    }
-
-    if (tmpPage instanceof XmlPage) {
-      final XmlPage tmpXmlPage = (XmlPage) tmpPage;
-      final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
-      tmpPattern.matches(tmpContentAsText);
-      return tmpPageChanged;
-    }
-
-    if (tmpPage instanceof TextPage) {
-      final TextPage tmpTextPage = (TextPage) tmpPage;
-      final String tmpContentAsText = tmpTextPage.getContent();
-      tmpPattern.matches(tmpContentAsText);
-      return tmpPageChanged;
-    }
-
-    final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
-    final WebResponse tmpResponse = tmpPage.getWebResponse();
-
-    if (ContentType.PDF == tmpContentType) {
-      try {
-        final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
-        tmpPattern.matches(tmpContentAsText);
-        return tmpPageChanged;
-      } catch (final IOException e) {
-        Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
-      }
-    }
-
-    if (ContentType.XLS == tmpContentType) {
-      String tmpContentAsText = "";
-      try {
-        tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream());
-      } catch (final IOException e) {
-        // some server send csv files with xls mime type
-        // so lets make another try
-        try {
-          tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
-              tmpResponse.getContentCharset());
-
-          if (ContentUtil.isTxt(tmpContentAsText)) {
-            wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() });
+    try {
+      Page tmpPage = getCurrentPage();
+      if (tmpPage instanceof HtmlPage) {
+        // try with wait
+        long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+        while (System.currentTimeMillis() < tmpEndTime) {
+          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+          final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+          try {
             tmpPattern.matches(tmpContentAsText);
             return tmpPageChanged;
+          } catch (final AssertionException e) {
+            // ok, not found, maybe we have to be more patient
           }
-        } catch (final IOException eAsString) {
-          Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
-        }
-        Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-      }
-      tmpPattern.matches(tmpContentAsText);
-      return tmpPageChanged;
-    }
 
-    if (ContentType.RTF == tmpContentType) {
-      try {
-        final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
+          tmpPageChanged = true;
+          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+          if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+            continue;
+          }
+
+          // current page is changed, we have to make another try
+          if (tmpPage == getCurrentPage()) {
+            break;
+          }
+
+          // current page is changed, we have to make at least one try
+          // reset the timeout
+          tmpPage = getCurrentPage();
+          if (!(tmpPage instanceof HtmlPage)) {
+            break;
+          }
+          tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+        }
+      }
+
+      tmpPage = getCurrentPage();
+
+      if (tmpPage instanceof HtmlPage) {
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
-      } catch (final IOException e) {
-        Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
-        return tmpPageChanged;
-      } catch (final BadLocationException e) {
-        Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+      }
+
+      if (tmpPage instanceof XmlPage) {
+        final XmlPage tmpXmlPage = (XmlPage) tmpPage;
+        final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
+        tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
       }
+
+      if (tmpPage instanceof TextPage) {
+        final TextPage tmpTextPage = (TextPage) tmpPage;
+        final String tmpContentAsText = tmpTextPage.getContent();
+        tmpPattern.matches(tmpContentAsText);
+        return tmpPageChanged;
+      }
+
+      final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
+      final WebResponse tmpResponse = tmpPage.getWebResponse();
+
+      if (ContentType.PDF == tmpContentType) {
+        try {
+          final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
+          tmpPattern.matches(tmpContentAsText);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        }
+      }
+
+      if (ContentType.XLS == tmpContentType) {
+        String tmpContentAsText = "";
+        try {
+          tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream());
+        } catch (final IOException e) {
+          // some server send csv files with xls mime type
+          // so lets make another try
+          try {
+            tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+                tmpResponse.getContentCharset());
+
+            if (ContentUtil.isTxt(tmpContentAsText)) {
+              wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() });
+              tmpPattern.matches(tmpContentAsText);
+              return tmpPageChanged;
+            }
+          } catch (final IOException eAsString) {
+            Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
+          }
+          Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
+        }
+        tmpPattern.matches(tmpContentAsText);
+        return tmpPageChanged;
+      }
+
+      if (ContentType.RTF == tmpContentType) {
+        try {
+          final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
+          tmpPattern.matches(tmpContentAsText);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        } catch (final BadLocationException e) {
+          Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        }
+      }
+
+      Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      throw new AssertionException(tmpMessage, e);
     }
 
-    Assert.fail("unsupportedPageType", new String[] { tmpResponse.getContentType() });
     return tmpPageChanged;
   }
 
@@ -854,7 +917,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   @Override
   public void addFailure(final String aMessageKey, final Object[] aParameterArray, final Throwable aCause) {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    final AssertionFailedException tmpFailure = new AssertionFailedException(tmpMessage, aCause);
+    final AssertionException tmpFailure = new AssertionException(tmpMessage, aCause);
     addFailure(tmpFailure);
   }
 
@@ -864,7 +927,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
-  public void addFailure(final AssertionFailedException aFailure) {
+  public void addFailure(final AssertionException aFailure) {
     failures.add(aFailure);
   }
 
@@ -874,20 +937,20 @@ public final class HtmlUnitBrowser implements IBrowser {
    * @see org.wetator.backend.IBrowser#checkAndResetFailures()
    */
   @Override
-  public AssertionFailedException checkAndResetFailures() {
+  public AssertionException checkAndResetFailures() {
     if (failures.isEmpty()) {
       return null;
     }
 
-    final AssertionFailedException tmpResult = failures.get(0);
-    for (AssertionFailedException tmpException : failures) {
+    final AssertionException tmpResult = failures.get(0);
+    for (AssertionException tmpException : failures) {
       final Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
         wetatorEngine.informListenersWarn("pageError",
             new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
       }
     }
-    failures = new LinkedList<AssertionFailedException>();
+    failures = new LinkedList<AssertionException>();
     return tmpResult;
   }
 
@@ -914,12 +977,16 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @throws AssertionFailedException
    * @see org.wetator.backend.IBrowser#bookmarkPage(String)
    */
   @Override
-  public void bookmarkPage(final String aBookmarkName) throws AssertionFailedException {
-    final URL tmpUrl = getCurrentHtmlPage().getWebResponse().getWebRequest().getUrl();
-    saveBookmark(aBookmarkName, tmpUrl);
+  public void bookmarkPage(final String aBookmarkName) throws ActionException {
+    try {
+      final URL tmpUrl = getCurrentPage().getWebResponse().getWebRequest().getUrl();
+      saveBookmark(aBookmarkName, tmpUrl);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
+    }
   }
 }

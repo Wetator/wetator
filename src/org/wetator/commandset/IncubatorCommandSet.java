@@ -18,6 +18,7 @@ package org.wetator.commandset;
 
 import java.applet.Applet;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -33,7 +34,12 @@ import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.BackendException;
+import org.wetator.exception.CommandException;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -58,7 +64,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("assert-focus", new CommandAssertFocus());
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
-
+    registerCommand("wait", new CommandWait());
     registerCommand("assert-applet", new CommandAssertApplet());
 
     // still there to solve some strange situations
@@ -75,12 +81,21 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValues(aContext));
-      aCommand.assertNoUnusedSecondParameter(aContext);
+
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final IControlFinder tmpControlFinder = tmpBrowser.getControlFinder();
+      IControlFinder tmpControlFinder;
+      try {
+        tmpControlFinder = tmpBrowser.getControlFinder();
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new AssertionException(tmpMessage, e);
+      }
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -94,8 +109,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getRequiredFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+      if (null == tmpControl) {
+        final String tmpMessage = Messages.getMessage("noHtmlElementFound", new String[] { tmpWPath.toString() });
+        throw new AssertionException(tmpMessage);
+      }
 
       final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
@@ -112,17 +130,21 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
-      Assert.assertNotNull(tmpUrl, "unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+      if (tmpUrl == null) {
+        final String tmpMessage = Messages.getMessage("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+        throw new ActionException(tmpMessage);
+      }
 
       aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
       tmpBrowser.openUrl(tmpUrl);
-
       tmpBrowser.saveCurrentWindowToLog();
     }
   }
@@ -137,9 +159,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       tmpBrowser.bookmarkPage(tmpBookmarkName.getValue());
@@ -156,19 +180,35 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
-      final SecretString tmpWaitTime = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final SecretString tmpWaitTimeString = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      long tmpWaitTime = 0;
+      try {
+        final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
+        tmpWaitTime = tmpValue.longValueExact();
+      } catch (final NumberFormatException e) {
+        // TODO i18n
+        final String tmpMessage = Messages.getMessage("integerParameterExpected", new String[] { "wait",
+            tmpWaitTimeString.toString(), "1" });
+        throw new InvalidInputException(tmpMessage);
+      } catch (final ArithmeticException e) {
+        final String tmpMessage = Messages.getMessage("integerParameterExpected", new String[] { "wait",
+            tmpWaitTimeString.toString(), "1" });
+        throw new InvalidInputException(tmpMessage);
+      }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       try {
-        Thread.sleep(Long.parseLong(tmpWaitTime.getValue()) * 1000L);
-      } catch (final NumberFormatException e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        Thread.sleep(tmpWaitTime * 1000L);
+        tmpBrowser.saveCurrentWindowToLog();
       } catch (final InterruptedException e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        final String tmpMessage = Messages.getMessage("waitError", null);
+        throw new ActionException(tmpMessage, e);
       }
-      tmpBrowser.saveCurrentWindowToLog();
     }
   }
 
@@ -183,42 +223,52 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws AssertionFailedException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
-      aCommand.assertNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
 
-      final IBrowser tmpBrowser = getBrowser(aContext);
-      if (tmpBrowser instanceof HtmlUnitBrowser) {
-        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
-        String tmpAppletNameValue = "";
-        if (null != tmpAppletName) {
-          tmpAppletNameValue = tmpAppletName.getValue();
-        }
+      boolean tmpAppletTested = false;
+      String tmpAppletNameValue = "";
+      if (null != tmpAppletName) {
+        tmpAppletNameValue = tmpAppletName.getValue();
+      }
+      try {
+        final IBrowser tmpBrowser = getBrowser(aContext);
+        if (tmpBrowser instanceof HtmlUnitBrowser) {
+          final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
 
-        final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
-        final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
-        boolean tmpAppletTested = false;
-        for (HtmlElement tmpAppletElement : tmpAppletElements) {
-          final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
-          if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
-            aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
-            tmpAppletTested = true;
-            try {
-              final Applet tmpApplet = tmpHtmlApplet.getApplet();
-              tmpApplet.stop();
-              tmpApplet.destroy();
-            } catch (final Exception e) {
-              // do a bit more and verify if all the jars are available
-              aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-              checkArchiveAvailability(aContext, tmpHtmlApplet);
+          final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
+          final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
+          for (HtmlElement tmpAppletElement : tmpAppletElements) {
+            final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
+            if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
+              aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
+              tmpAppletTested = true;
+              try {
+                final Applet tmpApplet = tmpHtmlApplet.getApplet();
+                tmpApplet.stop();
+                tmpApplet.destroy();
+              } catch (final Exception e) {
+                // do a bit more and verify if all the jars are available
+                aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+                checkArchiveAvailability(aContext, tmpHtmlApplet);
 
-              Assert.fail("assertAppletFailed", new String[] { tmpHtmlApplet.getNameAttribute(), e.toString() });
+                final String tmpMessage = Messages.getMessage("assertAppletFailed",
+                    new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
+                throw new AssertionException(tmpMessage, e);
+              }
             }
           }
+          if (!tmpAppletTested) {
+            final String tmpMessage = Messages.getMessage("assertAppletNotFound", new String[] { tmpAppletNameValue });
+            throw new AssertionException(tmpMessage);
+          }
         }
-        if (!tmpAppletTested) {
-          Assert.fail("assertAppletNotFound", new String[] { tmpAppletNameValue });
-        }
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new AssertionException(tmpMessage, e);
       }
     }
 

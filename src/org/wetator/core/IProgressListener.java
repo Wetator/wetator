@@ -16,7 +16,7 @@
 
 package org.wetator.core;
 
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
 
 /**
  * The interface for listeners of the wetator run progress. Register a listener to be informed.
@@ -46,9 +46,9 @@ public interface IProgressListener {
   /**
    * This is called before a test case (grouping the browser runs) is started.<br/>
    * 
-   * @param aTestName the name of the test case
+   * @param aTestCase the test case
    */
-  public void testCaseStart(String aTestName);
+  public void testCaseStart(TestCase aTestCase);
 
   /**
    * This is called before a run of a test case for one browser is started.<br/>
@@ -79,11 +79,16 @@ public interface IProgressListener {
   public void executeCommandSuccess();
 
   /**
+   * This is called if a command was ignored.
+   */
+  public void executeCommandIgnored();
+
+  /**
    * This is called if a the execution of a command resulted in a failure.
    * 
-   * @param anAssertionFailedException the failure
+   * @param anAssertionException the failure
    */
-  public void executeCommandFailure(AssertionFailedException anAssertionFailedException);
+  public void executeCommandFailure(AssertionException anAssertionException);
 
   /**
    * This is called if a the execution of a command resulted in an error.
@@ -101,6 +106,11 @@ public interface IProgressListener {
    * This is called after a test file is finished.
    */
   public void testFileEnd();
+
+  /**
+   * This is called after a run of a test case for one browser was ignored.
+   */
+  public void testRunIgnored();
 
   /**
    * This is called after a run of a test case for one browser is finished.
@@ -127,6 +137,13 @@ public interface IProgressListener {
   public void responseStored(String aResponseFileName);
 
   /**
+   * This is called to log an error.
+   * 
+   * @param aThrowable the exception thrown
+   */
+  public void error(Throwable aThrowable);
+
+  /**
    * This is called to log a warning.
    * 
    * @param aMessageKey the message key
@@ -141,4 +158,5 @@ public interface IProgressListener {
    * @param aParameterArray the parameters for the message
    */
   public void info(String aMessageKey, String[] aParameterArray);
+
 }

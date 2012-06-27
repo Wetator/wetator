@@ -20,7 +20,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.wetator.backend.htmlunit.util.FindSpot;
-import org.wetator.exception.AssertionFailedException;
+import org.wetator.exception.AssertionException;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
@@ -40,14 +42,16 @@ public class ContentPattern {
    * The constructor.
    * 
    * @param anExpectedNodes the nodes expected from the text
-   * @throws AssertionFailedException if provided pattern is empty or contains only negated nodes.
+   * @throws InvalidInputException if provided pattern is empty or contains only negated nodes
    */
-  public ContentPattern(final List<SecretString> anExpectedNodes) throws AssertionFailedException {
+  public ContentPattern(final List<SecretString> anExpectedNodes) throws InvalidInputException {
     rawNodes = anExpectedNodes;
 
     // not empty
     if (anExpectedNodes == null || anExpectedNodes.isEmpty()) {
-      Assert.fail("emptyContentPattern", null);
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { SecretString.toString(anExpectedNodes), Messages.getMessage("emptyContentPattern", null) });
+      throw new InvalidInputException(tmpMessage);
     }
     parseNodes();
 
@@ -58,7 +62,18 @@ public class ContentPattern {
     // validation
     // at least one positive node is required
     if (checks.get(0).isEmpty()) {
-      Assert.fail("onlyNegatedContentPattern", new String[] { toString() });
+      final String tmpMessage = Messages.getMessage(
+          "invalidContentPattern",
+          new String[] { SecretString.toString(anExpectedNodes),
+              Messages.getMessage("onlyNegatedContentPattern", new String[] { toString() }) });
+      throw new InvalidInputException(tmpMessage);
+    }
+  }
+
+  private void parseNodes() {
+    nodes = new LinkedList<PatternNode>();
+    for (SecretString tmpNode : rawNodes) {
+      nodes.add(new PatternNode(tmpNode));
     }
   }
 
@@ -84,9 +99,9 @@ public class ContentPattern {
    * Otherwise throws an AssertionFailedException.
    * 
    * @param aContent a String to check
-   * @throws AssertionFailedException if the two strings are not the same
+   * @throws AssertionException if the two strings are not the same
    */
-  public void matches(final String aContent) throws AssertionFailedException {
+  public void matches(final String aContent) throws AssertionException {
     // first the positive only check
     // if this fails we have no need for check the negative ones also
     final List<PatternNode> tmpNodes = checks.get(0);
@@ -98,7 +113,7 @@ public class ContentPattern {
     }
   }
 
-  private void privateMatches(final List<PatternNode> aNodes, final String aContent) throws AssertionFailedException {
+  private void privateMatches(final List<PatternNode> aNodes, final String aContent) throws AssertionException {
     int tmpStartPos = 0;
     boolean tmpFailed = false;
     final StringBuilder tmpResultMessage = new StringBuilder();
@@ -149,8 +164,7 @@ public class ContentPattern {
     }
   }
 
-  private void privateMatchesNegated(final List<PatternNode> aNodes, final String aContent)
-      throws AssertionFailedException {
+  private void privateMatchesNegated(final List<PatternNode> aNodes, final String aContent) throws AssertionException {
     int tmpStartPos = 0;
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
@@ -199,13 +213,6 @@ public class ContentPattern {
   @Override
   public String toString() {
     return SecretString.toString(rawNodes);
-  }
-
-  private void parseNodes() {
-    nodes = new LinkedList<PatternNode>();
-    for (SecretString tmpNode : rawNodes) {
-      nodes.add(new PatternNode(tmpNode));
-    }
   }
 
   /**

@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -55,7 +56,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byIdWildcard() throws IOException {
+  public void byIdWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -71,7 +72,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byIdPart() throws IOException {
+  public void byIdPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -84,7 +85,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byId_TextBefore() throws IOException {
+  public void byId_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='reset' value='ClickMeAlso'>" + "</form>" + "</body></html>";
 
@@ -102,7 +103,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byId_WrongTextBefore() throws IOException {
+  public void byId_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -116,7 +117,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -133,7 +134,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byNameWildcard() throws IOException {
+  public void byNameWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -150,7 +151,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byNamePart() throws IOException {
+  public void byNamePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -163,7 +164,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byName_TextBefore() throws IOException {
+  public void byName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -181,7 +182,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byName_WrongTextBefore() throws IOException {
+  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -195,7 +196,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byText() throws IOException {
+  public void byText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -212,7 +213,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byTextWildcard() throws IOException {
+  public void byTextWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -229,7 +230,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byTextPart() throws IOException {
+  public void byTextPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -246,7 +247,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byText_TextBefore() throws IOException {
+  public void byText_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -264,7 +265,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byText_WrongTextBefore() throws IOException {
+  public void byText_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -278,7 +279,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byIdNameText() throws IOException {
+  public void byIdNameText() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyName' type='reset' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
 

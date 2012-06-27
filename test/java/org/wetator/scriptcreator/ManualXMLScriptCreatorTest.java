@@ -20,25 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.wetator.core.Parameter;
 import org.wetator.core.Command;
-import org.wetator.exception.WetatorException;
+import org.wetator.core.Parameter;
 
 /**
  * @author frank.danek
  */
 public class ManualXMLScriptCreatorTest {
 
-  /**
-   * @throws WetatorException if something goes wrong
-   */
   @Test
-  public void manual() throws WetatorException {
+  public void manual() {
     List<Command> tmpCommands = new ArrayList<Command>();
     Command tmpCommand;
     tmpCommand = new Command("assert-content", false);
     tmpCommand.setLineNo(1);
-    tmpCommand.setFirstParameter(new Parameter("dies ist ein testäöü"));
+    tmpCommand.setFirstParameter(new Parameter("dies ist ein testï¿½ï¿½ï¿½"));
     tmpCommands.add(tmpCommand);
     tmpCommand = new Command("click-on", true);
     tmpCommand.setLineNo(2);
@@ -46,7 +42,7 @@ public class ManualXMLScriptCreatorTest {
     tmpCommands.add(tmpCommand);
     tmpCommand = new Command("", true);
     tmpCommand.setLineNo(3);
-    tmpCommand.setFirstParameter(new Parameter("Schöner Kommentar"));
+    tmpCommand.setFirstParameter(new Parameter("Schï¿½ner Kommentar"));
     tmpCommands.add(tmpCommand);
     tmpCommand = new Command("exec-sql", false);
     tmpCommand.setLineNo(4);

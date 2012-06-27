@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -36,7 +37,7 @@ public class XlsSqlCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void sql() {
+  public void sql() throws InvalidInputException {
     executeTestFile("sql_command_set.xls");
 
     Assert.assertEquals(40, getSteps());
@@ -44,7 +45,7 @@ public class XlsSqlCommandSetTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) {
+  private void executeTestFile(String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

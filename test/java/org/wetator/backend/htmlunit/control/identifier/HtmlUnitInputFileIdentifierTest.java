@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
 /**
@@ -39,7 +40,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byId() throws IOException {
+  public void byId() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='file'>"
         + "</form>" + "</body></html>";
 
@@ -55,7 +56,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byIdWildcard() throws IOException {
+  public void byIdWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='file'>"
         + "</form>" + "</body></html>";
 
@@ -71,7 +72,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byIdPart() throws IOException {
+  public void byIdPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='file'>"
         + "</form>" + "</body></html>";
 
@@ -84,7 +85,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byId_TextBefore() throws IOException {
+  public void byId_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -102,7 +103,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byId_WrongTextBefore() throws IOException {
+  public void byId_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -116,7 +117,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byName() throws IOException {
+  public void byName() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='file'>"
         + "</form>" + "</body></html>";
 
@@ -133,7 +134,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byNameWildcard() throws IOException {
+  public void byNameWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='file'>"
         + "</form>" + "</body></html>";
 
@@ -150,7 +151,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byNamePart() throws IOException {
+  public void byNamePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='file'>"
         + "</form>" + "</body></html>";
 
@@ -163,7 +164,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byName_TextBefore() throws IOException {
+  public void byName_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -181,7 +182,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byName_WrongTextBefore() throws IOException {
+  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -195,7 +196,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byTextBefore() throws IOException {
+  public void byTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='otherId' name='otherName' type='file'>"
         + "<p>Marker</p>" + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -212,7 +213,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byTextBeforeWildcard() throws IOException {
+  public void byTextBeforeWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='otherId' name='otherName' type='file'>"
         + "<p>Marker</p>" + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -229,7 +230,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byTextBeforePart() throws IOException {
+  public void byTextBeforePart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='otherId' name='otherName' type='file'>"
         + "<p>Marker</p>" + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -246,7 +247,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byTextBefore_TextBefore() throws IOException {
+  public void byTextBefore_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='file'>" + "<p>Marker</p>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
@@ -265,7 +266,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byTextBefore_WrongTextBefore() throws IOException {
+  public void byTextBefore_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='file'>" + "<p>Marker</p>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
@@ -280,7 +281,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabel() throws IOException {
+  public void byLabel() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -297,7 +298,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelWildcard() throws IOException {
+  public void byLabelWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -314,7 +315,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelPart() throws IOException {
+  public void byLabelPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='file'>" + "</form>" + "</body></html>";
 
@@ -331,7 +332,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabel_TextBefore() throws IOException {
+  public void byLabel_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>" + "<input id='myId' name='myName' type='file'>" + "</form>"
         + "</body></html>";
@@ -350,7 +351,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabel_WrongTextBefore() throws IOException {
+  public void byLabel_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>" + "<input id='myId' name='myName' type='file'>" + "</form>"
         + "</body></html>";
@@ -365,7 +366,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelChild() throws IOException {
+  public void byLabelChild() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='file'>" + "</label>" + "</form>" + "</body></html>";
 
@@ -382,7 +383,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelChildWildcard() throws IOException {
+  public void byLabelChildWildcard() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='file'>" + "</label>" + "</form>" + "</body></html>";
 
@@ -399,7 +400,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelChildPart() throws IOException {
+  public void byLabelChildPart() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='file'>" + "</label>" + "</form>" + "</body></html>";
 
@@ -416,7 +417,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelChild_TextBefore() throws IOException {
+  public void byLabelChild_TextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='labelId'>Label" + "<input id='myId' name='myName' type='file'>" + "</label>" + "</form>"
         + "</body></html>";
@@ -435,7 +436,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelChild_WrongTextBefore() throws IOException {
+  public void byLabelChild_WrongTextBefore() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<label id='labelId'>Label" + "<input id='myId' name='myName' type='file'>" + "</label>" + "</form>"
         + "</body></html>";

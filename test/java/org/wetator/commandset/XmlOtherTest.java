@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -36,7 +37,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void ajaxJquery() {
+  public void ajaxJquery() throws InvalidInputException {
     executeTestFile("ajax_jquery.wet");
 
     Assert.assertEquals(34, getSteps());
@@ -46,7 +47,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void ajaxPrototype() {
+  public void ajaxPrototype() throws InvalidInputException {
     executeTestFile("ajax_prototype.wet");
 
     Assert.assertEquals(10, getSteps());
@@ -56,7 +57,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void jsAnchorInsidePage() {
+  public void jsAnchorInsidePage() throws InvalidInputException {
     executeTestFile("js_anchor_inside_page.wet");
 
     Assert.assertEquals(8, getSteps());
@@ -66,7 +67,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void flowSimpleLogin() {
+  public void flowSimpleLogin() throws InvalidInputException {
     executeTestFile("flow_simple_login.wet");
 
     Assert.assertEquals(7, getSteps());
@@ -76,7 +77,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void flowSimpleSearch() {
+  public void flowSimpleSearch() throws InvalidInputException {
     executeTestFile("flow_simple_search.wet");
 
     Assert.assertEquals(12, getSteps());
@@ -86,7 +87,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void htmlunitJavascript() {
+  public void htmlunitJavascript() throws InvalidInputException {
     executeTestFile("htmlunit_javascript.wet");
 
     Assert.assertEquals(4, getSteps());
@@ -96,7 +97,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void iframe() {
+  public void iframe() throws InvalidInputException {
     executeTestFile("iframe.wet");
 
     Assert.assertEquals(6, getSteps());
@@ -106,7 +107,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void jquery() {
+  public void jquery() throws InvalidInputException {
     executeTestFile("jquery.wet");
 
     Assert.assertEquals(9, getSteps());
@@ -116,7 +117,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void jsError() {
+  public void jsError() throws InvalidInputException {
     executeTestFile("js_error.wet");
 
     Assert.assertEquals(34, getSteps());
@@ -126,7 +127,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void jsLibs() {
+  public void jsLibs() throws InvalidInputException {
     executeTestFile("js_libs.wet");
 
     Assert.assertEquals(13, getSteps());
@@ -136,7 +137,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void normalizeCommand() {
+  public void normalizeCommand() throws InvalidInputException {
     executeTestFile("normalize_command.wet");
 
     Assert.assertEquals(6, getSteps());
@@ -146,7 +147,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void onfocusOnblur() {
+  public void onfocusOnblur() throws InvalidInputException {
     executeTestFile("onfocus_onblur.wet");
 
     Assert.assertEquals(56, getSteps());
@@ -156,7 +157,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void onkey() {
+  public void onkey() throws InvalidInputException {
     executeTestFile("onkey.wet");
 
     Assert.assertEquals(65, getSteps());
@@ -166,7 +167,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void wait1() {
+  public void wait1() throws InvalidInputException {
     executeTestFile("wait.wet");
 
     Assert.assertEquals(4, getSteps());
@@ -176,7 +177,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void responseStore() {
+  public void responseStore() throws InvalidInputException {
     executeTestFile("response_store.wet");
 
     Assert.assertEquals(14, getSteps());
@@ -184,7 +185,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) {
+  private void executeTestFile(String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

@@ -21,8 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.exception.AssertionFailedException;
-import org.wetator.util.Assert;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 
 /**
@@ -211,14 +211,13 @@ public final class Command {
    * 
    * @param aContext the context
    * @return the list of secret strings (never null)
-   * @throws AssertionFailedException if the first parameter was not set
+   * @throws InvalidInputException if the first parameter is not set
    */
-  public List<SecretString> getRequiredFirstParameterValues(final WetatorContext aContext)
-      throws AssertionFailedException {
+  public List<SecretString> getRequiredFirstParameterValues(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
-      Assert.fail("emptyFirstParameter", new String[] { getName() });
+      invalidInput("emptyFirstParameter", new String[] { getName() });
     }
 
     return getFirstParameterValues(aContext);
@@ -230,54 +229,17 @@ public final class Command {
    * 
    * @param aContext the context
    * @return a secret string
-   * @throws AssertionFailedException if the first parameter was not set
+   * @throws InvalidInputException if the first parameter is not set
    */
-  public SecretString getRequiredFirstParameterValue(final WetatorContext aContext) throws AssertionFailedException {
+  public SecretString getRequiredFirstParameterValue(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
-      Assert.fail("emptyFirstParameter", new String[] { getName() });
+      invalidInput("emptyFirstParameter", new String[] { getName() });
     }
 
     final SecretString tmpFirstValue = tmpFirstParameter.getValue(aContext);
     return tmpFirstValue;
-  }
-
-  /**
-   * Returns the list of secret strings parsed from the second parameter.
-   * 
-   * @param aContext the context
-   * @return the list of secret strings (never null)
-   * @throws AssertionFailedException if the first parameter was not set
-   */
-  public List<SecretString> getRequiredSecondParameterValues(final WetatorContext aContext)
-      throws AssertionFailedException {
-    final Parameter tmpSecondParameter = getSecondParameter();
-
-    if (null == tmpSecondParameter) {
-      Assert.fail("emptySecondParameter", new String[] { getName() });
-    }
-
-    return getSecondParameterValues(aContext);
-  }
-
-  /**
-   * Returns the second parameter as secret string.
-   * The parameter is taken at whole, not parsed.
-   * 
-   * @param aContext the context
-   * @return a secret string
-   * @throws AssertionFailedException if the second parameter was not set
-   */
-  public SecretString getRequiredSecondParameterValue(final WetatorContext aContext) throws AssertionFailedException {
-    final Parameter tmpSecondParameter = getSecondParameter();
-
-    if (null == tmpSecondParameter) {
-      Assert.fail("emptySecondParameter", new String[] { getName() });
-    }
-
-    final SecretString tmpSecondValue = tmpSecondParameter.getValue(aContext);
-    return tmpSecondValue;
   }
 
   /**
@@ -326,9 +288,9 @@ public final class Command {
    * 
    * @param aContext the context
    * @return a Long (or null if not set)
-   * @throws AssertionFailedException if the second parameter is not convertable into a long
+   * @throws InvalidInputException if the second parameter is not convertible into a long
    */
-  public Long getSecondParameterLongValue(final WetatorContext aContext) throws AssertionFailedException {
+  public Long getSecondParameterLongValue(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
@@ -344,25 +306,81 @@ public final class Command {
       final BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
       return Long.valueOf(tmpValue.longValueExact());
     } catch (final NumberFormatException e) {
-      Assert.fail("integerParameterExpected", new String[] { getName(),
+      invalidInput("integerParameterExpected", new String[] { getName(),
           tmpSecondParameter.getValue(aContext).toString(), "2" });
     } catch (final ArithmeticException e) {
-      Assert.fail("integerParameterExpected", new String[] { getName(),
+      invalidInput("integerParameterExpected", new String[] { getName(),
           tmpSecondParameter.getValue(aContext).toString(), "2" });
     }
     return null;
   }
 
   /**
+   * Returns the list of secret strings parsed from the second parameter.
+   * 
+   * @param aContext the context
+   * @return the list of secret strings (never null)
+   * @throws InvalidInputException if the second parameter is not set
+   */
+  public List<SecretString> getRequiredSecondParameterValues(final WetatorContext aContext)
+      throws InvalidInputException {
+    final Parameter tmpSecondParameter = getSecondParameter();
+
+    if (null == tmpSecondParameter) {
+      invalidInput("emptySecondParameter", new String[] { getName() });
+    }
+
+    return getSecondParameterValues(aContext);
+  }
+
+  /**
+   * Returns the second parameter as secret string.
+   * The parameter is taken at whole, not parsed.
+   * 
+   * @param aContext the context
+   * @return a secret string
+   * @throws InvalidInputException if the second parameter is not set
+   */
+  public SecretString getRequiredSecondParameterValue(final WetatorContext aContext) throws InvalidInputException {
+    final Parameter tmpSecondParameter = getSecondParameter();
+
+    if (null == tmpSecondParameter) {
+      invalidInput("emptySecondParameter", new String[] { getName() });
+    }
+
+    final SecretString tmpSecondValue = tmpSecondParameter.getValue(aContext);
+    return tmpSecondValue;
+  }
+
+  /**
    * Asserts that the second parameter is not set.
    * 
    * @param aContext the context
-   * @throws AssertionFailedException if the second parameter is set.
+   * @throws InvalidInputException if the second parameter is set
    */
-  public void assertNoUnusedSecondParameter(final WetatorContext aContext) throws AssertionFailedException {
+  public void checkNoUnusedSecondParameter(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpParameter = getSecondParameter();
     if (null != tmpParameter) {
-      Assert.fail("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "2" });
+      invalidInput("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "2" });
     }
+  }
+
+  /**
+   * Asserts that the third parameter is not set.
+   * 
+   * @param aContext the context
+   * @throws InvalidInputException if the third parameter is set
+   */
+  public void checkNoUnusedThirdParameter(final WetatorContext aContext) throws InvalidInputException {
+    final Parameter tmpParameter = getThirdParameter();
+    if (null != tmpParameter) {
+      invalidInput("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "3" });
+    }
+  }
+
+  private static void invalidInput(final String aMessageKey, final Object[] aParameterArray)
+      throws InvalidInputException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    throw new InvalidInputException(tmpMessage);
   }
 }

@@ -37,6 +37,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.StdOutProgressListener;
 import org.wetator.test.jetty.HttpHeaderServlet;
 import org.wetator.test.jetty.MultiPartFilter;
@@ -130,7 +131,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     if (getBrowser() != null) {
       tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, getBrowser().getSymbol());
     }
-    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl,./xsl/run_report.xsl");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/run_report.xsl");
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS,
         "org.wetator.commandset.IncubatorCommandSet, " + "org.wetator.commandset.SqlCommandSet, "
             + "org.wetator.commandset.TestCommandSet");
@@ -178,7 +179,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     server = null;
   }
 
-  protected void executeTestFile(File aTestFile) {
+  protected void executeTestFile(File aTestFile) throws InvalidInputException {
     wetatorEngine.addTestCase(aTestFile.getName(), aTestFile);
     wetatorEngine.executeTests();
   }

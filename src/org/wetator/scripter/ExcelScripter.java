@@ -33,7 +33,7 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
-import org.wetator.exception.WetatorException;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.util.ContentUtil;
 import org.wetator.util.NormalizedString;
 
@@ -41,8 +41,10 @@ import org.wetator.util.NormalizedString;
  * Scripter for excel files.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class ExcelScripter implements IScripter {
+
   private static final String EXCEL_FILE_EXTENSION = ".xls";
   private static final int COMMENT_COLUMN_NO = 0;
   private static final int COMMAND_NAME_COLUMN_NO = 1;
@@ -54,29 +56,13 @@ public final class ExcelScripter implements IScripter {
   private List<Command> commands;
 
   /**
-   * Standard constructor.
-   */
-  public ExcelScripter() {
-    super();
-  }
-
-  /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IScripter#script(java.io.File)
+   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
-  public void script(final File aFile) throws WetatorException {
-    file = aFile;
-
-    commands = readCommands();
-  }
-
-  /**
-   * @return the file
-   */
-  public File getFile() {
-    return file;
+  public void initialize(final Properties aConfiguration) {
+    // nothing to do
   }
 
   /**
@@ -86,26 +72,45 @@ public final class ExcelScripter implements IScripter {
    */
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
+    // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase();
-    final boolean tmpResult = tmpFileName.endsWith(EXCEL_FILE_EXTENSION);
-    if (tmpResult) {
-      return IScripter.IS_SUPPORTED;
+    if (!tmpFileName.endsWith(EXCEL_FILE_EXTENSION)) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
     }
 
-    return new IScripter.IsSupportedResult("File '" + aFile.getName()
-        + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
+    // second check the file accessibility
+    if (!aFile.exists()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by ExcelScripter. Could not find file.");
+    }
+    if (!aFile.isFile() || !aFile.canRead()) {
+      return new IScripter.IsSupportedResult("File '" + aFile.getName()
+          + "' not supported by ExcelScripter. Could not read file.");
+    }
+
+    return IScripter.IS_SUPPORTED;
   }
 
-  private List<Command> readCommands() throws WetatorException {
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IScripter#script(java.io.File)
+   */
+  @Override
+  public void script(final File aFile) throws InvalidInputException {
+    file = aFile;
+
+    commands = readCommands();
+  }
+
+  private List<Command> readCommands() throws InvalidInputException {
     final List<Command> tmpResult = new LinkedList<Command>();
 
-    final InputStream tmpInputStream;
+    InputStream tmpInputStream = null;
     try {
-      tmpInputStream = new FileInputStream(getFile().getAbsoluteFile());
-    } catch (final FileNotFoundException e) {
-      throw new WetatorException("File '" + getFile().getAbsolutePath() + "' not available.", e);
-    }
-    try {
+      tmpInputStream = new FileInputStream(file.getAbsoluteFile());
+
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
       final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
@@ -121,7 +126,7 @@ public final class ExcelScripter implements IScripter {
       }
 
       if (tmpSheetNo < 0) {
-        throw new WetatorException("No test sheet found in file '" + getFile().getAbsolutePath() + "'.");
+        throw new InvalidInputException("No test sheet found in file '" + file.getAbsolutePath() + "'.");
       }
 
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
@@ -177,15 +182,32 @@ public final class ExcelScripter implements IScripter {
       }
 
       return tmpResult;
+    } catch (final FileNotFoundException e) {
+      throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
     } catch (final IOException e) {
-      throw new WetatorException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
+      throw new InvalidInputException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").",
+          e);
     } finally {
-      try {
-        tmpInputStream.close();
-      } catch (final IOException e) {
-        throw new WetatorException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
+      if (tmpInputStream != null) {
+        try {
+          tmpInputStream.close();
+        } catch (final IOException e) {
+          // bad luck
+        }
       }
     }
+  }
+
+  private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
+      final FormulaEvaluator aFormulaEvaluator) {
+    String tmpContent;
+
+    tmpContent = ContentUtil.readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
+    if (StringUtils.isEmpty(tmpContent)) {
+      return null;
+    }
+
+    return new Parameter(tmpContent);
   }
 
   /**
@@ -196,27 +218,5 @@ public final class ExcelScripter implements IScripter {
   @Override
   public List<Command> getCommands() {
     return commands;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
-  @Override
-  public void initialize(final Properties aConfiguration) {
-    // nothing to do
-  }
-
-  private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) throws WetatorException {
-    String tmpContent;
-
-    tmpContent = ContentUtil.readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
-    if (StringUtils.isEmpty(tmpContent)) {
-      return null;
-    }
-
-    return new Parameter(tmpContent);
   }
 }

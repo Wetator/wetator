@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
 import org.wetator.test.junit.BrowserRunner;
 import org.wetator.test.junit.BrowserRunner.Browsers;
@@ -36,7 +37,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventClickOnFF36() {
+  public void eventClickOnFF36() throws InvalidInputException {
     executeTestFile("ff36/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
@@ -46,7 +47,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventClickOnIE6() {
+  public void eventClickOnIE6() throws InvalidInputException {
     executeTestFile("ie6/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
@@ -56,7 +57,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventClickOnIE8() {
+  public void eventClickOnIE8() throws InvalidInputException {
     executeTestFile("ie8/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
@@ -66,7 +67,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventDeselectFF36() {
+  public void eventDeselectFF36() throws InvalidInputException {
     executeTestFile("ff36/event_deselect.wet");
 
     Assert.assertEquals(20, getSteps());
@@ -76,7 +77,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventDeselectIE6() {
+  public void eventDeselectIE6() throws InvalidInputException {
     executeTestFile("ie6/event_deselect.wet");
 
     Assert.assertEquals(20, getSteps());
@@ -86,7 +87,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventDeselectIE8() {
+  public void eventDeselectIE8() throws InvalidInputException {
     executeTestFile("ie8/event_deselect.wet");
 
     Assert.assertEquals(20, getSteps());
@@ -96,7 +97,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
-  public void eventHandlerOLD() {
+  public void eventHandlerOLD() throws InvalidInputException {
     executeTestFile("event_handler.wet");
 
     Assert.assertEquals(72, getSteps());
@@ -106,7 +107,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventHandlerOLDIE6() {
+  public void eventHandlerOLDIE6() throws InvalidInputException {
     executeTestFile("ie6/event_handler.wet");
 
     Assert.assertEquals(81, getSteps());
@@ -116,7 +117,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventHandlerOLDFF36() {
+  public void eventHandlerOLDFF36() throws InvalidInputException {
     executeTestFile("ff36/event_handler.wet");
 
     Assert.assertEquals(81, getSteps());
@@ -126,7 +127,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventMouseOverFF36() {
+  public void eventMouseOverFF36() throws InvalidInputException {
     executeTestFile("ff36/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -136,7 +137,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventMouseOverIE6() {
+  public void eventMouseOverIE6() throws InvalidInputException {
     executeTestFile("ie6/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -146,7 +147,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventMouseOverIE8() {
+  public void eventMouseOverIE8() throws InvalidInputException {
     executeTestFile("ie8/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -156,7 +157,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventSelectFF36() {
+  public void eventSelectFF36() throws InvalidInputException {
     executeTestFile("ff36/event_select.wet");
 
     Assert.assertEquals(30, getSteps());
@@ -166,7 +167,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventSelectIE6() {
+  public void eventSelectIE6() throws InvalidInputException {
     executeTestFile("ie6/event_select.wet");
 
     Assert.assertEquals(30, getSteps());
@@ -176,7 +177,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventSelectIE8() {
+  public void eventSelectIE8() throws InvalidInputException {
     executeTestFile("ie8/event_select.wet");
 
     Assert.assertEquals(30, getSteps());
@@ -184,7 +185,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) {
+  private void executeTestFile(String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }
