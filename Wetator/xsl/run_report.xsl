@@ -1647,7 +1647,7 @@
                 </td>
                 <td class="light"/>
                 <xsl:choose>
-                    <xsl:when test="descendant::failure and not(descendant::error)">
+                    <xsl:when test="descendant-or-self::failure and not(descendant::error)">
                         <td class="failure" colspan="4">
                             <xsl:value-of select="failure/message"/>
                         </td>
