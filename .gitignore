@@ -1,3 +1,4 @@
+Wetator/.sonar
 Wetator/ant_lib/ivy-2.1.0.jar
 Wetator/ant_lib/one-jar-ant-task-0.96.jar
 Wetator/ant_lib/version_tool.jar
@@ -43,6 +44,7 @@ Wetator/lib_src/org.apache.poi
 Wetator/lib_src/pdfbox-1.1.0-src.zip
 Wetator/lib_src/poi-src-3.6-20091214.zip
 Wetator/logs/*
+Wetator/sonar-project.properties
 Wetator/wetator.config
 /build
 /deploy
