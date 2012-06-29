@@ -1,3 +1,4 @@
+/.sonar
 ant_lib/ivy-2.1.0.jar
 ant_lib/one-jar-ant-task-0.96.jar
 ant_lib/version_tool.jar
@@ -43,4 +44,5 @@ lib_src/org.apache.poi
 lib_src/pdfbox-1.1.0-src.zip
 lib_src/poi-src-3.6-20091214.zip
 logs/*
+/sonar-project.properties
 /wetator.config
