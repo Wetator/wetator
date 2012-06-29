@@ -114,7 +114,7 @@ public final class WikiTextScripter implements IScripter {
       String tmpLine;
       while (null != (tmpLine = tmpReader.readLine())) {
         tmpLineNo++;
-        tmpLine.trim();
+        tmpLine = tmpLine.trim();
 
         // ignore blank lines
         if (StringUtils.isBlank(tmpLine)) {
