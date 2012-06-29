@@ -1256,7 +1256,7 @@
                                 </img>
                             </td>
 
-                            <td align="center"><xsl:value-of select="count(command[not(@isComment) and not(ignored)])"/>/<xsl:value-of select="count(descendant::command[not(@isComment)])"/></td>
+                            <td align="center"><xsl:value-of select="count(command[not(@isComment) and not(ignored)])"/>/<xsl:value-of select="count(command[not(@isComment)])"/></td>
 
                             <td>
                                 <xsl:variable name="linelength" select="0"/>
