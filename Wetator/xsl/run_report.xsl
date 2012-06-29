@@ -29,9 +29,9 @@
     <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::error)])"/>
     <xsl:variable name="testIgnoredCount" select="count(/wet/testcase/testrun/ignored)"/>
 
-    <xsl:variable name="stepsOkCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(failure) and not(error) and not(ignored)])"/>
-    <xsl:variable name="stepsFailureCount" select="count(/wet/testcase/testrun/testfile/command/failure)"/>
-    <xsl:variable name="stepsErrorCount" select="count(/wet/testcase/testrun/testfile/command/error)"/>
+    <xsl:variable name="stepsOkCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(ignored)])"/>
+    <xsl:variable name="stepsFailureCount" select="count(/wet/testcase/testrun/testfile/command[(descendant-or-self::failure) and not(descendant::error)])"/>
+    <xsl:variable name="stepsErrorCount" select="count(/wet/testcase/testrun/testfile/command/descendant-or-self::error)"/>
     <xsl:variable name="stepsIgnoredCount" select="count(/wet/testcase/testrun/testfile/command/ignored)"/>
     <xsl:variable name="stepsNotOkCount" select="$testStepCount - $stepsOkCount"/>
 
@@ -1277,10 +1277,7 @@
                                             <td class="step" width="4px">
                                                 <xsl:attribute name="bgcolor">
                                                     <xsl:choose>
-                                                        <xsl:when test="$noOfFailures != 0">
-                                                            <xsl:value-of select="$blueColor"/>
-                                                        </xsl:when>
-                                                        <xsl:when test="$noOfErrors = 0">
+                                                        <xsl:when test="$noOfErrors = 0 and $noOfFailures = 0">
                                                             <xsl:choose>
                                                                 <xsl:when test="$ignored">
                                                                     <xsl:value-of select="$ignoredColor"/>
@@ -1290,8 +1287,11 @@
                                                                 </xsl:otherwise>
                                                             </xsl:choose>
                                                         </xsl:when>
-                                                        <xsl:otherwise>
+                                                        <xsl:when test="$noOfErrors != 0">
                                                             <xsl:value-of select="$orangeColor"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="$blueColor"/>
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:attribute>
@@ -1429,7 +1429,7 @@
     <xsl:template name="command">
         <xsl:variable name="lineStyle">
             <xsl:choose>
-                <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
+                <xsl:when test="count(./*[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::error)]) &gt; 0">
                     <xsl:text>ignored topBorder</xsl:text>
                 </xsl:when>
                 <xsl:when test="@isComment">
@@ -1461,11 +1461,11 @@
                     <xsl:when test="@isComment">
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
-                    <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
-                        <img src="./images/failure.png" width="12" height="10" alt="failure" title="failure"/>
-                    </xsl:when>
                     <xsl:when test="(count(descendant-or-self::error)) &gt; 0">
                         <img src="./images/error.png" width="12" height="10" alt="error" title="error"/>
+                    </xsl:when>
+                    <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
+                        <img src="./images/failure.png" width="12" height="10" alt="failure" title="failure"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
                         <!-- nothing -->
@@ -1647,7 +1647,7 @@
                 </td>
                 <td class="light"/>
                 <xsl:choose>
-                    <xsl:when test="failure">
+                    <xsl:when test="descendant::failure and not(descendant::error)">
                         <td class="failure" colspan="4">
                             <xsl:value-of select="failure/message"/>
                         </td>

@@ -115,6 +115,29 @@ public class ManualXMLResultWriterTest {
   }
 
   @Test
+  public void greenModule() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    lineNo = 1;
+    resultWriter.testRunStart(FF36);
+    resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
+    writeCommand();
+    startModule(tmpTestCase);
+    writeCommand();
+    writeCommand();
+    endModule();
+    writeCommand();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  @Test
   public void red() {
     resultWriter.init(engine);
     resultWriter.start(engine);
@@ -126,6 +149,58 @@ public class ManualXMLResultWriterTest {
     writeErrorTestRun(tmpTestCase, IE8);
     writeErrorTestRun(tmpTestCase, FF3);
     writeErrorTestRun(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  @Test
+  public void redModules() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeRedModule(tmpTestCase, FF3);
+    writeRedModule(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  private void writeRedModule(TestCase aTestCase, String aBrowser) {
+    lineNo = 1;
+    resultWriter.testRunStart(aBrowser);
+    resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
+    writeCommand();
+    startModule(aTestCase);
+    writeCommandWithFailure();
+    writeCommand();
+    writeCommandWithError();
+    writeCommandIgnored();
+    endModule();
+    writeCommandIgnored();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
+  }
+
+  @Test
+  public void redAfterModule() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    lineNo = 1;
+    resultWriter.testRunStart(FF36);
+    resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
+    writeCommand();
+    startModule(tmpTestCase);
+    writeCommand();
+    endModule();
+    writeCommandWithError();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -146,6 +221,34 @@ public class ManualXMLResultWriterTest {
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
+  }
+
+  @Test
+  public void blueModules() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeBlueModule(tmpTestCase, FF3);
+    writeBlueModule(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  private void writeBlueModule(TestCase aTestCase, String aBrowser) {
+    lineNo = 1;
+    resultWriter.testRunStart(aBrowser);
+    resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
+    writeCommand();
+    startModule(aTestCase);
+    writeCommandWithFailure();
+    writeCommand();
+    endModule();
+    writeCommand();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
   }
 
   @Test
@@ -347,6 +450,16 @@ public class ManualXMLResultWriterTest {
     tmpCommand.setSecondParameter(new Parameter(aSecondParameterValue));
     lineNo++;
     return tmpCommand;
+  }
+
+  private void startModule(TestCase aTestCase) {
+    resultWriter.executeCommandStart(context, createCommand("use-module", "module"));
+    resultWriter.testFileStart("module" + aTestCase.getFile().getAbsolutePath());
+  }
+
+  private void endModule() {
+    resultWriter.testFileEnd();
+    resultWriter.executeCommandEnd();
   }
 
   private TestCase createTestCase() {
