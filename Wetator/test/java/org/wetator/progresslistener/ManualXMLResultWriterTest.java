@@ -395,7 +395,7 @@ public class ManualXMLResultWriterTest {
   private void writeCommandWithFailure() {
     Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     resultWriter.executeCommandStart(context, tmpCommand);
-    resultWriter.executeCommandFailure(new AssertionException("test failure"));
+    resultWriter.executeCommandFailure(new AssertionException("test failure", new RuntimeException("failure cause")));
     resultWriter.executeCommandEnd();
   }
 
