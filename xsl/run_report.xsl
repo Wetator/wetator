@@ -22,16 +22,16 @@
     <xsl:variable name="testStepCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment)])"/>
 
     <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
-    <xsl:variable name="testCaseErrorCount" select="count(/wet/testcase[boolean(descendant::error)])"/>
+    <xsl:variable name="testCaseErrorCount" select="count(/wet/testcase[boolean(descendant::command/error)])"/>
     <xsl:variable name="testCaseNotOkCount" select="$testCaseFailureCount + $testCaseErrorCount"/>
     <xsl:variable name="testCaseOkCount" select="$testCaseCount - $testCaseNotOkCount"/>
-    <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::failure) and not(boolean(descendant::error))])"/>
-    <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::error)])"/>
+    <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::failure) and not(boolean(descendant::command/error))])"/>
+    <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun/testfile[boolean(error or descendant::command/error)])"/>
     <xsl:variable name="testIgnoredCount" select="count(/wet/testcase/testrun/ignored)"/>
 
     <xsl:variable name="stepsOkCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(ignored)])"/>
-    <xsl:variable name="stepsFailureCount" select="count(/wet/testcase/testrun/testfile/command[(descendant-or-self::failure) and not(descendant::error)])"/>
-    <xsl:variable name="stepsErrorCount" select="count(/wet/testcase/testrun/testfile/command/descendant-or-self::error)"/>
+    <xsl:variable name="stepsFailureCount" select="count(/wet/testcase/testrun/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
+    <xsl:variable name="stepsErrorCount" select="count(/wet/testcase/testrun/testfile/descendant-or-self::command/error)"/>
     <xsl:variable name="stepsIgnoredCount" select="count(/wet/testcase/testrun/testfile/command/ignored)"/>
     <xsl:variable name="stepsNotOkCount" select="$testStepCount - $stepsOkCount"/>
 
@@ -255,7 +255,7 @@
                              <img src="./images/error.png" width="12" height="10" alt="error" title="error"/> Errors:
                         </td>
                         <td style="padding-left: 5px;">
-                            <xsl:value-of select="$testErrorCount"/>
+                            <xsl:value-of select="$testErrorCount + $testIgnoredCount"/>
                         </td>
                         <td class="bold" style="padding-left: 40px;">
                              <img src="./images/failure.png" width="12" height="10" alt="failure" title="failure"/> Failures:
@@ -1265,7 +1265,7 @@
                                     <tr>
                                         <xsl:for-each select="./command[not(@isComment)]">
                                             <xsl:variable name="noOfFailures" select="sum(descendant::failure)"/>
-                                            <xsl:variable name="noOfErrors" select="sum(descendant::error)"/>
+                                            <xsl:variable name="noOfErrors" select="count(error) + count(descendant::command/error)"/>
                                             <xsl:variable name="noOfSubSteps" select="count(descendant::command[not(@isComment)])"/>
                                             <xsl:variable name="ignored" select="ignored"/>
 
@@ -1405,7 +1405,7 @@
                 </table>
             </xsl:when>
 
-            <xsl:when test="count(descendant-or-self::error) &gt; 0">
+            <xsl:when test="count(error) or count(descendant::command/error) &gt; 0">
                 <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
                     <tr>
                         <th style="width: 30px;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
@@ -1461,7 +1461,7 @@
                     <xsl:when test="@isComment">
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
-                    <xsl:when test="(count(descendant-or-self::error)) &gt; 0">
+                    <xsl:when test="count(error) or count(descendant::command/error) &gt; 0">
                         <img src="./images/error.png" width="12" height="10" alt="error" title="error"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
@@ -1647,7 +1647,7 @@
                 </td>
                 <td class="light"/>
                 <xsl:choose>
-                    <xsl:when test="descendant-or-self::failure and not(descendant::error)">
+                    <xsl:when test="descendant-or-self::failure and not(descendant::command/error)">
                         <td class="failure" colspan="4">
                             <xsl:value-of select="failure/message"/>
                         </td>
@@ -1732,7 +1732,7 @@
     <!-- subroutines -->
     <xsl:template name="successIndicator">
         <xsl:choose>
-            <xsl:when test="count(descendant-or-self::error) &gt; 0">
+            <xsl:when test="count(error) or count(descendant::command/error) &gt; 0">
                 <img src="./images/error.png" width="12" height="10" alt="error" title="error"/>
             </xsl:when>
             <xsl:when test="count(descendant-or-self::failure) &gt; 0">
