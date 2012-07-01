@@ -34,7 +34,7 @@ import org.junit.Test;
 public class ContentUtilTest {
 
   @Test
-  public void testGetPdfContentAsString() throws FileNotFoundException, IOException {
+  public void getPdfContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
@@ -45,7 +45,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testGetPdfContentAsStringError() {
+  public void getPdfContentAsStringError() {
     try {
       ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
       junit.framework.Assert.fail("IOException expected");
@@ -55,7 +55,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testGetRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
+  public void getRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
@@ -64,13 +64,13 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testGetRtfContentAsStringError() throws FileNotFoundException, IOException, BadLocationException {
+  public void getRtfContentAsStringError() throws FileNotFoundException, IOException, BadLocationException {
     String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
     org.junit.Assert.assertEquals("", tmpContent);
   }
 
   @Test
-  public void testGetXlsContentAsString() throws FileNotFoundException, IOException {
+  public void getXlsContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -93,7 +93,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testGetXlsContentAsStringError() {
+  public void getXlsContentAsStringError() {
     try {
       ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
       junit.framework.Assert.fail("IOException expected");
@@ -104,7 +104,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testGetTxtContentAsString() {
+  public void getTxtContentAsString() {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Some content line two Hallo Wetator.");
 
@@ -113,7 +113,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testGetTxtContentAsStringFromStream() throws IOException {
+  public void getTxtContentAsStringFromStream() throws IOException {
     InputStream tmpInput = new FileInputStream("test/webpage/download/wet_test.pdf");
     String tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8");
     org.junit.Assert.assertEquals(4004, tmpContent.length());
@@ -134,7 +134,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testIsTxt() throws FileNotFoundException, IOException {
+  public void isTxt() throws FileNotFoundException, IOException {
     String tmpText = "Some readable text for testing WETATOR.";
     org.junit.Assert.assertTrue(ContentUtil.isTxt(tmpText));
 
