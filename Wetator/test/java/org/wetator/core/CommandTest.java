@@ -25,20 +25,20 @@ import org.junit.Test;
 public class CommandTest {
 
   @Test
-  public void testConstructor() {
-    Command tmpCommand = new Command("TestCommand", false);
+  public void constructor() {
+    Command tmpCommand = new Command("command", false);
 
-    Assert.assertEquals("TestCommand", tmpCommand.getName());
+    Assert.assertEquals("command", tmpCommand.getName());
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals(-1, tmpCommand.getLineNo());
     // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aContext));
   }
 
   @Test
-  public void testConstructor_comment() {
-    Command tmpCommand = new Command("TestCommand", true);
+  public void constructor_comment() {
+    Command tmpCommand = new Command("command", true);
 
-    Assert.assertEquals("TestCommand", tmpCommand.getName());
+    Assert.assertEquals("command", tmpCommand.getName());
     Assert.assertTrue(tmpCommand.isComment());
     Assert.assertEquals(-1, tmpCommand.getLineNo());
     // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aContext));
