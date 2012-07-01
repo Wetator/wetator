@@ -29,12 +29,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HtmlPageIndexTest {
 
-  private void testAsText(final String anExpected, final String anHtmlCode) throws IOException {
-    testAsText(anExpected, anExpected, anHtmlCode);
+  private void asText(final String anExpected, final String anHtmlCode) throws IOException {
+    asText(anExpected, anExpected, anHtmlCode);
   }
 
   @SuppressWarnings("deprecation")
-  private void testAsText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
+  private void asText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
       throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -63,93 +63,93 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_EmptyPage() throws IOException {
+  public void asText_EmptyPage() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
 
-    testAsText("", tmpHtmlCode);
+    asText("", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_SimplePage() throws IOException {
+  public void asText_SimplePage() throws IOException {
     String tmpHtmlCode = "<html>" + "<head>" + "<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
         + "<title>Page Title</title>" + "</head>" + "<body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>"
         + "</body></html>";
 
-    testAsText("Paragraph 1 Paragraph 2", tmpHtmlCode);
+    asText("Paragraph 1 Paragraph 2", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Paragraph() throws IOException {
+  public void asText_Paragraph() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>" + "</body></html>";
 
-    testAsText("Paragraph 1 Paragraph 2", tmpHtmlCode);
+    asText("Paragraph 1 Paragraph 2", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Font() throws IOException {
+  public void asText_Font() throws IOException {
     String tmpHtmlCode = "<html><body><p>" + "<font color='red'>red</font> <font color='green'>green</font>"
         + "</p></body></html>";
 
-    testAsText("red green", tmpHtmlCode);
+    asText("red green", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Span() throws IOException {
+  public void asText_Span() throws IOException {
     String tmpHtmlCode = "<html><body><p>" + "<span> 17.11 </span> mg" + "</p></body></html>";
 
-    testAsText("17.11 mg", tmpHtmlCode);
+    asText("17.11 mg", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Formatting() throws IOException {
+  public void asText_Formatting() throws IOException {
     String tmpHtmlCode = "<html><body><p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p></body></html>";
 
-    testAsText("1 2 3 4 5 6 7 8 9 10", tmpHtmlCode);
+    asText("1 2 3 4 5 6 7 8 9 10", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_ComputerOutput() throws IOException {
+  public void asText_ComputerOutput() throws IOException {
     String tmpHtmlCode = "<html><body><p>"
         + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p></body></html>";
-    testAsText("1 2 3 4 5 6", tmpHtmlCode);
+    asText("1 2 3 4 5 6", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_CitationQuotationDefinition() throws IOException {
+  public void asText_CitationQuotationDefinition() throws IOException {
     String tmpHtmlCode = "<html><body><p>"
         + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>"
         + "</p></body></html>";
 
-    testAsText("1 2 \"3\" 4 5", tmpHtmlCode);
+    asText("1 2 \"3\" 4 5", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Mix() throws IOException {
+  public void asText_Mix() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>"
         + "</body></html>";
 
-    testAsText("This text is styled.", tmpHtmlCode);
+    asText("This text is styled.", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Mix2() throws IOException {
+  public void asText_Mix2() throws IOException {
     String tmpHtmlCode = "<html><body><table><tr>"
         + "<td style='color:#222288'>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>"
         + "</tr></table></body></html>";
 
-    testAsText("Table Clickable formated text", tmpHtmlCode);
+    asText("Table Clickable formated text", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_Mix3() throws IOException {
+  public void asText_Mix3() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>Fi<font color='red'>eld</font>4</p>" + "</p></body></html>";
 
-    testAsText("Field4", tmpHtmlCode);
+    asText("Field4", tmpHtmlCode);
   }
 
   @Test
-  public void testAsText_AllControls() throws IOException {
+  public void asText_AllControls() throws IOException {
     String tmpHtmlCode = "<html><body>" //
         + "<p>PageStart</p>" //
         + "<form action='test'>" //
@@ -263,7 +263,7 @@ public class HtmlPageIndexTest {
         + "radioInputLabel1 radioInputLabel2 " //
         + "checkboxInputLabel1 checkboxInputLabel2";
 
-    testAsText(tmpExpected, tmpExpected2, tmpHtmlCode);
+    asText(tmpExpected, tmpExpected2, tmpHtmlCode);
 
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -277,7 +277,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_Heading() throws IOException {
+  public void asText_Heading() throws IOException {
     String tmpHtmlCode = "<html><body>before" + "<h1>Heading1</h1>" + "<h2>Heading2</h2>" + "<h3>Heading3</h3>"
         + "<h4>Heading4</h4>" + "<h5>Heading5</h5>" + "<h6>Heading6</h6>" + "after</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -289,7 +289,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_Table() throws IOException {
+  public void asText_Table() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<table id='idTable'>" + "<tr id='idTr1'>"
         + "  <th id='idTh1'>header1</th><th id='idTh2'>header2</th>" + "</tr>" + "<tr id='idTr2'>"
         + "  <td id='idTd1'>data1</td><td id='idTd2'>data2</td>" + "</tr>" + "<tr id='idTr3'>"
@@ -344,7 +344,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_OrderedList() throws IOException {
+  public void asText_OrderedList() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<ol id='idOl'>" + "  <li id='idLi1'>Line1"
         + "  <li id='idLi2'>Line2" + "</ol>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -363,7 +363,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_UnorderedList() throws IOException {
+  public void asText_UnorderedList() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<ul id='idUl'>" + "  <li id='idLi1'>Line1"
         + "  <li id='idLi2'>Line2" + "</ul>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -384,7 +384,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_Select() throws IOException {
+  public void asText_Select() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>"
         + "</body></html>";
@@ -398,7 +398,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_EmptySelect() throws IOException {
+  public void asText_EmptySelect() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<select>" + "</select>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -410,7 +410,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_SelectWithText() throws IOException {
+  public void asText_SelectWithText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "123<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>456"
         + "</body></html>";
@@ -423,7 +423,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_SelectWithOptgroup() throws IOException {
+  public void asText_SelectWithOptgroup() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<select>" + "<optgroup label='colors' id='optgroup_colors'>"
         + "<option value='o_red'>red</option>" + "<option value='o_green'>green</option>"
         + "<option value='o_blue'>blue</option>" + "</optgroup>" + "</select>" + "</body></html>";
@@ -436,7 +436,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_InputImageWithAlt() throws IOException {
+  public void asText_InputImageWithAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before"
         + "<input type='image' id='image_id' src='src.img' alt='Test Image'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -450,7 +450,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_ImageWithAlt() throws IOException {
+  public void asText_ImageWithAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<img src='src.img' alt='test image'>" + "after"
         + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -463,7 +463,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_SubmitInput() throws IOException {
+  public void asText_SubmitInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MySubmitId' name='MySubmitName' value='Submit' type='submit'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -475,7 +475,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_ResetInput() throws IOException {
+  public void asText_ResetInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyResetId' name='MyResetName' value='Reset' type='reset'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -487,7 +487,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_ButtonInput() throws IOException {
+  public void asText_ButtonInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyButtonId' name='MyButtonName' value='Button' type='button'>" + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -499,7 +499,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_Button() throws IOException {
+  public void asText_Button() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
         + "after" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -511,7 +511,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_RadioButton() throws IOException {
+  public void asText_RadioButton() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio'>RadioButton" + " after"
         + "</body></html>";
@@ -525,7 +525,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_RadioButtonSelected() throws IOException {
+  public void asText_RadioButtonSelected() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' checked>RadioButton"
         + " after" + "</body></html>";
@@ -539,7 +539,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_LabelWithEnclosedRadioButtonSelected() throws IOException {
+  public void asText_LabelWithEnclosedRadioButtonSelected() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<label>LabelText"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' selected>RadioButton"
         + "</label>" + "after" + "</body></html>";
@@ -553,7 +553,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_LabelWithEnclosedSelect() throws IOException {
+  public void asText_LabelWithEnclosedSelect() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<label>LabelText before"
         + "<select id='idSingleSelect' name='SingleSelect'>" //
         + "<option selected>Option1Value" //
@@ -572,7 +572,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testAsText_Javascript() throws IOException {
+  public void asText_Javascript() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<script language='JavaScript' type='text/javascript'>" + "function foo() {}"
         + "</script>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -584,7 +584,21 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_None() throws IOException {
+  public void asText_TextTransform() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p style='text-transform: lowercase;'>LoWerCase</p>"
+        + "<p style='text-transform: uppercase;'>uppErCase</p>"
+        + "<p style='text-transform: capitalize;'>capiTalize</p>" + "<p style='text-transform: none;'>nOne</p>"
+        + "<div style='text-transform: uppercase'><p>insideDiv</p></div>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    String tmpExpected = "lowercase UPPERCASE CapiTalize nOne INSIDEDIV";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
+  public void getLabelTextBefore_None() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
@@ -595,7 +609,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_AtStart() throws IOException {
+  public void getLabelTextBefore_AtStart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
@@ -606,7 +620,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_IgnoreHidden() throws IOException {
+  public void getLabelTextBefore_IgnoreHidden() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>MyLabel" + "<input value='hiddenValue' type='hidden'>"
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
@@ -617,7 +631,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_BeforeForm() throws IOException {
+  public void getLabelTextBefore_BeforeForm() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MoreText</p>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
@@ -629,7 +643,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_IgnoreDifferentForm() throws IOException {
+  public void getLabelTextBefore_IgnoreDifferentForm() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test2'><p>MoreText</p></form>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
@@ -640,7 +654,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_UntilNext() throws IOException {
+  public void getLabelTextBefore_UntilNext() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "Other<input id='MyOtherInputId' value='value2' type='text'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
@@ -652,7 +666,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextBefore_ChainedControls() throws IOException {
+  public void getLabelTextBefore_ChainedControls() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "MyLabel <input id='MyOtherInputId' value='value2' type='text'> "
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
@@ -665,7 +679,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextAfter_None() throws IOException {
+  public void getLabelTextAfter_None() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>" + "</form>"
         + "</body></html>";
@@ -677,7 +691,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextAfter_AtEnd() throws IOException {
+  public void getLabelTextAfter_AtEnd() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -689,7 +703,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextAfter_IgnoreHidden() throws IOException {
+  public void getLabelTextAfter_IgnoreHidden() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "<input value='hiddenValue' type='hidden'>part2" + "</form>" + "</body></html>";
@@ -702,7 +716,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextAfter_IgnoreAfterForm() throws IOException {
+  public void getLabelTextAfter_IgnoreAfterForm() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "<p>MoreText</p>" + "</body></html>";
@@ -714,7 +728,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void testGetLabelTextAfter_UntilNext() throws IOException {
+  public void getLabelTextAfter_UntilNext() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "<input name='MyOtherCheckboxName' value='value2' type='checkbox'>CheckBox2" + "</form>" + "<p>MoreText</p>"

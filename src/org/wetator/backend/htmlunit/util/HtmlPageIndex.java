@@ -23,6 +23,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.NormalizedString;
 
@@ -98,6 +99,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
+import com.gargoylesoftware.htmlunit.javascript.host.Element;
+import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 
 /**
  * The text representation of a page text. Indexed by form controls to speed up the calculation of text before and
@@ -473,8 +476,30 @@ public class HtmlPageIndex {
   }
 
   private void appendDomText(final DomText aDomText) {
-    text.append(aDomText.getData());
-    textWithoutFormControls.append(aDomText.getData());
+    String tmpTxt = aDomText.getData();
+
+    // check for style 'text-transform'
+    DomNode tmpParent = aDomText.getParentNode();
+    while (tmpParent != null && !(tmpParent instanceof HtmlElement)) {
+      tmpParent = tmpParent.getParentNode();
+    }
+
+    if (tmpParent != null) {
+      final HtmlElement tmpParentHtmlElement = (HtmlElement) tmpParent;
+      final CSSStyleDeclaration tmpStyle = ((Element) tmpParentHtmlElement.getScriptObject()).jsxGet_currentStyle();
+      final String tmpTransform = tmpStyle.jsxGet_textTransform();
+
+      if ("uppercase".equalsIgnoreCase(tmpTransform)) {
+        tmpTxt = tmpTxt.toUpperCase();
+      } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
+        tmpTxt = tmpTxt.toLowerCase();
+      } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
+        tmpTxt = WordUtils.capitalize(tmpTxt);
+      }
+    }
+
+    text.append(tmpTxt);
+    textWithoutFormControls.append(tmpTxt);
   }
 
   private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame) {
