@@ -28,7 +28,7 @@ import org.wetator.core.Variable;
 public class VariableReplaceUtilUtilTest {
 
   @Test
-  public void testReplaceVariable_null() {
+  public void replaceVariable_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -39,7 +39,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_Empty_null() {
+  public void replaceVariable_Empty_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -51,7 +51,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_Static_null() {
+  public void replaceVariable_Static_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -63,7 +63,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_OneVar_null() {
+  public void replaceVariable_OneVar_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -75,7 +75,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_OneVar_Unknown() {
+  public void replaceVariable_OneVar_Unknown() {
     List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
@@ -87,7 +87,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_OneStartSeq_null() {
+  public void replaceVariable_OneStartSeq_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -99,7 +99,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_TwoEndSeq_null() {
+  public void replaceVariable_TwoEndSeq_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -111,7 +111,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_TwoVar_null() {
+  public void replaceVariable_TwoVar_null() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
 
@@ -123,7 +123,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_OnlyOneVar() {
+  public void replaceVariable_OnlyOneVar() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
     Variable tmpVariable;
@@ -138,7 +138,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_VarAtStart() {
+  public void replaceVariable_VarAtStart() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
     Variable tmpVariable;
@@ -153,7 +153,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_VarAtEnd() {
+  public void replaceVariable_VarAtEnd() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
     Variable tmpVariable;
@@ -168,7 +168,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_TwoVars() {
+  public void replaceVariable_TwoVars() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
     Variable tmpVariable;
@@ -185,7 +185,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_ReusedVars() {
+  public void replaceVariable_ReusedVars() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
     Variable tmpVariable;
@@ -202,7 +202,7 @@ public class VariableReplaceUtilUtilTest {
   }
 
   @Test
-  public void testReplaceVariable_VarMagic() {
+  public void replaceVariable_VarMagic() {
     String tmpStringWithPlaceholders;
     List<Variable> tmpVariables;
     Variable tmpVariable;

@@ -28,7 +28,7 @@ import org.junit.Test;
 public class StringUtilTest {
 
   @Test
-  public void testExtractStrings_Null() {
+  public void extractStrings_Null() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings(null, ",", 'x');
@@ -36,7 +36,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings1() {
+  public void extractStrings1() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("", "", 'x');
@@ -47,7 +47,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings10() {
+  public void extractStrings10() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1xab2ab3ab4", "ab", 'x');
@@ -58,7 +58,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings11() {
+  public void extractStrings11() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2xab3ab4", "ab", 'x');
@@ -69,7 +69,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings12() {
+  public void extractStrings12() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2xab", "ab", 'x');
@@ -79,7 +79,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings13() {
+  public void extractStrings13() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2xa", "ab", 'x');
@@ -89,7 +89,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings14() {
+  public void extractStrings14() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2x", "ab", 'x');
@@ -99,7 +99,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings15() {
+  public void extractStrings15() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1xxab2", "ab", 'x');
@@ -109,7 +109,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings16() {
+  public void extractStrings16() {
     try {
       StringUtil.extractStrings("1aa2", "a", 'a');
       org.junit.Assert.assertTrue("IllegalArgumentException expected", false);
@@ -119,7 +119,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings17() {
+  public void extractStrings17() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1\\n2", "\\n", '\\');
@@ -129,7 +129,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings2() {
+  public void extractStrings2() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12a34", "a", 'x');
@@ -139,7 +139,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings3() {
+  public void extractStrings3() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12a34a", "a", 'x');
@@ -150,7 +150,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings4() {
+  public void extractStrings4() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("a", "a", 'x');
@@ -160,7 +160,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings5() {
+  public void extractStrings5() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("aa", "a", 'x');
@@ -171,7 +171,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings6() {
+  public void extractStrings6() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12aa34", "aa", 'x');
@@ -181,7 +181,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings7() {
+  public void extractStrings7() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12aa34a", "aa", 'x');
@@ -191,7 +191,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings8() {
+  public void extractStrings8() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1a2aa34", "aa", 'x');
@@ -201,7 +201,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testExtractStrings9() {
+  public void extractStrings9() {
     List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("a12aa34", "aa", 'x');
@@ -211,7 +211,7 @@ public class StringUtilTest {
   }
 
   @Test
-  public void testFormatDate() {
+  public void formatDate() {
     Date tmpDate = new GregorianCalendar(2010, 3, 1, 8, 30, 0).getTime();
     String tmpResult = StringUtil.formatDate(tmpDate);
     org.junit.Assert.assertEquals("01.04.2010 08:30:00", tmpResult);

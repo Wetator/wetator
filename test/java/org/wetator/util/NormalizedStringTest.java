@@ -24,56 +24,56 @@ import org.junit.Test;
 public class NormalizedStringTest {
 
   @Test
-  public void testDefaultConstructor() {
+  public void defaultConstructor() {
     NormalizedString tmpResult = new NormalizedString();
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
   }
 
   @Test
-  public void testConstructor_Null() {
+  public void constructor_Null() {
     NormalizedString tmpResult = new NormalizedString(null);
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
   }
 
   @Test
-  public void testConstructor_Empty() {
+  public void constructor_Empty() {
     NormalizedString tmpResult = new NormalizedString("");
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
   }
 
   @Test
-  public void testConstructor() {
+  public void constructor() {
     NormalizedString tmpResult = new NormalizedString("abcd");
     org.junit.Assert.assertEquals(4, tmpResult.length());
     org.junit.Assert.assertEquals("abcd", tmpResult.toString());
   }
 
   @Test
-  public void testConstructor_Blanks() {
+  public void constructor_Blanks() {
     NormalizedString tmpResult = new NormalizedString(" ab   cd  ");
     org.junit.Assert.assertEquals(5, tmpResult.length());
     org.junit.Assert.assertEquals("ab cd", tmpResult.toString());
   }
 
   @Test
-  public void testConstructor_LineBreak() {
+  public void constructor_LineBreak() {
     NormalizedString tmpResult = new NormalizedString("ab\r\n\nc\n\nd\r\r");
     org.junit.Assert.assertEquals(6, tmpResult.length());
     org.junit.Assert.assertEquals("ab c d", tmpResult.toString());
   }
 
   @Test
-  public void testConstructor_SpecialWhitespace() {
+  public void constructor_SpecialWhitespace() {
     NormalizedString tmpResult = new NormalizedString("ab" + (char) 160 + "cd");
     org.junit.Assert.assertEquals(5, tmpResult.length());
     org.junit.Assert.assertEquals("ab cd", tmpResult.toString());
   }
 
   @Test
-  public void testAppend() {
+  public void append() {
     NormalizedString tmpResult = new NormalizedString();
 
     org.junit.Assert.assertEquals(0, tmpResult.length());
@@ -109,7 +109,7 @@ public class NormalizedStringTest {
   }
 
   @Test
-  public void testAppendChars() {
+  public void appendChars() {
     NormalizedString tmpResult = new NormalizedString();
 
     org.junit.Assert.assertEquals(0, tmpResult.length());
@@ -137,7 +137,7 @@ public class NormalizedStringTest {
   }
 
   @Test
-  public void testSubstring_Empty() {
+  public void substring_Empty() {
     NormalizedString tmpTestable = new NormalizedString();
 
     String tmpResult = tmpTestable.substring(0, 0);
@@ -160,7 +160,7 @@ public class NormalizedStringTest {
   }
 
   @Test
-  public void testSubstring_BlankAtEnd() {
+  public void substring_BlankAtEnd() {
     NormalizedString tmpTestable = new NormalizedString("abc ");
 
     String tmpResult = tmpTestable.substring(0, 2);
@@ -188,7 +188,7 @@ public class NormalizedStringTest {
   }
 
   @Test
-  public void testSubstring_BlankAtStart() {
+  public void substring_BlankAtStart() {
     NormalizedString tmpTestable = new NormalizedString(" abc");
 
     String tmpResult = tmpTestable.substring(0, 2);
@@ -216,7 +216,7 @@ public class NormalizedStringTest {
   }
 
   @Test
-  public void testSubstring_BlankInside() {
+  public void substring_BlankInside() {
     NormalizedString tmpTestable = new NormalizedString("a bc");
 
     String tmpResult = tmpTestable.substring(0, 2);
