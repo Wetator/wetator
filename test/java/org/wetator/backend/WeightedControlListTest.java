@@ -37,7 +37,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class WeightedControlListTest {
 
   @Test
-  public void testIsEmpty() {
+  public void isEmpty() {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     Assert.assertTrue(tmpWeightedControlList.isEmpty());
@@ -45,7 +45,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testOneEntry() throws IOException {
+  public void oneEntry() throws IOException {
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
@@ -56,7 +56,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testTwoEntries() throws IOException {
+  public void twoEntries() throws IOException {
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
@@ -69,7 +69,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testGetElementsSorted_Distance() throws IOException {
+  public void getElementsSorted_Distance() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
@@ -92,7 +92,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testGetElementsSorted_Coverage() throws IOException {
+  public void getElementsSorted_Coverage() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
@@ -120,7 +120,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testGetElementsSorted_FoundType() throws IOException {
+  public void getElementsSorted_FoundType() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
@@ -148,7 +148,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testGetElementsSorted_Start() throws IOException {
+  public void getElementsSorted_Start() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
@@ -176,7 +176,7 @@ public class WeightedControlListTest {
   }
 
   @Test
-  public void testGetElementsSorted_SameControl() throws IOException {
+  public void getElementsSorted_SameControl() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());

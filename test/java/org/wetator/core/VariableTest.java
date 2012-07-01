@@ -26,7 +26,7 @@ import org.wetator.util.SecretString;
 public class VariableTest {
 
   @Test
-  public void testConstructor() {
+  public void constructor() {
     Variable tmpVariable = new Variable("TestName", "value");
 
     Assert.assertEquals("TestName", tmpVariable.getName());
@@ -34,7 +34,7 @@ public class VariableTest {
   }
 
   @Test
-  public void testConstructor_WithoutName() {
+  public void constructor_WithoutName() {
     try {
       new Variable(null, "value");
     } catch (IllegalArgumentException e) {
@@ -43,7 +43,7 @@ public class VariableTest {
   }
 
   @Test
-  public void testConstructor_SecretFlag() {
+  public void constructor_SecretFlag() {
     Variable tmpVariable = new Variable("TestName", "value", true);
 
     Assert.assertEquals("TestName", tmpVariable.getName());
@@ -51,7 +51,7 @@ public class VariableTest {
   }
 
   @Test
-  public void testConstructor_SecretString() {
+  public void constructor_SecretString() {
     Variable tmpVariable = new Variable("TestName", new SecretString("value", true));
 
     Assert.assertEquals("TestName", tmpVariable.getName());
