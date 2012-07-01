@@ -190,20 +190,15 @@ Wetator/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/excel/default_command_set.xls -text
 Wetator/test/excel/modules/module.xls -text
 Wetator/test/excel/sql_command_set.xls -text
-Wetator/test/java/org/wetator/AllTests.java -text
 Wetator/test/java/org/wetator/automatonTest.jpage -text
-Wetator/test/java/org/wetator/backend/AllTests.java -text
 Wetator/test/java/org/wetator/backend/WeightedControlListTest.java -text
-Wetator/test/java/org/wetator/backend/htmlunit/AllTests.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitControlRepositoryTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
 Wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
-Wetator/test/java/org/wetator/backend/htmlunit/control/AllTests.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/AllTests.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifierTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitImageIdentifierTest.java -text svneol=unset#text/plain
@@ -221,17 +216,13 @@ Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOption
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/backend/htmlunit/finder/AllTests.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/backend/htmlunit/matcher/AllTests.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcherTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/backend/htmlunit/util/AllTests.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
-Wetator/test/java/org/wetator/commandset/AllTests.java -text
 Wetator/test/java/org/wetator/commandset/ExecTester.java -text
 Wetator/test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/LegacyXmlDefaultCommandSetTest.java -text
@@ -246,12 +237,10 @@ Wetator/test/java/org/wetator/commandset/XmlEventHandlingTest.java -text svneol=
 Wetator/test/java/org/wetator/commandset/XmlIncubatorCommandSetTest.java -text
 Wetator/test/java/org/wetator/commandset/XmlOtherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/core/AllTests.java -text
 Wetator/test/java/org/wetator/core/CommandTest.java -text
 Wetator/test/java/org/wetator/core/VariableTest.java -text
 Wetator/test/java/org/wetator/core/WetatorContextExecuteTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/WetatorEngineExecuteTestsTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/core/searchpattern/AllTests.java -text
 Wetator/test/java/org/wetator/core/searchpattern/ContentPatternTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text
@@ -261,19 +250,15 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLast
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
-Wetator/test/java/org/wetator/i18n/AllTests.java -text
 Wetator/test/java/org/wetator/i18n/MessagesTest.java -text
-Wetator/test/java/org/wetator/progresslistener/AllTests.java -text
 Wetator/test/java/org/wetator/progresslistener/ManualXMLResultWriterTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/progresslistener/XMLResultWriterTest.java -text
 Wetator/test/java/org/wetator/progresslistener/XSLTransformerTest.java -text
 Wetator/test/java/org/wetator/scriptcreator/ManualXMLScriptCreatorTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/scripter/AllTests.java -text
 Wetator/test/java/org/wetator/scripter/ExcelScripterTest.java -text
 Wetator/test/java/org/wetator/scripter/LegacyXMLScripterTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/scripter/WikiTextScripterTest.java -text
 Wetator/test/java/org/wetator/scripter/XMLScripterTest.java -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/scripter/xml/AllTests.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/scripter/xml/LocalEntityResolverTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/scripter/xml/ModelBuilderTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/scripter/xml/SchemaFinderTest.java -text svneol=unset#text/plain
@@ -302,7 +287,6 @@ Wetator/test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=
 Wetator/test/java/org/wetator/test/resource/wikiText.wett -text
 Wetator/test/java/org/wetator/test/resource/xml.wet -text
 Wetator/test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
-Wetator/test/java/org/wetator/util/AllTests.java -text
 Wetator/test/java/org/wetator/util/AssertTest.java -text
 Wetator/test/java/org/wetator/util/ContentUtilTest.java -text
 Wetator/test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
