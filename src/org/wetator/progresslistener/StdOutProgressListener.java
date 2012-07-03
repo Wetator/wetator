@@ -281,7 +281,7 @@ public class StdOutProgressListener implements IProgressListener {
   public void end(final WetatorEngine aWetatorEngine) {
     // print summary
     println("");
-    println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount + ", Ignored: "
+    println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount + ",  Ignored: "
         + ignoredCount);
   }
 
