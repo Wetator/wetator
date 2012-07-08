@@ -23,9 +23,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -33,6 +37,7 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.ContentUtil;
 import org.wetator.util.NormalizedString;
@@ -45,6 +50,11 @@ import org.wetator.util.NormalizedString;
  */
 public final class ExcelScripter implements IScripter {
 
+  private final Log log = LogFactory.getLog(ExcelScripter.class);
+
+  private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "scripter.excel.";
+  private static final String PROPERTY_LOCALE = PROPERTY_PREFIX + "locale";
+
   private static final String EXCEL_FILE_EXTENSION = ".xls";
   private static final int COMMENT_COLUMN_NO = 0;
   private static final int COMMAND_NAME_COLUMN_NO = 1;
@@ -54,6 +64,7 @@ public final class ExcelScripter implements IScripter {
 
   private File file;
   private List<Command> commands;
+  private Locale locale = Locale.getDefault();
 
   /**
    * {@inheritDoc}
@@ -62,7 +73,18 @@ public final class ExcelScripter implements IScripter {
    */
   @Override
   public void initialize(final Properties aConfiguration) {
-    // nothing to do
+    final String tmpPropLocale = aConfiguration.getProperty(PROPERTY_LOCALE);
+
+    if (StringUtils.isEmpty(tmpPropLocale)) {
+      return;
+    }
+
+    try {
+      locale = LocaleUtils.toLocale(tmpPropLocale);
+    } catch (final Exception e) {
+      log.error("Property '" + PROPERTY_LOCALE + "=" + tmpPropLocale + "' is not a valid locale; using default '"
+          + locale + "instead (" + e.getMessage() + ").");
+    }
   }
 
   /**
@@ -141,10 +163,12 @@ public final class ExcelScripter implements IScripter {
         tmpRow = tmpSheet.getRow(tmpLine);
         // strange case but it really happens
         if (null != tmpRow) {
-          tmpCommentString = ContentUtil.readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator);
+          tmpCommentString = ContentUtil
+              .readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator, locale);
           tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
-          tmpCommandName = ContentUtil.readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator);
+          tmpCommandName = ContentUtil.readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator,
+              locale);
           // normalize command name
           if (StringUtils.isNotEmpty(tmpCommandName)) {
             tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
@@ -202,7 +226,7 @@ public final class ExcelScripter implements IScripter {
       final FormulaEvaluator aFormulaEvaluator) {
     String tmpContent;
 
-    tmpContent = ContentUtil.readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator);
+    tmpContent = ContentUtil.readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator, locale);
     if (StringUtils.isEmpty(tmpContent)) {
       return null;
     }

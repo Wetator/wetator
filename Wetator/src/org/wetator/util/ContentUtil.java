@@ -156,7 +156,8 @@ public final class ContentUtil {
         final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
         if (null != tmpRow) {
           for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
-            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator);
+            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator,
+                Locale.getDefault());
             if (null != tmpCellValue) {
               tmpResult.append(tmpCellValue);
               tmpResult.append(" ");
@@ -183,16 +184,17 @@ public final class ContentUtil {
    * @param aRow the row
    * @param aColumnsNo the column
    * @param aFormulaEvaluator the formula Evaluator
+   * @param aLocale the for parsing and formating
    * @return the display string
    */
   public static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
-      final FormulaEvaluator aFormulaEvaluator) {
+      final FormulaEvaluator aFormulaEvaluator, final Locale aLocale) {
     final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
       return null;
     }
 
-    final DataFormatter tmpDataFormatter = new DataFormatter(Locale.getDefault());
+    final DataFormatter tmpDataFormatter = new DataFormatter(aLocale);
     try {
       final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
       return tmpResult;
@@ -211,7 +213,7 @@ public final class ContentUtil {
    * Tests if the text is 'readable'.
    * 
    * @param aText the input
-   * @return true, if the input contains enough charactes
+   * @return true, if the input contains enough characters
    */
   public static boolean isTxt(final String aText) {
     int tmpCharCount = 0;
