@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.text.BadLocationException;
@@ -138,13 +140,19 @@ public final class ContentUtil {
    * Converts an xls document to string.
    * 
    * @param anInputStream the input
+   * @param aLocale the locale for formating
    * @return the normalizes content string
    * @throws IOException in case of io errors
    */
-  public static String getXlsContentAsString(final InputStream anInputStream) throws IOException {
+  public static String getXlsContentAsString(final InputStream anInputStream, final Locale aLocale) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
     final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
     final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
+
+    Locale tmpLocale = aLocale;
+    if (null == tmpLocale) {
+      tmpLocale = Locale.getDefault();
+    }
 
     for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
@@ -156,8 +164,7 @@ public final class ContentUtil {
         final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
         if (null != tmpRow) {
           for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
-            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator,
-                Locale.getDefault());
+            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator, tmpLocale);
             if (null != tmpCellValue) {
               tmpResult.append(tmpCellValue);
               tmpResult.append(" ");
@@ -184,7 +191,7 @@ public final class ContentUtil {
    * @param aRow the row
    * @param aColumnsNo the column
    * @param aFormulaEvaluator the formula Evaluator
-   * @param aLocale the for parsing and formating
+   * @param aLocale used for parsing and formating
    * @return the display string
    */
   public static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
@@ -224,6 +231,55 @@ public final class ContentUtil {
       }
     }
     return (tmpCharCount * 1d / aText.length()) > 0.7;
+  }
+
+  /**
+   * This tries to determine the locale based on the 'accept-language' header. <br>
+   * If the submitted locale is unknown (ISO639) then this returns null. <br>
+   * 
+   * @param anAcceptLanguageHeader the header value
+   * @return the locale or null if the provided information is not parsable
+   */
+  public static Locale determineLocaleFromRequestHeader(final String anAcceptLanguageHeader) {
+    if (null == anAcceptLanguageHeader) {
+      return null;
+    }
+
+    final Iterator<String> tmpLanguages = StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1).iterator();
+    while (tmpLanguages.hasNext()) {
+      final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(tmpLanguages.next(), ";", -1);
+      if (tmpLanguageDescriptor.size() < 1) {
+        return null;
+      }
+
+      final String tmpLocaleString = tmpLanguageDescriptor.get(0);
+
+      final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
+      if (tmpLocaleDescriptor.size() < 1) {
+        break;
+      }
+
+      final String[] tmpISO639 = Locale.getISOLanguages();
+      final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
+      for (int i = 0; i < tmpISO639.length; i++) {
+        if (tmpISO639[i].equals(tmpLanguage)) {
+          // found a valid language
+          // check the country
+          String tmpCountry3166 = "";
+          if (tmpLocaleDescriptor.size() > 1) {
+            final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
+            final String[] tmpISO3166 = Locale.getISOCountries();
+            for (int j = 0; j < tmpISO3166.length; j++) {
+              if (tmpISO3166[j].equals(tmpCountry)) {
+                tmpCountry3166 = tmpCountry;
+              }
+            }
+          }
+          return new Locale(tmpLanguage, tmpCountry3166);
+        }
+      }
+    }
+    return null;
   }
 
   /**

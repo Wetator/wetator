@@ -24,6 +24,7 @@ import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -864,7 +865,10 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (ContentType.XLS == tmpContentType) {
         String tmpContentAsText = "";
         try {
-          tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream());
+          final String tmpAcceptLangHeader = tmpPage.getWebResponse().getWebRequest().getAdditionalHeaders()
+              .get("Accept-Language");
+          final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(tmpAcceptLangHeader);
+          tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream(), tmpLocale);
         } catch (final IOException e) {
           // some server send csv files with xls mime type
           // so lets make another try
