@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.Locale;
 
 import javax.swing.text.BadLocationException;
 
@@ -70,7 +71,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getXlsContentAsString() throws FileNotFoundException, IOException {
+  public void getXlsContentAsStringDE() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -82,20 +83,45 @@ public class ContentUtilTest {
     tmpExpected.append(" int 123");
     tmpExpected.append(" float 14,3");
     tmpExpected.append(" float (rounded) 1,70");
-    tmpExpected.append(" currency 4,33");
+    tmpExpected.append(" currency * 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
     tmpExpected.append(" date (formated) 14-Jul-11");
     tmpExpected.append(" formula 124,70");
 
-    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
+    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
+        Locale.GERMAN);
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void getXlsContentAsStringEN() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[Tab1] Wetator Page 1");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Data Test]");
+    tmpExpected.append(" String plain text");
+    tmpExpected.append(" String(int) 4711");
+    tmpExpected.append(" int 123");
+    tmpExpected.append(" float 14.3");
+    tmpExpected.append(" float (rounded) 1.70");
+    tmpExpected.append(" currency * 4.33 €");
+    tmpExpected.append(" percent 3%");
+    tmpExpected.append(" date 7/14/11");
+    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" formula 124.70");
+
+    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
+        Locale.ENGLISH);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getXlsContentAsStringError() {
     try {
-      ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+      ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.getDefault());
       junit.framework.Assert.fail("IOException expected");
     } catch (Exception e) {
       org.junit.Assert.assertEquals("java.io.IOException: "
@@ -143,5 +169,65 @@ public class ContentUtilTest {
 
     tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.xls"));
     org.junit.Assert.assertFalse(ContentUtil.isTxt(tmpText));
+  }
+
+  @Test
+  public void determineLocaleFromRequestNull() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(null);
+    org.junit.Assert.assertNull(tmpLocale);
+  }
+
+  @Test
+  public void determineLocaleFromRequest() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("de");
+    org.junit.Assert.assertEquals(Locale.GERMAN, tmpLocale);
+  }
+
+  @Test
+  public void determineLocaleFromRequest2() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("DE");
+    org.junit.Assert.assertEquals(Locale.GERMAN, tmpLocale);
+  }
+
+  @Test
+  public void determineLocaleFromRequestEmpty() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("");
+    org.junit.Assert.assertNull(tmpLocale);
+  }
+
+  @Test
+  public void determineLocaleFromRequestUnknown() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("1234");
+    org.junit.Assert.assertNull(tmpLocale);
+  }
+
+  @Test
+  public void determineLocaleFromRequestMany() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da,en");
+    org.junit.Assert.assertEquals(new Locale("da", ""), tmpLocale);
+  }
+
+  @Test
+  public void testDetermineLocaleFromRequestOperaStyle() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da;1.0,en;0.9");
+    org.junit.Assert.assertEquals(new Locale("da", ""), tmpLocale);
+  }
+
+  @Test
+  public void testDetermineLocaleFromRequestIEStyle() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-nz,de;q=0.5");
+    org.junit.Assert.assertEquals(new Locale("en", "NZ"), tmpLocale);
+  }
+
+  @Test
+  public void testDetermineLocaleFromRequestIEStyle2() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-us");
+    org.junit.Assert.assertEquals(new Locale("en", "US"), tmpLocale);
+  }
+
+  @Test
+  public void testDetermineLocaleFromRequestIEStyle3() {
+    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-gb");
+    org.junit.Assert.assertEquals(new Locale("en", "GB"), tmpLocale);
   }
 }
