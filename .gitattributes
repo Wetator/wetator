@@ -339,6 +339,7 @@ Wetator/test/webpage/htmlunit_javascript.html -text
 Wetator/test/webpage/http_header.php -text
 Wetator/test/webpage/iframe.html -text
 Wetator/test/webpage/iframe_set.html -text
+Wetator/test/webpage/images/wetator.png -text
 Wetator/test/webpage/incubator/GSort.class -text
 Wetator/test/webpage/incubator/Panorado.jar -text
 Wetator/test/webpage/incubator/applet.html -text
