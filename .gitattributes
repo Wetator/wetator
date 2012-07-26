@@ -328,7 +328,6 @@ test/webpage/download/wet_test_error.rtf -text
 test/webpage/download/wet_test_error.xls -text
 test/webpage/event_handler.html -text svneol=unset#text/plain
 test/webpage/event_handler_old.html -text svneol=unset#text/plain
-test/webpage/favicon.ico -text
 test/webpage/frameset_content/frameset_c1.html -text
 test/webpage/frameset_content/frameset_c2.html -text
 test/webpage/frameset_content/frameset_c3.html -text
@@ -336,7 +335,6 @@ test/webpage/frameset_content/frameset_c4.html -text
 test/webpage/frameset_content/frameset_c5.html -text
 test/webpage/frameset_content/frameset_c6.html -text
 test/webpage/htmlunit_javascript.html -text
-test/webpage/http_header.php -text
 test/webpage/iframe.html -text
 test/webpage/iframe_set.html -text
 test/webpage/images/wetator.png -text
@@ -711,9 +709,6 @@ test/webpage/mouse_over.html -text
 test/webpage/mouse_over_after.html -text
 test/webpage/onfocus_onblur.html -text
 test/webpage/onkey.html -text
-test/webpage/redirect_header.php -text
-test/webpage/redirect_js.php -text
-test/webpage/redirect_meta.php -text
 test/webpage/response_store/embedded_style.html -text
 test/webpage/response_store/external_style.css -text
 test/webpage/response_store/external_style.html -text
@@ -730,13 +725,11 @@ test/webpage/set.html -text
 test/webpage/set_upload.html -text
 test/webpage/simple_login.html -text
 test/webpage/simple_search.html -text
-test/webpage/snoopy.php -text
 test/webpage/sword.png -text
 test/webpage/sword1.png -text
 test/webpage/sword2.png -text
 test/webpage/sword3.png -text
 test/webpage/sword4.png -text
-test/webpage/testcases.html -text
 test/webpage/wait_for.html -text
 test/webpage/wait_for2.html -text
 test/webpage/wet.css -text svneol=unset#text/plain
