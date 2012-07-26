@@ -328,7 +328,6 @@ Wetator/test/webpage/download/wet_test_error.rtf -text
 Wetator/test/webpage/download/wet_test_error.xls -text
 Wetator/test/webpage/event_handler.html -text svneol=unset#text/plain
 Wetator/test/webpage/event_handler_old.html -text svneol=unset#text/plain
-Wetator/test/webpage/favicon.ico -text
 Wetator/test/webpage/frameset_content/frameset_c1.html -text
 Wetator/test/webpage/frameset_content/frameset_c2.html -text
 Wetator/test/webpage/frameset_content/frameset_c3.html -text
@@ -336,7 +335,6 @@ Wetator/test/webpage/frameset_content/frameset_c4.html -text
 Wetator/test/webpage/frameset_content/frameset_c5.html -text
 Wetator/test/webpage/frameset_content/frameset_c6.html -text
 Wetator/test/webpage/htmlunit_javascript.html -text
-Wetator/test/webpage/http_header.php -text
 Wetator/test/webpage/iframe.html -text
 Wetator/test/webpage/iframe_set.html -text
 Wetator/test/webpage/images/wetator.png -text
@@ -711,9 +709,6 @@ Wetator/test/webpage/mouse_over.html -text
 Wetator/test/webpage/mouse_over_after.html -text
 Wetator/test/webpage/onfocus_onblur.html -text
 Wetator/test/webpage/onkey.html -text
-Wetator/test/webpage/redirect_header.php -text
-Wetator/test/webpage/redirect_js.php -text
-Wetator/test/webpage/redirect_meta.php -text
 Wetator/test/webpage/response_store/embedded_style.html -text
 Wetator/test/webpage/response_store/external_style.css -text
 Wetator/test/webpage/response_store/external_style.html -text
@@ -730,13 +725,11 @@ Wetator/test/webpage/set.html -text
 Wetator/test/webpage/set_upload.html -text
 Wetator/test/webpage/simple_login.html -text
 Wetator/test/webpage/simple_search.html -text
-Wetator/test/webpage/snoopy.php -text
 Wetator/test/webpage/sword.png -text
 Wetator/test/webpage/sword1.png -text
 Wetator/test/webpage/sword2.png -text
 Wetator/test/webpage/sword3.png -text
 Wetator/test/webpage/sword4.png -text
-Wetator/test/webpage/testcases.html -text
 Wetator/test/webpage/wait_for.html -text
 Wetator/test/webpage/wait_for2.html -text
 Wetator/test/webpage/wet.css -text svneol=unset#text/plain
