@@ -8,7 +8,7 @@
     <comment></comment>
     <command><d:open-url><d:url>iframe.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / IFrame Test</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>Wetator Wetator / IFrame Test Start content Wetator / IFrame-Set Test InputText Label OK Content after iframe_set.html iframe</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Wetator / IFrame Test Start content Wetator / IFrame-Set Test InputText Label OK Content after iframe_set.html iframe</d:content></d:assert-content></command>
     <comment>Access a control inside the iframe</comment>
     <command><d:set><d:wpath>InputText Label</d:wpath><d:value>in iframe</d:value></d:set></command>
     <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
