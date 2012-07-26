@@ -339,6 +339,7 @@ test/webpage/htmlunit_javascript.html -text
 test/webpage/http_header.php -text
 test/webpage/iframe.html -text
 test/webpage/iframe_set.html -text
+test/webpage/images/wetator.png -text
 test/webpage/incubator/GSort.class -text
 test/webpage/incubator/Panorado.jar -text
 test/webpage/incubator/applet.html -text
