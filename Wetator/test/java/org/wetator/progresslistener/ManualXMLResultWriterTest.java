@@ -80,6 +80,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase("wetator_google");
     resultWriter.testCaseStart(tmpTestCase);
 
+    // TODO screenshots missing
     lineNo = 1;
     resultWriter.testRunStart(IE8);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
@@ -152,6 +153,38 @@ public class ManualXMLResultWriterTest {
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
+  }
+
+  @Test
+  public void redWithIgnoredModule() {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeRedWithIgnoredModule(tmpTestCase, FF3);
+    writeRedWithIgnoredModule(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+  }
+
+  private void writeRedWithIgnoredModule(TestCase aTestCase, String aBrowser) {
+    lineNo = 1;
+    resultWriter.testRunStart(aBrowser);
+    resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
+    writeComment();
+    writeCommand();
+    writeCommandWithError();
+    writeCommandIgnored();
+    startModule(aTestCase);
+    writeCommandIgnored();
+    writeCommandIgnored();
+    writeCommandIgnored();
+    endModule();
+    writeComment();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
   }
 
   @Test
