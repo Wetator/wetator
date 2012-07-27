@@ -192,7 +192,12 @@
 
                     <exclude name="ant-*.jar" />
                     <exclude name="hsqldb-*.jar" />
+
                     <exclude name="junit-*.jar" />
+                    <exclude name="hamcrest-*.jar" />
+                    <exclude name="mockito-*.jar" />
+                    <exclude name="objenesis-*.jar" />
+
                     <exclude name="jetty-*.jar" />
                     <exclude name="servlet-*.jar" />
                     <exclude name="slf4j-*.jar" />
