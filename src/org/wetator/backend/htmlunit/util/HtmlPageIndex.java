@@ -279,9 +279,13 @@ public class HtmlPageIndex {
       // we have to stop if we found some other (visible) form control
       if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
         tmpStartPos = positions.get(tmpNode).endPos;
-        final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
-        if (StringUtils.isNotEmpty(tmpText)) {
-          return tmpText;
+
+        // the searched control is placed inside a button tag
+        if (tmpStartPos <= tmpFindSpot.startPos) {
+          final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
+          if (StringUtils.isNotEmpty(tmpText)) {
+            return tmpText;
+          }
         }
       }
 
