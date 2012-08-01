@@ -679,9 +679,22 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void getLabelTextBefore_SearchInsideButton() throws IOException {
+  public void getLabelTextBefore_InsideButton() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "before<button id='MyButton' type='button'>some button text<img id='myImg'>after</button>" + "</form>"
+        + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("before some button text",
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("myImg"), 0));
+  }
+
+  @Test
+  public void getLabelTextBefore_ButtonBeforeDirect() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "before<button id='MyButton' type='button'>some button text</button><img id='myImg'>after" + "</form>"
         + "</body></html>";
 
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
