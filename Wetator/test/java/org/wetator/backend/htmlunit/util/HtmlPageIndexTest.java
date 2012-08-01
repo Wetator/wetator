@@ -80,7 +80,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Paragraph() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph <br>2</p>" + "</body></html>";
 
     asText("Paragraph 1 Paragraph 2", tmpHtmlCode);
   }
@@ -679,6 +679,19 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void getLabelTextBefore_SearchInsideButton() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "before<button id='MyButton' type='button'>some button text<img id='myImg'>after</button>" + "</form>"
+        + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("before some button text",
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("myImg"), 0));
+  }
+
+  @Test
   public void getLabelTextAfter_None() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>" + "</form>"
@@ -738,5 +751,14 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+  }
+
+  @Test
+  public void getHtmlElementById() throws IOException {
+    String tmpHtmlCode = "<html><body>before" + "<h1 id='myH1'>Heading1</h1></body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    Assert.assertEquals("myH1", tmpResult.getHtmlElementById("myH1").getId());
   }
 }
