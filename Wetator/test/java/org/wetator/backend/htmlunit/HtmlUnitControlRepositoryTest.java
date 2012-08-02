@@ -41,7 +41,7 @@ public class HtmlUnitControlRepositoryTest {
 
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById("myId");
+    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
     HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
 
@@ -55,7 +55,7 @@ public class HtmlUnitControlRepositoryTest {
 
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById("myId");
+    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
     HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
@@ -70,7 +70,7 @@ public class HtmlUnitControlRepositoryTest {
 
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById("myId2");
+    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId2");
 
     HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
@@ -86,7 +86,7 @@ public class HtmlUnitControlRepositoryTest {
 
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById("myId");
+    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
     HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);

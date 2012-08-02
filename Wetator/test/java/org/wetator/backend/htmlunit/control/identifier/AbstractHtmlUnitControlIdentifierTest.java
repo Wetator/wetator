@@ -24,6 +24,7 @@ import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -38,7 +39,7 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById(anHtmlElementId);
+    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(anHtmlElementId);
 
     identifier.initialize(tmpHtmlPageIndex);
     return identifier.identify(aWPath, tmpHtmlElement);
@@ -49,8 +50,8 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<HtmlElement> tmpHtmlElements = tmpHtmlPage.getElementsByIdAndOrName(anHtmlElementIdOrName);
-    HtmlElement tmpHtmlElement = tmpHtmlElements.get(anIndex);
+    List<DomElement> tmpHtmlElements = tmpHtmlPage.getElementsByIdAndOrName(anHtmlElementIdOrName);
+    HtmlElement tmpHtmlElement = (HtmlElement) tmpHtmlElements.get(anIndex);
 
     identifier.initialize(tmpHtmlPageIndex);
     return identifier.identify(aWPath, tmpHtmlElement);
@@ -62,7 +63,7 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
 
     WeightedControlList tmpControls = new WeightedControlList();
     for (String tmpHtmlElementId : anHtmlElementIds) {
-      HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById(tmpHtmlElementId);
+      HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
       identifier.initialize(tmpHtmlPageIndex);
       tmpControls.addAll(identifier.identify(aWPath, tmpHtmlElement));
@@ -77,8 +78,8 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
 
     WeightedControlList tmpControls = new WeightedControlList();
     for (String tmpHtmlElementIdOrName : anHtmlElementIdOrNames) {
-      List<HtmlElement> tmpHtmlElements = tmpHtmlPage.getElementsByIdAndOrName(tmpHtmlElementIdOrName);
-      HtmlElement tmpHtmlElement = tmpHtmlElements.get(anIndex);
+      List<DomElement> tmpHtmlElements = tmpHtmlPage.getElementsByIdAndOrName(tmpHtmlElementIdOrName);
+      HtmlElement tmpHtmlElement = (HtmlElement) tmpHtmlElements.get(anIndex);
 
       identifier.initialize(tmpHtmlPageIndex);
       tmpControls.addAll(identifier.identify(aWPath, tmpHtmlElement));

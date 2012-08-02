@@ -43,9 +43,9 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -240,8 +240,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
 
           final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
-          final DomNodeList<HtmlElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
-          for (HtmlElement tmpAppletElement : tmpAppletElements) {
+          final DomNodeList<DomElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
+          for (DomElement tmpAppletElement : tmpAppletElements) {
             final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
             if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
               aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });

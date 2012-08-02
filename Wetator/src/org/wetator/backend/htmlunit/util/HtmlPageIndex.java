@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.wetator.core.searchpattern.SearchPattern;
@@ -99,8 +101,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
-import com.gargoylesoftware.htmlunit.javascript.host.Element;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 
 /**
  * The text representation of a page text. Indexed by form controls to speed up the calculation of text before and
@@ -490,15 +492,18 @@ public class HtmlPageIndex {
 
     if (tmpParent != null) {
       final HtmlElement tmpParentHtmlElement = (HtmlElement) tmpParent;
-      final CSSStyleDeclaration tmpStyle = ((Element) tmpParentHtmlElement.getScriptObject()).jsxGet_currentStyle();
-      final String tmpTransform = tmpStyle.jsxGet_textTransform();
+      final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptObject();
+      if (tmpScriptableObject instanceof HTMLElement) {
+        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).jsxGet_currentStyle();
+        final String tmpTransform = tmpStyle.jsxGet_textTransform();
 
-      if ("uppercase".equalsIgnoreCase(tmpTransform)) {
-        tmpTxt = tmpTxt.toUpperCase();
-      } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
-        tmpTxt = tmpTxt.toLowerCase();
-      } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
-        tmpTxt = WordUtils.capitalize(tmpTxt);
+        if ("uppercase".equalsIgnoreCase(tmpTransform)) {
+          tmpTxt = tmpTxt.toUpperCase();
+        } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
+          tmpTxt = tmpTxt.toLowerCase();
+        } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
+          tmpTxt = WordUtils.capitalize(tmpTxt);
+        }
       }
     }
 

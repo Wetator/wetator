@@ -33,7 +33,6 @@ public class HtmlPageIndexTest {
     asText(anExpected, anExpected, anHtmlCode);
   }
 
-  @SuppressWarnings("deprecation")
   private void asText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
       throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
@@ -51,12 +50,12 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_10, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -268,11 +267,12 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("PageStart", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLegend")));
-    Assert.assertEquals("PageStart LegendLabel", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLabel")));
+    Assert.assertEquals("PageStart", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLegend")));
+    Assert.assertEquals("PageStart LegendLabel", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLabel")));
 
-    Assert.assertEquals("inputValue", tmpResult.getAsText(tmpHtmlPage.getElementById("idTextInput")));
-    Assert.assertEquals("Option1Value Option2Value", tmpResult.getAsText(tmpHtmlPage.getElementById("idSingleSelect")));
+    Assert.assertEquals("inputValue", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTextInput")));
+    Assert.assertEquals("Option1Value Option2Value",
+        tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idSingleSelect")));
 
   }
 
@@ -303,44 +303,46 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
     Assert.assertEquals("header1 header2 data1 data2 data3 data4 data5",
-        tmpResult.getAsText(tmpHtmlPage.getElementById("idTable")));
-    Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTable")));
+        tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTable")));
+    Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTable")));
 
-    Assert.assertEquals("header1 header2", tmpResult.getAsText(tmpHtmlPage.getElementById("idTr1")));
-    Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTr1")));
+    Assert.assertEquals("header1 header2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTr1")));
+    Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTr1")));
 
-    Assert.assertEquals("header1", tmpResult.getAsText(tmpHtmlPage.getElementById("idTh1")));
-    Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTh1")));
+    Assert.assertEquals("header1", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTh1")));
+    Assert.assertEquals("", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTh1")));
 
-    Assert.assertEquals("header2", tmpResult.getAsText(tmpHtmlPage.getElementById("idTh2")));
-    Assert.assertEquals("header1", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTh2")));
+    Assert.assertEquals("header2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTh2")));
+    Assert.assertEquals("header1", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTh2")));
 
-    Assert.assertEquals("data1 data2", tmpResult.getAsText(tmpHtmlPage.getElementById("idTr2")));
-    Assert.assertEquals("header1 header2", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTr2")));
+    Assert.assertEquals("data1 data2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTr2")));
+    Assert.assertEquals("header1 header2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTr2")));
 
-    Assert.assertEquals("data1", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd1")));
-    Assert.assertEquals("header1 header2", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd1")));
+    Assert.assertEquals("data1", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd1")));
+    Assert.assertEquals("header1 header2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd1")));
 
-    Assert.assertEquals("data2", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd2")));
-    Assert.assertEquals("header1 header2 data1", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd2")));
+    Assert.assertEquals("data2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd2")));
+    Assert.assertEquals("header1 header2 data1", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd2")));
 
-    Assert.assertEquals("data3 data4", tmpResult.getAsText(tmpHtmlPage.getElementById("idTr3")));
-    Assert.assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTr3")));
+    Assert.assertEquals("data3 data4", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTr3")));
+    Assert
+        .assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTr3")));
 
-    Assert.assertEquals("data3", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd3")));
-    Assert.assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd3")));
+    Assert.assertEquals("data3", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd3")));
+    Assert
+        .assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd3")));
 
-    Assert.assertEquals("data4", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd4")));
+    Assert.assertEquals("data4", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd4")));
     Assert.assertEquals("header1 header2 data1 data2 data3",
-        tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd4")));
+        tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd4")));
 
-    Assert.assertEquals("data5", tmpResult.getAsText(tmpHtmlPage.getElementById("idTr4")));
+    Assert.assertEquals("data5", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTr4")));
     Assert.assertEquals("header1 header2 data1 data2 data3 data4",
-        tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTr4")));
+        tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTr4")));
 
-    Assert.assertEquals("data5", tmpResult.getAsText(tmpHtmlPage.getElementById("idTd5")));
+    Assert.assertEquals("data5", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd5")));
     Assert.assertEquals("header1 header2 data1 data2 data3 data4",
-        tmpResult.getTextBefore(tmpHtmlPage.getElementById("idTd5")));
+        tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd5")));
   }
 
   @Test
@@ -352,14 +354,14 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals("before 1. Line1 2. Line2 after", tmpResult.getText());
 
-    Assert.assertEquals("1. Line1 2. Line2", tmpResult.getAsText(tmpHtmlPage.getElementById("idOl")));
-    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idOl")));
+    Assert.assertEquals("1. Line1 2. Line2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idOl")));
+    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idOl")));
 
-    Assert.assertEquals("1. Line1", tmpResult.getAsText(tmpHtmlPage.getElementById("idLi1")));
-    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLi1")));
+    Assert.assertEquals("1. Line1", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idLi1")));
+    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLi1")));
 
-    Assert.assertEquals("2. Line2", tmpResult.getAsText(tmpHtmlPage.getElementById("idLi2")));
-    Assert.assertEquals("before 1. Line1", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLi2")));
+    Assert.assertEquals("2. Line2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idLi2")));
+    Assert.assertEquals("before 1. Line1", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLi2")));
   }
 
   @Test
@@ -373,14 +375,14 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
-    Assert.assertEquals("Line1 Line2", tmpResult.getAsText(tmpHtmlPage.getElementById("idUl")));
-    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idUl")));
+    Assert.assertEquals("Line1 Line2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idUl")));
+    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idUl")));
 
-    Assert.assertEquals("Line1", tmpResult.getAsText(tmpHtmlPage.getElementById("idLi1")));
-    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLi1")));
+    Assert.assertEquals("Line1", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idLi1")));
+    Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLi1")));
 
-    Assert.assertEquals("Line2", tmpResult.getAsText(tmpHtmlPage.getElementById("idLi2")));
-    Assert.assertEquals("before Line1", tmpResult.getTextBefore(tmpHtmlPage.getElementById("idLi2")));
+    Assert.assertEquals("Line2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idLi2")));
+    Assert.assertEquals("before Line1", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLi2")));
   }
 
   @Test
@@ -605,7 +607,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -616,7 +618,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -627,7 +629,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -639,7 +641,7 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MoreText MyLabel",
-        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -650,7 +652,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -662,7 +664,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+    Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -675,7 +677,7 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MyLabel value2",
-        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
@@ -688,7 +690,7 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before some button text",
-        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("myImg"), 0));
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("myImg"), 0));
   }
 
   @Test
@@ -701,7 +703,7 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before some button text",
-        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getElementById("myImg"), 0));
+        tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("myImg"), 0));
   }
 
   @Test
@@ -713,7 +715,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
@@ -725,7 +727,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+    Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
@@ -737,8 +739,8 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert
-        .assertEquals("CheckBoxpart2", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+    Assert.assertEquals("CheckBoxpart2",
+        tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
@@ -750,7 +752,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+    Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
@@ -763,7 +765,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
+    Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
@@ -776,7 +778,7 @@ public class HtmlPageIndexTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("some button text after",
-        tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("myImg")));
+        tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("myImg")));
   }
 
   @Test
@@ -788,7 +790,7 @@ public class HtmlPageIndexTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("myImg")));
+    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("myImg")));
   }
 
   @Test

@@ -43,7 +43,6 @@ public class XHtmlOutputterHtmlPageTest {
       + "<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/> </head> <body>";
   private static final String EXPECTED_TRAILING = "</body> </html>";
 
-  @SuppressWarnings("deprecation")
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
@@ -63,13 +62,13 @@ public class XHtmlOutputterHtmlPageTest {
     tmpXHtmlOutputter.writeTo(tmpWriter);
     Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
     Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_10, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
