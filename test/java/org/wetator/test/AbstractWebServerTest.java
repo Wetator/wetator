@@ -17,10 +17,11 @@
 package org.wetator.test;
 
 import java.io.File;
+import java.util.EnumSet;
 import java.util.Properties;
 
-import org.eclipse.jetty.http.security.Constraint;
-import org.eclipse.jetty.http.security.Credential;
+import javax.servlet.DispatcherType;
+
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.HashLoginService;
@@ -32,6 +33,8 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.security.Constraint;
+import org.eclipse.jetty.util.security.Credential;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -92,7 +95,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
     FilterHolder tmpFilterHolder = new FilterHolder(new MultiPartFilter());
     tmpFilterHolder.setInitParameter("deleteFiles", "true");
-    tmpContextHandler.addFilter(tmpFilterHolder, "/snoopy.php", 15);
+    EnumSet<DispatcherType> tmpDispatcherTypes = EnumSet.allOf(DispatcherType.class);
+    tmpContextHandler.addFilter(tmpFilterHolder, "/snoopy.php", tmpDispatcherTypes);
 
     HandlerList tmpHandlers = new HandlerList();
     tmpHandlers.setHandlers(new Handler[] { tmpContextHandler, tmpResourceHandler, new DefaultHandler() });

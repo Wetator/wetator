@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +43,6 @@ public class SnoopyServlet extends HttpServlet {
    * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
    *      javax.servlet.http.HttpServletResponse)
    */
-  @SuppressWarnings("unchecked")
   @Override
   protected void doGet(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException, IOException {
     aResponse.getWriter().println(
@@ -68,7 +66,7 @@ public class SnoopyServlet extends HttpServlet {
 
     Set<String> tmpFileParameterNames = determineFileParameterNames(aRequest);
 
-    List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
+    List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
     Collections.sort(tmpParameterNames);
     for (String tmpName : tmpParameterNames) {
       if (tmpGetParameterNames.contains(tmpName)) {
@@ -215,7 +213,7 @@ public class SnoopyServlet extends HttpServlet {
     aResponse.getWriter().println("<th>Key</th>");
     aResponse.getWriter().println("<th>Value</th>");
     aResponse.getWriter().println("</tr>");
-    List<String> tmpHeaderNames = Collections.list((Enumeration<String>) aRequest.getHeaderNames());
+    List<String> tmpHeaderNames = Collections.list(aRequest.getHeaderNames());
     Collections.sort(tmpHeaderNames);
     for (String tmpEntry : tmpHeaderNames) {
       aResponse.getWriter().println("<tr>");
@@ -275,11 +273,10 @@ public class SnoopyServlet extends HttpServlet {
     return tmpParamNames;
   }
 
-  @SuppressWarnings("unchecked")
   private Set<String> determineFileParameterNames(HttpServletRequest aRequest) {
     Set<String> tmpFileParameterNames = new HashSet<String>();
 
-    List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
+    List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
     for (String tmpName : tmpParameterNames) {
       Object tmpAttribute = aRequest.getAttribute(tmpName);
       if (tmpAttribute != null) {

@@ -39,7 +39,7 @@ public class HtmlUnitBaseControlTest {
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -50,7 +50,7 @@ public class HtmlUnitBaseControlTest {
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -62,7 +62,7 @@ public class HtmlUnitBaseControlTest {
         + "</button>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -74,7 +74,7 @@ public class HtmlUnitBaseControlTest {
         + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -86,7 +86,7 @@ public class HtmlUnitBaseControlTest {
         + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }

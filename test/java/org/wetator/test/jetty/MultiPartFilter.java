@@ -107,15 +107,10 @@ public class MultiPartFilter implements Filter {
     byte[] tmpByteBoundary = (tmpBoundary + "--").getBytes(StringUtil.__ISO_8859_1);
 
     MultiMap<String> tmpParameters = new MultiMap<String>();
-    for (Iterator<Map.Entry<String, Object>> tmpIterator = aRequest.getParameterMap().entrySet().iterator(); tmpIterator
+    for (Iterator<Map.Entry<String, String[]>> tmpIterator = aRequest.getParameterMap().entrySet().iterator(); tmpIterator
         .hasNext();) {
-      Map.Entry<String, Object> tmpEntry = tmpIterator.next();
-      Object tmpValue = tmpEntry.getValue();
-      if (tmpValue instanceof String[]) {
-        tmpParameters.addValues(tmpEntry.getKey(), (String[]) tmpValue);
-      } else {
-        tmpParameters.add(tmpEntry.getKey(), tmpValue);
-      }
+      Map.Entry<String, String[]> tmpEntry = tmpIterator.next();
+      tmpParameters.addValues(tmpEntry.getKey(), tmpEntry.getValue());
     }
 
     try {
@@ -433,9 +428,8 @@ public class MultiPartFilter implements Filter {
     /**
      * @see javax.servlet.ServletRequest#getParameterNames()
      */
-    @SuppressWarnings("rawtypes")
     @Override
-    public Enumeration getParameterNames() {
+    public Enumeration<String> getParameterNames() {
       return Collections.enumeration(parameters.keySet());
     }
 

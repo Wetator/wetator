@@ -34,7 +34,7 @@ import org.wetator.util.XMLUtil;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebWindow;
-import com.gargoylesoftware.htmlunit.html.BaseFrame;
+import com.gargoylesoftware.htmlunit.html.BaseFrameElement;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomDocumentType;
@@ -382,7 +382,7 @@ public final class XHtmlOutputter {
       }
 
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
-      final boolean tmpIsHtmlFrame = tmpHtmlElement instanceof BaseFrame;
+      final boolean tmpIsHtmlFrame = tmpHtmlElement instanceof BaseFrameElement;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
       final boolean tmpIsHtmlSubmitInput = tmpHtmlElement instanceof HtmlSubmitInput;
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
@@ -428,7 +428,7 @@ public final class XHtmlOutputter {
           }
 
           if (tmpIsHtmlFrame && ("src".equals(tmpAttributeName))) {
-            final BaseFrame tmpFrame = (BaseFrame) aDomNode;
+            final BaseFrameElement tmpFrame = (BaseFrameElement) aDomNode;
 
             // prevent NPE
             final WebWindow tmpWebWindow = tmpFrame.getEnclosedWindow();

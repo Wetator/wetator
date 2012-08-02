@@ -422,6 +422,25 @@ echo location of the Java Virtual Machine you want to use.
         </wetator>
     </target>
 
+    <!-- ******************************************* -->
+    <!-- target upload-release                      -->
+    <!-- ******************************************* -->
+    <target name="upload-release" description="upload current release repo"
+        depends="load-wetator">
+
+        <input message="Please enter repo username:" addproperty="repo.user"/>
+        <input message="Please enter repo password:" addproperty="repo.password"/>
+
+        <wetator config="wetator-upload.cfg">
+            <fileset dir=".">
+                <include name="wetator-upload-release.wet"/>
+            </fileset>
+
+            <property name="$user" value="${repo.user}"/>
+            <property name="$$$password" value="${repo.password}"/>
+        </wetator>
+    </target>
+
 
     <!-- =================================
           target: resolve
@@ -429,7 +448,7 @@ echo location of the Java Virtual Machine you want to use.
     <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
         <ivy:configure />
         <ivy:resolve />
-        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle" />
+        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
     </target>
 

@@ -136,7 +136,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>" + "</select>" + "SecondSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MySecondSelectName' size='2'>"
+        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
 

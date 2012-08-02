@@ -42,7 +42,6 @@ public class XHtmlOutputterXHtmlPageTest {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> ";
   private static final String EXPECTED_TRAILING = " </html>";
 
-  @SuppressWarnings("deprecation")
   private void testXHtmlOutput(final String anExpected, final String anXHtmlCode) throws IOException {
     XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anXHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
@@ -62,13 +61,13 @@ public class XHtmlOutputterXHtmlPageTest {
     tmpXHtmlOutputter.writeTo(tmpWriter);
     Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_3, anXHtmlCode);
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_3_6, anXHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
     Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_3_6, anXHtmlCode);
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_10, anXHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);

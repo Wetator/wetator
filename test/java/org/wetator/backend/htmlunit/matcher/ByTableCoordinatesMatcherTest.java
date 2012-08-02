@@ -544,7 +544,7 @@ public class ByTableCoordinatesMatcherTest {
 
     List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
     for (String tmpHtmlElementId : anHtmlElementIds) {
-      HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById(tmpHtmlElementId);
+      HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
       WPath tmpPath = new WPath(aSearch);
 
