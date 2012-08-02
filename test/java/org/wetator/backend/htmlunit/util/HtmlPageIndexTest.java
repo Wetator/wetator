@@ -767,6 +767,31 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void getLabelTextAfter_InsideButton() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<button id='MyButton' type='button'>before<img id='myImg'>some button text</button>after" + "</form>"
+        + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("some button text after",
+        tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("myImg")));
+  }
+
+  @Test
+  public void getLabelTextAfter_ButtonAfterDirect() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<img id='myImg'><button id='MyButton' type='button'>some button text</button>after" + "</form>"
+        + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getElementById("myImg")));
+  }
+
+  @Test
   public void getHtmlElementById() throws IOException {
     String tmpHtmlCode = "<html><body>before" + "<h1 id='myH1'>Heading1</h1></body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
