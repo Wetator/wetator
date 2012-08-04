@@ -170,7 +170,11 @@ public class SnoopyServlet extends HttpServlet {
           aResponse.getWriter().println("</tr>");
           char[] tmpBuffer = new char[13];
           FileReader tmpReader = new FileReader(tmpFile);
-          tmpReader.read(tmpBuffer);
+          try {
+            tmpReader.read(tmpBuffer);
+          } finally {
+            tmpReader.close();
+          }
           String tmpValue = new String(tmpBuffer);
           if (!tmpValue.isEmpty()) {
             aResponse.getWriter().println("<tr>");
