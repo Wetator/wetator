@@ -241,8 +241,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.addWebWindowListener(new WebWindowListener(this));
     webClient.setAlertHandler(new AlertHandler(wetatorEngine));
     // javascript
-    webClient.setJavaScriptEnabled(true);
-    webClient.setThrowExceptionOnScriptError(false);
+    webClient.getOptions().setJavaScriptEnabled(true);
+    webClient.getOptions().setThrowExceptionOnScriptError(false);
     webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
 
     // debug stuff
@@ -255,7 +255,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // trust all SSL-certificates
     try {
-      webClient.setUseInsecureSSL(true);
+      webClient.getOptions().setUseInsecureSSL(true);
     } catch (final GeneralSecurityException e) {
       // TODO add to report?
       LOG.warn("Accepting insecure SSL-certificates not allowed.", e);
