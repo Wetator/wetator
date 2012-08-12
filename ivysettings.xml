@@ -8,6 +8,11 @@
                  usepoms="true"
                  root="http://build.canoo.com/NekoHTML/artifacts/m2-repo"
                  checkmodified="true"/>
+        <ibiblio name="SonatypeSnapshots"
+                 m2compatible="true"
+                 usepoms="true"
+                 root="https://oss.sonatype.org/content/repositories/snapshots/"
+                 checkmodified="true"/>
         <ibiblio name="JavaNet"
                  m2compatible="true"
                  usepoms="true"
@@ -30,6 +35,7 @@
             <resolver ref="wetator" />
             <resolver ref="ibiblio" />
             <resolver ref="JavaNet" />
+            <resolver ref="SonatypeSnapshots" />
             <resolver ref="NekoHTMLSnapshots" />
         </chain>
     </resolvers>
