@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -217,7 +216,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       for (String tmpString : tmpNonProxyHosts) {
         if (StringUtils.isNotEmpty(tmpString)) {
           final String tmpHostsToProxyBypass = tmpString.trim();
-          webClient.getProxyConfig().addHostsToProxyBypass(tmpHostsToProxyBypass);
+          webClient.getOptions().getProxyConfig().addHostsToProxyBypass(tmpHostsToProxyBypass);
           LOG.info("Proxy HostsToProxyBypass: '" + tmpHostsToProxyBypass + "'");
         }
       }
@@ -254,12 +253,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
 
     // trust all SSL-certificates
-    try {
-      webClient.getOptions().setUseInsecureSSL(true);
-    } catch (final GeneralSecurityException e) {
-      // TODO add to report?
-      LOG.warn("Accepting insecure SSL-certificates not allowed.", e);
-    }
+    webClient.getOptions().setUseInsecureSSL(true);
   }
 
   /**
