@@ -10,7 +10,21 @@
     <!-- application specific properties -->
     <xmlproperty file="./build-properties.xml" keepRoot="false" semanticAttributes="true" />
 
+    <!-- patternsets -->
+	<patternset id="runtime-libs">
+        <exclude name="ant-*.jar" />
+        <exclude name="hsqldb-*.jar" />
 
+        <exclude name="junit-*.jar" />
+        <exclude name="hamcrest-*.jar" />
+        <exclude name="mockito-*.jar" />
+        <exclude name="objenesis-*.jar" />
+
+        <exclude name="jetty-*.jar" />
+        <exclude name="servlet-*.jar" />
+        <exclude name="slf4j-*.jar" />
+	</patternset>	
+	
     <!-- ******************************************* -->
     <!-- target load-onejar                          -->
     <!-- ******************************************* -->
@@ -189,18 +203,7 @@
             <lib>
                 <fileset dir="${dir.lib}">
                     <include name="*.jar" />
-
-                    <exclude name="ant-*.jar" />
-                    <exclude name="hsqldb-*.jar" />
-
-                    <exclude name="junit-*.jar" />
-                    <exclude name="hamcrest-*.jar" />
-                    <exclude name="mockito-*.jar" />
-                    <exclude name="objenesis-*.jar" />
-
-                    <exclude name="jetty-*.jar" />
-                    <exclude name="servlet-*.jar" />
-                    <exclude name="slf4j-*.jar" />
+                	<patternset refid="runtime-libs" />
                 </fileset>
             </lib>
         </one-jar>
@@ -268,13 +271,7 @@ echo location of the Java Virtual Machine you want to use.
 
             <zipfileset dir="${dir.lib}" prefix="lib">
                 <include name="*.jar" />
-
-                <exclude name="ant-*.jar" />
-                <exclude name="hsqldb-*.jar" />
-                <exclude name="jetty-*.jar" />
-                <exclude name="junit-*.jar" />
-                <exclude name="servlet-*.jar" />
-                <exclude name="slf4j-*.jar" />
+            	<patternset refid="runtime-libs" />
             </zipfileset>
 
             <zipfileset dir="${dir.samples}/ant" prefix="templates">
