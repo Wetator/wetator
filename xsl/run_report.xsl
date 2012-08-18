@@ -1680,7 +1680,7 @@
                                     <img src="./images/log_warn.png" width="11" height="11" alt="error"/>
                                 </td>
                                 <td>
-                                    <xsl:value-of select="./stacktrace"/>
+                                    <pre><xsl:value-of select="./stacktrace"/></pre>
                                 </td>
                             </tr>
                         </xsl:for-each>
