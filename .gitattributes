@@ -337,6 +337,7 @@ test/webpage/frameset_content/frameset_c6.html -text
 test/webpage/htmlunit_javascript.html -text
 test/webpage/iframe.html -text
 test/webpage/iframe_set.html -text
+test/webpage/images/bullet_orange.gif -text
 test/webpage/images/wetator.png -text
 test/webpage/incubator/GSort.class -text
 test/webpage/incubator/Panorado.jar -text
