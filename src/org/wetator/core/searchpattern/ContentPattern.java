@@ -19,6 +19,7 @@ package org.wetator.core.searchpattern;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
@@ -124,7 +125,7 @@ public class ContentPattern {
         tmpResultMessage.append(", ");
       }
 
-      final String tmpExpectedString = tmpNode.toString();
+      final String tmpExpectedString = contructExpectedStringOutput(tmpNode.toString());
       if (!aNodes.contains(tmpNode)) {
         tmpResultMessage.append(tmpExpectedString);
         continue;
@@ -142,11 +143,15 @@ public class ContentPattern {
 
         if (null == tmpPattern.firstOccurenceIn(aContent)) {
           // pattern is not in whole content too
-          tmpResultMessage.append("{" + tmpExpectedString + "}");
+          tmpResultMessage.append("{");
+          tmpResultMessage.append(tmpExpectedString);
+          tmpResultMessage.append("}");
         } else {
           // pattern is somewhere before one of the previous tokens =>
           // wrong order
-          tmpResultMessage.append("[" + tmpExpectedString + "]");
+          tmpResultMessage.append("[");
+          tmpResultMessage.append(tmpExpectedString);
+          tmpResultMessage.append("]");
         }
         tmpStartPos = 0;
       } else {
@@ -162,6 +167,12 @@ public class ContentPattern {
       // TODO maybe we have to limit the length of the content here
       Assert.fail("contentsFailed", new String[] { "{", "}", "[", "]", tmpResultMessage.toString(), aContent });
     }
+  }
+
+  private String contructExpectedStringOutput(final String anExpectedString) {
+    String tmpResult = StringUtils.replace(anExpectedString, " ", "\u2423 ");
+    tmpResult = StringUtils.replace(tmpResult, "\t", "\u2423 ");
+    return tmpResult;
   }
 
   private void privateMatchesNegated(final List<PatternNode> aNodes, final String aContent) throws AssertionException {

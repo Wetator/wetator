@@ -634,16 +634,26 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#warn(java.lang.String, java.lang.String[])
+   * @see org.wetator.core.IProgressListener#warn(String, String[], Throwable)
    */
   @Override
-  public void warn(final String aMessageKey, final String[] aParameterArray) {
+  public void warn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
     try {
       final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
       if (LOG.isWarnEnabled()) {
         LOG.warn(tmpMessage);
       }
-      printLogMessage("WARN", tmpMessage);
+      printlnStartTag(TAG_LOG);
+
+      printlnNode(TAG_LEVEL, "WARN");
+      printlnNode(TAG_MESSAGE, tmpMessage);
+
+      if (null != aThrowable) {
+        // the stack trace
+        printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+      }
+
+      printlnEndTag(TAG_LOG);
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }

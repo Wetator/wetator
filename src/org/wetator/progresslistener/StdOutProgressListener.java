@@ -307,10 +307,10 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#warn(java.lang.String, java.lang.String[])
+   * @see org.wetator.core.IProgressListener#warn(String, String[], Throwable)
    */
   @Override
-  public void warn(final String aMessageKey, final String[] aParameterArray) {
+  public void warn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
   }
 
   /**
