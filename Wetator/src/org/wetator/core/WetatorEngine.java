@@ -530,10 +530,11 @@ public class WetatorEngine {
    * 
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
+   * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
+  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
     for (IProgressListener tmpListener : progressListener) {
-      tmpListener.warn(aMessageKey, aParameterArray);
+      tmpListener.warn(aMessageKey, aParameterArray, aThrowable);
     }
   }
 

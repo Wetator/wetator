@@ -148,8 +148,9 @@ public interface IProgressListener {
    * 
    * @param aMessageKey the message key
    * @param aParameterArray the parameters for the message
+   * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void warn(String aMessageKey, String[] aParameterArray);
+  public void warn(String aMessageKey, String[] aParameterArray, Throwable aThrowable);
 
   /**
    * This is called to log an information.
