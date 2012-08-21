@@ -26,6 +26,9 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.NormalizedString;
 
@@ -112,6 +115,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
  * @author frank.danek
  */
 public class HtmlPageIndex {
+  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
 
   private HtmlPage htmlPage;
 
@@ -694,5 +698,32 @@ public class HtmlPageIndex {
         || (aDomNode instanceof HtmlVariable) || (aDomNode instanceof HtmlAbbreviated)
         || (aDomNode instanceof HtmlInlineQuotation) || (aDomNode instanceof HtmlCitation)
         || (aDomNode instanceof HtmlAcronym) || (aDomNode instanceof HtmlDefinition);
+  }
+
+  /**
+   * Helper for debugging.
+   */
+  public void dumpToLog() {
+    final StringBuilder tmpLog = new StringBuilder();
+    tmpLog.append("\n ---- HtmlPageIndex dump -------------------------------------------------------\n");
+    tmpLog.append(" text                   : " + text + "\n");
+
+    // nodes/positions
+    for (DomNode tmpDomNode : nodes) {
+      final FindSpot tmpPos = positions.get(tmpDomNode);
+      tmpLog.append("  " + tmpDomNode.getNodeName() + "  [" + tmpPos.startPos + ", " + tmpPos.endPos + "]");
+      tmpLog.append("  " + tmpDomNode.getClass().getName());
+
+      final String tmpValue = tmpDomNode.getNodeValue();
+      if (null != tmpValue) {
+        tmpLog.append("  '");
+        tmpLog.append(tmpValue);
+        tmpLog.append("'");
+      }
+      tmpLog.append("\n");
+    }
+
+    tmpLog.append(" ---- end HtmlPageIndex dump ---------------------------------------------------\n");
+    LOG.error(tmpLog.toString());
   }
 }
