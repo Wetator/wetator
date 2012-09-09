@@ -34,6 +34,9 @@
     <comment>test for secret parts of the url</comment>
     <command><d:open-url><d:url>assert_title.html?secret=${wet-secret}</d:url></d:open-url></command>
     <comment></comment>
+    <comment>URL copied from browser; including already escaped chars</comment>
+    <command><d:open-url><d:url>snoopy.php?msg=Hi+Wetator</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>Key Value msg Hi Wetator</d:content></d:assert-content></command>
     <comment>Test not escaped</comment>
     <command><tst:assert-fail><tst:command-and-message>Open Url, Opening url '*assert_title.html?param=abc%$1234' fails with server error 'Unable to create URI from URL: *assert_title.html?param=abc%$1234 (reason: Malformed escape pair at index *: *assert_title.html?param=abc%$1234)'.</tst:command-and-message><tst:parameter1>assert_title.html?param=abc%$1234</tst:parameter1></tst:assert-fail></command>
 </test-case>
