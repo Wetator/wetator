@@ -426,25 +426,6 @@ echo location of the Java Virtual Machine you want to use.
         </wetator>
     </target>
 
-    <!-- ******************************************* -->
-    <!-- target upload-release                      -->
-    <!-- ******************************************* -->
-    <target name="upload-release" description="upload current release repo"
-        depends="load-wetator">
-
-        <input message="Please enter repo username:" addproperty="repo.user"/>
-        <input message="Please enter repo password:" addproperty="repo.password"/>
-
-        <wetator config="wetator-upload.cfg">
-            <fileset dir=".">
-                <include name="wetator-upload-release.wet"/>
-            </fileset>
-
-            <property name="$user" value="${repo.user}"/>
-            <property name="$$$password" value="${repo.password}"/>
-        </wetator>
-    </target>
-
 
     <!-- =================================
           target: resolve
@@ -464,7 +445,19 @@ echo location of the Java Virtual Machine you want to use.
         <ivy:report todir="${dir.build}/ivy-report"/>
     </target>
 
-    <!-- =================================
+
+	<!-- =================================
+          target: zip-curret-libs
+         ================================= -->
+    <target name="zip-current-libs" description="--> create current-libs.zip">
+        <zip destfile="${dir.deploy}/current-libs.zip">
+            <zipfileset dir="${dir.lib}" prefix="lib" />
+            <zipfileset dir="${dir.lib-src}" prefix="lib_src" />
+        </zip>
+    </target>
+
+	
+	<!-- =================================
           target: clean-lib
          ================================= -->
     <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
