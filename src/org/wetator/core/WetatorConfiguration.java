@@ -118,6 +118,13 @@ public class WetatorConfiguration {
    */
   public static final String PROPERTY_BASIC_AUTH_USER = PROPERTY_PREFIX + "basicAuthUser";
   private static final String PROPERTY_BASIC_AUTH_PASSWORD = PROPERTY_PREFIX + "basicAuthPassword";
+  /**
+   * The property name to set the user the browser uses for basic authentication.
+   */
+  private static final String PROPERTY_NTLM_USER = PROPERTY_PREFIX + "ntlmUser";
+  private static final String PROPERTY_NTLM_PASSWORD = PROPERTY_PREFIX + "ntlmPassword";
+  private static final String PROPERTY_NTLM_WORKSTATION = PROPERTY_PREFIX + "ntlmWorkstation";
+  private static final String PROPERTY_NTLM_DOMAIN = PROPERTY_PREFIX + "ntlmDomain";
 
   // proxy
   /**
@@ -159,8 +166,13 @@ public class WetatorConfiguration {
 
   private List<BrowserType> browserTypes;
   private String acceptLanaguage;
+
   private SecretString basicAuthUser;
   private SecretString basicAuthPassword;
+  private SecretString ntlmUser;
+  private SecretString ntlmPassword;
+  private SecretString ntlmWorkstation;
+  private SecretString ntlmDomain;
 
   private String proxyHost;
   private int proxyPort;
@@ -425,7 +437,25 @@ public class WetatorConfiguration {
       basicAuthPassword = new SecretString(tmpValue, true);
     }
 
-    // TODO NTLM
+    // NTLM
+    tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_USER, "");
+    tmpProperties.remove(PROPERTY_NTLM_USER);
+    if (StringUtils.isNotEmpty(tmpValue)) {
+      ntlmUser = new SecretString(tmpValue, false);
+
+      // read the rest only if needed
+      tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_PASSWORD, "");
+      tmpProperties.remove(PROPERTY_NTLM_PASSWORD);
+      ntlmPassword = new SecretString(tmpValue, true);
+
+      tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_WORKSTATION, "");
+      tmpProperties.remove(PROPERTY_NTLM_WORKSTATION);
+      ntlmWorkstation = new SecretString(tmpValue, false);
+
+      tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_DOMAIN, "");
+      tmpProperties.remove(PROPERTY_NTLM_DOMAIN);
+      ntlmDomain = new SecretString(tmpValue, false);
+    }
 
     // xslTemplates
     tmpValue = tmpProperties.getProperty(PROPERTY_XSL_TEMPLATES, "");
@@ -765,6 +795,34 @@ public class WetatorConfiguration {
    */
   public SecretString getBasicAuthPassword() {
     return basicAuthPassword;
+  }
+
+  /**
+   * @return the configured ntlm user
+   */
+  public SecretString getNtlmUser() {
+    return ntlmUser;
+  }
+
+  /**
+   * @return the configured ntlm password
+   */
+  public SecretString getNtlmPassword() {
+    return ntlmPassword;
+  }
+
+  /**
+   * @return the configured ntlm workstation
+   */
+  public SecretString getNtlmWorkstation() {
+    return ntlmWorkstation;
+  }
+
+  /**
+   * @return the configured ntlm domain
+   */
+  public SecretString getNtlmDomain() {
+    return ntlmDomain;
   }
 
   /**

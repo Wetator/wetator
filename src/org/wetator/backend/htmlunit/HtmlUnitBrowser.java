@@ -189,6 +189,8 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     }
 
+    DefaultCredentialsProvider tmpCredentialProvider = null;
+
     final String tmpHost = tmpConfiguration.getProxyHost();
     if (StringUtils.isNotEmpty(tmpHost)) {
       LOG.info("Proxy configured");
@@ -203,9 +205,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpUser = tmpConfiguration.getProxyUser().getValue();
         LOG.info("Proxy User: '" + tmpUser + "'");
         final String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
-        final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
-        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
+        tmpCredentialProvider = new DefaultCredentialsProvider();
         webClient.setCredentialsProvider(tmpCredentialProvider);
+
+        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
       } else {
         LOG.info("Proxy no user defined");
       }
@@ -221,18 +224,39 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     } else {
       webClient = new WebClient(tmpBrowserVersion);
+    }
 
-      if ((null != tmpConfiguration.getBasicAuthUser())
-          && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
-        final String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
-        final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
-        final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
-        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
+    if ((null != tmpConfiguration.getBasicAuthUser())
+        && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
+      final String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
+      final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
+
+      if (null == tmpCredentialProvider) {
+        tmpCredentialProvider = new DefaultCredentialsProvider();
         webClient.setCredentialsProvider(tmpCredentialProvider);
-
-        LOG.info("BasicAuth enabled  user '" + tmpUser + "'.");
       }
 
+      tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
+      webClient.setCredentialsProvider(tmpCredentialProvider);
+
+      LOG.info("BasicAuth enabled  user '" + tmpUser + "'.");
+    }
+
+    if ((null != tmpConfiguration.getNtlmUser()) && StringUtils.isNotEmpty(tmpConfiguration.getNtlmUser().getValue())) {
+      final String tmpUser = tmpConfiguration.getNtlmUser().getValue();
+      final String tmpPassword = tmpConfiguration.getNtlmPassword().getValue();
+      final String tmpWorkstation = tmpConfiguration.getNtlmWorkstation().getValue();
+      final String tmpDomain = tmpConfiguration.getNtlmDomain().getValue();
+
+      if (null == tmpCredentialProvider) {
+        tmpCredentialProvider = new DefaultCredentialsProvider();
+        webClient.setCredentialsProvider(tmpCredentialProvider);
+      }
+
+      tmpCredentialProvider.addNTLMCredentials(tmpUser, tmpPassword, null, -1, tmpWorkstation, tmpDomain);
+      webClient.setCredentialsProvider(tmpCredentialProvider);
+
+      LOG.info("NTLM enabled  user '" + tmpUser + "' workstation '" + tmpWorkstation + "' domain '" + tmpDomain + "'.");
     }
 
     // setup our listener
