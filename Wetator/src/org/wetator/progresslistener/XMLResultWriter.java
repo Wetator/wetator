@@ -267,10 +267,14 @@ public class XMLResultWriter implements IProgressListener {
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOST, tmpConfiguration.getProxyHost());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_PORT,
           Integer.toString(tmpConfiguration.getProxyPort()));
+      // TODO
       // writeConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
       // tmpConfiguration.getProxyHostsToBypass());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_USER, tmpConfiguration.getProxyUser());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_BASIC_AUTH_USER, tmpConfiguration.getBasicAuthUser());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_NTLM_USER, tmpConfiguration.getNtlmUser());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_NTLM_WORKSTATION, tmpConfiguration.getNtlmWorkstation());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_NTLM_DOMAIN, tmpConfiguration.getNtlmDomain());
 
       printlnStartTag(TAG_VARIABLES);
 
