@@ -121,10 +121,10 @@ public class WetatorConfiguration {
   /**
    * The property name to set the user the browser uses for basic authentication.
    */
-  private static final String PROPERTY_NTLM_USER = PROPERTY_PREFIX + "ntlmUser";
+  public static final String PROPERTY_NTLM_USER = PROPERTY_PREFIX + "ntlmUser";
   private static final String PROPERTY_NTLM_PASSWORD = PROPERTY_PREFIX + "ntlmPassword";
-  private static final String PROPERTY_NTLM_WORKSTATION = PROPERTY_PREFIX + "ntlmWorkstation";
-  private static final String PROPERTY_NTLM_DOMAIN = PROPERTY_PREFIX + "ntlmDomain";
+  public static final String PROPERTY_NTLM_WORKSTATION = PROPERTY_PREFIX + "ntlmWorkstation";
+  public static final String PROPERTY_NTLM_DOMAIN = PROPERTY_PREFIX + "ntlmDomain";
 
   // proxy
   /**
