@@ -208,7 +208,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCredentialProvider = new DefaultCredentialsProvider();
         webClient.setCredentialsProvider(tmpCredentialProvider);
 
-        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
+        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword, tmpHost, tmpPort, null);
       } else {
         LOG.info("Proxy no user defined");
       }
@@ -254,7 +254,6 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       tmpCredentialProvider.addNTLMCredentials(tmpUser, tmpPassword, null, -1, tmpWorkstation, tmpDomain);
-      webClient.setCredentialsProvider(tmpCredentialProvider);
 
       LOG.info("NTLM enabled  user '" + tmpUser + "' workstation '" + tmpWorkstation + "' domain '" + tmpDomain + "'.");
     }
