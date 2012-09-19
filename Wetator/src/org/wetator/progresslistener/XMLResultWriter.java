@@ -39,7 +39,6 @@ import org.apache.fontbox.util.BoundingBox;
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 import org.apache.http.entity.mime.HttpMultipart;
-import org.apache.log4j.Logger;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -179,9 +178,15 @@ public class XMLResultWriter implements IProgressListener {
         printlnNode(TAG_LIB, tmpInfo);
       }
 
-      tmpInfo = VersionUtil.determineTitleFromJarManifest(Logger.class, "org.apache.log4j");
-      tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(Logger.class, "org.apache.log4j");
-      printlnNode(TAG_LIB, tmpInfo);
+      try {
+        final Class<?> tmpClass = Class.forName("org.apache.log4j.Logger");
+
+        tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j");
+        tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpClass, "org.apache.log4j");
+        printlnNode(TAG_LIB, tmpInfo);
+      } catch (final Exception e) {
+        printlnNode(TAG_LIB, "log4j not in classpath.");
+      }
 
       tmpInfo = VersionUtil.determineVersionFromJarFileName(Automaton.class);
       printlnNode(TAG_LIB, tmpInfo);
@@ -251,6 +256,9 @@ public class XMLResultWriter implements IProgressListener {
       printConfigurationProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpConfiguration.getAcceptLanaguage());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_OUTPUT_DIR, tmpConfiguration.getOutputDir()
           .getAbsolutePath());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_JAVASCRIPT_TIMEOUT,
+          tmpConfiguration.getJsTimeoutInSeconds() + "s");
+
       for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
       }
