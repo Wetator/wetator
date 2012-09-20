@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -129,10 +128,9 @@ public class Wetator extends Task {
       }
 
     } catch (final Throwable e) {
-      String tmpMessage = e.getMessage();
-      if (StringUtils.isBlank(tmpMessage)) {
-        tmpMessage = e.toString();
-      }
+      // use e.toString() instead of e.getMessage() because e.g. the message for
+      // ClassNotFoundException is not understandable when calling only getMessage
+      final String tmpMessage = e.toString();
       throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpMessage + ")", e);
     } finally {
       if (null != tmpAntClassLoader) {
