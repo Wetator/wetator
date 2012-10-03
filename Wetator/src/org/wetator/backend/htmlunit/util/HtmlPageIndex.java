@@ -498,8 +498,8 @@ public class HtmlPageIndex {
       final HtmlElement tmpParentHtmlElement = (HtmlElement) tmpParent;
       final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptObject();
       if (tmpScriptableObject instanceof HTMLElement) {
-        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).jsxGet_currentStyle();
-        final String tmpTransform = tmpStyle.jsxGet_textTransform();
+        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
+        final String tmpTransform = tmpStyle.getTextTransform();
 
         if ("uppercase".equalsIgnoreCase(tmpTransform)) {
           tmpTxt = tmpTxt.toUpperCase();
