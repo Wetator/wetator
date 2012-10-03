@@ -3,7 +3,7 @@
 
   <application>
     <name>Wetator</name>
-    <version>0_9_8</version>
+    <version>0_9_9</version>
     <jar-basename>wetator</jar-basename>
     <vendor>wetator.org</vendor>
   </application>
