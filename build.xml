@@ -20,7 +20,7 @@
         <exclude name="mockito-*.jar" />
         <exclude name="objenesis-*.jar" />
 
-		<exclude name="jetty-client*.jar" />
+        <exclude name="jetty-client*.jar" />
         <exclude name="jetty-continuation*.jar" />
         <exclude name="jetty-jmx*.jar" />
         <exclude name="jetty-security*.jar" />
