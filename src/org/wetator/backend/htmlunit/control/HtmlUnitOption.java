@@ -87,7 +87,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       }
 
       // wait for silence
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -150,7 +150,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       }
 
       // wait for silence
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {

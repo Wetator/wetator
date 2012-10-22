@@ -87,7 +87,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       }
 
       // wait for silence
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -142,7 +142,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       }
 
       // wait for silence
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
