@@ -694,6 +694,9 @@ public final class HtmlUnitBrowser implements IBrowser {
         final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
         tmpJobCount = tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+
+        // maybe the last executes job has scheduled a postponed action;
+        // webClient.getJavaScriptEngine().processPostponedActions();
         if (tmpJobCount > 0) {
           continue;
         }

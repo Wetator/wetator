@@ -109,7 +109,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
     try {
       tmpHtmlElement.click();
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -148,7 +148,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
     try {
       tmpHtmlElement.dblClick();
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -187,7 +187,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
     try {
       tmpHtmlElement.rightClick();
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -230,7 +230,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       tmpHtmlElement.mouseOver();
       // simulate mouse move on the element
       tmpHtmlElement.mouseMove();
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -364,6 +364,20 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     tmpStyle.append("-webkit-border-radius: 5px;");
 
     tmpHtmlElement.setAttribute("style", tmpStyle.toString());
+  }
+
+  /**
+   * Wait until the 'immediate' JavaScript jobs are finished.
+   * Additionally this informs all context listeners if not all jobs
+   * finished in the time frame.
+   * 
+   * @param aContext the context
+   * @throws BackendException in case of problems
+   */
+  protected void waitForImmediateJobs(final WetatorContext aContext) throws BackendException {
+    if (aContext.getBrowser().waitForImmediateJobs()) {
+      aContext.informListenersWarn("notAllJsJobsFinished", null);
+    }
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {

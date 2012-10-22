@@ -89,7 +89,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
       tmpHtmlHiddenInput.setAttribute("value", tmpValue);
 
       // wait for silence
-      aWetatorContext.getBrowser().waitForImmediateJobs();
+      waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
