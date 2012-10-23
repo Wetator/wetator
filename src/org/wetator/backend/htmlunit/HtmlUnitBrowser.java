@@ -694,9 +694,6 @@ public final class HtmlUnitBrowser implements IBrowser {
         final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
         tmpJobCount = tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
-
-        // maybe the last executes job has scheduled a postponed action;
-        // webClient.getJavaScriptEngine().processPostponedActions();
         if (tmpJobCount > 0) {
           continue;
         }
@@ -714,7 +711,12 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       }
     }
-    return tmpJobCount > 0;
+
+    if (tmpJobCount > 0) {
+      wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -775,6 +777,12 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
+      // inform if there are still pending js jobs
+      final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+      if (tmpJobManager.getJobCount() > 0) {
+        wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
+      }
+
       final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
       tmpPattern.matches(tmpCurrentTitle);
     } catch (final BackendException e) {
@@ -814,22 +822,35 @@ public final class HtmlUnitBrowser implements IBrowser {
         long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
         while (System.currentTimeMillis() < tmpEndTime) {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-          final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+
           try {
-            tmpPattern.matches(tmpContentAsText);
-            return tmpPageChanged;
-          } catch (final AssertionException e) {
-            // ok, not found, maybe we have to be more patient
+            final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+            try {
+              tmpPattern.matches(tmpContentAsText);
+              return tmpPageChanged;
+            } catch (final AssertionException e) {
+              // ok, not found, maybe we have to be more patient
+            }
+          } catch (final IllegalStateException e) {
+            // no javascript running, so this is a real problem
+            if (tmpJobManager.getJobCount() == 0) {
+              throw e;
+            }
+
+            // in some cases the page will be replaced by javascript
+            // at the moment; ignore it and make another try
+            wetatorEngine.informListenersWarn("pageIndexFailed", new String[] { e.getMessage() }, e);
           }
 
           tmpPageChanged = true;
-          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
           if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
             continue;
           }
 
-          // current page is changed, we have to make another try
           if (tmpPage == getCurrentPage()) {
+            // current page is unchanged, another wait cycle makes
+            // no sense because there is no javascript that will run
             break;
           }
 
@@ -847,6 +868,13 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       if (tmpPage instanceof HtmlPage) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+
+        // inform if there are still pending js jobs
+        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+        if (tmpJobManager.getJobCount() > 0) {
+          wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
+        }
+
         final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         tmpPattern.matches(tmpContentAsText);
         return tmpPageChanged;
