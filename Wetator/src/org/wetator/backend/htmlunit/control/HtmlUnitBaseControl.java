@@ -375,9 +375,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * @throws BackendException in case of problems
    */
   protected void waitForImmediateJobs(final WetatorContext aContext) throws BackendException {
-    if (aContext.getBrowser().waitForImmediateJobs()) {
-      aContext.informListenersWarn("notAllJsJobsFinished", null);
-    }
+    aContext.getBrowser().waitForImmediateJobs();
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
