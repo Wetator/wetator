@@ -170,8 +170,8 @@ public class ContentPattern {
   }
 
   private String contructExpectedStringOutput(final String anExpectedString) {
-    String tmpResult = StringUtils.replace(anExpectedString, " ", "\u2423 ");
-    tmpResult = StringUtils.replace(tmpResult, "\t", "\u2423 ");
+    String tmpResult = StringUtils.replace(anExpectedString, " ", "\u2423");
+    tmpResult = StringUtils.replace(tmpResult, "\t", "\u2423");
     return tmpResult;
   }
 
