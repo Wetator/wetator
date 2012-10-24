@@ -746,18 +746,25 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (tmpPage instanceof HtmlPage) {
         // try with wait
         long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+
+        // only true if the user has specified a wait time
         while (System.currentTimeMillis() < tmpEndTime) {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+
           final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
           try {
             tmpPattern.matches(tmpCurrentTitle);
+            // warn also in case of match to be consistent
+            if (tmpJobManager.getJobCount() > 0) {
+              wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
+            }
             return tmpPageChanged;
           } catch (final AssertionException e) {
             // ok, not found, maybe we have to be more patient
           }
 
           tmpPageChanged = true;
-          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
           if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
             continue;
           }
@@ -820,6 +827,8 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (tmpPage instanceof HtmlPage) {
         // try with wait
         long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+
+        // only true if the user has specified a wait time
         while (System.currentTimeMillis() < tmpEndTime) {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
           final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
@@ -828,18 +837,24 @@ public final class HtmlUnitBrowser implements IBrowser {
             final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
             try {
               tmpPattern.matches(tmpContentAsText);
+
+              // warn also in case of match to be consistent
+              if (tmpJobManager.getJobCount() > 0) {
+                wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
+              }
               return tmpPageChanged;
             } catch (final AssertionException e) {
               // ok, not found, maybe we have to be more patient
             }
           } catch (final IllegalStateException e) {
-            // no javascript running, so this is a real problem
+            // no javascript running/scheduled, so this is a real problem
+            // Note: there is no API to ask for the currently running jobs only
             if (tmpJobManager.getJobCount() == 0) {
               throw e;
             }
 
-            // in some cases the page will be replaced by javascript
-            // at the moment; ignore it and make another try
+            // in some cases the page will be right now replaced by javascript;
+            // ignore the exception and make another try
             wetatorEngine.informListenersWarn("pageIndexFailed", new String[] { e.getMessage() }, e);
           }
 
