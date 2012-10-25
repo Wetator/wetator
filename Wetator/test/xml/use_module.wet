@@ -2,8 +2,9 @@
 <test-case
     xmlns='http://www.wetator.org/xsd/test-case'
     xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
     version='1.0.0'>
     <command><d:use-module><d:module>modules/module.wet</d:module></d:use-module></command>
     <comment>after use module</comment>
@@ -12,4 +13,11 @@
     <command><d:use-module><d:module>modules/module_with_parameters.wet</d:module><d:parameters>assert_content.html, Wetator / Assert Content</d:parameters></d:use-module></command>
     <comment>check parametes are transfered from module to the next one</comment>
     <command><d:use-module><d:module>modules/module_calling_module.wet</d:module><d:parameters>assert_content.html, wrong</d:parameters></d:use-module></command>
+    <comment></comment>
+    <comment>module file missing</comment>
+    <command><tst:assert-fail><tst:command-and-message>use-module, The module file '*\modules\missing.wet' does not exist.</tst:command-and-message><tst:parameter1>\modules\missing.wet</tst:parameter1></tst:assert-fail></command>
+    <comment>not supported module directory</comment>
+    <command><tst:assert-fail><tst:command-and-message>use-module, The module file '*\modules\test.dir' does not exist.</tst:command-and-message><tst:parameter1>modules\test.dir</tst:parameter1></tst:assert-fail></command>
+    <comment>not supported module file</comment>
+    <command><tst:assert-fail><tst:command-and-message>use-module, org.wetator.exception.InvalidInputException: No scripter found for file 'C:\RBRi\eclipse\workspace_wetator\wetator\test\xml\modules\not.supported' (File 'not.supported' not supported by XMLScripter. Extension is not '.wet' or '.xml'.; File 'not.supported' not supported by LegacyXMLScripter. Extension is not '.wet' or '.xml'.; File 'not.supported' not supported by ExcelScripter. Extension is not '.xls'.; File 'not.supported' not supported by WikiTextScripter. Extension is not '.wett'.).</tst:command-and-message><tst:parameter1>modules\not.supported</tst:parameter1></tst:assert-fail></command>
 </test-case>
