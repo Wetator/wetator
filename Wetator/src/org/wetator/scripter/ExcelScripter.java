@@ -102,11 +102,11 @@ public final class ExcelScripter implements IScripter {
     }
 
     // second check the file accessibility
-    if (!aFile.exists()) {
+    if (!aFile.exists() || !aFile.isFile()) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by ExcelScripter. Could not find file.");
     }
-    if (!aFile.isFile() || !aFile.canRead()) {
+    if (!aFile.canRead()) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by ExcelScripter. Could not read file.");
     }

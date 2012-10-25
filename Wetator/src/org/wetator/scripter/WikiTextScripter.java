@@ -79,11 +79,11 @@ public final class WikiTextScripter implements IScripter {
     }
 
     // second check the file accessibility
-    if (!aFile.exists()) {
+    if (!aFile.exists() || !aFile.isFile()) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by WikiTextScripter. Could not find file.");
     }
-    if (!aFile.isFile() || !aFile.canRead()) {
+    if (!aFile.canRead()) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by WikiTextScripter. Could not read file.");
     }
