@@ -340,7 +340,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void useModule() throws InvalidInputException {
     executeTestFile("use_module.wet");
 
-    Assert.assertEquals(10, getSteps());
+    Assert.assertEquals(13, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

@@ -790,6 +790,7 @@ test/xml/misc_files/test_file.txt -text svneol=unset#text/plain
 test/xml/modules/module.wet -text svneol=unset#text/plain
 test/xml/modules/module_calling_module.wet -text
 test/xml/modules/module_with_parameters.wet -text svneol=unset#text/plain
+test/xml/modules/not.supported -text
 test/xml/mouse_over.wet -text svneol=unset#text/plain
 test/xml/mouse_over_after.wet -text svneol=unset#text/plain
 test/xml/normalize_command.wet -text svneol=unset#text/plain
