@@ -155,6 +155,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         aContext.informListenersInfo("useModule", new String[] { tmpFile.getAbsolutePath() });
       }
 
+      // check file
+      if (!tmpFile.exists() || !tmpFile.isFile()) {
+        final String tmpMessage = Messages.getMessage("moduleFileNotFound", new String[] { tmpFile.getAbsolutePath() });
+        throw new InvalidInputException(tmpMessage);
+      }
+
       // setup the new context
       final WetatorContext tmpWetatorContext = aContext.createSubContext(tmpFile);
 
