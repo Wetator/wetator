@@ -103,11 +103,11 @@ public final class LegacyXMLScripter implements IScripter {
     }
 
     // second check the file accessibility
-    if (!aFile.exists()) {
+    if (!aFile.exists() || !aFile.isFile()) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by LegacyXMLScripter. Could not find file.");
     }
-    if (!aFile.isFile() || !aFile.canRead()) {
+    if (!aFile.canRead()) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by LegacyXMLScripter. Could not read file.");
     }
