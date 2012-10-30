@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.jenkins;
+package org.wetator.jenkins.plugin;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -25,10 +25,9 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.wetator.jenkins.parser.AllTests.class, //
-    org.wetator.jenkins.plugin.AllTests.class, //
-    org.wetator.jenkins.xstream.AllTests.class //
-})
+@SuiteClasses({ ResultTest.class, //
+    ResultWithModuleTest.class, //
+    ResultWithPathTest.class })
 public final class AllTests {
 
   /**

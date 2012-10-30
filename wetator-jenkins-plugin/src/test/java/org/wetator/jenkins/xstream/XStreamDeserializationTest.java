@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.jenkins;
+package org.wetator.jenkins.xstream;
 
 import hudson.util.XStream2;
 
@@ -31,6 +31,8 @@ import java.util.zip.GZIPOutputStream;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.wetator.jenkins.PluginImpl;
+import org.wetator.jenkins.WetatorBuildReport;
 import org.wetator.jenkins.result.BrowserResult;
 import org.wetator.jenkins.result.StepError;
 import org.wetator.jenkins.result.StepError.CauseType;

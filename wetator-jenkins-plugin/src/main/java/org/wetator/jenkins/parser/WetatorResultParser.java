@@ -138,7 +138,7 @@ public class WetatorResultParser {
             if (tmpPath.matches("/wet/testcase/testrun/testfile")) {
               tmpTestFileResult.setFullName(tmpReader.getAttributeValue(null, "file"));
             }
-          } else if (tmpPath.matches("/wet/testcase/testrun/testfile/error/message")) {
+          } else if (tmpPath.startsWith("/wet/testcase/testrun") && tmpPath.endsWith("/testfile/error/message")) {
             tmpTestError = new TestError();
             tmpTestError.setFile(tmpCurrentTestFile);
             tmpTestError.setError(tmpReader.getElementText());
