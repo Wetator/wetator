@@ -284,6 +284,18 @@ Wetator/test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svn
 Wetator/test/java/org/wetator/test/resource/legacyXML.wet -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/legacyXML.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/blue.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/blueModules.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/green.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/greenModule.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/homepage.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/invalidInputDuringCommandExecution.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/invalidInputWhileReadingCommands.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/mixed.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/red.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/redAfterModule.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/redModules.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/redWithIgnoredModule.html -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/wikiText.wett -text
 Wetator/test/java/org/wetator/test/resource/xml.wet -text
 Wetator/test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
