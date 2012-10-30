@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//Wf3C//Dtd HTML 4.01 Transitional//EN">
+<html xmlns:fn="http://www.w3.org/2005/xpath-functions">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META content="text/css" http-equiv="content-style-type">
+<title>Wetator - Test Result</title>
+<style type="text/css">
+                    body {background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px;}
+                    table {font-size: 10pt; empty-cells: show; border-collapse: collapse; }
+                    table.overview {width: 80%;}
+                    th {FONT-WEIGHT: bold; color: #FFFFFF; background-color: #555555; text-align: left;}
+                    td.step {border:1px solid #999; color: #000000; text-align: center;}
+                    td.light {background-color: #f8f8f8;}
+                    td.topBorder {border-top: 1px solid #999;}
+                    td.message {background-color: #fff8dc; color: #666666; font-size: 10pt;}
+                    td.properties {background-color: #f8f8f8; font-size: 10pt;}
+                    td.failure {background-color: #00769C; color: #FFFFFF;}
+                    td.error {background-color: #E75013; color: #FFFFFF;}
+                    td.comment {background-color: #DDDDDD; color: #717173;}
+                    td.ignored {color: #717173;}
+                    h1 {font-size: 12pt; color: #000000; margin-top:20px;}
+                    h2 {font-size: 10pt; color: #4682b4; margin-top:16px;}
+                    p.blue {color: #768bc2;}
+                    pre.text {font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre;}
+                    a, a:link, a:visited, a:active, a:hover {color: #666666; text-decoration: none;}
+                    a.link:hover {text-decoration: underline;}
+                    .step a:hover{width:13px;border:1px;}
+                    a.linkToCommand {font-size: smaller; display: block;}
+                    img {border: 0;}
+                    div.header { color: #768bc2; margin-left: 10px; }
+                    div.header img { margin-left: -10px; border:0; }
+                    div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
+                    .smallBorder {border: 1px solid #999;}
+                    .bold {font-weight: bold;}
+                    #testSummary {border: 1px solid #555555;}
+                    table#testSummary td {padding: 5px;}
+                    p.backToTop img {padding-right: 3px;}
+                    .bars {color: #FFFFFF;}
+                    #debuginfo {display: none;}
+                    #debugtestbrowseroverviewinfo {display: none;};
+                </style>
+<script language="JavaScript" type="text/javascript">
+                function showOrHide(image, id) {
+                    if (image.src.indexOf("collapseall.png") != -1) {
+                        var tmpElement=document.getElementById(id);
+                        tmpElement.style.display = "none";
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
+                    } else if (image.src.indexOf("expandall.png") != -1) {
+                        var tmpElement=document.getElementById(id);
+                        tmpElement.style.display = "";
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
+                    } else if (image.src.indexOf("collapselog.png") != -1) {
+                        var tmpElement=document.getElementById(id);
+                        tmpElement.style.display = "none";
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlog.png";
+                    } else if (image.src.indexOf("expandlog.png") != -1) {
+                        var tmpElement=document.getElementById(id);
+                        tmpElement.style.display = "";
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
+                    }
+                }
+                function showOrHideAll(image, ie6, ie7, ie8, ff3, ff36) {
+                    if (image.src.indexOf("collapseall.png") != -1) {
+                        if (ie6 != null) {
+                            var tmpElement=document.getElementById(ie6);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ie6');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
+                        if (ie7 != null) {
+                            var tmpElement=document.getElementById(ie7);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ie7');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
+                        if (ie8 != null) {
+                            var tmpElement=document.getElementById(ie8);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ie8');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
+                        if (ff3 != null) {
+                            var tmpElement=document.getElementById(ff3);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ff3');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
+                        if (ff36 != null) {
+                            var tmpElement=document.getElementById(ff36);
+                            tmpElement.style.display = "none";
+                            var browserImage=document.getElementById('ff36');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
+                        }
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
+                    } else if (image.src.indexOf("expandall.png") != -1) {
+                        if (ie6 != null) {
+                            var tmpElement=document.getElementById(ie6);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ie6');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
+                        if (ie7 != null) {
+                            var tmpElement=document.getElementById(ie7);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ie7');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
+                        if (ie8 != null) {
+                            var tmpElement=document.getElementById(ie8);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ie8');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
+                        if (ff3 != null) {
+                            var tmpElement=document.getElementById(ff3);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ff3');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
+                        if (ff36 != null) {
+                            var tmpElement=document.getElementById(ff36);
+                            tmpElement.style.display = "";
+                            var browserImage=document.getElementById('ff36');
+                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
+                        }
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
+                    }
+                }
+                function makeVisible(id) {
+                    tmpImage = document.getElementById('showHide_' + id);
+                    if (tmpImage && tmpImage.src.indexOf("expandall.png") != -1) {
+                        showOrHide(tmpImage, id);
+                    }
+                }
+                function switchTables(tableToHide, id, force) {
+                    var overviewSwitcher=document.getElementById('overviewswitcher');
+                    if (force || overviewSwitcher.src.indexOf("expandall.png") != -1) {
+                        tableToHide.style.display = "none";
+
+                        var tmpTableToShow=document.getElementById(id);
+                        tmpTableToShow.style.display = "";
+                    }
+                }
+                function switchOverviewTables(image) {
+                    if (image.src.indexOf("expandall.png") != -1) {
+                        var tmpDetailedOverview=document.getElementById('detailedoverview');
+                        switchTables(tmpDetailedOverview, 'summaryoverview', true);
+                    } else if (image.src.indexOf("collapseall.png") != -1) {
+                        var tmpSummaryOverview=document.getElementById('summaryoverview');
+                        switchTables(tmpSummaryOverview, 'detailedoverview', true);
+                    }
+                }
+                </script>
+</head>
+<body>
+<div id="debuginfo">
+                    testCaseCount 1<br>
+                    browserCount 1<br>
+                    testCount 1<br>
+                    testStepCount 7<br>
+<br>
+                    testCaseFailureCount 0<br>
+                    testCaseErrorCount 0<br>
+                    testFailureCount 0<br>
+                    testErrorCount 0<br>
+                    testIgnoredCount 0<br>
+<br>
+                    testCaseFailurePercentage 0<br>
+                    testCaseErrorPercentage 0<br>
+                    testCaseOkPercentage 100<br>
+                    testFailurePercentage 0<br>
+                    testErrorPercentage 0<br>
+                    testIgnoredPercentage 0<br>
+                    testNotOkPercentage 0<br>
+                    testOkPercentage 100<br>
+<br>
+                    stepsOkCount 7<br>
+                    stepsFailureCount 0<br>
+                    stepsErrorCount 0<br>
+                    stepsIgnoredCount 0<br>
+                    stepsNotOkCount 0<br>
+<br>
+                    stepsOkPercentage 100<br>
+                    stepsFailurePercentage 0<br>
+                    stepsErrorPercentage 0<br>
+                    stepsIgnoredPercentage 0<br>
+</div>
+<a name="top"></a>
+<center>
+<p>
+<img alt="Wetator" src="images/wetator.png"></p>
+</center>
+<table align="center" id="testSummary">
+<tr>
+<td class="bold">
+                            Tests:
+                        </td><td style="padding-left: 5px;">1</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="./images/error.png"> Errors:
+                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="./images/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;">
+                            Distribution:
+                        </td><td style="padding-left: 5px;">1 TestCase
+                            / 1 Browser</td><td style="padding-left: 40px;">
+                            Total Time:
+                        </td><td style="padding-left: 5px;">0s</td>
+</tr>
+</table>
+<table onmouseover="switchTables(this, 'detailedoverview')" style="margin-top: 20px; text-align: center;" align="center" class="overview" id="summaryoverview">
+<tr height="20px">
+<td width="100%" class="smallBorder" bgcolor="#ACC952"></td>
+</tr>
+</table>
+<table onmouseout="switchTables(this, 'summaryoverview')" style="display: none; margin-top: 20px; text-align: center;" align="center" class="overview bars" id="detailedoverview">
+<tr height="20px;">
+<td class="smallBorder" width="100%
+                                " bgcolor="#ACC952" title="successful tests">100%
+                            </td>
+</tr>
+</table>
+<div style="margin-top: -20px; margin-left: 90.4%;">
+<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="images/expandall.png" id="overviewswitcher"></div>
+<table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
+<tr>
+<td width="150px">
+                                TestSteps </td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder" width="100%
+                                            " bgcolor="#ACC952" title="successful steps">100%
+                                            </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
+<tr>
+<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="images/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="images/expandall.png"></td>
+</tr>
+</table>
+<table style="margin-top: 5px;" border="0" cellspacing="0" cellpadding="4" width="100%">
+<tr>
+<td style="width: 50%;" valign="top" align="right">
+<table style="display: none; margin-left: 20px; margin-bottom: 20px;" class="smallBorder" cellspacing="0" cellpadding="2" id="configuration">
+<tr>
+<th>Key</th><th></th><th>Value</th>
+</tr>
+<tr>
+<td>wetator.baseUrl</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.acceptLanguage</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.outputDir</td><td>&nbsp;&nbsp;</td><td>/Users/tobias/Documents/workspace_juno/Wetator/logs</td>
+</tr>
+<tr>
+<td>wetator.jsTimeout</td><td>&nbsp;&nbsp;</td><td>0s</td>
+</tr>
+<tr>
+<td>wetator.xslTemplates</td><td>&nbsp;&nbsp;</td><td>xsl/run_report.xsl</td>
+</tr>
+<tr>
+<td>wetator.proxyHost</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.proxyPort</td><td>&nbsp;&nbsp;</td><td>0</td>
+</tr>
+<tr>
+<td>wetator.proxyUser</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.basicAuthUser</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.ntlmUser</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.ntlmWorkstation</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.ntlmDomain</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+</table>
+</td><td style="width: 50%;" valign="top">
+<table style="display: none; margin-left: 20px; margin-bottom: 20px;" class="smallBorder" cellspacing="0" cellpadding="2" id="variables">
+<tr>
+<th>Name</th><th></th><th>Value</th>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table border="0" class="smallBorder" cellspacing="0" cellpadding="2" width="100%">
+<tr>
+<th style="width: 30px;">No</th><th style="width: 15px;"></th><th>Name</th><th></th><th style="text-align: center;">Steps</th><th style="width: 80%">Graph</th><th style="text-align: right;">Duration</th>
+</tr>
+<tr>
+<td height="7px;" colspan="7"></td>
+</tr>
+<tr>
+<td align="center" rowspan="1">1</td><td rowspan="1"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td rowspan="1"><a class="link" href="#testspec_101">wetator_google</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">7/7</td><td>
+<table cellspacing="0" cellpadding="0" align="left">
+<tr>
+<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#103">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#108">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#113">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#118">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#123">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#128">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#133">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+</tr>
+</table>
+</td><td align="right">0s</td></tr><tr></tr>
+<tr>
+<td height="7px" colspan="7"></td>
+</tr>
+</table>
+<a name="details"></a>
+<h2>
+<img title="success" alt="success" height="10" width="12" src="./images/ok.png">&nbsp;<a name="testspec_101">/Test/wetator_google</a> (IE8)</h2>
+<table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
+<tr>
+<th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
+</tr>
+<tr><td class="light topBorder" align="center"><a name="103"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >open-url</td><td class="light topBorder" align="center"></td><td class="light topBorder" >http://www.google.com</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="108"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >set</td><td class="light topBorder" align="center"></td><td class="light topBorder" >search</td><td class="light topBorder" >Wetator</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="113"></a>3</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >click-on</td><td class="light topBorder" align="center"></td><td class="light topBorder" >Google Search</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="118"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >assert-content</td><td class="light topBorder" align="center"></td><td class="light topBorder" >www.wetator.org</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="123"></a>5</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >click-on</td><td class="light topBorder" align="center"></td><td class="light topBorder" >Wetator / Smart Web Application Testing</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="128"></a>6</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >assert-title</td><td class="light topBorder" align="center"></td><td class="light topBorder" >Wetator / Smart Web Application Testing</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="133"></a>7</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="./images/ok.png"></td><td class="light topBorder" >assert-content</td><td class="light topBorder" align="center"></td><td class="light topBorder" >WETATOR IN A NUTSHELL Wetator is a tool</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+</table>
+<p class="backToTop">
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+                </a>
+</p>
+<hr>Created using Wetator version: local build.</body>
+</html>
