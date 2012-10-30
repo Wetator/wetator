@@ -35,6 +35,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
 import org.wetator.jenkins.Messages;
@@ -58,14 +59,16 @@ public class WetatorResultParser {
    * Starts a process on the <b>slave</b> parsing the test results.
    * 
    * @param aTestResultLocations the location of the test results
+   * @param aTestReportLocations the location of the test reports (optional)
    * @param aBuild the build
    * @return a {@link TestResults} containing all results of all files parsed
    * @throws InterruptedException in case of problems with the slave
    * @throws IOException in case of problems with the slave
    */
-  public TestResults parse(String aTestResultLocations, AbstractBuild<?, ?> aBuild) throws InterruptedException,
-      IOException {
-    TestResults tmpTestResults = aBuild.getWorkspace().act(new ParseResultCallable(aTestResultLocations));
+  public TestResults parse(String aTestResultLocations, String aTestReportLocations, AbstractBuild<?, ?> aBuild)
+      throws InterruptedException, IOException {
+    TestResults tmpTestResults = aBuild.getWorkspace().act(
+        new ParseResultCallable(aTestResultLocations, aTestReportLocations));
     return tmpTestResults;
   }
 
@@ -236,14 +239,17 @@ public class WetatorResultParser {
     private static final long serialVersionUID = -876970965386374113L;
 
     private String testResultLocations;
+    private String testReportLocations;
 
     /**
      * The constructor.
      * 
      * @param aTestResultLocations the location of the test results
+     * @param aTestReportLocations the location of the test reports (optional)
      */
-    private ParseResultCallable(String aTestResultLocations) {
+    private ParseResultCallable(String aTestResultLocations, String aTestReportLocations) {
       testResultLocations = aTestResultLocations;
+      testReportLocations = aTestReportLocations;
     }
 
     /**
@@ -255,11 +261,11 @@ public class WetatorResultParser {
     public TestResults invoke(File aWorkspace, VirtualChannel aChannel) throws IOException {
       // compared to the junit parser we do not check the last modified of the result against the build time
 
-      FileSet tmpFileSet = Util.createFileSet(aWorkspace, testResultLocations);
-      DirectoryScanner tmpScanner = tmpFileSet.getDirectoryScanner();
+      FileSet tmpResultFileSet = Util.createFileSet(aWorkspace, testResultLocations);
+      DirectoryScanner tmpResultScanner = tmpResultFileSet.getDirectoryScanner();
 
-      String[] tmpFiles = tmpScanner.getIncludedFiles();
-      if (tmpFiles.length == 0) {
+      String[] tmpResultFiles = tmpResultScanner.getIncludedFiles();
+      if (tmpResultFiles.length == 0) {
         // no test result. Most likely a configuration error or fatal problem
         throw new AbortException(Messages.WetatorRecorder_NoTestReportFound());
         // TODO make abortion for missing test results optional?
@@ -267,8 +273,23 @@ public class WetatorResultParser {
 
       TestResults tmpAllResults = new TestResults(UUID.randomUUID().toString());
 
-      File tmpBaseDir = tmpScanner.getBasedir();
-      for (String tmpFile : tmpFiles) {
+      if (StringUtils.isNotBlank(testReportLocations)) {
+        FileSet tmpReportFileSet = Util.createFileSet(aWorkspace, testReportLocations);
+        DirectoryScanner tmpReportScanner = tmpReportFileSet.getDirectoryScanner();
+
+        String[] tmpReportFiles = tmpReportScanner.getIncludedFiles();
+
+        if (tmpReportFiles.length > 0) {
+          List<String> tmpNormalizedReportFiles = new ArrayList<String>();
+          for (String tmpReportFile : tmpReportFiles) {
+            tmpNormalizedReportFiles.add(tmpReportFile.replace('\\', '/'));
+          }
+          tmpAllResults.setReportFiles(tmpNormalizedReportFiles);
+        }
+      }
+
+      File tmpBaseDir = tmpResultScanner.getBasedir();
+      for (String tmpFile : tmpResultFiles) {
         File tmpReportFile = new File(tmpBaseDir, tmpFile);
         TestResults tmpTestResults;
         InputStream tmpInputStream = new FileInputStream(tmpReportFile);

@@ -27,7 +27,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ ResultTest.class, //
     ResultWithModuleTest.class, //
-    ResultWithPathTest.class })
+    ResultWithPathTest.class, //
+    WetatorReportLinkTest.class })
 public final class AllTests {
 
   /**

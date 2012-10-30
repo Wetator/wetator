@@ -23,12 +23,13 @@ import hudson.model.FreeStyleProject;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
+ * Tests all pages of the plugin (project, build, report, test, browser) for different Wetator results using tests in
+ * paths.
+ * 
  * @author frank.danek
  */
 // TODO assert anchors
 public class ResultWithPathTest extends AbstractPluginTest {
-
-  private static final String WETATOR_RESULT_PATH = "src/test/resources/org/wetator/jenkins/wetresult/";
 
   public void testOk() throws Exception {
     FreeStyleProject tmpProject = createProject(WETATOR_RESULT_PATH + "pathOk.xml");

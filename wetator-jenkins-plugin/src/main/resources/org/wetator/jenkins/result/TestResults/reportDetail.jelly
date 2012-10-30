@@ -2,6 +2,7 @@
   Show the details of the report:
   * bar.jelly
   * the history
+  * links to all report HTMLs
   * all failed tests on browser level
   * all tests on file level
 
@@ -28,6 +29,27 @@
         </div>
 
         <t:editableDescription permission="${it.owner.UPDATE}"/>
+    </j:if>
+
+    <j:if test="${it.owner.parent.lastBuild.id.equals(it.owner.id) &amp;&amp; it.reportFiles.size() > 0}">
+        <j:choose>
+            <j:when test="${it.reportFiles.size() == 1}">
+                <h2>${%Test Report}</h2>
+                <j:forEach var="report" items="${it.reportFiles}">
+                    <a href="${app.rootUrl}${it.owner.parent.url}ws/${report}">${report}</a>
+                </j:forEach>
+            </j:when>
+            <j:otherwise>
+                <h2>${%Test Reports}</h2>
+                <ul>
+                    <j:forEach var="report" items="${it.reportFiles}">
+                        <li>
+                            <a href="${app.rootUrl}${it.owner.parent.url}ws/${report}">${report}</a>
+                        </li>
+                    </j:forEach>
+                </ul>
+            </j:otherwise>
+        </j:choose>
     </j:if>
 
     <j:if test="${it.failCount != 0}">

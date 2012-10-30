@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.jvnet.hudson.test.HudsonTestCase;
 import org.jvnet.hudson.test.TestBuilder;
@@ -47,7 +48,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
  */
 public abstract class AbstractPluginTest extends HudsonTestCase {
 
-  private static final String WETATOR_RESULT_FILENAME = "wetresult.xml";
+  protected static final String WETATOR_RESULT_FILENAME = "wetresult.xml";
+  protected static final String WETATOR_REPORT_FILENAME = "run_report.xsl.html";
+  protected static final String WETATOR_RESULT_PATH = "src/test/resources/org/wetator/jenkins/wetresult/";
 
   protected WebClient webClient;
 
@@ -59,14 +62,19 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   }
 
   protected FreeStyleProject createProject(String aWetatorResultFile) throws Exception {
+    return createProject(aWetatorResultFile, null);
+  }
+
+  protected FreeStyleProject createProject(String aWetatorResultFile, String aWetatorReportFile) throws Exception {
     FreeStyleProject tmpProject = createFreeStyleProject();
 
     HtmlForm tmpConfigForm = createWebClient().getPage(tmpProject, "configure").getFormByName("config");
     tmpConfigForm.getInputByName("org-wetator-jenkins-WetatorRecorder").setChecked(true);
     tmpConfigForm.getInputsByName("_.testResults").get(1).setValueAttribute(WETATOR_RESULT_FILENAME);
+    tmpConfigForm.getInputByName("_.testReports").setValueAttribute(WETATOR_REPORT_FILENAME);
     submit(tmpConfigForm);
 
-    tmpProject.getBuildersList().add(new CopyBuilder(aWetatorResultFile));
+    tmpProject.getBuildersList().add(new CopyBuilder(aWetatorResultFile, aWetatorReportFile));
 
     System.out.println("Created project '" + tmpProject.getName() + "'.");
     return tmpProject;
@@ -160,9 +168,11 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   public static class CopyBuilder extends TestBuilder {
 
     private String wetatorResultFile;
+    private String wetatorReportFile;
 
-    public CopyBuilder(String aWetatorResultFile) {
+    public CopyBuilder(String aWetatorResultFile, String aWetatorReportFile) {
       wetatorResultFile = aWetatorResultFile;
+      wetatorReportFile = aWetatorReportFile;
     }
 
     @Override
@@ -179,8 +189,10 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
     public boolean perform(AbstractBuild<?, ?> aBuild, Launcher aLauncher, BuildListener aListener)
         throws InterruptedException, IOException {
       aBuild.getWorkspace().child(WETATOR_RESULT_FILENAME).copyFrom(new FilePath(new File(wetatorResultFile)));
+      if (StringUtils.isNotBlank(wetatorReportFile)) {
+        aBuild.getWorkspace().child(WETATOR_REPORT_FILENAME).copyFrom(new FilePath(new File(wetatorReportFile)));
+      }
       return true;
     }
   }
-
 }

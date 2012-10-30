@@ -36,6 +36,7 @@ public class TestResults extends AbstractBaseResult {
   private static final long serialVersionUID = 5332974371295204003L;
 
   private List<TestResult> testResults = new ArrayList<TestResult>();
+  private List<String> reportFiles = new ArrayList<String>();
   private transient List<BrowserResult> passedTests = new ArrayList<BrowserResult>();
   private transient List<BrowserResult> skippedTests = new ArrayList<BrowserResult>();
   private transient List<BrowserResult> failedTests = new ArrayList<BrowserResult>();
@@ -68,6 +69,17 @@ public class TestResults extends AbstractBaseResult {
   @Override
   public String getUrl() {
     return "";
+  }
+
+  /**
+   * @return the reportFiles
+   */
+  public List<String> getReportFiles() {
+    return reportFiles;
+  }
+
+  public void setReportFiles(List<String> reportFiles) {
+    this.reportFiles = reportFiles;
   }
 
   /**

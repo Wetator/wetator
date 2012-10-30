@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.types.FileSet;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -53,6 +54,10 @@ public class WetatorRecorder extends Recorder {
    * {@link FileSet} "includes" string, like "foo/bar/*.xml"
    */
   private String testResults;
+  /**
+   * {@link FileSet} "includes" string, like "foo/bar/*.xml"
+   */
+  private String testReports;
   private String unstableThreshold;
   private String failureThreshold;
 
@@ -62,9 +67,10 @@ public class WetatorRecorder extends Recorder {
    * @param testResults the file patter of the test results
    */
   @DataBoundConstructor
-  public WetatorRecorder(String testResults, String unstableThreshold, String failureThreshold) {
+  public WetatorRecorder(String testResults, String testReports, String unstableThreshold, String failureThreshold) {
     // the method parameters must be raw (without leading a) to make stapler work
     this.testResults = testResults;
+    this.testReports = testReports;
     this.unstableThreshold = unstableThreshold;
     if (this.unstableThreshold == null || "".equals(this.unstableThreshold)) {
       this.unstableThreshold = "0";
@@ -77,6 +83,13 @@ public class WetatorRecorder extends Recorder {
    */
   public String getTestResults() {
     return testResults;
+  }
+
+  /**
+   * @return the testReports
+   */
+  public String getTestReports() {
+    return testReports;
   }
 
   /**
@@ -115,9 +128,13 @@ public class WetatorRecorder extends Recorder {
     WetatorBuildReport tmpReport;
 
     final String tmpTestResults = aBuild.getEnvironment(aListener).expand(testResults);
+    String tmpTestReports = null;
+    if (StringUtils.isNotBlank(testReports)) {
+      tmpTestReports = aBuild.getEnvironment(aListener).expand(testReports);
+    }
 
     try {
-      TestResults tmpResult = new WetatorResultParser().parse(tmpTestResults, aBuild);
+      TestResults tmpResult = new WetatorResultParser().parse(tmpTestResults, tmpTestReports, aBuild);
       tmpResult.setName(PluginImpl.TEST_RESULTS_NAME);
 
       try {
