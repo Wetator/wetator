@@ -87,8 +87,8 @@
                     table#testSummary td {padding: 5px;}
                     p.backToTop img {padding-right: 3px;}
                     .bars {color: #FFFFFF;}
-                    #debuginfo {}
-                    #debugtestbrowseroverviewinfo {};
+                    #debuginfo {display: none;}
+                    #debugtestbrowseroverviewinfo {display: none;};
                 </style>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
