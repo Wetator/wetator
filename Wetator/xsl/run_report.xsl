@@ -21,11 +21,11 @@
     <xsl:variable name="testCount" select="$testCaseCount * $browserCount"/>
     <xsl:variable name="testStepCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment)])"/>
 
-    <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant::failure and not(descendant::command/error))])"/>
+    <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
     <xsl:variable name="testCaseErrorCount" select="count(/wet/testcase[boolean(descendant::testfile/error or descendant::command/error)])"/>
     <xsl:variable name="testCaseNotOkCount" select="$testCaseFailureCount + $testCaseErrorCount"/>
     <xsl:variable name="testCaseOkCount" select="$testCaseCount - $testCaseNotOkCount"/>
-    <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::failure and not(descendant::command/error))])"/>
+    <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
     <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
     <xsl:variable name="testIgnoredCount" select="count(/wet/testcase/testrun/ignored)"/>
 
@@ -88,7 +88,7 @@
                     p.backToTop img {padding-right: 3px;}
                     .bars {color: #FFFFFF;}
                     #debuginfo {display: none;}
-                    #debugtestbrowseroverviewinfo {display: none;};
+                    #debugtestbrowseroverviewinfo {display: none};
                 </style>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
