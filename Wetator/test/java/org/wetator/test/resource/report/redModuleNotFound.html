@@ -158,33 +158,33 @@
                     testCaseCount 1<br>
                     browserCount 2<br>
                     testCount 2<br>
-                    testStepCount 6<br>
+                    testStepCount 8<br>
 <br>
                     testCaseFailureCount 1<br>
-                    testCaseErrorCount 0<br>
+                    testCaseErrorCount 1<br>
                     testFailureCount 2<br>
-                    testErrorCount 0<br>
+                    testErrorCount 2<br>
                     testIgnoredCount 0<br>
 <br>
                     testCaseFailurePercentage 100<br>
-                    testCaseErrorPercentage 0<br>
-                    testCaseOkPercentage 0<br>
+                    testCaseErrorPercentage 100<br>
+                    testCaseOkPercentage -100<br>
                     testFailurePercentage 100<br>
-                    testErrorPercentage 0<br>
+                    testErrorPercentage 100<br>
                     testIgnoredPercentage 0<br>
-                    testNotOkPercentage 100<br>
-                    testOkPercentage 0<br>
+                    testNotOkPercentage 200<br>
+                    testOkPercentage -100<br>
 <br>
-                    stepsOkCount 4<br>
+                    stepsOkCount 2<br>
                     stepsFailureCount 2<br>
-                    stepsErrorCount 0<br>
-                    stepsIgnoredCount 0<br>
-                    stepsNotOkCount 2<br>
+                    stepsErrorCount 2<br>
+                    stepsIgnoredCount 2<br>
+                    stepsNotOkCount 6<br>
 <br>
-                    stepsOkPercentage 67<br>
-                    stepsFailurePercentage 33<br>
-                    stepsErrorPercentage 0<br>
-                    stepsIgnoredPercentage 0<br>
+                    stepsOkPercentage 25<br>
+                    stepsFailurePercentage 25<br>
+                    stepsErrorPercentage 25<br>
+                    stepsIgnoredPercentage 25<br>
 </div>
 <a name="top"></a>
 <center>
@@ -196,7 +196,7 @@
 <td class="bold">
                             Tests:
                         </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="images/error.png"> Errors:
-                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"> Failures:
                         </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;">
                             Distribution:
                         </td><td style="padding-left: 5px;">1 TestCase
@@ -213,6 +213,8 @@
 <table onmouseout="switchTables(this, 'summaryoverview')" style="display: none; margin-top: 20px; text-align: center;" align="center" class="overview bars" id="detailedoverview">
 <tr height="20px;">
 <td class="smallBorder" width="100%
+                                " bgcolor="#E75013" title="tests with error">100%
+                            </td><td class="smallBorder" width="100%
                                 " bgcolor="#00769C" title="tests with failure">100%
                             </td>
 </tr>
@@ -223,11 +225,15 @@
 <tr>
 <td width="150px">
                                 TestCases (<span style="
+                                        color: #E75013; font-weight: bold;
+                                    ">1</span>/<span style="
                                         color: #00769C; font-weight: bold;
                                     ">1</span>/1)</td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
+                                                " bgcolor="#E75013" title="test cases with error">100%
+                                            </td><td style="text-align: center;" class="smallBorder" width="100%
                                                 " bgcolor="#00769C" title="test cases with failure">100%
                                             </td><td></td>
 </tr>
@@ -240,14 +246,20 @@
 <tr>
 <td width="150px">
                                 TestSteps (<span style="
+                                        color: #E75013; font-weight: bold;
+                                    ">2</span>/<span style="
                                         color: #00769C; font-weight: bold;
-                                    ">2</span>/6)</td><td style="padding-right: 0;">
+                                    ">2</span>/8)</td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
-<td style="text-align: center;" class="smallBorder" width="33%
-                                            " bgcolor="#00769C" title="steps with failure">33%
-                                            </td><td style="text-align: center;" class="smallBorder" width="67%
-                                            " bgcolor="#ACC952" title="successful steps">67%
+<td style="text-align: center;" class="smallBorder" width="25%
+                                            " bgcolor="#E75013" title="steps with error">25%
+                                            </td><td style="text-align: center;" class="smallBorder" width="25%
+                                            " bgcolor="#00769C" title="steps with failure">25%
+                                            </td><td style="text-align: center;" class="smallBorder" width="25%
+                                            " bgcolor="#ACC952" title="successful steps">25%
+                                            </td><td style="text-align: center;" class="smallBorder ignored" width="25%
+                                            " bgcolor="#FFFFFF" title="ignored steps">25%
                                             </td>
 </tr>
 </table>
@@ -268,33 +280,33 @@
 <table style="display: none; text-align: center;" align="center" class="overview" id="ff3overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
-            browserTestStepCount 3<br>
+            browserTestStepCount 4<br>
 <br>
-            browserTestFailureCount 1<br>
-            browserTestErrorCount 0<br>
+            browserTestFailureCount 0<br>
+            browserTestErrorCount 1<br>
             browserTestIgnoredCount 0<br>
 <br>
-            browserTestFailurePercentage 100<br>
-            browserTestErrorPercentage 0<br>
+            browserTestFailurePercentage 0<br>
+            browserTestErrorPercentage 100<br>
             browserTestIgnoredPercentage 0<br>
             browserTestOkPercentage 0<br>
 <br>
-            browserStepsOkCount 2<br>
+            browserStepsOkCount 1<br>
             browserStepsFailureCount 1<br>
-            browserStepsErrorCount 0<br>
-            browserStepsIgnoredCount 0<br>
+            browserStepsErrorCount 1<br>
+            browserStepsIgnoredCount 1<br>
 <br>
-            browserStepsOkPercentage 67<br>
-            browserStepsFailurePercentage 33<br>
-            browserStepsErrorPercentage 0<br>
-            browserStepsIgnoredPercentage 0<br>
+            browserStepsOkPercentage 25<br>
+            browserStepsFailurePercentage 25<br>
+            browserStepsErrorPercentage 25<br>
+            browserStepsIgnoredPercentage 25<br>
 </div>
 <tr>
 <td width="150px;">Tests in FF3<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3" title="FF3"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
-                            " bgcolor="#00769C" title="FF3 tests with failure">100%
+                            " bgcolor="#E75013" title="FF3 tests with error">100%
                         </td><td></td>
 </tr>
 </table>
@@ -304,10 +316,14 @@
 <td>TestSteps in FF3<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3" title="FF3"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
-<td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#00769C" title="FF3 steps with failure">33%
-                                </td><td style="text-align: center;" class="smallBorder" width="67%
-                                " bgcolor="#ACC952" title="successful FF3 steps">67%
+<td style="text-align: center;" class="smallBorder" width="25%
+                                " bgcolor="#E75013" title="FF3 steps with error">25%
+                                </td><td style="text-align: center;" class="smallBorder" width="25%
+                                " bgcolor="#00769C" title="FF3 steps with failure">25%
+                                </td><td style="text-align: center;" class="smallBorder" width="25%
+                                " bgcolor="#ACC952" title="successful FF3 steps">25%
+                                </td><td style="text-align: center;" class="smallBorder ignored" width="25%
+                                " bgcolor="#FFFFFF" title="ignored FF3 steps">25%
                                 </td><td></td>
 </tr>
 </table>
@@ -320,33 +336,33 @@
 <table style="display: none; text-align: center;" align="center" class="overview" id="ff3_6overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
-            browserTestStepCount 3<br>
+            browserTestStepCount 4<br>
 <br>
-            browserTestFailureCount 1<br>
-            browserTestErrorCount 0<br>
+            browserTestFailureCount 0<br>
+            browserTestErrorCount 1<br>
             browserTestIgnoredCount 0<br>
 <br>
-            browserTestFailurePercentage 100<br>
-            browserTestErrorPercentage 0<br>
+            browserTestFailurePercentage 0<br>
+            browserTestErrorPercentage 100<br>
             browserTestIgnoredPercentage 0<br>
             browserTestOkPercentage 0<br>
 <br>
-            browserStepsOkCount 2<br>
+            browserStepsOkCount 1<br>
             browserStepsFailureCount 1<br>
-            browserStepsErrorCount 0<br>
-            browserStepsIgnoredCount 0<br>
+            browserStepsErrorCount 1<br>
+            browserStepsIgnoredCount 1<br>
 <br>
-            browserStepsOkPercentage 67<br>
-            browserStepsFailurePercentage 33<br>
-            browserStepsErrorPercentage 0<br>
-            browserStepsIgnoredPercentage 0<br>
+            browserStepsOkPercentage 25<br>
+            browserStepsFailurePercentage 25<br>
+            browserStepsErrorPercentage 25<br>
+            browserStepsIgnoredPercentage 25<br>
 </div>
 <tr>
 <td width="150px;">Tests in FF3.6<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3.6" title="FF3.6"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
-                            " bgcolor="#00769C" title="FF3.6 tests with failure">100%
+                            " bgcolor="#E75013" title="FF3.6 tests with error">100%
                         </td><td></td>
 </tr>
 </table>
@@ -356,10 +372,14 @@
 <td>TestSteps in FF3.6<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3.6" title="FF3.6"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
-<td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#00769C" title="FF3.6 steps with failure">33%
-                                </td><td style="text-align: center;" class="smallBorder" width="67%
-                                " bgcolor="#ACC952" title="successful FF3.6 steps">67%
+<td style="text-align: center;" class="smallBorder" width="25%
+                                " bgcolor="#E75013" title="FF3.6 steps with error">25%
+                                </td><td style="text-align: center;" class="smallBorder" width="25%
+                                " bgcolor="#00769C" title="FF3.6 steps with failure">25%
+                                </td><td style="text-align: center;" class="smallBorder" width="25%
+                                " bgcolor="#ACC952" title="successful FF3.6 steps">25%
+                                </td><td style="text-align: center;" class="smallBorder ignored" width="25%
+                                " bgcolor="#FFFFFF" title="ignored FF3.6 steps">25%
                                 </td><td></td>
 </tr>
 </table>
@@ -435,16 +455,16 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">1</td><td rowspan="2"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td rowspan="2"><a class="link" href="#testspec_101">test1.wet</a></td><td><img src="images/firefox.png" alt="Firefox3" title="Firefox3"></td><td align="center">3/3</td><td>
+<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td rowspan="2"><a class="link" href="#testspec_101">test1.wet</a></td><td><img src="images/firefox.png" alt="Firefox3" title="Firefox3"></td><td align="center">3/4</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#103">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C"><a class="linkToCommand" href="#108">2</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#128">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#103">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#108">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="Module 'module.wet' not found."><a class="linkToCommand" href="#117">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#126">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">3/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">3/4</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#135">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C"><a class="linkToCommand" href="#140">2</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#160">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#134">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#139">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="Module 'module.wet' not found."><a class="linkToCommand" href="#148">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#157">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr></tr>
@@ -454,62 +474,42 @@
 </table>
 <a name="details"></a>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_101">/Test/test1.wet</a> (Firefox3)</h2>
+<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_101">/Test/test1.wet</a> (Firefox3)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="103"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="108"></a>2</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >use-module</td><td class="light topBorder" align="center"><img style="cursor: pointer;" alt="Show/Hide tests from called module" src="images/expandall.png" id="showHide_testfile_112" onclick="showOrHide(this, 'testfile_112');"></td><td class="light topBorder" >module</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="108"></a>2</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#113" onclick="makeVisible('testfile_112');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure"></td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#117" onclick="makeVisible('testfile_102');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr style="display: none" id="testfile_112">
-<td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="light">
-<table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
+<tr><td class="light topBorder" align="center"><a name="117"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >use-module</td><td class="light topBorder" align="center"></td><td class="light topBorder" >module</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#108" onclick="makeVisible('testfile_102');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#139" onclick="makeVisible('testfile_133');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="error">Module 'module.wet' not found.</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="113"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#108" onclick="makeVisible('testfile_102');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#140" onclick="makeVisible('testfile_134');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
-</tr>
-<tr><td class="light topBorder" align="center"><a name="122"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-</table>
-</td>
-</tr>
-<tr><td class="light topBorder" align="center"><a name="128"></a>5</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="ignored topBorder" align="center"><a name="126"></a>4</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
 <a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_133">/Test/test1.wet</a> (Firefox3.6)</h2>
+<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_132">/Test/test1.wet</a> (Firefox3.6)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="135"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="140"></a>2</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >use-module</td><td class="light topBorder" align="center"><img style="cursor: pointer;" alt="Show/Hide tests from called module" src="images/expandall.png" id="showHide_testfile_144" onclick="showOrHide(this, 'testfile_144');"></td><td class="light topBorder" >module</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="134"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="139"></a>2</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#113" onclick="makeVisible('testfile_112');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#145" onclick="makeVisible('testfile_144');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure"></td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#117" onclick="makeVisible('testfile_102');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#148" onclick="makeVisible('testfile_133');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr style="display: none" id="testfile_144">
-<td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="light">
-<table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
+<tr><td class="light topBorder" align="center"><a name="148"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >use-module</td><td class="light topBorder" align="center"></td><td class="light topBorder" >module</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#139" onclick="makeVisible('testfile_133');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a></td><td class="light"></td><td colspan="4" class="error">Module 'module.wet' not found.</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="145"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#140" onclick="makeVisible('testfile_134');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
-</tr>
-<tr><td class="light topBorder" align="center"><a name="154"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-</table>
-</td>
-</tr>
-<tr><td class="light topBorder" align="center"><a name="160"></a>5</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="ignored topBorder" align="center"><a name="157"></a>4</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
 <a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top

@@ -20,6 +20,7 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -44,14 +45,18 @@ import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 
 /**
- * Manual test for creating result files and according reports.
+ * Manual test for creating result files and according reports.<br/>
+ * This test is manual because it is unstable due to timing data in report (e.g. differs between 0s and 0.1s)
+ * and for easier adjustment possibilities we have to run these tests without display: none style for the CSS classes
+ * #debuginfo and #debugtestbrowseroverviewinfo.
  * 
  * @author tobwoerk
  * @author frank.danek
  */
 public class ManualXMLResultWriterTest {
 
-  private static final String REPORT_LOG = "/Users/tobias/Documents/workspace_juno/Wetator/logs/run_report.xsl.html";
+  private static final String LOGS_FOLDER = "logs";
+  private static final String REPORT_LOG = LOGS_FOLDER + "/run_report.xsl.html";
 
   private static final String COMMAND_NAME = "command";
   private static final String IE6 = "IE6";
@@ -71,7 +76,7 @@ public class ManualXMLResultWriterTest {
   public void setupEnvironment() {
     WetatorConfiguration tmpConfiguration = mock(WetatorConfiguration.class);
     when(engine.getConfiguration()).thenReturn(tmpConfiguration);
-    when(tmpConfiguration.getOutputDir()).thenReturn(new File("logs"));
+    when(tmpConfiguration.getOutputDir()).thenReturn(new File(LOGS_FOLDER));
     when(tmpConfiguration.getXslTemplates()).thenReturn(Arrays.asList("xsl/run_report.xsl"));
 
     when(context.replaceVariables(any(String.class))).thenCallRealMethod();
@@ -358,6 +363,22 @@ public class ManualXMLResultWriterTest {
     assertReport();
   }
 
+  @Test
+  public void redModuleNotFound() throws Exception {
+    resultWriter.init(engine);
+    resultWriter.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    resultWriter.testCaseStart(tmpTestCase);
+    writeRedModuleNotFound(tmpTestCase, FF3);
+    writeRedModuleNotFound(tmpTestCase, FF36);
+    resultWriter.testCaseEnd();
+
+    resultWriter.end(engine);
+
+    assertReport();
+  }
+
   private void writeRedWithIgnoredModule(TestCase aTestCase, String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
@@ -386,6 +407,20 @@ public class ManualXMLResultWriterTest {
     writeCommand();
     writeCommandWithError();
     writeCommandIgnored();
+    endModule();
+    writeCommandIgnored();
+    resultWriter.testFileEnd();
+    resultWriter.testRunEnd();
+  }
+
+  private void writeRedModuleNotFound(TestCase aTestCase, String aBrowser) {
+    lineNo = 1;
+    resultWriter.testRunStart(aBrowser);
+    resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
+    writeCommand();
+    writeCommandWithFailure();
+    startModule(aTestCase);
+    resultWriter.executeCommandError(new FileNotFoundException("Module 'module.wet' not found."));
     endModule();
     writeCommandIgnored();
     resultWriter.testFileEnd();
@@ -547,29 +582,31 @@ public class ManualXMLResultWriterTest {
     File tmpActualFile = new File(REPORT_LOG);
     String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
 
-    Assert.assertEquals(tmpExpectedReport, tmpActualReport);
+    Assert.assertEquals(
+        tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)"),
+        tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)"));
   }
 
-  private String getString(InputStream tmpExpectedStream) throws IOException {
+  private String getString(InputStream anExpectedStream) throws IOException {
     StringWriter tmpWriter = new StringWriter();
-    IOUtils.copy(tmpExpectedStream, tmpWriter, "UTF-8");
+    IOUtils.copy(anExpectedStream, tmpWriter, "UTF-8");
     String tmpExpectedReport = tmpWriter.toString();
     return tmpExpectedReport;
   }
 
   private static String getTestName() {
-    StackTraceElement[] elements = new Throwable().fillInStackTrace().getStackTrace();
+    StackTraceElement[] tmpElements = new Throwable().fillInStackTrace().getStackTrace();
 
-    for (int i = 1; i < elements.length; i++) {
-      StackTraceElement element = elements[i];
+    for (int i = 1; i < tmpElements.length; i++) {
+      StackTraceElement tmpElement = tmpElements[i];
 
       try {
-        Class<?> clz = Class.forName(element.getClassName());
-        Method method = clz.getMethod(element.getMethodName(), new Class[0]);
+        Class<?> tmpClass = Class.forName(tmpElement.getClassName());
+        Method tmpMethod = tmpClass.getMethod(tmpElement.getMethodName(), new Class[0]);
 
-        for (Annotation annotation : method.getAnnotations()) {
-          if (annotation.annotationType() == Test.class) {
-            return element.getMethodName();
+        for (Annotation tmpAnnotation : tmpMethod.getAnnotations()) {
+          if (tmpAnnotation.annotationType() == Test.class) {
+            return tmpElement.getMethodName();
           }
         }
       } catch (Exception e) {
@@ -578,6 +615,6 @@ public class ManualXMLResultWriterTest {
     }
 
     // Just assuming it's the calling method
-    return elements[1].getMethodName();
+    return tmpElements[1].getMethodName();
   }
 }

@@ -294,6 +294,7 @@ Wetator/test/java/org/wetator/test/resource/report/invalidInputWhileReadingComma
 Wetator/test/java/org/wetator/test/resource/report/mixed.html -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/report/red.html -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/report/redAfterModule.html -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/report/redModuleNotFound.html -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/report/redModules.html -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/report/redWithIgnoredModule.html -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/wikiText.wett -text
