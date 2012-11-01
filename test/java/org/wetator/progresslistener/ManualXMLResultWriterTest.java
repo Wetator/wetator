@@ -46,9 +46,7 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * Manual test for creating result files and according reports.<br/>
- * This test is manual because it is unstable due to timing data in report (e.g. differs between 0s and 0.1s)
- * and for easier adjustment possibilities we have to run these tests without display: none style for the CSS classes
- * #debuginfo and #debugtestbrowseroverviewinfo.
+ * This test is manual because it is unstable due to timing data in report (e.g. differs between 0s and 0.1s).
  * 
  * @author tobwoerk
  * @author frank.danek
@@ -582,9 +580,10 @@ public class ManualXMLResultWriterTest {
     File tmpActualFile = new File(REPORT_LOG);
     String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
 
-    Assert.assertEquals(
-        tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)"),
-        tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)"));
+    Assert.assertEquals(tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
+        "ManualXMLResultWriterTest.java)".replaceAll("\\{display: none;\\}", "\\{\\}")),
+        tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)")
+            .replaceAll("\\{display: none;\\}", "\\{\\}"));
   }
 
   private String getString(InputStream anExpectedStream) throws IOException {
