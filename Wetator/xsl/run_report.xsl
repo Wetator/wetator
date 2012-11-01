@@ -88,7 +88,7 @@
                     p.backToTop img {padding-right: 3px;}
                     .bars {color: #FFFFFF;}
                     #debuginfo {display: none;}
-                    #debugtestbrowseroverviewinfo {display: none};
+                    #debugtestbrowseroverviewinfo {display: none;};
                 </style>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
