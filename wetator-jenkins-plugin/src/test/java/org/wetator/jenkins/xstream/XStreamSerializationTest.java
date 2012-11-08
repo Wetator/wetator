@@ -584,6 +584,38 @@ public class XStreamSerializationTest {
     assertResult("twoTestFileOneBrowserOneTestError.xml");
   }
 
+  @Test
+  public void zeroReportFile() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    write(tmpResults);
+
+    assertResult("zeroReportFile.xml");
+  }
+
+  @Test
+  public void oneReportFile() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    tmpResults.getReportFiles().add("/public/run_report.xsl.html");
+
+    write(tmpResults);
+
+    assertResult("oneReportFile.xml");
+  }
+
+  @Test
+  public void twoReportFile() throws Exception {
+    TestResults tmpResults = new TestResults("TestResults");
+
+    tmpResults.getReportFiles().add("/public/run_report.xsl.html");
+    tmpResults.getReportFiles().add("/private/run_report.xsl.html");
+
+    write(tmpResults);
+
+    assertResult("twoReportFile.xml");
+  }
+
   private void assertResult(String aFileName) throws IOException {
     String tmpExpectedResult = read(aFileName);
     String tmpActualResult = unzip();

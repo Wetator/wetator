@@ -331,12 +331,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
   private static final XStream XSTREAM = new XStream2();
 
   static {
-    XSTREAM.alias("testResults", TestResults.class);
-    XSTREAM.alias("testResult", TestResult.class);
-    XSTREAM.alias("testFileResult", TestFileResult.class);
-    XSTREAM.alias("browserResult", BrowserResult.class);
-    XSTREAM.alias("stepError", StepError.class);
-    XSTREAM.registerConverter(new HeapSpaceStringConverter(), 100);
+    initializeXStream(XSTREAM);
   }
 
   public static void initializeXStream(XStream anXStream) {

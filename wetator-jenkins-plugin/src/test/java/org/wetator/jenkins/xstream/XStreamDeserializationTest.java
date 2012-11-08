@@ -381,4 +381,44 @@ public class XStreamDeserializationTest {
     TestError tmpError = tmpBrowser.getError();
     ResultAssert.assertTestError("/public/Test.wet", "error", tmpError);
   }
+
+  @Test
+  public void noReportFile() throws Exception {
+    gzip("noReportFile.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 0, 0, 0, 0, 0, tmpResults);
+    ResultAssert.assertReportFiles(tmpResults, (String[]) null);
+  }
+
+  @Test
+  public void zeroReportFile() throws Exception {
+    gzip("zeroReportFile.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 0, 0, 0, 0, 0, tmpResults);
+    ResultAssert.assertReportFiles(tmpResults);
+  }
+
+  @Test
+  public void oneReportFile() throws Exception {
+    gzip("oneReportFile.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 0, 0, 0, 0, 0, tmpResults);
+    ResultAssert.assertReportFiles(tmpResults, "/public/run_report.xsl.html");
+  }
+
+  @Test
+  public void twoReportFile() throws Exception {
+    gzip("twoReportFile.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 0, 0, 0, 0, 0, tmpResults);
+    ResultAssert.assertReportFiles(tmpResults, "/public/run_report.xsl.html", "/private/run_report.xsl.html");
+  }
 }

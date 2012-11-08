@@ -979,6 +979,7 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/wetresult/ok.xml -
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/wetresult/pathError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/wetresult/pathFailure.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/wetresult/pathOk.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/noReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileOneBrowser.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
@@ -988,6 +989,8 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/twoTestFileOneBrowser.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/twoTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/0.2/twoTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/noReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowser.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
@@ -996,10 +999,13 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneT
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowserOneStepError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowserOneStepFailure.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/twoReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowser.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/input/zeroReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowser.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
@@ -1010,10 +1016,12 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/one
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneStepError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneStepFailure.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowser.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/zeroReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/wetresult.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/util/JenkinsPluginTest.java -text svneol=unset#text/plain

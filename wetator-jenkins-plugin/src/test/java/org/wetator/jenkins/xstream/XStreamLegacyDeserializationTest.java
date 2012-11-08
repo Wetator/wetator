@@ -230,4 +230,14 @@ public class XStreamLegacyDeserializationTest {
     Assert.assertEquals("param1", tmpError.getParameters().get(0));
     Assert.assertEquals("param2", tmpError.getParameters().get(1));
   }
+
+  @Test
+  public void noReportFile() throws Exception {
+    gzip("noReportFile.xml");
+
+    TestResults tmpResults = load();
+
+    ResultAssert.assertTestResults("TestResults", 0, 0, 0, 0, 0, tmpResults);
+    ResultAssert.assertReportFiles(tmpResults, (String[]) null);
+  }
 }

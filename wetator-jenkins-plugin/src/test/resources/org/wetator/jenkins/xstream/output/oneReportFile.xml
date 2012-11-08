@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testResults>
+  <name>TestResults</name>
+  <duration>0</duration>
+  <testResults/>
+  <reportFiles>
+    <string>/public/run_report.xsl.html</string>
+  </reportFiles>
+</testResults>

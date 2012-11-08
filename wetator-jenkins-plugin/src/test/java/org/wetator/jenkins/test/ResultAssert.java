@@ -124,4 +124,15 @@ public class ResultAssert {
     }
     Assert.assertEquals("Error", anError, aStepError.getError());
   }
+
+  public static void assertReportFiles(TestResults aTestResults, String... aReportFiles) {
+    if (aReportFiles == null) {
+      Assert.assertNull(aTestResults.getReportFiles());
+    } else {
+      Assert.assertEquals(aReportFiles.length, aTestResults.getReportFiles().size());
+      for (String tmpReportFile : aReportFiles) {
+        Assert.assertTrue("ReportFile", aTestResults.getReportFiles().contains(tmpReportFile));
+      }
+    }
+  }
 }
