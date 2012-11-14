@@ -20,6 +20,7 @@ import java.io.File;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -36,6 +37,8 @@ import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
@@ -91,13 +94,36 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     }
 
     try {
-      tmpHtmlTextInput.click();
+      final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlTextInput.getPage();
+      HtmlElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+      if (tmpFocusedElement == null || tmpHtmlTextInput != tmpFocusedElement) {
+        tmpHtmlTextInput.click();
+
+        tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+        if (tmpHtmlTextInput != tmpFocusedElement) {
+          final IControl tmpFocusedControl = aWetatorContext.getBrowser().getFocusedControl();
+          aWetatorContext.informListenersInfo("focusChanged",
+              new String[] { getDescribingText(), tmpFocusedControl.getDescribingText() });
+
+          if (tmpFocusedControl instanceof ISettable) {
+            ((ISettable) tmpFocusedControl).setValue(aWetatorContext, aValue, aDirectory);
+            return;
+          }
+          throw new ActionException("Focused control '" + tmpFocusedControl.getDescribingText() + "' is not settable.");
+        }
+      }
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    } catch (final ActionException e) {
+      throw e;
     } catch (final Throwable e) {
       final String tmpMessage = Messages
           .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });

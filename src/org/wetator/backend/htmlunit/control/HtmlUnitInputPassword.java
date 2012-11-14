@@ -17,10 +17,10 @@
 package org.wetator.backend.htmlunit.control;
 
 import java.io.File;
-import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -37,6 +37,8 @@ import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
@@ -92,15 +94,40 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
     }
 
     try {
-      tmpHtmlPasswordInput.click();
-    } catch (final IOException e) {
-      aWetatorContext.getBrowser().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
+      final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlPasswordInput.getPage();
+      HtmlElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+      if (tmpFocusedElement == null || tmpHtmlPasswordInput != tmpFocusedElement) {
+        tmpHtmlPasswordInput.click();
+
+        tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+        if (tmpHtmlPasswordInput != tmpFocusedElement) {
+          final IControl tmpFocusedControl = aWetatorContext.getBrowser().getFocusedControl();
+          aWetatorContext.informListenersInfo("focusChanged",
+              new String[] { getDescribingText(), tmpFocusedControl.getDescribingText() });
+
+          if (tmpFocusedControl instanceof ISettable) {
+            ((ISettable) tmpFocusedControl).setValue(aWetatorContext, aValue, aDirectory);
+            return;
+          }
+          throw new ActionException("Focused control '" + tmpFocusedControl.getDescribingText() + "' is not settable.");
+        }
+      }
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    } catch (final ActionException e) {
+      throw e;
+    } catch (final Throwable e) {
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     }
 
     try {

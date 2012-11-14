@@ -721,6 +721,7 @@ test/webpage/js/jquery/ui/minified/jquery.ui.widget.min.js -text
 test/webpage/js/prototype/prototype.js -text
 test/webpage/mouse_over.html -text
 test/webpage/mouse_over_after.html -text
+test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
 test/webpage/onfocus_onblur.html -text
 test/webpage/onkey.html -text
 test/webpage/response_store/embedded_style.html -text
@@ -807,6 +808,7 @@ test/xml/modules/not.supported -text
 test/xml/mouse_over.wet -text svneol=unset#text/plain
 test/xml/mouse_over_after.wet -text svneol=unset#text/plain
 test/xml/normalize_command.wet -text svneol=unset#text/plain
+test/xml/onfocus_changefocus.wet -text
 test/xml/onfocus_onblur.wet -text svneol=unset#text/plain
 test/xml/onkey.wet -text svneol=unset#text/plain
 test/xml/open_url.wet -text svneol=unset#text/plain

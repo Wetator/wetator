@@ -186,7 +186,11 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   }
 
   protected void executeTestFile(File aTestFile) throws InvalidInputException {
-    wetatorEngine.addTestCase(aTestFile.getName(), aTestFile);
+    executeTestFile(aTestFile.getName(), aTestFile);
+  }
+
+  protected void executeTestFile(String aTestName, File aTestFile) throws InvalidInputException {
+    wetatorEngine.addTestCase(aTestName, aTestFile);
     wetatorEngine.executeTests();
   }
 

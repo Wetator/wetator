@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / OnFocus ChangeFocus</title>
+  <link type="text/css" href="./wet.css" rel="stylesheet">
+
+  <script type="text/javascript">
+  <!--
+    function writeTrace(eventText) {
+      var traceCtrl=document.getElementById('traceOutout');
+      var currentTrace = traceCtrl.value
+      traceCtrl.value = currentTrace + eventText
+    }
+  //-->
+  </script>
+
+</head>
+
+
+<body>
+
+  <h1 class="command_test">Wetator / OnFocus ChangeFocus</h1>
+
+  <div class="test_content">
+
+    <form id='mainForm' action='snoopy.php'>
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <!-- top row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td colspan='2'>
+          <textArea id="traceOutout" name="eventTrace" cols="50" rows="10"></textArea>
+          <input type="submit" name="OnFocusChangeFocusTest" value="OK">
+          <input type="reset" name="OnFocusChangeFocusTestReset" value="Clear">
+        </td>
+      </tr>
+
+      <!-- change to row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td colspan='2'>
+          <input type="text" id="changedFocus" name="changedFocus" onfocus="writeTrace('onFocus(changedFocus);');" onblur="writeTrace('onBlur(changedFocus);\n');">
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputText">InputText</label></td>
+              <td><input type="text" id="inputText" name="inputText" onfocus="writeTrace('onFocus(inputText);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(inputText);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword">InputPassword</label></td>
+              <td><input type="password" id="inputPassword" name="inputPassword" onfocus="writeTrace('onFocus(inputPassword);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(inputPassword);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textarea">Textarea</label></td>
+              <td><textarea id="textarea" name="textarea" cols="10" rows="1" onfocus="writeTrace('onFocus(textarea);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(textarea);\n');"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="upload">Upload</label></td>
+              <td><input type="file" name="upload" id="upload" onfocus="writeTrace('onFocus(upload);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(upload);\n');"></td>
+            </tr>
+
+          </table>
+        </td>
+
+        <td>
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDisabled">InputText Disabled</label></td>
+              <td><input type="text" id="inputTextDisabled" name="inputTextDisabled" onfocus="writeTrace('onFocus(inputTextDisabled);');" onblur="writeTrace('onBlur(inputTextDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDisabled">InputPassword Disabled</label></td>
+              <td><input type="password" id="inputPasswordDisabled" name="inputPasswordDisabled" onfocus="writeTrace('onFocus(inputPasswordDisabled);');" onblur="writeTrace('onBlur(inputPasswordDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDisabled">Textarea Disabled</label></td>
+              <td><textarea id="textareaDisabled" name="textareaDisabled" cols="10" rows="1" onfocus="writeTrace('onFocus(textareaDisabled);');" onblur="writeTrace('onBlur(textareaDisabled);\n');" disabled="disabled"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDisabled">Upload Disabled</label></td>
+              <td><input type="file" name="uploadDisabled" id="uploadDisabled" onfocus="writeTrace('onFocus(uploadDisabled);');" onblur="writeTrace('onBlur(uploadDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+
+    </table>
+    </form>
+
+  </div>
+
+</body>
+</html>
+

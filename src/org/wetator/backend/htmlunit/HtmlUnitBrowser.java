@@ -38,6 +38,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
+import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
@@ -86,6 +87,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
@@ -675,6 +677,29 @@ public final class HtmlUnitBrowser implements IBrowser {
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#getFocusedControl()
+   */
+  @Override
+  public IControl getFocusedControl() throws BackendException {
+    final HtmlElement tmpHtmlElement = getCurrentHtmlPage().getFocusedElement();
+    if (tmpHtmlElement != null) {
+      final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository
+          .getForHtmlElement(tmpHtmlElement);
+      if (tmpControlClass != null) {
+        try {
+          return tmpControlClass.getConstructor(tmpHtmlElement.getClass()).newInstance(tmpHtmlElement);
+        } catch (final Exception e) {
+          wetatorEngine.informListenersWarn("createFocusedControlError", new String[] { tmpControlClass.getName(),
+              tmpHtmlElement.getClass().getName() }, e);
+        }
+      }
+    }
+    return null;
   }
 
   /**
