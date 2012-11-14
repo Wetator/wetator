@@ -157,6 +157,16 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
+  public void onfocusChangeFocus() throws InvalidInputException {
+    executeTestFile("onfocus_changefocus.wet");
+
+    Assert.assertEquals(24, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void onkey() throws InvalidInputException {
     executeTestFile("onkey.wet");
 

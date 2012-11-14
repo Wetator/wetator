@@ -140,6 +140,12 @@ public interface IBrowser {
   public IControlFinder getControlFinder() throws BackendException;
 
   /**
+   * @return the currently focused {@link IControl} or null if no focus is set
+   * @throws BackendException if no control could be created for the currently focused element
+   */
+  public IControl getFocusedControl() throws BackendException;
+
+  /**
    * Opens the given URL in the current window.<br/>
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    * 

@@ -721,6 +721,7 @@ Wetator/test/webpage/js/jquery/ui/minified/jquery.ui.widget.min.js -text
 Wetator/test/webpage/js/prototype/prototype.js -text
 Wetator/test/webpage/mouse_over.html -text
 Wetator/test/webpage/mouse_over_after.html -text
+Wetator/test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
 Wetator/test/webpage/onfocus_onblur.html -text
 Wetator/test/webpage/onkey.html -text
 Wetator/test/webpage/response_store/embedded_style.html -text
@@ -807,6 +808,7 @@ Wetator/test/xml/modules/not.supported -text
 Wetator/test/xml/mouse_over.wet -text svneol=unset#text/plain
 Wetator/test/xml/mouse_over_after.wet -text svneol=unset#text/plain
 Wetator/test/xml/normalize_command.wet -text svneol=unset#text/plain
+Wetator/test/xml/onfocus_changefocus.wet -text
 Wetator/test/xml/onfocus_onblur.wet -text svneol=unset#text/plain
 Wetator/test/xml/onkey.wet -text svneol=unset#text/plain
 Wetator/test/xml/open_url.wet -text svneol=unset#text/plain
