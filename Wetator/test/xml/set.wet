@@ -110,6 +110,15 @@
     <comment></comment>
     <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
+    <comment>InputText identified by focus</comment>
+    <command><d:click-on><d:wpath>InputTextSetFocus</d:wpath></d:click-on></command>
+    <command><d:set><d:wpath></d:wpath><d:value>testValue</d:value></d:set></command>
+    <command><d:click-on><d:wpath>InputTextByFocusTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value InputTextByFocusTest OK inputText_ByFocus testValue POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
     <comment>disabled InputText</comment>
     <command><tst:assert-fail><tst:command-and-message>Set, The html element [HtmlTextInput (id='inputText_Disabled') (name='inputText_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled InputText</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
@@ -234,6 +243,15 @@
     <command><d:set><d:wpath>InputPassword LayoutLabel at left formated</d:wpath><d:value>testValue</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputPasswordLayoutLeftFormatedTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordLayoutLeftFormatedTest OK inputPassword_LayoutLeftFormated testValue POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by focus</comment>
+    <command><d:click-on><d:wpath>InputPasswordSetFocus</d:wpath></d:click-on></command>
+    <command><d:set><d:wpath></d:wpath><d:value>testValue</d:value></d:set></command>
+    <command><d:click-on><d:wpath>InputPasswordByFocusTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordByFocusTest OK inputPassword_ByFocus testValue POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
@@ -366,6 +384,15 @@
     <comment></comment>
     <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by focus</comment>
+    <command><d:click-on><d:wpath>TextAreaSetFocus</d:wpath></d:click-on></command>
+    <command><d:set><d:wpath></d:wpath><d:value>testValue</d:value></d:set></command>
+    <command><d:click-on><d:wpath>TextAreaByFocusTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value TextAreaByFocusTest OK textArea_ByFocus testValue POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
     <comment>Disabled TextArea</comment>
     <command><tst:assert-fail><tst:command-and-message>Set, The html element [HtmlTextArea (name='textArea_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled TextArea</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
@@ -384,6 +411,14 @@
     <command><d:set><d:wpath>TextArea with value - overwrite</d:wpath></d:set></command>
     <command><d:click-on><d:wpath>TextAreaOverwriteTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value TextAreaOverwriteTest OK textArea_overwrite POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
+    <comment>Set without WPath</comment>
+    <command><d:set><d:value>testValue</d:value></d:set></command>
+    <command><d:click-on><d:wpath>InputTextFirstTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value InputTextFirstTest OK inputText_First testValue POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
 </test-case>

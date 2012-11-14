@@ -15,6 +15,31 @@
 
     <table border='0' cellspacing='20' cellpadding='30'>
       <tr valign='top' bgcolor='eeeeee'>
+      	<td>
+
+      	  <h3>Set without WPath</h3>
+
+          <table border='0'>
+
+            <tr>
+              <td>First on page</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" name="inputText_First"></td>
+                      <td><input type="submit" name="InputTextFirstTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+      	</td>
         <td>
         <!-- left column -->
 
@@ -223,6 +248,29 @@
                       <td>InputText Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
                       <td><input type="text" name="inputText_LayoutLeftFormated"></td>
                       <td><input type="submit" name="InputTextLayoutLeftFormatedTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by focus</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><input type="button" name="InputTextSetFocus" value="Set Focus"
+              	onclick="document.getElementById('inputText_ByFocus').focus();"></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="text" name="inputText_ByFocus" id="inputText_ByFocus"></td>
+                      <td><input type="submit" name="InputTextByFocusTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
@@ -502,6 +550,29 @@
 
           </table>
 
+          <h4>by focus</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><input type="button" name="InputPasswordSetFocus" value="Set Focus"
+              	onclick="document.getElementById('inputPassword_ByFocus').focus();"></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="text" name="inputPassword_ByFocus" id="inputPassword_ByFocus"></td>
+                      <td><input type="submit" name="InputPasswordByFocusTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
           <h4>Special Cases</h4>
 
           <table border='0'>
@@ -765,6 +836,29 @@
                       <td>TextArea Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
                       <td><textarea name="textArea_LayoutLeftFormated" cols="50" rows="1"></textarea></td>
                       <td><input type="submit" name="TextAreaLayoutLeftFormatedTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by focus</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td><input type="button" name="TextAreaSetFocus" value="Set Focus"
+              	onclick="document.getElementById('textArea_ByFocus').focus();"></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="text" name="textArea_ByFocus" id="textArea_ByFocus"></td>
+                      <td><input type="submit" name="TextAreaByFocusTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>

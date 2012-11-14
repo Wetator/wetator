@@ -196,39 +196,58 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
-
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
       ISettable tmpControl = null;
-      // in case of no input use the first 'usable' field on the page
       if (tmpWPath.isEmpty()) {
-        for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
-          tmpControl = (ISettable) tmpEntry.getControl();
-          if (!tmpControl.isDisabled(aContext)) {
-            break;
+        // if the wpath is empty first try the currently focused control
+        try {
+          final IControl tmpFocusedControl = tmpBrowser.getFocusedControl();
+          if (tmpFocusedControl instanceof ISettable) {
+            tmpControl = (ISettable) tmpFocusedControl;
           }
+          if (tmpControl != null) {
+            aContext.informListenersWarn("focusedElementUsed", new String[] { tmpControl.getDescribingText() });
+          }
+        } catch (final BackendException e) {
+          final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+          throw new ActionException(tmpMessage, e);
+        }
+      }
+
+      if (tmpControl == null) {
+        IControlFinder tmpControlFinder;
+        try {
+          tmpControlFinder = tmpBrowser.getControlFinder();
+        } catch (final BackendException e) {
+          final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+          throw new ActionException(tmpMessage, e);
         }
 
-        if (null == tmpControl) {
-          final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
-              new String[] { tmpWPath.toString() });
-          throw new ActionException(tmpMessage);
-        }
-        aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
-      } else {
-        tmpControl = (ISettable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-        if (null == tmpControl) {
-          final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
-              new String[] { tmpWPath.toString() });
-          throw new ActionException(tmpMessage);
+        // TextInputs / PasswordInputs / TextAreas / FileInputs
+        final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+
+        if (tmpWPath.isEmpty()) {
+          // if the wpath is empty use the first 'usable' field on the page
+          for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
+            tmpControl = (ISettable) tmpEntry.getControl();
+            if (!tmpControl.isDisabled(aContext)) {
+              break;
+            }
+          }
+
+          if (null == tmpControl) {
+            final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
+                new String[] { tmpWPath.toString() });
+            throw new ActionException(tmpMessage);
+          }
+          aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
+        } else {
+          tmpControl = (ISettable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
+          if (null == tmpControl) {
+            final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
+                new String[] { tmpWPath.toString() });
+            throw new ActionException(tmpMessage);
+          }
         }
       }
 
