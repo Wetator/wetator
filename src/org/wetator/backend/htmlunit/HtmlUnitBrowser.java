@@ -83,6 +83,7 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
+import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
@@ -263,6 +264,10 @@ public final class HtmlUnitBrowser implements IBrowser {
     // setup our listener
     webClient.addWebWindowListener(new WebWindowListener(this));
     webClient.setAlertHandler(new AlertHandler(wetatorEngine));
+
+    // refresh handler - behave like the browser does
+    webClient.setRefreshHandler(new WaitingRefreshHandler());
+
     // javascript
     webClient.getOptions().setJavaScriptEnabled(true);
     webClient.getOptions().setThrowExceptionOnScriptError(false);
