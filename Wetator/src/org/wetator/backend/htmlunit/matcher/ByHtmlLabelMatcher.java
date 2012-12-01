@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
@@ -68,7 +68,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
 
     // has the node the text before
     FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
+    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
       final HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
@@ -88,7 +88,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
                 final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
                 tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
-                    tmpNodeSpot.startPos));
+                    tmpNodeSpot.getStartPos()));
               }
             }
           } catch (final ElementNotFoundException e) {
@@ -105,8 +105,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-              tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
-                  tmpNodeSpot.startPos));
+              tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance, tmpNodeSpot
+                  .getStartPos()));
             }
           }
         }

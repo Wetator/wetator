@@ -20,8 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -60,13 +60,15 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
     final List<MatchResult> tmpFound = new LinkedList<MatchResult>();
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (pathSpot.endPos <= tmpNodeSpot.startPos) {
+    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
       // now check for the including image
       final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();
       for (HtmlElement tmpInnerElement : tmpAllchildElements) {
         if (tmpInnerElement instanceof HtmlImage) {
-          // check for the image alt tag is not needed, alt text is part of the outer element's text
+          // does image alt-text match?
+          tmpFound.addAll(new ByInnerImageAltAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
+              searchPattern, tmpInnerElement).matches(aHtmlElement));
 
           // does image title-text match?
           tmpFound.addAll(new ByInnerImageTitleAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
@@ -82,6 +84,50 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
       }
     }
     return tmpFound;
+  }
+
+  /**
+   * This matcher checks if the attribute 'alt' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches
+   * the criteria.
+   * 
+   * @author frank.danek
+   */
+  protected static class ByInnerImageAltAttributeMatcher extends AbstractByAttributeMatcher {
+
+    private HtmlElement innerHtmlElement;
+
+    /**
+     * The constructor.<br/>
+     * Creates a new matcher with the given criteria.
+     * 
+     * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
+     * @param aPathSpot the {@link FindSpot} the path was found first
+     * @param aSearchPattern the {@link SearchPattern} describing the element
+     * @param anInnerHtmlElement the inner image element
+     */
+    public ByInnerImageAltAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlElement anInnerHtmlElement) {
+      super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_ALT_ATTRIBUTE);
+      innerHtmlElement = anInnerHtmlElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
+     */
+    @Override
+    protected String getAttributeValue(final HtmlElement aHtmlElement) {
+      String tmpValue = null;
+      if (innerHtmlElement instanceof HtmlImage) {
+        tmpValue = ((HtmlImage) innerHtmlElement).getAltAttribute();
+      }
+      if (innerHtmlElement instanceof HtmlImageInput) {
+        tmpValue = ((HtmlImageInput) innerHtmlElement).getAltAttribute();
+      }
+      return tmpValue;
+    }
   }
 
   /**

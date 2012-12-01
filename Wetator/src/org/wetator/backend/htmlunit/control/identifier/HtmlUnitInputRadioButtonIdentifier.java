@@ -26,7 +26,7 @@ import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
-import org.wetator.backend.htmlunit.util.FindSpot;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;

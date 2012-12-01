@@ -106,7 +106,6 @@ Wetator/src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -t
 Wetator/src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/backend/htmlunit/util/ContentTypeUtil.java -text
 Wetator/src/org/wetator/backend/htmlunit/util/ExceptionUtil.java -text
-Wetator/src/org/wetator/backend/htmlunit/util/FindSpot.java -text
 Wetator/src/org/wetator/backend/htmlunit/util/HtmlElementUtil.java -text
 Wetator/src/org/wetator/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/backend/htmlunit/util/PageUtil.java -text
@@ -130,6 +129,7 @@ Wetator/src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 Wetator/src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
 Wetator/src/org/wetator/core/searchpattern/ContentPattern.java -text
+Wetator/src/org/wetator/core/searchpattern/FindSpot.java -text
 Wetator/src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 Wetator/src/org/wetator/core/searchpattern/SearchPattern.java -text
@@ -219,7 +219,21 @@ Wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAr
 Wetator/test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/AbstractMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByIdMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByImageAltAttributeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByImageSrcAttributeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByImageTitleAttributeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByInnerImageMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByLabelTextAfterMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTextMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
@@ -241,6 +255,7 @@ Wetator/test/java/org/wetator/core/CommandTest.java -text
 Wetator/test/java/org/wetator/core/VariableTest.java -text
 Wetator/test/java/org/wetator/core/WetatorContextExecuteTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/WetatorEngineExecuteTestsTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/core/searchpattern/AutomatonShortMatcherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/searchpattern/ContentPatternTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text

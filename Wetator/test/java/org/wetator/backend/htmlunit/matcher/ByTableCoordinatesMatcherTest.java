@@ -25,9 +25,9 @@ import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 /**
  * @author frank.danek
  */
-public class ByTableCoordinatesMatcherTest {
+public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTablePlain() throws IOException, InvalidInputException {
@@ -70,8 +70,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -107,8 +107,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -144,8 +144,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -181,8 +181,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -218,8 +218,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3_1", "InputText_2_3_2");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3_1", "InputText_2_3_2");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -264,8 +264,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -314,8 +314,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[cell_o_1_2; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -365,8 +365,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3; cell_o_2_1]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -403,8 +403,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[header_3]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -442,8 +442,8 @@ public class ByTableCoordinatesMatcherTest {
     tmpSearch.add(new SecretString("row_2", false));
     tmpSearch.add(new SecretString("[header_3]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -477,8 +477,8 @@ public class ByTableCoordinatesMatcherTest {
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("[; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -487,7 +487,7 @@ public class ByTableCoordinatesMatcherTest {
   }
 
   @Test
-  public void findInMultipleTable() throws IOException, InvalidInputException {
+  public void inMultipleTable() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
@@ -529,16 +529,17 @@ public class ByTableCoordinatesMatcherTest {
     tmpSearch.add(new SecretString("[cell_o_1_2; cell_o_2_1]", false));
     tmpSearch.add(new SecretString("[header_3; row_2]", false));
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, HtmlTextInput.class, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(0));
   }
 
-  private static List<MatchResult> match(String aHtmlCode, List<SecretString> aSearch,
-      Class<? extends HtmlElement> aClass, String... anHtmlElementIds) throws IOException, InvalidInputException {
+  @Override
+  protected List<MatchResult> match(String aHtmlCode, List<SecretString> aSearch, String... anHtmlElementIds)
+      throws IOException, InvalidInputException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -552,17 +553,21 @@ public class ByTableCoordinatesMatcherTest {
       FindSpot tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
       tmpMatches.addAll(new ByTableCoordinatesMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpPath
-          .getTableCoordinatesReversed(), aClass).matches(tmpHtmlElement));
+          .getTableCoordinatesReversed(), HtmlTextInput.class).matches(tmpHtmlElement));
     }
     return tmpMatches;
   }
 
-  private static void assertMatchEquals(String anExpectedId, FoundType anExpectedFoundType, int anExpectedCoverage,
-      int anExpectedDistance, int anExpectedStart, MatchResult anActualMatch) {
-    Assert.assertEquals("htmlElement.id", anExpectedId, anActualMatch.getHtmlElement().getId());
-    Assert.assertEquals("foundType", anExpectedFoundType, anActualMatch.getFoundType());
-    Assert.assertEquals("coverage", anExpectedCoverage, anActualMatch.getCoverage());
-    Assert.assertEquals("distance", anExpectedDistance, anActualMatch.getDistance());
-    Assert.assertEquals("start", anExpectedStart, anActualMatch.getStart());
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
+   *      org.wetator.core.searchpattern.SearchPattern, org.wetator.core.searchpattern.FindSpot,
+   *      org.wetator.core.searchpattern.SearchPattern)
+   */
+  @Override
+  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
+      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+    return null;
   }
 }

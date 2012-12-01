@@ -17,8 +17,8 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -51,7 +51,7 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
    */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    return htmlPageIndex.getLabelTextBefore(aHtmlElement, pathSpot.endPos);
+    return htmlPageIndex.getLabelTextBefore(aHtmlElement, pathSpot.getEndPos());
   }
 
   /**

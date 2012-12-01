@@ -26,7 +26,7 @@ import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
-import org.wetator.backend.htmlunit.util.FindSpot;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -82,7 +82,7 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
     final WeightedControlList tmpResult = new WeightedControlList();
     for (MatchResult tmpMatch : tmpProcessedMatches) {
       tmpResult.add(createControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(), tmpMatch.getCoverage(),
-          tmpMatch.getDistance(), htmlPageIndex.getPosition(tmpMatch.getHtmlElement()).startPos);
+          tmpMatch.getDistance(), htmlPageIndex.getPosition(tmpMatch.getHtmlElement()).getStartPos());
     }
     return tmpResult;
   }

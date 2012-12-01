@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -66,7 +66,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
     final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
+    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
       final String tmpValue = getAttributeValue(aHtmlElement);
       if (StringUtils.isNotEmpty(tmpValue)) {
@@ -86,7 +86,8 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
             String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             tmpTextBefore = processTextForDistance(tmpTextBefore);
             final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.startPos));
+            tmpMatches
+                .add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
           }
         }
       }

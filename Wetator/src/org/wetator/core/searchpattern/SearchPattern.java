@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.map.LRUMap;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.util.SecretString;
 
 /**

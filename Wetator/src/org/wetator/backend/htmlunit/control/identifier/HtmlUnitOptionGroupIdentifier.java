@@ -24,7 +24,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelAttributeMatcher;
-import org.wetator.backend.htmlunit.util.FindSpot;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;

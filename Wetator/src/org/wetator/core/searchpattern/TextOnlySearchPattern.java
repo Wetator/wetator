@@ -17,7 +17,6 @@
 package org.wetator.core.searchpattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.backend.htmlunit.util.FindSpot;
 
 /**
  * This is a special implementation of a {@link SearchPattern} that contains only plain text and no wildcards.<br/>
@@ -59,10 +58,8 @@ public final class TextOnlySearchPattern extends SearchPattern {
    */
   @Override
   public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
-    final FindSpot tmpResult = new FindSpot();
-
     if (StringUtils.isEmpty(aString)) {
-      return tmpResult;
+      return FindSpot.NOT_FOUND;
     }
 
     final int tmpPos = aString.indexOf(patternString, aStartPos);
@@ -80,10 +77,8 @@ public final class TextOnlySearchPattern extends SearchPattern {
    */
   @Override
   public FindSpot lastOccurenceIn(final String aString) {
-    final FindSpot tmpResult = new FindSpot();
-
     if (StringUtils.isEmpty(aString)) {
-      return tmpResult;
+      return FindSpot.NOT_FOUND;
     }
 
     final int tmpPos = aString.lastIndexOf(patternString);
