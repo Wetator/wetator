@@ -81,7 +81,10 @@ public class AutomatonShortMatcherTest {
     Assert.assertEquals(3, tmpMatcher.end());
     Assert.assertEquals("", tmpMatcher.group());
 
-    // TODO should there be one hit after the string?
+    Assert.assertTrue(tmpMatcher.find());
+    Assert.assertEquals(4, tmpMatcher.start());
+    Assert.assertEquals(4, tmpMatcher.end());
+    Assert.assertEquals("", tmpMatcher.group());
 
     Assert.assertFalse(tmpMatcher.find());
   }
@@ -173,9 +176,10 @@ public class AutomatonShortMatcherTest {
     Assert.assertEquals(3, tmpMatcher.end());
     Assert.assertEquals("", tmpMatcher.group());
 
-    // TODO should there be one hit after the string?
-
-    Assert.assertFalse(tmpMatcher.find());
+    Assert.assertTrue(tmpMatcher.find());
+    Assert.assertEquals(4, tmpMatcher.start());
+    Assert.assertEquals(4, tmpMatcher.end());
+    Assert.assertEquals("", tmpMatcher.group());
   }
 
   @Test
@@ -289,18 +293,6 @@ public class AutomatonShortMatcherTest {
     Assert.assertEquals("t", tmpMatcher.group());
 
     Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(1, tmpMatcher.start());
-    Assert.assertEquals(4, tmpMatcher.end());
-    Assert.assertEquals("est", tmpMatcher.group());
-
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(2, tmpMatcher.start());
-    Assert.assertEquals(4, tmpMatcher.end());
-    Assert.assertEquals("st", tmpMatcher.group());
-
-    // TODO is it correct to find 'est' and 'st' if we are looking for the short match?
-
-    Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(3, tmpMatcher.start());
     Assert.assertEquals(4, tmpMatcher.end());
     Assert.assertEquals("t", tmpMatcher.group());
@@ -317,18 +309,6 @@ public class AutomatonShortMatcherTest {
   public void suffixDotPlus() throws Exception {
     String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher(".+t", tmpText);
-
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(0, tmpMatcher.start());
-    Assert.assertEquals(4, tmpMatcher.end());
-    Assert.assertEquals("test", tmpMatcher.group());
-
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(1, tmpMatcher.start());
-    Assert.assertEquals(4, tmpMatcher.end());
-    Assert.assertEquals("est", tmpMatcher.group());
-
-    // TODO is it correct to find 'test' and 'est' if we are looking for the short match?
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(2, tmpMatcher.start());
@@ -352,13 +332,6 @@ public class AutomatonShortMatcherTest {
     Assert.assertEquals(0, tmpMatcher.start());
     Assert.assertEquals(1, tmpMatcher.end());
     Assert.assertEquals("t", tmpMatcher.group());
-
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(2, tmpMatcher.start());
-    Assert.assertEquals(4, tmpMatcher.end());
-    Assert.assertEquals("st", tmpMatcher.group());
-
-    // TODO is it correct to find 'st' if we are looking for the short match?
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(3, tmpMatcher.start());
@@ -413,11 +386,6 @@ public class AutomatonShortMatcherTest {
   public void prefixAndSuffixDotPlus() throws Exception {
     String tmpText = "ttestt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.+t", tmpText);
-
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(0, tmpMatcher.start());
-    Assert.assertEquals(5, tmpMatcher.end());
-    Assert.assertEquals("ttest", tmpMatcher.group());
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(1, tmpMatcher.start());
