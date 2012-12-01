@@ -87,6 +87,34 @@ public class AutomatonShortMatcherTest {
   }
 
   @Test
+  public void dotStarException() throws Exception {
+    String tmpText = "test";
+    AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText);
+
+    Assert.assertTrue(tmpMatcher.find());
+    Assert.assertEquals(0, tmpMatcher.start());
+    Assert.assertEquals(1, tmpMatcher.end());
+    Assert.assertEquals("t", tmpMatcher.group());
+
+    Assert.assertTrue(tmpMatcher.find());
+    Assert.assertEquals(1, tmpMatcher.start());
+    Assert.assertEquals(2, tmpMatcher.end());
+    Assert.assertEquals("e", tmpMatcher.group());
+
+    Assert.assertTrue(tmpMatcher.find());
+    Assert.assertEquals(2, tmpMatcher.start());
+    Assert.assertEquals(3, tmpMatcher.end());
+    Assert.assertEquals("s", tmpMatcher.group());
+
+    Assert.assertTrue(tmpMatcher.find());
+    Assert.assertEquals(3, tmpMatcher.start());
+    Assert.assertEquals(4, tmpMatcher.end());
+    Assert.assertEquals("t", tmpMatcher.group());
+
+    Assert.assertFalse(tmpMatcher.find());
+  }
+
+  @Test
   public void dotPlus() throws Exception {
     String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".+", tmpText);
