@@ -87,31 +87,37 @@ public class AutomatonShortMatcherTest {
   }
 
   @Test
-  public void dotStarException() throws Exception {
+  public void dotStarException1() throws Exception {
+    // this test corresponds to noOfCharsBeforeLastOccurenceIn
+
     String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText);
 
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(0, tmpMatcher.start());
-    Assert.assertEquals(1, tmpMatcher.end());
-    Assert.assertEquals("t", tmpMatcher.group());
+    boolean tmpFound = tmpMatcher.find();
 
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(1, tmpMatcher.start());
-    Assert.assertEquals(2, tmpMatcher.end());
-    Assert.assertEquals("e", tmpMatcher.group());
+    // we found something
+    while (tmpFound) {
+      tmpMatcher.start();
+      tmpFound = tmpMatcher.find();
+    }
+  }
 
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(2, tmpMatcher.start());
-    Assert.assertEquals(3, tmpMatcher.end());
-    Assert.assertEquals("s", tmpMatcher.group());
+  @Test
+  public void dotStarException2() throws Exception {
+    // this test corresponds to noOfSurroundingCharsIn
 
-    Assert.assertTrue(tmpMatcher.find());
-    Assert.assertEquals(3, tmpMatcher.start());
-    Assert.assertEquals(4, tmpMatcher.end());
-    Assert.assertEquals("t", tmpMatcher.group());
+    String tmpText = "test";
+    AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText);
 
-    Assert.assertFalse(tmpMatcher.find());
+    boolean tmpFound = tmpMatcher.find();
+
+    // we found something
+    int tmpResult = Integer.MAX_VALUE;
+    // we found something
+    while (tmpFound) {
+      tmpResult = Math.min(tmpResult, tmpText.length() - tmpMatcher.group().length());
+      tmpFound = tmpMatcher.find();
+    }
   }
 
   @Test
