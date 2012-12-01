@@ -40,40 +40,56 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void byLabelText() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("colors", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "optgroup_colors", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
   public void byId() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>"
+        + "<option value='o_blue'>blue</option>"
+        + "</select>"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("optgroup_colors", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "optgroup_colors", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
             "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byLabel() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>"
+        + "<option value='o_blue'>blue</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("colors", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 }

@@ -40,6 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * It can be identified by:
  * <ul>
  * <li>the label text after</li>
+ * <li>it's title attribute</li>
  * <li>it's name</li>
  * <li>it's id</li>
  * <li>a label</li>
