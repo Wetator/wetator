@@ -112,18 +112,14 @@ public final class AutomatonShortMatcher implements MatchResult {
   }
 
   /**
-   * Find the next matching subsequence of the input. <br />
-   * This also updates the values for the {@code start}, {@code end}, and {@code group} methods.
+   * Internal helper, that check, if a shorter match
+   * of the already found substring is also possible.
+   * If yes, this updates the match position.
    * 
    * @return {@code true} if there is a matching subsequence.
    */
   private boolean reduceIfPossible() {
-    // save the current match
-    final int tmpSartSave = matchStart;
-    final int tmpEndSave = matchEnd;
-
     int tmpBegin = matchStart + 1;
-
     int tmpMatchStart = -1;
 
     while (tmpBegin < matchEnd) {
@@ -144,8 +140,6 @@ public final class AutomatonShortMatcher implements MatchResult {
       tmpBegin += 1;
     }
 
-    matchStart = tmpSartSave;
-    matchEnd = tmpEndSave;
     return false;
   }
 
