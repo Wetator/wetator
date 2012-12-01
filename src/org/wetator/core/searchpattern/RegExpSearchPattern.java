@@ -17,7 +17,6 @@
 package org.wetator.core.searchpattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.backend.htmlunit.util.FindSpot;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
@@ -95,10 +94,9 @@ final class RegExpSearchPattern extends SearchPattern {
   @Override
   public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
     firstOccurenceIn++;
-    final FindSpot tmpResult = new FindSpot();
 
     if (StringUtils.isEmpty(aString)) {
-      return tmpResult;
+      return FindSpot.NOT_FOUND;
     }
 
     if (aString.length() < minLength) {
@@ -112,10 +110,7 @@ final class RegExpSearchPattern extends SearchPattern {
       return null;
     }
 
-    tmpResult.startPos = tmpMatcher.start();
-    tmpResult.endPos = tmpMatcher.end();
-
-    return tmpResult;
+    return new FindSpot(tmpMatcher.start(), tmpMatcher.end());
   }
 
   /**
@@ -126,10 +121,9 @@ final class RegExpSearchPattern extends SearchPattern {
   @Override
   public FindSpot lastOccurenceIn(final String aString) {
     lastOccurenceIn++;
-    final FindSpot tmpResult = new FindSpot();
 
     if (StringUtils.isEmpty(aString)) {
-      return tmpResult;
+      return FindSpot.NOT_FOUND;
     }
 
     if (aString.length() < minLength) {
@@ -143,10 +137,7 @@ final class RegExpSearchPattern extends SearchPattern {
       return null;
     }
 
-    tmpResult.startPos = tmpMatcher.start();
-    tmpResult.endPos = tmpMatcher.end();
-
-    return tmpResult;
+    return new FindSpot(tmpMatcher.start(), tmpMatcher.end());
   }
 
   /**

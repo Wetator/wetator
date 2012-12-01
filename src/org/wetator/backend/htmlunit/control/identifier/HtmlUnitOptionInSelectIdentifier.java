@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
-import org.wetator.backend.htmlunit.util.FindSpot;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
@@ -94,10 +94,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     if (aHtmlElement instanceof HtmlSelect) {
       // has the node the text before
       final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-      if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {
+      if (tmpPathSpotSelect.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
         // if the select follows text directly and text matches => choose it
-        final String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpPathSpotSelect.endPos);
+        final String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpPathSpotSelect.getEndPos());
         if (StringUtils.isNotEmpty(tmpText)) {
           final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpText);
           if (tmpCoverage > -1) {
@@ -139,7 +139,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
 
       // select
-      if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {
+      if (tmpPathSpotSelect.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
         final int tmpCoverage = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
         if (tmpCoverage > -1) {
@@ -192,7 +192,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     final Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
     for (HtmlOption tmpOption : tmpOptions) {
       String tmpText = htmlPageIndex.getAsText(tmpOption);
-      final int tmpStart = htmlPageIndex.getPosition(tmpOption).startPos;
+      final int tmpStart = htmlPageIndex.getPosition(tmpOption).getStartPos();
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {

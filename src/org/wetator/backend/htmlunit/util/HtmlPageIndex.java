@@ -29,6 +29,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.NormalizedString;
 
@@ -240,7 +241,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.startPos);
+    return text.substring(0, tmpFindSpot.getStartPos());
   }
 
   /**
@@ -254,7 +255,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.endPos);
+    return text.substring(0, tmpFindSpot.getEndPos());
   }
 
   /**
@@ -278,17 +279,17 @@ public class HtmlPageIndex {
 
       if (tmpNode instanceof HtmlBody) {
         // don't use the end pos of the body
-        tmpStartPos = positions.get(tmpNode).startPos;
+        tmpStartPos = positions.get(tmpNode).getStartPos();
         break;
       }
 
       // we have to stop if we found some other (visible) form control
       if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
-        tmpStartPos = positions.get(tmpNode).endPos;
+        tmpStartPos = positions.get(tmpNode).getEndPos();
 
         // the searched control is placed inside a button tag
-        if (tmpStartPos <= tmpFindSpot.startPos) {
-          final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
+        if (tmpStartPos <= tmpFindSpot.getStartPos()) {
+          final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
           if (StringUtils.isNotEmpty(tmpText)) {
             return tmpText;
           }
@@ -300,13 +301,13 @@ public class HtmlPageIndex {
         final HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
         // we are reaching another form
         if ((null != tmpForm) && (tmpForm != tmpCurrentForm)) {
-          tmpStartPos = positions.get(tmpNode).endPos;
+          tmpStartPos = positions.get(tmpNode).getEndPos();
           break;
         }
       }
     }
 
-    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
+    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
   }
 
   /**
@@ -332,7 +333,7 @@ public class HtmlPageIndex {
 
       // we have to stop if we found some other (visible) form control
       if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
-        tmpEndPos = positions.get(tmpNode).startPos;
+        tmpEndPos = positions.get(tmpNode).getStartPos();
         break;
       }
 
@@ -341,13 +342,13 @@ public class HtmlPageIndex {
         final HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
         // we are reaching another form
         if ((null != tmpCurrentForm) && (tmpForm != tmpCurrentForm)) {
-          tmpEndPos = positions.get(tmpNode).startPos;
+          tmpEndPos = positions.get(tmpNode).getStartPos();
           break;
         }
       }
     }
 
-    return text.substring(tmpFindSpot.endPos, tmpEndPos);
+    return text.substring(tmpFindSpot.getEndPos(), tmpEndPos);
   }
 
   /**
@@ -361,7 +362,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(tmpFindSpot.startPos, tmpFindSpot.endPos);
+    return text.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
   /**
@@ -377,7 +378,7 @@ public class HtmlPageIndex {
       return null;
     }
 
-    return textWithoutFormControls.substring(tmpFindSpot.startPos, tmpFindSpot.endPos);
+    return textWithoutFormControls.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
   private void parseDomNode(final DomNode aDomNode) {
@@ -388,11 +389,11 @@ public class HtmlPageIndex {
 
     // mark pos before
     FindSpot tmpFindSpot = new FindSpot();
-    tmpFindSpot.startPos = text.length();
+    tmpFindSpot.setStartPos(text.length());
     positions.put(aDomNode, tmpFindSpot);
 
     FindSpot tmpFindSpotWFC = new FindSpot();
-    tmpFindSpotWFC.startPos = textWithoutFormControls.length();
+    tmpFindSpotWFC.setStartPos(textWithoutFormControls.length());
     positionsWithoutFormControls.put(aDomNode, tmpFindSpotWFC);
 
     if (aDomNode.isDisplayed()) {
@@ -473,10 +474,10 @@ public class HtmlPageIndex {
     }
     // mark pos after
     tmpFindSpot = positions.get(aDomNode);
-    tmpFindSpot.endPos = text.length();
+    tmpFindSpot.setEndPos(text.length());
 
     tmpFindSpotWFC = positionsWithoutFormControls.get(aDomNode);
-    tmpFindSpotWFC.endPos = textWithoutFormControls.length();
+    tmpFindSpotWFC.setEndPos(textWithoutFormControls.length());
   }
 
   private void parseChildren(final DomNode aNode) {
@@ -658,10 +659,10 @@ public class HtmlPageIndex {
 
         parseDomNode(tmpItem);
         final FindSpot tmpFindSpot = positions.get(tmpItem);
-        tmpFindSpot.startPos = tmpStartPos;
+        tmpFindSpot.setStartPos(tmpStartPos);
 
         final FindSpot tmpFindSpotWFC = positionsWithoutFormControls.get(tmpItem);
-        tmpFindSpotWFC.startPos = tmpStartPosWFC;
+        tmpFindSpotWFC.setStartPos(tmpStartPosWFC);
       } else {
         parseDomNode(tmpItem);
       }
@@ -711,7 +712,7 @@ public class HtmlPageIndex {
     // nodes/positions
     for (DomNode tmpDomNode : nodes) {
       final FindSpot tmpPos = positions.get(tmpDomNode);
-      tmpLog.append("  " + tmpDomNode.getNodeName() + "  [" + tmpPos.startPos + ", " + tmpPos.endPos + "]");
+      tmpLog.append("  " + tmpDomNode.getNodeName() + "  [" + tmpPos.getStartPos() + ", " + tmpPos.getEndPos() + "]");
       tmpLog.append("  " + tmpDomNode.getClass().getName());
 
       final String tmpValue = tmpDomNode.getNodeValue();

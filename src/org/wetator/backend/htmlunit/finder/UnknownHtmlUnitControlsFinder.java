@@ -24,8 +24,8 @@ import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -94,31 +94,32 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       }
     }
 
-    FindSpot tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.endPos));
-    while ((null != tmpHitSpot) && (tmpHitSpot.endPos > -1)) {
+    FindSpot tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.getEndPos()));
+    while ((null != tmpHitSpot) && (tmpHitSpot.getEndPos() > -1)) {
       // found a hit
 
       // find the first element that surrounds this
       for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
         final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
-        if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
+        if ((tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos())
+            && (tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos())) {
           // found one
           String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
           final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
-          final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.endPos;
+          final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
 
-          tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.startPos);
+          tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
           final int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
             tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
-                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.startPos);
+                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos());
           }
           break;
         }
       }
 
-      tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
+      tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, tmpHitSpot.getStartPos() + 1);
     }
     return tmpFoundControls;
   }

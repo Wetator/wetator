@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
@@ -159,7 +158,7 @@ public class ContentPattern {
         tmpResultMessage.append(tmpExpectedString);
 
         // continue search for other parts from here on
-        tmpStartPos = tmpFoundSpot.endPos;
+        tmpStartPos = tmpFoundSpot.getEndPos();
       }
     }
 
@@ -209,7 +208,7 @@ public class ContentPattern {
       }
 
       // continue search for other parts from here on
-      tmpStartPos = tmpFoundSpot.endPos;
+      tmpStartPos = tmpFoundSpot.getEndPos();
     }
 
     // TODO maybe we have to limit the length of the content here

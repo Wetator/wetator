@@ -29,7 +29,7 @@ import org.wetator.backend.htmlunit.matcher.ByLabelTextBeforeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
-import org.wetator.backend.htmlunit.util.FindSpot;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.SecretString;
 

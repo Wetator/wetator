@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.wetator.backend.WPath.TableCoordinate;
 import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.DomNode;
@@ -73,14 +73,14 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
+    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
       if (isHtmlElementInTableCoordinates(aHtmlElement, tableCoordinates, htmlPageIndex, pathSpot)) {
         final int tmpCoverage = 0;
         if (tmpCoverage > -1) {
           final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
           final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
           tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, tmpCoverage, tmpDistance,
-              tmpNodeSpot.startPos));
+              tmpNodeSpot.getStartPos()));
         }
       }
     }
@@ -136,7 +136,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
             for (int j = 0; j < tmpTable.getRowCount(); j++) {
               final HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
               final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
-              if (aPathSpot.endPos < tmpOuterCellXSpot.startPos) {
+              if (aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos()) {
                 if (tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX))) {
                   tmpFoundX = true;
                   break;
@@ -157,7 +157,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
             for (int j = 0; j < tmpTable.getRow(i).getCells().size(); j++) {
               final HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
               final FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
-              if (aPathSpot.endPos < tmpOuterCellYSpot.startPos) {
+              if (aPathSpot.getEndPos() < tmpOuterCellYSpot.getStartPos()) {
                 if (tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY))) {
                   tmpFoundY = true;
                   break;
