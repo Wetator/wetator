@@ -71,16 +71,17 @@ public final class AutomatonShortMatcher implements MatchResult {
       tmpBegin = matchStart + 1;
     }
 
-    int tmpMatchStart;
-    int tmpMatchEnd;
-    if (automaton.isAccept(automaton.getInitialState())) {
-      tmpMatchStart = tmpBegin;
-      tmpMatchEnd = tmpBegin;
-    } else {
-      tmpMatchStart = -1;
-      tmpMatchEnd = -1;
-    }
     final int tmpLength = chars.length();
+    if (tmpBegin > tmpLength) {
+      return false;
+    }
+
+    if (automaton.isAccept(automaton.getInitialState())) {
+      setMatch(tmpBegin, tmpBegin);
+      return true;
+    }
+    int tmpMatchStart = -1;
+
     while (tmpBegin < tmpLength) {
       int tmpInitState = automaton.getInitialState();
       for (int i = tmpBegin; i < tmpLength; i += 1) {
@@ -91,24 +92,60 @@ public final class AutomatonShortMatcher implements MatchResult {
           if (tmpMatchStart == -1) {
             tmpMatchStart = tmpBegin;
           }
-          tmpMatchEnd = i;
 
-          setMatch(tmpMatchStart, tmpMatchEnd + 1);
+          setMatch(tmpMatchStart, i + 1);
+
+          // match found, but is this the shortest one?
+          while (matchEnd - matchStart > 1 && reduceIfPossible()) {
+            // nothing more to do
+          }
+
           return true;
         }
         tmpInitState = tmpNewState;
       }
-      if (tmpMatchStart != -1) {
-        setMatch(tmpMatchStart, tmpMatchEnd + 1);
-        return true;
+      tmpBegin += 1;
+    }
+
+    setMatch(-2, -2);
+    return false;
+  }
+
+  /**
+   * Find the next matching subsequence of the input. <br />
+   * This also updates the values for the {@code start}, {@code end}, and {@code group} methods.
+   * 
+   * @return {@code true} if there is a matching subsequence.
+   */
+  private boolean reduceIfPossible() {
+    // save the current match
+    final int tmpSartSave = matchStart;
+    final int tmpEndSave = matchEnd;
+
+    int tmpBegin = matchStart + 1;
+
+    int tmpMatchStart = -1;
+
+    while (tmpBegin < matchEnd) {
+      int tmpInitState = automaton.getInitialState();
+      for (int i = tmpBegin; i < matchEnd; i += 1) {
+        final int tmpNewState = automaton.step(tmpInitState, chars.charAt(i));
+        if (tmpNewState == -1) {
+          break;
+        } else if (automaton.isAccept(tmpNewState)) {
+          if (tmpMatchStart == -1) {
+            tmpMatchStart = tmpBegin;
+          }
+          setMatch(tmpMatchStart, i + 1);
+          return true;
+        }
+        tmpInitState = tmpNewState;
       }
       tmpBegin += 1;
     }
-    if (tmpMatchStart != -1) {
-      setMatch(tmpMatchStart, tmpMatchEnd + 1);
-      return true;
-    }
-    setMatch(-2, -2);
+
+    matchStart = tmpSartSave;
+    matchEnd = tmpEndSave;
     return false;
   }
 
