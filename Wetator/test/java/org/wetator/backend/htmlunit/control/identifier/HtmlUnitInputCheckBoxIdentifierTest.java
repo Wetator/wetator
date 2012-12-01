@@ -41,9 +41,13 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
   @Test
   public void byId() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyCheckboxId", false));
@@ -58,76 +62,14 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byIdWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyCheckbox*", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_ID coverage: 2 distance: 0 start: 0",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byIdPart() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyCheckbox", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byId_TextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("MyCheckboxId", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_ID coverage: 0 distance: 5 start: 14",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byId_WrongTextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("MyCheckboxId", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
   public void byName() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyCheckboxName", false));
@@ -142,76 +84,36 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byNameWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
+  public void byTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='MyCheckboxId' name='MyCheckboxName' title='MyCheckboxTitle' value='value1' type='checkbox'>CheckBox"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyCheckboxNa*", false));
+    tmpSearch.add(new SecretString("MyCheckboxTitle", false));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_NAME coverage: 2 distance: 0 start: 0",
+            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byNamePart() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
+  public void byLabelTextAfter() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
+        + "</form>"
         + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yCheckboxNam", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byName_TextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("MyCheckboxName", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_NAME coverage: 0 distance: 5 start: 14",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("MyCheckboxName", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byTextAfter() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("CheckBox", false));
@@ -226,83 +128,17 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextAfterWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("e*Box", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0 start: 0",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byTextAfterPart() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("heckBo", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0 start: 0",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byTextAfter_TextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("CheckBox", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5 start: 14",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byTextAfter_WrongTextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("CheckBox", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byLabel_Text() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+  public void byHtmlLabel_Text() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
         + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
         + "<label id='MyLabelId2' for='MyCheckboxId2'>SecondLabelText</label>"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</form>"
+        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondLabelText", false));
@@ -317,94 +153,19 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byLabel_TextWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
+  public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyLabelId1'>FirstLabelText"
         + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
-        + "<label id='MyLabelId2' for='MyCheckboxId2'>SecondLabelText</label>"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("SecondLabelTe*", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 2 distance: 24 start: 40",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabel_TextPart() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
-        + "<label id='MyLabelId2' for='MyCheckboxId2'>SecondLabelText</label>"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("econdLabelTex", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 2 distance: 24 start: 40",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabel_Text_TextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
-        + "<label id='MyLabelId2' for='MyCheckboxId2'>SecondLabelText</label>"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("SecondLabelText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 0 distance: 30 start: 55",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabel_Text_WrongTextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<label id='MyLabelId1' for='MyCheckboxId1'>FirstLabelText</label>"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1"
-        + "<label id='MyLabelId2' for='MyCheckboxId2'>SecondLabelText</label>"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("SecondLabelText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byLabelChild_Text() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyLabelId1'>FirstLabelText"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
+        + "</label>"
         + "<label id='MyLabelId2'>SecondLabelText"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</label>"
-        + "</form>" + "</body></html>";
+        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondLabelText", false));
@@ -416,85 +177,5 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
         .assertEquals(
             "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 10 distance: 24 start: 40",
             tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabelChild_TextWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyLabelId1'>FirstLabelText"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
-        + "<label id='MyLabelId2'>SecondLabelText"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</label>"
-        + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("SecondLabelTe*", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 12 distance: 24 start: 40",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabelChild_TextPart() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyLabelId1'>FirstLabelText"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
-        + "<label id='MyLabelId2'>SecondLabelText"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</label>"
-        + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("econdLabelTex", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 12 distance: 24 start: 40",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabelChild_Text_TextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<label id='MyLabelId1'>FirstLabelText"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
-        + "<label id='MyLabelId2'>SecondLabelText"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</label>"
-        + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("SecondLabelText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 10 distance: 30 start: 55",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabelChild_Text_WrongTextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
-        + "<label id='MyLabelId1'>FirstLabelText"
-        + "<input id='MyCheckboxId1' name='MyCheckboxIdName' value='value1' type='checkbox'>CheckBox1" + "</label>"
-        + "<label id='MyLabelId2'>SecondLabelText"
-        + "<input id='MyCheckboxId2' name='MyCheckboxIdName' value='value2' type='checkbox'>CheckBox2" + "</label>"
-        + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("SecondLabelText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 }

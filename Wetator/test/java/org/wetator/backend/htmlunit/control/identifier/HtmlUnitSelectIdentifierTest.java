@@ -41,14 +41,22 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
   @Test
   public void byId() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyId' name='MySelectName' size='2'>"
-        + "<option id='MyOptionId' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='MyId' name='MySelectName' size='2'>"
+        + "<option id='MyOptionId' value='o_value1'>option1</option>"
+        + "<option value='o_value2'>option2</option>"
+        + "<option value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -57,94 +65,30 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byTextBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>" + "</select>" + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("SecondSelectLabelText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 0 distance: 45 start: 66",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byTextBeforeWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>" + "</select>" + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("cond*elText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 2 distance: 47 start: 66",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byTextPathBefore() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>" + "</select>" + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Fir", false));
-    tmpSearch.add(new SecretString("tSelectLabelText", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
-
-    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlSelect (id='MyFirstSelectId') (name='MyFirstSelectName')] found by: BY_LABEL_TEXT coverage: 1 distance: 1 start: 20",
-            tmpFound.getEntriesSorted().get(0).toString());
-    Assert
-        .assertEquals(
-            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_TEXT coverage: 46 distance: 63 start: 66",
-            tmpFound.getEntriesSorted().get(1).toString());
-  }
-
-  @Test
   public void byName() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>" + "</select>" + "SecondSelectLabelText"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "SecondSelectLabelText"
         + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyFirstSelectName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstSelectId", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondSelectId", new WPath(tmpSearch)));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyFirstSelectId", "MySecondSelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -154,21 +98,93 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabelText() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
-        + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>" + "<label id='MySecondLabelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>" + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>" + "<option id='2_3' value='o_value3'>option3</option>"
-        + "</select>" + "</form>" + "</body></html>";
+  public void byLabelTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "FirstSelectLabelText"
+        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "SecondSelectLabelText"
+        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstLabelId", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", new WPath(tmpSearch)));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyFirstSelectId", "MySecondSelectId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 0 distance: 45 start: 66",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byWholeTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker1</p>"
+        + "<input id='otherId' name='otherName' type='checkbox'>"
+        + "<p>Marker2</p>"
+        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Marker1", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "MySecondSelectId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabel_Text() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "<label id='MySecondLabelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
+        + "<select id='MySecondSelectId' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("SecondSelectLabelText", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyFirstLabelId", "MySecondLabelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44 start: 66",
@@ -176,20 +192,32 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabelTextChild() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='MyFirstLabelId'>FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>" + "</label>" + "<label id='MySecondLabelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>" + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>" + "<option id='2_3' value='o_value3'>option3</option>"
-        + "</select>" + "</label>" + "</form>" + "</body></html>";
+  public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyFirstLabelId'>FirstSelectLabelText"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</label>"
+        + "<label id='MySecondLabelId'>SecondSelectLabelText"
+        + "<select id='MySecondSelectId' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyFirstLabelId", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MySecondLabelId", new WPath(tmpSearch)));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyFirstLabelId", "MySecondLabelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44 start: 66",

@@ -234,6 +234,7 @@ Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcher
 Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTextMatcherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcherTest.java -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
