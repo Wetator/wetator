@@ -180,6 +180,8 @@ public class AutomatonShortMatcherTest {
     Assert.assertEquals(4, tmpMatcher.start());
     Assert.assertEquals(4, tmpMatcher.end());
     Assert.assertEquals("", tmpMatcher.group());
+
+    Assert.assertFalse(tmpMatcher.find());
   }
 
   @Test
