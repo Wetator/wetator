@@ -785,7 +785,7 @@ public class SearchPatternTest {
     tmpPattern = SearchPattern.compile("*f");
     int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
 
-    Assert.assertEquals(2, tmpResult);
+    Assert.assertEquals(5, tmpResult);
   }
 
   @Test
@@ -815,7 +815,7 @@ public class SearchPatternTest {
     tmpPattern = SearchPattern.compile("?*f");
     int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
 
-    Assert.assertEquals(2, tmpResult);
+    Assert.assertEquals(4, tmpResult);
   }
 
   @Test

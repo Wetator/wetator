@@ -147,7 +147,7 @@ public class SearchPatternFirstOccurrenceInTest {
     tmpPattern = SearchPattern.compile("*Wetator*");
     Assert.assertEquals(new FindSpot(0, 7), tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("*et*or*");
-    Assert.assertEquals(new FindSpot(0, 7), tmpPattern.firstOccurenceIn(tmpString));
+    Assert.assertEquals(new FindSpot(1, 7), tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("et*o");
     Assert.assertEquals(new FindSpot(1, 6), tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("W*t");
@@ -293,7 +293,7 @@ public class SearchPatternFirstOccurrenceInTest {
     tmpPattern = SearchPattern.compile("*Wetator*");
     Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpString, 2));
     tmpPattern = SearchPattern.compile("*et*or*");
-    Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpString, 2));
+    Assert.assertEquals(new FindSpot(3, 9), tmpPattern.firstOccurenceIn(tmpString, 2));
     tmpPattern = SearchPattern.compile("et*o");
     Assert.assertEquals(new FindSpot(3, 8), tmpPattern.firstOccurenceIn(tmpString, 2));
     tmpPattern = SearchPattern.compile("W*t");
