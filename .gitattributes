@@ -256,6 +256,7 @@ test/java/org/wetator/core/CommandTest.java -text
 test/java/org/wetator/core/VariableTest.java -text
 test/java/org/wetator/core/WetatorContextExecuteTest.java -text svneol=unset#text/plain
 test/java/org/wetator/core/WetatorEngineExecuteTestsTest.java -text svneol=unset#text/plain
+test/java/org/wetator/core/searchpattern/AutomatonShortFromEndMatcherTest.java -text
 test/java/org/wetator/core/searchpattern/AutomatonShortMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/core/searchpattern/ContentPatternTest.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text

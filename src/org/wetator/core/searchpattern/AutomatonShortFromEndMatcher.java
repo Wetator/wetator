@@ -49,25 +49,28 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * @return {@code true} if there is a matching subsequence.
    */
   public boolean find() {
+    int tmpLength = chars.length();
+
     int tmpBegin;
     if (matchEnd == -2) {
       return false;
     } else if (matchEnd == -1) {
-      tmpBegin = chars.length() - 1;
+      tmpBegin = chars.length();
     } else {
-      tmpBegin = matchEnd - 1;
+      tmpBegin = matchStart - 1;
+      tmpLength = matchEnd - 1;
     }
 
-    int tmpMatchStart;
-    int tmpMatchEnd;
-    if (automaton.isAccept(automaton.getInitialState())) {
-      tmpMatchStart = tmpBegin;
-      tmpMatchEnd = tmpBegin;
-    } else {
-      tmpMatchStart = -1;
-      tmpMatchEnd = -1;
+    if (tmpBegin < 0) {
+      return false;
     }
-    final int tmpLength = chars.length();
+
+    if (automaton.isAccept(automaton.getInitialState())) {
+      setMatch(tmpBegin, tmpBegin);
+      return true;
+    }
+
+    int tmpMatchStart = -1;
     while (tmpBegin > -1) {
       int tmpInitState = automaton.getInitialState();
       for (int i = tmpBegin; i < tmpLength; i += 1) {
@@ -78,23 +81,15 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
           if (tmpMatchStart == -1) {
             tmpMatchStart = tmpBegin;
           }
-          tmpMatchEnd = i;
 
-          setMatch(tmpMatchStart, tmpMatchEnd + 1);
+          setMatch(tmpMatchStart, i + 1);
           return true;
         }
         tmpInitState = tmpNewState;
       }
-      if (tmpMatchStart != -1) {
-        setMatch(tmpMatchStart, tmpMatchEnd + 1);
-        return true;
-      }
       tmpBegin -= 1;
     }
-    if (tmpMatchStart != -1) {
-      setMatch(tmpMatchStart, tmpMatchEnd + 1);
-      return true;
-    }
+
     setMatch(-2, -2);
     return false;
   }
