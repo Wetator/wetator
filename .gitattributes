@@ -191,6 +191,7 @@ Wetator/test/excel/default_command_set.xls -text
 Wetator/test/excel/modules/module.xls -text
 Wetator/test/excel/sql_command_set.xls -text
 Wetator/test/java/org/wetator/automatonTest.jpage -text
+Wetator/test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/WeightedControlListTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitControlRepositoryTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
