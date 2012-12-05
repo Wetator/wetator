@@ -44,6 +44,12 @@ public class WPath {
    * @throws InvalidInputException in case of an invalid {@link WPath}
    */
   public WPath(final List<SecretString> aPathNodes) throws InvalidInputException {
+    if (aPathNodes == null) {
+      // TODO i18n
+      final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { "null",
+          "Invalid WPath. Must not be null." });
+      throw new InvalidInputException(tmpMessage);
+    }
     rawPath = aPathNodes;
     parseNodes();
   }
