@@ -254,6 +254,7 @@ Wetator/test/java/org/wetator/commandset/XmlIncubatorCommandSetTest.java -text
 Wetator/test/java/org/wetator/commandset/XmlOtherTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/CommandTest.java -text
+Wetator/test/java/org/wetator/core/ParameterTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/VariableTest.java -text
 Wetator/test/java/org/wetator/core/WetatorContextExecuteTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/WetatorEngineExecuteTestsTest.java -text svneol=unset#text/plain
