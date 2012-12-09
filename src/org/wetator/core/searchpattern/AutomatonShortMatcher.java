@@ -25,6 +25,12 @@ import dk.brics.automaton.RunAutomaton;
  */
 public final class AutomatonShortMatcher implements MatchResult {
 
+  private final RunAutomaton automaton;
+  private final CharSequence chars;
+
+  private int matchStart = -1;
+  private int matchEnd = -1;
+
   /**
    * Constructor.
    * 
@@ -48,12 +54,6 @@ public final class AutomatonShortMatcher implements MatchResult {
     automaton = anAutomaton;
     matchStart = Math.max(0, aStartPos) - 1;
   }
-
-  private final RunAutomaton automaton;
-  private final CharSequence chars;
-
-  private int matchStart = -1;
-  private int matchEnd = -1;
 
   /**
    * Find the next matching subsequence of the input. <br />
@@ -83,9 +83,9 @@ public final class AutomatonShortMatcher implements MatchResult {
     int tmpMatchStart = -1;
 
     while (tmpBegin < tmpLength) {
-      int tmpInitState = automaton.getInitialState();
+      int tmpState = automaton.getInitialState();
       for (int i = tmpBegin; i < tmpLength; i += 1) {
-        final int tmpNewState = automaton.step(tmpInitState, chars.charAt(i));
+        final int tmpNewState = automaton.step(tmpState, chars.charAt(i));
         if (tmpNewState == -1) {
           break;
         } else if (automaton.isAccept(tmpNewState)) {
@@ -96,13 +96,13 @@ public final class AutomatonShortMatcher implements MatchResult {
           setMatch(tmpMatchStart, i + 1);
 
           // match found, but is this the shortest one?
-          while (matchEnd - matchStart > 1 && reduceIfPossible()) {
-            // nothing more to do
+          if (matchEnd - matchStart > 1) {
+            reduceIfPossible();
           }
 
           return true;
         }
-        tmpInitState = tmpNewState;
+        tmpState = tmpNewState;
       }
       tmpBegin += 1;
     }
@@ -115,32 +115,24 @@ public final class AutomatonShortMatcher implements MatchResult {
    * Internal helper, that check, if a shorter match
    * of the already found substring is also possible.
    * If yes, this updates the match position.
-   * 
-   * @return {@code true} if there is a matching subsequence.
    */
-  private boolean reduceIfPossible() {
+  private void reduceIfPossible() {
     int tmpBegin = matchStart + 1;
-    int tmpMatchStart = -1;
 
     while (tmpBegin < matchEnd) {
-      int tmpInitState = automaton.getInitialState();
+      int tmpState = automaton.getInitialState();
       for (int i = tmpBegin; i < matchEnd; i += 1) {
-        final int tmpNewState = automaton.step(tmpInitState, chars.charAt(i));
+        final int tmpNewState = automaton.step(tmpState, chars.charAt(i));
         if (tmpNewState == -1) {
-          break;
+          return;
         } else if (automaton.isAccept(tmpNewState)) {
-          if (tmpMatchStart == -1) {
-            tmpMatchStart = tmpBegin;
-          }
-          setMatch(tmpMatchStart, i + 1);
-          return true;
+          setMatch(tmpBegin, matchEnd);
+          break;
         }
-        tmpInitState = tmpNewState;
+        tmpState = tmpNewState;
       }
       tmpBegin += 1;
     }
-
-    return false;
   }
 
   private void setMatch(final int aMatchStart, final int aMatchEnd) throws IllegalArgumentException {
