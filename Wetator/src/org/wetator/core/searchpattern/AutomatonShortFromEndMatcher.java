@@ -25,6 +25,12 @@ import dk.brics.automaton.RunAutomaton;
  */
 public final class AutomatonShortFromEndMatcher implements MatchResult {
 
+  private final RunAutomaton automaton;
+  private final CharSequence chars;
+
+  private int matchStart = -1;
+  private int matchEnd = -1;
+
   /**
    * Constructor.
    * 
@@ -35,12 +41,6 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
     chars = aCharSequence;
     automaton = anAutomaton;
   }
-
-  private final RunAutomaton automaton;
-  private final CharSequence chars;
-
-  private int matchStart = -1;
-  private int matchEnd = -1;
 
   /**
    * Find the next matching subsequence of the input. <br />
