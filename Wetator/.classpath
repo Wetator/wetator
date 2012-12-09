@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ant-1.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/automaton-1.11.8.jar"/>
-	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar" sourcepath="lib_src/commons-lang3-3.1-sources.jar"/>
@@ -13,13 +13,13 @@
 	<classpathentry kind="lib" path="lib/fontbox-1.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.11-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.11-SNAPSHOT-sources.jar"/>
-	<classpathentry kind="lib" path="lib/httpclient-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/httpcore-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/httpmime-4.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.12-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-1.8.5.jar"/>
-	<classpathentry kind="lib" path="lib/nekohtml-1.9.16.jar"/>
+	<classpathentry kind="lib" path="lib/nekohtml-1.9.17.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.7.1.jar" sourcepath="lib_src/pdfbox-1.7.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.8.jar"/>
@@ -33,8 +33,8 @@
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20081112.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-3.0.0.v201112011016.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.11-SNAPSHOT.jar" sourcepath="/htmlunit-core-js/src"/>
-	<classpathentry kind="lib" path="lib/cssparser-0.9.8-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.12-SNAPSHOT.jar" sourcepath="/htmlunit-core-js/src"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.8.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-client-8.1.7.v20120910.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-continuation-8.1.7.v20120910.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-http-8.1.7.v20120910.jar"/>
