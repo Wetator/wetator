@@ -240,12 +240,7 @@ final class RegExpSearchPattern extends SearchPattern {
     }
 
     final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, minLength, runAutomaton);
-
-    final boolean tmpFound = tmpMatcher.find();
-    if (!tmpFound) {
-      return false;
-    }
-    return aString.length() == tmpMatcher.end();
+    return tmpMatcher.matches();
   }
 
   /**
