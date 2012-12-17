@@ -20,26 +20,27 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import dk.brics.automaton.Automaton;
+import dk.brics.automaton.AutomatonMatcher;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
 /**
  * @author frank.danek
  */
-public class AutomatonFromEndMatcherTest {
+public class AutomatonMatcherTest {
 
   @Test
   public void dot() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".", "ab");
-    assertGroup(tmpMatcher, 1, 2, "b");
+    assertGroup(tmpMatcher, 0, 1, "a");
   }
 
   @Test
   public void dotStar() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".*", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".*", "");
     assertGroup(tmpMatcher, 0, 0, "");
 
     tmpMatcher = createMatcher(".*", "ab");
@@ -48,7 +49,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void dotPlus() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".+", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".+", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".+", "ab");
@@ -57,16 +58,16 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void dotQuest() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".?", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".?", "");
     assertGroup(tmpMatcher, 0, 0, "");
 
     tmpMatcher = createMatcher(".?", "ab");
-    assertGroup(tmpMatcher, 1, 2, "b");
+    assertGroup(tmpMatcher, 0, 1, "a");
   }
 
   @Test
   public void prefixDot() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.", "ab");
@@ -97,15 +98,15 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 3, "xb");
 
     tmpMatcher = createMatcher("x.", "xbxc");
-    assertGroup(tmpMatcher, 2, 4, "xc");
+    assertGroup(tmpMatcher, 0, 2, "xb");
 
     tmpMatcher = createMatcher("x.", "axbxc");
-    assertGroup(tmpMatcher, 3, 5, "xc");
+    assertGroup(tmpMatcher, 1, 3, "xb");
   }
 
   @Test
   public void prefixDotStar() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.*", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.*", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.*", "ab");
@@ -144,7 +145,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void prefixDotPlus() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.+", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.+", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.+", "ab");
@@ -183,7 +184,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void prefixDotQuest() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.?", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.?", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.?", "ab");
@@ -211,18 +212,18 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 2, 4, "xb");
 
     tmpMatcher = createMatcher("x.?", "axbx");
-    assertGroup(tmpMatcher, 3, 4, "x");
+    assertGroup(tmpMatcher, 1, 3, "xb");
 
     tmpMatcher = createMatcher("x.?", "xbxc");
-    assertGroup(tmpMatcher, 2, 4, "xc");
+    assertGroup(tmpMatcher, 0, 2, "xb");
 
     tmpMatcher = createMatcher("x.?", "axbxc");
-    assertGroup(tmpMatcher, 3, 5, "xc");
+    assertGroup(tmpMatcher, 1, 3, "xb");
   }
 
   @Test
   public void suffixDot() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".x", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".x", "ab");
@@ -253,18 +254,18 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 3, "bx");
 
     tmpMatcher = createMatcher(".x", "axbx");
-    assertGroup(tmpMatcher, 2, 4, "bx");
+    assertGroup(tmpMatcher, 0, 2, "ax");
 
     tmpMatcher = createMatcher(".x", "xbxc");
     assertGroup(tmpMatcher, 1, 3, "bx");
 
     tmpMatcher = createMatcher(".x", "axbxc");
-    assertGroup(tmpMatcher, 2, 4, "bx");
+    assertGroup(tmpMatcher, 0, 2, "ax");
   }
 
   @Test
   public void suffixDotStar() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".*x", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".*x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".*x", "ab");
@@ -306,7 +307,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void suffixDotPlus() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".+x", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".+x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".+x", "ab");
@@ -348,7 +349,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void suffixDotQuest() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".?x", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".?x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".?x", "ab");
@@ -376,21 +377,21 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 3, "ax");
 
     tmpMatcher = createMatcher(".?x", "xbx");
-    assertGroup(tmpMatcher, 1, 3, "bx");
+    assertGroup(tmpMatcher, 0, 1, "x");
 
     tmpMatcher = createMatcher(".?x", "axbx");
-    assertGroup(tmpMatcher, 2, 4, "bx");
+    assertGroup(tmpMatcher, 0, 2, "ax");
 
     tmpMatcher = createMatcher(".?x", "xbxc");
-    assertGroup(tmpMatcher, 1, 3, "bx");
+    assertGroup(tmpMatcher, 0, 1, "x");
 
     tmpMatcher = createMatcher(".?x", "axbxc");
-    assertGroup(tmpMatcher, 2, 4, "bx");
+    assertGroup(tmpMatcher, 0, 2, "ax");
   }
 
   @Test
   public void prefixAndSuffixDot() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.x", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.x", "ab");
@@ -442,21 +443,21 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.x", "xbxcx");
-    assertGroup(tmpMatcher, 2, 5, "xcx");
+    assertGroup(tmpMatcher, 0, 3, "xbx");
 
     tmpMatcher = createMatcher("x.x", "axbxcx");
-    assertGroup(tmpMatcher, 3, 6, "xcx");
+    assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.x", "xbxcxd");
-    assertGroup(tmpMatcher, 2, 5, "xcx");
+    assertGroup(tmpMatcher, 0, 3, "xbx");
 
     tmpMatcher = createMatcher("x.x", "axbxcxd");
-    assertGroup(tmpMatcher, 3, 6, "xcx");
+    assertGroup(tmpMatcher, 1, 4, "xbx");
   }
 
   @Test
   public void prefixAndSuffixDotStar() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.*x", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.*x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.*x", "ab");
@@ -522,7 +523,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void prefixAndSuffixDotPlus() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.+x", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.+x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.+x", "ab");
@@ -588,7 +589,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void prefixAndSuffixDotQuest() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher("x.?x", "");
+    AutomatonMatcher tmpMatcher = createMatcher("x.?x", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher("x.?x", "ab");
@@ -640,21 +641,21 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.?x", "xbxcx");
-    assertGroup(tmpMatcher, 2, 5, "xcx");
+    assertGroup(tmpMatcher, 0, 3, "xbx");
 
     tmpMatcher = createMatcher("x.?x", "axbxcx");
-    assertGroup(tmpMatcher, 3, 6, "xcx");
+    assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.?x", "xbxcxd");
-    assertGroup(tmpMatcher, 2, 5, "xcx");
+    assertGroup(tmpMatcher, 0, 3, "xbx");
 
     tmpMatcher = createMatcher("x.?x", "axbxcxd");
-    assertGroup(tmpMatcher, 3, 6, "xcx");
+    assertGroup(tmpMatcher, 1, 4, "xbx");
   }
 
   @Test
   public void dotMiddleDot() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".x.", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".x.", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".x.", "ab");
@@ -691,12 +692,12 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "bxc");
 
     tmpMatcher = createMatcher(".x.", "axbxc");
-    assertGroup(tmpMatcher, 2, 5, "bxc");
+    assertGroup(tmpMatcher, 0, 3, "axb");
   }
 
   @Test
   public void dotStarMiddleDotStar() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".*x.*", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".*x.*", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".*x.*", "ab");
@@ -738,7 +739,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void dotPlusMiddleDotPlus() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".+x.+", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".+x.+", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".+x.+", "ab");
@@ -780,7 +781,7 @@ public class AutomatonFromEndMatcherTest {
 
   @Test
   public void dotQuestMiddleDotQuest() throws Exception {
-    AutomatonFromEndMatcher tmpMatcher = createMatcher(".?x.?", "");
+    AutomatonMatcher tmpMatcher = createMatcher(".?x.?", "");
     Assert.assertFalse(tmpMatcher.find());
 
     tmpMatcher = createMatcher(".?x.?", "ab");
@@ -808,25 +809,25 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "axb");
 
     tmpMatcher = createMatcher(".?x.?", "xbx");
-    assertGroup(tmpMatcher, 1, 3, "bx");
+    assertGroup(tmpMatcher, 0, 2, "xb");
 
     tmpMatcher = createMatcher(".?x.?", "axbx");
-    assertGroup(tmpMatcher, 2, 4, "bx");
+    assertGroup(tmpMatcher, 0, 3, "axb");
 
     tmpMatcher = createMatcher(".?x.?", "xbxc");
-    assertGroup(tmpMatcher, 1, 4, "bxc");
+    assertGroup(tmpMatcher, 0, 2, "xb");
 
     tmpMatcher = createMatcher(".?x.?", "axbxc");
-    assertGroup(tmpMatcher, 2, 5, "bxc");
+    assertGroup(tmpMatcher, 0, 3, "axb");
   }
 
-  private AutomatonFromEndMatcher createMatcher(String aPattern, String aText) {
+  private AutomatonMatcher createMatcher(String aPattern, String aText) {
     Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
     RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
-    return new AutomatonFromEndMatcher(aText, tmpRunAutomaton);
+    return tmpRunAutomaton.newMatcher(aText);
   }
 
-  private void assertGroup(AutomatonFromEndMatcher aMatcher, int aStart, int anEnd, String aGroup) {
+  private void assertGroup(AutomatonMatcher aMatcher, int aStart, int anEnd, String aGroup) {
     Assert.assertTrue(aMatcher.find());
     Assert.assertEquals(aStart, aMatcher.start());
     Assert.assertEquals(anEnd, aMatcher.end());
