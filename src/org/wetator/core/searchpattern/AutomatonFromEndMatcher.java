@@ -89,4 +89,20 @@ public final class AutomatonFromEndMatcher {
     }
     return false;
   }
+
+  public boolean find() {
+    return false;
+  }
+
+  public int start() {
+    return 0;
+  }
+
+  public int end() {
+    return 0;
+  }
+
+  public String group() {
+    return null;
+  }
 }
