@@ -62,10 +62,11 @@ public final class AutomatonShortMatcher implements MatchResult {
    * @return {@code true} if there is a matching subsequence.
    */
   public boolean find() {
-    int tmpBegin;
     if (matchStart == -2) {
       return false;
     }
+
+    int tmpBegin;
     if (matchStart == -1) {
       tmpBegin = 0;
     } else {
@@ -89,7 +90,8 @@ public final class AutomatonShortMatcher implements MatchResult {
         final int tmpNewState = automaton.step(tmpState, chars.charAt(i));
         if (tmpNewState == -1) {
           break;
-        } else if (automaton.isAccept(tmpNewState)) {
+        }
+        if (automaton.isAccept(tmpNewState)) {
           if (tmpMatchStart == -1) {
             tmpMatchStart = tmpBegin;
           }
