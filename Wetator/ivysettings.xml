@@ -27,6 +27,7 @@
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
         <url name="wetator" checkmodified="true" changingPattern="^.+-SNAPSHOT$">
+            <ivy pattern="http://www.wetator.org/repo/[module]/[revision]/ivy.xml" />
             <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
             <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
         </url>
