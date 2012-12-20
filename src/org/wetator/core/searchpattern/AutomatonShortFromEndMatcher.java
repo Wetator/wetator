@@ -49,12 +49,12 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * @return {@code true} if there is a matching subsequence.
    */
   public boolean find() {
-    int tmpLength = chars.length();
-
-    int tmpBegin;
     if (matchEnd == -2) {
       return false;
     }
+
+    int tmpLength = chars.length();
+    int tmpBegin;
     if (matchEnd == -1) {
       tmpBegin = chars.length();
     } else {
@@ -73,12 +73,13 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
 
     int tmpMatchStart = -1;
     while (tmpBegin > -1) {
-      int tmpInitState = automaton.getInitialState();
+      int tmpState = automaton.getInitialState();
       for (int i = tmpBegin; i < tmpLength; i += 1) {
-        final int tmpNewState = automaton.step(tmpInitState, chars.charAt(i));
+        final int tmpNewState = automaton.step(tmpState, chars.charAt(i));
         if (tmpNewState == -1) {
           break;
-        } else if (automaton.isAccept(tmpNewState)) {
+        }
+        if (automaton.isAccept(tmpNewState)) {
           if (tmpMatchStart == -1) {
             tmpMatchStart = tmpBegin;
           }
@@ -86,7 +87,7 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
           setMatch(tmpMatchStart, i + 1);
           return true;
         }
-        tmpInitState = tmpNewState;
+        tmpState = tmpNewState;
       }
       tmpBegin -= 1;
     }
