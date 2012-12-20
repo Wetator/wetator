@@ -54,7 +54,8 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
     int tmpBegin;
     if (matchEnd == -2) {
       return false;
-    } else if (matchEnd == -1) {
+    }
+    if (matchEnd == -1) {
       tmpBegin = chars.length();
     } else {
       tmpBegin = matchStart - 1;

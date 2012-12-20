@@ -65,7 +65,8 @@ public final class AutomatonShortMatcher implements MatchResult {
     int tmpBegin;
     if (matchStart == -2) {
       return false;
-    } else if (matchStart == -1) {
+    }
+    if (matchStart == -1) {
       tmpBegin = 0;
     } else {
       tmpBegin = matchStart + 1;
