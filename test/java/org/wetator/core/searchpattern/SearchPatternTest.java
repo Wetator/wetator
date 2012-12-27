@@ -616,7 +616,7 @@ public class SearchPatternTest {
     tmpPattern = SearchPattern.compile("*f");
     int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
 
-    Assert.assertEquals(3, tmpResult);
+    Assert.assertEquals(0, tmpResult);
   }
 
   @Test
@@ -646,7 +646,7 @@ public class SearchPatternTest {
     tmpPattern = SearchPattern.compile("?*f");
     int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
 
-    Assert.assertEquals(2, tmpResult);
+    Assert.assertEquals(0, tmpResult);
   }
 
   @Test
