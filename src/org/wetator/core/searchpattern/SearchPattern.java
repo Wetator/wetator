@@ -183,6 +183,22 @@ public abstract class SearchPattern {
   }
 
   /**
+   * Returns true if the patterns matches the whole string.
+   * 
+   * @param aString the String to match with
+   * @return true or false
+   */
+  public abstract boolean matches(String aString);
+
+  /**
+   * Returns true, if the string ends with this pattern.
+   * 
+   * @param aString the string to match
+   * @return true or false
+   */
+  public abstract boolean matchesAtEnd(String aString);
+
+  /**
    * Searches for the first occurrence of this search pattern inside the given string.
    * 
    * @param aString the string to search inside
@@ -226,20 +242,13 @@ public abstract class SearchPattern {
   public abstract int noOfCharsAfterLastOccurenceIn(String aString);
 
   /**
-   * Returns true if the patterns matches the whole string.
+   * Calculates the number of chars after the last shortest occurrence of this search pattern in the given string.<br>
+   * If this search pattern is right truncated (star at end), then this returns zero.
    * 
-   * @param aString the String to match with
-   * @return true or false
+   * @param aString the string to search inside
+   * @return the number of chars or -1 if the pattern is not found
    */
-  public abstract boolean matches(String aString);
-
-  /**
-   * Returns true, if the string ends with this pattern.
-   * 
-   * @param aString the string to match
-   * @return true or false
-   */
-  public abstract boolean matchesAtEnd(String aString);
+  public abstract int noOfCharsAfterLastShortestOccurenceIn(String aString);
 
   /**
    * Calculates the sum of the number of characters before and after the match of this search pattern in the given

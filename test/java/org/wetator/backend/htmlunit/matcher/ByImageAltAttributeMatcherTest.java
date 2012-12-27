@@ -88,7 +88,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test

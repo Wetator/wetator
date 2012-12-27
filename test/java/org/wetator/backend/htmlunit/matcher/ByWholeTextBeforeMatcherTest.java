@@ -105,7 +105,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_TEXT, 2, 8, 15, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
   }
 
   @Test

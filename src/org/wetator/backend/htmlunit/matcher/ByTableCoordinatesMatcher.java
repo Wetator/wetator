@@ -78,7 +78,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
         final int tmpCoverage = 0;
         if (tmpCoverage > -1) {
           final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-          final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+          final int tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
           tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, tmpCoverage, tmpDistance,
               tmpNodeSpot.getStartPos()));
         }

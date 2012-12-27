@@ -93,7 +93,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
@@ -238,7 +238,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test

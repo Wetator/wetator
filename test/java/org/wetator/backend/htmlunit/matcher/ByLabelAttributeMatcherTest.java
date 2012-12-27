@@ -103,7 +103,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test

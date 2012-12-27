@@ -16,12 +16,11 @@
 
 package org.wetator.core.searchpattern;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * This is a special implementation of a {@link SearchPattern} that matches everything.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class MatchAllSearchPattern extends SearchPattern {
 
@@ -30,6 +29,26 @@ public final class MatchAllSearchPattern extends SearchPattern {
    */
   protected MatchAllSearchPattern() {
     super("*");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
+   */
+  @Override
+  public boolean matches(final String aString) {
+    return true;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
+   */
+  @Override
+  public boolean matchesAtEnd(final String aString) {
+    return false;
   }
 
   /**
@@ -69,7 +88,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
    */
   @Override
   public int noOfCharsBeforeLastOccurenceIn(final String aString) {
-    if (StringUtils.isEmpty(aString)) {
+    if (aString == null) {
       return -1;
     }
     return 0;
@@ -82,30 +101,20 @@ public final class MatchAllSearchPattern extends SearchPattern {
    */
   @Override
   public int noOfCharsAfterLastOccurenceIn(final String aString) {
-    if (null == aString) {
-      return 0;
+    if (aString == null) {
+      return -1;
     }
-    return aString.length();
+    return 0;
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
    */
   @Override
-  public boolean matches(final String aString) {
-    return true;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
-   */
-  @Override
-  public boolean matchesAtEnd(final String aString) {
-    return false;
+  public int noOfCharsAfterLastShortestOccurenceIn(final String aString) {
+    return noOfCharsAfterLastOccurenceIn(aString);
   }
 
   /**
@@ -115,6 +124,9 @@ public final class MatchAllSearchPattern extends SearchPattern {
    */
   @Override
   public int noOfSurroundingCharsIn(final String aString) {
+    if (aString == null) {
+      return -1;
+    }
     return 0;
   }
 

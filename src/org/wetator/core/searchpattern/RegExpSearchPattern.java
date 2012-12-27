@@ -19,6 +19,7 @@ package org.wetator.core.searchpattern;
 import org.apache.commons.lang3.StringUtils;
 
 import dk.brics.automaton.Automaton;
+import dk.brics.automaton.AutomatonMatcher;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
@@ -34,6 +35,7 @@ final class RegExpSearchPattern extends SearchPattern {
   private static long constructor;
   private static long noOfCharsBeforeLastOccurenceIn;
   private static long noOfCharsAfterLastOccurenceIn;
+  private static long noOfCharsAfterLastShortestOccurenceIn;
   private static long matches;
   private static long noOfSurroundingCharsIn;
   private static long matchesAtEnd;
@@ -46,14 +48,16 @@ final class RegExpSearchPattern extends SearchPattern {
    */
   public static void dumpStatistics() {
     System.out.println("constructor: " + constructor);
-    System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn);
-    System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn);
     System.out.println("matches: " + matches);
     System.out.println("matchesAtEnd: " + matchesAtEnd);
-    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
     System.out.println();
     System.out.println("firstOccurenceIn: " + firstOccurenceIn);
     System.out.println("lastOccurenceIn: " + lastOccurenceIn);
+    System.out.println();
+    System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn);
+    System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn);
+    System.out.println("noOfCharsAfterLastShortestOccurenceIn: " + noOfCharsAfterLastShortestOccurenceIn);
+    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
   }
 
   private String patternString;
@@ -74,6 +78,49 @@ final class RegExpSearchPattern extends SearchPattern {
     final Automaton tmpAutomaton = new RegExp(patternString).toAutomaton();
     minLength = tmpAutomaton.getShortestExample(true).length();
     runAutomaton = new RunAutomaton(tmpAutomaton);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
+   */
+  @Override
+  public boolean matches(final String aString) {
+    matches++;
+    if (null == aString) {
+      return false;
+    }
+
+    if (aString.length() < minLength) {
+      return false;
+    }
+
+    return runAutomaton.run(aString);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
+   */
+  @Override
+  public boolean matchesAtEnd(final String aString) {
+    matchesAtEnd++;
+    if (StringUtils.isEmpty(aString)) {
+      return false;
+    }
+
+    if (aString.length() < minLength) {
+      return false;
+    }
+
+    final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, minLength, runAutomaton);
+    if (!tmpMatcher.find()) {
+      return false;
+    }
+
+    return tmpMatcher.end() == aString.length();
   }
 
   /**
@@ -158,6 +205,8 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
+    // final AutomatonMatcher tmpMatcher = runAutomaton.newMatcher(aString);
+    // final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
     final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
@@ -192,6 +241,55 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
+    // final AutomatonMatcher tmpMatcher = runAutomaton.newMatcher(aString);
+    //
+    // final boolean tmpFound = tmpMatcher.find();
+    // if (!tmpFound) {
+    // return -1;
+    // }
+    //
+    // // find last match
+    // int tmpEnd = tmpMatcher.end();
+    // while (tmpMatcher.find()) {
+    // tmpEnd = tmpMatcher.end();
+    // }
+    //
+    // // we found something
+    // tmpResult = aString.length() - tmpEnd;
+    // return tmpResult;
+
+    // // TODO change to AutomatonFromEndMatcher
+    final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, runAutomaton);
+    // final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
+
+    final boolean tmpFound = tmpMatcher.find();
+    if (!tmpFound) {
+      return -1;
+    }
+
+    // we found something
+    tmpResult = aString.length() - tmpMatcher.end();
+    return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
+   */
+  @Override
+  public int noOfCharsAfterLastShortestOccurenceIn(final String aString) {
+    noOfCharsAfterLastShortestOccurenceIn++;
+    int tmpResult = -1;
+
+    if (StringUtils.isEmpty(aString)) {
+      return tmpResult;
+    }
+
+    if (aString.length() < minLength) {
+      return -1;
+    }
+
     final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
     final boolean tmpFound = tmpMatcher.find();
@@ -207,45 +305,6 @@ final class RegExpSearchPattern extends SearchPattern {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
-   */
-  @Override
-  public boolean matches(final String aString) {
-    matches++;
-    if (null == aString) {
-      return false;
-    }
-
-    if (aString.length() < minLength) {
-      return false;
-    }
-
-    return runAutomaton.run(aString);
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
-   */
-  @Override
-  public boolean matchesAtEnd(final String aString) {
-    matchesAtEnd++;
-    if (StringUtils.isEmpty(aString)) {
-      return false;
-    }
-
-    if (aString.length() < minLength) {
-      return false;
-    }
-
-    final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, minLength, runAutomaton);
-    return tmpMatcher.find();
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
    * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
    */
   @Override
@@ -255,14 +314,13 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
-    final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
+    final AutomatonMatcher tmpMatcher = runAutomaton.newMatcher(aString);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return -1;
     }
 
-    // we found something
     int tmpResult = Integer.MAX_VALUE;
     // we found something
     while (tmpFound) {

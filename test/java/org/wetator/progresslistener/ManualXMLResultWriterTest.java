@@ -580,10 +580,11 @@ public class ManualXMLResultWriterTest {
     File tmpActualFile = new File(REPORT_LOG);
     String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
 
-    Assert.assertEquals(tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
-        "ManualXMLResultWriterTest.java)".replaceAll("\\{display: none;\\}", "\\{\\}")),
+    Assert.assertEquals(
+        tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
+            "ManualXMLResultWriterTest.java)".replaceAll("\\{display: none;\\}", "\\{\\}")).replaceAll("\r\n", "\n"),
         tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)")
-            .replaceAll("\\{display: none;\\}", "\\{\\}"));
+            .replaceAll("\\{display: none;\\}", "\\{\\}").replaceAll("\r\n", "\n"));
   }
 
   private String getString(InputStream anExpectedStream) throws IOException {

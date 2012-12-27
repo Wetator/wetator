@@ -94,7 +94,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 0, 6, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 6, tmpMatches.get(0));
   }
 
   @Test
