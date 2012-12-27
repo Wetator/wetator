@@ -133,7 +133,7 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 2, 5, "xbb");
 
     tmpMatcher = createMatcher("x.*", "axbx");
-    // assertGroup(tmpMatcher, 1, 4, "xbx");
+    // TODO assertGroup(tmpMatcher, 1, 4, "xbx");
     assertGroup(tmpMatcher, 3, 4, "x");
 
     tmpMatcher = createMatcher("x.*", "xbxc");
@@ -594,7 +594,7 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 2, 5, "xcx");
 
     tmpMatcher = createMatcher("x.+x", "axbxcxd");
-    // TODOD assertGroup(tmpMatcher, 1, 6, "xbxcx");
+    // TODO assertGroup(tmpMatcher, 1, 6, "xbxcx");
     assertGroup(tmpMatcher, 3, 6, "xcx");
   }
 

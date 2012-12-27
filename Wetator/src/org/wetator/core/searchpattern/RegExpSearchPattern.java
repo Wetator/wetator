@@ -205,21 +205,15 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
-    // final AutomatonMatcher tmpMatcher = runAutomaton.newMatcher(aString);
-    // final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
-    final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
+    final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, runAutomaton);
 
-    boolean tmpFound = tmpMatcher.find();
+    final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return -1;
     }
 
     // we found something
-    while (tmpFound) {
-      tmpResult = tmpMatcher.start();
-      tmpFound = tmpMatcher.find();
-    }
-
+    tmpResult = tmpMatcher.start();
     return tmpResult;
   }
 
@@ -241,26 +235,7 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
-    // final AutomatonMatcher tmpMatcher = runAutomaton.newMatcher(aString);
-    //
-    // final boolean tmpFound = tmpMatcher.find();
-    // if (!tmpFound) {
-    // return -1;
-    // }
-    //
-    // // find last match
-    // int tmpEnd = tmpMatcher.end();
-    // while (tmpMatcher.find()) {
-    // tmpEnd = tmpMatcher.end();
-    // }
-    //
-    // // we found something
-    // tmpResult = aString.length() - tmpEnd;
-    // return tmpResult;
-
-    // // TODO change to AutomatonFromEndMatcher
     final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, runAutomaton);
-    // final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
     final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
