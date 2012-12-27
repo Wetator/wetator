@@ -268,6 +268,7 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternLastOccurrenceInTe
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternMatchesAtEndTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternMatchesTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLastOccurenceInTest.java -text
+Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLastShortestOccurenceInTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text

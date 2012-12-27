@@ -109,7 +109,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
 
           tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
-          final int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+          final int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
             tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),

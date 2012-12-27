@@ -44,6 +44,30 @@ public final class TextOnlySearchPattern extends SearchPattern {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
+   */
+  @Override
+  public boolean matches(final String aString) {
+    return patternString.equals(aString);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
+   */
+  @Override
+  public boolean matchesAtEnd(final String aString) {
+    if (StringUtils.isEmpty(aString)) {
+      return false;
+    }
+
+    return aString.endsWith(patternString);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
    */
   @Override
@@ -125,25 +149,11 @@ public final class TextOnlySearchPattern extends SearchPattern {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
    */
   @Override
-  public boolean matches(final String aString) {
-    return patternString.equals(aString);
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
-   */
-  @Override
-  public boolean matchesAtEnd(final String aString) {
-    if (StringUtils.isEmpty(aString)) {
-      return false;
-    }
-
-    return aString.endsWith(patternString);
+  public int noOfCharsAfterLastShortestOccurenceIn(final String aString) {
+    return noOfCharsAfterLastOccurenceIn(aString);
   }
 
   /**
