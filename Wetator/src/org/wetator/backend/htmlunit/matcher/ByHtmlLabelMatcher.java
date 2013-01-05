@@ -43,8 +43,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    * Creates a new matcher with the given criteria.
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-   * @param aPathSpot the {@link FindSpot} the path was found first
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    * @param aClass the class of the {@link HtmlElement} the matching label labels.
    */
@@ -66,10 +66,14 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
       return tmpMatches;
     }
 
+    // was the path found at all
+    if (FindSpot.NOT_FOUND == pathSpot) {
+      return tmpMatches;
+    }
+
     // has the node the text before
     FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
-
+    if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
       final HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
@@ -85,8 +89,12 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               if (tmpElementForLabel.isDisplayed()) {
                 tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
                 final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                final int tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-
+                final int tmpDistance;
+                if (pathSearchPattern != null) {
+                  tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+                } else {
+                  tmpDistance = tmpTextBefore.length();
+                }
                 tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
                     tmpNodeSpot.getStartPos()));
               }
@@ -103,8 +111,12 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
             if (tmpChildElement.isDisplayed()) {
               tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-              final int tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-
+              final int tmpDistance;
+              if (pathSearchPattern != null) {
+                tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+              } else {
+                tmpDistance = tmpTextBefore.length();
+              }
               tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance, tmpNodeSpot
                   .getStartPos()));
             }

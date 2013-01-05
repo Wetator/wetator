@@ -51,8 +51,12 @@ public abstract class AbstractMatcherTest {
       WPath tmpPath = new WPath(aSearch);
 
       SearchPattern tmpSearchPattern = tmpPath.getLastNode().getSearchPattern();
-      SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
-      FindSpot tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      SearchPattern tmpPathSearchPattern = null;
+      FindSpot tmpPathSpot = null;
+      if (!tmpPath.getPathNodes().isEmpty()) {
+        tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
+        tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      }
 
       tmpMatches.addAll(createMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern).matches(
           tmpHtmlElement));

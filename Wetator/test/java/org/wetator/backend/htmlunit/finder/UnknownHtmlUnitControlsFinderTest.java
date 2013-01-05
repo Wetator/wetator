@@ -56,7 +56,11 @@ public class UnknownHtmlUnitControlsFinderTest {
 
   @Test
   public void noBody() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html>" + "<head><title>MyTitle</title></head>" + "</html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html>"
+        + "<head><title>MyTitle</title></head>"
+        + "</html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -71,7 +75,10 @@ public class UnknownHtmlUnitControlsFinderTest {
 
   @Test
   public void empty() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -85,8 +92,12 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void textNotFound() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
+  public void text_byText_not() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "MyText"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -100,8 +111,12 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void textExact() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
+  public void text_byText_exact() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "MyText"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -119,27 +134,84 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void textWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
+  public void text_byText_wildcardRight() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "MyText"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("My*", false));
+    tmpSearch.add(new SecretString("MyTe*", false));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    // TODO is coverage 2 correct here? shouldn't the wildcard match until the end of the element text?
     Assert
         .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 4 distance: 0 start: 0",
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 2 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void paragraphTextNotFound() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
+  public void text_byText_wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "MyText"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*Text", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    // TODO is distance 2 correct here? shouldn't the wildcard match from the start of the element text?
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 2 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void text_byText_part() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "MyText"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yTex", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    // TODO is distance 1 correct here? shouldn't it be coverage 2 and distance 0?
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 1 distance: 1 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byText_not() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -153,8 +225,12 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraphTextExact() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
+  public void paragraph_byText_exact() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -170,25 +246,78 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraphTextWildcard() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
+  public void paragraph_byText_wildcardRight() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("My*", false));
+    tmpSearch.add(new SecretString("MyTe*", false));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0 start: 0", tmpFound
+    // TODO is coverage 2 correct here? shouldn't the wildcard match until the end of the element text?
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 2 distance: 0 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void paragraphFormatedTextExact() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "</body></html>";
+  public void paragraph_byText_wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*Text", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    // TODO is distance 2 correct here? shouldn't the wildcard match from the start of the element text?
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 2 start: 0", tmpFound
+        .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byText_part() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yTex", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    // TODO is distance 1 correct here? shouldn't it be coverage 2 and distance 0?
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 1 distance: 1 start: 0", tmpFound
+        .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byText_formated() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>My<b>T</b>ext</p>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -201,11 +330,118 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byId_not() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p id='myId'>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yourId", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void paragraph_byId_exact() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p id='myId'>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("myId", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byId_wildcardRight() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p id='myId'>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("my*", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byId_wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p id='myId'>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*Id", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void paragraph_byId_part() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void manyParagraphs() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>My<b>T</b>ext</p>"
+        + "<p>line2</p>"
+        + "<p>line3</p>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -222,8 +458,13 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void manyParagraphs_MatchInside() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
+  public void manyParagraphs_matchInside() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>line2</p>"
+        + "<p>line3</p>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -241,7 +482,11 @@ public class UnknownHtmlUnitControlsFinderTest {
 
   @Test
   public void ignoringElementForControl() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<a>MyText</a>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<a>MyText</a>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 

@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
   @Test
-  public void byLabelNot() throws IOException, InvalidInputException {
+  public void not() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -57,7 +57,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabel() throws IOException, InvalidInputException {
+  public void full() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -77,7 +77,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelWildcard() throws IOException, InvalidInputException {
+  public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -97,7 +97,27 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelPart() throws IOException, InvalidInputException {
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*bel", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -117,7 +137,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabel_TextBefore() throws IOException, InvalidInputException {
+  public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -139,7 +159,73 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabel_WrongTextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("Lab*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*bel", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("abe", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -160,7 +246,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabel_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -180,7 +266,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChildNot() throws IOException, InvalidInputException {
+  public void childNot() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -200,7 +286,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChild() throws IOException, InvalidInputException {
+  public void childFull() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -221,7 +307,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChildWildcard() throws IOException, InvalidInputException {
+  public void childWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -242,7 +328,28 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChildPart() throws IOException, InvalidInputException {
+  public void childWildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*bel", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void childPart() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -263,7 +370,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChild_TextBefore() throws IOException, InvalidInputException {
+  public void childFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -286,7 +393,76 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChild_WrongTextBefore() throws IOException, InvalidInputException {
+  public void childWildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("Lab*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void childWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*bel", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void childPart_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("abe", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void childFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -308,7 +484,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelChild_NoTextBefore() throws IOException, InvalidInputException {
+  public void childFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

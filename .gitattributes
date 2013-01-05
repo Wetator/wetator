@@ -270,6 +270,7 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternMatchesTest.java -
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLastOccurenceInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLastShortestOccurenceInTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
+Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
 Wetator/test/java/org/wetator/i18n/MessagesTest.java -text

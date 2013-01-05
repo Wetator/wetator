@@ -35,8 +35,8 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
    * Creates a new matcher with the given criteria.
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-   * @param aPathSpot the {@link FindSpot} the path was found first
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByLabelTextBeforeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -51,7 +51,11 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
    */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    return htmlPageIndex.getLabelTextBefore(aHtmlElement, pathSpot.getEndPos());
+    int tmpStartPosition = 0;
+    if (pathSpot != null) {
+      tmpStartPosition = pathSpot.getEndPos();
+    }
+    return htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPosition);
   }
 
   /**
@@ -63,6 +67,6 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
   protected String processTextForDistance(final String aTextBefore) {
     // in this case the label is part of the text before
     // lets try to remove that
-    return aTextBefore.substring(0, searchPattern.noOfCharsBeforeLastOccurenceIn(aTextBefore));
+    return aTextBefore.substring(0, searchPattern.noOfCharsBeforeLastShortestOccurenceIn(aTextBefore));
   }
 }

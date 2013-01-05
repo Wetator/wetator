@@ -41,8 +41,8 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    * Creates a new matcher with the given criteria.
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-   * @param aPathSpot the {@link FindSpot} the path was found first
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByInnerImageMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -57,33 +57,39 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    */
   @Override
   public List<MatchResult> matches(final HtmlElement aHtmlElement) {
-    final List<MatchResult> tmpFound = new LinkedList<MatchResult>();
+    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+
+    // was the path found at all
+    if (FindSpot.NOT_FOUND == pathSpot) {
+      return tmpMatches;
+    }
+
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
+    if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
       // now check for the including image
       final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();
       for (HtmlElement tmpInnerElement : tmpAllchildElements) {
         if (tmpInnerElement instanceof HtmlImage) {
           // does image alt-text match?
-          tmpFound.addAll(new ByInnerImageAltAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
+          tmpMatches.addAll(new ByInnerImageAltAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
               searchPattern, tmpInnerElement).matches(aHtmlElement));
 
           // does image title-text match?
-          tmpFound.addAll(new ByInnerImageTitleAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
+          tmpMatches.addAll(new ByInnerImageTitleAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
               searchPattern, tmpInnerElement).matches(aHtmlElement));
 
           // does image filename match?
-          tmpFound.addAll(new ByInnerImageSrcAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
+          tmpMatches.addAll(new ByInnerImageSrcAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
               searchPattern, tmpInnerElement).matches(aHtmlElement));
 
-          tmpFound.addAll(new ByInnerNameMatcher(htmlPageIndex, pathSearchPattern, pathSpot, searchPattern,
+          tmpMatches.addAll(new ByInnerNameMatcher(htmlPageIndex, pathSearchPattern, pathSpot, searchPattern,
               tmpInnerElement).matches(aHtmlElement));
         }
       }
     }
-    return tmpFound;
+    return tmpMatches;
   }
 
   /**
@@ -101,8 +107,8 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      * 
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-     * @param aPathSpot the {@link FindSpot} the path was found first
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -145,8 +151,8 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      * 
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-     * @param aPathSpot the {@link FindSpot} the path was found first
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -190,8 +196,8 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      * 
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-     * @param aPathSpot the {@link FindSpot} the path was found first
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -228,8 +234,8 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      * 
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-     * @param aPathSpot the {@link FindSpot} the path was found first
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */

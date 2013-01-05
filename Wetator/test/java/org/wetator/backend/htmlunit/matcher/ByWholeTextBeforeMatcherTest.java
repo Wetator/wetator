@@ -41,7 +41,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
   @Test
-  public void byTextBeforeNot() throws IOException, InvalidInputException {
+  public void not() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -63,7 +63,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBefore() throws IOException, InvalidInputException {
+  public void full() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -86,7 +86,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBeforeWildcard() throws IOException, InvalidInputException {
+  public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -109,7 +109,30 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBeforePart() throws IOException, InvalidInputException {
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker1</p>"
+        + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker2</p>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Marker1", false));
+    tmpSearch.add(new SecretString("*rker2", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -146,8 +169,12 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
       final List<SecretString> tmpWholePath = new ArrayList<SecretString>(tmpPath.getPathNodes());
       tmpWholePath.add(tmpPath.getLastNode());
       final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
-      SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
-      FindSpot tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      SearchPattern tmpPathSearchPattern = null;
+      FindSpot tmpPathSpot = null;
+      if (!tmpPath.getPathNodes().isEmpty()) {
+        tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
+        tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      }
 
       tmpMatches.addAll(new ByWholeTextBeforeMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
           tmpWholePathSearchPattern).matches(tmpHtmlElement));

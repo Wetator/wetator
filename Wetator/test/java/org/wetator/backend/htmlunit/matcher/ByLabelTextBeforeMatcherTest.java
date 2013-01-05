@@ -36,7 +36,7 @@ import org.wetator.util.SecretString;
 public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
 
   @Test
-  public void byTextBeforeNot() throws IOException, InvalidInputException {
+  public void not() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -56,7 +56,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBefore() throws IOException, InvalidInputException {
+  public void full() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -77,7 +77,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBeforeWildcard() throws IOException, InvalidInputException {
+  public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -98,7 +98,29 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBeforePart() throws IOException, InvalidInputException {
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*rker", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    // TODO is distance 2 correct here? it's more distance plus coverage
+    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 2, 6, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -115,11 +137,12 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
+    // TODO is distance 1 correct here? it's more distance plus coverage
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 1, 6, tmpMatches.get(0));
   }
 
   @Test
-  public void byTextBefore_TextBefore() throws IOException, InvalidInputException {
+  public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -142,7 +165,78 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBefore_WrongTextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("Mark*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 6, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*rker", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    // TODO is distance 8 correct here? it's more distance plus coverage
+    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 8, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("arke", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    // TODO is distance 7 correct here? it's more distance plus coverage
+    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 7, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -164,7 +258,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTextBefore_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

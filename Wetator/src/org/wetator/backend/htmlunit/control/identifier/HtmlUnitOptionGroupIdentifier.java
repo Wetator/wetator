@@ -61,18 +61,19 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
-    final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+    SearchPattern tmpPathSearchPattern = null;
+    FindSpot tmpPathSpotSelect = null;
+    if (!aWPath.getPathNodes().isEmpty()) {
+      tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
 
-    SearchPattern tmpPathSearchPatternSelect;
-    if (aWPath.getPathNodes().isEmpty()) {
-      tmpPathSearchPatternSelect = SearchPattern.compile("");
-    } else {
-      tmpPathSearchPatternSelect = SearchPattern
-          .createFromList(aWPath.getPathNodes(), aWPath.getPathNodes().size() - 1);
+      if (!aWPath.getPathNodes().isEmpty()) {
+        final SearchPattern tmpPathSearchPatternSelect = SearchPattern.createFromList(aWPath.getPathNodes(), aWPath
+            .getPathNodes().size() - 1);
+        tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
+      }
     }
-    final FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
-    if (null == tmpPathSpotSelect) {
+    if (tmpPathSpotSelect == FindSpot.NOT_FOUND) {
       return;
     }
 
