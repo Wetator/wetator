@@ -36,7 +36,7 @@ import org.wetator.util.SecretString;
 public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
 
   @Test
-  public void byAltNot() throws IOException, InvalidInputException {
+  public void not() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -54,7 +54,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt() throws IOException, InvalidInputException {
+  public void full() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -73,7 +73,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltWildcard() throws IOException, InvalidInputException {
+  public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -92,7 +92,26 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltPart() throws IOException, InvalidInputException {
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*Alt", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -111,7 +130,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt_TextBefore() throws IOException, InvalidInputException {
+  public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -132,7 +151,70 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt_WrongTextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("MyA*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildacardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*Alt", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("yAl", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -152,7 +234,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

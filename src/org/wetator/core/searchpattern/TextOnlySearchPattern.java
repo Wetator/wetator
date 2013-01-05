@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
  * The execution is faster compared to {@link RegExpSearchPattern} (containing no wildcards).
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class TextOnlySearchPattern extends SearchPattern {
 
@@ -88,7 +89,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
     final int tmpPos = aString.indexOf(patternString, aStartPos);
     if (0 > tmpPos) {
-      return null;
+      return FindSpot.NOT_FOUND;
     }
 
     return new FindSpot(tmpPos, tmpPos + patternLength);
@@ -125,6 +126,16 @@ public final class TextOnlySearchPattern extends SearchPattern {
     }
     final int tmpPos = aString.lastIndexOf(patternString);
     return tmpPos;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
+   */
+  @Override
+  public int noOfCharsBeforeLastShortestOccurenceIn(final String aString) {
+    return noOfCharsBeforeLastOccurenceIn(aString);
   }
 
   /**

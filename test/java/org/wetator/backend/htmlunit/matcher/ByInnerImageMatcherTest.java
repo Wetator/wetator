@@ -56,7 +56,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt() throws IOException, InvalidInputException {
+  public void byAltFull() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -77,7 +77,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltWildcard() throws IOException, InvalidInputException {
+  public void byAltWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -90,6 +90,27 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyA*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byAltWildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' alt='MyAlt'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*Alt", false));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -119,7 +140,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt_TextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -142,7 +163,76 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byAltWildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' alt='MyAlt'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("MyA*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byAltWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' alt='MyAlt'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*Alt", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byAltPart_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' alt='MyAlt'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("yAl", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byAltFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -164,7 +254,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAlt_NoTextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -205,7 +295,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byName() throws IOException, InvalidInputException {
+  public void byNameFull() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -226,7 +316,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameWildcard() throws IOException, InvalidInputException {
+  public void byNameWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -239,6 +329,27 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageNa*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byNameWildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*ImageName", false));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -267,7 +378,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byName_TextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -290,7 +401,75 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byName_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byNameWildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("MyImageNa*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byNameWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*ImageName", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byNamePart_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("yImageNam", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void byNameFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -312,7 +491,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byName_NoTextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -353,7 +532,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileName() throws IOException, InvalidInputException {
+  public void byFileNameFull() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -374,7 +553,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNameWildcard() throws IOException, InvalidInputException {
+  public void byFileNameWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -387,6 +566,27 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.p*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byFileNameWildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*cture.png", false));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -436,7 +636,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileName_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -459,7 +659,75 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileName_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byFileNameWildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("picture.p*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byFileNameWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*cture.png", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byFileNamePart_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("icture.pn", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void byFileNameFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -481,7 +749,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileName_NoTextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -522,7 +790,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle() throws IOException, InvalidInputException {
+  public void byTitleFull() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -543,7 +811,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleWildcard() throws IOException, InvalidInputException {
+  public void byTitleWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -556,6 +824,27 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTit*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byTitleWildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' title='MyTitle'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*Title", false));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -585,7 +874,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -608,7 +897,76 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byTitleWildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' title='MyTitle'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("MyTit*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byTitleWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' title='MyTitle'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*Title", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byTitlePart_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myImageId' name='MyImageName' src='picture.png' title='MyTitle'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("yTitl", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void byTitleFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -630,7 +988,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle_NoTextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

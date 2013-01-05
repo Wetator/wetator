@@ -136,11 +136,12 @@ public class ContentPattern {
       tmpContent = tmpContent.substring(tmpStartPos);
       final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
 
-      if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
+      if (null == tmpFoundSpot || FindSpot.NOT_FOUND == tmpFoundSpot) {
         // pattern not found
         tmpFailed = true;
 
-        if (null == tmpPattern.firstOccurenceIn(aContent)) {
+        final FindSpot tmpWholeContentFoundSpot = tmpPattern.firstOccurenceIn(aContent);
+        if (null == tmpWholeContentFoundSpot || FindSpot.NOT_FOUND == tmpWholeContentFoundSpot) {
           // pattern is not in whole content too
           tmpResultMessage.append("{");
           tmpResultMessage.append(tmpExpectedString);
@@ -196,7 +197,7 @@ public class ContentPattern {
       tmpContent = tmpContent.substring(tmpStartPos);
       final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
 
-      if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
+      if (null == tmpFoundSpot || FindSpot.NOT_FOUND == tmpFoundSpot) {
         return;
       }
 

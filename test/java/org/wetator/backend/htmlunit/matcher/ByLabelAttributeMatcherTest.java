@@ -36,7 +36,7 @@ import org.wetator.util.SecretString;
 public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
 
   @Test
-  public void byLabelTextNot() throws IOException, InvalidInputException {
+  public void not() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -59,7 +59,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelText() throws IOException, InvalidInputException {
+  public void full() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -83,7 +83,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelTextWildcard() throws IOException, InvalidInputException {
+  public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -107,7 +107,31 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelTextPart() throws IOException, InvalidInputException {
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>"
+        + "<option value='o_blue'>blue</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*lors", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -131,7 +155,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelText_TextBefore() throws IOException, InvalidInputException {
+  public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -157,7 +181,85 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelText_WrongTextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>"
+        + "<option value='o_blue'>blue</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("colo*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>"
+        + "<option value='o_blue'>blue</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*lors", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>"
+        + "<option value='o_blue'>blue</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("olor", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -182,7 +284,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byLabelText_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

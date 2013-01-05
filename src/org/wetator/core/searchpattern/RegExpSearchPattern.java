@@ -29,11 +29,13 @@ import dk.brics.automaton.RunAutomaton;
  * RegExp. But it is fast. ;)
  * 
  * @author rbri
+ * @author frank.danek
  */
 final class RegExpSearchPattern extends SearchPattern {
 
   private static long constructor;
   private static long noOfCharsBeforeLastOccurenceIn;
+  private static long noOfCharsBeforeLastShortestOccurenceIn;
   private static long noOfCharsAfterLastOccurenceIn;
   private static long noOfCharsAfterLastShortestOccurenceIn;
   private static long matches;
@@ -55,6 +57,7 @@ final class RegExpSearchPattern extends SearchPattern {
     System.out.println("lastOccurenceIn: " + lastOccurenceIn);
     System.out.println();
     System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn);
+    System.out.println("noOfCharsBeforeLastShortestOccurenceIn: " + noOfCharsBeforeLastShortestOccurenceIn);
     System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn);
     System.out.println("noOfCharsAfterLastShortestOccurenceIn: " + noOfCharsAfterLastShortestOccurenceIn);
     System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
@@ -147,14 +150,14 @@ final class RegExpSearchPattern extends SearchPattern {
     }
 
     if (aString.length() < minLength) {
-      return null;
+      return FindSpot.NOT_FOUND;
     }
 
     final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, aStartPos, runAutomaton);
 
     final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
-      return null;
+      return FindSpot.NOT_FOUND;
     }
 
     return new FindSpot(tmpMatcher.start(), tmpMatcher.end());
@@ -206,6 +209,36 @@ final class RegExpSearchPattern extends SearchPattern {
     }
 
     final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, runAutomaton);
+
+    final boolean tmpFound = tmpMatcher.find();
+    if (!tmpFound) {
+      return -1;
+    }
+
+    // we found something
+    tmpResult = tmpMatcher.start();
+    return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
+   */
+  @Override
+  public int noOfCharsBeforeLastShortestOccurenceIn(final String aString) {
+    noOfCharsBeforeLastShortestOccurenceIn++;
+    int tmpResult = -1;
+
+    if (StringUtils.isEmpty(aString)) {
+      return tmpResult;
+    }
+
+    if (aString.length() < minLength) {
+      return -1;
+    }
+
+    final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
     final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {

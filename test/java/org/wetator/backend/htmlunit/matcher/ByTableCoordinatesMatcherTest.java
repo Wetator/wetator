@@ -549,8 +549,12 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
       WPath tmpPath = new WPath(aSearch);
 
-      SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
-      FindSpot tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      SearchPattern tmpPathSearchPattern = null;
+      FindSpot tmpPathSpot = null;
+      if (!tmpPath.getPathNodes().isEmpty()) {
+        tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
+        tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      }
 
       tmpMatches.addAll(new ByTableCoordinatesMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpPath
           .getTableCoordinatesReversed(), HtmlTextInput.class).matches(tmpHtmlElement));

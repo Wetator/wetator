@@ -65,10 +65,14 @@ public class HtmlUnitInputResetIdentifier extends AbstractMatcherBasedIdentifier
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
-    final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
-    final FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+    SearchPattern tmpPathSearchPattern = null;
+    FindSpot tmpPathSpot = null;
+    if (!aWPath.getPathNodes().isEmpty()) {
+      tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+      tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+    }
 
-    if (null == tmpPathSpot) {
+    if (tmpPathSpot == FindSpot.NOT_FOUND) {
       return;
     }
 

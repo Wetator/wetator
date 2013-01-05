@@ -59,7 +59,7 @@
     <command><d:assert-content><d:content>Wetator is great.</d:content></d:assert-content></command>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_error.rtf</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: '[text]' (content: '').</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: '{text}' (content: '').</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment>content type xml</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test.xml</d:wpath></d:click-on></command>

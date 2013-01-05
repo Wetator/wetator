@@ -35,8 +35,8 @@ public class ByImageTitleAttributeMatcher extends AbstractByAttributeMatcher {
    * Creates a new matcher with the given criteria.
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-   * @param aPathSpot the {@link FindSpot} the path was found first
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByImageTitleAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,

@@ -233,6 +233,15 @@ public abstract class SearchPattern {
   public abstract int noOfCharsBeforeLastOccurenceIn(String aString);
 
   /**
+   * Calculates the number of chars before the last shortest occurrence of this search pattern in the given string.<br>
+   * If this search pattern is left truncated (star at start), then this returns zero.
+   * 
+   * @param aString the string to search inside
+   * @return the number of chars or -1 if the pattern is not found
+   */
+  public abstract int noOfCharsBeforeLastShortestOccurenceIn(String aString);
+
+  /**
    * Calculates the number of chars after the last occurrence of this search pattern in the given string.<br>
    * If this search pattern is right truncated (star at end), then this returns zero.
    * 

@@ -36,7 +36,7 @@ import org.wetator.util.SecretString;
 public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
 
   @Test
-  public void byTitleNot() throws IOException, InvalidInputException {
+  public void not() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -54,7 +54,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle() throws IOException, InvalidInputException {
+  public void full() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -73,7 +73,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleWildcard() throws IOException, InvalidInputException {
+  public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -92,7 +92,26 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitlePart() throws IOException, InvalidInputException {
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*MyTitle", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_TITLE_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -111,7 +130,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle_TextBefore() throws IOException, InvalidInputException {
+  public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -132,7 +151,70 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle_WrongTextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("MyTit*", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("*Title", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("yTitl", false));
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_TITLE_ATTRIBUTE, 2, 5, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -152,7 +234,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitle_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

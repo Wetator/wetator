@@ -45,8 +45,8 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * Creates a new matcher with the given criteria.
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element
-   * @param aPathSpot the {@link FindSpot} the path was found first
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    * @param aFoundType the {@link FoundType} the matcher should use when adding the element
    */
@@ -64,16 +64,21 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   @Override
   public List<MatchResult> matches(final HtmlElement aHtmlElement) {
     final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+
+    // was the path found at all
+    if (FindSpot.NOT_FOUND == pathSpot) {
+      return tmpMatches;
+    }
+
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (null != pathSpot && pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
-
+    if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
       final String tmpValue = getAttributeValue(aHtmlElement);
+
       if (StringUtils.isNotEmpty(tmpValue)) {
         if (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
             || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue))
             || (MatchType.ENDS_WITH == matchType && searchPattern.matchesAtEnd(tmpValue))) {
-
           int tmpCoverage;
           if (MatchType.ENDS_WITH == matchType) {
             tmpCoverage = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);
@@ -85,7 +90,12 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
           if (tmpCoverage > -1) {
             String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             tmpTextBefore = processTextForDistance(tmpTextBefore);
-            final int tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+            final int tmpDistance;
+            if (pathSearchPattern != null) {
+              tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+            } else {
+              tmpDistance = tmpTextBefore.length();
+            }
             tmpMatches
                 .add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
           }

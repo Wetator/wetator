@@ -68,18 +68,23 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
   public WeightedControlList find(final WPath aWPath) {
     final WeightedControlList tmpFoundControls = new WeightedControlList();
 
-    final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
-    final FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
-
-    if (null == tmpPathSpot) {
-      return tmpFoundControls;
-    }
-
     if (aWPath.getLastNode() == null) {
       // no table coordinates supported so far
       // TODO implement table coordinate support for unknown controls
       return tmpFoundControls;
     }
+
+    SearchPattern tmpPathSearchPattern = null;
+    FindSpot tmpPathSpot = null;
+    if (!aWPath.getPathNodes().isEmpty()) {
+      tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+      tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+    }
+
+    if (tmpPathSpot == FindSpot.NOT_FOUND) {
+      return tmpFoundControls;
+    }
+
     final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     // search with id
@@ -94,8 +99,12 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       }
     }
 
-    FindSpot tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.getEndPos()));
-    while ((null != tmpHitSpot) && (tmpHitSpot.getEndPos() > -1)) {
+    int tmpStartPos = 0;
+    if (tmpPathSpot != null) {
+      tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
+    }
+    FindSpot tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, tmpStartPos);
+    while (tmpHitSpot != FindSpot.NOT_FOUND && tmpHitSpot.getEndPos() > -1) {
       // found a hit
 
       // find the first element that surrounds this
@@ -109,7 +118,12 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
 
           tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
-          final int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+          final int tmpDistance;
+          if (tmpPathSearchPattern != null) {
+            tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+          } else {
+            tmpDistance = tmpTextBefore.length();
+          }
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
             tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
