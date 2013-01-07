@@ -33,7 +33,6 @@ import junit.framework.Assert;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.core.Command;
 import org.wetator.core.Parameter;
@@ -52,7 +51,6 @@ import org.wetator.exception.InvalidInputException;
  * @author tobwoerk
  * @author frank.danek
  */
-@Ignore
 public class ManualXMLResultWriterTest {
 
   private static final String LOGS_FOLDER = "logs";
@@ -582,11 +580,12 @@ public class ManualXMLResultWriterTest {
     File tmpActualFile = new File(REPORT_LOG);
     String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
 
+    String tmpWetatorPath = System.getProperty("user.dir");
     Assert.assertEquals(
         tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
             "ManualXMLResultWriterTest.java)".replaceAll("\\{display: none;\\}", "\\{\\}")).replaceAll("\r\n", "\n"),
         tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)")
-            .replaceAll("\\{display: none;\\}", "\\{\\}").replaceAll("\r\n", "\n"));
+            .replaceAll("\\{display: none;\\}", "\\{\\}").replaceAll("\r\n", "\n").replaceAll(tmpWetatorPath, ""));
   }
 
   private String getString(InputStream anExpectedStream) throws IOException {
