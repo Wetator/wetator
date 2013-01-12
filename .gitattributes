@@ -190,16 +190,6 @@ test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 test/excel/default_command_set.xls -text
 test/excel/modules/module.xls -text
 test/excel/sql_command_set.xls -text
-test/forJenkinsPlugin/error.wet -text
-test/forJenkinsPlugin/failure.wet -text
-test/forJenkinsPlugin/moduleError.wet -text
-test/forJenkinsPlugin/moduleFailure.wet -text
-test/forJenkinsPlugin/moduleNotFound.wet -text
-test/forJenkinsPlugin/moduleOk.wet -text
-test/forJenkinsPlugin/ok.wet -text
-test/forJenkinsPlugin/pathError.wet -text
-test/forJenkinsPlugin/pathFailure.wet -text
-test/forJenkinsPlugin/pathOk.wet -text
 test/java/org/wetator/automatonTest.jpage -text
 test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/WeightedControlListTest.java -text
@@ -283,9 +273,7 @@ test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccuren
 test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest.java -text svneol=unset#text/plain
 test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
-test/java/org/wetator/forjenkinsplugin/JenkinsPluginTest.java -text svneol=unset#text/plain
 test/java/org/wetator/i18n/MessagesTest.java -text
-test/java/org/wetator/micha/LoginTest.java -text svneol=unset#text/plain
 test/java/org/wetator/progresslistener/ManualXMLResultWriterTest.java -text svneol=unset#text/plain
 test/java/org/wetator/progresslistener/XMLResultWriterTest.java -text
 test/java/org/wetator/progresslistener/XSLTransformerTest.java -text
@@ -754,13 +742,6 @@ test/webpage/js/jquery/ui/minified/jquery.ui.sortable.min.js -text
 test/webpage/js/jquery/ui/minified/jquery.ui.tabs.min.js -text
 test/webpage/js/jquery/ui/minified/jquery.ui.widget.min.js -text
 test/webpage/js/prototype/prototype.js -text
-test/webpage/micha/Login.htm -text svneol=unset#text/plain
-test/webpage/micha/bug.htm -text svneol=unset#text/plain
-test/webpage/micha/bug.wet -text
-test/webpage/micha/focusChangeOnClick.htm -text svneol=unset#text/plain
-test/webpage/micha/login.wet -text
-test/webpage/micha/script.js -text svneol=unset#text/plain
-test/webpage/micha/test.wet -text
 test/webpage/mouse_over.html -text
 test/webpage/mouse_over_after.html -text
 test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
