@@ -190,16 +190,6 @@ Wetator/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/excel/default_command_set.xls -text
 Wetator/test/excel/modules/module.xls -text
 Wetator/test/excel/sql_command_set.xls -text
-Wetator/test/forJenkinsPlugin/error.wet -text
-Wetator/test/forJenkinsPlugin/failure.wet -text
-Wetator/test/forJenkinsPlugin/moduleError.wet -text
-Wetator/test/forJenkinsPlugin/moduleFailure.wet -text
-Wetator/test/forJenkinsPlugin/moduleNotFound.wet -text
-Wetator/test/forJenkinsPlugin/moduleOk.wet -text
-Wetator/test/forJenkinsPlugin/ok.wet -text
-Wetator/test/forJenkinsPlugin/pathError.wet -text
-Wetator/test/forJenkinsPlugin/pathFailure.wet -text
-Wetator/test/forJenkinsPlugin/pathOk.wet -text
 Wetator/test/java/org/wetator/automatonTest.jpage -text
 Wetator/test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/backend/WeightedControlListTest.java -text
@@ -283,9 +273,7 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLas
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
-Wetator/test/java/org/wetator/forjenkinsplugin/JenkinsPluginTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/i18n/MessagesTest.java -text
-Wetator/test/java/org/wetator/micha/LoginTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/progresslistener/ManualXMLResultWriterTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/progresslistener/XMLResultWriterTest.java -text
 Wetator/test/java/org/wetator/progresslistener/XSLTransformerTest.java -text
@@ -754,13 +742,6 @@ Wetator/test/webpage/js/jquery/ui/minified/jquery.ui.sortable.min.js -text
 Wetator/test/webpage/js/jquery/ui/minified/jquery.ui.tabs.min.js -text
 Wetator/test/webpage/js/jquery/ui/minified/jquery.ui.widget.min.js -text
 Wetator/test/webpage/js/prototype/prototype.js -text
-Wetator/test/webpage/micha/Login.htm -text svneol=unset#text/plain
-Wetator/test/webpage/micha/bug.htm -text svneol=unset#text/plain
-Wetator/test/webpage/micha/bug.wet -text
-Wetator/test/webpage/micha/focusChangeOnClick.htm -text svneol=unset#text/plain
-Wetator/test/webpage/micha/login.wet -text
-Wetator/test/webpage/micha/script.js -text svneol=unset#text/plain
-Wetator/test/webpage/micha/test.wet -text
 Wetator/test/webpage/mouse_over.html -text
 Wetator/test/webpage/mouse_over_after.html -text
 Wetator/test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
