@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>micha/Login.htm</d:url></d:open-url></command>
+    <command disabled="true"><d:set><d:wpath>Benutzer-ID</d:wpath><d:value>frank</d:value></d:set></command>
+    <command><d:set><d:wpath>type_password</d:wpath><d:value>geheim</d:value></d:set></command>
+    <command><d:click-on><d:wpath>Anmelden</d:wpath></d:click-on></command>
+</test-case>

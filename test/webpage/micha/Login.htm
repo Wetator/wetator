@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Login</title>
+        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript">
+			<!--
+			  function dumpEvent(event) {
+			    var msg = '';
+			    msg = msg + event.type;
+
+			    // target
+			    var eTarget;
+			    if (event.target) {
+			      eTarget = event.target;
+			    } else if (event.srcElement) {
+			      eTarget = event.srcElement;
+			    }
+			    // defeat Safari bug
+			    if (eTarget.nodeType == 3) {
+			      eTarget = eTarget.parentNode;
+			    }
+
+			    if (eTarget.name) {
+			      msg = msg + ' [' + eTarget.name + ']';
+			    } else {
+			      msg = msg + ' [' + eTarget.id + ']';
+			    }
+
+			    //key code
+			    var eCode;
+			    if (event.keyCode) {
+			      eCode = event.keyCode;
+			    } else if (event.which) {
+			      eCode = event.which;
+			    } else if (event.button) {
+			      eCode = event.button;
+			    }
+			    if (eCode) {
+			      var char = String.fromCharCode(eCode);
+			      msg = msg + ' [' + eCode + ']';
+			    } else {
+			      msg = msg + ' [-]';
+			    }
+
+			    writeTrace(msg + '\n');
+			  }
+
+			  function writeTrace(eventText) {
+			    var traceCtrl=document.getElementById('traceOutput');
+			    var currentTrace = traceCtrl.value
+			    traceCtrl.value = currentTrace + eventText
+			  }
+
+			//-->
+			</script>
+    </head>
+    <body id="loginBody" onload="document.getElementById('traceOutput').focus()">
+    	<textarea id="traceOutput" name="eventTrace" cols="50" rows="10"></textarea>
+        <form method="post" action="../snoopy.php" name="LoginForm">
+            <p>
+                <span style="display: none;" class="formLabel">
+                    <label for="userID">Benutzer-ID:</label>
+                </span>
+                <span class="formField">
+                    <input id="userID" value="Benutzer-ID" type="text"/>
+                </span>
+            </p>
+            <p>
+                <span style="display: none;" class="formLabel">
+                    <label for="password">Passwort:</label>
+                </span>
+                <span class="formField">
+                    <input style="display: inline;" id="password" name="password" type="password"
+	                    onclick="dumpEvent(event);return false;"
+	                    ondblclick="dumpEvent(event);"
+	                    oncontextmenu="dumpEvent(event);"
+	                    onfocus="dumpEvent(event);"
+	                    onblur="dumpEvent(event);"
+
+	                    onmouseover = "dumpEvent(event);"
+	                    onmouseout = "dumpEvent(event);"
+	                    onmousedown = "dumpEvent(event);"
+	                    onmouseup = "dumpEvent(event);"
+	                    onkeydown = "dumpEvent(event);"
+	                    onkeyup = "dumpEvent(event);"
+	                    onkeypress = "dumpEvent(event);"
+	                    onselect = "dumpEvent(event);"
+	                    onchange = "dumpEvent(event);"/>
+<!-- onmousemove = "dumpEvent(event);" -->
+                </span>
+            </p>
+            <input id="loginSubmit" value="Anmelden" type="submit"/>
+        </form>
+    </body>
+</html>

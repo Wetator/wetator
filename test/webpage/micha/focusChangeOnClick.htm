@@ -1,0 +1,79 @@
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <title>test</title>
+        <script type="text/javascript">
+			<!--
+			  function dumpEvent(event) {
+			    var msg = '';
+			    msg = msg + event.type;
+
+			    // target
+			    var eTarget;
+			    if (event.target) {
+			      eTarget = event.target;
+			    } else if (event.srcElement) {
+			      eTarget = event.srcElement;
+			    }
+			    // defeat Safari bug
+			    if (eTarget.nodeType == 3) {
+			      eTarget = eTarget.parentNode;
+			    }
+
+			    if (eTarget.name) {
+			      msg = msg + ' [' + eTarget.name + ']';
+			    } else {
+			      msg = msg + ' [' + eTarget.id + ']';
+			    }
+
+			    //key code
+			    var eCode;
+			    if (event.keyCode) {
+			      eCode = event.keyCode;
+			    } else if (event.which) {
+			      eCode = event.which;
+			    } else if (event.button) {
+			      eCode = event.button;
+			    }
+			    if (eCode) {
+			      var char = String.fromCharCode(eCode);
+			      msg = msg + ' [' + eCode + ']';
+			    } else {
+			      msg = msg + ' [-]';
+			    }
+
+			    writeTrace(msg + '\n');
+			  }
+
+			  function writeTrace(eventText) {
+			    var traceCtrl=document.getElementById('traceOutput');
+			    var currentTrace = traceCtrl.value
+			    traceCtrl.value = currentTrace + eventText
+			  }
+
+			//-->
+		</script>
+	</head>
+	<body>
+		<textarea id="traceOutput" name="eventTrace" cols="50" rows="10"></textarea><br>
+		<input type='text' id='input1'
+			onfocus='dumpEvent(event);document.getElementById("input2").focus();'
+			onblur="dumpEvent(event);"
+			onmouseover = "dumpEvent(event);"
+			onmouseout = "dumpEvent(event);"
+			onmousedown = "dumpEvent(event);"
+			onmouseup = "dumpEvent(event);"
+			onclick="dumpEvent(event);return false;"
+			><br>
+		<input type='text' id='input2'
+			onfocus='dumpEvent(event);'
+			onblur="dumpEvent(event);"
+			onmouseover = "dumpEvent(event);"
+			onmouseout = "dumpEvent(event);"
+			onmousedown = "dumpEvent(event);"
+			onmouseup = "dumpEvent(event);"
+			onclick="dumpEvent(event);return false;"
+			>
+		<!-- document.getElementById("input1").style.display="none"; -->
+	</body>
+</html>
