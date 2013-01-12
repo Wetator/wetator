@@ -150,7 +150,6 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    // TODO is coverage 2 correct here? shouldn't the wildcard match until the end of the element text?
     Assert
         .assertEquals(
             "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 2 distance: 0 start: 0",
@@ -174,7 +173,6 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    // TODO is distance 2 correct here? shouldn't the wildcard match from the start of the element text?
     Assert
         .assertEquals(
             "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 2 start: 0",
@@ -198,7 +196,6 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    // TODO is distance 1 correct here? shouldn't it be coverage 2 and distance 0?
     Assert
         .assertEquals(
             "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 1 distance: 1 start: 0",
@@ -262,7 +259,6 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    // TODO is coverage 2 correct here? shouldn't the wildcard match until the end of the element text?
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 2 distance: 0 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }
@@ -284,7 +280,6 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    // TODO is distance 2 correct here? shouldn't the wildcard match from the start of the element text?
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 2 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }
@@ -306,7 +301,6 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    // TODO is distance 1 correct here? shouldn't it be coverage 2 and distance 0?
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 1 distance: 1 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }

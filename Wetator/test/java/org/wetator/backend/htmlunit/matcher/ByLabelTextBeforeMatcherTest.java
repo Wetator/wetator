@@ -115,7 +115,6 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    // TODO is distance 2 correct here? it's more distance plus coverage
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 2, 6, tmpMatches.get(0));
   }
 
@@ -137,7 +136,6 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    // TODO is distance 1 correct here? it's more distance plus coverage
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 1, 6, tmpMatches.get(0));
   }
 
@@ -207,7 +205,6 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    // TODO is distance 8 correct here? it's more distance plus coverage
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 8, 21, tmpMatches.get(0));
   }
 
@@ -231,7 +228,6 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    // TODO is distance 7 correct here? it's more distance plus coverage
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 7, 21, tmpMatches.get(0));
   }
 

@@ -188,7 +188,7 @@ public class ModelBuilder {
               tmpParameter.setNamespace(tmpChildElement.getTargetNamespace());
               tmpParameter.setName(tmpChildElement.getName());
               tmpParameter.setDocumentation(getDocumentation(tmpChildElement));
-              if (tmpChildParticle.getMinOccurs() == 0) {
+              if (tmpChildParticle.getMinOccurs() != null && tmpChildParticle.getMinOccurs().intValue() == 0) {
                 tmpParameter.setOptional(true);
               }
               tmpParameterTypes.add(tmpParameter);
