@@ -133,15 +133,12 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 2, 5, "xbb");
 
     tmpMatcher = createMatcher("x.*", "axbx");
-    // TODO assertGroup(tmpMatcher, 1, 4, "xbx");
     assertGroup(tmpMatcher, 3, 4, "x");
 
     tmpMatcher = createMatcher("x.*", "xbxc");
-    // TODO assertGroup(tmpMatcher, 0, 4, "xbxc");
     assertGroup(tmpMatcher, 2, 4, "xc");
 
     tmpMatcher = createMatcher("x.*", "axbxc");
-    // TODO assertGroup(tmpMatcher, 1, 5, "xbxc");
   }
 
   @Test
@@ -177,11 +174,9 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.+", "xbxc");
-    // TODO assertGroup(tmpMatcher, 0, 4, "xbxc");
     assertGroup(tmpMatcher, 2, 4, "xc");
 
     tmpMatcher = createMatcher("x.+", "axbxc");
-    // TODO assertGroup(tmpMatcher, 1, 5, "xbxc");
     assertGroup(tmpMatcher, 3, 5, "xc");
   }
 
@@ -512,19 +507,15 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.*x", "xbxcx");
-    // TODO assertGroup(tmpMatcher, 0, 5, "xbxcx");
     assertGroup(tmpMatcher, 2, 5, "xcx");
 
     tmpMatcher = createMatcher("x.*x", "axbxcx");
-    // TODO assertGroup(tmpMatcher, 1, 6, "xbxcx");
     assertGroup(tmpMatcher, 3, 6, "xcx");
 
     tmpMatcher = createMatcher("x.*x", "xbxcxd");
-    // TODO assertGroup(tmpMatcher, 0, 5, "xbxcx");
     assertGroup(tmpMatcher, 2, 5, "xcx");
 
     tmpMatcher = createMatcher("x.*x", "axbxcxd");
-    // TODO assertGroup(tmpMatcher, 1, 6, "xbxcx");
     assertGroup(tmpMatcher, 3, 6, "xcx");
   }
 
@@ -582,19 +573,15 @@ public class AutomatonFromEndMatcherTest {
     assertGroup(tmpMatcher, 1, 4, "xbx");
 
     tmpMatcher = createMatcher("x.+x", "xbxcx");
-    // TODO assertGroup(tmpMatcher, 0, 5, "xbxcx");
     assertGroup(tmpMatcher, 2, 5, "xcx");
 
     tmpMatcher = createMatcher("x.+x", "axbxcx");
-    // TODO assertGroup(tmpMatcher, 1, 6, "xbxcx");
     assertGroup(tmpMatcher, 3, 6, "xcx");
 
     tmpMatcher = createMatcher("x.+x", "xbxcxd");
-    // TODO assertGroup(tmpMatcher, 0, 5, "xbxcx");
     assertGroup(tmpMatcher, 2, 5, "xcx");
 
     tmpMatcher = createMatcher("x.+x", "axbxcxd");
-    // TODO assertGroup(tmpMatcher, 1, 6, "xbxcx");
     assertGroup(tmpMatcher, 3, 6, "xcx");
   }
 

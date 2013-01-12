@@ -4,7 +4,7 @@
             xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
     <info organisation="org.wetator" module="wetator"/>
     <dependencies>
-        <dependency org="org.apache.ant" name="ant" rev="1.8.3" transitive="false" conf="*->*,!javadoc,!sources"/>
+        <dependency org="org.apache.ant" name="ant" rev="1.8.4" transitive="false" conf="*->*,!javadoc,!sources"/>
         <dependency org="automaton" name="automaton" rev="1.11.8" transitive="false"/>
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.1"/>
         <dependency org="commons-io" name="commons-io" rev="2.4"/>
@@ -12,17 +12,17 @@
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.12-SNAPSHOT" changing="true" conf="*->*,!javadoc"/>
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.12-SNAPSHOT" changing="true" conf="*->*,!javadoc,!sources"/> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.8" changing="true"/> -->
-        <dependency org="junit" name="junit" rev="4.10" transitive="false"/>
+        <dependency org="junit" name="junit" rev="4.11" transitive="false"/>
         <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false"/>
         <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.7.1" transitive="false"/>
         <dependency org="org.apache.pdfbox" name="fontbox" rev="1.7.1" transitive="false"/>
         <dependency org="org.apache.poi" name="poi" rev="3.9" conf="*->*,!javadoc"/>
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.7.v20120910"/>
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="8.1.7.v20120910"/>
-        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.6" transitive="false"/>
-        <dependency org="org.slf4j" name="slf4j-api" rev="1.6.6" transitive="false"/>
-        <dependency org="com.sun.xsom" name="xsom" rev="20081112" transitive="true" conf="*->*,!javadoc"/>
-        <dependency org="org.mockito" name="mockito-core" rev="1.8.5" conf="*->*,!javadoc"/>
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.8.v20121106"/>
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="8.1.8.v20121106"/>
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" transitive="false"/>
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.2" transitive="false"/>
+        <dependency org="com.sun.xsom" name="xsom" rev="20110809" transitive="true" conf="*->*,!javadoc"/>
+        <dependency org="org.mockito" name="mockito-core" rev="1.9.5" conf="*->*,!javadoc"/>
 
         <!-- fix for servlet available as orbit -->
         <dependency org="org.eclipse.jetty.orbit" name="javax.servlet" rev="3.0.0.v201112011016">
