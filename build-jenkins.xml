@@ -176,8 +176,8 @@
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
                 <fileset dir="${dir.build}/test-classes">
-<!--                    <include name="**/XmlIncubatorCommandSetTest.class"/>-->
-<!---->                	<include name="**/*Test.class"/>
+<!---->                    <include name="**/XmlIncubatorCommandSetTest.class"/>
+<!--                	<include name="**/*Test.class"/>-->
                     <exclude name="**/AllTests.class"/>
                     <exclude name="**/Abstract*.class"/>
                     <exclude name="**/Manual*.class"/>

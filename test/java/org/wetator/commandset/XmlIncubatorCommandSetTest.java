@@ -19,6 +19,7 @@ package org.wetator.commandset;
 import java.io.File;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wetator.backend.IBrowser.BrowserType;
@@ -36,6 +37,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/incubator/";
 
   @Test
+  @Ignore
   @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
   public void bookmark() throws InvalidInputException {
     executeTestFile("bookmark.xml");
