@@ -150,6 +150,45 @@
 
 
     <!-- ******************************************* -->
+    <!-- target run-tests                            -->
+    <!-- ******************************************* -->
+    <target name="run-tests" description="runs all tests"
+        depends="clean-compile, compile-tests">
+        <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
+        <mkdir dir="${dir.deploy}/junit"/>
+
+        <path id="junit-classpath">
+            <pathelement location="${dir.build}/classes" />
+            <pathelement location="${dir.build}/test-classes" />
+
+            <fileset dir="${dir.lib}">
+            	<include name="**/*.jar"/>
+            </fileset>
+        </path>
+
+        <!-- run tests to create xml report -->
+        <junit printsummary="withOutAndErr"
+            haltonfailure="no" failureproperty="unittestsfailed"
+            fork="yes" forkmode="once" dir="${basedir}">
+            <classpath refid="junit-classpath" />
+            <jvmarg value="-Djava.awt.headless=true" />
+            <jvmarg value="-Duser.language=en" />
+
+            <batchtest todir="${dir.deploy}/junit">
+                <formatter type="xml" />
+                <fileset dir="${dir.build}/test-classes">
+                    <include name="**/ContentPatternTest.class"/>
+<!--                	<include name="**/*Test.class"/>-->
+                    <exclude name="**/AllTests.class"/>
+                    <exclude name="**/Abstract*.class"/>
+                    <exclude name="**/Manual*.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+	</target>
+
+
+    <!-- ******************************************* -->
     <!-- target build-release                        -->
     <!-- ******************************************* -->
     <target name="build-release" description="build all Wetator release artifacts"
