@@ -241,6 +241,7 @@ Wetator/test/java/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcherT
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 Wetator/test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
+Wetator/test/java/org/wetator/commandset/CloudbeesTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/ExecTester.java -text
 Wetator/test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/commandset/LegacyXmlDefaultCommandSetTest.java -text
