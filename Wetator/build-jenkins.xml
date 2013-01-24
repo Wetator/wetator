@@ -101,8 +101,8 @@
         <!-- compile local classes -->
         <echo>Compiling with Java target ${javac.target}</echo>
 
-        <javac srcdir="${dir.src}" encoding="iso-8859-1" debug="on" debuglevel="lines,vars,source"
-              target="${javac.target}" destdir="${dir.build}/classes">
+        <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
+              target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <include name="**/*.jar"/>
@@ -130,8 +130,8 @@
         <!-- compile local classes -->
         <echo>Compiling with Java target ${javac.target}</echo>
 
-        <javac srcdir="${dir.test-src}" encoding="iso-8859-1" debug="on" debuglevel="lines,vars,source"
-            target="${javac.target}" destdir="${dir.build}/test-classes">
+        <javac srcdir="${dir.test-src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
+            target="${javac.target}" destdir="${dir.build}/test-classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <include name="**/*.jar"/>
@@ -171,17 +171,17 @@
             haltonfailure="no" failureproperty="unittestsfailed"
             fork="yes" forkmode="once" dir="${basedir}">
             <classpath refid="junit-classpath" />
-            <jvmarg value="-Djava.awt.headless=true" />
             <jvmarg value="-Duser.language=en" />
 
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
                 <fileset dir="${dir.build}/test-classes">
-<!--                    <include name="**/ContentPatternTest.class"/>-->
+<!--                    <include name="**/XmlIncubatorCommandSetTest.class"/>-->
 <!---->                	<include name="**/*Test.class"/>
                     <exclude name="**/AllTests.class"/>
                     <exclude name="**/Abstract*.class"/>
                     <exclude name="**/Manual*.class"/>
+                	<exclude name="**/*IBrowserTest.class"/>
                 </fileset>
             </batchtest>
         </junit>
