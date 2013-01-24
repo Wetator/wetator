@@ -15,9 +15,9 @@
     <command><d:use-module><d:module>modules/module_calling_module.wet</d:module><d:parameters>assert_content.html, wrong</d:parameters></d:use-module></command>
     <comment></comment>
     <comment>module file missing</comment>
-    <command><tst:assert-fail><tst:command-and-message>use-module, The module file '*\modules\missing.wet' does not exist.</tst:command-and-message><tst:parameter1>\modules\missing.wet</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>use-module, The module file '*modules?missing.wet' does not exist.</tst:command-and-message><tst:parameter1>/modules/missing.wet</tst:parameter1></tst:assert-fail></command>
     <comment>not supported module directory</comment>
-    <command><tst:assert-fail><tst:command-and-message>use-module, The module file '*\modules\test.dir' does not exist.</tst:command-and-message><tst:parameter1>modules\test.dir</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>use-module, The module file '*modules?test.dir' does not exist.</tst:command-and-message><tst:parameter1>modules/test.dir</tst:parameter1></tst:assert-fail></command>
     <comment>not supported module file</comment>
-    <command><tst:assert-fail><tst:command-and-message>use-module, org.wetator.exception.InvalidInputException: No scripter found for file '*\modules\not.supported' (File 'not.supported' not supported by XMLScripter. Extension is not '.wet' or '.xml'.; File 'not.supported' not supported by LegacyXMLScripter. Extension is not '.wet' or '.xml'.; File 'not.supported' not supported by ExcelScripter. Extension is not '.xls'.; File 'not.supported' not supported by WikiTextScripter. Extension is not '.wett'.).</tst:command-and-message><tst:parameter1>modules\not.supported</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>use-module, org.wetator.exception.InvalidInputException: No scripter found for file '*modules?not.supported' (File 'not.supported' not supported by XMLScripter. Extension is not '.wet' or '.xml'.; File 'not.supported' not supported by LegacyXMLScripter. Extension is not '.wet' or '.xml'.; File 'not.supported' not supported by ExcelScripter. Extension is not '.xls'.; File 'not.supported' not supported by WikiTextScripter. Extension is not '.wett'.).</tst:command-and-message><tst:parameter1>modules/not.supported</tst:parameter1></tst:assert-fail></command>
 </test-case>
