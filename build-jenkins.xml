@@ -171,12 +171,13 @@
             haltonfailure="no" failureproperty="unittestsfailed"
             fork="yes" forkmode="once" dir="${basedir}">
             <classpath refid="junit-classpath" />
+            <jvmarg value="-Djava.awt.headless=true" />
             <jvmarg value="-Duser.language=en" />
 
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
                 <fileset dir="${dir.build}/test-classes">
-<!---->                    <include name="**/XmlIncubatorCommandSetTest.class"/>
+<!---->                    <include name="**/CloudbeesTest.class"/>
 <!--                	<include name="**/*Test.class"/>-->
                     <exclude name="**/AllTests.class"/>
                     <exclude name="**/Abstract*.class"/>
