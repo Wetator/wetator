@@ -166,6 +166,12 @@
             </fileset>
         </path>
 
+        <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
+            <arg line=":1 -ac -screen 0 1024x768x16" />
+        </exec>
+<!--    	export DISPLAY=:1
+    	Xvfb :1 &-->
+
         <!-- run tests to create xml report -->
         <junit printsummary="withOutAndErr"
             haltonfailure="no" failureproperty="unittestsfailed"
@@ -173,6 +179,7 @@
             <classpath refid="junit-classpath" />
 <!--            <jvmarg value="-Djava.awt.headless=true" />-->
             <jvmarg value="-Duser.language=en" />
+        	<env key="DISPLAY" value=":1" />
 
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
