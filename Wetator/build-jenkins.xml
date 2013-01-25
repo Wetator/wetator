@@ -40,12 +40,12 @@
 	</patternset>
 
 	<!--
-	info -> resolve -> compile -> (compile-tests -> run-tests) -> package
+	info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
 
-	package: 			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> package-bundles
+	package: 			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> metrics -> package-bundles
 	package-no-tests: 	info -> resolve-dependencies -> compile -> package-bundles
+	metrics:			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
 	tests:				info -> resolve-dependencies -> compile -> compile-tests -> run-tests
-	tests-no-resolve:	info -> compile -> compile-tests -> run-tests
 	-->
 
 
@@ -55,10 +55,10 @@
            complete build cycle:
            info -> resolve-dependencies -> compile
            -> compile-tests -> run-tests
-           -> package-bundles
+           -> gather-metrics -> package-bundles
          ******************************************* -->
     <target name="package" description="packages the bundles after executing the complete build cycle"
-    	depends="resolve-dependencies, run-tests, -package-bundles">
+    	depends="resolve-dependencies, run-tests, gather-metrics, -package-bundles">
     </target>
 
 
@@ -80,33 +80,22 @@
            complete build cycle:
            info -> resolve-dependencies -> compile
            -> compile-tests -> run-tests
+           -> gather-metrics
+         ******************************************* -->
+    <target name="metrics" description="gathers the metrics after executing the complete build cycle"
+    	depends="resolve-dependencies, run-tests, gather-metrics">
+    </target>
+
+
+    <!-- *******************************************
+         target tests
+           runs the tests after executing the
+           complete build cycle:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
          ******************************************* -->
     <target name="tests" description="runs the tests after executing the complete build cycle"
     	depends="resolve-dependencies, run-tests">
-    </target>
-
-
-    <!-- *******************************************
-         target tests-no-resolve
-           runs the tests after executing the
-           build cycle without resolving the
-           dependencies:
-           info -> compile
-           -> compile-tests -> run-tests
-         ******************************************* -->
-    <target name="tests-no-resolve" description="runs the tests after executing the build cycle without resolving the dependencies"
-    	depends="run-tests">
-    </target>
-
-
-    <!-- *******************************************
-         target tests-no-resolve
-           resolves the dependencies after executing
-           the complete build cycle:
-           info -> resolve-dependencies
-         ******************************************* -->
-    <target name="resolve" description="resolves the dependencies after executing the complete build cycle"
-    	depends="resolve-dependencies">
     </target>
 
 
@@ -307,6 +296,39 @@
             <arg line=":${display} -ac -screen 0 1024x768x16" />
         </exec>
     	<echo>Started Xvfb display ${display}</echo>
+	</target>
+
+
+    <!-- *******************************************
+         target gather-metrics
+           gathers all metrics
+         ******************************************* -->
+    <target name="gather-metrics" description="gathers all metrics"
+        depends="info, -compile, -load-ivy">
+        <delete dir="${dir.build}/lib_extra" includeEmptyDirs="true"/>
+        <mkdir dir="${dir.build}/lib_extra"/>
+
+    	<!-- load checkstyle -->
+    	<mkdir dir="${dir.build}/lib_extra/checkstyle"/>
+       	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
+    		pattern="${dir.build}/lib_extra/checkstyle/[artifact]-[revision].[ext]" />
+
+        <path id="taskdef-classpath-checkstyle">
+            <fileset dir="${dir.build}/lib_extra/checkstyle">
+            	<include name="**/*.jar"/>
+            </fileset>
+        </path>
+    	<taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
+
+        <!-- run checkstyle -->
+    	<delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
+        <mkdir dir="${dir.deploy}/checkstyle" />
+        <checkstyle config="${dir.test}/checkstyle/checkstyle.xml" failOnViolation="false">
+            <formatter type="xml" tofile="${dir.deploy}/checkstyle/checkstyle-report.xml"/>
+            <fileset dir="${dir.src}">
+            	<include name="**/*.java"/>
+            </fileset>
+        </checkstyle>
 	</target>
 
 
