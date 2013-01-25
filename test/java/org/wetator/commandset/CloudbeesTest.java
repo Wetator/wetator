@@ -20,21 +20,34 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
+import org.wetator.test.junit.BrowserRunner.Browsers;
 
 /**
  * @author frank.danek
  */
 public class CloudbeesTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/xml/";
+  // private static final String BASE_FOLDER = "test/xml/";
+  private static final String BASE_FOLDER = "test/xml/incubator/";
+
+  // @Test
+  // public void useModule() throws InvalidInputException {
+  // executeTestFile("use_module.wet");
+  //
+  // Assert.assertEquals(13, getSteps());
+  // Assert.assertEquals(0, getFailures());
+  // Assert.assertEquals(0, getErrors());
+  // }
 
   @Test
-  public void useModule() throws InvalidInputException {
-    executeTestFile("use_module.wet");
+  @Browsers({ BrowserType.FIREFOX_3_6 })
+  public void assertApplet() throws InvalidInputException {
+    executeTestFile("assert_applet.xml");
 
-    Assert.assertEquals(13, getSteps());
+    Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
