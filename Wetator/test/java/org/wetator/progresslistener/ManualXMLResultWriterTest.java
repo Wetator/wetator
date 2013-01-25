@@ -28,10 +28,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import org.junit.Assert;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.core.Command;
@@ -581,11 +580,21 @@ public class ManualXMLResultWriterTest {
     String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
 
     String tmpWetatorPath = System.getProperty("user.dir");
-    Assert.assertEquals(
-        tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
-            "ManualXMLResultWriterTest.java)".replaceAll("\\{display: none;\\}", "\\{\\}")).replaceAll("\r\n", "\n"),
-        tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)", "ManualXMLResultWriterTest.java)")
-            .replaceAll("\\{display: none;\\}", "\\{\\}").replaceAll("\r\n", "\n").replaceAll(tmpWetatorPath, ""));
+
+    tmpActualReport = tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
+        "ManualXMLResultWriterTest.java)");
+    tmpActualReport = tmpActualReport.replace("{display: none;}", "{}");
+    tmpActualReport = tmpActualReport.replace("\r\n", "\n");
+    tmpActualReport = tmpActualReport.replace(tmpWetatorPath, "");
+    tmpActualReport = tmpActualReport.replace('\\', '/');
+
+    tmpExpectedReport = tmpExpectedReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
+        "ManualXMLResultWriterTest.java)");
+    tmpExpectedReport = tmpExpectedReport.replace("{display: none;}", "{}");
+    tmpExpectedReport = tmpExpectedReport.replace("\r\n", "\n");
+    tmpExpectedReport = tmpExpectedReport.replace(tmpWetatorPath, "");
+
+    Assert.assertEquals(tmpExpectedReport, tmpActualReport);
   }
 
   private String getString(InputStream anExpectedStream) throws IOException {
