@@ -24,70 +24,79 @@
 	package: 			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
 	package-no-tests: 	info -> resolve-dependencies -> compile -> package-bundles
 	metrics:			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
+	metrics-only:		info -> compile -> gather-metrics
 	tests:				info -> resolve-dependencies -> compile -> compile-tests -> run-tests
-	tests-no-resolve:	info -> compile -> compile-tests -> run-tests
+	tests-only:			info -> compile -> compile-tests -> run-tests
 	-->
 
 
     <!-- *******************************************
          target package
-           packages the bundles after executing the
-           complete build cycle:
+           executes the complete build cycle until
+           packaging the bundles:
            info -> resolve-dependencies -> compile
            -> compile-tests -> run-tests
            -> gather-metrics -> package-bundles
          ******************************************* -->
-    <target name="package" description="packages the bundles after executing the complete build cycle"
-    	depends="resolve-dependencies, -run-tests, gather-metrics, -check-tests, -package-bundles">
+    <target name="package" description="executes the complete build cycle until packaging the bundles"
+    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles">
     </target>
 
 
     <!-- *******************************************
          target package-no-tests
-           packages the bundles after executing the
-           build cycle without the tests:
+           executes the build cycle until packaging
+           the bundles without the tests:
            info -> resolve-dependencies -> compile
            -> package-bundles
          ******************************************* -->
-    <target name="package-no-tests" description="packages the bundles after executing the build cycle without the tests"
+    <target name="package-no-tests" description="executes the build cycle until packaging the bundles without the tests"
     	depends="resolve-dependencies, -package-bundles">
     </target>
 
 
     <!-- *******************************************
-         target tests
-           runs the tests after executing the
-           complete build cycle:
+         target metrics
+           executes the complete build cycle until
+           gathering the metrics:
            info -> resolve-dependencies -> compile
            -> compile-tests -> run-tests
            -> gather-metrics
          ******************************************* -->
-    <target name="metrics" description="gathers the metrics after executing the complete build cycle"
-    	depends="resolve-dependencies, -run-tests, gather-metrics, -check-tests">
+    <target name="metrics" description="executes the complete build cycle until gathering the metrics"
+    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests">
+    </target>
+
+
+    <!-- *******************************************
+         target metrics-only
+           only gathers the metrics:
+           info -> compile -> gather-metrics
+         ******************************************* -->
+    <target name="metrics-only" description="only gathers the metrics"
+    	depends="info, -gather-metrics">
     </target>
 
 
     <!-- *******************************************
          target tests
-           runs the tests after executing the
-           complete build cycle:
+           executes the complete build cycle until
+           running the tests:
            info -> resolve-dependencies -> compile
            -> compile-tests -> run-tests
          ******************************************* -->
-    <target name="tests" description="runs the tests after executing the complete build cycle"
+    <target name="tests" description="executes the complete build cycle until running the tests"
     	depends="resolve-dependencies, -run-tests, -check-tests">
     </target>
 
 
     <!-- *******************************************
          target tests-no-resolve
-           runs the tests after executing the
-           build cycle without resolving the
-           dependencies:
+           runs the tests only:
            info -> compile
            -> compile-tests -> run-tests
          ******************************************* -->
-    <target name="tests-no-resolve" description="runs the tests after executing the complete build cycle"
+    <target name="tests-only" description="runs the tests only"
     	depends="info, -run-tests, -check-tests">
     </target>
 
@@ -270,14 +279,29 @@
     <!-- ===========================================
          private target load-checkstyle
          =========================================== -->
-    <target name="-load-checkstyle"
-    	depends="-load-ivy">
-    	<mkdir dir="${dir.build}/lib_extra/checkstyle"/>
-       	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
-    		pattern="${dir.build}/lib_extra/checkstyle/[artifact]-[revision].[ext]" />
+    <target name="-check-metrics-libs">
+    	<available file="${dir.ant-lib}/checkstyle/checkstyle-5.5.jar" property="checkstyle-found"/>
+    </target>
 
+
+    <!-- ===========================================
+         private target download-checkstyle
+         =========================================== -->
+    <target name="-download-checkstyle"
+    	depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
+    	<mkdir dir="${dir.ant-lib}/checkstyle"/>
+       	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
+    		pattern="${dir.ant-lib}/checkstyle/[artifact]-[revision].[ext]" />
+    </target>
+
+
+    <!-- ===========================================
+         private target load-checkstyle
+         =========================================== -->
+    <target name="-load-checkstyle"
+    	depends="-download-checkstyle">
         <path id="taskdef-classpath-checkstyle">
-            <fileset dir="${dir.build}/lib_extra/checkstyle">
+            <fileset dir="${dir.ant-lib}/checkstyle">
             	<include name="**/*.jar"/>
             </fileset>
         </path>
@@ -285,12 +309,12 @@
     </target>
 
 
-    <!-- *******************************************
-         target gather-metrics
+    <!-- ===========================================
+         private target gather-metrics
            gathers all metrics
-         ******************************************* -->
-    <target name="gather-metrics" description="gathers all metrics"
-        depends="info, -compile, -load-checkstyle">
+         =========================================== -->
+    <target name="-gather-metrics" description="gathers all metrics"
+        depends="-compile, -load-checkstyle">
         <!-- run checkstyle -->
     	<delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
         <mkdir dir="${dir.deploy}/checkstyle" />
