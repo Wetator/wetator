@@ -7,6 +7,13 @@
     <!-- path to ant-dir -->
     <property name="ant" value="ant" />
 
+	<!-- display number (for xvfb only) -->
+	<property name="display" value="1" />
+
+	<condition property="is-ci">
+		<equals arg1="${stage}" arg2="CI" />
+	</condition>
+
     <!-- application specific properties -->
     <xmlproperty file="./build-jenkins-properties.xml" keepRoot="false" semanticAttributes="true" />
 
@@ -31,6 +38,7 @@
         <exclude name="javax.servlet-*.jar" />
         <exclude name="slf4j-*.jar" />
 	</patternset>
+
 
     <!-- ******************************************* -->
     <!-- target load-onejar                          -->
@@ -91,7 +99,6 @@
     <!-- ******************************************* -->
     <target name="clean-compile" description="recompiles all"
         depends="clean, resolve">
-
         <!-- clean build -->
         <delete dir="${dir.build}" includeEmptyDirs="true"/>
         <mkdir dir="${dir.build}"/>
@@ -123,7 +130,6 @@
     <!-- target compile-tests                        -->
     <!-- ******************************************* -->
     <target name="compile-tests">
-
         <!-- clean build -->
         <mkdir dir="${dir.build}/test-classes"/>
 
@@ -153,7 +159,7 @@
     <!-- target run-tests                            -->
     <!-- ******************************************* -->
     <target name="run-tests" description="runs all tests"
-        depends="clean-compile, compile-tests">
+        depends="clean-compile, compile-tests, -start-xvfb">
         <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
         <mkdir dir="${dir.deploy}/junit"/>
 
@@ -166,12 +172,6 @@
             </fileset>
         </path>
 
-        <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
-            <arg line=":1 -ac -screen 0 1024x768x16" />
-        </exec>
-<!--    	export DISPLAY=:1
-    	Xvfb :1 &-->
-
         <!-- run tests to create xml report -->
         <junit printsummary="withOutAndErr"
             haltonfailure="no" failureproperty="unittestsfailed"
@@ -179,7 +179,7 @@
             <classpath refid="junit-classpath" />
 <!--            <jvmarg value="-Djava.awt.headless=true" />-->
             <jvmarg value="-Duser.language=en" />
-        	<env key="DISPLAY" value=":1" />
+        	<env key="DISPLAY" value=":${display}" />
 
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
@@ -193,6 +193,19 @@
                 </fileset>
             </batchtest>
         </junit>
+	</target>
+
+
+    <!-- ******************************************* -->
+    <!-- private target run-tests                    -->
+	<!--   starts the virtual display                -->
+    <!-- ******************************************* -->
+    <target name="-start-xvfb" description="starts the virtual display"
+    	if="is-ci">
+        <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
+            <arg line=":${display} -ac -screen 0 1024x768x16" />
+        </exec>
+    	<echo>Started Xvfb display ${display}</echo>
 	</target>
 
 
