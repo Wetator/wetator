@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Wetator Jenkins" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <!-- make  environment variables of operation system available -->
+    <!-- make environment variables of operation system available -->
     <property environment="env" />
 
     <!-- path to ant-dir -->
     <property name="ant" value="ant" />
 
-	<!-- display number (for xvfb only) -->
+	<!-- display number (used for xvfb only) -->
 	<property name="display" value="1" />
 
 	<condition property="is-ci">
@@ -39,11 +39,81 @@
         <exclude name="slf4j-*.jar" />
 	</patternset>
 
+	<!--
+	info -> resolve -> compile -> (compile-tests -> run-tests) -> package
 
-    <!-- ******************************************* -->
-    <!-- target load-onejar                          -->
-    <!-- ******************************************* -->
-    <target name="load-onejar">
+	package: 			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> package-bundles
+	package-no-tests: 	info -> resolve-dependencies -> compile -> package-bundles
+	tests:				info -> resolve-dependencies -> compile -> compile-tests -> run-tests
+	tests-no-resolve:	info -> compile -> compile-tests -> run-tests
+	-->
+
+
+    <!-- *******************************************
+         target package
+           packages the bundles after executing the
+           complete build cycle:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> package-bundles
+         ******************************************* -->
+    <target name="package" description="packages the bundles after executing the complete build cycle"
+    	depends="resolve-dependencies, run-tests, -package-bundles">
+    </target>
+
+
+    <!-- *******************************************
+         target package-no-tests
+           packages the bundles after executing the
+           build cycle without the tests:
+           info -> resolve-dependencies -> compile
+           -> package-bundles
+         ******************************************* -->
+    <target name="package-no-tests" description="packages the bundles after executing the build cycle without the tests"
+    	depends="resolve-dependencies, -package-bundles">
+    </target>
+
+
+    <!-- *******************************************
+         target tests
+           runs the tests after executing the
+           complete build cycle:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+         ******************************************* -->
+    <target name="tests" description="runs the tests after executing the complete build cycle"
+    	depends="resolve-dependencies, run-tests">
+    </target>
+
+
+    <!-- *******************************************
+         target tests-no-resolve
+           runs the tests after executing the
+           build cycle without resolving the
+           dependencies:
+           info -> compile
+           -> compile-tests -> run-tests
+         ******************************************* -->
+    <target name="tests-no-resolve" description="runs the tests after executing the build cycle without resolving the dependencies"
+    	depends="run-tests">
+    </target>
+
+
+    <!-- *******************************************
+         target tests-no-resolve
+           resolves the dependencies after executing
+           the complete build cycle:
+           info -> resolve-dependencies
+         ******************************************* -->
+    <target name="resolve" description="resolves the dependencies after executing the complete build cycle"
+    	depends="resolve-dependencies">
+    </target>
+
+
+    <!-- ===========================================
+         private target load-onejar
+         =========================================== -->
+    <target name="-load-onejar">
         <property name="one-jar.dist.dir" value="./dist"/>
         <property name="one-jar.version" value="0.97"/>
         <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
@@ -54,10 +124,10 @@
     </target>
 
 
-    <!-- ******************************************* -->
-    <!-- target load-wetator                         -->
-    <!-- ******************************************* -->
-    <target name="load-wetator">
+    <!-- ===========================================
+         private target load-wetator
+         =========================================== -->
+    <target name="-load-wetator">
         <taskdef name="wetator" classname="org.wetator.ant.Wetator" >
             <classpath id="wetator-classpath">
                 <fileset dir="${dir.lib}" includes="**/**.jar" />
@@ -67,10 +137,10 @@
     </target>
 
 
-    <!-- =================================
-          target: load-ivy
-         ================================= -->
-    <target name="load-ivy">
+    <!-- ===========================================
+         private target load-ivy
+         =========================================== -->
+    <target name="-load-ivy">
         <!-- try to load ivy here from home ivy dir, in case the user has not already dropped
               it into ant's lib dir (note that the latter copy will always take precedence).
               We will not fail as long as ivy home lib dir exists (it may be empty) and
@@ -82,10 +152,12 @@
                   uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
     </target>
 
-    <!-- ******************************************* -->
-    <!-- target info                                 -->
-    <!-- ******************************************* -->
-    <target name="info" description="Info Target">
+
+    <!-- *******************************************
+         target info
+           displays some info about the build
+         ******************************************* -->
+    <target name="info" description="displays some info about the build">
         <echo level="info" message="" />
         <echo level="info" message="Project: ${ant.project.name}" />
         <echo level="info" message="  ${ant.version}" />
@@ -94,11 +166,11 @@
     </target>
 
 
-    <!-- ******************************************* -->
-    <!-- target clean-compile                        -->
-    <!-- ******************************************* -->
+    <!-- *******************************************
+         target clean-compile
+         ******************************************* -->
     <target name="clean-compile" description="recompiles all"
-        depends="clean, resolve">
+        depends="info, clean, resolve-dependencies">
         <!-- clean build -->
         <delete dir="${dir.build}" includeEmptyDirs="true"/>
         <mkdir dir="${dir.build}"/>
@@ -126,14 +198,44 @@
     </target>
 
 
-    <!-- ******************************************* -->
-    <!-- target compile-tests                        -->
-    <!-- ******************************************* -->
-    <target name="compile-tests">
-        <!-- clean build -->
+    <!-- ===========================================
+         private target compile
+           compiles the sources (not test sources)
+         =========================================== -->
+    <target name="-compile" depends="-clean-build">
+        <mkdir dir="${dir.build}"/>
+        <mkdir dir="${dir.build}/classes"/>
+
+        <!-- compile classes -->
+        <echo>Compiling with Java target ${javac.target}</echo>
+
+        <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
+              target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+
+        <!-- copy resources -->
+        <copy todir="${dir.build}/classes" preservelastmodified="yes">
+            <fileset dir="${dir.src}">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <!-- ===========================================
+         private target compile-tests
+           compiles the test sources
+         =========================================== -->
+    <target name="-compile-tests" depends="-clean-build">
+    	<mkdir dir="${dir.build}"/>
         <mkdir dir="${dir.build}/test-classes"/>
 
-        <!-- compile local classes -->
+        <!-- compile classes -->
         <echo>Compiling with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.test-src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
@@ -155,11 +257,12 @@
     </target>
 
 
-    <!-- ******************************************* -->
-    <!-- target run-tests                            -->
-    <!-- ******************************************* -->
+    <!-- *******************************************
+         target run-tests
+           runs all tests
+         ******************************************* -->
     <target name="run-tests" description="runs all tests"
-        depends="clean-compile, compile-tests, -start-xvfb">
+        depends="info, -compile, -compile-tests, -start-xvfb">
         <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
         <mkdir dir="${dir.deploy}/junit"/>
 
@@ -177,7 +280,6 @@
             haltonfailure="no" failureproperty="unittestsfailed"
             fork="yes" forkmode="once" dir="${basedir}">
             <classpath refid="junit-classpath" />
-<!--            <jvmarg value="-Djava.awt.headless=true" />-->
             <jvmarg value="-Duser.language=en" />
         	<env key="DISPLAY" value=":${display}" />
 
@@ -196,12 +298,11 @@
 	</target>
 
 
-    <!-- ******************************************* -->
-    <!-- private target run-tests                    -->
-	<!--   starts the virtual display                -->
-    <!-- ******************************************* -->
-    <target name="-start-xvfb" description="starts the virtual display"
-    	if="is-ci">
+    <!-- ===========================================
+         private target start-xvfb
+	       starts the virtual display
+         =========================================== -->
+    <target name="-start-xvfb" if="is-ci">
         <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
             <arg line=":${display} -ac -screen 0 1024x768x16" />
         </exec>
@@ -209,17 +310,27 @@
 	</target>
 
 
-    <!-- ******************************************* -->
-    <!-- target build-release                        -->
-    <!-- ******************************************* -->
-    <target name="build-release" description="build all Wetator release artifacts"
-        depends="load-onejar">
+    <!-- ===========================================
+         private target package-bundles
+           builds all Wetator release artifacts
+         =========================================== -->
+    <target name="-package-bundles" description="builds all Wetator release artifacts"
+        depends="-compile">
+    </target>
+
+
+    <!-- *******************************************
+         target build-release
+           builds all Wetator release artifacts
+         ******************************************* -->
+    <target name="build-release" description="builds all Wetator release artifacts"
+        depends="-load-onejar">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
         </tstamp>
 
         <propertyfile file="build.properties">
-          <entry key="application.buildnumber" type="int" default="42" operation="+"/>
+        	<entry key="application.buildnumber" type="int" default="42" operation="+"/>
         </propertyfile>
         <property file="build.properties"/>
 
@@ -467,14 +578,16 @@ echo location of the Java Virtual Machine you want to use.
         </exec>
     </target>
 
-    <!-- ******************************************* -->
-    <!-- target upload-jar-to-repo                   -->
-    <!-- ******************************************* -->
-    <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to repo"
-        depends="load-wetator">
 
-        <input message="Please enter repo username:" addproperty="repo.user"/>
-        <input message="Please enter repo password:" addproperty="repo.password"/>
+    <!-- *******************************************
+         target upload-jar-to-repo
+           uploads current deploy/wetator.jar to the
+           repository
+         ******************************************* -->
+    <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to the repository"
+        depends="info, -load-wetator">
+        <input message="Please enter repository username:" addproperty="repo.user"/>
+        <input message="Please enter repository password:" addproperty="repo.password"/>
 
         <wetator config="wetator-upload.cfg">
             <fileset dir=".">
@@ -487,29 +600,37 @@ echo location of the Java Virtual Machine you want to use.
     </target>
 
 
-    <!-- =================================
-          target: resolve
-         ================================= -->
-    <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
+    <!-- *******************************************
+         target resolve-dependencies
+           resolves and retrieves dependencies
+           with ivy
+         ******************************************* -->
+    <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
+    	depends="info, -clean-lib, -load-ivy">
         <ivy:configure />
         <ivy:resolve />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
     </target>
 
-    <!-- =================================
-          target: report
-         ================================= -->
-    <target name="report" depends="resolve" description="--> generates a report of dependencies">
+
+    <!-- *******************************************
+         target report
+           generates a report of the dependencies
+         ******************************************* -->
+    <target name="report" description="generates a report of the dependencies"
+    	depends="info, resolve-dependencies">
         <mkdir dir="${dir.build}/ivy-report"/>
         <ivy:report todir="${dir.build}/ivy-report"/>
     </target>
 
 
-	<!-- =================================
-          target: zip-curret-libs
-         ================================= -->
-    <target name="zip-current-libs" description="--> create current-libs.zip">
+	<!-- *******************************************
+         target zip-curret-libs
+           bundles the current libs as zip
+         ******************************************* -->
+    <target name="zip-current-libs" description="bundles the current libs as zip"
+    	depends="info">
         <zip destfile="${dir.deploy}/current-libs.zip">
             <zipfileset dir="${dir.lib}" prefix="lib" />
             <zipfileset dir="${dir.lib-src}" prefix="lib_src" />
@@ -517,10 +638,12 @@ echo location of the Java Virtual Machine you want to use.
     </target>
 
 
-	<!-- =================================
-          target: clean-lib
-         ================================= -->
-    <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
+	<!-- ===========================================
+         private target clean-lib
+           cleans the project libraries directory
+           (dependencies)
+         =========================================== -->
+    <target name="-clean-lib">
         <mkdir dir="${dir.lib}"/>
         <mkdir dir="${dir.lib-src}"/>
 
@@ -530,16 +653,20 @@ echo location of the Java Virtual Machine you want to use.
         </delete>
     </target>
 
-    <!-- =================================
-          target: clean-build
-         ================================= -->
-    <target name="clean-build" description="--> clean the project built files">
+
+    <!-- ===========================================
+         private target clean-build
+           cleans the built project files
+         =========================================== -->
+    <target name="-clean-build">
         <delete includeemptydirs="true" dir="${dir.build}"/>
     </target>
 
-    <!-- =================================
-          target: clean
-         ================================= -->
-    <target name="clean" depends="clean-build, clean-lib" description="--> clean the project" />
+
+    <!-- *******************************************
+         target clean
+           cleans the project
+         ******************************************* -->
+    <target name="clean" depends="info, -clean-build, -clean-lib" description="cleans the project" />
 
 </project>
