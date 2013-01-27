@@ -61,15 +61,19 @@ public final class VersionUtil {
    */
   public static String determineCreationDateFromJarFileName(final Class<?> aClass) {
     final String tmpPath = aClass.getProtectionDomain().getCodeSource().getLocation().getPath();
+    String tmpClassFile = aClass.getName();
+    tmpClassFile = tmpClassFile.replace('.', '/');
+    tmpClassFile = tmpClassFile + ".class";
     try {
       final JarFile tmpJar = new JarFile(tmpPath);
-      String tmpClassFile = aClass.getName();
-      tmpClassFile = tmpClassFile.replace('.', '/');
-      tmpClassFile = tmpClassFile + ".class";
-      final JarEntry tmpJarEntry = tmpJar.getJarEntry(tmpClassFile);
-      final Date tmpDate = new Date(tmpJarEntry.getTime());
+      try {
+        final JarEntry tmpJarEntry = tmpJar.getJarEntry(tmpClassFile);
+        final Date tmpDate = new Date(tmpJarEntry.getTime());
 
-      return new SimpleDateFormat("yyyy-MM-dd").format(tmpDate);
+        return new SimpleDateFormat("yyyy-MM-dd").format(tmpDate);
+      } finally {
+        tmpJar.close();
+      }
     } catch (final Throwable e) {
       // ignore
     }
@@ -129,18 +133,22 @@ public final class VersionUtil {
     final String tmpPath = aClass.getProtectionDomain().getCodeSource().getLocation().getPath();
     try {
       final JarFile tmpJar = new JarFile(tmpPath);
-      final Manifest tmpManifest = tmpJar.getManifest();
+      try {
+        final Manifest tmpManifest = tmpJar.getManifest();
 
-      final Attributes tmpAttributes;
-      if (null == aPackage) {
-        tmpAttributes = tmpManifest.getMainAttributes();
-      } else {
-        tmpAttributes = tmpManifest.getAttributes(aPackage);
-      }
+        final Attributes tmpAttributes;
+        if (null == aPackage) {
+          tmpAttributes = tmpManifest.getMainAttributes();
+        } else {
+          tmpAttributes = tmpManifest.getAttributes(aPackage);
+        }
 
-      final String tmpTitle = tmpAttributes.getValue(anAttribute);
-      if (StringUtils.isNotBlank(tmpTitle)) {
-        return tmpTitle;
+        final String tmpTitle = tmpAttributes.getValue(anAttribute);
+        if (StringUtils.isNotBlank(tmpTitle)) {
+          return tmpTitle;
+        }
+      } finally {
+        tmpJar.close();
       }
     } catch (final Throwable e) {
       // ignore
