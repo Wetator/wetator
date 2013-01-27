@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -217,15 +218,17 @@ public class WetatorConfiguration {
     File tmpBaseDirectory;
     // ok, we can start to read the file
     try {
-      FileInputStream tmpFileInputStream;
+      FileInputStream tmpFileInputStream = new FileInputStream(aConfigurationPropertyFile);
+      try {
+        tmpProperties = new Properties();
+        tmpProperties.load(tmpFileInputStream);
 
-      tmpFileInputStream = new FileInputStream(aConfigurationPropertyFile);
-      tmpProperties = new Properties();
-      tmpProperties.load(tmpFileInputStream);
-
-      tmpBaseDirectory = aConfigurationPropertyFile.getParentFile();
-      if (null == tmpBaseDirectory) {
-        tmpBaseDirectory = new File(System.getProperty("user.dir"));
+        tmpBaseDirectory = aConfigurationPropertyFile.getParentFile();
+        if (null == tmpBaseDirectory) {
+          tmpBaseDirectory = new File(System.getProperty("user.dir"));
+        }
+      } finally {
+        IOUtils.closeQuietly(tmpFileInputStream);
       }
     } catch (final IOException e) {
       throw new ConfigurationException("An error occured during read of the configuration file '"
