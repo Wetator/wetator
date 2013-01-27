@@ -205,8 +205,7 @@ public class XMLScripter implements IScripter {
     Reader tmpReader = null;
     try {
       tmpReader = createUTF8Reader(aFile);
-      List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
-      tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
+      List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
       try {
         tmpReader.close();
       } catch (final IOException e) {
@@ -262,8 +261,7 @@ public class XMLScripter implements IScripter {
     Reader tmpReader = null;
     try {
       tmpReader = new StringReader(aContent);
-      List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
-      tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
+      List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
 
       if (null == tmpSchemas || tmpSchemas.isEmpty()) {
         throw new InvalidInputException("No schemas found in content.");
