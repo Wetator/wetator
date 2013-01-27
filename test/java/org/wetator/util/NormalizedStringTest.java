@@ -145,7 +145,7 @@ public class NormalizedStringTest {
     org.junit.Assert.assertEquals("", tmpResult.toString());
 
     try {
-      tmpResult = tmpTestable.substring(0, 1);
+      tmpTestable.substring(0, 1);
       org.junit.Assert.fail("StringIndexOutOfBoundsException expected");
     } catch (StringIndexOutOfBoundsException e) {
       org.junit.Assert.assertEquals("NormalizedString index out of range: 1 lenght: 0.", e.getMessage());
