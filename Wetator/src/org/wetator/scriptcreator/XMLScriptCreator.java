@@ -324,17 +324,16 @@ public class XMLScriptCreator implements IScriptCreator {
     @Override
     public int hashCode() {
       final int tmpPrime = 31;
-      int tmpResult = 1;
-      tmpResult = tmpPrime * tmpResult;
-      if (location == null) {
+      int tmpResult = tmpPrime;
+      if (location != null) {
         tmpResult += location.hashCode();
       }
       tmpResult = tmpPrime * tmpResult;
-      if (namespace == null) {
+      if (namespace != null) {
         tmpResult += namespace.hashCode();
       }
       tmpResult = tmpPrime * tmpResult;
-      if (symbol == null) {
+      if (symbol != null) {
         tmpResult += symbol.hashCode();
       }
       return tmpResult;
