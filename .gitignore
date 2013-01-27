@@ -1,8 +1,10 @@
 Wetator/.settings/org.sonar.ide.eclipse.core.prefs
 Wetator/.sonar
 Wetator/ant_lib/checkstyle
+Wetator/ant_lib/findbugs
 Wetator/ant_lib/ivy-2.1.0.jar
 Wetator/ant_lib/one-jar-ant-task-0.96.jar
+Wetator/ant_lib/pmd
 Wetator/ant_lib/version_tool.jar
 Wetator/build
 Wetator/deploy

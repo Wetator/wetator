@@ -31,8 +31,9 @@
     </patternset>
 
     <patternset id="junitPattern">
-        <!--<include name="**/CloudbeesTest.class" />-->
-        <!----><include name="**/*Test.class"/>
+        <!--<include name="**/CloudbeesTest.class" /> -->
+        <!---->
+        <include name="**/*Test.class" />
         <exclude name="**/AllTests.class" />
         <exclude name="**/Abstract*.class" />
         <exclude name="**/Manual*.class" />
@@ -40,6 +41,10 @@
     </patternset>
 
     <patternset id="checkstylePattern">
+        <include name="**/*.java" />
+    </patternset>
+
+    <patternset id="pmdPattern">
         <include name="**/*.java" />
     </patternset>
 </project>

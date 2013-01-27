@@ -277,10 +277,11 @@
 
 
     <!-- ===========================================
-         private target load-checkstyle
+         private target check-metrics-libs
          =========================================== -->
     <target name="-check-metrics-libs">
     	<available file="${dir.ant-lib}/checkstyle/checkstyle-5.5.jar" property="checkstyle-found"/>
+    	<available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
     </target>
 
 
@@ -292,6 +293,31 @@
     	<mkdir dir="${dir.ant-lib}/checkstyle"/>
        	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
     		pattern="${dir.ant-lib}/checkstyle/[artifact]-[revision].[ext]" />
+    </target>
+
+
+    <!-- ===========================================
+         private target download-findbugs
+         =========================================== -->
+    <target name="-download-findbugs"
+    	depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
+    	<mkdir dir="${dir.ant-lib}/findbugs"/>
+    	<ivy:retrieve pattern="${dir.ant-lib}/findbugs/[artifact]-[revision].[ext]">
+    		<dependency org="com.google.code.findbugs" name="findbugs" rev="2.0.1">
+    			<artifact name="findbugs" type="jar" ext="jar"/>
+    		</dependency>
+    	</ivy:retrieve>
+    </target>
+
+
+    <!-- ===========================================
+         private target download-pmd
+         =========================================== -->
+    <target name="-download-pmd"
+    	depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
+    	<mkdir dir="${dir.ant-lib}/pmd"/>
+       	<ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.1" inline="true" type="jar"
+    		pattern="${dir.ant-lib}/pmd/[artifact]-[revision].[ext]" />
     </target>
 
 
@@ -310,11 +336,40 @@
 
 
     <!-- ===========================================
+         private target load-findbugs
+         =========================================== -->
+    <target name="-load-findbugs"
+    	depends="-download-findbugs">
+        <path id="taskdef-classpath-findbugs">
+            <fileset dir="${dir.ant-lib}/findbugs">
+            	<include name="**/*.jar"/>
+            </fileset>
+        </path>
+    	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
+    </target>
+
+
+    <!-- ===========================================
+         private target load-pmd
+         =========================================== -->
+    <target name="-load-pmd"
+    	depends="-download-pmd">
+        <path id="taskdef-classpath-pmd">
+            <fileset dir="${dir.ant-lib}/pmd">
+            	<include name="**/*.jar"/>
+            </fileset>
+        </path>
+        <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
+    </target>
+
+
+    <!-- ===========================================
          private target gather-metrics
            gathers all metrics
          =========================================== -->
     <target name="-gather-metrics" description="gathers all metrics"
-        depends="-compile, -load-checkstyle">
+        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd">
         <!-- run checkstyle -->
     	<delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
         <mkdir dir="${dir.deploy}/checkstyle" />
@@ -324,6 +379,40 @@
             	<patternset refid="checkstylePattern" />
             </fileset>
         </checkstyle>
+
+        <!-- run findbugs -->
+        <path id="findbugs-aux-classpath">
+            <fileset dir="${dir.lib}">
+                <patternset refid="libPattern" />
+            </fileset>
+        </path>
+
+    	<delete dir="${dir.deploy}/findbugs" includeemptydirs="true" />
+        <mkdir dir="${dir.deploy}/findbugs" />
+        <findbugs jvmargs="-Xmx512m" output="xml:withMessages"
+            outputFile="${dir.deploy}/findbugs/findbugs-report.xml" timeout="1800000"
+            >
+        	<!--excludeFilter="${dir.test}/findbugs/exclude-filter.xml"-->
+        	<classpath refid="taskdef-classpath-findbugs" />
+            <auxclasspath refid="findbugs-aux-classpath" />
+            <sourcePath path="${dir.src}" />
+            <class location="${dir.build}/classes" />
+        </findbugs>
+
+        <!-- run pmd -->
+        <mkdir dir="${dir.deploy}/pmd" />
+        <pmd shortFilenames="true">
+            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,rulesets/java/strings.xml,rulesets/java/unusedcode.xml,rulesets/java/logging-jakarta-commons.xml,rulesets/java/finalizers.xml,rulesets/java/optimizations.xml</ruleset>
+            <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
+            <fileset dir="${dir.src}">
+                <patternset refid="pmdPattern" />
+            </fileset>
+        </pmd>
+        <cpd minimumTokenCount="100" outputFile="${dir.deploy}/pmd/cpd-report.xml" format="xml">
+            <fileset dir="${dir.src}">
+                <patternset refid="pmdPattern" />
+            </fileset>
+        </cpd>
 	</target>
 
 
