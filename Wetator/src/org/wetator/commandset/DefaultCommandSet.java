@@ -133,7 +133,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
    * Command 'Use Module'.
    */
   @ForceExecution
-  public final class CommandUseModule implements ICommandImplementation {
+  public static final class CommandUseModule implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 
@@ -824,7 +824,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
    * Command 'Exec Java'.
    */
   @ForceExecution
-  public final class CommandExecJava implements ICommandImplementation {
+  public static final class CommandExecJava implements ICommandImplementation {
     /**
      * {@inheritDoc}
      * 

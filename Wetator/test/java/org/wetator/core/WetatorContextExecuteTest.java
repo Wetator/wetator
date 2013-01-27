@@ -922,7 +922,7 @@ public class WetatorContextExecuteTest {
    * @author frank.danek
    */
   @ForceExecution
-  private class ForceExecutionCommand implements ICommandImplementation {
+  private static class ForceExecutionCommand implements ICommandImplementation {
 
     private ICommandImplementation wrappedImplementation;
 
