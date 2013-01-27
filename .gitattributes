@@ -336,6 +336,7 @@ test/java/org/wetator/util/XMLUtilTest.java -text
 test/legacy_xml/default_command_set.xml -text
 test/legacy_xml/modules/module.xml -text
 test/legacy_xml/sql_command_set.xml -text
+test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 test/webpage/ajax/jquery/ajax_javascript_test.js -text
 test/webpage/ajax/jquery/ajax_options_birds.htms -text
 test/webpage/ajax/jquery/ajax_options_fish.htms -text
