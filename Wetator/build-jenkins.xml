@@ -282,6 +282,7 @@
     <target name="-check-metrics-libs">
     	<available file="${dir.ant-lib}/checkstyle/checkstyle-5.5.jar" property="checkstyle-found"/>
     	<available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
+    	<available file="${dir.ant-lib}/pmd/pmd-5.0.1.jar" property="pmd-found"/>
     </target>
 
 
@@ -302,6 +303,7 @@
     <target name="-download-findbugs"
     	depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
     	<mkdir dir="${dir.ant-lib}/findbugs"/>
+    	<!-- sources and javadoc make problems here so we have to ignore failures -->
        	<ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.1" inline="true" type="jar"
     		pattern="${dir.ant-lib}/findbugs/[artifact]-[revision](-[classifier]).[ext]" />
     </target>
@@ -399,7 +401,7 @@
         <!-- run pmd -->
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true">
-            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,rulesets/java/strings.xml,rulesets/java/unusedcode.xml,rulesets/java/logging-jakarta-commons.xml,rulesets/java/finalizers.xml,rulesets/java/optimizations.xml</ruleset>
+            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,rulesets/java/strings.xml,rulesets/java/unusedcode.xml,rulesets/java/logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
