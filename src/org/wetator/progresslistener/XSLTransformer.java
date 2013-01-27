@@ -154,7 +154,10 @@ public final class XSLTransformer {
       return;
     }
 
-    aTargetDir.mkdirs();
+    if (!aTargetDir.mkdirs()) {
+      LOG.error("Can't create '" + aTargetDir.getAbsolutePath() + "'.");
+      return;
+    }
 
     final File[] tmpImageFiles = aSourceDir.listFiles();
     if (null == tmpImageFiles) {
