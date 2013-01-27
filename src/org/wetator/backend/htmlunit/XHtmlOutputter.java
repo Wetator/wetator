@@ -492,11 +492,7 @@ public final class XHtmlOutputter {
       tmpNodeClass = tmpNodeClass.getSuperclass();
     }
 
-    if (null == tmpTag) {
-      LOG.warn("Unsupported element " + aDomNode);
-      return aDomNode.getClass().getName();
-    }
-
-    return tmpTag;
+    LOG.warn("Unsupported element " + aDomNode);
+    return aDomNode.getClass().getName();
   }
 }
