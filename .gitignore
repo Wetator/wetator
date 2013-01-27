@@ -1,8 +1,10 @@
 .settings/org.sonar.ide.eclipse.core.prefs
 /.sonar
 ant_lib/checkstyle
+ant_lib/findbugs
 ant_lib/ivy-2.1.0.jar
 ant_lib/one-jar-ant-task-0.96.jar
+ant_lib/pmd
 ant_lib/version_tool.jar
 /build
 /deploy
