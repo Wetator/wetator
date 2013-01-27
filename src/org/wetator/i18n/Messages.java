@@ -39,21 +39,22 @@ public final class Messages {
     // TODO move the messages file to the root level
     final ResourceBundle tmpMessages = ResourceBundle.getBundle("org.wetator.Messages");
 
-    String tmpMessageResource;
+    StringBuilder tmpMessageResource;
     try {
-      tmpMessageResource = tmpMessages.getString(aMessageKey);
+      tmpMessageResource = new StringBuilder(tmpMessages.getString(aMessageKey));
     } catch (final MissingResourceException e) {
-      tmpMessageResource = "Unknown message key ''" + aMessageKey + "''";
+      tmpMessageResource = new StringBuilder("Unknown message key ''");
+      tmpMessageResource.append(aMessageKey).append("''");
       if ((null != aParameterArray) && (aParameterArray.length > 0)) {
-        tmpMessageResource = tmpMessageResource + " (param(s): ";
+        tmpMessageResource.append(" (param(s): ");
         for (int i = 0; i < aParameterArray.length; i++) {
-          tmpMessageResource = tmpMessageResource + " ''{" + i + "}''";
+          tmpMessageResource.append(" ''{" + i).append("}''");
         }
-        tmpMessageResource = tmpMessageResource + ")";
+        tmpMessageResource.append(")");
       }
-      tmpMessageResource = tmpMessageResource + ".";
+      tmpMessageResource.append(".");
     }
-    final MessageFormat tmpMessageFormat = new MessageFormat(tmpMessageResource);
+    final MessageFormat tmpMessageFormat = new MessageFormat(tmpMessageResource.toString());
     final String tmpResult = tmpMessageFormat.format(aParameterArray);
 
     return tmpResult;
