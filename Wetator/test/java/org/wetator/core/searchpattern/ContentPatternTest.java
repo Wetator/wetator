@@ -31,6 +31,28 @@ import org.wetator.util.SecretString;
 public class ContentPatternTest {
 
   @Test
+  public void constructorNull() {
+    List<SecretString> tmpExpected = new LinkedList<SecretString>();
+    try {
+      new ContentPattern(tmpExpected);
+      org.junit.Assert.fail("InvalidInputException expected");
+    } catch (InvalidInputException e) {
+      org.junit.Assert.assertEquals("Pattern '' is invalid (empty patterns not supported).", e.getMessage());
+    }
+  }
+
+  @Test
+  public void constructorEmpty() {
+    List<SecretString> tmpExpected = new LinkedList<SecretString>();
+    try {
+      new ContentPattern(tmpExpected);
+      org.junit.Assert.fail("InvalidInputException expected");
+    } catch (InvalidInputException e) {
+      org.junit.Assert.assertEquals("Pattern '' is invalid (empty patterns not supported).", e.getMessage());
+    }
+  }
+
+  @Test
   public void matches() throws AssertionException, InvalidInputException {
     List<SecretString> tmpExpected = new LinkedList<SecretString>();
     tmpExpected.add(new SecretString("a", "a"));

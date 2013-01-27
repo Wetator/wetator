@@ -50,7 +50,7 @@ public class ContentPattern {
     // not empty
     if (anExpectedNodes == null || anExpectedNodes.isEmpty()) {
       final String tmpMessage = Messages.getMessage("invalidContentPattern",
-          new String[] { SecretString.toString(anExpectedNodes), Messages.getMessage("emptyContentPattern", null) });
+          new String[] { "", Messages.getMessage("emptyContentPattern", null) });
       throw new InvalidInputException(tmpMessage);
     }
     parseNodes();
