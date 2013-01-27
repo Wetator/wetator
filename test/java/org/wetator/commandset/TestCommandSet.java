@@ -53,7 +53,7 @@ public final class TestCommandSet extends AbstractCommandSet {
   /**
    * The assert fail command.
    */
-  public final class CommandAssertFail implements ICommandImplementation {
+  public static final class CommandAssertFail implements ICommandImplementation {
     @Override
     public void execute(WetatorContext aContext, Command aCommand) throws CommandException {
       List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
