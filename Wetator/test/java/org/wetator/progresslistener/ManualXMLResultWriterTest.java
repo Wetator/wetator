@@ -619,6 +619,8 @@ public class ManualXMLResultWriterTest {
             return tmpElement.getMethodName();
           }
         }
+      } catch (RuntimeException e) {
+        throw e;
       } catch (Exception e) {
         // ignore
       }

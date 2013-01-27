@@ -184,6 +184,8 @@ public class XMLResultWriter implements IProgressListener {
         tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j");
         tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpClass, "org.apache.log4j");
         printlnNode(TAG_LIB, tmpInfo);
+      } catch (RuntimeException e) {
+        throw e;
       } catch (final Exception e) {
         printlnNode(TAG_LIB, "log4j not in classpath.");
       }
