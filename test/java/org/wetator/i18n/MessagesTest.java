@@ -27,7 +27,27 @@ public class MessagesTest {
   @Test
   public void getMessage() {
     String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] { "param1" });
-
     Assert.assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
+  }
+
+  @Test
+  public void getMessageParamsNull() {
+    String tmpMessage = Messages.getMessage("emptyFirstParameter", null);
+    Assert.assertEquals("The command '{0}' requires a first parameter.", tmpMessage);
+  }
+
+  @Test
+  public void getMessageWrongResource() {
+    String tmpMessage = Messages.getMessage("unknown", new String[] { "param1" });
+    Assert.assertEquals("Unknown message key 'unknown' (param(s):  'param1').", tmpMessage);
+
+    tmpMessage = Messages.getMessage("unknown", new String[] { "param1", "param2" });
+    Assert.assertEquals("Unknown message key 'unknown' (param(s):  'param1' 'param2').", tmpMessage);
+
+    tmpMessage = Messages.getMessage("unknown", new String[] { });
+    Assert.assertEquals("Unknown message key 'unknown'.", tmpMessage);
+
+    tmpMessage = Messages.getMessage("unknown", null);
+    Assert.assertEquals("Unknown message key 'unknown'.", tmpMessage);
   }
 }
