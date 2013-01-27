@@ -40,7 +40,7 @@ public final class SecretString {
    * Constructs a comma separated string from the given list of secret strings.
    * 
    * @param aSecretStringList the input
-   * @return the constucted string
+   * @return the constructed string
    */
   public static String toString(final List<SecretString> aSecretStringList) {
     final StringBuilder tmpResult = new StringBuilder();
