@@ -293,7 +293,7 @@
     	depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
     	<mkdir dir="${dir.ant-lib}/checkstyle"/>
        	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/checkstyle/[artifact]-[revision](-[classifier]).[ext]" />
+    		pattern="${dir.ant-lib}/checkstyle${ivy.retrieve.pattern}" />
     </target>
 
 
@@ -305,7 +305,7 @@
     	<mkdir dir="${dir.ant-lib}/findbugs"/>
     	<!-- sources and javadoc make problems here so we have to ignore failures -->
        	<ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.1" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/findbugs/[artifact]-[revision](-[classifier]).[ext]" />
+    		pattern="${dir.ant-lib}/findbugs${ivy.retrieve.pattern}" />
     </target>
 
 
@@ -316,7 +316,7 @@
     	depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
     	<mkdir dir="${dir.ant-lib}/pmd"/>
        	<ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.1" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/pmd/[artifact]-[revision](-[classifier]).[ext]" />
+    		pattern="${dir.ant-lib}/pmd${ivy.retrieve.pattern}" />
     </target>
 
 
