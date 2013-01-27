@@ -292,7 +292,7 @@
     	depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
     	<mkdir dir="${dir.ant-lib}/checkstyle"/>
        	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/checkstyle/[artifact]-[revision].[ext]" />
+    		pattern="${dir.ant-lib}/checkstyle/[artifact]-[revision](-[classifier]).[ext]" />
     </target>
 
 
@@ -302,11 +302,8 @@
     <target name="-download-findbugs"
     	depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
     	<mkdir dir="${dir.ant-lib}/findbugs"/>
-    	<ivy:retrieve pattern="${dir.ant-lib}/findbugs/[artifact]-[revision].[ext]">
-    		<dependency org="com.google.code.findbugs" name="findbugs" rev="2.0.1">
-    			<artifact name="findbugs" type="jar" ext="jar"/>
-    		</dependency>
-    	</ivy:retrieve>
+       	<ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.1" inline="true" type="jar"
+    		pattern="${dir.ant-lib}/findbugs/[artifact]-[revision](-[classifier]).[ext]" />
     </target>
 
 
@@ -317,7 +314,7 @@
     	depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
     	<mkdir dir="${dir.ant-lib}/pmd"/>
        	<ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.1" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/pmd/[artifact]-[revision].[ext]" />
+    		pattern="${dir.ant-lib}/pmd/[artifact]-[revision](-[classifier]).[ext]" />
     </target>
 
 
@@ -758,5 +755,14 @@ echo location of the Java Virtual Machine you want to use.
            cleans the project
          ******************************************* -->
     <target name="clean" depends="info, -clean-build, -clean-lib" description="cleans the project" />
+
+
+    <!-- *******************************************
+         target clean-cache
+           cleans the ivy cache
+         ******************************************* -->
+	<target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
+	    <ivy:cleancache/>
+	</target>
 
 </project>
