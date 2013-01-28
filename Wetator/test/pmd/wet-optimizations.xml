@@ -6,6 +6,9 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
   <description>
 These rules deal with different optimizations that generally apply to best practices.
+
+We have configured
+- PrematureDeclaration to be left out
   </description>
 
     <rule name="LocalVariableCouldBeFinal"
