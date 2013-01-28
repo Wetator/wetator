@@ -193,6 +193,7 @@ test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 test/excel/default_command_set.xls -text
 test/excel/modules/module.xls -text
 test/excel/sql_command_set.xls -text
+test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
 test/java/org/wetator/automatonTest.jpage -text
 test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/WeightedControlListTest.java -text
@@ -336,7 +337,9 @@ test/java/org/wetator/util/XMLUtilTest.java -text
 test/legacy_xml/default_command_set.xml -text
 test/legacy_xml/modules/module.xml -text
 test/legacy_xml/sql_command_set.xml -text
+test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
+test/pmd/wet-strings.xml -text svneol=unset#text/plain
 test/webpage/ajax/jquery/ajax_javascript_test.js -text
 test/webpage/ajax/jquery/ajax_options_birds.htms -text
 test/webpage/ajax/jquery/ajax_options_fish.htms -text

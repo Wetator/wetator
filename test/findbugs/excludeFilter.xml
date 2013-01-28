@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Examples taken from <a href="http://findbugs.sourceforge.net/manual/filter.html#d0e2168">findbugs documentation</a>. -->
+<FindBugsFilter>
+    <!-- Match all bug reports for a class. -->
+    <!--
+    <Match>
+        <Class name="com.foobar.ClassNotToBeAnalyzed" />
+    </Match>
+    -->
+
+    <!-- Match certain tests from a class by specifying their abbreviations. -->
+    <!--
+    <Match>
+        <Class name="com.foobar.ClassWithSomeBugsMatched" />
+        <Bug code="DE,UrF,SIC" />
+    </Match>
+    -->
+
+    <!-- Match certain tests from all classes by specifying their abbreviations. -->
+    <!--
+    <Match>
+        <Bug code="DE,UrF,SIC" />
+    </Match>
+    -->
+    <Match classregex=".*">
+        <BugCode name="DC" />
+    </Match>
+
+    <!-- Match certain tests from all classes by specifying their category. -->
+    <!--
+    <Match>
+       <Bug category="PERFORMANCE" />
+    </Match>
+    -->
+
+    <!-- Match bug types from specified methods of a class by their abbreviations, e.g.
+         match all doublecheck violations in these methods of "AnotherClass". -->
+    <!--
+    <Match>
+        <Class name="com.foobar.AnotherClass" />
+        <Or>
+            <Method name="nonOverloadedMethod" />
+            <Method name="frob" params="int,java.lang.String" returns="void" />
+            <Method name="blat" params="" returns="boolean" />
+        </Or>
+        <Bug code="DC" />
+    </Match>
+    -->
+
+    <!-- Match a particular bug pattern in a particular method.
+         A method with an open stream false positive. -->
+    <!--
+    <Match>
+      <Class name="com.foobar.MyClass" />
+      <Method name="writeDataToFile" />
+      <Bug pattern="OS_OPEN_STREAM" />
+    </Match>
+    -->
+
+    <!-- Match a particular bug pattern with a given priority in a particular method, e.g.
+         a method with a dead local store false positive (medium priority). -->
+    <!--
+    <Match>
+        <Class name="com.foobar.MyClass" />
+        <Method name="someMethod" />
+        <Bug pattern="DLS_DEAD_LOCAL_STORE" />
+        <Priority value="2" />
+    </Match>
+    -->
+
+    <!-- All bugs in test classes, except for JUnit-specific bugs -->
+    <!--
+    <Match>
+        <Class name="~.*\.*Test" />
+        <Not>
+            <Bug code="IJU" />
+        </Not>
+    </Match>
+    -->
+
+    <!-- Match minor bugs introduced by AspectJ compiler (you are probably not interested in
+         these unless you are an AspectJ developer). -->
+    <!--
+    <Match>
+      <Class name="~.*\$AjcClosure\d+" />
+      <Bug pattern="DLS_DEAD_LOCAL_STORE" />
+      <Method name="run" />
+    </Match>
+    <Match>
+      <Bug pattern="UUF_UNUSED_FIELD" />
+      <Field name="~ajc\$.*" />
+    </Match>
+    -->
+
+    <!-- Match bugs in specific parts of the code base
+         match unused fields warnings in Messages classes in all packages -->
+    <!--
+    <Match>
+      <Class name="~.*\.Messages" />
+      <Bug code="UUF" />
+    </Match>
+    -->
+
+    <!-- match mutable statics warnings in all internal packages -->
+    <!--
+    <Match>
+      <Package name="~.*\.internal" />
+      <Bug code="MS" />
+    </Match>
+    -->
+
+    <!-- match anonymoous inner classes warnings in ui package hierarchy -->
+    <!--
+    <Match>
+      <Package name="~com\.foobar\.fooproject\.ui.*" />
+      <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
+    </Match>
+    -->
+
+    <!-- Match bugs on fields or methods with specific signatures -->
+    <!-- match System.exit(...) usage warnings in void main(String[]) methods in all classes -->
+    <!--
+    <Match>
+      <Method returns="void" name="main" params="java.lang.String[]" />
+      <Bug pattern="DM_EXIT" />
+    </Match>
+    -->
+
+    <!-- match UuF warnings on fields of type com.foobar.DebugInfo on all classes -->
+    <!--
+    <Match>
+      <Field type="com.foobar.DebugInfo" />
+      <Bug code="UuF" />
+    </Match>
+    -->
+
+    <!-- Match bugs using the Not filter operator -->
+    <!-- ignore all bugs in test classes, except for those bugs specifically relating to JUnit tests -->
+    <!-- i.e. filter bug if ( classIsJUnitTest && ! bugIsRelatedToJUnit ) -->
+      <!-- the Match filter is equivalent to a logical 'And' -->
+      <!-- test classes are suffixed by 'Test' -->
+      <!-- 'IJU' is the code for bugs related to JUnit test code -->
+    <!--
+    <Match>
+      <Class name="~.*\.*Test" />
+      <Not>
+          <Bug code="IJU" />
+      </Not>
+    </Match>
+    -->
+
+</FindBugsFilter>
