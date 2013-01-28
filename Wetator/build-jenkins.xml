@@ -390,8 +390,7 @@
         <mkdir dir="${dir.deploy}/findbugs" />
         <findbugs jvmargs="-Xmx512m" output="xml:withMessages"
             outputFile="${dir.deploy}/findbugs/findbugs-report.xml" timeout="1800000"
-            >
-        	<!--excludeFilter="${dir.test}/findbugs/exclude-filter.xml"-->
+        	excludeFilter="${dir.test}/findbugs/exclude-filter.xml">
         	<classpath refid="taskdef-classpath-findbugs" />
             <auxclasspath refid="findbugs-aux-classpath" />
             <sourcePath path="${dir.src}" />
@@ -401,7 +400,7 @@
         <!-- run pmd -->
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true">
-            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,rulesets/java/strings.xml,rulesets/java/unusedcode.xml,rulesets/java/logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
+            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
