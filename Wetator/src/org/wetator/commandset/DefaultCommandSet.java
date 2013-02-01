@@ -105,7 +105,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       try {
         // create the complete URL
         final String tmpUrlToLower = tmpUrlParam.toLowerCase(Locale.ENGLISH);
-        if (tmpUrlToLower.startsWith("http://") || tmpUrlToLower.startsWith("https://")) {
+        if (tmpUrlToLower.startsWith("http://") || tmpUrlToLower.startsWith("https://")
+            || tmpUrlToLower.startsWith("file://")) {
           aContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
         } else {
           final String tmpBaseUrl = aContext.getConfiguration().getBaseUrl();
