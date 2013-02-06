@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
+
     <settings defaultResolver="chain" />
     <resolvers>
         <ibiblio name="ibiblio" m2compatible="true" checksums="" />
@@ -31,6 +32,11 @@
             <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
             <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
         </url>
+
+        <filesystem name="local-m2-publish" m2compatible="true">
+            <artifact pattern="${user.home}/.m2/repository/[module]/[revision]/[artifact]-[revision].[ext]"/>
+        </filesystem>
+
         <chain name="chain">
             <resolver ref="wetator-sh" />
             <resolver ref="wetator" />

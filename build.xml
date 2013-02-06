@@ -11,7 +11,7 @@
     <xmlproperty file="./build-properties.xml" keepRoot="false" semanticAttributes="true" />
 
     <!-- patternsets -->
-	<patternset id="runtime-libs">
+    <patternset id="runtime-libs">
         <exclude name="ant-*.jar" />
         <exclude name="hsqldb-*.jar" />
 
@@ -30,8 +30,8 @@
         <exclude name="jetty-xml*.jar" />
         <exclude name="javax.servlet-*.jar" />
         <exclude name="slf4j-*.jar" />
-	</patternset>	
-	
+    </patternset>    
+    
     <!-- ******************************************* -->
     <!-- target load-onejar                          -->
     <!-- ******************************************* -->
@@ -210,7 +210,7 @@
             <lib>
                 <fileset dir="${dir.lib}">
                     <include name="*.jar" />
-                	<patternset refid="runtime-libs" />
+                    <patternset refid="runtime-libs" />
                 </fileset>
             </lib>
         </one-jar>
@@ -278,7 +278,7 @@ echo location of the Java Virtual Machine you want to use.
 
             <zipfileset dir="${dir.lib}" prefix="lib">
                 <include name="*.jar" />
-            	<patternset refid="runtime-libs" />
+                <patternset refid="runtime-libs" />
             </zipfileset>
 
             <zipfileset dir="${dir.samples}/ant" prefix="templates">
@@ -297,6 +297,11 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="wetator.config" />
             </zipfileset>
         </zip>
+
+        <!-- generate pom -->
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom">
+            <mapping conf="default" scope="compile"/>
+       </ivy:makepom>
 
         <!-- generate src zip -->
         <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar">
@@ -407,25 +412,6 @@ echo location of the Java Virtual Machine you want to use.
         </exec>
     </target>
 
-    <!-- ******************************************* -->
-    <!-- target upload-jar-to-repo                   -->
-    <!-- ******************************************* -->
-    <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to repo"
-        depends="load-wetator">
-
-        <input message="Please enter repo username:" addproperty="repo.user"/>
-        <input message="Please enter repo password:" addproperty="repo.password"/>
-
-        <wetator config="wetator-upload.cfg">
-            <fileset dir=".">
-                <include name="wetator-upload.wet"/>
-            </fileset>
-
-            <property name="$user" value="${repo.user}"/>
-            <property name="$$$password" value="${repo.password}"/>
-        </wetator>
-    </target>
-
 
     <!-- =================================
           target: resolve
@@ -437,6 +423,18 @@ echo location of the Java Virtual Machine you want to use.
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
     </target>
 
+
+    <!-- =================================
+          target: publish-local
+         ================================= -->
+    <target name="publish-local" depends="resolve, build-release" description="publish to the local maven repo">
+        <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact].[ext]"/>
+        </ivy:publish>
+    </target>
+
+
     <!-- =================================
           target: report
          ================================= -->
@@ -446,7 +444,7 @@ echo location of the Java Virtual Machine you want to use.
     </target>
 
 
-	<!-- =================================
+    <!-- =================================
           target: zip-curret-libs
          ================================= -->
     <target name="zip-current-libs" description="--> create current-libs.zip">
@@ -456,8 +454,8 @@ echo location of the Java Virtual Machine you want to use.
         </zip>
     </target>
 
-	
-	<!-- =================================
+
+    <!-- =================================
           target: clean-lib
          ================================= -->
     <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
@@ -470,12 +468,14 @@ echo location of the Java Virtual Machine you want to use.
         </delete>
     </target>
 
+
     <!-- =================================
           target: clean-build
          ================================= -->
     <target name="clean-build" description="--> clean the project built files">
         <delete includeemptydirs="true" dir="${dir.build}"/>
     </target>
+
 
     <!-- =================================
           target: clean
