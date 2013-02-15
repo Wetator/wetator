@@ -88,8 +88,11 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
+import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
+import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -714,17 +717,17 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean waitForImmediateJobs() throws BackendException {
+    boolean tmpPendingJobs = false;
+
     Page tmpPage = getCurrentPage();
-    int tmpJobCount = 0;
     if (tmpPage instanceof HtmlPage) {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       while (System.currentTimeMillis() < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
-        tmpJobCount = tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
-        if (tmpJobCount > 0) {
+        tmpPendingJobs = areJobsPendig(tmpHtmlPage, tmpEndTime);
+        if (tmpPendingJobs) {
           continue;
         }
 
@@ -742,9 +745,42 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     }
 
-    if (tmpJobCount > 0) {
+    if (tmpPendingJobs) {
       wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
       return true;
+    }
+    return false;
+  }
+
+  private boolean areJobsPendig(HtmlPage aHtmlPage, long anEndTime) {
+    final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
+    final long tmpDuration = anEndTime - System.currentTimeMillis();
+
+    final int tmpJobCount = tmpJobManager.waitForJobsStartingBefore(tmpDuration);
+    if (tmpJobCount > 0) {
+      return true;
+    }
+
+    for (FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
+      if (areJobsPendig((HtmlPage) tmpFrameWindow.getEnclosedPage(), anEndTime)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean areJobsActive(HtmlPage aHtmlPage) {
+    final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
+
+    final int tmpJobCount = tmpJobManager.getJobCount();
+    if (tmpJobCount > 0) {
+      return true;
+    }
+
+    for (FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
+      if (areJobsActive((HtmlPage) tmpFrameWindow.getEnclosedPage())) {
+        return true;
+      }
     }
     return false;
   }
@@ -780,13 +816,12 @@ public final class HtmlUnitBrowser implements IBrowser {
         // only true if the user has specified a wait time
         while (System.currentTimeMillis() < tmpEndTime) {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
           final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
           try {
             tmpPattern.matches(tmpCurrentTitle);
             // warn also in case of match to be consistent
-            if (tmpJobManager.getJobCount() > 0) {
+            if (areJobsActive(tmpHtmlPage)) {
               wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
             }
             return tmpPageChanged;
@@ -795,7 +830,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
 
           tmpPageChanged = true;
-          if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          if (areJobsPendig(tmpHtmlPage, tmpEndTime)) {
             continue;
           }
 
@@ -815,8 +850,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
       // inform if there are still pending js jobs
-      final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-      if (tmpJobManager.getJobCount() > 0) {
+      if (areJobsActive(tmpHtmlPage)) {
         wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
       }
 
@@ -861,7 +895,6 @@ public final class HtmlUnitBrowser implements IBrowser {
         // only true if the user has specified a wait time
         while (System.currentTimeMillis() < tmpEndTime) {
           final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-          final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
           try {
             final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
@@ -869,7 +902,7 @@ public final class HtmlUnitBrowser implements IBrowser {
               tmpPattern.matches(tmpContentAsText);
 
               // warn also in case of match to be consistent
-              if (tmpJobManager.getJobCount() > 0) {
+              if (areJobsActive(tmpHtmlPage)) {
                 wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
               }
               return tmpPageChanged;
@@ -879,7 +912,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           } catch (final IllegalStateException e) {
             // no javascript running/scheduled, so this is a real problem
             // Note: there is no API to ask for the currently running jobs only
-            if (tmpJobManager.getJobCount() == 0) {
+            if (!areJobsActive(tmpHtmlPage)) {
               throw e;
             }
 
@@ -889,7 +922,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
 
           tmpPageChanged = true;
-          if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          if (areJobsPendig(tmpHtmlPage, tmpEndTime)) {
             continue;
           }
 
@@ -915,8 +948,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
 
         // inform if there are still pending js jobs
-        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        if (tmpJobManager.getJobCount() > 0) {
+        if (areJobsActive(tmpHtmlPage)) {
           wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
         }
 
