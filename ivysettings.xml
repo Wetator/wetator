@@ -4,34 +4,17 @@
     <settings defaultResolver="chain" />
     <resolvers>
         <ibiblio name="ibiblio" m2compatible="true" checksums="" />
-        <ibiblio name="NekoHTMLSnapshots"
-                 m2compatible="true"
-                 usepoms="true"
-                 root="http://build.canoo.com/NekoHTML/artifacts/m2-repo"
-                 checkmodified="true"/>
         <ibiblio name="SonatypeSnapshots"
                  m2compatible="true"
                  usepoms="true"
                  root="https://oss.sonatype.org/content/repositories/snapshots/"
                  checkmodified="true"/>
-        <ibiblio name="JavaNet"
-                 m2compatible="true"
-                 usepoms="true"
-                 root="http://download.java.net/maven/2"
-                 checkmodified="true"
-                 changingPattern="^.+-SNAPSHOT$"
-                 checksums=""/>
         <ibiblio name="wetator-sh"
                  m2compatible="true"
                  usepoms="true"
                  root="http://www.wetator.org/repo"
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
-        <url name="wetator" checkmodified="true" changingPattern="^.+-SNAPSHOT$">
-            <ivy pattern="http://www.wetator.org/repo/[module]/[revision]/ivy.xml" />
-            <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
-            <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
-        </url>
 
         <filesystem name="local-m2-publish" m2compatible="true">
             <artifact pattern="${user.home}/.m2/repository/[module]/[revision]/[artifact]-[revision].[ext]"/>
@@ -39,11 +22,8 @@
 
         <chain name="chain">
             <resolver ref="wetator-sh" />
-            <resolver ref="wetator" />
             <resolver ref="ibiblio" />
-            <resolver ref="JavaNet" />
             <resolver ref="SonatypeSnapshots" />
-            <resolver ref="NekoHTMLSnapshots" />
         </chain>
     </resolvers>
 </ivysettings>
