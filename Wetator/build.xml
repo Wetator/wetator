@@ -299,12 +299,13 @@ echo location of the Java Virtual Machine you want to use.
         </zip>
 
         <!-- generate pom -->
-        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom">
-            <mapping conf="default" scope="compile"/>
-       </ivy:makepom>
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" conf="runtime, test">
+            <mapping conf="runtime" scope="runtime" />
+            <mapping conf="test" scope="test" />
+        </ivy:makepom>
 
         <!-- generate src zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar">
+        <zip destfile="${dir.build}/${application.jar-basename}-src.jar">
             <fileset dir="." >
                 <include name=".classpath" />
                 <include name=".project" />
@@ -344,6 +345,7 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
         </zip>
 
+        <copy file="${dir.build}/${application.jar-basename}-src.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar"/>
     </target>
 
 
@@ -429,6 +431,17 @@ echo location of the Java Virtual Machine you want to use.
          ================================= -->
     <target name="publish-local" depends="resolve, build-release" description="publish to the local maven repo">
         <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact].[ext]"/>
+        </ivy:publish>
+    </target>
+
+
+    <!-- =================================
+          target: publish-SonatypeSnapshots
+         ================================= -->
+    <target name="publish-SonatypeSnapshots" depends="resolve, build-release" description="publish to the local maven repo">
+        <ivy:publish resolver="SonatypeSnapshots" forcedeliver="true" overwrite="true" publishivy="false"
             pubrevision="${application.pubversion}">
             <artifacts pattern="${dir.build}/[artifact].[ext]"/>
         </ivy:publish>
