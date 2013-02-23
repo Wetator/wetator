@@ -16,7 +16,7 @@
 
     <xsl:variable name="previewWidth">1600</xsl:variable>
     <xsl:variable name="previewHeight">1000</xsl:variable>
-    <xsl:variable name="previewZoom">0.5</xsl:variable>
+    <xsl:variable name="previewZoom">0.6</xsl:variable>
 
     <xsl:variable name="noOfStepsInLine" select="150"/>
 
@@ -176,7 +176,8 @@
                         tmpPosX = tmpPosX + document.body.scrollLeft;
                         tmpPosY = tmpPosY + document.body.scrollTop;
                     }
-                    tmpPosX = tmpPosX + 20;
+                    tmpPosX = tmpPosX + 10;
+                    tmpPosY = tmpPosY + 17;
 
                     tmpFrame.style.display='block';
                     tmpFrame.style.left= tmpPosX + "px";
