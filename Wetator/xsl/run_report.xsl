@@ -229,7 +229,7 @@
                 <!-- preview -->
                 <iframe id="preview" src=''>
                     <xsl:attribute name="style">
-                        <xsl:text>overflow: hidden; display: none; position: absolute; border: solid 2px darkgray; box-shadow: 15px 15px 7px darkgray;</xsl:text>
+                        <xsl:text>overflow: hidden; display: none; position: absolute; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;</xsl:text>
                         <xsl:text>width: </xsl:text>
                         <xsl:value-of select="$previewWidth"/>
                         <xsl:text>px; height: </xsl:text>
