@@ -92,107 +92,62 @@
                 </style>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
+                function showOrHideAll(image, imageId, id) {
+                    var tmpSearch = "expandall.png";
+                    if (toggleImage(image)) {
+                        tmpSearch = "collapseall.png";
+                    }
+                    for (var i=1; i<arguments.length; i=i+2) {
+                        var tmpImage=document.getElementById(arguments[i]);
+                        if (tmpImage && tmpImage.src.indexOf(tmpSearch) != -1) {
+                            showOrHide(tmpImage, arguments[i+1]);
+                        }
+                    }
+                }
+
                 function showOrHide(image, id) {
-                    if (image.src.indexOf("collapseall.png") != -1) {
-                        var tmpElement=document.getElementById(id);
+                    var tmpElement=document.getElementById(id);
+                    if (toggleImage(image)) {
                         tmpElement.style.display = "none";
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
-                    } else if (image.src.indexOf("expandall.png") != -1) {
-                        var tmpElement=document.getElementById(id);
+                    } else {
                         tmpElement.style.display = "";
+                    }
+                }
+
+                function toggleImage(image) {
+                    if (image.src.indexOf("collapseall.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
+                        return true;
+                    }
+                    if (image.src.indexOf("expandall.png") != -1) {
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
-                    } else if (image.src.indexOf("collapselog.png") != -1) {
-                        var tmpElement=document.getElementById(id);
-                        tmpElement.style.display = "none";
+                        return false;
+                    }
+                    if (image.src.indexOf("collapselog.png") != -1) {
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlog.png";
-                    } else if (image.src.indexOf("expandlog.png") != -1) {
-                        var tmpElement=document.getElementById(id);
-                        tmpElement.style.display = "";
+                        return true;
+                    }
+                    if (image.src.indexOf("expandlog.png") != -1) {
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
+                        return false;
                     }
                 }
-                function showOrHideAll(image, ie6, ie7, ie8, ff3, ff36) {
-                    if (image.src.indexOf("collapseall.png") != -1) {
-                        if (ie6 != null) {
-                            var tmpElement=document.getElementById(ie6);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ie6');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        if (ie7 != null) {
-                            var tmpElement=document.getElementById(ie7);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ie7');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        if (ie8 != null) {
-                            var tmpElement=document.getElementById(ie8);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ie8');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        if (ff3 != null) {
-                            var tmpElement=document.getElementById(ff3);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ff3');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        if (ff36 != null) {
-                            var tmpElement=document.getElementById(ff36);
-                            tmpElement.style.display = "none";
-                            var browserImage=document.getElementById('ff36');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"expandall.png";
-                        }
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
-                    } else if (image.src.indexOf("expandall.png") != -1) {
-                        if (ie6 != null) {
-                            var tmpElement=document.getElementById(ie6);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ie6');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        if (ie7 != null) {
-                            var tmpElement=document.getElementById(ie7);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ie7');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        if (ie8 != null) {
-                            var tmpElement=document.getElementById(ie8);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ie8');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        if (ff3 != null) {
-                            var tmpElement=document.getElementById(ff3);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ff3');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        if (ff36 != null) {
-                            var tmpElement=document.getElementById(ff36);
-                            tmpElement.style.display = "";
-                            var browserImage=document.getElementById('ff36');
-                            browserImage.src = browserImage.src.substr(0, browserImage.src.lastIndexOf("/")+1)+"collapseall.png";
-                        }
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
-                    }
-                }
+
                 function makeVisible(id) {
-                    tmpImage = document.getElementById('showHide_' + id);
+                    var tmpImage = document.getElementById('showHide_' + id);
                     if (tmpImage && tmpImage.src.indexOf("expandall.png") != -1) {
                         showOrHide(tmpImage, id);
                     }
                 }
-                function switchTables(tableToHide, id, force) {
+
+                function switchTables(tableToHide, tableToShowId, force) {
                     var overviewSwitcher=document.getElementById('overviewswitcher');
                     if (force || overviewSwitcher.src.indexOf("expandall.png") != -1) {
                         tableToHide.style.display = "none";
-
-                        var tmpTableToShow=document.getElementById(id);
-                        tmpTableToShow.style.display = "";
+                        document.getElementById(tableToShowId).style.display = "";
                     }
                 }
+
                 function switchOverviewTables(image) {
                     if (image.src.indexOf("expandall.png") != -1) {
                         var tmpDetailedOverview=document.getElementById('detailedoverview');
@@ -593,18 +548,12 @@
                                     <span class="bold">All</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                                     <img src="images/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
-                                        <xsl:attribute name="onclick">
-                                            showOrHideAll(this
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE6'">, 'ie6overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='IE6')">, null</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE7'">, 'ie7overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='IE7')">, null</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='IE8')">, null</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">, 'ff3overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3')">, null</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">, 'ff3_6overview'</xsl:if>
-                                            <xsl:if test="not(/wet/testcase/testrun/@browser='Firefox3.6')">, null</xsl:if>);
+                                        <xsl:attribute name="onclick">showOrHideAll(this
+                                            <xsl:if test="/wet/testcase/testrun/@browser='IE6'">, 'ie6','ie6overview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='IE7'">, 'ie7','ie7overview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8','ie8overview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">, 'ff3_6','ff3_6overview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox10'">, 'ff10','ff10overview'</xsl:if>);
                                         </xsl:attribute>
                                     </img>
                                 </td>
@@ -629,18 +578,18 @@
                                     <img id="ie8" src="images/expandall.png" onclick="showOrHide(this, 'ie8overview')" alt="show/hide IE8 overview" style="cursor: pointer;"/>
                                 </td>
                             </xsl:if>
-                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
-                                <td>
-                                    <span class="bold">FF3</span>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff3" src="images/expandall.png" onclick="showOrHide(this, 'ff3overview')" alt="show/hide FF3 overview" style="cursor: pointer;"/>
-                                </td>
-                            </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
                                 <td>
                                     <span class="bold">FF3.6</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff36" src="images/expandall.png" onclick="showOrHide(this, 'ff3_6overview')" alt="show/hide FF3.6 overview" style="cursor: pointer;"/>
+                                    <img id="ff3_6" src="images/expandall.png" onclick="showOrHide(this, 'ff3_6overview')" alt="show/hide FF3.6 overview" style="cursor: pointer;"/>
+                                </td>
+                            </xsl:if>
+                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox10'">
+                                <td>
+                                    <span class="bold">FF10</span>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                    <img id="ff10" src="images/expandall.png" onclick="showOrHide(this, 'ff10overview')" alt="show/hide FF10 overview" style="cursor: pointer;"/>
                                 </td>
                             </xsl:if>
                         </tr>
@@ -712,28 +661,6 @@
                             </xsl:call-template>
                         </xsl:if>
                     </table>
-                    <table id="ff3overview" class="overview" align="center" style="display: none; text-align: center;">
-                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
-                            <xsl:variable name="failedFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="ignoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/ignored)"/>
-                            <xsl:variable name="stepsOkFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
-                            <xsl:variable name="stepsFailureFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
-                            <xsl:variable name="stepsErrorFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="stepsIgnoredFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
-                            <xsl:call-template name="testBrowserOverview">
-                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
-                                <xsl:with-param name="browserName">FF3</xsl:with-param>
-                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox3"/>
-                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox3"/>
-                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox3"/>
-                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox3"/>
-                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox3"/>
-                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox3"/>
-                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox3"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                    </table>
                     <table id="ff3_6overview" class="overview" align="center" style="display: none; text-align: center;">
                         <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
                             <xsl:variable name="failedFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
@@ -753,6 +680,28 @@
                                 <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox3_6"/>
                                 <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox3_6"/>
                                 <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox3_6"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </table>
+                    <table id="ff10overview" class="overview" align="center" style="display: none; text-align: center;">
+                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox10'">
+                            <xsl:variable name="failedFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="ignoredFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/ignored)"/>
+                            <xsl:variable name="stepsOkFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
+                            <xsl:variable name="stepsFailureFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
+                            <xsl:variable name="stepsErrorFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="stepsIgnoredFirefox10" select="count(/wet/testcase/testrun[@browser='Firefox10']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
+                            <xsl:call-template name="testBrowserOverview">
+                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+                                <xsl:with-param name="browserName">FF10</xsl:with-param>
+                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox10"/>
+                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox10"/>
+                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox10"/>
+                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox10"/>
+                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox10"/>
+                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox10"/>
+                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox10"/>
                             </xsl:call-template>
                         </xsl:if>
                     </table>
@@ -1196,10 +1145,10 @@
                                     <xsl:if test="@browser='IE8'">
                                         <xsl:value-of select="$browserPicture.IE8"/>
                                     </xsl:if>
-                                    <xsl:if test="@browser='Firefox3'">
+                                    <xsl:if test="@browser='Firefox3.6'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
-                                    <xsl:if test="@browser='Firefox3.6'">
+                                    <xsl:if test="@browser='Firefox10'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
                                 </xsl:attribute>
@@ -1240,10 +1189,10 @@
                                         <xsl:if test="../@browser='IE8'">
                                             <xsl:value-of select="$browserPicture.IE8"/>
                                         </xsl:if>
-                                        <xsl:if test="../@browser='Firefox3'">
+                                        <xsl:if test="../@browser='Firefox3.6'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
-                                        <xsl:if test="../@browser='Firefox3.6'">
+                                        <xsl:if test="../@browser='Firefox10'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
                                     </xsl:attribute>
