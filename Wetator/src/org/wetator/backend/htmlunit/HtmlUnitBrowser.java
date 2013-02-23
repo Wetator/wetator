@@ -91,8 +91,6 @@ import com.gargoylesoftware.htmlunit.WebWindowEvent;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
-import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -644,8 +642,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.FIREFOX_3_6 == aBrowserType) {
       return BrowserVersion.FIREFOX_3_6;
     }
-    if (IBrowser.BrowserType.FIREFOX_10 == aBrowserType) {
-      return BrowserVersion.FIREFOX_10;
+    if (IBrowser.BrowserType.FIREFOX_17 == aBrowserType) {
+      return BrowserVersion.FIREFOX_17;
     }
     if (IBrowser.BrowserType.INTERNET_EXPLORER_6 == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER_6;

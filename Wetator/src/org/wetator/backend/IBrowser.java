@@ -71,8 +71,8 @@ public interface IBrowser {
   public enum BrowserType {
     /** firefox 3.6. */
     FIREFOX_3_6("Firefox3.6", "Firefox_3_6"),
-    /** firefox 10 ESR. */
-    FIREFOX_10("Firefox10", "Firefox_10"),
+    /** firefox 17 ESR. */
+    FIREFOX_17("Firefox17", "Firefox_17"),
     /** the famous internet explorer 6. */
     INTERNET_EXPLORER_6("IE6", "IE_6"),
     /** internet explorer 7. */
