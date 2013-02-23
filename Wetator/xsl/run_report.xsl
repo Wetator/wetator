@@ -14,6 +14,10 @@
     <xsl:variable name="lightGreyColor">#858588</xsl:variable>
     <xsl:variable name="ignoredColor">#FFFFFF</xsl:variable>
 
+    <xsl:variable name="previewWidth">1600</xsl:variable>
+    <xsl:variable name="previewHeight">1000</xsl:variable>
+    <xsl:variable name="previewZoom">0.5</xsl:variable>
+
     <xsl:variable name="noOfStepsInLine" select="150"/>
 
     <xsl:variable name="testCaseCount" select="count(/wet/testcase)"/>
@@ -157,6 +161,33 @@
                         switchTables(tmpSummaryOverview, 'detailedoverview', true);
                     }
                 }
+
+                function showPreview(e, src) {
+                    var tmpFrame = document.getElementById('preview');
+                    var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
+                    var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
+
+                    tmpFrame.src=src;
+
+                    if(window.pageYOffset) {
+                        tmpPosX = tmpPosX + window.pageXOffset;
+                        tmpPosY = tmpPosY + window.pageYOffset;
+                    } else {
+                        tmpPosX = tmpPosX + document.body.scrollLeft;
+                        tmpPosY = tmpPosY + document.body.scrollTop;
+                    }
+                    tmpPosX = tmpPosX + 20;
+
+                    tmpFrame.style.display='block';
+                    tmpFrame.style.left= tmpPosX + "px";
+                    tmpFrame.style.top= tmpPosY + "px";
+                    tmpFrame.focus();
+                }
+
+                function hidePreview() {
+                    var tmpFrame = document.getElementById('preview');
+                    tmpFrame.style.display='none';
+                }
                 ]]></script>
             </head>
 
@@ -193,6 +224,22 @@
                     stepsErrorPercentage <xsl:value-of select="$stepsErrorPercentage"/><br/>
                     stepsIgnoredPercentage <xsl:value-of select="$stepsIgnoredPercentage"/><br/>
                 </div>
+
+                <!-- preview -->
+                <iframe id="preview" src=''>
+                    <xsl:attribute name="style">
+                        <xsl:text>overflow: hidden; display: none; position: absolute; border: solid 2px darkgray; box-shadow: 15px 15px 7px darkgray;</xsl:text>
+                        <xsl:text>width: </xsl:text>
+                        <xsl:value-of select="$previewWidth"/>
+                        <xsl:text>px; height: </xsl:text>
+                        <xsl:value-of select="$previewHeight"/>
+                        <xsl:text>px; zoom: </xsl:text>
+                        <xsl:value-of select="$previewZoom"/>
+                        <xsl:text>; -moz-transform: scale(</xsl:text>
+                        <xsl:value-of select="$previewZoom"/>
+                        <xsl:text>); -moz-transform-origin: 0 0;</xsl:text>
+                    </xsl:attribute>
+                </iframe>
 
                 <a name="top"/>
 
@@ -1453,6 +1500,14 @@ k                                    <xsl:if test="@browser='Firefox17'">
                         <a target="_blank">
                             <xsl:attribute name="href">
                                 <xsl:value-of select="."/>
+                            </xsl:attribute>
+                            <xsl:attribute name="onmouseover">
+                                <xsl:text>showPreview(event,'</xsl:text>
+                                <xsl:value-of select="."/>
+                                <xsl:text>')</xsl:text>
+                            </xsl:attribute>
+                            <xsl:attribute name="onmouseout">
+                                <xsl:text>hidePreview()</xsl:text>
                             </xsl:attribute>
                             <img src="images/response.png" alt="view response"/>
                         </a>
