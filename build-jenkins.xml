@@ -21,13 +21,45 @@
 
 
 	<!--
-	package: 			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
-	package-no-tests: 	info -> resolve-dependencies -> compile -> package-bundles
-	metrics:			info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
-	metrics-only:		info -> compile -> gather-metrics
-	tests:				info -> resolve-dependencies -> compile -> compile-tests -> run-tests
-	tests-only:			info -> compile -> compile-tests -> run-tests
+	publish-sonatype-snapshots:		info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
+	publish-local:					info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
+	package: 						info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
+	package-no-tests: 				info -> resolve-dependencies -> compile -> package-bundles
+	metrics:						info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
+	metrics-only:					info -> compile -> gather-metrics
+	tests:							info -> resolve-dependencies -> compile -> compile-tests -> run-tests
+	tests-only:						info -> compile -> compile-tests -> run-tests
 	-->
+
+
+    <!-- *******************************************
+         target publish-sonatype-snapshots
+           executes the complete build cycle until
+           publishing to the Sonatype snapshot
+           repository:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics -> package-bundles
+           -> publish-local
+           -> publish-sonatype-snapshots
+         ******************************************* -->
+    <target name="publish-sonatype-snapshots" description="executes the complete build cycle until publishing to the Sonatype snapshot repository"
+    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-snapshots">
+    </target>
+
+
+    <!-- *******************************************
+         target publish-local
+           executes the complete build cycle until
+           publishing to the local repository:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics -> package-bundles
+           -> publish-local
+         ******************************************* -->
+    <target name="publish-local" description="executes the complete build cycle until publishing to the local repository"
+    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local">
+    </target>
 
 
     <!-- *******************************************
@@ -584,8 +616,14 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
         </zip>
 
+        <!-- generate pom -->
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" conf="runtime, test">
+            <mapping conf="runtime" scope="runtime" />
+            <mapping conf="test" scope="test" />
+        </ivy:makepom>
+
         <!-- generate src zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar">
+        <zip destfile="${dir.build}/${application.jar-basename}-src.jar">
             <fileset dir="." >
                 <include name=".classpath" />
                 <include name=".project" />
@@ -624,6 +662,34 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="**/**.xsl" />
             </zipfileset>
         </zip>
+
+    	<copy file="${dir.build}/${application.jar-basename}-src.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar"/>
+    </target>
+
+
+    <!-- ===========================================
+         private target publish-local
+           publishes the Wetator release artifacts
+           to the local Maven repository
+         =========================================== -->
+    <target name="-publish-local" depends="-package-bundles" description="publishes the Wetator release artifacts to the local Maven repository">
+        <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact].[ext]"/>
+        </ivy:publish>
+    </target>
+
+
+    <!-- ===========================================
+         private target publish-SonatypeSnapshots
+           publishes the Wetator release artifacts
+           to the Sonatype snapshots repository
+         =========================================== -->
+    <target name="-publish-sonatype-snapshots" depends="-package-bundles" description="publishes the Wetator release artifacts to the Sonatype snapshots repository">
+        <ivy:publish resolver="SonatypeSnapshots" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact].[ext]"/>
+        </ivy:publish>
     </target>
 
 
@@ -764,6 +830,37 @@ echo location of the Java Virtual Machine you want to use.
          ******************************************* -->
 	<target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
 	    <ivy:cleancache/>
+	</target>
+
+
+	<target name="svn-test">
+        <path id="taskdef-classpath-svnant">
+            <fileset dir="${dir.ant-lib}/svnant">
+            	<include name="**/*.jar"/>
+            </fileset>
+        </path>
+		<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="taskdef-classpath-svnant"/>
+
+		<svnSetting
+	        id="svn.settings"
+	        svnkit="true"
+	        javahl="false"
+	        username="frank.danek"
+	        password="faraday2012" />
+
+		<svn refid="svn.settings">
+			<update file="test.txt" />
+		</svn>
+
+        <tstamp>
+            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
+        </tstamp>
+
+		<echo file="test.txt">${timestamp}</echo>
+
+		<svn refid="svn.settings">
+			<commit file="test.txt" message="% test for cloudbees" />
+		</svn>
 	</target>
 
 </project>
