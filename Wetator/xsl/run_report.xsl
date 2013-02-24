@@ -163,14 +163,14 @@
                 }
 
                 function showPreview(e, src) {
-                    var tmpFrame = document.getElementById('preview');
-                    tmpFrame.src='about:blank';
-
                     // preview only for html and txt files
                     if ((src.lastIndexOf(".html") != src.length - 5)
                         && (src.indexOf(".txt") != src.length - 4)) {
                         return;
                     } 
+                    var tmpFrame = document.getElementById('preview');
+                    tmpFrame.src='about:blank';
+
                     tmpFrame.src=src;
 
                     var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
