@@ -164,10 +164,17 @@
 
                 function showPreview(e, src) {
                     var tmpFrame = document.getElementById('preview');
+                    tmpFrame.src='about:blank';
+
+                    // preview only for html and txt files
+                    if ((src.lastIndexOf(".html") != src.length - 5)
+                        && (src.indexOf(".txt") != src.length - 4)) {
+                        return;
+                    } 
+                    tmpFrame.src=src;
+
                     var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
                     var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
-
-                    tmpFrame.src=src;
 
                     if(window.pageYOffset) {
                         tmpPosX = tmpPosX + window.pageXOffset;
@@ -179,9 +186,9 @@
                     tmpPosX = tmpPosX + 10;
                     tmpPosY = tmpPosY + 17;
 
-                    tmpFrame.style.display='block';
                     tmpFrame.style.left= tmpPosX + "px";
                     tmpFrame.style.top= tmpPosY + "px";
+                    tmpFrame.style.display='block';
                     tmpFrame.focus();
                 }
 
@@ -229,7 +236,7 @@
                 <!-- preview -->
                 <iframe id="preview" src=''>
                     <xsl:attribute name="style">
-                        <xsl:text>overflow: hidden; display: none; position: absolute; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;</xsl:text>
+                        <xsl:text>overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;</xsl:text>
                         <xsl:text>width: </xsl:text>
                         <xsl:value-of select="$previewWidth"/>
                         <xsl:text>px; height: </xsl:text>
