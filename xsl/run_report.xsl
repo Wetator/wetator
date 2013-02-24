@@ -170,24 +170,25 @@
                     } 
                     var tmpFrame = document.getElementById('preview');
                     tmpFrame.contentWindow.location.replace(src);
+                    tmpFrame.onload = function() {
+                        var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
+                        var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
 
-                    var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
-                    var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
+                        if(window.pageYOffset) {
+                            tmpPosX = tmpPosX + window.pageXOffset;
+                            tmpPosY = tmpPosY + window.pageYOffset;
+                        } else {
+                            tmpPosX = tmpPosX + document.body.scrollLeft;
+                            tmpPosY = tmpPosY + document.body.scrollTop;
+                        }
+                        tmpPosX = tmpPosX + 10;
+                        tmpPosY = tmpPosY + 17;
 
-                    if(window.pageYOffset) {
-                        tmpPosX = tmpPosX + window.pageXOffset;
-                        tmpPosY = tmpPosY + window.pageYOffset;
-                    } else {
-                        tmpPosX = tmpPosX + document.body.scrollLeft;
-                        tmpPosY = tmpPosY + document.body.scrollTop;
+                        tmpFrame.style.left= tmpPosX + "px";
+                        tmpFrame.style.top= tmpPosY + "px";
+                        tmpFrame.style.display='block';
+                        tmpFrame.focus();
                     }
-                    tmpPosX = tmpPosX + 10;
-                    tmpPosY = tmpPosY + 17;
-
-                    tmpFrame.style.left= tmpPosX + "px";
-                    tmpFrame.style.top= tmpPosY + "px";
-                    tmpFrame.style.display='block';
-                    tmpFrame.focus();
                 }
 
                 function hidePreview() {
