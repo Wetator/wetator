@@ -169,9 +169,7 @@
                         return;
                     } 
                     var tmpFrame = document.getElementById('preview');
-                    tmpFrame.src='about:blank';
-
-                    tmpFrame.src=src;
+                    tmpFrame.contentWindow.location.replace(src);
 
                     var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
                     var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
