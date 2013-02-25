@@ -17,9 +17,9 @@
 package org.wetator.backend;
 
 import java.net.URL;
-import java.util.List;
 
 import org.wetator.backend.control.IControl;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
@@ -163,31 +163,29 @@ public interface IBrowser {
   public boolean waitForImmediateJobs() throws BackendException;
 
   /**
-   * Checks, if the page title contains the given list of strings.<br>
-   * If the text is not found, than this method waits at aTimeoutInSeconds
-   * and checks the title again. If the text is still not found than an
-   * AssertionException is thrown.
+   * Checks, if the page title matches the given pattern.<br>
+   * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the title again. If
+   * the pattern is still not found an {@link AssertionException} is thrown.
    * 
-   * @param aTitleToWaitFor the expected text (parts)
+   * @param aTitleToWaitFor the expected text
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
    * @throws AssertionException if the content was not available
    */
-  public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
+  public boolean assertTitleInTimeFrame(ContentPattern aTitleToWaitFor, long aTimeoutInSeconds)
       throws AssertionException;
 
   /**
-   * Checks, if the page content contains the given list of strings.<br>
-   * If the content is not found, than this method waits at aTimeoutInSeconds
-   * and checks the content again. If the content is still not found than an
-   * AssertionException is thrown.
+   * Checks, if the page content matches the given pattern.<br>
+   * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the content again. If
+   * the pattern is still not found an {@link AssertionException} is thrown.
    * 
    * @param aContentToWaitFor the expected content (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
    * @throws AssertionException if the content was not available
    */
-  public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
+  public boolean assertContentInTimeFrame(ContentPattern aContentToWaitFor, long aTimeoutInSeconds)
       throws AssertionException;
 
   /**
