@@ -499,7 +499,7 @@
     <target name="-package-bundles" description="builds all Wetator release artifacts"
         depends="-compile, -load-onejar, -get-buildnumber-local, -get-buildbumber-ci">
         <tstamp>
-            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
+            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
 
     	<echo level="info">Packaging bundles (output: ${dir.deploy})</echo>
