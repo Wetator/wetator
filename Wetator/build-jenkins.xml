@@ -138,11 +138,11 @@
            displays some info about the build
          ******************************************* -->
     <target name="info" description="displays some info about the build">
-        <echo level="info" message="" />
-        <echo level="info" message="Project: ${ant.project.name}" />
-        <echo level="info" message="  ${ant.version}" />
-        <echo level="info" message="  Java version ${ant.java.version}" />
-        <echo level="info" message="" />
+        <echo level="info"></echo>
+        <echo level="info">Project: ${ant.project.name}</echo>
+        <echo level="info">  ${ant.version}</echo>
+        <echo level="info">  Java version ${ant.java.version}</echo>
+    	<echo level="info"></echo>
     </target>
 
 
@@ -185,6 +185,7 @@
          ******************************************* -->
     <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
     	depends="info, -clean-lib, -load-ivy">
+    	<echo level="info">Resolving dependencies</echo>
         <ivy:configure />
         <ivy:resolve />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
@@ -210,7 +211,7 @@
         <mkdir dir="${dir.build}/classes"/>
 
         <!-- compile classes -->
-        <echo>Compiling with Java target ${javac.target}</echo>
+        <echo level="info">Compiling sources with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
               target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
@@ -239,7 +240,7 @@
         <mkdir dir="${dir.build}/test-classes"/>
 
         <!-- compile classes -->
-        <echo>Compiling with Java target ${javac.target}</echo>
+        <echo level="info">Compiling test sources with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.test-src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
             target="${javac.target}" destdir="${dir.build}/test-classes" includeantruntime="false">
@@ -268,7 +269,7 @@
         <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
             <arg line=":${display} -ac -screen 0 1024x768x16" />
         </exec>
-    	<echo>Started Xvfb display ${display}</echo>
+    	<echo level="info">Started Xvfb display ${display}</echo>
 	</target>
 
 
@@ -281,6 +282,7 @@
         <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
         <mkdir dir="${dir.deploy}/junit"/>
 
+    	<echo level="info">Running tests (output: ${dir.deploy}/junit)</echo>
         <path id="junit-classpath">
             <pathelement location="${dir.build}/classes" />
             <pathelement location="${dir.build}/test-classes" />
@@ -402,6 +404,7 @@
     <target name="-gather-metrics" description="gathers all metrics"
         depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd">
         <!-- run checkstyle -->
+    	<echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
     	<delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
         <mkdir dir="${dir.deploy}/checkstyle" />
         <checkstyle config="${dir.test}/checkstyle/checkstyle.xml" failOnViolation="false">
@@ -412,6 +415,7 @@
         </checkstyle>
 
         <!-- run findbugs -->
+    	<echo level="info">Running Findbugs (output: ${dir.deploy}/findbugs)</echo>
         <path id="findbugs-aux-classpath">
             <fileset dir="${dir.lib}">
                 <patternset refid="libPattern" />
@@ -430,6 +434,7 @@
         </findbugs>
 
         <!-- run pmd -->
+    	<echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true">
             <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
@@ -469,22 +474,38 @@
 
 
     <!-- ===========================================
-         private target package-bundles
-           builds all Wetator release artifacts
+         private target get-buildnumber-local
          =========================================== -->
-    <target name="-package-bundles" description="builds all Wetator release artifacts"
-        depends="-compile, -load-onejar">
-        <tstamp>
-            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
-        </tstamp>
-
+    <target name="-get-buildnumber-local" unless="is-ci">
         <propertyfile file="build.properties">
         	<entry key="application.buildnumber" type="int" default="42" operation="+"/>
         </propertyfile>
         <property file="build.properties"/>
+    </target>
 
-        <echo message="Version: ${application.version}"/>
-        <echo message="Build:   ${application.buildnumber}"/>
+
+    <!-- ===========================================
+         private target get-buildnumber-ci
+         =========================================== -->
+    <target name="-get-buildbumber-ci" if="is-ci">
+		<property name="application.buildnumber" value="jenkins-${env.BUILD_NUMBER}"></property>
+    </target>
+
+
+    <!-- ===========================================
+         private target package-bundles
+           builds all Wetator release artifacts
+         =========================================== -->
+    <target name="-package-bundles" description="builds all Wetator release artifacts"
+        depends="-compile, -load-onejar, -get-buildnumber-local, -get-buildbumber-ci">
+        <tstamp>
+            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
+        </tstamp>
+
+    	<echo level="info">Packaging bundles (output: ${dir.deploy})</echo>
+
+        <echo level="info">  Version: ${application.version}</echo>
+    	<echo level="info">  Build:   ${application.buildnumber}</echo>
 
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
@@ -731,7 +752,7 @@ echo location of the Java Virtual Machine you want to use.
     <!-- target test-release                         -->
     <!-- ******************************************* -->
     <target name="test-release" description="test the wetator release artefacts" >
-        <echo message="Testing version: ${application.version}"></echo>
+        <echo level="info">Testing version: ${application.version}</echo>
         <echo></echo>
 
         <!-- new dir for the tests -->
@@ -830,37 +851,6 @@ echo location of the Java Virtual Machine you want to use.
          ******************************************* -->
 	<target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
 	    <ivy:cleancache/>
-	</target>
-
-
-	<target name="svn-test">
-        <path id="taskdef-classpath-svnant">
-            <fileset dir="${dir.ant-lib}/svnant">
-            	<include name="**/*.jar"/>
-            </fileset>
-        </path>
-		<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="taskdef-classpath-svnant"/>
-
-		<svnSetting
-	        id="svn.settings"
-	        svnkit="true"
-	        javahl="false"
-	        username="frank.danek"
-	        password="faraday2012" />
-
-		<svn refid="svn.settings">
-			<update file="test.txt" />
-		</svn>
-
-        <tstamp>
-            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
-        </tstamp>
-
-		<echo file="test.txt">${timestamp}</echo>
-
-		<svn refid="svn.settings">
-			<commit file="test.txt" message="% test for cloudbees" />
-		</svn>
 	</target>
 
 </project>
