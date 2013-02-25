@@ -66,7 +66,6 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
-import org.wetator.exception.InvalidInputException;
 import org.wetator.exception.ResourceException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
@@ -638,6 +637,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     return tmpPage;
   }
 
+  @SuppressWarnings("deprecation")
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
     if (IBrowser.BrowserType.FIREFOX_3_6 == aBrowserType) {
       return BrowserVersion.FIREFOX_3_6;
@@ -750,7 +750,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     return false;
   }
 
-  private boolean areJobsPendig(HtmlPage aHtmlPage, long anEndTime) {
+  private boolean areJobsPendig(final HtmlPage aHtmlPage, final long anEndTime) {
     final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
     final long tmpDuration = anEndTime - System.currentTimeMillis();
 
@@ -767,7 +767,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     return false;
   }
 
-  private boolean areJobsActive(HtmlPage aHtmlPage) {
+  private boolean areJobsActive(final HtmlPage aHtmlPage) {
     final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
 
     final int tmpJobCount = tmpJobManager.getJobCount();
@@ -786,23 +786,13 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.IBrowser#assertTitleInTimeFrame(java.util.List, long)
+   * @see org.wetator.backend.IBrowser#assertTitleInTimeFrame(org.wetator.core.searchpattern.ContentPattern, long)
    */
   @Override
-  public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
+  public boolean assertTitleInTimeFrame(final ContentPattern aTitleToWaitFor, final long aTimeoutInSeconds)
       throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
-    final ContentPattern tmpPattern;
-    try {
-      tmpPattern = new ContentPattern(aTitleToWaitFor);
-    } catch (final InvalidInputException e) {
-      final String tmpMessage = Messages.getMessage("invalidContentPattern",
-          new String[] { SecretString.toString(aTitleToWaitFor), e.getMessage() });
-      // TODO is this really an AssertionException?
-      // TODO better pass the ContentPattern as parameter?
-      throw new AssertionException(tmpMessage, e);
-    }
     boolean tmpPageChanged = false;
 
     try {
@@ -817,7 +807,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
           final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
           try {
-            tmpPattern.matches(tmpCurrentTitle);
+            aTitleToWaitFor.matches(tmpCurrentTitle);
             // warn also in case of match to be consistent
             if (areJobsActive(tmpHtmlPage)) {
               wetatorEngine.informListenersWarn("notAllJsJobsFinished", null, null);
@@ -853,7 +843,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-      tmpPattern.matches(tmpCurrentTitle);
+      aTitleToWaitFor.matches(tmpCurrentTitle);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);
@@ -865,23 +855,13 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.IBrowser#assertContentInTimeFrame(java.util.List, long)
+   * @see org.wetator.backend.IBrowser#assertContentInTimeFrame(org.wetator.core.searchpattern.ContentPattern, long)
    */
   @Override
-  public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
+  public boolean assertContentInTimeFrame(final ContentPattern aContentToWaitFor, final long aTimeoutInSeconds)
       throws AssertionException {
     final long tmpWaitTime = Math.max(jsTimeoutInMillis, aTimeoutInSeconds * 1000L);
 
-    final ContentPattern tmpPattern;
-    try {
-      tmpPattern = new ContentPattern(aContentToWaitFor);
-    } catch (final InvalidInputException e) {
-      final String tmpMessage = Messages.getMessage("invalidContentPattern",
-          new String[] { SecretString.toString(aContentToWaitFor), e.getMessage() });
-      // TODO is this really an AssertionException?
-      // TODO better pass the ContentPattern as parameter?
-      throw new AssertionException(tmpMessage, e);
-    }
     boolean tmpPageChanged = false;
 
     try {
@@ -897,7 +877,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           try {
             final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
             try {
-              tmpPattern.matches(tmpContentAsText);
+              aContentToWaitFor.matches(tmpContentAsText);
 
               // warn also in case of match to be consistent
               if (areJobsActive(tmpHtmlPage)) {
@@ -951,21 +931,21 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
 
         final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-        tmpPattern.matches(tmpContentAsText);
+        aContentToWaitFor.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
       if (tmpPage instanceof XmlPage) {
         final XmlPage tmpXmlPage = (XmlPage) tmpPage;
         final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
-        tmpPattern.matches(tmpContentAsText);
+        aContentToWaitFor.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
       if (tmpPage instanceof TextPage) {
         final TextPage tmpTextPage = (TextPage) tmpPage;
         final String tmpContentAsText = tmpTextPage.getContent();
-        tmpPattern.matches(tmpContentAsText);
+        aContentToWaitFor.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
@@ -975,7 +955,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (ContentType.PDF == tmpContentType) {
         try {
           final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
-          tmpPattern.matches(tmpContentAsText);
+          aContentToWaitFor.matches(tmpContentAsText);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
@@ -999,7 +979,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
             if (ContentUtil.isTxt(tmpContentAsText)) {
               wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() }, e);
-              tmpPattern.matches(tmpContentAsText);
+              aContentToWaitFor.matches(tmpContentAsText);
               return tmpPageChanged;
             }
           } catch (final IOException eAsString) {
@@ -1007,14 +987,14 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
           Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
         }
-        tmpPattern.matches(tmpContentAsText);
+        aContentToWaitFor.matches(tmpContentAsText);
         return tmpPageChanged;
       }
 
       if (ContentType.RTF == tmpContentType) {
         try {
           final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
-          tmpPattern.matches(tmpContentAsText);
+          aContentToWaitFor.matches(tmpContentAsText);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });

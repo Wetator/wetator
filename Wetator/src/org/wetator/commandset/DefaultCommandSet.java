@@ -43,6 +43,7 @@ import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
@@ -587,7 +588,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
         InvalidInputException {
-      final List<SecretString> tmpExpected = aCommand.getRequiredFirstParameterValues(aContext);
+      final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredFirstParameterValues(aContext));
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
@@ -599,7 +600,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
 
       try {
-        final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
+        final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpPattern, tmpTimeout);
         if (tmpContentChanged) {
           tmpBrowser.saveCurrentWindowToLog();
         }
@@ -623,7 +624,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
         InvalidInputException {
-      final List<SecretString> tmpExpected = aCommand.getRequiredFirstParameterValues(aContext);
+      final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredFirstParameterValues(aContext));
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
@@ -635,7 +636,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
 
       try {
-        final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+        final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpPattern, tmpTimeout);
         if (tmpContentChanged) {
           tmpBrowser.saveCurrentWindowToLog();
         }

@@ -218,7 +218,7 @@ public class WetatorConfiguration {
     File tmpBaseDirectory;
     // ok, we can start to read the file
     try {
-      FileInputStream tmpFileInputStream = new FileInputStream(aConfigurationPropertyFile);
+      final FileInputStream tmpFileInputStream = new FileInputStream(aConfigurationPropertyFile);
       try {
         tmpProperties = new Properties();
         tmpProperties.load(tmpFileInputStream);

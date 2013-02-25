@@ -85,7 +85,7 @@ public final class Version {
       tmpManifest = new Manifest(new URL(tmpPathToManifest.toString()).openStream());
       final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
       return tmpValue;
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       throw e;
     } catch (final Exception e) {
       return aDefault;
