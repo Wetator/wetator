@@ -175,6 +175,7 @@
                     stepsErrorPercentage NaN<br>
                     stepsIgnoredPercentage NaN<br>
 </div>
+<iframe src="" id="preview" style="overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;width: 1600px; height: 1000px; zoom: 0.6; -moz-transform: scale(0.6); -moz-transform-origin: 0 0;"></iframe>
 <a name="top"></a>
 <center>
 <p>
@@ -245,14 +246,11 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="images/expandall.png" onclick="
-                                            showOrHideAll(this
-                                            , null, null, 'ie8overview', null, 'ff3_6overview');
-                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="images/expandall.png" id="ie8"></td><td><span class="bold">FF3.6</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF3.6 overview" onclick="showOrHide(this, 'ff3_6overview')" src="images/expandall.png" id="ff36"></td>
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="images/expandall.png" onclick="showOrHideAll(this
+                                            , 'ie8','ie8overview', 'ff17','ff17overview');
+                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="images/expandall.png" id="ie8"></td><td><span class="bold">FF17</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF17 overview" onclick="showOrHide(this, 'ff17overview')" src="images/expandall.png" id="ff17"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ie6overview"></table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ie7overview"></table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie8overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
@@ -305,8 +303,7 @@
 <td colspan="2" height="10px"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff3overview"></table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff3_6overview">
+<table style="display: none; text-align: center;" align="center" class="overview" id="ff17overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
             browserTestStepCount 0<br>
@@ -331,23 +328,23 @@
             browserStepsIgnoredPercentage NaN<br>
 </div>
 <tr>
-<td width="150px;">Tests in FF3.6<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3.6" title="FF3.6"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder ignored" width="100%
-                            " bgcolor="#FFFFFF" title="ignored FF3.6 tests">100%
+                            " bgcolor="#FFFFFF" title="ignored FF17 tests">100%
                         </td><td></td>
 </tr>
 </table>
 </td>
 </tr>
 <tr>
-<td>TestSteps in FF3.6<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3.6" title="FF3.6"></td><td style="padding-right: 0;">
+<td>TestSteps in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder ignored" width="
                                     100%
-                                " bgcolor="#FFFFFF" title="ignored FF3.6 steps">
+                                " bgcolor="#FFFFFF" title="ignored FF17 steps">
                                 100%
                             </td><td></td>
 </tr>
@@ -424,7 +421,7 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="images/ie8.png" alt="" title=""></td><td colspan="3" class="error" align="center">TestCase test1.wet is very invalid.</td></tr><tr><td><img src="images/firefox.png" alt="" title=""></td><td class="ignored" align="center">
+<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="images/ie8.png%0Ak                                    " alt="" title=""></td><td colspan="3" class="error" align="center">TestCase test1.wet is very invalid.</td></tr><tr><td><img src="%0Ak                                    images/firefox.png" alt="" title=""></td><td class="ignored" align="center">
                                     ignored
                                 </td><td colspan="2"></td></tr><tr></tr>
 <tr>
