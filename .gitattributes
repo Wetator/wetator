@@ -805,20 +805,15 @@ test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/deselect_radio.wet -text
 test/xml/event_handler.wet -text svneol=unset#text/plain
 test/xml/exec_java.wet -text svneol=unset#text/plain
-test/xml/ff36/event_clickOn.wet -text
-test/xml/ff36/event_deselect.wet -text
-test/xml/ff36/event_handler.wet -text
-test/xml/ff36/event_mouseOver.wet -text
-test/xml/ff36/event_select.wet -text
+test/xml/ff17/event_clickOn.wet -text
+test/xml/ff17/event_deselect.wet -text
+test/xml/ff17/event_handler.wet -text
+test/xml/ff17/event_mouseOver.wet -text
+test/xml/ff17/event_select.wet -text
 test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 test/xml/go_back.wet -text svneol=unset#text/plain
 test/xml/htmlunit_javascript.wet -text svneol=unset#text/plain
-test/xml/ie6/event_clickOn.wet -text
-test/xml/ie6/event_deselect.wet -text
-test/xml/ie6/event_handler.wet -text
-test/xml/ie6/event_mouseOver.wet -text
-test/xml/ie6/event_select.wet -text
 test/xml/ie8/event_clickOn.wet -text
 test/xml/ie8/event_deselect.wet -text
 test/xml/ie8/event_mouseOver.wet -text
@@ -885,8 +880,6 @@ xsl/images/expandall.png -text
 xsl/images/expandlog.png -text
 xsl/images/failure.png -text
 xsl/images/firefox.png -text
-xsl/images/ie6.png -text
-xsl/images/ie7.png -text
 xsl/images/ie8.png -text
 xsl/images/log_info.png -text
 xsl/images/log_warn.png -text
