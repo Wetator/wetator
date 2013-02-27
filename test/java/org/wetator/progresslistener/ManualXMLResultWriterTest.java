@@ -569,6 +569,7 @@ public class ManualXMLResultWriterTest {
         "ManualXMLResultWriterTest.java)");
     tmpActualReport = tmpActualReport.replace("{display: none;}", "{}");
     tmpActualReport = tmpActualReport.replace("\r\n", "\n");
+    tmpActualReport = tmpActualReport.replace("\t", "    ");
     tmpActualReport = tmpActualReport.replace(tmpWetatorPath, "");
     tmpActualReport = tmpActualReport.replace('\\', '/');
 
