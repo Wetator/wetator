@@ -175,6 +175,7 @@
                     stepsErrorPercentage 17<br>
                     stepsIgnoredPercentage 16<br>
 </div>
+<iframe src="" id="preview" style="overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;width: 1600px; height: 1000px; zoom: 0.6; -moz-transform: scale(0.6); -moz-transform-origin: 0 0;"></iframe>
 <a name="top"></a>
 <center>
 <p>
@@ -261,14 +262,11 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="images/expandall.png" onclick="
-                                            showOrHideAll(this
-                                            , null, null, 'ie8overview', null, 'ff3_6overview');
-                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="images/expandall.png" id="ie8"></td><td><span class="bold">FF3.6</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF3.6 overview" onclick="showOrHide(this, 'ff3_6overview')" src="images/expandall.png" id="ff36"></td>
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="images/expandall.png" onclick="showOrHideAll(this
+                                            , 'ie8','ie8overview', 'ff17','ff17overview');
+                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="images/expandall.png" id="ie8"></td><td><span class="bold">FF17</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF17 overview" onclick="showOrHide(this, 'ff17overview')" src="images/expandall.png" id="ff17"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ie6overview"></table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ie7overview"></table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie8overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
@@ -329,8 +327,7 @@
 <td colspan="2" height="10px"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff3overview"></table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff3_6overview">
+<table style="display: none; text-align: center;" align="center" class="overview" id="ff17overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
             browserTestStepCount 15<br>
@@ -355,32 +352,32 @@
             browserStepsIgnoredPercentage 20<br>
 </div>
 <tr>
-<td width="150px;">Tests in FF3.6<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3.6" title="FF3.6"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="60%
-                            " bgcolor="#E75013" title="FF3.6 tests with error">60%
+                            " bgcolor="#E75013" title="FF17 tests with error">60%
                         </td><td style="text-align: center;" class="smallBorder" width="20%
-                            " bgcolor="#00769C" title="FF3.6 tests with failure">20%
+                            " bgcolor="#00769C" title="FF17 tests with failure">20%
                         </td><td style="text-align: center;" class="smallBorder" width="20%
-                            " bgcolor="#ACC952" title="successful FF3.6 tests">20%
+                            " bgcolor="#ACC952" title="successful FF17 tests">20%
                         </td><td></td>
 </tr>
 </table>
 </td>
 </tr>
 <tr>
-<td>TestSteps in FF3.6<img style="padding-left: 4px;" src="images/firefox.png" alt="FF3.6" title="FF3.6"></td><td style="padding-right: 0;">
+<td>TestSteps in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="20%
-                                " bgcolor="#E75013" title="FF3.6 steps with error">20%
+                                " bgcolor="#E75013" title="FF17 steps with error">20%
                                 </td><td style="text-align: center;" class="smallBorder" width="13%
-                                " bgcolor="#00769C" title="FF3.6 steps with failure">13%
+                                " bgcolor="#00769C" title="FF17 steps with failure">13%
                                 </td><td style="text-align: center;" class="smallBorder" width="47%
-                                " bgcolor="#ACC952" title="successful FF3.6 steps">47%
+                                " bgcolor="#ACC952" title="successful FF17 steps">47%
                                 </td><td style="text-align: center;" class="smallBorder ignored" width="20%
-                                " bgcolor="#FFFFFF" title="ignored FF3.6 steps">20%
+                                " bgcolor="#FFFFFF" title="ignored FF17 steps">20%
                                 </td><td></td>
 </tr>
 </table>
@@ -462,7 +459,7 @@
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#104">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">1/1</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#116">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -479,7 +476,7 @@
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#129">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#134">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#143">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">3/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#155">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#160">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#169">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -496,7 +493,7 @@
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#182">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#187">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#195">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">2/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#213">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#218">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#226">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -513,7 +510,7 @@
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#245">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#250">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#259">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#264">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#272">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">4/5</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">4/5</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#285">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#290">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#299">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#304">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#312">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -530,7 +527,7 @@
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#326">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#331">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#340">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox3.6" title="Firefox3.6"></td><td align="center">2/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#352">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#357">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#365">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -556,7 +553,7 @@
                 </a>
 </p>
 <h2>
-<img title="success" alt="success" height="10" width="12" src="images/ok.png">&nbsp;<a name="testspec_109">C:/Test/test1.wet</a> (Firefox3.6)</h2>
+<img title="success" alt="success" height="10" width="12" src="images/ok.png">&nbsp;<a name="testspec_109">C:/Test/test1.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -587,7 +584,7 @@
                 </a>
 </p>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_148">C:/Test/test2.wet</a> (Firefox3.6)</h2>
+<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_148">C:/Test/test2.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -622,33 +619,33 @@
 <tr>
 <td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
-	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:601)
+    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+    at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+    at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
 </pre>
 </td>
 </tr>
@@ -663,7 +660,7 @@
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_206">C:/Test/test3.wet</a> (Firefox3.6)</h2>
+<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_206">C:/Test/test3.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -680,33 +677,33 @@
 <tr>
 <td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
-	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:601)
+    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+    at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+    at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
 </pre>
 </td>
 </tr>
@@ -743,33 +740,33 @@
 <tr>
 <td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeFailureAndErrorTestRun(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
-	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeFailureAndErrorTestRun(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:601)
+    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+    at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+    at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
 </pre>
 </td>
 </tr>
@@ -783,7 +780,7 @@
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_278">C:/Test/test4.wet</a> (Firefox3.6)</h2>
+<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_278">C:/Test/test4.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -805,33 +802,33 @@
 <tr>
 <td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeFailureAndErrorTestRun(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
-	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeFailureAndErrorTestRun(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:601)
+    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+    at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+    at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
 </pre>
 </td>
 </tr>
@@ -863,7 +860,7 @@
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_345">C:/Test/test5.wet</a> (Firefox3.6)</h2>
+<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_345">C:/Test/test5.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -880,33 +877,33 @@
 <tr>
 <td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java)
-	at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
-	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
-	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeCommandWithError(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.writeErrorTestRun(ManualXMLResultWriterTest.java)
+    at org.wetator.progresslistener.ManualXMLResultWriterTest.mixed(ManualXMLResultWriterTest.java)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:601)
+    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+    at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+    at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
 </pre>
 </td>
 </tr>
