@@ -36,19 +36,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventClickOnFF36() throws InvalidInputException {
-    executeTestFile("ff36/event_clickOn.wet");
-
-    Assert.assertEquals(63, getSteps());
-    Assert.assertEquals(16, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventClickOnIE6() throws InvalidInputException {
-    executeTestFile("ie6/event_clickOn.wet");
+  @Browsers({ BrowserType.FIREFOX_17 })
+  public void eventClickOnFF17() throws InvalidInputException {
+    executeTestFile("ff17/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(16, getFailures());
@@ -66,19 +56,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventDeselectFF36() throws InvalidInputException {
-    executeTestFile("ff36/event_deselect.wet");
-
-    Assert.assertEquals(20, getSteps());
-    Assert.assertEquals(2, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventDeselectIE6() throws InvalidInputException {
-    executeTestFile("ie6/event_deselect.wet");
+  @Browsers({ BrowserType.FIREFOX_17 })
+  public void eventDeselectFF17() throws InvalidInputException {
+    executeTestFile("ff17/event_deselect.wet");
 
     Assert.assertEquals(20, getSteps());
     Assert.assertEquals(2, getFailures());
@@ -96,7 +76,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_3_6, BrowserType.INTERNET_EXPLORER_6, BrowserType.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_17, BrowserType.INTERNET_EXPLORER_8 })
   public void eventHandlerOLD() throws InvalidInputException {
     executeTestFile("event_handler.wet");
 
@@ -106,19 +86,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventHandlerOLDIE6() throws InvalidInputException {
-    executeTestFile("ie6/event_handler.wet");
-
-    Assert.assertEquals(81, getSteps());
-    Assert.assertEquals(15, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  @Browsers({ BrowserType.FIREFOX_3_6 })
+  @Browsers({ BrowserType.FIREFOX_17 })
   public void eventHandlerOLDFF36() throws InvalidInputException {
-    executeTestFile("ff36/event_handler.wet");
+    executeTestFile("ff17/event_handler.wet");
 
     Assert.assertEquals(81, getSteps());
     Assert.assertEquals(18, getFailures());
@@ -126,22 +96,12 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventMouseOverFF36() throws InvalidInputException {
-    executeTestFile("ff36/event_mouseOver.wet");
+  @Browsers({ BrowserType.FIREFOX_17 })
+  public void eventMouseOverFF17() throws InvalidInputException {
+    executeTestFile("ff17/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
     Assert.assertEquals(5, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventMouseOverIE6() throws InvalidInputException {
-    executeTestFile("ie6/event_mouseOver.wet");
-
-    Assert.assertEquals(74, getSteps());
-    Assert.assertEquals(16, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -156,19 +116,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_3_6 })
-  public void eventSelectFF36() throws InvalidInputException {
-    executeTestFile("ff36/event_select.wet");
-
-    Assert.assertEquals(30, getSteps());
-    Assert.assertEquals(4, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_6 })
-  public void eventSelectIE6() throws InvalidInputException {
-    executeTestFile("ie6/event_select.wet");
+  @Browsers({ BrowserType.FIREFOX_17 })
+  public void eventSelectFF17() throws InvalidInputException {
+    executeTestFile("ff17/event_select.wet");
 
     Assert.assertEquals(30, getSteps());
     Assert.assertEquals(4, getFailures());

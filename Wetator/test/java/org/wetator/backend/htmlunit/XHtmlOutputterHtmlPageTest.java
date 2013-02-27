@@ -44,27 +44,9 @@ public class XHtmlOutputterHtmlPageTest {
   private static final String EXPECTED_TRAILING = "</body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
-
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_7, anHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
-
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
-
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
     Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 

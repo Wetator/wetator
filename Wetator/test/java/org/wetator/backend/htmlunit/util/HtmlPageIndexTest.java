@@ -35,23 +35,8 @@ public class HtmlPageIndexTest {
 
   private void asText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
       throws IOException {
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_6, anHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals(anExpected, tmpResult.getText());
-    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
-
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_7, anHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals(anExpected, tmpResult.getText());
-    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
-
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    Assert.assertEquals(anExpected, tmpResult.getText());
-    Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
-
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_3_6, anHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 

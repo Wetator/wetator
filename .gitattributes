@@ -805,20 +805,15 @@ Wetator/test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 Wetator/test/xml/deselect_radio.wet -text
 Wetator/test/xml/event_handler.wet -text svneol=unset#text/plain
 Wetator/test/xml/exec_java.wet -text svneol=unset#text/plain
-Wetator/test/xml/ff36/event_clickOn.wet -text
-Wetator/test/xml/ff36/event_deselect.wet -text
-Wetator/test/xml/ff36/event_handler.wet -text
-Wetator/test/xml/ff36/event_mouseOver.wet -text
-Wetator/test/xml/ff36/event_select.wet -text
+Wetator/test/xml/ff17/event_clickOn.wet -text
+Wetator/test/xml/ff17/event_deselect.wet -text
+Wetator/test/xml/ff17/event_handler.wet -text
+Wetator/test/xml/ff17/event_mouseOver.wet -text
+Wetator/test/xml/ff17/event_select.wet -text
 Wetator/test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 Wetator/test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 Wetator/test/xml/go_back.wet -text svneol=unset#text/plain
 Wetator/test/xml/htmlunit_javascript.wet -text svneol=unset#text/plain
-Wetator/test/xml/ie6/event_clickOn.wet -text
-Wetator/test/xml/ie6/event_deselect.wet -text
-Wetator/test/xml/ie6/event_handler.wet -text
-Wetator/test/xml/ie6/event_mouseOver.wet -text
-Wetator/test/xml/ie6/event_select.wet -text
 Wetator/test/xml/ie8/event_clickOn.wet -text
 Wetator/test/xml/ie8/event_deselect.wet -text
 Wetator/test/xml/ie8/event_mouseOver.wet -text
@@ -885,8 +880,6 @@ Wetator/xsl/images/expandall.png -text
 Wetator/xsl/images/expandlog.png -text
 Wetator/xsl/images/failure.png -text
 Wetator/xsl/images/firefox.png -text
-Wetator/xsl/images/ie6.png -text
-Wetator/xsl/images/ie7.png -text
 Wetator/xsl/images/ie8.png -text
 Wetator/xsl/images/log_info.png -text
 Wetator/xsl/images/log_warn.png -text
