@@ -66,23 +66,22 @@ public final class HtmlElementUtil {
 
     // TODO this handles only the most common situations
     if (anHtmlAnchor.getFirstChild() instanceof HtmlImage) {
-      tmpResult.append(" '");
-      tmpResult.append("image: ");
+      tmpResult.append(" 'image: ");
       tmpResult.append(((HtmlImage) anHtmlAnchor.getFirstChild()).getSrcAttribute());
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
 
     final String tmpText = anHtmlAnchor.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpResult.append(" '");
       tmpResult.append(tmpText);
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
 
     addId(tmpResult, anHtmlAnchor);
     addName(tmpResult, anHtmlAnchor);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -99,25 +98,24 @@ public final class HtmlElementUtil {
 
     // TODO this handles only the most common situations
     if (anHtmlButton.getFirstChild() instanceof HtmlImage) {
-      tmpResult.append(" '");
-      tmpResult.append("image: ");
+      tmpResult.append(" 'image: ");
       tmpResult.append(((HtmlImage) anHtmlButton.getFirstChild()).getSrcAttribute());
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
     if (StringUtils.isNotEmpty(anHtmlButton.asText())) {
       tmpResult.append(" '");
       tmpResult.append(anHtmlButton.asText());
-      tmpResult.append("'");
+      tmpResult.append('\'');
     } else if (StringUtils.isNotEmpty(anHtmlButton.getValueAttribute())) {
       tmpResult.append(" '");
       tmpResult.append(anHtmlButton.getValueAttribute());
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
 
     addId(tmpResult, anHtmlButton);
     addName(tmpResult, anHtmlButton);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -128,16 +126,14 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlButtonInput '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlButtonInput '");
     tmpResult.append(anHtmlButtonInput.getValueAttribute());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlButtonInput);
     addName(tmpResult, anHtmlButtonInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -148,14 +144,12 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlCheckBoxInput");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlCheckBoxInput");
 
     addId(tmpResult, anHtmlCheckBoxInput);
     addName(tmpResult, anHtmlCheckBoxInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -173,7 +167,7 @@ public final class HtmlElementUtil {
     addId(tmpResult, anHtmlFileInput);
     addName(tmpResult, anHtmlFileInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -184,14 +178,12 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlHiddenInput(final HtmlHiddenInput anHtmlHiddenInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlHiddenInput");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlHiddenInput");
 
     addId(tmpResult, anHtmlHiddenInput);
     addName(tmpResult, anHtmlHiddenInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -206,12 +198,12 @@ public final class HtmlElementUtil {
 
     tmpResult.append("[HtmlImage '");
     tmpResult.append(anHtmlImage.getSrcAttribute());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlImage);
     addName(tmpResult, anHtmlImage);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -222,20 +214,16 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlImageInput '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlImageInput '");
     tmpResult.append(anHtmlImageInput.getValueAttribute());
-    tmpResult.append("'");
-
-    tmpResult.append(" (src='");
+    tmpResult.append("\' (src='");
     tmpResult.append(anHtmlImageInput.getSrcAttribute());
     tmpResult.append("')");
 
     addId(tmpResult, anHtmlImageInput);
     addName(tmpResult, anHtmlImageInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -254,13 +242,13 @@ public final class HtmlElementUtil {
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpResult.append(" '");
       tmpResult.append(tmpText);
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
 
     addId(tmpResult, anHtmlParagraph);
     addName(tmpResult, anHtmlParagraph);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -278,7 +266,7 @@ public final class HtmlElementUtil {
     addId(tmpResult, anHtmlPasswordInput);
     addName(tmpResult, anHtmlPasswordInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -289,16 +277,14 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlRadioButtonInput '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlRadioButtonInput '");
     tmpResult.append(anHtmlRadioButtonInput.getValueAttribute());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlRadioButtonInput);
     addName(tmpResult, anHtmlRadioButtonInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -309,16 +295,14 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlResetInput '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlResetInput '");
     tmpResult.append(anHtmlResetInput.getValueAttribute());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlResetInput);
     addName(tmpResult, anHtmlResetInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -329,14 +313,12 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlSelect(final HtmlSelect anHtmlSelect) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlSelect");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlSelect");
 
     addId(tmpResult, anHtmlSelect);
     addName(tmpResult, anHtmlSelect);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -347,16 +329,14 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlSpan(final HtmlSpan anHtmlSpan) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlSpan '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlSpan '");
     tmpResult.append(anHtmlSpan.asText());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlSpan);
     addName(tmpResult, anHtmlSpan);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -367,16 +347,14 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlSubmitInput '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlSubmitInput '");
     tmpResult.append(anHtmlSubmitInput.getValueAttribute());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlSubmitInput);
     addName(tmpResult, anHtmlSubmitInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -387,14 +365,12 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlTextArea(final HtmlTextArea anHtmlTextArea) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlTextArea");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlTextArea");
 
     addId(tmpResult, anHtmlTextArea);
     addName(tmpResult, anHtmlTextArea);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -405,14 +381,12 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlTextInput(final HtmlTextInput anHtmlTextInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlTextInput");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlTextInput");
 
     addId(tmpResult, anHtmlTextInput);
     addName(tmpResult, anHtmlTextInput);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -423,12 +397,10 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlOption(final HtmlOption anHtmlOption) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlOption '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlOption '");
 
     tmpResult.append(anHtmlOption.asText());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlOption);
     addName(tmpResult, anHtmlOption);
@@ -439,7 +411,7 @@ public final class HtmlElementUtil {
       tmpResult.append(getDescribingTextForHtmlSelect(tmpSelect));
     }
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
@@ -450,12 +422,10 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlOptionGroup '");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlOptionGroup '");
 
     tmpResult.append(anHtmlOptionGroup.getLabelAttribute());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, anHtmlOptionGroup);
     addName(tmpResult, anHtmlOptionGroup);
@@ -467,7 +437,7 @@ public final class HtmlElementUtil {
       tmpResult.append(getDescribingTextForHtmlSelect(tmpSelect));
     }
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 
