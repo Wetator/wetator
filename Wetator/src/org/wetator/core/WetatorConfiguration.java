@@ -281,7 +281,7 @@ public class WetatorConfiguration {
 
     // overwrite with system properties if defined....
     final Set<Object> tmpSystemPropertyNames = System.getProperties().keySet();
-    for (Object tmpKey : tmpSystemPropertyNames) {
+    for (final Object tmpKey : tmpSystemPropertyNames) {
       final String tmpKeyName = (String) tmpKey;
       if (tmpKeyName.startsWith(PROPERTY_PREFIX) || tmpKeyName.startsWith(VARIABLE_PREFIX)) {
         final Object tmpPropertyValue = System.getProperty(tmpKeyName);
@@ -308,7 +308,7 @@ public class WetatorConfiguration {
     // scripters
     scripters = new LinkedList<IScripter>();
     readScripters(tmpProperties);
-    for (IScripter tmpScripter : scripters) {
+    for (final IScripter tmpScripter : scripters) {
       tmpScripter.initialize(tmpProperties);
     }
 
@@ -374,7 +374,7 @@ public class WetatorConfiguration {
     browserTypes = new ArrayList<IBrowser.BrowserType>();
 
     List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
-    for (String tmpString : tmpParts) {
+    for (final String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
         final IBrowser.BrowserType tmpBrowserType = BrowserType.getForSymbol(tmpString);
         if (null == tmpBrowserType) {
@@ -473,7 +473,7 @@ public class WetatorConfiguration {
     xslTemplates = new LinkedList<String>();
 
     tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
-    for (String tmpString : tmpParts) {
+    for (final String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
         File tmpTemplateFile = new File(tmpString);
 
