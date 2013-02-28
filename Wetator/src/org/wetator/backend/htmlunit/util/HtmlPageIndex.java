@@ -705,23 +705,27 @@ public class HtmlPageIndex {
    * Helper for debugging.
    */
   public void dumpToLog() {
-    final StringBuilder tmpLog = new StringBuilder();
-    tmpLog.append("\n ---- HtmlPageIndex dump -------------------------------------------------------\n");
+    final StringBuilder tmpLog = new StringBuilder(
+        "\n ---- HtmlPageIndex dump -------------------------------------------------------\n");
     tmpLog.append(" text                   : " + text + "\n");
 
     // nodes/positions
     for (DomNode tmpDomNode : nodes) {
       final FindSpot tmpPos = positions.get(tmpDomNode);
-      tmpLog.append("  " + tmpDomNode.getNodeName() + "  [" + tmpPos.getStartPos() + ", " + tmpPos.getEndPos() + "]");
-      tmpLog.append("  " + tmpDomNode.getClass().getName());
+      tmpLog.append("  ");
+      tmpLog.append(tmpDomNode.getNodeName());
+      tmpLog.append("  [" + tmpPos.getStartPos());
+      tmpLog.append(", " + tmpPos.getEndPos());
+      tmpLog.append("]  ");
+      tmpLog.append(tmpDomNode.getClass().getName());
 
       final String tmpValue = tmpDomNode.getNodeValue();
       if (null != tmpValue) {
         tmpLog.append("  '");
         tmpLog.append(tmpValue);
-        tmpLog.append("'");
+        tmpLog.append('\'');
       }
-      tmpLog.append("\n");
+      tmpLog.append('\n');
     }
 
     tmpLog.append(" ---- end HtmlPageIndex dump ---------------------------------------------------\n");
