@@ -570,6 +570,11 @@ public class ManualXMLResultWriterTest {
     tmpActualReport = tmpActualReport.replace("{display: none;}", "{}");
     tmpActualReport = tmpActualReport.replace("\r\n", "\n");
     tmpActualReport = tmpActualReport.replace("\t", "    ");
+    tmpActualReport = tmpActualReport.replaceAll("testspec_\\d+", "testspec_x");
+    tmpActualReport = tmpActualReport.replaceAll("testfile_\\d+", "testfile_x");
+    tmpActualReport = tmpActualReport.replaceAll("log_\\d+", "log_x");
+    tmpActualReport = tmpActualReport.replaceAll("\"#\\d+\"", "\"#x\"");
+    tmpActualReport = tmpActualReport.replaceAll("\"\\d+\"", "\"#x\"");
     tmpActualReport = tmpActualReport.replace(tmpWetatorPath, "");
     tmpActualReport = tmpActualReport.replace('\\', '/');
 
@@ -577,6 +582,11 @@ public class ManualXMLResultWriterTest {
         "ManualXMLResultWriterTest.java)");
     tmpExpectedReport = tmpExpectedReport.replace("{display: none;}", "{}");
     tmpExpectedReport = tmpExpectedReport.replace("\r\n", "\n");
+    tmpExpectedReport = tmpExpectedReport.replaceAll("testspec_\\d+", "testspec_x");
+    tmpExpectedReport = tmpExpectedReport.replaceAll("testfile_\\d+", "testfile_x");
+    tmpExpectedReport = tmpExpectedReport.replaceAll("log_\\d+", "log_x");
+    tmpExpectedReport = tmpExpectedReport.replaceAll("\"#\\d+\"", "\"#x\"");
+    tmpExpectedReport = tmpExpectedReport.replaceAll("\"\\d+\"", "\"#x\"");
     tmpExpectedReport = tmpExpectedReport.replace(tmpWetatorPath, "");
 
     Assert.assertEquals(tmpExpectedReport, tmpActualReport);
