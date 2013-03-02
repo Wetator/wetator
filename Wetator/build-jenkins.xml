@@ -7,29 +7,29 @@
     <!-- path to ant-dir -->
     <property name="ant" value="ant" />
 
-	<!-- display number (used for xvfb only) -->
-	<property name="display" value="1" />
+    <!-- display number (used for xvfb only) -->
+    <property name="display" value="1" />
 
-	<condition property="is-ci">
-		<equals arg1="${stage}" arg2="CI" />
-	</condition>
+    <condition property="is-ci">
+        <equals arg1="${stage}" arg2="CI" />
+    </condition>
 
     <!-- application specific properties -->
     <xmlproperty file="./build-jenkins-properties.xml" keepRoot="false" semanticAttributes="true" />
 
-	<import file="./build-jenkins-patternset.xml" />
+    <import file="./build-jenkins-patternset.xml" />
 
 
-	<!--
-	publish-sonatype-snapshots:		info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
-	publish-local:					info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
-	package: 						info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
-	package-no-tests: 				info -> resolve-dependencies -> compile -> package-bundles
-	metrics:						info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
-	metrics-only:					info -> compile -> gather-metrics
-	tests:							info -> resolve-dependencies -> compile -> compile-tests -> run-tests
-	tests-only:						info -> compile -> compile-tests -> run-tests
-	-->
+    <!--
+    publish-sonatype-snapshots:        info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
+    publish-local:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
+    package:                         info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
+    package-no-tests:                 info -> resolve-dependencies -> compile -> package-bundles
+    metrics:                        info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
+    metrics-only:                    info -> compile -> gather-metrics
+    tests:                            info -> resolve-dependencies -> compile -> compile-tests -> run-tests
+    tests-only:                        info -> compile -> compile-tests -> run-tests
+    -->
 
 
     <!-- *******************************************
@@ -44,7 +44,7 @@
            -> publish-sonatype-snapshots
          ******************************************* -->
     <target name="publish-sonatype-snapshots" description="executes the complete build cycle until publishing to the Sonatype snapshot repository"
-    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-snapshots">
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-snapshots">
     </target>
 
 
@@ -58,7 +58,7 @@
            -> publish-local
          ******************************************* -->
     <target name="publish-local" description="executes the complete build cycle until publishing to the local repository"
-    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local">
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local">
     </target>
 
 
@@ -71,7 +71,7 @@
            -> gather-metrics -> package-bundles
          ******************************************* -->
     <target name="package" description="executes the complete build cycle until packaging the bundles"
-    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles">
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles">
     </target>
 
 
@@ -83,7 +83,7 @@
            -> package-bundles
          ******************************************* -->
     <target name="package-no-tests" description="executes the build cycle until packaging the bundles without the tests"
-    	depends="resolve-dependencies, -package-bundles">
+        depends="resolve-dependencies, -package-bundles">
     </target>
 
 
@@ -96,7 +96,7 @@
            -> gather-metrics
          ******************************************* -->
     <target name="metrics" description="executes the complete build cycle until gathering the metrics"
-    	depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests">
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests">
     </target>
 
 
@@ -106,7 +106,7 @@
            info -> compile -> gather-metrics
          ******************************************* -->
     <target name="metrics-only" description="only gathers the metrics"
-    	depends="info, -gather-metrics">
+        depends="info, -gather-metrics">
     </target>
 
 
@@ -118,7 +118,7 @@
            -> compile-tests -> run-tests
          ******************************************* -->
     <target name="tests" description="executes the complete build cycle until running the tests"
-    	depends="resolve-dependencies, -run-tests, -check-tests">
+        depends="resolve-dependencies, -run-tests, -check-tests">
     </target>
 
 
@@ -129,7 +129,7 @@
            -> compile-tests -> run-tests
          ******************************************* -->
     <target name="tests-only" description="runs the tests only"
-    	depends="info, -run-tests, -check-tests">
+        depends="info, -run-tests, -check-tests">
     </target>
 
 
@@ -142,11 +142,11 @@
         <echo level="info">Project: ${ant.project.name}</echo>
         <echo level="info">  ${ant.version}</echo>
         <echo level="info">  Java version ${ant.java.version}</echo>
-    	<echo level="info"></echo>
+        <echo level="info"></echo>
     </target>
 
 
-	<!-- ===========================================
+    <!-- ===========================================
          private target clean-lib
            cleans the project libraries directory
            (dependencies)
@@ -184,8 +184,8 @@
            with ivy
          ******************************************* -->
     <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
-    	depends="info, -clean-lib, -load-ivy">
-    	<echo level="info">Resolving dependencies</echo>
+        depends="info, -clean-lib, -load-ivy">
+        <echo level="info">Resolving dependencies</echo>
         <ivy:configure />
         <ivy:resolve />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
@@ -217,7 +217,7 @@
               target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
-                	<patternset refid="libPattern" />
+                    <patternset refid="libPattern" />
                 </fileset>
             </classpath>
         </javac>
@@ -225,7 +225,7 @@
         <!-- copy resources -->
         <copy todir="${dir.build}/classes" preservelastmodified="yes">
             <fileset dir="${dir.src}">
-            	<patternset refid="resourcePattern" />
+                <patternset refid="resourcePattern" />
             </fileset>
         </copy>
     </target>
@@ -236,7 +236,7 @@
            compiles the test sources
          =========================================== -->
     <target name="-compile-tests" depends="-clean-build">
-    	<mkdir dir="${dir.build}"/>
+        <mkdir dir="${dir.build}"/>
         <mkdir dir="${dir.build}/test-classes"/>
 
         <!-- compile classes -->
@@ -246,7 +246,7 @@
             target="${javac.target}" destdir="${dir.build}/test-classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
-                	<patternset refid="libPattern" />
+                    <patternset refid="libPattern" />
                 </fileset>
                 <path path="${dir.build}/classes" />
             </classpath>
@@ -255,7 +255,7 @@
         <!-- copy resources -->
         <copy todir="${dir.build}/test-classes" preservelastmodified="yes">
             <fileset dir="${dir.test-src}">
-            	<patternset refid="resourcePattern" />
+                <patternset refid="resourcePattern" />
             </fileset>
         </copy>
     </target>
@@ -263,14 +263,14 @@
 
     <!-- ===========================================
          private target start-xvfb
-	       starts the virtual display
+           starts the virtual display
          =========================================== -->
     <target name="-start-xvfb" if="is-ci">
         <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
             <arg line=":${display} -ac -screen 0 1024x768x16" />
         </exec>
-    	<echo level="info">Started Xvfb display ${display}</echo>
-	</target>
+        <echo level="info">Started Xvfb display ${display}</echo>
+    </target>
 
 
     <!-- ===========================================
@@ -282,13 +282,13 @@
         <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
         <mkdir dir="${dir.deploy}/junit"/>
 
-    	<echo level="info">Running tests (output: ${dir.deploy}/junit)</echo>
+        <echo level="info">Running tests (output: ${dir.deploy}/junit)</echo>
         <path id="junit-classpath">
             <pathelement location="${dir.build}/classes" />
             <pathelement location="${dir.build}/test-classes" />
 
             <fileset dir="${dir.lib}">
-            	<patternset refid="libPattern" />
+                <patternset refid="libPattern" />
             </fileset>
         </path>
 
@@ -298,25 +298,25 @@
             fork="yes" forkmode="once" dir="${basedir}">
             <classpath refid="junit-classpath" />
             <jvmarg value="-Duser.language=en" />
-        	<env key="DISPLAY" value=":${display}" />
+            <env key="DISPLAY" value=":${display}" />
 
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
                 <fileset dir="${dir.build}/test-classes">
-                	<patternset refid="junitPattern" />
+                    <patternset refid="junitPattern" />
                 </fileset>
             </batchtest>
         </junit>
-	</target>
+    </target>
 
 
     <!-- ===========================================
          private target check-metrics-libs
          =========================================== -->
     <target name="-check-metrics-libs">
-    	<available file="${dir.ant-lib}/checkstyle/checkstyle-5.5.jar" property="checkstyle-found"/>
-    	<available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
-    	<available file="${dir.ant-lib}/pmd/pmd-5.0.1.jar" property="pmd-found"/>
+        <available file="${dir.ant-lib}/checkstyle/checkstyle-5.5.jar" property="checkstyle-found"/>
+        <available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
+        <available file="${dir.ant-lib}/pmd/pmd-5.0.1.jar" property="pmd-found"/>
     </target>
 
 
@@ -324,10 +324,10 @@
          private target download-checkstyle
          =========================================== -->
     <target name="-download-checkstyle"
-    	depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
-    	<mkdir dir="${dir.ant-lib}/checkstyle"/>
-       	<ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.5" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/checkstyle${ivy.retrieve.pattern}" />
+        depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
+        <mkdir dir="${dir.ant-lib}/checkstyle"/>
+           <ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.6" inline="true" type="jar"
+            pattern="${dir.ant-lib}/checkstyle${ivy.retrieve.pattern}" />
     </target>
 
 
@@ -335,11 +335,11 @@
          private target download-findbugs
          =========================================== -->
     <target name="-download-findbugs"
-    	depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
-    	<mkdir dir="${dir.ant-lib}/findbugs"/>
-    	<!-- sources and javadoc make problems here so we have to ignore failures -->
-       	<ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.1" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/findbugs${ivy.retrieve.pattern}" />
+        depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
+        <mkdir dir="${dir.ant-lib}/findbugs"/>
+        <!-- sources and javadoc make problems here so we have to ignore failures -->
+           <ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.2" inline="true" type="jar"
+            pattern="${dir.ant-lib}/findbugs${ivy.retrieve.pattern}" />
     </target>
 
 
@@ -347,10 +347,10 @@
          private target download-pmd
          =========================================== -->
     <target name="-download-pmd"
-    	depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
-    	<mkdir dir="${dir.ant-lib}/pmd"/>
-       	<ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.1" inline="true" type="jar"
-    		pattern="${dir.ant-lib}/pmd${ivy.retrieve.pattern}" />
+        depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
+        <mkdir dir="${dir.ant-lib}/pmd"/>
+           <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.1" inline="true" type="jar"
+            pattern="${dir.ant-lib}/pmd${ivy.retrieve.pattern}" />
     </target>
 
 
@@ -358,13 +358,13 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle"
-    	depends="-download-checkstyle">
+        depends="-download-checkstyle">
         <path id="taskdef-classpath-checkstyle">
             <fileset dir="${dir.ant-lib}/checkstyle">
-            	<include name="**/*.jar"/>
+                <include name="**/*.jar"/>
             </fileset>
         </path>
-    	<taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
+        <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
 
 
@@ -372,13 +372,13 @@
          private target load-findbugs
          =========================================== -->
     <target name="-load-findbugs"
-    	depends="-download-findbugs">
+        depends="-download-findbugs">
         <path id="taskdef-classpath-findbugs">
             <fileset dir="${dir.ant-lib}/findbugs">
-            	<include name="**/*.jar"/>
+                <include name="**/*.jar"/>
             </fileset>
         </path>
-    	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
+        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
     </target>
 
 
@@ -386,10 +386,10 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd"
-    	depends="-download-pmd">
+        depends="-download-pmd">
         <path id="taskdef-classpath-pmd">
             <fileset dir="${dir.ant-lib}/pmd">
-            	<include name="**/*.jar"/>
+                <include name="**/*.jar"/>
             </fileset>
         </path>
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
@@ -404,37 +404,37 @@
     <target name="-gather-metrics" description="gathers all metrics"
         depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd">
         <!-- run checkstyle -->
-    	<echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
-    	<delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
+        <echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
+        <delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
         <mkdir dir="${dir.deploy}/checkstyle" />
         <checkstyle config="${dir.test}/checkstyle/checkstyle.xml" failOnViolation="false">
             <formatter type="xml" tofile="${dir.deploy}/checkstyle/checkstyle-report.xml"/>
             <fileset dir="${dir.src}">
-            	<patternset refid="checkstylePattern" />
+                <patternset refid="checkstylePattern" />
             </fileset>
         </checkstyle>
 
         <!-- run findbugs -->
-    	<echo level="info">Running Findbugs (output: ${dir.deploy}/findbugs)</echo>
+        <echo level="info">Running Findbugs (output: ${dir.deploy}/findbugs)</echo>
         <path id="findbugs-aux-classpath">
             <fileset dir="${dir.lib}">
                 <patternset refid="libPattern" />
             </fileset>
         </path>
 
-    	<delete dir="${dir.deploy}/findbugs" includeemptydirs="true" />
+        <delete dir="${dir.deploy}/findbugs" includeemptydirs="true" />
         <mkdir dir="${dir.deploy}/findbugs" />
         <findbugs jvmargs="-Xmx512m" output="xml:withMessages"
             outputFile="${dir.deploy}/findbugs/findbugs-report.xml" timeout="1800000"
-        	excludeFilter="${dir.test}/findbugs/exclude-filter.xml">
-        	<classpath refid="taskdef-classpath-findbugs" />
+            excludeFilter="${dir.test}/findbugs/exclude-filter.xml">
+            <classpath refid="taskdef-classpath-findbugs" />
             <auxclasspath refid="findbugs-aux-classpath" />
             <sourcePath path="${dir.src}" />
             <class location="${dir.build}/classes" />
         </findbugs>
 
         <!-- run pmd -->
-    	<echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
+        <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true">
             <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
@@ -448,14 +448,14 @@
                 <patternset refid="pmdPattern" />
             </fileset>
         </cpd>
-	</target>
+    </target>
 
 
     <!-- ===========================================
          private target check-build
          =========================================== -->
     <target name="-check-tests" if="unittestsfailed">
-    	<fail message="Unit tests failing; build failed." />
+        <fail message="Unit tests failing; build failed." />
     </target>
 
 
@@ -478,7 +478,7 @@
          =========================================== -->
     <target name="-get-buildnumber-local" unless="is-ci">
         <propertyfile file="build.properties">
-        	<entry key="application.buildnumber" type="int" default="42" operation="+"/>
+            <entry key="application.buildnumber" type="int" default="42" operation="+"/>
         </propertyfile>
         <property file="build.properties"/>
     </target>
@@ -488,7 +488,7 @@
          private target get-buildnumber-ci
          =========================================== -->
     <target name="-get-buildbumber-ci" if="is-ci">
-		<property name="application.buildnumber" value="jenkins-${env.BUILD_NUMBER}"></property>
+        <property name="application.buildnumber" value="jenkins-${env.BUILD_NUMBER}"></property>
     </target>
 
 
@@ -502,10 +502,10 @@
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
 
-    	<echo level="info">Packaging bundles (output: ${dir.deploy})</echo>
+        <echo level="info">Packaging bundles (output: ${dir.deploy})</echo>
 
         <echo level="info">  Version: ${application.version}</echo>
-    	<echo level="info">  Build:   ${application.buildnumber}</echo>
+        <echo level="info">  Build:   ${application.buildnumber}</echo>
 
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
@@ -549,7 +549,7 @@
             <lib>
                 <fileset dir="${dir.lib}">
                     <include name="*.jar" />
-                	<patternset refid="runtime-libs" />
+                    <patternset refid="runtime-libs" />
                 </fileset>
             </lib>
         </one-jar>
@@ -617,7 +617,7 @@ echo location of the Java Virtual Machine you want to use.
 
             <zipfileset dir="${dir.lib}" prefix="lib">
                 <include name="*.jar" />
-            	<patternset refid="runtime-libs" />
+                <patternset refid="runtime-libs" />
             </zipfileset>
 
             <zipfileset dir="${dir.samples}/ant" prefix="templates">
@@ -684,7 +684,7 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
         </zip>
 
-    	<copy file="${dir.build}/${application.jar-basename}-src.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar"/>
+        <copy file="${dir.build}/${application.jar-basename}-src.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar"/>
     </target>
 
 
@@ -819,18 +819,18 @@ echo location of the Java Virtual Machine you want to use.
            generates a report of the dependencies
          ******************************************* -->
     <target name="report" description="generates a report of the dependencies"
-    	depends="info, resolve-dependencies">
+        depends="info, resolve-dependencies">
         <mkdir dir="${dir.build}/ivy-report"/>
         <ivy:report todir="${dir.build}/ivy-report"/>
     </target>
 
 
-	<!-- *******************************************
+    <!-- *******************************************
          target zip-curret-libs
            bundles the current libs as zip
          ******************************************* -->
     <target name="zip-current-libs" description="bundles the current libs as zip"
-    	depends="info">
+        depends="info">
         <zip destfile="${dir.deploy}/current-libs.zip">
             <zipfileset dir="${dir.lib}" prefix="lib" />
             <zipfileset dir="${dir.lib-src}" prefix="lib_src" />
@@ -849,8 +849,8 @@ echo location of the Java Virtual Machine you want to use.
          target clean-cache
            cleans the ivy cache
          ******************************************* -->
-	<target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
-	    <ivy:cleancache/>
-	</target>
+    <target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
+        <ivy:cleancache/>
+</target>
 
 </project>
