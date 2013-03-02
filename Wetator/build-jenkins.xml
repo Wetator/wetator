@@ -316,7 +316,7 @@
     <target name="-check-metrics-libs">
         <available file="${dir.ant-lib}/checkstyle/checkstyle-5.6.jar" property="checkstyle-found"/>
         <available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
-        <available file="${dir.ant-lib}/pmd/pmd-5.0.1.jar" property="pmd-found"/>
+        <available file="${dir.ant-lib}/pmd/pmd-5.0.2.jar" property="pmd-found"/>
     </target>
 
 
@@ -349,7 +349,7 @@
     <target name="-download-pmd"
         depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
         <mkdir dir="${dir.ant-lib}/pmd"/>
-           <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.1" inline="true" type="jar"
+           <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.2" inline="true" type="jar"
             pattern="${dir.ant-lib}/pmd${ivy.retrieve.pattern}" />
     </target>
 
