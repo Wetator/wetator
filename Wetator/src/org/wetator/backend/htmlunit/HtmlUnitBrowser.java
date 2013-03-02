@@ -218,7 +218,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       final Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
 
-      for (String tmpString : tmpNonProxyHosts) {
+      for (final String tmpString : tmpNonProxyHosts) {
         if (StringUtils.isNotEmpty(tmpString)) {
           final String tmpHostsToProxyBypass = tmpString.trim();
           webClient.getOptions().getProxyConfig().addHostsToProxyBypass(tmpHostsToProxyBypass);
@@ -537,7 +537,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          for (IControl tmpControl : aControls) {
+          for (final IControl tmpControl : aControls) {
             tmpControl.addHighlightStyle(wetatorEngine.getConfiguration());
           }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
@@ -749,7 +749,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       return true;
     }
 
-    for (FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
+    for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
       if (areJobsPendig((HtmlPage) tmpFrameWindow.getEnclosedPage(), anEndTime)) {
         return true;
       }
@@ -765,7 +765,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       return true;
     }
 
-    for (FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
+    for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
       if (areJobsActive((HtmlPage) tmpFrameWindow.getEnclosedPage())) {
         return true;
       }
@@ -1038,7 +1038,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     final AssertionException tmpResult = failures.get(0);
-    for (AssertionException tmpException : failures) {
+    for (final AssertionException tmpException : failures) {
       final Throwable tmpCause = tmpException.getCause();
       wetatorEngine.informListenersWarn("pageError", new String[] { tmpException.getMessage() }, tmpCause);
     }
