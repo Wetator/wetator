@@ -24,7 +24,7 @@ import org.wetator.exception.AssertionException;
  * @author rbri
  * @author frank.danek
  */
-interface IProgressListener {
+public interface IProgressListener {
 
   /**
    * This is called before the setup is done and before the test are starting.<br/>

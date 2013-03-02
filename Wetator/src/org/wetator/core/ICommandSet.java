@@ -26,7 +26,7 @@ import java.util.Properties;
  * @author rbri
  * @author frank.danek
  */
-interface ICommandSet {
+public interface ICommandSet {
 
   /**
    * Initialize everything the command set needs here. To leave messages for the result presentation use
