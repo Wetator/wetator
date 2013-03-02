@@ -23,16 +23,11 @@ package org.wetator.util;
  */
 public class XMLUtil {
 
-  // private CharsetEncoder charsetEncoder;
-
   /**
    * The constructor.
-   * 
-   * @param anEncoding the encoding used for the file
    */
-  public XMLUtil(final String anEncoding) {
+  public XMLUtil() {
     super();
-    // charsetEncoder = Charset.forName(anEncoding).newEncoder();
   }
 
   /**
