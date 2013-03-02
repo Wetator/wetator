@@ -75,30 +75,28 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
     if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
       final String tmpValue = getAttributeValue(aHtmlElement);
 
-      if (StringUtils.isNotEmpty(tmpValue)) {
-        if (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
-            || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue))
-            || (MatchType.ENDS_WITH == matchType && searchPattern.matchesAtEnd(tmpValue))) {
-          int tmpCoverage;
-          if (MatchType.ENDS_WITH == matchType) {
-            tmpCoverage = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);
-          } else if (MatchType.STARTS_WITH == matchType) {
-            tmpCoverage = searchPattern.noOfCharsAfterLastOccurenceIn(tmpValue);
+      if (StringUtils.isNotEmpty(tmpValue)
+          && (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
+              || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue)) || (MatchType.ENDS_WITH == matchType && searchPattern
+              .matchesAtEnd(tmpValue)))) {
+        int tmpCoverage;
+        if (MatchType.ENDS_WITH == matchType) {
+          tmpCoverage = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);
+        } else if (MatchType.STARTS_WITH == matchType) {
+          tmpCoverage = searchPattern.noOfCharsAfterLastOccurenceIn(tmpValue);
+        } else {
+          tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpValue);
+        }
+        if (tmpCoverage > -1) {
+          String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+          tmpTextBefore = processTextForDistance(tmpTextBefore);
+          final int tmpDistance;
+          if (pathSearchPattern != null) {
+            tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
           } else {
-            tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpValue);
+            tmpDistance = tmpTextBefore.length();
           }
-          if (tmpCoverage > -1) {
-            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-            tmpTextBefore = processTextForDistance(tmpTextBefore);
-            final int tmpDistance;
-            if (pathSearchPattern != null) {
-              tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-            } else {
-              tmpDistance = tmpTextBefore.length();
-            }
-            tmpMatches
-                .add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
-          }
+          tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
         }
       }
     }

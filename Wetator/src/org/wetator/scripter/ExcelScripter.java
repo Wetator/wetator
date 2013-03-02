@@ -139,11 +139,9 @@ public final class ExcelScripter implements IScripter {
       int tmpSheetNo = -1;
       for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
         final String tmpSheetName = tmpWorkbook.getSheetName(i);
-        if (!StringUtils.isEmpty(tmpSheetName)) {
-          if (tmpSheetName.toLowerCase().contains("test")) {
-            tmpSheetNo = i;
-            break;
-          }
+        if (StringUtils.isNotEmpty(tmpSheetName) && tmpSheetName.toLowerCase().contains("test")) {
+          tmpSheetNo = i;
+          break;
         }
       }
 

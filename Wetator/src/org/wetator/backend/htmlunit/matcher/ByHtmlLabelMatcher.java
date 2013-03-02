@@ -85,19 +85,17 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
         if (StringUtils.isNotEmpty(tmpForAttribute)) {
           try {
             final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
-            if (clazz.isAssignableFrom(tmpElementForLabel.getClass())) {
-              if (tmpElementForLabel.isDisplayed()) {
-                tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                final int tmpDistance;
-                if (pathSearchPattern != null) {
-                  tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-                } else {
-                  tmpDistance = tmpTextBefore.length();
-                }
-                tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
-                    tmpNodeSpot.getStartPos()));
+            if (clazz.isAssignableFrom(tmpElementForLabel.getClass()) && tmpElementForLabel.isDisplayed()) {
+              tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+              final int tmpDistance;
+              if (pathSearchPattern != null) {
+                tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+              } else {
+                tmpDistance = tmpTextBefore.length();
               }
+              tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
+                  tmpNodeSpot.getStartPos()));
             }
           } catch (final ElementNotFoundException e) {
             // not found
@@ -107,19 +105,17 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
         // Element must be a nested element of label
         final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
         for (HtmlElement tmpChildElement : tmpChilds) {
-          if (clazz.isAssignableFrom(tmpChildElement.getClass())) {
-            if (tmpChildElement.isDisplayed()) {
-              tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-              final int tmpDistance;
-              if (pathSearchPattern != null) {
-                tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-              } else {
-                tmpDistance = tmpTextBefore.length();
-              }
-              tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance, tmpNodeSpot
-                  .getStartPos()));
+          if (clazz.isAssignableFrom(tmpChildElement.getClass()) && tmpChildElement.isDisplayed()) {
+            tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+            final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+            final int tmpDistance;
+            if (pathSearchPattern != null) {
+              tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+            } else {
+              tmpDistance = tmpTextBefore.length();
             }
+            tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance, tmpNodeSpot
+                .getStartPos()));
           }
         }
       }

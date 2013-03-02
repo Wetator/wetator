@@ -170,17 +170,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           if (StringUtils.isNotEmpty(tmpForAttribute)) {
             try {
               final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
-              if (tmpElementForLabel instanceof HtmlSelect) {
-                if (tmpElementForLabel.isDisplayed()) {
-                  final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                  final int tmpDistance;
-                  if (tmpPathSearchPatternSelect != null) {
-                    tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-                  } else {
-                    tmpDistance = tmpTextBefore.length();
-                  }
-                  getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, tmpResult);
+              if (tmpElementForLabel instanceof HtmlSelect && tmpElementForLabel.isDisplayed()) {
+                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+                final int tmpDistance;
+                if (tmpPathSearchPatternSelect != null) {
+                  tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+                } else {
+                  tmpDistance = tmpTextBefore.length();
                 }
+                getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, tmpResult);
               }
             } catch (final ElementNotFoundException e) {
               // not found
@@ -190,17 +188,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           // Element must be a nested element of label
           final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
           for (HtmlElement tmpChildElement : tmpChilds) {
-            if (tmpChildElement instanceof HtmlSelect) {
-              if (tmpChildElement.isDisplayed()) {
-                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                final int tmpDistance;
-                if (tmpPathSearchPatternSelect != null) {
-                  tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-                } else {
-                  tmpDistance = tmpTextBefore.length();
-                }
-                getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, tmpResult);
+            if (tmpChildElement instanceof HtmlSelect && tmpChildElement.isDisplayed()) {
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+              final int tmpDistance;
+              if (tmpPathSearchPatternSelect != null) {
+                tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+              } else {
+                tmpDistance = tmpTextBefore.length();
               }
+              getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, tmpResult);
             }
           }
         }
