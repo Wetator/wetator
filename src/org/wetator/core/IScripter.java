@@ -36,7 +36,7 @@ import org.wetator.exception.InvalidInputException;
  * @author frank.danek
  * @author tobwoerk
  */
-interface IScripter {
+public interface IScripter {
 
   /**
    * This result is used to signal that a scripter supports the given file.<br>
@@ -76,7 +76,7 @@ interface IScripter {
    * The result for the {@link IScripter#isSupported(File)} method call.<br/>
    * This offers a way to transport some info message.
    */
-  static final class IsSupportedResult {
+  public static final class IsSupportedResult {
 
     private String message;
 
@@ -85,14 +85,14 @@ interface IScripter {
      * 
      * @param aMessage the message
      */
-    IsSupportedResult(final String aMessage) {
+    public IsSupportedResult(final String aMessage) {
       message = aMessage;
     }
 
     /**
      * @return the message
      */
-    String getMessage() {
+    public String getMessage() {
       return message;
     }
   }
