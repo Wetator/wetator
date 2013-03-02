@@ -142,7 +142,7 @@ public class XMLResultWriter implements IProgressListener {
 
       final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8");
       output = new Output(tmpWriter, "  ");
-      xmlUtil = new XMLUtil("UTF-8");
+      xmlUtil = new XMLUtil();
 
       // start writing
       output.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");

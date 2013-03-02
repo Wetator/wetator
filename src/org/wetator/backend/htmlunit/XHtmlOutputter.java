@@ -113,7 +113,7 @@ public final class XHtmlOutputter {
   private HtmlPage htmlPage;
   private ResponseStore responseStore;
   private Output output;
-  private XMLUtil xMLUtil;
+  private XMLUtil xmlUtil;
 
   static {
     EMPTY_TAGS = new HashSet<String>();
@@ -231,7 +231,7 @@ public final class XHtmlOutputter {
   public void writeTo(final Writer aWriter) throws IOException {
     try {
       final String tmpEncoding = determineEncoding();
-      xMLUtil = new XMLUtil(tmpEncoding);
+      xmlUtil = new XMLUtil();
       output = new Output(aWriter, "  ");
 
       output.println("<?xml version=\"1.0\" encoding=\"" + tmpEncoding + "\"?>");
@@ -321,9 +321,9 @@ public final class XHtmlOutputter {
           output.println(tmpText);
           output.unindent();
         } else if (SINGLE_LINE_TAGS.contains(tmpParentNode.getClass().getName())) {
-          output.print(xMLUtil.normalizeBodyValue(tmpText));
+          output.print(xmlUtil.normalizeBodyValue(tmpText));
         } else {
-          output.println(xMLUtil.normalizeBodyValue(tmpText));
+          output.println(xmlUtil.normalizeBodyValue(tmpText));
         }
       }
     } else {
@@ -467,7 +467,7 @@ public final class XHtmlOutputter {
           output.print(' ');
           output.print(tmpAttributeName);
           output.print("=\"");
-          output.print(xMLUtil.normalizeAttributeValue(tmpAttributeValue));
+          output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
           output.print('"');
         }
       }
