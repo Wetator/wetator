@@ -34,5 +34,5 @@ public interface IDeselectable extends ISelectable {
    * @param aContext the context
    * @throws ActionException if an error occurred during the deselect
    */
-  public void deselect(WetatorContext aContext) throws ActionException;
+  void deselect(WetatorContext aContext) throws ActionException;
 }

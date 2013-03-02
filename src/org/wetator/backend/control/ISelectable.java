@@ -33,12 +33,12 @@ public interface ISelectable extends IControl {
    * @param aContext the context
    * @throws ActionException if an error occurred during the select
    */
-  public void select(WetatorContext aContext) throws ActionException;
+  void select(WetatorContext aContext) throws ActionException;
 
   /**
    * @param aContext the context
    * @return true, if the control is selected
    * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported for the control
    */
-  public boolean isSelected(WetatorContext aContext);
+  boolean isSelected(WetatorContext aContext);
 }

@@ -30,7 +30,7 @@ public interface IControlFinder {
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllClickables(WPath aWPath);
+  WeightedControlList getAllClickables(WPath aWPath);
 
   /**
    * Return a list of all selectable controls for the given wpath.
@@ -38,7 +38,7 @@ public interface IControlFinder {
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllDeselectables(WPath aWPath);
+  WeightedControlList getAllDeselectables(WPath aWPath);
 
   /**
    * Return a list of all deselectable controls for the given wpath.
@@ -46,7 +46,7 @@ public interface IControlFinder {
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllSelectables(WPath aWPath);
+  WeightedControlList getAllSelectables(WPath aWPath);
 
   /**
    * Return a list of all settable controls for the given wpath.
@@ -54,7 +54,7 @@ public interface IControlFinder {
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllSettables(WPath aWPath);
+  WeightedControlList getAllSettables(WPath aWPath);
 
   /**
    * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given wpath.
@@ -62,7 +62,7 @@ public interface IControlFinder {
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllOtherControls(WPath aWPath);
+  WeightedControlList getAllOtherControls(WPath aWPath);
 
   /**
    * Return a list of all controls for the given wpath.
@@ -70,5 +70,5 @@ public interface IControlFinder {
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllControlsForText(WPath aWPath);
+  WeightedControlList getAllControlsForText(WPath aWPath);
 }

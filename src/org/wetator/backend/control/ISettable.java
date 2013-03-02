@@ -40,7 +40,7 @@ public interface ISettable extends IControl {
    *        aDirectory points to the directory for searching the file
    * @throws ActionException if an error occurred during the set
    */
-  public void setValue(WetatorContext aContext, SecretString aValue, File aDirectory) throws ActionException;
+  void setValue(WetatorContext aContext, SecretString aValue, File aDirectory) throws ActionException;
 
   /**
    * Asserts that the value of the control is equal to the given (expected) value.
@@ -49,5 +49,5 @@ public interface ISettable extends IControl {
    * @param anExpectedValue the expected value of the control
    * @throws AssertionException if the value of the control does not match the expected value
    */
-  public void assertValue(WetatorContext aContext, SecretString anExpectedValue) throws AssertionException;
+  void assertValue(WetatorContext aContext, SecretString anExpectedValue) throws AssertionException;
 }
