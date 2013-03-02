@@ -33,11 +33,11 @@
     </module>
     <module name="StaticVariableName"/>
     <module name="TypeName">
-        <property name="tokens" value="CLASS_DEF"/>
+      <property name="tokens" value="CLASS_DEF"/>
     </module>
     <module name="TypeName">
-        <property name="format" value="^I[A-Z][a-zA-Z0-9]*$"/>
-        <property name="tokens" value="INTERFACE_DEF"/>
+      <property name="format" value="^I[A-Z][a-zA-Z0-9]*$"/>
+      <property name="tokens" value="INTERFACE_DEF"/>
     </module>
     <module name="AvoidStarImport">
       <property name="excludes" value="java.io,java.util,java.net,java.nio,java.nio.channels,java.lang.reflect,org.w3c.dom,org.xml.sax,java.awt,javax.swing,junit.framework,org.mockito.Mockito,org.mockito.Matchers,org.junit.Assert"/>
