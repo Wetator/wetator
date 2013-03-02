@@ -1,8 +1,8 @@
 HOW TO SETUP THE IDE
 
 Currently we use
-    Eclipse 3.7.0 (Indigo)
-    Eclipse Checkstyle Plugin 5.3.0
+    Eclipse 3.7.2 (Indigo)
+    Eclipse Checkstyle Plugin 5.6.0
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 
