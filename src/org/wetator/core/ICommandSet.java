@@ -26,7 +26,7 @@ import java.util.Properties;
  * @author rbri
  * @author frank.danek
  */
-public interface ICommandSet {
+interface ICommandSet {
 
   /**
    * Initialize everything the command set needs here. To leave messages for the result presentation use
@@ -35,17 +35,17 @@ public interface ICommandSet {
    * @param aConfiguration The configuration properties.
    * @throws org.wetator.exception.ConfigurationException in case of problems during initialization
    */
-  public void initialize(Properties aConfiguration);
+  void initialize(Properties aConfiguration);
 
   /**
    * @return The messages (e.g. info, warnings, errors) stored during initialization of the command set.
    */
-  public List<String> getInitializationMessages();
+  List<String> getInitializationMessages();
 
   /**
    * Close everything the command set needed and which has to be closed (e.g. database connections).
    */
-  public void cleanup();
+  void cleanup();
 
   /**
    * Returns the {@link ICommandImplementation} for the given command name or null, if no {@link ICommandImplementation}
@@ -54,5 +54,5 @@ public interface ICommandSet {
    * @param aCommandName The name of the {@link ICommandImplementation}.
    * @return The found {@link ICommandImplementation}.
    */
-  public ICommandImplementation getCommandImplementationFor(String aCommandName);
+  ICommandImplementation getCommandImplementationFor(String aCommandName);
 }

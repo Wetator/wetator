@@ -36,19 +36,19 @@ import org.wetator.exception.InvalidInputException;
  * @author frank.danek
  * @author tobwoerk
  */
-public interface IScripter {
+interface IScripter {
 
   /**
    * This result is used to signal that a scripter supports the given file.<br>
    * For performance reason always compare to this result when checking.
    */
-  public static final IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
+  static final IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
 
   /**
    * @param aConfiguration the configuration to use for initialization
    * @throws org.wetator.exception.ConfigurationException in case of problems during initialization
    */
-  public void initialize(Properties aConfiguration);
+  void initialize(Properties aConfiguration);
 
   /**
    * @param aFile the file to check
@@ -56,7 +56,7 @@ public interface IScripter {
    *         {@link IsSupportedResult} containing a detailed description, why the file is not supported
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public IsSupportedResult isSupported(File aFile);
+  IsSupportedResult isSupported(File aFile);
 
   /**
    * Scripts the given file by reading all commands.
@@ -65,18 +65,18 @@ public interface IScripter {
    * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
-  public void script(File aFile) throws InvalidInputException;
+  void script(File aFile) throws InvalidInputException;
 
   /**
    * @return the complete list of commands.
    */
-  public List<Command> getCommands();
+  List<Command> getCommands();
 
   /**
    * The result for the {@link IScripter#isSupported(File)} method call.<br/>
    * This offers a way to transport some info message.
    */
-  public static final class IsSupportedResult {
+  static final class IsSupportedResult {
 
     private String message;
 
@@ -85,14 +85,14 @@ public interface IScripter {
      * 
      * @param aMessage the message
      */
-    public IsSupportedResult(final String aMessage) {
+    IsSupportedResult(final String aMessage) {
       message = aMessage;
     }
 
     /**
      * @return the message
      */
-    public String getMessage() {
+    String getMessage() {
       return message;
     }
   }

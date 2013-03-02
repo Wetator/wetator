@@ -26,7 +26,7 @@ import org.wetator.exception.InvalidInputException;
  * @author frank.danek
  * @author tobwoerk
  */
-public interface ICommandImplementation {
+interface ICommandImplementation {
 
   /**
    * This method executes the given {@link Command}. The implementation of this method must contain the logic for
@@ -37,6 +37,6 @@ public interface ICommandImplementation {
    * @throws CommandException in case of a problem executing the command
    * @throws InvalidInputException in case of invalid user input
    */
-  public void execute(WetatorContext aContext, Command aCommand) throws CommandException, InvalidInputException;
+  void execute(WetatorContext aContext, Command aCommand) throws CommandException, InvalidInputException;
 
 }
