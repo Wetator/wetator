@@ -78,18 +78,17 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-    if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
-      if (isHtmlElementInTableCoordinates(aHtmlElement, tableCoordinates, htmlPageIndex, pathSpot)) {
-        final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-        final int tmpDistance;
-        if (pathSearchPattern != null) {
-          tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-        } else {
-          tmpDistance = tmpTextBefore.length();
-        }
-        tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot
-            .getStartPos()));
+    if ((pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos())
+        && isHtmlElementInTableCoordinates(aHtmlElement, tableCoordinates, htmlPageIndex, pathSpot)) {
+      final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+      final int tmpDistance;
+      if (pathSearchPattern != null) {
+        tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+      } else {
+        tmpDistance = tmpTextBefore.length();
       }
+      tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot
+          .getStartPos()));
     }
     return tmpMatches;
   }
