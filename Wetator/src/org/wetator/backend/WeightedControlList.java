@@ -123,7 +123,8 @@ public final class WeightedControlList {
     public String toString() {
       final StringBuilder tmpResult = new StringBuilder();
       tmpResult.append(control.getDescribingText());
-      tmpResult.append(" found by: " + foundType.toString());
+      tmpResult.append(" found by: ");
+      tmpResult.append(foundType.toString());
       tmpResult.append(" coverage: " + coverage);
       tmpResult.append(" distance: " + distance);
       tmpResult.append(" start: " + start);

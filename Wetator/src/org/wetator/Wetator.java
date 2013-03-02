@@ -83,7 +83,7 @@ public final class Wetator {
           tmpPropertyKey = Integer.toString(tmpConfigFile.getAbsolutePath().hashCode());
         }
         final File[] tmpFiles = DialogUtil.chooseFiles(tmpWindow, tmpPropertyKey);
-        if (null == tmpFiles || (tmpFiles.length < 1)) {
+        if (null == tmpFiles || tmpFiles.length < 1) {
           System.exit(0);
         }
 
