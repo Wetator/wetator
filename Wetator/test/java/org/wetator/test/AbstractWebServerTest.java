@@ -86,6 +86,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     // servlets
     ServletContextHandler tmpContextHandler = new ServletContextHandler();
     tmpContextHandler.setContextPath("/");
+    tmpContextHandler.setAttribute("javax.servlet.context.tempdir", new File("./tmp"));
     tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
