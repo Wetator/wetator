@@ -84,7 +84,7 @@ public final class ContentUtil {
     do {
       tmpChars = tmpReader.read(tmpCharBuffer);
       tmpResult.append(tmpCharBuffer, tmpChars);
-      tmpContinue = (tmpChars > 0) && (tmpResult.length() <= MAX_LENGTH);
+      tmpContinue = tmpChars > 0 && tmpResult.length() <= MAX_LENGTH;
     } while (tmpContinue);
     if (tmpResult.length() > MAX_LENGTH) {
       return tmpResult.substring(0, MAX_LENGTH) + MORE;
@@ -206,11 +206,13 @@ public final class ContentUtil {
       final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
       return tmpResult;
     } catch (final NotImplementedException e) {
-      String tmpMsg = e.getMessage();
+      final StringBuilder tmpMsg = new StringBuilder(e.getMessage());
       if (null != e.getCause()) {
-        tmpMsg = tmpMsg + " (" + e.getCause().toString() + ")";
+        tmpMsg.append(" (");
+        tmpMsg.append(e.getCause().toString());
+        tmpMsg.append(')');
       }
-      LOG.error(tmpMsg);
+      LOG.error(tmpMsg.toString());
       final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
       return tmpResult;
     }

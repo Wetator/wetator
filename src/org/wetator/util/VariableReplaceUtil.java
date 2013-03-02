@@ -43,7 +43,7 @@ public final class VariableReplaceUtil {
     if (null == aStringWithPlaceholders) {
       return aStringWithPlaceholders;
     }
-    if ((null == aVariables) || aVariables.isEmpty()) {
+    if (null == aVariables || aVariables.isEmpty()) {
       return aStringWithPlaceholders;
     }
 
@@ -61,7 +61,7 @@ public final class VariableReplaceUtil {
 
       final String tmpVarName = tmpResult.substring(tmpVarStartPos + VAR_START_SEQ.length(), tmpVarEndPos);
 
-      for (Variable tmpVariable : aVariables) {
+      for (final Variable tmpVariable : aVariables) {
         if (tmpVarName.equals(tmpVariable.getName())) {
           String tmpValue;
           if (aForPrintFlag) {

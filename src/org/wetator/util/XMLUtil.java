@@ -16,7 +16,6 @@
 
 package org.wetator.util;
 
-
 /**
  * XmlUtil contains some useful helpers for XML-File handling.
  * 
@@ -44,7 +43,7 @@ public class XMLUtil {
    * @return a new String
    */
   public String normalizeBodyValue(final String aString) {
-    StringBuffer tmpResult = null;
+    StringBuilder tmpResult = null;
     int tmpLength;
     char tmpChar;
 
@@ -63,26 +62,26 @@ public class XMLUtil {
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
         // ignore
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&amp;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
         tmpResult.append(";");
         i++;
@@ -139,7 +138,7 @@ public class XMLUtil {
    * @return a new String
    */
   public String normalizeAttributeValue(final String aString) {
-    StringBuffer tmpResult = null;
+    StringBuilder tmpResult = null;
     int tmpLength;
     char tmpChar;
 
@@ -155,38 +154,38 @@ public class XMLUtil {
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
         // ignore
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&amp;");
         i++;
         break;
       } else if (tmpChar == '\'') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&apos;");
         i++;
         break;
       } else if (tmpChar == '"') {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&quot;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult = new StringBuilder(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
-        tmpResult.append(";");
+        tmpResult.append(';');
         i++;
         break;
       }
@@ -224,7 +223,7 @@ public class XMLUtil {
               tmpResult.append(tmpChar);
             } else {
               tmpResult.append("&#" + (int) tmpChar);
-              tmpResult.append(";");
+              tmpResult.append(';');
             }
           }
         }
@@ -239,7 +238,7 @@ public class XMLUtil {
 
   private boolean canEncode(final char aChar) {
     // return charsetEncoder.canEncode(aChar);
-    // we have som problems with this, so lets stay
+    // we have some problems with this, so lets stay
     // at the save side
     return aChar < 128;
   }

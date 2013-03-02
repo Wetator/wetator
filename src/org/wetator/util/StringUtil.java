@@ -66,7 +66,7 @@ public final class StringUtil {
    */
   public static List<String> extractStrings(final String aReceiver, final String aDelimiter, final int anEscapeChar) {
     final List<String> tmpResult = new LinkedList<String>();
-    StringBuffer tmpCurrentToken;
+    StringBuilder tmpCurrentToken;
     int tmpIndex;
     int tmpSize;
     int tmpDelimiterSize;
@@ -86,13 +86,13 @@ public final class StringUtil {
       throw new IllegalArgumentException("Delimiter must be different from escape char.");
     }
 
-    tmpCurrentToken = new StringBuffer();
+    tmpCurrentToken = new StringBuilder();
 
     for (tmpIndex = 0; tmpIndex < tmpSize; tmpIndex++) {
       if (aReceiver.startsWith(aDelimiter, tmpIndex)) {
         tmpResult.add(tmpCurrentToken.toString());
-        tmpCurrentToken = new StringBuffer();
-        tmpIndex = (tmpIndex + tmpDelimiterSize) - 1;
+        tmpCurrentToken = new StringBuilder();
+        tmpIndex = tmpIndex + tmpDelimiterSize - 1;
       } else {
         tmpChar = aReceiver.charAt(tmpIndex);
 

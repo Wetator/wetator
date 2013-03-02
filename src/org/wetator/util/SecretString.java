@@ -46,7 +46,7 @@ public final class SecretString {
     final StringBuilder tmpResult = new StringBuilder();
 
     boolean tmpIsNotFirst = false;
-    for (SecretString tmpSecretString : aSecretStringList) {
+    for (final SecretString tmpSecretString : aSecretStringList) {
       if (tmpIsNotFirst) {
         tmpResult.append(", ");
       } else {
