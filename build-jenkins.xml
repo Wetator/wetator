@@ -314,7 +314,7 @@
          private target check-metrics-libs
          =========================================== -->
     <target name="-check-metrics-libs">
-        <available file="${dir.ant-lib}/checkstyle/checkstyle-5.5.jar" property="checkstyle-found"/>
+        <available file="${dir.ant-lib}/checkstyle/checkstyle-5.6.jar" property="checkstyle-found"/>
         <available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
         <available file="${dir.ant-lib}/pmd/pmd-5.0.1.jar" property="pmd-found"/>
     </target>
@@ -338,7 +338,7 @@
         depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
         <mkdir dir="${dir.ant-lib}/findbugs"/>
         <!-- sources and javadoc make problems here so we have to ignore failures -->
-           <ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.2" inline="true" type="jar"
+           <ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.1" inline="true" type="jar"
             pattern="${dir.ant-lib}/findbugs${ivy.retrieve.pattern}" />
     </target>
 
