@@ -129,11 +129,11 @@ public final class ResponseStore {
   public String storePage(final Page aPage) {
     File tmpFile = null;
     try {
-      String tmpFileName = "response_" + getUniqueId();
+      final StringBuilder tmpFileName = new StringBuilder("response_").append(getUniqueId());
       final String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
 
-      tmpFileName = tmpFileName + "." + tmpSuffix;
-      tmpFile = new File(storeDir, tmpFileName);
+      tmpFileName.append('.').append(tmpSuffix);
+      tmpFile = new File(storeDir, tmpFileName.toString());
 
       if (aPage instanceof HtmlPage) {
         final XHtmlOutputter tmpHtmlOutputter = new XHtmlOutputter((HtmlPage) aPage, this);
@@ -175,7 +175,7 @@ public final class ResponseStore {
     try {
       final URL tmpFullContentUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aBaseUrl, aContentUrl));
       final String tmpBaseHost = aBaseUrl.getHost();
-      if ((null == tmpBaseHost) || !tmpBaseHost.equals(tmpFullContentUrl.getHost())) {
+      if (null == tmpBaseHost || !tmpBaseHost.equals(tmpFullContentUrl.getHost())) {
         LOG.info("Ignoring URL '" + tmpFullContentUrl.toExternalForm() + "' (wrong host).");
         return null;
       }
@@ -195,7 +195,7 @@ public final class ResponseStore {
 
         // create path
         tmpFileName = tmpFullContentUrl.getPath();
-        if (tmpFileName.startsWith("/")) {
+        if (tmpFileName.charAt(0) == '/') {
           tmpFileName = tmpFileName.substring(1);
         }
 

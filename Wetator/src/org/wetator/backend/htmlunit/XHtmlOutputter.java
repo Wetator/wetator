@@ -266,9 +266,8 @@ public final class XHtmlOutputter {
     tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
-      if ((tmpChild instanceof DomDocumentType) || (tmpChild instanceof HtmlScript) || (tmpChild instanceof DomComment)) {
-        // ignore
-      } else {
+      if (!(tmpChild instanceof DomDocumentType) && !(tmpChild instanceof HtmlScript)
+          && !(tmpChild instanceof DomComment)) {
         writeStartTag(tmpChild);
         output.indent();
         writeSubNodes(tmpChild);
