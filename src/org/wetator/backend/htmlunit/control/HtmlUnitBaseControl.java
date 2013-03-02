@@ -23,6 +23,7 @@ import java.lang.annotation.Target;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
@@ -380,7 +381,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
     final String tmpId = anHtmlElement.getAttribute("id");
-    if ((null != tmpId) && (tmpId.length() > 0)) {
+    if (StringUtils.isNotEmpty(tmpId)) {
       aStringBuilder.append(" (id='");
       aStringBuilder.append(tmpId);
       aStringBuilder.append("')");
@@ -389,7 +390,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
   private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
     final String tmpName = anHtmlElement.getAttribute("name");
-    if ((null != tmpName) && (tmpName.length() > 0)) {
+    if (StringUtils.isNotEmpty(tmpName)) {
       aStringBuilder.append(" (name='");
       aStringBuilder.append(tmpName);
       aStringBuilder.append("')");
