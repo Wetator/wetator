@@ -317,7 +317,6 @@ public class XMLResultWriter implements IProgressListener {
         for (String tmpMessage : tmpCommandSet.getInitializationMessages()) {
           printLogMessage("INFO", tmpMessage);
         }
-        output.unindent();
 
         printlnEndTag(TAG_COMMAND_SET);
       }
