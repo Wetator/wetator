@@ -31,8 +31,6 @@
     </patternset>
 
     <patternset id="junitPattern">
-        <!--<include name="**/CloudbeesTest.class" />-->
-        <!---->
         <include name="**/*Test.class" />
         <exclude name="**/AllTests.class" />
         <exclude name="**/Abstract*.class" />
