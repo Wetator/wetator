@@ -181,7 +181,6 @@ src/org/wetator/util/VariableReplaceUtil.java -text
 src/org/wetator/util/VersionUtil.java -text
 src/org/wetator/util/XMLUtil.java -text
 src/wetator.config -text
-/test.txt -text svneol=unset#text/plain
 test/MouseEvents.xls -text
 test/ant/ant_task_classpath_test.xls -text
 test/ant/build.xml -text
