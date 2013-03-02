@@ -120,7 +120,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
         tmpException.initCause(e);
         throw tmpException;
       }
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       throw e;
     } catch (final Exception e) {
       e.printStackTrace();
