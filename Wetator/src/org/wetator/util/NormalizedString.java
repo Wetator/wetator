@@ -78,7 +78,7 @@ public class NormalizedString {
       return this;
     }
 
-    boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
+    boolean tmpBlank = content.length() == 0 || isWhitespace(content.charAt(content.length() - 1));
 
     for (int i = 0; i < aString.length(); i++) {
       final char tmpChar = aString.charAt(i);
@@ -115,7 +115,7 @@ public class NormalizedString {
       return this;
     }
 
-    boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
+    boolean tmpBlank = content.length() == 0 || isWhitespace(content.charAt(content.length() - 1));
 
     for (int i = 0; i < aLength; i++) {
       final char tmpChar = aChars[i];
@@ -145,7 +145,7 @@ public class NormalizedString {
       return this;
     }
 
-    final boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
+    final boolean tmpBlank = content.length() == 0 || isWhitespace(content.charAt(content.length() - 1));
     if (tmpBlank) {
       return this;
     }
