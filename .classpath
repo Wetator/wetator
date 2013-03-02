@@ -38,7 +38,7 @@
 	<classpathentry kind="lib" path="lib/jetty-servlet-8.1.9.v20130131.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-servlets-8.1.9.v20130131.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-util-8.1.9.v20130131.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.7.v20120910.jar"/>
+ 	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.9.v20130131.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.11.jar" sourcepath="lib_src/junit-4.11-sources.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.2.3.jar"/>
