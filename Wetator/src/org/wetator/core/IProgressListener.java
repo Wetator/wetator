@@ -24,7 +24,7 @@ import org.wetator.exception.AssertionException;
  * @author rbri
  * @author frank.danek
  */
-public interface IProgressListener {
+interface IProgressListener {
 
   /**
    * This is called before the setup is done and before the test are starting.<br/>
@@ -33,7 +33,7 @@ public interface IProgressListener {
    * 
    * @param aWetatorEngine the engine
    */
-  public void init(WetatorEngine aWetatorEngine);
+  void init(WetatorEngine aWetatorEngine);
 
   /**
    * This is called after the setup is done and before the test are starting.<br/>
@@ -41,21 +41,21 @@ public interface IProgressListener {
    * 
    * @param aWetatorEngine the engine
    */
-  public void start(WetatorEngine aWetatorEngine);
+  void start(WetatorEngine aWetatorEngine);
 
   /**
    * This is called before a test case (grouping the browser runs) is started.<br/>
    * 
    * @param aTestCase the test case
    */
-  public void testCaseStart(TestCase aTestCase);
+  void testCaseStart(TestCase aTestCase);
 
   /**
    * This is called before a run of a test case for one browser is started.<br/>
    * 
    * @param aBrowserName the name of the browser
    */
-  public void testRunStart(String aBrowserName);
+  void testRunStart(String aBrowserName);
 
   /**
    * This is called before a test file is started.<br/>
@@ -63,7 +63,7 @@ public interface IProgressListener {
    * 
    * @param aFileName the file name of the test file
    */
-  public void testFileStart(String aFileName);
+  void testFileStart(String aFileName);
 
   /**
    * This is called before a command is executed.
@@ -71,77 +71,77 @@ public interface IProgressListener {
    * @param aContext the {@link WetatorContext}
    * @param aCommand the {@link Command}
    */
-  public void executeCommandStart(WetatorContext aContext, Command aCommand);
+  void executeCommandStart(WetatorContext aContext, Command aCommand);
 
   /**
    * This is called if a command was executed successfully.
    */
-  public void executeCommandSuccess();
+  void executeCommandSuccess();
 
   /**
    * This is called if a command was ignored.
    */
-  public void executeCommandIgnored();
+  void executeCommandIgnored();
 
   /**
    * This is called if a the execution of a command resulted in a failure.
    * 
    * @param anAssertionException the failure
    */
-  public void executeCommandFailure(AssertionException anAssertionException);
+  void executeCommandFailure(AssertionException anAssertionException);
 
   /**
    * This is called if a the execution of a command resulted in an error.
    * 
    * @param aThrowable the error
    */
-  public void executeCommandError(Throwable aThrowable);
+  void executeCommandError(Throwable aThrowable);
 
   /**
    * This is called after a command is executed.
    */
-  public void executeCommandEnd();
+  void executeCommandEnd();
 
   /**
    * This is called after a test file is finished.
    */
-  public void testFileEnd();
+  void testFileEnd();
 
   /**
    * This is called after a run of a test case for one browser was ignored.
    */
-  public void testRunIgnored();
+  void testRunIgnored();
 
   /**
    * This is called after a run of a test case for one browser is finished.
    */
-  public void testRunEnd();
+  void testRunEnd();
 
   /**
    * This is called after a test case (grouping the browser runs) is finished.
    */
-  public void testCaseEnd();
+  void testCaseEnd();
 
   /**
    * This is called after all tests are finished.
    * 
    * @param aWetatorEngine the engine
    */
-  public void end(WetatorEngine aWetatorEngine);
+  void end(WetatorEngine aWetatorEngine);
 
   /**
    * This is called after a response was stored in disk.
    * 
    * @param aResponseFileName the file name of the stored response
    */
-  public void responseStored(String aResponseFileName);
+  void responseStored(String aResponseFileName);
 
   /**
    * This is called to log an error.
    * 
    * @param aThrowable the exception thrown
    */
-  public void error(Throwable aThrowable);
+  void error(Throwable aThrowable);
 
   /**
    * This is called to log a warning.
@@ -150,7 +150,7 @@ public interface IProgressListener {
    * @param aParameterArray the parameters for the message
    * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void warn(String aMessageKey, String[] aParameterArray, Throwable aThrowable);
+  void warn(String aMessageKey, String[] aParameterArray, Throwable aThrowable);
 
   /**
    * This is called to log an information.
@@ -158,6 +158,6 @@ public interface IProgressListener {
    * @param aMessageKey the message key
    * @param aParameterArray the parameters for the message
    */
-  public void info(String aMessageKey, String[] aParameterArray);
+  void info(String aMessageKey, String[] aParameterArray);
 
 }
