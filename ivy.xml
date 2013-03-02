@@ -32,8 +32,8 @@
 
         <dependency org="junit" name="junit" rev="4.11" transitive="false" conf="test->*" />
         <dependency org="org.mockito" name="mockito-core" rev="1.9.5" conf="test->*" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.8.v20121106" conf="test->*" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="8.1.8.v20121106" conf="test->*" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.9.v20130131" conf="test->*" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="8.1.9.v20130131" conf="test->*" />
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" transitive="false" conf="test->*" />
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.2" transitive="false" conf="test->*" />
 
