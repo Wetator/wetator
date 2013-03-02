@@ -705,7 +705,9 @@ public class HtmlPageIndex {
   public void dumpToLog() {
     final StringBuilder tmpLog = new StringBuilder(
         "\n ---- HtmlPageIndex dump -------------------------------------------------------\n");
-    tmpLog.append(" text                   : " + text + "\n");
+    tmpLog.append(" text                   : ");
+    tmpLog.append(text);
+    tmpLog.append('\n');
 
     // nodes/positions
     for (DomNode tmpDomNode : nodes) {

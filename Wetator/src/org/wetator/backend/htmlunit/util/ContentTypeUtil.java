@@ -58,7 +58,7 @@ public final class ContentTypeUtil {
   private static void define(final ContentType aContentType, final String aFileExtension,
       final String... aContentTypeStrings) {
     FILE_EXTENSIONS.put(aContentType, aFileExtension);
-    for (String tmpContentType : aContentTypeStrings) {
+    for (final String tmpContentType : aContentTypeStrings) {
       CONTENT_TYPES.put(tmpContentType, aContentType);
     }
   }

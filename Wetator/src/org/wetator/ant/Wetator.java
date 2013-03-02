@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -87,7 +88,7 @@ public class Wetator extends Task {
       // process sysproperties
       for (final Environment.Variable tmpVar : sysproperties) {
         final String tmpKey = tmpVar.getKey();
-        if (null != tmpKey && tmpKey.length() > 0) {
+        if (StringUtils.isNotEmpty(tmpKey)) {
           System.setProperty(tmpKey, tmpVar.getValue());
         }
       }

@@ -234,9 +234,7 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlParagraph(final HtmlParagraph anHtmlParagraph) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlParagraph");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlParagraph");
 
     final String tmpText = anHtmlParagraph.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
@@ -259,9 +257,7 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlPasswordInput(final HtmlPasswordInput anHtmlPasswordInput) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    tmpResult.append("[HtmlPasswordInput");
+    final StringBuilder tmpResult = new StringBuilder("[HtmlPasswordInput");
 
     addId(tmpResult, anHtmlPasswordInput);
     addName(tmpResult, anHtmlPasswordInput);
@@ -443,7 +439,7 @@ public final class HtmlElementUtil {
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
     final String tmpId = anHtmlElement.getAttribute("id");
-    if ((null != tmpId) && (tmpId.length() > 0)) {
+    if (StringUtils.isNotEmpty(tmpId)) {
       aStringBuilder.append(" (id='");
       aStringBuilder.append(tmpId);
       aStringBuilder.append("')");
@@ -452,7 +448,7 @@ public final class HtmlElementUtil {
 
   private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
     final String tmpName = anHtmlElement.getAttribute("name");
-    if ((null != tmpName) && (tmpName.length() > 0)) {
+    if (StringUtils.isNotEmpty(tmpName)) {
       aStringBuilder.append(" (name='");
       aStringBuilder.append(tmpName);
       aStringBuilder.append("')");
