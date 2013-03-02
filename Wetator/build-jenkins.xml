@@ -411,6 +411,12 @@
             <fileset dir="${dir.src}">
                 <patternset refid="checkstylePattern" />
             </fileset>
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+                <path path="${dir.build}/classes" />
+            </classpath>
         </checkstyle>
 
         <!-- run findbugs -->
