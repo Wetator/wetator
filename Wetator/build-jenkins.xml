@@ -7,9 +7,6 @@
     <!-- path to ant-dir -->
     <property name="ant" value="ant" />
 
-    <!-- display number (used for xvfb only) -->
-    <property name="display" value="1" />
-
     <condition property="is-ci">
         <equals arg1="${stage}" arg2="CI" />
     </condition>
@@ -21,14 +18,14 @@
 
 
     <!--
-    publish-sonatype-snapshots:        info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
-    publish-local:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
-    package:                         info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
-    package-no-tests:                 info -> resolve-dependencies -> compile -> package-bundles
-    metrics:                        info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
-    metrics-only:                    info -> compile -> gather-metrics
-    tests:                            info -> resolve-dependencies -> compile -> compile-tests -> run-tests
-    tests-only:                        info -> compile -> compile-tests -> run-tests
+    publish-sonatype-snapshots: info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
+    publish-local:              info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
+    package:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
+    package-no-tests:           info -> resolve-dependencies -> compile -> package-bundles
+    metrics:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
+    metrics-only:               info -> compile -> gather-metrics
+    tests:                      info -> resolve-dependencies -> compile -> compile-tests -> run-tests
+    tests-only:                 info -> compile -> compile-tests -> run-tests
     -->
 
 
@@ -173,8 +170,7 @@
         <path id="ivy.lib.path">
             <fileset dir="./ant_lib" includes="ivy*.jar"/>
         </path>
-        <taskdef resource="org/apache/ivy/ant/antlib.xml"
-                  uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
     </target>
 
 
@@ -214,7 +210,7 @@
         <echo level="info">Compiling sources with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
-              target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
+            target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <patternset refid="libPattern" />
@@ -314,9 +310,9 @@
          private target check-metrics-libs
          =========================================== -->
     <target name="-check-metrics-libs">
-        <available file="${dir.ant-lib}/checkstyle/checkstyle-5.6.jar" property="checkstyle-found"/>
-        <available file="${dir.ant-lib}/findbugs/findbugs-2.0.1.jar" property="findbugs-found"/>
-        <available file="${dir.ant-lib}/pmd/pmd-5.0.2.jar" property="pmd-found"/>
+        <available file="${dir.ant-lib}/checkstyle/checkstyle-${checkstyle-version}.jar" property="checkstyle-found"/>
+        <available file="${dir.ant-lib}/findbugs/findbugs-${findbugs-version}.jar" property="findbugs-found"/>
+        <available file="${dir.ant-lib}/pmd/pmd-${pmd-version}.jar" property="pmd-found"/>
     </target>
 
 
@@ -325,8 +321,9 @@
          =========================================== -->
     <target name="-download-checkstyle"
         depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
+    	<delete dir="${dir.ant-lib}/checkstyle" includeemptydirs="true" />
         <mkdir dir="${dir.ant-lib}/checkstyle"/>
-           <ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="5.6" inline="true" type="jar"
+        <ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="${checkstyle-version}" inline="true" type="jar"
             pattern="${dir.ant-lib}/checkstyle${ivy.retrieve.pattern}" />
     </target>
 
@@ -336,9 +333,10 @@
          =========================================== -->
     <target name="-download-findbugs"
         depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
+    	<delete dir="${dir.ant-lib}/findbugs" includeemptydirs="true" />
         <mkdir dir="${dir.ant-lib}/findbugs"/>
         <!-- sources and javadoc make problems here so we have to ignore failures -->
-           <ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="2.0.1" inline="true" type="jar"
+        <ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="${findbugs-version}" inline="true" type="jar"
             pattern="${dir.ant-lib}/findbugs${ivy.retrieve.pattern}" />
     </target>
 
@@ -348,8 +346,9 @@
          =========================================== -->
     <target name="-download-pmd"
         depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
+    	<delete dir="${dir.ant-lib}/pmd" includeemptydirs="true" />
         <mkdir dir="${dir.ant-lib}/pmd"/>
-           <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="5.0.2" inline="true" type="jar"
+        <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="${pmd-version}" inline="true" type="jar"
             pattern="${dir.ant-lib}/pmd${ivy.retrieve.pattern}" />
     </target>
 
@@ -714,40 +713,6 @@ echo location of the Java Virtual Machine you want to use.
     </target>
 
 
-    <!-- ===========================================
-         private target load-wetator
-         =========================================== -->
-    <target name="-load-wetator">
-        <taskdef name="wetator" classname="org.wetator.ant.Wetator" >
-            <classpath id="wetator-classpath">
-                <fileset dir="${dir.lib}" includes="**/**.jar" />
-                <fileset dir="${dir.build}" includes="wetator.jar" />
-            </classpath>
-        </taskdef>
-    </target>
-
-
-    <!-- *******************************************
-         target upload-jar-to-repo
-           uploads current deploy/wetator.jar to the
-           repository
-         ******************************************* -->
-    <target name="upload-jar-to-repo" description="upload current deploy/wetator.jar to the repository"
-        depends="info, -load-wetator">
-        <input message="Please enter repository username:" addproperty="repo.user"/>
-        <input message="Please enter repository password:" addproperty="repo.password"/>
-
-        <wetator config="wetator-upload.cfg">
-            <fileset dir=".">
-                <include name="wetator-upload.wet"/>
-            </fileset>
-
-            <property name="$user" value="${repo.user}"/>
-            <property name="$$$password" value="${repo.password}"/>
-        </wetator>
-    </target>
-
-
     <!-- ******************************************* -->
     <!-- target test-release                         -->
     <!-- ******************************************* -->
@@ -851,6 +816,6 @@ echo location of the Java Virtual Machine you want to use.
          ******************************************* -->
     <target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
         <ivy:cleancache/>
-</target>
+    </target>
 
 </project>
