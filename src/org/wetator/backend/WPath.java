@@ -109,7 +109,7 @@ public class WPath {
   private void parseNodes() throws InvalidInputException {
     boolean tmpTableCoordinatesFinished = false;
     if (!rawPath.isEmpty()) {
-      for (SecretString tmpNode : rawPath.subList(0, rawPath.size() - 1)) {
+      for (final SecretString tmpNode : rawPath.subList(0, rawPath.size() - 1)) {
         if (tmpNode.startsWith("[") && tmpNode.endsWith("]") && !tmpNode.endsWith("\\]")) {
           if (tmpTableCoordinatesFinished) {
             // TODO i18n

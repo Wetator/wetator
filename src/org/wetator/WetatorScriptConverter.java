@@ -123,7 +123,7 @@ public final class WetatorScriptConverter {
    * @throws InvalidInputException in case of an invalid file
    */
   public void convert() throws InvalidInputException {
-    for (File tmpInputFile : inputFiles) {
+    for (final File tmpInputFile : inputFiles) {
       System.out.print("    Converting '" + tmpInputFile.getAbsolutePath() + "'...");
       scripter.script(tmpInputFile);
       final List<Command> tmpCommands = scripter.getCommands();

@@ -54,7 +54,7 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
     }
 
     final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    for (AbstractHtmlUnitElementMatcher tmpMatcher : tmpMatchers) {
+    for (final AbstractHtmlUnitElementMatcher tmpMatcher : tmpMatchers) {
       tmpMatches.addAll(tmpMatcher.matches(aHtmlElement));
     }
 
@@ -80,7 +80,7 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
     }
 
     final WeightedControlList tmpResult = new WeightedControlList();
-    for (MatchResult tmpMatch : tmpProcessedMatches) {
+    for (final MatchResult tmpMatch : tmpProcessedMatches) {
       tmpResult.add(createControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(), tmpMatch.getCoverage(),
           tmpMatch.getDistance(), htmlPageIndex.getPosition(tmpMatch.getHtmlElement()).getStartPos());
     }

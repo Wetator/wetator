@@ -92,7 +92,7 @@ public final class Wetator {
           tmpWetatorEngine.addTestCase(tmpFile.getName(), tmpFile);
         }
       } else {
-        for (String tmpFileName : tmpFileNames) {
+        for (final String tmpFileName : tmpFileNames) {
           final File tmpFile = new File(tmpFileName);
           tmpWetatorEngine.addTestCase(tmpFileName, tmpFile);
         }

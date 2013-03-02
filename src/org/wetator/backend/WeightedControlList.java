@@ -209,11 +209,11 @@ public final class WeightedControlList {
     Collections.sort(entries, new EntryComperator());
 
     final List<Entry> tmpResult = new LinkedList<Entry>();
-    for (Entry tmpEntry : entries) {
+    for (final Entry tmpEntry : entries) {
       final IControl tmpControl = tmpEntry.getControl();
 
       boolean tmpNotPresent = true;
-      for (Entry tmpResultEntry : tmpResult) {
+      for (final Entry tmpResultEntry : tmpResult) {
         final IControl tmpResultControl = tmpResultEntry.getControl();
         if (tmpResultControl.hasSameBackendControl(tmpControl)) {
           tmpNotPresent = false;

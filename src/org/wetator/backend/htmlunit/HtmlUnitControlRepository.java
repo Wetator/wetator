@@ -57,7 +57,7 @@ public class HtmlUnitControlRepository {
    */
   public void addAll(final List<Class<? extends IControl>> aControlClassList) {
     if (aControlClassList != null) {
-      for (Class<? extends IControl> tmpControlClass : aControlClassList) {
+      for (final Class<? extends IControl> tmpControlClass : aControlClassList) {
         add(tmpControlClass);
       }
     }
@@ -87,7 +87,7 @@ public class HtmlUnitControlRepository {
             tmpAttributeMap = new HashMap<String, Class<HtmlUnitBaseControl<?>>>();
             forElementAndAttributeMap.put(tmpHtmlElementClass.getName(), tmpAttributeMap);
           }
-          for (String tmpValue : tmpAttributeValues) {
+          for (final String tmpValue : tmpAttributeValues) {
             tmpAttributeMap.put(tmpAttributeName + "||" + tmpValue, (Class<HtmlUnitBaseControl<?>>) aControlClass);
           }
         }
@@ -133,7 +133,7 @@ public class HtmlUnitControlRepository {
     final Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap.get(anHtmlElement
         .getClass().getName());
     if (tmpAttributeMap != null) {
-      for (Entry<String, Class<HtmlUnitBaseControl<?>>> tmpEntry : tmpAttributeMap.entrySet()) {
+      for (final Entry<String, Class<HtmlUnitBaseControl<?>>> tmpEntry : tmpAttributeMap.entrySet()) {
         final String[] tmpParts = tmpEntry.getKey().split("\\|\\|");
         if (tmpParts[1].equals(anHtmlElement.getAttribute(tmpParts[0]))) {
           return tmpEntry.getValue();
