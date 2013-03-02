@@ -112,7 +112,7 @@
                     if ((src.lastIndexOf(".html") != src.length - 5)
                         && (src.indexOf(".txt") != src.length - 4)) {
                         return;
-                    } 
+                    }
                     var tmpFrame = document.getElementById('preview');
                     tmpFrame.contentWindow.location.replace(src);
                     tmpFrame.onload = function() {
