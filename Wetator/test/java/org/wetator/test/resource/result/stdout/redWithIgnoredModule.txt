@@ -1,0 +1,9 @@
+Wetator local build
+  using HtmlUnit version 2.12-SNAPSHOT
+  OutputDir:  'E:\Java\workspaces\wetator\wetator\logs'
+  TestFiles: none
+  TestCase: 'test1.wet' (1/0)
+    Firefox17
+    ..Eiiii.
+
+  Steps: 8,  Failures: 0,  Errors: 1,  Ignored: 4
