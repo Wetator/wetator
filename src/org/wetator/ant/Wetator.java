@@ -85,7 +85,7 @@ public class Wetator extends Task {
       }
 
       // process sysproperties
-      for (Environment.Variable tmpVar : sysproperties) {
+      for (final Environment.Variable tmpVar : sysproperties) {
         final String tmpKey = tmpVar.getKey();
         if (null != tmpKey && tmpKey.length() > 0) {
           System.setProperty(tmpKey, tmpVar.getValue());
@@ -153,7 +153,7 @@ public class Wetator extends Task {
     // read the properties from project
     final Map<String, String> tmpProjectProperties = getProject().getProperties();
     final Set<String> tmpKeys = tmpProjectProperties.keySet();
-    for (String tmpKey : tmpKeys) {
+    for (final String tmpKey : tmpKeys) {
       if (tmpKey.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
         tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
         log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
@@ -166,7 +166,7 @@ public class Wetator extends Task {
     }
 
     // read the properties from property sets
-    for (Property tmpProperty : properties) {
+    for (final Property tmpProperty : properties) {
       final String tmpName = tmpProperty.getName();
       if (tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
