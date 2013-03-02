@@ -447,10 +447,8 @@ public final class XHtmlOutputter {
             }
           }
 
-          if (tmpIsHtmlPasswordInput && ("value".equals(tmpAttributeName))) {
-            if (!StringUtils.isEmpty(tmpAttributeValue)) {
-              tmpAttributeValue = "*******";
-            }
+          if (tmpIsHtmlPasswordInput && "value".equals(tmpAttributeName) && StringUtils.isNotEmpty(tmpAttributeValue)) {
+            tmpAttributeValue = "*******";
           }
 
           // Don't print if value="Submit Query"

@@ -80,18 +80,15 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
       if (isHtmlElementInTableCoordinates(aHtmlElement, tableCoordinates, htmlPageIndex, pathSpot)) {
-        final int tmpCoverage = 0;
-        if (tmpCoverage > -1) {
-          final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-          final int tmpDistance;
-          if (pathSearchPattern != null) {
-            tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-          } else {
-            tmpDistance = tmpTextBefore.length();
-          }
-          tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, tmpCoverage, tmpDistance,
-              tmpNodeSpot.getStartPos()));
+        final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+        final int tmpDistance;
+        if (pathSearchPattern != null) {
+          tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+        } else {
+          tmpDistance = tmpTextBefore.length();
         }
+        tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot
+            .getStartPos()));
       }
     }
     return tmpMatches;
@@ -146,11 +143,10 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
             for (int j = 0; j < tmpTable.getRowCount(); j++) {
               final HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
               final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
-              if (aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos()) {
-                if (tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX))) {
-                  tmpFoundX = true;
-                  break;
-                }
+              if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos())
+                  && (tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX)))) {
+                tmpFoundX = true;
+                break;
               }
             }
             if (tmpFoundX) {
@@ -167,11 +163,10 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
             for (int j = 0; j < tmpTable.getRow(i).getCells().size(); j++) {
               final HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
               final FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
-              if (aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellYSpot.getStartPos()) {
-                if (tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY))) {
-                  tmpFoundY = true;
-                  break;
-                }
+              if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellYSpot.getStartPos())
+                  && (tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY)))) {
+                tmpFoundY = true;
+                break;
               }
             }
             if (tmpFoundY) {
