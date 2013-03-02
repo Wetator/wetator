@@ -283,7 +283,7 @@ public class HtmlPageIndex {
       }
 
       // we have to stop if we found some other (visible) form control
-      if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
+      if (tmpNode instanceof SubmittableElement && !(tmpNode instanceof HtmlHiddenInput)) {
         tmpStartPos = positions.get(tmpNode).getEndPos();
 
         // the searched control is placed inside a button tag
@@ -299,7 +299,7 @@ public class HtmlPageIndex {
       if (tmpNode instanceof HtmlElement) {
         final HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
         // we are reaching another form
-        if ((null != tmpForm) && (tmpForm != tmpCurrentForm)) {
+        if (null != tmpForm && tmpForm != tmpCurrentForm) {
           tmpStartPos = positions.get(tmpNode).getEndPos();
           break;
         }
@@ -331,7 +331,7 @@ public class HtmlPageIndex {
       final DomNode tmpNode = tmpIter.next();
 
       // we have to stop if we found some other (visible) form control
-      if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
+      if (tmpNode instanceof SubmittableElement && !(tmpNode instanceof HtmlHiddenInput)) {
         tmpEndPos = positions.get(tmpNode).getStartPos();
         break;
       }
@@ -340,7 +340,7 @@ public class HtmlPageIndex {
       if (tmpNode instanceof HtmlElement) {
         final HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
         // we are reaching another form
-        if ((null != tmpCurrentForm) && (tmpForm != tmpCurrentForm)) {
+        if (null != tmpCurrentForm && tmpForm != tmpCurrentForm) {
           tmpEndPos = positions.get(tmpNode).getStartPos();
           break;
         }
@@ -624,7 +624,7 @@ public class HtmlPageIndex {
   private void appendHtmlSelect(final HtmlSelect anHtmlSelect) {
     textWithoutFormControls.disableAppend();
     for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
-      if ((tmpItem instanceof HtmlOption) || (tmpItem instanceof HtmlOptionGroup)) {
+      if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
         text.appendBlank();
         textWithoutFormControls.appendBlank();
         parseDomNode(tmpItem);
@@ -679,25 +679,24 @@ public class HtmlPageIndex {
   }
 
   private boolean isBlock(final DomNode aDomNode) {
-    return (aDomNode instanceof HtmlDivision) || (aDomNode instanceof HtmlParagraph) || (aDomNode instanceof HtmlTable)
-        || (aDomNode instanceof HtmlTableRow) || (aDomNode instanceof HtmlTableHeader)
-        || (aDomNode instanceof HtmlTableDataCell) || (aDomNode instanceof HtmlTableCell)
-        || (aDomNode instanceof HtmlUnorderedList) || (aDomNode instanceof HtmlHeading1)
-        || (aDomNode instanceof HtmlHeading2) || (aDomNode instanceof HtmlHeading3)
-        || (aDomNode instanceof HtmlHeading4) || (aDomNode instanceof HtmlHeading5)
-        || (aDomNode instanceof HtmlHeading6) || (aDomNode instanceof HtmlListItem);
+    return aDomNode instanceof HtmlDivision || aDomNode instanceof HtmlParagraph || aDomNode instanceof HtmlTable
+        || aDomNode instanceof HtmlTableRow || aDomNode instanceof HtmlTableHeader
+        || aDomNode instanceof HtmlTableDataCell || aDomNode instanceof HtmlTableCell
+        || aDomNode instanceof HtmlUnorderedList || aDomNode instanceof HtmlHeading1
+        || aDomNode instanceof HtmlHeading2 || aDomNode instanceof HtmlHeading3 || aDomNode instanceof HtmlHeading4
+        || aDomNode instanceof HtmlHeading5 || aDomNode instanceof HtmlHeading6 || aDomNode instanceof HtmlListItem;
   }
 
   private boolean isFormatElement(final DomNode aDomNode) {
-    return (aDomNode instanceof HtmlItalic) || (aDomNode instanceof HtmlBold) || (aDomNode instanceof HtmlBig)
-        || (aDomNode instanceof HtmlEmphasis) || (aDomNode instanceof HtmlSmall) || (aDomNode instanceof HtmlStrong)
-        || (aDomNode instanceof HtmlSubscript) || (aDomNode instanceof HtmlSuperscript)
-        || (aDomNode instanceof HtmlInsertedText) || (aDomNode instanceof HtmlDeletedText)
-        || (aDomNode instanceof HtmlCode) || (aDomNode instanceof HtmlKeyboard) || (aDomNode instanceof HtmlSample)
-        || (aDomNode instanceof HtmlPreformattedText) || (aDomNode instanceof HtmlTeletype)
-        || (aDomNode instanceof HtmlVariable) || (aDomNode instanceof HtmlAbbreviated)
-        || (aDomNode instanceof HtmlInlineQuotation) || (aDomNode instanceof HtmlCitation)
-        || (aDomNode instanceof HtmlAcronym) || (aDomNode instanceof HtmlDefinition);
+    return aDomNode instanceof HtmlItalic || aDomNode instanceof HtmlBold || aDomNode instanceof HtmlBig
+        || aDomNode instanceof HtmlEmphasis || aDomNode instanceof HtmlSmall || aDomNode instanceof HtmlStrong
+        || aDomNode instanceof HtmlSubscript || aDomNode instanceof HtmlSuperscript
+        || aDomNode instanceof HtmlInsertedText || aDomNode instanceof HtmlDeletedText || aDomNode instanceof HtmlCode
+        || aDomNode instanceof HtmlKeyboard || aDomNode instanceof HtmlSample
+        || aDomNode instanceof HtmlPreformattedText || aDomNode instanceof HtmlTeletype
+        || aDomNode instanceof HtmlVariable || aDomNode instanceof HtmlAbbreviated
+        || aDomNode instanceof HtmlInlineQuotation || aDomNode instanceof HtmlCitation
+        || aDomNode instanceof HtmlAcronym || aDomNode instanceof HtmlDefinition;
   }
 
   /**
