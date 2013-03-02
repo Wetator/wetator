@@ -50,7 +50,7 @@ import org.wetator.util.NormalizedString;
  */
 public final class ExcelScripter implements IScripter {
 
-  private final Log log = LogFactory.getLog(ExcelScripter.class);
+  private static final Log LOG = LogFactory.getLog(ExcelScripter.class);
 
   private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "scripter.excel.";
   private static final String PROPERTY_LOCALE = PROPERTY_PREFIX + "locale";
@@ -82,7 +82,7 @@ public final class ExcelScripter implements IScripter {
     try {
       locale = LocaleUtils.toLocale(tmpPropLocale);
     } catch (final Exception e) {
-      log.error("Property '" + PROPERTY_LOCALE + "=" + tmpPropLocale + "' is not a valid locale; using default '"
+      LOG.error("Property '" + PROPERTY_LOCALE + "=" + tmpPropLocale + "' is not a valid locale; using default '"
           + locale + "instead (" + e.getMessage() + ").");
     }
   }

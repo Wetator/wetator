@@ -57,7 +57,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
    */
   protected static final String DB_NAME_PREFIX = "@";
 
-  private final Log log = LogFactory.getLog(SqlCommandSet.class);
+  private static final Log LOG = LogFactory.getLog(SqlCommandSet.class);
 
   private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "db.";
   private static final String PROPERTY_CONNECTIONS = PROPERTY_PREFIX + "connections";
@@ -280,14 +280,14 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
       if (StringUtils.isEmpty(tmpDriver)) {
         addInitializationMessage("No database driver class specified for connection named '" + tmpConnectionName + "'.");
-        log.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
+        LOG.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
       } else {
         try {
           Class.forName(tmpDriver);
         } catch (final Exception e) {
           addInitializationMessage("Error during load of database driver class '" + tmpDriver
               + "' for connection named '" + tmpConnectionName + "' (reason: " + e.toString() + ").");
-          log.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
+          LOG.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
               + tmpConnectionName + "'.", e);
         }
       }
@@ -312,7 +312,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       } catch (final Exception e) {
         addInitializationMessage("Error connection to database '" + tmpUrl + "' for connection named '"
             + tmpConnectionName + "' (reason: " + e.toString() + ").");
-        log.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
+        LOG.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
       }
     }
   }
@@ -374,7 +374,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       try {
         tmpEntry.getValue().close();
       } catch (final Exception e) {
-        log.warn("Error during close of connection to db '" + tmpEntry.getKey() + "'.", e);
+        LOG.warn("Error during close of connection to db '" + tmpEntry.getKey() + "'.", e);
       }
     }
     defaultConnectionName = null;

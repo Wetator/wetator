@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.NormalizedString;
@@ -116,7 +115,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
  * @author frank.danek
  */
 public class HtmlPageIndex {
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
+  private static final Log LOG = LogFactory.getLog(HtmlPageIndex.class);
 
   private HtmlPage htmlPage;
 
