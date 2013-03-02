@@ -279,6 +279,7 @@ test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastShortes
 test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
 test/java/org/wetator/i18n/MessagesTest.java -text
+test/java/org/wetator/progresslistener/AbstractProgressListenerTest.java -text svneol=unset#text/plain
 test/java/org/wetator/progresslistener/ManualXMLResultWriterTest.java -text svneol=unset#text/plain
 test/java/org/wetator/progresslistener/XMLResultWriterTest.java -text
 test/java/org/wetator/progresslistener/XSLTransformerTest.java -text
@@ -328,6 +329,20 @@ test/java/org/wetator/test/resource/report/redWithIgnoredModule.html -text svneo
 test/java/org/wetator/test/resource/wikiText.wett -text
 test/java/org/wetator/test/resource/xml.wet -text
 test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/blue.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/blueModules.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/green.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/greenModule.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/homepage.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/invalidInputDuringCommandExecution.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/invalidInputWhileReadingCommands.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/javaProperties.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/mixed.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/red.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/redAfterModule.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/redModuleNotFound.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/redModules.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/xmlresult/redWithIgnoredModule.xml -text svneol=unset#text/plain
 test/java/org/wetator/util/AssertTest.java -text
 test/java/org/wetator/util/ContentUtilTest.java -text
 test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain

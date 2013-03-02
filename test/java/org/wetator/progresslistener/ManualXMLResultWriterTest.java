@@ -24,15 +24,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.wetator.core.Command;
 import org.wetator.core.Parameter;
 import org.wetator.core.TestCase;
@@ -50,6 +51,7 @@ import org.wetator.exception.InvalidInputException;
  * @author tobwoerk
  * @author frank.danek
  */
+@Ignore
 public class ManualXMLResultWriterTest {
 
   private static final String LOGS_FOLDER = "logs";
@@ -58,6 +60,9 @@ public class ManualXMLResultWriterTest {
   private static final String COMMAND_NAME = "command";
   private static final String IE8 = "IE8";
   private static final String FF17 = "Firefox17";
+
+  @Rule
+  public TestName testName = new TestName();
 
   private XMLResultWriter resultWriter = new XMLResultWriter();
   private WetatorEngine engine = mock(WetatorEngine.class);
@@ -557,7 +562,7 @@ public class ManualXMLResultWriterTest {
 
   private void assertReport() throws IOException {
     InputStream tmpExpectedStream = this.getClass().getClassLoader()
-        .getResourceAsStream("org/wetator/test/resource/report/" + getTestName() + ".html");
+        .getResourceAsStream("org/wetator/test/resource/report/" + testName.getMethodName() + ".html");
     String tmpExpectedReport = getString(tmpExpectedStream);
 
     File tmpActualFile = new File(REPORT_LOG);
@@ -595,33 +600,6 @@ public class ManualXMLResultWriterTest {
   private String getString(InputStream anExpectedStream) throws IOException {
     StringWriter tmpWriter = new StringWriter();
     IOUtils.copy(anExpectedStream, tmpWriter, "UTF-8");
-    String tmpExpectedReport = tmpWriter.toString();
-    return tmpExpectedReport;
-  }
-
-  private static String getTestName() {
-    StackTraceElement[] tmpElements = new Throwable().fillInStackTrace().getStackTrace();
-
-    for (int i = 1; i < tmpElements.length; i++) {
-      StackTraceElement tmpElement = tmpElements[i];
-
-      try {
-        Class<?> tmpClass = Class.forName(tmpElement.getClassName());
-        Method tmpMethod = tmpClass.getMethod(tmpElement.getMethodName(), new Class[0]);
-
-        for (Annotation tmpAnnotation : tmpMethod.getAnnotations()) {
-          if (tmpAnnotation.annotationType() == Test.class) {
-            return tmpElement.getMethodName();
-          }
-        }
-      } catch (RuntimeException e) {
-        throw e;
-      } catch (Exception e) {
-        // ignore
-      }
-    }
-
-    // Just assuming it's the calling method
-    return tmpElements[1].getMethodName();
+    return tmpWriter.toString();
   }
 }
