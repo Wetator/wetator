@@ -294,7 +294,7 @@ public class WetatorConfiguration {
     // overwrite with external properties if defined....
     if (null != anExternalPropertiesMap) {
       final Set<String> tmpExternalPropertiesNames = anExternalPropertiesMap.keySet();
-      for (String tmpKey : tmpExternalPropertiesNames) {
+      for (final String tmpKey : tmpExternalPropertiesNames) {
         final String tmpKeyName = tmpKey;
         if (tmpKeyName.startsWith(PROPERTY_PREFIX) || tmpKeyName.startsWith(VARIABLE_PREFIX)) {
           final Object tmpPropertyValue = anExternalPropertiesMap.get(tmpKeyName);
@@ -315,7 +315,7 @@ public class WetatorConfiguration {
     // command sets
     commandSets = new LinkedList<ICommandSet>();
     readCommandSets(tmpProperties);
-    for (ICommandSet tmpCommandSet : commandSets) {
+    for (final ICommandSet tmpCommandSet : commandSets) {
       tmpCommandSet.initialize(tmpProperties);
     }
 
@@ -496,7 +496,7 @@ public class WetatorConfiguration {
     // all properties starting with $ are variables
     variables = new LinkedList<Variable>();
     final Set<Entry<Object, Object>> tmpOtherEntries = tmpProperties.entrySet();
-    for (Entry<Object, Object> tmpEntry : tmpOtherEntries) {
+    for (final Entry<Object, Object> tmpEntry : tmpOtherEntries) {
       String tmpKey = (String) tmpEntry.getKey();
       final String tmpVariableValue = (String) tmpEntry.getValue();
       if (tmpKey.startsWith(VARIABLE_PREFIX)) {
