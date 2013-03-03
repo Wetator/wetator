@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
-    <info organisation="org.wetator" module="wetator"/>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd"
+    xmlns:m="http://ant.apache.org/ivy/maven">
+    <info organisation="org.wetator"
+        module="wetator"
+        revision="${application.pubversion}">
+        <license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt" />
+        <description homepage="http://www.wetator.org">
+            Smart web application testing
+        </description>
+    </info>
 
-    <configurations>
-        <conf name="runtime" />
-        <conf name="test" />
-    </configurations>
+	<configurations>
+		<conf name="default" visibility="public" description="runtime dependencies and master artifact can be used with this conf" extends="runtime,master"/>
+		<conf name="master" visibility="public" description="contains only the artifact published by this module itself, with no transitive dependencies"/>
+		<conf name="compile" visibility="public" description="this is the default scope, used if none is specified. Compile dependencies are available in all classpaths."/>
+		<conf name="runtime" visibility="public" description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." extends="compile"/>
+		<conf name="test" visibility="private" description="this scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases." extends="runtime"/>
+		<conf name="sources" visibility="public" description="this configuration contains the source artifact of this module, if any."/>
+		<conf name="javadoc" visibility="public" description="this configuration contains the javadoc artifact of this module, if any."/>
+		<conf name="optional" visibility="public" description="contains all optional dependencies"/>
+	</configurations>
 
     <publications>
-        <artifact ext="pom" conf="runtime" />
-        <artifact ext="jar" conf="runtime" />
-        <artifact name="wetator-src" type="source" ext="jar" conf="runtime" />
+        <artifact type="pom" ext="pom" conf="default" />
+        <artifact type="jar" ext="jar" conf="master" />
+        <artifact type="source" ext="jar" conf="sources" m:classifier="sources" />
     </publications>
 
-    <dependencies defaultconfmapping="runtime->*" defaultconf="runtime" >
-        <dependency org="org.apache.ant" name="ant" rev="1.8.4" transitive="false" conf="runtime->*,!javadoc,!sources"/>
+    <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
+        <dependency org="org.apache.ant" name="ant" rev="1.8.4" transitive="false" />
         <dependency org="dk.brics.automaton" name="automaton" rev="1.11-8" transitive="false" />
-        <dependency org="org.apache.commons" name="commons-lang3" rev="3.1"/>
-        <dependency org="commons-io" name="commons-io" rev="2.4"/>
-        <dependency org="hsqldb" name="hsqldb" rev="1.8.0.10" conf="runtime->*,!javadoc,!sources"/>
-        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.12-SNAPSHOT" changing="true" conf="runtime->*,!javadoc"/>
-        <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.12-SNAPSHOT" changing="true" conf="runtime->*,!javadoc,!sources"/> -->
-        <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.8" changing="true"/> -->
-        <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false"/>
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.7.1" transitive="false"/>
-        <dependency org="org.apache.pdfbox" name="fontbox" rev="1.7.1" transitive="false"/>
-        <dependency org="org.apache.poi" name="poi" rev="3.9" conf="runtime->*,!javadoc"/>
-        <dependency org="com.sun.xsom" name="xsom" rev="20110809" transitive="true" conf="runtime->*,!javadoc"/>
+        <dependency org="commons-io" name="commons-io" rev="2.4" />
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.1" />
+        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.12-SNAPSHOT" changing="true" />
+        <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.12-SNAPSHOT" changing="true" conf="compile"/> -->
+        <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.8" changing="true" conf="compile" /> -->
+        <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.7.1" transitive="false" />
+        <dependency org="org.apache.pdfbox" name="fontbox" rev="1.7.1" transitive="false" />
+        <dependency org="org.apache.poi" name="poi" rev="3.9" />
+        <dependency org="com.sun.xsom" name="xsom" rev="20110809" />
 
-        <dependency org="junit" name="junit" rev="4.11" transitive="false" conf="test->*" />
-        <dependency org="org.mockito" name="mockito-core" rev="1.9.5" conf="test->*" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.9.v20130131" conf="test->*" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="8.1.9.v20130131" conf="test->*" />
-        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" transitive="false" conf="test->*" />
-        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.2" transitive="false" conf="test->*" />
+        <dependency org="junit" name="junit" rev="4.11" transitive="false" conf="test,sources" />
+        <dependency org="org.mockito" name="mockito-core" rev="1.9.5" conf="test,sources" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.9.v20130131" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="8.1.9.v20130131" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="8.1.9.v20130131" conf="test" />
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" transitive="false" conf="test,sources" />
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.2" transitive="false" conf="test" />
+        <dependency org="hsqldb" name="hsqldb" rev="1.8.0.10" conf="test,sources" />
 
         <!-- fix for servlet available as orbit -->
-        <dependency org="org.eclipse.jetty.orbit" name="javax.servlet" rev="3.0.0.v201112011016" conf="test->*" >
+        <dependency org="org.eclipse.jetty.orbit" name="javax.servlet" rev="3.0.0.v201112011016" conf="test,sources" >
             <artifact name="javax.servlet" type="orbit" ext="jar"/>
         </dependency>
         <!-- fix version of jetty as htmlunit may use a different version -->
