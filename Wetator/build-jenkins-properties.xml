@@ -34,11 +34,6 @@
     <target>1.6</target>
   </javac>
 
-  <!-- the library version should match the versions of the eclipse plugin -->
-  <checkstyle-version>5.6</checkstyle-version>
-  <findbugs-version>2.0.1</findbugs-version>
-  <pmd-version>5.0.2</pmd-version>
-
   <!-- display number (used for xvfb in CI only) -->
   <display>1</display>
 

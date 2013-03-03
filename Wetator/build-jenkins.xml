@@ -171,6 +171,7 @@
             <fileset dir="./ant_lib" includes="ivy*.jar"/>
         </path>
         <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+        <ivy:configure override="true" />
     </target>
 
 
@@ -182,10 +183,11 @@
     <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
         depends="info, -clean-lib, -load-ivy">
         <echo level="info">Resolving dependencies</echo>
-        <ivy:configure />
-        <ivy:resolve />
-        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
+    	<!-- first resolve the sources to have the jars resolved afterwards still in memory for further use -->
+    	<ivy:resolve conf="sources" />
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
+        <ivy:resolve conf="default, master, compile, runtime, test, optional" />
+        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
     </target>
 
 
@@ -307,62 +309,11 @@
 
 
     <!-- ===========================================
-         private target check-metrics-libs
-         =========================================== -->
-    <target name="-check-metrics-libs">
-        <available file="${dir.ant-lib}/checkstyle/checkstyle-${checkstyle-version}.jar" property="checkstyle-found"/>
-        <available file="${dir.ant-lib}/findbugs/findbugs-${findbugs-version}.jar" property="findbugs-found"/>
-        <available file="${dir.ant-lib}/pmd/pmd-${pmd-version}.jar" property="pmd-found"/>
-    </target>
-
-
-    <!-- ===========================================
-         private target download-checkstyle
-         =========================================== -->
-    <target name="-download-checkstyle"
-        depends="-load-ivy, -check-metrics-libs" unless="checkstyle-found">
-    	<delete dir="${dir.ant-lib}/checkstyle" includeemptydirs="true" />
-        <mkdir dir="${dir.ant-lib}/checkstyle"/>
-        <ivy:retrieve module="checkstyle" organisation="com.puppycrawl.tools" revision="${checkstyle-version}" inline="true" type="jar"
-            pattern="${dir.ant-lib}/checkstyle${ivy.retrieve.pattern}" />
-    </target>
-
-
-    <!-- ===========================================
-         private target download-findbugs
-         =========================================== -->
-    <target name="-download-findbugs"
-        depends="-load-ivy, -check-metrics-libs" unless="findbugs-found">
-    	<delete dir="${dir.ant-lib}/findbugs" includeemptydirs="true" />
-        <mkdir dir="${dir.ant-lib}/findbugs"/>
-        <!-- sources and javadoc make problems here so we have to ignore failures -->
-        <ivy:retrieve haltonfailure="false" module="findbugs" organisation="com.google.code.findbugs" revision="${findbugs-version}" inline="true" type="jar"
-            pattern="${dir.ant-lib}/findbugs${ivy.retrieve.pattern}" />
-    </target>
-
-
-    <!-- ===========================================
-         private target download-pmd
-         =========================================== -->
-    <target name="-download-pmd"
-        depends="-load-ivy, -check-metrics-libs" unless="pmd-found">
-    	<delete dir="${dir.ant-lib}/pmd" includeemptydirs="true" />
-        <mkdir dir="${dir.ant-lib}/pmd"/>
-        <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="${pmd-version}" inline="true" type="jar"
-            pattern="${dir.ant-lib}/pmd${ivy.retrieve.pattern}" />
-    </target>
-
-
-    <!-- ===========================================
          private target load-checkstyle
          =========================================== -->
-    <target name="-load-checkstyle"
-        depends="-download-checkstyle">
-        <path id="taskdef-classpath-checkstyle">
-            <fileset dir="${dir.ant-lib}/checkstyle">
-                <include name="**/*.jar"/>
-            </fileset>
-        </path>
+    <target name="-load-checkstyle" depends="-load-ivy">
+    	<ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="5.6" type="jar"
+    		pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
 
@@ -370,13 +321,10 @@
     <!-- ===========================================
          private target load-findbugs
          =========================================== -->
-    <target name="-load-findbugs"
-        depends="-download-findbugs">
-        <path id="taskdef-classpath-findbugs">
-            <fileset dir="${dir.ant-lib}/findbugs">
-                <include name="**/*.jar"/>
-            </fileset>
-        </path>
+    <target name="-load-findbugs" depends="-load-ivy">
+    	<echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
+    	<ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
+    		pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
         <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
     </target>
 
@@ -384,13 +332,9 @@
     <!-- ===========================================
          private target load-pmd
          =========================================== -->
-    <target name="-load-pmd"
-        depends="-download-pmd">
-        <path id="taskdef-classpath-pmd">
-            <fileset dir="${dir.ant-lib}/pmd">
-                <include name="**/*.jar"/>
-            </fileset>
-        </path>
+    <target name="-load-pmd" depends="-load-ivy">
+    	<ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
+    		pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
     </target>
@@ -643,15 +587,16 @@ echo location of the Java Virtual Machine you want to use.
         </zip>
 
         <!-- generate pom -->
-        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" conf="runtime, test">
-            <mapping conf="runtime" scope="runtime" />
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
+        	artifactpackaging="jar">
             <mapping conf="test" scope="test" />
         </ivy:makepom>
 
         <!-- generate src zip -->
-        <zip destfile="${dir.build}/${application.jar-basename}-src.jar">
+        <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
             <fileset dir="." >
-                <include name=".classpath" />
+            	<include name=".checkstyle" />
+            	<include name=".classpath" />
                 <include name=".project" />
                 <include name="build.xml" />
                 <include name="build-properties.xml" />
@@ -659,6 +604,7 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="ivy.xml" />
                 <include name="ivysettings.xml" />
                 <include name="LICENSE.txt" />
+            	<include name="pom.template.xml" />
                 <include name="readme.txt" />
             </fileset>
 
@@ -689,7 +635,7 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
         </zip>
 
-        <copy file="${dir.build}/${application.jar-basename}-src.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-src.jar"/>
+        <copy file="${dir.build}/${application.jar-basename}-sources.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-sources.jar"/>
     </target>
 
 
@@ -701,7 +647,7 @@ echo location of the Java Virtual Machine you want to use.
     <target name="-publish-local" depends="-package-bundles" description="publishes the Wetator release artifacts to the local Maven repository">
         <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
             pubrevision="${application.pubversion}">
-            <artifacts pattern="${dir.build}/[artifact].[ext]"/>
+        	<artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
         </ivy:publish>
     </target>
 
@@ -712,9 +658,9 @@ echo location of the Java Virtual Machine you want to use.
            to the Sonatype snapshots repository
          =========================================== -->
     <target name="-publish-sonatype-snapshots" depends="-package-bundles" description="publishes the Wetator release artifacts to the Sonatype snapshots repository">
-        <ivy:publish resolver="SonatypeSnapshots" forcedeliver="true" overwrite="true" publishivy="false"
+        <ivy:publish resolver="SonatypeSnapshots-publish" forcedeliver="true" overwrite="true" publishivy="false"
             pubrevision="${application.pubversion}">
-            <artifacts pattern="${dir.build}/[artifact].[ext]"/>
+            <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
         </ivy:publish>
     </target>
 
@@ -777,10 +723,10 @@ echo location of the Java Virtual Machine you want to use.
 </echo>
 
         <exec executable="cmd">
-            <arg value="/c"/>
-            <arg value="%ANT_HOME%\bin\ant.bat"/>
-            <arg value="-buildfile"/>
-            <arg value="${dir.build}/test-release/ant/build.xml"/>
+            <arg value="/c" />
+            <arg value="%ANT_HOME%\bin\ant.bat" />
+            <arg value="-buildfile" />
+            <arg value="${dir.build}/test-release/ant/build.xml" />
         </exec>
     </target>
 
@@ -789,10 +735,12 @@ echo location of the Java Virtual Machine you want to use.
          target report
            generates a report of the dependencies
          ******************************************* -->
-    <target name="report" description="generates a report of the dependencies"
+    <target name="report-dependencies" description="generates a report of the dependencies"
         depends="info, resolve-dependencies">
-        <mkdir dir="${dir.build}/ivy-report"/>
-        <ivy:report todir="${dir.build}/ivy-report"/>
+    	<echo level="info">Creating dependency report (output: ${dir.deploy}/ivy-report)</echo>
+    	<delete dir="${dir.deploy}/ivy-report" />
+        <mkdir dir="${dir.deploy}/ivy-report" />
+        <ivy:report todir="${dir.deploy}/ivy-report" />
     </target>
 
 
@@ -821,7 +769,7 @@ echo location of the Java Virtual Machine you want to use.
            cleans the ivy cache
          ******************************************* -->
     <target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
-        <ivy:cleancache/>
+        <ivy:cleancache />
     </target>
 
 </project>
