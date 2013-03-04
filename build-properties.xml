@@ -34,4 +34,7 @@
     <target>1.6</target>
   </javac>
 
+  <!-- display number (used for xvfb in CI only) -->
+  <display>1</display>
+
 </build-properties>
