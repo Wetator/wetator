@@ -5,7 +5,7 @@
 
     <credentials host="oss.sonatype.org"
                  realm="Sonatype Nexus Repository Manager"
-                 username="rbri" passwd="todo"/>
+                 username="${sonatype.username}" passwd="${sonatype.passwd}"/>
 
     <resolvers>
         <ibiblio name="ibiblio" m2compatible="true" checksums="" />
