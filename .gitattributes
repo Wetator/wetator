@@ -10,9 +10,7 @@ Wetator/LICENSE.txt -text
 Wetator/actions.txt -text svneol=unset#text/plain
 Wetator/ant_lib/ivy-2.3.0.jar -text
 Wetator/ant_lib/one-jar-ant-task-0.97.jar -text
-Wetator/build-jenkins-patternset.xml -text svneol=unset#text/plain
-Wetator/build-jenkins-properties.xml -text svneol=unset#text/plain
-Wetator/build-jenkins.xml -text svneol=unset#text/plain
+Wetator/build-patternset.xml -text svneol=unset#text/plain
 Wetator/build-properties.xml -text
 Wetator/build.properties -text
 Wetator/build.xml -text
