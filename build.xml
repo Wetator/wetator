@@ -183,10 +183,10 @@
     <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
         depends="info, -clean-lib, -load-ivy">
         <echo level="info">Resolving dependencies</echo>
-    	<!-- first resolve the sources to have the jars resolved afterwards still in memory for further use -->
-    	<ivy:resolve conf="sources" />
+        <!-- first resolve the sources to have the jars resolved afterwards still in memory for further use -->
+        <ivy:resolve conf="sources" />
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
-        <ivy:resolve conf="default, master, compile, runtime, test, optional" />
+        <ivy:resolve conf="default, master, compile, provided, runtime, test, optional" />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
     </target>
 
@@ -281,7 +281,7 @@
         <mkdir dir="${dir.deploy}/junit"/>
 
         <echo level="info">Running tests (output: ${dir.deploy}/junit)</echo>
-        <path id="junit-classpath">
+        <path id="classpath-junit">
             <pathelement location="${dir.build}/classes" />
             <pathelement location="${dir.build}/test-classes" />
 
@@ -294,7 +294,7 @@
         <junit printsummary="withOutAndErr"
             haltonfailure="no" failureproperty="unittestsfailed"
             fork="yes" forkmode="once" dir="${basedir}">
-            <classpath refid="junit-classpath" />
+            <classpath refid="classpath-junit" />
             <jvmarg value="-Duser.language=en" />
             <env key="DISPLAY" value=":${display}" />
 
@@ -312,8 +312,8 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy">
-    	<ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="5.6" type="jar"
-    		pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="5.6" type="jar"
+            pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
 
@@ -322,9 +322,9 @@
          private target load-findbugs
          =========================================== -->
     <target name="-load-findbugs" depends="-load-ivy">
-    	<echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
-    	<ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
-    		pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
+        <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
+        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
+            pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
         <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
     </target>
 
@@ -333,8 +333,8 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy">
-    	<ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
-    		pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
+            pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
     </target>
@@ -436,8 +436,15 @@
     <!-- ===========================================
          private target get-buildnumber-ci
          =========================================== -->
-    <target name="-get-buildbumber-ci" if="is-ci">
+    <target name="-get-buildnumber-ci" if="is-ci">
         <property name="application.buildnumber" value="jenkins-${env.BUILD_NUMBER}"></property>
+    </target>
+
+
+    <!-- ===========================================
+         private target get-buildnumber
+         =========================================== -->
+    <target name="-get-buildnumber" depends="-get-buildnumber-local, -get-buildnumber-ci">
     </target>
 
 
@@ -446,7 +453,7 @@
            builds all Wetator release artifacts
          =========================================== -->
     <target name="-package-bundles" description="builds all Wetator release artifacts"
-        depends="-compile, -load-onejar, -get-buildnumber-local, -get-buildbumber-ci">
+        depends="-compile, -get-buildnumber, -load-onejar">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
@@ -588,23 +595,28 @@ echo location of the Java Virtual Machine you want to use.
 
         <!-- generate pom -->
         <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
-        	artifactpackaging="jar">
+            artifactpackaging="jar">
+            <mapping conf="default" scope="compile" />
+            <mapping conf="compile" scope="compile" />
+            <mapping conf="provided" scope="provided" />
+            <mapping conf="runtime" scope="runtime" />
             <mapping conf="test" scope="test" />
         </ivy:makepom>
 
-        <!-- generate src zip -->
+        <!-- generate sources jar -->
         <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
             <fileset dir="." >
-            	<include name=".checkstyle" />
-            	<include name=".classpath" />
+                <include name=".checkstyle" />
+                <include name=".classpath" />
                 <include name=".project" />
                 <include name="build.xml" />
                 <include name="build-properties.xml" />
+                <include name="build-patternset.xml" />
                 <include name="build.properties" />
                 <include name="ivy.xml" />
                 <include name="ivysettings.xml" />
                 <include name="LICENSE.txt" />
-            	<include name="pom.template.xml" />
+                <include name="pom.template.xml" />
                 <include name="readme.txt" />
             </fileset>
 
@@ -644,10 +656,10 @@ echo location of the Java Virtual Machine you want to use.
            publishes the Wetator release artifacts
            to the local Maven repository
          =========================================== -->
-    <target name="-publish-local" depends="-package-bundles" description="publishes the Wetator release artifacts to the local Maven repository">
+    <target name="-publish-local" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the local Maven repository">
         <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
             pubrevision="${application.pubversion}">
-        	<artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
+            <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
         </ivy:publish>
     </target>
 
@@ -657,7 +669,7 @@ echo location of the Java Virtual Machine you want to use.
            publishes the Wetator release artifacts
            to the Sonatype snapshots repository
          =========================================== -->
-    <target name="-publish-sonatype-snapshots" depends="-package-bundles" description="publishes the Wetator release artifacts to the Sonatype snapshots repository">
+    <target name="-publish-sonatype-snapshots" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the Sonatype snapshots repository">
         <ivy:publish resolver="SonatypeSnapshots-publish" forcedeliver="true" overwrite="true" publishivy="false"
             pubrevision="${application.pubversion}">
             <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
@@ -736,9 +748,9 @@ echo location of the Java Virtual Machine you want to use.
            generates a report of the dependencies
          ******************************************* -->
     <target name="report-dependencies" description="generates a report of the dependencies"
-        depends="info, resolve-dependencies">
-    	<echo level="info">Creating dependency report (output: ${dir.deploy}/ivy-report)</echo>
-    	<delete dir="${dir.deploy}/ivy-report" />
+        depends="info, resolve-dependencies, -load-ivy">
+        <echo level="info">Creating dependency report (output: ${dir.deploy}/ivy-report)</echo>
+        <delete dir="${dir.deploy}/ivy-report" />
         <mkdir dir="${dir.deploy}/ivy-report" />
         <ivy:report todir="${dir.deploy}/ivy-report" />
     </target>
