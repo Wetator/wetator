@@ -15,8 +15,8 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>${ivy.pom.groupId}</groupId>
     <artifactId>${ivy.pom.artifactId}</artifactId>
     <version>${ivy.pom.version}</version>
@@ -32,12 +32,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <scm>
-        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator</connection>
-        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator</developerConnection>
+        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator-ant-task</connection>
+        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/wetator-ant-task</developerConnection>
         <url>http://wetator.repositoryhosting.com/svn_public/wetator_wetator</url>
     </scm>
     <issueManagement>
         <system>trac</system>
         <url>https://wetator.repositoryhosting.com/trac/wetator_wetator/report/1</url>
     </issueManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://wetator.ci.cloudbees.com/job/wetator-ant-task/</url>
+    </ciManagement>
 </project>
