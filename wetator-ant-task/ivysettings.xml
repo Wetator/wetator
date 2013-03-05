@@ -21,11 +21,10 @@
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
 
-<!--
         <filesystem name="local-m2-publish" m2compatible="true">
             <artifact pattern="${user.home}/.m2/repository/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
         </filesystem>
--->
+
         <url name="SonatypeSnapshots-publish" m2compatible="true">
             <artifact pattern="https://oss.sonatype.org/content/repositories/snapshots/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
         </url>

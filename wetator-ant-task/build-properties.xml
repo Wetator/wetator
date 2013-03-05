@@ -36,4 +36,9 @@
   <!-- display number (used for xvfb in CI only) -->
   <display>1</display>
 
+  <!-- we currently do not have any tests so we skip tests -->
+  <skip>
+    <tests>true</tests>
+  </skip>
+
 </build-properties>

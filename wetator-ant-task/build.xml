@@ -446,20 +446,6 @@
 
 
     <!-- ===========================================
-         private target load-onejar
-         =========================================== -->
-    <target name="-load-onejar">
-        <property name="one-jar.dist.dir" value="./dist"/>
-        <property name="one-jar.version" value="0.97"/>
-        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
-            <classpath id="one-jar-classpath">
-                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
-            </classpath>
-        </taskdef>
-    </target>
-
-
-    <!-- ===========================================
          private target get-buildnumber-local
          =========================================== -->
     <target name="-get-buildnumber-local" unless="is-ci">
@@ -490,7 +476,7 @@
            builds all release artifacts
          =========================================== -->
     <target name="-package-bundles" description="builds all release artifacts"
-        depends="-compile, -get-buildnumber, -load-onejar, -load-ivy">
+        depends="-compile, -get-buildnumber, -load-ivy">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
@@ -500,14 +486,15 @@
         <echo level="info">  Version: ${application.version}</echo>
         <echo level="info">  Build:   ${application.buildnumber}</echo>
 
+        <mkdir dir="${dir.deploy}"/>
+
+        <!-- generate jar -->
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
             <fileset dir="${dir.build}/classes">
                 <include name="**/*.*"/>
-                <exclude name="wetator.config"/>
             </fileset>
             <manifest>
-                <attribute name="Main-Class" value="org.wetator.Wetator"/>
                 <section name="Application">
                     <attribute name="Application-Name" value="${application.name}"/>
                     <attribute name="Vendor" value="${application.vendor}"/>
@@ -524,119 +511,6 @@
                 </section>
             </manifest>
         </jar>
-
-        <delete file="${dir.build}/MANIFEST.MF"/>
-        <manifest file="${dir.build}/MANIFEST.MF">
-            <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
-            <attribute name="One-Jar-Main-Class" value="org.wetator.Wetator"/>
-        </manifest>
-
-        <!-- Construct the One-JAR file -->
-        <delete file="${dir.build}/${application.jar-basename}_all.jar"/>
-        <one-jar destfile="${dir.build}/${application.jar-basename}_all.jar" manifest="${dir.build}/MANIFEST.MF">
-            <main>
-                <fileset dir="${dir.build}/classes">
-                    <include name="**/*.*"/>
-                </fileset>
-            </main>
-            <lib>
-                <fileset dir="${dir.lib}">
-                    <patternset refid="runtime-libs" />
-                </fileset>
-            </lib>
-        </one-jar>
-
-        <echo file="${dir.build}/wetator.bat" append="false">@echo off
-
-REM ----------------------------
-REM Simple Wetator start script
-REM ----------------------------
-
-
-if "%JAVA_HOME%" == "" goto error
-
-rem add the jdbc drivers if needed
-rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path=ojdbc14.jar
-rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path="db2jcc.jar|db2jcc_license_cu.jar"
-
-rem start command for Wetator
-set CMD="%JAVA_HOME%\bin\java" %JAVA_OPTS% -jar ${application.jar-basename}_all.jar %*
-
-echo Starting Wetator
-
-ECHO %CMD%
-%CMD%
-
-
-goto end
-
-:error
-
-echo ERROR: JAVA_HOME not found in your environment.
-echo Please, set the JAVA_HOME variable in your environment to match the
-echo location of the Java Virtual Machine you want to use.
-
-:end
-</echo>
-
-        <mkdir dir="${dir.deploy}"/>
-
-        <!-- generate cmd-line distribution zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
-            <fileset dir="${dir.build}" >
-                <include name="wetator.bat" />
-                <include name="${application.jar-basename}_all.jar" />
-            </fileset>
-
-            <zipfileset dir="${dir.samples}" prefix="samples">
-                <include name="google_search/**" />
-                <exclude name="google_search/logs/**" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.xsl}" prefix="xsl">
-            </zipfileset>
-
-            <zipfileset dir="${dir.src}" prefix="templates">
-                <include name="wetator.config" />
-            </zipfileset>
-        </zip>
-
-        <!-- generate ant distribution zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip">
-            <zipfileset dir="${dir.build}" prefix="lib" >
-                <include name="${application.jar-basename}.jar" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.lib}" prefix="lib">
-                <patternset refid="runtime-libs" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.samples}/ant" prefix="templates">
-                <include name="build.xml" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.samples}" prefix="samples">
-                <include name="google_search/**" />
-                <exclude name="google_search/logs/**" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.xsl}" prefix="xsl">
-            </zipfileset>
-
-            <zipfileset dir="${dir.src}" prefix="templates">
-                <include name="wetator.config" />
-            </zipfileset>
-        </zip>
-
-        <!-- generate pom -->
-        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
-            artifactpackaging="jar">
-            <mapping conf="default" scope="compile" />
-            <mapping conf="compile" scope="compile" />
-            <mapping conf="provided" scope="provided" />
-            <mapping conf="runtime" scope="runtime" />
-            <mapping conf="test" scope="test" />
-        </ivy:makepom>
 
         <!-- generate sources jar -->
         <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
@@ -681,8 +555,44 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="**/**.xsl" />
             </zipfileset>
         </zip>
-
         <copy file="${dir.build}/${application.jar-basename}-sources.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-sources.jar"/>
+
+        <!-- generate pom -->
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
+            artifactpackaging="jar">
+            <mapping conf="default" scope="compile" />
+            <mapping conf="compile" scope="compile" />
+            <mapping conf="provided" scope="provided" />
+            <mapping conf="runtime" scope="runtime" />
+            <mapping conf="test" scope="test" />
+        </ivy:makepom>
+
+        <!-- generate ant distribution zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
+            <zipfileset dir="${dir.build}" prefix="lib" >
+                <include name="${application.jar-basename}.jar" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="lib">
+                <patternset refid="runtime-libs" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}/ant" prefix="templates">
+                <include name="build.xml" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}" prefix="samples">
+                <include name="google_search/**" />
+                <exclude name="google_search/logs/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="xsl">
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}" prefix="templates">
+                <include name="wetator.config" />
+            </zipfileset>
+        </zip>
     </target>
 
 
