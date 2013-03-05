@@ -919,6 +919,10 @@ Wetator/xsl/run_report.xsl -text svneol=unset#text/plain
 wetator-ant-task/.checkstyle -text
 wetator-ant-task/.classpath -text
 wetator-ant-task/.project -text
+wetator-ant-task/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+wetator-ant-task/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+wetator-ant-task/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
+wetator-ant-task/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 wetator-ant-task/LICENSE.txt -text
 wetator-ant-task/ant_lib/ivy-2.3.0.jar -text
 wetator-ant-task/build-patternset.xml -text
