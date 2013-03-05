@@ -13,7 +13,6 @@
     <src>src</src>
     <test>test</test>
     <test-src>${dir.test}/java</test-src>
-    <test-wet-src>${dir.test}/excel</test-wet-src>
     <samples>samples</samples>
     <lib>lib</lib>
     <lib-src>lib_src</lib-src>
