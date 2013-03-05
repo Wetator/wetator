@@ -52,6 +52,8 @@ Wetator/sonar-project.properties
 Wetator/wetator.config
 /build
 /deploy
+wetator-ant-task/lib/*.jar
+wetator-ant-task/lib_src/*.jar
 wetator-jenkins-plugin/deploy/org
 wetator-jenkins-plugin/infinitest.filters
 wetator-jenkins-plugin/target
