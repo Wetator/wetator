@@ -544,7 +544,6 @@
             </main>
             <lib>
                 <fileset dir="${dir.lib}">
-                    <include name="*.jar" />
                     <patternset refid="runtime-libs" />
                 </fileset>
             </lib>
@@ -612,7 +611,6 @@ echo location of the Java Virtual Machine you want to use.
             </zipfileset>
 
             <zipfileset dir="${dir.lib}" prefix="lib">
-                <include name="*.jar" />
                 <patternset refid="runtime-libs" />
             </zipfileset>
 
