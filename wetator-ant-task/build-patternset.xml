@@ -2,6 +2,8 @@
 <project name="Wetator patternset" basedir=".">
 
     <patternset id="runtime-libs">
+        <include name="*.jar" />
+
         <exclude name="ant-*.jar" />
         <exclude name="hsqldb-*.jar" />
 

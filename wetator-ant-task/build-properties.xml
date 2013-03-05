@@ -5,7 +5,7 @@
     <name>WetatorAntTask</name>
     <version>0_9_10_beta1</version>
     <pubversion>0.9.10-SNAPSHOT</pubversion>
-    <jar-basename>wetator</jar-basename>
+    <jar-basename>wetator-ant</jar-basename>
     <vendor>wetator.org</vendor>
   </application>
 
@@ -13,7 +13,6 @@
     <src>src</src>
     <test>test</test>
     <test-src>${dir.test}/java</test-src>
-    <test-wet-src>${dir.test}/excel</test-wet-src>
     <samples>samples</samples>
     <lib>lib</lib>
     <lib-src>lib_src</lib-src>

@@ -932,11 +932,16 @@ wetator-ant-task/build.xml -text
 wetator-ant-task/ivy.xml -text
 wetator-ant-task/ivysettings.xml -text
 wetator-ant-task/pom.template.xml -text
+wetator-ant-task/readme.txt -text svneol=unset#text/plain
 wetator-ant-task/src/org/wetator/ant/AntOutProgressListener.java -text
 wetator-ant-task/src/org/wetator/ant/Version.java -text
 wetator-ant-task/src/org/wetator/ant/Wetator.java -text
 wetator-ant-task/test/checkstyle/checkstyle.xml -text
 wetator-ant-task/test/checkstyle/test-checkstyle.xml -text
+wetator-ant-task/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-strings.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/.classpath -text svneol=unset#text/plain
 wetator-jenkins-plugin/.project -text svneol=unset#text/plain
 wetator-jenkins-plugin/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
