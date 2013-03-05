@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+
+    <settings defaultResolver="chain" />
+
+    <credentials host="oss.sonatype.org"
+                 realm="Sonatype Nexus Repository Manager"
+                 username="${sonatype.username}" passwd="${sonatype.passwd}"/>
+
+    <resolvers>
+        <ibiblio name="ibiblio" m2compatible="true" checksums="" />
+        <ibiblio name="SonatypeSnapshots"
+                 m2compatible="true"
+                 usepoms="true"
+                 root="https://oss.sonatype.org/content/repositories/snapshots/"
+                 checkmodified="true"/>
+        <ibiblio name="wetator-sh"
+                 m2compatible="true"
+                 usepoms="true"
+                 root="http://www.wetator.org/repo"
+                 checkmodified="true"
+                 changingPattern="^.+-SNAPSHOT$"/>
+
+<!--
+        <filesystem name="local-m2-publish" m2compatible="true">
+            <artifact pattern="${user.home}/.m2/repository/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
+        </filesystem>
+-->
+        <url name="SonatypeSnapshots-publish" m2compatible="true">
+            <artifact pattern="https://oss.sonatype.org/content/repositories/snapshots/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
+        </url>
+
+        <chain name="chain">
+            <resolver ref="wetator-sh" />
+            <resolver ref="ibiblio" />
+            <resolver ref="SonatypeSnapshots" />
+        </chain>
+    </resolvers>
+</ivysettings>

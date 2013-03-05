@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Wetator Ant Task" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <!-- make environment variables of operation system available -->
+    <property environment="env" />
+
+    <!-- path to ant-dir -->
+    <property name="ant" value="ant" />
+
+    <condition property="is-ci">
+        <equals arg1="${stage}" arg2="CI" />
+    </condition>
+
+    <!-- application specific properties -->
+    <xmlproperty file="./build-properties.xml" keepRoot="false" semanticAttributes="true" />
+
+    <import file="./build-patternset.xml" />
+
+
+    <!--
+    publish-sonatype-snapshots: info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
+    publish-local:              info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
+    package:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
+    package-no-tests:           info -> resolve-dependencies -> compile -> package-bundles
+    metrics:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
+    metrics-only:               info -> compile -> gather-metrics
+    tests:                      info -> resolve-dependencies -> compile -> compile-tests -> run-tests
+    tests-only:                 info -> compile -> compile-tests -> run-tests
+    -->
+
+
+    <!-- *******************************************
+         target publish-sonatype-snapshots
+           executes the complete build cycle until
+           publishing to the Sonatype snapshot
+           repository:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics -> package-bundles
+           -> publish-local
+           -> publish-sonatype-snapshots
+         ******************************************* -->
+    <target name="publish-sonatype-snapshots" description="executes the complete build cycle until publishing to the Sonatype snapshot repository"
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-snapshots">
+    </target>
+
+
+    <!-- *******************************************
+         target publish-local
+           executes the complete build cycle until
+           publishing to the local repository:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics -> package-bundles
+           -> publish-local
+         ******************************************* -->
+    <target name="publish-local" description="executes the complete build cycle until publishing to the local repository"
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local">
+    </target>
+
+
+    <!-- *******************************************
+         target package
+           executes the complete build cycle until
+           packaging the bundles:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics -> package-bundles
+         ******************************************* -->
+    <target name="package" description="executes the complete build cycle until packaging the bundles"
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles">
+    </target>
+
+
+    <!-- *******************************************
+         target package-no-tests
+           executes the build cycle until packaging
+           the bundles without the tests:
+           info -> resolve-dependencies -> compile
+           -> package-bundles
+         ******************************************* -->
+    <target name="package-no-tests" description="executes the build cycle until packaging the bundles without the tests"
+        depends="resolve-dependencies, -package-bundles">
+    </target>
+
+
+    <!-- *******************************************
+         target metrics
+           executes the complete build cycle until
+           gathering the metrics:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics
+         ******************************************* -->
+    <target name="metrics" description="executes the complete build cycle until gathering the metrics"
+        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests">
+    </target>
+
+
+    <!-- *******************************************
+         target metrics-only
+           only gathers the metrics:
+           info -> compile -> gather-metrics
+         ******************************************* -->
+    <target name="metrics-only" description="only gathers the metrics"
+        depends="info, -gather-metrics">
+    </target>
+
+
+    <!-- *******************************************
+         target tests
+           executes the complete build cycle until
+           running the tests:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+         ******************************************* -->
+    <target name="tests" description="executes the complete build cycle until running the tests"
+        depends="resolve-dependencies, -run-tests, -check-tests">
+    </target>
+
+
+    <!-- *******************************************
+         target tests-no-resolve
+           runs the tests only:
+           info -> compile
+           -> compile-tests -> run-tests
+         ******************************************* -->
+    <target name="tests-only" description="runs the tests only"
+        depends="info, -run-tests, -check-tests">
+    </target>
+
+
+    <!-- *******************************************
+         target info
+           displays some info about the build
+         ******************************************* -->
+    <target name="info" description="displays some info about the build">
+        <echo level="info"></echo>
+        <echo level="info">Project: ${ant.project.name}</echo>
+        <echo level="info">  ${ant.version}</echo>
+        <echo level="info">  Java version ${ant.java.version}</echo>
+        <echo level="info"></echo>
+    </target>
+
+
+    <!-- ===========================================
+         private target clean-lib
+           cleans the project libraries directory
+           (dependencies)
+         =========================================== -->
+    <target name="-clean-lib">
+        <mkdir dir="${dir.lib}"/>
+        <mkdir dir="${dir.lib-src}"/>
+
+        <delete includeemptydirs="true">
+            <fileset dir="${dir.lib}" includes="**/*"/>
+            <fileset dir="${dir.lib-src}" includes="**/*"/>
+        </delete>
+    </target>
+
+
+    <!-- ===========================================
+         private target load-ivy
+         =========================================== -->
+    <target name="-load-ivy">
+        <!-- try to load ivy here from home ivy dir, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as ivy home lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the ivy home lib dir. -->
+        <path id="ivy.lib.path">
+            <fileset dir="./ant_lib" includes="ivy*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+        <ivy:configure override="true" />
+    </target>
+
+
+    <!-- *******************************************
+         target resolve-dependencies
+           resolves and retrieves dependencies
+           with ivy
+         ******************************************* -->
+    <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
+        depends="info, -clean-lib, -load-ivy">
+        <echo level="info">Resolving dependencies</echo>
+        <!-- first resolve the sources to have the jars resolved afterwards still in memory for further use -->
+        <ivy:resolve conf="sources" />
+        <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
+        <ivy:resolve conf="default, master, compile, provided, runtime, test, optional" />
+        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
+    </target>
+
+
+    <!-- ===========================================
+         private target clean-build
+           cleans the built project files
+         =========================================== -->
+    <target name="-clean-build">
+        <delete includeemptydirs="true" dir="${dir.build}"/>
+    </target>
+
+
+    <!-- ===========================================
+         private target compile
+           compiles the sources (not test sources)
+         =========================================== -->
+    <target name="-compile" depends="-clean-build">
+        <mkdir dir="${dir.build}"/>
+        <mkdir dir="${dir.build}/classes"/>
+
+        <!-- compile classes -->
+        <echo level="info">Compiling sources with Java target ${javac.target}</echo>
+
+        <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
+            target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+            </classpath>
+        </javac>
+
+        <!-- copy resources -->
+        <copy todir="${dir.build}/classes" preservelastmodified="yes">
+            <fileset dir="${dir.src}">
+                <patternset refid="resourcePattern" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <!-- ===========================================
+         private target compile-tests
+           compiles the test sources
+         =========================================== -->
+    <target name="-compile-tests" depends="-clean-build">
+        <mkdir dir="${dir.build}"/>
+        <mkdir dir="${dir.build}/test-classes"/>
+
+        <!-- compile classes -->
+        <echo level="info">Compiling test sources with Java target ${javac.target}</echo>
+
+        <javac srcdir="${dir.test-src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
+            target="${javac.target}" destdir="${dir.build}/test-classes" includeantruntime="false">
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+                <path path="${dir.build}/classes" />
+            </classpath>
+        </javac>
+
+        <!-- copy resources -->
+        <copy todir="${dir.build}/test-classes" preservelastmodified="yes">
+            <fileset dir="${dir.test-src}">
+                <patternset refid="resourcePattern" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <!-- ===========================================
+         private target start-xvfb
+           starts the virtual display
+         =========================================== -->
+    <target name="-start-xvfb" if="is-ci">
+        <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
+            <arg line=":${display} -ac -screen 0 1024x768x16" />
+        </exec>
+        <echo level="info">Started Xvfb display ${display}</echo>
+    </target>
+
+
+    <!-- ===========================================
+         private target run-tests
+           runs all tests
+         =========================================== -->
+    <target name="-run-tests" description="runs all tests"
+        depends="-compile, -compile-tests, -start-xvfb">
+        <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
+        <mkdir dir="${dir.deploy}/junit"/>
+
+        <echo level="info">Running tests (output: ${dir.deploy}/junit)</echo>
+        <path id="classpath-junit">
+            <pathelement location="${dir.build}/classes" />
+            <pathelement location="${dir.build}/test-classes" />
+
+            <fileset dir="${dir.lib}">
+                <patternset refid="libPattern" />
+            </fileset>
+        </path>
+
+        <!-- run tests to create xml report -->
+        <junit printsummary="withOutAndErr"
+            haltonfailure="no" failureproperty="unittestsfailed"
+            fork="yes" forkmode="once" dir="${basedir}">
+            <classpath refid="classpath-junit" />
+            <jvmarg value="-Duser.language=en" />
+            <env key="DISPLAY" value=":${display}" />
+
+            <batchtest todir="${dir.deploy}/junit">
+                <formatter type="xml" />
+                <fileset dir="${dir.build}/test-classes">
+                    <patternset refid="junitPattern" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+
+    <!-- ===========================================
+         private target load-checkstyle
+         =========================================== -->
+    <target name="-load-checkstyle" depends="-load-ivy">
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="5.6" type="jar"
+            pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
+        <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
+    </target>
+
+
+    <!-- ===========================================
+         private target load-findbugs
+         =========================================== -->
+    <target name="-load-findbugs" depends="-load-ivy">
+        <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
+        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
+            pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
+        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
+    </target>
+
+
+    <!-- ===========================================
+         private target load-pmd
+         =========================================== -->
+    <target name="-load-pmd" depends="-load-ivy">
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
+            pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
+        <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
+    </target>
+
+
+    <!-- ===========================================
+         private target gather-metrics
+           gathers all metrics
+         =========================================== -->
+    <target name="-gather-metrics" description="gathers all metrics"
+        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd">
+        <!-- run checkstyle -->
+        <echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
+        <delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
+        <mkdir dir="${dir.deploy}/checkstyle" />
+        <checkstyle config="${dir.test}/checkstyle/checkstyle.xml" failOnViolation="false">
+            <formatter type="xml" tofile="${dir.deploy}/checkstyle/checkstyle-report.xml"/>
+            <fileset dir="${dir.src}">
+                <patternset refid="checkstylePattern" />
+            </fileset>
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+                <path path="${dir.build}/classes" />
+            </classpath>
+        </checkstyle>
+
+        <!-- run findbugs -->
+        <echo level="info">Running Findbugs (output: ${dir.deploy}/findbugs)</echo>
+        <path id="findbugs-aux-classpath">
+            <fileset dir="${dir.lib}">
+                <patternset refid="libPattern" />
+            </fileset>
+        </path>
+
+        <delete dir="${dir.deploy}/findbugs" includeemptydirs="true" />
+        <mkdir dir="${dir.deploy}/findbugs" />
+        <findbugs jvmargs="-Xmx512m" output="xml:withMessages"
+            outputFile="${dir.deploy}/findbugs/findbugs-report.xml" timeout="1800000"
+            excludeFilter="${dir.test}/findbugs/exclude-filter.xml">
+            <classpath refid="taskdef-classpath-findbugs" />
+            <auxclasspath refid="findbugs-aux-classpath" />
+            <sourcePath path="${dir.src}" />
+            <class location="${dir.build}/classes" />
+        </findbugs>
+
+        <!-- run pmd -->
+        <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
+        <mkdir dir="${dir.deploy}/pmd" />
+        <pmd shortFilenames="true">
+            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
+            <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
+            <fileset dir="${dir.src}">
+                <patternset refid="pmdPattern" />
+            </fileset>
+        </pmd>
+        <cpd minimumTokenCount="100" outputFile="${dir.deploy}/pmd/cpd-report.xml" format="xml">
+            <fileset dir="${dir.src}">
+                <patternset refid="pmdPattern" />
+            </fileset>
+        </cpd>
+    </target>
+
+
+    <!-- ===========================================
+         private target check-build
+         =========================================== -->
+    <target name="-check-tests" if="unittestsfailed">
+        <fail message="Unit tests failing; build failed." />
+    </target>
+
+
+    <!-- ===========================================
+         private target load-onejar
+         =========================================== -->
+    <target name="-load-onejar">
+        <property name="one-jar.dist.dir" value="./dist"/>
+        <property name="one-jar.version" value="0.97"/>
+        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
+            <classpath id="one-jar-classpath">
+                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+
+    <!-- ===========================================
+         private target get-buildnumber-local
+         =========================================== -->
+    <target name="-get-buildnumber-local" unless="is-ci">
+        <propertyfile file="build.properties">
+            <entry key="application.buildnumber" type="int" default="42" operation="+"/>
+        </propertyfile>
+        <property file="build.properties"/>
+    </target>
+
+
+    <!-- ===========================================
+         private target get-buildnumber-ci
+         =========================================== -->
+    <target name="-get-buildnumber-ci" if="is-ci">
+        <property name="application.buildnumber" value="jenkins-${env.BUILD_NUMBER}"></property>
+    </target>
+
+
+    <!-- ===========================================
+         private target get-buildnumber
+         =========================================== -->
+    <target name="-get-buildnumber" depends="-get-buildnumber-local, -get-buildnumber-ci">
+    </target>
+
+
+    <!-- ===========================================
+         private target package-bundles
+           builds all Wetator release artifacts
+         =========================================== -->
+    <target name="-package-bundles" description="builds all Wetator release artifacts"
+        depends="-compile, -get-buildnumber, -load-onejar">
+        <tstamp>
+            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
+        </tstamp>
+
+        <echo level="info">Packaging bundles (output: ${dir.deploy})</echo>
+
+        <echo level="info">  Version: ${application.version}</echo>
+        <echo level="info">  Build:   ${application.buildnumber}</echo>
+
+        <delete file="${dir.build}/${application.jar-basename}.jar"/>
+        <jar destfile="${dir.build}/${application.jar-basename}.jar">
+            <fileset dir="${dir.build}/classes">
+                <include name="**/*.*"/>
+                <exclude name="wetator.config"/>
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="org.wetator.Wetator"/>
+                <section name="Application">
+                    <attribute name="Application-Name" value="${application.name}"/>
+                    <attribute name="Vendor" value="${application.vendor}"/>
+                    <attribute name="Version" value="${application.version}"/>
+                    <attribute name="Build" value="${application.buildnumber}"/>
+                    <attribute name="Date" value="${timestamp}"/>
+                </section>
+                <section name="Build">
+                    <attribute name="Java-Runtime" value="${java.runtime.name}" />
+                    <attribute name="Java-Version" value="${java.runtime.version}" />
+                    <attribute name="Java-Target" value="${javac.target}" />
+                    <attribute name="OS-Name" value="${os.name}"/>
+                    <attribute name="OS-Version" value="${os.version}"/>
+                </section>
+            </manifest>
+        </jar>
+
+        <delete file="${dir.build}/MANIFEST.MF"/>
+        <manifest file="${dir.build}/MANIFEST.MF">
+            <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
+            <attribute name="One-Jar-Main-Class" value="org.wetator.Wetator"/>
+        </manifest>
+
+        <!-- Construct the One-JAR file -->
+        <delete file="${dir.build}/${application.jar-basename}_all.jar"/>
+        <one-jar destfile="${dir.build}/${application.jar-basename}_all.jar" manifest="${dir.build}/MANIFEST.MF">
+            <main>
+                <fileset dir="${dir.build}/classes">
+                    <include name="**/*.*"/>
+                </fileset>
+            </main>
+            <lib>
+                <fileset dir="${dir.lib}">
+                    <include name="*.jar" />
+                    <patternset refid="runtime-libs" />
+                </fileset>
+            </lib>
+        </one-jar>
+
+        <echo file="${dir.build}/wetator.bat" append="false">@echo off
+
+REM ----------------------------
+REM Simple Wetator start script
+REM ----------------------------
+
+
+if "%JAVA_HOME%" == "" goto error
+
+rem add the jdbc drivers if needed
+rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path=ojdbc14.jar
+rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path="db2jcc.jar|db2jcc_license_cu.jar"
+
+rem start command for Wetator
+set CMD="%JAVA_HOME%\bin\java" %JAVA_OPTS% -jar ${application.jar-basename}_all.jar %*
+
+echo Starting Wetator
+
+ECHO %CMD%
+%CMD%
+
+
+goto end
+
+:error
+
+echo ERROR: JAVA_HOME not found in your environment.
+echo Please, set the JAVA_HOME variable in your environment to match the
+echo location of the Java Virtual Machine you want to use.
+
+:end
+</echo>
+
+        <mkdir dir="${dir.deploy}"/>
+
+        <!-- generate cmd-line distribution zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
+            <fileset dir="${dir.build}" >
+                <include name="wetator.bat" />
+                <include name="${application.jar-basename}_all.jar" />
+            </fileset>
+
+            <zipfileset dir="${dir.samples}" prefix="samples">
+                <include name="google_search/**" />
+                <exclude name="google_search/logs/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="xsl">
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="templates">
+                <include name="wetator.config" />
+            </zipfileset>
+        </zip>
+
+        <!-- generate ant distribution zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip">
+            <zipfileset dir="${dir.build}" prefix="lib" >
+                <include name="${application.jar-basename}.jar" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="lib">
+                <include name="*.jar" />
+                <patternset refid="runtime-libs" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}/ant" prefix="templates">
+                <include name="build.xml" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}" prefix="samples">
+                <include name="google_search/**" />
+                <exclude name="google_search/logs/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="xsl">
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="templates">
+                <include name="wetator.config" />
+            </zipfileset>
+        </zip>
+
+        <!-- generate pom -->
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
+            artifactpackaging="jar">
+            <mapping conf="default" scope="compile" />
+            <mapping conf="compile" scope="compile" />
+            <mapping conf="provided" scope="provided" />
+            <mapping conf="runtime" scope="runtime" />
+            <mapping conf="test" scope="test" />
+        </ivy:makepom>
+
+        <!-- generate sources jar -->
+        <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
+            <fileset dir="." >
+                <include name=".checkstyle" />
+                <include name=".classpath" />
+                <include name=".project" />
+                <include name="build.xml" />
+                <include name="build-properties.xml" />
+                <include name="build-patternset.xml" />
+                <include name="build.properties" />
+                <include name="ivy.xml" />
+                <include name="ivysettings.xml" />
+                <include name="LICENSE.txt" />
+                <include name="pom.template.xml" />
+                <include name="readme.txt" />
+            </fileset>
+
+            <zipfileset dir="${dir.ant-lib}" prefix="${dir.ant-lib}">
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="${dir.lib}">
+                <exclude name="**/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}" prefix="${dir.samples}">
+                <exclude name="**/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="${dir.src}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.test}" prefix="${dir.test}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="${dir.xsl}">
+                <include name="**/**.png" />
+                <include name="**/**.xsl" />
+            </zipfileset>
+        </zip>
+
+        <copy file="${dir.build}/${application.jar-basename}-sources.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-sources.jar"/>
+    </target>
+
+
+    <!-- ===========================================
+         private target publish-local
+           publishes the Wetator release artifacts
+           to the local Maven repository
+         =========================================== -->
+    <target name="-publish-local" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the local Maven repository">
+        <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
+        </ivy:publish>
+    </target>
+
+
+    <!-- ===========================================
+         private target publish-SonatypeSnapshots
+           publishes the Wetator release artifacts
+           to the Sonatype snapshots repository
+         =========================================== -->
+    <target name="-publish-sonatype-snapshots" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the Sonatype snapshots repository">
+        <ivy:publish resolver="SonatypeSnapshots-publish" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
+        </ivy:publish>
+    </target>
+
+
+    <!-- ******************************************* -->
+    <!-- target test-release                         -->
+    <!-- ******************************************* -->
+    <target name="test-release" description="test the wetator release artefacts" >
+        <echo level="info">Testing version: ${application.version}</echo>
+        <echo></echo>
+
+        <!-- new dir for the tests -->
+        <delete dir="${dir.build}/test-release" />
+        <mkdir dir="${dir.build}/test-release" />
+
+        <!-- test the application -->
+        <unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
+
+        <exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
+            <arg value="/c"/>
+            <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
+            <arg value="google.xls"/>
+        </exec>
+
+        <!-- test the ant task -->
+        <unzip src="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip" dest="${dir.build}/test-release/ant" />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+            todir="${basedir}/${dir.build}/test-release/ant"
+        />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
+            todir="${basedir}/${dir.build}/test-release/ant"
+        />
+
+        <echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Wetator Ant Test" basedir="${basedir}/${dir.build}/test-release/ant" default="run_wetator">
+  <path id="wetator-classpath">
+    <fileset dir="./lib" includes="**/**.jar"/>
+  </path>
+  <taskdef name="wetator" classname="org.wetator.ant.Wetator" classpathref="wetator-classpath" />
+
+  <target name="run_wetator">
+    <wetator config="wetator.config">
+      <fileset dir="." >
+        <include name="*.xls"/>
+      </fileset>
+    </wetator>
+  </target>
+</project>
+]]>
+</echo>
+
+        <exec executable="cmd">
+            <arg value="/c" />
+            <arg value="%ANT_HOME%\bin\ant.bat" />
+            <arg value="-buildfile" />
+            <arg value="${dir.build}/test-release/ant/build.xml" />
+        </exec>
+    </target>
+
+
+    <!-- *******************************************
+         target report
+           generates a report of the dependencies
+         ******************************************* -->
+    <target name="report-dependencies" description="generates a report of the dependencies"
+        depends="info, resolve-dependencies, -load-ivy">
+        <echo level="info">Creating dependency report (output: ${dir.deploy}/ivy-report)</echo>
+        <delete dir="${dir.deploy}/ivy-report" />
+        <mkdir dir="${dir.deploy}/ivy-report" />
+        <ivy:report todir="${dir.deploy}/ivy-report" />
+    </target>
+
+
+    <!-- *******************************************
+         target zip-curret-libs
+           bundles the current libs as zip
+         ******************************************* -->
+    <target name="zip-current-libs" description="bundles the current libs as zip"
+        depends="info">
+        <zip destfile="${dir.deploy}/current-libs.zip">
+            <zipfileset dir="${dir.lib}" prefix="lib" />
+            <zipfileset dir="${dir.lib-src}" prefix="lib_src" />
+        </zip>
+    </target>
+
+
+    <!-- *******************************************
+         target clean
+           cleans the project
+         ******************************************* -->
+    <target name="clean" depends="info, -clean-build, -clean-lib" description="cleans the project" />
+
+
+    <!-- *******************************************
+         target clean-cache
+           cleans the ivy cache
+         ******************************************* -->
+    <target name="clean-cache" depends="-load-ivy" description="cleans the ivy cache">
+        <ivy:cleancache />
+    </target>
+
+</project>

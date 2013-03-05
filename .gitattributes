@@ -916,7 +916,15 @@ Wetator/xsl/images/response.png -text
 Wetator/xsl/images/top.png -text
 Wetator/xsl/images/wetator.png -text
 Wetator/xsl/run_report.xsl -text svneol=unset#text/plain
+wetator-ant-task/LICENSE.txt -text
 wetator-ant-task/ant_lib/ivy-2.3.0.jar -text
+wetator-ant-task/build-patternset.xml -text
+wetator-ant-task/build-properties.xml -text
+wetator-ant-task/build.properties -text
+wetator-ant-task/build.xml -text
+wetator-ant-task/ivy.xml -text
+wetator-ant-task/ivysettings.xml -text
+wetator-ant-task/pom.template.xml -text
 wetator-jenkins-plugin/.classpath -text svneol=unset#text/plain
 wetator-jenkins-plugin/.project -text svneol=unset#text/plain
 wetator-jenkins-plugin/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
