@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="false">
+  <local-check-config name="wetator" location="test/checkstyle/checkstyle.xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <local-check-config name="wetator-test" location="test/checkstyle/test-checkstyle.xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <fileset name="src" enabled="true" check-config-name="wetator" local="true">
+    <file-match-pattern match-pattern="^src/.*\.java" include-pattern="true"/>
+  </fileset>
+  <fileset name="test/java" enabled="true" check-config-name="wetator-test" local="true">
+    <file-match-pattern match-pattern="^test/java/.*\.java" include-pattern="true"/>
+  </fileset>
+</fileset-config>
