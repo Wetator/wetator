@@ -446,20 +446,6 @@
 
 
     <!-- ===========================================
-         private target load-onejar
-         =========================================== -->
-    <target name="-load-onejar">
-        <property name="one-jar.dist.dir" value="./dist"/>
-        <property name="one-jar.version" value="0.97"/>
-        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
-            <classpath id="one-jar-classpath">
-                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
-            </classpath>
-        </taskdef>
-    </target>
-
-
-    <!-- ===========================================
          private target get-buildnumber-local
          =========================================== -->
     <target name="-get-buildnumber-local" unless="is-ci">
@@ -486,11 +472,25 @@
 
 
     <!-- ===========================================
+         private target load-onejar
+         =========================================== -->
+    <target name="-load-onejar">
+        <property name="one-jar.dist.dir" value="./dist"/>
+        <property name="one-jar.version" value="0.97"/>
+        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
+            <classpath id="one-jar-classpath">
+                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+
+    <!-- ===========================================
          private target package-bundles
            builds all release artifacts
          =========================================== -->
     <target name="-package-bundles" description="builds all release artifacts"
-        depends="-compile, -get-buildnumber, -load-onejar, -load-ivy">
+        depends="-compile, -get-buildnumber, -load-ivy, -load-onejar">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
@@ -500,6 +500,9 @@
         <echo level="info">  Version: ${application.version}</echo>
         <echo level="info">  Build:   ${application.buildnumber}</echo>
 
+        <mkdir dir="${dir.deploy}"/>
+
+        <!-- generate jar -->
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
             <fileset dir="${dir.build}/classes">
@@ -525,13 +528,67 @@
             </manifest>
         </jar>
 
+        <!-- generate sources jar -->
+        <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
+            <fileset dir="." >
+                <include name=".checkstyle" />
+                <include name=".classpath" />
+                <include name=".project" />
+                <include name="build.xml" />
+                <include name="build-properties.xml" />
+                <include name="build-patternset.xml" />
+                <include name="build.properties" />
+                <include name="ivy.xml" />
+                <include name="ivysettings.xml" />
+                <include name="LICENSE.txt" />
+                <include name="pom.template.xml" />
+                <include name="readme.txt" />
+            </fileset>
+
+            <zipfileset dir="${dir.ant-lib}" prefix="${dir.ant-lib}">
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="${dir.lib}">
+                <exclude name="**/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}" prefix="${dir.samples}">
+                <exclude name="**/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="${dir.src}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.test}" prefix="${dir.test}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="${dir.xsl}">
+                <include name="**/**.png" />
+                <include name="**/**.xsl" />
+            </zipfileset>
+        </zip>
+        <copy file="${dir.build}/${application.jar-basename}-sources.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-sources.jar"/>
+
+        <!-- generate pom -->
+        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
+            artifactpackaging="jar">
+            <mapping conf="default" scope="compile" />
+            <mapping conf="compile" scope="compile" />
+            <mapping conf="provided" scope="provided" />
+            <mapping conf="runtime" scope="runtime" />
+            <mapping conf="test" scope="test" />
+        </ivy:makepom>
+
+        <!-- generate one-jar jar -->
         <delete file="${dir.build}/MANIFEST.MF"/>
         <manifest file="${dir.build}/MANIFEST.MF">
             <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
             <attribute name="One-Jar-Main-Class" value="org.wetator.Wetator"/>
         </manifest>
-
-        <!-- Construct the One-JAR file -->
         <delete file="${dir.build}/${application.jar-basename}_all.jar"/>
         <one-jar destfile="${dir.build}/${application.jar-basename}_all.jar" manifest="${dir.build}/MANIFEST.MF">
             <main>
@@ -546,6 +603,7 @@
             </lib>
         </one-jar>
 
+        <!-- generate cmd-line distribution zip -->
         <echo file="${dir.build}/wetator.bat" append="false">@echo off
 
 REM ----------------------------
@@ -579,9 +637,6 @@ echo location of the Java Virtual Machine you want to use.
 :end
 </echo>
 
-        <mkdir dir="${dir.deploy}"/>
-
-        <!-- generate cmd-line distribution zip -->
         <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
             <fileset dir="${dir.build}" >
                 <include name="wetator.bat" />
@@ -627,62 +682,6 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="wetator.config" />
             </zipfileset>
         </zip>
-
-        <!-- generate pom -->
-        <ivy:makepom ivyfile="ivy.xml" pomfile="${dir.build}/${application.jar-basename}.pom" templatefile="pom.template.xml"
-            artifactpackaging="jar">
-            <mapping conf="default" scope="compile" />
-            <mapping conf="compile" scope="compile" />
-            <mapping conf="provided" scope="provided" />
-            <mapping conf="runtime" scope="runtime" />
-            <mapping conf="test" scope="test" />
-        </ivy:makepom>
-
-        <!-- generate sources jar -->
-        <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
-            <fileset dir="." >
-                <include name=".checkstyle" />
-                <include name=".classpath" />
-                <include name=".project" />
-                <include name="build.xml" />
-                <include name="build-properties.xml" />
-                <include name="build-patternset.xml" />
-                <include name="build.properties" />
-                <include name="ivy.xml" />
-                <include name="ivysettings.xml" />
-                <include name="LICENSE.txt" />
-                <include name="pom.template.xml" />
-                <include name="readme.txt" />
-            </fileset>
-
-            <zipfileset dir="${dir.ant-lib}" prefix="${dir.ant-lib}">
-            </zipfileset>
-
-            <zipfileset dir="${dir.lib}" prefix="${dir.lib}">
-                <exclude name="**/**" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.samples}" prefix="${dir.samples}">
-                <exclude name="**/**" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.src}" prefix="${dir.src}">
-                <exclude name="**/jdoc/**" />
-                <exclude name="**/*.jpage*" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.test}" prefix="${dir.test}">
-                <exclude name="**/jdoc/**" />
-                <exclude name="**/*.jpage*" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.xsl}" prefix="${dir.xsl}">
-                <include name="**/**.png" />
-                <include name="**/**.xsl" />
-            </zipfileset>
-        </zip>
-
-        <copy file="${dir.build}/${application.jar-basename}-sources.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-sources.jar"/>
     </target>
 
 
