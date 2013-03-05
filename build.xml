@@ -143,11 +143,8 @@
     <!-- *******************************************
          target /noresolve
            use to skip resolving dependencies
-           (as gathering metrics nees resolution it
-           is also disabled)
          ******************************************* -->
     <target name="/noresolve" description="use to skip resolving dependencies">
-<!--    	depends="/nometrics">-->
         <property name="skip.resolve" value="true" />
     </target>
 
@@ -490,9 +487,9 @@
 
     <!-- ===========================================
          private target package-bundles
-           builds all Wetator release artifacts
+           builds all release artifacts
          =========================================== -->
-    <target name="-package-bundles" description="builds all Wetator release artifacts"
+    <target name="-package-bundles" description="builds all release artifacts"
         depends="-compile, -get-buildnumber, -load-onejar, -load-ivy">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
@@ -691,8 +688,8 @@ echo location of the Java Virtual Machine you want to use.
 
     <!-- ===========================================
          private target publish-local
-           publishes the Wetator release artifacts
-           to the local Maven repository
+           publishes the release artifacts to the
+           local Maven repository
          =========================================== -->
     <target name="-publish-local" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the local Maven repository">
         <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
@@ -703,9 +700,9 @@ echo location of the Java Virtual Machine you want to use.
 
 
     <!-- ===========================================
-         private target publish-SonatypeSnapshots
-           publishes the Wetator release artifacts
-           to the Sonatype snapshots repository
+         private target publish-sonatype-snapshots
+           publishes the release artifacts to the
+           Sonatype snapshots repository
          =========================================== -->
     <target name="-publish-sonatype-snapshots" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the Sonatype snapshots repository">
         <ivy:publish resolver="SonatypeSnapshots-publish" forcedeliver="true" overwrite="true" publishivy="false"
@@ -782,7 +779,7 @@ echo location of the Java Virtual Machine you want to use.
 
 
     <!-- *******************************************
-         target report
+         target report-dependencies
            generates a report of the dependencies
          ******************************************* -->
     <target name="report-dependencies" description="generates a report of the dependencies"
