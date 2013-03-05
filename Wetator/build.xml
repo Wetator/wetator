@@ -22,6 +22,7 @@
     publish-local:              info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
     package:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
     package-no-tests:           info -> resolve-dependencies -> compile -> package-bundles
+    package-only:               info -> compile -> package-bundles
     metrics:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics
     metrics-only:               info -> compile -> gather-metrics
     tests:                      info -> resolve-dependencies -> compile -> compile-tests -> run-tests
@@ -41,7 +42,7 @@
            -> publish-sonatype-snapshots
          ******************************************* -->
     <target name="publish-sonatype-snapshots" description="executes the complete build cycle until publishing to the Sonatype snapshot repository"
-        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-snapshots">
+        depends="info, resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-snapshots">
     </target>
 
 
@@ -55,7 +56,7 @@
            -> publish-local
          ******************************************* -->
     <target name="publish-local" description="executes the complete build cycle until publishing to the local repository"
-        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local">
+        depends="info, resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local">
     </target>
 
 
@@ -68,7 +69,7 @@
            -> gather-metrics -> package-bundles
          ******************************************* -->
     <target name="package" description="executes the complete build cycle until packaging the bundles"
-        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles">
+        depends="info, resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles">
     </target>
 
 
@@ -80,7 +81,16 @@
            -> package-bundles
          ******************************************* -->
     <target name="package-no-tests" description="executes the build cycle until packaging the bundles without the tests"
-        depends="resolve-dependencies, -package-bundles">
+        depends="/notests, /nometrics, package">
+    </target>
+
+
+    <!-- *******************************************
+         target package-only
+           only packages the bundles
+         ******************************************* -->
+    <target name="package-only" description="only packages the bundles"
+        depends="/noresolve, /notests, /nometrics, package">
     </target>
 
 
@@ -93,7 +103,7 @@
            -> gather-metrics
          ******************************************* -->
     <target name="metrics" description="executes the complete build cycle until gathering the metrics"
-        depends="resolve-dependencies, -run-tests, -gather-metrics, -check-tests">
+        depends="info, resolve-dependencies, -run-tests, -gather-metrics, -check-tests">
     </target>
 
 
@@ -103,7 +113,7 @@
            info -> compile -> gather-metrics
          ******************************************* -->
     <target name="metrics-only" description="only gathers the metrics"
-        depends="info, -gather-metrics">
+        depends="/noresolve, /notests, metrics">
     </target>
 
 
@@ -115,7 +125,7 @@
            -> compile-tests -> run-tests
          ******************************************* -->
     <target name="tests" description="executes the complete build cycle until running the tests"
-        depends="resolve-dependencies, -run-tests, -check-tests">
+        depends="info, resolve-dependencies, -run-tests, -check-tests">
     </target>
 
 
@@ -126,7 +136,37 @@
            -> compile-tests -> run-tests
          ******************************************* -->
     <target name="tests-only" description="runs the tests only"
-        depends="info, -run-tests, -check-tests">
+        depends="/noresolve, tests">
+    </target>
+
+
+    <!-- *******************************************
+         target /noresolve
+           use to skip resolving dependencies
+           (as gathering metrics nees resolution it
+           is also disabled)
+         ******************************************* -->
+    <target name="/noresolve" description="use to skip resolving dependencies">
+<!--    	depends="/nometrics">-->
+        <property name="skip.resolve" value="true" />
+    </target>
+
+
+    <!-- *******************************************
+         target /notests
+           use to skip running tests
+         ******************************************* -->
+    <target name="/notests" description="use to skip running tests">
+        <property name="skip.tests" value="true" />
+    </target>
+
+
+    <!-- *******************************************
+         target /nometrics
+           use to skip gathering metrics
+         ******************************************* -->
+    <target name="/nometrics" description="use to skip gathering metrics">
+        <property name="skip.metrics" value="true" />
     </target>
 
 
@@ -148,7 +188,7 @@
            cleans the project libraries directory
            (dependencies)
          =========================================== -->
-    <target name="-clean-lib">
+    <target name="-clean-lib" unless="skip.resolve">
         <mkdir dir="${dir.lib}"/>
         <mkdir dir="${dir.lib-src}"/>
 
@@ -181,7 +221,7 @@
            with ivy
          ******************************************* -->
     <target name="resolve-dependencies" description="resolves and retrieves dependencies with ivy"
-        depends="info, -clean-lib, -load-ivy">
+        depends="info, -clean-lib, -load-ivy" unless="skip.resolve">
         <echo level="info">Resolving dependencies</echo>
         <!-- first resolve the sources to have the jars resolved afterwards still in memory for further use -->
         <ivy:resolve conf="sources" />
@@ -233,7 +273,7 @@
          private target compile-tests
            compiles the test sources
          =========================================== -->
-    <target name="-compile-tests" depends="-clean-build">
+    <target name="-compile-tests" depends="-clean-build" unless="skip.tests">
         <mkdir dir="${dir.build}"/>
         <mkdir dir="${dir.build}/test-classes"/>
 
@@ -276,7 +316,7 @@
            runs all tests
          =========================================== -->
     <target name="-run-tests" description="runs all tests"
-        depends="-compile, -compile-tests, -start-xvfb">
+        depends="-compile, -compile-tests, -start-xvfb" unless="skip.tests">
         <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
         <mkdir dir="${dir.deploy}/junit"/>
 
@@ -311,7 +351,7 @@
     <!-- ===========================================
          private target load-checkstyle
          =========================================== -->
-    <target name="-load-checkstyle" depends="-load-ivy">
+    <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
         <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="5.6" type="jar"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
@@ -321,7 +361,7 @@
     <!-- ===========================================
          private target load-findbugs
          =========================================== -->
-    <target name="-load-findbugs" depends="-load-ivy">
+    <target name="-load-findbugs" depends="-load-ivy" unless="skip.metrics">
         <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
         <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
             pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
@@ -332,7 +372,7 @@
     <!-- ===========================================
          private target load-pmd
          =========================================== -->
-    <target name="-load-pmd" depends="-load-ivy">
+    <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
         <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
@@ -345,7 +385,7 @@
            gathers all metrics
          =========================================== -->
     <target name="-gather-metrics" description="gathers all metrics"
-        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd">
+        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd" unless="skip.metrics">
         <!-- run checkstyle -->
         <echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
         <delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
@@ -453,7 +493,7 @@
            builds all Wetator release artifacts
          =========================================== -->
     <target name="-package-bundles" description="builds all Wetator release artifacts"
-        depends="-compile, -get-buildnumber, -load-onejar">
+        depends="-compile, -get-buildnumber, -load-onejar, -load-ivy">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
@@ -748,7 +788,7 @@ echo location of the Java Virtual Machine you want to use.
            generates a report of the dependencies
          ******************************************* -->
     <target name="report-dependencies" description="generates a report of the dependencies"
-        depends="info, resolve-dependencies, -load-ivy">
+        depends="info, resolve-dependencies, -load-ivy" unless="skip.resolve">
         <echo level="info">Creating dependency report (output: ${dir.deploy}/ivy-report)</echo>
         <delete dir="${dir.deploy}/ivy-report" />
         <mkdir dir="${dir.deploy}/ivy-report" />
