@@ -739,41 +739,6 @@ echo location of the Java Virtual Machine you want to use.
             <arg value="google.xls"/>
         </exec>
 
-        <!-- test the ant task -->
-        <unzip src="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip" dest="${dir.build}/test-release/ant" />
-        <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
-            todir="${basedir}/${dir.build}/test-release/ant"
-        />
-        <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
-            todir="${basedir}/${dir.build}/test-release/ant"
-        />
-
-        <echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Wetator Ant Test" basedir="${basedir}/${dir.build}/test-release/ant" default="run_wetator">
-  <path id="wetator-classpath">
-    <fileset dir="./lib" includes="**/**.jar"/>
-  </path>
-  <taskdef name="wetator" classname="org.wetator.ant.Wetator" classpathref="wetator-classpath" />
-
-  <target name="run_wetator">
-    <wetator config="wetator.config">
-      <fileset dir="." >
-        <include name="*.xls"/>
-      </fileset>
-    </wetator>
-  </target>
-</project>
-]]>
-</echo>
-
-        <exec executable="cmd">
-            <arg value="/c" />
-            <arg value="%ANT_HOME%\bin\ant.bat" />
-            <arg value="-buildfile" />
-            <arg value="${dir.build}/test-release/ant/build.xml" />
-        </exec>
     </target>
 
 
