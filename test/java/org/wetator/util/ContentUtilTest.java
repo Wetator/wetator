@@ -16,6 +16,7 @@
 
 package org.wetator.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,7 +27,6 @@ import java.util.Locale;
 import javax.swing.text.BadLocationException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.tools.ant.filters.StringInputStream;
 import org.junit.Test;
 
 /**
@@ -153,7 +153,7 @@ public class ContentUtilTest {
     for (int i = 0; i < 44; i++) {
       tmpWriter.append("0123456789");
     }
-    tmpInput = new StringInputStream(tmpWriter.toString());
+    tmpInput = new ByteArrayInputStream(tmpWriter.toString().getBytes("UTF-8"));
     tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8");
     org.junit.Assert.assertEquals(440, tmpContent.length());
     org.junit.Assert.assertTrue(tmpContent, tmpContent.startsWith("0123456789"));
