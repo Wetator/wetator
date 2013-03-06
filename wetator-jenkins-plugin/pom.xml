@@ -1,48 +1,64 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2008-2013 wetator.org
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.415</version><!-- which version of Jenkins is this plugin
-            built against? -->
+        <version>1.415</version><!-- which version of Jenkins is this plugin built against? -->
     </parent>
 
-    <name>Wetator Report Plug-in</name>
     <groupId>org.wetator</groupId>
     <artifactId>wetator-jenkins-plugin</artifactId>
     <version>0.5-SNAPSHOT</version>
     <packaging>hpi</packaging>
-
+    <name>Wetator Report Plug-in</name>
     <url>http://www.wetator.org</url>
-    <issueManagement>
-        <system>Trac</system>
-        <url>https://www2.hosted-projects.com/trac/rbri/wetator/report</url>
-    </issueManagement>
+    <description>Smart web application testing</description>
     <inceptionYear>2008</inceptionYear>
-    <developers>
-        <developer>
-            <id>frank.danek</id>
-            <name>Frank Danek</name>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</connection>
-        <developerConnection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</developerConnection>
-        <url>https://svn2.hosted-projects.com/rbri/wetator/trunk/wetator-jenkins-plugin</url>
-    </scm>
-    <distributionManagement>
-        <!-- Publish the versioned releases here -->
-        <repository>
-            <id>local</id>
-            <name>Local folder</name>
-            <url>file://${project.basedir}/../../deploy</url>
-        </repository>
-    </distributionManagement>
     <organization>
         <name>wetator.org</name>
         <url>http://www.wetator.org</url>
     </organization>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <scm>
+        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator-jenkins-plugin</connection>
+        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/wetator-jenkins-plugin</developerConnection>
+        <url>http://wetator.repositoryhosting.com/svn_public/wetator_wetator</url>
+    </scm>
+    <issueManagement>
+        <system>trac</system>
+        <url>https://wetator.repositoryhosting.com/trac/wetator_wetator/report/1</url>
+    </issueManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://wetator.ci.cloudbees.com/job/wetator-jenkins-plugin/</url>
+    </ciManagement>
+    <distributionManagement>
+        <!-- Publish the versioned releases here -->
+        <repository>
+            <id>local-folder</id>
+            <name>Local folder</name>
+            <url>file://${project.basedir}/../../deploy</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -72,22 +88,22 @@
                 </dependencies>
             </plugin>
             <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>build-helper-maven-plugin</artifactId>
-              <executions>
-                <execution>
-                  <id>add-eclipse-sources</id>
-                  <phase>generate-sources</phase>
-                  <goals>
-                      <goal>add-source</goal>
-                  </goals>
-                  <configuration>
-                  <sources>
-                      <source>${basedir}/target/generated-sources/localizer</source>
-                  </sources>
-               </configuration>
-              </execution>
-              </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-eclipse-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/target/generated-sources/localizer</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -244,7 +260,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

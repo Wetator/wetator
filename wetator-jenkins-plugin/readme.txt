@@ -2,7 +2,7 @@ HOW TO SETUP THE IDE
 
 Currently we use
     Eclipse 3.7.2 (Indigo)
-    Eclipse Checkstyle Plugin 5.5.0
+    Eclipse Checkstyle Plugin 5.6.0
     Maven 3.0.4
 with optionally
 	Eclipse m2e Plugin 1.0

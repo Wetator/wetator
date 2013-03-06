@@ -1,5 +1,5 @@
 /*
- * Copyright (c) wetator.org
+ * Copyright (c) 2008-2013 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class ResultWithPathTest extends AbstractPluginTest {
     HtmlPage tmpReportPage = webClient.getPage(tmpProject, tmpBuild.getNumber() + "/wetatorReport");
     assertReportPage(0, 1, tmpReportPage);
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 0, "forJenkinsPlugin\\pathOk.wet", "0 ±0 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 0, "forJenkinsPlugin\\pathOk.wet", "0 Â±0 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("forJenkinsPlugin\\pathOk.wet").click();
     assertTestPage("forJenkinsPlugin\\pathOk.wet",
@@ -67,7 +67,7 @@ public class ResultWithPathTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "forJenkinsPlugin\\pathFailure.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "forJenkinsPlugin\\pathFailure.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "forJenkinsPlugin\\pathFailure.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("forJenkinsPlugin\\pathFailure.wet").click();
     assertTestPage("forJenkinsPlugin\\pathFailure.wet",
@@ -96,7 +96,7 @@ public class ResultWithPathTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "forJenkinsPlugin\\pathError.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "forJenkinsPlugin\\pathError.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "forJenkinsPlugin\\pathError.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("forJenkinsPlugin\\pathError.wet").click();
     assertTestPage("forJenkinsPlugin\\pathError.wet",

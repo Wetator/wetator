@@ -1,5 +1,5 @@
 /*
- * Copyright (c) wetator.org
+ * Copyright (c) 2008-2013 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class ResultWithModuleTest extends AbstractPluginTest {
     HtmlPage tmpReportPage = webClient.getPage(tmpProject, tmpBuild.getNumber() + "/wetatorReport");
     assertReportPage(0, 1, tmpReportPage);
     // all tests table: all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 0, "moduleOk.wet", "0 ±0 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 0, "moduleOk.wet", "0 Â±0 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("moduleOk.wet").click();
     assertTestPage("moduleOk.wet", "E:\\Java\\workspaces\\wetator\\wetator\\test\\forJenkinsPlugin\\moduleOk.wet",
@@ -66,7 +66,7 @@ public class ResultWithModuleTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "moduleFailure.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "moduleFailure.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "moduleFailure.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("moduleFailure.wet").click();
     assertTestPage("moduleFailure.wet",
@@ -95,7 +95,7 @@ public class ResultWithModuleTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "moduleError.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "moduleError.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "moduleError.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("moduleError.wet").click();
     assertTestPage("moduleError.wet",
@@ -122,7 +122,7 @@ public class ResultWithModuleTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "moduleNotFound.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "moduleNotFound.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "moduleNotFound.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("moduleNotFound.wet").click();
     assertTestPage("moduleNotFound.wet",

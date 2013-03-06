@@ -1,5 +1,5 @@
 /*
- * Copyright (c) wetator.org
+ * Copyright (c) 2008-2013 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class ResultTest extends AbstractPluginTest {
     HtmlPage tmpReportPage = webClient.getPage(tmpProject, tmpBuild.getNumber() + "/wetatorReport");
     assertReportPage(0, 1, tmpReportPage);
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 0, "ok.wet", "0 ±0 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 0, "ok.wet", "0 Â±0 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("ok.wet").click();
     assertTestPage("ok.wet", "E:\\Java\\workspaces\\wetator\\wetator\\test\\forJenkinsPlugin\\ok.wet", tmpTestPage);
@@ -65,7 +65,7 @@ public class ResultTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "failure.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "failure.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "failure.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("failure.wet").click();
     assertTestPage("failure.wet", "E:\\Java\\workspaces\\wetator\\wetator\\test\\forJenkinsPlugin\\failure.wet",
@@ -94,7 +94,7 @@ public class ResultTest extends AbstractPluginTest {
     // failed tests table
     assertPaneTableRowContains(tmpReportPage, 0, 0, "error.wet[Firefox3.6]");
     // all tests table: fail, skip, total
-    assertPaneTableRowContains(tmpReportPage, 1, 0, "error.wet", "1 +1 0 ±0 1 +1");
+    assertPaneTableRowContains(tmpReportPage, 1, 0, "error.wet", "1 +1 0 Â±0 1 +1");
 
     HtmlPage tmpTestPage = tmpReportPage.getAnchorByText("error.wet").click();
     assertTestPage("error.wet", "E:\\Java\\workspaces\\wetator\\wetator\\test\\forJenkinsPlugin\\error.wet",
