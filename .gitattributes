@@ -32,8 +32,6 @@ Wetator/src/org/wetator/Messages.properties -text
 Wetator/src/org/wetator/Version.java -text
 Wetator/src/org/wetator/Wetator.java -text
 Wetator/src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
-Wetator/src/org/wetator/ant/AntOutProgressListener.java -text
-Wetator/src/org/wetator/ant/Wetator.java -text
 Wetator/src/org/wetator/backend/IBrowser.java -text
 Wetator/src/org/wetator/backend/IControlFinder.java -text
 Wetator/src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
