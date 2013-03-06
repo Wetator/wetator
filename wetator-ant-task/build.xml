@@ -633,31 +633,14 @@
         <delete dir="${dir.build}/test-release" />
         <mkdir dir="${dir.build}/test-release" />
 
-        <!-- test the application -->
-        <unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
-        <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
-            todir="${basedir}/${dir.build}/test-release/app"
-        />
-        <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
-            todir="${basedir}/${dir.build}/test-release/app"
-        />
-
-        <exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
-            <arg value="/c"/>
-            <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
-            <arg value="google.xls"/>
-        </exec>
-
         <!-- test the ant task -->
-        <unzip src="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip" dest="${dir.build}/test-release/ant" />
+        <unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/ant" />
         <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+            file="${basedir}/${dir.build}/test-release/ant/samples/google_search/wetator.config"
             todir="${basedir}/${dir.build}/test-release/ant"
         />
         <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
+            file="${basedir}/${dir.build}/test-release/ant/samples/google_search/google.xls"
             todir="${basedir}/${dir.build}/test-release/ant"
         />
 
@@ -679,9 +662,10 @@
 ]]>
 </echo>
 
+        <fail unless="env.ANT_HOME" message="ANT_HOME not set. Please install ant and set ANT_HOME."/>
         <exec executable="cmd">
             <arg value="/c" />
-            <arg value="%ANT_HOME%\bin\ant.bat" />
+            <arg value="${env.ANT_HOME}\bin\ant.bat" />
             <arg value="-buildfile" />
             <arg value="${dir.build}/test-release/ant/build.xml" />
         </exec>
