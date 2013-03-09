@@ -16,15 +16,15 @@
 
 package org.wetator.scripter;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
@@ -106,96 +106,89 @@ public final class WikiTextScripter implements IScripter {
   private List<Command> readCommands() throws InvalidInputException {
     final List<Command> tmpResult = new LinkedList<Command>();
 
-    BufferedReader tmpReader = null;
     try {
-      tmpReader = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+      final LineIterator tmpLines = FileUtils.lineIterator(file.getAbsoluteFile(), "UTF-8");
+      try {
+        int tmpLineNo = 0;
+        while (tmpLines.hasNext()) {
+          tmpLineNo++;
+          String tmpLine = tmpLines.next().trim();
 
-      int tmpLineNo = 0;
-      String tmpLine;
-      while (null != (tmpLine = tmpReader.readLine())) {
-        tmpLineNo++;
-        tmpLine = tmpLine.trim();
-
-        // ignore blank lines
-        if (StringUtils.isBlank(tmpLine)) {
-          continue;
-        }
-
-        boolean tmpComment = false;
-        if (tmpLine.startsWith(COMMENT_LINE)) {
-          tmpComment = true;
-          tmpLine = tmpLine.substring(1);
-        } else if (tmpLine.startsWith(COMMENT_LINE2)) {
-          tmpComment = true;
-          tmpLine = tmpLine.substring(2);
-        }
-
-        final String[] tmpParts = StringUtils.splitByWholeSeparator(tmpLine, SEPARATOR);
-
-        String tmpCommandName = "";
-        if (tmpParts.length > COMMAND_NAME_COLUMN_NO) {
-          tmpCommandName = tmpParts[COMMAND_NAME_COLUMN_NO];
-          tmpCommandName = tmpCommandName.trim();
-        }
-        // normalize command name
-        if (StringUtils.isNotEmpty(tmpCommandName) && !(tmpComment && tmpParts.length < 2)) {
-          tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
-        }
-        tmpCommandName = new NormalizedString(tmpCommandName).toString();
-
-        // empty command means comment
-        if (tmpComment && StringUtils.isEmpty(tmpCommandName)) {
-          tmpCommandName = "Comment";
-        }
-
-        if (!StringUtils.isEmpty(tmpCommandName)) {
-          final Command tmpCommand = new Command(tmpCommandName, tmpComment);
-
-          String tmpParameter = null;
-          if (tmpParts.length > FIRST_PARAM_COLUMN_NO) {
-            tmpParameter = tmpParts[FIRST_PARAM_COLUMN_NO];
-            tmpParameter = tmpParameter.trim();
-          }
-          if (null != tmpParameter) {
-            tmpCommand.setFirstParameter(new Parameter(tmpParameter));
+          // ignore blank lines
+          if (StringUtils.isBlank(tmpLine)) {
+            continue;
           }
 
-          tmpParameter = null;
-          if (tmpParts.length > SECOND_PARAM_COLUMN_NO) {
-            tmpParameter = tmpParts[SECOND_PARAM_COLUMN_NO];
-            tmpParameter = tmpParameter.trim();
-          }
-          if (null != tmpParameter) {
-            tmpCommand.setSecondParameter(new Parameter(tmpParameter));
-          }
-
-          tmpParameter = null;
-          if (tmpParts.length > THIRD_PARAM_COLUMN_NO) {
-            tmpParameter = tmpParts[THIRD_PARAM_COLUMN_NO];
-            tmpParameter = tmpParameter.trim();
-          }
-          if (null != tmpParameter) {
-            tmpCommand.setThirdParameter(new Parameter(tmpParameter));
+          boolean tmpComment = false;
+          if (tmpLine.startsWith(COMMENT_LINE)) {
+            tmpComment = true;
+            tmpLine = tmpLine.substring(1);
+          } else if (tmpLine.startsWith(COMMENT_LINE2)) {
+            tmpComment = true;
+            tmpLine = tmpLine.substring(2);
           }
 
-          tmpCommand.setLineNo(tmpLineNo);
+          final String[] tmpParts = StringUtils.splitByWholeSeparator(tmpLine, SEPARATOR);
 
-          tmpResult.add(tmpCommand);
+          String tmpCommandName = "";
+          if (tmpParts.length > COMMAND_NAME_COLUMN_NO) {
+            tmpCommandName = tmpParts[COMMAND_NAME_COLUMN_NO];
+            tmpCommandName = tmpCommandName.trim();
+          }
+          // normalize command name
+          if (StringUtils.isNotEmpty(tmpCommandName) && !(tmpComment && tmpParts.length < 2)) {
+            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
+          }
+          tmpCommandName = new NormalizedString(tmpCommandName).toString();
+
+          // empty command means comment
+          if (tmpComment && StringUtils.isEmpty(tmpCommandName)) {
+            tmpCommandName = "Comment";
+          }
+
+          if (!StringUtils.isEmpty(tmpCommandName)) {
+            final Command tmpCommand = new Command(tmpCommandName, tmpComment);
+
+            String tmpParameter = null;
+            if (tmpParts.length > FIRST_PARAM_COLUMN_NO) {
+              tmpParameter = tmpParts[FIRST_PARAM_COLUMN_NO];
+              tmpParameter = tmpParameter.trim();
+            }
+            if (null != tmpParameter) {
+              tmpCommand.setFirstParameter(new Parameter(tmpParameter));
+            }
+
+            tmpParameter = null;
+            if (tmpParts.length > SECOND_PARAM_COLUMN_NO) {
+              tmpParameter = tmpParts[SECOND_PARAM_COLUMN_NO];
+              tmpParameter = tmpParameter.trim();
+            }
+            if (null != tmpParameter) {
+              tmpCommand.setSecondParameter(new Parameter(tmpParameter));
+            }
+
+            tmpParameter = null;
+            if (tmpParts.length > THIRD_PARAM_COLUMN_NO) {
+              tmpParameter = tmpParts[THIRD_PARAM_COLUMN_NO];
+              tmpParameter = tmpParameter.trim();
+            }
+            if (null != tmpParameter) {
+              tmpCommand.setThirdParameter(new Parameter(tmpParameter));
+            }
+
+            tmpCommand.setLineNo(tmpLineNo);
+
+            tmpResult.add(tmpCommand);
+          }
         }
+        return tmpResult;
+      } finally {
+        tmpLines.close();
       }
-      return tmpResult;
     } catch (final FileNotFoundException e) {
       throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
     } catch (final IOException e) {
       throw new ResourceException("Could not read file '" + file.getAbsolutePath() + "'.", e);
-    } finally {
-      if (tmpReader != null) {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // ignore
-        }
-      }
     }
   }
 
