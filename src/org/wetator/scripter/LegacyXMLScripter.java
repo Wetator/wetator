@@ -16,11 +16,9 @@
 
 package org.wetator.scripter;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,6 +30,8 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
@@ -113,21 +113,24 @@ public final class LegacyXMLScripter implements IScripter {
     }
 
     // third check the content (root element and schema)
-    BufferedReader tmpReader = null;
     try {
-      tmpReader = new BufferedReader(new FileReader(aFile));
-      String tmpLine;
-      boolean tmpTestCase = false;
-      while ((tmpLine = tmpReader.readLine()) != null) {
-        if (tmpLine.contains("<" + E_TESTCASE)) {
-          tmpTestCase = true;
+      final LineIterator tmpLines = FileUtils.lineIterator(aFile.getAbsoluteFile(), "UTF-8");
+      try {
+        boolean tmpTestCase = false;
+        while (tmpLines.hasNext()) {
+          final String tmpLine = tmpLines.next().trim();
+          if (tmpLine.contains("<" + E_TESTCASE)) {
+            tmpTestCase = true;
+          }
+          if (tmpLine.contains(E_STEP + " ")) {
+            break;
+          }
+          if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
+            return IScripter.IS_SUPPORTED;
+          }
         }
-        if (tmpLine.contains(E_STEP + " ")) {
-          break;
-        }
-        if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
-          return IScripter.IS_SUPPORTED;
-        }
+      } finally {
+        tmpLines.close();
       }
     } catch (final FileNotFoundException e) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
@@ -135,14 +138,6 @@ public final class LegacyXMLScripter implements IScripter {
     } catch (final IOException e) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by LegacyXMLScripter. Could not read file (" + e.getMessage() + ").");
-    } finally {
-      if (tmpReader != null) {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // bad luck
-        }
-      }
     }
 
     return new IScripter.IsSupportedResult("File '" + aFile.getName()
@@ -195,7 +190,7 @@ public final class LegacyXMLScripter implements IScripter {
               if (!tmpIsComment) {
                 final String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_COMMENT);
                 if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-                  tmpIsComment = Boolean.getBoolean(tmpIsCommentAsString);
+                  tmpIsComment = Boolean.parseBoolean(tmpIsCommentAsString);
                 }
               }
 
