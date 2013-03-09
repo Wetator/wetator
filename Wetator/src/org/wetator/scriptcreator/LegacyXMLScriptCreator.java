@@ -56,64 +56,71 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
     try {
       final File tmpFile = new File(outputDir, fileName + ".xml");
       try {
-        final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), ENCODING);
-
-        tmpWriter.writeStartDocument(ENCODING, VERSION);
-        tmpWriter.writeCharacters("\n");
-        if (null != dtd) {
-          tmpWriter.writeDTD("<!DOCTYPE " + R_TEST_CASE + " " + dtd + ">");
-          tmpWriter.writeCharacters("\n");
-        }
-        tmpWriter.writeCharacters("\n");
-        tmpWriter.writeStartElement(R_TEST_CASE);
-        tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/defaultCommandSet");
-        tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
-            "http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd");
-        tmpWriter.writeCharacters("\n");
-        for (Command tmpCommand : commands) {
-          tmpWriter.writeCharacters("    ");
-          tmpWriter.writeStartElement(LegacyXMLScripter.E_STEP);
-          tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));
-          if (tmpCommand.isComment() && !"Comment".equals(tmpCommand.getName())) {
-            tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMENT, "true");
-          }
-          if (tmpCommand.getFirstParameter() != null) {
-            final String tmpCharacterDataPattern = ".*[<>&]";
-            final String tmpParameter = tmpCommand.getFirstParameter().getValue();
-            if (tmpParameter.matches(tmpCharacterDataPattern)) {
-              tmpWriter.writeCData(tmpParameter);
-            } else {
-              tmpWriter.writeCharacters(tmpParameter);
+        final FileOutputStream tmpFileOut = new FileOutputStream(tmpFile);
+        try {
+          final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(tmpFileOut, ENCODING);
+          try {
+            tmpWriter.writeStartDocument(ENCODING, VERSION);
+            tmpWriter.writeCharacters("\n");
+            if (null != dtd) {
+              tmpWriter.writeDTD("<!DOCTYPE " + R_TEST_CASE + " " + dtd + ">");
+              tmpWriter.writeCharacters("\n");
             }
-            if (tmpCommand.getSecondParameter() != null) {
-              tmpWriter.writeStartElement(LegacyXMLScripter.E_OPTIONAL_PARAMETER);
-              String tmpOptionalParameter = tmpCommand.getSecondParameter().getValue();
-              if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
-                tmpWriter.writeCData(tmpOptionalParameter);
-              } else {
-                tmpWriter.writeCharacters(tmpOptionalParameter);
+            tmpWriter.writeCharacters("\n");
+            tmpWriter.writeStartElement(R_TEST_CASE);
+            tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/defaultCommandSet");
+            tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
+                "http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd");
+            tmpWriter.writeCharacters("\n");
+            for (Command tmpCommand : commands) {
+              tmpWriter.writeCharacters("    ");
+              tmpWriter.writeStartElement(LegacyXMLScripter.E_STEP);
+              tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));
+              if (tmpCommand.isComment() && !"Comment".equals(tmpCommand.getName())) {
+                tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMENT, "true");
+              }
+              if (tmpCommand.getFirstParameter() != null) {
+                final String tmpCharacterDataPattern = ".*[<>&]";
+                final String tmpParameter = tmpCommand.getFirstParameter().getValue();
+                if (tmpParameter.matches(tmpCharacterDataPattern)) {
+                  tmpWriter.writeCData(tmpParameter);
+                } else {
+                  tmpWriter.writeCharacters(tmpParameter);
+                }
+                if (tmpCommand.getSecondParameter() != null) {
+                  tmpWriter.writeStartElement(LegacyXMLScripter.E_OPTIONAL_PARAMETER);
+                  String tmpOptionalParameter = tmpCommand.getSecondParameter().getValue();
+                  if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
+                    tmpWriter.writeCData(tmpOptionalParameter);
+                  } else {
+                    tmpWriter.writeCharacters(tmpOptionalParameter);
+                  }
+                  tmpWriter.writeEndElement();
+
+                  if (tmpCommand.getThirdParameter() != null) {
+                    tmpWriter.writeStartElement(LegacyXMLScripter.E_OPTIONAL_PARAMETER2);
+                    tmpOptionalParameter = tmpCommand.getThirdParameter().getValue();
+                    if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
+                      tmpWriter.writeCData(tmpOptionalParameter);
+                    } else {
+                      tmpWriter.writeCharacters(tmpOptionalParameter);
+                    }
+                    tmpWriter.writeEndElement();
+                  }
+                }
               }
               tmpWriter.writeEndElement();
-
-              if (tmpCommand.getThirdParameter() != null) {
-                tmpWriter.writeStartElement(LegacyXMLScripter.E_OPTIONAL_PARAMETER2);
-                tmpOptionalParameter = tmpCommand.getThirdParameter().getValue();
-                if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
-                  tmpWriter.writeCData(tmpOptionalParameter);
-                } else {
-                  tmpWriter.writeCharacters(tmpOptionalParameter);
-                }
-                tmpWriter.writeEndElement();
-              }
+              tmpWriter.writeCharacters("\n");
             }
+            tmpWriter.writeEndElement();
+            tmpWriter.writeEndDocument();
+          } finally {
+            tmpWriter.close();
           }
-          tmpWriter.writeEndElement();
-          tmpWriter.writeCharacters("\n");
+        } finally {
+          tmpFileOut.close();
         }
-        tmpWriter.writeEndElement();
-        tmpWriter.writeEndDocument();
-        tmpWriter.close();
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException("Can't create output file '"
             + tmpFile.getAbsolutePath() + "'.");

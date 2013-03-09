@@ -16,11 +16,10 @@
 
 package org.wetator.progresslistener;
 
-import java.io.BufferedWriter;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.xml.transform.ErrorListener;
@@ -101,12 +100,12 @@ public final class XSLTransformer {
 
         final StreamSource tmpXmlStreamSource = new StreamSource(xmlResultFile);
 
-        final FileWriter tmpFileWriter = new FileWriter(tmpResultFile);
-        final BufferedWriter tmpBufferedWriter = new BufferedWriter(tmpFileWriter);
-        final StreamResult tmpStreamResult = new StreamResult(tmpBufferedWriter);
+        final FileOutputStream tmpFileOutputStream = new FileOutputStream(tmpResultFile);
+        final BufferedOutputStream tmpBufferedOutputStream = new BufferedOutputStream(tmpFileOutputStream);
+        final StreamResult tmpStreamResult = new StreamResult(tmpBufferedOutputStream);
 
         tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
-        tmpBufferedWriter.close();
+        tmpBufferedOutputStream.close();
 
         copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
 

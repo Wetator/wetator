@@ -304,7 +304,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
         }
 
         // leave some info
-        if (tmpConnectionName == defaultConnectionName) {
+        if (tmpConnectionName.equals(defaultConnectionName)) {
           addInitializationMessage("DB " + tmpConnectionName + " (default): " + tmpUrl);
         } else {
           addInitializationMessage("DB " + tmpConnectionName + ": " + tmpUrl);
