@@ -56,7 +56,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return (aHtmlElement instanceof HtmlSelect) || (aHtmlElement instanceof HtmlLabel);
+    return aHtmlElement instanceof HtmlSelect || aHtmlElement instanceof HtmlLabel;
   }
 
   /**

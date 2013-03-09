@@ -110,8 +110,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       // find the first element that surrounds this
       for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
         final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
-        if ((tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos())
-            && (tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos())) {
+        if (tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos() && tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos()) {
           // found one
           String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
           final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);

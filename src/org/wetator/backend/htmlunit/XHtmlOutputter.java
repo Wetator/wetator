@@ -411,7 +411,7 @@ public final class XHtmlOutputter {
             tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
           }
 
-          if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {
+          if (tmpIsCssLink && "href".equals(tmpAttributeName)) {
             final String tmpStoredFileName = responseStore
                 .storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, ".css");
             if (null != tmpStoredFileName) {
@@ -419,14 +419,14 @@ public final class XHtmlOutputter {
             }
           }
 
-          if (tmpIsHtmlImage && ("src".equals(tmpAttributeName))) {
+          if (tmpIsHtmlImage && "src".equals(tmpAttributeName)) {
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
           }
 
-          if (tmpIsHtmlFrame && ("src".equals(tmpAttributeName))) {
+          if (tmpIsHtmlFrame && "src".equals(tmpAttributeName)) {
             final BaseFrameElement tmpFrame = (BaseFrameElement) aDomNode;
 
             // prevent NPE
@@ -452,15 +452,15 @@ public final class XHtmlOutputter {
 
           // Don't print if value="Submit Query"
           // see com.gargoylesoftware.htmlunit.html.HtmlSubmitInput
-          if (tmpIsHtmlSubmitInput && ("value".equals(tmpAttributeName) && "Submit Query".equals(tmpAttributeValue))) {
+          if (tmpIsHtmlSubmitInput && "value".equals(tmpAttributeName) && "Submit Query".equals(tmpAttributeValue)) {
             continue;
           }
 
           // special cases
-          if (("checked".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
+          if ("checked".equals(tmpAttributeName) && StringUtils.isEmpty(tmpAttributeValue)) {
             tmpAttributeValue = "checked";
           }
-          if (("multiple".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
+          if ("multiple".equals(tmpAttributeName) && StringUtils.isEmpty(tmpAttributeValue)) {
             tmpAttributeValue = "multiple";
           }
 

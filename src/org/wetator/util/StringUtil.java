@@ -82,7 +82,7 @@ public final class StringUtil {
     }
 
     tmpDelimiterSize = aDelimiter.length();
-    if ((tmpDelimiterSize == 1) && (aDelimiter.charAt(0) == anEscapeChar)) {
+    if (tmpDelimiterSize == 1 && aDelimiter.charAt(0) == anEscapeChar) {
       throw new IllegalArgumentException("Delimiter must be different from escape char.");
     }
 

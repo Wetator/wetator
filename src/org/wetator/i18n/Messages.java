@@ -35,7 +35,7 @@ public final class Messages {
    * @param aParameterArray An array containing the message parameters.
    * @return The message.
    */
-  public static final String getMessage(final String aMessageKey, final Object[] aParameterArray) {
+  public static String getMessage(final String aMessageKey, final Object[] aParameterArray) {
     // TODO move the messages file to the root level
     final ResourceBundle tmpMessages = ResourceBundle.getBundle("org.wetator.Messages");
 
@@ -45,7 +45,7 @@ public final class Messages {
     } catch (final MissingResourceException e) {
       tmpMessageResource = new StringBuilder("Unknown message key ''");
       tmpMessageResource.append(aMessageKey).append("''");
-      if ((null != aParameterArray) && (aParameterArray.length > 0)) {
+      if (null != aParameterArray && aParameterArray.length > 0) {
         tmpMessageResource.append(" (param(s): ");
         for (int i = 0; i < aParameterArray.length; i++) {
           tmpMessageResource.append(" ''{" + i).append("}''");

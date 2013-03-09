@@ -269,7 +269,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     // check for text and password because setting readonly for the other inputs is nonsens
-    if ((tmpHtmlElement instanceof HtmlTextInput) || (tmpHtmlElement instanceof HtmlPasswordInput)) {
+    if (tmpHtmlElement instanceof HtmlTextInput || tmpHtmlElement instanceof HtmlPasswordInput) {
       final HtmlInput tmpHtmlInputElement = (HtmlInput) tmpHtmlElement;
       tmpSupported = true;
 

@@ -60,7 +60,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
     try {
       final HtmlAnchor tmpHtmlAnchor = getHtmlElement();
       String tmpHref = tmpHtmlAnchor.getHrefAttribute();
-      if (StringUtils.isNotBlank(tmpHref) && ('#' == tmpHref.charAt(0))) {
+      if (StringUtils.isNotBlank(tmpHref) && '#' == tmpHref.charAt(0)) {
         tmpHref = tmpHref.substring(1);
         PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
       }
