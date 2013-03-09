@@ -60,7 +60,7 @@ public class HtmlUnitInputTextIdentifier extends AbstractMatcherBasedIdentifier 
    */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return (aHtmlElement instanceof HtmlTextInput) || (aHtmlElement instanceof HtmlLabel);
+    return aHtmlElement instanceof HtmlTextInput || aHtmlElement instanceof HtmlLabel;
   }
 
   /**

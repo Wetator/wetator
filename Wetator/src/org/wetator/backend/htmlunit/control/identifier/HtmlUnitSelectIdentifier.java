@@ -60,7 +60,7 @@ public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
    */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return (aHtmlElement instanceof HtmlSelect) || (aHtmlElement instanceof HtmlLabel);
+    return aHtmlElement instanceof HtmlSelect || aHtmlElement instanceof HtmlLabel;
   }
 
   /**

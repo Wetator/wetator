@@ -195,7 +195,7 @@ public final class LegacyXMLScripter implements IScripter {
               if (!tmpIsComment) {
                 final String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_COMMENT);
                 if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-                  tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
+                  tmpIsComment = Boolean.getBoolean(tmpIsCommentAsString);
                 }
               }
 

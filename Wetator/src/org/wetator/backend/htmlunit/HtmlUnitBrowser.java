@@ -203,9 +203,9 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       webClient = new WebClient(tmpBrowserVersion, tmpHost, tmpPort);
 
-      if ((null != tmpConfiguration.getProxyUser())
-          && StringUtils.isNotEmpty(tmpConfiguration.getProxyUser().getValue())) {
-        final String tmpUser = tmpConfiguration.getProxyUser().getValue();
+      final SecretString tmpProxyUser = tmpConfiguration.getProxyUser();
+      if (null != tmpProxyUser && StringUtils.isNotEmpty(tmpProxyUser.getValue())) {
+        final String tmpUser = tmpProxyUser.getValue();
         LOG.info("Proxy User: '" + tmpUser + "'");
         final String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
         tmpCredentialProvider = new DefaultCredentialsProvider();
@@ -229,9 +229,9 @@ public final class HtmlUnitBrowser implements IBrowser {
       webClient = new WebClient(tmpBrowserVersion);
     }
 
-    if ((null != tmpConfiguration.getBasicAuthUser())
-        && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
-      final String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
+    final SecretString tmpBasicAuthUser = tmpConfiguration.getBasicAuthUser();
+    if (null != tmpBasicAuthUser && StringUtils.isNotEmpty(tmpBasicAuthUser.getValue())) {
+      final String tmpUser = tmpBasicAuthUser.getValue();
       final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
 
       if (null == tmpCredentialProvider) {
@@ -245,8 +245,9 @@ public final class HtmlUnitBrowser implements IBrowser {
       LOG.info("BasicAuth enabled  user '" + tmpUser + "'.");
     }
 
-    if ((null != tmpConfiguration.getNtlmUser()) && StringUtils.isNotEmpty(tmpConfiguration.getNtlmUser().getValue())) {
-      final String tmpUser = tmpConfiguration.getNtlmUser().getValue();
+    final SecretString tmpNtlmUser = tmpConfiguration.getNtlmUser();
+    if (null != tmpNtlmUser && StringUtils.isNotEmpty(tmpNtlmUser.getValue())) {
+      final String tmpUser = tmpNtlmUser.getValue();
       final String tmpPassword = tmpConfiguration.getNtlmPassword().getValue();
       final String tmpWorkstation = tmpConfiguration.getNtlmWorkstation().getValue();
       final String tmpDomain = tmpConfiguration.getNtlmDomain().getValue();

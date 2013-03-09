@@ -54,7 +54,7 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIden
    */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return (aHtmlElement instanceof HtmlRadioButtonInput) || (aHtmlElement instanceof HtmlLabel);
+    return aHtmlElement instanceof HtmlRadioButtonInput || aHtmlElement instanceof HtmlLabel;
   }
 
   /**
