@@ -160,57 +160,61 @@ public class XMLResultWriter implements IProgressListener {
       // wetator libs
       printlnStartTag(TAG_LIBS);
 
-      String tmpInfo = null;
+      StringBuilder tmpInfo = new StringBuilder();
 
       Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
       for (int i = 0; i < tmpLibs.length; i++) {
-        tmpInfo = VersionUtil.determineVersionFromJarFileName(tmpLibs[i]);
-        tmpInfo = tmpInfo + " (" + VersionUtil.determineCreationDateFromJarFileName(tmpLibs[i]) + ")";
-        printlnNode(TAG_LIB, tmpInfo);
+        tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpLibs[i]));
+        tmpInfo.append(" (");
+        tmpInfo.append(VersionUtil.determineCreationDateFromJarFileName(tmpLibs[i]));
+        tmpInfo.append(')');
+        printlnNode(TAG_LIB, tmpInfo.toString());
       }
       printlnNode(TAG_LIB, org.cyberneko.html.Version.getVersion());
 
+      tmpInfo = new StringBuilder();
       tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class, IOUtils.class,
           Log.class, Header.class, HttpClient.class, HttpMultipart.class };
       for (int i = 0; i < tmpLibs.length; i++) {
-        tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null);
-        tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null);
-        printlnNode(TAG_LIB, tmpInfo);
+        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null));
+        tmpInfo.append(' ');
+        tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null));
+        printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
+      tmpInfo = new StringBuilder();
       try {
         final Class<?> tmpClass = Class.forName("org.apache.log4j.Logger");
 
-        tmpInfo = VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j");
-        tmpInfo = tmpInfo + " " + VersionUtil.determineVersionFromJarManifest(tmpClass, "org.apache.log4j");
-        printlnNode(TAG_LIB, tmpInfo);
+        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j"));
+        tmpInfo.append(' ');
+        tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpClass, "org.apache.log4j"));
+        printlnNode(TAG_LIB, tmpInfo.toString());
       } catch (final RuntimeException e) {
         throw e;
       } catch (final Exception e) {
         printlnNode(TAG_LIB, "log4j not in classpath.");
       }
 
-      tmpInfo = VersionUtil.determineVersionFromJarFileName(Automaton.class);
-      printlnNode(TAG_LIB, tmpInfo);
+      printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(Automaton.class));
 
-      tmpInfo = org.apache.poi.Version.getProduct() + " " + org.apache.poi.Version.getVersion();
-      printlnNode(TAG_LIB, tmpInfo);
+      tmpInfo = new StringBuilder(org.apache.poi.Version.getProduct());
+      tmpInfo.append(' ');
+      tmpInfo.append(org.apache.poi.Version.getVersion());
+      printlnNode(TAG_LIB, tmpInfo.toString());
 
-      tmpInfo = "PDF Box " + org.apache.pdfbox.Version.getVersion();
-      printlnNode(TAG_LIB, tmpInfo);
+      tmpInfo = new StringBuilder("PDF Box ");
+      tmpInfo.append(org.apache.pdfbox.Version.getVersion());
+      printlnNode(TAG_LIB, tmpInfo.toString());
 
-      tmpInfo = VersionUtil.determineBundleNameFromJarManifest(BoundingBox.class, null);
-      tmpInfo = tmpInfo + " " + VersionUtil.determineBundleVersionFromJarManifest(BoundingBox.class, null);
-      printlnNode(TAG_LIB, tmpInfo);
+      tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest(BoundingBox.class, null));
+      tmpInfo.append(' ');
+      tmpInfo.append(VersionUtil.determineBundleVersionFromJarManifest(BoundingBox.class, null));
+      printlnNode(TAG_LIB, tmpInfo.toString());
 
-      tmpInfo = org.apache.xmlcommons.Version.getVersion();
-      printlnNode(TAG_LIB, tmpInfo);
-
-      tmpInfo = org.apache.xerces.impl.Version.getVersion();
-      printlnNode(TAG_LIB, tmpInfo);
-
-      tmpInfo = org.apache.xalan.Version.getVersion();
-      printlnNode(TAG_LIB, tmpInfo);
+      printlnNode(TAG_LIB, org.apache.xmlcommons.Version.getVersion());
+      printlnNode(TAG_LIB, org.apache.xerces.impl.Version.getVersion());
+      printlnNode(TAG_LIB, org.apache.xalan.Version.getVersion());
 
       printlnEndTag(TAG_LIBS);
 
@@ -218,11 +222,11 @@ public class XMLResultWriter implements IProgressListener {
       printlnStartTag(TAG_JAVA);
       final Set<Object> tmpKeys = System.getProperties().keySet();
       final List<String> tmpProperties = new ArrayList<String>(tmpKeys.size());
-      for (Object tmpObject : tmpKeys) {
+      for (final Object tmpObject : tmpKeys) {
         tmpProperties.add(tmpObject.toString());
       }
       Collections.sort(tmpProperties);
-      for (String tmpProperty : tmpProperties) {
+      for (final String tmpProperty : tmpProperties) {
         String tmpValue = System.getProperty(tmpProperty);
         tmpValue = tmpValue.replace("\n", "\\n");
         tmpValue = tmpValue.replace("\r", "\\r");
@@ -252,7 +256,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnStartTag(TAG_CONFIGURATION);
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_BASE_URL, tmpConfiguration.getBaseUrl());
-      for (BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
+      for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, tmpBrowserType.getLabel());
       }
       printConfigurationProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpConfiguration.getAcceptLanaguage());
@@ -261,16 +265,16 @@ public class XMLResultWriter implements IProgressListener {
       printConfigurationProperty(WetatorConfiguration.PROPERTY_JAVASCRIPT_TIMEOUT,
           tmpConfiguration.getJsTimeoutInSeconds() + "s");
 
-      for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
+      for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
       }
-      for (ICommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
+      for (final ICommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
       }
-      for (Class<? extends IControl> tmpControl : tmpConfiguration.getControls()) {
+      for (final Class<? extends IControl> tmpControl : tmpConfiguration.getControls()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
       }
-      for (IScripter tmpScripter : tmpConfiguration.getScripters()) {
+      for (final IScripter tmpScripter : tmpConfiguration.getScripters()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
       }
 
@@ -289,7 +293,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnStartTag(TAG_VARIABLES);
 
       final List<Variable> tmpVariables = tmpConfiguration.getVariables();
-      for (Variable tmpVariable : tmpVariables) {
+      for (final Variable tmpVariable : tmpVariables) {
         printStartTagOpener(TAG_VARIABLE);
         output.print(" name=\"");
         output.print(xmlUtil.normalizeAttributeValue(tmpVariable.getName()));
@@ -307,14 +311,14 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_VARIABLES);
 
       final List<ICommandSet> tmpCommandSets = tmpConfiguration.getCommandSets();
-      for (ICommandSet tmpCommandSet : tmpCommandSets) {
+      for (final ICommandSet tmpCommandSet : tmpCommandSets) {
         printStartTagOpener(TAG_COMMAND_SET);
         output.print(" class=\"");
         output.print(xmlUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));
         output.println("\">");
 
         output.indent();
-        for (String tmpMessage : tmpCommandSet.getInitializationMessages()) {
+        for (final String tmpMessage : tmpCommandSet.getInitializationMessages()) {
           printLogMessage("INFO", tmpMessage);
         }
 
@@ -322,7 +326,7 @@ public class XMLResultWriter implements IProgressListener {
       }
 
       final List<Class<? extends IControl>> tmpControls = tmpConfiguration.getControls();
-      for (Class<? extends IControl> tmpControl : tmpControls) {
+      for (final Class<? extends IControl> tmpControl : tmpControls) {
         printStartTagOpener(TAG_CONTROL);
         output.print(" class=\"");
         output.print(xmlUtil.normalizeAttributeValue(tmpControl.getClass().toString()));
@@ -332,7 +336,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_CONFIGURATION);
 
       printlnNode(TAG_START_TIME, StringUtil.formatDate(new Date()));
-      for (TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
+      for (final TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
         printlnNode(TAG_TEST_FILE, tmpTestCase.getFile().getAbsolutePath());
       }
 
