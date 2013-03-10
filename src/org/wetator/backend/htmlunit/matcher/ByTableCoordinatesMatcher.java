@@ -143,7 +143,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
               final HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
               final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
               if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos())
-                  && (tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX)))) {
+                  && tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX))) {
                 tmpFoundX = true;
                 break;
               }
@@ -163,7 +163,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
               final HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
               final FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
               if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellYSpot.getStartPos())
-                  && (tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY)))) {
+                  && tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY))) {
                 tmpFoundY = true;
                 break;
               }
