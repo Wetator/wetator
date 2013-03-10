@@ -224,7 +224,7 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
 
   /** Helper method to check that the last match attempt was valid. */
   private void matchGood() throws IllegalStateException {
-    if ((matchStart < 0) || (matchEnd < 0)) {
+    if (matchStart < 0 || matchEnd < 0) {
       throw new IllegalStateException("There was no available match.");
     }
   }

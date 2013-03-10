@@ -108,7 +108,7 @@ public final class PageUtil {
       return;
     }
 
-    if ((aPage instanceof HtmlPage) && StringUtils.isNotEmpty(aRef)) {
+    if (aPage instanceof HtmlPage && StringUtils.isNotEmpty(aRef)) {
       final HtmlPage tmpHtmlPage = (HtmlPage) aPage;
       try {
         // check first with id
