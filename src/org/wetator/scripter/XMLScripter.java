@@ -39,6 +39,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
@@ -185,11 +186,7 @@ public class XMLScripter implements IScripter {
         }
       }
     } finally {
-      try {
-        tmpReader.close();
-      } catch (final IOException e) {
-        // bad luck
-      }
+      IOUtils.closeQuietly(tmpReader);
     }
 
     return false;
@@ -206,11 +203,7 @@ public class XMLScripter implements IScripter {
     try {
       tmpReader = createUTF8Reader(aFile);
       final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-      try {
-        tmpReader.close();
-      } catch (final IOException e) {
-        // bad luck
-      }
+      IOUtils.closeQuietly(tmpReader);
 
       if (null == tmpSchemas || tmpSchemas.isEmpty()) {
         throw new InvalidInputException("No schemas found in file '" + aFile.getAbsolutePath() + "'.");
@@ -238,13 +231,7 @@ public class XMLScripter implements IScripter {
       throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
           e);
     } finally {
-      if (tmpReader != null) {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // ignore
-        }
-      }
+      IOUtils.closeQuietly(tmpReader);
     }
   }
 
@@ -284,13 +271,7 @@ public class XMLScripter implements IScripter {
     } catch (final ParseException e) {
       throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
     } finally {
-      if (tmpReader != null) {
-        try {
-          tmpReader.close();
-        } catch (final IOException e) {
-          // ignore
-        }
-      }
+      IOUtils.closeQuietly(tmpReader);
     }
   }
 
@@ -349,7 +330,7 @@ public class XMLScripter implements IScripter {
             // detect disabled
             final String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_DISABLED);
             if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-              tmpDisabled = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
+              tmpDisabled = Boolean.parseBoolean(tmpIsCommentAsString);
             }
           } else {
             CommandType tmpCommandType = null;
@@ -430,11 +411,7 @@ public class XMLScripter implements IScripter {
         }
       }
       if (aContent != null) {
-        try {
-          aContent.close();
-        } catch (final Exception e) {
-          // bad luck
-        }
+        IOUtils.closeQuietly(aContent);
       }
     }
     return tmpResult;

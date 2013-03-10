@@ -58,7 +58,7 @@ public final class ResponseStore {
   private static final int MAX_FILE_NAME_LENGTH = 200;
 
   private static long counter = 99999;
-  private static Map<String, String> fileNames;
+  private Map<String, String> fileNames;
 
   private File outputDir;
   private boolean overwrite;

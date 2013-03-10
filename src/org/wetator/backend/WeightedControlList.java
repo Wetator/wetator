@@ -16,6 +16,7 @@
 
 package org.wetator.backend;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -135,7 +136,10 @@ public final class WeightedControlList {
   /**
    * The comparator used to sort WeightedControlList entries.
    */
-  private static final class EntryComperator implements Comparator<Entry> {
+  private static final class EntryComperator implements Comparator<Entry>, Serializable {
+
+    private static final long serialVersionUID = 8655421244982375767L;
+
     /**
      * {@inheritDoc}
      * 

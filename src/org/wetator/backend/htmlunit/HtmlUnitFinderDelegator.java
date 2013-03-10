@@ -52,6 +52,16 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   private IdentifierBasedHtmlUnitControlsFinder othersFinder;
   private AbstractHtmlUnitControlsFinder forTextFinder;
 
+  private static synchronized ThreadPoolExecutor getThreadPool() {
+    if (threadPool == null) {
+      final ThreadPoolExecutor tmpThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime()
+          .availableProcessors());
+      tmpThreadPool.prestartAllCoreThreads();
+      threadPool = tmpThreadPool;
+    }
+    return threadPool;
+  }
+
   /**
    * The default constructor.
    * 
@@ -73,16 +83,13 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
     }
     htmlPageIndex = new HtmlPageIndex(anHtmlPage);
 
-    if (threadPool == null) {
-      threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-      threadPool.prestartAllCoreThreads();
-    }
+    final ThreadPoolExecutor tmpThreadPool = getThreadPool();
 
-    settablesFinder = new SettableHtmlUnitControlsFinder(htmlPageIndex, threadPool);
-    clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
-    selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
-    deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
-    othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, threadPool);
+    settablesFinder = new SettableHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
 
     if (aControlRepository != null) {
