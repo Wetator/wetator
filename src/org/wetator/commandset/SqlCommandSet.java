@@ -165,7 +165,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
               } else {
                 tmpResult.append(tmpValue);
               }
-              tmpResult.append(" ");
+              tmpResult.append(' ');
             }
           }
           tmpResultSet.close();

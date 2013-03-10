@@ -76,7 +76,7 @@ public interface IScripter {
    * The result for the {@link IScripter#isSupported(File)} method call.<br/>
    * This offers a way to transport some info message.
    */
-  public static final class IsSupportedResult {
+  static final class IsSupportedResult {
 
     private String message;
 

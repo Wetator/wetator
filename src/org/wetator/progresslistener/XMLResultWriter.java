@@ -526,7 +526,7 @@ public class XMLResultWriter implements IProgressListener {
   @Override
   public void executeCommandEnd() {
     try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
+      printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - commandExecutionStartTime));
 
       printlnEndTag(TAG_COMMAND);
     } catch (final IOException e) {
@@ -601,7 +601,7 @@ public class XMLResultWriter implements IProgressListener {
   @Override
   public void end(final WetatorEngine aWetatorEngine) {
     try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - executionStartTime));
+      printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - executionStartTime));
 
       printlnEndTag(TAG_WET);
       output.close();

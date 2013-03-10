@@ -143,9 +143,9 @@ public class ContentPattern {
         final FindSpot tmpWholeContentFoundSpot = tmpPattern.firstOccurenceIn(aContent);
         if (null == tmpWholeContentFoundSpot || FindSpot.NOT_FOUND == tmpWholeContentFoundSpot) {
           // pattern is not in whole content too
-          tmpResultMessage.append("{");
+          tmpResultMessage.append('{');
           tmpResultMessage.append(tmpExpectedString);
-          tmpResultMessage.append("}");
+          tmpResultMessage.append('}');
         } else {
           // pattern is somewhere before one of the previous tokens =>
           // wrong order
@@ -203,7 +203,9 @@ public class ContentPattern {
 
       // pattern found
       if (tmpNode.isNegated()) {
-        tmpResultMessage.append("{" + tmpExpectedString + "}");
+        tmpResultMessage.append('{');
+        tmpResultMessage.append(tmpExpectedString);
+        tmpResultMessage.append('}');
       } else {
         tmpResultMessage.append(tmpExpectedString);
       }
