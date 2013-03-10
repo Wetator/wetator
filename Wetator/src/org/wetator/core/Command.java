@@ -134,7 +134,7 @@ public final class Command {
     final StringBuilder tmpResult = new StringBuilder();
     tmpResult.append("[Command '");
     tmpResult.append(getName());
-    tmpResult.append("'");
+    tmpResult.append('\'');
     if (isComment) {
       tmpResult.append(" COMMENT");
     }
@@ -145,23 +145,23 @@ public final class Command {
     if (null != tmpParameter) {
       tmpResult.append(tmpParameter.getValue(aContext).toString());
     }
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     tmpParameter = getSecondParameter();
     tmpResult.append(" '");
     if (null != tmpParameter) {
       tmpResult.append(getSecondParameter().getValue(aContext).toString());
     }
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     tmpParameter = getThirdParameter();
     if (null != tmpParameter) {
       tmpResult.append(" '");
       tmpResult.append(getThirdParameter().getValue(aContext).toString());
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 

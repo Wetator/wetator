@@ -77,7 +77,7 @@ public class XMLUtil {
       } else if (!canEncode(tmpChar)) {
         tmpResult.append(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
-        tmpResult.append(";");
+        tmpResult.append(';');
         i++;
         break;
       }
@@ -108,7 +108,7 @@ public class XMLUtil {
               tmpResult.append(tmpChar);
             } else {
               tmpResult.append("&#" + (int) tmpChar);
-              tmpResult.append(";");
+              tmpResult.append(';');
             }
           }
         }

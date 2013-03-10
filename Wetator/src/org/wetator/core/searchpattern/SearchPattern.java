@@ -52,7 +52,7 @@ public abstract class SearchPattern {
       final String tmpExpectedString = aSearch.get(i).getValue();
 
       if (i > 0) {
-        tmpPattern.append("*");
+        tmpPattern.append('*');
       }
       tmpPattern.append(tmpExpectedString);
     }
@@ -108,7 +108,7 @@ public abstract class SearchPattern {
         if ('*' == tmpChar) {
           if (tmpSlash) {
             tmpPattern.append("\\*");
-            tmpTextPattern.append("*");
+            tmpTextPattern.append('*');
             tmpSlash = false;
             continue;
           }
@@ -119,7 +119,7 @@ public abstract class SearchPattern {
           tmpIsStarPattern = false;
           if (tmpSlash) {
             tmpPattern.append("\\?");
-            tmpTextPattern.append("?");
+            tmpTextPattern.append('?');
             tmpSlash = false;
             continue;
           }
@@ -136,7 +136,7 @@ public abstract class SearchPattern {
             tmpSlash = false;
             continue;
           }
-          tmpPattern.append("\\");
+          tmpPattern.append('\\');
           tmpPattern.append(tmpChar);
           tmpTextPattern.append(tmpChar);
           continue;

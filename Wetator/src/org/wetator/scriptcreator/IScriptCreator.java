@@ -31,22 +31,22 @@ public interface IScriptCreator {
   /**
    * Creates a script from the previously set command list with the given fileName.
    */
-  public void createScript();
+  void createScript();
 
   /**
    * Sets the file this script writer works on.
    * 
    * @param aCommandList the commands that should be in the script
    */
-  public void setCommands(List<Command> aCommandList);
+  void setCommands(List<Command> aCommandList);
 
   /**
    * @param aFileName the fileName to set (name only expected, without extension)
    */
-  public void setFileName(String aFileName);
+  void setFileName(String aFileName);
 
   /**
    * @param anOutputDir the outputDir to set
    */
-  public void setOutputDir(String anOutputDir);
+  void setOutputDir(String anOutputDir);
 }

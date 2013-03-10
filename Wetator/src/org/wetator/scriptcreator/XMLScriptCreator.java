@@ -118,9 +118,9 @@ public class XMLScriptCreator implements IScriptCreator {
                 + TEST_CASE_XSD_VERSION + ".xsd\n");
             for (NamespaceBean tmpNamespaceBean : tmpNamespaces) {
               tmpLocations.append(tmpNamespaceBean.getNamespace());
-              tmpLocations.append(" ");
+              tmpLocations.append(' ');
               tmpLocations.append(tmpNamespaceBean.getLocation());
-              tmpLocations.append("\n");
+              tmpLocations.append('\n');
             }
             tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
                 tmpLocations.substring(0, tmpLocations.length() - 1));

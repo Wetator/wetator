@@ -336,12 +336,12 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
     tmpResult.append("[Unknown HtmlElement '");
     tmpResult.append(tmpHtmlElement.getClass());
-    tmpResult.append("'");
+    tmpResult.append('\'');
 
     addId(tmpResult, tmpHtmlElement);
     addName(tmpResult, tmpHtmlElement);
 
-    tmpResult.append("]");
+    tmpResult.append(']');
     return tmpResult.toString();
   }
 

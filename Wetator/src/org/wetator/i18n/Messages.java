@@ -50,9 +50,9 @@ public final class Messages {
         for (int i = 0; i < aParameterArray.length; i++) {
           tmpMessageResource.append(" ''{" + i).append("}''");
         }
-        tmpMessageResource.append(")");
+        tmpMessageResource.append(')');
       }
-      tmpMessageResource.append(".");
+      tmpMessageResource.append('.');
     }
     final MessageFormat tmpMessageFormat = new MessageFormat(tmpMessageResource.toString());
     final String tmpResult = tmpMessageFormat.format(aParameterArray);

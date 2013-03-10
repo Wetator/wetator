@@ -219,7 +219,7 @@ public class WetatorContext {
     final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
       throw new InvalidInputException(Messages.getMessage("unsupportedCommand", new String[] { aCommand.getName(),
-          getFile().getAbsolutePath(), "" + aCommand.getLineNo() }));
+          getFile().getAbsolutePath(), Integer.toString(aCommand.getLineNo()) }));
     }
 
     // execute the command only if no error occurred so far or the command should be executed even if an error occurred
