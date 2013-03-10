@@ -99,8 +99,7 @@ public class XMLScriptCreator implements IScriptCreator {
       try {
         final FileOutputStream tmpFileOut = new FileOutputStream(tmpFile);
         try {
-          final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile),
-              XML_ENCODING);
+          final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(tmpFileOut, XML_ENCODING);
           try {
             tmpWriter.writeStartDocument(XML_ENCODING, XML_VERSION);
             tmpWriter.writeCharacters("\n");
