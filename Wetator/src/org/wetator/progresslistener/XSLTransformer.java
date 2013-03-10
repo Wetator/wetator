@@ -61,7 +61,7 @@ public final class XSLTransformer {
    * @param anOutputDirectory the directory to write to
    */
   public void transform(final Iterable<String> aListOfXslFileNames, final File anOutputDirectory) {
-    for (String tmpXslFileName : aListOfXslFileNames) {
+    for (final String tmpXslFileName : aListOfXslFileNames) {
       final File tmpXslFile = new File(tmpXslFileName);
 
       // TODO determine file type (based on template name)
