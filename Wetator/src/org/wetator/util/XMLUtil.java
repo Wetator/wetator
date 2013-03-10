@@ -38,15 +38,14 @@ public class XMLUtil {
    * @return a new String
    */
   public String normalizeBodyValue(final String aString) {
-    StringBuilder tmpResult = null;
-    int tmpLength;
-    char tmpChar;
-
     if (aString == null) {
       return "";
     }
 
-    tmpLength = aString.length();
+    char tmpChar;
+    final int tmpLength = aString.length();
+
+    final StringBuilder tmpResult = new StringBuilder();
 
     // we have some kind of optimization here
     // if there is no special character inside, then we
@@ -57,26 +56,26 @@ public class XMLUtil {
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
         // ignore
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&amp;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
         tmpResult.append(";");
         i++;
@@ -117,7 +116,7 @@ public class XMLUtil {
       i++;
     }
 
-    if (null == tmpResult) {
+    if (tmpResult.length() < 1) {
       return aString;
     }
     return tmpResult.toString();
@@ -133,15 +132,14 @@ public class XMLUtil {
    * @return a new String
    */
   public String normalizeAttributeValue(final String aString) {
-    StringBuilder tmpResult = null;
-    int tmpLength;
-    char tmpChar;
-
     if (aString == null) {
       return "";
     }
 
-    tmpLength = aString.length();
+    char tmpChar;
+    final int tmpLength = aString.length();
+
+    final StringBuilder tmpResult = new StringBuilder();
 
     int i = 0;
     for (; i < tmpLength; i++) {
@@ -149,36 +147,36 @@ public class XMLUtil {
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
         // ignore
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&amp;");
         i++;
         break;
       } else if (tmpChar == '\'') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&apos;");
         i++;
         break;
       } else if (tmpChar == '"') {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&quot;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult = new StringBuilder(aString.substring(0, i));
+        tmpResult.append(aString.substring(0, i));
         tmpResult.append("&#" + (int) tmpChar);
         tmpResult.append(';');
         i++;
@@ -225,7 +223,7 @@ public class XMLUtil {
       }
     }
 
-    if (null == tmpResult) {
+    if (tmpResult.length() < 1) {
       return aString;
     }
     return tmpResult.toString();
