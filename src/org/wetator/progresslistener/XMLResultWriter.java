@@ -164,6 +164,7 @@ public class XMLResultWriter implements IProgressListener {
 
       Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
       for (int i = 0; i < tmpLibs.length; i++) {
+        tmpInfo.setLength(0);
         tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpLibs[i]));
         tmpInfo.append(" (");
         tmpInfo.append(VersionUtil.determineCreationDateFromJarFileName(tmpLibs[i]));
@@ -176,6 +177,7 @@ public class XMLResultWriter implements IProgressListener {
       tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class, IOUtils.class,
           Log.class, Header.class, HttpClient.class, HttpMultipart.class };
       for (int i = 0; i < tmpLibs.length; i++) {
+        tmpInfo.setLength(0);
         tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null));
         tmpInfo.append(' ');
         tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null));
