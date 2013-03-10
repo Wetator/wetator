@@ -184,11 +184,10 @@ public class XMLResultWriter implements IProgressListener {
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
-      tmpInfo = new StringBuilder();
       try {
         final Class<?> tmpClass = Class.forName("org.apache.log4j.Logger");
 
-        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j"));
+        tmpInfo = new StringBuilder(VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j"));
         tmpInfo.append(' ');
         tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpClass, "org.apache.log4j"));
         printlnNode(TAG_LIB, tmpInfo.toString());
