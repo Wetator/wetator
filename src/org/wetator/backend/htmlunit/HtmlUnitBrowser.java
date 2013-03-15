@@ -276,8 +276,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // debug stuff
     // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-    // final HtmlUnitContextFactory tmpContextFactory = webClient.getJavaScriptEngine().getContextFactory();
-    // tmpContextFactory.setDebugger(new DebuggerImpl());
+    // WebClientUtils.attachVisualDebugger(webClient);
 
     // set Accept-Language header
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
