@@ -45,18 +45,20 @@ public class RedirectServlet extends HttpServlet {
     } else if (tmpPath.endsWith("redirect_js.php")) {
       String tmpTarget = determineTarget(aRequest);
       String tmpWait = aRequest.getParameter("wait");
+      if (StringUtils.isEmpty(tmpWait)) {
+        tmpWait = "444";
+      }
+
       aResponse.getWriter().println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
+      aResponse.getWriter().println("<title>Wetator / Redirect via JavaScript</title>");
       aResponse.getWriter().println("<script type=\"text/javascript\">");
       aResponse.getWriter().println("function redirect(){");
       aResponse.getWriter().println("  window.location = '" + tmpTarget + "'");
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("function startRedirect() {");
-      if (StringUtils.isEmpty(tmpWait)) {
-        tmpWait = "444";
-      }
       aResponse.getWriter().println("  setTimeout('redirect()', " + tmpWait + ");");
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("</script>");
@@ -68,13 +70,22 @@ public class RedirectServlet extends HttpServlet {
       aResponse.getWriter().println("</html>");
     } else if (tmpPath.endsWith("redirect_meta.php")) {
       String tmpTarget = determineTarget(aRequest);
+      String tmpWait = aRequest.getParameter("wait");
+      if (StringUtils.isEmpty(tmpWait)) {
+        tmpWait = "4";
+      }
+
       aResponse.getWriter().println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
-      aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=" + tmpTarget + "'/>");
+      aResponse.getWriter().println("<meta http-equiv='refresh' content='" + tmpWait + "; URL=" + tmpTarget + "'/>");
+      aResponse.getWriter().println("<title>Wetator / Redirect via MetaTag</title>");
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body>");
+      aResponse.getWriter().println("<h1 class=\"command_test\">Wetator / Redirect via MetaTag</h1>");
+      aResponse.getWriter().println("  <p>Redirection to '" + tmpTarget + "' in " + tmpWait + "ms</p>");
+      aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
     }
