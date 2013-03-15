@@ -66,6 +66,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("open-bookmark", new CommandOpenBookmark());
     registerCommand("wait", new CommandWait());
     registerCommand("assert-applet", new CommandAssertApplet());
+    registerCommand("exec-js", new CommandExecJs());
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
@@ -208,6 +209,39 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       } catch (final InterruptedException e) {
         final String tmpMessage = Messages.getMessage("waitError", null);
         throw new ActionException(tmpMessage, e);
+      }
+    }
+  }
+
+  /**
+   * Command 'exec-js'.
+   */
+  public final class CommandExecJs implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final SecretString tmpJsString = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      try {
+        final IBrowser tmpBrowser = getBrowser(aContext);
+        if (tmpBrowser instanceof HtmlUnitBrowser) {
+          final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+
+          final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
+          tmpHtmlPage.executeJavaScript(tmpJsString.getValue());
+
+          tmpHtmlUnitBrowser.waitForImmediateJobs();
+        }
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new AssertionException(tmpMessage, e);
       }
     }
   }
