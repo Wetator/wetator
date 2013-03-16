@@ -122,13 +122,16 @@ public final class WeightedControlList {
      */
     @Override
     public String toString() {
-      final StringBuilder tmpResult = new StringBuilder();
+      final StringBuilder tmpResult = new StringBuilder(50);
       tmpResult.append(control.getDescribingText());
       tmpResult.append(" found by: ");
       tmpResult.append(foundType.toString());
-      tmpResult.append(" coverage: " + coverage);
-      tmpResult.append(" distance: " + distance);
-      tmpResult.append(" start: " + start);
+      tmpResult.append(" coverage: ");
+      tmpResult.append(Integer.toString(coverage));
+      tmpResult.append(" distance: ");
+      tmpResult.append(Integer.toString(distance));
+      tmpResult.append(" start: ");
+      tmpResult.append(Integer.toString(start));
       return tmpResult.toString();
     }
   }
