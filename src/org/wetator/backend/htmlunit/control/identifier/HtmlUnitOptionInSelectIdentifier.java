@@ -187,7 +187,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
           // Element must be a nested element of label
           final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
-          for (HtmlElement tmpChildElement : tmpChilds) {
+          for (final HtmlElement tmpChildElement : tmpChilds) {
             if (tmpChildElement instanceof HtmlSelect && tmpChildElement.isDisplayed()) {
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               final int tmpDistance;
@@ -218,7 +218,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       final WeightedControlList aWeightedControlList) {
     boolean tmpFound = false;
     final Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
-    for (HtmlOption tmpOption : tmpOptions) {
+    for (final HtmlOption tmpOption : tmpOptions) {
       String tmpText = htmlPageIndex.getAsText(tmpOption);
       final int tmpStart = htmlPageIndex.getPosition(tmpOption).getStartPos();
       if (StringUtils.isNotEmpty(tmpText)) {

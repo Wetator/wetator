@@ -396,7 +396,7 @@ public final class XHtmlOutputter {
         }
       }
 
-      for (DomAttr tmpAttribute : tmpAttributes.values()) {
+      for (final DomAttr tmpAttribute : tmpAttributes.values()) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase();
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {

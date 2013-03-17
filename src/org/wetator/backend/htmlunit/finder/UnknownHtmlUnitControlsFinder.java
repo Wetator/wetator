@@ -88,11 +88,11 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
     final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     // search with id
-    for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
+    for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
       if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
         final List<MatchResult> tmpMatches = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
             tmpSearchPattern).matches(tmpHtmlElement);
-        for (MatchResult tmpMatch : tmpMatches) {
+        for (final MatchResult tmpMatch : tmpMatches) {
           tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()),
               tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart());
         }
@@ -108,7 +108,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       // found a hit
 
       // find the first element that surrounds this
-      for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
+      for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
         final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
         if (tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos() && tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos()) {
           // found one

@@ -104,7 +104,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
 
         // Element must be a nested element of label
         final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
-        for (HtmlElement tmpChildElement : tmpChilds) {
+        for (final HtmlElement tmpChildElement : tmpChilds) {
           if (clazz.isAssignableFrom(tmpChildElement.getClass()) && tmpChildElement.isDisplayed()) {
             tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
             final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);

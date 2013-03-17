@@ -167,7 +167,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final WetatorContext tmpWetatorContext = aContext.createSubContext(tmpFile);
 
       int i = 1;
-      for (SecretString tmpSecretString : tmpModuleParameters) {
+      for (final SecretString tmpSecretString : tmpModuleParameters) {
         final Variable tmpVariable = new Variable(Integer.toString(i), tmpSecretString);
         tmpWetatorContext.addVariable(tmpVariable);
         i++;
@@ -230,7 +230,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
         if (tmpWPath.isEmpty()) {
           // if the wpath is empty use the first 'usable' field on the page
-          for (WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
+          for (final WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
             tmpControl = (ISettable) tmpEntry.getControl();
             if (!tmpControl.isDisabled(aContext)) {
               break;
@@ -868,7 +868,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       Object[] tmpParams = new String[tmpMethodParameters.size()];
       final Class<String>[] tmpParamTypes = new Class[tmpMethodParameters.size()];
       int i = 0;
-      for (SecretString tmpSecret : tmpMethodParameters) {
+      for (final SecretString tmpSecret : tmpMethodParameters) {
         tmpParams[i] = tmpSecret.toString();
         tmpParamTypes[i] = String.class;
         i++;

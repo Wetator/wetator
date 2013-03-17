@@ -69,7 +69,7 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
       final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
       final FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
-      for (MatchResult tmpMatchResult : tmpMatches) {
+      for (final MatchResult tmpMatchResult : tmpMatches) {
         final HtmlElement tmpFoundHtmlElement = tmpMatchResult.getHtmlElement();
 
         if (ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(tmpFoundHtmlElement,

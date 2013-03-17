@@ -480,7 +480,7 @@ public class HtmlPageIndex {
   }
 
   private void parseChildren(final DomNode aNode) {
-    for (DomNode tmpChild : aNode.getChildren()) {
+    for (final DomNode tmpChild : aNode.getChildren()) {
       parseDomNode(tmpChild);
     }
   }
@@ -710,7 +710,7 @@ public class HtmlPageIndex {
     tmpLog.append('\n');
 
     // nodes/positions
-    for (DomNode tmpDomNode : nodes) {
+    for (final DomNode tmpDomNode : nodes) {
       final FindSpot tmpPos = positions.get(tmpDomNode);
       tmpLog.append("  ");
       tmpLog.append(tmpDomNode.getNodeName());
