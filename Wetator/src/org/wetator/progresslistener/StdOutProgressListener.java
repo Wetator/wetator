@@ -101,7 +101,7 @@ public class StdOutProgressListener implements IProgressListener {
       println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
 
       boolean tmpFirst = true;
-      for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
+      for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {
         if (tmpFirst) {
           println("Templates:  '" + tmpTemplate + "'");
           tmpFirst = false;
@@ -124,7 +124,7 @@ public class StdOutProgressListener implements IProgressListener {
     }
 
     boolean tmpFirst = true;
-    for (TestCase tmpTestCase : tmpTestCases) {
+    for (final TestCase tmpTestCase : tmpTestCases) {
       if (tmpFirst) {
         println("TestFiles:  '" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
         tmpFirst = false;

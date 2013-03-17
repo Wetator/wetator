@@ -164,7 +164,7 @@ public class WetatorContext {
     try {
       final List<Command> tmpCommands = engine.readCommandsFromFile(tmpFile);
 
-      for (Command tmpCommand : tmpCommands) {
+      for (final Command tmpCommand : tmpCommands) {
         if (!executeCommand(tmpCommand)) {
           setInvalidInput(true);
         }

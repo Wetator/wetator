@@ -330,7 +330,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       throws InvalidInputException {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
-      for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
+      for (final Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
         final String tmpConnectionName = tmpEntry.getKey();
         if (aParameter.startsWith(tmpConnectionName, 1)) {
           return tmpConnectionName;
@@ -370,7 +370,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
    */
   @Override
   public void cleanup() {
-    for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
+    for (final Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
       try {
         tmpEntry.getValue().close();
       } catch (final Exception e) {

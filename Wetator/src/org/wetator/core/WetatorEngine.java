@@ -424,7 +424,7 @@ public class WetatorEngine {
    * Informs all listeners about 'executeCommandEnd'.
    */
   protected void informListenersExecuteCommandEnd() {
-    for (IProgressListener tmpListener : progressListener) {
+    for (final IProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandEnd();
     }
   }

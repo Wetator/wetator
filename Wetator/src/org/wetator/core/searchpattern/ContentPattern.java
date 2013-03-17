@@ -72,7 +72,7 @@ public class ContentPattern {
 
   private void parseNodes() {
     nodes = new LinkedList<PatternNode>();
-    for (SecretString tmpNode : rawNodes) {
+    for (final SecretString tmpNode : rawNodes) {
       nodes.add(new PatternNode(tmpNode));
     }
   }
@@ -119,7 +119,7 @@ public class ContentPattern {
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
 
-    for (PatternNode tmpNode : nodes) {
+    for (final PatternNode tmpNode : nodes) {
       if (tmpResultMessage.length() > 0) {
         tmpResultMessage.append(", ");
       }
@@ -180,7 +180,7 @@ public class ContentPattern {
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
 
-    for (PatternNode tmpNode : nodes) {
+    for (final PatternNode tmpNode : nodes) {
       if (tmpResultMessage.length() > 0) {
         tmpResultMessage.append(", ");
       }

@@ -97,7 +97,7 @@ public final class Parameter {
     }
 
     final List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
-    for (String tmpString : tmpParts) {
+    for (final String tmpString : tmpParts) {
       final Part tmpPart = new Part(tmpString.trim());
       parts.add(tmpPart);
     }
