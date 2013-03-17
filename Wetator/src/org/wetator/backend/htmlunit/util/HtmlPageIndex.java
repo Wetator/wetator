@@ -714,8 +714,10 @@ public class HtmlPageIndex {
       final FindSpot tmpPos = positions.get(tmpDomNode);
       tmpLog.append("  ");
       tmpLog.append(tmpDomNode.getNodeName());
-      tmpLog.append("  [" + tmpPos.getStartPos());
-      tmpLog.append(", " + tmpPos.getEndPos());
+      tmpLog.append("  [");
+      tmpLog.append(Integer.toString(tmpPos.getStartPos()));
+      tmpLog.append(", ");
+      tmpLog.append(Integer.toString(tmpPos.getEndPos()));
       tmpLog.append("]  ");
       tmpLog.append(tmpDomNode.getClass().getName());
 

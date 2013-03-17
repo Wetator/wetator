@@ -76,7 +76,8 @@ public class XMLUtil {
         break;
       } else if (!canEncode(tmpChar)) {
         tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&#" + (int) tmpChar);
+        tmpResult.append("&#");
+        tmpResult.append(Integer.toString(tmpChar));
         tmpResult.append(';');
         i++;
         break;
@@ -107,7 +108,8 @@ public class XMLUtil {
             if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
-              tmpResult.append("&#" + (int) tmpChar);
+              tmpResult.append("&#");
+              tmpResult.append(Integer.toString(tmpChar));
               tmpResult.append(';');
             }
           }
@@ -177,7 +179,8 @@ public class XMLUtil {
         break;
       } else if (!canEncode(tmpChar)) {
         tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&#" + (int) tmpChar);
+        tmpResult.append("&#");
+        tmpResult.append(Integer.toString(tmpChar));
         tmpResult.append(';');
         i++;
         break;
@@ -215,7 +218,8 @@ public class XMLUtil {
             if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
-              tmpResult.append("&#" + (int) tmpChar);
+              tmpResult.append("&#");
+              tmpResult.append(Integer.toString(tmpChar));
               tmpResult.append(';');
             }
           }
