@@ -349,7 +349,7 @@ public class XMLScripter implements IScripter {
             } else if (tmpInCommandType) {
               // no commandType found -> check for parameter of current commandType
               int i = 0;
-              for (ParameterType tmpParameterType : tmpCurrentCommandType.getParameterTypes()) {
+              for (final ParameterType tmpParameterType : tmpCurrentCommandType.getParameterTypes()) {
                 if (tmpParameterType.getName().equals(tmpReader.getLocalName())) {
                   // new parameter of current commandType found
                   tmpInParameter = true;
