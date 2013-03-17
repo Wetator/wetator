@@ -945,24 +945,6 @@ wetator-ant-task/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-strings.xml -text svneol=unset#text/plain
-wetator-ant-task/xsl/images/collapseall.png -text
-wetator-ant-task/xsl/images/collapselog.png -text
-wetator-ant-task/xsl/images/error.png -text
-wetator-ant-task/xsl/images/expandall.png -text
-wetator-ant-task/xsl/images/expandlog.png -text
-wetator-ant-task/xsl/images/failure.png -text
-wetator-ant-task/xsl/images/firefox.png -text
-wetator-ant-task/xsl/images/ie8.png -text
-wetator-ant-task/xsl/images/log_info.png -text
-wetator-ant-task/xsl/images/log_warn.png -text
-wetator-ant-task/xsl/images/next.png -text
-wetator-ant-task/xsl/images/none.png -text
-wetator-ant-task/xsl/images/ok.png -text
-wetator-ant-task/xsl/images/previous.png -text
-wetator-ant-task/xsl/images/response.png -text
-wetator-ant-task/xsl/images/top.png -text
-wetator-ant-task/xsl/images/wetator.png -text
-wetator-ant-task/xsl/run_report.xsl -text svneol=unset#text/plain
 wetator-jenkins-plugin/.classpath -text svneol=unset#text/plain
 wetator-jenkins-plugin/.project -text svneol=unset#text/plain
 wetator-jenkins-plugin/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
