@@ -655,33 +655,6 @@ echo location of the Java Virtual Machine you want to use.
                 <include name="wetator.config" />
             </zipfileset>
         </zip>
-
-        <!-- generate ant distribution zip -->
-        <zip destfile="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip">
-            <zipfileset dir="${dir.build}" prefix="lib" >
-                <include name="${application.jar-basename}.jar" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.lib}" prefix="lib">
-                <patternset refid="runtime-libs" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.samples}/ant" prefix="templates">
-                <include name="build.xml" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.samples}" prefix="samples">
-                <include name="google_search/**" />
-                <exclude name="google_search/logs/**" />
-            </zipfileset>
-
-            <zipfileset dir="${dir.xsl}" prefix="xsl">
-            </zipfileset>
-
-            <zipfileset dir="${dir.src}" prefix="templates">
-                <include name="wetator.config" />
-            </zipfileset>
-        </zip>
     </target>
 
 
