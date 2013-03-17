@@ -107,7 +107,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     boolean tmpFound = true;
     HtmlElement tmpHtmlElement = aHtmlElement;
 
-    for (TableCoordinate tmpTableCoordinate : aTableCoordinates) {
+    for (final TableCoordinate tmpTableCoordinate : aTableCoordinates) {
       if (!tmpFound) {
         // the last table coordinate was not found and no outer table is left
         break;
@@ -201,7 +201,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
   private static int findCellInRow(final HtmlTableRow aRow, final HtmlTableCell aCell) {
     int i = 0;
-    for (HtmlTableCell tmpCell : aRow.getCells()) {
+    for (final HtmlTableCell tmpCell : aRow.getCells()) {
       if (tmpCell == aCell) {
         return i;
       }
@@ -212,7 +212,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
   private static int findRowInTable(final HtmlTable aTable, final HtmlTableRow aRow) {
     int i = 0;
-    for (HtmlTableRow tmpRow : aTable.getRows()) {
+    for (final HtmlTableRow tmpRow : aTable.getRows()) {
       if (tmpRow == aRow) {
         return i;
       }

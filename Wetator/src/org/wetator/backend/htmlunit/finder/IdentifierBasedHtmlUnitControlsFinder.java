@@ -94,8 +94,8 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   @Override
   public WeightedControlList find(final WPath aWPath) {
     final WeightedControlList tmpFoundControls = new WeightedControlList();
-    for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
-      for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
+    for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
+      for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
         try {
           final AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
           tmpIdentifier.initializeForAsynch(htmlPageIndex, tmpHtmlElement, aWPath, tmpFoundControls);
@@ -128,7 +128,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    * Waits until the execution of all identifiers in the thread pool finished.
    */
   protected void waitUntilExecuted() {
-    for (Future<?> tmpFuture : futures) {
+    for (final Future<?> tmpFuture : futures) {
       try {
         tmpFuture.get();
       } catch (final InterruptedException e) {

@@ -70,7 +70,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
 
       // now check for the including image
       final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();
-      for (HtmlElement tmpInnerElement : tmpAllchildElements) {
+      for (final HtmlElement tmpInnerElement : tmpAllchildElements) {
         if (tmpInnerElement instanceof HtmlImage) {
           // does image alt-text match?
           tmpMatches.addAll(new ByInnerImageAltAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,

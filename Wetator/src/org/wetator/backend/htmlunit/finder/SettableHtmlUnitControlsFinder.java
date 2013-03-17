@@ -68,7 +68,7 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
 
     // special case to support some search engines
     if (aWPath.isEmpty()) {
-      for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
+      for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
         if (tmpHtmlElement instanceof HtmlTextInput) {
           tmpFoundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no coverage
