@@ -48,7 +48,9 @@ public final class Messages {
       if (null != aParameterArray && aParameterArray.length > 0) {
         tmpMessageResource.append(" (param(s): ");
         for (int i = 0; i < aParameterArray.length; i++) {
-          tmpMessageResource.append(" ''{" + i).append("}''");
+          tmpMessageResource.append(" ''{");
+          tmpMessageResource.append(Integer.toString(i));
+          tmpMessageResource.append("}''");
         }
         tmpMessageResource.append(')');
       }
