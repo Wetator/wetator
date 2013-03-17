@@ -332,7 +332,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     // handle things that are not implemented at the moment
-    final StringBuilder tmpResult = new StringBuilder();
+    final StringBuilder tmpResult = new StringBuilder(42);
 
     tmpResult.append("[Unknown HtmlElement '");
     tmpResult.append(tmpHtmlElement.getClass());
