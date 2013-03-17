@@ -355,14 +355,11 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     final HtmlElement tmpHtmlElement = getHtmlElement();
     final StringBuilder tmpStyle = new StringBuilder(tmpHtmlElement.getAttribute("style"));
 
-    tmpStyle.append("color: #000000;");
-    tmpStyle.append("background-color: #EEEEEE;");
-    tmpStyle.append("box-shadow: 0 0 2px 2px #E65212;");
-    tmpStyle.append("-moz-box-shadow: 0 0 2px 2px #E65212;");
-    tmpStyle.append("-webkit-box-shadow: 0 0 2px 2px #E65212;");
-    tmpStyle.append("border-radius: 5px;");
-    tmpStyle.append("-moz-border-radius: 5px;");
-    tmpStyle.append("-webkit-border-radius: 5px;");
+    tmpStyle
+        .append("color: #000000;background-color: #EEEEEE;")
+        .append(
+            "box-shadow: 0 0 2px 2px #E65212;-moz-box-shadow: 0 0 2px 2px #E65212;-webkit-box-shadow: 0 0 2px 2px #E65212;")
+        .append("border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;");
 
     tmpHtmlElement.setAttribute("style", tmpStyle.toString());
   }
