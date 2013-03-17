@@ -123,7 +123,7 @@ public abstract class SearchPattern {
             tmpSlash = false;
             continue;
           }
-          tmpPattern.append(".");
+          tmpPattern.append('.');
           tmpIsTextOnly = false;
           continue;
         } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
