@@ -257,7 +257,6 @@ public final class Assert {
         tmpCurrent = tmpCurrent + MORE_MARKER;
       }
     }
-    // TODO really use anExpectedString and aCurrentString instead of tmpExpected and tmpCurrent
     return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
   }
 
