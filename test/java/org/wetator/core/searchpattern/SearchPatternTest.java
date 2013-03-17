@@ -861,10 +861,10 @@ public class SearchPatternTest {
   public void equals() {
     SearchPattern tmpPattern = SearchPattern.compile("te*");
 
-    Assert.assertTrue(tmpPattern.matches(new String("test")));
+    Assert.assertTrue(tmpPattern.matches("test"));
     Assert.assertFalse("test".equals(tmpPattern));
-    Assert.assertFalse(tmpPattern.equals(new String("test")));
-    Assert.assertTrue(tmpPattern.equals(new String("te*")));
+    Assert.assertFalse(tmpPattern.equals(SearchPattern.compile("test")));
+    Assert.assertTrue(tmpPattern.equals(SearchPattern.compile("te*")));
     Assert.assertEquals("te*", tmpPattern.getOriginalString());
   }
 }

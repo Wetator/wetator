@@ -305,10 +305,6 @@ public abstract class SearchPattern {
       return false;
     }
 
-    if (anObject instanceof String) {
-      return anObject.equals(originalString);
-    }
-
     if (getClass() != anObject.getClass()) {
       return false;
     }
