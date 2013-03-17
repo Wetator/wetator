@@ -140,8 +140,7 @@ public final class Command {
     }
 
     Parameter tmpParameter = getFirstParameter();
-    tmpResult.append(" firstParam:");
-    tmpResult.append(" '");
+    tmpResult.append(" firstParam: '");
     if (null != tmpParameter) {
       tmpResult.append(tmpParameter.getValue(aContext).toString());
     }
