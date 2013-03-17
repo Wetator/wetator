@@ -225,6 +225,18 @@
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
         <ivy:resolve conf="default, master, compile, provided, runtime, test, optional" />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
+
+        <delete includeemptydirs="true">
+            <fileset dir="${dir.xsl}" includes="**/*"/>
+        </delete>
+        <unzip dest=".">
+            <fileset dir="${dir.lib-src}">
+                <include name="wetator-*-sources.jar" />
+            </fileset>
+            <patternset>
+                <include name="${dir.xsl}/**" />
+            </patternset>
+        </unzip>
     </target>
 
 
