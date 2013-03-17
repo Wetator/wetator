@@ -149,9 +149,9 @@ public class ContentPattern {
         } else {
           // pattern is somewhere before one of the previous tokens =>
           // wrong order
-          tmpResultMessage.append("[");
+          tmpResultMessage.append('[');
           tmpResultMessage.append(tmpExpectedString);
-          tmpResultMessage.append("]");
+          tmpResultMessage.append(']');
         }
         tmpStartPos = 0;
       } else {
