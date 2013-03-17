@@ -18,7 +18,8 @@ package org.wetator.progresslistener;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -56,7 +57,8 @@ public class StdOutProgressListener implements IProgressListener {
    * The constructor.
    */
   public StdOutProgressListener() {
-    output = new Output(new PrintWriter(System.out), "  ");
+    // use the default charset when writing to the consol
+    output = new Output(new OutputStreamWriter(System.out, Charset.defaultCharset()), "  ");
   }
 
   /**
