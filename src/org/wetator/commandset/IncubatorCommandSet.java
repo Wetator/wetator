@@ -275,7 +275,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
           final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
           final DomNodeList<DomElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
-          for (DomElement tmpAppletElement : tmpAppletElements) {
+          for (final DomElement tmpAppletElement : tmpAppletElements) {
             final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
             if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
               aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
@@ -318,7 +318,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aContext.informListenersWarn("assertAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
       final List<URL> tmpJarUrls = aHtmlApplet.getArchiveUrls();
       if (null != tmpJarUrls) {
-        for (URL tmpJarUrl : tmpJarUrls) {
+        for (final URL tmpJarUrl : tmpJarUrls) {
           try {
             final InputStream tmpIs = tmpJarUrl.openStream();
             tmpIs.close();

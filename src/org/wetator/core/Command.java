@@ -181,7 +181,7 @@ public final class Command {
 
     final List<Parameter.Part> tmpParts = tmpFirstParameter.getParts();
 
-    for (Parameter.Part tmpPart : tmpParts) {
+    for (final Parameter.Part tmpPart : tmpParts) {
       tmpResult.add(tmpPart.getValue(aContext));
     }
 
@@ -258,7 +258,7 @@ public final class Command {
 
     final List<Parameter.Part> tmpParts = tmpSecondParameter.getParts();
 
-    for (Parameter.Part tmpPart : tmpParts) {
+    for (final Parameter.Part tmpPart : tmpParts) {
       tmpResult.add(tmpPart.getValue(aContext));
     }
 

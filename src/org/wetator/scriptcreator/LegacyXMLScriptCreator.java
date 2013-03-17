@@ -73,7 +73,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
             tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
                 "http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd");
             tmpWriter.writeCharacters("\n");
-            for (Command tmpCommand : commands) {
+            for (final Command tmpCommand : commands) {
               tmpWriter.writeCharacters("    ");
               tmpWriter.writeStartElement(LegacyXMLScripter.E_STEP);
               tmpWriter.writeAttribute(LegacyXMLScripter.A_COMMAND, tmpCommand.getName().replace(' ', '_'));

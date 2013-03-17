@@ -82,7 +82,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
       // get used namespaces
       final List<NamespaceBean> tmpNamespaces = new ArrayList<NamespaceBean>();
-      for (Command tmpCommand : commands) {
+      for (final Command tmpCommand : commands) {
         if (!tmpCommand.isComment() && StringUtils.isNotEmpty(tmpCommand.getName())) {
           final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
           if (tmpCommandType == null) {
@@ -106,7 +106,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
             tmpWriter.writeStartElement(E_TEST_CASE);
             tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/test-case");
-            for (NamespaceBean tmpNamespaceBean : tmpNamespaces) {
+            for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
               tmpWriter.writeNamespace(tmpNamespaceBean.getSymbol(), tmpNamespaceBean.getNamespace());
             }
             // tmpWriter.writeNamespace("d", "http://www.wetator.org/xsd/default-command-set");
@@ -116,7 +116,7 @@ public class XMLScriptCreator implements IScriptCreator {
             tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
             final StringBuilder tmpLocations = new StringBuilder("http://www.wetator.org/xsd/test-case test-case-"
                 + TEST_CASE_XSD_VERSION + ".xsd\n");
-            for (NamespaceBean tmpNamespaceBean : tmpNamespaces) {
+            for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
               tmpLocations.append(tmpNamespaceBean.getNamespace());
               tmpLocations.append(' ');
               tmpLocations.append(tmpNamespaceBean.getLocation());
@@ -132,7 +132,7 @@ public class XMLScriptCreator implements IScriptCreator {
             // + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
             tmpWriter.writeAttribute(A_VERSION, TEST_CASE_XSD_VERSION);
             tmpWriter.writeCharacters("\n");
-            for (Command tmpCommand : commands) {
+            for (final Command tmpCommand : commands) {
               tmpWriter.writeCharacters("    ");
               if (tmpCommand.isComment() && StringUtils.isEmpty(tmpCommand.getName())) {
                 tmpWriter.writeStartElement(E_COMMENT);
@@ -192,7 +192,7 @@ public class XMLScriptCreator implements IScriptCreator {
                     tmpParameterValues[2] = tmpCommand.getThirdParameter().getValue();
                   }
                   int i = 0;
-                  for (ParameterType tmpParameterType : tmpParameterTypes) {
+                  for (final ParameterType tmpParameterType : tmpParameterTypes) {
                     if (StringUtils.isNotEmpty(tmpParameterValues[i])) {
                       tmpWriter.writeStartElement(tmpParameterType.getNamespace(), tmpParameterType.getName());
                       writeContent(tmpWriter, tmpParameterValues[i]);

@@ -114,7 +114,7 @@ public class ModelBuilder {
     tmpParser.setEntityResolver(tmpEntityResolver);
 
     // parse all schemas
-    for (XMLSchema tmpSchema : aSchemaList) {
+    for (final XMLSchema tmpSchema : aSchemaList) {
       final InputSource tmpSource = tmpEntityResolver.resolveEntity(tmpSchema.getNamespace(), tmpSchema.getLocation());
       if (tmpSource != null) {
         tmpParser.parse(tmpSource);
@@ -154,9 +154,9 @@ public class ModelBuilder {
         tmpCommandType.setDocumentation(getDocumentation(tmpElement));
         commandTypes.put(tmpElementName, tmpCommandType);
 
-        for (ParameterType tmpParameterType : getParameterTypes(tmpType)) {
+        for (final ParameterType tmpParameterType : getParameterTypes(tmpType)) {
           final String tmpParameterName = tmpParameterType.getName();
-          for (ParameterType tmpCommandParameterType : tmpCommandType.getParameterTypes()) {
+          for (final ParameterType tmpCommandParameterType : tmpCommandType.getParameterTypes()) {
             if (tmpCommandParameterType.getName().equals(tmpParameterName)) {
               throw new ParseException("Duplicate parameter '" + tmpElementName + "' found for command '"
                   + tmpCommandType.getNamespace() + ":" + tmpCommandType.getName() + "'.");
@@ -178,7 +178,7 @@ public class ModelBuilder {
       if (tmpXsTerm.isModelGroup()) {
         final XSModelGroup tmpXsModelGroup = tmpXsTerm.asModelGroup();
         final XSParticle[] tmpXsParticles = tmpXsModelGroup.getChildren();
-        for (XSParticle tmpChildParticle : tmpXsParticles) {
+        for (final XSParticle tmpChildParticle : tmpXsParticles) {
           final XSTerm tmpChildTerm = tmpChildParticle.getTerm();
           if (tmpChildTerm.isElementDecl()) {
             final XSElementDecl tmpChildElement = tmpChildTerm.asElementDecl();

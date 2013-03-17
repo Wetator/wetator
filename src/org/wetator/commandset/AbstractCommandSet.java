@@ -142,7 +142,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
           tmpEntry.getControl().getDescribingText() });
     }
 
-    for (WeightedControlList.Entry tmpEachEntry : tmpEntries) {
+    for (final WeightedControlList.Entry tmpEachEntry : tmpEntries) {
       aContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
     }
 
