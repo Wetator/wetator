@@ -27,9 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
-import junit.framework.Assert;
-
 import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.jenkins.PluginImpl;
 import org.wetator.jenkins.WetatorBuildReport;
