@@ -82,8 +82,8 @@ public class WikiTextScripterTest {
     int tmpPos = 0;
     Command tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Just a comment", tmpCommand.getName());
-    Assert.assertNull(tmpCommand.getFirstParameter());
+    Assert.assertEquals("", tmpCommand.getName());
+    Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;

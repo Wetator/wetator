@@ -128,7 +128,7 @@ public final class WikiTextScripter implements IScripter {
             tmpLine = tmpLine.substring(2);
           }
 
-          final String[] tmpParts = StringUtils.splitByWholeSeparator(tmpLine, SEPARATOR);
+          String[] tmpParts = StringUtils.splitByWholeSeparator(tmpLine, SEPARATOR);
 
           String tmpCommandName = "";
           if (tmpParts.length > COMMAND_NAME_COLUMN_NO) {
@@ -142,44 +142,46 @@ public final class WikiTextScripter implements IScripter {
           tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
           // empty command means comment
-          if (tmpComment && StringUtils.isEmpty(tmpCommandName)) {
-            tmpCommandName = "Comment";
+          if (tmpComment && (StringUtils.isEmpty(tmpCommandName) || tmpParts.length < 2)) {
+            tmpCommandName = "comment";
+            if (tmpParts.length == 1) {
+              tmpCommandName = "";
+              tmpParts = new String[] { tmpCommandName, tmpParts[0] };
+            }
           }
 
-          if (!StringUtils.isEmpty(tmpCommandName)) {
-            final Command tmpCommand = new Command(tmpCommandName, tmpComment);
+          final Command tmpCommand = new Command(tmpCommandName, tmpComment);
 
-            String tmpParameter = null;
-            if (tmpParts.length > FIRST_PARAM_COLUMN_NO) {
-              tmpParameter = tmpParts[FIRST_PARAM_COLUMN_NO];
-              tmpParameter = tmpParameter.trim();
-            }
-            if (null != tmpParameter) {
-              tmpCommand.setFirstParameter(new Parameter(tmpParameter));
-            }
-
-            tmpParameter = null;
-            if (tmpParts.length > SECOND_PARAM_COLUMN_NO) {
-              tmpParameter = tmpParts[SECOND_PARAM_COLUMN_NO];
-              tmpParameter = tmpParameter.trim();
-            }
-            if (null != tmpParameter) {
-              tmpCommand.setSecondParameter(new Parameter(tmpParameter));
-            }
-
-            tmpParameter = null;
-            if (tmpParts.length > THIRD_PARAM_COLUMN_NO) {
-              tmpParameter = tmpParts[THIRD_PARAM_COLUMN_NO];
-              tmpParameter = tmpParameter.trim();
-            }
-            if (null != tmpParameter) {
-              tmpCommand.setThirdParameter(new Parameter(tmpParameter));
-            }
-
-            tmpCommand.setLineNo(tmpLineNo);
-
-            tmpResult.add(tmpCommand);
+          String tmpParameter = null;
+          if (tmpParts.length > FIRST_PARAM_COLUMN_NO) {
+            tmpParameter = tmpParts[FIRST_PARAM_COLUMN_NO];
+            tmpParameter = tmpParameter.trim();
           }
+          if (null != tmpParameter) {
+            tmpCommand.setFirstParameter(new Parameter(tmpParameter));
+          }
+
+          tmpParameter = null;
+          if (tmpParts.length > SECOND_PARAM_COLUMN_NO) {
+            tmpParameter = tmpParts[SECOND_PARAM_COLUMN_NO];
+            tmpParameter = tmpParameter.trim();
+          }
+          if (null != tmpParameter) {
+            tmpCommand.setSecondParameter(new Parameter(tmpParameter));
+          }
+
+          tmpParameter = null;
+          if (tmpParts.length > THIRD_PARAM_COLUMN_NO) {
+            tmpParameter = tmpParts[THIRD_PARAM_COLUMN_NO];
+            tmpParameter = tmpParameter.trim();
+          }
+          if (null != tmpParameter) {
+            tmpCommand.setThirdParameter(new Parameter(tmpParameter));
+          }
+
+          tmpCommand.setLineNo(tmpLineNo);
+
+          tmpResult.add(tmpCommand);
         }
         return tmpResult;
       } finally {
