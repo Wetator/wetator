@@ -22,6 +22,7 @@ Wetator/pom.template.xml -text svneol=unset#text/plain
 Wetator/readme.txt -text svneol=unset#text/plain
 Wetator/samples/ant/build.xml -text
 Wetator/samples/google_search/google.wet -text
+Wetator/samples/google_search/google.wett -text
 Wetator/samples/google_search/google.xls -text
 Wetator/samples/google_search/wetator.config -text
 Wetator/samples/sample.wet -text
