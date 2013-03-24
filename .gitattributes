@@ -22,6 +22,7 @@ ant_lib/one-jar-ant-task-0.97.jar -text
 /readme.txt -text svneol=unset#text/plain
 samples/ant/build.xml -text
 samples/google_search/google.wet -text
+samples/google_search/google.wett -text
 samples/google_search/google.xls -text
 samples/google_search/wetator.config -text
 samples/sample.wet -text

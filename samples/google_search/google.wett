@@ -1,0 +1,19 @@
+# simple test case in wiki format
+
+open-url        || http://www.google.com
+
+# It is a good idea to check for the right page early
+
+assert-title    || Google
+
+# Let's fill the search box;
+# if no name for the control to be set is given, the Wetator uses the one that has the focu
+
+set             ||                              || GEBIT Solutions
+assert-content  || GEBIT Solutions: Startseite
+assert-content  || 20 Jahre Erfahrung
+
+# OK, we found something
+
+click-on        || GEBIT Solutions: Startseite
+assert-content  || Technologien, Methoden, Werkzeuge, Fundiertes Know-how
