@@ -180,12 +180,6 @@ Wetator/src/org/wetator/util/VersionUtil.java -text
 Wetator/src/org/wetator/util/XMLUtil.java -text
 Wetator/src/wetator.config -text
 Wetator/test/MouseEvents.xls -text
-Wetator/test/ant/ant_task_classpath_test.xls -text
-Wetator/test/ant/build.xml -text
-Wetator/test/ant/commons-exec-1.1.jar -text
-Wetator/test/ant/failure.wet -text
-Wetator/test/ant/sample.xls -text
-Wetator/test/ant/wetator.config -text
 Wetator/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/excel/default_command_set.xls -text
@@ -940,6 +934,12 @@ wetator-ant-task/samples/wetator.config -text
 wetator-ant-task/src/org/wetator/ant/AntOutProgressListener.java -text
 wetator-ant-task/src/org/wetator/ant/Version.java -text
 wetator-ant-task/src/org/wetator/ant/Wetator.java -text
+wetator-ant-task/test/ant/ant_task_classpath_test.xls -text
+wetator-ant-task/test/ant/build.xml -text
+wetator-ant-task/test/ant/commons-exec-1.1.jar -text
+wetator-ant-task/test/ant/failure.wet -text
+wetator-ant-task/test/ant/sample.xls -text
+wetator-ant-task/test/ant/wetator.config -text
 wetator-ant-task/test/checkstyle/checkstyle.xml -text
 wetator-ant-task/test/checkstyle/test-checkstyle.xml -text
 wetator-ant-task/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
