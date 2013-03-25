@@ -39,11 +39,11 @@
 	<classpathentry kind="lib" path="lib/httpclient-4.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/automaton-1.11-8.jar"/>
-	<classpathentry kind="lib" path="lib/cssparser-0.9.9.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.12.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.13-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.19-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/fontbox-1.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.10-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.13-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
