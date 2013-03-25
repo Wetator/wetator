@@ -185,7 +185,6 @@
                         tmpFrame.style.left= tmpPosX + "px";
                         tmpFrame.style.top= tmpPosY + "px";
                         tmpFrame.style.display='block';
-                        tmpFrame.focus();
                     }
                 }
 
