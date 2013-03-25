@@ -185,6 +185,8 @@
                         tmpFrame.style.left= tmpPosX + "px";
                         tmpFrame.style.top= tmpPosY + "px";
                         tmpFrame.style.display='block';
+                        tmpFrame.contentWindow.document.onmouseout=hidePreview;
+                        tmpFrame.contentWindow.document.onmouseover=hidePreview;
                     }
                 }
 
@@ -724,6 +726,14 @@
                 <xsl:text>&#32;version:&#32;</xsl:text>
                 <xsl:value-of select="wet/about/version"/>
                 <xsl:text>.</xsl:text>
+
+                <div id="preview-spacer">
+                    <xsl:attribute name="style">
+                        <xsl:text>margin-bottom: </xsl:text>
+                        <xsl:value-of select="$previewHeight"/>
+                        <xsl:text>px;</xsl:text>
+                    </xsl:attribute>
+                </div>
             </body>
         </html>
     </xsl:template>
