@@ -262,6 +262,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
     final String tmpPropConnections = aConfiguration.getProperty(PROPERTY_CONNECTIONS);
 
     if (StringUtils.isEmpty(tmpPropConnections)) {
+      addInitializationMessage("No database connections defined (property '" + PROPERTY_CONNECTIONS + "' not set).");
+      LOG.warn("No database connections defined (property '" + PROPERTY_CONNECTIONS + "' not set).");
       return;
     }
 
