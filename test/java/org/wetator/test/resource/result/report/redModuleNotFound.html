@@ -132,7 +132,8 @@
                         tmpFrame.style.left= tmpPosX + "px";
                         tmpFrame.style.top= tmpPosY + "px";
                         tmpFrame.style.display='block';
-                        tmpFrame.focus();
+                        tmpFrame.contentWindow.document.onmouseout=hidePreview;
+                        tmpFrame.contentWindow.document.onmouseover=hidePreview;
                     }
                 }
 
@@ -332,5 +333,6 @@
 <a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
                 </a>
 </p>
-<hr>Created using Wetator version: local build.</body>
+<hr>Created using Wetator version: local build.<div id="preview-spacer" style="margin-bottom: 1000px;"></div>
+</body>
 </html>
