@@ -105,6 +105,55 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.5.2</version><!--$NO-MVN-MAN-VER$-->
+                <executions>
+                    <execution>
+                        <id>findbugs-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>findbugs</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>${project.build.directory}/findbugs</xmlOutputDirectory>
+                    <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+                    <excludeFilterFile>src/test/findbugs/excludeFilter.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.0.1</version><!--$NO-MVN-MAN-VER$-->
+                <executions>
+                    <execution>
+                        <id>pmd-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>pmd</goal>
+                            <goal>cpd</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <targetDirectory>${project.build.directory}/pmd</targetDirectory>
+                    <targetJdk>1.6</targetJdk>
+                    <rulesets>
+                        <ruleset>/rulesets/java/basic.xml</ruleset>
+                        <ruleset>/rulesets/java/braces.xml</ruleset>
+                        <ruleset>/rulesets/java/clone.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-strings.xml</ruleset>
+                        <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-logging-jakarta-commons.xml</ruleset>
+                        <ruleset>/rulesets/java/finalizers.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-optimizations.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
