@@ -90,6 +90,7 @@
     <property id="84" key="wetator.acceptLanguage" />
     <property id="85" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator\logs" />
     <property id="86" key="wetator.jsTimeout" value="0s" />
+    <property id="83" key="wetator.httpTimeout" value="0s" />
     <property id="87" key="wetator.proxyHost" />
     <property id="88" key="wetator.proxyPort" value="0" />
     <property id="89" key="wetator.proxyUser" />

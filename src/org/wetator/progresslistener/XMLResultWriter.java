@@ -265,6 +265,8 @@ public class XMLResultWriter implements IProgressListener {
           .getAbsolutePath());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_JAVASCRIPT_TIMEOUT,
           tmpConfiguration.getJsTimeoutInSeconds() + "s");
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_HTTP_TIMEOUT, tmpConfiguration.getHttpTimeoutInSeconds()
+          + "s");
 
       for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
