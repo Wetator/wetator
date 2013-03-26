@@ -274,15 +274,18 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setThrowExceptionOnScriptError(false);
     webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
 
-    // debug stuff
-    // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-    // WebClientUtils.attachVisualDebugger(webClient);
-
     // set Accept-Language header
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
 
     // trust all SSL-certificates
     webClient.getOptions().setUseInsecureSSL(true);
+
+    // set the timeout
+    webClient.getOptions().setTimeout(tmpConfiguration.getHttpTimeoutInSeconds() * 1000);
+
+    // debug stuff
+    // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+    // WebClientUtils.attachVisualDebugger(webClient);
   }
 
   /**

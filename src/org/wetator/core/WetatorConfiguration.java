@@ -86,6 +86,10 @@ public class WetatorConfiguration {
    * The property name to set the javascript timeout.
    */
   public static final String PROPERTY_JAVASCRIPT_TIMEOUT = PROPERTY_PREFIX + "jsTimeout";
+  /**
+   * The property name to set the http timeout.
+   */
+  public static final String PROPERTY_HTTP_TIMEOUT = PROPERTY_PREFIX + "httpTimeout";
 
   // output
   /**
@@ -167,6 +171,7 @@ public class WetatorConfiguration {
   private List<Class<? extends IControl>> controls;
   private String baseUrl;
   private int jsTimeoutInSeconds;
+  private int httpTimeoutInSeconds;
 
   private File outputDir;
   private List<String> xslTemplates;
@@ -365,6 +370,17 @@ public class WetatorConfiguration {
     }
     if (jsTimeoutInSeconds < 1) {
       throw new ConfigurationException("The property '" + PROPERTY_JAVASCRIPT_TIMEOUT + "' is less than 1.");
+    }
+
+    // httpTimeout
+    tmpValue = tmpProperties.getProperty(PROPERTY_HTTP_TIMEOUT, "90");
+    try {
+      httpTimeoutInSeconds = Integer.parseInt(tmpValue);
+    } catch (final NumberFormatException e) {
+      throw new ConfigurationException("The property '" + PROPERTY_HTTP_TIMEOUT + "' is no integer.");
+    }
+    if (httpTimeoutInSeconds < 1) {
+      throw new ConfigurationException("The property '" + PROPERTY_HTTP_TIMEOUT + "' is less than 1.");
     }
 
     // browserVersion
@@ -734,6 +750,13 @@ public class WetatorConfiguration {
    */
   public int getJsTimeoutInSeconds() {
     return jsTimeoutInSeconds;
+  }
+
+  /**
+   * @return the configured http timeout
+   */
+  public int getHttpTimeoutInSeconds() {
+    return httpTimeoutInSeconds;
   }
 
   /**
