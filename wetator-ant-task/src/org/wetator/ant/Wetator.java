@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.AntClassLoader;
@@ -153,15 +153,14 @@ public class Wetator extends Task {
 
     // read the properties from project
     final Map<String, String> tmpProjectProperties = getProject().getProperties();
-    final Set<String> tmpKeys = tmpProjectProperties.keySet();
-    for (final String tmpKey : tmpKeys) {
-      if (tmpKey.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
-        tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
-        log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
-      } else if (tmpKey.startsWith(WetatorConfiguration.PROPERTY_PREFIX)
-          || tmpKey.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
-        tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
-        log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
+    for (final Entry<String, String> tmpEntry : tmpProjectProperties.entrySet()) {
+      if (tmpEntry.getKey().startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
+        tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
+        log("set property '" + tmpEntry.getKey() + "' to '****' (from project)", Project.MSG_INFO);
+      } else if (tmpEntry.getKey().startsWith(WetatorConfiguration.PROPERTY_PREFIX)
+          || tmpEntry.getKey().startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
+        tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
+        log("set property '" + tmpEntry.getKey() + "' to '" + tmpEntry.getValue() + "' (from project)",
             Project.MSG_INFO);
       }
     }
