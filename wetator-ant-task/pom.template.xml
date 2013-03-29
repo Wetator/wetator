@@ -14,12 +14,14 @@
   limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>${ivy.pom.groupId}</groupId>
     <artifactId>${ivy.pom.artifactId}</artifactId>
     <version>${ivy.pom.version}</version>
+    <packaging>${ivy.pom.packaging}</packaging>
+
     <name>${application.name}</name>
     <url>${ivy.pom.url}</url>
     <description>Smart web application testing</description>
@@ -28,9 +30,7 @@
         <name>${application.vendor}</name>
         <url>${ivy.pom.url}</url>
     </organization>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+
     <scm>
         <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator-ant-task</connection>
         <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/wetator-ant-task</developerConnection>
@@ -44,4 +44,8 @@
         <system>jenkins</system>
         <url>https://wetator.ci.cloudbees.com/job/wetator-ant-task/</url>
     </ciManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>
