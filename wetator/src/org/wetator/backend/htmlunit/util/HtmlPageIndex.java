@@ -205,7 +205,12 @@ public class HtmlPageIndex {
    * @return the position
    */
   public FindSpot getPosition(final HtmlElement anHtmlElement) {
-    return positions.get(anHtmlElement);
+    final FindSpot tmpResult = positions.get(anHtmlElement);
+    if (null == tmpResult) {
+      LOG.error("No FindSpot found for HtmlElement: " + anHtmlElement.toString());
+      dumpToLog();
+    }
+    return tmpResult;
   }
 
   /**
