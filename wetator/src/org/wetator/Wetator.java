@@ -24,6 +24,11 @@ import javax.swing.JWindow;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorEngine;
 import org.wetator.gui.DialogUtil;
@@ -46,18 +51,25 @@ public final class Wetator {
    * @param anArgsArray the command line arguments
    */
   public static void main(final String[] anArgsArray) {
-    LOG.info(Version.getFullProductName());
-    LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
-        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
-
-    final IProgressListener tmpProgressListener = new StdOutProgressListener();
-
     String tmpConfigFileName = null;
+    File tmpLogFile = null;
     final List<String> tmpFileNames = new LinkedList<String>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();
-      if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
+      if ("-log".equals(tmpArg)) {
+        final FileAppender tmpFileAppender = new FileAppender();
+        tmpFileAppender.setName("w_file");
+        tmpLogFile = new File("wetator.log");
+        tmpFileAppender.setFile(tmpLogFile.getAbsolutePath());
+        tmpFileAppender.setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
+        tmpFileAppender.activateOptions();
+        Logger.getRootLogger().addAppender(tmpFileAppender);
+
+        final Logger tmpLogger = LogManager.getLogger("org.wetator");
+        tmpLogger.setLevel(Level.TRACE);
+        tmpLogger.addAppender(tmpFileAppender);
+      } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;
       } else {
@@ -65,10 +77,18 @@ public final class Wetator {
       }
     }
 
-    WetatorEngine tmpWetatorEngine;
+    LOG.info(Version.getFullProductName());
+    LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
+        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
+    if (null != tmpLogFile) {
+      LOG.info("    Log file: " + tmpLogFile.getAbsolutePath());
+    }
+
+    final IProgressListener tmpProgressListener = new StdOutProgressListener();
+
     final JWindow tmpWindow = new JWindow();
     try {
-      tmpWetatorEngine = new WetatorEngine();
+      final WetatorEngine tmpWetatorEngine = new WetatorEngine();
       tmpWetatorEngine.addProgressListener(tmpProgressListener);
 
       if (null != tmpConfigFileName) {
