@@ -67,7 +67,8 @@ public final class Wetator {
         tmpFileAppender.activateOptions();
         Logger.getRootLogger().addAppender(tmpFileAppender);
 
-        for (String tmpLog : new String[] { "org.wetator", "com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl" }) {
+        for (String tmpLog : new String[] { "org.wetator", "com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl",
+            "com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine" }) {
           final Logger tmpLogger = LogManager.getLogger(tmpLog);
           tmpLogger.setLevel(Level.TRACE);
         }
