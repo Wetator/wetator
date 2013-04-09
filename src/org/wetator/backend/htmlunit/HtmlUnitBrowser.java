@@ -90,6 +90,8 @@ import com.gargoylesoftware.htmlunit.WebWindowEvent;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
+import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -284,6 +286,10 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setTimeout(tmpConfiguration.getHttpTimeoutInSeconds() * 1000);
 
     // debug stuff
+    if (tmpConfiguration.isLogEnabled()) {
+      final HtmlUnitContextFactory tmpContextFactory = webClient.getJavaScriptEngine().getContextFactory();
+      tmpContextFactory.setDebugger(new DebuggerImpl());
+    }
     // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
     // WebClientUtils.attachVisualDebugger(webClient);
   }

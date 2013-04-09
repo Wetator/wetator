@@ -194,6 +194,8 @@ public class WetatorConfiguration {
 
   private List<Variable> variables; // store them in defined order
 
+  private boolean log;
+
   /**
    * The constructor. It reads the the configuration properties from
    * <ol>
@@ -869,5 +871,19 @@ public class WetatorConfiguration {
    */
   public List<Variable> getVariables() {
     return variables;
+  }
+
+  /**
+   * @return true if the (javascript) log is switched on
+   */
+  public boolean isLogEnabled() {
+    return log;
+  }
+
+  /**
+   * Switches the (javascript) log on.
+   */
+  public void enableLog() {
+    log = true;
   }
 }

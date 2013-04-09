@@ -63,12 +63,14 @@ public final class Wetator {
         tmpLogFile = new File("wetator.log");
         tmpFileAppender.setFile(tmpLogFile.getAbsolutePath());
         tmpFileAppender.setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
+        tmpFileAppender.setAppend(false);
         tmpFileAppender.activateOptions();
         Logger.getRootLogger().addAppender(tmpFileAppender);
 
-        final Logger tmpLogger = LogManager.getLogger("org.wetator");
-        tmpLogger.setLevel(Level.TRACE);
-        tmpLogger.addAppender(tmpFileAppender);
+        for (String tmpLog : new String[] { "org.wetator", "com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl" }) {
+          final Logger tmpLogger = LogManager.getLogger(tmpLog);
+          tmpLogger.setLevel(Level.TRACE);
+        }
       } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;
@@ -95,6 +97,9 @@ public final class Wetator {
         tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
       }
       tmpWetatorEngine.init();
+      if (null != tmpLogFile) {
+        tmpWetatorEngine.getConfiguration().enableLog();
+      }
 
       if (tmpFileNames.isEmpty()) {
         String tmpPropertyKey = null;
