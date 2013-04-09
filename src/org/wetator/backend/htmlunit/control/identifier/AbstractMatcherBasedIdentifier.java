@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -81,8 +82,15 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
 
     final WeightedControlList tmpResult = new WeightedControlList();
     for (final MatchResult tmpMatch : tmpProcessedMatches) {
-      tmpResult.add(createControl(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(), tmpMatch.getCoverage(),
-          tmpMatch.getDistance(), htmlPageIndex.getPosition(tmpMatch.getHtmlElement()).getStartPos());
+      final HtmlElement tmpHtmlElement = tmpMatch.getHtmlElement();
+      final IControl tmpControl = createControl(tmpHtmlElement);
+      final FoundType tmpFoundType = tmpMatch.getFoundType();
+      final int tmpCoverarge = tmpMatch.getCoverage();
+      final int tmpDistance = tmpMatch.getDistance();
+      final FindSpot tmpPosition = htmlPageIndex.getPosition(tmpHtmlElement);
+      final int tmpStartPosition = tmpPosition.getStartPos();
+
+      tmpResult.add(tmpControl, tmpFoundType, tmpCoverarge, tmpDistance, tmpStartPosition);
     }
     return tmpResult;
   }
