@@ -18,6 +18,8 @@ package org.wetator.backend.htmlunit.control;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -42,6 +44,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 @ForHtmlElement(HtmlCheckBoxInput.class)
 @IdentifiedBy(HtmlUnitInputCheckBoxIdentifier.class)
 public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput> implements IDeselectable {
+
+  private static final Log LOG = LogFactory.getLog(HtmlUnitInputCheckBox.class);
 
   /**
    * The constructor.
@@ -81,8 +85,8 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     }
 
     try {
-      tmpHtmlCheckBoxInput.focus();
       if (!tmpHtmlCheckBoxInput.isChecked()) {
+        LOG.debug("HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
         tmpHtmlCheckBoxInput.click();
       }
 
