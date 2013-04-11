@@ -86,7 +86,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
     try {
       if (!tmpHtmlCheckBoxInput.isChecked()) {
-        LOG.debug("HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
         tmpHtmlCheckBoxInput.click();
       }
 

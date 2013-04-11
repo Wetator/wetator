@@ -18,6 +18,8 @@ package org.wetator.backend.htmlunit.control;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -43,6 +45,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 @ForHtmlElement(HtmlOption.class)
 @IdentifiedBy({ HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
 public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements IDeselectable {
+
+  private static final Log LOG = LogFactory.getLog(HtmlUnitOption.class);
 
   /**
    * The constructor.
@@ -83,6 +87,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
     try {
       if (!tmpHtmlOption.isSelected()) {
+        LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
         tmpHtmlOption.click();
       }
 
