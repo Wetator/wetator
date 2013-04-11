@@ -24,6 +24,8 @@ import java.lang.annotation.Target;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
@@ -55,6 +57,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * @author frank.danek
  */
 public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
+
+  private static final Log LOG = LogFactory.getLog(HtmlUnitInputCheckBox.class);
 
   private T htmlElement;
 
@@ -109,6 +113,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     try {
+      LOG.debug("Click - HtmlUnitBaseControl<T>.click() '" + tmpHtmlElement + "'");
       tmpHtmlElement.click();
       waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
@@ -148,6 +153,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     try {
+      LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.dblClick() '" + tmpHtmlElement + "'");
       tmpHtmlElement.dblClick();
       waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
@@ -187,6 +193,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     try {
+      LOG.debug("ClickRight - HtmlUnitBaseControl<T>.rightClick() '" + tmpHtmlElement + "'");
       tmpHtmlElement.rightClick();
       waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
