@@ -724,7 +724,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       while (System.currentTimeMillis() < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
 
-        tmpPendingJobs = areJobsPendig(tmpHtmlPage, tmpEndTime);
+        tmpPendingJobs = areJobsPendig(tmpHtmlPage, System.currentTimeMillis() - tmpEndTime);
         if (tmpPendingJobs) {
           continue;
         }
@@ -751,17 +751,16 @@ public final class HtmlUnitBrowser implements IBrowser {
     return false;
   }
 
-  private boolean areJobsPendig(final HtmlPage aHtmlPage, final long anEndTime) {
+  private boolean areJobsPendig(final HtmlPage aHtmlPage, final long anDuration) {
     final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
-    final long tmpDuration = anEndTime - System.currentTimeMillis();
 
-    final int tmpJobCount = tmpJobManager.waitForJobsStartingBefore(tmpDuration);
+    final int tmpJobCount = tmpJobManager.waitForJobsStartingBefore(anDuration);
     if (tmpJobCount > 0) {
       return true;
     }
 
     for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
-      if (areJobsPendig((HtmlPage) tmpFrameWindow.getEnclosedPage(), anEndTime)) {
+      if (areJobsPendig((HtmlPage) tmpFrameWindow.getEnclosedPage(), anDuration)) {
         return true;
       }
     }
@@ -815,46 +814,52 @@ public final class HtmlUnitBrowser implements IBrowser {
     boolean tmpPageChanged = false;
 
     try {
-      Page tmpPage = getCurrentPage();
-      if (tmpPage instanceof HtmlPage) {
-        // try with wait
-        long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+      // try with wait
+      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
 
-        // only true if the user has specified a wait time
-        while (System.currentTimeMillis() < tmpEndTime) {
-          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+      Page tmpPage = null;
 
-          final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-          try {
-            aTitleToWaitFor.matches(tmpCurrentTitle);
-            // warn also in case of match to be consistent
-            final int tmpJobCount = areJobsActive(tmpHtmlPage);
-            if (tmpJobCount > 0) {
-              wetatorEngine.informListenersWarn("stillJobsActive",
-                  new String[] { Long.toString(jsTimeoutInMillis / 1000), Integer.toString(tmpJobCount) }, null);
-            }
-            return tmpPageChanged;
-          } catch (final AssertionException e) {
-            // ok, not found, maybe we have to be more patient
-          }
-
-          tmpPageChanged = true;
-          if (areJobsPendig(tmpHtmlPage, tmpEndTime)) {
-            continue;
-          }
-
-          if (tmpPage == getCurrentPage()) {
-            break;
-          }
-
-          // current page is changed, we have to make at least one try
-          // reset the timeout
-          tmpPage = getCurrentPage();
-          if (!(tmpPage instanceof HtmlPage)) {
-            break;
-          }
-          tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+      // only true if the user has specified a wait time
+      while (System.currentTimeMillis() < tmpEndTime) {
+        tmpPage = getCurrentPage();
+        if (!(tmpPage instanceof HtmlPage)) {
+          break;
         }
+
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+
+        try {
+          aTitleToWaitFor.matches(tmpCurrentTitle);
+          // warn also in case of match to be consistent
+          final int tmpJobCount = areJobsActive(tmpHtmlPage);
+          if (tmpJobCount > 0) {
+            wetatorEngine.informListenersWarn("stillJobsActive", new String[] {
+                Long.toString(jsTimeoutInMillis / 1000), Integer.toString(tmpJobCount) }, null);
+          }
+          return tmpPageChanged;
+        } catch (final AssertionException e) {
+          // ok, not found, maybe we have to be more patient
+        }
+
+        tmpPageChanged = true;
+
+        // wait for the jobs running in the next second
+        if (areJobsPendig(tmpHtmlPage, 1)) {
+          // page was changed in between, the new page has
+          // at least a timeout of jsTimeout
+          if (tmpPage != getCurrentPage()) {
+            tmpEndTime = Math.max(tmpEndTime, System.currentTimeMillis() + jsTimeoutInMillis);
+          }
+          continue;
+        }
+
+        if (tmpPage == getCurrentPage()) {
+          break;
+        }
+        // page was changed in between, the new page has
+        // at least a timeout of jsTimeout
+        tmpEndTime = Math.max(tmpEndTime, System.currentTimeMillis() + jsTimeoutInMillis);
       }
 
       final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
@@ -888,61 +893,66 @@ public final class HtmlUnitBrowser implements IBrowser {
     boolean tmpPageChanged = false;
 
     try {
-      Page tmpPage = getCurrentPage();
-      if (tmpPage instanceof HtmlPage) {
-        // try with wait
-        long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+      // try with wait
+      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
 
-        // only true if the user has specified a wait time
-        while (System.currentTimeMillis() < tmpEndTime) {
-          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+      Page tmpPage = null;
 
-          try {
-            final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-            try {
-              aContentToWaitFor.matches(tmpContentAsText);
-
-              // warn also in case of match to be consistent
-              final int tmpJobCount = areJobsActive(tmpHtmlPage);
-              if (tmpJobCount > 0) {
-                wetatorEngine.informListenersWarn("stillJobsActive",
-                    new String[] { Long.toString(jsTimeoutInMillis / 1000), Integer.toString(tmpJobCount) }, null);
-              }
-              return tmpPageChanged;
-            } catch (final AssertionException e) {
-              // ok, not found, maybe we have to be more patient
-            }
-          } catch (final IllegalStateException e) {
-            // no javascript running/scheduled, so this is a real problem
-            // Note: there is no API to ask for the currently running jobs only
-            if (areJobsActive(tmpHtmlPage) > 0) {
-              throw e;
-            }
-
-            // in some cases the page will be right now replaced by javascript;
-            // ignore the exception and make another try
-            wetatorEngine.informListenersWarn("pageIndexFailed", new String[] { e.getMessage() }, e);
-          }
-
-          tmpPageChanged = true;
-          if (areJobsPendig(tmpHtmlPage, tmpEndTime)) {
-            continue;
-          }
-
-          if (tmpPage == getCurrentPage()) {
-            // current page is unchanged, another wait cycle makes
-            // no sense because there is no javascript that will run
-            break;
-          }
-
-          // current page is changed, we have to make at least one try
-          // reset the timeout
-          tmpPage = getCurrentPage();
-          if (!(tmpPage instanceof HtmlPage)) {
-            break;
-          }
-          tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+      // only true if the user has specified a wait time
+      while (System.currentTimeMillis() < tmpEndTime) {
+        tmpPage = getCurrentPage();
+        if (!(tmpPage instanceof HtmlPage)) {
+          break;
         }
+
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+
+        try {
+          final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+          try {
+            aContentToWaitFor.matches(tmpContentAsText);
+
+            // warn also in case of match to be consistent
+            final int tmpJobCount = areJobsActive(tmpHtmlPage);
+            if (tmpJobCount > 0) {
+              wetatorEngine.informListenersWarn("stillJobsActive",
+                  new String[] { Long.toString(jsTimeoutInMillis / 1000), Integer.toString(tmpJobCount) }, null);
+            }
+            return tmpPageChanged;
+          } catch (final AssertionException e) {
+            // ok, not found, maybe we have to be more patient
+          }
+        } catch (final IllegalStateException e) {
+          // no javascript running/scheduled, so this is a real problem
+          // Note: there is no API to ask for the currently running jobs only
+          if (areJobsActive(tmpHtmlPage) > 0) {
+            throw e;
+          }
+
+          // in some cases the page will be right now replaced by javascript;
+          // ignore the exception and make another try
+          wetatorEngine.informListenersWarn("pageIndexFailed", new String[] { e.getMessage() }, e);
+        }
+
+        tmpPageChanged = true;
+        // wait for the jobs running in the next second
+        if (areJobsPendig(tmpHtmlPage, 1)) {
+          // page was changed in between, the new page has
+          // at least a timeout of jsTimeout
+          if (tmpPage != getCurrentPage()) {
+            tmpEndTime = Math.max(tmpEndTime, System.currentTimeMillis() + jsTimeoutInMillis);
+          }
+          continue;
+        }
+
+        if (tmpPage == getCurrentPage()) {
+          // current page is unchanged, another wait cycle makes
+          // no sense because there is no javascript that will run
+          break;
+        }
+        // page was changed in between, the new page has
+        // at least a timeout of jsTimeout
+        tmpEndTime = Math.max(tmpEndTime, System.currentTimeMillis() + jsTimeoutInMillis);
       }
 
       tmpPage = getCurrentPage();
