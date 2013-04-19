@@ -16,9 +16,19 @@
 
 package org.wetator.gui;
 
+import java.awt.Component;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.prefs.Preferences;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JWindow;
 
@@ -34,6 +44,11 @@ import org.wetator.i18n.Messages;
 public final class DialogUtil {
 
   private static final String LAST_DIR = "lastDir";
+  private static final String LAST_FILES = "lastFiles";
+  private static final String LAST_X = "lastX";
+  private static final String LAST_Y = "lastY";
+  private static final String LAST_WIDTH = "lastWidth";
+  private static final String LAST_HEIGHT = "lastHeight";
 
   /**
    * Helper for displaying a file selector dialog.
@@ -101,11 +116,12 @@ public final class DialogUtil {
       tmpLastDir = null;
     }
 
-    final JFileChooser tmpFileChooser = new JFileChooser();
+    final JFileChooser tmpFileChooser = new PlaceableFileChooser(tmpPreferences);
     tmpFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
     tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
+    tmpFileChooser.setSelectedFiles(restoreFiles(tmpPreferences, tmpLastDir));
 
     final int tmpChooserAction = tmpFileChooser.showOpenDialog(aWindow);
     switch (tmpChooserAction) {
@@ -120,12 +136,14 @@ public final class DialogUtil {
             }
           }
 
+          storeFiles(tmpPreferences, tmpSelectedFiles);
           return tmpSelectedFiles;
         }
         final File tmpSelectedFile = tmpFileChooser.getSelectedFile();
         if (null == tmpSelectedFile) {
           return null;
         }
+        storeFiles(tmpPreferences, new File[] { tmpSelectedFile });
         return new File[] { tmpSelectedFile };
       case JFileChooser.CANCEL_OPTION:
         return null;
@@ -139,5 +157,140 @@ public final class DialogUtil {
    */
   private DialogUtil() {
     // nothing
+  }
+
+  /**
+   * Helper subclass of JFileChooser to make the dialog placeable.
+   */
+  static class PlaceableFileChooser extends JFileChooser {
+    private static final long serialVersionUID = 6223316475899932034L;
+
+    private final Preferences preferences;
+    private JDialog jDialog;
+
+    /**
+     * Constructor.
+     * 
+     * @param aPreferences the preferences for read/write
+     */
+    public PlaceableFileChooser(final Preferences aPreferences) {
+      preferences = aPreferences;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see javax.swing.JFileChooser#createDialog(java.awt.Component)
+     */
+    @Override
+    protected JDialog createDialog(final Component aParent) throws HeadlessException {
+      jDialog = super.createDialog(aParent);
+      restoreOptions(preferences, jDialog);
+      return jDialog;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see javax.swing.JFileChooser#showOpenDialog(java.awt.Component)
+     */
+    @Override
+    public int showOpenDialog(final Component aParent) throws HeadlessException {
+      final int tmpResult = super.showOpenDialog(aParent);
+      storeOptions(preferences, jDialog);
+      return tmpResult;
+    }
+  }
+
+  /**
+   * Store frame location and size.
+   * 
+   * @param aPreferences the preferences to write to
+   * @param aDialog the dialog you like to store
+   */
+  public static void storeOptions(final Preferences aPreferences, final JDialog aDialog) {
+    if (null == aDialog) {
+      return;
+    }
+
+    final Rectangle tmpBounds = aDialog.getBounds();
+
+    aPreferences.put(LAST_X, Integer.toString((int) tmpBounds.getX()));
+    aPreferences.put(LAST_Y, Integer.toString((int) tmpBounds.getY()));
+    aPreferences.put(LAST_WIDTH, Integer.toString((int) tmpBounds.getWidth()));
+    aPreferences.put(LAST_HEIGHT, Integer.toString((int) tmpBounds.getHeight()));
+  }
+
+  /**
+   * Restore frame location and size.
+   * 
+   * @param aPreferences the preferences to write to
+   * @param aDialog the dialog you like to store
+   */
+  public static void restoreOptions(final Preferences aPreferences, final JDialog aDialog) {
+
+    final int tmpX = Integer.parseInt(aPreferences.get(LAST_X, "-1"));
+    final int tmpY = Integer.parseInt(aPreferences.get(LAST_Y, "-1"));
+    final int tmpWidth = Integer.parseInt(aPreferences.get(LAST_WIDTH, "-1"));
+    final int tmpHeight = Integer.parseInt(aPreferences.get(LAST_HEIGHT, "-1"));
+
+    final Rectangle tmpBounds = new Rectangle(tmpX, tmpY, tmpWidth, tmpHeight);
+
+    final GraphicsEnvironment tmpGEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    final GraphicsDevice[] tmpDevices = tmpGEnv.getScreenDevices();
+    for (GraphicsDevice tmpGraphicsDevice : tmpDevices) {
+      final GraphicsConfiguration[] tmpConfigs = tmpGraphicsDevice.getConfigurations();
+      for (GraphicsConfiguration tmpGraphicsConfiguration : tmpConfigs) {
+        final Rectangle2D tmpVisibleRect = tmpGraphicsConfiguration.getBounds().createIntersection(tmpBounds);
+        if (tmpVisibleRect.getHeight() > 100 && tmpVisibleRect.getWidth() > 100) {
+          aDialog.setBounds(tmpBounds);
+          return;
+        }
+      }
+    }
+  }
+
+  /**
+   * Store frame location and size.
+   * 
+   * @param aPreferences the preferences to write to
+   * @param aFiles the files to store
+   */
+  public static void storeFiles(final Preferences aPreferences, final File[] aFiles) {
+    if (null == aFiles) {
+      return;
+    }
+
+    final StringBuilder tmpFiles = new StringBuilder();
+    for (int i = 0; i < aFiles.length; i++) {
+      tmpFiles.append(aFiles[i].getAbsolutePath());
+      tmpFiles.append(';');
+    }
+
+    aPreferences.put(LAST_FILES, tmpFiles.toString());
+  }
+
+  /**
+   * Restore frame location and size.
+   * 
+   * @param aPreferences the preferences to write to
+   * @param aDir the the directory we are working on
+   * @return the list of remembered files that are still available
+   */
+  public static File[] restoreFiles(final Preferences aPreferences, final File aDir) {
+    if (aDir == null) {
+      return new File[0];
+    }
+    final String[] tmpFiles = StringUtils.split(aPreferences.get(LAST_FILES, ""), ';');
+
+    final List<File> tmpResult = new LinkedList<File>();
+    final String tmpCurrentDir = aDir.getAbsolutePath();
+    for (String tmpString : tmpFiles) {
+      final File tmpFile = new File(tmpString);
+      if (tmpFile.exists() && tmpFile.getAbsolutePath().startsWith(tmpCurrentDir)) {
+        tmpResult.add(tmpFile);
+      }
+    }
+    return tmpResult.toArray(new File[0]);
   }
 }
