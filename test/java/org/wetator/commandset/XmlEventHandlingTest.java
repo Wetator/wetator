@@ -51,7 +51,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ie8/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
-    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -71,7 +71,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ie8/event_deselect.wet");
 
     Assert.assertEquals(20, getSteps());
-    Assert.assertEquals(2, getFailures());
+    Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -91,7 +91,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ie8/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
-    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -111,7 +111,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ie8/event_select.wet");
 
     Assert.assertEquals(30, getSteps());
-    Assert.assertEquals(4, getFailures());
+    Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
