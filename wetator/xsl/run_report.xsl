@@ -182,6 +182,11 @@
                         tmpPosX = tmpPosX + 10;
                         tmpPosY = tmpPosY + 17;
 
+                        if (window.chrome) {
+                            tmpPosX = tmpPosX / tmpFrame.style.zoom;
+                            tmpPosY = tmpPosY / tmpFrame.style.zoom;
+                        }
+
                         tmpFrame.style.left= tmpPosX + "px";
                         tmpFrame.style.top= tmpPosY + "px";
                         tmpFrame.style.display='block';
