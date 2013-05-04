@@ -606,6 +606,11 @@ wetator/test/webpage/htmlunit_javascript.html -text
 wetator/test/webpage/iframe.html -text
 wetator/test/webpage/iframe_set.html -text
 wetator/test/webpage/images/bullet_orange.gif -text
+wetator/test/webpage/images/sword.png -text
+wetator/test/webpage/images/sword1.png -text
+wetator/test/webpage/images/sword2.png -text
+wetator/test/webpage/images/sword3.png -text
+wetator/test/webpage/images/sword4.png -text
 wetator/test/webpage/images/wetator.png -text
 wetator/test/webpage/incubator/GSort.class -text
 wetator/test/webpage/incubator/Panorado.jar -text
@@ -995,11 +1000,6 @@ wetator/test/webpage/set.html -text
 wetator/test/webpage/set_upload.html -text
 wetator/test/webpage/simple_login.html -text
 wetator/test/webpage/simple_search.html -text
-wetator/test/webpage/sword.png -text
-wetator/test/webpage/sword1.png -text
-wetator/test/webpage/sword2.png -text
-wetator/test/webpage/sword3.png -text
-wetator/test/webpage/sword4.png -text
 wetator/test/webpage/wait_for.html -text
 wetator/test/webpage/wait_for2.html -text
 wetator/test/webpage/wet.css -text svneol=unset#text/plain
