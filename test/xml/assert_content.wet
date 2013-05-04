@@ -33,8 +33,8 @@
     <comment>now searching with more parts</comment>
     <command><d:assert-content><d:content>Pferde,fressen,keinen,Gurkensalat</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Pferde, fressen, keinen, Gurkensalat</d:content></d:assert-content></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, keinen\, [fressen]\, Gurkensalat' (content: 'Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test_error.pdf wet_test.rtf wet_test_error.rtf wet_test.xml wet_test.xls wet_test_csv.xls wet_test_error.xls unknown_content_type.bin sword4.png').</tst:command-and-message><tst:parameter1>Pferde,keinen,fressen,Gurkensalat</tst:parameter1></tst:assert-fail></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test_error.pdf wet_test.rtf wet_test_error.rtf wet_test.xml wet_test.xls wet_test_csv.xls wet_test_error.xls unknown_content_type.bin sword4.png').</tst:command-and-message><tst:parameter1>Pferde, fressen, meinen, Gurkensalat</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, keinen\, [fressen]\, Gurkensalat' (content: 'Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test_error.pdf wet_test.rtf wet_test_error.rtf wet_test.xml wet_test.xls wet_test_csv.xls wet_test_error.xls wet_test.csv unknown_content_type.bin 1x1t.gif').</tst:command-and-message><tst:parameter1>Pferde,keinen,fressen,Gurkensalat</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test_error.pdf wet_test.rtf wet_test_error.rtf wet_test.xml wet_test.xls wet_test_csv.xls wet_test_error.xls wet_test.csv unknown_content_type.bin 1x1t.gif').</tst:command-and-message><tst:parameter1>Pferde, fressen, meinen, Gurkensalat</tst:parameter1></tst:assert-fail></command>
     <comment>options of a select</comment>
     <command><d:assert-content><d:content>Select to check for the options, First Option, Second Option, Another Option, Various Content types</d:content></d:assert-content></command>
     <comment>error for required first parameter</comment>
@@ -74,14 +74,19 @@
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_error.xls</d:wpath></d:click-on></command>
     <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response xls into text (Invalid header signature; read 0x342E312D46445025\, expected 0xE11AB1A1E011CFD0).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
-    <command disabled="true"><d:open-url><d:url>content type not supported</d:url></d:open-url></command>
+    <comment>content type csv</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
-    <command><d:click-on><d:wpath>sword4.png</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Unsupported page type (image/png).</tst:command-and-message><tst:parameter1>sword</tst:parameter1></tst:assert-fail></command>
+    <command><d:click-on><d:wpath>wet_test.csv</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Col1, Col2 text1, text2</d:content></d:assert-content></command>
+    <comment>content type not supported</comment>
+    <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>1x1t.gif</d:wpath></d:click-on></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Expected content(s) {not found} or [in wrong order]: '{sword}' (content: 'GIF89a?????????????!??? ???\,???????????L??;?').</tst:command-and-message><tst:parameter1>sword</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>GIF89a</d:content></d:assert-content></command>
     <comment>unknown content type not supported</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>unknown_content_type.bin</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Unsupported page type (application/octet-stream).</tst:command-and-message><tst:parameter1>unknown_content_type.bin</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>This is the content of a simple text file but browser submits this as binary.</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <comment>redirect without timeout</comment>

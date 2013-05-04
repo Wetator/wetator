@@ -384,6 +384,7 @@ test/webpage/click_on.html -text
 test/webpage/click_on_table.html -text svneol=unset#text/plain
 test/webpage/download/download.txt -text
 test/webpage/download/unknown_content_type.bin -text
+test/webpage/download/wet_test.csv -text
 test/webpage/download/wet_test.pdf -text
 test/webpage/download/wet_test.rtf -text
 test/webpage/download/wet_test.xls -text
@@ -402,6 +403,7 @@ test/webpage/frameset_content/frameset_c6.html -text
 test/webpage/htmlunit_javascript.html -text
 test/webpage/iframe.html -text
 test/webpage/iframe_set.html -text
+test/webpage/images/1x1t.gif -text
 test/webpage/images/bullet_orange.gif -text
 test/webpage/images/sword.png -text
 test/webpage/images/sword1.png -text
