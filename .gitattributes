@@ -403,6 +403,11 @@ test/webpage/htmlunit_javascript.html -text
 test/webpage/iframe.html -text
 test/webpage/iframe_set.html -text
 test/webpage/images/bullet_orange.gif -text
+test/webpage/images/sword.png -text
+test/webpage/images/sword1.png -text
+test/webpage/images/sword2.png -text
+test/webpage/images/sword3.png -text
+test/webpage/images/sword4.png -text
 test/webpage/images/wetator.png -text
 test/webpage/incubator/GSort.class -text
 test/webpage/incubator/Panorado.jar -text
@@ -792,11 +797,6 @@ test/webpage/set.html -text
 test/webpage/set_upload.html -text
 test/webpage/simple_login.html -text
 test/webpage/simple_search.html -text
-test/webpage/sword.png -text
-test/webpage/sword1.png -text
-test/webpage/sword2.png -text
-test/webpage/sword3.png -text
-test/webpage/sword4.png -text
 test/webpage/wait_for.html -text
 test/webpage/wait_for2.html -text
 test/webpage/wet.css -text svneol=unset#text/plain
