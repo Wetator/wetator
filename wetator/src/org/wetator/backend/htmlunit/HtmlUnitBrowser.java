@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.swing.text.BadLocationException;
 
@@ -104,6 +105,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  */
 public final class HtmlUnitBrowser implements IBrowser {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
+  private static final Pattern NON_ASCII = Pattern.compile("[^\\x20-\\x7e]");
 
   /** The maximum history size. */
   protected static final int MAX_HISTORY_SIZE = 15;
@@ -982,7 +984,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (tmpPage instanceof TextPage) {
         final TextPage tmpTextPage = (TextPage) tmpPage;
         final String tmpContentAsText = tmpTextPage.getContent();
-        aContentToWaitFor.matches(tmpContentAsText);
+        aContentToWaitFor.matches(new NormalizedString(tmpContentAsText).toString());
         return tmpPageChanged;
       }
 
@@ -1042,13 +1044,36 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
 
-      Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
+      if (ContentType.TEXT == tmpContentType) {
+        try {
+          final String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+              tmpResponse.getContentCharset());
+          aContentToWaitFor.matches(tmpContentAsText);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("txtConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        }
+      }
+
+      // unsupported content type
+      // warn and process the content as plain ascii
+      wetatorEngine.informListenersInfo("unsupportedPageType",
+          new String[] { tmpPage.getWebResponse().getContentType() });
+      try {
+        String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+            tmpResponse.getContentCharset());
+        tmpContentAsText = NON_ASCII.matcher(tmpContentAsText).replaceAll("?");
+        aContentToWaitFor.matches(tmpContentAsText);
+        return tmpPageChanged;
+      } catch (final IOException e) {
+        Assert.fail("txtConversionToTextFailed", new String[] { e.getMessage() });
+        return tmpPageChanged;
+      }
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);
     }
-
-    return tmpPageChanged;
   }
 
   /**
