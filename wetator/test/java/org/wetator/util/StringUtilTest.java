@@ -220,4 +220,32 @@ public class StringUtilTest {
     tmpResult = StringUtil.formatDate(tmpDate);
     org.junit.Assert.assertEquals("01.04.2010 16:30:11", tmpResult);
   }
+
+  @Test
+  public void split() {
+    org.junit.Assert.assertEquals(0, StringUtil.split(null, 10).size());
+    org.junit.Assert.assertEquals(0, StringUtil.split("", 10).size());
+
+    List<String> tmpResult = StringUtil.split("abcd", 1);
+    org.junit.Assert.assertEquals(4, tmpResult.size());
+    org.junit.Assert.assertEquals("d", tmpResult.get(3));
+
+    tmpResult = StringUtil.split("abcd", 2);
+    org.junit.Assert.assertEquals(2, tmpResult.size());
+    org.junit.Assert.assertEquals("cd", tmpResult.get(1));
+
+    tmpResult = StringUtil.split("abcd", 3);
+    org.junit.Assert.assertEquals(2, tmpResult.size());
+    org.junit.Assert.assertEquals("abc", tmpResult.get(0));
+    org.junit.Assert.assertEquals("d", tmpResult.get(1));
+
+    tmpResult = StringUtil.split("abcd", 4);
+    org.junit.Assert.assertEquals(1, tmpResult.size());
+    org.junit.Assert.assertEquals("abcd", tmpResult.get(0));
+
+    tmpResult = StringUtil.split("abcd", 5);
+    org.junit.Assert.assertEquals(1, tmpResult.size());
+    org.junit.Assert.assertEquals("abcd", tmpResult.get(0));
+  }
+
 }

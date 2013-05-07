@@ -17,6 +17,8 @@
 package org.wetator.util;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,6 +134,27 @@ public final class StringUtil {
     }
 
     return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(aDate);
+  }
+
+  /**
+   * Split the given string into fixed length parts.
+   * 
+   * @param aText the given text
+   * @param aSize the size of the parts
+   * @return an list of parts
+   */
+  public static List<String> split(final String aText, final int aSize) {
+    if (null == aText) {
+      return Collections.emptyList();
+    }
+
+    final int tmpLength = aText.length();
+    final List<String> tmpResult = new ArrayList<String>((tmpLength + aSize - 1) / aSize);
+
+    for (int i = 0; i < tmpLength; i += aSize) {
+      tmpResult.add(aText.substring(i, Math.min(tmpLength, i + aSize)));
+    }
+    return tmpResult;
   }
 
   /**
