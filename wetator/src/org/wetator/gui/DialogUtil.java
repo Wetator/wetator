@@ -35,6 +35,7 @@ import javax.swing.JWindow;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Wetator;
 import org.wetator.i18n.Messages;
+import org.wetator.util.StringUtil;
 
 /**
  * Utility class to display a file selector dialog.
@@ -43,6 +44,7 @@ import org.wetator.i18n.Messages;
  */
 public final class DialogUtil {
 
+  private static final char FILE_SEPARATOR = ';';
   private static final String LAST_DIR = "lastDir";
   private static final String LAST_FILES = "lastFiles";
   private static final String LAST_X = "lastX";
@@ -264,10 +266,14 @@ public final class DialogUtil {
     final StringBuilder tmpFiles = new StringBuilder();
     for (int i = 0; i < aFiles.length; i++) {
       tmpFiles.append(aFiles[i].getAbsolutePath());
-      tmpFiles.append(';');
+      tmpFiles.append(FILE_SEPARATOR);
     }
 
-    aPreferences.put(LAST_FILES, tmpFiles.toString());
+    final List<String> tmpParts = StringUtil.split(tmpFiles.toString(), Preferences.MAX_VALUE_LENGTH);
+    aPreferences.put(LAST_FILES, Integer.toString(tmpParts.size()));
+    for (int i = 0; i < tmpParts.size(); i++) {
+      aPreferences.put(LAST_FILES + i, tmpParts.get(i));
+    }
   }
 
   /**
@@ -281,7 +287,19 @@ public final class DialogUtil {
     if (aDir == null) {
       return new File[0];
     }
-    final String[] tmpFiles = StringUtils.split(aPreferences.get(LAST_FILES, ""), ';');
+
+    final StringBuilder tmpLastFilesBuilder = new StringBuilder();
+    int tmpPartsCount = 1;
+    try {
+      tmpPartsCount = Integer.parseInt(aPreferences.get(LAST_FILES, "1"));
+    } catch (final NumberFormatException e) {
+      // ignore
+    }
+
+    for (int i = 0; i < tmpPartsCount; i++) {
+      tmpLastFilesBuilder.append(aPreferences.get(LAST_FILES + i, ""));
+    }
+    final String[] tmpFiles = StringUtils.split(tmpLastFilesBuilder.toString(), FILE_SEPARATOR);
 
     final List<File> tmpResult = new LinkedList<File>();
     final String tmpCurrentDir = aDir.getAbsolutePath();
