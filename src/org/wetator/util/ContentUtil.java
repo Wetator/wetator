@@ -168,27 +168,32 @@ public final class ContentUtil {
         try {
           tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput)));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text.", e);
+          throw new IOException("Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: "
+              + e.toString() + ").");
         }
       } else if (ContentType.XLS == tmpType) {
         try {
           tmpResult.append(getXlsContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text.", e);
+          throw new IOException("Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: "
+              + e.toString() + ").");
         }
       } else if (ContentType.RTF == tmpType) {
         try {
           tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput)));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text.", e);
+          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: "
+              + e.toString() + ").");
         } catch (final BadLocationException e) {
-          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text.", e);
+          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: "
+              + e.toString() + ").");
         }
       } else {
         try {
           tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), anEncoding));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text.", e);
+          throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text (reason: "
+              + e.toString() + ").");
         }
       }
 

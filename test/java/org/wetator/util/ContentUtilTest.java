@@ -76,8 +76,8 @@ public class ContentUtilTest {
           Locale.getDefault());
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
-      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text.",
-          e.toString());
+      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text "
+          + "(reason: java.io.IOException: Error: Header doesn't contain versioninfo).", e.toString());
     }
   }
 
@@ -200,8 +200,11 @@ public class ContentUtilTest {
           Locale.getDefault());
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
-      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text.",
-          e.toString());
+      org.junit.Assert
+          .assertEquals(
+              "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
+                  + "(reason: java.io.IOException: Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0).",
+              e.toString());
     }
   }
 
