@@ -16,6 +16,7 @@
 
 package org.wetator.util;
 
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,6 +24,8 @@ import java.io.Reader;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -39,6 +42,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.wetator.backend.IBrowser.ContentType;
+import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
@@ -133,6 +138,66 @@ public final class ContentUtil {
     if (tmpDocument.getLength() > MAX_LENGTH) {
       tmpResult.append(MORE);
     }
+    return tmpResult.toString();
+  }
+
+  /**
+   * Converts an InputStream to string.
+   * 
+   * @param anInputStream the input
+   * @param anEncoding the input stream encoding
+   * @param aXlsLocale the locale used for xls formating
+   * @return the normalizes content string
+   * @throws IOException in case of error
+   */
+  public static String getZipContentAsString(final InputStream anInputStream, final String anEncoding,
+      final Locale aXlsLocale) throws IOException {
+    final NormalizedString tmpResult = new NormalizedString();
+    final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream);
+
+    ZipEntry tmpZipEntry = tmpZipInput.getNextEntry();
+    while (null != tmpZipEntry) {
+      tmpResult.append("[");
+      tmpResult.append(tmpZipEntry.getName());
+      tmpResult.append(" ");
+      tmpResult.append(Long.toString(tmpZipEntry.getSize()));
+      tmpResult.append("] ");
+
+      final ContentType tmpType = ContentTypeUtil.getContentTypeForFileName(tmpZipEntry.getName());
+      if (ContentType.PDF == tmpType) {
+        try {
+          tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput)));
+        } catch (final IOException e) {
+          throw new IOException("Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text.", e);
+        }
+      } else if (ContentType.XLS == tmpType) {
+        try {
+          tmpResult.append(getXlsContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale));
+        } catch (final IOException e) {
+          throw new IOException("Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text.", e);
+        }
+      } else if (ContentType.RTF == tmpType) {
+        try {
+          tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput)));
+        } catch (final IOException e) {
+          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text.", e);
+        } catch (final BadLocationException e) {
+          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text.", e);
+        }
+      } else {
+        try {
+          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), anEncoding));
+        } catch (final IOException e) {
+          throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text.", e);
+        }
+      }
+
+      tmpZipEntry = tmpZipInput.getNextEntry();
+      if (null != tmpZipEntry) {
+        tmpResult.append(" ");
+      }
+    }
+
     return tmpResult.toString();
   }
 
@@ -289,5 +354,20 @@ public final class ContentUtil {
    */
   private ContentUtil() {
     super();
+  }
+
+  /**
+   * Helper for reading from zip input stream.
+   */
+  private static final class CloseIgnoringInputStream extends FilterInputStream {
+
+    private CloseIgnoringInputStream(final InputStream anInputStream) {
+      super(anInputStream);
+    }
+
+    @Override
+    public void close() throws IOException {
+      // ignore
+    }
   }
 }

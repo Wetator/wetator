@@ -54,6 +54,8 @@ public final class ContentTypeUtil {
     define(ContentType.GIF, "gif", "image/gif");
     define(ContentType.BMP, "bmp", "image/bmp");
     define(ContentType.JPEG, "jpeg", "image/jpeg");
+    // zip
+    define(ContentType.ZIP, "zip", "application/zip");
   }
 
   private static void define(final ContentType aContentType, final String aFileExtension,
@@ -128,5 +130,21 @@ public final class ContentTypeUtil {
       return "bin";
     }
     return tmpResult;
+  }
+
+  /**
+   * @param aFileName The file name.
+   * @return The content type matching the file suffix.
+   */
+  public static ContentType getContentTypeForFileName(final String aFileName) {
+    if (null == aFileName) {
+      return ContentType.OTHER;
+    }
+    for (final Map.Entry<ContentType, String> tmpEntry : FILE_EXTENSIONS.entrySet()) {
+      if (aFileName.toLowerCase().endsWith(tmpEntry.getValue())) {
+        return tmpEntry.getKey();
+      }
+    }
+    return ContentType.OTHER;
   }
 }
