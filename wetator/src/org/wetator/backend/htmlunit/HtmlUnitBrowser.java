@@ -1056,6 +1056,21 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
 
+      if (ContentType.ZIP == tmpContentType) {
+        try {
+          final String tmpAcceptLangHeader = tmpPage.getWebResponse().getWebRequest().getAdditionalHeaders()
+              .get("Accept-Language");
+          final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(tmpAcceptLangHeader);
+          final String tmpContentAsText = ContentUtil.getZipContentAsString(tmpResponse.getContentAsStream(),
+              tmpResponse.getContentCharset(), tmpLocale);
+          aContentToWaitFor.matches(tmpContentAsText);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("zipConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        }
+      }
+
       // unsupported content type
       // warn and process the content as plain ascii
       wetatorEngine.informListenersInfo("unsupportedPageType",

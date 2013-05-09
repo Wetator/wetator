@@ -46,6 +46,20 @@ public class ContentUtilTest {
   }
 
   @Test
+  public void getZippedPdfContentAsString() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[wet_test.pdf 11165]");
+    tmpExpected.append(" ");
+    tmpExpected.append("This is the content of a simple PDF file.");
+    tmpExpected.append(" ");
+    tmpExpected.append("This file is used to test WeT.");
+
+    String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_pdf.zip"), "UTF-8", Locale.getDefault());
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
   public void getPdfContentAsStringError() {
     try {
       ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
@@ -56,11 +70,35 @@ public class ContentUtilTest {
   }
 
   @Test
+  public void getZippedPdfContentAsStringError() {
+    try {
+      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_pdf_error.zip"), "UTF-8",
+          Locale.getDefault());
+      org.junit.Assert.fail("IOException expected");
+    } catch (Exception e) {
+      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text.",
+          e.toString());
+    }
+  }
+
+  @Test
   public void getRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
     String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"));
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void getZippedRtfContentAsString() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[wet_test.rtf 83]");
+    tmpExpected.append(" ");
+    tmpExpected.append("Wetator is great.");
+
+    String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_rtf.zip"), "UTF-8", Locale.getDefault());
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -119,6 +157,32 @@ public class ContentUtilTest {
   }
 
   @Test
+  public void getZippedXlsContentAsStringDE() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[wet_test.xls 15360]");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Tab1] Wetator Page 1");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Data Test]");
+    tmpExpected.append(" String plain text");
+    tmpExpected.append(" String(int) 4711");
+    tmpExpected.append(" int 123");
+    tmpExpected.append(" float 14,3");
+    tmpExpected.append(" float (rounded) 1,70");
+    tmpExpected.append(" currency * 4,33 €");
+    tmpExpected.append(" percent 3%");
+    tmpExpected.append(" date 7/14/11");
+    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" formula 124,70");
+
+    String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_xls.zip"), "UTF-8", Locale.GERMAN);
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
   public void getXlsContentAsStringError() {
     try {
       ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.getDefault());
@@ -130,11 +194,36 @@ public class ContentUtilTest {
   }
 
   @Test
+  public void getZippedXlsContentAsStringError() {
+    try {
+      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xls_error.zip"), "UTF-8",
+          Locale.getDefault());
+      org.junit.Assert.fail("IOException expected");
+    } catch (Exception e) {
+      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text.",
+          e.toString());
+    }
+  }
+
+  @Test
   public void getTxtContentAsString() {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Some content line two Hallo Wetator.");
 
     String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.");
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void getZippedTxtContentAsString() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[download.txt 79]");
+    tmpExpected.append(" ");
+    tmpExpected.append("This is the content of a simple text file. ");
+    tmpExpected.append("This file is used to test WeT.");
+
+    String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_txt.zip"), "UTF-8", Locale.getDefault());
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -169,6 +258,49 @@ public class ContentUtilTest {
 
     tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.xls"));
     org.junit.Assert.assertFalse(ContentUtil.isTxt(tmpText));
+  }
+
+  @Test
+  public void getZippedContentAsStringMixedContent() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[wet_test.csv 24]");
+    tmpExpected.append(" ");
+    tmpExpected.append("Col1, Col2 text1, text2");
+
+    tmpExpected.append(" ");
+    tmpExpected.append("[wet_test.pdf 11165]");
+    tmpExpected.append(" ");
+    tmpExpected.append("This is the content of a simple PDF file.");
+    tmpExpected.append(" ");
+    tmpExpected.append("This file is used to test WeT.");
+
+    tmpExpected.append(" ");
+    tmpExpected.append("[wet_test.xls 15360]");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Tab1] Wetator Page 1");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Data Test]");
+    tmpExpected.append(" String plain text");
+    tmpExpected.append(" String(int) 4711");
+    tmpExpected.append(" int 123");
+    tmpExpected.append(" float 14,3");
+    tmpExpected.append(" float (rounded) 1,70");
+    tmpExpected.append(" currency * 4,33 €");
+    tmpExpected.append(" percent 3%");
+    tmpExpected.append(" date 7/14/11");
+    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" formula 124,70");
+
+    tmpExpected.append(" ");
+    tmpExpected.append("[wet_test.xml 83]");
+    tmpExpected.append(" ");
+    tmpExpected.append("<?xml version=\"1.0\"?> <wetator> <Test>Simple xml content</Test> </wetator>");
+
+    String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_mix.zip"), "UTF-8", Locale.getDefault());
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
@@ -208,25 +340,25 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void testDetermineLocaleFromRequestOperaStyle() {
+  public void determineLocaleFromRequestOperaStyle() {
     Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da;1.0,en;0.9");
     org.junit.Assert.assertEquals(new Locale("da", ""), tmpLocale);
   }
 
   @Test
-  public void testDetermineLocaleFromRequestIEStyle() {
+  public void determineLocaleFromRequestIEStyle() {
     Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-nz,de;q=0.5");
     org.junit.Assert.assertEquals(new Locale("en", "NZ"), tmpLocale);
   }
 
   @Test
-  public void testDetermineLocaleFromRequestIEStyle2() {
+  public void determineLocaleFromRequestIEStyle2() {
     Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-us");
     org.junit.Assert.assertEquals(new Locale("en", "US"), tmpLocale);
   }
 
   @Test
-  public void testDetermineLocaleFromRequestIEStyle3() {
+  public void determineLocaleFromRequestIEStyle3() {
     Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-gb");
     org.junit.Assert.assertEquals(new Locale("en", "GB"), tmpLocale);
   }

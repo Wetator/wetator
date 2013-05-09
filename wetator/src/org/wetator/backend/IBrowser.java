@@ -61,6 +61,8 @@ public interface IBrowser {
     BMP,
     /** jpeg. */
     JPEG,
+    /** zip. */
+    ZIP,
     /** the rest. */
     OTHER
   };
