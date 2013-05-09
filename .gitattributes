@@ -595,6 +595,13 @@ wetator/test/webpage/download/wet_test_csv.xls -text
 wetator/test/webpage/download/wet_test_error.pdf -text
 wetator/test/webpage/download/wet_test_error.rtf -text
 wetator/test/webpage/download/wet_test_error.xls -text
+wetator/test/webpage/download/wet_test_mix.zip -text
+wetator/test/webpage/download/wet_test_pdf.zip -text
+wetator/test/webpage/download/wet_test_pdf_error.zip -text
+wetator/test/webpage/download/wet_test_rtf.zip -text
+wetator/test/webpage/download/wet_test_txt.zip -text
+wetator/test/webpage/download/wet_test_xls.zip -text
+wetator/test/webpage/download/wet_test_xls_error.zip -text
 wetator/test/webpage/event_handler.html -text svneol=unset#text/plain
 wetator/test/webpage/event_handler_old.html -text svneol=unset#text/plain
 wetator/test/webpage/frameset_content/frameset_c1.html -text
