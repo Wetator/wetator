@@ -13,12 +13,12 @@
     <command><d:select><d:wpath>SingleSelect, option1</d:wpath></d:select></command>
     <command><d:select><d:wpath>SingleSelect, option1</d:wpath></d:select></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [singleSelect_o_value1] [1] focus [singleSelect] [-] mouseup [singleSelect_o_value1] [1] change [singleSelect] [-] click [singleSelect_o_value1] [1] mousedown [singleSelect_o_value1] [1] mouseup [singleSelect_o_value1] [1] click [singleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousedown [singleSelect_o_value1] [1] mouseup [singleSelect_o_value1] [1] click [singleSelect] [1] click [singleSelect_o_value1] [1] focus [singleSelect] [-] change [singleSelect] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [singleSelect_o_value1] [1] focus [singleSelect] [-] mouseup [singleSelect_o_value1] [1] click [singleSelect] [1] click [singleSelect_o_value1] [1] change [singleSelect] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
     <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [multipleSelect_o_value1] [1] focus [multipleSelect] [-] mouseup [multipleSelect_o_value1] [1] change [multipleSelect] [-] click [multipleSelect_o_value1] [1] mousedown [multipleSelect_o_value1] [1] mouseup [multipleSelect_o_value1] [1] click [multipleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousedown [multipleSelect_o_value1] [1] mouseup [multipleSelect_o_value1] [1] click [multipleSelect] [1] click [multipleSelect_o_value1] [1] focus [multipleSelect] [-] change [multipleSelect] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [multipleSelect_o_value1] [1] focus [multipleSelect] [-] mouseup [multipleSelect_o_value1] [1] click [multipleSelect] [1] click [multipleSelect_o_value1] [1] change [multipleSelect] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:select><d:wpath>Checkbox</d:wpath></d:select></command>
     <command><d:select><d:wpath>Checkbox</d:wpath></d:select></command>
