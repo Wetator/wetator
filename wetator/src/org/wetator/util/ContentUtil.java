@@ -159,8 +159,6 @@ public final class ContentUtil {
     while (null != tmpZipEntry) {
       tmpResult.append("[");
       tmpResult.append(tmpZipEntry.getName());
-      tmpResult.append(" ");
-      tmpResult.append(Long.toString(tmpZipEntry.getSize()));
       tmpResult.append("] ");
 
       final ContentType tmpType = ContentTypeUtil.getContentTypeForFileName(tmpZipEntry.getName());

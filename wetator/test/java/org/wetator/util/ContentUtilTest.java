@@ -48,7 +48,7 @@ public class ContentUtilTest {
   @Test
   public void getZippedPdfContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
-    tmpExpected.append("[wet_test.pdf 11165]");
+    tmpExpected.append("[wet_test.pdf]");
     tmpExpected.append(" ");
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
@@ -93,7 +93,7 @@ public class ContentUtilTest {
   @Test
   public void getZippedRtfContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
-    tmpExpected.append("[wet_test.rtf 83]");
+    tmpExpected.append("[wet_test.rtf]");
     tmpExpected.append(" ");
     tmpExpected.append("Wetator is great.");
 
@@ -159,7 +159,7 @@ public class ContentUtilTest {
   @Test
   public void getZippedXlsContentAsStringDE() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
-    tmpExpected.append("[wet_test.xls 15360]");
+    tmpExpected.append("[wet_test.xls]");
     tmpExpected.append(" ");
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -220,7 +220,7 @@ public class ContentUtilTest {
   @Test
   public void getZippedTxtContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
-    tmpExpected.append("[download.txt 79]");
+    tmpExpected.append("[download.txt]");
     tmpExpected.append(" ");
     tmpExpected.append("This is the content of a simple text file. ");
     tmpExpected.append("This file is used to test WeT.");
@@ -266,19 +266,19 @@ public class ContentUtilTest {
   @Test
   public void getZippedContentAsStringMixedContent() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
-    tmpExpected.append("[wet_test.csv 24]");
+    tmpExpected.append("[wet_test.csv]");
     tmpExpected.append(" ");
     tmpExpected.append("Col1, Col2 text1, text2");
 
     tmpExpected.append(" ");
-    tmpExpected.append("[wet_test.pdf 11165]");
+    tmpExpected.append("[wet_test.pdf]");
     tmpExpected.append(" ");
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
     tmpExpected.append("This file is used to test WeT.");
 
     tmpExpected.append(" ");
-    tmpExpected.append("[wet_test.xls 15360]");
+    tmpExpected.append("[wet_test.xls]");
     tmpExpected.append(" ");
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -297,7 +297,7 @@ public class ContentUtilTest {
     tmpExpected.append(" formula 124,70");
 
     tmpExpected.append(" ");
-    tmpExpected.append("[wet_test.xml 83]");
+    tmpExpected.append("[wet_test.xml]");
     tmpExpected.append(" ");
     tmpExpected.append("<?xml version=\"1.0\"?> <wetator> <Test>Simple xml content</Test> </wetator>");
 
