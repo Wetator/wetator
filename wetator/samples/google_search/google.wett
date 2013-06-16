@@ -10,10 +10,10 @@ assert-title    || Google
 # if no name for the control to be set is given, the Wetator uses the one that has the focu
 
 set             ||                              || GEBIT Solutions
-assert-content  || GEBIT Solutions: Startseite
+assert-content  || GEBIT Solutions
 assert-content  || 20 Jahre Erfahrung
 
 # OK, we found something
 
-click-on        || GEBIT Solutions: Startseite
+click-on        || GEBIT Solutions
 assert-content  || Technologien, Methoden, Werkzeuge, Fundiertes Know-how
