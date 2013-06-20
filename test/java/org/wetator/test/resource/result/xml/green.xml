@@ -88,8 +88,13 @@
     <property id="82" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator\logs" />
     <property id="83" key="wetator.jsTimeout" value="0s" />
     <property id="83" key="wetator.httpTimeout" value="0s" />
+    <property id="84" key="wetator.xslTemplates" value="" />
+    <property id="84" key="wetator.commandSets" value="" />
+    <property id="84" key="wetator.controls" value="" />
+    <property id="84" key="wetator.scripters" value="" />
     <property id="84" key="wetator.proxyHost" />
-    <property id="85" key="wetator.proxyPort" value="0" />
+    <property id="84" key="wetator.proxyPort" value="0" />
+    <property id="84" key="wetator.proxyHostsToBypass" value="" />
     <property id="86" key="wetator.proxyUser" />
     <property id="87" key="wetator.basicAuthUser" />
     <property id="88" key="wetator.ntlmUser" />
