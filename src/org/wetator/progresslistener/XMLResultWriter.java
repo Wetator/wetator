@@ -268,25 +268,49 @@ public class XMLResultWriter implements IProgressListener {
       printConfigurationProperty(WetatorConfiguration.PROPERTY_HTTP_TIMEOUT, tmpConfiguration.getHttpTimeoutInSeconds()
           + "s");
 
-      for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {
-        printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
+      if (tmpConfiguration.getXslTemplates().isEmpty()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "");
+      } else {
+        for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {
+          printConfigurationProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
+        }
       }
-      for (final ICommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
-        printConfigurationProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
+
+      if (tmpConfiguration.getCommandSets().isEmpty()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, "");
+      } else {
+        for (final ICommandSet tmpCommandSet : tmpConfiguration.getCommandSets()) {
+          printConfigurationProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
+        }
       }
-      for (final Class<? extends IControl> tmpControl : tmpConfiguration.getControls()) {
-        printConfigurationProperty(WetatorConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
+
+      if (tmpConfiguration.getControls().isEmpty()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_CONTROLS, "");
+      } else {
+        for (final Class<? extends IControl> tmpControl : tmpConfiguration.getControls()) {
+          printConfigurationProperty(WetatorConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
+        }
       }
-      for (final IScripter tmpScripter : tmpConfiguration.getScripters()) {
-        printConfigurationProperty(WetatorConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
+
+      if (tmpConfiguration.getScripters().isEmpty()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_SCRIPTERS, "");
+      } else {
+        for (final IScripter tmpScripter : tmpConfiguration.getScripters()) {
+          printConfigurationProperty(WetatorConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
+        }
       }
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOST, tmpConfiguration.getProxyHost());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_PORT,
           Integer.toString(tmpConfiguration.getProxyPort()));
-      // TODO
-      // writeConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
-      // tmpConfiguration.getProxyHostsToBypass());
+      if (tmpConfiguration.getProxyHostsToBypass() == null || tmpConfiguration.getProxyHostsToBypass().isEmpty()) {
+        printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS, "");
+      } else {
+        for (final String tmpHost : tmpConfiguration.getProxyHostsToBypass()) {
+          printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS, tmpHost);
+        }
+      }
+
       printConfigurationProperty(WetatorConfiguration.PROPERTY_PROXY_USER, tmpConfiguration.getProxyUser());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_BASIC_AUTH_USER, tmpConfiguration.getBasicAuthUser());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_NTLM_USER, tmpConfiguration.getNtlmUser());
