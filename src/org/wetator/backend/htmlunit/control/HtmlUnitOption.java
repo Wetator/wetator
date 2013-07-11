@@ -34,6 +34,7 @@ import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
+import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
@@ -184,6 +185,14 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
-    return tmpHtmlOption.isDisabled();
+    final HtmlSelect tmpHtmlSelect = tmpHtmlOption.getEnclosingSelect();
+    final HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlOption
+        .getEnclosingElement(HtmlOptionGroup.TAG_NAME);
+    boolean tmpOptionGroupDisabled = false;
+    if (tmpHtmlOptionGroup != null) {
+      tmpOptionGroupDisabled = tmpHtmlOptionGroup.isDisabled();
+    }
+
+    return tmpHtmlOption.isDisabled() || tmpOptionGroupDisabled || tmpHtmlSelect.isDisabled();
   }
 }

@@ -62,6 +62,6 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
 
-    return tmpHtmlOptionGroup.isDisabled();
+    return tmpHtmlOptionGroup.isDisabled() || tmpHtmlOptionGroup.getEnclosingSelect().isDisabled();
   }
 }

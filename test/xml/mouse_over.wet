@@ -10,7 +10,7 @@
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>Gurkensalat</d:wpath></d:mouse-over></command>
     <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
@@ -20,7 +20,7 @@
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>xt is style</d:wpath></d:mouse-over></command>
     <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
@@ -30,7 +30,7 @@
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>Button will go away</d:wpath></d:mouse-over></command>
     <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>

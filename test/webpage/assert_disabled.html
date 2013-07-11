@@ -8,7 +8,7 @@
 
 
 <body>
-  
+
   <h1 class="command_test">Wetator / Assert Disabled</h1>
 
   <div class="test_content">
@@ -912,7 +912,54 @@
                   </table>
                 </form>
               </td>
+            </tr>
 
+            <tr>
+              <td>SingleSelect / Option with id in disabled Select</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelect_Name" size="2" disabled="disabled">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2" id="option2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect / Option with id in disabled OptGroup</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelect_Name" size="2">
+                          <optgroup label="values" disabled="disabled">
+                            <option value="o_value1">option1</option>
+                            <option value="o_value2">option2</option>
+                            <option value="o_value3" id="option3">option3</option>
+                            <option value="o_value4">option4</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
             </tr>
 
           </table>
@@ -971,6 +1018,35 @@
                             <option value="o_blue">blue</option>
                           </optgroup>
                           <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect / OptGroup with id in disabled Select</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelectOptGroup_Name" size="6" disabled="disabled">
+                          <optgroup label="colors">
+                            <option value="o_red">red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values" id="optgroup_values">
                             <option value="o_value1">value1</option>
                             <option value="o_value2">value2</option>
                           </optgroup>
