@@ -9,7 +9,7 @@
     <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
     <comment>not found</comment>
-    <command><tst:assert-fail><tst:command-and-message>Assert Set, No settable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Set, No settable HTML element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>

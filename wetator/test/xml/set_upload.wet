@@ -108,5 +108,5 @@
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
     <comment>FileInput identified by layout at left formated</comment>
-    <command><tst:assert-fail><tst:command-and-message>Set, The html element [HtmlFileInput (name='inputFile_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled FileInput</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Set, The HTML element [HtmlFileInput (name='inputFile_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled FileInput</tst:parameter1></tst:assert-fail></command>
 </test-case>

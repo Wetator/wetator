@@ -31,15 +31,15 @@
     <command><d:assert-content><d:content>Handler mousedown [radioGroup] [1] focus [radioGroup] [-] mouseup [radioGroup] [1] click [radioGroup] [1] change [radioGroup] [-] OK</d:content></d:assert-content></command>
     <comment>Select for disabled elements</comment>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlOption 'option1' (id='singleSelectDisabled_o_value1') part of [HtmlSelect (id='singleSelectDisabled') (name='singleSelectDisabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>singleSelectDisabled_o_value1</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlOption 'option1' (id='singleSelectDisabled_o_value1') part of [HtmlSelect (id='singleSelectDisabled') (name='singleSelectDisabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>singleSelectDisabled_o_value1</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlOption 'option1' (id='multipleSelectDisabled_o_value1') part of [HtmlSelect (id='multipleSelectDisabled') (name='multipleSelectDisabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>multipleSelectDisabled_o_value1</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlOption 'option1' (id='multipleSelectDisabled_o_value1') part of [HtmlSelect (id='multipleSelectDisabled') (name='multipleSelectDisabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>multipleSelectDisabled_o_value1</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlCheckBoxInput (id='checkboxDisabled') (name='checkboxDisabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>checkboxDisabled</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlCheckBoxInput (id='checkboxDisabled') (name='checkboxDisabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>checkboxDisabled</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlRadioButtonInput 'r_value1' (id='radio1Disabled') (name='radioGroup')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>radio1Disabled</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlRadioButtonInput 'r_value1' (id='radio1Disabled') (name='radioGroup')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>radio1Disabled</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
 </test-case>
