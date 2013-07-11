@@ -110,8 +110,11 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Mix() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>"
         + "</body></html>";
+    // @formatter:on
 
     asText("This text is styled.", tmpHtmlCode);
   }
@@ -275,11 +278,25 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Table() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<table id='idTable'>" + "<tr id='idTr1'>"
-        + "  <th id='idTh1'>header1</th><th id='idTh2'>header2</th>" + "</tr>" + "<tr id='idTr2'>"
-        + "  <td id='idTd1'>data1</td><td id='idTd2'>data2</td>" + "</tr>" + "<tr id='idTr3'>"
-        + "  <td id='idTd3'>data3</td><td id='idTd4'>data4</td>" + "</tr>" + "<tr id='idTr4'>"
-        + "  <td colspan='2' id='idTd5'>data5</td>" + "</tr>" + "</table>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = 
+        "<html><body>"
+            + "<table id='idTable'>"
+            + "<tr id='idTr1'>"
+            + "  <th id='idTh1'>header1</th><th id='idTh2'>header2</th>"
+            + "</tr>"
+            + "<tr id='idTr2'>"
+            + "  <td id='idTd1'>data1</td><td id='idTd2'>data2</td>"
+            + "</tr>"
+            + "<tr id='idTr3'>"
+            + "  <td id='idTd3'>data3</td><td id='idTd4'>data4</td>"
+            + "</tr>"
+            + "<tr id='idTr4'>"
+            + "  <td colspan='2' id='idTd5'>data5</td>"
+            + "</tr>"
+            + "</table>"
+            + "</body></html>";
+    // @formatter:off
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -555,6 +572,41 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(tmpExpected, tmpResult.getText());
 
     tmpExpected = "LabelText before after";
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
+  public void asText_SpanWithBlank() throws IOException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<span>line 1 </span>"
+        + "<span> line 2</span>"
+        + "<span>line 3</span>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    String tmpExpected = "line 1 line 2line 3";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
+    Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
+  }
+
+  @Test
+  public void asText_SpanWithBlock() throws IOException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<style type='text/css'> .line { display: block; } </style>"
+        + "<span class='line'>line 1 </span>"
+        + "<span class='line'> line 2</span>"
+        + "<span class='line'>line 3</span>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    String tmpExpected = "line 1 line 2 line 3";
+    Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
