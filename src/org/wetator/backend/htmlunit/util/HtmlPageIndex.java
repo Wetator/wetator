@@ -51,19 +51,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlCitation;
 import com.gargoylesoftware.htmlunit.html.HtmlCode;
 import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
 import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlHead;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading3;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading4;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading5;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading6;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
@@ -80,7 +73,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlPreformattedText;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
@@ -93,15 +85,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSubscript;
 import com.gargoylesoftware.htmlunit.html.HtmlSuperscript;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
-import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableHeader;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import com.gargoylesoftware.htmlunit.html.HtmlTeletype;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
-import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
@@ -684,12 +670,22 @@ public class HtmlPageIndex {
   }
 
   private boolean isBlock(final DomNode aDomNode) {
-    return aDomNode instanceof HtmlDivision || aDomNode instanceof HtmlParagraph || aDomNode instanceof HtmlTable
-        || aDomNode instanceof HtmlTableRow || aDomNode instanceof HtmlTableHeader
-        || aDomNode instanceof HtmlTableDataCell || aDomNode instanceof HtmlTableCell
-        || aDomNode instanceof HtmlUnorderedList || aDomNode instanceof HtmlHeading1
-        || aDomNode instanceof HtmlHeading2 || aDomNode instanceof HtmlHeading3 || aDomNode instanceof HtmlHeading4
-        || aDomNode instanceof HtmlHeading5 || aDomNode instanceof HtmlHeading6 || aDomNode instanceof HtmlListItem;
+    final Page tmpPage = aDomNode.getPage();
+    if (tmpPage instanceof HtmlPage && tmpPage.getEnclosingWindow().getWebClient().getOptions().isCssEnabled()) {
+      final ScriptableObject tmpScriptableObject = aDomNode.getScriptObject();
+      if (tmpScriptableObject instanceof HTMLElement) {
+        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
+        final String tmpDisplay = tmpStyle.getDisplay();
+        if ("block".equals(tmpDisplay)) {
+          return true;
+        }
+        if (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private boolean isFormatElement(final DomNode aDomNode) {
