@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Comment"><![CDATA[Open Url]]></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[javascript_error.html]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Comment"><![CDATA[Click On]]></step>
+	<step command="Assert_Fail"><![CDATA[Click On, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[ClickMe]]></optionalParameter></step>
+	<step command="Comment"><![CDATA[Bug in HtmlUnit; submit is not triggered at the moment if onClick script fails]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Request Snoopy]]></step>
+	<step command="Comment"><![CDATA[Mouse Over]]></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[javascript_error.html]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Assert_Fail"><![CDATA[Mouse Over, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[Sample text for mouse over.]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Comment"><![CDATA[OnFocus]]></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[javascript_error.html]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Assert_Fail"><![CDATA[Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[OnFocus]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[OK]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Request Snoopy]]></step>
+	<step command="Assert_Content"><![CDATA[Key, Value, onFocusText, value1, onBlurText, onBlurSecondText]]></step>
+	<step command="Comment"><![CDATA[OnBlur]]></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[javascript_error.html]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Set"><![CDATA[OnBlur]]><optionalParameter><![CDATA[value1]]></optionalParameter></step>
+	<step command="Assert_Fail"><![CDATA[Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[Second]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[OK]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Request Snoopy]]></step>
+	<step command="Assert_Content"><![CDATA[Key, Value, onFocusText, onBlurText, value1, onBlurSecondText, value2]]></step>
+	<step command="Comment"><![CDATA[Set / onChange]]></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[javascript_error.html]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Set"><![CDATA[OnChange (Set)]]><optionalParameter><![CDATA[value1]]></optionalParameter></step>
+	<step command="Assert_Fail"><![CDATA[Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[Second]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[OK]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Request Snoopy]]></step>
+	<step command="Assert_Content"><![CDATA[Key, Value, onFocusText, onBlurText, onBlurSecondText, onChangeText, value1]]></step>
+	<step command="Comment"><![CDATA[Select / onChange]]></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[javascript_error.html]]></optionalParameter></step>
+	<step command="Assert_Title"><![CDATA[Wetator / JavaScript Error]]></step>
+	<step command="Comment"><![CDATA[Bug in HtmlUnit; value not updated if onChange script fails]]></step>
+	<step command="Assert_Fail"><![CDATA[Select, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').]]><optionalParameter><![CDATA[OnChange (Select), option2]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[OK]]></step>
+	<step command="Assert_Title"><![CDATA[WeT / Request Snoopy]]></step>
+	<step command="Assert_Content"><![CDATA[Key, Value, onFocusText, onBlurText, onBlurSecondText, onChangeSelect, o_value2]]></step>
+</testcase>

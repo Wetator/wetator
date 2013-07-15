@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Open_Url"><![CDATA[simple_login.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Simple Login]]></step>
+	<step command="Comment"><![CDATA[set fields by label and press the button]]></step>
+	<step command="Set"><![CDATA[User:]]><optionalParameter><![CDATA[WeT]]></optionalParameter></step>
+	<step command="Set"><![CDATA[Password:]]><optionalParameter><![CDATA[tew]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[Login]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Request Snoopy]]></step>
+	<step command="Assert_Content"><![CDATA[POST Parameters, Key, Value, userid, WeT, password, tew]]></step>
+</testcase>

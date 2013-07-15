@@ -1,0 +1,77 @@
+/*
+ * Copyright (c) 2008-2010 Ronald Brill
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package org.rbri.wet.util;
+
+import java.util.List;
+
+import org.rbri.wet.core.variable.Variable;
+
+
+/**
+ * Helpers to replace the variables in a String
+ *  
+ * @author rbri
+ */
+public class VariableReplaceUtil {
+    private static final String VAR_START_SEQ = "${";
+    private static final String VAR_END_SEQ = "}";
+
+    
+    public static String replaceVariables(String aStringWithPlaceholders, List<Variable> aVariables, boolean aForPrintFlag) {
+        if (null == aStringWithPlaceholders) {
+            return aStringWithPlaceholders;
+        }
+        if ((null == aVariables) || aVariables.isEmpty()) {
+            return aStringWithPlaceholders;
+        }
+
+        StringBuilder tmpResult = new StringBuilder(aStringWithPlaceholders);
+
+        int tmpStartPos = 0;
+        int tmpVarStartPos = tmpResult.indexOf(VAR_START_SEQ, tmpStartPos);
+        int tmpVarEndPos;
+        
+        while (tmpVarStartPos > -1) {
+            tmpVarEndPos = tmpResult.indexOf(VAR_END_SEQ, tmpVarStartPos);
+            if (tmpVarEndPos < 0) {
+                return tmpResult.toString();
+            }
+
+            String tmpVarName = tmpResult.substring(tmpVarStartPos + VAR_START_SEQ.length(), tmpVarEndPos);
+
+            for (Variable tmpVariable : aVariables) {
+                if (tmpVarName.equals(tmpVariable.getName())) {
+                    String tmpValue;
+                    if (aForPrintFlag) {
+                        tmpValue = tmpVariable.getValue().toString();
+                    } else {
+                        tmpValue = tmpVariable.getValue().getValue();
+                    }
+
+                    // replace
+                    tmpResult.replace(tmpVarStartPos, tmpVarEndPos + VAR_END_SEQ.length(), tmpValue);
+                }
+            }
+
+            // done with this; move our startpos
+            tmpStartPos = tmpVarStartPos;
+            tmpVarStartPos = tmpResult.indexOf(VAR_START_SEQ, tmpStartPos);
+        }
+
+        return tmpResult.toString();
+    }
+}

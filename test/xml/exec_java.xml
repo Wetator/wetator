@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticVoidMethodWithoutParams]]></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticVoidMethodWithOneParam]]><optionalParameter><![CDATA[one]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticVoidMethodWithTwoParams]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticVoidMethodWithStringArray]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticVoidMethodWithVarargs]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Comment"></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticMethodWithoutParams]]></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticMethodWithOneParam]]><optionalParameter><![CDATA[one]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticMethodWithTwoParams]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticMethodWithStringArray]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.staticMethodWithVarargs]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Comment"></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.voidMethodWithoutParams]]></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.voidMethodWithOneParam]]><optionalParameter><![CDATA[one]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.voidMethodWithTwoParams]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.voidMethodWithStringArray]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.voidMethodWithVarargs]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Comment"></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.methodWithoutParams]]></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.methodWithOneParam]]><optionalParameter><![CDATA[one]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.methodWithTwoParams]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.methodWithStringArray]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.methodWithVarargs]]><optionalParameter><![CDATA[one, two]]></optionalParameter></step>
+	<step command="Comment"></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester().methodWithoutParams]]></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester.methodWithoutParams()]]></step>
+	<step command="Exec_Java"><![CDATA[org.rbri.wet.commandset.ExecTester().methodWithoutParams()]]></step>
+</testcase>

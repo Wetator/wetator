@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Open_Url"><![CDATA[ajax/jquery/jquery_ajax.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / AJAX with jQuery]]></step>
+	<step command="Comment"><![CDATA[add content via AJAX]]></step>
+	<step command="Comment"><![CDATA[check the original content]]></step>
+	<step command="Assert_Content"><![CDATA[Animated text replacement Click to start AJAX demo... Load and Execute javascript]]></step>
+	<step command="Click_On"><![CDATA[Click to start AJAX demo]]></step>
+	<step command="Comment"></step>
+	<step command="Assert_Content"><![CDATA[It works]]></step>
+	<step command="Assert_Content"><![CDATA[This is some text transferred to the client via AJAX.]]></step>
+	<step command="Comment"></step>
+	<step command="Comment"></step>
+	<step command="Open_Url"><![CDATA[ajax/jquery/jquery_ajax.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / AJAX with jQuery]]></step>
+	<step command="Comment"><![CDATA[change content via javascript loaded with AJAX]]></step>
+	<step command="Comment"><![CDATA[check the original content]]></step>
+	<step command="Assert_Content"><![CDATA[Load and Execute javascript Click to start AJAX Javascript demo... Load and Execute javascript]]></step>
+	<step command="Click_On" comment="true"><![CDATA[Click to start AJAX Javascript demo]]></step>
+	<step command="Comment"></step>
+	<step command="Assert_Content" comment="true"><![CDATA[Click to start AJAX Javascript demo... Javascript Execute Load and Execute javascript ]]></step>
+	<step command="Comment"></step>
+	<step command="Comment"></step>
+	<step command="Open_Url"><![CDATA[ajax/jquery/jquery_ajax.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / AJAX with jQuery]]></step>
+	<step command="Comment"><![CDATA[change content via javascript loaded with AJAX]]></step>
+	<step command="Comment"><![CDATA[check the original content]]></step>
+	<step command="Assert_Content"><![CDATA[Load and Execute javascript Click to start AJAX Plain Javascript demo... Dependent select boxes]]></step>
+	<step command="Assert_Set" comment="true"><![CDATA[Click to start AJAX Javascript demo]]></step>
+	<step command="Click_On"><![CDATA[Click to start AJAX Plain Javascript demo]]></step>
+	<step command="Assert_Content"><![CDATA[Click to start AJAX Plain Javascript demo... Javascript Executed Dependent]]></step>
+	<step command="Comment"></step>
+	<step command="Comment"><![CDATA[dependent list boxes]]></step>
+	<step command="Open_Url"><![CDATA[ajax/jquery/jquery_ajax.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / AJAX with jQuery]]></step>
+	<step command="Assert_Selected"><![CDATA[Animals, Fish]]></step>
+	<step command="Assert_Selected"><![CDATA[Group, doctor-fish]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, barbel-fish]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, shark]]></step>
+	<step command="Comment"></step>
+	<step command="Select"><![CDATA[Animals, Birds]]></step>
+	<step command="Assert_Selected"><![CDATA[Animals, Birds]]></step>
+	<step command="Assert_Selected"><![CDATA[Group, parrots]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, penguins]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, raven-birds]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, woodpeckers]]></step>
+	<step command="Comment"></step>
+	<step command="Select"><![CDATA[Animals, Mammals]]></step>
+	<step command="Assert_Selected"><![CDATA[Animals, Mammals]]></step>
+	<step command="Assert_Selected"><![CDATA[Group, antelopes]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, bears]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, cats]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, dogs]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, pigs]]></step>
+	<step command="Assert_Deselected"><![CDATA[Group, seals]]></step>
+</testcase>

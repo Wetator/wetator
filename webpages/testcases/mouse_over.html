@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Mouse Over</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+<form action="http://www.wetator.org/testcases/snoopy.php">
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / Mouse Over</h1>
+
+  <div class="test_content">
+
+    <h3>Plain Content</h3>
+    <p onmouseover="document.getElementById('b_plaintext_id').style.visibility='visible'">
+        Pferde fressen keinen Gurkensalat.
+        <input style="visibility: hidden;" type="submit" id="b_plaintext_id" name="b_plaintext_name" value="Submit">
+    </p>
+
+    <h3>Font infos in Content</h3>
+    <p onmouseover="document.getElementById('b_formatedtext_id').style.visibility='visible'">
+        This t<font color='red'>ex</font>t is <b>styled</b>.
+        <input style="visibility: hidden;" type="submit" id="b_formatedtext_id" name="b_formatedtext_name" value="Submit">
+    </p>
+
+    <h3>Effect with timeout</h3>
+    <p onmouseover="document.getElementById('b_timeout_id').style.visibility='visible'; setTimeout(&quot;document.getElementById('b_timeout_id').style.visibility='hidden';&quot;, 4000);">
+        Button will go away after 4s.
+        <input style="visibility: hidden;" type="submit" id="b_timeout_id" name="b_timeout_name" value="Submit">
+    </p>
+
+  </div>
+
+</form>
+</body>
+</html>
+

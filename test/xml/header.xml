@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Comment"><![CDATA[redirect via http header]]></step>
+	<step command="Open_Url"><![CDATA[snoopy.php]]></step>
+	<step command="Assert_Content"><![CDATA[Headers, Accept-Language, en-us\,en;q=0.8\,de-de;q=0.5\,de;q=0.3]]></step>
+	<step command="Assert_Content"><![CDATA[User-Agent, Mozilla*Firefox]]></step>
+</testcase>

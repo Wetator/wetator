@@ -1,0 +1,7 @@
+<!ELEMENT testcase (step+)>
+<!ELEMENT step (#PCDATA | optionalParameter)*>
+<!ELEMENT optionalParameter (#PCDATA)>
+
+<!ATTLIST step
+    command (Assert_Content | Assert_Deselected | Assert_Disabled | Assert_Selected | Assert_Set | Assert_Title | Click_After_Text | Click_On | Close_Window | Comment | Exec_Java | Go_Back | Mouse_Over | Open_Url | Select | Set | Use_Module) #REQUIRED
+    comment (true | false) "false">

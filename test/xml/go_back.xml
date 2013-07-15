@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Open_Url"><![CDATA[simple_login.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Simple Login]]></step>
+	<step command="Comment"><![CDATA[set fields by label and press the button]]></step>
+	<step command="Set"><![CDATA[User:]]><optionalParameter><![CDATA[WeT]]></optionalParameter></step>
+	<step command="Set"><![CDATA[Password:]]><optionalParameter><![CDATA[tew]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[Login]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Request Snoopy]]></step>
+	<step command="Assert_Content"><![CDATA[POST Parameters, Key, Value, userid, WeT, password, tew]]></step>
+	<step command="Comment"><![CDATA[now we are going back]]></step>
+	<step command="Go_Back"></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Simple Login]]></step>
+	<step command="Assert_Set" comment="true"><![CDATA[User:]]><optionalParameter><![CDATA[WeT]]></optionalParameter></step>
+	<step command="Set" comment="true"><![CDATA[Password:]]></step>
+	<step command="Assert_Fail"><![CDATA[Go Back, Walking trough the history failed (steps: 1 currentPos: -1 historySize: 2).]]></step>
+</testcase>

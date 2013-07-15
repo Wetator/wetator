@@ -1,0 +1,14 @@
+hab mal die index.html mit ein paar meta-tags versehen; kanns du mal bitte drueberschauen
+->hab mich dann mal ausgetobt. ich wŸrde - zumindest auf der Seite - noch die Intelligenz und das (flexible) Reporting des Tools betonen.
+
+Der Testfall, der bei mir nicht lŠuft, ist HtmlUnitControlFinderGetFirstClickableTextElementTest.testGetFirstClickableTextElement_ByTextWithBreak().
+Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+Šndern, damit er durchlŠuft.
+Die Eingabe in die Textarea erzeugt folgende URL http://wetator.rbri.org/testcases/snoopy.php?textArea_Name=something%0D%0Aanother+something&TextAreaNameTest=OK.
+Also %0D%0A als Umbruch.
+-> OK werde ich mir mal anschauen
+
+
+Und dann noch js_error.xls - der Test hat Assert Content + JavaScript Probleme.
+-> einige Probleme sind gefixt
+Aber noch nicht alle :)

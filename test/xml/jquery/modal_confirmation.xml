@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "../dtd/testcase.dtd">
+<testcase>
+	<step command="Open_Url"><![CDATA[js/jquery/modal-confirmation.html]]></step>
+	<step command="Assert_Content"><![CDATA[Empty the recycle bin?]]></step>
+	<step command="Click_On"><![CDATA[Cancel]]></step>
+	<step command="Assert_Content"><![CDATA[Button: Cancel]]></step>
+	<step command="Comment"></step>
+	<step command="Open_Url"><![CDATA[js/jquery/modal-confirmation.html]]></step>
+	<step command="Assert_Content"><![CDATA[Empty the recycle bin?]]></step>
+	<step command="Click_On"><![CDATA[Delete all items]]></step>
+	<step command="Assert_Content"><![CDATA[Button: Delete all items]]></step>
+</testcase>

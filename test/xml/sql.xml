@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcaseExtendedCommandSet.dtd">
+<testcase>
+	<step command="Comment"><![CDATA[default connection]]></step>
+	<step command="Execute_SQL"><![CDATA[CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)]]></step>
+	<step command="Assert_SQL"><![CDATA[SELECT * FROM test_tbl ORDER BY col2]]><optionalParameter><![CDATA[First, Second]]></optionalParameter></step>
+	<step command="Assert_SQL"><![CDATA[SELECT * FROM test_tbl ORDER BY col2]]><optionalParameter><![CDATA[First, 1, Second, 2]]></optionalParameter></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('val9', 9)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('val7', 7)]]></step>
+	<step command="Assert_SQL"><![CDATA[SELECT * FROM test_tbl ORDER BY col2]]><optionalParameter><![CDATA[First, Second, val7, val9]]></optionalParameter></step>
+	<step command="Assert_SQL"><![CDATA[SELECT * FROM test_tbl ORDER BY col2]]><optionalParameter><![CDATA[First, 1,Second, 2, val7, 7, val9, 9]]></optionalParameter></step>
+	<step command="Assert_SQL"><![CDATA[SELECT col1 FROM test_tbl ORDER BY col2]]><optionalParameter><![CDATA[First, Second, val7, val9]]></optionalParameter></step>
+	<step command="Comment"><![CDATA[second connection]]></step>
+	<step command="Execute_SQL"><![CDATA[@secondDb CREATE TABLE second_tbl (col1 CHAR(20), col2 CHAR(2))]]></step>
+	<step command="Execute_SQL"><![CDATA[@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('Tester', 'aa')]]></step>
+	<step command="Execute_SQL"><![CDATA[@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('WeT', 'ab')]]></step>
+	<step command="Assert_SQL"><![CDATA[@secondDb SELECT * FROM second_tbl ORDER BY col2]]><optionalParameter><![CDATA[Tester, WeT]]></optionalParameter></step>
+	<step command="Assert_SQL"><![CDATA[@secondDb SELECT * FROM second_tbl ORDER BY col2]]><optionalParameter><![CDATA[Tester, aa, WeT, ab]]></optionalParameter></step>
+	<step command="Comment"><![CDATA[no blank after db name]]></step>
+	<step command="Assert_SQL"><![CDATA[@secondDbSELECT * FROM second_tbl ORDER BY col2]]><optionalParameter><![CDATA[Tester, WeT]]></optionalParameter></step>
+	<step command="Assert_SQL"><![CDATA[@wetdbSELECT * FROM test_tbl ORDER BY col2]]><optionalParameter><![CDATA[First, 1, Second, 2]]></optionalParameter></step>
+	<step command="Comment"><![CDATA[check content]]></step>
+	<step command="Open_Url"><![CDATA[assert_content.html]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('Wetator / Assert Content', 10)]]></step>
+	<step command="Assert_SQL_in_Content"><![CDATA[SELECT col1 FROM test_tbl WHERE col2 = 10]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('Pferde', 11)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('fressen', 12)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('keinen', 13)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('Gurkensalat', 14)]]></step>
+	<step command="Assert_SQL_in_Content"><![CDATA[SELECT col1 FROM test_tbl WHERE col2 > 10]]></step>
+	<step command="Comment"><![CDATA[content was a download]]></step>
+	<step command="Open_Url"><![CDATA[download/download.txt]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('simple', 21)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('text', 22)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('file', 23)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 24)]]></step>
+	<step command="Assert_SQL_in_Content"><![CDATA[SELECT col1 FROM test_tbl WHERE col2 > 20]]></step>
+	<step command="Open_Url"><![CDATA[download/wet_test.pdf]]></step>
+	<step command="Assert_Content"><![CDATA[simple, PDF, file, WeT]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('simple', 31)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('PDF', 32)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('file', 33)]]></step>
+	<step command="Execute_SQL"><![CDATA[INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 44)]]></step>
+	<step command="Assert_SQL_in_Content"><![CDATA[SELECT col1 FROM test_tbl WHERE col2 > 30]]></step>
+</testcase>

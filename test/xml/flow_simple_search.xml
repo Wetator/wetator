@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Open_Url"><![CDATA[simple_search.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Simple Search]]></step>
+	<step command="Comment"><![CDATA[set selects and fields by label and press the button]]></step>
+	<step command="Select"><![CDATA[Field1, >]]></step>
+	<step command="Set"><![CDATA[Field1]]><optionalParameter><![CDATA[value1]]></optionalParameter></step>
+	<step command="Select"><![CDATA[Field2, <]]></step>
+	<step command="Set"><![CDATA[Field2]]><optionalParameter><![CDATA[value2]]></optionalParameter></step>
+	<step command="Select"><![CDATA[Field3, =]]></step>
+	<step command="Set"><![CDATA[Field3]]><optionalParameter><![CDATA[value3]]></optionalParameter></step>
+	<step command="Select"><![CDATA[Field4, >]]></step>
+	<step command="Set"><![CDATA[Field4]]><optionalParameter><![CDATA[value4]]></optionalParameter></step>
+	<step command="Click_On"><![CDATA[Search]]></step>
+	<step command="Assert_Content"><![CDATA[name_field1_select, o2_f1s, name_field1_input, value1, name_field2_select, o3_f2s, name_field2_input, value2, name_field3_select, o1_f3s, name_field3_input, value3, name_field4_select, o2_f4s, name_field4_input, value4]]></step>
+</testcase>

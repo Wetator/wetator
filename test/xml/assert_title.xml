@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Open_Url"><![CDATA[assert_content.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Assert Content]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Assert Cont*]]></step>
+	<step command="Comment"></step>
+	<step command="Open_Url"><![CDATA[assert_selected.html]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Assert Selected]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator / Assert Sel*]]></step>
+	<step command="Comment"></step>
+	<step command="Open_Url"><![CDATA[assert_content.html]]></step>
+	<step command="Comment"><![CDATA[test for warning about unused parameter]]></step>
+	<step command="Assert_Fail"><![CDATA[Assert Title, The command 'Assert Title' does not use the value 'unused' provided in column 2.]]><optionalParameter><![CDATA[Wetator / Assert Content]]></optionalParameter></step>
+	<step command="Comment"><![CDATA[test for parameter support]]></step>
+	<step command="Assert_Title"><![CDATA[${wet} / Assert Content]]></step>
+	<step command="Comment"><![CDATA[test for secret parts]]></step>
+	<step command="Assert_Title"><![CDATA[${wet-secret} / Assert Content]]></step>
+	<step command="Comment"><![CDATA[more parts]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator, Assert, Content]]></step>
+	<step command="Assert_Title"><![CDATA[Wetator, Content]]></step>
+	<step command="Assert_Title"><![CDATA[W*tator, Co*t]]></step>
+	<step command="Comment"><![CDATA[test errors]]></step>
+	<step command="Assert_Fail"><![CDATA[Assert Title, Expected content(s) {not found} or [in wrong order]: 'Wetator\, Content\, [Assert]' (content: 'Wetator / Assert Content').]]><optionalParameter><![CDATA[Wetator, Content, Assert]]></optionalParameter></step>
+	<step command="Assert_Fail"><![CDATA[Assert Title, Expected content(s) {not found} or [in wrong order]: '{wrong*}' (content: 'Wetator / Assert Content').]]><optionalParameter><![CDATA[wrong*]]></optionalParameter>
+	</step>
+</testcase>
