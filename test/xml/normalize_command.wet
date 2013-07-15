@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>ajax/jquery/jquery_ajax.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / AJAX with jQuery</d:title></d:assert-title></command>
+    <comment>blank at start</comment>
+    <command><d:assert-title><d:title>Wetator / AJAX with jQuery</d:title></d:assert-title></command>
+    <comment>blank at end</comment>
+    <command><d:assert-title><d:title>Wetator / AJAX with jQuery</d:title></d:assert-title></command>
+    <comment>blank at start and end</comment>
+    <command><d:assert-title><d:title>Wetator / AJAX with jQuery</d:title></d:assert-title></command>
+    <comment>blanks inside</comment>
+    <command><d:assert-title><d:title>Wetator / AJAX with jQuery</d:title></d:assert-title></command>
+</test-case>

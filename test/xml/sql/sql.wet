@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:sql='http://www.wetator.org/xsd/sql-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/sql-command-set sql-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <comment>cleanup</comment>
+    <command><sql:exec-sql><sql:sql>DROP TABLE IF EXISTS test_tbl</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>@secondDb DROP TABLE IF EXISTS second_tbl</sql:sql></sql:exec-sql></command>
+    <comment>default connection</comment>
+    <command><sql:exec-sql><sql:sql>CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql><sql:sql>SELECT * FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, Second</sql:result></sql:assert-sql></command>
+    <command><sql:assert-sql><sql:sql>SELECT * FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, 1, Second, 2</sql:result></sql:assert-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('val9', 9)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('val7', 7)</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql><sql:sql>SELECT * FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, Second, val7, val9</sql:result></sql:assert-sql></command>
+    <command><sql:assert-sql><sql:sql>SELECT * FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, 1,Second, 2, val7, 7, val9, 9</sql:result></sql:assert-sql></command>
+    <command><sql:assert-sql><sql:sql>SELECT col1 FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, Second, val7, val9</sql:result></sql:assert-sql></command>
+    <comment>second connection</comment>
+    <command><sql:exec-sql><sql:sql>@secondDb CREATE TABLE second_tbl (col1 CHAR(20), col2 CHAR(2))</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('Tester', 'aa')</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>@secondDb INSERT INTO second_tbl (col1, col2) VALUES ('WeT', 'ab')</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql><sql:sql>@secondDb SELECT * FROM second_tbl ORDER BY col2</sql:sql><sql:result>Tester, WeT</sql:result></sql:assert-sql></command>
+    <command><sql:assert-sql><sql:sql>@secondDb SELECT * FROM second_tbl ORDER BY col2</sql:sql><sql:result>Tester, aa, WeT, ab</sql:result></sql:assert-sql></command>
+    <comment>no blank after db name</comment>
+    <command><sql:assert-sql><sql:sql>@secondDbSELECT * FROM second_tbl ORDER BY col2</sql:sql><sql:result>Tester, WeT</sql:result></sql:assert-sql></command>
+    <command><sql:assert-sql><sql:sql>@wetdbSELECT * FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, 1, Second, 2</sql:result></sql:assert-sql></command>
+    <comment>check content</comment>
+    <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('Wetator / Assert Content', 10)</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql-in-content><sql:sql>SELECT col1 FROM test_tbl WHERE col2 = 10</sql:sql></sql:assert-sql-in-content></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('Pferde', 11)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('fressen', 12)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('keinen', 13)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('Gurkensalat', 14)</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql-in-content><sql:sql>SELECT col1 FROM test_tbl WHERE col2 &gt; 10</sql:sql></sql:assert-sql-in-content></command>
+    <comment>content was a download</comment>
+    <command><d:open-url><d:url>download/download.txt</d:url></d:open-url></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('simple', 21)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('text', 22)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('file', 23)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 24)</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql-in-content><sql:sql>SELECT col1 FROM test_tbl WHERE col2 &gt; 20</sql:sql></sql:assert-sql-in-content></command>
+    <command><d:open-url><d:url>download/wet_test.pdf</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>simple, PDF, file, WeT</d:content></d:assert-content></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('simple', 31)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('PDF', 32)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('file', 33)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('WeT', 44)</sql:sql></sql:exec-sql></command>
+    <command><sql:assert-sql-in-content><sql:sql>SELECT col1 FROM test_tbl WHERE col2 &gt; 30</sql:sql></sql:assert-sql-in-content></command>
+</test-case>

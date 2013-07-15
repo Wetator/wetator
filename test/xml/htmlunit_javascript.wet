@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>htmlunit_javascript.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / HtmlUnit Javascript Tests</d:title></d:assert-title></command>
+    <comment>click on button to exec javascript</comment>
+    <command><d:click-on><d:wpath>Execute Test1</d:wpath></d:click-on></command>
+    <command><d:assert-set><d:wpath>Expected: 'part1:part2'</d:wpath><d:value>part1:part2</d:value></d:assert-set></command>
+</test-case>

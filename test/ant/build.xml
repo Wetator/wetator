@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="Wetator Ant Task test" basedir="." default="run_wetator_with_properties">
+
+    <property name="wetator.baseUrl" value="http://www.wetator.org"/>
+
+    <propertyset id="wetator-properties">
+        <propertyref prefix="wetator"/>
+    </propertyset>
+
+
+    <!-- You have to declare the task first -->
+    <taskdef name="wetator" classname="org.wetator.ant.Wetator">
+        <classpath>
+            <path path="../../bin"/>
+            <fileset dir="../../lib" includes="**/**.jar"/>
+        </classpath>
+    </taskdef>
+
+    <path id="wetator.classpath">
+        <fileset dir="." includes="commons-exec-1.1.jar"/>
+    </path>
+
+    <target name="run_wetator_with_classpath">
+        <wetator config="wetator.config">
+            <classpath>
+                <fileset dir="." includes="commons-exec-1.1.jar"/>
+            </classpath>
+            <fileset dir=".">
+                <include name="ant_task_classpath_test.xls"/>
+            </fileset>
+        </wetator>
+    </target>
+
+    <target name="run_wetator_with_classpath_ref">
+        <wetator config="wetator.config">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="ant_task_classpath_test.xls"/>
+            </fileset>
+        </wetator>
+    </target>
+
+
+    <target name="run_wetator_with_properties">
+        <wetator config="wetator.config">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="sample.xls"/>
+            </fileset>
+
+            <property name="wetator.baseUrl" value="http://www.wetator.org"/>
+            <property name="$user" value="dobby"/>
+            <!-- to define a secret property you need $$$ -->
+            <property name="$$$password" value="secret"/>
+
+            <!-- support for sysproperties -->
+            <sysproperty key="sysuser" value="bolly"/>
+        </wetator>
+    </target>
+
+
+    <target name="run_wetator_haltonfailure_false">
+        <echo message="before wetator"/>
+        <wetator config="wetator.config" haltonfailure="false">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="failure.wet"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator"/>
+    </target>
+
+    <target name="run_wetator_haltonfailure_true">
+        <echo message="before wetator"/>
+        <wetator config="wetator.config" haltonfailure="true">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="failure.wet"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator"/>
+    </target>
+
+
+    <target name="run_wetator_failureproperty">
+        <wetator config="wetator.config" failureproperty="failed">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="sample.xls"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator property failed = '${failed}'"/>
+
+        <wetator config="wetator.config" failureproperty="failed">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="failure.wet"/>
+            </fileset>
+        </wetator>
+        <echo message="after wetator property failed = '${failed}'"/>
+    </target>
+</project>

@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Deselected, No deselectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect with name</comment>
+    <command><d:assert-deselected><d:wpath>multipleSelect_Name[], option1</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>multipleSelect_Name[], option2</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelectOptGroup with name</comment>
+    <command><d:assert-deselected><d:wpath>multipleSelectOptgroup_Name[], blue</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>multipleSelectOptgroup_Name[], value1</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>multipleSelectOptgroup_Name[], value2</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect with id</comment>
+    <command><d:assert-deselected><d:wpath>multipleSelect_Id[], option2</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>multipleSelect_Id[], option3</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by label with for attribute</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect Label, option3</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect Label, option4</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by label</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect Label, option1</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect Label, option2</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout directly before</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel before, option2</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel before, option3</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout directly before formated</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel before formated, option2</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel before formated, option4</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at top</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at top, option1</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at top, option3</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at top formated</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at top formated, option2</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at top formated, option3</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at left</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at left, option1</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at left, option4</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>MultipleSelect identified by layout at left formated</comment>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at left formated, option2</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>MultipleSelect LayoutLabel at left formated, option4</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>Disabled MultipleSelect</comment>
+    <command><d:assert-deselected><d:wpath>Disabled MultipleSelect, option1</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Disabled MultipleSelect, option4</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_deselected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Deselected</d:title></d:assert-title></command>
+    <comment>Disabled MultipleSelect Option</comment>
+    <command><d:assert-deselected><d:wpath>Disabled MultipleSelect Option, option2</d:wpath></d:assert-deselected></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+</test-case>

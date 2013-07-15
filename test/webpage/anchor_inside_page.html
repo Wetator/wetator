@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Anchor Inside Page</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+
+  <h1 class="command_test">Wetator / Anchor Inside Page</h1>
+
+  <div class="test_content">
+
+    <h3><a name="chapter1">Chapter 1</a></h3>
+    <p>Pferde fressen keinen Gurkensalat.</p>
+
+    <h3 id="chapter2">Chapter 2</h3>
+    <p>
+      <a name="duplicteAnchor"></a>
+      Esel fressen auch keinen Gurkensalat.
+    </p>
+
+    <h3>Tests </h3>
+    <p>
+      <ul>
+        <li><a href='#chapter1'>jump to 'Chapter 1'</a>
+        <li><a href='#chapter2'>jump to 'Chapter 2'</a>
+        <li><a href='#chapter3'>jump to non existing anchor</a>
+        <li><a href='#duplicteAnchor'>jump to duplicate anchor</a>
+      </ul>
+      <ul>
+        <li><a href='javascript: myWin=window.open("#chapter1", "PopUp", "width=400,height=40");myWin.focus();'>open popup and jump to 'Chapter 1'</a>
+        <li><a href='javascript: myWin=window.open("#chapter2", "PopUp", "width=400,height=40");myWin.focus();'>open popup and jump to 'Chapter 2'</a>
+        <li><a href='javascript: myWin=window.open("#chapter3", "PopUp", "width=400,height=40");myWin.focus();'>open popup and jump to non existing anchor</a>
+        <li><a href='javascript: myWin=window.open("#duplicteAnchor", "PopUp", "width=400,height=40");myWin.focus();'>open popup and jump to duplicate anchor</a>
+      </ul>
+      <a name="duplicteAnchor"></a>
+    </p>
+  </div>
+
+</body>
+</html>
+

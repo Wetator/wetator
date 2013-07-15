@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_disabled.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Disabled</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Disabled, No html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment> </comment>
+    <comment> </comment>
+    <command><d:open-url><d:url>assert_disabled.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Disabled</d:title></d:assert-title></command>
+    <comment> </comment>
+    <comment> </comment>
+    <comment>Text Input</comment>
+    <comment>InputText with name</comment>
+    <command><d:assert-disabled><d:wpath>inputText_Name</d:wpath></d:assert-disabled></command>
+    <comment>InputText with name</comment>
+    <command><d:assert-disabled><d:wpath>inputText_Name</d:wpath></d:assert-disabled></command>
+    <comment>InputText with id</comment>
+    <command><d:assert-disabled><d:wpath>inputText_Id</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by label</comment>
+    <command><d:assert-disabled><d:wpath>InputText Label</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout directly before</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel before</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout directly before formated</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel before formated</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout at top</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel at top</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout at top formated</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel at top formated</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout at left</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel at left</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout at left formated</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel at left formated</d:wpath></d:assert-disabled></command>
+    <comment>InputText identified by layout at left formated</comment>
+    <command><d:assert-disabled><d:wpath>InputText LayoutLabel at left formated</d:wpath></d:assert-disabled></command>
+    <comment> </comment>
+    <comment> </comment>
+    <comment>Password Input</comment>
+    <comment>InputPassword with name</comment>
+    <command><d:assert-disabled><d:wpath>inputPassword_Name</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword with id</comment>
+    <command><d:assert-disabled><d:wpath>inputPassword_Id</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by label</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword Label</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by layout directly before</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword LayoutLabel before</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by layout directly before formated</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword LayoutLabel before formated</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by layout at top</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword LayoutLabel at top</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by layout at top formated</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword LayoutLabel at top formated</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by layout at left</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword LayoutLabel at left</d:wpath></d:assert-disabled></command>
+    <comment>InputPassword identified by layout at left formated</comment>
+    <command><d:assert-disabled><d:wpath>InputPassword LayoutLabel at left formated</d:wpath></d:assert-disabled></command>
+    <comment> </comment>
+    <comment> </comment>
+    <comment>TextArea Input</comment>
+    <comment>TextArea with name</comment>
+    <command><d:assert-disabled><d:wpath>textArea_Name</d:wpath></d:assert-disabled></command>
+    <comment>TextArea with id</comment>
+    <command><d:assert-disabled><d:wpath>textArea_Id</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by label</comment>
+    <command><d:assert-disabled><d:wpath>TextArea Label</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by layout directly before</comment>
+    <command><d:assert-disabled><d:wpath>TextArea LayoutLabel before</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by layout directly before formated</comment>
+    <command><d:assert-disabled><d:wpath>TextArea LayoutLabel before formated</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by layout at top</comment>
+    <command><d:assert-disabled><d:wpath>TextArea LayoutLabel at top</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by layout at top formated</comment>
+    <command><d:assert-disabled><d:wpath>TextArea LayoutLabel at top formated</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by layout at left</comment>
+    <command><d:assert-disabled><d:wpath>TextArea LayoutLabel at left</d:wpath></d:assert-disabled></command>
+    <comment>TextArea identified by layout at left formated</comment>
+    <command><d:assert-disabled><d:wpath>TextArea LayoutLabel at left formated</d:wpath></d:assert-disabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Button</comment>
+    <comment>Button with Text</comment>
+    <command><d:assert-disabled><d:wpath>ButtonWithText</d:wpath></d:assert-disabled></command>
+    <comment>Button with Image alt</comment>
+    <command><d:assert-disabled><d:wpath>b_imageTestAlt</d:wpath></d:assert-disabled></command>
+    <comment>Button with Image title</comment>
+    <command><d:assert-disabled><d:wpath>b_imageTestTitle</d:wpath></d:assert-disabled></command>
+    <comment>Button with Image src</comment>
+    <command><d:assert-disabled><d:wpath>sword2.png</d:wpath></d:assert-disabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Input</comment>
+    <comment>InputType Submit with Value</comment>
+    <command><d:assert-disabled><d:wpath>InputTypeSubmit</d:wpath></d:assert-disabled></command>
+    <comment>InputType Button with Value</comment>
+    <command><d:assert-disabled><d:wpath>Button</d:wpath></d:assert-disabled></command>
+    <comment>InputType Image with Alt</comment>
+    <command><d:assert-disabled><d:wpath>ImageButton</d:wpath></d:assert-disabled></command>
+    <comment>InputType Image with Title</comment>
+    <command><d:assert-disabled><d:wpath>ImageButtonTitle</d:wpath></d:assert-disabled></command>
+    <comment>InputType Image with src</comment>
+    <command><d:assert-disabled><d:wpath>sword1.png</d:wpath></d:assert-disabled></command>
+    <comment>InputType Radio with id</comment>
+    <command><d:assert-disabled><d:wpath>i_r_inputtyperadioid</d:wpath></d:assert-disabled></command>
+    <comment>InputType Radio with name makes no sense</comment>
+    <comment>InputType Checkbox with id</comment>
+    <command><d:assert-disabled><d:wpath>i_c_inputtypecheckboxid</d:wpath></d:assert-disabled></command>
+    <comment>InputType Checkbox with name</comment>
+    <command><d:assert-disabled><d:wpath>i_c_inputtypecheckboxname</d:wpath></d:assert-disabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Select</comment>
+    <comment>SingleSelect with name</comment>
+    <command><d:assert-disabled><d:wpath>singleSelect_Name</d:wpath></d:assert-disabled></command>
+    <comment>SingleSelect (incl. OptGroup) with name</comment>
+    <command><d:assert-disabled><d:wpath>singleSelectOptGroup_Name</d:wpath></d:assert-disabled></command>
+    <comment>SingleSelect with id</comment>
+    <command><d:assert-disabled><d:wpath>singleSelect_Id</d:wpath></d:assert-disabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: OptGroup</comment>
+    <comment>Fails in IE 6.0 (Bug)</comment>
+    <comment>OptGroup with Label</comment>
+    <command><d:assert-disabled><d:wpath>colors</d:wpath></d:assert-disabled></command>
+    <comment>OptGroup with id</comment>
+    <command><d:assert-disabled><d:wpath>optgroup_colors</d:wpath></d:assert-disabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Option</comment>
+    <comment>Fails in IE 6.0 (Bug)</comment>
+    <comment>Option with id</comment>
+    <command><d:assert-disabled><d:wpath>option1</d:wpath></d:assert-disabled></command>
+    <comment>Option (in OptGroup)  with id</comment>
+    <command><d:assert-disabled><d:wpath>option_red</d:wpath></d:assert-disabled></command>
+    <comment>test for unused parameter</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>inputText_Name</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+</test-case>

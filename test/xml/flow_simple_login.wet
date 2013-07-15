@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>simple_login.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Simple Login</d:title></d:assert-title></command>
+    <comment>set fields by label and press the button</comment>
+    <command><d:set><d:wpath>User:</d:wpath><d:value>WeT</d:value></d:set></command>
+    <command><d:set><d:wpath>Password:</d:wpath><d:value>tew</d:value></d:set></command>
+    <command><d:click-on><d:wpath>Login</d:wpath></d:click-on></command>
+    <command><d:assert-title><d:title>Wetator / Request Snoopy</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>POST Parameters Key Value password tew userid WeT Headers</d:content></d:assert-content></command>
+</test-case>

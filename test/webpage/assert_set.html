@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Assert Set</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+
+  <h1 class="command_test">Wetator / Assert Set</h1>
+
+  <div class="test_content">
+
+    <table border='0' cellspacing='20' cellpadding='30'>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+        <!-- left column -->
+
+          <h3>AssertSet Text Input</h3>
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>InputText with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" name="inputText_Name" value="inputTextNameValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Empty InputText with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" name="emptyInputText_Name" ></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputText with id</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" id="inputText_Id" name="inputTextId_Name" value="inputTextIdValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputText identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="inputTextId_Label">InputText Label</label></td>
+                      <td><input type="text" id="inputTextId_Label" name="inputText_Label" value="inputTextLabelValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText LayoutLabel before<input type="text" name="inputText_LayoutBefore" value="inputTextLayoutBeforeValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText Layout<font color='red'>Label</font> <b>befor</b>e formated<input type="text" name="inputText_LayoutBeforeFormated" value="inputTextLayoutBeforeFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="inputText_LayoutTop" value="inputTextLayoutTopValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="inputText_LayoutTopFormated"  value="inputTextLayoutTopFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText LayoutLabel at left</td>
+                      <td><input type="text" name="inputText_LayoutLeft" value="inputTextLayoutLeftValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><input type="text" name="inputText_LayoutLeftFormated" value="inputTextLayoutLeftFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end left column -->
+        </td>
+        <td>
+        <!-- middle column -->
+
+          <h3>Set Password Input</h3>
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>InputPassword with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" name="inputPassword_Name" value="inputPasswordNameValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Empty InputPassword with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" name="emptyInputPassword_Name"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputPassword with id</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" id="inputPassword_Id" name="inputPasswordId_Name" value="inputPasswordIdValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputPassword identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="inputPasswordId_Label">InputPassword Label</label></td>
+                      <td><input type="password" id="inputPasswordId_Label" name="inputPassword_Label" value="inputPasswordLabelValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword LayoutLabel before<input type="password" name="inputPassword_LayoutBefore" value="inputPasswordLayoutBeforeValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword Layout<font color='red'>Label</font> <b>befor</b>e formated<input type="password" name="inputPassword_LayoutBeforeFormated" value="inputPasswordLayoutBeforeFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><input type="password" name="inputPassword_LayoutTop" value="inputPasswordLayoutTopValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><input type="password" name="inputPassword_LayoutTopFormated" value="inputPasswordLayoutTopFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword LayoutLabel at left</td>
+                      <td><input type="password" name="inputPassword_LayoutLeft" value="inputPasswordLayoutLeftValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><input type="password" name="inputPassword_LayoutLeftFormated" value="inputPasswordLayoutLeftFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end middle column -->
+        </td>
+        <td>
+        <!-- right column -->
+
+          <h3>Set TextArea Input</h3>
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>TextArea with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea name="textArea_Name" cols="50" rows="1">textAreaNameValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Empty TextArea with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea name="emptyTextArea_Name" cols="50" rows="1"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TextArea with id</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea id="textArea_Id" name="textAreaId_Name" cols="50" rows="1">textAreaIdValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TextArea identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="textAreaId_Label">TextArea Label</label></td>
+                      <td><textarea id="textAreaId_Label" name="textArea_Label" cols="50" rows="1">textAreaLabelValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea LayoutLabel before<textarea name="textArea_LayoutBefore" cols="50" rows="1">textAreaLayoutBeforeValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea Layout<font color='red'>Label</font> <b>befor</b>e formated<textarea name="textArea_LayoutBeforeFormated" cols="50" rows="1">textAreaLayoutBeforeFormatedValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><textarea name="textArea_LayoutTop" cols="50" rows="1">textAreaLayoutTopValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><textarea name="textArea_LayoutTopFormated" cols="50" rows="1">textAreaLayoutTopFormatedValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea LayoutLabel at left</td>
+                      <td><textarea name="textArea_LayoutLeft" cols="50" rows="1">textAreaLayoutLeftValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><textarea name="textArea_LayoutLeftFormated" cols="50" rows="1">textAreaLayoutLeftFormatedValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end right column -->
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</body>
+</html>
+

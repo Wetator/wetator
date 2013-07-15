@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:use-module><d:module>modules/module.wet</d:module></d:use-module></command>
+    <comment>after use module</comment>
+    <comment></comment>
+    <comment>module with parameter</comment>
+    <command><d:use-module><d:module>modules/module_with_parameters.wet</d:module><d:parameters>assert_content.html, Wetator / Assert Content</d:parameters></d:use-module></command>
+    <comment>check parametes are transfered from module to the next one</comment>
+    <command><d:use-module><d:module>modules/module_calling_module.wet</d:module><d:parameters>assert_content.html, wrong</d:parameters></d:use-module></command>
+</test-case>

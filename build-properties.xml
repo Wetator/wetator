@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-properties>
+
+  <application>
+    <name>Wetator</name>
+    <version>0_9_6_beta21</version>
+    <jar-basename>wetator</jar-basename>
+    <vendor>wetator.org</vendor>
+  </application>
+
+  <dir>
+    <src>src</src>
+    <test>test</test>
+    <test-src>${dir.test}/src</test-src>
+    <test-wet-src>${dir.test}/excel</test-wet-src>
+    <samples>samples</samples>
+    <lib>lib</lib>
+    <lib-src>lib_src</lib-src>
+    <ant-lib>ant_lib</ant-lib>
+    <build>build</build>
+    <xsl>xsl</xsl>
+    <webpages>webpages</webpages>
+    <deploy>deploy</deploy>
+  </dir>
+
+  <ivy>
+    <retrieve>
+        <pattern>/[artifact]-[revision](-[classifier]).[ext]</pattern>
+    </retrieve>
+  </ivy>
+
+  <javac>
+    <target>1.6</target>
+  </javac>
+
+</build-properties>

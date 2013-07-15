@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='Comment'>InputText with name</step>
+    <step command='Set'>inputText_Name<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>InputTextNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextNameTest OK inputText_Name testValue POST</step>
+    <step command='Comment'></step>
+    <step command='Save Bookmark'>Bookmark1</step>
+    <step command='Comment'></step>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='Comment'></step>
+    <step command='Open Bookmark'>Bookmark1</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextNameTest OK inputText_Name testValue POST</step>
+    <step command='Comment'></step>
+    <tst:step command='Assert_Fail'>Open Bookmark, Unknown message key 'unknownBookmark' (param(s): 'unknown').<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+</testcase>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticVoidMethodWithoutParams</d:method></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticVoidMethodWithOneParam</d:method><d:parameters>one</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticVoidMethodWithTwoParams</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticVoidMethodWithStringArray</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticVoidMethodWithVarargs</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <comment></comment>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticMethodWithoutParams</d:method></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticMethodWithOneParam</d:method><d:parameters>one</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticMethodWithTwoParams</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticMethodWithStringArray</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.staticMethodWithVarargs</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <comment></comment>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.voidMethodWithoutParams</d:method></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.voidMethodWithOneParam</d:method><d:parameters>one</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.voidMethodWithTwoParams</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.voidMethodWithStringArray</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.voidMethodWithVarargs</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <comment></comment>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.methodWithoutParams</d:method></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.methodWithOneParam</d:method><d:parameters>one</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.methodWithTwoParams</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.methodWithStringArray</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.methodWithVarargs</d:method><d:parameters>one, two</d:parameters></d:exec-java></command>
+    <comment></comment>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester().methodWithoutParams</d:method></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester.methodWithoutParams()</d:method></d:exec-java></command>
+    <command><d:exec-java><d:method>org.wetator.commandset.ExecTester().methodWithoutParams()</d:method></d:exec-java></command>
+    <comment>Test for error handling</comment>
+    <comment>ClassNotFound</comment>
+    <command><tst:assert-fail><tst:command-and-message>Exec Java, The class 'org.wetator.commandset.UnknownClass' was not found (reason: 'java.lang.ClassNotFoundException: org.wetator.commandset.UnknownClass').</tst:command-and-message><tst:parameter1>org.wetator.commandset.UnknownClass().main</tst:parameter1></tst:assert-fail></command>
+    <comment>MethodNotFound</comment>
+    <command><tst:assert-fail><tst:command-and-message>Exec Java, The method 'unknownMethod()' was not found in class 'org.wetator.commandset.ExecTester'.</tst:command-and-message><tst:parameter1>org.wetator.commandset.ExecTester().unknownMethod()</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Exec Java, The method 'unknownMethod(String)' was not found in class 'org.wetator.commandset.ExecTester'.</tst:command-and-message><tst:parameter1>org.wetator.commandset.ExecTester().unknownMethod()</tst:parameter1><tst:parameter2>one</tst:parameter2></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Exec Java, The method 'unknownMethod(String\, String\, String)' was not found in class 'org.wetator.commandset.ExecTester'.</tst:command-and-message><tst:parameter1>org.wetator.commandset.ExecTester().unknownMethod()</tst:parameter1><tst:parameter2>one, two, three</tst:parameter2></tst:assert-fail></command>
+    <comment>IllegalArgumentException to testable</comment>
+    <comment>InvokationTargetException</comment>
+    <command><tst:assert-fail><tst:command-and-message>Exec Java, Calling method 'methodThrowingException()' of class 'org.wetator.commandset.ExecTester' with params '[]' failed because of an exception thrown by the method (java.lang.Exception: methodThrowingException).</tst:command-and-message><tst:parameter1>org.wetator.commandset.ExecTester().methodThrowingException()</tst:parameter1></tst:assert-fail></command>
+    <comment>InstanziationException</comment>
+    <command><tst:assert-fail><tst:command-and-message>Exec Java, Calling method 'methodWithoutParams()' of class 'org.wetator.commandset.ExecTesterWithoutDefaultConstructor' with params '[]' failed because of an instantiation exception (java.lang.InstantiationException: org.wetator.commandset.ExecTesterWithoutDefaultConstructor).</tst:command-and-message><tst:parameter1>org.wetator.commandset.ExecTesterWithoutDefaultConstructor().methodWithoutParams()</tst:parameter1></tst:assert-fail></command>
+</test-case>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+  targetNamespace="http://www.wetator.org/xsd/defaultCommandSet"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+  elementFormDefault="qualified" 
+  attributeFormDefault="unqualified"
+  version="0.9.4">
+  
+  <xs:annotation>
+    <xs:documentation>
+      Copyright (c) 2008-2011 wetator.org
+ 
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License. 
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="testcase">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element name="step" type="stepType" />
+          <xs:any namespace="##other" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="stepType" mixed="true">
+    <xs:sequence>
+      <xs:element name="optionalParameter" type="xs:string"
+        minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="command" type="commandEnum" use="required" />
+    <xs:attribute name="comment" type="xs:boolean" default="false" />
+  </xs:complexType>
+
+  <xs:simpleType name="commandEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="" />
+      <xs:enumeration value="Assert_Content" />
+      <xs:enumeration value="Assert_Deselected" />
+      <xs:enumeration value="Assert_Disabled" />
+      <xs:enumeration value="Assert_Selected" />
+      <xs:enumeration value="Assert_Set" />
+      <xs:enumeration value="Assert_Title" />
+      <xs:enumeration value="Click_On" />
+      <xs:enumeration value="Close_Window" />
+      <xs:enumeration value="Deselect" />
+      <xs:enumeration value="Exec_Java" />
+      <xs:enumeration value="Go_Back" />
+      <xs:enumeration value="Mouse_Over" />
+      <xs:enumeration value="Open_Url" />
+      <xs:enumeration value="Select" />
+      <xs:enumeration value="Set" />
+      <xs:enumeration value="Use_Module" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Selected, No selectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect with name</comment>
+    <command><d:assert-selected><d:wpath>singleSelect_Name, option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelectOptGroup with name</comment>
+    <command><d:assert-selected><d:wpath>singleSelectOptGroup_Name, green</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect with id</comment>
+    <command><d:assert-selected><d:wpath>singleSelect_Id, option3</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by label with for attribute</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect Label with For, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by surrounding label</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect surrounding Label, option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout directly before</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect LayoutLabel before, option1</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout directly before formated</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect LayoutLabel before formated, option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at top</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect LayoutLabel at top, option3</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at top formated</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect LayoutLabel at top formated, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at left</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect LayoutLabel at left, option1</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at left formated</comment>
+    <command><d:assert-selected><d:wpath>SingleSelect LayoutLabel at left formated, option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>Disabled SingleSelect</comment>
+    <command><d:assert-selected><d:wpath>Disabled SingleSelect, option4</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>Disabled SingleSelect Option</comment>
+    <command><d:assert-selected><d:wpath>Disabled SingleSelect Option, option2</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment>test for unused parameter</comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Selected, The command 'assert-selected' does not use the value 'unused' provided in column 2.</tst:command-and-message><tst:parameter1>SingleSelect LayoutLabel at left formated, option2</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+</test-case>

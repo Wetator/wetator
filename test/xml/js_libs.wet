@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <comment>Sarissa test</comment>
+    <command><d:open-url><d:url>javascript_sarissa.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / JavaScript Sarissa</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>Sarissa</d:content></d:assert-content></command>
+    <comment>jQuery test</comment>
+    <command><d:open-url><d:url>javascript_jquery.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / JavaScript jQuery</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>jQuery version: 1.2.1</d:content></d:assert-content></command>
+    <comment>boxover test</comment>
+    <command><d:open-url><d:url>javascript_boxover.html</d:url></d:open-url></command>
+    <command disabled="true"><d:assert-content><d:content>Wetator / JavaScript boxover</d:content></d:assert-content></command>
+    <command><d:mouse-over><d:wpath>Tootip</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>Some sort of explanation would go here</d:content></d:assert-content></command>
+    <command><d:mouse-over><d:wpath>tooltip with a delay added</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>Delayed tooltip</d:content></d:assert-content></command>
+    <command><d:mouse-over><d:wpath>Move over this for a delay and a fade</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>Tooltip with fade &amp; delay </d:content></d:assert-content></command>
+</test-case>
