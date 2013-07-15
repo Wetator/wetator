@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>testcases.html</step>
+    <step command='Use_Module'>modules/module.wet</step>
+    <step command='' comment='true'>after use module</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>module with parameter</step>
+    <step command='Use_Module'>modules/module_with_parameters.wet<optionalParameter>assert_content.html, Wetator / Assert Content</optionalParameter></step>
+</testcase>

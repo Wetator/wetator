@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Assert Deselected, No deselectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton with name</step>
+    <step command='' comment='true'>not possible</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton with id</step>
+    <step command='Assert_Deselected'>radioId1</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton identified by label with for attribute</step>
+    <step command='Assert_Deselected'>Radio1 LabelFor</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton identified by by surrounding label</step>
+    <step command='Assert_Deselected'>Radio2 surrounding Label</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton identified by layout directly after</step>
+    <step command='Assert_Deselected'>RadioButton2 LayoutLabel after</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton identified by layout directly after formated</step>
+    <step command='Assert_Deselected'>RadioButton2 LayoutLabel after formated</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton identified by layout at right</step>
+    <step command='Assert_Deselected'>RadioButton1 LayoutLabel at right</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>RadioButton identified by layout at right formated</step>
+    <step command='Assert_Deselected'>RadioButton1 LayoutLabel right formated</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>Disabled RadioButton</step>
+    <step command='Assert_Deselected'>Disabled RadioButton</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

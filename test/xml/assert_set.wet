@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Assert Set, No setable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText with name</step>
+    <step command='Assert_Set'>inputText_Name<optionalParameter>inputTextNameValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText with id</step>
+    <step command='Assert_Set'>inputText_Id<optionalParameter>inputTextIdValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by label</step>
+    <step command='Assert_Set'>InputText Label<optionalParameter>inputTextLabelValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by layout directly before</step>
+    <step command='Assert_Set'>InputText LayoutLabel before<optionalParameter>inputTextLayoutBeforeValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by layout directly before formated</step>
+    <step command='Assert_Set'>InputText LayoutLabel before formated<optionalParameter>inputTextLayoutBeforeFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by layout at top</step>
+    <step command='Assert_Set'>InputText LayoutLabel at top<optionalParameter>inputTextLayoutTopValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by layout at top formated</step>
+    <step command='Assert_Set'>InputText LayoutLabel at top formated<optionalParameter>inputTextLayoutTopFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by layout at left</step>
+    <step command='Assert_Set'>InputText LayoutLabel at left<optionalParameter>inputTextLayoutLeftValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputText identified by layout at left formated</step>
+    <step command='Assert_Set'>InputText LayoutLabel at left formated<optionalParameter>inputTextLayoutLeftFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Set'>emptyInputText_Name</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Set, Wrong value: expected: <> but was: <inputTextNameValue>]]><tst:optionalParameter>inputText_Name</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword with name</step>
+    <step command='Assert_Set'>inputPassword_Name<optionalParameter>inputPasswordNameValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword with id</step>
+    <step command='Assert_Set'>inputPassword_Id<optionalParameter>inputPasswordIdValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by label</step>
+    <step command='Assert_Set'>InputPassword Label<optionalParameter>inputPasswordLabelValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by layout directly before</step>
+    <step command='Assert_Set'>InputPassword LayoutLabel before<optionalParameter>inputPasswordLayoutBeforeValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by layout directly before formated</step>
+    <step command='Assert_Set'>InputPassword LayoutLabel before formated<optionalParameter>inputPasswordLayoutBeforeFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at top</step>
+    <step command='Assert_Set'>InputPassword LayoutLabel at top<optionalParameter>inputPasswordLayoutTopValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at top formated</step>
+    <step command='Assert_Set'>InputPassword LayoutLabel at top formated<optionalParameter>inputPasswordLayoutTopFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at left</step>
+    <step command='Assert_Set'>InputPassword LayoutLabel at left<optionalParameter>inputPasswordLayoutLeftValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>InputPassword identified by layout at left formated</step>
+    <step command='Assert_Set'>InputPassword LayoutLabel at left formated<optionalParameter>inputPasswordLayoutLeftFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Set'>emptyInputPassword_Name</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Set, Wrong value: expected: <> but was: <inputPasswordNameValue>]]><tst:optionalParameter>inputPassword_Name</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea with name</step>
+    <step command='Assert_Set'>textArea_Name<optionalParameter>textAreaNameValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea with id</step>
+    <step command='Assert_Set'>textArea_Id<optionalParameter>textAreaIdValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by label</step>
+    <step command='Assert_Set'>TextArea Label<optionalParameter>textAreaLabelValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by layout directly before</step>
+    <step command='Assert_Set'>TextArea LayoutLabel before<optionalParameter>textAreaLayoutBeforeValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by layout directly before formated</step>
+    <step command='Assert_Set'>TextArea LayoutLabel before formated<optionalParameter>textAreaLayoutBeforeFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by layout at top</step>
+    <step command='Assert_Set'>TextArea LayoutLabel at top<optionalParameter>textAreaLayoutTopValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by layout at top formated</step>
+    <step command='Assert_Set'>TextArea LayoutLabel at top formated<optionalParameter>textAreaLayoutTopFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by layout at left</step>
+    <step command='Assert_Set'>TextArea LayoutLabel at left<optionalParameter>textAreaLayoutLeftValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'>TextArea identified by layout at left formated</step>
+    <step command='Assert_Set'>TextArea LayoutLabel at left formated<optionalParameter>textAreaLayoutLeftFormatedValue</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Set'>emptyTextArea_Name</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <tst:step command='Assert_Fail'><![CDATA[Assert Set, Wrong value: expected: <> but was: <textAreaNameValue>]]><tst:optionalParameter>textArea_Name</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

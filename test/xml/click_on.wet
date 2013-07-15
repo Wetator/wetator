@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Click On, No clickable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== input submit button ====</step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>input submit button with label</step>
+    <step command='Click_On'>InputTypeSubmit</step>
+    <step command='Assert_Content'>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton b_i_submit POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>input submit button with name</step>
+    <step command='Click_On'>b_i_submit_name</step>
+    <step command='Assert_Content'>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton b_i_submit POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>input submit button with id</step>
+    <step command='Click_On'>b_i_submit_id</step>
+    <step command='Assert_Content'>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton b_i_submit POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== input button ====</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>input button with label</step>
+    <step command='Click_On'>Button</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_i_button POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>input button with name</step>
+    <step command='Click_On'>b_i_button_name</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_i_button POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>input button with id</step>
+    <step command='Click_On'>b_i_button_id</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_i_button POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== image ====</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>image with alt</step>
+    <step command='Click_On'>ImageButton</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton i_i_imageAlt, POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>image with title</step>
+    <step command='Click_On'>ImageButtonTitle</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton i_i_imageTitle, POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>image with src</step>
+    <step command='Click_On'>sword1.png</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton i_i_imageSrc, POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>image with id</step>
+    <step command='Click_On'>i_i_image_id</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton i_i_imageAlt, POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== button (text) ====</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>button with text</step>
+    <step command='Click_On'>ButtonWithText</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_b_text POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>button with name</step>
+    <step command='Click_On'>b_b_text_name</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_b_text POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>button with id</step>
+    <step command='Click_On'>b_b_text_id</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_b_text POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== button (image) ====</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>button image with alt</step>
+    <step command='Click_On'>b_imageTestAlt</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_b_imageAlt POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>button image with title</step>
+    <step command='Click_On'>b_imageTestTitle</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_b_imageTitle POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>button image with src</step>
+    <step command='Click_On'>sword2.png</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnButton b_b_imageSrc POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== anchor ====</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with name</step>
+    <step command='Click_On'>anchorWithName</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_name POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with id</step>
+    <step command='Click_On'>anchorWithId</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_id POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with text</step>
+    <step command='Click_On'>Anchor with text</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_text POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with text part</step>
+    <step command='Click_On'>chor with t</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_text POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with formated text</step>
+    <step command='Click_On'>Anchor with formated text</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_formatedText POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with formated text part</step>
+    <step command='Click_On'>chor with formate</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_formatedText POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with formated text / star</step>
+    <step command='Click_On'>*ed text</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_formatedText POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor with formated text / question mark</step>
+    <step command='Click_On'>Anchor * formated ?ext</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_formatedText POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>invisible anchor</step>
+    <tst:step command='Assert_Fail'>Click On, No clickable html element found for 'invisible Anchor with text'.<tst:optionalParameter>invisible Anchor with text</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor / image / alt</step>
+    <step command='Click_On'>a_imageTestAlt</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage a_imageAlt POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor / image / title</step>
+    <step command='Click_On'>a_imageTestTitle</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage a_imageTitle POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>anchor / image / filename</step>
+    <step command='Click_On'>sword3.png</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage a_imageSrc POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>==== image ====</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / image / alt</step>
+    <step command='Click_On'>js_imageTestAlt</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage js_imageAlt POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / image / title</step>
+    <step command='Click_On'>js_imageTestTitle</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage js_imageTitle POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / image / filename</step>
+    <step command='Click_On'>sword4.png</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage js_imageSrc POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / image / id</step>
+    <step command='Click_On'>js_image_id</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnImage js_imageId POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / text</step>
+    <step command='Click_On'>Table ClickableText</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextTable POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / text formated</step>
+    <step command='Click_On'>Table Clickableformated text</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextFormatedTable POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / text span</step>
+    <step command='Click_On'>Span ClickableText</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextSpan POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / text span</step>
+    <step command='Click_On'>Span Clickableformated text</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextFormatedSpan POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / text span by id</step>
+    <step command='Click_On'>spanOnClickId</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextSpanId POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>click_on.html</step>
+    <step command='Assert_Title'>Wetator / Click On</step>
+    <step command='' comment='true'>javascript / text span by id</step>
+    <step command='Click_On'>innerSpanId</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnText clickableTextSpanIdId</step>
+    <step command='' comment='true'>test for unused parameter</step>
+    <step command='Open_Url'>click_on.html</step>
+    <tst:step command='Assert_Fail'>Click On, The command 'click-on' does not use the value 'unused' provided in column 2.<tst:optionalParameter>innerSpanId</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+</testcase>

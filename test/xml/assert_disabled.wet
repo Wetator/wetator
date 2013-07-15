@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>assert_disabled.html</step>
+    <step command='Assert_Title'>Wetator / Assert Disabled</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Assert Disabled, No html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'> </step>
+    <step command='Open_Url'>assert_disabled.html</step>
+    <step command='Assert_Title'>Wetator / Assert Disabled</step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'>Text Input</step>
+    <step command='' comment='true'>InputText with name</step>
+    <step command='Assert_Disabled'>inputText_Name</step>
+    <step command='' comment='true'>InputText with name</step>
+    <step command='Assert_Disabled'>inputText_Name</step>
+    <step command='' comment='true'>InputText with id</step>
+    <step command='Assert_Disabled'>inputText_Id</step>
+    <step command='' comment='true'>InputText identified by label</step>
+    <step command='Assert_Disabled'>InputText Label</step>
+    <step command='' comment='true'>InputText identified by layout directly before</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel before</step>
+    <step command='' comment='true'>InputText identified by layout directly before formated</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel before formated</step>
+    <step command='' comment='true'>InputText identified by layout at top</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel at top</step>
+    <step command='' comment='true'>InputText identified by layout at top formated</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel at top formated</step>
+    <step command='' comment='true'>InputText identified by layout at left</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel at left</step>
+    <step command='' comment='true'>InputText identified by layout at left formated</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel at left formated</step>
+    <step command='' comment='true'>InputText identified by layout at left formated</step>
+    <step command='Assert_Disabled'>InputText LayoutLabel at left formated</step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'>Password Input</step>
+    <step command='' comment='true'>InputPassword with name</step>
+    <step command='Assert_Disabled'>inputPassword_Name</step>
+    <step command='' comment='true'>InputPassword with id</step>
+    <step command='Assert_Disabled'>inputPassword_Id</step>
+    <step command='' comment='true'>InputPassword identified by label</step>
+    <step command='Assert_Disabled'>InputPassword Label</step>
+    <step command='' comment='true'>InputPassword identified by layout directly before</step>
+    <step command='Assert_Disabled'>InputPassword LayoutLabel before</step>
+    <step command='' comment='true'>InputPassword identified by layout directly before formated</step>
+    <step command='Assert_Disabled'>InputPassword LayoutLabel before formated</step>
+    <step command='' comment='true'>InputPassword identified by layout at top</step>
+    <step command='Assert_Disabled'>InputPassword LayoutLabel at top</step>
+    <step command='' comment='true'>InputPassword identified by layout at top formated</step>
+    <step command='Assert_Disabled'>InputPassword LayoutLabel at top formated</step>
+    <step command='' comment='true'>InputPassword identified by layout at left</step>
+    <step command='Assert_Disabled'>InputPassword LayoutLabel at left</step>
+    <step command='' comment='true'>InputPassword identified by layout at left formated</step>
+    <step command='Assert_Disabled'>InputPassword LayoutLabel at left formated</step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'> </step>
+    <step command='' comment='true'>TextArea Input</step>
+    <step command='' comment='true'>TextArea with name</step>
+    <step command='Assert_Disabled'>textArea_Name</step>
+    <step command='' comment='true'>TextArea with id</step>
+    <step command='Assert_Disabled'>textArea_Id</step>
+    <step command='' comment='true'>TextArea identified by label</step>
+    <step command='Assert_Disabled'>TextArea Label</step>
+    <step command='' comment='true'>TextArea identified by layout directly before</step>
+    <step command='Assert_Disabled'>TextArea LayoutLabel before</step>
+    <step command='' comment='true'>TextArea identified by layout directly before formated</step>
+    <step command='Assert_Disabled'>TextArea LayoutLabel before formated</step>
+    <step command='' comment='true'>TextArea identified by layout at top</step>
+    <step command='Assert_Disabled'>TextArea LayoutLabel at top</step>
+    <step command='' comment='true'>TextArea identified by layout at top formated</step>
+    <step command='Assert_Disabled'>TextArea LayoutLabel at top formated</step>
+    <step command='' comment='true'>TextArea identified by layout at left</step>
+    <step command='Assert_Disabled'>TextArea LayoutLabel at left</step>
+    <step command='' comment='true'>TextArea identified by layout at left formated</step>
+    <step command='Assert_Disabled'>TextArea LayoutLabel at left formated</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>Element: Button</step>
+    <step command='' comment='true'>Button with Text</step>
+    <step command='Assert_Disabled'>ButtonWithText</step>
+    <step command='' comment='true'>Button with Image alt</step>
+    <step command='Assert_Disabled'>b_imageTestAlt</step>
+    <step command='' comment='true'>Button with Image title</step>
+    <step command='Assert_Disabled'>b_imageTestTitle</step>
+    <step command='' comment='true'>Button with Image src</step>
+    <step command='Assert_Disabled'>sword2.png</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>Element: Input</step>
+    <step command='' comment='true'>InputType Submit with Value</step>
+    <step command='Assert_Disabled'>InputTypeSubmit</step>
+    <step command='' comment='true'>InputType Button with Value</step>
+    <step command='Assert_Disabled'>Button</step>
+    <step command='' comment='true'>InputType Image with Alt</step>
+    <step command='Assert_Disabled'>ImageButton</step>
+    <step command='' comment='true'>InputType Image with Title</step>
+    <step command='Assert_Disabled'>ImageButtonTitle</step>
+    <step command='' comment='true'>InputType Image with src</step>
+    <step command='Assert_Disabled'>sword1.png</step>
+    <step command='' comment='true'>InputType Radio with id</step>
+    <step command='Assert_Disabled'>i_r_inputtyperadioid</step>
+    <step command='' comment='true'>InputType Radio with name makes no sense</step>
+    <step command='' comment='true'>InputType Checkbox with id</step>
+    <step command='Assert_Disabled'>i_c_inputtypecheckboxid</step>
+    <step command='' comment='true'>InputType Checkbox with name</step>
+    <step command='Assert_Disabled'>i_c_inputtypecheckboxname</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>Element: Select</step>
+    <step command='' comment='true'>SingleSelect with name</step>
+    <step command='Assert_Disabled'>singleSelect_Name</step>
+    <step command='' comment='true'>SingleSelect (incl. OptGroup) with name</step>
+    <step command='Assert_Disabled'>singleSelectOptGroup_Name</step>
+    <step command='' comment='true'>SingleSelect with id</step>
+    <step command='Assert_Disabled'>singleSelect_Id</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>Element: OptGroup</step>
+    <step command='' comment='true'>Fails in IE 6.0 (Bug)</step>
+    <step command='' comment='true'>OptGroup with Label</step>
+    <step command='Assert_Disabled'>colors</step>
+    <step command='' comment='true'>OptGroup with id</step>
+    <step command='Assert_Disabled'>optgroup_colors</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>Element: Option</step>
+    <step command='' comment='true'>Fails in IE 6.0 (Bug)</step>
+    <step command='' comment='true'>Option with id</step>
+    <step command='Assert_Disabled'>option1</step>
+    <step command='' comment='true'>Option (in OptGroup)  with id</step>
+    <step command='Assert_Disabled'>option_red</step>
+    <step command='' comment='true'>test for unused parameter</step>
+    <tst:step command='Assert_Fail'>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided in column 2.<tst:optionalParameter>inputText_Name</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+</testcase>

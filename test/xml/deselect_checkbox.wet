@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Deselect, No deselectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox with name</step>
+    <step command='Deselect'>checkBox_Name</step>
+    <step command='Click_On'>CheckBoxNameTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxNameTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox with id</step>
+    <step command='Deselect'>checkBox_Id</step>
+    <step command='Click_On'>CheckBoxIdTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxIdTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox with default selection</step>
+    <step command='Deselect'>checkBox_NameNotChecked</step>
+    <step command='Click_On'>CheckBoxNameValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxNameValueTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by label with for attribute</step>
+    <step command='Deselect'>CheckBox Label with For</step>
+    <step command='Click_On'>CheckBoxLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLabelForTest OK POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>CheckBox identified identified by surrounding label</step>
+    <step command='Deselect'>CheckBox surrounding Label</step>
+    <step command='Click_On'>CheckBoxSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxSurroundingLabelTest OK POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by layout directly after</step>
+    <step command='Deselect'>CheckBox LayoutLabel after</step>
+    <step command='Click_On'>CheckBoxLayoutAfterTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutAfterTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by layout directly after formated</step>
+    <step command='Deselect'>CheckBox LayoutLabel after formated</step>
+    <step command='Click_On'>CheckBoxLayoutAfterFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutAfterFormatedTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by layout at bottom</step>
+    <step command='Deselect'>CheckBox LayoutLabel at bottom</step>
+    <step command='Click_On'>CheckBoxLayoutBottomTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutBottomTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by layout at bottom formated</step>
+    <step command='Deselect'>CheckBox LayoutLabel at bottom formated</step>
+    <step command='Click_On'>CheckBoxLayoutBottomFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutBottomFormatedTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by layout at right</step>
+    <step command='Deselect'>CheckBox LayoutLabel at right</step>
+    <step command='Click_On'>CheckBoxLayoutRightTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutRightTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>CheckBox identified by layout at right formated</step>
+    <step command='Deselect'>CheckBox LayoutLabel at right formated</step>
+    <step command='Click_On'>CheckBoxLayoutRightFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value CheckBoxLayoutRightFormatedTest OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>deselect.html</step>
+    <step command='Assert_Title'>Wetator / Deselect</step>
+    <step command='' comment='true'>Disabled CheckBox</step>
+    <tst:step command='Assert_Fail'>Deselect, The html element [HtmlCheckBoxInput (id='checkBox_Disabled') (name='checkBox_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled CheckBox</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

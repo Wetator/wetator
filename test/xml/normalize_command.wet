@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>ajax/jquery/jquery_ajax.html</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>blank at start</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>blank at end</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>blank at start and end</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+    <step command='' comment='true'>blanks inside</step>
+    <step command='Assert_Title'>Wetator / AJAX with jQuery</step>
+</testcase>

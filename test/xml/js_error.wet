@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='' comment='true'>Open Url</step>
+    <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <step command='' comment='true'>Click On</step>
+    <tst:step command='Assert_Fail'>Click On, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>ClickMe</tst:optionalParameter></tst:step>
+    <step command='' comment='true'>Bug in HtmlUnit; submit is not triggered at the moment if onClick script fails</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='' comment='true'>Mouse Over</step>
+    <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <tst:step command='Assert_Fail'>Mouse Over, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>Sample text for mouse over.</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <step command='' comment='true'>OnFocus</step>
+    <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <tst:step command='Assert_Fail'>Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>OnFocus</tst:optionalParameter><tst:optionalParameter2>value1</tst:optionalParameter2></tst:step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText onBlurText onChangeText onFocusText value1</step>
+    <step command='' comment='true'>OnBlur</step>
+    <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <step command='Set'>OnBlur<optionalParameter>value1</optionalParameter></step>
+    <tst:step command='Assert_Fail'>Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>Second</tst:optionalParameter><tst:optionalParameter2>value2</tst:optionalParameter2></tst:step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText value2 onBlurText value1 onChangeText onFocusText</step>
+    <step command='' comment='true'>Set / onChange</step>
+    <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <step command='Set'>OnChange (Set)<optionalParameter>value1</optionalParameter></step>
+    <tst:step command='Assert_Fail'>Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>Second</tst:optionalParameter><tst:optionalParameter2>value2</tst:optionalParameter2></tst:step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText value2 onBlurText onChangeText value1 onFocusText</step>
+    <step command='' comment='true'>Select / onChange</step>
+    <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
+    <step command='Assert_Title'>Wetator / JavaScript Error</step>
+    <step command='' comment='true'>Bug in HtmlUnit; value not updated if onChange script fails</step>
+    <tst:step command='Assert_Fail'>Select, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>OnChange (Select), option2</tst:optionalParameter></tst:step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText onBlurText onChangeSelect o_value2 onChangeText onFocusText</step>
+</testcase>

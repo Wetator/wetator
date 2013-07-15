@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>simple submit</step>
+    <step command='Click_On'>submitTest</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>simple reset</step>
+    <step command='Click_On'>resetTest</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(inputText);onBlur(inputText);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>simple button</step>
+    <step command='Click_On'>buttonTest</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(inputText);onBlur(inputText);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set input text</step>
+    <step command='Set'>InputText<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(inputText);onBlur(inputText);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set input password</step>
+    <step command='Set'>InputPassword<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(inputPassword);onBlur(inputPassword);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set textarea</step>
+    <step command='Set'>Textarea<optionalParameter>testValue</optionalParameter></step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(textarea);onBlur(textarea);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>set file upload</step>
+    <step command='Set'>Upload<optionalParameter>misc_files/test_file.txt</optionalParameter></step>
+    <step command='Click_On'>OK</step>
+    <step command='' comment='true'>not onFocus/onBlur event; this is the same the browser does</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select single select</step>
+    <step command='Select'>SingleSelect, option1</step>
+    <step command='Select'>SingleSelect, option2</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(singleSelect);onBlur(singleSelect);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select single select</step>
+    <step command='Select'>SingleSelect, option2</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(singleSelect);onBlur(singleSelect);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select multiple select</step>
+    <step command='Select'>MultipleSelect, option2</step>
+    <step command='Select'>MultipleSelect, option1</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(multipleSelect);onBlur(multipleSelect);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select checkbox</step>
+    <step command='Select'>Checkbox</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(checkbox);onBlur(checkbox);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select ratio button</step>
+    <step command='Select'>Radio1</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(Radio1);onBlur(Radio1);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select ratio button</step>
+    <step command='Select'>Radio2</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(Radio2);onBlur(Radio2);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>select ratio button</step>
+    <step command='Select'>Radio1</step>
+    <step command='Select'>Radio2</step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>Key, Value, eventTrace, onFocus(Radio1);onBlur(Radio1); onFocus(Radio2);onBlur(Radio2);, OnFocusOnBlurTest, OK</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>

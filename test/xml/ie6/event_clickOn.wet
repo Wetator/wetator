@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
+    <step command='Open_Url'>event_handler.html</step>
+    <step command='Assert_Title'>Wetator / Event Handler</step>
+    <step command='' comment='true'>Click for enabled elements</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>submitTest</step>
+    <step command='Click_On'>submitTest</step>
+    <step command='Assert_Content'>Handler mousedown [submitTest] [1] focus [submitTest] [-] mouseup [submitTest] [1] click [submitTest] [1] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>resetTest</step>
+    <step command='Click_On'>resetTest</step>
+    <step command='Assert_Content'>Handler mousedown [resetTest] [1] focus [resetTest] [-] mouseup [resetTest] [1] click [resetTest] [1] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>buttonTest</step>
+    <step command='Click_On'>buttonTest</step>
+    <step command='Assert_Content'>Handler mousedown [buttonTest] [1] focus [buttonTest] [-] mouseup [buttonTest] [1] click [buttonTest] [1] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>InputText</step>
+    <step command='Click_On'>InputText</step>
+    <step command='Assert_Content'>Handler mousedown [inputText] [1] focus [inputText] [-] mouseup [inputText] [1] click [inputText] [1] mousedown [inputText] [1] mouseup [inputText] [1] click [inputText] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>InputPassword</step>
+    <step command='Click_On'>InputPassword</step>
+    <step command='Assert_Content'>Handler mousedown [inputPassword] [1] focus [inputPassword] [-] mouseup [inputPassword] [1] click [inputPassword] [1] mousedown [inputPassword] [1] mouseup [inputPassword] [1] click [inputPassword] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>Textarea</step>
+    <step command='Click_On'>Textarea</step>
+    <step command='Assert_Content'>Handler mousedown [textarea] [1] focus [textarea] [-] mouseup [textarea] [1] click [textarea] [1] mousedown [textarea] [1] mouseup [textarea] [1] click [textarea] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>Upload</step>
+    <step command='Click_On'>Upload</step>
+    <step command='Assert_Content'>Handler mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mousedown [upload] [1] mouseup [upload] [1] click [upload] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>Anchor</step>
+    <step command='Click_On'>Anchor</step>
+    <step command='Assert_Content'>Handler mousedown [anchor] [1] focus [anchor] [-] mouseup [anchor] [1] click [anchor] [1] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>Span</step>
+    <step command='Click_On'>Span</step>
+    <step command='Assert_Content'>Handler mousedown [span] [1] mouseup [span] [1] click [span] [-] mousedown [span] [1] mouseup [span] [1] click [span] [-] OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>SpanWithTabIndex</step>
+    <step command='Click_On'>SpanWithTabIndex</step>
+    <step command='Assert_Content'>Handler mousedown [spanWithTabIndex] [1] focus [spanWithTabIndex] [-] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [-] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [-] OK</step>
+    <step command='' comment='true'>Click on disabled elements</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>submitTestDisabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>resetTestDisabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>buttonTestDisabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>InputText Disabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>InputPassword Disabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>Textarea Disabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+    <step command='Click_On'>Clear</step>
+    <step command='Click_On'>Upload Disabled</step>
+    <step command='Assert_Content'>Handler OK</step>
+</testcase>

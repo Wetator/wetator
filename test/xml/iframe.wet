@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd'>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>iframe.html</step>
+    <step command='Assert_Title'>Wetator / IFrame Test</step>
+    <step command='Assert_Content'>Wetator Wetator / IFrame Test Start content Wetator / IFrame-Set Test InputText Label OK Content after iframe_set.html iframe</step>
+    <step command='' comment='true'>Access a control inside the iframe</step>
+    <step command='Set'>InputText Label<optionalParameter>in iframe</optionalParameter></step>
+    <step command='Click_On'>OK</step>
+    <step command='Assert_Content'>GET Parameters Key Value InputTextTest OK POST</step>
+</testcase>

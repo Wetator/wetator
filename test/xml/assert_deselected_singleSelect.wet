@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Assert Deselected, No deselectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect with name</step>
+    <step command='Assert_Deselected'>singleSelect_Name, option2</step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelectOptGroup with name</step>
+    <step command='Assert_Deselected'>singleSelectOptGroup_Name, green</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect with id</step>
+    <step command='Assert_Deselected'>singleSelect_Id, option3</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by label with for attribute</step>
+    <step command='Assert_Deselected'>SingleSelect Label with For, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by surrounding label</step>
+    <step command='Assert_Deselected'>SingleSelect surrounding Label, option2</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by layout directly before</step>
+    <step command='Assert_Deselected'>SingleSelect LayoutLabel before, option2</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by layout directly before formated</step>
+    <step command='Assert_Deselected'>SingleSelect LayoutLabel before formated, option3</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by layout at top</step>
+    <step command='Assert_Deselected'>SingleSelect LayoutLabel at top, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by layout at top formated</step>
+    <step command='Assert_Deselected'>SingleSelect LayoutLabel at top formated, option1</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by layout at left</step>
+    <step command='Assert_Deselected'>SingleSelect LayoutLabel at left, option2</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>SingleSelect identified by layout at left formated</step>
+    <step command='Assert_Deselected'>SingleSelect LayoutLabel at left formated, option2</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>Disabled SingleSelect</step>
+    <step command='Assert_Deselected'>Disabled SingleSelect, option4</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <step command='Assert_Title'>Wetator / Assert Deselected</step>
+    <step command='' comment='true'>Disabled SingleSelect Option</step>
+    <step command='Assert_Deselected'>Disabled SingleSelect Option, option2</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'>test for unused parameter</step>
+    <step command='Open_Url'>assert_deselected.html</step>
+    <tst:step command='Assert_Fail'>Assert Deselected, The command 'assert-deselected' does not use the value 'unused' provided in column 2.<tst:optionalParameter>SingleSelect LayoutLabel at left formated, option2</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+</testcase>

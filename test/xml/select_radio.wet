@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet http://www.wetator.org/xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>not found</step>
+    <tst:step command='Assert_Fail'>Select, No selectable html element found for 'unknown'.<tst:optionalParameter>unknown</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton with name</step>
+    <step command='' comment='true'>not possible</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton with id</step>
+    <step command='Select'>radioId2</step>
+    <step command='Click_On'>RadioButtonIdTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonIdTest OK radioButton_Id r_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton with default selection</step>
+    <step command='Select'>radioIdValue1</step>
+    <step command='Click_On'>RadioButtonIdValueTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonIdValueTest OK radioButton_IdValue r_value1 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by label with for attribute</step>
+    <step command='Select'>Radio2 LabelFor</step>
+    <step command='Click_On'>RadioButtonLabelForTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLabelForTest OK radioButton_LabelFor r_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by by surrounding label</step>
+    <step command='Select'>Radio1 surrounding Label</step>
+    <step command='Click_On'>RadioButtonSurroundingLabelTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonSurroundingLabelTest OK radioButton_SurroundingLabel r_value1 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by layout directly after</step>
+    <step command='Select'>RadioButton1 LayoutLabel after</step>
+    <step command='Click_On'>RadioButtonLayoutAfterTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutAfterTest OK radioButton_LayoutAfter r_value1 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by layout directly after formated</step>
+    <step command='Select'>RadioButton2 LayoutLabel after formated</step>
+    <step command='Click_On'>RadioButtonLayoutAfterFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutAfterFormatedTest OK radioButton_LayoutFormatedAfter r_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by layout at right</step>
+    <step command='Select'>RadioButton1 LayoutLabel at right</step>
+    <step command='Click_On'>RadioButtonLayoutRightTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutRightTest OK radioButton_LayoutRight r_value1 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>RadioButton identified by layout at right formated</step>
+    <step command='Select'>RadioButton2 LayoutLabel right formated</step>
+    <step command='Click_On'>RadioButtonLayoutRightFormatedTest</step>
+    <step command='Assert_Content'>GET Parameters Key Value RadioButtonLayoutRightFormatedTest OK radioButton_LayoutRightFormated r_value2 POST</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>select.html</step>
+    <step command='Assert_Title'>Wetator / Select</step>
+    <step command='' comment='true'>Disabled RadioButton</step>
+    <tst:step command='Assert_Fail'>Select, The html element [HtmlRadioButtonInput 'r_value' (id='radioButton_Disabled') (name='radioButton_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled RadioButton</tst:optionalParameter></tst:step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+</testcase>
