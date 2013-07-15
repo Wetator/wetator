@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Open_Url">testcases.html</step>
+    <step command="Use_Module">modules/module.xml</step>
+    <step command="Comment">after use module</step>
+    <step command="Comment"></step>
+    <step command="Comment">module with parameter</step>
+    <step command="Use_Module">modules/module_with_parameters.xml<optionalParameter>assert_content.html, Wetator / Assert Content</optionalParameter></step>
+</testcase>

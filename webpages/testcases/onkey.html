@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / OnKey</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+
+  <script type="text/javascript">
+  <!--
+    function writeTrace(eventText) {
+      var traceCtrl=document.getElementById('traceOutout');
+      var currentTrace = traceCtrl.value
+      traceCtrl.value = currentTrace + eventText
+    }
+  //-->
+  </script>
+
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / OnKey</h1>
+
+  <div class="test_content">
+
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <!-- top row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td colspan='2'>
+        <form id='mainForm' action='http://www.wetator.org/testcases/snoopy.php'>
+          <textArea id="traceOutout" name="eventTrace" cols="50" rows="10"></textArea>
+          <input type="submit" name="OnKeyTest" value="OK">
+        </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Set</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputText">InputText</label></td>
+              <td><input type="text" id="inputText" name="inputText"
+                            onKeyPress = "writeTrace('onKeyPress(inputText);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(inputText);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(inputText);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword">InputPassword</label></td>
+              <td><input type="password" id="inputPassword" name="inputPassword"
+                            onKeyPress = "writeTrace('onKeyPress(inputPassword);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(inputPassword);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(inputPassword);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="textarea">Textarea</label></td>
+              <td><textarea id="textarea" name="textarea" cols="10" rows="1"
+                            onKeyPress = "writeTrace('onKeyPress(textarea);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(textarea);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(textarea);\n');">
+                  </textarea>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="upload">Upload</label></td>
+              <td><input type="file" name="upload" id="upload"
+                            onKeyPress = "writeTrace('onKeyPress(upload);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(upload);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(upload);\n');">
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Select</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelect">SingleSelect</label></td>
+              <td>
+                <select name="singleSelect" id="singleSelect" size="2"
+                            onKeyPress = "writeTrace('onKeyPress(singleSelect);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(singleSelect);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(singleSelect);\n');"
+                >
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelect">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelect" id="multipleSelect" size="2" multiple
+                            onKeyPress = "writeTrace('onKeyPress(multipleSelect);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(multipleSelect);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(multipleSelect);\n');"
+                >
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkbox" name="checkbox" value="checkboxValue"
+                            onKeyPress = "writeTrace('onKeyPress(checkbox);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(checkbox);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(checkbox);\n');"
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup</label></td>
+              <td>
+                <input type="radio" id="radioId1" name="radioGroup" value="r_value1"
+                            onKeyPress = "writeTrace('onKeyPress(Radio1);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(Radio1);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(Radio1);\n');"
+                >Radio1<br>
+                <input type="radio" id="radioId2" name="radioGroup" value="r_value2"
+                            onKeyPress = "writeTrace('onKeyPress(Radio2);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(Radio2);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(Radio2);\n');"
+                >Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Set with default values</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDefault">InputText with default</label></td>
+              <td><input type="text" id="inputTextDefault" name="inputTextDefault" value="default"
+                            onKeyPress = "writeTrace('onKeyPress(inputTextDefault);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(inputTextDefault);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(inputTextDefault);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDefault">InputPassword with default</label></td>
+              <td><input type="password" id="inputPasswordDefault" name="inputPasswordDefault" value="default"
+                            onKeyPress = "writeTrace('onKeyPress(inputPasswordDefault);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(inputPasswordDefault);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(inputPasswordDefault);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDefault">Textarea with default</label></td>
+              <td><textarea id="textareaDefault" name="textareaDefault" cols="10" rows="1"
+                            onKeyPress = "writeTrace('onKeyPress(textareaDefault);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(textareaDefault);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(textareaDefault);\n');">default</textarea>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDefault">Upload with default</label></td>
+              <td><input type="file" name="uploadDefault" id="uploadDefault" value="default"
+                            onKeyPress = "writeTrace('onKeyPress(uploadDefault);\n');"
+                            onKeyUp = "writeTrace('onKeyUp(uploadDefault);\n');"
+                            onKeyDown = "writeTrace('onKeyDown(uploadDefault);\n');">
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</body>
+</html>
+

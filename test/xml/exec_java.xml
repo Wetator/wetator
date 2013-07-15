@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticVoidMethodWithoutParams</step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticVoidMethodWithOneParam<optionalParameter>one</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticVoidMethodWithTwoParams<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticVoidMethodWithStringArray<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticVoidMethodWithVarargs<optionalParameter>one, two</optionalParameter></step>
+    <step command="Comment"></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticMethodWithoutParams</step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticMethodWithOneParam<optionalParameter>one</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticMethodWithTwoParams<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticMethodWithStringArray<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.staticMethodWithVarargs<optionalParameter>one, two</optionalParameter></step>
+    <step command="Comment"></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.voidMethodWithoutParams</step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.voidMethodWithOneParam<optionalParameter>one</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.voidMethodWithTwoParams<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.voidMethodWithStringArray<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.voidMethodWithVarargs<optionalParameter>one, two</optionalParameter></step>
+    <step command="Comment"></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.methodWithoutParams</step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.methodWithOneParam<optionalParameter>one</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.methodWithTwoParams<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.methodWithStringArray<optionalParameter>one, two</optionalParameter></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.methodWithVarargs<optionalParameter>one, two</optionalParameter></step>
+    <step command="Comment"></step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester().methodWithoutParams</step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester.methodWithoutParams()</step>
+    <step command="Exec_Java">org.rbri.wet.commandset.ExecTester().methodWithoutParams()</step>
+</testcase>

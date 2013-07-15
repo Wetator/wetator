@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Comment">redirect via http header</step>
+    <step command="Open_Url">redirect_header.php</step>
+    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+    <step command="Comment">redirect via meta tag</step>
+    <step command="Open_Url">redirect_meta.php</step>
+    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+    <step command="Comment">redirect via javascript</step>
+    <step command="Open_Url">redirect_js.php</step>
+    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+    <step command="Comment">all together</step>
+    <step command="Open_Url">redirect_header.php?target=http://wetator.rbri.org/testcases/redirect_meta.php</step>
+    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+    <step command="Open_Url">redirect_meta.php?target=http://wetator.rbri.org/testcases/redirect_js.php</step>
+    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+    <step command="Open_Url">redirect_js.php?target=http://wetator.rbri.org/testcases/redirect_header.php</step>
+    <step command="Assert_Title">Wetator / Smarter web application testing</step>
+</testcase>

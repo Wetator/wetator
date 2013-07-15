@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Comment">hard coded url</step>
+    <step command="Open_Url">http://www.gebit.de</step>
+    <step command="Assert_Title">GEBIT Solutions*</step>
+    <step command="Comment">with starting slash</step>
+    <step command="Open_Url">/assert_title.html</step>
+    <step command="Assert_Title">Wetator / Assert Title</step>
+    <step command="Comment">without starting slash</step>
+    <step command="Open_Url">assert_title.html</step>
+    <step command="Assert_Title">Wetator / Assert Title</step>
+    <step command="Comment">with dot</step>
+    <step command="Open_Url">./assert_title.html</step>
+    <step command="Assert_Title">Wetator / Assert Title</step>
+    <step command="Open_Url">/./assert_title.html</step>
+    <step command="Assert_Title">Wetator / Assert Title</step>
+    <step command="Comment">failure test</step>
+    <step command="Assert_Fail">Open Url, Opening url 'http://www.wetator.org/testcases/http_header.php?code=400' fails with server error '400 Bad Request for http://www.wetator.org/testcases/http_header.php?code=400'.<optionalParameter>http_header.php?code=400</optionalParameter></step>
+    <step command="Assert_Fail">Open Url, Opening url 'http://www.wetator.org/testcases/http_header.php?code=404' fails with server error '404 Not Found for http://www.wetator.org/testcases/http_header.php?code=404'.<optionalParameter>http_header.php?code=404</optionalParameter></step>
+    <step command="Assert_Fail">Open Url, Opening url 'http://www.wetator.org/testcases/http_header.php?code=500' fails with server error '500 Server Error for http://www.wetator.org/testcases/http_header.php?code=500'.<optionalParameter>http_header.php?code=500</optionalParameter></step>
+    <step command="Comment">final test</step>
+    <step command="Open_Url">assert_title.html</step>
+    <step command="Assert_Title">Wetator / Assert Title</step>
+    <step command="Comment">test for unused parameter</step>
+    <step command="Assert_Fail">Open Url, The command 'Open Url' does not use the value 'unused' provided in column 2.<optionalParameter>assert_title.html</optionalParameter></step>
+    <step command="Comment">test for parameter support</step>
+    <step command="Open_Url">assert_title.html?secret=${wet}</step>
+    <step command="Comment">test for secret parts of the url</step>
+    <step command="Open_Url">assert_title.html?secret=${wet-secret}</step>
+</testcase>

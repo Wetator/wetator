@@ -1,0 +1,4 @@
+This is the content of
+a simple text file.
+
+This file is used to test WeT.

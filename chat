@@ -1,0 +1,13 @@
+Der Testfall, der bei mir nicht lŠuft, ist HtmlUnitControlFinderGetFirstClickableTextElementTest.testGetFirstClickableTextElement_ByTextWithBreak().
+Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+Šndern, damit er durchlŠuft.
+Die Eingabe in die Textarea erzeugt folgende URL http://wetator.rbri.org/testcases/snoopy.php?textArea_Name=something%0D%0Aanother+something&TextAreaNameTest=OK.
+Also %0D%0A als Umbruch.
+-> OK werde ich mir mal anschauen
+
+
+2010-08-01 15:08 frank.danek: Hallo Ronald. Ich habe das Erstellen eines SubContext in eine Methode des WetContext ausgegliedert.
+    Das war vorher ein direkter Constructor-aufruf. Dieser Constructor ist jetzt protected.
+    Die Idee ist, dass man den WetContext für Tests mocken und so vielleicht Tests für CommandImplementations
+    und CommandSets erstellen kann. Denn deren einzige Abhängigkeit ist jetzt der WetContext, der in die
+    execute()-Methode reingegeben wird.

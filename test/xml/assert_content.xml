@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Open_Url">assert_content.html</step>
+    <step command="Assert_Content">Wetator / Assert Content</step>
+    <step command="Comment">now start the content tests</step>
+    <step command="Assert_Content">Wetator / Assert Content</step>
+    <step command="Assert_Content">Pferde fressen keinen Gurkensalat.</step>
+    <step command="Assert_Content">This text is styled.</step>
+    <step command="Assert_Content">Column 1 Column 2</step>
+    <step command="Assert_Content">schöne Häuser</step>
+    <step command="Assert_Content"><![CDATA[<h:outputText>]]></step>
+    <step command="Comment">now search for parts of the text</step>
+    <step command="Assert_Content">fressen kei</step>
+    <step command="Assert_Content">is text is sty</step>
+    <step command="Assert_Content">mn 1</step>
+    <step command="Assert_Content">Line1 schön</step>
+    <step command="Assert_Content"><![CDATA[putText>]]></step>
+    <step command="Comment">some wildcards</step>
+    <step command="Assert_Content">W?tator / Assert Content</step>
+    <step command="Assert_Content">Pferde*Gurkensalat.</step>
+    <step command="Assert_Content">This tex*ed.</step>
+    <step command="Assert_Content">Column 1 Column 2****</step>
+    <step command="Assert_Content">****schöne Häuser</step>
+    <step command="Assert_Content"><![CDATA[<h:outp*utText>]]></step>
+    <step command="Comment">search many</step>
+    <step command="Assert_Content">Wetator *Plain*Content*Special</step>
+    <step command="Comment">now searching with more parts</step>
+    <step command="Assert_Content">Pferde,fressen,keinen,Gurkensalat</step>
+    <step command="Assert_Content">Pferde, fressen, keinen, Gurkensalat</step>
+    <step command="Assert_Fail">Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, keinen\, [fressen]\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.xls unknown_content_type.bin sword4.png').<optionalParameter>Pferde,keinen,fressen,Gurkensalat</optionalParameter></step>
+    <step command="Assert_Fail">Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 schöne Häuser &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.xls unknown_content_type.bin sword4.png').<optionalParameter>Pferde, fressen, meinen, Gurkensalat</optionalParameter></step>
+    <step command="Comment">options of a select</step>
+    <step command="Assert_Content">Select to check for the options, First Option, Second Option, Another Option, Various Content types</step>
+    <step command="Comment">error for unused parameter</step>
+    <step command="Assert_Fail">Assert Content, The command 'Assert Content' does not use the value 'unused' provided in column 2.<optionalParameter>Pferde,fressen,keinen,Gurkensalat</optionalParameter></step>
+    <step command="Comment"></step>
+    <step command="Comment">content type text</step>
+    <step command="Open_Url">assert_content.html</step>
+    <step command="Click_On">download.txt</step>
+    <step command="Assert_Content">simple, text, file, WeT</step>
+    <step command="Comment">content type pdf</step>
+    <step command="Open_Url">assert_content.html</step>
+    <step command="Click_On">wet_test.pdf</step>
+    <step command="Assert_Content">simple, PDF, file, WeT</step>
+    <step command="Comment">content type pdf</step>
+    <step command="Open_Url">assert_content.html</step>
+    <step command="Click_On">wet_test.xls</step>
+    <step command="Assert_Content">[Tab1], Wetator Page 1, [Tab2], Wetator Test Page2 Web application testing is fun</step>
+    <step command="Comment">content type not supported</step>
+    <step command="Open_Url">assert_content.html</step>
+    <step command="Click_On">sword4.png</step>
+    <step command="Assert_Fail">Assert Content, Unsupported page type (image/png).<optionalParameter>sword</optionalParameter></step>
+    <step command="Comment">unknown content type not supported</step>
+    <step command="Open_Url">assert_content.html</step>
+    <step command="Click_On">unknown_content_type.bin</step>
+    <step command="Assert_Fail">Assert Content, Unsupported page type (application/octet-stream).<optionalParameter>unknown_content_type.bin</optionalParameter></step>
+</testcase>

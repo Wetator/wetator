@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect with name</step>
+    <step command="Assert_Selected">singleSelect_Name, option2</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect with id</step>
+    <step command="Assert_Selected">singleSelect_Id, option3</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by label</step>
+    <step command="Assert_Selected">SingleSelect Label, option4</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by layout directly before</step>
+    <step command="Assert_Selected">SingleSelect LayoutLabel before, option1</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by layout directly before formated</step>
+    <step command="Assert_Selected">SingleSelect LayoutLabel before formated, option2</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by layout at top</step>
+    <step command="Assert_Selected">SingleSelect LayoutLabel at top, option3</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by layout at top formated</step>
+    <step command="Assert_Selected">SingleSelect LayoutLabel at top formated, option4</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by layout at left</step>
+    <step command="Assert_Selected">SingleSelect LayoutLabel at left, option1</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Title">Wetator / Assert Selected</step>
+    <step command="Comment">SingleSelect identified by layout at left formated</step>
+    <step command="Assert_Selected">SingleSelect LayoutLabel at left formated, option2</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment">test for unused parameter</step>
+    <step command="Open_Url">assert_selected.html</step>
+    <step command="Assert_Fail">Assert Selected, The command 'Assert Selected' does not use the value 'unused' provided in column 2.<optionalParameter>SingleSelect LayoutLabel at left formated, option2</optionalParameter></step>
+</testcase>

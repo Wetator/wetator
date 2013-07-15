@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Comment">Sarissa test</step>
+    <step command="Open_Url">javascript_sarissa.html</step>
+    <step command="Assert_Title">Wetator / JavaScript Sarissa</step>
+    <step command="Assert_Content">Sarissa</step>
+    <step command="Comment">jQuery test</step>
+    <step command="Open_Url">javascript_jquery.html</step>
+    <step command="Assert_Title">Wetator / JavaScript jQuery</step>
+    <step command="Assert_Content">jQuery version: 1.2.1</step>
+</testcase>

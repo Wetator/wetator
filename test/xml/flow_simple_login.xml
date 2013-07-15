@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
+<testcase>
+    <step command="Open_Url">simple_login.html</step>
+    <step command="Assert_Title">Wetator / Simple Login</step>
+    <step command="Comment">set fields by label and press the button</step>
+    <step command="Set">User:<optionalParameter>WeT</optionalParameter></step>
+    <step command="Set">Password:<optionalParameter>tew</optionalParameter></step>
+    <step command="Click_On">Login</step>
+    <step command="Assert_Title">Wetator / Request Snoopy</step>
+    <step command="Assert_Content">POST Parameters, Key, Value, userid, WeT, password, tew</step>
+</testcase>

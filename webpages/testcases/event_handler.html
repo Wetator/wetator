@@ -1,0 +1,607 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Event Handler</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+
+  <script type="text/javascript">
+  <!--
+    function dumpEvent(event) {
+      var msg = '';
+      msg = msg + event.type; 
+
+      // target
+      var eTarget;
+      if (event.target) {
+        eTarget = event.target;
+      } else if (event.srcElement) {
+        eTarget = event.srcElement;
+      }
+      // defeat Safari bug
+      if (eTarget.nodeType == 3) {
+        eTarget = eTarget.parentNode;
+      }
+      msg = msg + ' [' + eTarget.name + ']'; 
+
+      //key code
+      var eCode;
+      if (event.keyCode) {
+        eCode = event.keyCode;
+      } else if (event.which) {
+        eCode = event.which;
+      } else if (event.button) {
+        eCode = event.button;
+      }
+      if (eCode) {
+        var char = String.fromCharCode(eCode);
+        msg = msg + ' [' + eCode + ']'; 
+      } else {
+        msg = msg + ' [-]'; 
+      }
+
+      writeTrace(msg + '\n');
+    }
+
+    function writeTrace(eventText) {
+      var traceCtrl=document.getElementById('traceOutput');
+      var currentTrace = traceCtrl.value
+      traceCtrl.value = currentTrace + eventText
+    }
+
+  //-->
+  </script>
+
+</head>
+
+
+<body onload="document.getElementById('traceOutput').focus()">
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / Event Handler</h1>
+
+  <div class="test_content">
+
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <!-- top row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td colspan='3'>
+        <form id='mainForm' action='http://www.wetator.org/testcases/snoopy.php'>
+          <textArea id="traceOutput" name="eventTrace" cols="50" rows="10"></textArea>
+          <input type="submit" name="OnFocusOnBlurTest" value="OK">
+          <input type="reset" name="OnFocusOnBlurTestReset" value="Clear">
+        </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td><h3>Buttons</h3></td>
+            </tr>
+
+            <tr>
+              <td><input type="submit" name="submitTest" value="submitTest"
+                    onClick="dumpEvent(event);return false;"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" name="resetTest" value="resetTest"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><input type="button" name="buttonTest" value="buttonTest"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputText">InputText</label></td>
+              <td><input type="text" id="inputText" name="inputText"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword">InputPassword</label></td>
+              <td><input type="password" id="inputPassword" name="inputPassword"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textarea">Textarea</label></td>
+              <td><textarea id="textarea" name="textarea" cols="10" rows="1"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="upload">Upload</label></td>
+              <td><input type="file" name="upload" id="upload"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Selects</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelect">SingleSelect</label></td>
+              <td>
+                <select name="singleSelect" id="singleSelect" size="2"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelect">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelect" id="multipleSelect" size="2" multiple
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkbox" name="checkbox" value="checkboxValue"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup</label></td>
+              <td>
+                <input type="radio" id="radio1" name="radioGroup" value="r_value1"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">Radio1<br>
+                <input type="radio" id="radio2" name="radioGroup" value="r_value2"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Set with default values</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDefault">InputText</label></td>
+              <td><input type="text" id="inputTextDefault" name="inputTextDefault" value="default"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDefault">InputPassword</label></td>
+              <td><input type="password" id="inputPasswordDefault" name="inputPasswordDefault" value="default"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDefault">Textarea</label></td>
+              <td><textarea id="textareaDefault" name="textareaDefault" cols="10" rows="1"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">default</textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDefault">Upload</label></td>
+              <td><input type="file" name="uploadDefault" id="uploadDefault" value="default"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Selects with selection</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelectSelected">SingleSelect</label></td>
+              <td>
+                <select name="singleSelectSelected" id="singleSelectSelected" size="2"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+                  <option value="o_value1" selected>option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelectSelected">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelectSelected" id="multipleSelectSelected" size="2" multiple
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+                  <option value="o_value1" selected>option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkboxChecked" name="checkboxChecked" value="checkboxValue" checked
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup</label></td>
+              <td>
+                <input type="radio" id="radio1" name="radioGroup" value="r_value1" checked
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">Radio1<br>
+                <input type="radio" id="radio2" name="radioGroup" value="r_value2"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td><h3>Disabled Buttons</h3></td>
+            </tr>
+
+            <tr>
+              <td><input type="submit" name="submitTestDisabled" value="submitTestDisabled" disabled="disabled"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" name="resetTestDisabled" value="resetTestDisabled" disabled="disabled"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><input type="button" name="buttonTestDisabled" value="buttonTestDisabled" disabled="disabled"
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDisabled">InputText Disabled</label></td>
+              <td><input type="text" id="inputTextDisabled" name="inputTextDisabled" disabled="disabled" 
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDisabled">InputPassword Disabled</label></td>
+              <td><input type="password" id="inputPasswordDisabled" name="inputPasswordDisabled" disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDisabled">Textarea Disabled</label></td>
+              <td><textarea id="textareaDisabled" name="textareaDisabled" cols="10" rows="1" disabled="disabled"   
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDisabled">Upload Disabled</label></td>
+              <td><input type="file" name="uploadDisabled" id="uploadDisabled" disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Selects</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelectDisabled">SingleSelect</label></td>
+              <td>
+                <select name="singleSelectDisabled" id="singleSelectDisabled" size="2" disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelectDisabled">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelectDisabled" id="multipleSelectDisabled" size="2" multiple disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkboxDisabled" name="checkboxDisabled" value="checkboxValue" disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup Disabled</label></td>
+              <td>
+                <input type="radio" id="radio1Disabled" name="radioGroup" value="r_value1" disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">Radio1<br>
+                <input type="radio" id="radio2Disabled" name="radioGroup" value="r_value2" disabled="disabled"  
+                    onClick="dumpEvent(event);"
+                    onChange="dumpEvent(event);"
+                    onFocus="dumpEvent(event);"
+                    onBlur="dumpEvent(event);"
+                    onKeyPress = "dumpEvent(event);"
+                    onKeyUp = "dumpEvent(event);"
+                    onKeyDown = "dumpEvent(event);">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</body>
+</html>
+
