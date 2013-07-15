@@ -1,0 +1,1 @@
+document.getElementById('plainjsresult').value='Javascript Executed'

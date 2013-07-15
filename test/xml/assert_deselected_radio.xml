@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testcase
+    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd">
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton with name</step>
+    <step command="Comment">not possible</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton with id</step>
+    <step command="Assert_Deselected">radioId2</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton identified by label</step>
+    <step command="Assert_Deselected">Radio1 Label</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton identified by layout directly after</step>
+    <step command="Assert_Deselected">RadioButton2 LayoutLabel after</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton identified by layout directly after formated</step>
+    <step command="Assert_Deselected">RadioButton2 LayoutLabel after formated</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton identified by layout at right</step>
+    <step command="Assert_Deselected">RadioButton1 LayoutLabel at right</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Open_Url">assert_deselected.html</step>
+    <step command="Assert_Title">Wetator / Assert Deselected</step>
+    <step command="Comment">RadioButton identified by layout at right formated</step>
+    <step command="Assert_Deselected">RadioButton2 LayoutLabel right formated</step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+    <step command="Comment"></step>
+</testcase>

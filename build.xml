@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Wetator build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <!-- make  environment variables of operation system available -->
+    <property environment="env" />
+
+    <!-- path to ant-dir -->
+    <property name="ant" value="ant" />
+
+    <!-- application specific properties -->
+    <xmlproperty file="./build-properties.xml" keepRoot="false" semanticAttributes="true" />
+
+
+    <!-- ******************************************* -->
+    <!-- target init-onejar                          -->
+    <!-- ******************************************* -->
+    <target name="load-onejar">
+        <property name="one-jar.dist.dir" value="./dist"/>
+        <property name="one-jar.version" value="0.96"/>
+        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
+            <classpath id="one-jar-classpath">
+                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+    <!-- ******************************************* -->
+    <!-- target init-buildupdate                     -->
+    <!-- ******************************************* -->
+    <target name="load-buildupdate">
+        <taskdef name="buildupdate" classname="com.ryangrier.ant.BuildUpdate">
+            <classpath id="buildupdate-classpath">
+                <fileset dir="./ant_lib" includes="**/version_tool.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+
+    <!-- =================================
+          target: load-ivy
+         ================================= -->
+    <target name="load-ivy">
+        <!-- try to load ivy here from home ivy dir, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as ivy home lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the ivy home lib dir. -->
+        <path id="ivy.lib.path">
+            <fileset dir="./ant_lib" includes="ivy*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                  uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+
+    <!-- ******************************************* -->
+    <!-- target info                                 -->
+    <!-- ******************************************* -->
+    <target name="info" description="Info Target">
+        <echo level="info" message="" />
+        <echo level="info" message="Project: ${ant.project.name}" />
+        <echo level="info" message="  ${ant.version}" />
+        <echo level="info" message="  Java version ${ant.java.version}" />
+        <echo level="info" message="" />
+    </target>
+
+
+    <!-- ******************************************* -->
+    <!-- target clean-compile                        -->
+    <!-- ******************************************* -->
+    <target name="clean-compile" description="recompiles all"
+        depends="clean, resolve">
+
+        <!-- clean build -->
+        <delete dir="${dir.build}" includeEmptyDirs="true"/>
+        <mkdir dir="${dir.build}"/>
+
+        <mkdir dir="${dir.build}/classes"/>
+
+        <!-- compile local classes -->
+        <echo>Compiling with Java target ${javac.target}</echo>
+
+        <javac srcdir="${dir.src}" encoding="iso-8859-1" debug="on" debuglevel="lines,vars,source"
+              target="${javac.target}" destdir="${dir.build}/classes">
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+
+        <!-- copy resources -->
+        <copy todir="${dir.build}/classes" preservelastmodified="yes">
+            <fileset dir="${dir.src}">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <!-- ******************************************* -->
+    <!-- target compile-tests                        -->
+    <!-- ******************************************* -->
+    <target name="compile-tests">
+
+        <!-- clean build -->
+        <mkdir dir="${dir.build}/test-classes"/>
+
+        <!-- compile local classes -->
+        <echo>Compiling with Java target ${javac.target}</echo>
+
+        <javac srcdir="${dir.test-src}" encoding="iso-8859-1" debug="on" debuglevel="lines,vars,source"
+      target="${javac.target}" destdir="${dir.build}/test-classes">
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <path path="${dir.build}/classes" />
+            </classpath>
+        </javac>
+
+        <!-- copy resources -->
+        <copy todir="${dir.build}/test-classes" preservelastmodified="yes">
+            <fileset dir="${dir.test-src}">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <!-- ******************************************* -->
+    <!-- target build-release                        -->
+    <!-- ******************************************* -->
+    <target name="build-release" description="build all Wetator release artifacts"
+        depends="clean-compile,load-onejar,load-buildupdate">
+        <tstamp>
+            <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
+        </tstamp>
+
+        <buildupdate
+            srcdir="${dir.src}"
+            classname="org.rbri.wet.Version"
+            variablename="BUILD"
+            propertyName="application.buildnumber" />
+
+        <delete file="${dir.build}/${application.jar-basename}.jar"/>
+        <jar destfile="${dir.build}/${application.jar-basename}.jar">
+            <fileset dir="${dir.build}/classes">
+                <include name="**/*.*"/>
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="org.rbri.wet.Wetator"/>
+                <section name="Application">
+                    <attribute name="Application-Name" value="${application.name}"/>
+                    <attribute name="Vendor" value="${application.vendor}"/>
+                    <attribute name="Version" value="${application.version}"/>
+                    <attribute name="Build" value="${application.buildnumber}"/>
+                    <attribute name="Date" value="${timestamp}"/>
+                </section>
+                <section name="Build">
+                    <attribute name="Java-Runtime" value="${java.runtime.name}" />
+                    <attribute name="Java-Version" value="${java.runtime.version}" />
+                    <attribute name="Java-Target" value="${javac.target}" />
+                    <attribute name="OS-Name" value="${os.name}"/>
+                    <attribute name="OS-Version" value="${os.version}"/>
+                </section>
+            </manifest>
+        </jar>
+
+        <delete file="${dir.build}/MANIFEST.MF"/>
+        <manifest file="${dir.build}/MANIFEST.MF">
+            <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
+            <attribute name="One-Jar-Main-Class" value="org.rbri.wet.Wetator"/>
+        </manifest>
+
+        <!-- Construct the One-JAR file -->
+        <delete file="${dir.build}/${application.jar-basename}_all.jar"/>
+        <one-jar destfile="${dir.build}/${application.jar-basename}_all.jar" manifest="${dir.build}/MANIFEST.MF">
+            <main>
+                <fileset dir="${dir.build}/classes">
+                    <include name="**/*.*"/>
+                </fileset>
+            </main>
+            <lib>
+                <fileset dir="${dir.lib}">
+                    <include name="*.jar" />
+
+                    <exclude name="ant-*.jar" />
+                    <exclude name="hsqldb-*.jar" />
+                    <exclude name="junit-*.jar" />
+                </fileset>
+            </lib>
+        </one-jar>
+
+        <echo file="${dir.build}/wetator.bat" append="false">@echo off
+
+REM ----------------------------
+REM Simple Wetator start script
+REM ----------------------------
+
+
+if "%JAVA_HOME%" == "" goto error
+
+rem add the jdbc drivers if needed
+rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path=ojdbc14.jar
+rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path="db2jcc.jar|db2jcc_license_cu.jar"
+
+rem start command for Wetator
+set CMD="%JAVA_HOME%\bin\java" %JAVA_OPTS% -jar ${application.jar-basename}_all.jar %*
+
+echo Starting Wetator
+
+ECHO %CMD%
+%CMD%
+
+
+goto end
+
+:error
+
+echo ERROR: JAVA_HOME not found in your environment.
+echo Please, set the JAVA_HOME variable in your environment to match the
+echo location of the Java Virtual Machine you want to use.
+
+:end
+</echo>
+
+        <mkdir dir="${dir.deploy}"/>
+
+        <!-- generate cmd-line distribution zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
+            <fileset dir="${dir.build}" >
+                <include name="wetator.bat" />
+                <include name="${application.jar-basename}_all.jar" />
+            </fileset>
+
+            <zipfileset dir="${dir.samples}" prefix="samples">
+                <include name="google_search/**" />
+                <exclude name="google_search/logs/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="xsl">
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="templates">
+                <include name="wetator.config" />
+            </zipfileset>
+        </zip>
+
+        <!-- generate ant distribution zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_ant_${application.version}.zip">
+            <zipfileset dir="${dir.build}" prefix="lib" >
+                <include name="${application.jar-basename}.jar" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="lib">
+                <include name="*.jar" />
+
+                <exclude name="ant-*.jar" />
+                <exclude name="hsqldb-*.jar" />
+                <exclude name="jetty-*.jar" />
+                <exclude name="junit-*.jar" />
+                <exclude name="servlet-*.jar" />
+                <exclude name="slf4j-*.jar" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}/ant" prefix="templates">
+                <include name="build.xml" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="xsl">
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="templates">
+                <include name="wetator.config" />
+            </zipfileset>
+        </zip>
+
+        <!-- generate src zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_src_${application.version}.zip">
+            <fileset dir="." >
+                <include name=".classpath" />
+                <include name=".project" />
+                <include name="build.xml" />
+                <include name="build-properties.xml" />
+                <include name="ivy.xml" />
+                <include name="ivysettings.xml" />
+                <include name="LICENSE.txt" />
+                <include name="readme.txt" />
+            </fileset>
+
+            <zipfileset dir="${dir.lib}" prefix="{dir.lib}">
+                <exclude name="**/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.samples}" prefix="${dir.samples}">
+                <exclude name="**/**" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.src}" prefix="${dir.src}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.test}" prefix="${dir.test}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.xsl}" prefix="${dir.xsl}">
+                <include name="**/**.png" />
+                <include name="**/**.xsl" />
+            </zipfileset>
+        </zip>
+
+        <!-- generate web zip -->
+        <zip destfile="${dir.deploy}/${application.jar-basename}_web_${application.version}.zip">
+            <zipfileset dir="${dir.webpages}" >
+            </zipfileset>
+
+            <zipfileset dir="${dir.deploy}" prefix="download">
+                <include name="${application.jar-basename}_*${application.version}.zip" />
+                <exclude name="${application.jar-basename}_web_${application.version}.zip" />
+            </zipfileset>
+            <zipfileset dir="${dir.test-wet-src}" prefix="exceltests">
+            </zipfileset>
+        </zip>
+
+    </target>
+
+    <!-- =================================
+          target: resolve
+         ================================= -->
+    <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
+        <ivy:configure />
+        <ivy:resolve />
+        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle" />
+        <ivy:retrieve pattern="${dir.lib}_src${ivy.retrieve.pattern}" sync="true" type="source" />
+    </target>
+
+    <!-- =================================
+          target: report
+         ================================= -->
+    <target name="report" depends="resolve" description="--> generates a report of dependencies">
+        <ivy:report todir="${dir.build}/ivy-report"/>
+    </target>
+
+    <!-- =================================
+          target: clean-lib
+         ================================= -->
+    <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
+        <delete includeemptydirs="true">
+            <fileset dir="${dir.lib}" includes="**/*"/>
+            <fileset dir="${dir.lib}_src" includes="**/*"/>
+        </delete>
+    </target>
+
+    <!-- =================================
+          target: clean-build
+         ================================= -->
+    <target name="clean-build" description="--> clean the project built files">
+        <delete includeemptydirs="true" dir="${dir.build}"/>
+    </target>
+
+    <!-- =================================
+          target: clean
+         ================================= -->
+    <target name="clean" depends="clean-build, clean-lib" description="--> clean the project" />
+
+</project>

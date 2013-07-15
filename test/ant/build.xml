@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="Wetator Ant Task test" basedir="." default="run_wetator_with_properties">
+
+    <property name="wetator.baseUrl" value="http://wetator.rbri.org"/>
+
+    <propertyset id="wetator-properties">
+        <propertyref prefix="wetator"/>
+    </propertyset>
+
+
+    <!-- You have to declare the task first -->
+    <taskdef name="wetator" classname="org.rbri.wet.ant.Wetator">
+        <classpath>
+            <path path="../../bin"/>
+            <fileset dir="../../lib" includes="**/**.jar"/>
+        </classpath>
+    </taskdef>
+
+    <path id="wetator.classpath">
+        <fileset dir="." includes="commons-exec-1.1.jar"/>
+    </path>
+
+    <target name="run_wetator_with_classpath">
+        <wetator config="wet.config">
+            <classpath>
+                <fileset dir="." includes="commons-exec-1.1.jar"/>
+            </classpath>
+            <fileset dir=".">
+                <include name="ant_task_classpath_test.xls"/>
+            </fileset>
+        </wetator>
+    </target>
+
+    <target name="run_wetator_with_classpath_ref">
+        <wetator config="wet.config">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="ant_task_classpath_test.xls"/>
+            </fileset>
+        </wetator>
+    </target>
+
+
+    <target name="run_wetator_with_properties">
+        <wetator config="wet.config">
+            <classpath refid="wetator.classpath" />
+            <fileset dir=".">
+                <include name="sample.xls"/>
+            </fileset>
+
+            <property name="wetator.baseUrl" value="http://www.wetator.org"/>
+            <property name="$user" value="dobby"/>
+            <!-- to define a secret property you need $$$ -->
+            <property name="$$$password" value="secret"/>
+        </wetator>
+    </target>
+</project>

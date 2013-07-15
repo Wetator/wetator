@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / OnFocus OnBlur</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+
+  <script type="text/javascript">
+  <!--
+    function writeTrace(eventText) {
+      var traceCtrl=document.getElementById('traceOutout');
+      var currentTrace = traceCtrl.value
+      traceCtrl.value = currentTrace + eventText
+    }
+  //-->
+  </script>
+
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / OnFocus OnBlur</h1>
+
+  <div class="test_content">
+
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <!-- top row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td colspan='3'>
+        <form id='mainForm' action='snoopy.php'>
+          <textArea id="traceOutout" name="eventTrace" cols="50" rows="10"></textArea>
+          <input type="submit" name="OnFocusOnBlurTest" value="OK">
+          <input type="reset" name="OnFocusOnBlurTestReset" value="Clear">
+        </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td><h3>Buttons</h3></td>
+            </tr>
+
+            <tr>
+              <td><input type="submit" name="submitTest" value="submitTest" onfocus="writeTrace('onFocus(submitTest);');" onblur="writeTrace('onBlur(submitTest);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" name="resetTest" value="resetTest" onfocus="writeTrace('onFocus(resetTest);');" onblur="writeTrace('onBlur(resetTest);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><input type="button" name="buttonTest" value="buttonTest" onfocus="writeTrace('onFocus(buttonTest);');" onblur="writeTrace('onBlur(buttonTest);\n');"></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputText">InputText</label></td>
+              <td><input type="text" id="inputText" name="inputText" onfocus="writeTrace('onFocus(inputText);');" onblur="writeTrace('onBlur(inputText);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword">InputPassword</label></td>
+              <td><input type="password" id="inputPassword" name="inputPassword" onfocus="writeTrace('onFocus(inputPassword);');" onblur="writeTrace('onBlur(inputPassword);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textarea">Textarea</label></td>
+              <td><textarea id="textarea" name="textarea" cols="10" rows="1" onfocus="writeTrace('onFocus(textarea);');" onblur="writeTrace('onBlur(textarea);\n');"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="upload">Upload</label></td>
+              <td><input type="file" name="upload" id="upload" onfocus="writeTrace('onFocus(upload);');" onblur="writeTrace('onBlur(upload);\n');"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Selects</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelect">SingleSelect</label></td>
+              <td>
+                <select name="singleSelect" id="singleSelect" size="2" onfocus="writeTrace('onFocus(singleSelect);');" onblur="writeTrace('onBlur(singleSelect);\n');">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelect">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelect" id="multipleSelect" size="2" multiple onfocus="writeTrace('onFocus(multipleSelect);');" onblur="writeTrace('onBlur(multipleSelect);\n');">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkbox" name="checkbox" value="checkboxValue" onfocus="writeTrace('onFocus(checkbox);');" onblur="writeTrace('onBlur(checkbox);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup</label></td>
+              <td>
+                <input type="radio" id="radioId1" name="radioGroup" value="r_value1" onfocus="writeTrace('onFocus(Radio1);');" onblur="writeTrace('onBlur(Radio1);\n');">Radio1<br>
+                <input type="radio" id="radioId2" name="radioGroup" value="r_value2" onfocus="writeTrace('onFocus(Radio2);');" onblur="writeTrace('onBlur(Radio2);\n');">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td><h3>Disabled Buttons</h3></td>
+            </tr>
+
+            <tr>
+              <td><input type="submit" name="submitTestDisabled" value="submitTestDisabled" onfocus="writeTrace('onFocus(submitTestDisabled);');" onblur="writeTrace('onBlur(submitTestDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" name="resetTestDisabled" value="resetTestDisabled" onfocus="writeTrace('onFocus(resetTestDisabled);');" onblur="writeTrace('onBlur(resetTestDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+            <tr>
+              <td><input type="button" name="buttonTestDisabled" value="buttonTestDisabled" onfocus="writeTrace('onFocus(buttonTestDisabled);');" onblur="writeTrace('onBlur(buttonTestDisabled);\n');" disabled="disabled"></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDisabled">InputText Disabled</label></td>
+              <td><input type="text" id="inputTextDisabled" name="inputTextDisabled" onfocus="writeTrace('onFocus(inputTextDisabled);');" onblur="writeTrace('onBlur(inputTextDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDisabled">InputPassword Disabled</label></td>
+              <td><input type="password" id="inputPasswordDisabled" name="inputPasswordDisabled" onfocus="writeTrace('onFocus(inputPasswordDisabled);');" onblur="writeTrace('onBlur(inputPasswordDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDisabled">Textarea Disabled</label></td>
+              <td><textarea id="textareaDisabled" name="textareaDisabled" cols="10" rows="1" onfocus="writeTrace('onFocus(textareaDisabled);');" onblur="writeTrace('onBlur(textareaDisabled);\n');" disabled="disabled"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDisabled">Upload Disabled</label></td>
+              <td><input type="file" name="uploadDisabled" id="uploadDisabled" onfocus="writeTrace('onFocus(uploadDisabled);');" onblur="writeTrace('onBlur(uploadDisabled);\n');" disabled="disabled"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Selects</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelectDisabled">SingleSelect</label></td>
+              <td>
+                <select name="singleSelectDisabled" id="singleSelectDisabled" size="2" disabled="disabled">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelectDisabled">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelectDisabled" id="multipleSelectDisabled" size="2" multiple disabled="disabled">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkboxDisabled" name="checkboxDisabled" value="checkboxValue" disabled="disabled">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup Disabled</label></td>
+              <td>
+                <input type="radio" id="radioId1" name="radioGroup" value="r_value1" disabled="disabled">Radio1<br>
+                <input type="radio" id="radioId2" name="radioGroup" value="r_value2" disabled="disabled">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</body>
+</html>
+

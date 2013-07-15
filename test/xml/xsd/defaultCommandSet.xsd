@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+  targetNamespace="http://www.wetator.org/xsd/defaultCommandSet"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:element name="testcase">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element name="step" type="stepType" />
+          <xs:any namespace="##other" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="stepType" mixed="true">
+    <xs:sequence>
+      <xs:element name="optionalParameter" type="xs:string"
+        minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="command" type="commandsEnum" use="required" />
+    <xs:attribute name="comment" type="xs:boolean" default="false" />
+  </xs:complexType>
+
+  <xs:simpleType name="commandsEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Assert_Content" />
+      <xs:enumeration value="Assert_Deselected" />
+      <xs:enumeration value="Assert_Disabled" />
+      <xs:enumeration value="Assert_Selected" />
+      <xs:enumeration value="Assert_Set" />
+      <xs:enumeration value="Assert_Title" />
+      <xs:enumeration value="Click_After_Text" />
+      <xs:enumeration value="Click_On" />
+      <xs:enumeration value="Close_Window" />
+      <xs:enumeration value="Comment" />
+      <xs:enumeration value="Deselect" />
+      <xs:enumeration value="Exec_Java" />
+      <xs:enumeration value="Go_Back" />
+      <xs:enumeration value="Mouse_Over" />
+      <xs:enumeration value="Open_Url" />
+      <xs:enumeration value="Select" />
+      <xs:enumeration value="Set" />
+      <xs:enumeration value="Use_Module" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
