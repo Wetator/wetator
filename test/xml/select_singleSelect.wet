@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, No selectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect with name</comment>
+    <command><d:select><d:wpath>singleSelect_Name, option2</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectNameTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectNameTest OK singleSelect_Name o_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelectOptGroup with name</comment>
+    <command><d:select><d:wpath>singleSelectOptGroup_Name, green</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectOptGroupNameTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectOptGroupNameTest OK singleSelectOptGroup_Name o_green POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect with id</comment>
+    <command><d:select><d:wpath>singleSelect_Id, option3</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectIdTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectIdTest OK singleSelect_Id o_value3 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect with default selection</comment>
+    <command><d:select><d:wpath>singleSelect_NameValue, option4</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectNameValueTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectNameValueTest OK singleSelect_NameValue o_value4 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by label with for attribute</comment>
+    <command><d:select><d:wpath>SingleSelect Label with For, option1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLabelForTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLabelForTest OK singleSelect_LabelFor o_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by surrounding label</comment>
+    <command><d:select><d:wpath>SingleSelect surrounding Label, option1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectSurroundingLabelTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectSurroundingLabelTest OK singleSelect_SurroundingLabel o_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout directly before</comment>
+    <command><d:select><d:wpath>SingleSelect LayoutLabel before, option1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLayoutBeforeTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutBeforeTest OK singleSelect_LayoutBefore o_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout directly before formated</comment>
+    <command><d:select><d:wpath>SingleSelect LayoutLabel before formated, option2</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutBeforeFormatedTest OK singleSelect_LayoutBeforeFormated o_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at top</comment>
+    <command><d:select><d:wpath>SingleSelect LayoutLabel at top, option3</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLayoutTopTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutTopTest OK singleSelect_LayoutTop o_value3 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at top formated</comment>
+    <command><d:select><d:wpath>SingleSelect LayoutLabel at top formated, option4</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLayoutTopFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutTopFormatedTest OK singleSelect_LayoutTopFormated o_value4 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at left</comment>
+    <command><d:select><d:wpath>SingleSelect LayoutLabel at left, option1</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLayoutLeftTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutLeftTest OK singleSelect_LayoutLeft o_value1 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at left formated</comment>
+    <command><d:select><d:wpath>SingleSelect LayoutLabel at left formated, option2</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLayoutLeftFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLayoutLeftFormatedTest OK singleSelect_LayoutLeftFormated o_value2 POST</d:content></d:assert-content></command>
+    <comment>test for unused parameter</comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The command 'select' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>singleSelect_Name, option2</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>SingleSelect identified by layout at left formated</comment>
+    <command><d:select><d:wpath>SingleSelect Label at left; text entry between, option2</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>SingleSelectLabelLeftTextBetweenTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value SingleSelectLabelLeftTextBetweenTest OK inputText_between singleSelect_LabelLeft_TextBetween o_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>Disabled SingleSelect</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlOption 'option2' part of [HtmlSelect (id='singleSelect_Disabled') (name='singleSelect_Disabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled SingleSelect, option2</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>Disabled SingleSelect Option</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, The html element [HtmlOption 'option2' part of [HtmlSelect (id='singleSelect_DisabledOption') (name='singleSelect_DisabledOption')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled SingleSelect Option, option2</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+</test-case>

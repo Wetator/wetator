@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='Comment'> </step>
+    <step command='Comment'> </step>
+    <step command='Comment'>Text Input</step>
+    <step command='Comment'>InputText with name</step>
+    <tst:step command='Assert_Fail'>Assert Focus, Unknown message key 'elementNotFocused' (param(s): '[HtmlTextInput (name='inputText_Name')]').<tst:optionalParameter>inputText_Name</tst:optionalParameter></tst:step>
+    <step command='Set'>inputText_Name</step>
+    <step command='Assert_Focus'>inputText_Name</step>
+    <tst:step command='Assert_Fail'>Assert Focus, The command 'Assert Focus' does not use the value 'unused' provided in column 2.<tst:optionalParameter>inputText_Name</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+</testcase>

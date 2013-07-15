@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Content</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>Wetator / Assert Cont*</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>Wetator / Assert Sel*</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
+    <comment>test for warning about unused parameter</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Title, The command 'assert-title' expects an integer parameter value 'unused' as parameter 2.</tst:command-and-message><tst:parameter1>Wetator / Assert Content</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <comment>test for parameter support</comment>
+    <command><d:assert-title><d:title>${wet} / Assert Content</d:title></d:assert-title></command>
+    <comment>test for secret parts</comment>
+    <command><d:assert-title><d:title>${wet-secret} / Assert Content</d:title></d:assert-title></command>
+    <comment>more parts</comment>
+    <command><d:assert-title><d:title>Wetator, Assert, Content</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>Wetator, Content</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>W*tator, Co*t</d:title></d:assert-title></command>
+    <comment>test errors</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Title, Expected content(s) {not found} or [in wrong order]: 'Wetator\, Content\, [Assert]' (content: 'Wetator / Assert Content').</tst:command-and-message><tst:parameter1>Wetator, Content, Assert</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Title, Expected content(s) {not found} or [in wrong order]: '{wrong*}' (content: 'Wetator / Assert Content').</tst:command-and-message><tst:parameter1>wrong*</tst:parameter1></tst:assert-fail></command>
+    <comment>redirect without timeout</comment>
+    <command><d:open-url><d:url>redirect_js.php?target=assert_content.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Content</d:title></d:assert-title></command>
+    <comment>redirect with simple timeout</comment>
+    <command><d:open-url><d:url>redirect_js.php?target=assert_content.html&amp;wait=3000</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Content</d:title><d:wait>4.0</d:wait></d:assert-title></command>
+    <comment>two redirects</comment>
+    <command><d:open-url><d:url>redirect_js.php?target=redirect_js.php&amp;wait=3000</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Smarter web application testing</d:title><d:wait>5.0</d:wait></d:assert-title></command>
+</test-case>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, No deselectable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox with name</comment>
+    <command><d:deselect><d:wpath>checkBox_Name</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxNameTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxNameTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox with title</comment>
+    <command><d:deselect><d:wpath>CheckBox Title</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxTitleTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxTitleTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox with id</comment>
+    <command><d:deselect><d:wpath>checkBox_Id</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxIdTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxIdTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox with default selection</comment>
+    <command><d:deselect><d:wpath>checkBox_NameNotChecked</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxNameValueTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxNameValueTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by label with for attribute</comment>
+    <command><d:deselect><d:wpath>CheckBox Label with For</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLabelForTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLabelForTest OK POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>CheckBox identified identified by surrounding label</comment>
+    <command><d:deselect><d:wpath>CheckBox surrounding Label</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxSurroundingLabelTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxSurroundingLabelTest OK POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout directly after</comment>
+    <command><d:deselect><d:wpath>CheckBox LayoutLabel after</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutAfterTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutAfterTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout directly after formated</comment>
+    <command><d:deselect><d:wpath>CheckBox LayoutLabel after formated</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutAfterFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutAfterFormatedTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at bottom</comment>
+    <command><d:deselect><d:wpath>CheckBox LayoutLabel at bottom</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutBottomTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutBottomTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at bottom formated</comment>
+    <command><d:deselect><d:wpath>CheckBox LayoutLabel at bottom formated</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutBottomFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutBottomFormatedTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at right</comment>
+    <command><d:deselect><d:wpath>CheckBox LayoutLabel at right</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutRightTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutRightTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>CheckBox identified by layout at right formated</comment>
+    <command><d:deselect><d:wpath>CheckBox LayoutLabel at right formated</d:wpath></d:deselect></command>
+    <command><d:click-on><d:wpath>CheckBoxLayoutRightFormatedTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutRightFormatedTest OK</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>deselect.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Deselect</d:title></d:assert-title></command>
+    <comment>Disabled CheckBox</comment>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, The html element [HtmlCheckBoxInput (id='checkBox_Disabled') (name='checkBox_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled CheckBox</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+</test-case>

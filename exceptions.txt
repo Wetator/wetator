@@ -1,0 +1,37 @@
+# Exceptions
+# ==========
+#
+# Which for what?
+# ---------------
+# * General
+# ** Something goes wrong during the initialization/in the configuration -> ConfigurationException[R]
+# ** Something goes wrong reading a test file -> ResourceException[R]
+# ** Something goes wrong writing a response -> ResourceException[R]
+# * Browser/Control
+# ** No current page (no Open URL yet) -> BackendException
+# ** Page is not a HTML page -> BackendException
+# ** Control does not support an operation (e.g. isDisabled) -> UnsupportedOperationException[R]
+# ** Action
+# *** Validating the control fails -> ActionException
+# *** Execution fails -> ActionException
+# *** Javascript fails -> AssertionException -> IBrowser.addFailure()
+# *** Anchor not found -> ActionException
+# ** Assertion
+# *** Execution fails -> AssertionException
+# * Command
+# ** Validating the parameters fails -> InvalidInputException
+# ** HtmlElement not found -> CommandException
+# ** Action fails -> ActionException
+# ** Assertion fails -> AssertionException
+#
+# How to react?
+# -------------
+# * BackendException -> error info by backend -> let command decide
+# * ConfigurationException -> abort whole test run
+# * CommandException -> abort test + mark following commands as not executed
+# ** ActionException -> abort test + mark following commands as not executed
+# ** AssertionException -> continue with next command
+# * ImplementationException -> abort whole test run
+# * InvalidInputException -> abort test + mark following commands as not executed + mark test case for following browsers as not executed 
+# * ResourceException -> abort whole test run
+# * UnsupportedOperationException -> abort test + mark following commands as not executed

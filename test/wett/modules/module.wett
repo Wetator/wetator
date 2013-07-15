@@ -1,0 +1,4 @@
+# Comment inside module   
+Open Url     || assert_content.html 
+Assert Title || Wetator / Assert Content    
+# Comment module finished 

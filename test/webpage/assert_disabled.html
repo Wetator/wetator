@@ -1,0 +1,1001 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Assert Disabled</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / Assert Disabled</h1>
+
+  <div class="test_content">
+
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <!-- 1. Row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+        <!-- left column -->
+
+          <h3>Assert Disabled Text Input</h3>
+
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>InputText with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" name="inputText_Name" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="readonly_inputText_Name" value="readonly" readonly="readonly"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td>InputText with id</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" id="inputText_Id" name="inputTextId_Name" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputText with name and default value</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" name="inputText_Name_Value" value="default" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+
+              <td>InputText identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="inputTextId_Label">InputText Label</label></td>
+                      <td><input type="text" id="inputTextId_Label" name="inputText_Label" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText LayoutLabel before<input type="text" name="inputText_LayoutBefore" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText Layout<font color='red'>Label</font> <b>befor</b>e formated<input type="text" name="inputText_LayoutBeforeFormated" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="inputText_LayoutTop" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="inputText_LayoutTopFormated" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText LayoutLabel at left</td>
+                      <td><input type="text" name="inputText_LayoutLeft" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputText Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><input type="text" name="inputText_LayoutLeftFormated" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+        <!-- end left column -->
+        </td>
+        <td>
+
+        <!-- middle column -->
+
+          <h3>Assert Disabled Password Input</h3>
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>InputPassword with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" name="inputPassword_Name" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                      <td><input type="password" name="readonly_inputPassword_Name" value="readnoly" readonly="readonly"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputPassword with id</td>
+            </tr>
+            <tr>
+
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" id="inputPassword_Id" name="inputPasswordId_Name" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputPassword with name and default value</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" name="inputPassword_Name_Value" value="default" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputPassword identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="inputPasswordId_Label">InputPassword Label</label></td>
+                      <td><input type="password" id="inputPasswordId_Label" name="inputPassword_Label" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword LayoutLabel before<input type="password" name="inputPassword_LayoutBefore" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword Layout<font color='red'>Label</font> <b>befor</b>e formated<input type="password" name="inputPassword_LayoutBeforeFormated" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><input type="password" name="inputPassword_LayoutTop" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><input type="password" name="inputPassword_LayoutTopFormated" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword LayoutLabel at left</td>
+                      <td><input type="password" name="inputPassword_LayoutLeft" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputPassword Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><input type="password" name="inputPassword_LayoutLeftFormated" disabled="disabled"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end middle column -->
+        </td>
+        <td>
+        <!-- right column -->
+
+          <h3>Assert Disabled TextArea Input</h3>
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>TextArea with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea name="textArea_Name" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><textarea name="readonly_textArea_Name" cols="50" rows="1" readonly="readonly">readonly</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TextArea with id</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea id="textArea_Id" name="textAreaId_Name" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TextArea with name and default value</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea name="textArea_Name_Value" cols="50" rows="1" disabled="disabled">default</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TextArea identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="textAreaId_Label">TextArea Label</label></td>
+                      <td><textarea id="textAreaId_Label" name="textArea_Label" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea LayoutLabel before<textarea name="textArea_LayoutBefore" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea Layout<font color='red'>Label</font> <b>befor</b>e formated<textarea name="textArea_LayoutBeforeFormated" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><textarea name="textArea_LayoutTop" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><textarea name="textArea_LayoutTopFormated" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea LayoutLabel at left</td>
+                      <td><textarea name="textArea_LayoutLeft" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>TextArea Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><textarea name="textArea_LayoutLeftFormated" cols="50" rows="1" disabled="disabled"></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end right column -->
+
+        </td>
+      </tr>
+    </table>
+
+      <!-- 2. Row -->
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+        <!-- input column -->
+
+          <h3>Element:&nbsp;Input</h3>
+
+            <table border='0'>
+              <tr>
+                <td>InputTypeSubmit with value</td>
+                <td>
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="b_i_submit">
+                    <input disabled="disabled" type="submit" id="b_i_submit_id" name="b_i_submit_name" value="InputTypeSubmit" >
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>InputTypeButton with value</td>
+                <td>
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="b_i_button">
+                    <input disabled="disabled" type="button" id="b_i_button_id" name="b_i_button_name" value="Button" onClick="this.form.submit();">
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>InputTypeImage with alt</td>
+                <td>
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="i_i_imageAlt">
+                    <input disabled="disabled" type="image" id="i_i_image_id" src="sword.png" alt="ImageButton">
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>InputTypeImage with title</td>
+
+                <td>
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="i_i_imageTitle">
+                    <input disabled="disabled" type="image" id="i_i_image_id" src="sword.png" title="ImageButtonTitle">
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+
+                <td>InputTypeImage with src</td>
+                <td>
+
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="i_i_imageSrc">
+                    <input disabled="disabled" type="image" src="sword1.png">
+                  </form>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>InputTypeRadio with id</td>
+
+                <td>
+                  <form action="snoopy.php">
+                    <input disabled="disabled" type="radio" id="i_r_inputtyperadioid">
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>InputTypeCheckbox with id</td>
+
+                <td>
+                  <form action="snoopy.php">
+                    <input disabled="disabled" type="checkbox" id="i_c_inputtypecheckboxid">
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>InputTypeCheckbox with name</td>
+                <td>
+                  <form action="snoopy.php">
+                    <input disabled="disabled" type="checkbox" name="i_c_inputtypecheckboxname">
+                  </form>
+                </td>
+              </tr>
+            </table>
+
+        <!-- end input column -->
+        </td>
+        <td>
+        <!-- button column -->
+
+          <h3>Element:&nbsp;Button</h3>
+          <table border='0'>
+            <tr>
+              <td>Button with text</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <input type="hidden" name="clickOnButton" value="b_b_text">
+                  <button disabled="disabled" type="button" id="b_b_text_id" name="b_b_text_name" onClick="this.form.submit();">
+                    <p>ButtonWithText</p>
+                  </button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Button with image / alt</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <input type="hidden" name="clickOnButton" value="b_b_imageAlt">
+                  <button disabled="disabled" type="button" onClick="this.form.submit();">
+                    <img src="./sword.png" alt="b_imageTestAlt" width="">
+                  </button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Button with image / title</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <input type="hidden" name="clickOnButton" value="b_b_imageTitle">
+                  <button disabled="disabled" type="button" onClick="this.form.submit();">
+                    <img src="./sword.png" title="b_imageTestTitle" width="">
+                  </button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Button with image / src</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <input type="hidden" name="clickOnButton" value="b_b_imageSrc">
+                  <button disabled="disabled" type="button" onClick="this.form.submit();">
+                    <img src="./sword2.png">
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </table>
+        <!-- end textarea/button column -->
+        </td>
+        <td>
+        <!-- select column -->
+
+          <h3>Element:&nbsp;Select</h3>
+
+          <table border='0'>
+            <tr>
+              <td>SingleSelect with name</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelect_Name" size="2" disabled="disabled">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect with id</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select id="singleSelect_Id" size="2" disabled="disabled">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+
+            </tr>
+
+            <tr>
+              <td>SingleSelect/OptGroup with name</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelectOptGroup_Name" size="6" disabled="disabled">
+                          <optgroup label="colors_rgb">
+                            <option value="o_red">red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+
+            <tr>
+              <td>SingleSelect/OptGroup with id</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select id="singleSelectOptGroup_Id" size="6" disabled="disabled">
+                          <optgroup label="colors_rgb">
+                            <option value="o_red">red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+        <!-- end select column -->
+        </td>
+
+        <td>
+        <!-- option column -->
+
+          <h3>Element:&nbsp;Option</h3>
+
+          <table border='0'>
+
+            <tr>
+              <td>SingleSelect / disabled Option with id</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelect_Name" size="2">
+                          <option value="o_value1" id="option1" disabled="disabled">option1</option>
+                          <option value="o_value2">option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect / disabled Option with id in OptGroup</td>
+
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelectOptGroup_Name" size="6">
+                          <optgroup label="colors_rgb">
+                            <option value="o_red" id="option_red" disabled="disabled">red</option>
+                            <option value="o_green"id="option_green"  disabled="disabled">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+
+            </tr>
+
+          </table>
+        <!-- end option column -->
+        </td>
+
+        <td>
+        <!-- optgroup column -->
+
+          <h3>Element:&nbsp;OptGroup</h3>
+
+          <table border='0'>
+            <tr>
+              <td>SingleSelect / disabled OptGroup with Label</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelectOptGroup_Name" size="6">
+                          <optgroup label="colors" disabled="disabled" >
+                            <option value="o_red" >red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>SingleSelect / disabled OptGroup with id</td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td>
+                        <select name="singleSelectOptGroup_Name" size="6">
+                          <optgroup label="colors" disabled="disabled" id="optgroup_colors">
+                            <option value="o_red">red</option>
+                            <option value="o_green">green</option>
+                            <option value="o_blue">blue</option>
+                          </optgroup>
+                          <optgroup label="values">
+                            <option value="o_value1">value1</option>
+                            <option value="o_value2">value2</option>
+                          </optgroup>
+                        </select>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+        <!-- end optgroup column -->
+        </td>
+
+      </tr>
+    </table>
+
+  </div>
+
+</body>
+</html>
+

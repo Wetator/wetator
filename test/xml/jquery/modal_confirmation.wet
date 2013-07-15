@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>js/jquery/modal-confirmation.html</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>Empty the recycle bin?</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Cancel</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Button: Cancel</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>js/jquery/modal-confirmation.html</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>Empty the recycle bin?</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Delete all items</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Button: Delete all items</d:content></d:assert-content></command>
+</test-case>

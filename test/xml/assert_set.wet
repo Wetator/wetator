@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Set, No settable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText with name</comment>
+    <command><d:assert-set><d:wpath>inputText_Name</d:wpath><d:value>inputTextNameValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText with id</comment>
+    <command><d:assert-set><d:wpath>inputText_Id</d:wpath><d:value>inputTextIdValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by label</comment>
+    <command><d:assert-set><d:wpath>InputText Label</d:wpath><d:value>inputTextLabelValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by layout directly before</comment>
+    <command><d:assert-set><d:wpath>InputText LayoutLabel before</d:wpath><d:value>inputTextLayoutBeforeValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by layout directly before formated</comment>
+    <command><d:assert-set><d:wpath>InputText LayoutLabel before formated</d:wpath><d:value>inputTextLayoutBeforeFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by layout at top</comment>
+    <command><d:assert-set><d:wpath>InputText LayoutLabel at top</d:wpath><d:value>inputTextLayoutTopValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by layout at top formated</comment>
+    <command><d:assert-set><d:wpath>InputText LayoutLabel at top formated</d:wpath><d:value>inputTextLayoutTopFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by layout at left</comment>
+    <command><d:assert-set><d:wpath>InputText LayoutLabel at left</d:wpath><d:value>inputTextLayoutLeftValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by layout at left formated</comment>
+    <command><d:assert-set><d:wpath>InputText LayoutLabel at left formated</d:wpath><d:value>inputTextLayoutLeftFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:assert-set><d:wpath>emptyInputText_Name</d:wpath></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><tst:assert-fail><tst:command-and-message><![CDATA[Assert Set, Wrong value: expected: <> but was: <inputTextNameValue>]]></tst:command-and-message><tst:parameter1>inputText_Name</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword with name</comment>
+    <command><d:assert-set><d:wpath>inputPassword_Name</d:wpath><d:value>inputPasswordNameValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword with id</comment>
+    <command><d:assert-set><d:wpath>inputPassword_Id</d:wpath><d:value>inputPasswordIdValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by label</comment>
+    <command><d:assert-set><d:wpath>InputPassword Label</d:wpath><d:value>inputPasswordLabelValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by layout directly before</comment>
+    <command><d:assert-set><d:wpath>InputPassword LayoutLabel before</d:wpath><d:value>inputPasswordLayoutBeforeValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by layout directly before formated</comment>
+    <command><d:assert-set><d:wpath>InputPassword LayoutLabel before formated</d:wpath><d:value>inputPasswordLayoutBeforeFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by layout at top</comment>
+    <command><d:assert-set><d:wpath>InputPassword LayoutLabel at top</d:wpath><d:value>inputPasswordLayoutTopValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by layout at top formated</comment>
+    <command><d:assert-set><d:wpath>InputPassword LayoutLabel at top formated</d:wpath><d:value>inputPasswordLayoutTopFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by layout at left</comment>
+    <command><d:assert-set><d:wpath>InputPassword LayoutLabel at left</d:wpath><d:value>inputPasswordLayoutLeftValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by layout at left formated</comment>
+    <command><d:assert-set><d:wpath>InputPassword LayoutLabel at left formated</d:wpath><d:value>inputPasswordLayoutLeftFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:assert-set><d:wpath>emptyInputPassword_Name</d:wpath></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><tst:assert-fail><tst:command-and-message><![CDATA[Assert Set, Wrong value: expected: <> but was: <inputPasswordNameValue>]]></tst:command-and-message><tst:parameter1>inputPassword_Name</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea with name</comment>
+    <command><d:assert-set><d:wpath>textArea_Name</d:wpath><d:value>textAreaNameValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea with id</comment>
+    <command><d:assert-set><d:wpath>textArea_Id</d:wpath><d:value>textAreaIdValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by label</comment>
+    <command><d:assert-set><d:wpath>TextArea Label</d:wpath><d:value>textAreaLabelValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by layout directly before</comment>
+    <command><d:assert-set><d:wpath>TextArea LayoutLabel before</d:wpath><d:value>textAreaLayoutBeforeValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by layout directly before formated</comment>
+    <command><d:assert-set><d:wpath>TextArea LayoutLabel before formated</d:wpath><d:value>textAreaLayoutBeforeFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by layout at top</comment>
+    <command><d:assert-set><d:wpath>TextArea LayoutLabel at top</d:wpath><d:value>textAreaLayoutTopValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by layout at top formated</comment>
+    <command><d:assert-set><d:wpath>TextArea LayoutLabel at top formated</d:wpath><d:value>textAreaLayoutTopFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by layout at left</comment>
+    <command><d:assert-set><d:wpath>TextArea LayoutLabel at left</d:wpath><d:value>textAreaLayoutLeftValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>TextArea identified by layout at left formated</comment>
+    <command><d:assert-set><d:wpath>TextArea LayoutLabel at left formated</d:wpath><d:value>textAreaLayoutLeftFormatedValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:assert-set><d:wpath>emptyTextArea_Name</d:wpath></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><tst:assert-fail><tst:command-and-message><![CDATA[Assert Set, Wrong value: expected: <> but was: <textAreaNameValue>]]></tst:command-and-message><tst:parameter1>textArea_Name</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+</test-case>

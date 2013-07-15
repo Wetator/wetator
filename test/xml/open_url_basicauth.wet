@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>/snoopyAuth.php</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Request Snoopy</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>Wetator / Request Snoopy</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Authorization Basic d2V0YXRvcjpzZWNyZXQ=</d:content></d:assert-content></command>
+</test-case>

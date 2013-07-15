@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>==== input submit button ====</comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>input submit button with label</comment>
+    <command><d:click-on><d:wpath>InputTypeSubmit</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>input submit button with name</comment>
+    <command><d:click-on><d:wpath>b_i_submit_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>input submit button with id</comment>
+    <command><d:click-on><d:wpath>b_i_submit_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== input button ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>input button with label</comment>
+    <command><d:click-on><d:wpath>Button</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>input button with name</comment>
+    <command><d:click-on><d:wpath>b_i_button_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>input button with id</comment>
+    <command><d:click-on><d:wpath>b_i_button_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== image ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>image with alt</comment>
+    <command><d:click-on><d:wpath>ImageButton</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton i_i_imageAlt, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>image with title</comment>
+    <command><d:click-on><d:wpath>ImageButtonTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton i_i_imageTitle, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>image with src</comment>
+    <command><d:click-on><d:wpath>sword1.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton i_i_imageSrc, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>image with id</comment>
+    <command><d:click-on><d:wpath>i_i_image_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton i_i_imageAlt, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== button (text) ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button with text</comment>
+    <command><d:click-on><d:wpath>ButtonWithText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button with name</comment>
+    <command><d:click-on><d:wpath>b_b_text_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button with id</comment>
+    <command><d:click-on><d:wpath>b_b_text_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== button (image) ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button image with alt</comment>
+    <command><d:click-on><d:wpath>b_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button image with title</comment>
+    <command><d:click-on><d:wpath>b_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button image with src</comment>
+    <command><d:click-on><d:wpath>sword2.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>==== anchor ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with name</comment>
+    <command><d:click-on><d:wpath>anchorWithName</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_name POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with id</comment>
+    <command><d:click-on><d:wpath>anchorWithId</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_id POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with text</comment>
+    <command><d:click-on><d:wpath>Anchor with text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with text part</comment>
+    <command><d:click-on><d:wpath>chor with t</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with formated text</comment>
+    <command><d:click-on><d:wpath>Anchor with formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with formated text part</comment>
+    <command><d:click-on><d:wpath>chor with formate</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with formated text / star</comment>
+    <command><d:click-on><d:wpath>*ed text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor with formated text / question mark</comment>
+    <command><d:click-on><d:wpath>Anchor * formated ?ext</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>invisible anchor</comment>
+    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable html element found for 'invisible Anchor with text'.</tst:command-and-message><tst:parameter1>invisible Anchor with text</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor / image / alt</comment>
+    <command><d:click-on><d:wpath>a_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage a_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor / image / title</comment>
+    <command><d:click-on><d:wpath>a_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage a_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor / image / filename</comment>
+    <command><d:click-on><d:wpath>sword3.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage a_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== image ====</comment>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / image / alt</comment>
+    <command><d:click-on><d:wpath>js_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage js_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / image / title</comment>
+    <command><d:click-on><d:wpath>js_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage js_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / image / filename</comment>
+    <command><d:click-on><d:wpath>sword4.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage js_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / image / id</comment>
+    <command><d:click-on><d:wpath>js_image_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage js_imageId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / text</comment>
+    <command><d:click-on><d:wpath>Table ClickableText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText clickableTextTable POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / text formated</comment>
+    <command><d:click-on><d:wpath>Table Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText clickableTextFormatedTable POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / text span</comment>
+    <command><d:click-on><d:wpath>Span ClickableText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText clickableTextSpan POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / text span</comment>
+    <command><d:click-on><d:wpath>Span Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText clickableTextFormatedSpan POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / text span by id</comment>
+    <command><d:click-on><d:wpath>spanOnClickId</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText clickableTextSpanId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>javascript / text span by id</comment>
+    <command><d:click-on><d:wpath>innerSpanId</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText clickableTextSpanIdId</d:content></d:assert-content></command>
+    <comment>test for unused parameter</comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><tst:assert-fail><tst:command-and-message>Click On, The command 'click-on' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>innerSpanId</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+</test-case>

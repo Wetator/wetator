@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<wet id="0">
+  <about id="1">
+    <product id="2">Wetator</product>
+    <version id="3">local build</version>
+    <build id="4"></build>
+    <libraries id="5">
+      <library id="6">htmlunit-2.10-SNAPSHOT.jar (2011-12-22)</library>
+      <library id="7">htmlunit-core-js-2.10-SNAPSHOT.jar (2011-08-08)</library>
+      <library id="8">cssparser-0.9.7-SNAPSHOT.jar (2011-12-11)</library>
+      <library id="9">NekoHTML 1.9.15</library>
+      <library id="10">Commons Lang 3.1</library>
+      <library id="11">Commons Codec 1.4</library>
+      <library id="12">Commons Collections 3.2.1</library>
+      <library id="13">Commons IO 2.1</library>
+      <library id="14">Jakarta Commons Logging 1.1.1</library>
+      <library id="15">HttpComponents HttpCore 4.1.2</library>
+      <library id="16">HttpComponents HttpClient 4.1.2</library>
+      <library id="17">HttpComponents HttpMime 4.1.2</library>
+      <library id="18">log4j 1.2.16</library>
+      <library id="19">automaton-1.11.8.jar</library>
+      <library id="20">POI 3.7</library>
+      <library id="21">PDF Box 1.6.0</library>
+      <library id="22">Apache FontBox 1.6.0</library>
+      <library id="23">XmlCommonsExternal 1.3.04</library>
+      <library id="24">Xerces-J 2.9.1</library>
+      <library id="25">Xalan Java 2.7.1</library>
+    </libraries>
+    <java id="26">
+      <apache.commons.httpclient.cookiespec id="27">COMPATIBILITY</apache.commons.httpclient.cookiespec>
+      <awt.toolkit id="28">sun.awt.windows.WToolkit</awt.toolkit>
+      <file.encoding id="29">Cp1252</file.encoding>
+      <file.encoding.pkg id="30">sun.io</file.encoding.pkg>
+      <file.separator id="31">\</file.separator>
+      <java.awt.graphicsenv id="32">sun.awt.Win32GraphicsEnvironment</java.awt.graphicsenv>
+      <java.awt.printerjob id="33">sun.awt.windows.WPrinterJob</java.awt.printerjob>
+      <java.class.path id="34">E:\Java\workspaces\wetator\wetator_exception\bin;E:\Java\workspaces\wetator\wetator_exception\lib\ant-1.8.2.jar;E:\Java\workspaces\wetator\wetator_exception\lib\commons-codec-1.4.jar;E:\Java\workspaces\wetator\wetator_exception\lib\commons-collections-3.2.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\commons-logging-1.1.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\hsqldb-1.8.0.10.jar;E:\Java\workspaces\wetator\wetator_exception\lib\log4j-1.2.16.jar;E:\Java\workspaces\wetator\wetator_exception\lib\sac-1.3.jar;E:\Java\workspaces\wetator\wetator_exception\lib\serializer-2.7.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\xalan-2.7.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\xercesImpl-2.9.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\xml-apis-1.3.04.jar;E:\Java\workspaces\wetator\wetator_exception\lib\servlet-api-2.5.jar;E:\Java\workspaces\wetator\wetator_exception\lib\slf4j-api-1.6.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\slf4j-log4j12-1.6.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-client-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-continuation-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-http-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-io-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-security-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-server-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-servlet-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-servlets-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-util-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-webapp-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\jetty-xml-7.2.0.v20101020.jar;E:\Java\workspaces\wetator\wetator_exception\lib\poi-3.7.jar;E:\Java\workspaces\wetator\wetator_exception\lib\automaton-1.11.8.jar;E:\Java\workspaces\wetator\wetator_exception\lib\relaxngDatatype-20020414.jar;E:\Java\workspaces\wetator\wetator_exception\lib\xsom-20081112.jar;E:\Java\workspaces\wetator\wetator_exception\lib\fontbox-1.6.0.jar;E:\Java\workspaces\wetator\wetator_exception\lib\pdfbox-1.6.0.jar;E:\Java\workspaces\wetator\wetator_exception\lib\httpclient-4.1.2.jar;E:\Java\workspaces\wetator\wetator_exception\lib\httpcore-4.1.2.jar;E:\Java\workspaces\wetator\wetator_exception\lib\httpmime-4.1.2.jar;E:\Java\workspaces\wetator\wetator_exception\lib\htmlunit-2.10-SNAPSHOT.jar;E:\Java\workspaces\wetator\wetator_exception\lib\nekohtml-1.9.15.jar;E:\Java\workspaces\wetator\wetator_exception\lib\hamcrest-core-1.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\mockito-core-1.8.5.jar;E:\Java\workspaces\wetator\wetator_exception\lib\objenesis-1.0.jar;E:\Java\workspaces\wetator\wetator_exception\lib\commons-io-2.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\htmlunit-core-js-2.10-SNAPSHOT.jar;E:\Java\workspaces\wetator\wetator_exception\lib\commons-lang3-3.1.jar;E:\Java\workspaces\wetator\wetator_exception\lib\cssparser-0.9.7-SNAPSHOT.jar;E:\Java\workspaces\wetator\wetator_exception\lib\junit-4.10.jar;/C:/Java/eclipse-indigo/configuration/org.eclipse.osgi/bundles/323/1/.cp/;/C:/Java/eclipse-indigo/configuration/org.eclipse.osgi/bundles/321/1/.cp/;/C:/Java/eclipse-indigo/configuration/org.eclipse.osgi/bundles/322/1/.cp/</java.class.path>
+      <java.class.version id="35">50.0</java.class.version>
+      <java.endorsed.dirs id="36">C:\Program Files\Java\jdk1.6.0_21\jre\lib\endorsed</java.endorsed.dirs>
+      <java.ext.dirs id="37">C:\Program Files\Java\jdk1.6.0_21\jre\lib\ext;C:\Windows\Sun\Java\lib\ext</java.ext.dirs>
+      <java.home id="38">C:\Program Files\Java\jdk1.6.0_21\jre</java.home>
+      <java.io.tmpdir id="39">C:\Users\Frank\AppData\Local\Temp\</java.io.tmpdir>
+      <java.library.path id="40">C:\Program Files\Java\jdk1.6.0_21\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\AMD APP\bin\x86_64;C:\Program Files (x86)\AMD APP\bin\x86;E:\Frank\Documents\ATI Stream\bin\x86_64;E:\Frank\Documents\ATI Stream\bin\x86;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;D:\Programme\ATI Stream\Tools\Stream KernelAnalyzer 1.6\;D:\Programme\QuickTime\QTSystem\</java.library.path>
+      <java.runtime.name id="41">Java(TM) SE Runtime Environment</java.runtime.name>
+      <java.runtime.version id="42">1.6.0_21-b07</java.runtime.version>
+      <java.specification.name id="43">Java Platform API Specification</java.specification.name>
+      <java.specification.vendor id="44">Sun Microsystems Inc.</java.specification.vendor>
+      <java.specification.version id="45">1.6</java.specification.version>
+      <java.vendor id="46">Sun Microsystems Inc.</java.vendor>
+      <java.vendor.url id="47">http://java.sun.com/</java.vendor.url>
+      <java.vendor.url.bug id="48">http://java.sun.com/cgi-bin/bugreport.cgi</java.vendor.url.bug>
+      <java.version id="49">1.6.0_21</java.version>
+      <java.vm.info id="50">mixed mode</java.vm.info>
+      <java.vm.name id="51">Java HotSpot(TM) 64-Bit Server VM</java.vm.name>
+      <java.vm.specification.name id="52">Java Virtual Machine Specification</java.vm.specification.name>
+      <java.vm.specification.vendor id="53">Sun Microsystems Inc.</java.vm.specification.vendor>
+      <java.vm.specification.version id="54">1.0</java.vm.specification.version>
+      <java.vm.vendor id="55">Sun Microsystems Inc.</java.vm.vendor>
+      <java.vm.version id="56">17.0-b17</java.vm.version>
+      <line.separator id="57">\r\n</line.separator>
+      <os.arch id="58">amd64</os.arch>
+      <os.name id="59">Windows 7</os.name>
+      <os.version id="60">6.1</os.version>
+      <path.separator id="61">;</path.separator>
+      <sun.arch.data.model id="62">64</sun.arch.data.model>
+      <sun.boot.class.path id="63">C:\Program Files\Java\jdk1.6.0_21\jre\lib\resources.jar;C:\Program Files\Java\jdk1.6.0_21\jre\lib\rt.jar;C:\Program Files\Java\jdk1.6.0_21\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.6.0_21\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.6.0_21\jre\lib\jce.jar;C:\Program Files\Java\jdk1.6.0_21\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.6.0_21\jre\classes</sun.boot.class.path>
+      <sun.boot.library.path id="64">C:\Program Files\Java\jdk1.6.0_21\jre\bin</sun.boot.library.path>
+      <sun.cpu.endian id="65">little</sun.cpu.endian>
+      <sun.cpu.isalist id="66">amd64</sun.cpu.isalist>
+      <sun.desktop id="67">windows</sun.desktop>
+      <sun.io.unicode.encoding id="68">UnicodeLittle</sun.io.unicode.encoding>
+      <sun.java.launcher id="69">SUN_STANDARD</sun.java.launcher>
+      <sun.jnu.encoding id="70">Cp1252</sun.jnu.encoding>
+      <sun.management.compiler id="71">HotSpot 64-Bit Server Compiler</sun.management.compiler>
+      <sun.os.patch.level id="72">Service Pack 1</sun.os.patch.level>
+      <user.country id="73">DE</user.country>
+      <user.dir id="74">E:\Java\workspaces\wetator\wetator_exception</user.dir>
+      <user.home id="75">E:\Frank</user.home>
+      <user.language id="76">de</user.language>
+      <user.name id="77">Frank</user.name>
+      <user.timezone id="78">Europe/Berlin</user.timezone>
+      <user.variant id="79"></user.variant>
+    </java>
+  </about>
+  <configuration id="80">
+    <property id="81" key="wetator.baseUrl" value="http://localhost:4711/" />
+    <property id="82" key="wetator.browser" value="Firefox3.6" />
+    <property id="83" key="wetator.acceptLanguage" value="en-us,en;q=0.8,de-de;q=0.5,de;q=0.3" />
+    <property id="84" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator_exception\.\.\logs" />
+    <property id="85" key="wetator.xslTemplates" value="E:\Java\workspaces\wetator\wetator_exception\.\.\xsl\SimpleHtml.xsl" />
+    <property id="86" key="wetator.xslTemplates" value="E:\Java\workspaces\wetator\wetator_exception\.\.\xsl\run_report.xsl" />
+    <property id="87" key="wetator.commandSets" value="org.wetator.commandset.DefaultCommandSet" />
+    <property id="88" key="wetator.commandSets" value="org.wetator.commandset.IncubatorCommandSet" />
+    <property id="89" key="wetator.commandSets" value="org.wetator.commandset.SqlCommandSet" />
+    <property id="90" key="wetator.commandSets" value="org.wetator.commandset.TestCommandSet" />
+    <property id="91" key="wetator.scripters" value="org.wetator.scripter.XMLScripter" />
+    <property id="92" key="wetator.scripters" value="org.wetator.scripter.LegacyXMLScripter" />
+    <property id="93" key="wetator.scripters" value="org.wetator.scripter.ExcelScripter" />
+    <property id="94" key="wetator.proxyHost" />
+    <property id="95" key="wetator.proxyPort" value="0" />
+    <property id="96" key="wetator.proxyUser" />
+    <property id="97" key="wetator.basicAuthUser" value="wetator" />
+    <variables id="98">
+      <variable id="99" name="wet-secret" value="****"/>
+      <variable id="100" name="wet" value="Wetator"/>
+      <variable id="101" name="app_password" value="****"/>
+      <variable id="102" name="app_user" value="dobby"/>
+    </variables>
+    <commandSet id="103" class="class org.wetator.commandset.DefaultCommandSet">
+    </commandSet><commandSet id="104" class="class org.wetator.commandset.IncubatorCommandSet">
+    </commandSet><commandSet id="105" class="class org.wetator.commandset.SqlCommandSet">
+      <log id="106">
+        <level id="107">INFO</level>
+        <message id="108">DB wetdb (default): jdbc:hsqldb:mem:wetdb</message>
+      </log>
+      <log id="109">
+        <level id="110">INFO</level>
+        <message id="111">DB secondDb: jdbc:hsqldb:mem:second_db</message>
+      </log>
+    </commandSet><commandSet id="112" class="class org.wetator.commandset.TestCommandSet">
+    </commandSet></configuration>
+  <startTime id="113">23.01.2012 22:55:36</startTime>
+  <testFile id="114">E:\Java\workspaces\wetator\wetator_exception\test\xml\assert_content.wet</testFile>
+  <testcase id="115" name="assert_content.wet">
+    <testrun id="116" browser="Firefox3.6">
+      <testfile id="117" file="E:\Java\workspaces\wetator\wetator_exception\test\xml\assert_content.wet">
+        <command id="118" name="open-url" line="1">
+          <param0 id="119">assert_content.html</param0>
+          <param1 id="120"></param1>
+          <param2 id="121"></param2>
+          <log id="122">
+            <level id="123">INFO</level>
+            <message id="124">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="125">responses_current/response_100000.html</response>
+          <executionTime id="126">271</executionTime>
+        </command>
+        <command id="127" name="assert-content" line="2">
+          <param0 id="128">Wetator / Assert Content</param0>
+          <param1 id="129"></param1>
+          <param2 id="130"></param2>
+          <executionTime id="131">227</executionTime>
+        </command>
+        <command id="132" name="" line="3" isComment="true">
+          <param0 id="133">now start the content tests</param0>
+          <param1 id="134"></param1>
+          <param2 id="135"></param2>
+          <executionTime id="136">0</executionTime>
+        </command>
+        <command id="137" name="assert-content" line="4">
+          <param0 id="138">Wetator / Assert Content</param0>
+          <param1 id="139"></param1>
+          <param2 id="140"></param2>
+          <executionTime id="141">16</executionTime>
+        </command>
+        <command id="142" name="assert-content" line="5">
+          <param0 id="143">Pferde fressen keinen Gurkensalat.</param0>
+          <param1 id="144"></param1>
+          <param2 id="145"></param2>
+          <executionTime id="146">16</executionTime>
+        </command>
+        <command id="147" name="assert-content" line="6">
+          <param0 id="148">This text is styled.</param0>
+          <param1 id="149"></param1>
+          <param2 id="150"></param2>
+          <executionTime id="151">13</executionTime>
+        </command>
+        <command id="152" name="assert-content" line="7">
+          <param0 id="153">Column 1 Column 2</param0>
+          <param1 id="154"></param1>
+          <param2 id="155"></param2>
+          <executionTime id="156">16</executionTime>
+        </command>
+        <command id="157" name="assert-content" line="8">
+          <param0 id="158">sch&#246;ne H&#228;user</param0>
+          <param1 id="159"></param1>
+          <param2 id="160"></param2>
+          <executionTime id="161">6</executionTime>
+        </command>
+        <command id="162" name="assert-content" line="9">
+          <param0 id="163">&lt;h:outputText&gt;</param0>
+          <param1 id="164"></param1>
+          <param2 id="165"></param2>
+          <executionTime id="166">6</executionTime>
+        </command>
+        <command id="167" name="" line="10" isComment="true">
+          <param0 id="168">now search for parts of the text</param0>
+          <param1 id="169"></param1>
+          <param2 id="170"></param2>
+          <executionTime id="171">0</executionTime>
+        </command>
+        <command id="172" name="assert-content" line="11">
+          <param0 id="173">fressen kei</param0>
+          <param1 id="174"></param1>
+          <param2 id="175"></param2>
+          <executionTime id="176">7</executionTime>
+        </command>
+        <command id="177" name="assert-content" line="12">
+          <param0 id="178">is text is sty</param0>
+          <param1 id="179"></param1>
+          <param2 id="180"></param2>
+          <executionTime id="181">6</executionTime>
+        </command>
+        <command id="182" name="assert-content" line="13">
+          <param0 id="183">mn 1</param0>
+          <param1 id="184"></param1>
+          <param2 id="185"></param2>
+          <executionTime id="186">7</executionTime>
+        </command>
+        <command id="187" name="assert-content" line="14">
+          <param0 id="188">Line1 sch&#246;n</param0>
+          <param1 id="189"></param1>
+          <param2 id="190"></param2>
+          <executionTime id="191">5</executionTime>
+        </command>
+        <command id="192" name="assert-content" line="15">
+          <param0 id="193">putText&gt;</param0>
+          <param1 id="194"></param1>
+          <param2 id="195"></param2>
+          <executionTime id="196">4</executionTime>
+        </command>
+        <command id="197" name="" line="16" isComment="true">
+          <param0 id="198">some wildcards</param0>
+          <param1 id="199"></param1>
+          <param2 id="200"></param2>
+          <executionTime id="201">0</executionTime>
+        </command>
+        <command id="202" name="assert-content" line="17">
+          <param0 id="203">W?tator / Assert Content</param0>
+          <param1 id="204"></param1>
+          <param2 id="205"></param2>
+          <executionTime id="206">34</executionTime>
+        </command>
+        <command id="207" name="assert-content" line="18">
+          <param0 id="208">Pferde*Gurkensalat.</param0>
+          <param1 id="209"></param1>
+          <param2 id="210"></param2>
+          <executionTime id="211">35</executionTime>
+        </command>
+        <command id="212" name="assert-content" line="19">
+          <param0 id="213">This tex*ed.</param0>
+          <param1 id="214"></param1>
+          <param2 id="215"></param2>
+          <executionTime id="216">10</executionTime>
+        </command>
+        <command id="217" name="assert-content" line="20">
+          <param0 id="218">Column 1 Column 2****</param0>
+          <param1 id="219"></param1>
+          <param2 id="220"></param2>
+          <executionTime id="221">12</executionTime>
+        </command>
+        <command id="222" name="assert-content" line="21">
+          <param0 id="223">****sch&#246;ne H&#228;user</param0>
+          <param1 id="224"></param1>
+          <param2 id="225"></param2>
+          <executionTime id="226">18</executionTime>
+        </command>
+        <command id="227" name="assert-content" line="22">
+          <param0 id="228">&lt;h:outp*utText&gt;</param0>
+          <param1 id="229"></param1>
+          <param2 id="230"></param2>
+          <executionTime id="231">12</executionTime>
+        </command>
+        <command id="232" name="" line="23" isComment="true">
+          <param0 id="233">search many</param0>
+          <param1 id="234"></param1>
+          <param2 id="235"></param2>
+          <executionTime id="236">0</executionTime>
+        </command>
+        <command id="237" name="assert-content" line="24">
+          <param0 id="238">Wetator *Plain*Content*Special</param0>
+          <param1 id="239"></param1>
+          <param2 id="240"></param2>
+          <executionTime id="241">23</executionTime>
+        </command>
+        <command id="242" name="" line="25" isComment="true">
+          <param0 id="243">now searching with more parts</param0>
+          <param1 id="244"></param1>
+          <param2 id="245"></param2>
+          <executionTime id="246">0</executionTime>
+        </command>
+        <command id="247" name="assert-content" line="26">
+          <param0 id="248">Pferde,fressen,keinen,Gurkensalat</param0>
+          <param1 id="249"></param1>
+          <param2 id="250"></param2>
+          <executionTime id="251">2</executionTime>
+        </command>
+        <command id="252" name="assert-content" line="27">
+          <param0 id="253">Pferde, fressen, keinen, Gurkensalat</param0>
+          <param1 id="254"></param1>
+          <param2 id="255"></param2>
+          <executionTime id="256">2</executionTime>
+        </command>
+        <command id="257" name="assert-fail" line="28">
+          <param0 id="258">Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, keinen\, [fressen]\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 sch&#246;ne H&#228;user &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.rtf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').</param0>
+          <param1 id="259">Pferde,keinen,fressen,Gurkensalat</param1>
+          <param2 id="260"></param2>
+          <response id="261">responses_current/response_100001.html</response>
+          <executionTime id="262">8</executionTime>
+        </command>
+        <command id="263" name="assert-fail" line="29">
+          <param0 id="264">Assert Content, Expected content(s) {not found} or [in wrong order]: 'Pferde\, fressen\, {meinen}\, Gurkensalat' (content: 'Wetator Wetator / Assert Content Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content This text is styled. Content in Table Column 1 Column 2 Special Content in Table Line1 sch&#246;ne H&#228;user &lt;h:outputText&gt; Image to search in page source Test image alt text Select to check for the options First Option Second Option Another Option Various Content types download.txt wet_test.pdf wet_test.rtf wet_test.xml wet_test.xls unknown_content_type.bin sword4.png').</param0>
+          <param1 id="265">Pferde, fressen, meinen, Gurkensalat</param1>
+          <param2 id="266"></param2>
+          <response id="267">responses_current/response_100002.html</response>
+          <executionTime id="268">7</executionTime>
+        </command>
+        <command id="269" name="" line="30" isComment="true">
+          <param0 id="270">options of a select</param0>
+          <param1 id="271"></param1>
+          <param2 id="272"></param2>
+          <executionTime id="273">0</executionTime>
+        </command>
+        <command id="274" name="assert-content" line="31">
+          <param0 id="275">Select to check for the options, First Option, Second Option, Another Option, Various Content types</param0>
+          <param1 id="276"></param1>
+          <param2 id="277"></param2>
+          <executionTime id="278">1</executionTime>
+        </command>
+        <command id="279" name="" line="32" isComment="true">
+          <param0 id="280">error for required first parameter</param0>
+          <param1 id="281"></param1>
+          <param2 id="282"></param2>
+          <executionTime id="283">1</executionTime>
+        </command>
+        <command id="284" name="assert-fail" line="33">
+          <param0 id="285">Assert Content, The command 'assert-content' requires a first parameter.</param0>
+          <param1 id="286"></param1>
+          <param2 id="287"></param2>
+          <executionTime id="288">0</executionTime>
+        </command>
+        <command id="289" name="" line="34" isComment="true">
+          <param0 id="290">error for wrong second parameter</param0>
+          <param1 id="291"></param1>
+          <param2 id="292"></param2>
+          <executionTime id="293">0</executionTime>
+        </command>
+        <command id="294" name="assert-fail" line="35">
+          <param0 id="295">Assert Content, The command 'assert-content' expects an integer parameter value 'unused' in column 2.</param0>
+          <param1 id="296">Pferde,fressen,keinen,Gurkensalat</param1>
+          <param2 id="297">unused</param2>
+          <error id="298">
+            <message id="299">Wrong error message: expected: &lt;The command 'assert-content' expects an integer parameter value 'unused' in column 2.&gt; but was: &lt;The command 'assert-content' expects an integer parameter value 'unused' in parameter 2.&gt;</message>
+          </error>
+          <executionTime id="300">1</executionTime>
+        </command>
+        <command id="301" name="" line="36" isComment="true">
+          <param0 id="302"></param0>
+          <param1 id="303"></param1>
+          <param2 id="304"></param2>
+          <executionTime id="305">0</executionTime>
+        </command>
+        <command id="306" name="" line="37" isComment="true">
+          <param0 id="307">content type text</param0>
+          <param1 id="308"></param1>
+          <param2 id="309"></param2>
+          <executionTime id="310">0</executionTime>
+        </command>
+        <command id="311" name="open-url" line="38">
+          <param0 id="312">assert_content.html</param0>
+          <param1 id="313"></param1>
+          <param2 id="314"></param2>
+          <log id="315">
+            <level id="316">INFO</level>
+            <message id="317">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="318">responses_current/response_100003.html</response>
+          <executionTime id="319">31</executionTime>
+        </command>
+        <command id="320" name="click-on" line="39">
+          <param0 id="321">download.txt</param0>
+          <param1 id="322"></param1>
+          <param2 id="323"></param2>
+          <log id="324">
+            <level id="325">INFO</level>
+            <message id="326">Found control '[HtmlAnchor 'download.txt'] found by: BY_LABEL_TEXT coverage: 0 distance: 366 start: 366'.</message>
+          </log>
+          <response id="327">responses_current/response_100004.txt</response>
+          <executionTime id="328">57</executionTime>
+        </command>
+        <command id="329" name="assert-content" line="40">
+          <param0 id="330">simple, text, file, WeT</param0>
+          <param1 id="331"></param1>
+          <param2 id="332"></param2>
+          <executionTime id="333">0</executionTime>
+        </command>
+        <command id="334" name="" line="41" isComment="true">
+          <param0 id="335">content type pdf</param0>
+          <param1 id="336"></param1>
+          <param2 id="337"></param2>
+          <executionTime id="338">0</executionTime>
+        </command>
+        <command id="339" name="open-url" line="42">
+          <param0 id="340">assert_content.html</param0>
+          <param1 id="341"></param1>
+          <param2 id="342"></param2>
+          <log id="343">
+            <level id="344">INFO</level>
+            <message id="345">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="346">responses_current/response_100005.html</response>
+          <executionTime id="347">37</executionTime>
+        </command>
+        <command id="348" name="click-on" line="43">
+          <param0 id="349">wet_test.pdf</param0>
+          <param1 id="350"></param1>
+          <param2 id="351"></param2>
+          <log id="352">
+            <level id="353">INFO</level>
+            <message id="354">Found control '[HtmlAnchor 'wet_test.pdf'] found by: BY_LABEL_TEXT coverage: 0 distance: 379 start: 379'.</message>
+          </log>
+          <response id="355">responses_current/response_100006.pdf</response>
+          <executionTime id="356">54</executionTime>
+        </command>
+        <command id="357" name="assert-content" line="44">
+          <param0 id="358">simple, PDF, file, WeT</param0>
+          <param1 id="359"></param1>
+          <param2 id="360"></param2>
+          <executionTime id="361">621</executionTime>
+        </command>
+        <command id="362" name="" line="45" isComment="true">
+          <param0 id="363">content type rtf</param0>
+          <param1 id="364"></param1>
+          <param2 id="365"></param2>
+          <executionTime id="366">0</executionTime>
+        </command>
+        <command id="367" name="open-url" line="46">
+          <param0 id="368">assert_content.html</param0>
+          <param1 id="369"></param1>
+          <param2 id="370"></param2>
+          <log id="371">
+            <level id="372">INFO</level>
+            <message id="373">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="374">responses_current/response_100007.html</response>
+          <executionTime id="375">18</executionTime>
+        </command>
+        <command id="376" name="click-on" line="47">
+          <param0 id="377">wet_test.rtf</param0>
+          <param1 id="378"></param1>
+          <param2 id="379"></param2>
+          <log id="380">
+            <level id="381">INFO</level>
+            <message id="382">Found control '[HtmlAnchor 'wet_test.rtf'] found by: BY_LABEL_TEXT coverage: 0 distance: 392 start: 392'.</message>
+          </log>
+          <response id="383">responses_current/response_100008.rtf</response>
+          <executionTime id="384">21</executionTime>
+        </command>
+        <command id="385" name="assert-content" line="48">
+          <param0 id="386">Wetator is great.</param0>
+          <param1 id="387"></param1>
+          <param2 id="388"></param2>
+          <executionTime id="389">36</executionTime>
+        </command>
+        <command id="390" name="" line="49" isComment="true">
+          <param0 id="391">content type xml</param0>
+          <param1 id="392"></param1>
+          <param2 id="393"></param2>
+          <executionTime id="394">0</executionTime>
+        </command>
+        <command id="395" name="open-url" line="50">
+          <param0 id="396">assert_content.html</param0>
+          <param1 id="397"></param1>
+          <param2 id="398"></param2>
+          <log id="399">
+            <level id="400">INFO</level>
+            <message id="401">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="402">responses_current/response_100009.html</response>
+          <executionTime id="403">35</executionTime>
+        </command>
+        <command id="404" name="click-on" line="51">
+          <param0 id="405">wet_test.xml</param0>
+          <param1 id="406"></param1>
+          <param2 id="407"></param2>
+          <log id="408">
+            <level id="409">INFO</level>
+            <message id="410">Found control '[HtmlAnchor 'wet_test.xml'] found by: BY_LABEL_TEXT coverage: 0 distance: 405 start: 405'.</message>
+          </log>
+          <response id="411">responses_current/response_100010.bin</response>
+          <executionTime id="412">21</executionTime>
+        </command>
+        <command id="413" name="assert-content" line="52">
+          <param0 id="414">&lt;?xml version="1.0"?&gt; &lt;wetator&gt; &lt;Test&gt;Simple xml content&lt;/Test&gt; &lt;/wetator&gt;</param0>
+          <param1 id="415"></param1>
+          <param2 id="416"></param2>
+          <executionTime id="417">9</executionTime>
+        </command>
+        <command id="418" name="" line="53" isComment="true">
+          <param0 id="419">content type xls</param0>
+          <param1 id="420"></param1>
+          <param2 id="421"></param2>
+          <executionTime id="422">0</executionTime>
+        </command>
+        <command id="423" name="open-url" line="54">
+          <param0 id="424">assert_content.html</param0>
+          <param1 id="425"></param1>
+          <param2 id="426"></param2>
+          <log id="427">
+            <level id="428">INFO</level>
+            <message id="429">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="430">responses_current/response_100011.html</response>
+          <executionTime id="431">17</executionTime>
+        </command>
+        <command id="432" name="click-on" line="55">
+          <param0 id="433">wet_test.xls</param0>
+          <param1 id="434"></param1>
+          <param2 id="435"></param2>
+          <log id="436">
+            <level id="437">INFO</level>
+            <message id="438">Found control '[HtmlAnchor 'wet_test.xls'] found by: BY_LABEL_TEXT coverage: 0 distance: 418 start: 418'.</message>
+          </log>
+          <response id="439">responses_current/response_100012.xls</response>
+          <executionTime id="440">15</executionTime>
+        </command>
+        <command id="441" name="assert-content" line="56">
+          <param0 id="442">[Tab1], Wetator Page 1, [Tab2], Wetator Test Page2 Web application testing is fun</param0>
+          <param1 id="443"></param1>
+          <param2 id="444"></param2>
+          <executionTime id="445">249</executionTime>
+        </command>
+        <command id="446" name="" line="57" isComment="true">
+          <param0 id="447">content type not supported</param0>
+          <param1 id="448"></param1>
+          <param2 id="449"></param2>
+          <executionTime id="450">0</executionTime>
+        </command>
+        <command id="451" name="open-url" line="58">
+          <param0 id="452">assert_content.html</param0>
+          <param1 id="453"></param1>
+          <param2 id="454"></param2>
+          <log id="455">
+            <level id="456">INFO</level>
+            <message id="457">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="458">responses_current/response_100013.html</response>
+          <executionTime id="459">15</executionTime>
+        </command>
+        <command id="460" name="click-on" line="59">
+          <param0 id="461">sword4.png</param0>
+          <param1 id="462"></param1>
+          <param2 id="463"></param2>
+          <log id="464">
+            <level id="465">INFO</level>
+            <message id="466">Found control '[HtmlAnchor 'sword4.png'] found by: BY_LABEL_TEXT coverage: 0 distance: 456 start: 456'.</message>
+          </log>
+          <response id="467">responses_current/response_100014.png</response>
+          <executionTime id="468">20</executionTime>
+        </command>
+        <command id="469" name="assert-fail" line="60">
+          <param0 id="470">Assert Content, Unsupported page type (image/png).</param0>
+          <param1 id="471">sword</param1>
+          <param2 id="472"></param2>
+          <response id="473">responses_current/response_100015.png</response>
+          <executionTime id="474">1</executionTime>
+        </command>
+        <command id="475" name="" line="61" isComment="true">
+          <param0 id="476">unknown content type not supported</param0>
+          <param1 id="477"></param1>
+          <param2 id="478"></param2>
+          <executionTime id="479">0</executionTime>
+        </command>
+        <command id="480" name="open-url" line="62">
+          <param0 id="481">assert_content.html</param0>
+          <param1 id="482"></param1>
+          <param2 id="483"></param2>
+          <log id="484">
+            <level id="485">INFO</level>
+            <message id="486">Open url 'http://localhost:4711/assert_content.html'.</message>
+          </log>
+          <response id="487">responses_current/response_100016.html</response>
+          <executionTime id="488">17</executionTime>
+        </command>
+        <command id="489" name="click-on" line="63">
+          <param0 id="490">unknown_content_type.bin</param0>
+          <param1 id="491"></param1>
+          <param2 id="492"></param2>
+          <log id="493">
+            <level id="494">INFO</level>
+            <message id="495">Found control '[HtmlAnchor 'unknown_content_type.bin'] found by: BY_LABEL_TEXT coverage: 0 distance: 431 start: 431'.</message>
+          </log>
+          <response id="496">responses_current/response_100017.bin</response>
+          <executionTime id="497">17</executionTime>
+        </command>
+        <command id="498" name="assert-fail" line="64">
+          <param0 id="499">Assert Content, Unsupported page type (application/octet-stream).</param0>
+          <param1 id="500">unknown_content_type.bin</param1>
+          <param2 id="501"></param2>
+          <response id="502">responses_current/response_100018.bin</response>
+          <executionTime id="503">1</executionTime>
+        </command>
+        <command id="504" name="" line="65" isComment="true">
+          <param0 id="505"></param0>
+          <param1 id="506"></param1>
+          <param2 id="507"></param2>
+          <executionTime id="508">0</executionTime>
+        </command>
+        <command id="509" name="" line="66" isComment="true">
+          <param0 id="510"></param0>
+          <param1 id="511"></param1>
+          <param2 id="512"></param2>
+          <executionTime id="513">0</executionTime>
+        </command>
+        <command id="514" name="" line="67" isComment="true">
+          <param0 id="515">redirect without timeout</param0>
+          <param1 id="516"></param1>
+          <param2 id="517"></param2>
+          <executionTime id="518">0</executionTime>
+        </command>
+        <command id="519" name="open-url" line="68">
+          <param0 id="520">redirect_js.php?target=assert_content.html</param0>
+          <param1 id="521"></param1>
+          <param2 id="522"></param2>
+          <log id="523">
+            <level id="524">INFO</level>
+            <message id="525">Open url 'http://localhost:4711/redirect_js.php?target=assert_content.html'.</message>
+          </log>
+          <response id="526">responses_current/response_100019.html</response>
+          <executionTime id="527">579</executionTime>
+        </command>
+        <command id="528" name="assert-content" line="69">
+          <param0 id="529">Wetator / Assert Content</param0>
+          <param1 id="530"></param1>
+          <param2 id="531"></param2>
+          <executionTime id="532">6</executionTime>
+        </command>
+        <command id="533" name="" line="70" isComment="true">
+          <param0 id="534">redirect with simple timeout</param0>
+          <param1 id="535"></param1>
+          <param2 id="536"></param2>
+          <executionTime id="537">0</executionTime>
+        </command>
+        <command id="538" name="open-url" line="71">
+          <param0 id="539">redirect_js.php?target=assert_content.html&amp;wait=3000</param0>
+          <param1 id="540"></param1>
+          <param2 id="541"></param2>
+          <log id="542">
+            <level id="543">INFO</level>
+            <message id="544">Open url 'http://localhost:4711/redirect_js.php?target=assert_content.html&amp;wait=3000'.</message>
+          </log>
+          <response id="545">responses_current/response_100020.html</response>
+          <executionTime id="546">1010</executionTime>
+        </command>
+        <command id="547" name="assert-content" line="72">
+          <param0 id="548">Wetator / Assert Content</param0>
+          <param1 id="549">4.0</param1>
+          <param2 id="550"></param2>
+          <response id="551">responses_current/response_100021.html</response>
+          <executionTime id="552">2035</executionTime>
+        </command>
+        <command id="553" name="" line="73" isComment="true">
+          <param0 id="554">two redirects</param0>
+          <param1 id="555"></param1>
+          <param2 id="556"></param2>
+          <executionTime id="557">0</executionTime>
+        </command>
+        <command id="558" name="open-url" line="74">
+          <param0 id="559">redirect_js.php?target=redirect_js.php&amp;wait=3000</param0>
+          <param1 id="560"></param1>
+          <param2 id="561"></param2>
+          <log id="562">
+            <level id="563">INFO</level>
+            <message id="564">Open url 'http://localhost:4711/redirect_js.php?target=redirect_js.php&amp;wait=3000'.</message>
+          </log>
+          <response id="565">responses_current/response_100022.html</response>
+          <executionTime id="566">1019</executionTime>
+        </command>
+        <command id="567" name="assert-content" line="75">
+          <param0 id="568">About Wetator is a small, flexible and extendable test automation tool</param0>
+          <param1 id="569">5.0</param1>
+          <param2 id="570"></param2>
+          <response id="571">responses_current/response_100023.html</response>
+          <executionTime id="572">2583</executionTime>
+        </command>
+        <command id="573" name="" line="76" isComment="true">
+          <param0 id="574">redirect to pdf</param0>
+          <param1 id="575"></param1>
+          <param2 id="576"></param2>
+          <executionTime id="577">0</executionTime>
+        </command>
+        <command id="578" name="open-url" line="77">
+          <param0 id="579">redirect_js.php?target=download/wet_test.pdf&amp;wait=3000</param0>
+          <param1 id="580"></param1>
+          <param2 id="581"></param2>
+          <log id="582">
+            <level id="583">INFO</level>
+            <message id="584">Open url 'http://localhost:4711/redirect_js.php?target=download/wet_test.pdf&amp;wait=3000'.</message>
+          </log>
+          <response id="585">responses_current/response_100024.html</response>
+          <executionTime id="586">1007</executionTime>
+        </command>
+        <command id="587" name="assert-content" line="78">
+          <param0 id="588">simple, PDF, file, WeT</param0>
+          <param1 id="589">4.0</param1>
+          <param2 id="590"></param2>
+          <response id="591">responses_current/response_100025.pdf</response>
+          <executionTime id="592">2019</executionTime>
+        </command>
+        <command id="593" name="" line="79" isComment="true">
+          <param0 id="594"></param0>
+          <param1 id="595"></param1>
+          <param2 id="596"></param2>
+          <executionTime id="597">0</executionTime>
+        </command>
+        <command id="598" name="" line="80" isComment="true">
+          <param0 id="599"></param0>
+          <param1 id="600"></param1>
+          <param2 id="601"></param2>
+          <executionTime id="602">0</executionTime>
+        </command>
+        <command id="603" name="" line="81" isComment="true">
+          <param0 id="604">redirect with a long timeout and page check inbetween</param0>
+          <param1 id="605"></param1>
+          <param2 id="606"></param2>
+          <executionTime id="607">0</executionTime>
+        </command>
+        <command id="608" name="open-url" line="82">
+          <param0 id="609">redirect_js.php?target=assert_content.html&amp;wait=2000</param0>
+          <param1 id="610"></param1>
+          <param2 id="611"></param2>
+          <log id="612">
+            <level id="613">INFO</level>
+            <message id="614">Open url 'http://localhost:4711/redirect_js.php?target=assert_content.html&amp;wait=2000'.</message>
+          </log>
+          <response id="615">responses_current/response_100026.html</response>
+          <executionTime id="616">1008</executionTime>
+        </command>
+        <command id="617" name="assert-content" line="83">
+          <param0 id="618">Wetator / Redirect via JavaScript</param0>
+          <param1 id="619"></param1>
+          <param2 id="620"></param2>
+          <executionTime id="621">0</executionTime>
+        </command>
+        <command id="622" name="assert-content" line="84">
+          <param0 id="623">Wetator / Assert Content</param0>
+          <param1 id="624">4</param1>
+          <param2 id="625"></param2>
+          <response id="626">responses_current/response_100027.html</response>
+          <executionTime id="627">1027</executionTime>
+        </command>
+        <command id="628" name="" line="85" isComment="true">
+          <param0 id="629"></param0>
+          <param1 id="630"></param1>
+          <param2 id="631"></param2>
+          <executionTime id="632">0</executionTime>
+        </command>
+        <command id="633" name="" line="86" isComment="true">
+          <param0 id="634"></param0>
+          <param1 id="635"></param1>
+          <param2 id="636"></param2>
+          <executionTime id="637">0</executionTime>
+        </command>
+        <command id="638" name="" line="87" isComment="true">
+          <param0 id="639">Frameset</param0>
+          <param1 id="640"></param1>
+          <param2 id="641"></param2>
+          <executionTime id="642">0</executionTime>
+        </command>
+        <command id="643" name="open-url" line="88">
+          <param0 id="644">assert_content_frameset.html</param0>
+          <param1 id="645"></param1>
+          <param2 id="646"></param2>
+          <log id="647">
+            <level id="648">INFO</level>
+            <message id="649">Open url 'http://localhost:4711/assert_content_frameset.html'.</message>
+          </log>
+          <response id="650">responses_current/response_100028.html</response>
+          <executionTime id="651">81</executionTime>
+        </command>
+        <command id="652" name="assert-content" line="89">
+          <param0 id="653">Wetator / Frameset Content1 My Frameset Content 1 Wetator / Frameset Content2 My Frameset Content 2 Wetator / Frameset Content3 My Frameset Content 3 Wetator / Frameset Content4 My Frameset Content 4 Wetator / Frameset Content5 My Frameset Content 5 Wetator / Frameset Content6 My Frameset Content 6</param0>
+          <param1 id="654"></param1>
+          <param2 id="655"></param2>
+          <executionTime id="656">7</executionTime>
+        </command>
+        <command id="657" name="" line="90" isComment="true">
+          <param0 id="658"></param0>
+          <param1 id="659"></param1>
+          <param2 id="660"></param2>
+          <executionTime id="661">0</executionTime>
+        </command>
+        <command id="662" name="open-url" line="91">
+          <param0 id="663">assert_content_frameset2.html</param0>
+          <param1 id="664"></param1>
+          <param2 id="665"></param2>
+          <log id="666">
+            <level id="667">INFO</level>
+            <message id="668">Open url 'http://localhost:4711/assert_content_frameset2.html'.</message>
+          </log>
+          <response id="669">responses_current/response_100035.html</response>
+          <executionTime id="670">56</executionTime>
+        </command>
+        <command id="671" name="assert-content" line="92">
+          <param0 id="672">Wetator / Frameset Content1 My Frameset Content 1 Wetator / Frameset Content2 My Frameset Content 2 Wetator / Frameset Content3 My Frameset Content 3 Wetator / Frameset Content4 My Frameset Content 4 Wetator / Frameset Content5 My Frameset Content 5 Wetator / Frameset Content6 My Frameset Content 6</param0>
+          <param1 id="673"></param1>
+          <param2 id="674"></param2>
+          <executionTime id="675">8</executionTime>
+        </command>
+      </testfile>
+    </testrun>
+  </testcase>
+  <executionTime id="676">15355</executionTime>
+</wet>

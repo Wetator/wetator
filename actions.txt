@@ -1,0 +1,107 @@
+x = control the action should be executed on
+h(x) = htmlelement backing the control x
+y = another control
+h(y) = htmlelement backing the control y
+
+MouseOver x:
+if the mouse is over h(x), we move the mouse out of h(x) including a mouse move on h(x).
+if the mouse is over h(y), we move the mouse out of h(y) including a mouse move on h(y).
+we move the mouse on the document.
+we move the mouse over h(x) including a mouse move on h(x).
+
+TODO this flow assumes that executing MouseOver twice for the same control moves the mouse
+	out of the control and back over again. i think this is the expected way e.g. to
+	display a tooltip again.
+
+x.MouseOver {
+	if (mouse is over h(x)) {
+		h(x).mouseOut {
+			h(x).mouseMove
+		}
+	}
+	if (mouse is over h(y)) {
+		h(y).mouseOut {
+			h(y).mouseMove
+		}
+	}
+	document.mouseMove
+	h(x).mouseOver {
+		h(x).mouseMove
+	}
+}
+
+ClickOn x:
+if the mouse is not over h(x), we move the mouse over h(x) (see MouseOver x).
+we click on h(x).
+this includes a focusing of h(x), if the focus is not on h(x).
+
+TODO do we allow clicking on selectables? what happens then? does it depend on the element?
+
+x.ClickOn {
+	if (mouse is not over h(x)) {
+		x.MouseOver
+	}
+	h(x).click {
+		h(x).focus
+	}
+}
+
+Select x:
+if the mouse is not over h(x), we move the mouse over h(x) (see MouseOver x).
+we click on h(x).
+this includes a focusing of h(x), if the focus is not on h(x).
+
+TODO only click on h(x) if it is not already selected? this is ok for checkboxes (as they are deselected by this)
+	but for radiobuttons and selects/options it is valid to select them twice (as they are not deselected by this).
+	this just triggers all javascript events but leaves the element selected.
+
+x.Select {
+	if (mouse is not over h(x)) {
+		x.MouseOver
+	}
+	h(x).click {
+		h(x).focus
+	}
+}
+
+Deselect x:
+if the mouse is not over h(x), we move the mouse over h(x) (see MouseOver x).
+if h(x) is selected we click on h(x).
+this includes a focusing of h(x), if the focus is not on h(x).
+
+TODO only click on h(x) if it is not already deselected? this is ok for checkboxes (as they are selected by this)
+	but for selects/options it is a bit more difficult. it is only possible to deselect options of multiple selects.
+	but if you deselect an option twice for them, it is selected again. So it is the same as for checkboxes here
+	and we should just click on h(x) if it is not already deselected for all deselectables. what about a warning
+	in the log and the result here?
+
+x.Deselect {
+	if (mouse is not over h(x)) {
+		x.MouseOver
+	}
+	if (h(x) is selected) {
+		h(x).click {
+			h(x).focus
+		}
+	}
+}
+
+Set x:
+if the focus is not on h(x), we click on h(x) (see ClickOn x).
+if the mouse is not over h(x), we move the mouse over h(x) (see MouseOver x).
+we select the text in h(x).
+we type the text in h(x).
+
+TODO the current implementation selects the current text before typing. this is not correct but i think is the
+expected behavior as the action should not append but replace.
+
+x.Set {
+	if (focus is not on h(x)) {
+		x.Click
+	}
+	if (mouse is not over h(x)) {
+		x.MouseOver
+	}
+	h(x).select
+	h(x).type
+}
