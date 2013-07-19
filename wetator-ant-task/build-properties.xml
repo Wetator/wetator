@@ -3,8 +3,8 @@
 
   <application>
     <name>WetatorAntTask</name>
-    <version>0_9_12</version>
-    <pubversion>0.9.12-SNAPSHOT</pubversion>
+    <version>0_9_13</version>
+    <pubversion>0.9.13-SNAPSHOT</pubversion>
     <jar-basename>wetator-ant</jar-basename>
     <vendor>wetator.org</vendor>
   </application>
