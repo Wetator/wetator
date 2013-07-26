@@ -667,7 +667,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public HtmlPage getCurrentHtmlPage() throws BackendException {
     final Page tmpPage = getCurrentPage();
-    if (tmpPage instanceof HtmlPage) {
+    if (tmpPage.isHtmlPage()) {
       return (HtmlPage) tmpPage;
     }
 
@@ -720,7 +720,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     boolean tmpPendingJobs = false;
 
     Page tmpPage = getCurrentPage();
-    if (tmpPage instanceof HtmlPage) {
+    if (tmpPage.isHtmlPage()) {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       while (System.currentTimeMillis() < tmpEndTime) {
@@ -738,14 +738,14 @@ public final class HtmlUnitBrowser implements IBrowser {
         // current page is changed, we have to make at least one try
         // reset the timeout
         tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
+        if (!tmpPage.isHtmlPage()) {
           break;
         }
         tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
       }
     }
 
-    if (tmpPendingJobs) {
+    if (tmpPendingJobs && tmpPage.isHtmlPage()) {
       wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(jsTimeoutInMillis / 1000),
           Long.toString(nextJobStartsIn((HtmlPage) tmpPage)) }, null);
       return true;
@@ -762,7 +762,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
-      if (areJobsPendig((HtmlPage) tmpFrameWindow.getEnclosedPage(), anDuration)) {
+      final Page tmpPage = tmpFrameWindow.getEnclosedPage();
+      if (tmpPage.isHtmlPage() && areJobsPendig((HtmlPage) tmpPage, anDuration)) {
         return true;
       }
     }
@@ -778,9 +779,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
-      final long tmpStartsIn = nextJobStartsIn((HtmlPage) tmpFrameWindow.getEnclosedPage());
-      if (-1 != tmpStartsIn) {
-        return tmpStartsIn;
+      final Page tmpPage = tmpFrameWindow.getEnclosedPage();
+      if (tmpPage.isHtmlPage()) {
+        final long tmpStartsIn = nextJobStartsIn((HtmlPage) tmpFrameWindow.getEnclosedPage());
+        if (-1 != tmpStartsIn) {
+          return tmpStartsIn;
+        }
       }
     }
     return -1;
@@ -795,9 +799,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
-      tmpJobCount = areJobsActive((HtmlPage) tmpFrameWindow.getEnclosedPage());
-      if (tmpJobCount > 0) {
-        return tmpJobCount;
+      final Page tmpPage = tmpFrameWindow.getEnclosedPage();
+      if (tmpPage.isHtmlPage()) {
+        tmpJobCount = areJobsActive((HtmlPage) tmpFrameWindow.getEnclosedPage());
+        if (tmpJobCount > 0) {
+          return tmpJobCount;
+        }
       }
     }
     return 0;
@@ -824,7 +831,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       // only true if the user has specified a wait time
       while (System.currentTimeMillis() < tmpEndTime) {
         tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
+        if (!tmpPage.isHtmlPage()) {
           break;
         }
 
@@ -903,7 +910,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       // only true if the user has specified a wait time
       while (System.currentTimeMillis() < tmpEndTime) {
         tmpPage = getCurrentPage();
-        if (!(tmpPage instanceof HtmlPage)) {
+        if (!tmpPage.isHtmlPage()) {
           break;
         }
 
@@ -959,7 +966,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       tmpPage = getCurrentPage();
 
-      if (tmpPage instanceof HtmlPage) {
+      if (tmpPage.isHtmlPage()) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
 
         // inform if there are still pending js jobs
