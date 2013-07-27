@@ -40,7 +40,7 @@ public class ParameterTest {
       @Override
       public SecretString answer(InvocationOnMock anInvocation) throws Throwable {
         Object[] tmpArgs = anInvocation.getArguments();
-        return new SecretString((String) tmpArgs[0], false);
+        return new SecretString((String) tmpArgs[0]);
       }
     });
   }

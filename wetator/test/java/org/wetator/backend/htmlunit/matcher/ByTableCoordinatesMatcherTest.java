@@ -68,7 +68,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -105,7 +105,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -142,7 +142,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -179,7 +179,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -216,7 +216,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3_1", "InputText_2_3_2");
@@ -262,7 +262,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -312,7 +312,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[cell_o_1_2; row_2]", false));
+    tmpSearch.add(new SecretString("[cell_o_1_2; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -363,7 +363,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; cell_o_2_1]", false));
+    tmpSearch.add(new SecretString("[header_3; cell_o_2_1]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -401,7 +401,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3]", false));
+    tmpSearch.add(new SecretString("[header_3]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -439,8 +439,8 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("row_2", false));
-    tmpSearch.add(new SecretString("[header_3]", false));
+    tmpSearch.add(new SecretString("row_2"));
+    tmpSearch.add(new SecretString("[header_3]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -475,7 +475,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[; row_2]", false));
+    tmpSearch.add(new SecretString("[; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -526,8 +526,8 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[cell_o_1_2; cell_o_2_1]", false));
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[cell_o_1_2; cell_o_2_1]"));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");

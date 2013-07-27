@@ -50,7 +50,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId", false));
+    tmpSearch.add(new SecretString("myId"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -71,7 +71,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName", false));
+    tmpSearch.add(new SecretString("MyName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -93,7 +93,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ClickMe", false));
+    tmpSearch.add(new SecretString("ClickMe"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -115,7 +115,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName", false));
+    tmpSearch.add(new SecretString("MyName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyName");
 
@@ -155,7 +155,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "InputButton_1_2", "InputButton_1_3",
         "InputButton_2_2", "InputButton_2_3");
@@ -197,8 +197,8 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("[header_3; row_2]", false));
-    tmpSearch.add(new SecretString("Click", false));
+    tmpSearch.add(new SecretString("[header_3; row_2]"));
+    tmpSearch.add(new SecretString("Click"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "InputButton_1_2", "InputButton_1_3",
         "InputButton_2_2", "InputButton_2_3");

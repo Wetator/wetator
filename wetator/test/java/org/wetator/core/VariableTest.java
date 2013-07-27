@@ -52,7 +52,7 @@ public class VariableTest {
 
   @Test
   public void constructor_SecretString() {
-    Variable tmpVariable = new Variable("TestName", new SecretString("value", true));
+    Variable tmpVariable = new Variable("TestName", new SecretString().appendSecret("value"));
 
     Assert.assertEquals("TestName", tmpVariable.getName());
     Assert.assertEquals("****", tmpVariable.getValue().toString());

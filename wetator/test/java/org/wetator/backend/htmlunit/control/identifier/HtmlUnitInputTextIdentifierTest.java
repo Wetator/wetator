@@ -50,7 +50,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId", false));
+    tmpSearch.add(new SecretString("myId"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -70,7 +70,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myName", false));
+    tmpSearch.add(new SecretString("myName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -91,7 +91,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TextInput", false));
+    tmpSearch.add(new SecretString("TextInput"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "TextInput");
 
@@ -114,7 +114,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker", false));
+    tmpSearch.add(new SecretString("Marker"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
@@ -139,7 +139,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
+    tmpSearch.add(new SecretString("Marker1"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
@@ -162,7 +162,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label", false));
+    tmpSearch.add(new SecretString("Label"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
@@ -186,7 +186,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label", false));
+    tmpSearch.add(new SecretString("Label"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 

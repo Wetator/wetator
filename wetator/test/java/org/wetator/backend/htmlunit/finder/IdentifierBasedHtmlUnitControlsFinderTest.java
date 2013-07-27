@@ -45,7 +45,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Name", false));
+    tmpSearch.add(new SecretString("Name"));
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -61,7 +61,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ClickMe", false));
+    tmpSearch.add(new SecretString("ClickMe"));
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
@@ -78,7 +78,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ClickMe", false));
+    tmpSearch.add(new SecretString("ClickMe"));
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
