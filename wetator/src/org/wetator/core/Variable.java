@@ -49,7 +49,18 @@ public final class Variable {
    * @param anSecretFlag true if the value is a secret
    */
   public Variable(final String aName, final String aValue, final boolean anSecretFlag) {
-    this(aName, anSecretFlag ? new SecretString().appendSecret(aValue) : new SecretString(aValue));
+    super();
+
+    if (StringUtils.isEmpty(aName)) {
+      throw new IllegalArgumentException("Parameter aName can't be null.");
+    }
+
+    name = aName;
+    if (anSecretFlag) {
+      value = new SecretString().appendSecret(aValue);
+    } else {
+      value = new SecretString(aValue);
+    }
   }
 
   /**
