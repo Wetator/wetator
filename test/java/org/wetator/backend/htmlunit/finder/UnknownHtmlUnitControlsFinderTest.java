@@ -46,7 +46,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Name", false));
+    tmpSearch.add(new SecretString("Name"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -65,7 +65,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Name", false));
+    tmpSearch.add(new SecretString("Name"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -83,7 +83,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Name", false));
+    tmpSearch.add(new SecretString("Name"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -102,7 +102,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("YourText", false));
+    tmpSearch.add(new SecretString("YourText"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -121,7 +121,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
+    tmpSearch.add(new SecretString("MyText"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -144,7 +144,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyTe*", false));
+    tmpSearch.add(new SecretString("MyTe*"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -167,7 +167,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*Text", false));
+    tmpSearch.add(new SecretString("*Text"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -190,7 +190,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yTex", false));
+    tmpSearch.add(new SecretString("yTex"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -213,7 +213,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("YourText", false));
+    tmpSearch.add(new SecretString("YourText"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -232,7 +232,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
+    tmpSearch.add(new SecretString("MyText"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -253,7 +253,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyTe*", false));
+    tmpSearch.add(new SecretString("MyTe*"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -274,7 +274,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*Text", false));
+    tmpSearch.add(new SecretString("*Text"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -295,7 +295,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yTex", false));
+    tmpSearch.add(new SecretString("yTex"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -316,7 +316,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
+    tmpSearch.add(new SecretString("MyText"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -337,7 +337,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yourId", false));
+    tmpSearch.add(new SecretString("yourId"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -356,7 +356,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId", false));
+    tmpSearch.add(new SecretString("myId"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -377,7 +377,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("my*", false));
+    tmpSearch.add(new SecretString("my*"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -398,7 +398,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*Id", false));
+    tmpSearch.add(new SecretString("*Id"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -419,7 +419,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yI", false));
+    tmpSearch.add(new SecretString("yI"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -440,8 +440,8 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
-    tmpSearch.add(new SecretString("ine3", false));
+    tmpSearch.add(new SecretString("MyText"));
+    tmpSearch.add(new SecretString("ine3"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -463,8 +463,8 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("line2 li", false));
-    tmpSearch.add(new SecretString("ne3", false));
+    tmpSearch.add(new SecretString("line2 li"));
+    tmpSearch.add(new SecretString("ne3"));
 
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -485,7 +485,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
+    tmpSearch.add(new SecretString("MyText"));
 
     HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);

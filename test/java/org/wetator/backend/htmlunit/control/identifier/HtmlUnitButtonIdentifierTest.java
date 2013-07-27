@@ -52,7 +52,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId", false));
+    tmpSearch.add(new SecretString("myId"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -76,7 +76,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName", false));
+    tmpSearch.add(new SecretString("MyName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -100,7 +100,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ButtonWithText", false));
+    tmpSearch.add(new SecretString("ButtonWithText"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -125,7 +125,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName", false));
+    tmpSearch.add(new SecretString("MyName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyName");
 
@@ -149,7 +149,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyImageName", false));
+    tmpSearch.add(new SecretString("MyImageName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -174,7 +174,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyImageAlt", false));
+    tmpSearch.add(new SecretString("MyImageAlt"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -199,7 +199,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyImageTitle", false));
+    tmpSearch.add(new SecretString("MyImageTitle"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -224,7 +224,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("picture.png", false));
+    tmpSearch.add(new SecretString("picture.png"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 

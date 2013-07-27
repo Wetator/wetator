@@ -54,7 +54,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myOptionId1", false));
+    tmpSearch.add(new SecretString("myOptionId1"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myOptionId1", "myOptionId2",
         "myOptionId3");

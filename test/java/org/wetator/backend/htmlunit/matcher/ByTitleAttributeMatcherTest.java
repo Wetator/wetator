@@ -46,7 +46,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not", false));
+    tmpSearch.add(new SecretString("not"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -64,7 +64,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myTitle", false));
+    tmpSearch.add(new SecretString("myTitle"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -83,7 +83,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myTit*", false));
+    tmpSearch.add(new SecretString("myTit*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -102,7 +102,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*Title", false));
+    tmpSearch.add(new SecretString("*Title"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -121,7 +121,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yTitl", false));
+    tmpSearch.add(new SecretString("yTitl"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -141,8 +141,8 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("myTitle", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("myTitle"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -162,8 +162,8 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("myTit*", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("myTit*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -183,8 +183,8 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("*Title", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("*Title"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -204,8 +204,8 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("yTitl", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("yTitl"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -225,8 +225,8 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("myTitle", false));
+    tmpSearch.add(new SecretString("wrong text"));
+    tmpSearch.add(new SecretString("myTitle"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -244,8 +244,8 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("myTitle", false));
+    tmpSearch.add(new SecretString("wrong text"));
+    tmpSearch.add(new SecretString("myTitle"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

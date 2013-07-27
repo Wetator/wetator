@@ -46,7 +46,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not", false));
+    tmpSearch.add(new SecretString("not"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -64,7 +64,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TestAnchor", false));
+    tmpSearch.add(new SecretString("TestAnchor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -83,7 +83,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TestAnch*", false));
+    tmpSearch.add(new SecretString("TestAnch*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -102,7 +102,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*stAnchor", false));
+    tmpSearch.add(new SecretString("*stAnchor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -121,7 +121,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("estAncho", false));
+    tmpSearch.add(new SecretString("estAncho"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -140,7 +140,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText", false));
+    tmpSearch.add(new SecretString("MyText"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -160,8 +160,8 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("TestAnchor", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("TestAnchor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -181,8 +181,8 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("TestAnch*", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("TestAnch*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -202,8 +202,8 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("*stAnchor", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("*stAnchor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -223,8 +223,8 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("estAncho", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("estAncho"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -244,8 +244,8 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("TestAnchor", false));
+    tmpSearch.add(new SecretString("wrong text"));
+    tmpSearch.add(new SecretString("TestAnchor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -263,8 +263,8 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("TestAnchor", false));
+    tmpSearch.add(new SecretString("wrong text"));
+    tmpSearch.add(new SecretString("TestAnchor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

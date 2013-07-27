@@ -54,8 +54,8 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
-    tmpSearch.add(new SecretString("not", false));
+    tmpSearch.add(new SecretString("Marker1"));
+    tmpSearch.add(new SecretString("not"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -76,8 +76,8 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
-    tmpSearch.add(new SecretString("Marker2", false));
+    tmpSearch.add(new SecretString("Marker1"));
+    tmpSearch.add(new SecretString("Marker2"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -99,8 +99,8 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
-    tmpSearch.add(new SecretString("Marke*", false));
+    tmpSearch.add(new SecretString("Marker1"));
+    tmpSearch.add(new SecretString("Marke*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -122,8 +122,8 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
-    tmpSearch.add(new SecretString("*rker2", false));
+    tmpSearch.add(new SecretString("Marker1"));
+    tmpSearch.add(new SecretString("*rker2"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -145,8 +145,8 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
-    tmpSearch.add(new SecretString("arker", false));
+    tmpSearch.add(new SecretString("Marker1"));
+    tmpSearch.add(new SecretString("arker"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 

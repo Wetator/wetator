@@ -353,6 +353,7 @@ test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
 test/java/org/wetator/util/AssertTest.java -text
 test/java/org/wetator/util/ContentUtilTest.java -text
 test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
+test/java/org/wetator/util/SecretStringTest.java -text
 test/java/org/wetator/util/StringUtilTest.java -text
 test/java/org/wetator/util/VariableReplaceUtilUtilTest.java -text
 test/java/org/wetator/util/XMLUtilTest.java -text

@@ -55,7 +55,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("optgroup_colors", false));
+    tmpSearch.add(new SecretString("optgroup_colors"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
 
@@ -82,7 +82,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("colors", false));
+    tmpSearch.add(new SecretString("colors"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
 

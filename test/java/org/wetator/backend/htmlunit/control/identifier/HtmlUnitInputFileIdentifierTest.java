@@ -50,7 +50,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId", false));
+    tmpSearch.add(new SecretString("myId"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -71,7 +71,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myName", false));
+    tmpSearch.add(new SecretString("myName"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -95,7 +95,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker", false));
+    tmpSearch.add(new SecretString("Marker"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
@@ -120,7 +120,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1", false));
+    tmpSearch.add(new SecretString("Marker1"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
@@ -143,7 +143,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label", false));
+    tmpSearch.add(new SecretString("Label"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
@@ -167,7 +167,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label", false));
+    tmpSearch.add(new SecretString("Label"));
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 

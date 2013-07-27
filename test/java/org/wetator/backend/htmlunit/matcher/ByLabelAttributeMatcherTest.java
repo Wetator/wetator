@@ -51,7 +51,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not", false));
+    tmpSearch.add(new SecretString("not"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -74,7 +74,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("colors", false));
+    tmpSearch.add(new SecretString("colors"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -98,7 +98,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("colo*", false));
+    tmpSearch.add(new SecretString("colo*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -122,7 +122,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*lors", false));
+    tmpSearch.add(new SecretString("*lors"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -146,7 +146,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("olor", false));
+    tmpSearch.add(new SecretString("olor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -171,8 +171,8 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("colors", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("colors"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -197,8 +197,8 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("colo*", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("colo*"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -223,8 +223,8 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("*lors", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("*lors"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -249,8 +249,8 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text", false));
-    tmpSearch.add(new SecretString("olor", false));
+    tmpSearch.add(new SecretString("Some text"));
+    tmpSearch.add(new SecretString("olor"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -275,8 +275,8 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("colors", false));
+    tmpSearch.add(new SecretString("wrong text"));
+    tmpSearch.add(new SecretString("colors"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -299,8 +299,8 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     // @formatter:on
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text", false));
-    tmpSearch.add(new SecretString("colors", false));
+    tmpSearch.add(new SecretString("wrong text"));
+    tmpSearch.add(new SecretString("colors"));
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
