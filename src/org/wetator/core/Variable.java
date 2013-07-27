@@ -49,7 +49,7 @@ public final class Variable {
    * @param anSecretFlag true if the value is a secret
    */
   public Variable(final String aName, final String aValue, final boolean anSecretFlag) {
-    this(aName, new SecretString(aValue, anSecretFlag));
+    this(aName, anSecretFlag ? new SecretString().appendSecret(aValue) : new SecretString(aValue));
   }
 
   /**

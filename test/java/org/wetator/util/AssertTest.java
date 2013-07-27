@@ -42,7 +42,7 @@ public class AssertTest {
   @Test
   public void assertEqualsSecretStringExpectedValueNullNotSecret() {
     try {
-      Assert.assertEquals(new SecretString(null, false), "def", "wrongErrorMessage", null);
+      Assert.assertEquals(new SecretString(null), "def", "wrongErrorMessage", null);
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <null> but was: <def>", e.getMessage());
@@ -52,17 +52,17 @@ public class AssertTest {
   @Test
   public void assertEqualsSecretStringExpectedValueNullSecret() {
     try {
-      Assert.assertEquals(new SecretString(null, true), "def", "wrongErrorMessage", null);
+      Assert.assertEquals(new SecretString().appendSecret(null), "def", "wrongErrorMessage", null);
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
-      org.junit.Assert.assertEquals("Wrong error message: expected: <null> but was: <****>", e.getMessage());
+      org.junit.Assert.assertEquals("Wrong error message: expected: <****> but was: <****>", e.getMessage());
     }
   }
 
   @Test
   public void assertEqualsSecretStringActualNullNotSecret() {
     try {
-      Assert.assertEquals(new SecretString("def", false), null, "wrongErrorMessage", null);
+      Assert.assertEquals(new SecretString("def"), null, "wrongErrorMessage", null);
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <def> but was: <null>", e.getMessage());
@@ -72,7 +72,7 @@ public class AssertTest {
   @Test
   public void assertEqualsSecretStringActualNullSecret() {
     try {
-      Assert.assertEquals(new SecretString("def", true), null, "wrongErrorMessage", null);
+      Assert.assertEquals(new SecretString().appendSecret("def"), null, "wrongErrorMessage", null);
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <****> but was: <null>", e.getMessage());
@@ -81,18 +81,18 @@ public class AssertTest {
 
   @Test
   public void assertEqualsSecretStringEqualsNotSecret() throws AssertionException {
-    Assert.assertEquals(new SecretString("def", false), "def", "wrongErrorMessage", null);
+    Assert.assertEquals(new SecretString("def"), "def", "wrongErrorMessage", null);
   }
 
   @Test
   public void assertEqualsSecretStringEqualsSecret() throws AssertionException {
-    Assert.assertEquals(new SecretString("def", true), "def", "wrongErrorMessage", null);
+    Assert.assertEquals(new SecretString().appendSecret("def"), "def", "wrongErrorMessage", null);
   }
 
   @Test
   public void assertEqualsSecretStringNotEqualsNotSecret() {
     try {
-      Assert.assertEquals(new SecretString("def", false), "abc", "wrongErrorMessage", null);
+      Assert.assertEquals(new SecretString("def"), "abc", "wrongErrorMessage", null);
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <def> but was: <abc>", e.getMessage());
@@ -102,7 +102,7 @@ public class AssertTest {
   @Test
   public void assertEqualsSecretStringNotEqualsSecret() {
     try {
-      Assert.assertEquals(new SecretString("def", true), "abc", "wrongErrorMessage", null);
+      Assert.assertEquals(new SecretString().appendSecret("def"), "abc", "wrongErrorMessage", null);
       org.junit.Assert.fail("AssertionException expected");
     } catch (AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <****> but was: <****>", e.getMessage());

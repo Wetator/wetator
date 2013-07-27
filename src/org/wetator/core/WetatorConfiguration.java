@@ -443,12 +443,12 @@ public class WetatorConfiguration {
       tmpValue = tmpProperties.getProperty(PROPERTY_PROXY_USER, "");
       tmpProperties.remove(PROPERTY_PROXY_USER);
       if (StringUtils.isNotEmpty(tmpValue)) {
-        proxyUser = new SecretString(tmpValue, false);
+        proxyUser = new SecretString(tmpValue);
 
         // read the rest only if needed
         tmpValue = tmpProperties.getProperty(PROPERTY_PROXY_PASSWORD, "");
         tmpProperties.remove(PROPERTY_PROXY_PASSWORD);
-        proxyPassword = new SecretString(tmpValue, true);
+        proxyPassword = new SecretString().appendSecret(tmpValue);
       }
     }
 
@@ -456,32 +456,32 @@ public class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_BASIC_AUTH_USER, "");
     tmpProperties.remove(PROPERTY_BASIC_AUTH_USER);
     if (StringUtils.isNotEmpty(tmpValue)) {
-      basicAuthUser = new SecretString(tmpValue, false);
+      basicAuthUser = new SecretString(tmpValue);
 
       // read the rest only if needed
       tmpValue = tmpProperties.getProperty(PROPERTY_BASIC_AUTH_PASSWORD, "");
       tmpProperties.remove(PROPERTY_BASIC_AUTH_PASSWORD);
-      basicAuthPassword = new SecretString(tmpValue, true);
+      basicAuthPassword = new SecretString().appendSecret(tmpValue);
     }
 
     // NTLM
     tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_USER, "");
     tmpProperties.remove(PROPERTY_NTLM_USER);
     if (StringUtils.isNotEmpty(tmpValue)) {
-      ntlmUser = new SecretString(tmpValue, false);
+      ntlmUser = new SecretString(tmpValue);
 
       // read the rest only if needed
       tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_PASSWORD, "");
       tmpProperties.remove(PROPERTY_NTLM_PASSWORD);
-      ntlmPassword = new SecretString(tmpValue, true);
+      ntlmPassword = new SecretString().appendSecret(tmpValue);
 
       tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_WORKSTATION, "");
       tmpProperties.remove(PROPERTY_NTLM_WORKSTATION);
-      ntlmWorkstation = new SecretString(tmpValue, false);
+      ntlmWorkstation = new SecretString(tmpValue);
 
       tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_DOMAIN, "");
       tmpProperties.remove(PROPERTY_NTLM_DOMAIN);
-      ntlmDomain = new SecretString(tmpValue, false);
+      ntlmDomain = new SecretString(tmpValue);
     }
 
     // xslTemplates
@@ -523,7 +523,7 @@ public class WetatorConfiguration {
         if (tmpKey.startsWith(SECRET_PREFIX)) {
           variables.add(new Variable(tmpKey.substring(1), tmpVariableValue, true));
         } else {
-          variables.add(new Variable(tmpKey, tmpVariableValue, false));
+          variables.add(new Variable(tmpKey, tmpVariableValue));
         }
       }
     }
