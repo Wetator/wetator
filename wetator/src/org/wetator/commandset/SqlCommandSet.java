@@ -227,7 +227,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
                 // TODO maybe report column and row
                 aContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
               } else {
-                final SecretString tmpSecretString = new SecretString(tmpValue, false);
+                final SecretString tmpSecretString = new SecretString(tmpValue);
                 tmpExpected.add(tmpSecretString);
               }
             }

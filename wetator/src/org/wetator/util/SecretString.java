@@ -70,26 +70,53 @@ public final class SecretString {
     final String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, aVariables,
         true);
 
-    final SecretString tmpResult = new SecretString(tmpResultValue, false);
+    final SecretString tmpResult = new SecretString(tmpResultValue);
     tmpResult.valueForPrint = tmpResultValueForPrint;
     return tmpResult;
   }
 
   /**
    * Constructor.
+   */
+  public SecretString() {
+    super();
+    value = "";
+    valueForPrint = "";
+  }
+
+  /**
+   * Constructor.
    * 
    * @param aValue the value of the string
-   * @param aSecretFlag true of the value is visible in any kind of output
    */
-  public SecretString(final String aValue, final boolean aSecretFlag) {
-    super();
+  public SecretString(final String aValue) {
+    this();
 
-    value = aValue;
-    if (aSecretFlag) {
-      valueForPrint = SECRET_PRINT;
-    } else {
-      valueForPrint = aValue;
-    }
+    this.append(aValue);
+  }
+
+  /**
+   * Appends the given text.
+   * 
+   * @param aPublicText the text to append
+   * @return the receiver
+   */
+  public SecretString append(final String aPublicText) {
+    value += aPublicText;
+    valueForPrint += aPublicText;
+    return this;
+  }
+
+  /**
+   * Appends the given secret text.
+   * 
+   * @param aSecretText the secret text to append
+   * @return the receiver
+   */
+  public SecretString appendSecret(final String aSecretText) {
+    value += aSecretText;
+    valueForPrint += SECRET_PRINT;
+    return this;
   }
 
   /**
@@ -203,7 +230,7 @@ public final class SecretString {
    *            length of this <code>String</code> object.
    */
   public SecretString substring(final int aBeginIndex) {
-    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex), false);
+    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex));
     tmpResult.valueForPrint = valueForPrint.substring(aBeginIndex);
 
     return tmpResult;
@@ -223,7 +250,7 @@ public final class SecretString {
    *            this <code>String</code> object, or <code>beginIndex</code> is larger than <code>endIndex</code>.
    */
   public SecretString substring(final int aBeginIndex, final int anEndIndex) {
-    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex, anEndIndex), false);
+    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex, anEndIndex));
     tmpResult.valueForPrint = valueForPrint.substring(aBeginIndex, anEndIndex);
 
     return tmpResult;
@@ -241,7 +268,7 @@ public final class SecretString {
     final String[] tmpValuesForPrint = valueForPrint.split(";");
     final SecretString[] tmpResult = new SecretString[tmpValues.length];
     for (int i = 0; i < tmpValues.length; i++) {
-      final SecretString tmpSecret = new SecretString(tmpValues[i].trim(), false);
+      final SecretString tmpSecret = new SecretString(tmpValues[i].trim());
       tmpSecret.valueForPrint = tmpValuesForPrint[i].trim();
       tmpResult[i] = tmpSecret;
     }

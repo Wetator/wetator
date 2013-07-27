@@ -193,7 +193,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
-        tmpValueParam = new SecretString("", false);
+        tmpValueParam = new SecretString("");
       }
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -713,7 +713,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       if (null == tmpValueParam) {
-        tmpValueParam = new SecretString("", false);
+        tmpValueParam = new SecretString("");
       }
       aCommand.checkNoUnusedThirdParameter(aContext);
 
