@@ -209,7 +209,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       webClient = new WebClient(tmpBrowserVersion, tmpHost, tmpPort);
 
       final SecretString tmpProxyUser = tmpConfiguration.getProxyUser();
-      if (null != tmpProxyUser && StringUtils.isNotEmpty(tmpProxyUser.getValue())) {
+      if (null != tmpProxyUser && !tmpProxyUser.isEmpty()) {
         final String tmpUser = tmpProxyUser.getValue();
         LOG.info("Proxy User: '" + tmpUser + "'");
         final String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
@@ -235,7 +235,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     final SecretString tmpBasicAuthUser = tmpConfiguration.getBasicAuthUser();
-    if (null != tmpBasicAuthUser && StringUtils.isNotEmpty(tmpBasicAuthUser.getValue())) {
+    if (null != tmpBasicAuthUser && !tmpBasicAuthUser.isEmpty()) {
       final String tmpUser = tmpBasicAuthUser.getValue();
       final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
 
@@ -251,7 +251,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     final SecretString tmpNtlmUser = tmpConfiguration.getNtlmUser();
-    if (null != tmpNtlmUser && StringUtils.isNotEmpty(tmpNtlmUser.getValue())) {
+    if (null != tmpNtlmUser && !tmpNtlmUser.isEmpty()) {
       final String tmpUser = tmpNtlmUser.getValue();
       final String tmpPassword = tmpConfiguration.getNtlmPassword().getValue();
       final String tmpWorkstation = tmpConfiguration.getNtlmWorkstation().getValue();
@@ -456,7 +456,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       throw new ActionException(tmpMessage);
     }
 
-    if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
+    if (null == aWindowName || aWindowName.isEmpty()) {
       for (int i = tmpWebWindows.size() - 1; i >= 0; i--) {
         final WebWindow tmpWebWindow = tmpWebWindows.get(i);
 

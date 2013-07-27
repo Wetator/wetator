@@ -242,16 +242,11 @@ public class ContentPattern {
      * @param aNode the SecretString this is based on
      */
     public PatternNode(final SecretString aNode) {
-      String tmpValue = aNode.getValue();
+      final String tmpValue = aNode.getValue();
       if (tmpValue.startsWith(NOT_OPERTOR)) {
         // TODO escaping?
         isNegated = true;
-        tmpValue = tmpValue.substring(1);
-        String tmpPrintValue = aNode.toString();
-        if (tmpPrintValue.startsWith(NOT_OPERTOR)) {
-          tmpPrintValue = tmpPrintValue.substring(1);
-        }
-        value = new SecretString(tmpValue, tmpPrintValue);
+        value = aNode.substring(1);
         return;
       }
 
