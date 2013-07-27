@@ -29,7 +29,6 @@ import org.wetator.exception.CommandException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
-import org.wetator.util.VariableReplaceUtil;
 
 /**
  * The context that holds all information about the current executed file and makes them available to the different
@@ -144,11 +143,7 @@ public class WetatorContext {
    * @return the {@link SecretString} (as the result of the replacement)
    */
   public SecretString replaceVariables(final String aStringWithPlaceholders) {
-    final String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), false);
-    final String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(),
-        true);
-
-    return new SecretString(tmpResultValue, tmpResultValueForPrint);
+    return SecretString.replaceVariables(aStringWithPlaceholders, getVariables());
   }
 
   /**

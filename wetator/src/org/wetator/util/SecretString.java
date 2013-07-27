@@ -19,6 +19,8 @@ package org.wetator.util;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
+import org.wetator.core.Variable;
 import org.wetator.core.searchpattern.SearchPattern;
 
 /**
@@ -59,30 +61,35 @@ public final class SecretString {
   }
 
   /**
-   * Constructor.
-   * 
-   * @param aValue the value of the string
-   * @param aSecretFlag true of the value is visible in any kind of output
+   * @param aStringWithPlaceholders the string containing the variables to replace
+   * @param aVariables a list of variables
+   * @return the {@link SecretString} (as the result of the replacement)
    */
-  public SecretString(final String aValue, final boolean aSecretFlag) {
-    this(aValue, SECRET_PRINT);
+  public static SecretString replaceVariables(final String aStringWithPlaceholders, final List<Variable> aVariables) {
+    final String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, aVariables, false);
+    final String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, aVariables,
+        true);
 
-    if (!aSecretFlag) {
-      valueForPrint = aValue;
-    }
+    final SecretString tmpResult = new SecretString(tmpResultValue, false);
+    tmpResult.valueForPrint = tmpResultValueForPrint;
+    return tmpResult;
   }
 
   /**
    * Constructor.
    * 
    * @param aValue the value of the string
-   * @param aValueForPrint the string that is visible in any kind of output
+   * @param aSecretFlag true of the value is visible in any kind of output
    */
-  public SecretString(final String aValue, final String aValueForPrint) {
+  public SecretString(final String aValue, final boolean aSecretFlag) {
     super();
 
     value = aValue;
-    valueForPrint = aValueForPrint;
+    if (aSecretFlag) {
+      valueForPrint = SECRET_PRINT;
+    } else {
+      valueForPrint = aValue;
+    }
   }
 
   /**
@@ -184,4 +191,88 @@ public final class SecretString {
 
     return this;
   }
+
+  /**
+   * Returns a new string that is a substring of this string. The
+   * substring begins with the character at the specified index and
+   * extends to the end of this string.
+   * 
+   * @param aBeginIndex the beginning index, inclusive.
+   * @return the specified substring.
+   * @exception IndexOutOfBoundsException if <code>beginIndex</code> is negative or larger than the
+   *            length of this <code>String</code> object.
+   */
+  public SecretString substring(final int aBeginIndex) {
+    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex), false);
+    tmpResult.valueForPrint = valueForPrint.substring(aBeginIndex);
+
+    return tmpResult;
+  }
+
+  /**
+   * Returns a new string that is a substring of this string. The
+   * substring begins at the specified <code>beginIndex</code> and
+   * extends to the character at index <code>endIndex - 1</code>.
+   * Thus the length of the substring is <code>endIndex-beginIndex</code>.
+   * 
+   * @param aBeginIndex the beginning index, inclusive.
+   * @param anEndIndex the ending index, exclusive.
+   * @return the specified substring.
+   * @exception IndexOutOfBoundsException if the <code>beginIndex</code> is negative, or <code>endIndex</code> is larger
+   *            than the length of
+   *            this <code>String</code> object, or <code>beginIndex</code> is larger than <code>endIndex</code>.
+   */
+  public SecretString substring(final int aBeginIndex, final int anEndIndex) {
+    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex, anEndIndex), false);
+    tmpResult.valueForPrint = valueForPrint.substring(aBeginIndex, anEndIndex);
+
+    return tmpResult;
+  }
+
+  /**
+   * Splits this string around matches of the given regular expression.
+   * 
+   * @param aRegex the delimiting regular expression
+   * @return the array of strings computed by splitting this string
+   *         around matches of the given regular expression
+   */
+  public SecretString[] split(final String aRegex) {
+    final String[] tmpValues = value.split(";");
+    final String[] tmpValuesForPrint = valueForPrint.split(";");
+    final SecretString[] tmpResult = new SecretString[tmpValues.length];
+    for (int i = 0; i < tmpValues.length; i++) {
+      final SecretString tmpSecret = new SecretString(tmpValues[i].trim(), false);
+      tmpSecret.valueForPrint = tmpValuesForPrint[i].trim();
+      tmpResult[i] = tmpSecret;
+    }
+    return tmpResult;
+  }
+
+  /**
+   * Returns the length of this string.
+   * 
+   * @return the length
+   */
+  public int length() {
+    return value.length();
+  }
+
+  /**
+   * Returns true if and only if this string contains the specified
+   * sequence of char values.
+   * 
+   * @param aPart the sequence to search for
+   * @return true if this string contains <code>s</code>, false otherwise
+   */
+  public boolean contains(final CharSequence aPart) {
+    return value.contains(aPart);
+  }
+
+  /**
+   * @return {@code true} if this is empty or null
+   */
+  public boolean isEmpty() {
+    return StringUtils.isEmpty(value);
+  }
+
 }

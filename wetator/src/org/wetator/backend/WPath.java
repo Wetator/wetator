@@ -160,26 +160,22 @@ public class WPath {
      * @throws InvalidInputException in case of invalid table coordinates
      */
     public TableCoordinate(final SecretString aTableCoordinates) throws InvalidInputException {
-      String tmpTableCoordinates = aTableCoordinates.getValue();
-      String tmpTableCoordinatesString = aTableCoordinates.toString();
-      if (!tmpTableCoordinates.startsWith("[") || !tmpTableCoordinates.endsWith("]")) {
+      if (!aTableCoordinates.startsWith("[") || !aTableCoordinates.endsWith("]")) {
         throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
       }
       // cut away [ and ]
-      tmpTableCoordinates = tmpTableCoordinates.substring(1, tmpTableCoordinates.length() - 1);
-      tmpTableCoordinatesString = tmpTableCoordinatesString.substring(1, tmpTableCoordinatesString.length() - 1);
+      final SecretString tmpTableCoordinates = aTableCoordinates.substring(1, aTableCoordinates.length() - 1);
       if (tmpTableCoordinates.contains(";")) {
-        final String[] tmpCoordinates = tmpTableCoordinates.split(";");
-        final String[] tmpCoordinatesString = tmpTableCoordinatesString.split(";");
+        final SecretString[] tmpCoordinates = tmpTableCoordinates.split(";");
         if (tmpCoordinates.length > 2) {
           throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
         }
         if (!"".equals(tmpCoordinates[0].trim())) {
-          coordinateX = new SecretString(tmpCoordinates[0].trim(), tmpCoordinatesString[0].trim());
+          coordinateX = tmpCoordinates[0].trim();
         }
-        coordinateY = new SecretString(tmpCoordinates[1].trim(), tmpCoordinatesString[1].trim());
+        coordinateY = tmpCoordinates[1].trim();
       } else {
-        coordinateX = new SecretString(tmpTableCoordinates.trim(), tmpTableCoordinatesString.trim());
+        coordinateX = tmpTableCoordinates.trim();
       }
     }
 

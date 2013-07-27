@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
@@ -297,7 +296,7 @@ public final class Command {
     }
 
     final SecretString tmpSecondValue = tmpSecondParameter.getValue(aContext);
-    if (StringUtils.isEmpty(tmpSecondValue.getValue())) {
+    if (tmpSecondValue.isEmpty()) {
       return null;
     }
 
