@@ -27,8 +27,8 @@ import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
-import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 

@@ -130,7 +130,6 @@ src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
 src/org/wetator/core/searchpattern/ContentPattern.java -text
-src/org/wetator/core/searchpattern/FindSpot.java -text
 src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
 src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
 src/org/wetator/core/searchpattern/SearchPattern.java -text
@@ -171,6 +170,7 @@ src/org/wetator/scripter/xml/xsd/test-command-set-1.0.0.xsd -text svneol=unset#t
 src/org/wetator/util/Assert.java -text
 src/org/wetator/util/ContentUtil.java -text
 src/org/wetator/util/FileUtil.java -text
+src/org/wetator/util/FindSpot.java -text
 src/org/wetator/util/NormalizedString.java -text
 src/org/wetator/util/Output.java -text
 src/org/wetator/util/SecretString.java -text

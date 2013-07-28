@@ -28,8 +28,8 @@ import org.wetator.backend.htmlunit.matcher.ByImageSrcAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByImageTitleAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
-import org.wetator.core.searchpattern.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;

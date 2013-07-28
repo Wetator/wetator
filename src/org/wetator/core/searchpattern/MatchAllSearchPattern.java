@@ -16,6 +16,8 @@
 
 package org.wetator.core.searchpattern;
 
+import org.wetator.util.FindSpot;
+
 /**
  * This is a special implementation of a {@link SearchPattern} that matches everything.
  * 
