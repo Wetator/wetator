@@ -24,6 +24,7 @@ import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
+import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
 /**

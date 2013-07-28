@@ -19,6 +19,7 @@ package org.wetator.core.searchpattern;
 import org.junit.Assert;
 
 import org.junit.Test;
+import org.wetator.util.FindSpot;
 
 /**
  * @author rbri

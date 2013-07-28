@@ -17,6 +17,7 @@
 package org.wetator.core.searchpattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.wetator.util.FindSpot;
 
 /**
  * This is a special implementation of a {@link SearchPattern} that contains only plain text and no wildcards.<br/>

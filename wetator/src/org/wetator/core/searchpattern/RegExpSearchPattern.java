@@ -17,6 +17,7 @@
 package org.wetator.core.searchpattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.wetator.util.FindSpot;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.AutomatonMatcher;

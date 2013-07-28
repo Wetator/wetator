@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.core.searchpattern;
+package org.wetator.util;
 
 import org.wetator.exception.ImplementationException;
 
@@ -158,7 +158,7 @@ public class FindSpot {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.searchpattern.FindSpot#setStartPos(int)
+     * @see org.wetator.util.FindSpot#setStartPos(int)
      */
     @Override
     public void setStartPos(final int aStartPos) {
@@ -168,7 +168,7 @@ public class FindSpot {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.searchpattern.FindSpot#setEndPos(int)
+     * @see org.wetator.util.FindSpot#setEndPos(int)
      */
     @Override
     public void setEndPos(final int aEndPos) {
@@ -178,7 +178,7 @@ public class FindSpot {
     /**
      * {@inheritDoc}
      * 
-     * @see org.wetator.core.searchpattern.FindSpot#toString()
+     * @see org.wetator.util.FindSpot#toString()
      */
     @Override
     public String toString() {
