@@ -139,7 +139,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
         if (!tmpFile.isAbsolute() && null != aDirectory) {
           // relative paths are relative to the location of the calling file
-          tmpFile = new File(aDirectory, aValue.getValue());
+          tmpFile = new File(aDirectory, tmpValue);
         }
 
         // validate file

@@ -118,6 +118,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
 
         final URL tmpUrl = new URL(tmpUrlParam.getValue());
+        // TODO maybe there is an error
+        // think about url's containing secrets
         aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
 
         final IBrowser tmpBrowser = getBrowser(aContext);
