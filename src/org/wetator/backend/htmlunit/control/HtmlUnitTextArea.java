@@ -132,7 +132,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       tmpHtmlTextArea.select();
 
       if (StringUtils.isNotBlank(tmpValue)) {
-        tmpHtmlTextArea.type(aValue.getValue());
+        tmpHtmlTextArea.type(tmpValue);
       } else {
         tmpHtmlTextArea.setText("");
       }
