@@ -175,7 +175,6 @@ src/org/wetator/util/NormalizedString.java -text
 src/org/wetator/util/Output.java -text
 src/org/wetator/util/SecretString.java -text
 src/org/wetator/util/StringUtil.java -text
-src/org/wetator/util/VariableReplaceUtil.java -text
 src/org/wetator/util/VersionUtil.java -text
 src/org/wetator/util/XMLUtil.java -text
 src/wetator.config -text
@@ -355,7 +354,6 @@ test/java/org/wetator/util/ContentUtilTest.java -text
 test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
 test/java/org/wetator/util/SecretStringTest.java -text
 test/java/org/wetator/util/StringUtilTest.java -text
-test/java/org/wetator/util/VariableReplaceUtilUtilTest.java -text
 test/java/org/wetator/util/XMLUtilTest.java -text
 test/legacy_xml/default_command_set.xml -text
 test/legacy_xml/modules/module.xml -text
