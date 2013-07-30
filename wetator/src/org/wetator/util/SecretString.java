@@ -16,6 +16,10 @@
 
 package org.wetator.util;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,9 +38,11 @@ public final class SecretString {
    * The replacement for printing secret strings.
    */
   public static final String SECRET_PRINT = "****";
+  private static final String VAR_START_SEQ = "${";
+  private static final String VAR_END_SEQ = "}";
 
   private String value;
-  private String valueForPrint;
+  private List<FindSpot> secrets;
 
   /**
    * Constructs a comma separated string from the given list of secret strings.
@@ -61,18 +67,81 @@ public final class SecretString {
   }
 
   /**
-   * @param aStringWithPlaceholders the string containing the variables to replace
    * @param aVariables a list of variables
    * @return the {@link SecretString} (as the result of the replacement)
    */
-  public static SecretString replaceVariables(final String aStringWithPlaceholders, final List<Variable> aVariables) {
-    final String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, aVariables, false);
-    final String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, aVariables,
-        true);
+  public SecretString replaceVariables(final List<Variable> aVariables) {
+    if (null == aVariables || aVariables.isEmpty()) {
+      return this;
+    }
 
-    final SecretString tmpResult = new SecretString(tmpResultValue);
-    tmpResult.valueForPrint = tmpResultValueForPrint;
-    return tmpResult;
+    int tmpReplace = replace(aVariables, value.length());
+    while (tmpReplace > -1) {
+      tmpReplace = replace(aVariables, tmpReplace);
+    }
+    Collections.sort(secrets, new Comparator<FindSpot>() {
+      @Override
+      public int compare(final FindSpot aO1, final FindSpot aO2) {
+        return aO1.getStartPos() - aO2.getStartPos();
+      }
+    });
+
+    return this;
+  }
+
+  private int replace(final List<Variable> aVariables, final int aFrom) {
+    final int tmpVarStartPos = value.lastIndexOf(VAR_START_SEQ, aFrom);
+    if (tmpVarStartPos < 0) {
+      return -1;
+    }
+
+    int tmpVarEndPos = value.indexOf(VAR_END_SEQ, tmpVarStartPos);
+    if (tmpVarEndPos < 0) {
+      return tmpVarStartPos - 1;
+    }
+    final String tmpVarName = value.substring(tmpVarStartPos + VAR_START_SEQ.length(), tmpVarEndPos);
+
+    tmpVarEndPos++;
+    for (final Variable tmpVariable : aVariables) {
+      if (tmpVarName.equals(tmpVariable.getName())) {
+        final SecretString tmpVarSecret = tmpVariable.getValue();
+        final String tmpVarSecretValue = tmpVarSecret.getValue();
+
+        // replace
+        value = value.substring(0, tmpVarStartPos) + tmpVarSecretValue + value.substring(tmpVarEndPos);
+
+        final int tmpOffset = tmpVarSecretValue.length() - (tmpVarEndPos - tmpVarStartPos);
+        // merge in the secrets
+        boolean tmpEnclosed = false;
+        for (FindSpot tmpSpot : secrets) {
+          if (tmpSpot.getStartPos() <= tmpVarStartPos && tmpVarEndPos <= tmpSpot.getEndPos()) {
+            // whole replace area was a secret
+            tmpSpot.setEndPos(tmpSpot.getEndPos() + tmpOffset);
+            tmpEnclosed = true;
+          } else {
+            if (tmpVarStartPos < tmpSpot.getStartPos()) {
+              tmpSpot.setStartPos(tmpSpot.getStartPos() + tmpOffset);
+            }
+            if (tmpVarEndPos < tmpSpot.getEndPos()) {
+              tmpSpot.setEndPos(tmpSpot.getEndPos() + tmpOffset);
+            }
+          }
+        }
+        if (!tmpEnclosed) {
+          for (FindSpot tmpSpot : tmpVarSecret.secrets) {
+            final FindSpot tmpNewSpot = new FindSpot();
+            tmpNewSpot.setStartPos(tmpSpot.getStartPos() + tmpVarStartPos);
+            tmpNewSpot.setEndPos(tmpSpot.getEndPos() + tmpVarStartPos);
+
+            secrets.add(tmpNewSpot);
+          }
+        }
+
+        // done
+        return aFrom;
+      }
+    }
+    return tmpVarStartPos - 1;
   }
 
   /**
@@ -81,7 +150,7 @@ public final class SecretString {
   public SecretString() {
     super();
     value = "";
-    valueForPrint = "";
+    secrets = new LinkedList<FindSpot>();
   }
 
   /**
@@ -102,8 +171,9 @@ public final class SecretString {
    * @return the receiver
    */
   public SecretString append(final String aPublicText) {
-    value += aPublicText;
-    valueForPrint += aPublicText;
+    if (StringUtils.isNotEmpty(aPublicText)) {
+      value += aPublicText;
+    }
     return this;
   }
 
@@ -114,8 +184,12 @@ public final class SecretString {
    * @return the receiver
    */
   public SecretString appendSecret(final String aSecretText) {
-    value += aSecretText;
-    valueForPrint += SECRET_PRINT;
+    if (null != aSecretText) {
+      final FindSpot tmpSecretSpot = new FindSpot(value.length(), -1);
+      value += aSecretText;
+      tmpSecretSpot.setEndPos(value.length());
+      secrets.add(tmpSecretSpot);
+    }
     return this;
   }
 
@@ -132,18 +206,10 @@ public final class SecretString {
    * @param aValuePrefix the prefix
    */
   public void prefixWith(final String aValuePrefix) {
-    prefixWith(aValuePrefix, aValuePrefix);
-  }
-
-  /**
-   * Prefixes the value and the printout with the given string.
-   * 
-   * @param aValuePrefix the prefix for the value
-   * @param aValueForPrintPrefix the prefix for the printout
-   */
-  public void prefixWith(final String aValuePrefix, final String aValueForPrintPrefix) {
-    value = aValuePrefix + value;
-    valueForPrint = aValueForPrintPrefix + valueForPrint;
+    if (StringUtils.isNotEmpty(aValuePrefix)) {
+      value = aValuePrefix + value;
+      moveSecrets(aValuePrefix.length());
+    }
   }
 
   /**
@@ -153,7 +219,21 @@ public final class SecretString {
    */
   @Override
   public String toString() {
-    return valueForPrint;
+    final StringBuilder tmpResult = new StringBuilder();
+
+    int tmpStart = 0;
+    for (FindSpot tmpSpot : secrets) {
+      tmpResult.append(value.substring(tmpStart, tmpSpot.getStartPos()));
+      tmpResult.append(SECRET_PRINT);
+      tmpStart = tmpSpot.getEndPos();
+    }
+
+    if (tmpStart == 0) {
+      tmpResult.append(value);
+    } else {
+      tmpResult.append(value.substring(tmpStart, value.length()));
+    }
+    return tmpResult.toString();
   }
 
   /**
@@ -213,8 +293,24 @@ public final class SecretString {
    * @return this
    */
   public SecretString trim() {
-    value = value.trim();
-    valueForPrint = valueForPrint.trim();
+    final int tmpLength = value.length();
+    int tmpStart = 0;
+    while (tmpStart < tmpLength && Character.isWhitespace(value.charAt(tmpStart))) {
+      tmpStart++;
+    }
+    int tmpEnd = tmpLength - 1;
+    while (tmpEnd > tmpStart && Character.isWhitespace(value.charAt(tmpEnd))) {
+      tmpEnd--;
+    }
+
+    if (tmpEnd < tmpStart) {
+      value = "";
+      secrets = new LinkedList<FindSpot>();
+      return this;
+    }
+
+    value = value.substring(tmpStart, tmpEnd + 1);
+    moveSecrets(tmpStart * -1);
 
     return this;
   }
@@ -230,10 +326,7 @@ public final class SecretString {
    *            length of this <code>String</code> object.
    */
   public SecretString substring(final int aBeginIndex) {
-    final SecretString tmpResult = new SecretString(value.substring(aBeginIndex));
-    tmpResult.valueForPrint = valueForPrint.substring(aBeginIndex);
-
-    return tmpResult;
+    return substring(aBeginIndex, length());
   }
 
   /**
@@ -251,27 +344,32 @@ public final class SecretString {
    */
   public SecretString substring(final int aBeginIndex, final int anEndIndex) {
     final SecretString tmpResult = new SecretString(value.substring(aBeginIndex, anEndIndex));
-    tmpResult.valueForPrint = valueForPrint.substring(aBeginIndex, anEndIndex);
+    tmpResult.secrets.addAll(secrets);
+    tmpResult.moveSecrets(aBeginIndex * -1);
 
     return tmpResult;
   }
 
   /**
-   * Splits this string around matches of the given regular expression.
+   * Splits this string around matches of the given delimiter.
    * 
-   * @param aRegex the delimiting regular expression
-   * @return the array of strings computed by splitting this string
-   *         around matches of the given regular expression
+   * @param aDelimiter the delimiting string
+   * @return the list of strings computed by splitting this string
+   *         around matches of the given delimiter
    */
-  public SecretString[] split(final String aRegex) {
-    final String[] tmpValues = value.split(";");
-    final String[] tmpValuesForPrint = valueForPrint.split(";");
-    final SecretString[] tmpResult = new SecretString[tmpValues.length];
-    for (int i = 0; i < tmpValues.length; i++) {
-      final SecretString tmpSecret = new SecretString(tmpValues[i].trim());
-      tmpSecret.valueForPrint = tmpValuesForPrint[i].trim();
-      tmpResult[i] = tmpSecret;
+  public List<SecretString> split(final String aDelimiter) {
+    final List<SecretString> tmpResult = new LinkedList<SecretString>();
+
+    int tmpStartPos = 0;
+    int tmpSplitPos = value.indexOf(aDelimiter);
+    while (tmpSplitPos > -1) {
+      tmpResult.add(substring(tmpStartPos, tmpSplitPos));
+
+      tmpStartPos = tmpSplitPos + aDelimiter.length();
+      tmpSplitPos = value.indexOf(aDelimiter, tmpStartPos);
     }
+
+    tmpResult.add(substring(tmpStartPos, length()));
     return tmpResult;
   }
 
@@ -302,4 +400,18 @@ public final class SecretString {
     return StringUtils.isEmpty(value);
   }
 
+  private void moveSecrets(final int aDistance) {
+    final int tmpLength = value.length();
+
+    final Iterator<FindSpot> tmpSecrets = secrets.iterator();
+    while (tmpSecrets.hasNext()) {
+      final FindSpot tmpSpot = tmpSecrets.next();
+      tmpSpot.setStartPos(Math.max(0, tmpSpot.getStartPos() + aDistance));
+      tmpSpot.setEndPos(Math.min(tmpLength, tmpSpot.getEndPos() + aDistance));
+
+      if ((0 > tmpSpot.getEndPos()) || (tmpSpot.getEndPos() <= tmpSpot.getStartPos())) {
+        tmpSecrets.remove();
+      }
+    }
+  }
 }

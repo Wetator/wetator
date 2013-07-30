@@ -143,7 +143,7 @@ public class WetatorContext {
    * @return the {@link SecretString} (as the result of the replacement)
    */
   public SecretString replaceVariables(final String aStringWithPlaceholders) {
-    return SecretString.replaceVariables(aStringWithPlaceholders, getVariables());
+    return new SecretString(aStringWithPlaceholders).replaceVariables(getVariables());
   }
 
   /**

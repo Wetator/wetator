@@ -166,14 +166,14 @@ public class WPath {
       // cut away [ and ]
       final SecretString tmpTableCoordinates = aTableCoordinates.substring(1, aTableCoordinates.length() - 1);
       if (tmpTableCoordinates.contains(";")) {
-        final SecretString[] tmpCoordinates = tmpTableCoordinates.split(";");
-        if (tmpCoordinates.length > 2) {
+        final List<SecretString> tmpCoordinates = tmpTableCoordinates.split(";");
+        if (tmpCoordinates.size() > 2) {
           throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
         }
-        if (!"".equals(tmpCoordinates[0].trim())) {
-          coordinateX = tmpCoordinates[0].trim();
+        if (tmpCoordinates.get(0).trim().length() > 0) {
+          coordinateX = tmpCoordinates.get(0).trim();
         }
-        coordinateY = tmpCoordinates[1].trim();
+        coordinateY = tmpCoordinates.get(1).trim();
       } else {
         coordinateX = tmpTableCoordinates.trim();
       }

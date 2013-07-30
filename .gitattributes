@@ -378,7 +378,6 @@ wetator/src/org/wetator/util/NormalizedString.java -text
 wetator/src/org/wetator/util/Output.java -text
 wetator/src/org/wetator/util/SecretString.java -text
 wetator/src/org/wetator/util/StringUtil.java -text
-wetator/src/org/wetator/util/VariableReplaceUtil.java -text
 wetator/src/org/wetator/util/VersionUtil.java -text
 wetator/src/org/wetator/util/XMLUtil.java -text
 wetator/src/wetator.config -text
@@ -558,7 +557,6 @@ wetator/test/java/org/wetator/util/ContentUtilTest.java -text
 wetator/test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/util/SecretStringTest.java -text
 wetator/test/java/org/wetator/util/StringUtilTest.java -text
-wetator/test/java/org/wetator/util/VariableReplaceUtilUtilTest.java -text
 wetator/test/java/org/wetator/util/XMLUtilTest.java -text
 wetator/test/legacy_xml/default_command_set.xml -text
 wetator/test/legacy_xml/modules/module.xml -text
