@@ -23,7 +23,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -137,7 +136,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
         InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
-      final List<SecretString> tmpExpected = aCommand.getRequiredSecondParameterValues(aContext);
+      final SecretString tmpExpected = aCommand.getRequiredSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
       final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
@@ -212,7 +211,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
       final Connection tmpConnection = connections.get(tmpConnectionName);
 
-      final List<SecretString> tmpExpected = new LinkedList<SecretString>();
+      final StringBuilder tmpExpected = new StringBuilder();
       try {
         final Statement tmpStatement = tmpConnection.createStatement();
         try {
@@ -227,8 +226,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
                 // TODO maybe report column and row
                 aContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
               } else {
-                final SecretString tmpSecretString = new SecretString(tmpValue);
-                tmpExpected.add(tmpSecretString);
+                if (tmpExpected.length() > 0) {
+                    tmpExpected.append(ContentPattern.DELIMITER);
+                  tmpExpected.append(" ");
+                }
+                tmpExpected.append(tmpValue);
               }
             }
           }
@@ -243,7 +245,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+      final ContentPattern tmpPattern = new ContentPattern(new SecretString(tmpExpected.toString()));
       final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpPattern, tmpTimeout);
       if (tmpContentChanged) {
         tmpBrowser.saveCurrentWindowToLog();

@@ -263,7 +263,7 @@ public class SecretStringTest {
   @Test
   public void split() {
     SecretString tmpSecret = new SecretString("ab,cd");
-    List<SecretString> tmpParts = tmpSecret.split(",");
+    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(2, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -272,6 +272,76 @@ public class SecretStringTest {
     tmpSecret = tmpParts.get(1);
     Assert.assertEquals("cd", tmpSecret.getValue());
     Assert.assertEquals("cd", tmpSecret.toString());
+  }
+
+  @Test
+  public void splitAtStart() {
+    SecretString tmpSecret = new SecretString(",cd");
+    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+
+    Assert.assertEquals(2, tmpParts.size());
+    tmpSecret = tmpParts.get(0);
+    Assert.assertEquals("", tmpSecret.getValue());
+    Assert.assertEquals("", tmpSecret.toString());
+    tmpSecret = tmpParts.get(1);
+    Assert.assertEquals("cd", tmpSecret.getValue());
+    Assert.assertEquals("cd", tmpSecret.toString());
+  }
+
+  @Test
+  public void splitAtEnd() {
+    SecretString tmpSecret = new SecretString("cd,");
+    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+
+    Assert.assertEquals(2, tmpParts.size());
+    tmpSecret = tmpParts.get(0);
+    Assert.assertEquals("cd", tmpSecret.getValue());
+    Assert.assertEquals("cd", tmpSecret.toString());
+    tmpSecret = tmpParts.get(1);
+    Assert.assertEquals("", tmpSecret.getValue());
+    Assert.assertEquals("", tmpSecret.toString());
+  }
+
+  @Test
+  public void splitEscaped() {
+    SecretString tmpSecret = new SecretString("ab,cd\\,de,xy");
+    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+
+    Assert.assertEquals(3, tmpParts.size());
+    tmpSecret = tmpParts.get(0);
+    Assert.assertEquals("ab", tmpSecret.getValue());
+    Assert.assertEquals("ab", tmpSecret.toString());
+    tmpSecret = tmpParts.get(1);
+    Assert.assertEquals("cd,de", tmpSecret.getValue());
+    Assert.assertEquals("cd,de", tmpSecret.toString());
+    tmpSecret = tmpParts.get(2);
+    Assert.assertEquals("xy", tmpSecret.getValue());
+    Assert.assertEquals("xy", tmpSecret.toString());
+  }
+
+  @Test
+  public void splitEscapedAtStart() {
+    SecretString tmpSecret = new SecretString("\\,ab,xy");
+    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+
+    Assert.assertEquals(2, tmpParts.size());
+    tmpSecret = tmpParts.get(0);
+    Assert.assertEquals(",ab", tmpSecret.getValue());
+    Assert.assertEquals(",ab", tmpSecret.toString());
+    tmpSecret = tmpParts.get(1);
+    Assert.assertEquals("xy", tmpSecret.getValue());
+    Assert.assertEquals("xy", tmpSecret.toString());
+  }
+
+  @Test
+  public void splitEscapedAtEnd() {
+    SecretString tmpSecret = new SecretString("ab\\,");
+    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+
+    Assert.assertEquals(1, tmpParts.size());
+    tmpSecret = tmpParts.get(0);
+    Assert.assertEquals("ab,", tmpSecret.getValue());
+    Assert.assertEquals("ab,", tmpSecret.toString());
   }
 
   @Test

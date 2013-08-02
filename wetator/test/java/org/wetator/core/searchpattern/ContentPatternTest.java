@@ -16,9 +16,6 @@
 
 package org.wetator.core.searchpattern;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Test;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
@@ -32,9 +29,8 @@ public class ContentPatternTest {
 
   @Test
   public void constructorNull() {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
     try {
-      new ContentPattern(tmpExpected);
+      new ContentPattern(null);
       org.junit.Assert.fail("InvalidInputException expected");
     } catch (InvalidInputException e) {
       org.junit.Assert.assertEquals("Pattern '' is invalid (empty patterns not supported).", e.getMessage());
@@ -43,9 +39,8 @@ public class ContentPatternTest {
 
   @Test
   public void constructorEmpty() {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
     try {
-      new ContentPattern(tmpExpected);
+      new ContentPattern(new SecretString());
       org.junit.Assert.fail("InvalidInputException expected");
     } catch (InvalidInputException e) {
       org.junit.Assert.assertEquals("Pattern '' is invalid (empty patterns not supported).", e.getMessage());
@@ -54,10 +49,7 @@ public class ContentPatternTest {
 
   @Test
   public void matches() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("b"));
-    tmpExpected.add(new SecretString("c"));
+    SecretString tmpExpected = new SecretString("a, b, c");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a b c");
@@ -71,9 +63,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesDots() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("def"));
-    tmpExpected.add(new SecretString("..."));
+    SecretString tmpExpected = new SecretString("def, ...");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches(" abc def ghi ... xyz");
@@ -81,11 +71,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesWrongOrder() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("b"));
-    tmpExpected.add(new SecretString("c"));
-    tmpExpected.add(new SecretString("d"));
+    SecretString tmpExpected = new SecretString("a, b, c, d");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -99,10 +85,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNotFound() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("b"));
-    tmpExpected.add(new SecretString("c"));
+    SecretString tmpExpected = new SecretString("a, b, c");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -116,11 +99,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesWrongOrderNotFound() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("b"));
-    tmpExpected.add(new SecretString("c"));
-    tmpExpected.add(new SecretString("d"));
+    SecretString tmpExpected = new SecretString("a, b, c, d");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -142,9 +121,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
+    SecretString tmpExpected = new SecretString("a, ~b");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a");
@@ -153,9 +130,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated2() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("~a"));
-    tmpExpected.add(new SecretString("b"));
+    SecretString tmpExpected = new SecretString("~a, b");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("b");
@@ -164,10 +139,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated3() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
-    tmpExpected.add(new SecretString("c"));
+    SecretString tmpExpected = new SecretString("a, ~b, c");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a c");
@@ -177,10 +149,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated4() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
-    tmpExpected.add(new SecretString("~c"));
+    SecretString tmpExpected = new SecretString("a, ~b, ~c");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a");
@@ -193,11 +162,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated5() throws AssertionException, InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
-    tmpExpected.add(new SecretString("c"));
-    tmpExpected.add(new SecretString("~d"));
+    SecretString tmpExpected = new SecretString("a, ~b, c, ~d");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a c");
@@ -208,9 +173,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFailes() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
+    SecretString tmpExpected = new SecretString("a, ~b");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -232,9 +195,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFailes2() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("~a"));
-    tmpExpected.add(new SecretString("b"));
+    SecretString tmpExpected = new SecretString("~a, b");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -256,10 +217,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFailes3() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
-    tmpExpected.add(new SecretString("c"));
+    SecretString tmpExpected = new SecretString("a, ~b, c");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -289,10 +247,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFails4() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
-    tmpExpected.add(new SecretString("~c"));
+    SecretString tmpExpected = new SecretString("a, ~b, ~c");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -330,11 +285,7 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFails6() throws InvalidInputException {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("a"));
-    tmpExpected.add(new SecretString("~b"));
-    tmpExpected.add(new SecretString("c"));
-    tmpExpected.add(new SecretString("~d"));
+    SecretString tmpExpected = new SecretString("a, ~b, c, ~d");
     ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
@@ -364,10 +315,8 @@ public class ContentPatternTest {
 
   @Test
   public void patternNegatedInvalid() {
-    List<SecretString> tmpExpected = new LinkedList<SecretString>();
-    tmpExpected.add(new SecretString("~a"));
     try {
-      new ContentPattern(tmpExpected);
+      new ContentPattern(new SecretString("~a"));
       org.junit.Assert.fail("AssertionException expected");
     } catch (InvalidInputException e) {
       org.junit.Assert.assertEquals("Pattern '~a' is invalid (pattern must contain one not negated term at least).",
