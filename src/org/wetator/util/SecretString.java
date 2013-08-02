@@ -208,7 +208,7 @@ public final class SecretString {
   public void prefixWith(final String aValuePrefix) {
     if (StringUtils.isNotEmpty(aValuePrefix)) {
       value = aValuePrefix + value;
-      moveSecrets(aValuePrefix.length());
+      moveSecrets(aValuePrefix.length(), 0);
     }
   }
 
@@ -310,7 +310,7 @@ public final class SecretString {
     }
 
     value = value.substring(tmpStart, tmpEnd + 1);
-    moveSecrets(tmpStart * -1);
+    moveSecrets(tmpStart * -1, 0);
 
     return this;
   }
@@ -345,7 +345,7 @@ public final class SecretString {
   public SecretString substring(final int aBeginIndex, final int anEndIndex) {
     final SecretString tmpResult = new SecretString(value.substring(aBeginIndex, anEndIndex));
     tmpResult.secrets.addAll(secrets);
-    tmpResult.moveSecrets(aBeginIndex * -1);
+    tmpResult.moveSecrets(aBeginIndex * -1, 0);
 
     return tmpResult;
   }
@@ -354,23 +354,60 @@ public final class SecretString {
    * Splits this string around matches of the given delimiter.
    * 
    * @param aDelimiter the delimiting string
+   * @param anEscapeChar an optional character, that can be used as an escape
+   *        character inside receiver to make delimiter characters ignored.
+   *        Specify -1 here to not use escape characters.
    * @return the list of strings computed by splitting this string
    *         around matches of the given delimiter
    */
-  public List<SecretString> split(final String aDelimiter) {
+  public List<SecretString> split(final String aDelimiter, final int anEscapeChar) {
+    final int tmpDelimiterSize = aDelimiter.length();
+    if (tmpDelimiterSize == 1 && aDelimiter.charAt(0) == anEscapeChar) {
+      throw new IllegalArgumentException("Delimiter must be different from escape char.");
+    }
+
     final List<SecretString> tmpResult = new LinkedList<SecretString>();
+
+    final int tmpSize = length();
+    if (tmpSize < tmpDelimiterSize) {
+      return tmpResult;
+    }
 
     int tmpStartPos = 0;
     int tmpSplitPos = value.indexOf(aDelimiter);
+    final List<Integer> tmpEscPos = new LinkedList<Integer>();
     while (tmpSplitPos > -1) {
-      tmpResult.add(substring(tmpStartPos, tmpSplitPos));
+      if (tmpSplitPos > 0) {
+        final char tmpEscape = value.charAt(tmpSplitPos - 1);
+        if (tmpEscape == anEscapeChar) {
+          tmpEscPos.add(0, tmpSplitPos - tmpStartPos - 1);
+          tmpSplitPos = value.indexOf(aDelimiter, tmpSplitPos + tmpDelimiterSize);
+          continue;
+        }
+      }
+      final SecretString tmpPart = substring(tmpStartPos, tmpSplitPos);
+      tmpPart.removeEsc(tmpEscPos);
+      tmpEscPos.clear();
+      tmpResult.add(tmpPart);
+      tmpStartPos = tmpSplitPos + tmpDelimiterSize;
 
-      tmpStartPos = tmpSplitPos + aDelimiter.length();
-      tmpSplitPos = value.indexOf(aDelimiter, tmpStartPos);
+      tmpSplitPos = value.indexOf(aDelimiter, tmpSplitPos + tmpDelimiterSize);
     }
 
-    tmpResult.add(substring(tmpStartPos, length()));
+    final SecretString tmpPart = substring(tmpStartPos, tmpSize);
+    tmpPart.removeEsc(tmpEscPos);
+    tmpResult.add(tmpPart);
     return tmpResult;
+  }
+
+  private void removeEsc(final List<Integer> anEscPosList) {
+    final StringBuilder tmpBuilder = new StringBuilder(value);
+    for (Integer tmpEscPos : anEscPosList) {
+      final int tmpPos = tmpEscPos.intValue();
+      tmpBuilder.replace(tmpPos, tmpPos + 1, "");
+      moveSecrets(-1, tmpPos);
+    }
+    value = tmpBuilder.toString();
   }
 
   /**
@@ -400,14 +437,22 @@ public final class SecretString {
     return StringUtils.isEmpty(value);
   }
 
-  private void moveSecrets(final int aDistance) {
+  private void moveSecrets(final int aDistance, final int aStartPos) {
     final int tmpLength = value.length();
 
     final Iterator<FindSpot> tmpSecrets = secrets.iterator();
     while (tmpSecrets.hasNext()) {
       final FindSpot tmpSpot = tmpSecrets.next();
-      tmpSpot.setStartPos(Math.max(0, tmpSpot.getStartPos() + aDistance));
-      tmpSpot.setEndPos(Math.min(tmpLength, tmpSpot.getEndPos() + aDistance));
+
+      final int tmpStart = tmpSpot.getStartPos();
+      if (aStartPos <= tmpStart) {
+        tmpSpot.setStartPos(Math.max(0, tmpStart + aDistance));
+      }
+
+      final int tmpEnd = tmpSpot.getEndPos();
+      if (aStartPos <= tmpEnd) {
+        tmpSpot.setEndPos(Math.min(tmpLength, tmpEnd + aDistance));
+      }
 
       if ((0 > tmpSpot.getEndPos()) || (tmpSpot.getEndPos() <= tmpSpot.getStartPos())) {
         tmpSecrets.remove();

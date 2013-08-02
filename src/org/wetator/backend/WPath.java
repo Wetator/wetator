@@ -30,8 +30,12 @@ import org.wetator.util.SecretString;
  * @author frank.danek
  */
 public class WPath {
+  /**
+   * The delimiter used for WPath parts.
+   */
+  public static final String DELIMITER = ",";
 
-  private List<SecretString> rawPath;
+  private SecretString rawPath;
   private List<SecretString> pathNodes = new ArrayList<SecretString>();
   private List<TableCoordinate> tableCoordinates = new ArrayList<TableCoordinate>();
   private List<TableCoordinate> tableCoordinatesReversed;
@@ -43,7 +47,7 @@ public class WPath {
    * @param aPathNodes the nodes of the path
    * @throws InvalidInputException in case of an invalid {@link WPath}
    */
-  public WPath(final List<SecretString> aPathNodes) throws InvalidInputException {
+  public WPath(final SecretString aPathNodes) throws InvalidInputException {
     if (aPathNodes == null) {
       // TODO i18n
       final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { "null",
@@ -52,13 +56,6 @@ public class WPath {
     }
     rawPath = aPathNodes;
     parseNodes();
-  }
-
-  /**
-   * @return the rawPath
-   */
-  public List<SecretString> getRawPath() {
-    return rawPath;
   }
 
   /**
@@ -103,18 +100,23 @@ public class WPath {
    */
   @Override
   public String toString() {
-    return SecretString.toString(rawPath);
+    return rawPath.toString();
   }
 
   private void parseNodes() throws InvalidInputException {
+    final List<SecretString> tmpNodes = rawPath.split(DELIMITER, '\\');
+    for (final SecretString tmpNode : tmpNodes) {
+      tmpNode.trim();
+    }
+
     boolean tmpTableCoordinatesFinished = false;
-    if (!rawPath.isEmpty()) {
-      for (final SecretString tmpNode : rawPath.subList(0, rawPath.size() - 1)) {
+    if (!tmpNodes.isEmpty()) {
+      for (final SecretString tmpNode : tmpNodes.subList(0, tmpNodes.size() - 1)) {
         if (tmpNode.startsWith("[") && tmpNode.endsWith("]") && !tmpNode.endsWith("\\]")) {
           if (tmpTableCoordinatesFinished) {
             // TODO i18n
-            final String tmpMessage = Messages.getMessage("invalidWPath", new String[] {
-                SecretString.toString(rawPath), "Invalid WPath. Only one group of table coordinates allowed." });
+            final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { rawPath.toString(),
+                "Invalid WPath. Only one group of table coordinates allowed." });
             throw new InvalidInputException(tmpMessage);
           }
           tableCoordinates.add(new TableCoordinate(tmpNode));
@@ -125,7 +127,7 @@ public class WPath {
           pathNodes.add(tmpNode);
         }
       }
-      lastNode = rawPath.get(rawPath.size() - 1);
+      lastNode = tmpNodes.get(tmpNodes.size() - 1);
       if (lastNode.startsWith("[") && lastNode.endsWith("]") && !lastNode.endsWith("\\]")) {
         tableCoordinates.add(new TableCoordinate(lastNode));
         lastNode = null;
@@ -166,7 +168,7 @@ public class WPath {
       // cut away [ and ]
       final SecretString tmpTableCoordinates = aTableCoordinates.substring(1, aTableCoordinates.length() - 1);
       if (tmpTableCoordinates.contains(";")) {
-        final List<SecretString> tmpCoordinates = tmpTableCoordinates.split(";");
+        final List<SecretString> tmpCoordinates = tmpTableCoordinates.split(";", '\\');
         if (tmpCoordinates.size() > 2) {
           throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
         }
