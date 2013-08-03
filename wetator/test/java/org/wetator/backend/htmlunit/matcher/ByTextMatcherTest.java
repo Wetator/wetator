@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -45,8 +44,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not"));
+    SecretString tmpSearch = new SecretString("not");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -63,8 +61,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TestAnchor"));
+    SecretString tmpSearch = new SecretString("TestAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -82,8 +79,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TestAnch*"));
+    SecretString tmpSearch = new SecretString("TestAnch*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -101,8 +97,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*stAnchor"));
+    SecretString tmpSearch = new SecretString("*stAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -120,8 +115,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("estAncho"));
+    SecretString tmpSearch = new SecretString("estAncho");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -139,8 +133,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyText"));
+    SecretString tmpSearch = new SecretString("MyText");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -159,9 +152,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("TestAnchor"));
+    SecretString tmpSearch = new SecretString("Some text, TestAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -180,9 +171,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("TestAnch*"));
+    SecretString tmpSearch = new SecretString("Some text, TestAnch*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -201,9 +190,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("*stAnchor"));
+    SecretString tmpSearch = new SecretString("Some text, *stAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -222,9 +209,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("estAncho"));
+    SecretString tmpSearch = new SecretString("Some text, estAncho");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -243,9 +228,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("TestAnchor"));
+    SecretString tmpSearch = new SecretString("wrong text, TestAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -262,9 +245,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("TestAnchor"));
+    SecretString tmpSearch = new SecretString("wrong text, TestAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

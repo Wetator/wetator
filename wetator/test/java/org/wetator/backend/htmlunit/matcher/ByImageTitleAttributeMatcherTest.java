@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -45,8 +44,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not"));
+    SecretString tmpSearch = new SecretString("not");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -63,8 +61,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyTitle"));
+    SecretString tmpSearch = new SecretString("MyTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -82,8 +79,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyTit*"));
+    SecretString tmpSearch = new SecretString("MyTit*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -101,8 +97,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*MyTitle"));
+    SecretString tmpSearch = new SecretString("*Title");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -120,8 +115,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yTitl"));
+    SecretString tmpSearch = new SecretString("yTitl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -140,9 +134,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("MyTitle"));
+    SecretString tmpSearch = new SecretString("Some text, MyTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -161,9 +153,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("MyTit*"));
+    SecretString tmpSearch = new SecretString("Some text, MyTit*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -182,9 +172,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("*Title"));
+    SecretString tmpSearch = new SecretString("Some text, *Title");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -203,9 +191,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("yTitl"));
+    SecretString tmpSearch = new SecretString("Some text, yTitl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -224,9 +210,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("MyTitle"));
+    SecretString tmpSearch = new SecretString("wrong text, MyTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -243,9 +227,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("MyTitle"));
+    SecretString tmpSearch = new SecretString("wrong text, MyTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

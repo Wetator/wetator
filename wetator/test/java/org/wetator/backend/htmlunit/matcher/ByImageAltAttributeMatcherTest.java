@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -45,8 +44,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not"));
+    SecretString tmpSearch = new SecretString("not");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -63,8 +61,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyAlt"));
+    SecretString tmpSearch = new SecretString("MyAlt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -82,8 +79,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyA*"));
+    SecretString tmpSearch = new SecretString("MyA*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -101,8 +97,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*Alt"));
+    SecretString tmpSearch = new SecretString("*Alt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -120,8 +115,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yAl"));
+    SecretString tmpSearch = new SecretString("yAl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -140,9 +134,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("MyAlt"));
+    SecretString tmpSearch = new SecretString("Some text, MyAlt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -161,9 +153,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("MyA*"));
+    SecretString tmpSearch = new SecretString("Some text, MyA*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -182,9 +172,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("*Alt"));
+    SecretString tmpSearch = new SecretString("Some text, *Alt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -203,9 +191,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("yAl"));
+    SecretString tmpSearch = new SecretString("Some text, yAl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -224,9 +210,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("MyAlt"));
+    SecretString tmpSearch = new SecretString("wrong Text, MyAlt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -243,9 +227,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("MyAlt"));
+    SecretString tmpSearch = new SecretString("wrong Text, MyAlt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

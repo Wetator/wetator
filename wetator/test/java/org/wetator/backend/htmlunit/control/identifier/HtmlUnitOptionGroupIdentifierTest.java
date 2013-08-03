@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -54,8 +52,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("optgroup_colors"));
+    SecretString tmpSearch = new SecretString("optgroup_colors");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
 
@@ -81,8 +78,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("colors"));
+    SecretString tmpSearch = new SecretString("colors");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
 

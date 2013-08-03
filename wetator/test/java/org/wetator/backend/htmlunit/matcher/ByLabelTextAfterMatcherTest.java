@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -45,8 +44,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("not"));
+    SecretString tmpSearch = new SecretString("not");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -63,8 +61,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("CheckBox"));
+    SecretString tmpSearch = new SecretString("CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -82,8 +79,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("CheckB*"));
+    SecretString tmpSearch = new SecretString("CheckB*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -101,8 +97,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("*eckBox"));
+    SecretString tmpSearch = new SecretString("*eckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -120,8 +115,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("heckBo"));
+    SecretString tmpSearch = new SecretString("heckBo");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -140,9 +134,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("CheckBox"));
+    SecretString tmpSearch = new SecretString("Some text, CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -161,9 +153,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("CheckB*"));
+    SecretString tmpSearch = new SecretString("Some text, CheckB*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -182,9 +172,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("*eckBox"));
+    SecretString tmpSearch = new SecretString("Some text, *eckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -203,9 +191,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Some text"));
-    tmpSearch.add(new SecretString("heckBo"));
+    SecretString tmpSearch = new SecretString("Some text, heckBo");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -224,9 +210,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("CheckBox"));
+    SecretString tmpSearch = new SecretString("wrong text, CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -243,9 +227,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("wrong text"));
-    tmpSearch.add(new SecretString("CheckBox"));
+    SecretString tmpSearch = new SecretString("wrong text, CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 

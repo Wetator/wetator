@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,8 +47,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId"));
+    SecretString tmpSearch = new SecretString("myId");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -70,8 +67,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName"));
+    SecretString tmpSearch = new SecretString("MyName");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -92,8 +88,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ClickMe"));
+    SecretString tmpSearch = new SecretString("ClickMe");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -114,8 +109,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName"));
+    SecretString tmpSearch = new SecretString("MyName");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyName");
 

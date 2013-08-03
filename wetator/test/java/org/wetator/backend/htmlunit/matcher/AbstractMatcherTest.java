@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public abstract class AbstractMatcherTest {
 
-  protected List<MatchResult> match(String aHtmlCode, List<SecretString> aSearch, String... anHtmlElementIds)
+  protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
       throws IOException, InvalidInputException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);

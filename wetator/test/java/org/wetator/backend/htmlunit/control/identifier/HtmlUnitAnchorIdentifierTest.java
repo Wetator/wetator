@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,8 +47,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId"));
+    SecretString tmpSearch = new SecretString("myId");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -70,8 +67,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyName"));
+    SecretString tmpSearch = new SecretString("MyName");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -92,8 +88,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TestAnchor"));
+    SecretString tmpSearch = new SecretString("TestAnchor");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -115,8 +110,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myAnchor"));
+    SecretString tmpSearch = new SecretString("myAnchor");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myAnchor");
 
@@ -139,8 +133,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyImageName"));
+    SecretString tmpSearch = new SecretString("MyImageName");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -164,8 +157,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyAlt"));
+    SecretString tmpSearch = new SecretString("MyAlt");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -189,8 +181,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyTitle"));
+    SecretString tmpSearch = new SecretString("MyTitle");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -214,8 +205,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("picture.png"));
+    SecretString tmpSearch = new SecretString("picture.png");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
