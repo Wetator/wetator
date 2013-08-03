@@ -33,9 +33,13 @@ import org.wetator.util.SecretString;
  * @author rbri
  */
 public class ContentPattern {
+  /**
+   * The delimiter used for content parts.
+   */
+  public static final String DELIMITER = ",";
   private static final String NOT_OPERTOR = "~";
 
-  private List<SecretString> rawNodes;
+  private SecretString rawNode;
   private List<PatternNode> nodes;
   private List<List<PatternNode>> checks;
 
@@ -45,8 +49,8 @@ public class ContentPattern {
    * @param anExpectedNodes the nodes expected from the text
    * @throws InvalidInputException if provided pattern is empty or contains only negated nodes
    */
-  public ContentPattern(final List<SecretString> anExpectedNodes) throws InvalidInputException {
-    rawNodes = anExpectedNodes;
+  public ContentPattern(final SecretString anExpectedNodes) throws InvalidInputException {
+    rawNode = anExpectedNodes;
 
     // not empty
     if (anExpectedNodes == null || anExpectedNodes.isEmpty()) {
@@ -63,18 +67,17 @@ public class ContentPattern {
     // validation
     // at least one positive node is required
     if (checks.get(0).isEmpty()) {
-      final String tmpMessage = Messages.getMessage(
-          "invalidContentPattern",
-          new String[] { SecretString.toString(anExpectedNodes),
-              Messages.getMessage("onlyNegatedContentPattern", new String[] { toString() }) });
+      final String tmpMessage = Messages.getMessage("invalidContentPattern",
+          new String[] { toString(), Messages.getMessage("onlyNegatedContentPattern", new String[] { toString() }) });
       throw new InvalidInputException(tmpMessage);
     }
   }
 
   private void parseNodes() {
+    final List<SecretString> tmpParts = rawNode.split(DELIMITER, '\\');
     nodes = new LinkedList<PatternNode>();
-    for (final SecretString tmpNode : rawNodes) {
-      nodes.add(new PatternNode(tmpNode));
+    for (final SecretString tmpNode : tmpParts) {
+      nodes.add(new PatternNode(tmpNode.trim()));
     }
   }
 
@@ -226,7 +229,7 @@ public class ContentPattern {
    */
   @Override
   public String toString() {
-    return SecretString.toString(rawNodes);
+    return rawNode.toString();
   }
 
   /**

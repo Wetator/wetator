@@ -53,9 +53,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1"));
-    tmpSearch.add(new SecretString("not"));
+    SecretString tmpSearch = new SecretString("Marker1, not");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -75,9 +73,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1"));
-    tmpSearch.add(new SecretString("Marker2"));
+    SecretString tmpSearch = new SecretString("Marker1, Marker2");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -98,9 +94,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1"));
-    tmpSearch.add(new SecretString("Marke*"));
+    SecretString tmpSearch = new SecretString("Marker1, Marke*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -121,9 +115,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1"));
-    tmpSearch.add(new SecretString("*rker2"));
+    SecretString tmpSearch = new SecretString("Marker1, *rker2");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -144,9 +136,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1"));
-    tmpSearch.add(new SecretString("arker"));
+    SecretString tmpSearch = new SecretString("Marker1, arker");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -155,7 +145,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Override
-  protected List<MatchResult> match(String aHtmlCode, List<SecretString> aSearch, String... anHtmlElementIds)
+  protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
       throws IOException, InvalidInputException {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);

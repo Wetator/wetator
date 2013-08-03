@@ -197,28 +197,11 @@ public final class Command {
     final Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
-      return null;
+      return new SecretString();
     }
 
     final SecretString tmpFirstValue = tmpFirstParameter.getValue(aContext);
     return tmpFirstValue;
-  }
-
-  /**
-   * Returns the list of secret strings parsed from the first parameter.
-   * 
-   * @param aContext the context
-   * @return the list of secret strings (never null)
-   * @throws InvalidInputException if the first parameter is not set
-   */
-  public List<SecretString> getRequiredFirstParameterValues(final WetatorContext aContext) throws InvalidInputException {
-    final Parameter tmpFirstParameter = getFirstParameter();
-
-    if (null == tmpFirstParameter) {
-      invalidInput("emptyFirstParameter", new String[] { getName() });
-    }
-
-    return getFirstParameterValues(aContext);
   }
 
   /**

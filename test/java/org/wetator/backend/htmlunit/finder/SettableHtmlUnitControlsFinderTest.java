@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.finder;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,10 +41,8 @@ public class SettableHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString()));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -58,10 +54,8 @@ public class SettableHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString()));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -73,10 +67,8 @@ public class SettableHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString()));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
@@ -90,10 +82,8 @@ public class SettableHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString()));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
@@ -107,10 +97,8 @@ public class SettableHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString()));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
@@ -124,10 +112,8 @@ public class SettableHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-
     SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString()));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound

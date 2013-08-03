@@ -16,9 +16,6 @@
 
 package org.wetator.backend;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.exception.InvalidInputException;
@@ -36,10 +33,9 @@ public class WPathTest {
 
   @Test
   public void empty() throws Exception {
-    WPath tmpWPath = new WPath(new ArrayList<SecretString>());
+    WPath tmpWPath = new WPath(new SecretString(null));
 
     Assert.assertTrue(tmpWPath.isEmpty());
-    Assert.assertEquals(0, tmpWPath.getRawPath().size());
     Assert.assertEquals(0, tmpWPath.getPathNodes().size());
     Assert.assertNull(tmpWPath.getLastNode());
     Assert.assertEquals(0, tmpWPath.getTableCoordinates().size());
@@ -48,24 +44,20 @@ public class WPathTest {
 
   @Test
   public void emptyLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("")));
+    WPath tmpWPath = new WPath(new SecretString(""));
 
-    Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(1, tmpWPath.getRawPath().size());
-    Assert.assertEquals("", tmpWPath.getRawPath().get(0).getValue());
+    Assert.assertTrue(tmpWPath.isEmpty());
     Assert.assertEquals(0, tmpWPath.getPathNodes().size());
-    Assert.assertEquals("", tmpWPath.getLastNode().getValue());
+    Assert.assertNull(tmpWPath.getLastNode());
     Assert.assertEquals(0, tmpWPath.getTableCoordinates().size());
     Assert.assertEquals(0, tmpWPath.getTableCoordinatesReversed().size());
   }
 
   @Test
   public void lastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("last")));
+    WPath tmpWPath = new WPath(new SecretString("last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(1, tmpWPath.getRawPath().size());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(0).getValue());
     Assert.assertEquals(0, tmpWPath.getPathNodes().size());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
     Assert.assertEquals(0, tmpWPath.getTableCoordinates().size());
@@ -74,12 +66,9 @@ public class WPathTest {
 
   @Test
   public void emptyPathEmptyLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString(""), new SecretString("")));
+    WPath tmpWPath = new WPath(new SecretString(","));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(2, tmpWPath.getRawPath().size());
-    Assert.assertEquals("", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("", tmpWPath.getRawPath().get(1).getValue());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
     Assert.assertEquals("", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("", tmpWPath.getLastNode().getValue());
@@ -89,12 +78,9 @@ public class WPathTest {
 
   @Test
   public void emptyPathLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString(""), new SecretString("last")));
+    WPath tmpWPath = new WPath(new SecretString(",last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(2, tmpWPath.getRawPath().size());
-    Assert.assertEquals("", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(1).getValue());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
     Assert.assertEquals("", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
@@ -104,12 +90,9 @@ public class WPathTest {
 
   @Test
   public void pathEmptyLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("path"), new SecretString("")));
+    WPath tmpWPath = new WPath(new SecretString("path,"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(2, tmpWPath.getRawPath().size());
-    Assert.assertEquals("path", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("", tmpWPath.getRawPath().get(1).getValue());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
     Assert.assertEquals("path", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("", tmpWPath.getLastNode().getValue());
@@ -119,12 +102,9 @@ public class WPathTest {
 
   @Test
   public void pathLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("path"), new SecretString("last")));
+    WPath tmpWPath = new WPath(new SecretString("path,last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(2, tmpWPath.getRawPath().size());
-    Assert.assertEquals("path", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(1).getValue());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
     Assert.assertEquals("path", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
@@ -134,14 +114,9 @@ public class WPathTest {
 
   @Test
   public void multiplePathLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("path1"), new SecretString("path2"), new SecretString(
-        "last")));
+    WPath tmpWPath = new WPath(new SecretString("path1,path2,last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(3, tmpWPath.getRawPath().size());
-    Assert.assertEquals("path1", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("path2", tmpWPath.getRawPath().get(1).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(2).getValue());
     Assert.assertEquals(2, tmpWPath.getPathNodes().size());
     Assert.assertEquals("path1", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("path2", tmpWPath.getPathNodes().get(1).getValue());
@@ -152,11 +127,9 @@ public class WPathTest {
 
   @Test
   public void table() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("[x;y]")));
+    WPath tmpWPath = new WPath(new SecretString("[x;y]"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(1, tmpWPath.getRawPath().size());
-    Assert.assertEquals("[x;y]", tmpWPath.getRawPath().get(0).getValue());
     Assert.assertEquals(0, tmpWPath.getPathNodes().size());
     Assert.assertNull(tmpWPath.getLastNode());
     Assert.assertEquals(1, tmpWPath.getTableCoordinates().size());
@@ -167,12 +140,9 @@ public class WPathTest {
 
   @Test
   public void tableLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("[x;y]"), new SecretString("last")));
+    WPath tmpWPath = new WPath(new SecretString("[x;y],last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(2, tmpWPath.getRawPath().size());
-    Assert.assertEquals("[x;y]", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(1).getValue());
     Assert.assertEquals(0, tmpWPath.getPathNodes().size());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
     Assert.assertEquals(1, tmpWPath.getTableCoordinates().size());
@@ -183,14 +153,9 @@ public class WPathTest {
 
   @Test
   public void multipleTableLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("[x1;y1]"), new SecretString("[x2;y2]"),
-        new SecretString("last")));
+    WPath tmpWPath = new WPath(new SecretString("[x1;y1],[x2;y2],last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(3, tmpWPath.getRawPath().size());
-    Assert.assertEquals("[x1;y1]", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("[x2;y2]", tmpWPath.getRawPath().get(1).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(2).getValue());
     Assert.assertEquals(0, tmpWPath.getPathNodes().size());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
     Assert.assertEquals(2, tmpWPath.getTableCoordinates().size());
@@ -203,14 +168,9 @@ public class WPathTest {
 
   @Test
   public void pathTableLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("path"), new SecretString("[x;y]"), new SecretString(
-        "last")));
+    WPath tmpWPath = new WPath(new SecretString("path,[x;y],last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(3, tmpWPath.getRawPath().size());
-    Assert.assertEquals("path", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("[x;y]", tmpWPath.getRawPath().get(1).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(2).getValue());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
     Assert.assertEquals("path", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
@@ -222,14 +182,9 @@ public class WPathTest {
 
   @Test
   public void tablePathLastNode() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("[x;y]"), new SecretString("path"), new SecretString(
-        "last")));
+    WPath tmpWPath = new WPath(new SecretString("[x;y],path,last"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(3, tmpWPath.getRawPath().size());
-    Assert.assertEquals("[x;y]", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("path", tmpWPath.getRawPath().get(1).getValue());
-    Assert.assertEquals("last", tmpWPath.getRawPath().get(2).getValue());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
     Assert.assertEquals("path", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
@@ -241,21 +196,14 @@ public class WPathTest {
 
   @Test(expected = InvalidInputException.class)
   public void tablePathTableLastNode() throws Exception {
-    new WPath(Arrays.asList(new SecretString("[x;y]"), new SecretString("path"), new SecretString("[x;y]"),
-        new SecretString("last")));
+    new WPath(new SecretString("[x;y],path,[x;y],last"));
   }
 
   @Test
   public void pathTablePathTable() throws Exception {
-    WPath tmpWPath = new WPath(Arrays.asList(new SecretString("path1"), new SecretString("[x1;y1]"), new SecretString(
-        "path2"), new SecretString("[x2;y2]")));
+    WPath tmpWPath = new WPath(new SecretString("path1,[x1;y1],path2,[x2;y2]"));
 
     Assert.assertFalse(tmpWPath.isEmpty());
-    Assert.assertEquals(4, tmpWPath.getRawPath().size());
-    Assert.assertEquals("path1", tmpWPath.getRawPath().get(0).getValue());
-    Assert.assertEquals("[x1;y1]", tmpWPath.getRawPath().get(1).getValue());
-    Assert.assertEquals("path2", tmpWPath.getRawPath().get(2).getValue());
-    Assert.assertEquals("[x2;y2]", tmpWPath.getRawPath().get(3).getValue());
     Assert.assertEquals(2, tmpWPath.getPathNodes().size());
     Assert.assertEquals("path1", tmpWPath.getPathNodes().get(0).getValue());
     Assert.assertEquals("path2", tmpWPath.getPathNodes().get(1).getValue());

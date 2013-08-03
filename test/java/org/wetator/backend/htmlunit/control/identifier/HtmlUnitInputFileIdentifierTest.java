@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,8 +47,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myId"));
+    SecretString tmpSearch = new SecretString("myId");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -70,8 +67,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("myName"));
+    SecretString tmpSearch = new SecretString("myName");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
@@ -94,8 +90,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker"));
+    SecretString tmpSearch = new SecretString("Marker");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
@@ -119,8 +114,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Marker1"));
+    SecretString tmpSearch = new SecretString("Marker1");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
@@ -142,8 +136,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label"));
+    SecretString tmpSearch = new SecretString("Label");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
@@ -166,8 +159,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
         + "</body></html>";
     // @formatter:on
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label"));
+    SecretString tmpSearch = new SecretString("Label");
 
     WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 

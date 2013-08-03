@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.finder;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,8 +42,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Name"));
+    SecretString tmpSearch = new SecretString("Name");
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
@@ -60,8 +57,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ClickMe"));
+    SecretString tmpSearch = new SecretString("ClickMe");
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
@@ -77,8 +73,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ClickMe"));
+    SecretString tmpSearch = new SecretString("ClickMe");
 
     IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
