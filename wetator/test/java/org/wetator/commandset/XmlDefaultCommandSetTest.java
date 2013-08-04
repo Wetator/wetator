@@ -304,7 +304,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectRadio() throws InvalidInputException {
     executeTestFile("select_radio.wet");
 
-    Assert.assertEquals(48, getSteps());
+    Assert.assertEquals(49, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

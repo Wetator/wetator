@@ -89,6 +89,9 @@
     <comment>Disabled RadioButton</comment>
     <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlRadioButtonInput 'r_value' (id='radioButton_Disabled') (name='radioButton_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled RadioButton</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
+    <comment>Readonly RadioButton</comment>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlRadioButtonInput 'r_value' (id='radioButton_Readonly') (name='radioButton_Readonly')] is read only. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Readonly RadioButton</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
     <comment></comment>
     <comment></comment>
     <comment></comment>
