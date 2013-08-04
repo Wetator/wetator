@@ -45,28 +45,6 @@ public final class SecretString {
   private List<FindSpot> secrets;
 
   /**
-   * Constructs a comma separated string from the given list of secret strings.
-   * 
-   * @param aSecretStringList the input
-   * @return the constructed string
-   */
-  public static String toString(final List<SecretString> aSecretStringList) {
-    final StringBuilder tmpResult = new StringBuilder();
-
-    boolean tmpIsNotFirst = false;
-    for (final SecretString tmpSecretString : aSecretStringList) {
-      if (tmpIsNotFirst) {
-        tmpResult.append(", ");
-      } else {
-        tmpIsNotFirst = true;
-      }
-      tmpResult.append(tmpSecretString.toString());
-    }
-
-    return tmpResult.toString();
-  }
-
-  /**
    * @param aVariables a list of variables
    * @return the {@link SecretString} (as the result of the replacement)
    */

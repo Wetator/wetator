@@ -164,29 +164,6 @@ public final class Command {
   }
 
   /**
-   * Returns the list of secret strings parsed from the first parameter.
-   * 
-   * @param aContext the context
-   * @return the list of secret strings (never null)
-   */
-  public List<SecretString> getFirstParameterValues(final WetatorContext aContext) {
-    final Parameter tmpFirstParameter = getFirstParameter();
-    final List<SecretString> tmpResult = new LinkedList<SecretString>();
-
-    if (null == tmpFirstParameter) {
-      return tmpResult;
-    }
-
-    final List<Parameter.Part> tmpParts = tmpFirstParameter.getParts();
-
-    for (final Parameter.Part tmpPart : tmpParts) {
-      tmpResult.add(tmpPart.getValue(aContext));
-    }
-
-    return tmpResult;
-  }
-
-  /**
    * Returns the first parameter as secret string.
    * The parameter is taken at whole, not parsed.
    * 
