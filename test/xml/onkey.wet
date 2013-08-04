@@ -48,7 +48,7 @@
     <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
     <comment>select single select</comment>
-    <command><d:select><d:wpath>SingleSelect, option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>SingleSelect &gt; option2</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
     <comment>not onKey event; this is the same the browser does</comment>
     <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>
@@ -57,8 +57,8 @@
     <command><d:open-url><d:url>onkey.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / OnKey</d:title></d:assert-title></command>
     <comment>select multiple select</comment>
-    <command><d:select><d:wpath>MultipleSelect, option2</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect &gt; option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect &gt; option1</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
     <comment>not onKey event; this is the same the browser does</comment>
     <command><d:assert-content><d:content>Key Value eventTrace OnKeyTest OK</d:content></d:assert-content></command>

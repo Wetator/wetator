@@ -10,13 +10,13 @@
     <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
     <comment>Select for enabled elements</comment>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:select><d:wpath>SingleSelect, option1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>SingleSelect, option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>SingleSelect &gt; option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>SingleSelect &gt; option1</d:wpath></d:select></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [singleSelect] [1] focus [singleSelect] [-] mouseup [singleSelect] [1] change [singleSelect] [-] click [singleSelect] [1] mousedown [singleSelect] [1] mouseup [singleSelect] [1] click [singleSelect] [1] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mousedown [singleSelect] [1] focus [singleSelect] [-] mouseup [singleSelect] [1] change [singleSelect] [-] click [singleSelect] [-] click [singleSelect_o_value1] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect, option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect &gt; option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect &gt; option1</d:wpath></d:select></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [multipleSelect] [1] focus [multipleSelect] [-] mouseup [multipleSelect] [1] change [multipleSelect] [-] click [multipleSelect] [1] mousedown [multipleSelect] [1] mouseup [multipleSelect] [1] click [multipleSelect] [1] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mousedown [multipleSelect] [1] focus [multipleSelect] [-] mouseup [multipleSelect] [1] change [multipleSelect] [-] click [multipleSelect] [-] click [multipleSelect_o_value1] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
@@ -25,8 +25,8 @@
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [checkbox] [1] focus [checkbox] [-] mouseup [checkbox] [1] click [checkbox] [1] change [checkbox] [-] mousedown [checkbox] [1] mouseup [checkbox] [1] click [checkbox] [1] change [checkbox] [-] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mousedown [checkbox] [1] focus [checkbox] [-] mouseup [checkbox] [1] click [checkbox] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:select><d:wpath>RadioGroup, Radio1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>RadioGroup, Radio1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>RadioGroup &gt; Radio1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>RadioGroup &gt; Radio1</d:wpath></d:select></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [radioGroup] [1] focus [radioGroup] [-] mouseup [radioGroup] [1] click [radioGroup] [1] change [radioGroup] [-] mousedown [radioGroup] [1] mouseup [radioGroup] [1] click [radioGroup] [1] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mousedown [radioGroup] [1] focus [radioGroup] [-] mouseup [radioGroup] [1] click [radioGroup] [-] OK</d:content></d:assert-content></command>
     <comment>Select for disabled elements</comment>
