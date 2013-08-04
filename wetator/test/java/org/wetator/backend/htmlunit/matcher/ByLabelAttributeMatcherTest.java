@@ -164,7 +164,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, colors");
+    SecretString tmpSearch = new SecretString("Some text > colors");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -188,7 +188,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, colo*");
+    SecretString tmpSearch = new SecretString("Some text > colo*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -212,7 +212,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *lors");
+    SecretString tmpSearch = new SecretString("Some text > *lors");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 
@@ -236,7 +236,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, olor");
+    SecretString tmpSearch = new SecretString("Some text > olor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
 

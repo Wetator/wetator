@@ -51,7 +51,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("myId");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -74,7 +74,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("MyName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -97,7 +97,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("ButtonWithText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -121,7 +121,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("MyName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyName");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyName");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -144,7 +144,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("MyImageName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -168,7 +168,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("MyImageAlt");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -192,7 +192,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("MyImageTitle");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -216,7 +216,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     SecretString tmpSearch = new SecretString("picture.png");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 

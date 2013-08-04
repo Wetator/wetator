@@ -134,7 +134,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyTitle");
+    SecretString tmpSearch = new SecretString("Some text > MyTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -153,7 +153,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyTit*");
+    SecretString tmpSearch = new SecretString("Some text > MyTit*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -172,7 +172,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *Title");
+    SecretString tmpSearch = new SecretString("Some text > *Title");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -191,7 +191,7 @@ public class ByImageTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, yTitl");
+    SecretString tmpSearch = new SecretString("Some text > yTitl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

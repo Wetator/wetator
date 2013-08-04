@@ -134,7 +134,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, ClickMe");
+    SecretString tmpSearch = new SecretString("Some text > ClickMe");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -153,7 +153,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, Click*");
+    SecretString tmpSearch = new SecretString("Some text > Click*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -172,7 +172,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *ickMe");
+    SecretString tmpSearch = new SecretString("Some text > *ickMe");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -191,7 +191,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, lickM");
+    SecretString tmpSearch = new SecretString("Some text > lickM");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

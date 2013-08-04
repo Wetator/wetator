@@ -146,7 +146,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyAlt");
+    SecretString tmpSearch = new SecretString("Some text > MyAlt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -167,7 +167,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyA*");
+    SecretString tmpSearch = new SecretString("Some text > MyA*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -188,7 +188,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *Alt");
+    SecretString tmpSearch = new SecretString("Some text > *Alt");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -209,7 +209,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, yAl");
+    SecretString tmpSearch = new SecretString("Some text > yAl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -367,7 +367,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyImageName");
+    SecretString tmpSearch = new SecretString("Some text > MyImageName");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -388,7 +388,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyImageNa*");
+    SecretString tmpSearch = new SecretString("Some text > MyImageNa*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -409,7 +409,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *ImageName");
+    SecretString tmpSearch = new SecretString("Some text > *ImageName");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -607,7 +607,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, picture.png");
+    SecretString tmpSearch = new SecretString("Some text > picture.png");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -628,7 +628,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, picture.p*");
+    SecretString tmpSearch = new SecretString("Some text > picture.p*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -649,7 +649,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *cture.png");
+    SecretString tmpSearch = new SecretString("Some text > *cture.png");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -828,7 +828,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyTitle");
+    SecretString tmpSearch = new SecretString("Some text > MyTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -849,7 +849,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, MyTit*");
+    SecretString tmpSearch = new SecretString("Some text > MyTit*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -870,7 +870,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *Title");
+    SecretString tmpSearch = new SecretString("Some text > *Title");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -891,7 +891,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, yTitl");
+    SecretString tmpSearch = new SecretString("Some text > yTitl");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

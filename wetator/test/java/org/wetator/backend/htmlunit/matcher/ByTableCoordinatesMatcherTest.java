@@ -16,9 +16,11 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,6 +29,7 @@ import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
@@ -429,7 +432,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("row_2, [header_3]");
+    SecretString tmpSearch = new SecretString("row_2 > [header_3]");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -513,7 +516,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1], [header_3; row_2]");
+    SecretString tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1] > [header_3; row_2]");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
         "InputText_2_3");
@@ -526,6 +529,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   @Override
   protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
       throws IOException, InvalidInputException {
+    Properties tmpProperties = new Properties();
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
+    WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
+
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -533,7 +540,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     for (String tmpHtmlElementId : anHtmlElementIds) {
       HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      WPath tmpPath = new WPath(aSearch);
+      WPath tmpPath = new WPath(aSearch, tmpConfig);
 
       SearchPattern tmpPathSearchPattern = null;
       FindSpot tmpPathSpot = null;
