@@ -10,10 +10,10 @@
     <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
     <comment>Deselect for enabled elements</comment>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Deselect, The HTML element [HtmlOption 'option1' (id='singleSelect_o_value1') part of [HtmlSelect (id='singleSelect') (name='singleSelect')]] does not support the deselect operation.</tst:command-and-message><tst:parameter1>SingleSelect, option1</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Deselect, The HTML element [HtmlOption 'option1' (id='singleSelect_o_value1') part of [HtmlSelect (id='singleSelect') (name='singleSelect')]] does not support the deselect operation.</tst:command-and-message><tst:parameter1>SingleSelect &gt; option1</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:deselect><d:wpath>MultipleSelect, option1</d:wpath></d:deselect></command>
+    <command><d:deselect><d:wpath>MultipleSelect &gt; option1</d:wpath></d:deselect></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousedown [multipleSelect_o_value1] [1] focus [multipleSelect] [-] mouseup [multipleSelect_o_value1] [1] change [multipleSelect] [-] click [multipleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>

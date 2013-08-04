@@ -30,18 +30,18 @@
     <command><d:mouse-over><d:wpath>Upload</d:wpath></d:mouse-over></command>
     <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>SingleSelect, option1</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>SingleSelect &gt; option1</d:wpath></d:mouse-over></command>
     <command disabled="true"><d:assert-content><d:content>Handler mouseover [singleSelect] [1] mousemove [singleSelect] [1] mouseout [singleSelect] [1] mouseover [singleSelect_o_value1] [1] mousemove [singleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mouseover [singleSelect_o_value1] [1] mousemove [singleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>MultipleSelect, option1</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>MultipleSelect &gt; option1</d:wpath></d:mouse-over></command>
     <command disabled="true"><d:assert-content><d:content>Handler mouseover [multipleSelect] [1] mousemove [multipleSelect] [1] mouseout [multipleSelect] [1] mouseover [multipleSelect_o_value1] [1] mousemove [multipleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mouseover [multipleSelect_o_value1] [1] mousemove [multipleSelect_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:mouse-over><d:wpath>Checkbox</d:wpath></d:mouse-over></command>
     <command><d:assert-content><d:content>Handler mouseover [checkbox] [1] mousemove [checkbox] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>RadioGroup, Radio1</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>RadioGroup &gt; Radio1</d:wpath></d:mouse-over></command>
     <command><d:assert-content><d:content>Handler mouseover [radioGroup] [1] mousemove [radioGroup] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:mouse-over><d:wpath>Anchor</d:wpath></d:mouse-over></command>
@@ -72,18 +72,18 @@
     <command><d:mouse-over><d:wpath>Upload Disabled</d:wpath></d:mouse-over></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>Disabled Selects, SingleSelect, option1</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>Disabled Selects &gt; SingleSelect &gt; option1</d:wpath></d:mouse-over></command>
     <command disabled="true"><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mouseover [singleSelectDisabled_o_value1] [1] mousemove [singleSelectDisabled_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>Disabled Selects, MultipleSelect, option1</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>Disabled Selects &gt; MultipleSelect &gt; option1</d:wpath></d:mouse-over></command>
     <command disabled="true"><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mouseover [multipleSelectDisabled_o_value1] [1] mousemove [multipleSelectDisabled_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>Disabled Selects, Checkbox</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>Disabled Selects &gt; Checkbox</d:wpath></d:mouse-over></command>
     <command disabled="true"><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>Handler mouseover [checkbox] [1] mousemove [checkbox] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
-    <command><d:mouse-over><d:wpath>RadioGroup Disabled, Radio1</d:wpath></d:mouse-over></command>
+    <command><d:mouse-over><d:wpath>RadioGroup Disabled &gt; Radio1</d:wpath></d:mouse-over></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
 </test-case>

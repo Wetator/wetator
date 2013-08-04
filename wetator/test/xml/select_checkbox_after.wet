@@ -8,7 +8,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox with name</comment>
-    <command><d:select><d:wpath>Select after this text, checkBox_after_Name</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; checkBox_after_Name</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxNameAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxNameAfterTest OK checkBox_after_Name check_Name POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -16,7 +16,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox with title</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox Title</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox Title</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxTitleAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxTitleAfterTest OK checkBoxTitle_after_Name check_Title POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -24,7 +24,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox with id</comment>
-    <command><d:select><d:wpath>Select after this text, checkBox_after_Id</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; checkBox_after_Id</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxIdAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxIdAfterTest OK checkBoxId_after_Name check_Id POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -32,7 +32,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox with default selection</comment>
-    <command><d:select><d:wpath>Select after this text, checkBox_after_NameChecked</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; checkBox_after_NameChecked</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxNameValueAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxNameValueAfterTest OK checkBox_after_NameChecked check_Checked POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -40,7 +40,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by label</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox Label</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox Label</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLabelAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLabelAfterTest OK checkBox_after_Label check_Label POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -48,7 +48,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by layout directly after</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox LayoutLabel after</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox LayoutLabel after</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLayoutAfterAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutAfterAfterTest OK checkBox_after_LayoutAfter check_LayoutAfter POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -56,7 +56,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by layout directly after formated</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox LayoutLabel after formated</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox LayoutLabel after formated</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLayoutAfterFormatedAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutAfterFormatedAfterTest OK checkBox_after_LayoutAfterFormated check_LayoutAfterFormated POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -64,7 +64,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by layout at bottom</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox LayoutLabel at bottom</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox LayoutLabel at bottom</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLayoutBottomAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutBottomAfterTest OK checkBox_after_LayoutBottom check_LayoutBottom POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -72,7 +72,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by layout at bottom formated</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox LayoutLabel at bottom formated</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox LayoutLabel at bottom formated</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLayoutBottomFormatedAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutBottomFormatedAfterTest OK checkBox_after_LayoutBottomFormated check_LayoutBottomFormated POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -80,7 +80,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by layout at right</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox LayoutLabel at right</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox LayoutLabel at right</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLayoutRightAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutRightAfterTest OK checkBox_after_LayoutRight check_LayoutRight POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -88,7 +88,7 @@
     <command><d:open-url><d:url>select_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select After</d:title></d:assert-title></command>
     <comment>CheckBox identified by layout at right formated</comment>
-    <command><d:select><d:wpath>Select after this text, CheckBox LayoutLabel at right formated</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Select after this text &gt; CheckBox LayoutLabel at right formated</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxLayoutRightFormatedAfterTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLayoutRightFormatedAfterTest OK checkBox_after_LayoutRightFormated check_LayoutRightFormated POST</d:content></d:assert-content></command>
     <comment></comment>

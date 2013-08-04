@@ -45,7 +45,7 @@
     <command><tst:assert-fail><tst:command-and-message>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').</tst:command-and-message><tst:parameter1>javascript_error.html</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Wetator / JavaScript Error</d:title></d:assert-title></command>
     <comment>Bug in HtmlUnit; value not updated if onChange script fails</comment>
-    <command><tst:assert-fail><tst:command-and-message>Select, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').</tst:command-and-message><tst:parameter1>OnChange (Select), option2</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').</tst:command-and-message><tst:parameter1>OnChange (Select) &gt; option2</tst:parameter1></tst:assert-fail></command>
     <command><d:click-on><d:wpath>OK</d:wpath></d:click-on></command>
     <command><d:assert-title><d:title>Wetator / Request Snoopy</d:title></d:assert-title></command>
     <command><d:assert-content><d:content>Key Value JavaScriptErrorTest OK onBlurSecondText onBlurText onChangeSelect o_value2 onChangeText onFocusText</d:content></d:assert-content></command>

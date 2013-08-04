@@ -39,24 +39,24 @@
     <comment>dependent list boxes</comment>
     <command><d:open-url><d:url>ajax/jquery/jquery_ajax.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / AJAX with jQuery</d:title></d:assert-title></command>
-    <command><d:assert-selected><d:wpath>Animals, Fish</d:wpath></d:assert-selected></command>
-    <command><d:assert-selected><d:wpath>Group, doctor-fish</d:wpath></d:assert-selected></command>
-    <command><d:assert-deselected><d:wpath>Group, barbel-fish</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, shark</d:wpath></d:assert-deselected></command>
+    <command><d:assert-selected><d:wpath>Animals &gt; Fish</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>Group &gt; doctor-fish</d:wpath></d:assert-selected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; barbel-fish</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; shark</d:wpath></d:assert-deselected></command>
     <comment></comment>
-    <command><d:select><d:wpath>Animals, Birds</d:wpath></d:select></command>
-    <command><d:assert-selected><d:wpath>Animals, Birds</d:wpath></d:assert-selected></command>
-    <command><d:assert-selected><d:wpath>Group, parrots</d:wpath></d:assert-selected></command>
-    <command><d:assert-deselected><d:wpath>Group, penguins</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, raven-birds</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, woodpeckers</d:wpath></d:assert-deselected></command>
+    <command><d:select><d:wpath>Animals &gt; Birds</d:wpath></d:select></command>
+    <command><d:assert-selected><d:wpath>Animals &gt; Birds</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>Group &gt; parrots</d:wpath></d:assert-selected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; penguins</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; raven-birds</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; woodpeckers</d:wpath></d:assert-deselected></command>
     <comment></comment>
-    <command><d:select><d:wpath>Animals, Mammals</d:wpath></d:select></command>
-    <command><d:assert-selected><d:wpath>Animals, Mammals</d:wpath></d:assert-selected></command>
-    <command><d:assert-selected><d:wpath>Group, antelopes</d:wpath></d:assert-selected></command>
-    <command><d:assert-deselected><d:wpath>Group, bears</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, cats</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, dogs</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, pigs</d:wpath></d:assert-deselected></command>
-    <command><d:assert-deselected><d:wpath>Group, seals</d:wpath></d:assert-deselected></command>
+    <command><d:select><d:wpath>Animals &gt; Mammals</d:wpath></d:select></command>
+    <command><d:assert-selected><d:wpath>Animals &gt; Mammals</d:wpath></d:assert-selected></command>
+    <command><d:assert-selected><d:wpath>Group &gt; antelopes</d:wpath></d:assert-selected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; bears</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; cats</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; dogs</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; pigs</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>Group &gt; seals</d:wpath></d:assert-deselected></command>
 </test-case>

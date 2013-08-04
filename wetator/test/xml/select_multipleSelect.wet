@@ -15,52 +15,52 @@
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect with name</comment>
-    <command><d:select><d:wpath>multipleSelect_Name[], option2</d:wpath></d:select></command>
-    <command><d:select><d:wpath>multipleSelect_Name[], option4</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelect_Name[] &gt; option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelect_Name[] &gt; option4</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectNameTest OK multipleSelect_Name[] o_value2\, o_value4 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectNameTest OK multipleSelect_Name[] o_value2, o_value4 POST</d:content></d:assert-content></command>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelectOptGroup with name</comment>
-    <command><d:select><d:wpath>multipleSelectOptgroup_Name[], blue</d:wpath></d:select></command>
-    <command><d:select><d:wpath>multipleSelectOptgroup_Name[], value1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>multipleSelectOptgroup_Name[], value2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelectOptgroup_Name[] &gt; blue</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelectOptgroup_Name[] &gt; value1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelectOptgroup_Name[] &gt; value2</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectOptGroupNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectOptGroupNameTest OK multipleSelectOptgroup_Name[] o_blue\, o_value1\, o_value2 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectOptGroupNameTest OK multipleSelectOptgroup_Name[] o_blue, o_value1, o_value2 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect with id</comment>
-    <command><d:select><d:wpath>multipleSelect_Id, option3</d:wpath></d:select></command>
-    <command><d:select><d:wpath>multipleSelect_Id, option4</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelect_Id &gt; option3</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelect_Id &gt; option4</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectIdTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectIdTest OK multipleSelect_Id[] o_value3\, o_value4 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectIdTest OK multipleSelect_Id[] o_value3, o_value4 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect with default selection</comment>
-    <command><d:select><d:wpath>multipleSelect_NameValue[], option4</d:wpath></d:select></command>
-    <command><d:select><d:wpath>multipleSelect_NameValue[], option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelect_NameValue[] &gt; option4</d:wpath></d:select></command>
+    <command><d:select><d:wpath>multipleSelect_NameValue[] &gt; option1</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectNameValueTest OK multipleSelect_NameValue[] o_value1\, o_value2\, o_value4 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectNameValueTest OK multipleSelect_NameValue[] o_value1, o_value2, o_value4 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by label with for attribute</comment>
-    <command><d:select><d:wpath>MultipleSelect Label, option1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect Label, option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect Label &gt; option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect Label &gt; option2</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLabelForTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLabelForTest OK multipleSelect_LabelFor[] o_value1\, o_value2 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLabelForTest OK multipleSelect_LabelFor[] o_value1, o_value2 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by surrounding label</comment>
-    <command><d:select><d:wpath>MultipleSelect surrounding Label, option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect surrounding Label &gt; option1</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectSurroundingLabelTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectSurroundingLabelTest OK multipleSelect_SurroundingLabel[] o_value1 POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -68,16 +68,16 @@
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout directly before</comment>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel before, option3</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel before, option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel before &gt; option3</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel before &gt; option2</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLayoutBeforeTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutBeforeTest OK multipleSelect_LayoutBefore[] o_value2\, o_value3 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutBeforeTest OK multipleSelect_LayoutBefore[] o_value2, o_value3 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout directly before formated</comment>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel before formated, option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel before formated &gt; option2</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutBeforeFormatedTest OK multipleSelect_LayoutBeforeFormated[] o_value2 POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -85,7 +85,7 @@
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout at top</comment>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at top, option3</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at top &gt; option3</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLayoutTopTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutTopTest OK multipleSelect_LayoutTop[] o_value3 POST</d:content></d:assert-content></command>
     <comment></comment>
@@ -93,34 +93,34 @@
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout at top formated</comment>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at top formated, option4</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at top formated, option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at top formated &gt; option4</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at top formated &gt; option1</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLayoutTopFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutTopFormatedTest OK multipleSelect_LayoutTopFormated[] o_value1\, o_value4 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutTopFormatedTest OK multipleSelect_LayoutTopFormated[] o_value1, o_value4 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout at left</comment>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left, option1</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left, option3</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left &gt; option1</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left &gt; option3</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLayoutLeftTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutLeftTest OK multipleSelect_LayoutLeft[] o_value1\, o_value3 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutLeftTest OK multipleSelect_LayoutLeft[] o_value1, o_value3 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout at left formated</comment>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left formated, option2</d:wpath></d:select></command>
-    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left formated, option4</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left formated &gt; option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect LayoutLabel at left formated &gt; option4</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLayoutLeftFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutLeftFormatedTest OK multipleSelect_LayoutLeftFormated[] o_value2\, o_value4 POST</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLayoutLeftFormatedTest OK multipleSelect_LayoutLeftFormated[] o_value2, o_value4 POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>MultipleSelect identified by layout at left formated</comment>
-    <command><d:select><d:wpath>MultipleSelect Label at left; text entry between, option3</d:wpath></d:select></command>
+    <command><d:select><d:wpath>MultipleSelect Label at left; text entry between &gt; option3</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>MultipleSelectLabelLeftTextBetweenTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value MultipleSelectLabelLeftTextBetweenTest OK inputText_between multipleSelect_LabelLeft_TextBetween[] o_value3 </d:content></d:assert-content></command>
     <comment></comment>
@@ -128,13 +128,13 @@
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>Disabled MultipleSelect</comment>
-    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlOption 'option1' part of [HtmlSelect (id='multipleSelect_Disabled') (name='multipleSelect_Disabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled MultipleSelect, option1</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlOption 'option1' part of [HtmlSelect (id='multipleSelect_Disabled') (name='multipleSelect_Disabled')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled MultipleSelect &gt; option1</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>Disabled MultipleSelect Option</comment>
-    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlOption 'option2' part of [HtmlSelect (id='multipleSelect_DisabledOption') (name='multipleSelect_DisabledOption')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled MultipleSelect Option, option2</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Select, The HTML element [HtmlOption 'option2' part of [HtmlSelect (id='multipleSelect_DisabledOption') (name='multipleSelect_DisabledOption')]] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled MultipleSelect Option &gt; option2</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment></comment>
     <comment></comment>
