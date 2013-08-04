@@ -146,7 +146,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, Marker");
+    SecretString tmpSearch = new SecretString("Some text > Marker");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -167,7 +167,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, Mark*");
+    SecretString tmpSearch = new SecretString("Some text > Mark*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -188,7 +188,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *rker");
+    SecretString tmpSearch = new SecretString("Some text > *rker");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -209,7 +209,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, arke");
+    SecretString tmpSearch = new SecretString("Some text > arke");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 

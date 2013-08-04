@@ -91,6 +91,7 @@
     <property id="85" key="wetator.outputDir" value="E:\Java\workspaces\wetator\wetator\logs" />
     <property id="86" key="wetator.jsTimeout" value="0s" />
     <property id="83" key="wetator.httpTimeout" value="0s" />
+    <property id="84" key="wetator.wpath.separator" />
     <property id="84" key="wetator.xslTemplates" value="" />
     <property id="84" key="wetator.commandSets" value="" />
     <property id="84" key="wetator.controls" value="" />

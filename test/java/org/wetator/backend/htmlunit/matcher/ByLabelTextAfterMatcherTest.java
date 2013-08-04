@@ -134,7 +134,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, CheckBox");
+    SecretString tmpSearch = new SecretString("Some text > CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -153,7 +153,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, CheckB*");
+    SecretString tmpSearch = new SecretString("Some text > CheckB*");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -172,7 +172,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, *eckBox");
+    SecretString tmpSearch = new SecretString("Some text > *eckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -191,7 +191,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text, heckBo");
+    SecretString tmpSearch = new SecretString("Some text > heckBo");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 

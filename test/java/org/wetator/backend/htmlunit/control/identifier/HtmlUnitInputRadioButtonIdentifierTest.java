@@ -50,7 +50,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     SecretString tmpSearch = new SecretString("MyRadioButtonId2");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyRadioButtonId1", "MyRadioButtonId2");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
+        "MyRadioButtonId2");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -72,7 +73,8 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     SecretString tmpSearch = new SecretString("RadioButton1");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyRadioButtonId1", "MyRadioButtonId2");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
+        "MyRadioButtonId2");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -96,7 +98,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1", "MyLabelId2");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -122,7 +124,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1", "MyLabelId2");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

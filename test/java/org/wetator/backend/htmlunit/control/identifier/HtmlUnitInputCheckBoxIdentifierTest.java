@@ -49,7 +49,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("MyCheckboxId");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -70,7 +70,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("MyCheckboxName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -91,7 +91,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("MyCheckboxTitle");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -112,7 +112,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("CheckBox");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyCheckboxId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -136,7 +136,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1", "MyLabelId2");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -162,7 +162,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyLabelId1", "MyLabelId2");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1", "MyLabelId2");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

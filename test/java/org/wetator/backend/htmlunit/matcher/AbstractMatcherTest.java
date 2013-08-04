@@ -16,9 +16,11 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Assert;
 import org.wetator.backend.WPath;
@@ -26,6 +28,7 @@ import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
@@ -41,6 +44,10 @@ public abstract class AbstractMatcherTest {
 
   protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
       throws IOException, InvalidInputException {
+    Properties tmpProperties = new Properties();
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
+    WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
+
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -48,7 +55,7 @@ public abstract class AbstractMatcherTest {
     for (String tmpHtmlElementId : anHtmlElementIds) {
       HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      WPath tmpPath = new WPath(aSearch);
+      WPath tmpPath = new WPath(aSearch, tmpConfig);
 
       SearchPattern tmpSearchPattern = tmpPath.getLastNode().getSearchPattern();
       SearchPattern tmpPathSearchPattern = null;

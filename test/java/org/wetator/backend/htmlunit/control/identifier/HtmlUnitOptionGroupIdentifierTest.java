@@ -54,7 +54,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     SecretString tmpSearch = new SecretString("optgroup_colors");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
@@ -80,7 +80,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     SecretString tmpSearch = new SecretString("colors");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "optgroup_colors");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert

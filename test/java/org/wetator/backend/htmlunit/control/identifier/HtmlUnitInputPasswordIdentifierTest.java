@@ -49,7 +49,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("myId");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -70,7 +70,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("myName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -93,7 +93,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("Marker");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -117,7 +117,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("Marker1");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -139,7 +139,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("Label");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -162,7 +162,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     SecretString tmpSearch = new SecretString("Label");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
