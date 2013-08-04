@@ -84,7 +84,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
         InvalidInputException {
-      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext));
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
