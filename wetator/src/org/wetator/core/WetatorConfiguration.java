@@ -70,6 +70,11 @@ public class WetatorConfiguration {
    */
   public static final String PROPERTY_COMMAND_SETS = PROPERTY_PREFIX + "commandSets";
   /**
+   * The property name to set the WPath separator.
+   */
+  public static final String PROPERTY_WPATH_SEPARATOR = PROPERTY_PREFIX + "wpath.separator";
+  private static final String DEFAULT_WPATH_SEPARATOR = ">";
+  /**
    * The property name to set the supported {@link IControl}s.
    */
   public static final String PROPERTY_CONTROLS = PROPERTY_PREFIX + "controls";
@@ -173,6 +178,7 @@ public class WetatorConfiguration {
   private int jsTimeoutInSeconds;
   private int httpTimeoutInSeconds;
 
+  private String wpathSeparator;
   private File outputDir;
   private List<String> xslTemplates;
 
@@ -331,6 +337,9 @@ public class WetatorConfiguration {
     readControls(tmpProperties);
 
     String tmpValue;
+
+    // wpath separator
+    wpathSeparator = tmpProperties.getProperty(PROPERTY_WPATH_SEPARATOR, DEFAULT_WPATH_SEPARATOR);
 
     // outputDir
     tmpValue = tmpProperties.getProperty(PROPERTY_OUTPUT_DIR, DEFAULT_OUTPUT_DIR);
@@ -759,6 +768,13 @@ public class WetatorConfiguration {
    */
   public int getHttpTimeoutInSeconds() {
     return httpTimeoutInSeconds;
+  }
+
+  /**
+   * @return the configured wpath separator
+   */
+  public String getWPathSeparator() {
+    return wpathSeparator;
   }
 
   /**

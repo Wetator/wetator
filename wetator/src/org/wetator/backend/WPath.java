@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
@@ -30,11 +31,6 @@ import org.wetator.util.SecretString;
  * @author frank.danek
  */
 public class WPath {
-  /**
-   * The delimiter used for WPath parts.
-   */
-  public static final String DELIMITER = ",";
-
   private SecretString rawPath;
   private List<SecretString> pathNodes = new ArrayList<SecretString>();
   private List<TableCoordinate> tableCoordinates = new ArrayList<TableCoordinate>();
@@ -45,9 +41,10 @@ public class WPath {
    * The constructor.
    * 
    * @param aPathNodes the nodes of the path
+   * @param aConfiguration the configuration
    * @throws InvalidInputException in case of an invalid {@link WPath}
    */
-  public WPath(final SecretString aPathNodes) throws InvalidInputException {
+  public WPath(final SecretString aPathNodes, final WetatorConfiguration aConfiguration) throws InvalidInputException {
     if (aPathNodes == null) {
       // TODO i18n
       final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { "null",
@@ -55,7 +52,7 @@ public class WPath {
       throw new InvalidInputException(tmpMessage);
     }
     rawPath = aPathNodes;
-    parseNodes();
+    parseNodes(aConfiguration.getWPathSeparator());
   }
 
   /**
@@ -103,8 +100,8 @@ public class WPath {
     return rawPath.toString();
   }
 
-  private void parseNodes() throws InvalidInputException {
-    final List<SecretString> tmpNodes = rawPath.split(DELIMITER, '\\');
+  private void parseNodes(final String aSeparator) throws InvalidInputException {
+    final List<SecretString> tmpNodes = rawPath.split(aSeparator, '\\');
     for (final SecretString tmpNode : tmpNodes) {
       tmpNode.trim();
     }
