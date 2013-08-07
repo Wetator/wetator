@@ -313,7 +313,9 @@ public final class HtmlUnitBrowser implements IBrowser {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       addFailure("javascriptError", new String[] { tmpScriptException.getMessage() }, tmpScriptException);
     } catch (final FailingHttpStatusCodeException e) {
-      addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
+      final String tmpMessage = Messages
+          .getMessage("openServerError", new String[] { aUrl.toString(), e.getMessage() });
+      throw new ActionException(tmpMessage, e);
     } catch (final UnknownHostException e) {
       final String tmpMessage = Messages.getMessage("unknownHostError",
           new String[] { aUrl.toString(), e.getMessage() });
@@ -549,8 +551,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          for (final IControl tmpControl : aControls) {
-            tmpControl.addHighlightStyle(wetatorEngine.getConfiguration());
+          if (null != aControls) {
+            for (final IControl tmpControl : aControls) {
+              tmpControl.addHighlightStyle(wetatorEngine.getConfiguration());
+            }
           }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetatorEngine.informListenersResponseStored(tmpPageFile);

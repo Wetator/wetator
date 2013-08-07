@@ -121,6 +121,35 @@
 
             </table>
 
+            <h4>server error</h4>
+
+            <table border='0'>
+              <tr>
+                <td>
+                  <form action="http_header.php">
+                    <input type="hidden" name="code" value="400">
+                    <input type="submit" value="Submit HttpError 400">
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <form action="http_header.php">
+                    <input type="hidden" name="code" value="404">
+                    <input type="submit" value="Submit HttpError 404">
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <form action="http_header.php">
+                    <input type="hidden" name="code" value="500">
+                    <input type="submit" value="Submit HttpError 500">
+                  </form>
+                </td>
+              </tr>
+            </table>
+
         <!-- end left column -->
         </td>
         <td>
@@ -166,6 +195,20 @@
               <tr>
                 <td>Image with src</td>
                 <td><a href="snoopy.php?clickOnImage=a_imageSrc"><img src="./images/sword3.png"></a></td>
+              </tr>
+            </table>
+
+            <h4>server error</h4>
+
+            <table border='0'>
+              <tr>
+                <td><a name="http400" href="http_header.php?code=400">Anchor HttpError 400</a></td>
+              </tr>
+              <tr>
+                <td><a name="http404" href="http_header.php?code=404">Anchor HttpError 404</a></td>
+              </tr>
+              <tr>
+                <td><a name="http500" href="http_header.php?code=500">Anchor HttpError 500</a></td>
               </tr>
             </table>
 
@@ -236,10 +279,25 @@
                 <td><span style="cursor:pointer;color:#222288" onClick="window.location.href='snoopy.php?clickOnText=clickableTextSpanIdId';">Span <span id="innerSpanId">Clickable</span> text with id</td>
               </tr>
 
+            <h4>server error</h4>
+
+            <table border='0'>
+              <tr>
+                <td><span style="cursor:pointer;color:#222288" onClick="window.location.href='http_header.php?code=400';">jsClick HttpError 400</span></td>
+              </tr>
+              <tr>
+                <td><span style="cursor:pointer;color:#222288" onClick="window.location.href='http_header.php?code=404';">jsClick HttpError 404</span></td>
+              </tr>
+              <tr>
+                <td><span style="cursor:pointer;color:#222288" onClick="window.location.href='http_header.php?code=500';">jsClick HttpError 500</span></td>
+              </tr>
+            </table>
+
             </table>
         <!-- end right column -->
         </td>
       </tr>
+
     </table>
 
   </div>

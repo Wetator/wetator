@@ -24,6 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
+import org.wetator.backend.control.IControl;
+import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.InvalidInputException;
@@ -223,6 +225,10 @@ public class WetatorContext {
       LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
       try {
         tmpCommandImplementation.execute(this, aCommand);
+      } catch (final ActionException e) {
+        tmpBrowser.saveCurrentWindowToLog((IControl[]) null);
+        tmpBrowser.checkAndResetFailures();
+        throw e;
       } catch (final CommandException e) {
         tmpBrowser.checkAndResetFailures();
         throw e;
