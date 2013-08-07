@@ -37,6 +37,7 @@ import org.wetator.exception.BackendException;
 import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -122,6 +123,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    } catch (final FailingHttpStatusCodeException e) {
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("backendError",
           new String[] { e.getMessage(), getDescribingText() });

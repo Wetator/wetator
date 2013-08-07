@@ -160,7 +160,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void clickOn() throws InvalidInputException {
     executeTestFile("click_on.wet");
 
-    Assert.assertEquals(156, getSteps());
+    Assert.assertEquals(201, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -268,7 +268,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void openUrl() throws InvalidInputException {
     executeTestFile("open_url.wet");
 
-    Assert.assertEquals(21, getSteps());
+    Assert.assertEquals(27, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
