@@ -16,8 +16,12 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
+
 import org.apache.commons.lang3.StringUtils;
 
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
@@ -29,6 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -38,6 +43,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 
 /**
  * Helper methods to work with the HtmlElements page.
@@ -453,5 +460,32 @@ public final class HtmlElementUtil {
       aStringBuilder.append(tmpName);
       aStringBuilder.append("')");
     }
+  }
+
+  /**
+   * Returns true, if the provided dom node has display block.
+   * This respects the default for the various tags and additionally
+   * checks for css definitions that might overrule this.
+   * 
+   * @param aDomNode the node
+   * @return true or false
+   */
+  public static boolean isBlock(final DomNode aDomNode) {
+    final Page tmpPage = aDomNode.getPage();
+    if (tmpPage instanceof HtmlPage && tmpPage.getEnclosingWindow().getWebClient().getOptions().isCssEnabled()) {
+      final ScriptableObject tmpScriptableObject = aDomNode.getScriptObject();
+      if (tmpScriptableObject instanceof HTMLElement) {
+        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
+        final String tmpDisplay = tmpStyle.getDisplay();
+        if ("block".equals(tmpDisplay)) {
+          return true;
+        }
+        if (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }

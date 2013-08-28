@@ -445,7 +445,7 @@ public class HtmlPageIndex {
       } else if (aDomNode instanceof HtmlInlineQuotation) {
         appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode);
       } else {
-        final boolean tmpIsBlock = isBlock(aDomNode);
+        final boolean tmpIsBlock = HtmlElementUtil.isBlock(aDomNode);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
@@ -667,25 +667,6 @@ public class HtmlPageIndex {
     parseChildren(anHtmlInlineQuotation);
     text.append("\" ");
     textWithoutFormControls.append("\" ");
-  }
-
-  private boolean isBlock(final DomNode aDomNode) {
-    final Page tmpPage = aDomNode.getPage();
-    if (tmpPage instanceof HtmlPage && tmpPage.getEnclosingWindow().getWebClient().getOptions().isCssEnabled()) {
-      final ScriptableObject tmpScriptableObject = aDomNode.getScriptObject();
-      if (tmpScriptableObject instanceof HTMLElement) {
-        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
-        final String tmpDisplay = tmpStyle.getDisplay();
-        if ("block".equals(tmpDisplay)) {
-          return true;
-        }
-        if (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay)) {
-          return true;
-        }
-      }
-    }
-
-    return false;
   }
 
   private boolean isFormatElement(final DomNode aDomNode) {
