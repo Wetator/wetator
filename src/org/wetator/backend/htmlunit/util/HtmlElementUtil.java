@@ -22,27 +22,48 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlAbbreviated;
+import com.gargoylesoftware.htmlunit.html.HtmlAcronym;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlBig;
+import com.gargoylesoftware.htmlunit.html.HtmlBold;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlCitation;
+import com.gargoylesoftware.htmlunit.html.HtmlCode;
+import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
+import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
+import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
+import com.gargoylesoftware.htmlunit.html.HtmlItalic;
+import com.gargoylesoftware.htmlunit.html.HtmlKeyboard;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPreformattedText;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSample;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import com.gargoylesoftware.htmlunit.html.HtmlSmall;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.gargoylesoftware.htmlunit.html.HtmlStrong;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSubscript;
+import com.gargoylesoftware.htmlunit.html.HtmlSuperscript;
+import com.gargoylesoftware.htmlunit.html.HtmlTeletype;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 
@@ -487,5 +508,37 @@ public final class HtmlElementUtil {
     }
 
     return false;
+  }
+
+  /**
+   * Returns true, if the provided dom node is a format Element.
+   * 
+   * @param aDomNode the node
+   * @return true or false
+   */
+  public static boolean isFormatElement(final DomNode aDomNode) {
+    // @formatter:off
+    return aDomNode instanceof HtmlItalic
+        || aDomNode instanceof HtmlBold
+        || aDomNode instanceof HtmlBig
+        || aDomNode instanceof HtmlEmphasis
+        || aDomNode instanceof HtmlSmall
+        || aDomNode instanceof HtmlStrong
+        || aDomNode instanceof HtmlSubscript
+        || aDomNode instanceof HtmlSuperscript
+        || aDomNode instanceof HtmlInsertedText
+        || aDomNode instanceof HtmlDeletedText
+        || aDomNode instanceof HtmlCode
+        || aDomNode instanceof HtmlKeyboard
+        || aDomNode instanceof HtmlSample
+        || aDomNode instanceof HtmlPreformattedText
+        || aDomNode instanceof HtmlTeletype
+        || aDomNode instanceof HtmlVariable
+        || aDomNode instanceof HtmlAbbreviated
+        || aDomNode instanceof HtmlInlineQuotation
+        || aDomNode instanceof HtmlCitation
+        || aDomNode instanceof HtmlAcronym 
+        || aDomNode instanceof HtmlDefinition;
+    // @formatter:on
   }
 }
