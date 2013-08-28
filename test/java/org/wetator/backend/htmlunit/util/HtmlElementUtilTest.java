@@ -39,6 +39,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
 import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
@@ -2013,5 +2014,26 @@ public class HtmlElementUtilTest {
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
     Assert.assertEquals("[HtmlTextArea (id='TextAreaId') (name='TextAreaName')]", tmpResult);
+  }
+
+  @Test
+  public void isBlock() throws IOException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+            + "<div id='div1'>"
+            + "<span id='span1'>Wetator</span>"
+            + "<span id='span2' style='display: block'>Wetator</span>"
+            + "</div>"
+            + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    DomElement tmpElement = tmpHtmlPage.getElementById("div1");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+
+    tmpElement = tmpHtmlPage.getElementById("span1");
+    Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("span2");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
   }
 }
