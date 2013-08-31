@@ -2024,6 +2024,17 @@ public class HtmlElementUtilTest {
             + "<span id='span1'>Wetator</span>"
             + "<span id='span2' style='display: block'>Wetator</span>"
             + "</div>"
+            + "<ul id='ul1'>"
+            + "  <li id='li1'>Wetator</li>"
+            + "  <li id='li2' style='display: block'>Smart</li>"
+            + "  <li id='li3' style='display: inline'>Testing</li>"
+            + "</ul>"
+            + "<select id='select1'>"
+            + "  <option id='option1'>Wetator</option>"
+            + "  <option id='option2' style='display: block'>Smart</option>"
+            + "  <option id='option3' style='display: inline'>Testing</option>"
+            + "</select>"
+            + "<img id='img1' src='smiley.gif'>"
             + "</body></html>";
     // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -2035,6 +2046,25 @@ public class HtmlElementUtilTest {
     Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("span2");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+
+    tmpElement = tmpHtmlPage.getElementById("li1");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("li2");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("li3");
+    Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
+
+    // options are always block, see inline comment in
+    // org.wetator.backend.htmlunit.util.HtmlElementUtil.isBlock(DomNode)
+    tmpElement = tmpHtmlPage.getElementById("option1");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("option2");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("option3");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+
+    tmpElement = tmpHtmlPage.getElementById("img1");
+    Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
   }
 
   @Test

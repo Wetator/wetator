@@ -29,6 +29,7 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.util.Output;
 import org.wetator.util.XMLUtil;
 
@@ -299,8 +300,12 @@ public final class XHtmlOutputter {
       writeAttributes(aDomNode);
       if (EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print('/');
-      }
-      if (SINGLE_LINE_TAGS.contains(aDomNode.getClass().getName())) {
+        if (HtmlElementUtil.isBlock(aDomNode)) {
+          output.println(">");
+        } else {
+          output.print(">");
+        }
+      } else if (SINGLE_LINE_TAGS.contains(aDomNode.getClass().getName())) {
         output.print(">");
       } else {
         output.println(">");
@@ -349,10 +354,10 @@ public final class XHtmlOutputter {
         output.print("</");
         output.print(determineTag(aDomNode));
 
-        if (FORMAT_TAGS.contains(aDomNode.getClass().getName())) {
-          output.print(">");
-        } else {
+        if (HtmlElementUtil.isBlock(aDomNode)) {
           output.println(">");
+        } else {
+          output.print(">");
         }
       }
     } else if (aDomNode instanceof DomText) {
