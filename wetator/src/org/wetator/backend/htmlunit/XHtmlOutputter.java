@@ -108,7 +108,6 @@ public final class XHtmlOutputter {
 
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
-  private static final Set<String> FORMAT_TAGS;
   private static final Set<String> IGNORED_ATTRIBUTES;
 
   private HtmlPage htmlPage;
@@ -154,31 +153,28 @@ public final class XHtmlOutputter {
     // TextArea because the content is preformated
     SINGLE_LINE_TAGS.add(HtmlTextArea.class.getName());
 
-    FORMAT_TAGS = new HashSet<String>();
-    FORMAT_TAGS.add(HtmlFont.class.getName());
-    FORMAT_TAGS.add(HtmlItalic.class.getName());
-    FORMAT_TAGS.add(HtmlBold.class.getName());
-    FORMAT_TAGS.add(HtmlBig.class.getName());
-    FORMAT_TAGS.add(HtmlEmphasis.class.getName());
-    FORMAT_TAGS.add(HtmlSmall.class.getName());
-    FORMAT_TAGS.add(HtmlStrong.class.getName());
-    FORMAT_TAGS.add(HtmlSubscript.class.getName());
-    FORMAT_TAGS.add(HtmlSuperscript.class.getName());
-    FORMAT_TAGS.add(HtmlInsertedText.class.getName());
-    FORMAT_TAGS.add(HtmlDeletedText.class.getName());
-    FORMAT_TAGS.add(HtmlCode.class.getName());
-    FORMAT_TAGS.add(HtmlKeyboard.class.getName());
-    FORMAT_TAGS.add(HtmlSample.class.getName());
-    FORMAT_TAGS.add(HtmlPreformattedText.class.getName());
-    FORMAT_TAGS.add(HtmlTeletype.class.getName());
-    FORMAT_TAGS.add(HtmlVariable.class.getName());
-    FORMAT_TAGS.add(HtmlAbbreviated.class.getName());
-    FORMAT_TAGS.add(HtmlInlineQuotation.class.getName());
-    FORMAT_TAGS.add(HtmlCitation.class.getName());
-    FORMAT_TAGS.add(HtmlAcronym.class.getName());
-    FORMAT_TAGS.add(HtmlDefinition.class.getName());
-
-    SINGLE_LINE_TAGS.addAll(FORMAT_TAGS);
+    SINGLE_LINE_TAGS.add(HtmlFont.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlItalic.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlBold.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlBig.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlEmphasis.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlSmall.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlStrong.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlSubscript.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlSuperscript.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlInsertedText.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlDeletedText.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlCode.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlKeyboard.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlSample.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlPreformattedText.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlTeletype.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlVariable.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlAbbreviated.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlInlineQuotation.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlCitation.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlAcronym.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlDefinition.class.getName());
 
     IGNORED_ATTRIBUTES = new HashSet<String>();
     IGNORED_ATTRIBUTES.add("onclick");
