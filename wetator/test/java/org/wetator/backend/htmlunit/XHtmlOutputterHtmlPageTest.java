@@ -44,17 +44,21 @@ public class XHtmlOutputterHtmlPageTest {
   private static final String EXPECTED_TRAILING = "</body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anHtmlCode);
+    BrowserVersion tmpBrowser = BrowserVersion.INTERNET_EXPLORER_8;
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
+        new NormalizedString(tmpWriter.toString()).toString());
 
+    tmpBrowser = BrowserVersion.FIREFOX_17;
     tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_17, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
+        new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -94,14 +98,18 @@ public class XHtmlOutputterHtmlPageTest {
   }
 
   @Test
-  @Ignore
   public void formatting() throws IOException {
-    // TODO different Results in IE and FF
-
     String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p>" + TRAILING;
     String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p> " + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void twoImages() throws IOException {
+    String tmpHtmlCode = LEADING + "<p><img/><img/></p>" + TRAILING;
+    String tmpExpected = EXPECTED_LEADING + " <p><img/><img/></p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -119,10 +127,7 @@ public class XHtmlOutputterHtmlPageTest {
   }
 
   @Test
-  @Ignore
   public void citationQuotationDefinition() throws IOException {
-    // TODO different Results in IE and FF
-
     String tmpHtmlCode = LEADING + "<p>"
         + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p>"
         + TRAILING;
@@ -174,7 +179,7 @@ public class XHtmlOutputterHtmlPageTest {
         + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
         + TRAILING;
     String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
-        + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select> "
+        + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select>"
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }

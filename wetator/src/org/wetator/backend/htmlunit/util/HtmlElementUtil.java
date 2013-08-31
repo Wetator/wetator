@@ -66,6 +66,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLOptionElement;
 
 /**
  * Helper methods to work with the HtmlElements page.
@@ -496,12 +497,19 @@ public final class HtmlElementUtil {
     if (tmpPage instanceof HtmlPage && tmpPage.getEnclosingWindow().getWebClient().getOptions().isCssEnabled()) {
       final ScriptableObject tmpScriptableObject = aDomNode.getScriptObject();
       if (tmpScriptableObject instanceof HTMLElement) {
-        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
+        final HTMLElement tmpElement = (HTMLElement) tmpScriptableObject;
+        final CSSStyleDeclaration tmpStyle = tmpElement.getCurrentStyle();
         final String tmpDisplay = tmpStyle.getDisplay();
-        if ("block".equals(tmpDisplay)) {
+        if ("block".equals(tmpDisplay) || "list-item".equals(tmpDisplay) || "flex".equals(tmpDisplay)) {
           return true;
         }
         if (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay)) {
+          return true;
+        }
+
+        // ie fix; ie marks option elements as inline (at least ie6/ie8)
+        // let's hope no browser will ever support inline rendering of options in a select
+        if (tmpElement instanceof HTMLOptionElement) {
           return true;
         }
       }
