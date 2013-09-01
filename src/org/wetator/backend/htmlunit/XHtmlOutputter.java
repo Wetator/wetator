@@ -382,6 +382,7 @@ public final class XHtmlOutputter {
       }
 
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
+      final boolean tmpIsHtmlImageInput = tmpHtmlElement instanceof HtmlImageInput;
       final boolean tmpIsHtmlFrame = tmpHtmlElement instanceof BaseFrameElement;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
       final boolean tmpIsHtmlSubmitInput = tmpHtmlElement instanceof HtmlSubmitInput;
@@ -420,7 +421,7 @@ public final class XHtmlOutputter {
             }
           }
 
-          if (tmpIsHtmlImage && "src".equals(tmpAttributeName)) {
+          if ((tmpIsHtmlImage || tmpIsHtmlImageInput) && "src".equals(tmpAttributeName)) {
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
