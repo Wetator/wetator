@@ -249,7 +249,8 @@
         <echo level="info">Compiling sources with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
-            target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
+            source="${javac.source}" target="${javac.target}"
+            destdir="${dir.build}/classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <patternset refid="libPattern" />
@@ -510,22 +511,22 @@
                 <exclude name="wetator.config"/>
             </fileset>
             <manifest>
-                <attribute name="Main-Class" value="org.wetator.Wetator"/>
-                <section name="Application">
-                    <attribute name="Application-Name" value="${application.name}"/>
-                    <attribute name="Vendor" value="${application.vendor}"/>
-                    <attribute name="Version" value="${application.version}"/>
-                    <attribute name="Build" value="${application.buildnumber}"/>
-                    <attribute name="Date" value="${timestamp}"/>
-                </section>
-                <section name="Build">
-                    <attribute name="Java-Runtime" value="${java.runtime.name}" />
-                    <attribute name="Java-Version" value="${java.runtime.version}" />
-                    <attribute name="Java-Target" value="${javac.target}" />
-                    <attribute name="OS-Name" value="${os.name}"/>
-                    <attribute name="OS-Version" value="${os.version}"/>
-                </section>
-            </manifest>
+            <attribute name="Main-Class" value="org.wetator.Wetator"/>
+            <section name="Application">
+                <attribute name="Application-Name" value="${application.name}"/>
+                <attribute name="Vendor" value="${application.vendor}"/>
+                <attribute name="Version" value="${application.version}"/>
+                <attribute name="Build" value="${application.buildnumber}"/>
+                <attribute name="Date" value="${timestamp}"/>
+            </section>
+            <section name="Build">
+                <attribute name="Java-Runtime" value="${java.runtime.name}" />
+                <attribute name="Java-Version" value="${java.runtime.version}" />
+                <attribute name="Java-Target" value="${javac.target}" />
+                <attribute name="OS-Name" value="${os.name}"/>
+                <attribute name="OS-Version" value="${os.version}"/>
+            </section>
+        </manifest>
         </jar>
 
         <!-- generate sources jar -->
@@ -591,14 +592,14 @@
         </manifest>
         <delete file="${dir.build}/${application.jar-basename}_all.jar"/>
         <one-jar destfile="${dir.build}/${application.jar-basename}_all.jar" manifest="${dir.build}/MANIFEST.MF">
-            <main>
-                <fileset dir="${dir.build}/classes">
-                    <include name="**/*.*"/>
-                </fileset>
+            <main jar="${application.jar-basename}.jar">
             </main>
             <lib>
                 <fileset dir="${dir.lib}">
                     <patternset refid="runtime-libs" />
+                </fileset>
+                <fileset dir="${dir.build}">
+                    <include name="${application.jar-basename}.jar" />
                 </fileset>
             </lib>
         </one-jar>
