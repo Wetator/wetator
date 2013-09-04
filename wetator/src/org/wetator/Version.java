@@ -16,10 +16,7 @@
 
 package org.wetator;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.jar.Manifest;
+import org.wetator.util.VersionUtil;
 
 /**
  * A small class to maintain the version information.
@@ -74,22 +71,7 @@ public final class Version {
   }
 
   private static String readFromManifest(final String anAttributeName, final String aDefault) {
-    final Class<?> tmpClass = Version.class;
-    try {
-      final Enumeration<URL> tmpResources = tmpClass.getClassLoader().getResources("META-INF/MANIFEST.MF");
-      while (tmpResources.hasMoreElements()) {
-        final URL tmpUrl = tmpResources.nextElement();
-        if (tmpUrl.toExternalForm().toLowerCase().contains("wetator.jar")) {
-          final InputStream tmpStream = tmpUrl.openStream();
-          final Manifest tmpManifest = new Manifest(tmpStream);
-          final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
-          tmpStream.close();
-          return tmpValue;
-        }
-      }
-    } catch (final Throwable e) {
-      // fallback to default
-    }
-    return aDefault;
+    return VersionUtil.readAttributeFromJarManifest("wetator.jar", Version.class, "Application", anAttributeName,
+        aDefault);
   }
 }

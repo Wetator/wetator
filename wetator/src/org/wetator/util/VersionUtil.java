@@ -16,8 +16,11 @@
 
 package org.wetator.util;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.jar.Attributes;
 import java.util.jar.Attributes.Name;
 import java.util.jar.JarEntry;
@@ -143,9 +146,9 @@ public final class VersionUtil {
           tmpAttributes = tmpManifest.getAttributes(aPackage);
         }
 
-        final String tmpTitle = tmpAttributes.getValue(anAttribute);
-        if (StringUtils.isNotBlank(tmpTitle)) {
-          return tmpTitle;
+        final String tmpAttribute = tmpAttributes.getValue(anAttribute);
+        if (StringUtils.isNotBlank(tmpAttribute)) {
+          return tmpAttribute;
         }
       } finally {
         tmpJar.close();
@@ -154,6 +157,51 @@ public final class VersionUtil {
       // ignore
     }
     return "unknown";
+  }
+
+  /**
+   * Returns the attribute from the manifest of the jar file or the default
+   * if not found.
+   * 
+   * @param aJarFileName the name of the jar file (including '.jar')
+   * @param aClass a class that is known to be loaded form the jar
+   *        in question
+   * @param aPackage the name of the package or null
+   * @param anAttributeName the name of the attribute to look for
+   * @param aDefault the return value if not found
+   * @return the name of the jar file or the given default
+   */
+  public static String readAttributeFromJarManifest(final String aJarFileName, final Class<?> aClass,
+      final String aPackage, final String anAttributeName, final String aDefault) {
+    try {
+      final Enumeration<URL> tmpResources = aClass.getClassLoader().getResources("META-INF/MANIFEST.MF");
+      while (tmpResources.hasMoreElements()) {
+        final URL tmpUrl = tmpResources.nextElement();
+        if (tmpUrl.toExternalForm().toLowerCase().contains(aJarFileName)) {
+          final InputStream tmpStream = tmpUrl.openStream();
+          try {
+            final Manifest tmpManifest = new Manifest(tmpStream);
+
+            final Attributes tmpAttributes;
+            if (null == aPackage) {
+              tmpAttributes = tmpManifest.getMainAttributes();
+            } else {
+              tmpAttributes = tmpManifest.getAttributes(aPackage);
+            }
+
+            final String tmpAttribute = tmpAttributes.getValue(anAttributeName);
+            if (StringUtils.isNotBlank(tmpAttribute)) {
+              return tmpAttribute;
+            }
+          } finally {
+            tmpStream.close();
+          }
+        }
+      }
+    } catch (final Throwable e) {
+      // fallback to default
+    }
+    return aDefault;
   }
 
   /**
