@@ -16,7 +16,9 @@
 
 package org.wetator;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.jar.Manifest;
 
 /**
@@ -73,20 +75,21 @@ public final class Version {
 
   private static String readFromManifest(final String anAttributeName, final String aDefault) {
     final Class<?> tmpClass = Version.class;
-    final String tmpClassName = tmpClass.getSimpleName();
-    final String tmpClassFileName = tmpClassName + ".class";
-    final String tmpPathToThisClass = tmpClass.getResource(tmpClassFileName).toExternalForm();
-
-    final int tmpPos = tmpPathToThisClass.indexOf('!');
-    final StringBuilder tmpPathToManifest = new StringBuilder(tmpPathToThisClass.substring(0, tmpPos + 1));
-    tmpPathToManifest.append("/META-INF/MANIFEST.MF");
-    Manifest tmpManifest;
     try {
-      tmpManifest = new Manifest(new URL(tmpPathToManifest.toString()).openStream());
-      final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
-      return tmpValue;
+      final Enumeration<URL> tmpResources = tmpClass.getClassLoader().getResources("META-INF/MANIFEST.MF");
+      while (tmpResources.hasMoreElements()) {
+        final URL tmpUrl = tmpResources.nextElement();
+        if (tmpUrl.toExternalForm().toLowerCase().contains("wetator.jar")) {
+          final InputStream tmpStream = tmpUrl.openStream();
+          final Manifest tmpManifest = new Manifest(tmpStream);
+          final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
+          tmpStream.close();
+          return tmpValue;
+        }
+      }
     } catch (final Throwable e) {
-      return aDefault;
+      // fallback to default
     }
+    return aDefault;
   }
 }
