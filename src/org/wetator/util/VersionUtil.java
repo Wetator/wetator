@@ -22,10 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.jar.Attributes;
-import java.util.jar.Attributes.Name;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,8 +37,9 @@ import org.apache.commons.lang3.StringUtils;
  * @author rbri
  */
 public final class VersionUtil {
-  private static final Name BUNDLE_NAME = new Name("Bundle-Name");
-  private static final Name BUNDLE_VERSION = new Name("Bundle-Version");
+  private static final String BUNDLE_NAME = "Bundle-Name";
+  private static final String BUNDLE_VERSION = "Bundle-Version";
+  private static final String DEFAULT = "unknown";
 
   /**
    * Returns the name of the jar file the class is loaded from.
@@ -52,7 +54,7 @@ public final class VersionUtil {
       tmpPath = tmpPath.substring(tmpPath.lastIndexOf('/') + 1);
       return tmpPath;
     }
-    return "unknown";
+    return DEFAULT;
   }
 
   /**
@@ -80,104 +82,76 @@ public final class VersionUtil {
     } catch (final Throwable e) {
       // ignore
     }
-    return "unknown";
+    return DEFAULT;
   }
 
   /**
    * Returns the version of the jar file the class is loaded from.
    * 
-   * @param aClass a class that is known to be loaded form the jar
-   *        in question
+   * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
    */
-  public static String determineVersionFromJarManifest(final Class<?> aClass, final String aPackage) {
-    return readAttributeFromJarFile(aClass, Attributes.Name.IMPLEMENTATION_VERSION, aPackage);
+  public static String determineVersionFromJarManifest(final String aJarFilePattern, final String aPackage) {
+    return readAttributeFromJarManifest(aJarFilePattern, aPackage, Attributes.Name.IMPLEMENTATION_VERSION.toString(),
+        DEFAULT);
   }
 
   /**
    * Returns the title of the jar file the class is loaded from.
    * 
-   * @param aClass a class that is known to be loaded form the jar
-   *        in question
+   * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
    */
-  public static String determineTitleFromJarManifest(final Class<?> aClass, final String aPackage) {
-    return readAttributeFromJarFile(aClass, Attributes.Name.IMPLEMENTATION_TITLE, aPackage);
+  public static String determineTitleFromJarManifest(final String aJarFilePattern, final String aPackage) {
+    return readAttributeFromJarManifest(aJarFilePattern, aPackage, Attributes.Name.IMPLEMENTATION_TITLE.toString(),
+        DEFAULT);
   }
 
   /**
    * Returns the title of the jar file the class is loaded from.
    * 
-   * @param aClass a class that is known to be loaded form the jar
-   *        in question
+   * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
    */
-  public static String determineBundleNameFromJarManifest(final Class<?> aClass, final String aPackage) {
-    return readAttributeFromJarFile(aClass, BUNDLE_NAME, aPackage);
+  public static String determineBundleNameFromJarManifest(final String aJarFilePattern, final String aPackage) {
+    return readAttributeFromJarManifest(aJarFilePattern, aPackage, BUNDLE_NAME, DEFAULT);
   }
 
   /**
    * Returns the version of the jar file the class is loaded from.
    * 
-   * @param aClass a class that is known to be loaded form the jar
-   *        in question
+   * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
    */
-  public static String determineBundleVersionFromJarManifest(final Class<?> aClass, final String aPackage) {
-    return readAttributeFromJarFile(aClass, BUNDLE_VERSION, aPackage);
-  }
-
-  private static String readAttributeFromJarFile(final Class<?> aClass, final Attributes.Name anAttribute,
-      final String aPackage) {
-    final String tmpPath = aClass.getProtectionDomain().getCodeSource().getLocation().getPath();
-    try {
-      final JarFile tmpJar = new JarFile(tmpPath);
-      try {
-        final Manifest tmpManifest = tmpJar.getManifest();
-
-        final Attributes tmpAttributes;
-        if (null == aPackage) {
-          tmpAttributes = tmpManifest.getMainAttributes();
-        } else {
-          tmpAttributes = tmpManifest.getAttributes(aPackage);
-        }
-
-        final String tmpAttribute = tmpAttributes.getValue(anAttribute);
-        if (StringUtils.isNotBlank(tmpAttribute)) {
-          return tmpAttribute;
-        }
-      } finally {
-        tmpJar.close();
-      }
-    } catch (final Throwable e) {
-      // ignore
-    }
-    return "unknown";
+  public static String determineBundleVersionFromJarManifest(final String aJarFilePattern, final String aPackage) {
+    return readAttributeFromJarManifest(aJarFilePattern, aPackage, BUNDLE_VERSION, DEFAULT);
   }
 
   /**
    * Returns the attribute from the manifest of the jar file or the default
    * if not found.
    * 
-   * @param aJarFileName the name of the jar file (including '.jar')
-   * @param aClass a class that is known to be loaded form the jar
-   *        in question
+   * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @param anAttributeName the name of the attribute to look for
    * @param aDefault the return value if not found
    * @return the name of the jar file or the given default
    */
-  public static String readAttributeFromJarManifest(final String aJarFileName, final Class<?> aClass,
-      final String aPackage, final String anAttributeName, final String aDefault) {
+  public static String readAttributeFromJarManifest(final String aJarFilePattern, final String aPackage,
+      final String anAttributeName, final String aDefault) {
     try {
-      final Enumeration<URL> tmpResources = aClass.getClassLoader().getResources("META-INF/MANIFEST.MF");
+      final Enumeration<URL> tmpResources = Thread.currentThread().getContextClassLoader()
+          .getResources("META-INF/MANIFEST.MF");
+      final Pattern tmpPattern = Pattern.compile(aJarFilePattern);
       while (tmpResources.hasMoreElements()) {
         final URL tmpUrl = tmpResources.nextElement();
-        if (tmpUrl.toExternalForm().toLowerCase().contains(aJarFileName)) {
+        final String tmpLcUrl = tmpUrl.toExternalForm().toLowerCase();
+        final Matcher tmpMatcher = tmpPattern.matcher(tmpLcUrl);
+        if (tmpMatcher.find()) {
           final InputStream tmpStream = tmpUrl.openStream();
           try {
             final Manifest tmpManifest = new Manifest(tmpStream);

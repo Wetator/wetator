@@ -27,18 +27,11 @@ import java.util.Set;
 
 import net.sourceforge.htmlunit.corejs.javascript.Function;
 
-import org.apache.commons.codec.StringEncoder;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.fontbox.util.BoundingBox;
-import org.apache.http.Header;
-import org.apache.http.client.HttpClient;
-import org.apache.http.entity.mime.HttpMultipart;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -162,7 +155,7 @@ public class XMLResultWriter implements IProgressListener {
 
       StringBuilder tmpInfo = new StringBuilder();
 
-      Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
+      final Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
       for (int i = 0; i < tmpLibs.length; i++) {
         tmpInfo.setLength(0);
         tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpLibs[i]));
@@ -174,22 +167,21 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_LIB, org.cyberneko.html.Version.getVersion());
 
       tmpInfo = new StringBuilder();
-      tmpLibs = new Class<?>[] { StringUtils.class, StringEncoder.class, CollectionUtils.class, IOUtils.class,
-          Log.class, Header.class, HttpClient.class, HttpMultipart.class };
-      for (int i = 0; i < tmpLibs.length; i++) {
+      final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-codec-\\S+jar",
+          "commons-collections-\\S+jar", "commons-io-\\S+jar", "commons-logging-\\S+jar", "httpcore-\\S+jar",
+          "httpclient-\\S+jar", "httpmime-\\S+jar" };
+      for (int i = 0; i < tmpJars.length; i++) {
         tmpInfo.setLength(0);
-        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpLibs[i], null));
+        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJars[i], null));
         tmpInfo.append(' ');
-        tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpLibs[i], null));
+        tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpJars[i], null));
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
       try {
-        final Class<?> tmpClass = Class.forName("org.apache.log4j.Logger");
-
-        tmpInfo = new StringBuilder(VersionUtil.determineTitleFromJarManifest(tmpClass, "org.apache.log4j"));
+        tmpInfo = new StringBuilder(VersionUtil.determineTitleFromJarManifest("log4j-\\S+jar", "org.apache.log4j"));
         tmpInfo.append(' ');
-        tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpClass, "org.apache.log4j"));
+        tmpInfo.append(VersionUtil.determineVersionFromJarManifest("log4j-\\S+jar", "org.apache.log4j"));
         printlnNode(TAG_LIB, tmpInfo.toString());
       } catch (final RuntimeException e) {
         throw e;
@@ -208,9 +200,9 @@ public class XMLResultWriter implements IProgressListener {
       tmpInfo.append(org.apache.pdfbox.Version.getVersion());
       printlnNode(TAG_LIB, tmpInfo.toString());
 
-      tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest(BoundingBox.class, null));
+      tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest("fontbox\\S+jar", null));
       tmpInfo.append(' ');
-      tmpInfo.append(VersionUtil.determineBundleVersionFromJarManifest(BoundingBox.class, null));
+      tmpInfo.append(VersionUtil.determineBundleVersionFromJarManifest("fontbox\\S+jar", null));
       printlnNode(TAG_LIB, tmpInfo.toString());
 
       printlnNode(TAG_LIB, org.apache.xmlcommons.Version.getVersion());
