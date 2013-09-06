@@ -144,8 +144,7 @@ public final class VersionUtil {
   public static String readAttributeFromJarManifest(final String aJarFilePattern, final String aPackage,
       final String anAttributeName, final String aDefault) {
     try {
-      final Enumeration<URL> tmpResources = Thread.currentThread().getContextClassLoader()
-          .getResources("META-INF/MANIFEST.MF");
+      final Enumeration<URL> tmpResources = VersionUtil.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
       final Pattern tmpPattern = Pattern.compile(aJarFilePattern);
       while (tmpResources.hasMoreElements()) {
         final URL tmpUrl = tmpResources.nextElement();
@@ -173,6 +172,7 @@ public final class VersionUtil {
         }
       }
     } catch (final Throwable e) {
+      e.printStackTrace();
       // fallback to default
     }
     return aDefault;
