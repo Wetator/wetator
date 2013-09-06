@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ant-1.8.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/wetator-0.9.13-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/wetator/build/wetator.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
