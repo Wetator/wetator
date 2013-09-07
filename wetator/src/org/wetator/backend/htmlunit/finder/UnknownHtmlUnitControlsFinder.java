@@ -21,7 +21,7 @@ import java.util.List;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
-import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
+import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
@@ -32,8 +32,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * This finder is a generic finder for all {@link HtmlElement}s not known by the {@link HtmlUnitControlRepository}. Only
- * instances of {@link HtmlUnitBaseControl} are
- * returned (so no specific subclasses). This finder supports just two find methods:
+ * instances of {@link HtmlUnitUnspecificControl} are returned. This finder supports just two find methods:
  * <ul>
  * <li>by id</li>
  * <li>by text (the first {@link HtmlElement} which matches the path and which's text contains the search pattern)</li>
@@ -93,7 +92,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
         final List<MatchResult> tmpMatches = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
             tmpSearchPattern).matches(tmpHtmlElement);
         for (final MatchResult tmpMatch : tmpMatches) {
-          tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()),
+          tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
               tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart());
         }
       }
@@ -125,7 +124,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           }
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
-            tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement),
                 WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos());
           }
           break;

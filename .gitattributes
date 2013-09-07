@@ -268,6 +268,7 @@ wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitOption.java -text svneo
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitTextArea.java -text svneol=unset#text/plain
+wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitUnspecificControl.java -text
 wetator/src/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifier.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/identifier/AbstractMatcherBasedIdentifier.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifier.java -text svneol=unset#text/plain
