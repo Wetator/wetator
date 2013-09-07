@@ -2,8 +2,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
     <xsl:output method="html" encoding="UTF-8" doctype-public="-//Wf3C//Dtd HTML 4.01 Transitional//EN" omit-xml-declaration="yes"/>
 
-    <xsl:variable name="browserPicture.IE8">images/ie8.png</xsl:variable>
-    <xsl:variable name="browserPicture.Firefox">images/firefox.png</xsl:variable>
+    <xsl:variable name="browserPicture.IE8">resources/ie8.png</xsl:variable>
+    <xsl:variable name="browserPicture.Firefox">resources/firefox.png</xsl:variable>
 
     <xsl:variable name="greenColor">#ACC952</xsl:variable>
     <xsl:variable name="orangeColor">#E75013</xsl:variable>
@@ -92,6 +92,8 @@
                     #debuginfo {display: none;}
                     #debugtestbrowseroverviewinfo {display: none;};
                 </style>
+
+                <script src="resources/jquery-1.10.2.min.js"></script>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
                 function showOrHideAll(image, imageId, id) {
@@ -254,7 +256,7 @@
 
                 <a name="top"/>
 
-                <center><p><img src="images/wetator.png" alt="Wetator"/></p></center>
+                <center><p><img src="resources/wetator.png" alt="Wetator"/></p></center>
 
                 <table id="testSummary" align="center">
                     <tr>
@@ -265,13 +267,13 @@
                             <xsl:value-of select="$testCount"/>
                         </td>
                         <td class="bold" style="padding-left: 40px;">
-                             <img src="images/error.png" width="12" height="10" alt="error" title="error"/> Errors:
+                             <img src="resources/error.png" width="12" height="10" alt="error" title="error"/> Errors:
                         </td>
                         <td style="padding-left: 5px;">
                             <xsl:value-of select="$testErrorCount + $testIgnoredCount"/>
                         </td>
                         <td class="bold" style="padding-left: 40px;">
-                             <img src="images/failure.png" width="12" height="10" alt="failure" title="failure"/> Failures:
+                             <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/> Failures:
                         </td>
                         <td style="padding-left: 5px;">
                             <xsl:value-of select="$testFailureCount"/>
@@ -375,7 +377,7 @@
                     </tr>
                 </table>
                 <div style="margin-top: -20px; margin-left: 90.4%;">
-                    <img id="overviewswitcher" src="images/expandall.png" alt="show/hide TestCases &amp; -Steps"
+                    <img id="overviewswitcher" src="resources/expandall.png" alt="show/hide TestCases &amp; -Steps"
                         onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" style="cursor: pointer;"/>
                 </div>
 
@@ -605,7 +607,7 @@
                                 <td>
                                     <span class="bold">All</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img src="images/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
+                                    <img src="resources/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
                                         <xsl:attribute name="onclick">showOrHideAll(this
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8','ie8overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox17'">, 'ff17','ff17overview'</xsl:if>);
@@ -616,14 +618,14 @@
                                 <td>
                                     <span class="bold">IE8</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ie8" src="images/expandall.png" onclick="showOrHide(this, 'ie8overview')" alt="show/hide IE8 overview" style="cursor: pointer;"/>
+                                    <img id="ie8" src="resources/expandall.png" onclick="showOrHide(this, 'ie8overview')" alt="show/hide IE8 overview" style="cursor: pointer;"/>
                                 </td>
                             </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox17'">
                                 <td>
                                     <span class="bold">FF17</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff17" src="images/expandall.png" onclick="showOrHide(this, 'ff17overview')" alt="show/hide FF17 overview" style="cursor: pointer;"/>
+                                    <img id="ff17" src="resources/expandall.png" onclick="showOrHide(this, 'ff17overview')" alt="show/hide FF17 overview" style="cursor: pointer;"/>
                                 </td>
                             </xsl:if>
                         </tr>
@@ -681,13 +683,13 @@
                         <td>
                             <span class="bold">Configuration</span>
                             <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                            <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration" style="cursor: pointer;"/>
+                            <img src="resources/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration" style="cursor: pointer;"/>
                         </td>
                         <td width="50px"></td>
                         <td>
                             <span class="bold">Variables</span>
                             <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                            <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables" style="cursor: pointer;"/>
+                            <img src="resources/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables" style="cursor: pointer;"/>
                         </td>
                     </tr>
                 </table>
@@ -1285,7 +1287,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
 
             <p class="backToTop">
                 <a class="link" href="#top">
-                    <img src="images/top.png" width="11" height="10" alt="top"/>Back to top
+                    <img src="resources/top.png" width="11" height="10" alt="top"/>Back to top
                 </a>
             </p>
         </xsl:for-each>
@@ -1322,7 +1324,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                     <xsl:for-each select="error">
                     <tr>
                       <td>
-                        <img src="images/error.png" width="12" height="10" alt="error"/>
+                        <img src="resources/error.png" width="12" height="10" alt="error"/>
                       </td>
                       <td class="error">
                         <xsl:value-of select="message"/>
@@ -1370,16 +1372,16 @@ k                                    <xsl:if test="@browser='Firefox17'">
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
                     <xsl:when test="count(error) or count(descendant::command/error) or count(descendant::testfile/error) &gt; 0">
-                        <img src="images/error.png" width="12" height="10" alt="error" title="error"/>
+                        <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
-                        <img src="images/failure.png" width="12" height="10" alt="failure" title="failure"/>
+                        <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/>
                     </xsl:when>
                     <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
                         <!-- nothing -->
                     </xsl:when>
                     <xsl:otherwise>
-                        <img src="images/ok.png" width="12" height="10" alt="success" title="success"/>
+                        <img src="resources/ok.png" width="12" height="10" alt="success" title="success"/>
                     </xsl:otherwise>
                 </xsl:choose>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
@@ -1394,7 +1396,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
                 <xsl:if test="count(testfile) &gt; 0 and count(descendant-or-self::testfile/error) &lt; 1">
-                    <img src="images/expandall.png" alt="Show/Hide tests from called module" style="cursor: pointer;">
+                    <img src="resources/expandall.png" alt="Show/Hide tests from called module" style="cursor: pointer;">
                         <xsl:attribute name="id">
                             <xsl:text>showHide_testfile_</xsl:text>
                             <xsl:value-of select="testfile/@id" />
@@ -1420,7 +1422,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                             <xsl:attribute name="onmouseout">
                                 <xsl:text>hidePreview()</xsl:text>
                             </xsl:attribute>
-                            <img src="images/response.png" alt="view response"/>
+                            <img src="resources/response.png" alt="view response"/>
                         </a>
                     </xsl:for-each>
                 </xsl:if>
@@ -1456,7 +1458,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
                 <xsl:if test="count(log) &gt; 0 or count(error/stacktrace) &gt; 0">
-                    <img src="images/expandlog.png" alt="Show/Hide log entries" style="cursor: pointer;">
+                    <img src="resources/expandlog.png" alt="Show/Hide log entries" style="cursor: pointer;">
                         <xsl:attribute name="id">
                             <xsl:text>showHide_log_</xsl:text>
                             <xsl:value-of select="@id" />
@@ -1500,7 +1502,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                                          <xsl:text>');</xsl:text>
                                     </xsl:attribute>
 
-                                    <img src="images/previous.png" width="11" height="10" alt="previous failure/error" title="previous failure/error"/>
+                                    <img src="resources/previous.png" width="11" height="10" alt="previous failure/error" title="previous failure/error"/>
                                 </a>
                             </xsl:for-each>
                         </xsl:when>
@@ -1517,7 +1519,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                                          <xsl:text>');</xsl:text>
                                     </xsl:attribute>
 
-                                    <img src="images/previous.png" width="11" height="10" alt="previous failure/error" title="previous failure/error"/>
+                                    <img src="resources/previous.png" width="11" height="10" alt="previous failure/error" title="previous failure/error"/>
                                 </a>
                             </xsl:for-each>
                         </xsl:otherwise>
@@ -1538,7 +1540,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                                          <xsl:text>');</xsl:text>
                                     </xsl:attribute>
 
-                                    <img src="images/next.png" width="11" height="10" alt="next failure/error" title="next failure/error"/>
+                                    <img src="resources/next.png" width="11" height="10" alt="next failure/error" title="next failure/error"/>
                                 </a>
                             </xsl:for-each>
                         </xsl:when>
@@ -1555,7 +1557,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                                          <xsl:text>');</xsl:text>
                                     </xsl:attribute>
 
-                                    <img src="images/next.png" width="11" height="10" alt="next failure/error" title="next failure/error"/>
+                                    <img src="resources/next.png" width="11" height="10" alt="next failure/error" title="next failure/error"/>
                                 </a>
                             </xsl:for-each>
                         </xsl:otherwise>
@@ -1594,7 +1596,7 @@ k                                    <xsl:if test="@browser='Firefox17'">
                         <xsl:for-each select="error">
                             <tr>
                                 <td>
-                                    <img src="images/log_warn.png" width="11" height="11" alt="error"/>
+                                    <img src="resources/log_warn.png" width="11" height="11" alt="error"/>
                                 </td>
                                 <td>
                                     <pre><xsl:value-of select="stacktrace"/></pre>
@@ -1606,10 +1608,10 @@ k                                    <xsl:if test="@browser='Firefox17'">
                                 <td>
                             <xsl:choose>
                                 <xsl:when test="level[text() = 'INFO']">
-                                    <img src="images/log_info.png" width="11" height="11" alt="info"/>
+                                    <img src="resources/log_info.png" width="11" height="11" alt="info"/>
                                 </xsl:when>
                                 <xsl:when test="level[text() = 'WARN']">
-                                    <img src="images/log_warn.png" width="11" height="11" alt="warn"/>
+                                    <img src="resources/log_warn.png" width="11" height="11" alt="warn"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
@@ -1650,13 +1652,13 @@ k                                    <xsl:if test="@browser='Firefox17'">
     <xsl:template name="successIndicator">
         <xsl:choose>
             <xsl:when test="count(error) or count(descendant::command/error) or count(descendant::testfile/error) &gt; 0">
-                <img src="images/error.png" width="12" height="10" alt="error" title="error"/>
+                <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
             </xsl:when>
             <xsl:when test="count(descendant-or-self::failure) &gt; 0">
-                <img src="images/failure.png" width="12" height="10" alt="failure" title="failure"/>
+                <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/>
             </xsl:when>
             <xsl:otherwise>
-                <img src="images/ok.png" width="12" height="10" alt="success" title="success"/>
+                <img src="resources/ok.png" width="12" height="10" alt="success" title="success"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -899,21 +899,22 @@ xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 xsd/testCommandSet.xsd -text svneol=unset#text/plain
-xsl/images/collapseall.png -text
-xsl/images/collapselog.png -text
-xsl/images/error.png -text
-xsl/images/expandall.png -text
-xsl/images/expandlog.png -text
-xsl/images/failure.png -text
-xsl/images/firefox.png -text
-xsl/images/ie8.png -text
-xsl/images/log_info.png -text
-xsl/images/log_warn.png -text
-xsl/images/next.png -text
-xsl/images/none.png -text
-xsl/images/ok.png -text
-xsl/images/previous.png -text
-xsl/images/response.png -text
-xsl/images/top.png -text
-xsl/images/wetator.png -text
+xsl/resources/collapseall.png -text
+xsl/resources/collapselog.png -text
+xsl/resources/error.png -text
+xsl/resources/expandall.png -text
+xsl/resources/expandlog.png -text
+xsl/resources/failure.png -text
+xsl/resources/firefox.png -text
+xsl/resources/ie8.png -text
+xsl/resources/jquery-1.10.2.min.js -text
+xsl/resources/log_info.png -text
+xsl/resources/log_warn.png -text
+xsl/resources/next.png -text
+xsl/resources/none.png -text
+xsl/resources/ok.png -text
+xsl/resources/previous.png -text
+xsl/resources/response.png -text
+xsl/resources/top.png -text
+xsl/resources/wetator.png -text
 xsl/run_report.xsl -text svneol=unset#text/plain
