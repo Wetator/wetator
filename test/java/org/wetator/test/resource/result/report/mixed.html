@@ -40,7 +40,7 @@
                     #debuginfo {}
                     #debugtestbrowseroverviewinfo {};
                 </style>
-<script language="JavaScript" type="text/javascript">
+<script src="resources/jquery-1.10.2.min.js"></script><script language="JavaScript" type="text/javascript">
                 function showOrHideAll(image, imageId, id) {
                     var tmpSearch = "expandall.png";
                     if (toggleImage(image)) {
@@ -185,14 +185,14 @@
 <a name="top"></a>
 <center>
 <p>
-<img alt="Wetator" src="images/wetator.png"></p>
+<img alt="Wetator" src="resources/wetator.png"></p>
 </center>
 <table align="center" id="testSummary">
 <tr>
 <td class="bold">
                             Tests:
-                        </td><td style="padding-left: 5px;">10</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="images/error.png"> Errors:
-                        </td><td style="padding-left: 5px;">5</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">10</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="resources/error.png"> Errors:
+                        </td><td style="padding-left: 5px;">5</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"> Failures:
                         </td><td style="padding-left: 5px;">3</td><td style="padding-left: 40px;">
                             Distribution:
                         </td><td style="padding-left: 5px;">5 TestCases
@@ -218,7 +218,7 @@
 </tr>
 </table>
 <div style="margin-top: -20px; margin-left: 90.4%;">
-<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="images/expandall.png" id="overviewswitcher"></div>
+<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
 <table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
 <tr>
 <td width="150px">
@@ -268,9 +268,9 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="images/expandall.png" onclick="showOrHideAll(this
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this
                                             , 'ie8','ie8overview', 'ff17','ff17overview');
-                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="images/expandall.png" id="ie8"></td><td><span class="bold">FF17</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF17 overview" onclick="showOrHide(this, 'ff17overview')" src="images/expandall.png" id="ff17"></td>
+                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="resources/expandall.png" id="ie8"></td><td><span class="bold">FF17</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF17 overview" onclick="showOrHide(this, 'ff17overview')" src="resources/expandall.png" id="ff17"></td>
 </tr>
 </table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie8overview">
@@ -298,7 +298,7 @@
             browserStepsIgnoredPercentage 14<br>
 </div>
 <tr>
-<td width="150px;">Tests in IE8<img style="padding-left: 4px;" src="images/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in IE8<img style="padding-left: 4px;" src="resources/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="40%
@@ -313,7 +313,7 @@
 </td>
 </tr>
 <tr>
-<td>TestSteps in IE8<img style="padding-left: 4px;" src="images/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
+<td>TestSteps in IE8<img style="padding-left: 4px;" src="resources/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="13%
@@ -358,7 +358,7 @@
             browserStepsIgnoredPercentage 20<br>
 </div>
 <tr>
-<td width="150px;">Tests in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in FF17<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="60%
@@ -373,7 +373,7 @@
 </td>
 </tr>
 <tr>
-<td>TestSteps in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
+<td>TestSteps in FF17<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="20%
@@ -395,7 +395,7 @@
 </table>
 <table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="images/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="images/expandall.png"></td>
+<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
 </tr>
 </table>
 <table style="margin-top: 5px;" border="0" cellspacing="0" cellpadding="4" width="100%">
@@ -477,13 +477,13 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">1</td><td rowspan="2"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">1/1</td><td>
+<td align="center" rowspan="2">1</td><td rowspan="2"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="resources/ie8.png" alt="IE8" title="IE8"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#104">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">1/1</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#116">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -494,13 +494,13 @@
 <td height="7px" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">2</td><td rowspan="2"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td rowspan="2"><a class="link" href="#testspec_122">test2.wet</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">3/3</td><td>
+<td align="center" rowspan="2">2</td><td rowspan="2"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td rowspan="2"><a class="link" href="#testspec_122">test2.wet</a></td><td><img src="resources/ie8.png" alt="IE8" title="IE8"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#129">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#134">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#143">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">3/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#155">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#160">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#169">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -511,13 +511,13 @@
 <td height="7px" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">3</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td rowspan="2"><a class="link" href="#testspec_175">test3.wet</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">2/3</td><td>
+<td align="center" rowspan="2">3</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_175">test3.wet</a></td><td><img src="resources/ie8.png" alt="IE8" title="IE8"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#182">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#187">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#195">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#213">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#218">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#226">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -528,13 +528,13 @@
 <td height="7px" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">4</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td rowspan="2"><a class="link" href="#testspec_238">test4.wet</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">4/5</td><td>
+<td align="center" rowspan="2">4</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_238">test4.wet</a></td><td><img src="resources/ie8.png" alt="IE8" title="IE8"></td><td align="center">4/5</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#245">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#250">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#259">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#264">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#272">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">4/5</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">4/5</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#285">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#290">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#299">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#304">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#312">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -545,13 +545,13 @@
 <td height="7px" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">5</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td rowspan="2"><a class="link" href="#testspec_319">test5.wet</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">3/3</td><td>
+<td align="center" rowspan="2">5</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_319">test5.wet</a></td><td><img src="resources/ie8.png" alt="IE8" title="IE8"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#326">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#331">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#340">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#352">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#357">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#365">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -564,84 +564,84 @@
 </table>
 <a name="details"></a>
 <h2>
-<img title="success" alt="success" height="10" width="12" src="images/ok.png">&nbsp;<a name="testspec_97">C:/Test/test1.wet</a> (IE8)</h2>
+<img title="success" alt="success" height="10" width="12" src="resources/ok.png">&nbsp;<a name="testspec_97">C:/Test/test1.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="99"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="104"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="104"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="success" alt="success" height="10" width="12" src="images/ok.png">&nbsp;<a name="testspec_109">C:/Test/test1.wet</a> (Firefox17)</h2>
+<img title="success" alt="success" height="10" width="12" src="resources/ok.png">&nbsp;<a name="testspec_109">C:/Test/test1.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="111"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="116"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="116"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_122">C:/Test/test2.wet</a> (IE8)</h2>
+<img title="failure" alt="failure" height="10" width="12" src="resources/failure.png">&nbsp;<a name="testspec_122">C:/Test/test2.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="124"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="129"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="134"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="129"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="134"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#160" onclick="makeVisible('testfile_149');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#160" onclick="makeVisible('testfile_149');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="143"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="143"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_148">C:/Test/test2.wet</a> (Firefox17)</h2>
+<img title="failure" alt="failure" height="10" width="12" src="resources/failure.png">&nbsp;<a name="testspec_148">C:/Test/test2.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="150"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="155"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="160"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="155"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="160"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#134" onclick="makeVisible('testfile_123');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#187" onclick="makeVisible('testfile_176');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#134" onclick="makeVisible('testfile_123');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#187" onclick="makeVisible('testfile_176');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="169"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="169"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_175">C:/Test/test3.wet</a> (IE8)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_175">C:/Test/test3.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="177"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="182"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="187"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="images/expandlog.png" id="showHide_log_187" onclick="showOrHide(this, 'log_187');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="182"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="187"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlog.png" id="showHide_log_187" onclick="showOrHide(this, 'log_187');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#160" onclick="makeVisible('testfile_149');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#218" onclick="makeVisible('testfile_207');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#160" onclick="makeVisible('testfile_149');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#218" onclick="makeVisible('testfile_207');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_187">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
-<td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
+<td><img alt="error" height="11" width="11" src="resources/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeCommandWithError(AbstractProgressListenerTest.java:193)
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeErrorTestRun(AbstractProgressListenerTest.java:158)
@@ -682,26 +682,26 @@
 <tr><td class="comment topBorder" align="center"><a name="201"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_206">C:/Test/test3.wet</a> (Firefox17)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_206">C:/Test/test3.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="208"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="213"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="218"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="images/expandlog.png" id="showHide_log_218" onclick="showOrHide(this, 'log_218');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="213"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="218"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlog.png" id="showHide_log_218" onclick="showOrHide(this, 'log_218');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#187" onclick="makeVisible('testfile_176');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#250" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#187" onclick="makeVisible('testfile_176');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#250" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_218">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
-<td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
+<td><img alt="error" height="11" width="11" src="resources/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeCommandWithError(AbstractProgressListenerTest.java:193)
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeErrorTestRun(AbstractProgressListenerTest.java:158)
@@ -742,31 +742,31 @@
 <tr><td class="comment topBorder" align="center"><a name="232"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_238">C:/Test/test4.wet</a> (IE8)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_238">C:/Test/test4.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="240"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="245"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="250"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="245"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="250"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#218" onclick="makeVisible('testfile_207');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#264" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#218" onclick="makeVisible('testfile_207');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#264" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="259"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="264"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="images/expandlog.png" id="showHide_log_264" onclick="showOrHide(this, 'log_264');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="259"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="264"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlog.png" id="showHide_log_264" onclick="showOrHide(this, 'log_264');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#250" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#290" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#250" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#290" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_264">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
-<td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
+<td><img alt="error" height="11" width="11" src="resources/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeCommandWithError(AbstractProgressListenerTest.java:193)
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeFailureAndErrorTestRun(AbstractProgressListenerTest.java:173)
@@ -806,31 +806,31 @@
 <tr><td class="ignored topBorder" align="center"><a name="272"></a>6</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_278">C:/Test/test4.wet</a> (Firefox17)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_278">C:/Test/test4.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="280"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="285"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="290"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="285"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="290"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#264" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#304" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#264" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#304" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="299"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="304"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="images/expandlog.png" id="showHide_log_304" onclick="showOrHide(this, 'log_304');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="299"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="304"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlog.png" id="showHide_log_304" onclick="showOrHide(this, 'log_304');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#290" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#331" onclick="makeVisible('testfile_320');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#290" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#331" onclick="makeVisible('testfile_320');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_304">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
-<td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
+<td><img alt="error" height="11" width="11" src="resources/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeCommandWithError(AbstractProgressListenerTest.java:193)
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeFailureAndErrorTestRun(AbstractProgressListenerTest.java:173)
@@ -870,44 +870,44 @@
 <tr><td class="ignored topBorder" align="center"><a name="312"></a>6</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="images/failure.png">&nbsp;<a name="testspec_319">C:/Test/test5.wet</a> (IE8)</h2>
+<img title="failure" alt="failure" height="10" width="12" src="resources/failure.png">&nbsp;<a name="testspec_319">C:/Test/test5.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="321"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="326"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="331"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="326"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="331"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#304" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a><a href="#357" onclick="makeVisible('testfile_346');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="images/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#304" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#357" onclick="makeVisible('testfile_346');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="340"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="340"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="images/error.png">&nbsp;<a name="testspec_345">C:/Test/test5.wet</a> (Firefox17)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_345">C:/Test/test5.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="347"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="352"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="357"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="images/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="images/expandlog.png" id="showHide_log_357" onclick="showOrHide(this, 'log_357');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="352"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="357"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlog.png" id="showHide_log_357" onclick="showOrHide(this, 'log_357');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#331" onclick="makeVisible('testfile_320');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="images/previous.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#331" onclick="makeVisible('testfile_320');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_357">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
-<td><img alt="error" height="11" width="11" src="images/log_warn.png"></td><td>
+<td><img alt="error" height="11" width="11" src="resources/log_warn.png"></td><td>
 <pre>org.wetator.exception.ActionException: test error
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeCommandWithError(AbstractProgressListenerTest.java:193)
 	at org.wetator.progresslistener.AbstractProgressListenerTest.writeErrorTestRun(AbstractProgressListenerTest.java:158)
@@ -948,7 +948,7 @@
 <tr><td class="comment topBorder" align="center"><a name="371"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <hr>Created using Wetator version: local build.<div id="preview-spacer" style="margin-bottom: 1000px;"></div>
