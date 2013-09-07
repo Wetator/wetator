@@ -22,30 +22,26 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
  * @author rbri
- * @author frank.danek
  */
-public class HtmlUnitUnspecificControlTest {
-
+public class HtmlUnitInputTextTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<button disabled='disabled' id='myId' type='button' name='MyName'>"
-            + "<p>ButtonWithText</p>"
-          + "</button>"
+          + "<input type='text' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -55,16 +51,14 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<button id='myId' type='button' name='MyName'>"
-            + "<p>ButtonWithText</p>"
-          + "</button>"
+          + "<input type='text' id='myId' name='MyName' value='value'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -74,18 +68,16 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<button style='visible: none' id='myId' type='button' name='MyName'>"
-            + "<p>ButtonWithText</p>"
-          + "</button>"
+          + "<input type='text' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
-    Assert.assertFalse(tmpControl.isDisabled(null));
+    Assert.assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -99,8 +91,8 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -116,12 +108,9 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
-    // isReadonly is availabe for HtmlInput elements only;
-    // because we have separate classes for all input elements,
-    // we have no nee to handle this generic
-    Assert.assertFalse(tmpControl.isDisabled(null));
+    Assert.assertTrue(tmpControl.isDisabled(null));
   }
 }
