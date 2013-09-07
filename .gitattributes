@@ -400,6 +400,8 @@ wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java 
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmitTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitUnspecificControlTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
