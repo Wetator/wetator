@@ -1102,21 +1102,22 @@ wetator/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet.xsd -text svneol=unset#text/plain
-wetator/xsl/images/collapseall.png -text
-wetator/xsl/images/collapselog.png -text
-wetator/xsl/images/error.png -text
-wetator/xsl/images/expandall.png -text
-wetator/xsl/images/expandlog.png -text
-wetator/xsl/images/failure.png -text
-wetator/xsl/images/firefox.png -text
-wetator/xsl/images/ie8.png -text
-wetator/xsl/images/log_info.png -text
-wetator/xsl/images/log_warn.png -text
-wetator/xsl/images/next.png -text
-wetator/xsl/images/none.png -text
-wetator/xsl/images/ok.png -text
-wetator/xsl/images/previous.png -text
-wetator/xsl/images/response.png -text
-wetator/xsl/images/top.png -text
-wetator/xsl/images/wetator.png -text
+wetator/xsl/resources/collapseall.png -text
+wetator/xsl/resources/collapselog.png -text
+wetator/xsl/resources/error.png -text
+wetator/xsl/resources/expandall.png -text
+wetator/xsl/resources/expandlog.png -text
+wetator/xsl/resources/failure.png -text
+wetator/xsl/resources/firefox.png -text
+wetator/xsl/resources/ie8.png -text
+wetator/xsl/resources/jquery-1.10.2.min.js -text
+wetator/xsl/resources/log_info.png -text
+wetator/xsl/resources/log_warn.png -text
+wetator/xsl/resources/next.png -text
+wetator/xsl/resources/none.png -text
+wetator/xsl/resources/ok.png -text
+wetator/xsl/resources/previous.png -text
+wetator/xsl/resources/response.png -text
+wetator/xsl/resources/top.png -text
+wetator/xsl/resources/wetator.png -text
 wetator/xsl/run_report.xsl -text svneol=unset#text/plain

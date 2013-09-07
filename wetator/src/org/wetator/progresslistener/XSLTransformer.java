@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
 public final class XSLTransformer {
   private static final Log LOG = LogFactory.getLog(XSLTransformer.class);
 
-  private static final String IMAGES_DIRECTORY = "images";
+  private static final String RESOURCES_DIRECTORY = "resources";
   private File xmlResultFile;
 
   /**
@@ -134,8 +134,8 @@ public final class XSLTransformer {
    * @throws IOException in case of problems
    */
   public void copyImages(final File aSourceDir, final File aTargetDir) throws IOException {
-    final File tmpSourceDir = new File(aSourceDir, IMAGES_DIRECTORY);
-    final File tmpTargetDir = new File(aTargetDir, IMAGES_DIRECTORY);
+    final File tmpSourceDir = new File(aSourceDir, RESOURCES_DIRECTORY);
+    final File tmpTargetDir = new File(aTargetDir, RESOURCES_DIRECTORY);
 
     copyFiles(tmpSourceDir, tmpTargetDir);
   }
