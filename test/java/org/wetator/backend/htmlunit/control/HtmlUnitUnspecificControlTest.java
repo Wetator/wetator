@@ -30,72 +30,108 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * @author rbri
  * @author frank.danek
  */
-public class HtmlUnitBaseControlTest {
+public class HtmlUnitUnspecificControlTest {
 
   @Test
   public void isDisabled() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<button disabled='disabled' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>"
-        + "</form>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+          + "<button disabled='disabled' id='myId' type='button' name='MyName'>"
+            + "<p>ButtonWithText</p>"
+          + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+        tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
   public void isDisabled_Not() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
-        + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+          + "<button id='myId' type='button' name='MyName'>"
+            + "<p>ButtonWithText</p>"
+          + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+        tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
 
   @Test
   public void isDisabled_NotVisible() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<button style='visible: none' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>"
-        + "</button>" + "</form>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+          + "<button style='visible: none' id='myId' type='button' name='MyName'>"
+            + "<p>ButtonWithText</p>"
+          + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+        tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
 
   @Test
   public void isDisabled_ReadOnlyAndDisabled() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly' disabled='disabled'/>"
-        + "</form>" + "</body></html>";
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+          + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly' disabled='disabled'/>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+        tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
   public void isDisabledGeneric_ReadOnly() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>" + "</form>"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+          + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getHtmlElementById("myId"));
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+        tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
   public void isDisabled_ReadOnly() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>" + "</form>"
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+          + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlTextInput tmpTextInput = (HtmlTextInput) tmpHtmlPage.getElementById("myId");

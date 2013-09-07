@@ -22,7 +22,6 @@ import java.util.Iterator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
-import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
@@ -38,6 +37,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
 import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
+import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
@@ -1155,7 +1155,7 @@ public class HtmlElementUtilTest {
     HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
     Assert.assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
@@ -1180,7 +1180,7 @@ public class HtmlElementUtilTest {
     HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
     Assert.assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
@@ -1205,7 +1205,7 @@ public class HtmlElementUtilTest {
     HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
     Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
@@ -1230,7 +1230,7 @@ public class HtmlElementUtilTest {
     HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
     Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
@@ -1633,7 +1633,7 @@ public class HtmlElementUtilTest {
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1658,7 +1658,7 @@ public class HtmlElementUtilTest {
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan '']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1683,7 +1683,7 @@ public class HtmlElementUtilTest {
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text' (name='Spanname')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1708,7 +1708,7 @@ public class HtmlElementUtilTest {
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
@@ -1733,7 +1733,7 @@ public class HtmlElementUtilTest {
     HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
-    tmpResult = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
     Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId') (name='Spanname')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);

@@ -194,7 +194,9 @@ test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
 test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
 test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
-test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitUnspecificControlTest.java -text
 test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifierTest.java -text svneol=unset#text/plain
