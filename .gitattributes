@@ -399,6 +399,7 @@ wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitUnspecificControlTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
