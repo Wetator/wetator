@@ -40,7 +40,7 @@
                     #debuginfo {}
                     #debugtestbrowseroverviewinfo {};
                 </style>
-<script language="JavaScript" type="text/javascript">
+<script src="resources/jquery-1.10.2.min.js"></script><script language="JavaScript" type="text/javascript">
                 function showOrHideAll(image, imageId, id) {
                     var tmpSearch = "expandall.png";
                     if (toggleImage(image)) {
@@ -185,14 +185,14 @@
 <a name="top"></a>
 <center>
 <p>
-<img alt="Wetator" src="images/wetator.png"></p>
+<img alt="Wetator" src="resources/wetator.png"></p>
 </center>
 <table align="center" id="testSummary">
 <tr>
 <td class="bold">
                             Tests:
-                        </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="images/error.png"> Errors:
-                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="images/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="resources/error.png"> Errors:
+                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"> Failures:
                         </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;">
                             Distribution:
                         </td><td style="padding-left: 5px;">1 TestCase
@@ -214,7 +214,7 @@
 </tr>
 </table>
 <div style="margin-top: -20px; margin-left: 90.4%;">
-<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="images/expandall.png" id="overviewswitcher"></div>
+<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
 <table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
 <tr>
 <td width="150px">
@@ -246,9 +246,9 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="images/expandall.png" onclick="showOrHideAll(this
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this
                                             , 'ie8','ie8overview', 'ff17','ff17overview');
-                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="images/expandall.png" id="ie8"></td><td><span class="bold">FF17</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF17 overview" onclick="showOrHide(this, 'ff17overview')" src="images/expandall.png" id="ff17"></td>
+                                        "></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="resources/expandall.png" id="ie8"></td><td><span class="bold">FF17</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF17 overview" onclick="showOrHide(this, 'ff17overview')" src="resources/expandall.png" id="ff17"></td>
 </tr>
 </table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie8overview">
@@ -276,7 +276,7 @@
             browserStepsIgnoredPercentage 0<br>
 </div>
 <tr>
-<td width="150px;">Tests in IE8<img style="padding-left: 4px;" src="images/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in IE8<img style="padding-left: 4px;" src="resources/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
@@ -287,7 +287,7 @@
 </td>
 </tr>
 <tr>
-<td>TestSteps in IE8<img style="padding-left: 4px;" src="images/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
+<td>TestSteps in IE8<img style="padding-left: 4px;" src="resources/ie8.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
@@ -326,7 +326,7 @@
             browserStepsIgnoredPercentage 0<br>
 </div>
 <tr>
-<td width="150px;">Tests in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in FF17<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
@@ -337,7 +337,7 @@
 </td>
 </tr>
 <tr>
-<td>TestSteps in FF17<img style="padding-left: 4px;" src="images/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
+<td>TestSteps in FF17<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF17" title="FF17"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
@@ -353,7 +353,7 @@
 </table>
 <table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="images/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="images/expandall.png"></td>
+<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
 </tr>
 </table>
 <table style="margin-top: 5px;" border="0" cellspacing="0" cellpadding="4" width="100%">
@@ -435,13 +435,13 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">1</td><td rowspan="2"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="images/ie8.png" alt="IE8" title="IE8"></td><td align="center">1/1</td><td>
+<td align="center" rowspan="2">1</td><td rowspan="2"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="resources/ie8.png" alt="IE8" title="IE8"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#104">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="images/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">1/1</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#116">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -454,29 +454,29 @@
 </table>
 <a name="details"></a>
 <h2>
-<img title="success" alt="success" height="10" width="12" src="images/ok.png">&nbsp;<a name="testspec_97">C:/Test/test1.wet</a> (IE8)</h2>
+<img title="success" alt="success" height="10" width="12" src="resources/ok.png">&nbsp;<a name="testspec_97">C:/Test/test1.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="99"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="104"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="104"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <h2>
-<img title="success" alt="success" height="10" width="12" src="images/ok.png">&nbsp;<a name="testspec_109">C:/Test/test1.wet</a> (Firefox17)</h2>
+<img title="success" alt="success" height="10" width="12" src="resources/ok.png">&nbsp;<a name="testspec_109">C:/Test/test1.wet</a> (Firefox17)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
 <tr><td class="comment topBorder" align="center"><a name="111"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="116"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="images/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="116"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 </table>
 <p class="backToTop">
-<a href="#top" class="link"><img alt="top" height="10" width="11" src="images/top.png">Back to top
+<a href="#top" class="link"><img alt="top" height="10" width="11" src="resources/top.png">Back to top
                 </a>
 </p>
 <hr>Created using Wetator version: local build.<div id="preview-spacer" style="margin-bottom: 1000px;"></div>
