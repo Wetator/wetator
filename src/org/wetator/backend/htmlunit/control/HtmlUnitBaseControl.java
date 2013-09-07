@@ -23,13 +23,11 @@ import java.lang.annotation.Target;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
-import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
@@ -39,16 +37,8 @@ import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
  * This is the base implementation of a {@link IControl} using HtmlUnit as backend.
@@ -57,9 +47,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * @author rbri
  * @author frank.danek
  */
-public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
+public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitInputCheckBox.class);
+  private static final Log LOG = LogFactory.getLog(HtmlUnitBaseControl.class);
 
   private T htmlElement;
 
@@ -68,7 +58,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    * 
    * @param anHtmlElement the {@link HtmlElement} from the backend
    */
-  public HtmlUnitBaseControl(final T anHtmlElement) {
+  protected HtmlUnitBaseControl(final T anHtmlElement) {
     htmlElement = anHtmlElement;
   }
 
@@ -124,8 +114,8 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("backendError",
@@ -268,46 +258,8 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-    boolean tmpSupported = false;
-
-    if (tmpHtmlElement instanceof DisabledElement) {
-      final DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
-      tmpSupported = true;
-
-      if (tmpDisabledElement.isDisabled()) {
-        return true;
-      }
-    }
-
-    // check for text and password because setting readonly for the other inputs is nonsens
-    if (tmpHtmlElement instanceof HtmlTextInput || tmpHtmlElement instanceof HtmlPasswordInput) {
-      final HtmlInput tmpHtmlInputElement = (HtmlInput) tmpHtmlElement;
-      tmpSupported = true;
-
-      if (tmpHtmlInputElement.isReadOnly()) {
-        return true;
-      }
-    }
-    if (tmpHtmlElement instanceof HtmlTextArea) {
-      final HtmlTextArea tmpHtmlHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
-      tmpSupported = true;
-
-      if (tmpHtmlHtmlTextArea.isReadOnly()) {
-        return true;
-      }
-    }
-
-    if (tmpHtmlElement instanceof HtmlTableDataCell) {
-      return true;
-    }
-
-    if (!tmpSupported) {
-      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
-      throw new UnsupportedOperationException(tmpMessage);
-    }
-
-    return false;
+    final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+    throw new UnsupportedOperationException(tmpMessage);
   }
 
   /**
@@ -325,36 +277,6 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
     }
 
     return false;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.backend.control.IControl#getDescribingText()
-   */
-  @Override
-  public String getDescribingText() {
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-
-    if (tmpHtmlElement instanceof HtmlParagraph) {
-      return HtmlElementUtil.getDescribingTextForHtmlParagraph((HtmlParagraph) tmpHtmlElement);
-    }
-    if (tmpHtmlElement instanceof HtmlSpan) {
-      return HtmlElementUtil.getDescribingTextForHtmlSpan((HtmlSpan) tmpHtmlElement);
-    }
-
-    // handle things that are not implemented at the moment
-    final StringBuilder tmpResult = new StringBuilder(42);
-
-    tmpResult.append("[Unknown HtmlElement '");
-    tmpResult.append(tmpHtmlElement.getClass());
-    tmpResult.append('\'');
-
-    addId(tmpResult, tmpHtmlElement);
-    addName(tmpResult, tmpHtmlElement);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
@@ -386,24 +308,6 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
    */
   protected void waitForImmediateJobs(final WetatorContext aContext) throws BackendException {
     aContext.getBrowser().waitForImmediateJobs();
-  }
-
-  private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
-    final String tmpId = anHtmlElement.getAttribute("id");
-    if (StringUtils.isNotEmpty(tmpId)) {
-      aStringBuilder.append(" (id='");
-      aStringBuilder.append(tmpId);
-      aStringBuilder.append("')");
-    }
-  }
-
-  private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
-    final String tmpName = anHtmlElement.getAttribute("name");
-    if (StringUtils.isNotEmpty(tmpName)) {
-      aStringBuilder.append(" (name='");
-      aStringBuilder.append(tmpName);
-      aStringBuilder.append("')");
-    }
   }
 
   /**
