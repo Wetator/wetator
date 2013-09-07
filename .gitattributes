@@ -197,6 +197,8 @@ test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTextTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmitTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputTextTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitUnspecificControlTest.java -text
 test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
