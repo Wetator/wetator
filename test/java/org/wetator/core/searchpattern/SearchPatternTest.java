@@ -247,6 +247,17 @@ public class SearchPatternTest {
   }
 
   @Test
+  public void specialCharactersEscaped() {
+    SearchPattern tmpPattern;
+
+    tmpPattern = SearchPattern.compile("t\\[e\\]t");
+    Assert.assertEquals(true, tmpPattern.matches("t\\[e\\]t"));
+
+    tmpPattern = SearchPattern.compile("t\\(e\\)t");
+    Assert.assertEquals(true, tmpPattern.matches("t\\(e\\)t"));
+  }
+
+  @Test
   public void test_Tab() {
     SearchPattern tmpPattern;
 
@@ -866,5 +877,24 @@ public class SearchPatternTest {
     Assert.assertFalse(tmpPattern.equals(SearchPattern.compile("test")));
     Assert.assertTrue(tmpPattern.equals(SearchPattern.compile("te*")));
     Assert.assertEquals("te*", tmpPattern.getOriginalString());
+  }
+
+  @Test
+  public void testToString() {
+    // match all
+    SearchPattern tmpPattern = SearchPattern.compile("*");
+    Assert.assertEquals("SearchPattern '*' [matchAll]", tmpPattern.toString());
+    tmpPattern = SearchPattern.compile("**");
+    Assert.assertEquals("SearchPattern '*' [matchAll]", tmpPattern.toString());
+
+    // text only
+    tmpPattern = SearchPattern.compile("abcd");
+    Assert.assertEquals("SearchPattern 'abcd' [text: 'abcd']", tmpPattern.toString());
+    tmpPattern = SearchPattern.compile("a b\tcd");
+    Assert.assertEquals("SearchPattern 'a b\tcd' [text: 'a b\tcd']", tmpPattern.toString());
+
+    // wildcrads
+    tmpPattern = SearchPattern.compile("a*b?c d");
+    Assert.assertEquals("SearchPattern 'a*b?c d' [regexp: 'a.*b.c d']", tmpPattern.toString());
   }
 }
