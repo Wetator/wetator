@@ -16,11 +16,8 @@
 
 package org.wetator.core.searchpattern;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.collections.map.LRUMap;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
@@ -35,8 +32,6 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
-  @SuppressWarnings("unchecked")
-  private static Map<String, SearchPattern> searchPatternCache = Collections.synchronizedMap(new LRUMap(500));
   private String originalString;
 
   /**
@@ -85,92 +80,79 @@ public abstract class SearchPattern {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
     }
 
-    SearchPattern tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
-    if (tmpSearchPattern != null) {
-      return tmpSearchPattern;
-    }
-    synchronized (searchPatternCache) {
-      tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
-      if (tmpSearchPattern != null) {
-        return tmpSearchPattern;
-      }
+    final String tmpOriginalString = tmpDosStyleWildcardString;
 
-      final String tmpOriginalString = tmpDosStyleWildcardString;
+    final StringBuilder tmpPattern = new StringBuilder();
+    final StringBuilder tmpTextPattern = new StringBuilder();
 
-      final StringBuilder tmpPattern = new StringBuilder();
-      final StringBuilder tmpTextPattern = new StringBuilder();
+    boolean tmpSlash = false;
+    boolean tmpIsStarPattern = true;
+    boolean tmpIsTextOnly = true;
+    for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
+      final char tmpChar = tmpDosStyleWildcardString.charAt(i);
 
-      boolean tmpSlash = false;
-      boolean tmpIsStarPattern = true;
-      boolean tmpIsTextOnly = true;
-      for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
-        final char tmpChar = tmpDosStyleWildcardString.charAt(i);
-
-        if ('*' == tmpChar) {
-          if (tmpSlash) {
-            tmpPattern.append("\\*");
-            tmpTextPattern.append('*');
-            tmpSlash = false;
-            continue;
-          }
-          tmpPattern.append(".*");
-          tmpIsTextOnly = false;
-          continue;
-        } else if ('?' == tmpChar) {
-          tmpIsStarPattern = false;
-          if (tmpSlash) {
-            tmpPattern.append("\\?");
-            tmpTextPattern.append('?');
-            tmpSlash = false;
-            continue;
-          }
-          tmpPattern.append('.');
-          tmpIsTextOnly = false;
-          continue;
-        } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
-          tmpIsStarPattern = false;
-          if (tmpSlash) {
-            tmpPattern.append("\\\\\\");
-            tmpPattern.append(tmpChar);
-            tmpTextPattern.append('\\');
-            tmpTextPattern.append(tmpChar);
-            tmpSlash = false;
-            continue;
-          }
-          tmpPattern.append('\\');
-          tmpPattern.append(tmpChar);
-          tmpTextPattern.append(tmpChar);
-          continue;
-        } else if ('\\' == tmpChar) {
-          tmpSlash = true;
-          continue;
-        } else {
-          tmpIsStarPattern = false;
-          if (tmpSlash) {
-            tmpPattern.append("\\\\");
-            tmpTextPattern.append('\\');
-            tmpSlash = false;
-          }
-          tmpPattern.append(tmpChar);
-          tmpTextPattern.append(tmpChar);
+      if ('*' == tmpChar) {
+        if (tmpSlash) {
+          tmpPattern.append("\\*");
+          tmpTextPattern.append('*');
+          tmpSlash = false;
           continue;
         }
-      }
-      if (tmpSlash) {
-        tmpPattern.append("\\\\");
-        tmpTextPattern.append('\\');
-      }
-
-      if (tmpIsStarPattern) {
-        tmpSearchPattern = new MatchAllSearchPattern();
-      } else if (tmpIsTextOnly) {
-        tmpSearchPattern = new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
+        tmpPattern.append(".*");
+        tmpIsTextOnly = false;
+        continue;
+      } else if ('?' == tmpChar) {
+        tmpIsStarPattern = false;
+        if (tmpSlash) {
+          tmpPattern.append("\\?");
+          tmpTextPattern.append('?');
+          tmpSlash = false;
+          continue;
+        }
+        tmpPattern.append('.');
+        tmpIsTextOnly = false;
+        continue;
+      } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
+        tmpIsStarPattern = false;
+        if (tmpSlash) {
+          tmpPattern.append("\\\\\\");
+          tmpPattern.append(tmpChar);
+          tmpTextPattern.append('\\');
+          tmpTextPattern.append(tmpChar);
+          tmpSlash = false;
+          continue;
+        }
+        tmpPattern.append('\\');
+        tmpPattern.append(tmpChar);
+        tmpTextPattern.append(tmpChar);
+        continue;
+      } else if ('\\' == tmpChar) {
+        tmpSlash = true;
+        continue;
       } else {
-        tmpSearchPattern = new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+        tmpIsStarPattern = false;
+        if (tmpSlash) {
+          tmpPattern.append("\\\\");
+          tmpTextPattern.append('\\');
+          tmpSlash = false;
+        }
+        tmpPattern.append(tmpChar);
+        tmpTextPattern.append(tmpChar);
+        continue;
       }
-      searchPatternCache.put(aDosStyleWildcardString, tmpSearchPattern);
     }
-    return tmpSearchPattern;
+    if (tmpSlash) {
+      tmpPattern.append("\\\\");
+      tmpTextPattern.append('\\');
+    }
+
+    if (tmpIsStarPattern) {
+      return new MatchAllSearchPattern();
+    }
+    if (tmpIsTextOnly) {
+      return new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
+    }
+    return new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
   }
 
   /**
@@ -274,50 +256,5 @@ public abstract class SearchPattern {
    */
   public String getOriginalString() {
     return originalString;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    final int tmpPrime = 31;
-    int tmpResult = 1;
-    tmpResult = tmpPrime * tmpResult;
-    if (originalString != null) {
-      tmpResult = tmpResult + originalString.hashCode();
-    }
-    return tmpResult;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object anObject) {
-    if (this == anObject) {
-      return true;
-    }
-    if (anObject == null) {
-      return false;
-    }
-
-    if (getClass() != anObject.getClass()) {
-      return false;
-    }
-
-    final SearchPattern tmpOther = (SearchPattern) anObject;
-    if (originalString == null) {
-      if (tmpOther.originalString != null) {
-        return false;
-      }
-    } else if (!originalString.equals(tmpOther.originalString)) {
-      return false;
-    }
-    return true;
   }
 }
