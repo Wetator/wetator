@@ -45,6 +45,7 @@ import org.wetator.core.Variable;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.WetatorEngine;
+import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.AssertionException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Output;
@@ -622,6 +623,10 @@ public class XMLResultWriter implements IProgressListener {
   public void end(final WetatorEngine aWetatorEngine) {
     try {
       printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - executionStartTime));
+
+      output.println("<!--");
+      output.println(SearchPattern.getStatics());
+      output.println("-->");
 
       printlnEndTag(TAG_WET);
       output.close();

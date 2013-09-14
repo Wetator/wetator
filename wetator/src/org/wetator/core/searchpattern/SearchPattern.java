@@ -17,7 +17,9 @@
 package org.wetator.core.searchpattern;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.LRUMap;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
@@ -32,7 +34,15 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
+  private static SearchPatternCache searchPatternCache = new SearchPatternCache(500);
   private String originalString;
+
+  /**
+   * @return a string with some statistic info
+   */
+  public static String getStatics() {
+    return searchPatternCache.getStatics();
+  }
 
   /**
    * Construct a new SearchPattern from a list of SecretString's.
@@ -80,79 +90,92 @@ public abstract class SearchPattern {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
     }
 
-    final String tmpOriginalString = tmpDosStyleWildcardString;
-
-    final StringBuilder tmpPattern = new StringBuilder();
-    final StringBuilder tmpTextPattern = new StringBuilder();
-
-    boolean tmpSlash = false;
-    boolean tmpIsStarPattern = true;
-    boolean tmpIsTextOnly = true;
-    for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
-      final char tmpChar = tmpDosStyleWildcardString.charAt(i);
-
-      if ('*' == tmpChar) {
-        if (tmpSlash) {
-          tmpPattern.append("\\*");
-          tmpTextPattern.append('*');
-          tmpSlash = false;
-          continue;
-        }
-        tmpPattern.append(".*");
-        tmpIsTextOnly = false;
-        continue;
-      } else if ('?' == tmpChar) {
-        tmpIsStarPattern = false;
-        if (tmpSlash) {
-          tmpPattern.append("\\?");
-          tmpTextPattern.append('?');
-          tmpSlash = false;
-          continue;
-        }
-        tmpPattern.append('.');
-        tmpIsTextOnly = false;
-        continue;
-      } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
-        tmpIsStarPattern = false;
-        if (tmpSlash) {
-          tmpPattern.append("\\\\\\");
-          tmpPattern.append(tmpChar);
-          tmpTextPattern.append('\\');
-          tmpTextPattern.append(tmpChar);
-          tmpSlash = false;
-          continue;
-        }
-        tmpPattern.append('\\');
-        tmpPattern.append(tmpChar);
-        tmpTextPattern.append(tmpChar);
-        continue;
-      } else if ('\\' == tmpChar) {
-        tmpSlash = true;
-        continue;
-      } else {
-        tmpIsStarPattern = false;
-        if (tmpSlash) {
-          tmpPattern.append("\\\\");
-          tmpTextPattern.append('\\');
-          tmpSlash = false;
-        }
-        tmpPattern.append(tmpChar);
-        tmpTextPattern.append(tmpChar);
-        continue;
+    SearchPattern tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+    if (tmpSearchPattern != null) {
+      return tmpSearchPattern;
+    }
+    synchronized (searchPatternCache) {
+      tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+      if (tmpSearchPattern != null) {
+        return tmpSearchPattern;
       }
-    }
-    if (tmpSlash) {
-      tmpPattern.append("\\\\");
-      tmpTextPattern.append('\\');
-    }
 
-    if (tmpIsStarPattern) {
-      return new MatchAllSearchPattern();
+      final String tmpOriginalString = tmpDosStyleWildcardString;
+
+      final StringBuilder tmpPattern = new StringBuilder();
+      final StringBuilder tmpTextPattern = new StringBuilder();
+
+      boolean tmpSlash = false;
+      boolean tmpIsStarPattern = true;
+      boolean tmpIsTextOnly = true;
+      for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
+        final char tmpChar = tmpDosStyleWildcardString.charAt(i);
+
+        if ('*' == tmpChar) {
+          if (tmpSlash) {
+            tmpPattern.append("\\*");
+            tmpTextPattern.append('*');
+            tmpSlash = false;
+            continue;
+          }
+          tmpPattern.append(".*");
+          tmpIsTextOnly = false;
+          continue;
+        } else if ('?' == tmpChar) {
+          tmpIsStarPattern = false;
+          if (tmpSlash) {
+            tmpPattern.append("\\?");
+            tmpTextPattern.append('?');
+            tmpSlash = false;
+            continue;
+          }
+          tmpPattern.append('.');
+          tmpIsTextOnly = false;
+          continue;
+        } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
+          tmpIsStarPattern = false;
+          if (tmpSlash) {
+            tmpPattern.append("\\\\\\");
+            tmpPattern.append(tmpChar);
+            tmpTextPattern.append('\\');
+            tmpTextPattern.append(tmpChar);
+            tmpSlash = false;
+            continue;
+          }
+          tmpPattern.append('\\');
+          tmpPattern.append(tmpChar);
+          tmpTextPattern.append(tmpChar);
+          continue;
+        } else if ('\\' == tmpChar) {
+          tmpSlash = true;
+          continue;
+        } else {
+          tmpIsStarPattern = false;
+          if (tmpSlash) {
+            tmpPattern.append("\\\\");
+            tmpTextPattern.append('\\');
+            tmpSlash = false;
+          }
+          tmpPattern.append(tmpChar);
+          tmpTextPattern.append(tmpChar);
+          continue;
+        }
+      }
+      if (tmpSlash) {
+        tmpPattern.append("\\\\");
+        tmpTextPattern.append('\\');
+      }
+
+      if (tmpIsStarPattern) {
+        tmpSearchPattern = new MatchAllSearchPattern();
+      } else if (tmpIsTextOnly) {
+        tmpSearchPattern = new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
+      } else {
+        tmpSearchPattern = new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+      }
+      searchPatternCache.put(aDosStyleWildcardString, tmpSearchPattern);
     }
-    if (tmpIsTextOnly) {
-      return new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
-    }
-    return new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+    return tmpSearchPattern;
   }
 
   /**
@@ -256,5 +279,103 @@ public abstract class SearchPattern {
    */
   public String getOriginalString() {
     return originalString;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int tmpPrime = 31;
+    int tmpResult = 1;
+    tmpResult = tmpPrime * tmpResult;
+    if (originalString != null) {
+      tmpResult = tmpResult + originalString.hashCode();
+    }
+    return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object anObject) {
+    if (this == anObject) {
+      return true;
+    }
+    if (anObject == null) {
+      return false;
+    }
+
+    if (getClass() != anObject.getClass()) {
+      return false;
+    }
+
+    final SearchPattern tmpOther = (SearchPattern) anObject;
+    if (originalString == null) {
+      if (tmpOther.originalString != null) {
+        return false;
+      }
+    } else if (!originalString.equals(tmpOther.originalString)) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Cache.
+   */
+  private static class SearchPatternCache {
+    private Map<String, SearchPattern> cache;
+    private int hitsCount;
+
+    @SuppressWarnings("unchecked")
+    public SearchPatternCache(final int anInitialSize) {
+      cache = new LRUMap(anInitialSize);
+
+    }
+
+    /**
+     * @param aDosStyleWildcardString
+     * @return the cached pattern or null if not found
+     */
+    public synchronized SearchPattern get(final String aDosStyleWildcardString) {
+      final SearchPattern tmpPattern = cache.get(aDosStyleWildcardString);
+      if (null != tmpPattern) {
+        hitsCount++;
+      }
+      return tmpPattern;
+    }
+
+    /**
+     * Add another entry to the cache.
+     * 
+     * @param aDosStyleWildcardString
+     * @param aSearchPattern
+     */
+    public synchronized void put(final String aDosStyleWildcardString, final SearchPattern aSearchPattern) {
+      cache.put(aDosStyleWildcardString, aSearchPattern);
+    }
+
+    /**
+     * @return a string with some statistic info
+     */
+    public String getStatics() {
+      final StringBuilder tmpResult = new StringBuilder();
+      tmpResult.append("SearchPatternCache statistics:\n");
+
+      tmpResult.append("      Entries: ");
+      tmpResult.append(cache.size());
+      tmpResult.append("\n");
+
+      tmpResult.append("      Hits:    ");
+      tmpResult.append(hitsCount);
+
+      return tmpResult.toString();
+    }
   }
 }
