@@ -875,7 +875,7 @@ public class SearchPatternTest {
     Assert.assertTrue(tmpPattern.matches("test"));
     Assert.assertFalse("test".equals(tmpPattern));
     Assert.assertFalse(tmpPattern.equals(SearchPattern.compile("test")));
-    Assert.assertFalse(tmpPattern.equals(SearchPattern.compile("te*")));
+    Assert.assertTrue(tmpPattern.equals(SearchPattern.compile("te*")));
     Assert.assertEquals("te*", tmpPattern.getOriginalString());
   }
 

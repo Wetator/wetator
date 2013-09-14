@@ -584,6 +584,8 @@ public abstract class AbstractProgressListenerTest {
     tmpResult = tmpResult.replace('\\', '/');
     // unify htmlunit version
     tmpResult = tmpResult.replaceAll("HtmlUnit version 2.\\d+(-SNAPSHOT)?", "HtmlUnit");
+    // comments
+    tmpResult = tmpResult.replaceAll("(?s)<!--.*?-->", "<!-- ... -->");
     return tmpResult;
   }
 
