@@ -1,0 +1,31 @@
+# simple test case
+#
+# open the page
+open-url            || http://www.wetator.org/testform
+
+# do we reach the correct page?
+assert-title        || WETATOR / Test Form
+
+# Check the page defaults
+assert-content      || The form below is only for testing purpose.
+assert-set          || Project name
+assert-selected     || other
+assert-deselected   || WETATOR is > amazing
+assert-deselected   || WETATOR is > visionary
+assert-deselected   || WETATOR is > marvelous
+assert-set          || WETATOR makes
+
+# time to start
+set                 || Project name             || HtmlUnit
+select              || programming language > JAVA
+select              || WETATOR is > visionary
+click-on            || Submit My Truth
+assert-content      || We hope all your visionary WETATOR tests for the project 'HtmlUnit' are green.
+assert-content      || Why not using WETATOR for your other JAVA projects?
+
+# finally test the validation
+open-url            || /testform
+assert-title        || WETATOR / Test Form
+assert-set          || Project name
+click-on            || Submit My Truth
+assert-content      || "Project name" is a required field

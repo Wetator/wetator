@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <comment>open the page</comment>
+    <command><d:open-url><d:url>http://www.wetator.org/testform</d:url></d:open-url></command>
+    <comment>do we reach the correct page?</comment>
+    <command><d:assert-title><d:title>WETATOR / Test Form</d:title></d:assert-title></command>
+    <comment></comment>
+    <comment>Check the page defaults</comment>
+    <command><d:assert-content><d:content>The form below is only for testing purpose.</d:content></d:assert-content></command>
+    <command><d:assert-set><d:wpath>Project name</d:wpath><d:value></d:value></d:assert-set></command>
+    <command><d:assert-selected><d:wpath>other</d:wpath></d:assert-selected></command>
+    <command><d:assert-deselected><d:wpath>WETATOR is > amazing</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>WETATOR is > visionary</d:wpath></d:assert-deselected></command>
+    <command><d:assert-deselected><d:wpath>WETATOR is > marvelous</d:wpath></d:assert-deselected></command>
+    <command><d:assert-set><d:wpath>WETATOR makes</d:wpath></d:assert-set></command>
+    <comment></comment>
+    <comment>time to start</comment>
+    <command><d:set><d:wpath>Project name</d:wpath><d:value>HtmlUnit</d:value></d:set></command>
+    <command><d:select><d:wpath>programming language > JAVA</d:wpath></d:select></command>
+    <command><d:select><d:wpath>WETATOR is > visionary</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>Submit My Truth</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>We hope all your visionary WETATOR tests for the project 'HtmlUnit' are green.</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Why not using WETATOR for your other JAVA projects?</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>finally test the validation</comment>
+    <command><d:open-url><d:url>/testform</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>WETATOR / Test Form</d:title></d:assert-title></command>
+    <command><d:assert-set><d:wpath>Project name</d:wpath><d:value></d:value></d:assert-set></command>
+    <command><d:click-on><d:wpath>Submit My Truth</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>"Project name" is a required field</d:content></d:assert-content></command>
+</test-case>
