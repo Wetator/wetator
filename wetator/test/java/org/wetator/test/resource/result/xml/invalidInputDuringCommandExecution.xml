@@ -15,9 +15,9 @@
       <library id="12">Commons Collections 3.2.1</library>
       <library id="13">Commons IO 2.4</library>
       <library id="14">Commons Logging 1.1.1</library>
-      <library id="15">HttpComponents HttpCore 4.2.2</library>
-      <library id="16">HttpComponents HttpClient 4.2.3</library>
-      <library id="17">HttpComponents HttpMime 4.2.3</library>
+      <library id="##ID##">HttpComponents Apache HttpCore </library>
+      <library id="##ID##">HttpComponents Apache HttpClient </library>
+      <library id="##ID##">HttpComponents Apache HttpClient Mime </library>
       <library id="18">log4j 1.2.17</library>
       <library id="19">automaton-1.11-8.jar</library>
       <library id="20">POI 3.9</library>
