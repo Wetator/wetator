@@ -28,6 +28,10 @@ samples/google_search/wetator.config -text
 samples/sample.wet -text
 samples/sample.wett -text
 samples/sample.xls -text
+samples/wetator_testform/wetator.config -text
+samples/wetator_testform/wetator_testform.wet -text
+samples/wetator_testform/wetator_testform.wett -text
+samples/wetator_testform/wetator_testform.xls -text
 src/log4j.properties -text
 src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
