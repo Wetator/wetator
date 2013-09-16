@@ -568,6 +568,7 @@
             </zipfileset>
 
             <zipfileset dir="${dir.xsl}" prefix="${dir.xsl}">
+                <include name="**/**.js" />
                 <include name="**/**.png" />
                 <include name="**/**.xsl" />
             </zipfileset>
