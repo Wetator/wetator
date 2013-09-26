@@ -143,12 +143,20 @@ public final class VersionUtil {
    */
   public static String readAttributeFromJarManifest(final String aJarFilePattern, final String aPackage,
       final String anAttributeName, final String aDefault) {
+    final String tmpOneJar = "/wetator_all.jar!";
     try {
       final Enumeration<URL> tmpResources = VersionUtil.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
       final Pattern tmpPattern = Pattern.compile(aJarFilePattern);
       while (tmpResources.hasMoreElements()) {
         final URL tmpUrl = tmpResources.nextElement();
-        final String tmpLcUrl = tmpUrl.toExternalForm().toLowerCase();
+        String tmpLcUrl = tmpUrl.toExternalForm().toLowerCase();
+
+        // don't get confused by one-jar
+        final int tmpCleanPos = tmpLcUrl.indexOf(tmpOneJar);
+        if (tmpCleanPos > -1) {
+          tmpLcUrl = tmpLcUrl.substring(tmpCleanPos + tmpOneJar.length());
+        }
+
         final Matcher tmpMatcher = tmpPattern.matcher(tmpLcUrl);
         if (tmpMatcher.find()) {
           final InputStream tmpStream = tmpUrl.openStream();
@@ -162,9 +170,11 @@ public final class VersionUtil {
               tmpAttributes = tmpManifest.getAttributes(aPackage);
             }
 
-            final String tmpAttribute = tmpAttributes.getValue(anAttributeName);
-            if (StringUtils.isNotBlank(tmpAttribute)) {
-              return tmpAttribute;
+            if (null != tmpAttributes) {
+              final String tmpAttribute = tmpAttributes.getValue(anAttributeName);
+              if (StringUtils.isNotBlank(tmpAttribute)) {
+                return tmpAttribute;
+              }
             }
           } finally {
             tmpStream.close();
