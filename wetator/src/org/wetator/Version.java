@@ -71,6 +71,6 @@ public final class Version {
   }
 
   private static String readFromManifest(final String anAttributeName, final String aDefault) {
-    return VersionUtil.readAttributeFromJarManifest("wetator.jar", "Application", anAttributeName, aDefault);
+    return VersionUtil.readAttributeFromJarManifest("wetator[^/]*.jar", "Application", anAttributeName, aDefault);
   }
 }
