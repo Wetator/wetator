@@ -223,7 +223,6 @@ wetator/ivy.xml -text svneol=unset#text/plain
 wetator/ivysettings.xml -text svneol=unset#text/plain
 wetator/pom.template.xml -text svneol=unset#text/plain
 wetator/readme.txt -text svneol=unset#text/plain
-wetator/samples/ant/build.xml -text
 wetator/samples/google_search/google.wet -text
 wetator/samples/google_search/google.wett -text
 wetator/samples/google_search/google.xls -text
