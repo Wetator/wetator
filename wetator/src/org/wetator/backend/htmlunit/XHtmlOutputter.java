@@ -57,6 +57,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCode;
 import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
 import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlEmbed;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFont;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
@@ -383,6 +384,8 @@ public final class XHtmlOutputter {
 
       final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
       final boolean tmpIsHtmlImageInput = tmpHtmlElement instanceof HtmlImageInput;
+      final boolean tmpIsHtmlHtmlEmbed = tmpHtmlElement instanceof HtmlEmbed;
+
       final boolean tmpIsHtmlFrame = tmpHtmlElement instanceof BaseFrameElement;
       final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
       final boolean tmpIsHtmlSubmitInput = tmpHtmlElement instanceof HtmlSubmitInput;
@@ -421,7 +424,7 @@ public final class XHtmlOutputter {
             }
           }
 
-          if ((tmpIsHtmlImage || tmpIsHtmlImageInput) && "src".equals(tmpAttributeName)) {
+          if ((tmpIsHtmlImage || tmpIsHtmlImageInput || tmpIsHtmlHtmlEmbed) && "src".equals(tmpAttributeName)) {
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
