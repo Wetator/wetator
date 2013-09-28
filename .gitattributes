@@ -20,7 +20,6 @@ ant_lib/one-jar-ant-task-0.97.jar -text
 /ivysettings.xml -text svneol=unset#text/plain
 /pom.template.xml -text svneol=unset#text/plain
 /readme.txt -text svneol=unset#text/plain
-samples/ant/build.xml -text
 samples/google_search/google.wet -text
 samples/google_search/google.wett -text
 samples/google_search/google.xls -text
