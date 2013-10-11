@@ -33,6 +33,7 @@ import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorEngine;
 import org.wetator.gui.DialogUtil;
 import org.wetator.progresslistener.StdOutProgressListener;
+import org.wetator.util.onejar.OneJarContext;
 
 /**
  * The command line interface for the Wetator.
@@ -51,6 +52,8 @@ public final class Wetator {
    * @param anArgsArray the command line arguments
    */
   public static void main(final String[] anArgsArray) {
+    OneJarContext.init();
+
     String tmpConfigFileName = null;
     File tmpLogFile = null;
     final List<String> tmpFileNames = new LinkedList<String>();
