@@ -646,8 +646,8 @@ echo location of the Java Virtual Machine you want to use.
             </fileset>
 
             <zipfileset dir="${dir.samples}" prefix="samples">
-                <include name="google_search/**" />
                 <exclude name="google_search/logs/**" />
+                <exclude name="wetator_testform/logs/**" />
             </zipfileset>
 
             <zipfileset dir="${dir.xsl}" prefix="xsl">
@@ -700,18 +700,28 @@ echo location of the Java Virtual Machine you want to use.
         <!-- test the application -->
         <unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
         <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/wetator.config"
+            file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator.config"
             todir="${basedir}/${dir.build}/test-release/app"
         />
         <copy
-            file="${basedir}/${dir.build}/test-release/app/samples/google_search/google.xls"
+            file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator_testform.wet"
             todir="${basedir}/${dir.build}/test-release/app"
         />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator_testform.wett"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
+            <copy
+                file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator_testform.xls"
+                todir="${basedir}/${dir.build}/test-release/app"
+            />
 
         <exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
             <arg value="/c"/>
             <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
-            <arg value="google.xls"/>
+            <arg value="wetator_testform.wet"/>
+            <arg value="wetator_testform.wett"/>
+            <arg value="wetator_testform.xls"/>
         </exec>
 
     </target>
