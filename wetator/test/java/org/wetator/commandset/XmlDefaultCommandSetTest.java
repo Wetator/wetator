@@ -34,7 +34,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertContent() throws InvalidInputException {
     executeTestFile("assert_content.wet");
 
-    Assert.assertEquals(94, getSteps());
+    Assert.assertEquals(97, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

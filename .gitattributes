@@ -599,6 +599,7 @@ wetator/test/webpage/click_on_table.html -text svneol=unset#text/plain
 wetator/test/webpage/download/download.txt -text
 wetator/test/webpage/download/unknown_content_type.bin -text
 wetator/test/webpage/download/wet_test.csv -text
+wetator/test/webpage/download/wet_test.json -text
 wetator/test/webpage/download/wet_test.pdf -text
 wetator/test/webpage/download/wet_test.rtf -text
 wetator/test/webpage/download/wet_test.xls -text

@@ -1084,11 +1084,11 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       // unsupported content type
       // warn and process the content as plain ascii
-      wetatorEngine.informListenersInfo("unsupportedPageType",
-          new String[] { tmpPage.getWebResponse().getContentType() });
+      final String tmpCharset = tmpResponse.getContentCharset();
+      wetatorEngine.informListenersInfo("unsupportedPageType", new String[] {
+          tmpPage.getWebResponse().getContentType(), tmpCharset });
       try {
-        String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
-            tmpResponse.getContentCharset());
+        String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(), tmpCharset);
         tmpContentAsText = NON_ASCII.matcher(tmpContentAsText).replaceAll("?");
         aContentToWaitFor.matches(tmpContentAsText);
         return tmpPageChanged;
