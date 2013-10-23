@@ -396,6 +396,7 @@ test/webpage/click_on_table.html -text svneol=unset#text/plain
 test/webpage/download/download.txt -text
 test/webpage/download/unknown_content_type.bin -text
 test/webpage/download/wet_test.csv -text
+test/webpage/download/wet_test.json -text
 test/webpage/download/wet_test.pdf -text
 test/webpage/download/wet_test.rtf -text
 test/webpage/download/wet_test.xls -text
