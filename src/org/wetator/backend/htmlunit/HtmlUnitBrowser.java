@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import javax.swing.text.BadLocationException;
 
@@ -105,7 +104,6 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  */
 public final class HtmlUnitBrowser implements IBrowser {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
-  private static final Pattern NON_ASCII = Pattern.compile("[^\\x20-\\x7e]");
 
   /** The maximum history size. */
   protected static final int MAX_HISTORY_SIZE = 15;
@@ -1088,8 +1086,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       wetatorEngine.informListenersInfo("unsupportedPageType", new String[] {
           tmpPage.getWebResponse().getContentType(), tmpCharset });
       try {
-        String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(), tmpCharset);
-        tmpContentAsText = NON_ASCII.matcher(tmpContentAsText).replaceAll("?");
+        final String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(), tmpCharset);
         aContentToWaitFor.matches(tmpContentAsText);
         return tmpPageChanged;
       } catch (final IOException e) {
