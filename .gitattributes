@@ -1085,6 +1085,7 @@ wetator/test/xml/open_url.wet -text svneol=unset#text/plain
 wetator/test/xml/open_url_anchor_inside_page.wet -text
 wetator/test/xml/open_url_basicauth.wet -text
 wetator/test/xml/open_url_header.wet -text svneol=unset#text/plain
+wetator/test/xml/open_url_https.wet -text svneol=unset#text/plain
 wetator/test/xml/open_url_redirect.wet -text svneol=unset#text/plain
 wetator/test/xml/response_store.wet -text
 wetator/test/xml/select_checkbox.wet -text svneol=unset#text/plain
