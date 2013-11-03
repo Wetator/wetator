@@ -383,7 +383,6 @@ wetator/src/org/wetator/util/SecretString.java -text
 wetator/src/org/wetator/util/StringUtil.java -text
 wetator/src/org/wetator/util/VersionUtil.java -text
 wetator/src/org/wetator/util/XMLUtil.java -text
-wetator/src/org/wetator/util/onejar/OneJarContext.java -text
 wetator/src/wetator.config -text
 wetator/test/MouseEvents.xls -text
 wetator/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
