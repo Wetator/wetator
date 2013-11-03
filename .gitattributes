@@ -212,7 +212,6 @@ wetator/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 wetator/LICENSE.txt -text
 wetator/actions.txt -text svneol=unset#text/plain
 wetator/ant_lib/ivy-2.3.0.jar -text
-wetator/ant_lib/one-jar-ant-task-0.97.jar -text
 wetator/build-patternset.xml -text svneol=unset#text/plain
 wetator/build-properties.xml -text
 wetator/build.properties -text
