@@ -473,25 +473,11 @@
 
 
     <!-- ===========================================
-         private target load-onejar
-         =========================================== -->
-    <target name="-load-onejar">
-        <property name="one-jar.dist.dir" value="./dist"/>
-        <property name="one-jar.version" value="0.97"/>
-        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
-            <classpath id="one-jar-classpath">
-                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
-            </classpath>
-        </taskdef>
-    </target>
-
-
-    <!-- ===========================================
          private target package-bundles
            builds all release artifacts
          =========================================== -->
     <target name="-package-bundles" description="builds all release artifacts"
-        depends="-compile, -get-buildnumber, -load-ivy, -load-onejar">
+        depends="-compile, -get-buildnumber, -load-ivy">
         <tstamp>
             <format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss z" timezone="Europe/Berlin" locale="en"/>
         </tstamp>
@@ -503,7 +489,14 @@
 
         <mkdir dir="${dir.deploy}"/>
 
-        <!-- generate jar -->
+        <pathconvert property="class-path" pathsep=" ">
+            <fileset dir="${dir.lib}">
+                <patternset refid="runtime-libs" />
+            </fileset>
+            <mapper type="flatten" />
+        </pathconvert>
+
+    	<!-- generate jar -->
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
             <fileset dir="${dir.build}/classes">
@@ -512,6 +505,7 @@
             </fileset>
             <manifest>
             <attribute name="Main-Class" value="org.wetator.Wetator"/>
+            <attribute name="Class-Path" value="${class-path}"/>
             <section name="Application">
                 <attribute name="Application-Name" value="${application.name}"/>
                 <attribute name="Vendor" value="${application.vendor}"/>
@@ -585,42 +579,45 @@
             <mapping conf="test" scope="test" />
         </ivy:makepom>
 
-        <!-- generate one-jar jar -->
-        <delete file="${dir.build}/MANIFEST.MF"/>
-        <manifest file="${dir.build}/MANIFEST.MF">
-            <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
-            <attribute name="One-Jar-Main-Class" value="org.wetator.Wetator"/>
-        </manifest>
-        <delete file="${dir.build}/${application.jar-basename}_all.jar"/>
-        <one-jar destfile="${dir.build}/${application.jar-basename}_all.jar" manifest="${dir.build}/MANIFEST.MF">
-            <main jar="${application.jar-basename}.jar">
-            </main>
-            <lib>
-                <fileset dir="${dir.lib}">
-                    <patternset refid="runtime-libs" />
-                </fileset>
-                <fileset dir="${dir.build}">
-                    <include name="${application.jar-basename}.jar" />
-                </fileset>
-            </lib>
-        </one-jar>
-
         <!-- generate cmd-line distribution zip -->
         <echo file="${dir.build}/wetator.bat" append="false">@echo off
 
-REM ----------------------------
+REM ---------------------------------------------------------
 REM Simple Wetator start script
-REM ----------------------------
+REM
+REM  requires JAVA 1.6 or higher installed
+REM ---------------------------------------------------------
+
+SETLOCAL
+
+REM ---------------------------------------------------------
+REM overwrite your system JAVA_HOME if you like
+REM ---------------------------------------------------------
+REM SET JAVA_HOME=
 
 
-if "%JAVA_HOME%" == "" goto error
+set WETATOR_HOME=.
+set WETATOR_LIB=%WETATOR_HOME%\lib
+set WETATOR_MAIN_JAR=%WETATOR_LIB%\${application.jar-basename}.jar
 
-rem add the jdbc drivers if needed
-rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path=ojdbc14.jar
-rem SET JAVA_OPTS=%JAVA_OPTS% -Done-jar.class.path="db2jcc.jar|db2jcc_license_cu.jar"
+REM ---------------------------------------------------------
+REM additional java opts
+REM ---------------------------------------------------------
+rem SET WETATOR_JAVA_OPT=
+rem SET WETATOR_JAVA_OPT=%WETATOR_JAVA_OPT% "-Xmx512m"
+
+REM ---------------------------------------------------------
+REM use java instead of javaw to see error messages
+REM on the console
+REM ---------------------------------------------------------
+SET JAVA_EXE=javaw.exe
+rem SET JAVA_EXE=java.exe
+
+IF "%JAVA_HOME%" == "" GOTO MSG_NOJAVAHOME
+IF NOT EXIST %JAVA_HOME%\bin\%JAVA_EXE% GOTO MSG_NOJAVA 2> null
 
 rem start command for Wetator
-set CMD="%JAVA_HOME%\bin\java" %JAVA_OPTS% -jar ${application.jar-basename}_all.jar %*
+set CMD="%JAVA_HOME%\bin\%JAVA_EXE%" %WETATOR_JAVA_OPT% -jar %WETATOR_MAIN_JAR% %*
 
 echo Starting Wetator
 
@@ -630,20 +627,51 @@ ECHO %CMD%
 
 goto end
 
-:error
+:MSG_NOJAVAHOME
 
-echo ERROR: JAVA_HOME not found in your environment.
-echo Please, set the JAVA_HOME variable in your environment to match the
-echo location of the Java Virtual Machine you want to use.
+ECHO ***********************************************************************
+ECHO *                                                                     *
+ECHO * ERROR: JAVA_HOME not found in your environment.                     *
+ECHO *                                                                     *
+ECHO * Please, set the JAVA_HOME variable in your environment to match the *
+ECHO * location of the Java Virtual Machine you want to use.               *
+ECHO *                                                                     *
+ECHO ***********************************************************************
+ECHO 
+PAUSE
+GOTO END
 
-:end
+:MSG_NOJAVA
+ECHO ***********************************************************************
+ECHO *                                                                     *
+ECHO * Your JAVA_HOME/JAVA_EXE are invalid                                 *
+ECHO * File not found:                                                     *
+ECHO *   '%JAVA_HOME%\bin\%JAVA_EXE%'
+ECHO *                                                                     *
+ECHO ***********************************************************************
+ECHO 
+PAUSE
+
+:END
+ENDLOCAL
 </echo>
+
+        <fixcrlf srcdir="${dir.build}" eol="crlf" >
+            <include name="wetator.bat" />
+        </fixcrlf>
 
         <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
             <fileset dir="${dir.build}" >
                 <include name="wetator.bat" />
-                <include name="${application.jar-basename}_all.jar" />
             </fileset>
+
+            <zipfileset dir="${dir.build}" prefix="lib" >
+            	<include name="${application.jar-basename}.jar"/>
+            </zipfileset>
+
+            <zipfileset dir="${dir.lib}" prefix="lib">
+                <patternset refid="runtime-libs" />
+            </zipfileset>
 
             <zipfileset dir="${dir.samples}" prefix="samples">
                 <exclude name="google_search/logs/**" />
@@ -711,17 +739,26 @@ echo location of the Java Virtual Machine you want to use.
             file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator_testform.wett"
             todir="${basedir}/${dir.build}/test-release/app"
         />
-            <copy
-                file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator_testform.xls"
-                todir="${basedir}/${dir.build}/test-release/app"
-            />
+        <copy
+            file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator_testform.xls"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
+
+    	<copy
+            file="${basedir}/${dir.test}/wett/open_url_https.wett"
+            todir="${basedir}/${dir.build}/test-release/app"
+        />
 
         <exec executable="cmd" dir="${basedir}/${dir.build}/test-release/app">
             <arg value="/c"/>
             <arg value="${basedir}/${dir.build}/test-release/app/wetator.bat"/>
+
             <arg value="wetator_testform.wet"/>
+        	<!--
             <arg value="wetator_testform.wett"/>
             <arg value="wetator_testform.xls"/>
+        	<arg value="open_url_https.wett"/>
+-->
         </exec>
 
     </target>
