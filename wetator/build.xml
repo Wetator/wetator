@@ -614,7 +614,7 @@ SET JAVA_EXE=javaw.exe
 rem SET JAVA_EXE=java.exe
 
 IF "%JAVA_HOME%" == "" GOTO MSG_NOJAVAHOME
-IF NOT EXIST %JAVA_HOME%\bin\%JAVA_EXE% GOTO MSG_NOJAVA 2> null
+IF NOT EXIST %JAVA_HOME%\bin\%JAVA_EXE% GOTO MSG_NOJAVA 2>nul
 
 rem start command for Wetator
 set CMD="%JAVA_HOME%\bin\%JAVA_EXE%" %WETATOR_JAVA_OPT% -jar %WETATOR_MAIN_JAR% %*
