@@ -745,7 +745,7 @@ ENDLOCAL
         />
 
     	<copy
-            file="${basedir}/${dir.test}/wett/open_url_https.wett"
+            file="${basedir}/${dir.test}/xml/open_url_https.wet"
             todir="${basedir}/${dir.build}/test-release/app"
         />
 
