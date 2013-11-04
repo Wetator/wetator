@@ -39,6 +39,7 @@ import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
+import org.wetator.exception.ConfigurationException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
@@ -227,7 +228,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
                 aContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
               } else {
                 if (tmpExpected.length() > 0) {
-                    tmpExpected.append(ContentPattern.DELIMITER);
+                  tmpExpected.append(ContentPattern.DELIMITER);
                   tmpExpected.append(" ");
                 }
                 tmpExpected.append(tmpValue);
@@ -283,17 +284,18 @@ public final class SqlCommandSet extends AbstractCommandSet {
           + PROPERTY_PART_PASSWORD);
 
       if (StringUtils.isEmpty(tmpDriver)) {
-        addInitializationMessage("No database driver class specified for connection named '" + tmpConnectionName + "'.");
         LOG.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
-      } else {
-        try {
-          Class.forName(tmpDriver);
-        } catch (final Exception e) {
-          addInitializationMessage("Error during load of database driver class '" + tmpDriver
-              + "' for connection named '" + tmpConnectionName + "' (reason: " + e.toString() + ").");
-          LOG.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
-              + tmpConnectionName + "'.", e);
-        }
+        throw new ConfigurationException("No database driver class specified for connection named '"
+            + tmpConnectionName + "'.");
+      }
+
+      try {
+        Class.forName(tmpDriver);
+      } catch (final Exception e) {
+        LOG.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
+            + tmpConnectionName + "'.", e);
+        throw new ConfigurationException("Error during load of database driver class '" + tmpDriver
+            + "' for connection named '" + tmpConnectionName + "' (reason: " + e.toString() + ").");
       }
 
       try {
@@ -314,9 +316,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
           addInitializationMessage("DB " + tmpConnectionName + ": " + tmpUrl);
         }
       } catch (final Exception e) {
-        addInitializationMessage("Error connection to database '" + tmpUrl + "' for connection named '"
-            + tmpConnectionName + "' (reason: " + e.toString() + ").");
-        LOG.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
+        LOG.warn("Connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "' failed.", e);
+        throw new ConfigurationException("Connection to database '" + tmpUrl + "' for connection named '"
+            + tmpConnectionName + "' failed (reason: " + e.toString() + ").");
       }
     }
   }
