@@ -249,6 +249,7 @@ test/java/org/wetator/commandset/ExecTester.java -text
 test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
 test/java/org/wetator/commandset/LegacyXmlDefaultCommandSetTest.java -text
 test/java/org/wetator/commandset/LegacyXmlSqlCommandSetTest.java -text
+test/java/org/wetator/commandset/SqlCommandSetTest.java -text
 test/java/org/wetator/commandset/TestCommandSet.java -text
 test/java/org/wetator/commandset/WettDefaultCommandSetTest.java -text
 test/java/org/wetator/commandset/WettSqlCommandSetTest.java -text
