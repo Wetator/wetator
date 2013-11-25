@@ -87,8 +87,8 @@ public class SettableHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-        .getEntriesSorted().get(0).toString());
+    Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -102,8 +102,8 @@ public class SettableHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-        .getEntriesSorted().get(0).toString());
+    Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -117,8 +117,8 @@ public class SettableHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-        .getEntriesSorted().get(0).toString());
+    Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -132,7 +132,7 @@ public class SettableHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-        .getEntriesSorted().get(0).toString());
+    Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 }

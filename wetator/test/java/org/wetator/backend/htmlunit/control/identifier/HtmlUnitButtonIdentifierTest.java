@@ -55,9 +55,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -78,9 +79,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -103,7 +105,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert
         .assertEquals(
-            "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0",
+            "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -125,9 +127,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -150,7 +153,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert
         .assertEquals(
-            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0 start: 0",
+            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0 start: 0 index: 5",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -174,7 +177,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert
         .assertEquals(
-            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0",
+            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -198,7 +201,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert
         .assertEquals(
-            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0",
+            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -222,7 +225,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert
         .assertEquals(
-            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0",
+            "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 }

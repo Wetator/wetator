@@ -165,6 +165,21 @@ public class HtmlPageIndex {
   }
 
   /**
+   * Returns the index on the page.
+   * 
+   * @param anHtmlElement the element
+   * @return the position
+   */
+  public int getIndex(final HtmlElement anHtmlElement) {
+    final int tmpResult = nodes.indexOf(anHtmlElement);
+    if (tmpResult < 0) {
+      LOG.error("No index found for DomNode: " + anHtmlElement.toString());
+      dumpToLog();
+    }
+    return tmpResult;
+  }
+
+  /**
    * Returns the start and end position of this html element as FindSpot.
    * 
    * @param anHtmlElement the element

@@ -93,7 +93,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             tmpSearchPattern).matches(tmpHtmlElement);
         for (final MatchResult tmpMatch : tmpMatches) {
           tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
-              tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart());
+              tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),
+              htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
         }
       }
     }
@@ -125,7 +126,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement),
-                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos());
+                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(),
+                htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }

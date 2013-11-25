@@ -107,6 +107,7 @@ public final class WeightedControlList {
     private int coverage;
     private int distance;
     private int start;
+    private int index;
 
     /**
      * @return the encapsulated control
@@ -132,6 +133,8 @@ public final class WeightedControlList {
       tmpResult.append(Integer.toString(distance));
       tmpResult.append(" start: ");
       tmpResult.append(Integer.toString(start));
+      tmpResult.append(" index: ");
+      tmpResult.append(Integer.toString(index));
       return tmpResult.toString();
     }
   }
@@ -162,7 +165,7 @@ public final class WeightedControlList {
             final int tmpStartComp = anEntry1.start - anEntry2.start;
 
             if (0 == tmpStartComp) {
-              return anEntry1.control.getDescribingText().compareTo(anEntry2.control.getDescribingText());
+              return anEntry1.index - anEntry2.index;
             }
 
             return tmpStartComp;
@@ -195,15 +198,17 @@ public final class WeightedControlList {
    * @param aCoverage the coverage
    * @param aDistance the distance
    * @param aStart the start
+   * @param anIndex the index
    */
   public void add(final IControl aControl, final FoundType aFoundType, final int aCoverage, final int aDistance,
-      final int aStart) {
+      final int aStart, final int anIndex) {
     final Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
     tmpEntry.foundType = aFoundType;
     tmpEntry.coverage = aCoverage;
     tmpEntry.distance = aDistance;
     tmpEntry.start = aStart;
+    tmpEntry.index = anIndex;
 
     entries.add(tmpEntry);
   }

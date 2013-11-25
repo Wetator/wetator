@@ -53,7 +53,8 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals("[HtmlFileInput (id='myId') (name='myName')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+    Assert.assertEquals(
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -74,8 +75,8 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_NAME coverage: 0 distance: 0 start: 0", tmpFound
-            .getEntriesSorted().get(0).toString());
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -96,9 +97,10 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6 index: 8",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -121,8 +123,8 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15", tmpFound
-            .getEntriesSorted().get(0).toString());
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -143,8 +145,8 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5", tmpFound
-            .getEntriesSorted().get(0).toString());
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -166,7 +168,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5", tmpFound
-            .getEntriesSorted().get(0).toString());
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 }
