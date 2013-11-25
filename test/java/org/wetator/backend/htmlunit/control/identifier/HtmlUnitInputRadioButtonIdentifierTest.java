@@ -56,7 +56,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_ID coverage: 0 distance: 12 start: 12",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_ID coverage: 0 distance: 12 start: 12 index: 7",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -79,7 +79,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0",
+            "[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -103,7 +103,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 27 start: 43",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 27 start: 43 index: 11",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -129,7 +129,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 27 start: 43",
+            "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 27 start: 43 index: 11",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 }

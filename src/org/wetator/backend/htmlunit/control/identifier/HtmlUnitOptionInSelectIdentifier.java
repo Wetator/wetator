@@ -225,7 +225,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance, tmpStart);
+              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
           tmpFound = true;
         }
       }
@@ -235,7 +235,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance, tmpStart);
+              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
           tmpFound = true;
         }
       }
@@ -245,7 +245,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance, tmpStart);
+              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
           tmpFound = true;
         }
       }
