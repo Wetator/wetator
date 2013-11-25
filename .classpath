@@ -41,11 +41,11 @@
 	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.12.v20130726.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-8.1.12.v20130726.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.11.0.jar"/>
-	<classpathentry kind="lib" path="lib/cssparser-0.9.11.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.13.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.13.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.3.1.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.3.1.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.19.jar"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.12-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.14-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
