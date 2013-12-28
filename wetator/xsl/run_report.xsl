@@ -135,6 +135,14 @@
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
                         return false;
                     }
+                    if (image.src.indexOf("collapselogwarn.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlogwarn.png";
+                        return true;
+                    }
+                    if (image.src.indexOf("expandlogwarn.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselogwarn.png";
+                        return false;
+                    }
                 }
 
                 function makeVisible(id) {
@@ -1428,37 +1436,65 @@ k                                    <xsl:if test="@browser='Firefox17'">
                 </xsl:if>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
-            <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
-            <xsl:value-of select="$lineStyle" />
-            <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
-                <xsl:choose>
-                <xsl:when test="string-length(param0) &gt; 0">
-                    <xsl:value-of select="param0"/>
+            <xsl:choose>
+                <xsl:when test="count(docu) &gt; 0">
+                    <!-- docu -->
+                    <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+                    <xsl:value-of select="$lineStyle" />
+                    <xsl:text disable-output-escaping="yes">" colspan="2" &gt;</xsl:text>
+                    <div class="docu">
+                        <xsl:copy-of select="docu/node()"/>
+                    </div>
+                    <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>-</xsl:text>
+                    <!-- param0 -->
+                    <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+                    <xsl:value-of select="$lineStyle" />
+                    <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
+                        <xsl:choose>
+                        <xsl:when test="string-length(param0) &gt; 0">
+                            <xsl:value-of select="param0"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>-</xsl:text>
+                        </xsl:otherwise>
+                        </xsl:choose>
+                    <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+        
+                    <!-- param1 -->
+                    <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+                    <xsl:value-of select="$lineStyle" />
+                    <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="string-length(param1) &gt; 0">
+                                <xsl:value-of select="param1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>-</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
                 </xsl:otherwise>
-                </xsl:choose>
-            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
-
-            <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
-            <xsl:value-of select="$lineStyle" />
-            <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="string-length(param1) &gt; 0">
-                        <xsl:value-of select="param1"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>-</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+            </xsl:choose>
 
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
                 <xsl:if test="count(log) &gt; 0 or count(error/stacktrace) &gt; 0">
-                    <img src="resources/expandlog.png" alt="Show/Hide log entries" style="cursor: pointer;">
+                    <img src="resources/expandlogwarn.png" alt="Show/Hide log entries" style="cursor: pointer;">
+                        <xsl:choose>
+                            <xsl:when test="count(log/level[text() = 'WARN']) &gt; 0 or count(error/stacktrace) &gt; 0">
+                                <xsl:attribute name="src">
+                                    <xsl:text>resources/expandlogwarn.png</xsl:text>
+                                </xsl:attribute>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="src">
+                                    <xsl:text>resources/expandlog.png</xsl:text>
+                                </xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:attribute name="id">
                             <xsl:text>showHide_log_</xsl:text>
                             <xsl:value-of select="@id" />
