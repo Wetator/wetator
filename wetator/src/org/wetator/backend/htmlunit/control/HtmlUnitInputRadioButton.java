@@ -85,7 +85,9 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
     }
 
     try {
-      if (!tmpHtmlRadioButtonInput.isChecked()) {
+      if (tmpHtmlRadioButtonInput.isChecked()) {
+        aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
+      } else {
         LOG.debug("Select - HtmlUnitInputRadioButton.click() '" + tmpHtmlRadioButtonInput + "'");
         tmpHtmlRadioButtonInput.click();
       }

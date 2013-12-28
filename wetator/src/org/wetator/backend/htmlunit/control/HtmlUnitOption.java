@@ -87,7 +87,9 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     }
 
     try {
-      if (!tmpHtmlOption.isSelected()) {
+      if (tmpHtmlOption.isSelected()) {
+        aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
+      } else {
         LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
         tmpHtmlOption.click();
       }
@@ -149,6 +151,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
           // TODO event support
           tmpHtmlOption.setSelected(false);
           // tmpHtmlOption.click(false, true, false);
+        } else {
+          aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });
         }
       } else {
         final String tmpMessage = Messages.getMessage("deselectNotSupported", new String[] { getDescribingText() });
