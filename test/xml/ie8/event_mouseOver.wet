@@ -92,8 +92,7 @@
     <command><d:assert-content><d:content>Handler mouseover [multipleSelectDisabled_o_value1] [1] mousemove [multipleSelectDisabled_o_value1] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:mouse-over><d:wpath>Disabled Selects &gt; Checkbox</d:wpath></d:mouse-over></command>
-    <command disabled="true"><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mouseover [checkbox] [1] mousemove [checkbox] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:mouse-over><d:wpath>RadioGroup Disabled &gt; Radio1</d:wpath></d:mouse-over></command>
     <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
