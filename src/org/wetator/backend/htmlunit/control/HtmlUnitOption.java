@@ -148,9 +148,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
         }
 
         if (tmpHtmlOption.isSelected()) {
-          // TODO event support
-          tmpHtmlOption.setSelected(false);
-          // tmpHtmlOption.click(false, true, false);
+          tmpHtmlOption.click(false, true, false);
         } else {
           aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });
         }
