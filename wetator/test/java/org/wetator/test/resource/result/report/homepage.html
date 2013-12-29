@@ -80,6 +80,14 @@
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
                         return false;
                     }
+                    if (image.src.indexOf("collapselogwarn.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlogwarn.png";
+                        return true;
+                    }
+                    if (image.src.indexOf("expandlogwarn.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselogwarn.png";
+                        return false;
+                    }
                 }
 
                 function makeVisible(id) {

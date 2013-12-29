@@ -80,6 +80,14 @@
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
                         return false;
                     }
+                    if (image.src.indexOf("collapselogwarn.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlogwarn.png";
+                        return true;
+                    }
+                    if (image.src.indexOf("expandlogwarn.png") != -1) {
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselogwarn.png";
+                        return false;
+                    }
                 }
 
                 function makeVisible(id) {
@@ -347,7 +355,7 @@
 </table>
 </td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="115"></a>4</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlog.png" id="showHide_log_115" onclick="showOrHide(this, 'log_115');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="115"></a>4</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_115" onclick="showOrHide(this, 'log_115');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
 <td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
