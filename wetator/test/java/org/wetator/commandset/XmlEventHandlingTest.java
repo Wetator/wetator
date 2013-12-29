@@ -70,7 +70,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   public void eventDeselectIE8() throws InvalidInputException {
     executeTestFile("ie8/event_deselect.wet");
 
-    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
