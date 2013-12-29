@@ -60,7 +60,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   public void eventDeselectFF17() throws InvalidInputException {
     executeTestFile("ff17/event_deselect.wet");
 
-    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -100,7 +100,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   public void eventSelectFF17() throws InvalidInputException {
     executeTestFile("ff17/event_select.wet");
 
-    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -110,7 +110,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   public void eventSelectIE8() throws InvalidInputException {
     executeTestFile("ie8/event_select.wet");
 
-    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
