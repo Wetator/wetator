@@ -10,7 +10,7 @@
       <library id="7">htmlunit-core-js-2.12.jar (2013-02-27)</library>
       <library id="8">cssparser-0.9.9.jar (2013-02-17)</library>
       <library id="9">NekoHTML 1.9.18</library>
-      <library id="10">Commons Lang 3.1</library>
+      <library id="10">Apache Commons Lang 3.1</library>
       <library id="11">Apache Commons Codec 1.7</library>
       <library id="12">Commons Collections 3.2.1</library>
       <library id="13">Commons IO 2.4</library>
