@@ -5,7 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar" sourcepath="lib_src/commons-lang3-3.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
@@ -45,8 +44,8 @@
 	<classpathentry kind="lib" path="lib/jetty-webapp-8.1.14.v20131031.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.14.v20131031.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-8.1.14.v20131031.jar"/>
-	<classpathentry kind="lib" path="lib/txtmark-0.11.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
