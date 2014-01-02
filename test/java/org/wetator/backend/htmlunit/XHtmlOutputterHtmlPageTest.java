@@ -52,8 +52,8 @@ public class XHtmlOutputterHtmlPageTest {
     Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
         new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpBrowser = BrowserVersion.FIREFOX_17;
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_17, anHtmlCode);
+    tmpBrowser = BrowserVersion.FIREFOX_24;
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_24, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);

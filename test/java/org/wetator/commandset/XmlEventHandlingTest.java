@@ -36,7 +36,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_17 })
+  @Browsers({ BrowserType.FIREFOX_24 })
   public void eventClickOnFF17() throws InvalidInputException {
     executeTestFile("ff17/event_clickOn.wet");
 
@@ -56,7 +56,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_17 })
+  @Browsers({ BrowserType.FIREFOX_24 })
   public void eventDeselectFF17() throws InvalidInputException {
     executeTestFile("ff17/event_deselect.wet");
 
@@ -76,7 +76,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_17 })
+  @Browsers({ BrowserType.FIREFOX_24 })
   public void eventMouseOverFF17() throws InvalidInputException {
     executeTestFile("ff17/event_mouseOver.wet");
 
@@ -96,7 +96,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_17 })
+  @Browsers({ BrowserType.FIREFOX_24 })
   public void eventSelectFF17() throws InvalidInputException {
     executeTestFile("ff17/event_select.wet");
 
