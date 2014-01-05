@@ -138,7 +138,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
     final WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
-      aContext.informListenersWarn("manyElementsFound", new String[] { aWPath.toString(),
+      aContext.informListenersInfo("manyElementsFound", new String[] { aWPath.toString(),
           tmpEntry.getControl().getDescribingText() });
     }
 
