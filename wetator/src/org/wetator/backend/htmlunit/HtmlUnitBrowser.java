@@ -652,6 +652,9 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
+    if (IBrowser.BrowserType.FIREFOX_17 == aBrowserType) {
+      return BrowserVersion.FIREFOX_17;
+    }
     if (IBrowser.BrowserType.FIREFOX_24 == aBrowserType) {
       return BrowserVersion.FIREFOX_24;
     }
