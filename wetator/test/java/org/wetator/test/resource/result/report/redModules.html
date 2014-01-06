@@ -6,39 +6,39 @@
 <META content="text/css" http-equiv="content-style-type">
 <title>Wetator - Test Result</title>
 <style type="text/css">
-                    body {background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px;}
-                    table {font-size: 10pt; empty-cells: show; border-collapse: collapse; }
-                    table.overview {width: 80%;}
-                    th {FONT-WEIGHT: bold; color: #FFFFFF; background-color: #555555; text-align: left;}
-                    td.step {border:1px solid #999; color: #000000; text-align: center;}
-                    td.light {background-color: #f8f8f8;}
-                    td.topBorder {border-top: 1px solid #999;}
-                    td.message {background-color: #fff8dc; color: #666666; font-size: 10pt;}
-                    td.properties {background-color: #f8f8f8; font-size: 10pt;}
-                    td.failure {background-color: #00769C; color: #FFFFFF;}
-                    td.error {background-color: #E75013; color: #FFFFFF;}
-                    td.comment {background-color: #DDDDDD; color: #717173;}
-                    td.ignored {color: #717173;}
-                    h1 {font-size: 12pt; color: #000000; margin-top:20px;}
-                    h2 {font-size: 10pt; color: #4682b4; margin-top:16px;}
-                    p.blue {color: #768bc2;}
-                    pre.text {font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre;}
-                    a, a:link, a:visited, a:active, a:hover {color: #666666; text-decoration: none;}
-                    a.link:hover {text-decoration: underline;}
-                    .step a:hover{width:13px;border:1px;}
-                    a.linkToCommand {font-size: smaller; display: block;}
-                    img {border: 0;}
+                    body { background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px; }
+                    table { font-size: 10pt; empty-cells: show; border-collapse: collapse; }
+                    table.overview { width: 80%; }
+                    th { font-weight: bold; color: #FFFFFF; background-color: #555555; text-align: left; }
+                    td.step { border:1px solid #999; color: #000000; text-align: center; }
+                    td.light { background-color: #f8f8f8; }
+                    td.topBorder { border-top: 1px solid #999; }
+                    td.message { background-color: #fff8dc; color: #666666; font-size: 10pt; }
+                    td.properties { background-color: #f8f8f8; font-size: 10pt; }
+                    td.failure { background-color: #00769C; color: #ffffff; }
+                    td.error { background-color: #E75013; color: #ffffff; }
+                    td.comment { background-color: #DDDDDD; color: #717173; }
+                    td.ignored { color: #717173; }
+                    h1 { font-size: 12pt; color: #000000; margin-top:20px; }
+                    h2 { font-size: 10pt; color: #4682b4; margin-top:16px; }
+                    p.blue { color: #768bc2; }
+                    pre.text { font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre; }
+                    a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
+                    a.link:hover { text-decoration: underline; }
+                    .step a:hover{ width:13px;border:1px; }
+                    a.linkToCommand { font-size: smaller; display: block; }
+                    img { border: 0; }
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border:0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
-                    .smallBorder {border: 1px solid #999;}
-                    .bold {font-weight: bold;}
-                    #testSummary {border: 1px solid #555555;}
-                    table#testSummary td {padding: 5px;}
-                    p.backToTop img {padding-right: 3px;}
-                    .bars {color: #FFFFFF;}
+                    .smallBorder { border: 1px solid #999999; }
+                    .bold { font-weight: bold; }
+                    #testSummary { border: 1px solid #555555; }
+                    table#testSummary td { padding: 5px; }
+                    p.backToTop img { padding-right: 3px; }
+                    .bars { color: #ffffff; }
                     #debuginfo {}
-                    #debugtestbrowseroverviewinfo {};
+                    #debugtestbrowseroverviewinfo { display: none; }
                 </style>
 <script src="resources/jquery-1.10.2.min.js"></script><script language="JavaScript" type="text/javascript">
                 function showOrHideAll(image, imageId, id) {
@@ -189,7 +189,7 @@
                     stepsErrorPercentage 33<br>
                     stepsIgnoredPercentage 34<br>
 </div>
-<iframe src="" id="preview" style="overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;width: 1600px; height: 1000px; zoom: 0.6; -moz-transform: scale(0.6); -moz-transform-origin: 0 0;"></iframe>
+<iframe src="" id="preview" style="overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray; width: 1600px; height: 1000px; zoom: 0.6; -moz-transform: scale(0.6); -moz-transform-origin: 0 0;"></iframe>
 <a name="top"></a>
 <center>
 <p>
@@ -226,9 +226,7 @@
 <table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
 <tr>
 <td width="150px">
-                                TestSteps (<span style="
-                                        color: #E75013; font-weight: bold;
-                                    ">1</span>/3)</td><td style="padding-right: 0;">
+                                TestSteps (<span style="color: #E75013; font-weight: bold;">1</span>/3)</td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="33%
