@@ -58,39 +58,39 @@
                 <META http-equiv="content-style-type" content="text/css"/>
                 <title>Wetator - Test Result</title>
                 <style type="text/css">
-                    body {background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px;}
-                    table {font-size: 10pt; empty-cells: show; border-collapse: collapse; }
-                    table.overview {width: 80%;}
-                    th {FONT-WEIGHT: bold; color: #FFFFFF; background-color: #555555; text-align: left;}
-                    td.step {border:1px solid #999; color: #000000; text-align: center;}
-                    td.light {background-color: #f8f8f8;}
-                    td.topBorder {border-top: 1px solid #999;}
-                    td.message {background-color: #fff8dc; color: #666666; font-size: 10pt;}
-                    td.properties {background-color: #f8f8f8; font-size: 10pt;}
-                    td.failure {background-color: <xsl:value-of select="$blueColor"/>; color: #FFFFFF;}
-                    td.error {background-color: <xsl:value-of select="$orangeColor"/>; color: #FFFFFF;}
-                    td.comment {background-color: #DDDDDD; color: #717173;}
-                    td.ignored {color: #717173;}
-                    h1 {font-size: 12pt; color: #000000; margin-top:20px;}
-                    h2 {font-size: 10pt; color: #4682b4; margin-top:16px;}
-                    p.blue {color: #768bc2;}
-                    pre.text {font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre;}
-                    a, a:link, a:visited, a:active, a:hover {color: #666666; text-decoration: none;}
-                    a.link:hover {text-decoration: underline;}
-                    .step a:hover{width:13px;border:1px;}
-                    a.linkToCommand {font-size: smaller; display: block;}
-                    img {border: 0;}
+                    body { background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px; }
+                    table { font-size: 10pt; empty-cells: show; border-collapse: collapse; }
+                    table.overview { width: 80%; }
+                    th { font-weight: bold; color: #FFFFFF; background-color: #555555; text-align: left; }
+                    td.step { border:1px solid #999; color: #000000; text-align: center; }
+                    td.light { background-color: #f8f8f8; }
+                    td.topBorder { border-top: 1px solid #999; }
+                    td.message { background-color: #fff8dc; color: #666666; font-size: 10pt; }
+                    td.properties { background-color: #f8f8f8; font-size: 10pt; }
+                    td.failure { background-color: <xsl:value-of select="$blueColor"/>; color: #ffffff; }
+                    td.error { background-color: <xsl:value-of select="$orangeColor"/>; color: #ffffff; }
+                    td.comment { background-color: #DDDDDD; color: #717173; }
+                    td.ignored { color: #717173; }
+                    h1 { font-size: 12pt; color: #000000; margin-top:20px; }
+                    h2 { font-size: 10pt; color: #4682b4; margin-top:16px; }
+                    p.blue { color: #768bc2; }
+                    pre.text { font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre; }
+                    a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
+                    a.link:hover { text-decoration: underline; }
+                    .step a:hover{ width:13px;border:1px; }
+                    a.linkToCommand { font-size: smaller; display: block; }
+                    img { border: 0; }
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border:0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
-                    .smallBorder {border: 1px solid #999;}
-                    .bold {font-weight: bold;}
-                    #testSummary {border: 1px solid #555555;}
-                    table#testSummary td {padding: 5px;}
-                    p.backToTop img {padding-right: 3px;}
-                    .bars {color: #FFFFFF;}
+                    .smallBorder { border: 1px solid #999999; }
+                    .bold { font-weight: bold; }
+                    #testSummary { border: 1px solid #555555; }
+                    table#testSummary td { padding: 5px; }
+                    p.backToTop img { padding-right: 3px; }
+                    .bars { color: #ffffff; }
                     #debuginfo {display: none;}
-                    #debugtestbrowseroverviewinfo {display: none;};
+                    #debugtestbrowseroverviewinfo { display: none; }
                 </style>
 
                 <script src="resources/jquery-1.10.2.min.js"></script>
@@ -249,7 +249,7 @@
                 <!-- preview -->
                 <iframe id="preview" src=''>
                     <xsl:attribute name="style">
-                        <xsl:text>overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray;</xsl:text>
+                        <xsl:text>overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray; </xsl:text>
                         <xsl:text>width: </xsl:text>
                         <xsl:value-of select="$previewWidth"/>
                         <xsl:text>px; height: </xsl:text>
@@ -395,12 +395,16 @@
                             <td width="150px">
                                 TestCases <xsl:if test="$testCaseNotOkCount > 0">(<xsl:if test="$testCaseErrorCount > 0"><span>
                                     <xsl:attribute name="style">
-                                        color: <xsl:value-of select="$orangeColor"/>; font-weight: bold;
+                                        <xsl:text>color: </xsl:text>
+                                        <xsl:value-of select="$orangeColor"/>
+                                        <xsl:text>; font-weight: bold;</xsl:text>
                                     </xsl:attribute>
                                     <xsl:value-of select="$testCaseErrorCount"/>
                                 </span><xsl:if test="$testCaseFailureCount > 0">/</xsl:if></xsl:if><xsl:if test="$testCaseFailureCount > 0"><span>
                                     <xsl:attribute name="style">
-                                        color: <xsl:value-of select="$blueColor"/>; font-weight: bold;
+                                        <xsl:text>color: </xsl:text>
+                                        <xsl:value-of select="$blueColor"/>
+                                        <xsl:text>; font-weight: bold;</xsl:text>
                                     </xsl:attribute>
                                     <xsl:value-of select="$testCaseFailureCount"/></span></xsl:if>/<xsl:value-of select="$testCaseCount"/>)</xsl:if>
                             </td>
@@ -461,12 +465,16 @@
                         <td width="150px">
                                 TestSteps <xsl:if test="$stepsNotOkCount > 0">(<xsl:if test="$stepsErrorCount > 0"><span>
                                     <xsl:attribute name="style">
-                                        color: <xsl:value-of select="$orangeColor"/>; font-weight: bold;
+                                        <xsl:text>color: </xsl:text>
+                                        <xsl:value-of select="$orangeColor"/>
+                                        <xsl:text>; font-weight: bold;</xsl:text>
                                     </xsl:attribute>
                                     <xsl:value-of select="$stepsErrorCount"/>
                                 </span><xsl:if test="$stepsFailureCount > 0">/</xsl:if></xsl:if><xsl:if test="$stepsFailureCount > 0"><span>
                                     <xsl:attribute name="style">
-                                        color: <xsl:value-of select="$blueColor"/>; font-weight: bold;
+                                        <xsl:text>color: </xsl:text>
+                                        <xsl:value-of select="$blueColor"/>
+                                        <xsl:text>; font-weight: bold;</xsl:text>
                                     </xsl:attribute>
                                     <xsl:value-of select="$stepsFailureCount"/></span></xsl:if>/<xsl:value-of select="$testStepCount"/>)</xsl:if>
                             </td>
@@ -563,9 +571,7 @@
                                     <!-- ignored steps -->
                                     <xsl:if test="$testStepCount = 0">
                                         <td class="smallBorder ignored" style="text-align: center;">
-                                            <xsl:attribute name="width">
-                                                100%
-                                            </xsl:attribute>
+                                            <xsl:attribute name="width">100%</xsl:attribute>
                                             <xsl:attribute name="bgcolor">
                                                 <xsl:value-of select="$ignoredColor"/>
                                             </xsl:attribute>
@@ -616,9 +622,12 @@
                                     <span class="bold">All</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                                     <img src="resources/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
-                                        <xsl:attribute name="onclick">showOrHideAll(this
+                                        <xsl:attribute name="onclick">
+                                            <xsl:text>showOrHideAll(this</xsl:text>
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8','ie8overview'</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox17'">, 'ff17','ff17overview'</xsl:if>);
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox17'">, 'ff17','ff17overview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox24'">, 'ff24','ff24overview'</xsl:if>
+                                            <xsl:text>)</xsl:text>
                                         </xsl:attribute>
                                     </img>
                                 </td>
@@ -634,6 +643,13 @@
                                     <span class="bold">FF17</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                                     <img id="ff17" src="resources/expandall.png" onclick="showOrHide(this, 'ff17overview')" alt="show/hide FF17 overview" style="cursor: pointer;"/>
+                                </td>
+                            </xsl:if>
+                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox24'">
+                                <td>
+                                    <span class="bold">FF24</span>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                    <img id="ff24" src="resources/expandall.png" onclick="showOrHide(this, 'ff24overview')" alt="show/hide FF24 overview" style="cursor: pointer;"/>
                                 </td>
                             </xsl:if>
                         </tr>
@@ -680,6 +696,28 @@
                                 <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox17"/>
                                 <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox17"/>
                                 <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox17"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </table>
+                    <table id="ff24overview" class="overview" align="center" style="display: none; text-align: center;">
+                        <xsl:if test="/wet/testcase/testrun/@browser='Firefox24'">
+                            <xsl:variable name="failedFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="ignoredFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/ignored)"/>
+                            <xsl:variable name="stepsOkFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
+                            <xsl:variable name="stepsFailureFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
+                            <xsl:variable name="stepsErrorFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="stepsIgnoredFirefox24" select="count(/wet/testcase/testrun[@browser='Firefox24']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
+                            <xsl:call-template name="testBrowserOverview">
+                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+                                <xsl:with-param name="browserName">FF24</xsl:with-param>
+                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox24"/>
+                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox24"/>
+                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox24"/>
+                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox24"/>
+                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox24"/>
+                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox24"/>
+                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox24"/>
                             </xsl:call-template>
                         </xsl:if>
                     </table>
@@ -1125,7 +1163,10 @@
                                     <xsl:if test="@browser='IE8'">
                                         <xsl:value-of select="$browserPicture.IE8"/>
                                     </xsl:if>
-k                                    <xsl:if test="@browser='Firefox17'">
+                                    <xsl:if test="@browser='Firefox17'">
+                                        <xsl:value-of select="$browserPicture.Firefox"/>
+                                    </xsl:if>
+                                    <xsl:if test="@browser='Firefox24'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
                                 </xsl:attribute>
@@ -1161,6 +1202,9 @@ k                                    <xsl:if test="@browser='Firefox17'">
                                             <xsl:value-of select="$browserPicture.IE8"/>
                                         </xsl:if>
                                         <xsl:if test="../@browser='Firefox17'">
+                                            <xsl:value-of select="$browserPicture.Firefox"/>
+                                        </xsl:if>
+                                        <xsl:if test="../@browser='Firefox24'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
                                     </xsl:attribute>
