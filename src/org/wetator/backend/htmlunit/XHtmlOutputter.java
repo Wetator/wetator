@@ -184,6 +184,8 @@ public final class XHtmlOutputter {
     IGNORED_ATTRIBUTES.add("onblur");
     IGNORED_ATTRIBUTES.add("onselect");
     IGNORED_ATTRIBUTES.add("onchange");
+    IGNORED_ATTRIBUTES.add("onload");
+    IGNORED_ATTRIBUTES.add("onerror");
 
     IGNORED_ATTRIBUTES.add("onmousemove");
     IGNORED_ATTRIBUTES.add("onmouseover");
