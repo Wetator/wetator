@@ -495,7 +495,29 @@ public final class HtmlElementUtil {
   public static boolean isBlock(final DomNode aDomNode) {
     final Page tmpPage = aDomNode.getPage();
     if (tmpPage instanceof HtmlPage && tmpPage.getEnclosingWindow().getWebClient().getOptions().isCssEnabled()) {
-      final ScriptableObject tmpScriptableObject = aDomNode.getScriptObject();
+      ScriptableObject tmpScriptableObject = null;
+
+      int i = 0;
+      while (tmpScriptableObject == null) {
+        try {
+          tmpScriptableObject = aDomNode.getScriptObject();
+        } catch (final IllegalStateException e) {
+          // it is possible, that we address some object under construction
+          // in this case this might happen, so we will do a second attempt
+          if (i > 1) {
+            throw e;
+          }
+
+          try {
+            Thread.sleep(42);
+          } catch (final InterruptedException eX) {
+            // ignore
+          }
+        }
+
+        i++;
+      }
+
       if (tmpScriptableObject instanceof HTMLElement) {
         final HTMLElement tmpElement = (HTMLElement) tmpScriptableObject;
         final CSSStyleDeclaration tmpStyle = tmpElement.getCurrentStyle();
