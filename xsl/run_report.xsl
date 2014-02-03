@@ -1480,47 +1480,33 @@
                 </xsl:if>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
-            <xsl:choose>
-                <xsl:when test="count(docu) &gt; 0">
-                    <!-- docu -->
-                    <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
-                    <xsl:value-of select="$lineStyle" />
-                    <xsl:text disable-output-escaping="yes">" colspan="2" &gt;</xsl:text>
-                    <div class="docu">
-                        <xsl:copy-of select="docu/node()"/>
-                    </div>
-                    <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+            <!-- param0 -->
+            <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+            <xsl:value-of select="$lineStyle" />
+            <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
+                <xsl:choose>
+                <xsl:when test="string-length(param0) &gt; 0">
+                    <xsl:value-of select="param0"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- param0 -->
-                    <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
-                    <xsl:value-of select="$lineStyle" />
-                    <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
-                        <xsl:choose>
-                        <xsl:when test="string-length(param0) &gt; 0">
-                            <xsl:value-of select="param0"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>-</xsl:text>
-                        </xsl:otherwise>
-                        </xsl:choose>
-                    <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
-        
-                    <!-- param1 -->
-                    <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
-                    <xsl:value-of select="$lineStyle" />
-                    <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
-                        <xsl:choose>
-                            <xsl:when test="string-length(param1) &gt; 0">
-                                <xsl:value-of select="param1"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>-</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+                    <xsl:text>-</xsl:text>
                 </xsl:otherwise>
-            </xsl:choose>
+                </xsl:choose>
+            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+
+            <!-- param1 -->
+            <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+            <xsl:value-of select="$lineStyle" />
+            <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length(param1) &gt; 0">
+                        <xsl:value-of select="param1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>-</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
