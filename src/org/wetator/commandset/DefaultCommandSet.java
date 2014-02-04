@@ -99,7 +99,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
         InvalidInputException {
-      final SecretString tmpUrlParam = aCommand.getRequiredFirstParameterValue(aContext);
+      SecretString tmpUrlParam = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
@@ -111,7 +111,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           aContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
         } else {
           final String tmpBaseUrl = aContext.getConfiguration().getBaseUrl();
-          if (!tmpUrlParam.startsWith("/") && !tmpBaseUrl.endsWith("/")) {
+          // a bit url cleanup - remove or add the slash before combining with the config
+          if (tmpUrlParam.startsWith("/") && tmpBaseUrl.endsWith("/")) {
+            tmpUrlParam = tmpUrlParam.substring(1);
+          } else if (!tmpUrlParam.startsWith("/") && !tmpBaseUrl.endsWith("/")) {
             tmpUrlParam.prefixWith("/");
           }
           tmpUrlParam.prefixWith(tmpBaseUrl);
