@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+  <title>WETATOR / Docu Samples</title>
+  <!--  link rel="stylesheet" type="text/css" media="screen" title="" href="http://www.wetator.org/styles/normalize.css" /-->
+  <link rel="stylesheet" type="text/css" media="screen" title="" href="http://www.wetator.org/styles/default.css" />
+  <link rel="stylesheet" type="text/css" media="screen" title="" href="http://www.wetator.org/styles/content.css" />
+</head>
+<body>
+
+<style type="text/css">
+form {
+  margin:0;padding:0;
+}
+.action input {
+  padding: 3px 12px;
+}
+select {
+  padding: 2px;
+}
+fieldset {
+    border-right: medium none;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    margin: 1em 0;
+    padding: 5px 10px 12px 10px;
+}
+legend {
+    background: none repeat scroll 0 0 transparent;
+    color: #00769C;
+    font-size: 1.12em;
+    font-weight: normal;
+    margin: 1em 0;
+    padding: 0 0.5em;
+}
+fieldset div {
+    display: block;
+    margin-bottom: 0.5em;
+    padding: 0;
+}
+fieldset div input, fieldset div textarea {
+    width: 20em;
+}
+div div .checkbox {
+    width: 1em;
+    float: none;
+}
+fieldset div div label.checkbox {
+    padding-left: 0.2em;
+    padding-right: 3em;
+}
+label, .action {
+  font-size: 0.88em;
+  float: left;
+  padding: 0 1em;
+  text-align: right;
+  width: 17em;
+}
+.action {
+  margin-left: 10px;
+}
+label.required {
+  font-weight: bold;
+}
+label.required:after {
+    content: "*";
+}
+div.error {
+  color: #D8000C;
+  background-color: #FFBABA;
+  border: 1px solid;
+  margin: 10px 0px;
+  padding: 5px 5px 5px 20px;
+}
+input.error {
+  border: 1px solid #D8000C;
+}
+</style>
+
+
+  <form action="" method="post" id="formTest">
+    <fieldset>
+      <legend>For which project do you use WETATOR?</legend>
+        <div><label for="project" class="required">Project name</label><input type="text" name="projectName" size="40" id="project" class="required" /></div>
+        <div><label for="language">Project programming language(s)</label><select name="language" size="4" id="language"><option value="JAVA">JAVA</option><option value="JavaScript">JavaScript</option><option value="C#">C#</option><option value="" selected="selected">other</option></select></div>
+    </fieldset>
+    <fieldset>
+      <legend>What do you think about WETATOR?</legend>
+      <div><div id="wetatorIs"><label for="wetatorIs">WETATOR is</label> <input type="checkbox" name="wetatorIs[]" id="wetatorIs_wetatorIs_amazing" value="amazing" class="checkbox" /><label for="wetatorIs_wetatorIs_amazing" class="checkbox">amazing</label> <input type="checkbox" name="wetatorIs[]" id="wetatorIs_wetatorIs_visionary" value="visionary" class="checkbox" /><label for="wetatorIs_wetatorIs_visionary" class="checkbox">visionary</label> <input type="checkbox" name="wetatorIs[]" id="wetatorIs_wetatorIs_marvelous" value="marvelous" class="checkbox" /><label for="wetatorIs_wetatorIs_marvelous" class="checkbox">marvelous</label></div></div>
+      <div><label for="wetatorIsText">WETATOR makes</label><textarea name="wetatorIsText" id="wetatorIsText"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Set</legend>
+      <div><label>Your profession</label><input type="text" size="30"/></div>
+      <div><label for="wetatorUpload">Upload your resume</label><input type="file" name="wetatorUpload" id="wetatorUpload" /></div>
+    </fieldset>
+
+    <div class="action"><input type="submit" name="submit" value="Submit My Truth" id="submit" /></div>
+  </form> 
+
+</body>
+</html>
