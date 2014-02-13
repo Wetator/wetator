@@ -33,7 +33,7 @@
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
         <dependency org="dk.brics.automaton" name="automaton" rev="1.11-8" transitive="false" />
         <dependency org="commons-io" name="commons-io" rev="2.4" />
-        <dependency org="org.apache.commons" name="commons-lang3" rev="3.2" />
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.2.1" />
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.14-SNAPSHOT" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.12-SNAPSHOT" changing="true" conf="compile"/> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.8" changing="true" conf="compile" /> -->
@@ -41,7 +41,7 @@
         <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.4" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.50" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.50" />
-        <dependency org="org.apache.poi" name="poi" rev="3.9" />
+        <dependency org="org.apache.poi" name="poi" rev="3.10-FINAL" />
         <dependency org="com.sun.xsom" name="xsom" rev="20110809" />
 
         <dependency org="junit" name="junit" rev="4.11" transitive="false" conf="test,sources" />
