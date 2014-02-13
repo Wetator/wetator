@@ -217,6 +217,7 @@ wetator/build-properties.xml -text
 wetator/build.properties -text
 wetator/build.xml -text
 wetator/chat -text
+wetator/docu/sample_pages/docu_screens.html -text
 wetator/exceptions.txt -text svneol=unset#text/plain
 wetator/ivy.xml -text svneol=unset#text/plain
 wetator/ivysettings.xml -text svneol=unset#text/plain
