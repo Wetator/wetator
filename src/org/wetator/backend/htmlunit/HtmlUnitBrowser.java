@@ -413,6 +413,13 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (null != message) {
           message.matches(aConfirmationMessage);
         }
+
+        if (result) {
+          wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
+        } else {
+          wetatorEngine.informListenersInfo("javascriptConfirmCancel", new String[] { tmpConfirmationMessage });
+        }
+        return result;
       } catch (final AssertionException e) {
         final String tmpMessage = Messages.getMessage("confirmationMessageDoesNotMatch",
             new String[] { e.getMessage() });
@@ -420,14 +427,10 @@ public final class HtmlUnitBrowser implements IBrowser {
 
         wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
         return false;
+      } finally {
+        // reset for the next call
+        chooseCancelOnNextConfirmFor(null);
       }
-
-      if (result) {
-        wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
-      } else {
-        wetatorEngine.informListenersInfo("javascriptConfirmCancel", new String[] { tmpConfirmationMessage });
-      }
-      return result;
     }
 
     /**
