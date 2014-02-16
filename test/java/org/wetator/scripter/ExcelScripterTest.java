@@ -151,7 +151,7 @@ public class ExcelScripterTest {
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-title", tmpCommand.getName());
-    Assert.assertEquals("* 12,99 €", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals("12,99 €", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
@@ -276,7 +276,7 @@ public class ExcelScripterTest {
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-title", tmpCommand.getName());
-    Assert.assertEquals("* 12.99 €", tmpCommand.getFirstParameter().getValue());
+    Assert.assertEquals("12.99 €", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
