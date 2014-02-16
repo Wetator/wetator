@@ -433,6 +433,7 @@ test/webpage/images/wetator.png -text
 test/webpage/incubator/GSort.class -text
 test/webpage/incubator/Panorado.jar -text
 test/webpage/incubator/applet.html -text
+test/webpage/incubator/confirm.html -text
 test/webpage/index.html -text svneol=unset#text/plain
 test/webpage/javascript_boxover.html -text
 test/webpage/javascript_error.html -text
@@ -867,6 +868,7 @@ test/xml/iframe.wet -text
 test/xml/incubator/assert_applet.xml -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
+test/xml/incubator/confirm.xml -text
 test/xml/incubator/exec_js.xml -text
 test/xml/jquery.wet -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.wet -text svneol=unset#text/plain

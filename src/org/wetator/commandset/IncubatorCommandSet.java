@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
+import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
@@ -67,6 +68,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("wait", new CommandWait());
     registerCommand("assert-applet", new CommandAssertApplet());
     registerCommand("exec-js", new CommandExecJs());
+
+    registerCommand("confirm-next", new CommandConfirmNext());
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
@@ -242,6 +245,39 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
         throw new AssertionException(tmpMessage, e);
+      }
+    }
+  }
+
+  /**
+   * Command 'confirm-next'.
+   */
+  public final class CommandConfirmNext implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
+      if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
+        final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", new String[] { tmpButton.toString() });
+        throw new InvalidInputException(tmpMessage);
+      }
+
+      final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredSecondParameterValue(aContext));
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      if (tmpBrowser instanceof HtmlUnitBrowser) {
+        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+
+        if ("ok".equalsIgnoreCase(tmpButton.getValue())) {
+          tmpHtmlUnitBrowser.chooseOkOnNextConfirmFor(tmpPattern);
+        } else {
+          tmpHtmlUnitBrowser.chooseCancelOnNextConfirmFor(tmpPattern);
+        }
       }
     }
   }
