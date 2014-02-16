@@ -14,5 +14,5 @@
     <tst:step command='Assert_Fail'>Assert Focus, Unknown message key 'elementNotFocused' (param(s): '[HtmlTextInput (name='inputText_Name')]').<tst:optionalParameter>inputText_Name</tst:optionalParameter></tst:step>
     <step command='Set'>inputText_Name</step>
     <step command='Assert_Focus'>inputText_Name</step>
-    <tst:step command='Assert_Fail'>Assert Focus, The command 'Assert Focus' does not use the value 'unused' provided in column 2.<tst:optionalParameter>inputText_Name</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+    <tst:step command='Assert_Fail'>Assert Focus, The command 'assert-focus' does not use the value 'unused' provided as parameter 2.<tst:optionalParameter>inputText_Name</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
 </testcase>
