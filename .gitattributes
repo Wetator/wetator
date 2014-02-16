@@ -867,6 +867,7 @@ test/xml/iframe.wet -text
 test/xml/incubator/assert_applet.xml -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
+test/xml/incubator/exec_js.xml -text
 test/xml/jquery.wet -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.wet -text svneol=unset#text/plain
 test/xml/js_anchor_inside_page.wet -text svneol=unset#text/plain
