@@ -8,9 +8,10 @@
     <step command='Open_Url'>incubator/confirm.html</step>
     <step command='Assert_Title'>Wetator / Confirm</step>
     <step command='Assert_Content'>Wetator / Confirm Confirm Question</step>
+    <step command='Comment'></step>
     <step command='Comment'>confirm without preparation</step>
     <step command='Click_On'>Question<optionalParameter></optionalParameter></step>
-    <step command='Assert_Content'>Wetator / Confirm Confirm Question false</step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question true</step>
     <step command='Comment'></step>
     <step command='Comment'>Ok</step>
     <step command='Confirm_Next'>Ok<optionalParameter>Do you really need selenium?</optionalParameter></step>
