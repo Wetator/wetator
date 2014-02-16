@@ -268,6 +268,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     // setup our listener
     webClient.addWebWindowListener(new WebWindowListener(this));
     webClient.setAlertHandler(new AlertHandler(wetatorEngine));
+    webClient.setConfirmHandler(new ConfirmHandler(wetatorEngine));
 
     // refresh handler - behave like the browser does
     webClient.setRefreshHandler(new WaitingRefreshHandler());
@@ -371,9 +372,103 @@ public final class HtmlUnitBrowser implements IBrowser {
       } catch (final NullPointerException e) {
         // ignore
       }
-
       wetatorEngine.informListenersInfo("javascriptAlert", new String[] { tmpMessage, tmpUrl });
     }
+  }
+
+  /**
+   * Our own confirm handler.
+   */
+  public static final class ConfirmHandler implements com.gargoylesoftware.htmlunit.ConfirmHandler {
+    private WetatorEngine wetatorEngine;
+    private ContentPattern message;
+    private boolean result;
+
+    /**
+     * Constructor.
+     * 
+     * @param aWetatorEngine the engine to inform about the alert texts.
+     */
+    public ConfirmHandler(final WetatorEngine aWetatorEngine) {
+      wetatorEngine = aWetatorEngine;
+      chooseCancelOnNextConfirmFor(null);
+    }
+
+    @Override
+    public boolean handleConfirm(final Page aPage, final String aConfirmationMessage) {
+      LOG.debug("handleConfirm " + aConfirmationMessage);
+      String tmpConfirmationMessage = "";
+      if (StringUtils.isNotEmpty(aConfirmationMessage)) {
+        tmpConfirmationMessage = aConfirmationMessage;
+      }
+      String tmpUrl = "";
+      try {
+        tmpUrl = aPage.getWebResponse().getWebRequest().getUrl().toExternalForm();
+      } catch (final NullPointerException e) {
+        // ignore
+      }
+      wetatorEngine.informListenersInfo("javascriptConfirm", new String[] { tmpConfirmationMessage, tmpUrl });
+
+      try {
+        if (null != message) {
+          message.matches(aConfirmationMessage);
+        }
+      } catch (final AssertionException e) {
+        final String tmpMessage = Messages.getMessage("confirmationMessageDoesNotMatch",
+            new String[] { e.getMessage() });
+        wetatorEngine.getBrowser().addFailure(new AssertionException(tmpMessage, e));
+
+        wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
+        return false;
+      }
+
+      if (result) {
+        wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
+      } else {
+        wetatorEngine.informListenersInfo("javascriptConfirmCancel", new String[] { tmpConfirmationMessage });
+      }
+      return result;
+    }
+
+    /**
+     * Prepare for the next confirm handler.
+     * 
+     * @param aMessagePattern the expected text
+     */
+    protected void chooseOkOnNextConfirmFor(final ContentPattern aMessagePattern) {
+      message = aMessagePattern;
+      result = true;
+    }
+
+    /**
+     * Prepare for the next confirm handler.
+     * 
+     * @param aMessagePattern the expected text
+     */
+    protected void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
+      message = aMessagePattern;
+      result = false;
+    }
+  }
+
+  /**
+   * Prepare for the next confirm handler.
+   * 
+   * @param aMessagePattern the expected text
+   */
+  public void chooseOkOnNextConfirmFor(final ContentPattern aMessagePattern) {
+    final ConfirmHandler tmpHandler = (ConfirmHandler) webClient.getConfirmHandler();
+    tmpHandler.chooseOkOnNextConfirmFor(aMessagePattern);
+  }
+
+  /**
+   * Prepare for the next confirm handler.
+   * 
+   * @param aMessagePattern the expected text
+   */
+  public void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
+    final ConfirmHandler tmpHandler = (ConfirmHandler) webClient.getConfirmHandler();
+    tmpHandler.chooseCancelOnNextConfirmFor(aMessagePattern);
   }
 
   /**

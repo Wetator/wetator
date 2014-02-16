@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>incubator/confirm.html</step>
+    <step command='Assert_Title'>Wetator / Confirm</step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question</step>
+    <step command='Comment'>confirm without preparation</step>
+    <step command='Click_On'>Question<optionalParameter></optionalParameter></step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question false</step>
+    <step command='Comment'></step>
+    <step command='Comment'>Ok</step>
+    <step command='Confirm_Next'>Ok<optionalParameter>Do you really need selenium?</optionalParameter></step>
+    <step command='Click_On'>Question<optionalParameter></optionalParameter></step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question true</step>
+    <step command='Comment'></step>
+    <step command='Confirm_Next'>Ok<optionalParameter>Do you like selenium?</optionalParameter></step>
+    <tst:step command='Assert_Fail'>Click_On, The message shown on the confirmation dialog does not match: 'Expected content(s) {not found} or [in wrong order]: '{Do&#x2423;you&#x2423;like&#x2423;selenium?}' (content: 'Do you really need selenium?').'.<tst:optionalParameter>Question</tst:optionalParameter></tst:step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question false</step>
+    <step command='Comment'></step>
+    <step command='Comment'>Cancel</step>
+    <step command='Confirm_Next'>Cancel<optionalParameter>Do you really need selenium?</optionalParameter></step>
+    <step command='Click_On'>Question<optionalParameter></optionalParameter></step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question false</step>
+    <step command='Comment'></step>
+    <step command='Confirm_Next'>Cancel<optionalParameter>Do you like selenium?</optionalParameter></step>
+    <tst:step command='Assert_Fail'>Click_On, The message shown on the confirmation dialog does not match: 'Expected content(s) {not found} or [in wrong order]: '{Do&#x2423;you&#x2423;like&#x2423;selenium?}' (content: 'Do you really need selenium?').'.<tst:optionalParameter>Question</tst:optionalParameter></tst:step>
+    <step command='Assert_Content'>Wetator / Confirm Confirm Question false</step>
+    <step command='Comment'></step>
+    <step command='Comment'></step>
+    <tst:step command='Assert_Fail'>Confirm_Next, The command 'confirm-next' requires a first parameter.<tst:optionalParameter></tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'>Confirm_Next, The confirm-next command supports only Ok or cancel as first parameter (got: 'Ja').<tst:optionalParameter>Ja</tst:optionalParameter></tst:step>
+    <tst:step command='Assert_Fail'>Confirm_Next, The command 'confirm-next' requires a second parameter.<tst:optionalParameter>Ok</tst:optionalParameter></tst:step>
+</testcase>
