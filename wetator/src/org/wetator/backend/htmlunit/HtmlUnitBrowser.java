@@ -391,7 +391,7 @@ public final class HtmlUnitBrowser implements IBrowser {
      */
     public ConfirmHandler(final WetatorEngine aWetatorEngine) {
       wetatorEngine = aWetatorEngine;
-      chooseCancelOnNextConfirmFor(null);
+      chooseOkOnNextConfirmFor(null);
     }
 
     @Override
@@ -429,7 +429,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         return false;
       } finally {
         // reset for the next call
-        chooseCancelOnNextConfirmFor(null);
+        chooseOkOnNextConfirmFor(null);
       }
     }
 
