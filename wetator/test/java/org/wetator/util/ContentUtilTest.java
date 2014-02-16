@@ -121,7 +121,7 @@ public class ContentUtilTest {
     tmpExpected.append(" int 123");
     tmpExpected.append(" float 14,3");
     tmpExpected.append(" float (rounded) 1,70");
-    tmpExpected.append(" currency * 4,33 €");
+    tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
     tmpExpected.append(" date (formated) 14-Jul-11");
@@ -145,7 +145,7 @@ public class ContentUtilTest {
     tmpExpected.append(" int 123");
     tmpExpected.append(" float 14.3");
     tmpExpected.append(" float (rounded) 1.70");
-    tmpExpected.append(" currency * 4.33 €");
+    tmpExpected.append(" currency 4.33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
     tmpExpected.append(" date (formated) 14-Jul-11");
@@ -171,7 +171,7 @@ public class ContentUtilTest {
     tmpExpected.append(" int 123");
     tmpExpected.append(" float 14,3");
     tmpExpected.append(" float (rounded) 1,70");
-    tmpExpected.append(" currency * 4,33 €");
+    tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
     tmpExpected.append(" date (formated) 14-Jul-11");
@@ -188,8 +188,11 @@ public class ContentUtilTest {
       ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH);
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
-      org.junit.Assert.assertEquals("java.io.IOException: "
-          + "Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0", e.toString());
+      org.junit.Assert
+          .assertEquals(
+              "java.io.IOException: "
+                  + "Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document",
+              e.toString());
     }
   }
 
@@ -203,7 +206,7 @@ public class ContentUtilTest {
       org.junit.Assert
           .assertEquals(
               "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
-                  + "(reason: java.io.IOException: Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0).",
+                  + "(reason: java.io.IOException: Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document).",
               e.toString());
     }
   }
@@ -290,7 +293,7 @@ public class ContentUtilTest {
     tmpExpected.append(" int 123");
     tmpExpected.append(" float 14,3");
     tmpExpected.append(" float (rounded) 1,70");
-    tmpExpected.append(" currency * 4,33 €");
+    tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
     tmpExpected.append(" date (formated) 14-Jul-11");
