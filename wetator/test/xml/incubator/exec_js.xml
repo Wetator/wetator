@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<testcase
+    xmlns='http://www.wetator.org/xsd/defaultCommandSet'
+    xmlns:tst='http://www.wetator.org/xsd/testCommandSet'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd'>
+    <step command='Open_Url'>set.html</step>
+    <step command='Assert_Title'>Wetator / Set</step>
+    <step command='Comment'>InputText with id</step>
+    <step command='Assert_Set'>InputText with id<optionalParameter></optionalParameter></step>
+    <step command='Comment'></step>
+    <step command='Exec_Js'>document.getElementById('inputText_Id').value='WETATOR'</step>
+    <step command='Assert_Set'>InputText with id<optionalParameter>WETATOR</optionalParameter></step>
+    <step command='Comment'></step>
+    <tst:step command='Assert_Fail'>exec-js, The command 'exec-js' does not use the value 'unused' provided as parameter 2.<tst:optionalParameter>alert(window);</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
+</testcase>

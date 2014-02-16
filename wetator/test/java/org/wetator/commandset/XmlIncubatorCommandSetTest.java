@@ -46,6 +46,26 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
+  @Browsers({ BrowserType.FIREFOX_24, BrowserType.INTERNET_EXPLORER_8 })
+  public void assertFocus() throws InvalidInputException {
+    executeTestFile("assert_focus.xml");
+
+    Assert.assertEquals(6, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_24, BrowserType.INTERNET_EXPLORER_8 })
+  public void execJs() throws InvalidInputException {
+    executeTestFile("exec_js.xml");
+
+    Assert.assertEquals(6, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
   @Browsers({ BrowserType.FIREFOX_24 })
   public void assertApplet() throws InvalidInputException {
     executeTestFile("assert_applet.xml");
