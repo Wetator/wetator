@@ -92,6 +92,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSubscript;
 import com.gargoylesoftware.htmlunit.html.HtmlSuperscript;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTableHeader;
+import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import com.gargoylesoftware.htmlunit.html.HtmlTeletype;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
@@ -450,6 +454,15 @@ public final class XHtmlOutputter {
                   tmpAttributeValue = "../" + tmpStoredFileName;
                 }
               }
+            }
+          }
+
+          if ("background".equals(tmpAttributeName)
+              && (tmpHtmlElement instanceof HtmlTable || tmpHtmlElement instanceof HtmlTableHeader
+                  || tmpHtmlElement instanceof HtmlTableRow || tmpHtmlElement instanceof HtmlTableDataCell)) {
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
+            if (null != tmpStoredFileName) {
+              tmpAttributeValue = tmpStoredFileName;
             }
           }
 
