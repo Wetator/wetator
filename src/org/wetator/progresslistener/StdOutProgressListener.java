@@ -177,7 +177,7 @@ public class StdOutProgressListener implements IProgressListener {
    *      org.wetator.core.Command)
    */
   @Override
-  public void executeCommandStart(final WetatorContext aContext, final Command aWommand) {
+  public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
   }
 
   /**
