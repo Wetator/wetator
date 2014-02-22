@@ -60,6 +60,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlEmbed;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFont;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading3;
@@ -301,6 +302,12 @@ public final class XHtmlOutputter {
       output.print('<');
       output.print(determineTag(aDomNode));
       writeAttributes(aDomNode);
+
+      if (aDomNode instanceof HtmlForm) {
+        // disable form submit
+        output.print(" onsubmit=\"return false;\"");
+      }
+
       if (EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print('/');
         if (HtmlElementUtil.isBlock(aDomNode)) {
