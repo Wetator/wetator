@@ -323,7 +323,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
+      LOG.error("OpenUrl '" + aUrl.toExternalForm() + "' fails. " + e.getMessage());
       final String tmpMessage = Messages
           .getMessage("openServerError", new String[] { aUrl.toString(), e.getMessage() });
       throw new ActionException(tmpMessage, e);
