@@ -526,6 +526,113 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(0));
   }
 
+  @Test
+  public void rowSpan() throws IOException, InvalidInputException {
+    String tmpHtmlCode = "<html><body>" //
+        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+        + "      <thead>" //
+        + "        <tr>" //
+        + "          <th id='header_1'>header_1</th>" //
+        + "          <th id='header_2'>header_2</th>" //
+        + "          <th id='header_3'>header_3</th>" //
+        + "        </tr>" //
+        + "      </thead>" //
+        + "      <tbody>" //
+        + "        <tr>" //
+        + "          <td id='cell_1_1'>row_1</td>" //
+        + "          <td id='cell_1_2' rowspan='2'><input type='text' id='InputText_1_2'/></td>" //
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>" //
+        + "        </tr>" //
+        + "        <tr>" //
+        + "          <td id='cell_2_1'>row_2</td>" //
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>" //
+        + "        </tr>" //
+        + "      </tbody>" //
+        + "    </table>" //
+        + "</body></html>";
+
+    SecretString tmpSearch = new SecretString("[; row_1]");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 32, 32, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 32, 32, tmpMatches.get(0));
+  }
+
+  @Test
+  public void brokenRowSpan() throws IOException, InvalidInputException {
+    String tmpHtmlCode = "<html><body>" //
+        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+        + "      <tbody>" //
+        + "        <tr>" //
+        + "          <td id='cell_1_1' rowspan='2'><input type='text' id='InputText_1_1'/></td>" //
+        + "        </tr>" //
+        + "      </tbody>" //
+        + "    </table>" //
+        + "</body></html>";
+
+    SecretString tmpSearch = new SecretString("[; row_somewhere]");
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+
+    // no match but we like to be sure that there was no exception
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void colSpan() throws IOException, InvalidInputException {
+    String tmpHtmlCode = "<html><body>" //
+        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+        + "      <thead>" //
+        + "        <tr>" //
+        + "          <th id='header_1'>header_1</th>" //
+        + "          <th id='header_2'>header_2</th>" //
+        + "          <th id='header_3'>header_3</th>" //
+        + "        </tr>" //
+        + "      </thead>" //
+        + "      <tbody>" //
+        + "        <tr>" //
+        + "          <td id='cell_1_1' colspan='2'><input type='text' id='InputText_1_1'/></td>" //
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>" //
+        + "        </tr>" //
+        + "      </tbody>" //
+        + "    </table>" //
+        + "</body></html>";
+
+    SecretString tmpSearch = new SecretString("[header_1 ;]");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[header_2 ;]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
+  }
+
+  @Test
+  public void brokenColSpan() throws IOException, InvalidInputException {
+    String tmpHtmlCode = "<html><body>" //
+        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+        + "      <tbody>" //
+        + "        <tr>" //
+        + "          <td id='cell_1_1' colspan='2'><input type='text' id='InputText_1_1'/></td>" //
+        + "        </tr>" //
+        + "      </tbody>" //
+        + "    </table>" //
+        + "</body></html>";
+
+    SecretString tmpSearch = new SecretString("[col_somewhere ;]");
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+
+    // no match but we like to be sure that there was no exception
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
   @Override
   protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
       throws IOException, InvalidInputException {

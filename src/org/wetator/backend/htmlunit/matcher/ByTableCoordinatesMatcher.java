@@ -114,6 +114,11 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       }
       tmpFound = false;
 
+      HtmlTableCell tmpCell = findEnclosingCell(tmpHtmlElement);
+      if (tmpCell == null) {
+        break;
+      }
+
       SearchPattern tmpSearchPatternCoordX = null;
       SearchPattern tmpSearchPatternCoordY = null;
       if (tmpTableCoordinate.getCoordinateX() != null) {
@@ -121,11 +126,6 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       }
       if (tmpTableCoordinate.getCoordinateY() != null) {
         tmpSearchPatternCoordY = tmpTableCoordinate.getCoordinateY().getSearchPattern();
-      }
-
-      HtmlTableCell tmpCell = findEnclosingCell(tmpHtmlElement);
-      if (tmpCell == null) {
-        break;
       }
 
       boolean tmpFoundX = false;
@@ -157,7 +157,8 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
         // check the y coordinate in the column
         if (!tmpFoundY && tmpSearchPatternCoordY != null) {
           final int tmpYStart = findRowInTable(tmpTable, tmpRow);
-          final int tmpYEnd = tmpYStart + tmpCell.getRowSpan();
+          int tmpYEnd = tmpYStart + tmpCell.getRowSpan();
+          tmpYEnd = Math.min(tmpYEnd, tmpTable.getRowCount());
           for (int i = tmpYStart; i < tmpYEnd; i++) {
             for (int j = 0; j < tmpTable.getRow(i).getCells().size(); j++) {
               final HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
