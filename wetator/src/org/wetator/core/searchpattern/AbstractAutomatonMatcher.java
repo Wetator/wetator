@@ -48,6 +48,13 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
     automaton = anAutomaton;
   }
 
+  /**
+   * Stores a match.
+   * 
+   * @param aMatchStart the start of the match to store
+   * @param aMatchEnd the end of the match to store
+   * @throws IllegalArgumentException if aMatchStart is greater than aMatchEnd.
+   */
   protected void setMatch(final int aMatchStart, final int aMatchEnd) throws IllegalArgumentException {
     if (aMatchStart > aMatchEnd) {
       throw new IllegalArgumentException("Start must be less than or equal to end: " + aMatchStart + ", " + aMatchEnd);
