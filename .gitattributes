@@ -333,6 +333,7 @@ wetator/src/org/wetator/core/Variable.java -text
 wetator/src/org/wetator/core/WetatorConfiguration.java -text
 wetator/src/org/wetator/core/WetatorContext.java -text
 wetator/src/org/wetator/core/WetatorEngine.java -text
+wetator/src/org/wetator/core/searchpattern/AbstractAutomatonMatcher.java -text
 wetator/src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
 wetator/src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 wetator/src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
