@@ -25,12 +25,16 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
+import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
 import org.wetator.core.WetatorContext;
+import org.wetator.exception.ActionException;
+import org.wetator.exception.BackendException;
+import org.wetator.i18n.Messages;
 
 /**
  * A parent class for command sets.
@@ -117,6 +121,44 @@ public abstract class AbstractCommandSet implements ICommandSet {
   protected IBrowser getBrowser(final WetatorContext aContext) {
     final IBrowser tmpBrowser = aContext.getBrowser();
     return tmpBrowser;
+  }
+
+  /**
+   * @param aBrowser the browser
+   * @return the {@link IControlFinder}
+   * @throws ActionException in case of problems
+   */
+  protected IControlFinder getControlFinder(final IBrowser aBrowser) throws ActionException {
+    IControlFinder tmpControlFinder;
+    try {
+      tmpControlFinder = aBrowser.getControlFinder();
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage, e);
+    }
+    return tmpControlFinder;
+  }
+
+  /**
+   * Returns the first control from the WeightedControlList or null if no controls found.<br>
+   * If the list has elements for more than one control then some warnings are fired.
+   * 
+   * @param aContext the context
+   * @param aWeightedControlList the WeightedControlList
+   * @param aWPath the wpath (only needed for the warning message)
+   * @param aNothingFoundMsgKey the key for the exception message used when nothing found
+   * @return the first control from the list
+   * @throws ActionException if nothing found
+   */
+  protected IControl getFirstRequiredHtmlElementFrom(final WetatorContext aContext,
+      final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNothingFoundMsgKey)
+      throws ActionException {
+    final IControl tmpControl = getFirstHtmlElementFrom(aContext, aWeightedControlList, aWPath);
+    if (null == tmpControl) {
+      final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, new String[] { aWPath.toString() });
+      throw new ActionException(tmpMessage);
+    }
+    return tmpControl;
   }
 
   /**

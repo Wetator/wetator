@@ -222,13 +222,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       if (tmpControl == null) {
-        IControlFinder tmpControlFinder;
-        try {
-          tmpControlFinder = tmpBrowser.getControlFinder();
-        } catch (final BackendException e) {
-          final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-          throw new ActionException(tmpMessage, e);
-        }
+        final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
         // TextInputs / PasswordInputs / TextAreas / FileInputs
         final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -249,12 +243,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           }
           aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
         } else {
-          tmpControl = (ISettable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-          if (null == tmpControl) {
-            final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
-                new String[] { tmpWPath.toString() });
-            throw new ActionException(tmpMessage);
-          }
+          tmpControl = (ISettable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+              "noSettableHtmlElmentFound");
         }
       }
 
@@ -281,13 +271,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // Buttons / Link / Image
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
@@ -295,12 +279,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noClickableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new ActionException(tmpMessage);
-      }
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noClickableHtmlElmentFound");
 
       tmpControl.click(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -325,13 +305,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -339,12 +313,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("no2ClickableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new ActionException(tmpMessage);
-      }
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "no2ClickableHtmlElmentFound");
 
       tmpControl.clickDouble(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -369,13 +339,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -383,12 +347,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noRClickableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new ActionException(tmpMessage);
-      }
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noRClickableHtmlElmentFound");
 
       tmpControl.clickRight(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -413,23 +373,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noSelectableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new ActionException(tmpMessage);
-      }
+      final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noSelectableHtmlElmentFound");
 
       tmpControl.select(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -454,23 +404,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // (Select)Options / Checkboxes
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
-      final IDeselectable tmpControl = (IDeselectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noDeselectableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new ActionException(tmpMessage);
-      }
+      final IDeselectable tmpControl = (IDeselectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noDeselectableHtmlElmentFound");
 
       tmpControl.deselect(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -495,13 +435,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new ActionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -513,11 +447,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noHtmlElementFound", new String[] { tmpWPath.toString() });
-        throw new ActionException(tmpMessage);
-      }
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noHtmlElementFound");
 
       tmpControl.mouseOver(aContext);
       tmpBrowser.saveCurrentWindowToLog();
@@ -671,13 +602,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new AssertionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -691,11 +616,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noHtmlElementFound", new String[] { tmpWPath.toString() });
-        throw new AssertionException(tmpMessage);
-      }
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noHtmlElementFound");
 
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
@@ -723,23 +645,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new AssertionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
-      final ISettable tmpControl = (ISettable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages
-            .getMessage("noSettableHtmlElmentFound", new String[] { tmpWPath.toString() });
-        throw new AssertionException(tmpMessage);
-      }
+      final ISettable tmpControl = (ISettable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noSettableHtmlElmentFound");
 
       tmpControl.assertValue(aContext, tmpValueParam);
     }
@@ -763,23 +675,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new AssertionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noSelectableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new AssertionException(tmpMessage);
-      }
+      final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noSelectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
@@ -804,23 +706,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new AssertionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // (Select)Options / Checkboxes / Radiobuttons
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      final ISelectable tmpControl = (ISelectable) getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noDeselectableHtmlElmentFound",
-            new String[] { tmpWPath.toString() });
-        throw new AssertionException(tmpMessage);
-      }
+      final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noDeselectableHtmlElmentFound");
 
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });

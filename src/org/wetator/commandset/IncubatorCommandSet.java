@@ -93,13 +93,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
-      IControlFinder tmpControlFinder;
-      try {
-        tmpControlFinder = tmpBrowser.getControlFinder();
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new AssertionException(tmpMessage, e);
-      }
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
@@ -113,11 +107,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      final IControl tmpControl = getFirstHtmlElementFrom(aContext, tmpFoundElements, tmpWPath);
-      if (null == tmpControl) {
-        final String tmpMessage = Messages.getMessage("noHtmlElementFound", new String[] { tmpWPath.toString() });
-        throw new AssertionException(tmpMessage);
-      }
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noHtmlElementFound");
 
       final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
