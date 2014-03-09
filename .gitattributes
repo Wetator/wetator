@@ -11,7 +11,7 @@
 ant_lib/ivy-2.3.0.jar -text
 /build-patternset.xml -text svneol=unset#text/plain
 /build-properties.xml -text
-/build.properties -text svneol=unset#unset
+/build.properties -text
 /build.xml -text
 /chat -text
 docu/sample_pages/docu_screens.html -text

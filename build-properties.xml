@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <build-properties>
 
+    <skip>
+        <!--resolve>true</resolve-->
+        <!--tests>true</tests-->
+    </skip>
+
   <application>
     <name>Wetator</name>
-    <version>0_9_15_beta9</version>
+    <version>0_9_15_beta11</version>
     <pubversion>0.9.15-SNAPSHOT</pubversion>
     <jar-basename>wetator</jar-basename>
     <vendor>wetator.org</vendor>
