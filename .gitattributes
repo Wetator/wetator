@@ -353,6 +353,7 @@ wetator/src/org/wetator/exception/ResourceException.java -text svneol=unset#text
 wetator/src/org/wetator/exception/UnsupportedOperationException.java -text svneol=unset#text/plain
 wetator/src/org/wetator/gui/DialogUtil.java -text
 wetator/src/org/wetator/i18n/Messages.java -text
+wetator/src/org/wetator/progresslistener/Log4jProgressListener.java -text
 wetator/src/org/wetator/progresslistener/StdOutProgressListener.java -text
 wetator/src/org/wetator/progresslistener/XMLResultWriter.java -text
 wetator/src/org/wetator/progresslistener/XSLTransformer.java -text
