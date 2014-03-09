@@ -105,6 +105,21 @@ public final class Output {
   }
 
   /**
+   * Write the string; we know, this string already ends with a newline.
+   * 
+   * @param aString the string to be written
+   * @return this (for convenience)
+   * @throws IOException in case of problems
+   */
+  public Output printStringWithNewLine(final String aString) throws IOException {
+    writeIndentIfNeeded();
+    writer.write(aString);
+    afterNewLine = true;
+
+    return this;
+  }
+
+  /**
    * Flushes the output.
    * 
    * @return this (for convenience)
