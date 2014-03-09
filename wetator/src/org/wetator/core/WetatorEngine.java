@@ -196,6 +196,38 @@ public class WetatorEngine {
     final XMLResultWriter tmpResultWriter = new XMLResultWriter();
     tmpResultWriter.init(this);
     addProgressListener(tmpResultWriter);
+
+    // TODO make this dynamic
+    // setup listener for wire logging
+    // final Logger tmpLogger = LogManager.getLogger("org.apache.http.wire");
+    //
+    // Level tmpLevel = tmpLogger.getLevel();
+    // @SuppressWarnings("rawtypes")
+    // Enumeration tmpAppenders = tmpLogger.getAllAppenders();
+    // while (null != tmpAppenders && !tmpAppenders.hasMoreElements()) {
+    // final Category tmpCategory = tmpLogger.getParent();
+    // // javadoc says the parent of the root loger is null
+    // // but this is not true
+    // if (null == tmpCategory) {
+    // break;
+    // }
+    // tmpAppenders = tmpCategory.getAllAppenders();
+    // tmpLevel = tmpCategory.getLevel();
+    //
+    // // be sure to terminate if we reach the root logger
+    // if (tmpCategory == LogManager.getRootLogger()) {
+    // break;
+    // }
+    // }
+    // final Log4jProgressListener tmpLogListener = new Log4jProgressListener(4, tmpAppenders, tmpLevel);
+    // tmpLogListener.init(this);
+    //
+    // tmpLogger.removeAllAppenders();
+    // tmpLogger.setLevel(Level.TRACE);
+    // tmpLogger.addAppender(tmpLogListener);
+    // tmpLogger.setAdditivity(false);
+    //
+    // addProgressListener(tmpLogListener);
   }
 
   /**
