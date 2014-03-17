@@ -53,9 +53,14 @@ public final class SecretString {
       return this;
     }
 
+    int tmpLoops = 0;
     int tmpReplace = replace(aVariables, value.length());
-    while (tmpReplace > -1) {
+    while (tmpReplace > -1 && tmpLoops < 4444) {
+      tmpLoops++;
       tmpReplace = replace(aVariables, tmpReplace);
+    }
+    if (tmpLoops >= 4444) {
+      throw new IllegalArgumentException("Recursion during variable replacement (" + toString() + ").");
     }
     Collections.sort(secrets, new Comparator<FindSpot>() {
       @Override
@@ -115,8 +120,10 @@ public final class SecretString {
           }
         }
 
-        // done
-        return aFrom;
+        // avoid recursion
+        if (!tmpVarSecretValue.equals(VAR_START_SEQ + tmpVarName + VAR_END_SEQ)) {
+          return aFrom;
+        }
       }
     }
     return tmpVarStartPos - 1;
