@@ -799,10 +799,41 @@ public class SecretStringTest {
     Assert.assertEquals("value1 ${}", tmpSecret.getValue());
     Assert.assertEquals("**** ${}", tmpSecret.toString());
 
+    tmpSecret = new SecretString("${var0} ${7}");
+    tmpSecret.replaceVariables(tmpVariables);
+
+    Assert.assertEquals("value1 ${7}", tmpSecret.getValue());
+    Assert.assertEquals("**** ${7}", tmpSecret.toString());
+
     tmpSecret = new SecretString("${var0${var1}}");
     tmpSecret.replaceVariables(tmpVariables);
 
     Assert.assertEquals("${var0value1}", tmpSecret.getValue());
     Assert.assertEquals("${var0****}", tmpSecret.toString());
+  }
+
+  @Test
+  public void replaceVariable_recursion() {
+    List<Variable> tmpVariables = new LinkedList<Variable>();
+    Variable tmpVariable = new Variable("var0", "${var0}", false);
+    tmpVariables.add(tmpVariable);
+    tmpVariable = new Variable("var1", "${var2}", false);
+    tmpVariables.add(tmpVariable);
+    tmpVariable = new Variable("var2", "${var1}", false);
+    tmpVariables.add(tmpVariable);
+
+    SecretString tmpSecret = new SecretString("${var0}");
+    tmpSecret.replaceVariables(tmpVariables);
+
+    Assert.assertEquals("${var0}", tmpSecret.getValue());
+    Assert.assertEquals("${var0}", tmpSecret.toString());
+
+    tmpSecret = new SecretString("${var1}");
+    try {
+      tmpSecret.replaceVariables(tmpVariables);
+      Assert.fail("IllegalArgumentException expected");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Recursion during variable replacement (${var2}).", e.getMessage());
+    }
   }
 }
