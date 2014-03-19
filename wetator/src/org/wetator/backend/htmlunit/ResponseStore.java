@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
@@ -165,41 +166,45 @@ public final class ResponseStore {
    * This method writes the content of a url to a file with a unique name.
    * 
    * @param aBaseUrl the url of the page, this is referenced from
-   * @param aContentUrl the url of the content to save
+   * @param aFullContentUrl the url of the content to save
    * @param aDeep the deep of the parent file in the response store
    *        (file system). This is used to calculate always relative urls for the return value
    * @param aSuffix to force a specific suffix for the file name
    * @return the file name used for this page (as relative path);
    */
-  public String storeContentFromUrl(final URL aBaseUrl, final String aContentUrl, final int aDeep, final String aSuffix) {
+  public String storeContentFromUrl(final URL aBaseUrl, final URL aFullContentUrl, final int aDeep, final String aSuffix) {
     try {
-      final URL tmpFullContentUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aBaseUrl, aContentUrl));
+      // final URL tmpFullContentUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aBaseUrl, aContentUrl));
       final String tmpBaseHost = aBaseUrl.getHost();
-      if (null == tmpBaseHost || !tmpBaseHost.equals(tmpFullContentUrl.getHost())) {
-        LOG.info("Ignoring URL '" + tmpFullContentUrl.toExternalForm() + "' (wrong host).");
+      if (null == tmpBaseHost || !tmpBaseHost.equals(aFullContentUrl.getHost())) {
+        LOG.info("Ignoring URL '" + aFullContentUrl.toExternalForm() + "' (wrong host).");
         return null;
       }
 
       // did we already download this
-      String tmpFileName = fileNames.get(tmpFullContentUrl.toExternalForm());
+      String tmpFileName = fileNames.get(aFullContentUrl.toExternalForm());
       if (null == tmpFileName) {
         // read data form url
         // set the referer header like the browser does
-        final WebRequest tmpRequest = new WebRequest(tmpFullContentUrl);
+        final WebRequest tmpRequest = new WebRequest(aFullContentUrl);
         tmpRequest.setAdditionalHeader("Referer", aBaseUrl.toExternalForm());
         final WebResponse tmpWebResponse = webClient.loadWebResponse(tmpRequest);
 
-        // TODO we have to check the result code
+        // we have to check the result code
         // see Ticket #42
-        // webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
+        // try {
+        //   webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
+        // } catch (final FailingHttpStatusCodeException e) {
+        //   throw new ResourceException("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
+        // }
 
         // create path
-        tmpFileName = tmpFullContentUrl.getPath();
+        tmpFileName = aFullContentUrl.getPath();
         if (tmpFileName.charAt(0) == '/') {
           tmpFileName = tmpFileName.substring(1);
         }
 
-        String tmpQuery = tmpFullContentUrl.getQuery();
+        String tmpQuery = aFullContentUrl.getQuery();
         if (null != tmpQuery) {
           tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
           tmpFileName = tmpFileName + "?" + tmpQuery;
@@ -235,7 +240,7 @@ public final class ResponseStore {
         }
 
         // store the value already to prevent endless looping
-        fileNames.put(tmpFullContentUrl.toExternalForm(), tmpFileName);
+        fileNames.put(aFullContentUrl.toExternalForm(), tmpFileName);
 
         if (!tmpResourceFile.exists()) {
           String tmpProcessed = null;
@@ -244,7 +249,7 @@ public final class ResponseStore {
             FileUtils.forceMkdir(tmpResourceFile.getParentFile());
 
             // process all url(....) inside
-            tmpProcessed = processCSS(tmpFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
+            tmpProcessed = processCSS(aFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
             FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed);
           }
 
@@ -289,13 +294,16 @@ public final class ResponseStore {
    * @param aDeep the deep of the parent file in the response store
    *        (file system). This is used to calculate always relative urls for the return value
    * @return the changed content;
+   * @throws MalformedURLException in case of error
    */
-  public String processCSS(final URL aFullContentUrl, final String aCssContent, final int aDeep) {
+  public String processCSS(final URL aFullContentUrl, final String aCssContent, final int aDeep)
+      throws MalformedURLException {
     String tmpContent = aCssContent;
     int tmpStart = 0;
     Matcher tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
     while (tmpMatcher.find(tmpStart)) {
-      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpMatcher.group(2), aDeep, null);
+      final URL tmpCssUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aFullContentUrl, tmpMatcher.group(2)));
+      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpCssUrl, aDeep, null);
       if (null == tmpNewUrl) {
         tmpStart = tmpMatcher.end();
       } else {
@@ -311,7 +319,8 @@ public final class ResponseStore {
     tmpStart = 0;
     tmpMatcher = CSS_IMPORT_URL_PATTERN.matcher(tmpContent);
     while (tmpMatcher.find(tmpStart)) {
-      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpMatcher.group(2), aDeep, null);
+      final URL tmpCssUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aFullContentUrl, tmpMatcher.group(2)));
+      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpCssUrl, aDeep, null);
       if (null == tmpNewUrl) {
         tmpStart = tmpMatcher.end();
       } else {

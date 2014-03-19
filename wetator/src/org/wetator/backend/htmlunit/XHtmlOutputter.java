@@ -430,15 +430,16 @@ public final class XHtmlOutputter {
           }
 
           if (tmpIsCssLink && "href".equals(tmpAttributeName)) {
-            final String tmpStoredFileName = responseStore
-                .storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, ".css");
+            final URL tmpUrl = tmpHtmlElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, ".css");
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
           }
 
           if ((tmpIsHtmlImage || tmpIsHtmlImageInput || tmpIsHtmlHtmlEmbed) && "src".equals(tmpAttributeName)) {
-            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
+            final URL tmpUrl = tmpHtmlElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
@@ -467,7 +468,8 @@ public final class XHtmlOutputter {
           if ("background".equals(tmpAttributeName)
               && (tmpHtmlElement instanceof HtmlTable || tmpHtmlElement instanceof HtmlTableHeader
                   || tmpHtmlElement instanceof HtmlTableRow || tmpHtmlElement instanceof HtmlTableDataCell)) {
-            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpAttributeValue, 0, null);
+            final URL tmpUrl = tmpHtmlElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
