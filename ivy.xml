@@ -33,7 +33,7 @@
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
         <dependency org="dk.brics.automaton" name="automaton" rev="1.11-8" transitive="false" />
         <dependency org="commons-io" name="commons-io" rev="2.4" />
-        <dependency org="org.apache.commons" name="commons-lang3" rev="3.3" />
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.3.1" />
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.15-SNAPSHOT" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.12-SNAPSHOT" changing="true" conf="compile"/> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.8" changing="true" conf="compile" /> -->
