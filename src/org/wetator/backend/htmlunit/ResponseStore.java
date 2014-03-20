@@ -174,7 +174,6 @@ public final class ResponseStore {
    */
   public String storeContentFromUrl(final URL aBaseUrl, final URL aFullContentUrl, final int aDeep, final String aSuffix) {
     try {
-      // final URL tmpFullContentUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aBaseUrl, aContentUrl));
       final String tmpBaseHost = aBaseUrl.getHost();
       if (null == tmpBaseHost || !tmpBaseHost.equals(aFullContentUrl.getHost())) {
         LOG.info("Ignoring URL '" + aFullContentUrl.toExternalForm() + "' (wrong host).");
@@ -193,9 +192,9 @@ public final class ResponseStore {
         // we have to check the result code
         // see Ticket #42
         // try {
-        //   webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
+        // webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
         // } catch (final FailingHttpStatusCodeException e) {
-        //   throw new ResourceException("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
+        // throw new ResourceException("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
         // }
 
         // create path
