@@ -76,7 +76,9 @@ public interface IBrowser {
     /** firefox 24 ESR. */
     FIREFOX_24("Firefox24", "Firefox_24"),
     /** internet explorer 8. */
-    INTERNET_EXPLORER_8("IE8", "IE_8");
+    INTERNET_EXPLORER_8("IE8", "IE_8"),
+    /** internet explorer 11. */
+    INTERNET_EXPLORER_11("IE11", "IE_11");
 
     private String label;
     private String symbol;
