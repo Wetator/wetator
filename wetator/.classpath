@@ -45,11 +45,11 @@
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.4.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.10-FINAL.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.14.jar"/>
-	<classpathentry kind="lib" path="lib/nekohtml-1.9.20.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.3.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.15-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.15-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.15-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.3.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/nekohtml-1.9.21-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
