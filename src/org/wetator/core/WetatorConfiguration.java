@@ -112,6 +112,11 @@ public class WetatorConfiguration {
    */
   public static final String PROPERTY_XSL_TEMPLATES = PROPERTY_PREFIX + "xslTemplates";
 
+  /**
+   * The property name to set the XSL templates used to transform the output.
+   */
+  public static final String PROPERTY_RETROSPECT = PROPERTY_PREFIX + "retrospect";
+
   // browser
   /**
    * The property name to set the supported {@link BrowserType}s (by their {@link BrowserType#getSymbol()}).
@@ -201,6 +206,7 @@ public class WetatorConfiguration {
   private List<Variable> variables; // store them in defined order
 
   private boolean log;
+  private int retrospect;
 
   /**
    * The constructor. It reads the the configuration properties from
@@ -518,6 +524,15 @@ public class WetatorConfiguration {
         }
         xslTemplates.add(tmpTemplateFile.getAbsolutePath());
       }
+    }
+
+    // read the rest only if needed
+    tmpValue = tmpProperties.getProperty(PROPERTY_RETROSPECT, "-1");
+    tmpProperties.remove(PROPERTY_RETROSPECT);
+    try {
+      retrospect = Integer.parseInt(tmpValue);
+    } catch (final NumberFormatException e) {
+      throw new ConfigurationException("The property '" + PROPERTY_RETROSPECT + "' is no integer.");
     }
 
     // all properties starting with $ are variables
@@ -887,6 +902,13 @@ public class WetatorConfiguration {
    */
   public List<Variable> getVariables() {
     return variables;
+  }
+
+  /**
+   * @return the configured proxy port
+   */
+  public int getRetrospect() {
+    return retrospect;
   }
 
   /**

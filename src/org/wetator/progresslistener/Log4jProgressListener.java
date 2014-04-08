@@ -378,7 +378,10 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     }
   }
 
-  private static class CommandEvents {
+  /**
+   * Helper.
+   */
+  private static final class CommandEvents {
     private Command command;
     private List<LoggingEvent> events;
 
