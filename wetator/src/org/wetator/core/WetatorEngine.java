@@ -17,18 +17,24 @@
 package org.wetator.core;
 
 import java.io.File;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Category;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
+import org.wetator.progresslistener.Log4jProgressListener;
 import org.wetator.progresslistener.XMLResultWriter;
 
 /**
@@ -197,37 +203,39 @@ public class WetatorEngine {
     tmpResultWriter.init(this);
     addProgressListener(tmpResultWriter);
 
-    // TODO make this dynamic
-    // setup listener for wire logging
-    // final Logger tmpLogger = LogManager.getLogger("org.apache.http.wire");
-    //
-    // Level tmpLevel = tmpLogger.getLevel();
-    // @SuppressWarnings("rawtypes")
-    // Enumeration tmpAppenders = tmpLogger.getAllAppenders();
-    // while (null != tmpAppenders && !tmpAppenders.hasMoreElements()) {
-    // final Category tmpCategory = tmpLogger.getParent();
-    // // javadoc says the parent of the root loger is null
-    // // but this is not true
-    // if (null == tmpCategory) {
-    // break;
-    // }
-    // tmpAppenders = tmpCategory.getAllAppenders();
-    // tmpLevel = tmpCategory.getLevel();
-    //
-    // // be sure to terminate if we reach the root logger
-    // if (tmpCategory == LogManager.getRootLogger()) {
-    // break;
-    // }
-    // }
-    // final Log4jProgressListener tmpLogListener = new Log4jProgressListener(4, tmpAppenders, tmpLevel);
-    // tmpLogListener.init(this);
-    //
-    // tmpLogger.removeAllAppenders();
-    // tmpLogger.setLevel(Level.TRACE);
-    // tmpLogger.addAppender(tmpLogListener);
-    // tmpLogger.setAdditivity(false);
-    //
-    // addProgressListener(tmpLogListener);
+    if (configuration.getRetrospect() > 0) {
+      // setup listener for wire logging
+      final Logger tmpLogger = LogManager.getLogger("org.apache.http.wire");
+
+      Level tmpLevel = tmpLogger.getLevel();
+      @SuppressWarnings("rawtypes")
+      Enumeration tmpAppenders = tmpLogger.getAllAppenders();
+      while (null != tmpAppenders && !tmpAppenders.hasMoreElements()) {
+        final Category tmpCategory = tmpLogger.getParent();
+        // javadoc says the parent of the root loger is null
+        // but this is not true
+        if (null == tmpCategory) {
+          break;
+        }
+        tmpAppenders = tmpCategory.getAllAppenders();
+        tmpLevel = tmpCategory.getLevel();
+
+        // be sure to terminate if we reach the root logger
+        if (tmpCategory == LogManager.getRootLogger()) {
+          break;
+        }
+      }
+      final Log4jProgressListener tmpLogListener = new Log4jProgressListener(configuration.getRetrospect(),
+          tmpAppenders, tmpLevel);
+      tmpLogListener.init(this);
+
+      tmpLogger.removeAllAppenders();
+      tmpLogger.setLevel(Level.TRACE);
+      tmpLogger.addAppender(tmpLogListener);
+      tmpLogger.setAdditivity(false);
+
+      addProgressListener(tmpLogListener);
+    }
   }
 
   /**
