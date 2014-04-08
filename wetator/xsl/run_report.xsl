@@ -1406,6 +1406,16 @@
                     <xsl:for-each select="command">
                         <xsl:call-template name="command"/>
                     </xsl:for-each>
+                    <tr>
+                        <td class='light topBorder' colspan='7'></td>
+
+                        <xsl:variable name="testcaseDuration" select="sum(command/executionTime)"/>
+                        <td class='light topBorder' align="right">
+                            <xsl:call-template name="time">
+                                <xsl:with-param name="msecs" select="$testcaseDuration"/>
+                            </xsl:call-template>
+                        </td>
+                    </tr>
                 </table>
             </xsl:when>
 
