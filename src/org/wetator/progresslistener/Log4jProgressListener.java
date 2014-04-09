@@ -93,7 +93,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
    */
   @Override
   public void close() {
-    commandEvents = null;
+    commandEvents = new LinkedList<CommandEvents>();
   }
 
   /**
