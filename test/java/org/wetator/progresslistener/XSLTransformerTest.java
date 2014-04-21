@@ -72,6 +72,8 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
     // replace output dir
     tmpResult = tmpResult.replaceAll("<td>wetator.outputDir</td><td>&nbsp;&nbsp;</td><td>[^<]*",
         "<td>wetator.outputDir</td><td>&nbsp;&nbsp;</td><td>##OUTPUT_DIR##");
+    // replace time
+    tmpResult = tmpResult.replaceAll(">(\\d)+(\\.(\\d)+)+ (\\d)+(:(\\d)+)+<", ">##TIME##<");
     // replace durations
     tmpResult = tmpResult.replaceAll(">[\\d]+(\\.[\\d])?s<", ">##DURATION##<");
     // replace stacktraces
