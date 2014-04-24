@@ -41,7 +41,8 @@ public class ContentUtilTest {
     tmpExpected.append(" ");
     tmpExpected.append("This file is used to test WeT.");
 
-    String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+    String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"),
+        4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -55,14 +56,14 @@ public class ContentUtilTest {
     tmpExpected.append("This file is used to test WeT.");
 
     String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_pdf.zip"), "UTF-8", Locale.ENGLISH);
+        new FileInputStream("test/webpage/download/wet_test_pdf.zip"), "UTF-8", Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getPdfContentAsStringError() {
     try {
-      ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
+      ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
       org.junit.Assert.assertEquals("java.io.IOException: Error: Header doesn't contain versioninfo", e.toString());
@@ -73,7 +74,7 @@ public class ContentUtilTest {
   public void getZippedPdfContentAsStringError() {
     try {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_pdf_error.zip"), "UTF-8",
-          Locale.ENGLISH);
+          Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
       org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text "
@@ -86,7 +87,8 @@ public class ContentUtilTest {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
-    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"));
+    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"),
+        4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -98,13 +100,14 @@ public class ContentUtilTest {
     tmpExpected.append("Wetator is great.");
 
     String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_rtf.zip"), "UTF-8", Locale.ENGLISH);
+        new FileInputStream("test/webpage/download/wet_test_rtf.zip"), "UTF-8", Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getRtfContentAsStringError() throws FileNotFoundException, IOException, BadLocationException {
-    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"));
+    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
+        4000);
     org.junit.Assert.assertEquals("", tmpContent);
   }
 
@@ -128,7 +131,7 @@ public class ContentUtilTest {
     tmpExpected.append(" formula 124,70");
 
     String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
-        Locale.GERMAN);
+        Locale.GERMAN, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -152,7 +155,7 @@ public class ContentUtilTest {
     tmpExpected.append(" formula 124.70");
 
     String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
-        Locale.ENGLISH);
+        Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -178,14 +181,15 @@ public class ContentUtilTest {
     tmpExpected.append(" formula 124,70");
 
     String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_xls.zip"), "UTF-8", Locale.GERMAN);
+        new FileInputStream("test/webpage/download/wet_test_xls.zip"), "UTF-8", Locale.GERMAN, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getXlsContentAsStringError() {
     try {
-      ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH);
+      ContentUtil
+          .getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
       org.junit.Assert
@@ -200,7 +204,7 @@ public class ContentUtilTest {
   public void getZippedXlsContentAsStringError() {
     try {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xls_error.zip"), "UTF-8",
-          Locale.ENGLISH);
+          Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
     } catch (Exception e) {
       org.junit.Assert
@@ -216,7 +220,7 @@ public class ContentUtilTest {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Some content line two Hallo Wetator.");
 
-    String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.");
+    String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.", 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -229,19 +233,19 @@ public class ContentUtilTest {
     tmpExpected.append("This file is used to test WeT.");
 
     String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_txt.zip"), "UTF-8", Locale.ENGLISH);
+        new FileInputStream("test/webpage/download/wet_test_txt.zip"), "UTF-8", Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getTxtContentAsStringFromStream() throws IOException {
     InputStream tmpInput = new FileInputStream("test/webpage/download/wet_test.pdf");
-    String tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8");
+    String tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8", 4000);
     org.junit.Assert.assertEquals(4004, tmpContent.length());
     org.junit.Assert.assertTrue(tmpContent, tmpContent.startsWith("%PDF-1.4"));
 
     tmpInput = new FileInputStream("test/webpage/download/wet_test.xls");
-    tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8");
+    tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8", 4000);
     org.junit.Assert.assertEquals(4004, tmpContent.length());
 
     StringWriter tmpWriter = new StringWriter();
@@ -249,7 +253,7 @@ public class ContentUtilTest {
       tmpWriter.append("0123456789");
     }
     tmpInput = new ByteArrayInputStream(tmpWriter.toString().getBytes("UTF-8"));
-    tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8");
+    tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8", 4000);
     org.junit.Assert.assertEquals(440, tmpContent.length());
     org.junit.Assert.assertTrue(tmpContent, tmpContent.startsWith("0123456789"));
   }
@@ -305,7 +309,7 @@ public class ContentUtilTest {
     tmpExpected.append("<?xml version=\"1.0\"?> <wetator> <Test>Simple xml content</Test> </wetator>");
 
     String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), "UTF-8", Locale.GERMAN);
+        new FileInputStream("test/webpage/download/wet_test_mix.zip"), "UTF-8", Locale.GERMAN, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 

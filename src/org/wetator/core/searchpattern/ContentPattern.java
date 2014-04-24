@@ -103,21 +103,24 @@ public class ContentPattern {
    * Otherwise throws an AssertionFailedException.
    * 
    * @param aContent a String to check
+   * @param aMaxLength the maximum length of the content used for the
+   *        exception text
    * @throws AssertionException if the two strings are not the same
    */
-  public void matches(final String aContent) throws AssertionException {
+  public void matches(final String aContent, final int aMaxLength) throws AssertionException {
     // first the positive only check
     // if this fails we have no need for check the negative ones also
     final List<PatternNode> tmpNodes = checks.get(0);
-    privateMatches(tmpNodes, aContent);
+    privateMatches(tmpNodes, aContent, aMaxLength);
 
     // if we have negated parts, we have to check these also
     for (int i = checks.size() - 1; i > 0; i--) {
-      privateMatchesNegated(checks.get(i), aContent);
+      privateMatchesNegated(checks.get(i), aContent, aMaxLength);
     }
   }
 
-  private void privateMatches(final List<PatternNode> aNodes, final String aContent) throws AssertionException {
+  private void privateMatches(final List<PatternNode> aNodes, final String aContent, final int aMaxLength)
+      throws AssertionException {
     int tmpStartPos = 0;
     boolean tmpFailed = false;
     final StringBuilder tmpResultMessage = new StringBuilder();
@@ -168,8 +171,9 @@ public class ContentPattern {
     }
 
     if (tmpFailed) {
-      // TODO maybe we have to limit the length of the content here
-      Assert.fail("contentsFailed", new String[] { "{", "}", "[", "]", tmpResultMessage.toString(), aContent });
+      // limit the length of the content for the error message
+      tmpContent = StringUtils.abbreviate(aContent, aMaxLength);
+      Assert.fail("contentsFailed", new String[] { "{", "}", "[", "]", tmpResultMessage.toString(), tmpContent });
     }
   }
 
@@ -179,7 +183,8 @@ public class ContentPattern {
     return tmpResult;
   }
 
-  private void privateMatchesNegated(final List<PatternNode> aNodes, final String aContent) throws AssertionException {
+  private void privateMatchesNegated(final List<PatternNode> aNodes, final String aContent, final int aMaxLength)
+      throws AssertionException {
     int tmpStartPos = 0;
     final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
@@ -218,8 +223,9 @@ public class ContentPattern {
       tmpStartPos = tmpFoundSpot.getEndPos();
     }
 
-    // TODO maybe we have to limit the length of the content here
-    Assert.fail("contentsFoundButNegated", new String[] { "{", "}", tmpResultMessage.toString(), aContent });
+    // limit the length of the content for the error message
+    tmpContent = StringUtils.abbreviate(aContent, aMaxLength);
+    Assert.fail("contentsFoundButNegated", new String[] { "{", "}", tmpResultMessage.toString(), tmpContent });
   }
 
   /**

@@ -105,6 +105,8 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
 public final class HtmlUnitBrowser implements IBrowser {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
 
+  private static final int MAX_LENGTH = 4000;
+
   /** The maximum history size. */
   protected static final int MAX_HISTORY_SIZE = 15;
 
@@ -411,7 +413,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       try {
         if (null != message) {
-          message.matches(aConfirmationMessage);
+          message.matches(aConfirmationMessage, MAX_LENGTH);
         }
 
         if (result) {
@@ -945,7 +947,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
 
         try {
-          aTitleToWaitFor.matches(tmpCurrentTitle);
+          aTitleToWaitFor.matches(tmpCurrentTitle, MAX_LENGTH);
           // warn also in case of match to be consistent
           final int tmpJobCount = areJobsActive(tmpHtmlPage);
           if (tmpJobCount > 0) {
@@ -986,7 +988,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-      aTitleToWaitFor.matches(tmpCurrentTitle);
+      aTitleToWaitFor.matches(tmpCurrentTitle, MAX_LENGTH);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);
@@ -1023,9 +1025,9 @@ public final class HtmlUnitBrowser implements IBrowser {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
 
         try {
-          final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+          final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();
           try {
-            aContentToWaitFor.matches(tmpContentAsText);
+            aContentToWaitFor.matches(tmpNormalizedContent, MAX_LENGTH);
 
             // warn also in case of match to be consistent
             final int tmpJobCount = areJobsActive(tmpHtmlPage);
@@ -1082,22 +1084,22 @@ public final class HtmlUnitBrowser implements IBrowser {
               Integer.toString(tmpJobCount) }, null);
         }
 
-        final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
-        aContentToWaitFor.matches(tmpContentAsText);
+        final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();
+        matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
       }
 
       if (tmpPage instanceof XmlPage) {
         final XmlPage tmpXmlPage = (XmlPage) tmpPage;
-        final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
-        aContentToWaitFor.matches(tmpContentAsText);
+        final String tmpNormalizedContent = new NormalizedString(tmpXmlPage.getContent()).toString();
+        matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
       }
 
       if (tmpPage instanceof TextPage) {
         final TextPage tmpTextPage = (TextPage) tmpPage;
-        final String tmpContentAsText = tmpTextPage.getContent();
-        aContentToWaitFor.matches(new NormalizedString(tmpContentAsText).toString());
+        final String tmpNormalizedContent = tmpTextPage.getContent();
+        matchesWithLog(aContentToWaitFor, new NormalizedString(tmpNormalizedContent).toString());
         return tmpPageChanged;
       }
 
@@ -1106,8 +1108,9 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       if (ContentType.PDF == tmpContentType) {
         try {
-          final String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream());
-          aContentToWaitFor.matches(tmpContentAsText);
+          final String tmpNormalizedContent = ContentUtil.getPdfContentAsString(tmpResponse.getContentAsStream(),
+              MAX_LENGTH);
+          matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
@@ -1116,22 +1119,23 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       if (ContentType.XLS == tmpContentType) {
-        String tmpContentAsText = "";
+        String tmpNormalizedContent = "";
         try {
           final String tmpAcceptLangHeader = tmpPage.getWebResponse().getWebRequest().getAdditionalHeaders()
               .get("Accept-Language");
           final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(tmpAcceptLangHeader);
-          tmpContentAsText = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream(), tmpLocale);
+          tmpNormalizedContent = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream(), tmpLocale,
+              MAX_LENGTH);
         } catch (final IOException e) {
           // some server send csv files with xls mime type
           // so lets make another try
           try {
-            tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
-                tmpResponse.getContentCharset());
+            tmpNormalizedContent = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+                tmpResponse.getContentCharset(), MAX_LENGTH);
 
-            if (ContentUtil.isTxt(tmpContentAsText)) {
+            if (ContentUtil.isTxt(tmpNormalizedContent)) {
               wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() }, e);
-              aContentToWaitFor.matches(tmpContentAsText);
+              matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
               return tmpPageChanged;
             }
           } catch (final IOException eAsString) {
@@ -1139,14 +1143,15 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
           Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
         }
-        aContentToWaitFor.matches(tmpContentAsText);
+        matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
       }
 
       if (ContentType.RTF == tmpContentType) {
         try {
-          final String tmpContentAsText = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream());
-          aContentToWaitFor.matches(tmpContentAsText);
+          final String tmpNormalizedContent = ContentUtil.getRtfContentAsString(tmpResponse.getContentAsStream(),
+              MAX_LENGTH);
+          matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
@@ -1159,9 +1164,9 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       if (ContentType.TEXT == tmpContentType) {
         try {
-          final String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
-              tmpResponse.getContentCharset());
-          aContentToWaitFor.matches(tmpContentAsText);
+          final String tmpNormalizedContent = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+              tmpResponse.getContentCharset(), MAX_LENGTH);
+          matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("txtConversionToTextFailed", new String[] { e.getMessage() });
@@ -1174,9 +1179,9 @@ public final class HtmlUnitBrowser implements IBrowser {
           final String tmpAcceptLangHeader = tmpPage.getWebResponse().getWebRequest().getAdditionalHeaders()
               .get("Accept-Language");
           final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(tmpAcceptLangHeader);
-          final String tmpContentAsText = ContentUtil.getZipContentAsString(tmpResponse.getContentAsStream(),
-              tmpResponse.getContentCharset(), tmpLocale);
-          aContentToWaitFor.matches(tmpContentAsText);
+          final String tmpNormalizedContent = ContentUtil.getZipContentAsString(tmpResponse.getContentAsStream(),
+              tmpResponse.getContentCharset(), tmpLocale, MAX_LENGTH);
+          matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
           Assert.fail("zipConversionToTextFailed", new String[] { e.getMessage() });
@@ -1190,8 +1195,9 @@ public final class HtmlUnitBrowser implements IBrowser {
       wetatorEngine.informListenersInfo("unsupportedPageType", new String[] {
           tmpPage.getWebResponse().getContentType(), tmpCharset });
       try {
-        final String tmpContentAsText = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(), tmpCharset);
-        aContentToWaitFor.matches(tmpContentAsText);
+        final String tmpNormalizedContent = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
+            tmpCharset, MAX_LENGTH);
+        matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
       } catch (final IOException e) {
         Assert.fail("txtConversionToTextFailed", new String[] { e.getMessage() });
@@ -1200,6 +1206,18 @@ public final class HtmlUnitBrowser implements IBrowser {
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);
+    }
+  }
+
+  private void matchesWithLog(final ContentPattern aContentToWaitFor, final String aContent) throws AssertionException {
+    try {
+      aContentToWaitFor.matches(aContent, MAX_LENGTH);
+    } catch (final AssertionException e) {
+      if (aContent.length() > MAX_LENGTH) {
+        final String tmpPageFile = responseStore.storeTextContent(aContent);
+        wetatorEngine.informListenersResponseStored(tmpPageFile);
+      }
+      throw e;
     }
   }
 

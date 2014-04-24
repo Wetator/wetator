@@ -109,6 +109,32 @@ public final class ResponseStore {
   }
 
   /**
+   * This method writes the the text to a file with a unique name.
+   * 
+   * @param aContent the text content to save
+   * @return the file name used for this page
+   */
+  public String storeTextContent(final String aContent) {
+    File tmpFile = null;
+    try {
+      final StringBuilder tmpFileName = new StringBuilder("content_").append(getUniqueId());
+
+      tmpFileName.append(".txt");
+      tmpFile = new File(storeDir, tmpFileName.toString());
+
+      FileUtils.write(tmpFile, aContent);
+
+      // to be sure to have the right slashes in the output
+      String tmpLogDir = storeDir.getName();
+      tmpLogDir = tmpLogDir.replaceAll("\\\\", "/");
+
+      return tmpLogDir + "/" + tmpFileName;
+    } catch (final IOException e) {
+      throw new ResourceException("Could not write file '" + tmpFile.getAbsolutePath() + "'.", e);
+    }
+  }
+
+  /**
    * This method writes the page to a file with a unique name.
    * 
    * @param aWebClient the web client
