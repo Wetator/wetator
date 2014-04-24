@@ -53,33 +53,34 @@ import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 public final class ContentUtil {
   private static final Log LOG = LogFactory.getLog(ContentUtil.class);
 
-  private static final int MAX_LENGTH = 4000;
   private static final String MORE = " ...";
 
   /**
    * Converts a text document to string.
    * 
    * @param aContent the input
+   * @param aMaxLength the maximum length
    * @return the normalizes content string
    */
-  public static String getTxtContentAsString(final String aContent) {
+  public static String getTxtContentAsString(final String aContent, final int aMaxLength) {
     final NormalizedString tmpResult = new NormalizedString(aContent);
-    if (tmpResult.length() > MAX_LENGTH) {
-      return tmpResult.substring(0, MAX_LENGTH) + MORE;
+    if (tmpResult.length() > aMaxLength) {
+      return tmpResult.substring(0, aMaxLength) + MORE;
     }
     return tmpResult.toString();
   }
 
   /**
-   * Converts an InputStream to string.
+   * Converts an InputStream into a normalized string.
    * 
    * @param anInputStream the input
    * @param anEncoding the input stream encoding
+   * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of error
    */
-  public static String getTxtContentAsString(final InputStream anInputStream, final String anEncoding)
-      throws IOException {
+  public static String getTxtContentAsString(final InputStream anInputStream, final String anEncoding,
+      final int aMaxLength) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
     final Reader tmpReader = new InputStreamReader(anInputStream, anEncoding);
     final char[] tmpCharBuffer = new char[1024];
@@ -89,10 +90,10 @@ public final class ContentUtil {
     do {
       tmpChars = tmpReader.read(tmpCharBuffer);
       tmpResult.append(tmpCharBuffer, tmpChars);
-      tmpContinue = tmpChars > 0 && tmpResult.length() <= MAX_LENGTH;
+      tmpContinue = tmpChars > 0 && tmpResult.length() <= aMaxLength;
     } while (tmpContinue);
-    if (tmpResult.length() > MAX_LENGTH) {
-      return tmpResult.substring(0, MAX_LENGTH) + MORE;
+    if (tmpResult.length() > aMaxLength) {
+      return tmpResult.substring(0, aMaxLength) + MORE;
     }
     return tmpResult.toString();
   }
@@ -101,18 +102,19 @@ public final class ContentUtil {
    * Converts a pdf document to string.
    * 
    * @param anInputStream the input
+   * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of io errors
    */
-  public static String getPdfContentAsString(final InputStream anInputStream) throws IOException {
+  public static String getPdfContentAsString(final InputStream anInputStream, final int aMaxLength) throws IOException {
     PDDocument tmpDocument;
     tmpDocument = PDDocument.load(anInputStream);
     try {
       final PDFTextStripper tmpStripper = new PDFTextStripper();
       final String tmpContentAsText = tmpStripper.getText(tmpDocument);
       final NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
-      if (tmpResult.length() > MAX_LENGTH) {
-        return tmpResult.substring(0, MAX_LENGTH) + MORE;
+      if (tmpResult.length() > aMaxLength) {
+        return tmpResult.substring(0, aMaxLength) + MORE;
       }
       return tmpResult.toString();
     } finally {
@@ -121,37 +123,40 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts a rtf document to string.
+   * Converts a rtf document into a normalized string.
    * 
    * @param anInputStream the input
+   * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of io errors
    * @throws BadLocationException if parsing goes wrong
    */
-  public static String getRtfContentAsString(final InputStream anInputStream) throws IOException, BadLocationException {
+  public static String getRtfContentAsString(final InputStream anInputStream, final int aMaxLength) throws IOException,
+      BadLocationException {
     final RTFEditorKit tmpRtfEditorKit = new RTFEditorKit();
     final Document tmpDocument = tmpRtfEditorKit.createDefaultDocument();
     tmpRtfEditorKit.read(anInputStream, tmpDocument, 0);
     // don't get the whole document
-    final int tmpLength = Math.min(tmpDocument.getLength(), MAX_LENGTH);
+    final int tmpLength = Math.min(tmpDocument.getLength(), aMaxLength);
     final NormalizedString tmpResult = new NormalizedString(tmpDocument.getText(0, tmpLength));
-    if (tmpDocument.getLength() > MAX_LENGTH) {
+    if (tmpDocument.getLength() > aMaxLength) {
       tmpResult.append(MORE);
     }
     return tmpResult.toString();
   }
 
   /**
-   * Converts an InputStream to string.
+   * Converts an InputStream into a normalized string.
    * 
    * @param anInputStream the input
    * @param anEncoding the input stream encoding
    * @param aXlsLocale the locale used for xls formating
+   * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of error
    */
   public static String getZipContentAsString(final InputStream anInputStream, final String anEncoding,
-      final Locale aXlsLocale) throws IOException {
+      final Locale aXlsLocale, final int aMaxLength) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
     final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream);
 
@@ -164,21 +169,21 @@ public final class ContentUtil {
       final ContentType tmpType = ContentTypeUtil.getContentTypeForFileName(tmpZipEntry.getName());
       if (ContentType.PDF == tmpType) {
         try {
-          tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput)));
+          tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException e) {
           throw new IOException("Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: "
               + e.toString() + ").");
         }
       } else if (ContentType.XLS == tmpType) {
         try {
-          tmpResult.append(getXlsContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale));
+          tmpResult.append(getXlsContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale, aMaxLength));
         } catch (final IOException e) {
           throw new IOException("Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: "
               + e.toString() + ").");
         }
       } else if (ContentType.RTF == tmpType) {
         try {
-          tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput)));
+          tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException e) {
           throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: "
               + e.toString() + ").");
@@ -188,7 +193,7 @@ public final class ContentUtil {
         }
       } else {
         try {
-          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), anEncoding));
+          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), anEncoding, aMaxLength));
         } catch (final IOException e) {
           throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text (reason: "
               + e.toString() + ").");
@@ -205,14 +210,16 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts an xls document to string.
+   * Converts an xls document into a normalized string.
    * 
    * @param anInputStream the input
    * @param aLocale the locale for formating
+   * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of io errors
    */
-  public static String getXlsContentAsString(final InputStream anInputStream, final Locale aLocale) throws IOException {
+  public static String getXlsContentAsString(final InputStream anInputStream, final Locale aLocale, final int aMaxLength)
+      throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
     final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
     final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
@@ -240,8 +247,8 @@ public final class ContentUtil {
           }
 
           // check after each row
-          if (tmpResult.length() > MAX_LENGTH) {
-            return tmpResult.substring(0, MAX_LENGTH) + MORE;
+          if (tmpResult.length() > aMaxLength) {
+            return tmpResult.substring(0, aMaxLength) + MORE;
           }
 
           tmpResult.append(" ");

@@ -179,7 +179,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       final String tmpResultString = tmpResult.toString().trim();
-      tmpPattern.matches(tmpResultString);
+      tmpPattern.matches(tmpResultString, 10000);
     }
   }
 

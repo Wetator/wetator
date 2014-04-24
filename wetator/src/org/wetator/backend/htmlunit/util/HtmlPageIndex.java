@@ -129,7 +129,7 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole text trimmed.
+   * Returns the whole normalized text.
    * 
    * @return the whole text
    */
