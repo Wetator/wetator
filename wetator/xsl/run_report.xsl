@@ -1618,7 +1618,7 @@
             <tr>
                 <td class="light"/>
                 <td class="light"/>
-                <td class="light" style="text-align:right;">
+                <td class="light" style="text-align:right; vertical-align:top;">
                     <!-- link to previous failure/error if exists -->
                     <xsl:choose>
                         <xsl:when test="ancestor::command[count(descendant-or-self::failure) &gt; 0 or count(descendant-or-self::error) &gt; 0]">
