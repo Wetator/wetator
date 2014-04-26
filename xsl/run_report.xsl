@@ -67,18 +67,20 @@
                     td.topBorder { border-top: 1px solid #999; }
                     td.message { background-color: #fff8dc; color: #666666; font-size: 10pt; }
                     td.properties { background-color: #f8f8f8; font-size: 10pt; }
-                    td.failure { background-color: <xsl:value-of select="$blueColor"/>; color: #ffffff; }
-                    td.error { background-color: <xsl:value-of select="$orangeColor"/>; color: #ffffff; }
+
+                    td.success { background-color: <xsl:value-of select="$greenColor"/>; color: #ffffff; width: 4px; }
+                    td.ignored { background-color: <xsl:value-of select="$ignoredColor"/>; color: #717173; width: 4px; }
+                    td.failure { background-color: <xsl:value-of select="$blueColor"/>; color: #ffffff; width: 8px; }
+                    td.error { background-color: <xsl:value-of select="$orangeColor"/>; color: #ffffff; width: 8px; }
+
                     td.errorJumper { text-align: right; vertical-align: top; }
                     td.comment { background-color: #DDDDDD; color: #717173; }
-                    td.ignored { background-color: <xsl:value-of select="$ignoredColor"/>; color: #717173; }
                     h1 { font-size: 12pt; color: #000000; margin-top: 20px; }
                     h2 { font-size: 10pt; color: #4682b4; margin-top: 16px; }
                     p.blue { color: #768bc2; }
                     pre.text { font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre; }
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
-                    .step a:hover{ width:13px;border:1px; }
                     a.linkToCommand { font-size: smaller; display: block; }
                     img { border: 0; }
                     div.header { color: #768bc2; margin-left: 10px; }
@@ -1278,24 +1280,25 @@
                                                 <xsl:text disable-output-escaping="yes">&lt;/tr&gt;&lt;tr&gt;</xsl:text>
                                             </xsl:if>
 
-                                            <td class="step" width="4px">
-                                                <xsl:attribute name="bgcolor">
+                                            <td>
+                                                <xsl:attribute name="class">
+                                                    <xsl:text>step</xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="$noOfErrors = 0 and $noOfFailures = 0">
                                                             <xsl:choose>
                                                                 <xsl:when test="$ignored">
-                                                                    <xsl:value-of select="$ignoredColor"/>
+                                                                    <xsl:text> ignored</xsl:text>
                                                                 </xsl:when>
                                                                 <xsl:otherwise>
-                                                                    <xsl:value-of select="$greenColor"/>
+                                                                    <xsl:text> success</xsl:text>
                                                                 </xsl:otherwise>
                                                             </xsl:choose>
                                                         </xsl:when>
                                                         <xsl:when test="$noOfErrors != 0">
-                                                            <xsl:value-of select="$orangeColor"/>
+                                                            <xsl:text> error</xsl:text>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            <xsl:value-of select="$blueColor"/>
+                                                            <xsl:text> failure</xsl:text>
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:attribute>
