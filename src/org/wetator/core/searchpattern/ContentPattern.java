@@ -128,7 +128,7 @@ public class ContentPattern {
 
     for (final PatternNode tmpNode : nodes) {
       if (tmpResultMessage.length() > 0) {
-        tmpResultMessage.append(", ");
+        tmpResultMessage.append(DELIMITER).append(' ');
       }
 
       final String tmpExpectedString = contructExpectedStringOutput(tmpNode.toString());
@@ -191,7 +191,7 @@ public class ContentPattern {
 
     for (final PatternNode tmpNode : nodes) {
       if (tmpResultMessage.length() > 0) {
-        tmpResultMessage.append(", ");
+        tmpResultMessage.append(DELIMITER).append(' ');
       }
 
       final String tmpExpectedString = tmpNode.toString();
