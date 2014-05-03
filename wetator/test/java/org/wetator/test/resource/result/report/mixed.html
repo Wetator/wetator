@@ -15,21 +15,24 @@
                     td.topBorder { border-top: 1px solid #999; }
                     td.message { background-color: #fff8dc; color: #666666; font-size: 10pt; }
                     td.properties { background-color: #f8f8f8; font-size: 10pt; }
-                    td.failure { background-color: #00769C; color: #ffffff; }
-                    td.error { background-color: #E75013; color: #ffffff; }
+
+                    td.success { background-color: #ACC952; color: #ffffff; width: 4px; }
+                    td.ignored { background-color: #FFFFFF; color: #717173; width: 4px; }
+                    td.failure { background-color: #00769C; color: #ffffff; width: 8px; }
+                    td.error { background-color: #E75013; color: #ffffff; width: 8px; }
+
+                    td.errorJumper { text-align: right; vertical-align: top; }
                     td.comment { background-color: #DDDDDD; color: #717173; }
-                    td.ignored { color: #717173; }
-                    h1 { font-size: 12pt; color: #000000; margin-top:20px; }
-                    h2 { font-size: 10pt; color: #4682b4; margin-top:16px; }
+                    h1 { font-size: 12pt; color: #000000; margin-top: 20px; }
+                    h2 { font-size: 10pt; color: #4682b4; margin-top: 16px; }
                     p.blue { color: #768bc2; }
                     pre.text { font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre; }
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
-                    .step a:hover{ width:13px;border:1px; }
                     a.linkToCommand { font-size: smaller; display: block; }
                     img { border: 0; }
                     div.header { color: #768bc2; margin-left: 10px; }
-                    div.header img { margin-left: -10px; border:0; }
+                    div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
                     .smallBorder { border: 1px solid #999999; }
                     .bold { font-weight: bold; }
@@ -482,13 +485,13 @@
 <td align="center" rowspan="2">1</td><td rowspan="2"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#104">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#104">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#116">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#116">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr></tr>
@@ -499,13 +502,13 @@
 <td align="center" rowspan="2">2</td><td rowspan="2"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td rowspan="2"><a class="link" href="#testspec_122">test2.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#129">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#134">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#143">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#129">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#134">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#143">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#155">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#160">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#169">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#155">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#160">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#169">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr></tr>
@@ -516,13 +519,13 @@
 <td align="center" rowspan="2">3</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_175">test3.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#182">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#187">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#195">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#182">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#187">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#195">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#213">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#218">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#226">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#213">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#218">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#226">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr></tr>
@@ -533,13 +536,13 @@
 <td align="center" rowspan="2">4</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_238">test4.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">4/5</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#245">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#250">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#259">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#264">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#272">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#245">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#250">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#259">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#264">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#272">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">4/5</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#285">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#290">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#299">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#304">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#312">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#285">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#290">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#299">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#304">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#312">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr></tr>
@@ -550,13 +553,13 @@
 <td align="center" rowspan="2">5</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_319">test5.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#326">&nbsp;</a></td><td width="4px" class="step" bgcolor="#00769C" title="test failure"><a class="linkToCommand" href="#331">&nbsp;</a></td><td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#340">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#326">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#331">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#340">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox17" title="Firefox17"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td width="4px" class="step" bgcolor="#ACC952"><a class="linkToCommand" href="#352">&nbsp;</a></td><td width="4px" class="step" bgcolor="#E75013" title="test error"><a class="linkToCommand" href="#357">&nbsp;</a></td><td width="4px" class="step" bgcolor="#FFFFFF"><a class="linkToCommand" href="#365">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#352">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#357">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#365">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">0s</td></tr><tr></tr>
@@ -607,7 +610,7 @@
 <tr><td class="light topBorder" align="center"><a name="129"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="134"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#160" onclick="makeVisible('testfile_149');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#160" onclick="makeVisible('testfile_149');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="143"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
@@ -628,7 +631,7 @@
 <tr><td class="light topBorder" align="center"><a name="155"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="160"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#134" onclick="makeVisible('testfile_123');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#187" onclick="makeVisible('testfile_176');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#134" onclick="makeVisible('testfile_123');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#187" onclick="makeVisible('testfile_176');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="169"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
@@ -649,7 +652,7 @@
 <tr><td class="light topBorder" align="center"><a name="182"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="187"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_187" onclick="showOrHide(this, 'log_187');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#160" onclick="makeVisible('testfile_149');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#218" onclick="makeVisible('testfile_207');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#160" onclick="makeVisible('testfile_149');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#218" onclick="makeVisible('testfile_207');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_187">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
@@ -712,7 +715,7 @@
 <tr><td class="light topBorder" align="center"><a name="213"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="218"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_218" onclick="showOrHide(this, 'log_218');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#187" onclick="makeVisible('testfile_176');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#250" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#187" onclick="makeVisible('testfile_176');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#250" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_218">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
@@ -775,12 +778,12 @@
 <tr><td class="light topBorder" align="center"><a name="245"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="250"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#218" onclick="makeVisible('testfile_207');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#264" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#218" onclick="makeVisible('testfile_207');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#264" onclick="makeVisible('testfile_239');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="259"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="264"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_264" onclick="showOrHide(this, 'log_264');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#250" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#290" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#250" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#290" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_264">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
@@ -842,12 +845,12 @@
 <tr><td class="light topBorder" align="center"><a name="285"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="290"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#264" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#304" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#264" onclick="makeVisible('testfile_239');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#304" onclick="makeVisible('testfile_279');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="299"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="304"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_304" onclick="showOrHide(this, 'log_304');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#290" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#331" onclick="makeVisible('testfile_320');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#290" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#331" onclick="makeVisible('testfile_320');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_304">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
@@ -909,7 +912,7 @@
 <tr><td class="light topBorder" align="center"><a name="326"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="331"></a>3</td><td class="light topBorder" align="center"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#304" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#357" onclick="makeVisible('testfile_346');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#304" onclick="makeVisible('testfile_279');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#357" onclick="makeVisible('testfile_346');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="340"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
@@ -930,7 +933,7 @@
 <tr><td class="light topBorder" align="center"><a name="352"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
 <tr><td class="light topBorder" align="center"><a name="357"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_357" onclick="showOrHide(this, 'log_357');"></td><td class="light topBorder" align="right">0s</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td style="text-align:right;" class="light"><a href="#331" onclick="makeVisible('testfile_320');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#331" onclick="makeVisible('testfile_320');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
 <tr style="display: none;" id="log_357">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
