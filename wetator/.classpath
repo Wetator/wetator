@@ -36,13 +36,9 @@
 	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.14.v20131031.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-8.1.14.v20131031.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="lib/cssparser-0.9.13.jar"/>
 	<classpathentry kind="lib" path="lib/bcmail-jdk15on-1.50.jar"/>
 	<classpathentry kind="lib" path="lib/bcpkix-jdk15on-1.50.jar"/>
 	<classpathentry kind="lib" path="lib/bcprov-jdk15on-1.50.jar"/>
-	<classpathentry kind="lib" path="lib/fontbox-1.8.4.jar"/>
-	<classpathentry kind="lib" path="lib/jempbox-1.8.4.jar"/>
-	<classpathentry kind="lib" path="lib/pdfbox-1.8.4.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.10-FINAL.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.14.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.15-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.15-SNAPSHOT-sources.jar"/>
@@ -51,5 +47,9 @@
 	<classpathentry kind="lib" path="lib/httpmime-4.3.3.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.21-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/jempbox-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-1.8.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
