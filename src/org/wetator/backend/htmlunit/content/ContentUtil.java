@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.util;
+package org.wetator.backend.htmlunit.content;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -42,8 +42,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.wetator.backend.IBrowser.ContentType;
-import org.wetator.backend.htmlunit.util.ContentTypeUtil;
+import org.wetator.backend.IContent.ContentType;
+import org.wetator.util.NormalizedString;
+import org.wetator.util.StringUtil;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.

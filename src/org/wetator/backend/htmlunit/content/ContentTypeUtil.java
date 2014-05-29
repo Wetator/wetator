@@ -14,13 +14,13 @@
  */
 
 
-package org.wetator.backend.htmlunit.util;
+package org.wetator.backend.htmlunit.content;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
-import org.wetator.backend.IBrowser.ContentType;
+import org.wetator.backend.IContent.ContentType;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.TextPage;

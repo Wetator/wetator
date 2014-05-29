@@ -34,40 +34,6 @@ import org.wetator.util.SecretString;
 public interface IBrowser {
 
   /**
-   * Enum for the supported content type.
-   */
-  public enum ContentType {
-    /** html. */
-    HTML,
-    /** css. */
-    CSS,
-    /** javascript. */
-    JAVASCRIPT,
-    /** plain text. */
-    TEXT,
-    /** xml. */
-    XML,
-    /** pdf. */
-    PDF,
-    /** excel. */
-    XLS,
-    /** rtf. */
-    RTF,
-    /** png. */
-    PNG,
-    /** gif. */
-    GIF,
-    /** bmp. */
-    BMP,
-    /** jpeg. */
-    JPEG,
-    /** zip. */
-    ZIP,
-    /** the rest. */
-    OTHER
-  };
-
-  /**
    * Enum for the supported browser types.
    */
   public enum BrowserType {
