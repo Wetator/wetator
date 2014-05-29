@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.util;
+package org.wetator.backend.htmlunit.content;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;

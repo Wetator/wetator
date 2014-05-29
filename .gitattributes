@@ -240,6 +240,7 @@ wetator/src/org/wetator/Version.java -text
 wetator/src/org/wetator/Wetator.java -text
 wetator/src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/IBrowser.java -text
+wetator/src/org/wetator/backend/IContent.java -text
 wetator/src/org/wetator/backend/IControlFinder.java -text
 wetator/src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/WeightedControlList.java -text
@@ -253,6 +254,8 @@ wetator/src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text sv
 wetator/src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/ResponseStore.java -text
 wetator/src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
+wetator/src/org/wetator/backend/htmlunit/content/ContentTypeUtil.java -text
+wetator/src/org/wetator/backend/htmlunit/content/ContentUtil.java -text
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitBaseControl.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitButton.java -text svneol=unset#text/plain
@@ -312,7 +315,6 @@ wetator/src/org/wetator/backend/htmlunit/matcher/ByTextMatcher.java -text svneol
 wetator/src/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcher.java -text
 wetator/src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
-wetator/src/org/wetator/backend/htmlunit/util/ContentTypeUtil.java -text
 wetator/src/org/wetator/backend/htmlunit/util/ExceptionUtil.java -text
 wetator/src/org/wetator/backend/htmlunit/util/HtmlElementUtil.java -text
 wetator/src/org/wetator/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text/plain
@@ -377,7 +379,6 @@ wetator/src/org/wetator/scripter/xml/xsd/sql-command-set-1.0.0.xsd -text svneol=
 wetator/src/org/wetator/scripter/xml/xsd/test-case-1.0.0.xsd -text svneol=unset#text/plain
 wetator/src/org/wetator/scripter/xml/xsd/test-command-set-1.0.0.xsd -text svneol=unset#text/plain
 wetator/src/org/wetator/util/Assert.java -text
-wetator/src/org/wetator/util/ContentUtil.java -text
 wetator/src/org/wetator/util/FileUtil.java -text
 wetator/src/org/wetator/util/FindSpot.java -text
 wetator/src/org/wetator/util/NormalizedString.java -text
@@ -402,6 +403,8 @@ wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java 
 wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/content/ContentTypeUtilTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/content/ContentUtilTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
@@ -446,7 +449,6 @@ wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTextMatcherTest.java -t
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcherTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcherTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcherTest.java -text svneol=unset#text/plain
-wetator/test/java/org/wetator/backend/htmlunit/util/ContentTypeUtilTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
@@ -566,7 +568,6 @@ wetator/test/java/org/wetator/test/resource/wikiText.wett -text
 wetator/test/java/org/wetator/test/resource/xml.wet -text
 wetator/test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
 wetator/test/java/org/wetator/util/AssertTest.java -text
-wetator/test/java/org/wetator/util/ContentUtilTest.java -text
 wetator/test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/util/SecretStringTest.java -text
 wetator/test/java/org/wetator/util/StringUtilTest.java -text

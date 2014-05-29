@@ -14,11 +14,11 @@
  */
 
 
-package org.wetator.backend.htmlunit.util;
+package org.wetator.backend.htmlunit.content;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wetator.backend.IBrowser.ContentType;
+import org.wetator.backend.IContent.ContentType;
 
 /**
  * @author rbri
