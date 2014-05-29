@@ -34,6 +34,7 @@ import javax.swing.text.rtf.RTFEditorKit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -117,6 +118,28 @@ public final class ContentUtil {
         return tmpResult.substring(0, aMaxLength) + MORE;
       }
       return tmpResult.toString();
+    } finally {
+      tmpDocument.close();
+    }
+  }
+
+  /**
+   * Retrieves a pdf document title from the metadata.
+   * 
+   * @param anInputStream the input
+   * @return the normalizes title string
+   * @throws IOException in case of io errors
+   */
+  public static String getPdfTitleAsString(final InputStream anInputStream) throws IOException {
+    PDDocument tmpDocument;
+    tmpDocument = PDDocument.load(anInputStream);
+    try {
+      final PDDocumentInformation tmpInfo = tmpDocument.getDocumentInformation();
+      if (null != tmpInfo) {
+        final NormalizedString tmpResult = new NormalizedString(tmpInfo.getTitle());
+        return tmpResult.toString();
+      }
+      return "";
     } finally {
       tmpDocument.close();
     }

@@ -595,6 +595,7 @@ wetator/test/webpage/assert_disabled.html -text
 wetator/test/webpage/assert_selected.html -text
 wetator/test/webpage/assert_set.html -text
 wetator/test/webpage/assert_title.html -text
+wetator/test/webpage/assert_title_normalize.html -text
 wetator/test/webpage/click_after.html -text
 wetator/test/webpage/click_on.html -text
 wetator/test/webpage/click_on_table.html -text svneol=unset#text/plain
@@ -613,6 +614,7 @@ wetator/test/webpage/download/wet_test_mix.zip -text
 wetator/test/webpage/download/wet_test_pdf.zip -text
 wetator/test/webpage/download/wet_test_pdf_error.zip -text
 wetator/test/webpage/download/wet_test_rtf.zip -text
+wetator/test/webpage/download/wet_test_title.pdf -text
 wetator/test/webpage/download/wet_test_txt.zip -text
 wetator/test/webpage/download/wet_test_xls.zip -text
 wetator/test/webpage/download/wet_test_xls_error.zip -text

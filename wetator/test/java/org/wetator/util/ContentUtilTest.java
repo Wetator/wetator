@@ -35,6 +35,18 @@ import org.junit.Test;
 public class ContentUtilTest {
 
   @Test
+  public void getPdfTitleAsString() throws FileNotFoundException, IOException {
+    String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test_title.pdf"));
+    org.junit.Assert.assertEquals("WETATOR Titel Test", tmpTitle);
+  }
+
+  @Test
+  public void getPdfTitleAsStringEmpty() throws FileNotFoundException, IOException {
+    String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+    org.junit.Assert.assertEquals("", tmpTitle);
+  }
+
+  @Test
   public void getPdfContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");

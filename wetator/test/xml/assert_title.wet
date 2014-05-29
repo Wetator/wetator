@@ -6,6 +6,21 @@
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
     version='1.0.0'>
+    <command><d:open-url><d:url>assert_title.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>Wetator / Assert T??l*</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_title_normalize.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Title Normalize</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>Wetator / Assert Tit*</d:title></d:assert-title></command>
+    <comment></comment>
+    <command><d:open-url><d:url>download/wet_test_title.pdf</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>WETATOR Titel Test</d:title></d:assert-title></command>
+    <command><d:assert-title><d:title>W* Titel Test</d:title></d:assert-title></command>
+    <comment>test for unsupported type</comment>
+    <command><d:open-url><d:url>download/download.txt</d:url></d:open-url></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Title, Command assert-title does not support content type 'TEXT'. Only web pages and PDF are supported at the moment.</tst:command-and-message><tst:parameter1>TXT-File</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Content</d:title></d:assert-title></command>
     <command><d:assert-title><d:title>Wetator / Assert Cont*</d:title></d:assert-title></command>
@@ -15,6 +30,8 @@
     <command><d:assert-title><d:title>Wetator / Assert Sel*</d:title></d:assert-title></command>
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
+    <comment>test for required parameter</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Title, The command 'assert-title' requires a first parameter.</tst:command-and-message><tst:parameter1></tst:parameter1></tst:assert-fail></command>
     <comment>test for warning about unused parameter</comment>
     <command><tst:assert-fail><tst:command-and-message>Assert Title, The command 'assert-title' expects an integer parameter value 'unused' as parameter 2.</tst:command-and-message><tst:parameter1>Wetator / Assert Content</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
     <comment>test for parameter support</comment>
