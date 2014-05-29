@@ -979,16 +979,39 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpEndTime = Math.max(tmpEndTime, System.currentTimeMillis() + jsTimeoutInMillis);
       }
 
-      final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-      // inform if there are still pending js jobs
-      final int tmpJobCount = areJobsActive(tmpHtmlPage);
-      if (tmpJobCount > 0) {
-        wetatorEngine.informListenersWarn("stillJobsActive", new String[] { Long.toString(jsTimeoutInMillis / 1000),
-            Integer.toString(tmpJobCount) }, null);
+      tmpPage = getCurrentPage();
+
+      if (tmpPage.isHtmlPage()) {
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+
+        // inform if there are still pending js jobs
+        final int tmpJobCount = areJobsActive(tmpHtmlPage);
+        if (tmpJobCount > 0) {
+          wetatorEngine.informListenersWarn("stillJobsActive", new String[] { Long.toString(jsTimeoutInMillis / 1000),
+              Integer.toString(tmpJobCount) }, null);
+        }
+
+        final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+        aTitleToWaitFor.matches(tmpCurrentTitle, MAX_LENGTH);
       }
 
-      final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-      aTitleToWaitFor.matches(tmpCurrentTitle, MAX_LENGTH);
+      final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
+      final WebResponse tmpResponse = tmpPage.getWebResponse();
+
+      if (ContentType.PDF == tmpContentType) {
+        try {
+          final String tmpNormalizedTitle = ContentUtil.getPdfTitleAsString(tmpResponse.getContentAsStream());
+          aTitleToWaitFor.matches(tmpNormalizedTitle, MAX_LENGTH);
+          return tmpPageChanged;
+        } catch (final IOException e) {
+          Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        }
+      }
+
+      // content type without title
+      Assert.fail("assertTitleUnsupportedContent", new String[] { tmpContentType.toString() });
+
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);

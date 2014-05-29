@@ -392,6 +392,7 @@ test/webpage/assert_disabled.html -text
 test/webpage/assert_selected.html -text
 test/webpage/assert_set.html -text
 test/webpage/assert_title.html -text
+test/webpage/assert_title_normalize.html -text
 test/webpage/click_after.html -text
 test/webpage/click_on.html -text
 test/webpage/click_on_table.html -text svneol=unset#text/plain
@@ -410,6 +411,7 @@ test/webpage/download/wet_test_mix.zip -text
 test/webpage/download/wet_test_pdf.zip -text
 test/webpage/download/wet_test_pdf_error.zip -text
 test/webpage/download/wet_test_rtf.zip -text
+test/webpage/download/wet_test_title.pdf -text
 test/webpage/download/wet_test_txt.zip -text
 test/webpage/download/wet_test_xls.zip -text
 test/webpage/download/wet_test_xls_error.zip -text
