@@ -109,8 +109,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
-      final boolean tmpIsDisabled = tmpControl.hasFocus(aContext);
-      Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
+      final boolean tmpHasFocus = tmpControl.hasFocus(aContext);
+      Assert.assertTrue(tmpHasFocus, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
     }
   }
 
