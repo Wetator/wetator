@@ -131,7 +131,7 @@ public class ContentPattern {
         tmpResultMessage.append(DELIMITER).append(' ');
       }
 
-      final String tmpExpectedString = contructExpectedStringOutput(tmpNode.toString());
+      final String tmpExpectedString = buildExpectedStringOutput(tmpNode.toString());
       if (!aNodes.contains(tmpNode)) {
         tmpResultMessage.append(tmpExpectedString);
         continue;
@@ -177,7 +177,7 @@ public class ContentPattern {
     }
   }
 
-  private String contructExpectedStringOutput(final String anExpectedString) {
+  private String buildExpectedStringOutput(final String anExpectedString) {
     String tmpResult = StringUtils.replace(anExpectedString, " ", "\u2423");
     tmpResult = StringUtils.replace(tmpResult, "\t", "\u2423");
     return tmpResult;

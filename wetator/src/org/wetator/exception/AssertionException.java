@@ -25,6 +25,7 @@ package org.wetator.exception;
 public class AssertionException extends CommandException {
 
   private static final long serialVersionUID = -1587032805061848761L;
+  private String detailHtml;
 
   /**
    * The constructor.
@@ -43,5 +44,26 @@ public class AssertionException extends CommandException {
    */
   public AssertionException(final String aMessage, final Throwable aCause) {
     super(aMessage, aCause);
+  }
+
+  /**
+   * @return true if any detail available
+   */
+  public boolean hasDetail() {
+    return null != detailHtml;
+  }
+
+  /**
+   * @return the detailHtml
+   */
+  public String getDetailHtml() {
+    return detailHtml;
+  }
+
+  /**
+   * @param aDetailHtml the details
+   */
+  public void setDetailHtml(final String aDetailHtml) {
+    detailHtml = aDetailHtml;
   }
 }
