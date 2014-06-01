@@ -76,6 +76,33 @@ div.error {
 input.error {
   border: 1px solid #D8000C;
 }
+
+.wRadio {
+  width: 2em;
+  vertical-align: middle;
+}
+.wRadioLabel {
+  font-size: 0.88em;
+  margin-bottom: 0;
+}
+.wCheck {
+  width: 2em;
+  vertical-align: middle;
+}
+.wCheckLabel {
+  font-size: 0.88em;
+  margin-bottom: 0;
+}
+.wFieldsetContent {
+  margin-left: 0em;
+}
+.wColumns > tbody > tr > th {
+  font-weight: normal;
+  padding-left: 3em;
+}
+.wColumns > tbody > tr > td {
+  padding-left: 4em;
+}
 </style>
 
 
@@ -96,6 +123,88 @@ input.error {
       <div><label>Your profession</label><input type="text" size="30"/></div>
       <div><label for="wetatorUpload">Upload your resume</label><input type="file" name="wetatorUpload" id="wetatorUpload" /></div>
     </fieldset>
+
+    <fieldset>
+      <legend>Donate for WETATOR development</legend>
+        <div class='wFieldsetContent'>
+          <table class='wColumns'>
+          <tr>
+            <th>Please improve</th>
+            <th>Payment Options</th>
+            <th>Amount</th>
+          </tr>
+
+          <tr>
+          <td>
+          <table>
+            <tr><td><input type="checkbox" class='wCheck' name="target" value="1"></td><td><div class='wCheckLabel'>execution speed</div></td></tr>
+            <tr><td><input type="checkbox" class='wCheck' name="target" value="1"></td><td><div class='wCheckLabel'>more commands</div></td></tr>
+            <tr><td><input type="checkbox" class='wCheck' name="target" value="1"></td><td><div class='wCheckLabel'>WTE</div></td></tr>
+            <tr><td><input type="checkbox" class='wCheck' name="target" value="1"></td><td><div class='wCheckLabel'>documentation</div></td></tr>
+            <tr><td><input type="checkbox" class='wCheck' name="target" value="1"></td><td><div class='wCheckLabel'>web site</div></td></tr>
+          </table>
+
+          </td><td>
+
+          <table>
+            <tr><td><input type="radio" class='wRadio' name="payment" value="Mastercard"></td><td><div class='wRadioLabel'>Mastercard</div></td></tr>
+            <tr><td><input type="radio" class='wRadio' name="payment " value="Visa"></td><td><div class='wRadioLabel'>Visa</div></td></tr>
+            <tr><td><input type="radio" class='wRadio' name="payment" value="AmericanExpress"></td><td><div class='wRadioLabel'>American Express</div></td></tr>
+            <tr><td><input type="radio" class='wRadio' name="payment" value="Paypal"></td><td><div class='wRadioLabel'>Paypal</div></td></tr>
+          </table>
+
+          </td><td>
+
+          <select name="amount" size="6" id="amount">
+            <option>10 &euro;</option>
+            <option>100 &euro;</option>
+            <option>1000 &euro;</option>
+            <option>10000 &euro;</option>
+            <option>10000= &euro;</option>
+            <option>1000000 &euro;</option>
+          </select>
+
+          </td></tr>
+          </table>
+
+        </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Layout</legend>
+        <div class='wFieldsetContent'>
+          <table class='wColumns'>
+          <tr>
+            <th>Foreground</th>
+            <th>Background</th>
+          </tr>
+
+          <tr>
+          <td>
+          <select name="foreground" size="4" id="amount">
+            <option>Red</option>
+            <option selected>Green</option>
+            <option>Blue</option>
+            <option>Orange</option>
+            <option>Gray</option>
+          </select>
+
+          </td><td>
+
+          <select name="background" size="4" id="amount">
+            <option>Red</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option selected>Orange</option>
+            <option>Gray</option>
+          </select>
+
+          </td></tr>
+          </table>
+
+        </div>
+    </fieldset>
+
 
     <div class="action"><input type="submit" name="submit" value="Submit My Truth" id="submit" /></div>
   </form> 
