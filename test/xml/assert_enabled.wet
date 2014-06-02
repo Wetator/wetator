@@ -21,6 +21,8 @@
     <comment>Element: InputText</comment>
     <comment>InputText with name</comment>
     <command><d:assert-enabled><d:wpath>inputText_Name</d:wpath></d:assert-enabled></command>
+    <comment>Readonly InputText with name</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Enabled, The HTML element [HtmlTextInput (name='readonly_inputText_Name')] is not enabled.</tst:command-and-message><tst:parameter1>readonly_inputText_Name</tst:parameter1></tst:assert-fail></command>
     <comment>InputText with id</comment>
     <command><d:assert-enabled><d:wpath>inputText_Id</d:wpath></d:assert-enabled></command>
     <comment>InputText identified by label</comment>
@@ -44,6 +46,8 @@
     <comment>Element: InputPassword</comment>
     <comment>InputPassword with name</comment>
     <command><d:assert-enabled><d:wpath>inputPassword_Name</d:wpath></d:assert-enabled></command>
+    <comment>Readonly InputPassword with name</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Enabled, The HTML element [HtmlPasswordInput (name='readonly_inputPassword_Name')] is not enabled.</tst:command-and-message><tst:parameter1>readonly_inputPassword_Name</tst:parameter1></tst:assert-fail></command>
     <comment>InputPassword with id</comment>
     <command><d:assert-enabled><d:wpath>inputPassword_Id</d:wpath></d:assert-enabled></command>
     <comment>InputPassword identified by label</comment>
@@ -65,6 +69,8 @@
     <comment>Element: TextArea</comment>
     <comment>TextArea with name</comment>
     <command><d:assert-enabled><d:wpath>textArea_Name</d:wpath></d:assert-enabled></command>
+    <comment>Readonly TextArea with name</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Enabled, The HTML element [HtmlTextArea (name='readonly_textArea_Name')] is not enabled.</tst:command-and-message><tst:parameter1>readonly_textArea_Name</tst:parameter1></tst:assert-fail></command>
     <comment>TextArea with id</comment>
     <command><d:assert-enabled><d:wpath>textArea_Id</d:wpath></d:assert-enabled></command>
     <comment>TextArea identified by label</comment>
