@@ -48,6 +48,7 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="Assert_Content" />
       <xs:enumeration value="Assert_Deselected" />
+      <xs:enumeration value="Assert_Enabled" />
       <xs:enumeration value="Assert_Disabled" />
       <xs:enumeration value="Assert_Selected" />
       <xs:enumeration value="Assert_Set" />
