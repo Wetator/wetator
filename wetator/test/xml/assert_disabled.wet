@@ -11,9 +11,11 @@
     <comment>test for unused parameter</comment>
     <command><tst:assert-fail><tst:command-and-message>Assert Disabled, The command 'assert-disabled' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>inputText_Name</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
     <comment></comment>
-    <comment></comment>
     <comment>Element: not found</comment>
     <command><tst:assert-fail><tst:command-and-message>Assert Disabled, No HTML element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment>Element: not disabled</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Disabled, The HTML element [HtmlTextInput (name='inputText_Name_enabled')] is not disabled.</tst:command-and-message><tst:parameter1>inputText_Name_enabled</tst:parameter1></tst:assert-fail></command>
     <comment> </comment>
     <comment> </comment>
     <comment>Element: InputText</comment>

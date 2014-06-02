@@ -76,10 +76,19 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
+  public void assertEnabled() throws InvalidInputException {
+    executeTestFile("assert_enabled.wet");
+
+    Assert.assertEquals(55, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
   public void assertDisabled() throws InvalidInputException {
     executeTestFile("assert_disabled.wet");
 
-    Assert.assertEquals(54, getSteps());
+    Assert.assertEquals(55, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

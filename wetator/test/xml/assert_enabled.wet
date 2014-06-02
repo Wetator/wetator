@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>assert_enabled.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Enabled</d:title></d:assert-title></command>
+    <comment>test for unused parameter</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Enabled, The command 'assert-enabled' does not use the value 'unused' provided as parameter 2.</tst:command-and-message><tst:parameter1>inputText_Name</tst:parameter1><tst:parameter2>unused</tst:parameter2></tst:assert-fail></command>
+    <comment></comment>
+    <comment>Element: not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Enabled, No HTML element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment>Element: not enabled</comment>
+    <command><tst:assert-fail><tst:command-and-message>Assert Enabled, The HTML element [HtmlTextInput (name='inputText_Name_disabled')] is not enabled.</tst:command-and-message><tst:parameter1>inputText_Name_disabled</tst:parameter1></tst:assert-fail></command>
+    <comment> </comment>
+    <comment> </comment>
+    <comment>Element: InputText</comment>
+    <comment>InputText with name</comment>
+    <command><d:assert-enabled><d:wpath>inputText_Name</d:wpath></d:assert-enabled></command>
+    <comment>InputText with id</comment>
+    <command><d:assert-enabled><d:wpath>inputText_Id</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by label</comment>
+    <command><d:assert-enabled><d:wpath>InputText Label</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout directly before</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel before</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout directly before formated</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel before formated</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout at top</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel at top</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout at top formated</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel at top formated</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout at left</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel at left</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout at left formated</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel at left formated</d:wpath></d:assert-enabled></command>
+    <comment>InputText identified by layout at left formated</comment>
+    <command><d:assert-enabled><d:wpath>InputText LayoutLabel at left formated</d:wpath></d:assert-enabled></command>
+    <comment> </comment>
+    <comment> </comment>
+    <comment>Element: InputPassword</comment>
+    <comment>InputPassword with name</comment>
+    <command><d:assert-enabled><d:wpath>inputPassword_Name</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword with id</comment>
+    <command><d:assert-enabled><d:wpath>inputPassword_Id</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by label</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword Label</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by layout directly before</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword LayoutLabel before</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by layout directly before formated</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword LayoutLabel before formated</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by layout at top</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword LayoutLabel at top</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by layout at top formated</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword LayoutLabel at top formated</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by layout at left</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword LayoutLabel at left</d:wpath></d:assert-enabled></command>
+    <comment>InputPassword identified by layout at left formated</comment>
+    <command><d:assert-enabled><d:wpath>InputPassword LayoutLabel at left formated</d:wpath></d:assert-enabled></command>
+    <comment> </comment>
+    <comment> </comment>
+    <comment>Element: TextArea</comment>
+    <comment>TextArea with name</comment>
+    <command><d:assert-enabled><d:wpath>textArea_Name</d:wpath></d:assert-enabled></command>
+    <comment>TextArea with id</comment>
+    <command><d:assert-enabled><d:wpath>textArea_Id</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by label</comment>
+    <command><d:assert-enabled><d:wpath>TextArea Label</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by layout directly before</comment>
+    <command><d:assert-enabled><d:wpath>TextArea LayoutLabel before</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by layout directly before formated</comment>
+    <command><d:assert-enabled><d:wpath>TextArea LayoutLabel before formated</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by layout at top</comment>
+    <command><d:assert-enabled><d:wpath>TextArea LayoutLabel at top</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by layout at top formated</comment>
+    <command><d:assert-enabled><d:wpath>TextArea LayoutLabel at top formated</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by layout at left</comment>
+    <command><d:assert-enabled><d:wpath>TextArea LayoutLabel at left</d:wpath></d:assert-enabled></command>
+    <comment>TextArea identified by layout at left formated</comment>
+    <command><d:assert-enabled><d:wpath>TextArea LayoutLabel at left formated</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Button</comment>
+    <comment>Button with text</comment>
+    <command><d:assert-enabled><d:wpath>ButtonWithText</d:wpath></d:assert-enabled></command>
+    <comment>Button with image alt</comment>
+    <command><d:assert-enabled><d:wpath>b_imageTestAlt</d:wpath></d:assert-enabled></command>
+    <comment>Button with image title</comment>
+    <command><d:assert-enabled><d:wpath>b_imageTestTitle</d:wpath></d:assert-enabled></command>
+    <comment>Button with image src</comment>
+    <command><d:assert-enabled><d:wpath>sword2.png</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: InputSubmit</comment>
+    <comment>InputSubmit with value</comment>
+    <command><d:assert-enabled><d:wpath>InputTypeSubmit</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: InputButton</comment>
+    <comment>InputButton with value</comment>
+    <command><d:assert-enabled><d:wpath>Button</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: InputImage</comment>
+    <comment>InputImage with alt</comment>
+    <command><d:assert-enabled><d:wpath>ImageButton</d:wpath></d:assert-enabled></command>
+    <comment>InputImage with title</comment>
+    <command><d:assert-enabled><d:wpath>ImageButtonTitle</d:wpath></d:assert-enabled></command>
+    <comment>InputImage with src</comment>
+    <command><d:assert-enabled><d:wpath>sword1.png</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: InputRadio</comment>
+    <comment>InputRadio with id</comment>
+    <command><d:assert-enabled><d:wpath>i_r_inputtyperadioid</d:wpath></d:assert-enabled></command>
+    <comment>InputType Radio with name makes no sense</comment>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: InputCheckbox</comment>
+    <comment>InputCheckbox with id</comment>
+    <command><d:assert-enabled><d:wpath>i_c_inputtypecheckboxid</d:wpath></d:assert-enabled></command>
+    <comment>InputCheckbox with name</comment>
+    <command><d:assert-enabled><d:wpath>i_c_inputtypecheckboxname</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Select</comment>
+    <comment>SingleSelect with name</comment>
+    <command><d:assert-enabled><d:wpath>singleSelect_Name</d:wpath></d:assert-enabled></command>
+    <comment>SingleSelect (incl. OptGroup) with name</comment>
+    <command><d:assert-enabled><d:wpath>singleSelectOptGroup_Name</d:wpath></d:assert-enabled></command>
+    <comment>SingleSelect with id</comment>
+    <command><d:assert-enabled><d:wpath>singleSelect_Id</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: OptGroup</comment>
+    <comment>Fails in IE 6.0 (Bug)</comment>
+    <comment>OptGroup with Label</comment>
+    <command><d:assert-enabled><d:wpath>colors</d:wpath></d:assert-enabled></command>
+    <comment>OptGroup with id</comment>
+    <command><d:assert-enabled><d:wpath>optgroup_colors</d:wpath></d:assert-enabled></command>
+    <comment>OptGroup in disabled Select</comment>
+    <command><d:assert-enabled><d:wpath>optgroup_values</d:wpath></d:assert-enabled></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>Element: Option</comment>
+    <comment>Fails in IE 6.0 (Bug)</comment>
+    <comment>Option with id</comment>
+    <command><d:assert-enabled><d:wpath>option1</d:wpath></d:assert-enabled></command>
+    <comment>Option (in OptGroup)  with id</comment>
+    <command><d:assert-enabled><d:wpath>option_red</d:wpath></d:assert-enabled></command>
+    <comment>Option in disabled Select</comment>
+    <command><d:assert-enabled><d:wpath>option2</d:wpath></d:assert-enabled></command>
+    <comment>Option in disabled OptGroup</comment>
+    <command><d:assert-enabled><d:wpath>option3</d:wpath></d:assert-enabled></command>
+</test-case>

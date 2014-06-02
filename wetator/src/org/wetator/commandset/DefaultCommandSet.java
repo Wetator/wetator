@@ -79,6 +79,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
     registerCommand("assert-title", new CommandAssertTitle());
     registerCommand("assert-content", new CommandAssertContent());
+    registerCommand("assert-enabled", new CommandAssertEnabled());
     registerCommand("assert-disabled", new CommandAssertDisabled());
     registerCommand("assert-set", new CommandAssertSet());
     registerCommand("assert-selected", new CommandAssertSelected());
@@ -581,6 +582,46 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpBrowser.saveCurrentWindowToLog();
         throw e;
       }
+    }
+  }
+
+  /**
+   * Command 'Assert Enabled'.
+   */
+  public final class CommandAssertEnabled implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
+
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
+
+      // TextInputs / PasswordInputs / TextAreas / FileInputs
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
+      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+
+      // search for special elements
+      // e.g. selects by label, name, id
+      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
+
+      // clickable Text
+      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+
+      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+          "noHtmlElementFound");
+
+      final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
+      Assert.assertFalse(tmpIsDisabled, "elementNotEnabled", new String[] { tmpControl.getDescribingText() });
     }
   }
 

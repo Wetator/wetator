@@ -592,6 +592,7 @@ wetator/test/webpage/assert_content.html -text
 wetator/test/webpage/assert_content_frameset.html -text
 wetator/test/webpage/assert_content_frameset2.html -text
 wetator/test/webpage/assert_disabled.html -text
+wetator/test/webpage/assert_enabled.html -text
 wetator/test/webpage/assert_selected.html -text
 wetator/test/webpage/assert_set.html -text
 wetator/test/webpage/assert_title.html -text
@@ -1040,6 +1041,7 @@ wetator/test/xml/assert_deselected_multipleSelect.wet -text svneol=unset#text/pl
 wetator/test/xml/assert_deselected_radio.wet -text svneol=unset#text/plain
 wetator/test/xml/assert_deselected_singleSelect.wet -text svneol=unset#text/plain
 wetator/test/xml/assert_disabled.wet -text svneol=unset#text/plain
+wetator/test/xml/assert_enabled.wet -text
 wetator/test/xml/assert_selected_checkbox.wet -text svneol=unset#text/plain
 wetator/test/xml/assert_selected_multipleSelect.wet -text svneol=unset#text/plain
 wetator/test/xml/assert_selected_radio.wet -text svneol=unset#text/plain
