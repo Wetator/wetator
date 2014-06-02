@@ -21,6 +21,8 @@
     <comment>Element: InputText</comment>
     <comment>InputText with name</comment>
     <command><d:assert-disabled><d:wpath>inputText_Name</d:wpath></d:assert-disabled></command>
+    <comment>Readonly InputText with name</comment>
+    <command><d:assert-disabled><d:wpath>readonly_inputText_Name</d:wpath></d:assert-disabled></command>
     <comment>InputText with id</comment>
     <command><d:assert-disabled><d:wpath>inputText_Id</d:wpath></d:assert-disabled></command>
     <comment>InputText identified by label</comment>
@@ -44,6 +46,8 @@
     <comment>Element: InputPassword</comment>
     <comment>InputPassword with name</comment>
     <command><d:assert-disabled><d:wpath>inputPassword_Name</d:wpath></d:assert-disabled></command>
+    <comment>Readonly InputPassword with name</comment>
+    <command><d:assert-disabled><d:wpath>readonly_inputPassword_Name</d:wpath></d:assert-disabled></command>
     <comment>InputPassword with id</comment>
     <command><d:assert-disabled><d:wpath>inputPassword_Id</d:wpath></d:assert-disabled></command>
     <comment>InputPassword identified by label</comment>
@@ -65,6 +69,8 @@
     <comment>Element: TextArea</comment>
     <comment>TextArea with name</comment>
     <command><d:assert-disabled><d:wpath>textArea_Name</d:wpath></d:assert-disabled></command>
+    <comment>Readonly TextArea with name</comment>
+    <command><d:assert-disabled><d:wpath>readonly_textArea_Name</d:wpath></d:assert-disabled></command>
     <comment>TextArea with id</comment>
     <command><d:assert-disabled><d:wpath>textArea_Id</d:wpath></d:assert-disabled></command>
     <comment>TextArea identified by label</comment>
