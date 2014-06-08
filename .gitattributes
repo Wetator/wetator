@@ -15,6 +15,7 @@ ant_lib/ivy-2.3.0.jar -text
 /build.xml -text
 /chat -text
 docu/sample_pages/docu_screens.html -text
+docu/sample_pages/shopping_cart.png -text
 /exceptions.txt -text svneol=unset#text/plain
 /ivy.xml -text svneol=unset#text/plain
 /ivysettings.xml -text svneol=unset#text/plain
