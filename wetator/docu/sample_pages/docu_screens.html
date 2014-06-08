@@ -105,17 +105,31 @@ input.error {
 }
 </style>
 
-
   <form action="" method="post" id="formTest">
+
+    <h2>All screenshots are captured with Greenshot; the Greenshot editor was used to add the Drop Shadow effekt.</h2>
+
     <fieldset>
       <legend>For which project do you use WETATOR?</legend>
         <div><label for="project" class="required">Project name</label><input type="text" name="projectName" size="40" id="project" class="required" /></div>
         <div><label for="language">Project programming language(s)</label><select name="language" size="4" id="language"><option value="JAVA">JAVA</option><option value="JavaScript">JavaScript</option><option value="C#">C#</option><option value="" selected="selected">other</option></select></div>
     </fieldset>
+
     <fieldset>
       <legend>What do you think about WETATOR?</legend>
       <div><div id="wetatorIs"><label for="wetatorIs">WETATOR is</label> <input type="checkbox" name="wetatorIs[]" id="wetatorIs_wetatorIs_amazing" value="amazing" class="checkbox" /><label for="wetatorIs_wetatorIs_amazing" class="checkbox">amazing</label> <input type="checkbox" name="wetatorIs[]" id="wetatorIs_wetatorIs_visionary" value="visionary" class="checkbox" /><label for="wetatorIs_wetatorIs_visionary" class="checkbox">visionary</label> <input type="checkbox" name="wetatorIs[]" id="wetatorIs_wetatorIs_marvelous" value="marvelous" class="checkbox" /><label for="wetatorIs_wetatorIs_marvelous" class="checkbox">marvelous</label></div></div>
       <div><label for="wetatorIsText">WETATOR makes</label><textarea name="wetatorIsText" id="wetatorIsText"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Click</legend>
+      <input type="submit" name="submit" value="Search" id="submit" style='padding: 2px 6px; font-size: 0.88em;' />
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button id="addToCart" title='Add to cart' style='padding-top: 3px;'>
+        <img src='shopping_cart.png' width='26' height='26' style=''/>
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#" style='font-size: 0.88em; margin-left: 200px'>Show details</a>
     </fieldset>
 
     <fieldset>
