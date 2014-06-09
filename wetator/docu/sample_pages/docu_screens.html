@@ -126,7 +126,7 @@ input.error {
       <input type="submit" name="submit" value="Search" id="submit" style='padding: 2px 6px; font-size: 0.88em;' />
       &nbsp;&nbsp;&nbsp;&nbsp;
       <button id="addToCart" title='Add to cart' style='padding-top: 3px;'>
-        <img src='shopping_cart.png' width='26' height='26' style=''/>
+        <img src='shopping_cart.png' width='26' height='26' alt='shopping cart' />
       </button>
       &nbsp;&nbsp;&nbsp;&nbsp;
       <a href="#" style='font-size: 0.88em; margin-left: 200px'>Show details</a>
@@ -189,34 +189,47 @@ input.error {
         <div class='wFieldsetContent'>
           <table class='wColumns'>
           <tr>
-            <th>Foreground</th>
-            <th>Background</th>
+            <th style='vertical-align: top; padding-left: 1.5em;'>Foreground</th>
+
+            <td style='padding-left: 1em;'>
+              <select name="foreground" size="4" id="amount">
+                <option>Red</option>
+                <option selected>Green</option>
+                <option>Blue</option>
+                <option>Orange</option>
+                <option>Gray</option>
+              </select>
+            </td>
+
+            <th style='vertical-align: top;'>Background</th>
+
+            <td style='padding-left: 1em;'>
+              <select name="background" size="4" id="amount">
+                <option>Red</option>
+                <option>Green</option>
+                <option>Blue</option>
+                <option selected>Orange</option>
+                <option>Gray</option>
+              </select>
+            </td>
           </tr>
-
-          <tr>
-          <td>
-          <select name="foreground" size="4" id="amount">
-            <option>Red</option>
-            <option selected>Green</option>
-            <option>Blue</option>
-            <option>Orange</option>
-            <option>Gray</option>
-          </select>
-
-          </td><td>
-
-          <select name="background" size="4" id="amount">
-            <option>Red</option>
-            <option>Green</option>
-            <option>Blue</option>
-            <option selected>Orange</option>
-            <option>Gray</option>
-          </select>
-
-          </td></tr>
           </table>
 
         </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Payment</legend>
+      <div>
+        <label>Credit card no</label>
+        <input type="text" size="4" style='width: 4em;'/>
+        -
+        <input type="text" size="4" style='width: 4em;'/>
+        -
+        <input type="text" size="4" style='width: 4em;'/>
+        -
+        <input type="text" size="4" style='width: 4em;'/>
+      </div>
     </fieldset>
 
 
