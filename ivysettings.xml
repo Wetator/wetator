@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
+    <properties environment="env" />
 
     <settings defaultResolver="chain" />
 
     <credentials host="oss.sonatype.org"
                  realm="Sonatype Nexus Repository Manager"
                  username="${sonatype.username}" passwd="${sonatype.passwd}"/>
+    <signers>
+        <pgp name="nexus-sig" password="${pgp.passphrase}" secring="${env.appdata}/gnupg/secring.gpg"/>
+    </signers>
 
     <resolvers>
         <ibiblio name="ibiblio" m2compatible="true" checksums="" />
@@ -21,9 +25,13 @@
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
 
-        <filesystem name="local-m2-publish" m2compatible="true">
+        <filesystem name="local-m2-publish" m2compatible="true" signer="nexus-sig">
             <artifact pattern="${user.home}/.m2/repository/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
         </filesystem>
+
+        <url name="SonatypeReleases-publish" m2compatible="true">
+            <artifact pattern="https://oss.sonatype.org/service/local/staging/deploy/maven2/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
+        </url>
 
         <url name="SonatypeSnapshots-publish" m2compatible="true">
             <artifact pattern="https://oss.sonatype.org/content/repositories/snapshots/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
