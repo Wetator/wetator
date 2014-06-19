@@ -30,6 +30,22 @@
         <name>${application.vendor}</name>
         <url>${ivy.pom.url}</url>
     </organization>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Ronald Brill</name>
+            <id>rbri</id>
+            <email>rbri@rbri.de</email>
+            <url>http://www.wetator.org/</url>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/Wetator</connection>
