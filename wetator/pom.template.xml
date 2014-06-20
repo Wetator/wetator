@@ -45,6 +45,13 @@
             <url>http://www.wetator.org/</url>
             <timezone>+1</timezone>
         </developer>
+        <developer>
+            <name>Tobias Wörenkämper</name>
+            <id>tobwoerk</id>
+            <email>tobias.woerenkaemper@gmx.com</email>
+            <url>http://www.wetator.org/</url>
+            <timezone>+1</timezone>
+        </developer>
     </developers>
 
     <scm>
