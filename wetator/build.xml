@@ -522,24 +522,35 @@
                 <exclude name="wetator.config"/>
             </fileset>
             <manifest>
-            <attribute name="Main-Class" value="org.wetator.Wetator"/>
-            <attribute name="Class-Path" value="${class-path}"/>
-            <section name="Application">
-                <attribute name="Application-Name" value="${application.name}"/>
-                <attribute name="Vendor" value="${application.vendor}"/>
-                <attribute name="Version" value="${application.version}"/>
-                <attribute name="Build" value="${application.buildnumber}"/>
-                <attribute name="Date" value="${timestamp}"/>
-            </section>
-            <section name="Build">
-                <attribute name="Java-Runtime" value="${java.runtime.name}" />
-                <attribute name="Java-Version" value="${java.runtime.version}" />
-                <attribute name="Java-Target" value="${javac.target}" />
-                <attribute name="OS-Name" value="${os.name}"/>
-                <attribute name="OS-Version" value="${os.version}"/>
-            </section>
-        </manifest>
+                <attribute name="Main-Class" value="org.wetator.Wetator"/>
+                <attribute name="Class-Path" value="${class-path}"/>
+                <section name="Application">
+                    <attribute name="Application-Name" value="${application.name}"/>
+                    <attribute name="Vendor" value="${application.vendor}"/>
+                    <attribute name="Version" value="${application.version}"/>
+                    <attribute name="Build" value="${application.buildnumber}"/>
+                    <attribute name="Date" value="${timestamp}"/>
+                </section>
+                <section name="Build">
+                    <attribute name="Java-Runtime" value="${java.runtime.name}" />
+                    <attribute name="Java-Version" value="${java.runtime.version}" />
+                    <attribute name="Java-Target" value="${javac.target}" />
+                    <attribute name="OS-Name" value="${os.name}"/>
+                    <attribute name="OS-Version" value="${os.version}"/>
+                </section>
+            </manifest>
         </jar>
+
+    	<!-- generate javadoc -->
+        <delete file="${dir.build}/${application.jar-basename}-javadoc.jar"/>
+        <javadoc destdir="${dir.build}/jdoc" >
+            <fileset dir="${dir.src}" >
+            </fileset>
+        </javadoc>
+        <zip destfile="${dir.build}/${application.jar-basename}-javadoc.jar">
+            <fileset dir="${dir.build}/jdoc" >
+            </fileset>
+        </zip>
 
         <!-- generate sources jar -->
         <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">

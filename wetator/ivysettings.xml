@@ -25,11 +25,11 @@
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
 
-        <filesystem name="local-m2-publish" m2compatible="true" signer="nexus-sig">
+        <filesystem name="local-m2-publish" m2compatible="true">
             <artifact pattern="${user.home}/.m2/repository/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
         </filesystem>
 
-        <url name="SonatypeReleases-publish" m2compatible="true">
+        <url name="SonatypeReleases-publish" m2compatible="true" signer="nexus-sig">
             <artifact pattern="https://oss.sonatype.org/service/local/staging/deploy/maven2/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
         </url>
 
