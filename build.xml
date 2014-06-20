@@ -543,9 +543,14 @@
 
     	<!-- generate javadoc -->
         <delete file="${dir.build}/${application.jar-basename}-javadoc.jar"/>
-        <javadoc destdir="${dir.build}/jdoc" >
+        <javadoc destdir="${dir.build}/jdoc">
             <fileset dir="${dir.src}" >
             </fileset>
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+            </classpath>
         </javadoc>
         <zip destfile="${dir.build}/${application.jar-basename}-javadoc.jar">
             <fileset dir="${dir.build}/jdoc" >
