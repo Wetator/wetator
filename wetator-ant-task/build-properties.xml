@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <build-properties>
 
+    <skip>
+        <!--resolve>true</resolve-->
+        <!-- we currently do not have any tests so we skip tests -->
+        <tests>true</tests>
+    </skip>
+
   <application>
     <name>WetatorAntTask</name>
     <version>0_9_15_beta15</version>
@@ -30,15 +36,11 @@
   </ivy>
 
   <javac>
+    <source>1.6</source>
     <target>1.6</target>
   </javac>
 
   <!-- display number (used for xvfb in CI only) -->
   <display>1</display>
-
-  <!-- we currently do not have any tests so we skip tests -->
-  <skip>
-    <tests>true</tests>
-  </skip>
 
 </build-properties>

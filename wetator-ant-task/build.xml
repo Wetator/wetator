@@ -18,6 +18,7 @@
 
 
     <!--
+    publish-sonatype-releases:  info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-releases
     publish-sonatype-snapshots: info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local -> publish-sonatype-snapshots
     publish-local:              info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles -> publish-local
     package:                    info -> resolve-dependencies -> compile -> compile-tests -> run-tests -> gather-metrics -> package-bundles
@@ -28,6 +29,22 @@
     tests:                      info -> resolve-dependencies -> compile -> compile-tests -> run-tests
     tests-only:                 info -> compile -> compile-tests -> run-tests
     -->
+
+
+    <!-- *******************************************
+         target publish-sonatype-releasess
+           executes the complete build cycle until
+           publishing to the Sonatype release
+           repository:
+           info -> resolve-dependencies -> compile
+           -> compile-tests -> run-tests
+           -> gather-metrics -> package-bundles
+           -> publish-local
+           -> publish-sonatype-releases
+         ******************************************* -->
+    <target name="publish-sonatype-releases" description="executes the complete build cycle until publishing to the Sonatype snapshot repository"
+        depends="info, resolve-dependencies, -run-tests, -gather-metrics, -check-tests, -package-bundles, -publish-local, -publish-sonatype-releases">
+    </target>
 
 
     <!-- *******************************************
@@ -206,6 +223,7 @@
               ivy is in at least one of ant's lib dir or the ivy home lib dir. -->
         <path id="ivy.lib.path">
             <fileset dir="./ant_lib" includes="ivy*.jar"/>
+            <fileset dir="./ant_lib" includes="bcp*.jar"/>
         </path>
         <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
         <ivy:configure override="true" />
@@ -261,7 +279,8 @@
         <echo level="info">Compiling sources with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
-            target="${javac.target}" destdir="${dir.build}/classes" includeantruntime="false">
+            source="${javac.source}" target="${javac.target}"
+            destdir="${dir.build}/classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <patternset refid="libPattern" />
@@ -524,6 +543,22 @@
             </manifest>
         </jar>
 
+    	<!-- generate javadoc -->
+        <delete file="${dir.build}/${application.jar-basename}-javadoc.jar"/>
+        <javadoc destdir="${dir.build}/jdoc">
+            <fileset dir="${dir.src}" >
+            </fileset>
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+            </classpath>
+        </javadoc>
+        <zip destfile="${dir.build}/${application.jar-basename}-javadoc.jar">
+            <fileset dir="${dir.build}/jdoc" >
+            </fileset>
+        </zip>
+
         <!-- generate sources jar -->
         <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
             <fileset dir="." >
@@ -616,6 +651,19 @@
          =========================================== -->
     <target name="-publish-local" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the local Maven repository">
         <ivy:publish resolver="local-m2-publish" forcedeliver="true" overwrite="true" publishivy="false"
+            pubrevision="${application.pubversion}">
+            <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
+        </ivy:publish>
+    </target>
+
+
+    <!-- ===========================================
+         private target publish-sonatype-releases
+           publishes the release artifacts to the
+           Sonatype release repository
+         =========================================== -->
+    <target name="-publish-sonatype-releases" depends="-package-bundles, -load-ivy" description="publishes the Wetator release artifacts to the Sonatype release repository">
+        <ivy:publish resolver="SonatypeReleases-publish" forcedeliver="true" overwrite="true" publishivy="false"
             pubrevision="${application.pubversion}">
             <artifacts pattern="${dir.build}/[artifact](-[classifier]).[ext]"/>
         </ivy:publish>
