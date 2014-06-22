@@ -46,6 +46,13 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
+            <name>Frank Danek</name>
+            <id>frank.danek</id>
+            <email>frank.danek@gmail.com</email>
+            <url>http://www.wetator.org/</url>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
             <name>Tobias Wörenkämper</name>
             <id>tobwoerk</id>
             <email>tobias.woerenkaemper@gmx.com</email>
@@ -55,8 +62,8 @@
     </developers>
 
     <scm>
-        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/Wetator</connection>
-        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/Wetator</developerConnection>
+        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator</connection>
+        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/wetator</developerConnection>
         <url>http://wetator.repositoryhosting.com/svn_public/wetator_wetator</url>
     </scm>
     <issueManagement>
