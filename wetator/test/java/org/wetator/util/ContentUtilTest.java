@@ -47,6 +47,12 @@ public class ContentUtilTest {
   }
 
   @Test
+  public void getPdfTitleAsStringEncrypted() throws FileNotFoundException, IOException {
+    String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/gebit.pdf"));
+    org.junit.Assert.assertEquals("GEBIT Solutions / Firmendarstellung", tmpTitle);
+  }
+
+  @Test
   public void getPdfContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");
@@ -56,6 +62,21 @@ public class ContentUtilTest {
     String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"),
         4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void getPdfContentAsStringEncrypted() {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("This is the content of a simple PDF file.");
+    tmpExpected.append(" ");
+    tmpExpected.append("This file is used to test WeT.");
+
+    try {
+      ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/gebit.pdf"), 40);
+      org.junit.Assert.fail("IOException expected");
+    } catch (final IOException e) {
+      org.junit.Assert.assertEquals("Content extraction forbidden for the given PDF document.", e.getMessage());
+    }
   }
 
   @Test

@@ -31,10 +31,13 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import org.apache.commons.io.IOExceptionWithCause;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.pdfbox.exceptions.CryptographyException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -111,6 +114,13 @@ public final class ContentUtil {
     PDDocument tmpDocument;
     tmpDocument = PDDocument.load(anInputStream);
     try {
+      decryptPdfIfNeeded(tmpDocument);
+
+      final AccessPermission tmpPermissions = tmpDocument.getCurrentAccessPermission();
+      if (!tmpPermissions.canExtractContent()) {
+        throw new IOException("Content extraction forbidden for the given PDF document.");
+      }
+
       final PDFTextStripper tmpStripper = new PDFTextStripper();
       final String tmpContentAsText = tmpStripper.getText(tmpDocument);
       final NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
@@ -134,6 +144,8 @@ public final class ContentUtil {
     PDDocument tmpDocument;
     tmpDocument = PDDocument.load(anInputStream);
     try {
+      decryptPdfIfNeeded(tmpDocument);
+
       final PDDocumentInformation tmpInfo = tmpDocument.getDocumentInformation();
       if (null != tmpInfo) {
         final NormalizedString tmpResult = new NormalizedString(tmpInfo.getTitle());
@@ -142,6 +154,16 @@ public final class ContentUtil {
       return "";
     } finally {
       tmpDocument.close();
+    }
+  }
+
+  private static void decryptPdfIfNeeded(final PDDocument aDocument) throws IOException {
+    if (aDocument.isEncrypted()) {
+      try {
+        aDocument.decrypt("");
+      } catch (final CryptographyException e) {
+        throw new IOExceptionWithCause("Decryption fo the pdf document failed", e);
+      }
     }
   }
 

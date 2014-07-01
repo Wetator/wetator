@@ -606,6 +606,7 @@ wetator/test/webpage/click_after.html -text
 wetator/test/webpage/click_on.html -text
 wetator/test/webpage/click_on_table.html -text svneol=unset#text/plain
 wetator/test/webpage/download/download.txt -text
+wetator/test/webpage/download/gebit.pdf -text svneol=unset#unset
 wetator/test/webpage/download/unknown_content_type.bin -text
 wetator/test/webpage/download/wet_test.csv -text
 wetator/test/webpage/download/wet_test.json -text
