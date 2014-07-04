@@ -59,7 +59,7 @@ public class ManualXMLResultWriterTest {
 
   private static final String COMMAND_NAME = "command";
   private static final String IE8 = "IE8";
-  private static final String FF17 = "Firefox17";
+  private static final String FF24 = "Firefox24";
 
   @Rule
   public TestName testName = new TestName();
@@ -123,7 +123,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE8);
-    writeGreenTestRun(tmpTestCase, FF17);
+    writeGreenTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -139,7 +139,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     lineNo = 1;
-    resultWriter.testRunStart(FF17);
+    resultWriter.testRunStart(FF24);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     startModule(tmpTestCase);
@@ -164,7 +164,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeErrorTestRun(tmpTestCase, IE8);
-    writeErrorTestRun(tmpTestCase, FF17);
+    writeErrorTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -179,7 +179,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeRedWithIgnoredModule(tmpTestCase, FF17);
+    writeRedWithIgnoredModule(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -194,7 +194,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeRedModule(tmpTestCase, FF17);
+    writeRedModule(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -210,7 +210,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     lineNo = 1;
-    resultWriter.testRunStart(FF17);
+    resultWriter.testRunStart(FF24);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     startModule(tmpTestCase);
@@ -234,7 +234,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE8);
-    writeFailureTestRun(tmpTestCase, FF17);
+    writeFailureTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -249,7 +249,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeBlueModule(tmpTestCase, FF17);
+    writeBlueModule(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -265,31 +265,31 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE8);
-    writeGreenTestRun(tmpTestCase, FF17);
+    writeGreenTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE8);
-    writeFailureTestRun(tmpTestCase, FF17);
+    writeFailureTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeErrorTestRun(tmpTestCase, IE8);
-    writeErrorTestRun(tmpTestCase, FF17);
+    writeErrorTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeFailureAndErrorTestRun(tmpTestCase, IE8);
-    writeFailureAndErrorTestRun(tmpTestCase, FF17);
+    writeFailureAndErrorTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE8);
-    writeErrorTestRun(tmpTestCase, FF17);
+    writeErrorTestRun(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -314,7 +314,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
 
-    resultWriter.testRunStart(FF17);
+    resultWriter.testRunStart(FF24);
     resultWriter.testRunIgnored();
     resultWriter.testRunEnd();
 
@@ -339,7 +339,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
 
-    resultWriter.testRunStart(FF17);
+    resultWriter.testRunStart(FF24);
     resultWriter.testRunIgnored();
     resultWriter.testRunEnd();
 
@@ -357,7 +357,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeRedModuleNotFound(tmpTestCase, FF17);
+    writeRedModuleNotFound(tmpTestCase, FF24);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
