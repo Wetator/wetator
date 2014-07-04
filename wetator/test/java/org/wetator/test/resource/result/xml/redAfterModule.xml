@@ -106,7 +106,7 @@
   </configuration>
   <startTime id="92">01.03.2013 23:50:24</startTime>
   <testcase id="93" name="test1.wet" file="E:\Test\test1.wet">
-    <testrun id="94" browser="Firefox17">
+    <testrun id="94" browser="Firefox24">
       <testfile id="95" file="E:\Test\test1.wet">
         <command id="96" name="command" line="1">
           <param0 id="97">command value</param0>

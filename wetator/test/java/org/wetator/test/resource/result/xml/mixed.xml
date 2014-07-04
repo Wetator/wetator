@@ -122,7 +122,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="106" browser="Firefox17">
+    <testrun id="106" browser="Firefox24">
       <testfile id="107" file="E:\Test\test1.wet">
         <command id="108" name="" line="1" isComment="true">
           <param0 id="109">comment value</param0>
@@ -174,7 +174,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="145" browser="Firefox17">
+    <testrun id="145" browser="Firefox24">
       <testfile id="146" file="E:\Test\test2.wet">
         <command id="147" name="" line="1" isComment="true">
           <param0 id="148">comment value</param0>
@@ -279,7 +279,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="203" browser="Firefox17">
+    <testrun id="203" browser="Firefox24">
       <testfile id="204" file="E:\Test\test3.wet">
         <command id="205" name="" line="1" isComment="true">
           <param0 id="206">comment value</param0>
@@ -431,7 +431,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="275" browser="Firefox17">
+    <testrun id="275" browser="Firefox24">
       <testfile id="276" file="E:\Test\test4.wet">
         <command id="277" name="" line="1" isComment="true">
           <param0 id="278">comment value</param0>
@@ -548,7 +548,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="342" browser="Firefox17">
+    <testrun id="342" browser="Firefox24">
       <testfile id="343" file="E:\Test\test5.wet">
         <command id="344" name="" line="1" isComment="true">
           <param0 id="345">comment value</param0>
