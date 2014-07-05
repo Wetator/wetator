@@ -33,6 +33,6 @@
 
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
         <dependency org="org.apache.ant" name="ant" rev="1.8.4" transitive="false" conf="provided" />
-        <dependency org="org.wetator" name="wetator" rev="1.0.0" changing="true" />
+        <dependency org="org.wetator" name="wetator" rev="1.1-SNAPSHOT" changing="true" />
     </dependencies>
 </ivy-module>
