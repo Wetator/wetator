@@ -73,6 +73,8 @@ public interface IBrowser {
   public enum BrowserType {
     /** firefox 24 ESR. */
     FIREFOX_24("Firefox24", "Firefox_24"),
+    /** firefox 24 ESR. */
+    FIREFOX_31("Firefox31", "Firefox_e1"),
     /** internet explorer 8. */
     INTERNET_EXPLORER_8("IE8", "IE_8"),
     /** internet explorer 11. */
