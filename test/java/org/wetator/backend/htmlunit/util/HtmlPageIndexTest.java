@@ -40,7 +40,7 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_24, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_31, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
