@@ -43,7 +43,7 @@ public class CloudbeesTest extends AbstractWebServerTest {
   // }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_24 })
+  @Browsers({ BrowserType.FIREFOX_31 })
   public void assertApplet() throws InvalidInputException {
     executeTestFile("assert_applet.xml");
 
