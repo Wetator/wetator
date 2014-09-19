@@ -33,13 +33,14 @@
 
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
         <dependency org="dk.brics.automaton" name="automaton" rev="1.11-8" transitive="false" />
+        <dependency org="com.github.rjeschke" name="txtmark" rev="0.11" transitive="false" />
         <dependency org="commons-io" name="commons-io" rev="2.4" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.3.2" />
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.16-SNAPSHOT" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.15-SNAPSHOT" changing="true" conf="compile"/> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.14" changing="true" conf="compile" /> -->
         <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false" />
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.6" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.7" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.50" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.50" />
         <dependency org="org.apache.poi" name="poi" rev="3.10-FINAL" />
