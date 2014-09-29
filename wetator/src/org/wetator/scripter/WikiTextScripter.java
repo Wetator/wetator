@@ -44,6 +44,7 @@ public final class WikiTextScripter implements IScripter {
   private static final String FILE_EXTENSION = ".wett";
   private static final String COMMENT_LINE = "#";
   private static final String COMMENT_LINE2 = "//";
+  private static final String CONTINUATION = "\\";
   private static final String SEPARATOR = "||";
 
   private static final int COMMAND_NAME_COLUMN_NO = 0;
@@ -113,6 +114,16 @@ public final class WikiTextScripter implements IScripter {
         while (tmpLines.hasNext()) {
           tmpLineNo++;
           String tmpLine = tmpLines.next().trim();
+
+          while (tmpLine.endsWith(CONTINUATION)) {
+            tmpLine = tmpLine.substring(0, tmpLine.length() - CONTINUATION.length());
+            tmpLine = StringUtils.stripEnd(tmpLine, " \t");
+            tmpLine = tmpLine + System.lineSeparator();
+            if (tmpLines.hasNext()) {
+              tmpLine = tmpLine + StringUtils.stripEnd(tmpLines.next(), null);
+              tmpLineNo++;
+            }
+          }
 
           // ignore blank lines
           if (StringUtils.isBlank(tmpLine)) {
