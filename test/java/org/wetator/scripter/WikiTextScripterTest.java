@@ -19,6 +19,7 @@ package org.wetator.scripter;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.core.Command;
@@ -135,5 +136,50 @@ public class WikiTextScripterTest {
     Assert.assertEquals("assert-set", tmpCommand.getName());
     Assert.assertEquals("InputText_Name", tmpCommand.getFirstParameter().getValue());
     Assert.assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
+  }
+
+  @Test
+  public void continuationLines() throws InvalidInputException {
+    WikiTextScripter tmpScripter = new WikiTextScripter();
+    File tmpFile = new File("test/java/org/wetator/test/resource/continuationLines.wett");
+
+    IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    tmpScripter.script(tmpFile);
+
+    List<Command> tmpCommands = tmpScripter.getCommands();
+    Assert.assertEquals(4, tmpCommands.size());
+
+    int tmpPos = 0;
+    Command tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("", tmpCommand.getName());
+    Assert.assertEquals("Just a comment", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("open-url", tmpCommand.getName());
+    Assert.assertEquals("set.html", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals("continuing-comment assert-title", tmpCommand.getName());
+    Assert.assertEquals("Wetator / Set", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("describe", tmpCommand.getName());
+
+    String tmpValue = tmpCommand.getFirstParameter().getValue();
+    tmpValue = StringUtils.replace(tmpValue, "\r\n", "\n");
+    Assert.assertEquals("text 1\n\ntext 3", tmpValue);
+    Assert.assertNull(tmpCommand.getSecondParameter());
   }
 }
