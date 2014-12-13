@@ -280,6 +280,15 @@ public class WetatorContext {
   }
 
   /**
+   * Informs all listeners about 'HtmlDescribe'.
+   * 
+   * @param aHtmlDescription the html source
+   */
+  public void informListenersHtmlDocu(final String aHtmlDescription) {
+    engine.informListenersHtmlDescribe(aHtmlDescription);
+  }
+
+  /**
    * Sets the errorOccurred to the given value. Additionally if a parent context is present it is set there, too.
    * 
    * @param anErrorOccurred the errorOccurred to set

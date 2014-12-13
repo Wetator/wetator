@@ -586,6 +586,17 @@ public class WetatorEngine {
   }
 
   /**
+   * Informs all listeners about htmlDescribe.
+   * 
+   * @param aHtmlDescription the html source.
+   */
+  public void informListenersHtmlDescribe(final String aHtmlDescription) {
+    for (final IProgressListener tmpListener : progressListener) {
+      tmpListener.htmlDescribe(aHtmlDescription);
+    }
+  }
+
+  /**
    * Informs all listeners about 'engineResponseStored'.
    * 
    * @param aResponseFileName the file name of the stored response.

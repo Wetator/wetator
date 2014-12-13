@@ -94,6 +94,14 @@
                     .bars { color: #ffffff; }
                     #debuginfo {display: none;}
                     #debugtestbrowseroverviewinfo { display: none; }
+
+                    .describe { color: #3D2117; }
+                    .describe h1 { font-size: 1.5em; font-weight: bold; color: #3D2117; }
+                    .describe h2 { font-size: 1.17em; font-weight: bold; color: #3D2117; }
+                    .describe h3 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h4 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h5 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h6 { font-size: 1em; font-weight: bold; color: #3D2117; }
                 </style>
 
                 <script src="resources/jquery-1.10.2.min.js"></script>
@@ -1537,13 +1545,13 @@
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
             <xsl:choose>
-                <xsl:when test="count(docu) &gt; 0">
-                    <!-- docu -->
+                <xsl:when test="count(describe) &gt; 0">
+                    <!-- describe -->
                     <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
                     <xsl:value-of select="$lineStyle" />
                     <xsl:text disable-output-escaping="yes">" colspan="2" &gt;</xsl:text>
-                    <div class="docu">
-                        <xsl:copy-of select="docu/node()"/>
+                    <div class="describe">
+                        <xsl:copy-of select="describe/node()"/>
                     </div>
                     <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
                 </xsl:when>

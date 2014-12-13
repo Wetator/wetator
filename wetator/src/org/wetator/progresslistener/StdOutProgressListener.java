@@ -325,6 +325,15 @@ public class StdOutProgressListener implements IProgressListener {
   }
 
   /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#htmlDescribe(String)
+   */
+  @Override
+  public void htmlDescribe(final String aHtmlDescription) {
+  }
+
+  /**
    * The worker that does the real output.
    * 
    * @param aString the output
