@@ -87,6 +87,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_FIRST_PARAM = "param0";
   private static final String TAG_SECOND_PARAM = "param1";
   private static final String TAG_THIRD_PARAM = "param2";
+  private static final String TAG_DESCRIBE = "describe";
   private static final String TAG_RESPONSE = "response";
   private static final String TAG_LOG = "log";
   private static final String TAG_LEVEL = "level";
@@ -208,7 +209,6 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnNode(TAG_LIB, org.apache.xmlcommons.Version.getVersion());
       printlnNode(TAG_LIB, org.apache.xerces.impl.Version.getVersion());
-      printlnNode(TAG_LIB, org.apache.xalan.Version.getVersion());
 
       printlnEndTag(TAG_LIBS);
 
@@ -715,6 +715,22 @@ public class XMLResultWriter implements IProgressListener {
         LOG.info(tmpMessage);
       }
       printLogMessage("INFO", tmpMessage);
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#htmlDescribe(String)
+   */
+  @Override
+  public void htmlDescribe(final String aHtmlDescription) {
+    try {
+      printStartTag(TAG_DESCRIBE);
+      output.print(aHtmlDescription);
+      printlnEndTag(TAG_DESCRIBE);
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }

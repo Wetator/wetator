@@ -53,6 +53,8 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
+import com.github.rjeschke.txtmark.Processor;
+
 /**
  * The implementation of all build in command that Wetator
  * supports at the moment.
@@ -64,6 +66,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
+    registerCommand("describe", new CommandDescribe());
+
     registerCommand("open-url", new CommandOpenUrl());
     registerCommand("use-module", new CommandUseModule());
     registerCommand("close-window", new CommandCloseWindow());
@@ -86,6 +90,27 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     registerCommand("assert-deselected", new CommandAssertDeselected());
 
     registerCommand("exec-java", new CommandExecJava());
+  }
+
+  /**
+   * Command 'Describe'.
+   */
+  public final class CommandDescribe implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
+      final SecretString tmpMarkdown = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      final String tmpHtml = Processor.process(tmpMarkdown.toString());
+      aContext.informListenersHtmlDocu(tmpHtml.trim());
+    }
   }
 
   /**

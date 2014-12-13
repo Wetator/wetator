@@ -238,6 +238,16 @@ public class JUnitProgressListener implements IProgressListener {
   }
 
   /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#htmlDescribe(String)
+   */
+  @Override
+  public void htmlDescribe(final String aHtmlDescription) {
+      // nothing
+  }
+
+  /**
    * @return the steps
    */
   public int getSteps() {
@@ -264,5 +274,4 @@ public class JUnitProgressListener implements IProgressListener {
   public int getIgnored() {
     return ignored;
   }
-
 }

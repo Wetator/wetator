@@ -130,6 +130,13 @@ public interface IProgressListener {
   void end(WetatorEngine aWetatorEngine);
 
   /**
+   * This is called for writing html description.
+   * 
+   * @param aHtmlDescription the html source of the description
+   */
+  void htmlDescribe(final String aHtmlDescription);
+
+  /**
    * This is called after a response was stored in disk.
    * 
    * @param aResponseFileName the file name of the stored response
