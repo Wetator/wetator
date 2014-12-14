@@ -48,7 +48,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE8);
-    writeGreenTestRun(tmpTestCase, FF24);
+    writeGreenTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -94,7 +94,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     // replace execution time
     tmpResult = replaceElementContent(tmpResult, "executionTime", "##EXECUTION_TIME##");
     // replace stacktraces
-    tmpResult = replaceLines(tmpResult, "<stacktrace id=\"##ID##\">[^\\n]*", "</stacktrace>", null, "##STACKTRACE##");
+    tmpResult = replaceLines(tmpResult, "<details id=\"##ID##\">[^\\n]*", "</details>", null, "##DETAILS##");
     return tmpResult;
   }
 

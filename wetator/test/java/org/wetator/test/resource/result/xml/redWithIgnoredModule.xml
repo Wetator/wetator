@@ -106,7 +106,7 @@
   </configuration>
   <startTime id="92">01.03.2013 23:50:24</startTime>
   <testcase id="93" name="test1.wet" file="E:\Test\test1.wet">
-    <testrun id="94" browser="Firefox24">
+    <testrun id="94" browser="Firefox31">
       <testfile id="95" file="E:\Test\test1.wet">
         <command id="96" name="" line="1" isComment="true">
           <param0 id="97">comment value</param0>
@@ -126,7 +126,7 @@
           <param2 id="109"></param2>
           <error id="110">
             <message id="111">test error</message>
-            <stacktrace id="112">org.wetator.exception.ActionException: test error
+            <details id="112">org.wetator.exception.ActionException: test error
     at org.wetator.progresslistener.AbstractProgressListenerTest.writeCommandWithError(AbstractProgressListenerTest.java:195)
     at org.wetator.progresslistener.AbstractProgressListenerTest.writeRedWithIgnoredModule(AbstractProgressListenerTest.java:76)
     at org.wetator.progresslistener.XMLResultWriterTest.redWithIgnoredModule(XMLResultWriterTest.java:167)
@@ -156,7 +156,7 @@
     at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
     at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
     at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
-</stacktrace>
+</details>
           </error>
           <executionTime id="113">1</executionTime>
         </command>

@@ -95,7 +95,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_FAILURE = "failure";
 
   private static final String TAG_ERROR = "error";
-  private static final String TAG_ERROR_STACK_TRACE = "stacktrace";
+  private static final String TAG_ERROR_DETAILS = "details";
   private static final String TAG_CONFIGURATION = "configuration";
   private static final String TAG_VARIABLES = "variables";
   private static final String TAG_VARIABLE = "variable";
@@ -209,6 +209,7 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnNode(TAG_LIB, org.apache.xmlcommons.Version.getVersion());
       printlnNode(TAG_LIB, org.apache.xerces.impl.Version.getVersion());
+      printlnNode(TAG_LIB, org.apache.xalan.Version.getVersion());
 
       printlnEndTag(TAG_LIBS);
 
@@ -531,7 +532,7 @@ public class XMLResultWriter implements IProgressListener {
       printErrorMessageStack(aThrowable.getCause());
 
       // the stack trace
-      printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+      printlnNode(TAG_ERROR_DETAILS, ExceptionUtils.getStackTrace(aThrowable));
       printErrorEnd();
       flush();
     } catch (final IOException e) {
@@ -666,7 +667,7 @@ public class XMLResultWriter implements IProgressListener {
       printErrorMessageStack(aThrowable.getCause());
 
       // the stack trace
-      printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+      printlnNode(TAG_ERROR_DETAILS, ExceptionUtils.getStackTrace(aThrowable));
       printErrorEnd();
       flush();
     } catch (final IOException e) {
@@ -677,10 +678,10 @@ public class XMLResultWriter implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.IProgressListener#warn(String, String[], Throwable)
+   * @see org.wetator.core.IProgressListener#warn(String, String[], String)
    */
   @Override
-  public void warn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
+  public void warn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
     try {
       final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
       if (LOG.isWarnEnabled()) {
@@ -691,9 +692,9 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_LEVEL, "WARN");
       printlnNode(TAG_MESSAGE, tmpMessage);
 
-      if (null != aThrowable) {
+      if (null != aDetails) {
         // the stack trace
-        printlnNode(TAG_ERROR_STACK_TRACE, ExceptionUtils.getStackTrace(aThrowable));
+        printlnNode(TAG_ERROR_DETAILS, aDetails);
       }
 
       printlnEndTag(TAG_LOG);

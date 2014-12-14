@@ -26,7 +26,7 @@
                     h1 { font-size: 12pt; color: #000000; margin-top: 20px; }
                     h2 { font-size: 10pt; color: #4682b4; margin-top: 16px; }
                     p.blue { color: #768bc2; }
-                    pre.text { font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre; }
+                    pre.details { margin-top: 1px; margin-bottom: 1px; margin-left: 40px; font-family: Courier new, monospace, sans-serif; white-space: pre; }
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
@@ -42,6 +42,14 @@
                     .bars { color: #ffffff; }
                     #debuginfo {}
                     #debugtestbrowseroverviewinfo { display: none; }
+
+                    .describe { color: #3D2117; }
+                    .describe h1 { font-size: 1.5em; font-weight: bold; color: #3D2117; }
+                    .describe h2 { font-size: 1.17em; font-weight: bold; color: #3D2117; }
+                    .describe h3 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h4 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h5 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h6 { font-size: 1em; font-weight: bold; color: #3D2117; }
                 </style>
 <script src="resources/jquery-1.10.2.min.js"></script><script language="JavaScript" type="text/javascript">
                 function showOrHideAll(image, imageId, id) {
@@ -261,7 +269,7 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie8','ie8overview', 'ff24','ff24overview')"></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="resources/expandall.png" id="ie8"></td><td><span class="bold">FF24</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF24 overview" onclick="showOrHide(this, 'ff24overview')" src="resources/expandall.png" id="ff24"></td>
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie8','ie8overview', 'ff31','ff31overview')"></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="resources/expandall.png" id="ie8"></td><td><span class="bold">FF31</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF31 overview" onclick="showOrHide(this, 'ff31overview')" src="resources/expandall.png" id="ff31"></td>
 </tr>
 </table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie8overview">
@@ -317,7 +325,8 @@
 </tr>
 </table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie11overview"></table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff24overview">
+<table style="display: none; text-align: center;" align="center" class="overview" id="ff24overview"></table>
+<table style="display: none; text-align: center;" align="center" class="overview" id="ff31overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
             browserTestStepCount 3<br>
@@ -342,24 +351,24 @@
             browserStepsIgnoredPercentage 0<br>
 </div>
 <tr>
-<td width="150px;">Tests in FF24<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF24" title="FF24"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in FF31<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF31" title="FF31"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
-                            " bgcolor="#00769C" title="FF24 tests with failure">100%
+                            " bgcolor="#00769C" title="FF31 tests with failure">100%
                         </td><td></td>
 </tr>
 </table>
 </td>
 </tr>
 <tr>
-<td>TestSteps in FF24<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF24" title="FF24"></td><td style="padding-right: 0;">
+<td>TestSteps in FF31<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF31" title="FF31"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#00769C" title="FF24 steps with failure">33%
+                                " bgcolor="#00769C" title="FF31 steps with failure">33%
                                 </td><td style="text-align: center;" class="smallBorder" width="67%
-                                " bgcolor="#ACC952" title="successful FF24 steps">67%
+                                " bgcolor="#ACC952" title="successful FF31 steps">67%
                                 </td><td></td>
 </tr>
 </table>
@@ -369,7 +378,6 @@
 <td colspan="2" height="10px"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff31overview"></table>
 <table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
 <td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
@@ -460,7 +468,7 @@
 <td class="step success"><a class="linkToCommand" href="#104">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#109">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#118">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox24" title="Firefox24"></td><td align="center">3/3</td><td>
+</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox31" title="Firefox31"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td class="step success"><a class="linkToCommand" href="#130">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="#135">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#144">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -494,7 +502,7 @@
                 </a>
 </p>
 <h2>
-<img title="failure" alt="failure" height="10" width="12" src="resources/failure.png">&nbsp;<a name="testspec_123">C:/Test/test1.wet</a> (Firefox24)</h2>
+<img title="failure" alt="failure" height="10" width="12" src="resources/failure.png">&nbsp;<a name="testspec_123">C:/Test/test1.wet</a> (Firefox31)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>

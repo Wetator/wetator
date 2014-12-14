@@ -77,7 +77,7 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
     // replace durations
     tmpResult = tmpResult.replaceAll(">[\\d]+(\\.[\\d])?s<", ">##DURATION##<");
     // replace stacktraces
-    tmpResult = replaceLines(tmpResult, "<pre>[^\\n]*", "</pre>", null, "##STACKTRACE##");
+    tmpResult = replaceLines(tmpResult, "<pre class=\"details\">[^\\n]*", "</pre>", null, "##DETAILS##");
     return tmpResult;
   }
 }

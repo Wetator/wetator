@@ -78,7 +78,7 @@
                     h1 { font-size: 12pt; color: #000000; margin-top: 20px; }
                     h2 { font-size: 10pt; color: #4682b4; margin-top: 16px; }
                     p.blue { color: #768bc2; }
-                    pre.text { font-family: Courier new, monospace, sans-serif; font-weight: bold; white-space: pre; }
+                    pre.details { margin-top: 1px; margin-bottom: 1px; margin-left: 40px; font-family: Courier new, monospace, sans-serif; white-space: pre; }
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
@@ -1589,10 +1589,10 @@
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
-                <xsl:if test="count(log) &gt; 0 or count(error/stacktrace) &gt; 0">
+                <xsl:if test="count(log) &gt; 0 or count(error/details) &gt; 0">
                     <img src="resources/expandlogwarn.png" alt="Show/Hide log entries" style="cursor: pointer;">
                         <xsl:choose>
-                            <xsl:when test="count(log/level[text() = 'WARN']) &gt; 0 or count(error/stacktrace) &gt; 0">
+                            <xsl:when test="count(log/level[text() = 'WARN']) &gt; 0 or count(error/details) &gt; 0">
                                 <xsl:attribute name="src">
                                     <xsl:text>resources/expandlogwarn.png</xsl:text>
                                 </xsl:attribute>
@@ -1724,7 +1724,7 @@
             </tr>
         </xsl:if>
 
-        <xsl:if test="count(log) &gt; 0 or count(error/stacktrace) &gt; 0">
+        <xsl:if test="count(log) &gt; 0 or count(error/details) &gt; 0">
             <tr style="display: none;">
                 <xsl:attribute name="id">
                     <xsl:text>log_</xsl:text>
@@ -1743,7 +1743,7 @@
                                     <img src="resources/log_warn.png" width="11" height="11" alt="error"/>
                                 </td>
                                 <td>
-                                    <pre><xsl:value-of select="stacktrace"/></pre>
+                                    <pre class='details'><xsl:value-of select="details"/></pre>
                                 </td>
                             </tr>
                         </xsl:for-each>
@@ -1764,6 +1764,9 @@
                                 </td>
                                 <td>
                                     <xsl:value-of select="message"/>
+                                    <xsl:if test="details">
+                                      <pre class='details'><xsl:value-of select="details"/></pre>
+                                    </xsl:if>
                                 </td>
                             </tr>
                         </xsl:for-each>

@@ -92,7 +92,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
 import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -854,8 +853,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
-      wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(jsTimeoutInMillis / 1000),
-          Long.toString(nextJobStartsIn((HtmlPage) tmpPage)) }, null);
+      wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(jsTimeoutInMillis / 1000) },
+          ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump());
       return true;
     }
     return false;
@@ -876,26 +875,6 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     }
     return false;
-  }
-
-  private long nextJobStartsIn(final HtmlPage aHtmlPage) {
-    final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
-
-    final JavaScriptJob tmpJob = tmpJobManager.getEarliestJob();
-    if (null != tmpJob) {
-      return tmpJob.getTargetExecutionTime() - System.currentTimeMillis();
-    }
-
-    for (final FrameWindow tmpFrameWindow : aHtmlPage.getFrames()) {
-      final Page tmpPage = tmpFrameWindow.getEnclosedPage();
-      if (tmpPage.isHtmlPage()) {
-        final long tmpStartsIn = nextJobStartsIn((HtmlPage) tmpFrameWindow.getEnclosedPage());
-        if (-1 != tmpStartsIn) {
-          return tmpStartsIn;
-        }
-      }
-    }
-    return -1;
   }
 
   private int areJobsActive(final HtmlPage aHtmlPage) {
@@ -951,8 +930,9 @@ public final class HtmlUnitBrowser implements IBrowser {
           // warn also in case of match to be consistent
           final int tmpJobCount = areJobsActive(tmpHtmlPage);
           if (tmpJobCount > 0) {
-            wetatorEngine.informListenersWarn("stillJobsActive", new String[] {
-                Long.toString(jsTimeoutInMillis / 1000), Integer.toString(tmpJobCount) }, null);
+            wetatorEngine.informListenersWarn("stillJobsActive",
+                new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
+                    .getJobManager().jobStatusDump());
           }
           return tmpPageChanged;
         } catch (final AssertionException e) {
@@ -987,8 +967,9 @@ public final class HtmlUnitBrowser implements IBrowser {
         // inform if there are still pending js jobs
         final int tmpJobCount = areJobsActive(tmpHtmlPage);
         if (tmpJobCount > 0) {
-          wetatorEngine.informListenersWarn("stillJobsActive", new String[] { Long.toString(jsTimeoutInMillis / 1000),
-              Integer.toString(tmpJobCount) }, null);
+          wetatorEngine.informListenersWarn("stillJobsActive",
+              new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
+                  .getJobManager().jobStatusDump());
         }
 
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
@@ -1056,7 +1037,8 @@ public final class HtmlUnitBrowser implements IBrowser {
             final int tmpJobCount = areJobsActive(tmpHtmlPage);
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
-                  new String[] { Long.toString(jsTimeoutInMillis / 1000), Integer.toString(tmpJobCount) }, null);
+                  new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
+                      .getJobManager().jobStatusDump());
             }
             return tmpPageChanged;
           } catch (final AssertionException e) {
@@ -1103,8 +1085,9 @@ public final class HtmlUnitBrowser implements IBrowser {
         // inform if there are still pending js jobs
         final int tmpJobCount = areJobsActive(tmpHtmlPage);
         if (tmpJobCount > 0) {
-          wetatorEngine.informListenersWarn("stillJobsActive", new String[] { Long.toString(jsTimeoutInMillis / 1000),
-              Integer.toString(tmpJobCount) }, null);
+          wetatorEngine.informListenersWarn("stillJobsActive",
+              new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
+                  .getJobManager().jobStatusDump());
         }
 
         final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();

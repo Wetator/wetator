@@ -5,7 +5,7 @@ Wetator local build
   TestCase: 'test1.wet' (1/0)
     IE8
     ..Ei.
-    Firefox24
+    Firefox31
     ..Ei.
 
   Steps: 10,  Failures: 0,  Errors: 2,  Ignored: 2
