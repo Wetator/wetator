@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
@@ -569,7 +570,20 @@ public class WetatorEngine {
    */
   public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
     for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.warn(aMessageKey, aParameterArray, aThrowable);
+      tmpListener.warn(aMessageKey, aParameterArray, ExceptionUtils.getStackTrace(aThrowable));
+    }
+  }
+
+  /**
+   * Informs all listeners about 'warn'.
+   * 
+   * @param aMessageKey the message key of the warning.
+   * @param aParameterArray the message parameters.
+   * @param aDetails the optional reason (with stacktrace) of the warning
+   */
+  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
+    for (final IProgressListener tmpListener : progressListener) {
+      tmpListener.warn(aMessageKey, aParameterArray, aDetails);
     }
   }
 

@@ -120,7 +120,7 @@
           <param2 id="104"></param2>
           <error id="105">
             <message id="106">Command in TestCase test1.wet is very invalid.</message>
-            <stacktrace id="107">org.wetator.exception.InvalidInputException: Command in TestCase test1.wet is very invalid.
+            <details id="107">org.wetator.exception.InvalidInputException: Command in TestCase test1.wet is very invalid.
 	at org.wetator.progresslistener.XMLResultWriterTest.invalidInputDuringCommandExecution(XMLResultWriterTest.java:304)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
@@ -148,7 +148,7 @@
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
-</stacktrace>
+</details>
           </error>
           <executionTime id="108">2</executionTime>
         </command>
@@ -161,7 +161,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="115" browser="Firefox24">
+    <testrun id="115" browser="Firefox31">
       <ignored id="116"/>
     </testrun>
   </testcase>

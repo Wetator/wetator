@@ -255,7 +255,18 @@ public class WetatorContext {
    * @param aParameterArray the message parameters
    */
   public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
-    informListenersWarn(aMessageKey, aParameterArray, null);
+    informListenersWarn(aMessageKey, aParameterArray, (String) null);
+  }
+
+  /**
+   * Informs all listeners about 'warn'.
+   * 
+   * @param aMessageKey the message key of the warning
+   * @param aParameterArray the message parameters
+   * @param aDetails optional details
+   */
+  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
+    engine.informListenersWarn(aMessageKey, aParameterArray, aDetails);
   }
 
   /**

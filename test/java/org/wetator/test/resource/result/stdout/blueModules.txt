@@ -3,7 +3,7 @@ Wetator local build
   OutputDir:  'E:\Java\workspaces\wetator\wetator\logs'
   TestFiles: none
   TestCase: 'test1.wet' (1/0)
-    Firefox24
+    Firefox31
     .F..
 
   Steps: 4,  Failures: 1,  Errors: 0,  Ignored: 0
