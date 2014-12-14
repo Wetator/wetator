@@ -569,8 +569,12 @@ public class WetatorEngine {
    * @param aThrowable the optional reason (with stacktrace) of the warning
    */
   public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
+    String tmpStackTrace = null;
+    if (null != aThrowable) {
+      tmpStackTrace = ExceptionUtils.getStackTrace(aThrowable);
+    }
     for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.warn(aMessageKey, aParameterArray, ExceptionUtils.getStackTrace(aThrowable));
+      tmpListener.warn(aMessageKey, aParameterArray, tmpStackTrace);
     }
   }
 
