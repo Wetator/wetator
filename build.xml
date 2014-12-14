@@ -389,7 +389,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.2.2" type="jar"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
