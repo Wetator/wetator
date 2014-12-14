@@ -391,7 +391,7 @@
          =========================================== -->
     <target name="-load-findbugs" depends="-load-ivy" unless="skip.metrics">
         <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
-        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
+        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="3.0.0" type="jar"
             pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
         <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
     </target>
@@ -401,7 +401,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.2.2" type="jar"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
