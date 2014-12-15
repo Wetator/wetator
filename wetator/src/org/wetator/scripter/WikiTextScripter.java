@@ -40,6 +40,7 @@ import org.wetator.util.NormalizedString;
  * @author frank.danek
  */
 public final class WikiTextScripter implements IScripter {
+  private static final String NEW_LINE = System.getProperty("line.separator");
 
   private static final String FILE_EXTENSION = ".wett";
   private static final String COMMENT_LINE = "#";
@@ -118,7 +119,7 @@ public final class WikiTextScripter implements IScripter {
           while (tmpLine.endsWith(CONTINUATION)) {
             tmpLine = tmpLine.substring(0, tmpLine.length() - CONTINUATION.length());
             tmpLine = StringUtils.stripEnd(tmpLine, " \t");
-            tmpLine = tmpLine + System.lineSeparator();
+            tmpLine = tmpLine + NEW_LINE;
             if (tmpLines.hasNext()) {
               tmpLine = tmpLine + StringUtils.stripEnd(tmpLines.next(), null);
               tmpLineNo++;
