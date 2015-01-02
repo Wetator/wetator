@@ -103,6 +103,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
+import com.gargoylesoftware.htmlunit.svg.SvgCircle;
+import com.gargoylesoftware.htmlunit.svg.SvgEllipse;
+import com.gargoylesoftware.htmlunit.svg.SvgLine;
+import com.gargoylesoftware.htmlunit.svg.SvgPath;
+import com.gargoylesoftware.htmlunit.svg.SvgPolygon;
+import com.gargoylesoftware.htmlunit.svg.SvgPolyline;
+import com.gargoylesoftware.htmlunit.svg.SvgRect;
 
 /**
  * Helper methods to write the HtmlUnit page as XHtml to a file.
@@ -144,6 +151,14 @@ public final class XHtmlOutputter {
     EMPTY_TAGS.add(HtmlBase.class.getName());
     // EMPTY_TAGS.add(HtmlCol.class.getName());
     EMPTY_TAGS.add(HtmlParameter.class.getName());
+
+    EMPTY_TAGS.add(SvgCircle.class.getName());
+    EMPTY_TAGS.add(SvgEllipse.class.getName());
+    EMPTY_TAGS.add(SvgLine.class.getName());
+    EMPTY_TAGS.add(SvgPath.class.getName());
+    EMPTY_TAGS.add(SvgPolygon.class.getName());
+    EMPTY_TAGS.add(SvgPolyline.class.getName());
+    EMPTY_TAGS.add(SvgRect.class.getName());
 
     SINGLE_LINE_TAGS = new HashSet<String>();
     SINGLE_LINE_TAGS.add(HtmlTitle.class.getName());
@@ -298,7 +313,7 @@ public final class XHtmlOutputter {
       output.print(((HtmlUnknownElement) aDomNode).getQualifiedName());
       writeAttributes(aDomNode);
       output.println(">");
-    } else if (aDomNode instanceof HtmlElement) {
+    } else if (aDomNode instanceof DomElement) {
       output.print('<');
       output.print(determineTag(aDomNode));
       writeAttributes(aDomNode);
@@ -359,7 +374,7 @@ public final class XHtmlOutputter {
       output.print("</");
       output.print(((DomNamespaceNode) aDomNode).getQualifiedName());
       output.println(">");
-    } else if (aDomNode instanceof HtmlElement) {
+    } else if (aDomNode instanceof DomElement) {
       if (!EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print("</");
         output.print(determineTag(aDomNode));
@@ -383,32 +398,32 @@ public final class XHtmlOutputter {
    * @throws IOException in case of error
    */
   protected void writeAttributes(final DomNode aDomNode) throws IOException {
-    if (aDomNode instanceof HtmlElement) {
-      final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
+    if (aDomNode instanceof DomElement) {
+      final DomElement tmpDomElement = (DomElement) aDomNode;
 
       boolean tmpIsCssLink = false;
-      if (tmpHtmlElement instanceof HtmlLink) {
-        final HtmlLink tmpHtmlLink = (HtmlLink) tmpHtmlElement;
+      if (tmpDomElement instanceof HtmlLink) {
+        final HtmlLink tmpHtmlLink = (HtmlLink) tmpDomElement;
 
         if ("text/css".equals(tmpHtmlLink.getTypeAttribute()) && "stylesheet".equals(tmpHtmlLink.getRelAttribute())) {
           tmpIsCssLink = true;
         }
       }
 
-      final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
-      final boolean tmpIsHtmlImageInput = tmpHtmlElement instanceof HtmlImageInput;
-      final boolean tmpIsHtmlHtmlEmbed = tmpHtmlElement instanceof HtmlEmbed;
+      final boolean tmpIsHtmlImage = tmpDomElement instanceof HtmlImage;
+      final boolean tmpIsHtmlImageInput = tmpDomElement instanceof HtmlImageInput;
+      final boolean tmpIsHtmlHtmlEmbed = tmpDomElement instanceof HtmlEmbed;
 
-      final boolean tmpIsHtmlFrame = tmpHtmlElement instanceof BaseFrameElement;
-      final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
-      final boolean tmpIsHtmlSubmitInput = tmpHtmlElement instanceof HtmlSubmitInput;
+      final boolean tmpIsHtmlFrame = tmpDomElement instanceof BaseFrameElement;
+      final boolean tmpIsHtmlPasswordInput = tmpDomElement instanceof HtmlPasswordInput;
+      final boolean tmpIsHtmlSubmitInput = tmpDomElement instanceof HtmlSubmitInput;
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
-      final Map<String, DomAttr> tmpAttributes = tmpHtmlElement.getAttributesMap();
+      final Map<String, DomAttr> tmpAttributes = tmpDomElement.getAttributesMap();
 
       // some HtmlUnitControls are special
-      if (tmpHtmlElement instanceof HtmlOption) {
-        final HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
+      if (tmpDomElement instanceof HtmlOption) {
+        final HtmlOption tmpHtmlOption = (HtmlOption) tmpDomElement;
         if (tmpHtmlOption.isSelected() && tmpHtmlOption.getAttribute("selected") == DomElement.ATTRIBUTE_NOT_DEFINED) {
           output.print(" selected");
         }
@@ -430,7 +445,7 @@ public final class XHtmlOutputter {
           }
 
           if (tmpIsCssLink && "href".equals(tmpAttributeName)) {
-            final URL tmpUrl = tmpHtmlElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+            final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, ".css");
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
@@ -438,7 +453,7 @@ public final class XHtmlOutputter {
           }
 
           if ((tmpIsHtmlImage || tmpIsHtmlImageInput || tmpIsHtmlHtmlEmbed) && "src".equals(tmpAttributeName)) {
-            final URL tmpUrl = tmpHtmlElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+            final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
@@ -466,9 +481,9 @@ public final class XHtmlOutputter {
           }
 
           if ("background".equals(tmpAttributeName)
-              && (tmpHtmlElement instanceof HtmlTable || tmpHtmlElement instanceof HtmlTableHeader
-                  || tmpHtmlElement instanceof HtmlTableRow || tmpHtmlElement instanceof HtmlTableDataCell)) {
-            final URL tmpUrl = tmpHtmlElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+              && (tmpDomElement instanceof HtmlTable || tmpDomElement instanceof HtmlTableHeader
+                  || tmpDomElement instanceof HtmlTableRow || tmpDomElement instanceof HtmlTableDataCell)) {
+            final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
