@@ -379,7 +379,7 @@
          =========================================== -->
     <target name="-load-findbugs" depends="-load-ivy" unless="skip.metrics">
         <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
-        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.1" type="jar"
+        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="2.0.2" type="jar"
             pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
         <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
     </target>
