@@ -8,9 +8,9 @@
 .settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 /LICENSE.txt -text
 /actions.txt -text svneol=unset#text/plain
-ant_lib/bcpg-jdk15on-150.jar -text
-ant_lib/bcprov-jdk15on-1.50.jar -text
-ant_lib/ivy-2.3.0.jar -text
+ant_lib/bcpg-jdk15on-151.jar -text
+ant_lib/bcprov-jdk15on-1.51.jar -text
+ant_lib/ivy-2.4.0.jar -text
 /build-patternset.xml -text svneol=unset#text/plain
 /build-properties.xml -text
 /build.properties -text
