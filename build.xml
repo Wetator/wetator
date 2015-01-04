@@ -297,7 +297,8 @@
         <echo level="info">Compiling test sources with Java target ${javac.target}</echo>
 
         <javac srcdir="${dir.test-src}" encoding="utf-8" debug="on" debuglevel="lines,vars,source"
-            target="${javac.target}" destdir="${dir.build}/test-classes" includeantruntime="false">
+            source="${javac.source}" target="${javac.target}"
+            destdir="${dir.build}/test-classes" includeantruntime="false">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <patternset refid="libPattern" />
