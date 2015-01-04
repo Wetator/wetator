@@ -17,7 +17,6 @@
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-2.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
-	<classpathentry kind="lib" path="lib/xsom-20110809.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-3.0.0.v201112011016.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.11.jar" sourcepath="lib_src/junit-4.11-sources.jar"/>
 	<classpathentry kind="lib" path="lib/automaton-1.11-8.jar"/>
@@ -53,5 +52,6 @@
 	<classpathentry kind="lib" path="lib/jempbox-1.8.8.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.8.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.11.jar"/>
+	<classpathentry kind="lib" path="lib/xsom-20140925.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
