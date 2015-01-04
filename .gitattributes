@@ -7,9 +7,9 @@ wetator-ant-task/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/pl
 wetator-ant-task/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 wetator-ant-task/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 wetator-ant-task/LICENSE.txt -text
-wetator-ant-task/ant_lib/bcpg-jdk15on-150.jar -text
-wetator-ant-task/ant_lib/bcprov-jdk15on-1.50.jar -text
-wetator-ant-task/ant_lib/ivy-2.3.0.jar -text
+wetator-ant-task/ant_lib/bcpg-jdk15on-151.jar -text
+wetator-ant-task/ant_lib/bcprov-jdk15on-1.51.jar -text
+wetator-ant-task/ant_lib/ivy-2.4.0.jar -text
 wetator-ant-task/build-patternset.xml -text
 wetator-ant-task/build-properties.xml -text
 wetator-ant-task/build.properties -text
