@@ -78,12 +78,14 @@ import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.DialogWindow;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
@@ -269,6 +271,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     // setup our listener
     webClient.addWebWindowListener(new WebWindowListener(this));
     webClient.setAlertHandler(new AlertHandler(wetatorEngine));
+    webClient.getWebConsole().setLogger(new WebConsoleLogger(wetatorEngine));
     webClient.setConfirmHandler(new ConfirmHandler(wetatorEngine));
 
     // refresh handler - behave like the browser does
@@ -452,6 +455,57 @@ public final class HtmlUnitBrowser implements IBrowser {
     protected void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
       message = aMessagePattern;
       result = false;
+    }
+  }
+
+  /**
+   * Our own WebConsole logger.
+   */
+  public static class WebConsoleLogger implements Logger {
+    private WetatorEngine wetatorEngine;
+
+    /**
+     * Constructor.
+     * 
+     * @param aWetatorEngine the engine to inform about the alert texts.
+     */
+    public WebConsoleLogger(final WetatorEngine aWetatorEngine) {
+      wetatorEngine = aWetatorEngine;
+    }
+
+    @Override
+    public void trace(final Object aMessage) {
+      LOG.debug("Console [trace]: " + aMessage);
+
+      wetatorEngine.informListenersInfo("ConsoleTrace", new String[] { aMessage.toString() });
+    }
+
+    @Override
+    public void debug(final Object aMessage) {
+      LOG.debug("Console [debug]: " + aMessage);
+
+      wetatorEngine.informListenersInfo("ConsoleDebug", new String[] { aMessage.toString() });
+    }
+
+    @Override
+    public void info(final Object aMessage) {
+      LOG.debug("Console [info]: " + aMessage);
+
+      wetatorEngine.informListenersInfo("ConsoleInfo", new String[] { aMessage.toString() });
+    }
+
+    @Override
+    public void warn(final Object aMessage) {
+      LOG.debug("Console [warn]: " + aMessage);
+
+      wetatorEngine.informListenersInfo("ConsoleWarn", new String[] { aMessage.toString() });
+    }
+
+    @Override
+    public void error(final Object aMessage) {
+      LOG.debug("Console [error]: " + aMessage);
+
+      wetatorEngine.informListenersInfo("ConsoleError", new String[] { aMessage.toString() });
     }
   }
 
