@@ -101,7 +101,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpContextHandler.addFilter(tmpFilterHolder, "/snoopy.php", tmpDispatcherTypes);
 
     HandlerList tmpHandlers = new HandlerList();
-    tmpHandlers.setHandlers(new Handler[] { tmpContextHandler, tmpResourceHandler, new DefaultHandler() });
+    tmpHandlers.setHandlers(new Handler[] { tmpResourceHandler, tmpContextHandler, new DefaultHandler() });
     server.setHandler(tmpHandlers);
 
     // security
