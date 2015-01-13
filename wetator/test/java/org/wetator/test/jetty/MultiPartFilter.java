@@ -48,7 +48,7 @@ import javax.servlet.http.Part;
 import org.eclipse.jetty.util.IO;
 import org.eclipse.jetty.util.LazyList;
 import org.eclipse.jetty.util.MultiMap;
-import org.eclipse.jetty.util.MultiPartInputStream;
+import org.eclipse.jetty.util.MultiPartInputStreamParser;
 import org.eclipse.jetty.util.StringUtil;
 
 /* ------------------------------------------------------------ */
@@ -134,21 +134,15 @@ public class MultiPartFilter implements Filter {
 
     // Get current parameters so we can merge into them
     MultiMap<String> tmpParameters = new MultiMap<String>();
-    for (Iterator<Map.Entry<String, String[]>> tmpIterator = aRequest.getParameterMap().entrySet().iterator(); tmpIterator
-        .hasNext();) {
-      Map.Entry<String, String[]> tmpEntry = tmpIterator.next();
-      Object tmpValue = tmpEntry.getValue();
-      if (tmpValue instanceof String[]) {
-        tmpParameters.addValues(tmpEntry.getKey(), (String[]) tmpValue);
-      } else {
-        tmpParameters.add(tmpEntry.getKey(), tmpValue);
-      }
+    for (Map.Entry<String, String[]> tmpEntry : aRequest.getParameterMap().entrySet()) {
+      String[] tmpValue = tmpEntry.getValue();
+      tmpParameters.addValues(tmpEntry.getKey(), tmpValue);
     }
 
     MultipartConfigElement tmpConfig = new MultipartConfigElement(tempDir.getCanonicalPath(), maxFileSize,
         maxRequestSize, fileOutputBuffer);
-    MultiPartInputStream tmpMultiPartInputStream = new MultiPartInputStream(tmpInputStream, tmpContentType, tmpConfig,
-        tempDir);
+    MultiPartInputStreamParser tmpMultiPartInputStream = new MultiPartInputStreamParser(tmpInputStream, tmpContentType,
+        tmpConfig, tempDir);
     tmpMultiPartInputStream.setDeleteOnExit(deleteFiles);
     aRequest.setAttribute(MULTIPART, tmpMultiPartInputStream);
 
@@ -158,7 +152,7 @@ public class MultiPartFilter implements Filter {
         Iterator<Part> tmpIterator = tmpParts.iterator();
         while (tmpIterator.hasNext() && tmpParameters.size() < maxFormKeys) {
           Part tmpPart = tmpIterator.next();
-          MultiPartInputStream.MultiPart tmpMultiPart = (MultiPartInputStream.MultiPart) tmpPart;
+          MultiPartInputStreamParser.MultiPart tmpMultiPart = (MultiPartInputStreamParser.MultiPart) tmpPart;
           if (tmpMultiPart.getFile() != null) {
             aRequest.setAttribute(tmpMultiPart.getName(), tmpMultiPart.getFile());
             if (tmpMultiPart.getContentDispositionFilename() != null) {
@@ -170,7 +164,7 @@ public class MultiPartFilter implements Filter {
           } else {
             ByteArrayOutputStream tmpBytes = new ByteArrayOutputStream();
             IO.copy(tmpPart.getInputStream(), tmpBytes);
-            tmpParameters.add(tmpPart.getName(), tmpBytes.toByteArray());
+            tmpParameters.add(tmpPart.getName(), new String(tmpBytes.toByteArray()));
             if (tmpPart.getContentType() != null) {
               tmpParameters.add(tmpPart.getName() + CONTENT_TYPE_SUFFIX, tmpPart.getContentType());
             }
@@ -194,7 +188,7 @@ public class MultiPartFilter implements Filter {
       return;
     }
 
-    MultiPartInputStream tmpMultiPartInputStream = (MultiPartInputStream) aRequest.getAttribute(MULTIPART);
+    MultiPartInputStreamParser tmpMultiPartInputStream = (MultiPartInputStreamParser) aRequest.getAttribute(MULTIPART);
     if (tmpMultiPartInputStream != null) {
       try {
         tmpMultiPartInputStream.deleteParts();
