@@ -445,7 +445,7 @@ public class WetatorConfiguration {
       proxyHostsToBypass = new HashSet<String>();
       tmpValue = tmpProperties.getProperty(PROPERTY_PROXY_HOSTS_TO_BYPASS, "");
       tmpProperties.remove(PROPERTY_PROXY_HOSTS_TO_BYPASS);
-      if (StringUtils.isEmpty(tmpValue)) {
+      if (StringUtils.isNotBlank(tmpValue)) {
         // parsing
         final String[] tmpNonProxyHostArray = tmpValue.split("\\|");
         for (String tmpString : tmpNonProxyHostArray) {
