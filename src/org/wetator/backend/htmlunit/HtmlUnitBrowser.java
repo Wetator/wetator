@@ -78,7 +78,6 @@ import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.DialogWindow;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
-import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
@@ -225,11 +224,12 @@ public final class HtmlUnitBrowser implements IBrowser {
       final Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
 
       for (final String tmpString : tmpNonProxyHosts) {
-        if (StringUtils.isNotEmpty(tmpString)) {
-          final String tmpHostsToProxyBypass = tmpString.trim();
-          webClient.getOptions().getProxyConfig().addHostsToProxyBypass(tmpHostsToProxyBypass);
-          LOG.info("Proxy HostsToProxyBypass: '" + tmpHostsToProxyBypass + "'");
-        }
+        String tmpHostsToProxyBypass = tmpString.trim();
+        tmpHostsToProxyBypass = tmpHostsToProxyBypass.replaceAll("\\.", "\\\\.");
+        tmpHostsToProxyBypass = tmpHostsToProxyBypass.replaceAll("^\\*", ".*");
+
+        webClient.getOptions().getProxyConfig().addHostsToProxyBypass(tmpHostsToProxyBypass);
+        LOG.info("Proxy HostsToProxyBypass: '" + tmpHostsToProxyBypass + "'");
       }
     } else {
       webClient = new WebClient(tmpBrowserVersion);
