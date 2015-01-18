@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Version;
@@ -96,6 +97,19 @@ public class StdOutProgressListener implements IProgressListener {
     if (tmpConfiguration != null) {
       if (StringUtils.isNotEmpty(tmpConfiguration.getProxyHost())) {
         println("    proxy:  '" + tmpConfiguration.getProxyHost() + ":" + tmpConfiguration.getProxyPort() + "'");
+
+        final Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
+        boolean tmpNotFirst = false;
+        final StringBuilder tmpProxies = new StringBuilder("    bypass: ");
+        for (final String tmpString : tmpNonProxyHosts) {
+          final String tmpHostsToProxyBypass = tmpString.trim();
+          if (tmpNotFirst) {
+            tmpProxies.append(", ");
+          }
+          tmpProxies.append('\'').append(tmpHostsToProxyBypass).append('\'');
+          tmpNotFirst = true;
+        }
+        println(tmpProxies.toString());
       }
 
       println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");

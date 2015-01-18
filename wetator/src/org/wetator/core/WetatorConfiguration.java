@@ -448,10 +448,10 @@ public class WetatorConfiguration {
       if (StringUtils.isNotBlank(tmpValue)) {
         // parsing
         final String[] tmpNonProxyHostArray = tmpValue.split("\\|");
-        for (String tmpString : tmpNonProxyHostArray) {
-          tmpString = tmpString.replaceAll("\\.", "\\\\.");
-          tmpString = tmpString.replaceAll("^\\*", ".*");
-          proxyHostsToBypass.add(tmpString);
+        for (String tmpHost : tmpNonProxyHostArray) {
+          if (StringUtils.isNotBlank(tmpHost)) {
+            proxyHostsToBypass.add(tmpHost.trim());
+          }
         }
       }
 
