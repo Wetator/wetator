@@ -20,12 +20,15 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.text.BadLocationException;
 
@@ -93,6 +96,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
 import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -112,6 +116,8 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /** Htmlunit WebClient. */
   protected WebClient webClient;
+  /** Sometimes we like to ignore some jobs. */
+  protected JavaScriptJobFilter jobFilter;
   /** ResponseStore. */
   protected ResponseStore responseStore;
   /** WetatorEngine. */
@@ -281,6 +287,15 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setJavaScriptEnabled(true);
     webClient.getOptions().setThrowExceptionOnScriptError(false);
     webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
+
+    jobFilter = null;
+    // jobFilter = new JavaScriptJobFilter();
+    // jobFilter
+    // .addPattern(Pattern
+    // .compile("JavaScript Execution Job .* window.setTimeout\\(\n  function \\(\\) \\{\n      a\\(\\);\n      c != null && si\\(c\\);\n  \\}\n, 300000\\)"));
+    // jobFilter
+    // .addPattern(Pattern
+    // .compile("JavaScript Execution Job 377: window.setTimeout\\(\n  function \\(\\) \\{\n      if \\(!isWidgetsetLoaded\\(widgetset\\)\\) \\{\n          alert\\(\"Failed to load the widgetset: \" \\+ url\\);\n      \\}\n  \\}\n, 15000\\)"));
 
     // set Accept-Language header
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
@@ -782,7 +797,43 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
     }
+  }
 
+  /**
+   * Ignore some jobs (like heartbeat).
+   */
+  public static final class JavaScriptJobFilter implements
+      com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+    private List<Pattern> patterns;
+
+    /**
+     * The constructor.
+     */
+    public JavaScriptJobFilter() {
+      super();
+      patterns = new ArrayList<Pattern>();
+    }
+
+    /**
+     * Add a pattern to the list of suppression patterns.
+     * 
+     * @param aPattern the pattern to add
+     */
+    public void addPattern(final Pattern aPattern) {
+      patterns.add(aPattern);
+    }
+
+    @Override
+    public boolean passes(final JavaScriptJob aJob) {
+      final String tmpJob = aJob.toString();
+      for (Pattern tmpPattern : patterns) {
+        final Matcher tmpMather = tmpPattern.matcher(tmpJob);
+        if (tmpMather.matches()) {
+          return false;
+        }
+      }
+      return true;
+    }
   }
 
   private Page getCurrentPage() throws BackendException {
@@ -908,7 +959,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
       wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(jsTimeoutInMillis / 1000) },
-          ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump());
+          ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
       return true;
     }
     return false;
@@ -917,7 +968,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   private boolean areJobsPendig(final HtmlPage aHtmlPage, final long anDuration) {
     final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
 
-    final int tmpJobCount = tmpJobManager.waitForJobsStartingBefore(anDuration);
+    final int tmpJobCount = tmpJobManager.waitForJobsStartingBefore(anDuration, jobFilter);
     if (tmpJobCount > 0) {
       return true;
     }
@@ -934,7 +985,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   private int areJobsActive(final HtmlPage aHtmlPage) {
     final JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
 
-    int tmpJobCount = tmpJobManager.getJobCount();
+    int tmpJobCount = tmpJobManager.getJobCount(jobFilter);
     if (tmpJobCount > 0) {
       return tmpJobCount;
     }
@@ -986,7 +1037,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           if (tmpJobCount > 0) {
             wetatorEngine.informListenersWarn("stillJobsActive",
                 new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                    .getJobManager().jobStatusDump());
+                    .getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
         } catch (final AssertionException e) {
@@ -1023,7 +1074,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump());
+                  .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
@@ -1092,7 +1143,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
                   new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                      .getJobManager().jobStatusDump());
+                      .getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
           } catch (final AssertionException e) {
@@ -1141,7 +1192,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump());
+                  .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();
