@@ -218,6 +218,11 @@ public interface IBrowser {
   void startNewSession(IBrowser.BrowserType aBrowserType);
 
   /**
+   * Closes the current browser session and cleans up all associated resources.<br/>
+   */
+  void endSession();
+
+  /**
    * Returns the url for the bookmark with the given name.
    * 
    * @param aBookmarkName the name of the bookmark

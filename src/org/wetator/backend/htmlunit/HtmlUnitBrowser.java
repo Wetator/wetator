@@ -184,24 +184,15 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public void startNewSession(final IBrowser.BrowserType aBrowserType) {
+    // at first take care there is now other session active
+    endSession();
+
     final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
 
     // reset the bookmarks
     bookmarks = new HashMap<String, URL>();
 
     final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
-
-    if (null != webClient) {
-      // TODO maybe we have to do more here
-      try {
-        // unset the onbeforeunload handler to avoid it interfering
-        webClient.setOnbeforeunloadHandler(null);
-
-        webClient.closeAllWindows();
-      } catch (final ScriptException e) {
-        LOG.warn("Could not close previous window.", e);
-      }
-    }
 
     DefaultCredentialsProvider tmpCredentialProvider = null;
 
@@ -313,6 +304,26 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
     // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
     // WebClientUtils.attachVisualDebugger(webClient);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#endSession()
+   */
+  @Override
+  public void endSession() {
+    if (null != webClient) {
+      // TODO maybe we have to do more here
+      try {
+        // unset the onbeforeunload handler to avoid it interfering
+        webClient.setOnbeforeunloadHandler(null);
+
+        webClient.closeAllWindows();
+      } catch (final ScriptException e) {
+        LOG.warn("Could not close previous window.", e);
+      }
+    }
   }
 
   /**

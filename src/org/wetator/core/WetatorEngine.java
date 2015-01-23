@@ -156,13 +156,16 @@ public class WetatorEngine {
               if (!tmpErrorOccurred && tmpValidInput) {
                 // new session for every (root) file and browser
                 getBrowser().startNewSession(tmpBrowserType);
-
-                // setup the context
-                final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
-                tmpValidInput = tmpWetatorContext.execute();
-                if (!tmpValidInput) {
-                  // the input won't be valid for the next browser => continue with next browser but ignore it
-                  tmpErrorOccurred = true;
+                try {
+                  // setup the context
+                  final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
+                  tmpValidInput = tmpWetatorContext.execute();
+                  if (!tmpValidInput) {
+                    // the input won't be valid for the next browser => continue with next browser but ignore it
+                    tmpErrorOccurred = true;
+                  }
+                } finally {
+                  getBrowser().endSession();
                 }
               } else {
                 informListenersTestRunIgnored();
