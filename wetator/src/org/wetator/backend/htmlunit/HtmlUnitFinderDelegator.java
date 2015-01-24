@@ -17,7 +17,9 @@
 package org.wetator.backend.htmlunit;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -52,14 +54,48 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   private IdentifierBasedHtmlUnitControlsFinder othersFinder;
   private AbstractHtmlUnitControlsFinder forTextFinder;
 
+  /**
+   * Our simple impl of a ThreadFactory (decorator) to be able to name
+   * our threads.
+   */
+  private static final class ThreadNamingFactory implements ThreadFactory {
+    private static int id = 1;
+    private ThreadFactory baseFactory;
+
+    private ThreadNamingFactory(final ThreadFactory aBaseFactory) {
+      baseFactory = aBaseFactory;
+    }
+
+    @Override
+    public Thread newThread(final Runnable aRunnable) {
+      final Thread tmpThread = baseFactory.newThread(aRunnable);
+      tmpThread.setName("WETATOR FinderThread " + id++);
+      return tmpThread;
+    }
+  }
+
   private static synchronized ThreadPoolExecutor getThreadPool() {
     if (threadPool == null) {
       final ThreadPoolExecutor tmpThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime()
           .availableProcessors());
+      tmpThreadPool.setThreadFactory(new ThreadNamingFactory(tmpThreadPool.getThreadFactory()));
       tmpThreadPool.prestartAllCoreThreads();
       threadPool = tmpThreadPool;
     }
     return threadPool;
+  }
+
+  /**
+   * Shutdown the Thread pool.
+   * 
+   * @throws InterruptedException in case of error
+   */
+  public static synchronized void shutdownThreadPool() throws InterruptedException {
+    if (threadPool != null) {
+      threadPool.shutdown();
+      threadPool.awaitTermination(1, TimeUnit.SECONDS);
+      threadPool = null;
+    }
   }
 
   /**

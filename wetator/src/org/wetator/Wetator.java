@@ -93,39 +93,43 @@ public final class Wetator {
     final JWindow tmpWindow = new JWindow();
     try {
       final WetatorEngine tmpWetatorEngine = new WetatorEngine();
-      tmpWetatorEngine.addProgressListener(tmpProgressListener);
+      try {
+        tmpWetatorEngine.addProgressListener(tmpProgressListener);
 
-      if (null != tmpConfigFileName) {
-        tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
+        if (null != tmpConfigFileName) {
+          tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
+        }
+        tmpWetatorEngine.init();
+        if (null != tmpLogFile) {
+          tmpWetatorEngine.getConfiguration().enableLog();
+        }
+
+        if (tmpFileNames.isEmpty()) {
+          String tmpPropertyKey = null;
+          final File tmpConfigFile = tmpWetatorEngine.getConfigFile();
+          if (null != tmpConfigFile) {
+            tmpPropertyKey = Integer.toString(tmpConfigFile.getAbsolutePath().hashCode());
+          }
+          final File[] tmpFiles = DialogUtil.chooseFiles(tmpWindow, tmpPropertyKey);
+          if (null == tmpFiles || tmpFiles.length < 1) {
+            System.exit(0);
+          }
+
+          for (int i = 0; i < tmpFiles.length; i++) {
+            final File tmpFile = tmpFiles[i];
+            tmpWetatorEngine.addTestCase(tmpFile.getName(), tmpFile);
+          }
+        } else {
+          for (final String tmpFileName : tmpFileNames) {
+            final File tmpFile = new File(tmpFileName);
+            tmpWetatorEngine.addTestCase(tmpFileName, tmpFile);
+          }
+        }
+
+        tmpWetatorEngine.executeTests();
+      } finally {
+        tmpWetatorEngine.shutdown();
       }
-      tmpWetatorEngine.init();
-      if (null != tmpLogFile) {
-        tmpWetatorEngine.getConfiguration().enableLog();
-      }
-
-      if (tmpFileNames.isEmpty()) {
-        String tmpPropertyKey = null;
-        final File tmpConfigFile = tmpWetatorEngine.getConfigFile();
-        if (null != tmpConfigFile) {
-          tmpPropertyKey = Integer.toString(tmpConfigFile.getAbsolutePath().hashCode());
-        }
-        final File[] tmpFiles = DialogUtil.chooseFiles(tmpWindow, tmpPropertyKey);
-        if (null == tmpFiles || tmpFiles.length < 1) {
-          System.exit(0);
-        }
-
-        for (int i = 0; i < tmpFiles.length; i++) {
-          final File tmpFile = tmpFiles[i];
-          tmpWetatorEngine.addTestCase(tmpFile.getName(), tmpFile);
-        }
-      } else {
-        for (final String tmpFileName : tmpFileNames) {
-          final File tmpFile = new File(tmpFileName);
-          tmpWetatorEngine.addTestCase(tmpFileName, tmpFile);
-        }
-      }
-
-      tmpWetatorEngine.executeTests();
       // SearchPattern.dumpStatistics();
     } catch (final Throwable e) {
       System.out.println("Wetator execution failed: " + e.getMessage());

@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
+import org.wetator.backend.htmlunit.HtmlUnitFinderDelegator;
 import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
@@ -186,6 +187,21 @@ public class WetatorEngine {
       }
     } finally {
       informListenersEnd();
+    }
+  }
+
+  /**
+   * Initializes the wetator engine. The configuration is read from the configuration file got by
+   * {@link #getConfigFile()}.
+   * 
+   * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
+   */
+  public void shutdown() {
+    try {
+      // TODO we have to decouple this
+      HtmlUnitFinderDelegator.shutdownThreadPool();
+    } catch (final InterruptedException e) {
+      LOG.warn("Could not shutdown the Thread Pool.", e);
     }
   }
 
