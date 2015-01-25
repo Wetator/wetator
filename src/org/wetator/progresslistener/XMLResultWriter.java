@@ -261,6 +261,7 @@ public class XMLResultWriter implements IProgressListener {
           tmpConfiguration.getJsTimeoutInSeconds() + "s");
       printConfigurationProperty(WetatorConfiguration.PROPERTY_HTTP_TIMEOUT, tmpConfiguration.getHttpTimeoutInSeconds()
           + "s");
+      // TODO jsJob filter patterns
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_WPATH_SEPARATOR, tmpConfiguration.getWPathSeparator());
 

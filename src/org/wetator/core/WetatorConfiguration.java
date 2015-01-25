@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,7 @@ import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
 import org.wetator.commandset.DefaultCommandSet;
+import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.ConfigurationException;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.LegacyXMLScripter;
@@ -167,6 +169,11 @@ public class WetatorConfiguration {
   private static final String PROPERTY_PROXY_PASSWORD = PROPERTY_PREFIX + "proxyPassword";
 
   /**
+   * The file that defines jsJob filter patterns.
+   */
+  private static final String PROPERTY_JS_JOB_FILTER_FILE = PROPERTY_PREFIX + "jsJobFilterFile";
+
+  /**
    * The prefix identifying a property a variable.
    */
   public static final String VARIABLE_PREFIX = "$";
@@ -202,6 +209,8 @@ public class WetatorConfiguration {
   private Set<String> proxyHostsToBypass;
   private SecretString proxyUser;
   private SecretString proxyPassword;
+
+  private Set<SearchPattern> jsJobFilterPatterns;
 
   private List<Variable> variables; // store them in defined order
 
@@ -523,6 +532,44 @@ public class WetatorConfiguration {
               + "' is not readable.");
         }
         xslTemplates.add(tmpTemplateFile.getAbsolutePath());
+      }
+    }
+
+    // jsJobFilterPatterns
+    tmpValue = tmpProperties.getProperty(PROPERTY_JS_JOB_FILTER_FILE, "");
+    tmpProperties.remove(PROPERTY_JS_JOB_FILTER_FILE);
+
+    jsJobFilterPatterns = new HashSet<SearchPattern>();
+
+    if (StringUtils.isNotBlank(tmpValue)) {
+      File tmpFilterFile = new File(tmpValue);
+
+      if (!tmpFilterFile.isAbsolute()) {
+        // template file is relative to the base directory
+        tmpFilterFile = new File(aBaseDirectory, tmpValue);
+      }
+      if (!tmpFilterFile.exists()) {
+        throw new ConfigurationException("The configured jsJob filter file '" + tmpFilterFile.getAbsolutePath()
+            + "' does not exist.");
+      }
+      if (!tmpFilterFile.canRead()) {
+        throw new ConfigurationException("The configured jsJob filter '" + tmpFilterFile.getAbsolutePath()
+            + "' is not readable.");
+      }
+
+      try {
+        final List<String> tmpLines = FileUtils.readLines(tmpFilterFile);
+
+        for (String tmpLine : tmpLines) {
+          if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
+            tmpLine = tmpLine.replace("\\n", "\n");
+            tmpLine = tmpLine.replace("\\r", "\r");
+            jsJobFilterPatterns.add(SearchPattern.compile(tmpLine));
+          }
+        }
+      } catch (final IOException e) {
+        throw new ConfigurationException("Can't parse jsJob filter file '" + tmpFilterFile.getAbsolutePath()
+            + "' Reason: " + e.getMessage() + ".");
       }
     }
 
@@ -895,6 +942,13 @@ public class WetatorConfiguration {
    */
   public List<String> getXslTemplates() {
     return xslTemplates;
+  }
+
+  /**
+   * @return a list containing the configured XSL templates
+   */
+  public Set<SearchPattern> getJsJobFilterPatterns() {
+    return jsJobFilterPatterns;
   }
 
   /**
