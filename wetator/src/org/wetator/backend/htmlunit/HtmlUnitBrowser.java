@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.text.BadLocationException;
 
@@ -279,14 +277,15 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setThrowExceptionOnScriptError(false);
     webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
 
-    jobFilter = null;
-    // jobFilter = new JavaScriptJobFilter();
-    // jobFilter
-    // .addPattern(Pattern
-    // .compile("JavaScript Execution Job .* window.setTimeout\\(\n  function \\(\\) \\{\n      a\\(\\);\n      c != null && si\\(c\\);\n  \\}\n, 300000\\)"));
-    // jobFilter
-    // .addPattern(Pattern
-    // .compile("JavaScript Execution Job 377: window.setTimeout\\(\n  function \\(\\) \\{\n      if \\(!isWidgetsetLoaded\\(widgetset\\)\\) \\{\n          alert\\(\"Failed to load the widgetset: \" \\+ url\\);\n      \\}\n  \\}\n, 15000\\)"));
+    final Set<SearchPattern> tmpFilters = tmpConfiguration.getJsJobFilterPatterns();
+    if (tmpFilters.isEmpty()) {
+      jobFilter = null;
+    } else {
+      jobFilter = new JavaScriptJobFilter();
+      for (SearchPattern tmpSearchPattern : tmpFilters) {
+        jobFilter.addPattern(tmpSearchPattern);
+      }
+    }
 
     // set Accept-Language header
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
@@ -815,14 +814,14 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public static final class JavaScriptJobFilter implements
       com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
-    private List<Pattern> patterns;
+    private List<SearchPattern> patterns;
 
     /**
      * The constructor.
      */
     public JavaScriptJobFilter() {
       super();
-      patterns = new ArrayList<Pattern>();
+      patterns = new ArrayList<SearchPattern>();
     }
 
     /**
@@ -830,16 +829,15 @@ public final class HtmlUnitBrowser implements IBrowser {
      * 
      * @param aPattern the pattern to add
      */
-    public void addPattern(final Pattern aPattern) {
+    public void addPattern(final SearchPattern aPattern) {
       patterns.add(aPattern);
     }
 
     @Override
     public boolean passes(final JavaScriptJob aJob) {
       final String tmpJob = aJob.toString();
-      for (Pattern tmpPattern : patterns) {
-        final Matcher tmpMather = tmpPattern.matcher(tmpJob);
-        if (tmpMather.matches()) {
+      for (SearchPattern tmpPattern : patterns) {
+        if (tmpPattern.matches(tmpJob)) {
           return false;
         }
       }
