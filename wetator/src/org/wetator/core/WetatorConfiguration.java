@@ -562,8 +562,6 @@ public class WetatorConfiguration {
 
         for (String tmpLine : tmpLines) {
           if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
-            tmpLine = tmpLine.replace("\\n", "\n");
-            tmpLine = tmpLine.replace("\\r", "\r");
             jsJobFilterPatterns.add(SearchPattern.compile(tmpLine));
           }
         }
