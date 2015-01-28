@@ -814,7 +814,11 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public static final class JavaScriptJobFilter implements
       com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+
+    private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
+
     private List<SearchPattern> patterns;
+    private boolean isDebugEnabled;
 
     /**
      * The constructor.
@@ -822,6 +826,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     public JavaScriptJobFilter() {
       super();
       patterns = new ArrayList<SearchPattern>();
+
     }
 
     /**
@@ -835,9 +840,12 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     @Override
     public boolean passes(final JavaScriptJob aJob) {
-      final String tmpJob = aJob.toString();
+      final String tmpJob = aJob.toString().replace("\n", "").replace("\r", "");
       for (SearchPattern tmpPattern : patterns) {
         if (tmpPattern.matches(tmpJob)) {
+          if (isDebugEnabled) {
+            LOG.debug("JsJob filtered out: '" + tmpJob + "'");
+          }
           return false;
         }
       }
