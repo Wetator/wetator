@@ -2,10 +2,52 @@
 # Sample wett script.
 # wett file have a simpel wiki like syntax '||' is used as separator
 #
+describe || \
+# H1 \
+## H2 \
+### H3 \
+#### H4 \
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,\
+sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem \
+ipsum dolor sit amet. \
+\
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore \
+magna aliquyam erat, sed diam voluptua. \
+\
+* list item 1 \
+* list item 2 \
+\
+next list \
+\
+1. list item 1 \
+1. list item 2 \
+\
+and now some code \
+\
+    public void execute(final WetatorContext aContext, final Command aCommand) {\
+      aContext.informListenersHtmlDocu(tmpHtml.trim());\
+    }\
+\
+----\
+\
+Follow this [link](http://www.wetator.org "Wetator").\
+\
+And finally some plain html \
+<table border='1'>\
+    <tr>\
+        <td>1.1</td>\
+        <td>1.2</td>\
+    </tr>\
+    <tr>\
+        <td>2.1</td>\
+        <td>2.2</td>\
+    </tr>\
+</table>\
+
 #
 open-url       || http://www.wetator.org
 assert-title   || WETATOR / Smart Web Application Testing
 #
-click-on       || Documentation
+click-on       || documentation
 assert-title   || WETATOR / Documentation
 assert-content || Documentation
