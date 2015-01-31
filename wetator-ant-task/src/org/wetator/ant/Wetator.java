@@ -94,40 +94,42 @@ public class Wetator extends Task {
       }
 
       final WetatorEngine tmpWetatorEngine = new WetatorEngine();
+      try {
+        // configuration is relative to the base dir of the project
+        final File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
+        tmpWetatorEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
 
-      // configuration is relative to the base dir of the project
-      final File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
-      tmpWetatorEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
+        final Map<String, String> tmpOurProperties = getPropertiesFromAnt();
+        tmpWetatorEngine.setExternalProperties(tmpOurProperties);
+        final AntOutProgressListener tmpListener = new AntOutProgressListener(this);
+        tmpWetatorEngine.addProgressListener(tmpListener);
+        tmpWetatorEngine.init();
 
-      final Map<String, String> tmpOurProperties = getPropertiesFromAnt();
-      tmpWetatorEngine.setExternalProperties(tmpOurProperties);
-      final AntOutProgressListener tmpListener = new AntOutProgressListener(this);
-      tmpWetatorEngine.addProgressListener(tmpListener);
-      tmpWetatorEngine.init();
+        // add all files
+        final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
+        final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
 
-      // add all files
-      final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
-      final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
-
-      for (int i = 0; i < tmpListOfFiles.length; i++) {
-        final String tmpFileName = tmpListOfFiles[i];
-        tmpWetatorEngine.addTestCase(tmpFileName, new File(tmpDirScanner.getBasedir(), tmpFileName));
-      }
-
-      tmpWetatorEngine.executeTests();
-
-      // failures
-      if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {
-        if (null != getFailureProperty()) {
-          getProject().setNewProperty(getFailureProperty(), "true");
+        for (int i = 0; i < tmpListOfFiles.length; i++) {
+          final String tmpFileName = tmpListOfFiles[i];
+          tmpWetatorEngine.addTestCase(tmpFileName, new File(tmpDirScanner.getBasedir(), tmpFileName));
         }
 
-        if (isHaltOnFailure()) {
-          throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpListener.getFailureCount()
-              + " failures " + tmpListener.getErrorCount() + " errors)");
-        }
-      }
+        tmpWetatorEngine.executeTests();
 
+        // failures
+        if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {
+          if (null != getFailureProperty()) {
+            getProject().setNewProperty(getFailureProperty(), "true");
+          }
+
+          if (isHaltOnFailure()) {
+            throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpListener.getFailureCount()
+                + " failures " + tmpListener.getErrorCount() + " errors)");
+          }
+        }
+      } finally {
+        tmpWetatorEngine.shutdown();
+      }
     } catch (final Throwable e) {
       // use e.toString() instead of e.getMessage() because e.g. the message for
       // ClassNotFoundException is not understandable when calling only getMessage
