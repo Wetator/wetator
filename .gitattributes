@@ -232,6 +232,7 @@ wetator/samples/google_search/google.wet -text
 wetator/samples/google_search/google.wett -text
 wetator/samples/google_search/google.xls -text
 wetator/samples/google_search/wetator.config -text
+wetator/samples/primefaces/listbox.wett -text
 wetator/samples/sample.wet -text
 wetator/samples/sample.wett -text
 wetator/samples/sample.xls -text
