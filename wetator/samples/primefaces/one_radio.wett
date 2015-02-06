@@ -1,0 +1,16 @@
+
+# Simple test case for the PrimeFaces radio
+
+open-url        || http://www.primefaces.org/showcase/index.xhtml
+assert-content  || PrimeFaces SHOWCASE
+
+click-on        || Input
+click-on        || OneRadio
+
+select          || Wii U
+select          || Paris
+select          || Amsterdam
+select          || Green
+
+click-on        || Submit
+assert-content  || Values, Console: Wii U, City: Amsterdam, Color: Green
