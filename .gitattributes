@@ -27,7 +27,10 @@ samples/google_search/google.wet -text
 samples/google_search/google.wett -text
 samples/google_search/google.xls -text
 samples/google_search/wetator.config -text
+samples/primefaces/inplace.wett -text
 samples/primefaces/listbox.wett -text
+samples/primefaces/one_menu.wett -text
+samples/primefaces/one_radio.wett -text
 samples/sample.wet -text
 samples/sample.wett -text
 samples/sample.xls -text
