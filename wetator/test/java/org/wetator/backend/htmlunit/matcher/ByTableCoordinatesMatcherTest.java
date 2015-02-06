@@ -407,6 +407,40 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
+  public void inTableOnlyPartlyX() throws IOException, InvalidInputException {
+    String tmpHtmlCode = "<html><body>" //
+        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+        + "      <thead>" //
+        + "        <tr>" //
+        + "          <th id='header_1'>header_1</th>" //
+        + "          <th id='header_2'>header_2</th>" //
+        + "          <th id='header_3'>header_3</th>" //
+        + "        </tr>" //
+        + "      </thead>" //
+        + "      <tbody>" //
+        + "        <tr>" //
+        + "          <td id='cell_1_1'>row_1</td>" //
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>" //
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>" //
+        + "        </tr>" //
+        + "        <tr>" //
+        + "          <td id='cell_2_1'>row_2</td>" //
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>" //
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>" //
+        + "        </tr>" //
+        + "      </tbody>" //
+        + "    </table>" //
+        + "</body></html>";
+
+    SecretString tmpSearch = new SecretString("[ader_3]");
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
   public void inTableOnlyXWithPathBehind() throws IOException, InvalidInputException {
     String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
@@ -475,6 +509,40 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(1));
+  }
+
+  @Test
+  public void inTableOnlyPartlyY() throws IOException, InvalidInputException {
+    String tmpHtmlCode = "<html><body>" //
+        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+        + "      <thead>" //
+        + "        <tr>" //
+        + "          <th id='header_1'>header_1</th>" //
+        + "          <th id='header_2'>header_2</th>" //
+        + "          <th id='header_3'>header_3</th>" //
+        + "        </tr>" //
+        + "      </thead>" //
+        + "      <tbody>" //
+        + "        <tr>" //
+        + "          <td id='cell_1_1'>row_1</td>" //
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>" //
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>" //
+        + "        </tr>" //
+        + "        <tr>" //
+        + "          <td id='cell_2_1'>row_2</td>" //
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>" //
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>" //
+        + "        </tr>" //
+        + "      </tbody>" //
+        + "    </table>" //
+        + "</body></html>";
+
+    SecretString tmpSearch = new SecretString("[; w_2]");
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
+        "InputText_2_3");
+
+    Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
