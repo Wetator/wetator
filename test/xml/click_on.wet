@@ -102,6 +102,13 @@
     <comment></comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>button with title</comment>
+    <command><d:click-on><d:wpath>b_TestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_title POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <comment>button with id</comment>
     <command><d:click-on><d:wpath>b_b_text_id</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_text POST</d:content></d:assert-content></command>

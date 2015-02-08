@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.matcher.ByInnerImageMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTextMatcher;
+import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
@@ -87,6 +88,7 @@ public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
       aMatchers.add(new ByTextMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+      aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
