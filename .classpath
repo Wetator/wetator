@@ -30,9 +30,6 @@
 	<classpathentry kind="lib" path="lib/cssparser-0.9.15-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/fontbox-1.8.8.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.16-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/httpclient-4.3.6.jar"/>
-	<classpathentry kind="lib" path="lib/httpcore-4.3.3.jar"/>
-	<classpathentry kind="lib" path="lib/httpmime-4.3.6.jar"/>
 	<classpathentry kind="lib" path="lib/jempbox-1.8.8.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.8.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.11.jar"/>
@@ -53,5 +50,8 @@
 	<classpathentry kind="lib" path="lib/websocket-common-9.2.6.v20141205.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.6.jar" sourcepath="lib_src/slf4j-api-1.7.6-sources.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
