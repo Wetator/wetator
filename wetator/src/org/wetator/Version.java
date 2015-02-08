@@ -24,6 +24,8 @@ import org.wetator.util.VersionUtil;
  * @author rbri
  */
 public final class Version {
+  /** Pattern to check for the correct jar file. **/
+  static final String WETATOR_JAR_PATTERN = "wetator(-[0-9\\.]*)?(-SNAPSHOT)?.jar";
 
   /**
    * A simple main function to be able to ask for the version from a command line.
@@ -71,6 +73,6 @@ public final class Version {
   }
 
   private static String readFromManifest(final String anAttributeName, final String aDefault) {
-    return VersionUtil.readAttributeFromJarManifest("wetator[^/]*.jar", "Application", anAttributeName, aDefault);
+    return VersionUtil.readAttributeFromJarManifest(WETATOR_JAR_PATTERN, "Application", anAttributeName, aDefault);
   }
 }

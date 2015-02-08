@@ -404,6 +404,7 @@ wetator/test/excel/default_command_set.xls -text
 wetator/test/excel/modules/module.xls -text
 wetator/test/excel/sql_command_set.xls -text
 wetator/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+wetator/test/java/org/wetator/VersionTest.java -text
 wetator/test/java/org/wetator/automatonTest.jpage -text
 wetator/test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/WeightedControlListTest.java -text
