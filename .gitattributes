@@ -199,6 +199,7 @@ test/excel/default_command_set.xls -text
 test/excel/modules/module.xls -text
 test/excel/sql_command_set.xls -text
 test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+test/java/org/wetator/VersionTest.java -text
 test/java/org/wetator/automatonTest.jpage -text
 test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/WeightedControlListTest.java -text
