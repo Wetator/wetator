@@ -267,6 +267,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.addWebWindowListener(new WebWindowListener(this));
     webClient.setAlertHandler(new AlertHandler(wetatorEngine));
     webClient.getWebConsole().setLogger(new WebConsoleLogger(wetatorEngine));
+    webClient.setIncorrectnessListener(new IncorrectnessListener(wetatorEngine));
     webClient.setConfirmHandler(new ConfirmHandler(wetatorEngine));
 
     // refresh handler - behave like the browser does
@@ -531,6 +532,29 @@ public final class HtmlUnitBrowser implements IBrowser {
       LOG.debug("Console [error]: " + aMessage);
 
       wetatorEngine.informListenersInfo("ConsoleError", new String[] { aMessage.toString() });
+    }
+  }
+
+  /**
+   * Our own IncorrectnessListener.
+   */
+  public static class IncorrectnessListener implements com.gargoylesoftware.htmlunit.IncorrectnessListener {
+    private WetatorEngine wetatorEngine;
+
+    /**
+     * Constructor.
+     * 
+     * @param aWetatorEngine the engine to inform about the alert texts.
+     */
+    public IncorrectnessListener(final WetatorEngine aWetatorEngine) {
+      wetatorEngine = aWetatorEngine;
+    }
+
+    @Override
+    public void notify(final String aMessage, final Object anOrigin) {
+      LOG.warn("Incorrectness: " + aMessage + " (detected by: " + anOrigin + ")");
+
+      wetatorEngine.informListenersWarn("Incorrectness", new String[] { aMessage, anOrigin.toString() }, (String) null);
     }
   }
 
