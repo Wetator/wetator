@@ -398,11 +398,21 @@
 
 
     <!-- ===========================================
+         private target load-forbiddenapis
+         =========================================== -->
+    <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="1.7"
+            pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
+        <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
+    </target>
+
+
+    <!-- ===========================================
          private target gather-metrics
            gathers all metrics
          =========================================== -->
     <target name="-gather-metrics" description="gathers all metrics"
-        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd" unless="skip.metrics">
+        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd, -load-forbiddenapis" unless="skip.metrics">
         <!-- run checkstyle -->
         <echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
         <delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
@@ -412,12 +422,12 @@
             <fileset dir="${dir.src}">
                 <patternset refid="checkstylePattern" />
             </fileset>
-            <classpath>
-                <fileset dir="${dir.lib}">
-                    <patternset refid="libPattern" />
-                </fileset>
+          <classpath>
+            <fileset dir="${dir.lib}">
+               <patternset refid="libPattern" />
+            </fileset>
                 <path path="${dir.build}/classes" />
-            </classpath>
+          </classpath>
         </checkstyle>
 
         <!-- run findbugs -->
@@ -454,6 +464,20 @@
                 <patternset refid="pmdPattern" />
             </fileset>
         </cpd>
+
+        <!-- run forbiddenapis -->
+        <forbiddenapis internalRuntimeForbidden="true" dir="${dir.build}/classes" >
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
+            </classpath>
+
+            <bundledsignatures name="jdk-unsafe-${javac.target}"/>
+            <bundledsignatures name="jdk-deprecated-${javac.target}"/>
+            <bundledsignatures name="commons-io-unsafe-2.4"/>
+            <!--signaturesFileset file="path/to/signatures.txt"/-->
+        </forbiddenapis>
     </target>
 
 
