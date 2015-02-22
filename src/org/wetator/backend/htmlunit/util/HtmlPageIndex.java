@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.Map;
 
 import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
@@ -488,9 +489,9 @@ public class HtmlPageIndex {
         final String tmpTransform = tmpStyle.getTextTransform();
 
         if ("uppercase".equalsIgnoreCase(tmpTransform)) {
-          tmpTxt = tmpTxt.toUpperCase();
+          tmpTxt = tmpTxt.toUpperCase(Locale.ROOT); // TODO we have to use the browser locale
         } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
-          tmpTxt = tmpTxt.toLowerCase();
+          tmpTxt = tmpTxt.toLowerCase(Locale.ROOT); // TODO we have to use the browser locale
         } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
           tmpTxt = WordUtils.capitalize(tmpTxt);
         }

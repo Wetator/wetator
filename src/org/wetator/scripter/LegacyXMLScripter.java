@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.xml.stream.XMLInputFactory;
@@ -95,7 +96,7 @@ public final class LegacyXMLScripter implements IScripter {
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
-    final String tmpFileName = aFile.getName().toLowerCase();
+    final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
     if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by LegacyXMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '"
@@ -183,10 +184,10 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_STEP.equals(tmpReader.getLocalName())) {
               String tmpCommandName = tmpReader.getAttributeValue(null, A_COMMAND);
               // normalize command name
-              tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
+              tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase(Locale.ROOT);
 
               // comment handling
-              boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
+              boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase(Locale.ROOT));
               if (!tmpIsComment) {
                 final String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_COMMENT);
                 if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {

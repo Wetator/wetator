@@ -95,7 +95,7 @@ public final class ExcelScripter implements IScripter {
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
-    final String tmpFileName = aFile.getName().toLowerCase();
+    final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
     if (!tmpFileName.endsWith(EXCEL_FILE_EXTENSION)) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
@@ -139,7 +139,7 @@ public final class ExcelScripter implements IScripter {
       int tmpSheetNo = -1;
       for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
         final String tmpSheetName = tmpWorkbook.getSheetName(i);
-        if (StringUtils.isNotEmpty(tmpSheetName) && tmpSheetName.toLowerCase().contains("test")) {
+        if (StringUtils.isNotEmpty(tmpSheetName) && tmpSheetName.toLowerCase(Locale.ROOT).contains("test")) {
           tmpSheetNo = i;
           break;
         }
@@ -169,7 +169,7 @@ public final class ExcelScripter implements IScripter {
               locale);
           // normalize command name
           if (StringUtils.isNotEmpty(tmpCommandName)) {
-            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
+            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase(Locale.ROOT);
           }
           tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
