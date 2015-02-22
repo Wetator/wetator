@@ -27,10 +27,12 @@ import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -94,7 +96,7 @@ public final class ResponseStore {
     if (overwrite) {
       tmpDirectoryName = "responses_current";
     } else {
-      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss", Locale.ROOT);
       tmpDirectoryName = "responses_" + tmpFormater.format(new Date());
     }
 
@@ -275,7 +277,7 @@ public final class ResponseStore {
 
             // process all url(....) inside
             tmpProcessed = processCSS(aFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
-            FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed);
+            FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed, Charsets.UTF_8);
           }
 
           if (tmpProcessed == null) {

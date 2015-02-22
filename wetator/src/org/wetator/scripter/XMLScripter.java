@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -107,7 +108,7 @@ public class XMLScripter implements IScripter {
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
-    final String tmpFileName = aFile.getName().toLowerCase();
+    final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
     if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by XMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '" + XML_FILE_EXTENSION

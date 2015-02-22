@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * StringUtil contains some useful extensions to java.lang.String. Due to the
@@ -133,7 +134,7 @@ public final class StringUtil {
       return null;
     }
 
-    return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(aDate);
+    return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.ROOT).format(aDate);
   }
 
   /**

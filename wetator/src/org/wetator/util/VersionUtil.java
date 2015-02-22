@@ -21,6 +21,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -75,7 +76,7 @@ public final class VersionUtil {
         final JarEntry tmpJarEntry = tmpJar.getJarEntry(tmpClassFile);
         final Date tmpDate = new Date(tmpJarEntry.getTime());
 
-        return new SimpleDateFormat("yyyy-MM-dd").format(tmpDate);
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(tmpDate);
       } finally {
         tmpJar.close();
       }
@@ -148,7 +149,7 @@ public final class VersionUtil {
       final Pattern tmpPattern = Pattern.compile(aJarFilePattern);
       while (tmpResources.hasMoreElements()) {
         final URL tmpUrl = tmpResources.nextElement();
-        final String tmpLcUrl = tmpUrl.toExternalForm().toLowerCase();
+        final String tmpLcUrl = tmpUrl.toExternalForm().toLowerCase(Locale.ROOT);
 
         final Matcher tmpMatcher = tmpPattern.matcher(tmpLcUrl);
         if (tmpMatcher.find()) {
