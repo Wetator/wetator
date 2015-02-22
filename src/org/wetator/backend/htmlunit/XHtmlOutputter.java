@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -271,7 +272,7 @@ public final class XHtmlOutputter {
     if (StringUtils.isBlank(tmpEncoding)) {
       return "UTF-8";
     }
-    return tmpEncoding.toUpperCase();
+    return tmpEncoding.toUpperCase(Locale.ROOT);
   }
 
   /**
@@ -430,7 +431,7 @@ public final class XHtmlOutputter {
       }
 
       for (final DomAttr tmpAttribute : tmpAttributes.values()) {
-        final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase();
+        final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
           String tmpAttributeValue = tmpAttribute.getNodeValue();

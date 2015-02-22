@@ -17,6 +17,7 @@
 package org.wetator.i18n;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -56,7 +57,7 @@ public final class Messages {
       }
       tmpMessageResource.append('.');
     }
-    final MessageFormat tmpMessageFormat = new MessageFormat(tmpMessageResource.toString());
+    final MessageFormat tmpMessageFormat = new MessageFormat(tmpMessageResource.toString(), Locale.ENGLISH);
     final String tmpResult = tmpMessageFormat.format(aParameterArray);
 
     return tmpResult;

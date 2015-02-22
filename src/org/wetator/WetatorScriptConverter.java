@@ -82,7 +82,7 @@ public final class WetatorScriptConverter {
     try {
       final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase(Locale.ROOT));
       final IScripter tmpIScripter = tmpScripter.getScripter();
-      final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
+      final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase(Locale.ROOT));
       final IScriptCreator tmpCreator = tmpScriptCreator.getScriptCreator();
       tmpCreator.setOutputDir(tmpOutputDir);
       if (tmpCreator instanceof LegacyXMLScriptCreator && anArgsArray.length == 5) {

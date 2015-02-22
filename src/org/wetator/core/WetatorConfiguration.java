@@ -25,11 +25,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -368,7 +370,7 @@ public class WetatorConfiguration {
     final boolean tmpDistinctOutput = Boolean.parseBoolean(tmpValue);
     LOG.info("Configuration: DistinctOutput is '" + tmpDistinctOutput + "'");
     if (tmpDistinctOutput) {
-      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss", Locale.ROOT);
       outputDir = new File(outputDir, tmpFormater.format(new Date()));
     }
 
@@ -558,7 +560,7 @@ public class WetatorConfiguration {
       }
 
       try {
-        final List<String> tmpLines = FileUtils.readLines(tmpFilterFile);
+        final List<String> tmpLines = FileUtils.readLines(tmpFilterFile, Charsets.UTF_8);
 
         for (String tmpLine : tmpLines) {
           if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
