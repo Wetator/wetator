@@ -17,6 +17,7 @@
 package org.wetator.backend.htmlunit.util;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -141,7 +142,7 @@ public final class ContentTypeUtil {
       return ContentType.OTHER;
     }
     for (final Map.Entry<ContentType, String> tmpEntry : FILE_EXTENSIONS.entrySet()) {
-      if (aFileName.toLowerCase().endsWith(tmpEntry.getValue())) {
+      if (aFileName.toLowerCase(Locale.ROOT).endsWith(tmpEntry.getValue())) {
         return tmpEntry.getKey();
       }
     }

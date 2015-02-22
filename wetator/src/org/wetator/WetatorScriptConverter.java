@@ -19,6 +19,7 @@ package org.wetator;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JWindow;
 
@@ -79,7 +80,7 @@ public final class WetatorScriptConverter {
     final WetatorScriptConverter tmpConverter = new WetatorScriptConverter();
     final JWindow tmpWindow = new JWindow();
     try {
-      final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
+      final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase(Locale.ROOT));
       final IScripter tmpIScripter = tmpScripter.getScripter();
       final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
       final IScriptCreator tmpCreator = tmpScriptCreator.getScriptCreator();

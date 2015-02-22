@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -74,7 +75,7 @@ public final class WikiTextScripter implements IScripter {
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
-    final String tmpFileName = aFile.getName().toLowerCase();
+    final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
     if (!tmpFileName.endsWith(FILE_EXTENSION)) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
           + "' not supported by WikiTextScripter. Extension is not '" + FILE_EXTENSION + "'.");
@@ -149,7 +150,7 @@ public final class WikiTextScripter implements IScripter {
           }
           // normalize command name
           if (StringUtils.isNotEmpty(tmpCommandName) && !(tmpComment && tmpParts.length < 2)) {
-            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
+            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase(Locale.ROOT);
           }
           tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
