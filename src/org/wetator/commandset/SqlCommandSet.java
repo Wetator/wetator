@@ -229,7 +229,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
               } else {
                 if (tmpExpected.length() > 0) {
                   tmpExpected.append(ContentPattern.DELIMITER);
-                  tmpExpected.append(" ");
+                  tmpExpected.append(' ');
                 }
                 tmpExpected.append(tmpValue);
               }

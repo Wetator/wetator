@@ -114,7 +114,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
   @Override
   protected void append(final LoggingEvent aLoggingEvent) {
     // aLoggingEvent.getLocationInformation();
-    currentEvents.events.add(aLoggingEvent);
+    currentEvents.getEvents().add(aLoggingEvent);
 
     if (baseLevel == null || aLoggingEvent.getLevel().isGreaterOrEqual(baseLevel)) {
       for (Appender tmpAppender : baseAppenders) {
@@ -352,13 +352,13 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
         for (CommandEvents tmpEvents : commandEvents) {
           tmpOutput.println("******************************************");
           tmpOutput.print("* ");
-          tmpOutput.println(tmpEvents.command.getName());
-          Parameter tmpParam = tmpEvents.command.getFirstParameter();
+          tmpOutput.println(tmpEvents.getCommand().getName());
+          Parameter tmpParam = tmpEvents.getCommand().getFirstParameter();
           if (null != tmpParam) {
             tmpOutput.print("*   ");
             tmpOutput.println(tmpParam.getValue());
           }
-          tmpParam = tmpEvents.command.getSecondParameter();
+          tmpParam = tmpEvents.getCommand().getSecondParameter();
           if (null != tmpParam) {
             tmpOutput.print("*   ");
             tmpOutput.println(tmpParam.getValue());
@@ -366,7 +366,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
           tmpOutput.println("******************************************");
           tmpOutput.indent();
 
-          for (LoggingEvent tmpEvent : tmpEvents.events) {
+          for (LoggingEvent tmpEvent : tmpEvents.getEvents()) {
             if (tmpLayout == null) {
               tmpOutput.println(tmpEvent.getMessage().toString());
             } else {
@@ -398,6 +398,14 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
       super();
       command = aCommand;
       events = new LinkedList<LoggingEvent>();
+    }
+
+    private Command getCommand() {
+      return command;
+    }
+
+    private List<LoggingEvent> getEvents() {
+      return events;
     }
   }
 }

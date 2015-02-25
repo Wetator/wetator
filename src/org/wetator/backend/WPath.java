@@ -29,8 +29,13 @@ import org.wetator.util.SecretString;
  * A WPath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.<br/>
  * 
  * @author frank.danek
+ * @author rbri
  */
 public class WPath {
+  private static final String TABLE_COORDINATES_START = "[";
+  private static final String TABLE_COORDINATES_END = "]";
+  private static final String TABLE_COORDINATES_END_ESCAPED = "\\]";
+
   private SecretString rawPath;
   private List<SecretString> pathNodes = new ArrayList<SecretString>();
   private List<TableCoordinate> tableCoordinates = new ArrayList<TableCoordinate>();
@@ -109,7 +114,8 @@ public class WPath {
     boolean tmpTableCoordinatesFinished = false;
     if (!tmpNodes.isEmpty()) {
       for (final SecretString tmpNode : tmpNodes.subList(0, tmpNodes.size() - 1)) {
-        if (tmpNode.startsWith("[") && tmpNode.endsWith("]") && !tmpNode.endsWith("\\]")) {
+        if (tmpNode.startsWith(TABLE_COORDINATES_START) && tmpNode.endsWith(TABLE_COORDINATES_END)
+            && !tmpNode.endsWith(TABLE_COORDINATES_END_ESCAPED)) {
           if (tmpTableCoordinatesFinished) {
             // TODO i18n
             final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { rawPath.toString(),
@@ -125,7 +131,8 @@ public class WPath {
         }
       }
       lastNode = tmpNodes.get(tmpNodes.size() - 1);
-      if (lastNode.startsWith("[") && lastNode.endsWith("]") && !lastNode.endsWith("\\]")) {
+      if (lastNode.startsWith(TABLE_COORDINATES_START) && lastNode.endsWith(TABLE_COORDINATES_END)
+          && !lastNode.endsWith(TABLE_COORDINATES_END_ESCAPED)) {
         tableCoordinates.add(new TableCoordinate(lastNode));
         lastNode = null;
       }
@@ -159,7 +166,7 @@ public class WPath {
      * @throws InvalidInputException in case of invalid table coordinates
      */
     public TableCoordinate(final SecretString aTableCoordinates) throws InvalidInputException {
-      if (!aTableCoordinates.startsWith("[") || !aTableCoordinates.endsWith("]")) {
+      if (!aTableCoordinates.startsWith(TABLE_COORDINATES_START) || !aTableCoordinates.endsWith(TABLE_COORDINATES_END)) {
         throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
       }
       // cut away [ and ]
@@ -199,7 +206,8 @@ public class WPath {
      */
     @Override
     public String toString() {
-      return "[" + coordinateX + ";" + coordinateY + "]";
+      return new StringBuilder().append(coordinateX).append(';').append(coordinateY).append(TABLE_COORDINATES_END)
+          .toString();
     }
   }
 }
