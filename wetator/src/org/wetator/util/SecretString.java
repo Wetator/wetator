@@ -96,7 +96,7 @@ public final class SecretString {
         final int tmpOffset = tmpVarSecretValue.length() - (tmpVarEndPos - tmpVarStartPos);
         // merge in the secrets
         boolean tmpEnclosed = false;
-        for (FindSpot tmpSpot : secrets) {
+        for (final FindSpot tmpSpot : secrets) {
           if (tmpSpot.getStartPos() <= tmpVarStartPos && tmpVarEndPos <= tmpSpot.getEndPos()) {
             // whole replace area was a secret
             tmpSpot.setEndPos(tmpSpot.getEndPos() + tmpOffset);
@@ -111,7 +111,7 @@ public final class SecretString {
           }
         }
         if (!tmpEnclosed) {
-          for (FindSpot tmpSpot : tmpVarSecret.secrets) {
+          for (final FindSpot tmpSpot : tmpVarSecret.secrets) {
             final FindSpot tmpNewSpot = new FindSpot();
             tmpNewSpot.setStartPos(tmpSpot.getStartPos() + tmpVarStartPos);
             tmpNewSpot.setEndPos(tmpSpot.getEndPos() + tmpVarStartPos);
@@ -207,7 +207,7 @@ public final class SecretString {
     final StringBuilder tmpResult = new StringBuilder();
 
     int tmpStart = 0;
-    for (FindSpot tmpSpot : secrets) {
+    for (final FindSpot tmpSpot : secrets) {
       tmpResult.append(value.substring(tmpStart, tmpSpot.getStartPos()));
       tmpResult.append(SECRET_PRINT);
       tmpStart = tmpSpot.getEndPos();
@@ -387,7 +387,7 @@ public final class SecretString {
 
   private void removeEsc(final List<Integer> anEscPosList) {
     final StringBuilder tmpBuilder = new StringBuilder(value);
-    for (Integer tmpEscPos : anEscPosList) {
+    for (final Integer tmpEscPos : anEscPosList) {
       final int tmpPos = tmpEscPos.intValue();
       tmpBuilder.replace(tmpPos, tmpPos + 1, "");
       moveSecrets(-1, tmpPos);
