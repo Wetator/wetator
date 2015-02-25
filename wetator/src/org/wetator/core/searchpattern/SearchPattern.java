@@ -370,7 +370,7 @@ public abstract class SearchPattern {
 
       tmpResult.append("      Entries: ");
       tmpResult.append(cache.size());
-      tmpResult.append("\n");
+      tmpResult.append('\n');
 
       tmpResult.append("      Hits:    ");
       tmpResult.append(hitsCount);

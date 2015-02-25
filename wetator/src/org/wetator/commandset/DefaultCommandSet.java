@@ -117,6 +117,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
    * Command 'Open Url'.
    */
   public final class CommandOpenUrl implements ICommandImplementation {
+    private static final String SLASH = "/";
+
     /**
      * {@inheritDoc}
      * 
@@ -138,10 +140,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         } else {
           final String tmpBaseUrl = aContext.getConfiguration().getBaseUrl();
           // a bit url cleanup - remove or add the slash before combining with the config
-          if (tmpUrlParam.startsWith("/") && tmpBaseUrl.endsWith("/")) {
+          if (tmpUrlParam.startsWith(SLASH) && tmpBaseUrl.endsWith(SLASH)) {
             tmpUrlParam = tmpUrlParam.substring(1);
-          } else if (!tmpUrlParam.startsWith("/") && !tmpBaseUrl.endsWith("/")) {
-            tmpUrlParam.prefixWith("/");
+          } else if (!tmpUrlParam.startsWith(SLASH) && !tmpBaseUrl.endsWith(SLASH)) {
+            tmpUrlParam.prefixWith(SLASH);
           }
           tmpUrlParam.prefixWith(tmpBaseUrl);
         }
