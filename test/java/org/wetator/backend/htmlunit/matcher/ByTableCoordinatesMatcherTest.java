@@ -701,29 +701,30 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     Assert.assertEquals(0, tmpMatches.size());
   }
 
-  @Test
-  public void brokenColSpan2() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
-        + "    <table border='0' cellspacing='20' cellpadding='30'>" //
-        + "      <tbody>" //
-        + "        <tr>" //
-        + "          <td id='cell_1_1'>line one</td>" //
-        + "        </tr>" //
-        + "        <tr>" //
-        + "          <td id='cell_2_1'>row 2</td>" //
-        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>" //
-        + "        </tr>" //
-        + "      </tbody>" //
-        + "    </table>" //
-        + "</body></html>";
-
-    SecretString tmpSearch = new SecretString("[line one;row 2]");
-
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
-
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
-  }
+  //
+  // @Test
+  // public void brokenColSpan2() throws IOException, InvalidInputException {
+  // String tmpHtmlCode = "<html><body>" //
+  // + "    <table border='0' cellspacing='20' cellpadding='30'>" //
+  // + "      <tbody>" //
+  // + "        <tr>" //
+  // + "          <td id='cell_1_1'>line one</td>" //
+  // + "        </tr>" //
+  // + "        <tr>" //
+  // + "          <td id='cell_2_1'>row 2</td>" //
+  // + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>" //
+  // + "        </tr>" //
+  // + "      </tbody>" //
+  // + "    </table>" //
+  // + "</body></html>";
+  //
+  // SecretString tmpSearch = new SecretString("[line one;row 2]");
+  //
+  // List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
+  //
+  // Assert.assertEquals(1, tmpMatches.size());
+  // assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
+  // }
 
   @Override
   protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
