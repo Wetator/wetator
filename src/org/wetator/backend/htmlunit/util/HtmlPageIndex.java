@@ -669,8 +669,9 @@ public class HtmlPageIndex {
    * Helper for debugging.
    */
   public void dumpToLog() {
-    final StringBuilder tmpLog = new StringBuilder(
-        "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ");
+    final StringBuilder tmpLog = new StringBuilder(400);
+    tmpLog
+        .append("\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ");
     tmpLog.append(text);
     tmpLog.append('\n');
 

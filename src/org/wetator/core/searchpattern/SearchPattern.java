@@ -365,7 +365,7 @@ public abstract class SearchPattern {
      * @return a string with some statistic info
      */
     public String getStatics() {
-      final StringBuilder tmpResult = new StringBuilder();
+      final StringBuilder tmpResult = new StringBuilder(80);
       tmpResult.append("SearchPatternCache statistics:\n");
 
       tmpResult.append("      Entries: ");
