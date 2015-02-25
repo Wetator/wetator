@@ -283,7 +283,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       jobFilter = null;
     } else {
       jobFilter = new JavaScriptJobFilter();
-      for (SearchPattern tmpSearchPattern : tmpFilters) {
+      for (final SearchPattern tmpSearchPattern : tmpFilters) {
         jobFilter.addPattern(tmpSearchPattern);
       }
     }
@@ -865,7 +865,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     @Override
     public boolean passes(final JavaScriptJob aJob) {
       final String tmpJob = aJob.toString().replace("\n", "").replace("\r", "");
-      for (SearchPattern tmpPattern : patterns) {
+      for (final SearchPattern tmpPattern : patterns) {
         if (tmpPattern.matches(tmpJob)) {
           if (isDebugEnabled) {
             LOG.debug("JsJob filtered out: '" + tmpJob + "'");

@@ -459,7 +459,7 @@ public class WetatorConfiguration {
       if (StringUtils.isNotBlank(tmpValue)) {
         // parsing
         final String[] tmpNonProxyHostArray = tmpValue.split("\\|");
-        for (String tmpHost : tmpNonProxyHostArray) {
+        for (final String tmpHost : tmpNonProxyHostArray) {
           if (StringUtils.isNotBlank(tmpHost)) {
             proxyHostsToBypass.add(tmpHost.trim());
           }
@@ -562,7 +562,7 @@ public class WetatorConfiguration {
       try {
         final List<String> tmpLines = FileUtils.readLines(tmpFilterFile, Charsets.UTF_8);
 
-        for (String tmpLine : tmpLines) {
+        for (final String tmpLine : tmpLines) {
           if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
             jsJobFilterPatterns.add(SearchPattern.compile(tmpLine));
           }

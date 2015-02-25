@@ -240,9 +240,9 @@ public final class DialogUtil {
 
     final GraphicsEnvironment tmpGEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
     final GraphicsDevice[] tmpDevices = tmpGEnv.getScreenDevices();
-    for (GraphicsDevice tmpGraphicsDevice : tmpDevices) {
+    for (final GraphicsDevice tmpGraphicsDevice : tmpDevices) {
       final GraphicsConfiguration[] tmpConfigs = tmpGraphicsDevice.getConfigurations();
-      for (GraphicsConfiguration tmpGraphicsConfiguration : tmpConfigs) {
+      for (final GraphicsConfiguration tmpGraphicsConfiguration : tmpConfigs) {
         final Rectangle2D tmpVisibleRect = tmpGraphicsConfiguration.getBounds().createIntersection(tmpBounds);
         if (tmpVisibleRect.getHeight() > 100 && tmpVisibleRect.getWidth() > 100) {
           aDialog.setBounds(tmpBounds);
@@ -303,7 +303,7 @@ public final class DialogUtil {
 
     final List<File> tmpResult = new LinkedList<File>();
     final String tmpCurrentDir = aDir.getAbsolutePath();
-    for (String tmpString : tmpFiles) {
+    for (final String tmpString : tmpFiles) {
       final File tmpFile = new File(tmpString);
       if (tmpFile.exists() && tmpFile.getAbsolutePath().startsWith(tmpCurrentDir)) {
         tmpResult.add(tmpFile);

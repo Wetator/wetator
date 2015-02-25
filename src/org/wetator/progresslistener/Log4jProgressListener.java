@@ -117,7 +117,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     currentEvents.getEvents().add(aLoggingEvent);
 
     if (baseLevel == null || aLoggingEvent.getLevel().isGreaterOrEqual(baseLevel)) {
-      for (Appender tmpAppender : baseAppenders) {
+      for (final Appender tmpAppender : baseAppenders) {
         tmpAppender.doAppend(aLoggingEvent);
       }
     }
@@ -349,7 +349,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
       try {
         final Output tmpOutput = new Output(tmpWriter, "    ");
         final Layout tmpLayout = getLayout();
-        for (CommandEvents tmpEvents : commandEvents) {
+        for (final CommandEvents tmpEvents : commandEvents) {
           tmpOutput.println("******************************************");
           tmpOutput.print("* ");
           tmpOutput.println(tmpEvents.getCommand().getName());
@@ -366,7 +366,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
           tmpOutput.println("******************************************");
           tmpOutput.indent();
 
-          for (LoggingEvent tmpEvent : tmpEvents.getEvents()) {
+          for (final LoggingEvent tmpEvent : tmpEvents.getEvents()) {
             if (tmpLayout == null) {
               tmpOutput.println(tmpEvent.getMessage().toString());
             } else {
