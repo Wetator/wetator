@@ -206,8 +206,8 @@ public class WPath {
      */
     @Override
     public String toString() {
-      return new StringBuilder().append(coordinateX).append(';').append(coordinateY).append(TABLE_COORDINATES_END)
-          .toString();
+      return new StringBuilder().append(TABLE_COORDINATES_START).append(coordinateX).append(';').append(coordinateY)
+          .append(TABLE_COORDINATES_END).toString();
     }
   }
 }
