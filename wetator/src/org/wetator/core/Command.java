@@ -130,7 +130,7 @@ public final class Command {
    * @return the string
    */
   public String toPrintableString(final WetatorContext aContext) {
-    final StringBuilder tmpResult = new StringBuilder();
+    final StringBuilder tmpResult = new StringBuilder(60);
     tmpResult.append("[Command '");
     tmpResult.append(getName());
     tmpResult.append('\'');

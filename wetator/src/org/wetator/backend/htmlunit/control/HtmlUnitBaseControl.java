@@ -287,7 +287,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   @Override
   public void addHighlightStyle(final WetatorConfiguration aConfiguration) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
-    final StringBuilder tmpStyle = new StringBuilder(tmpHtmlElement.getAttribute("style"));
+    final StringBuilder tmpStyle = new StringBuilder(300);
+
+    tmpStyle.append(tmpHtmlElement.getAttribute("style"));
 
     tmpStyle
         .append("color: #000000;background-color: #EEEEEE;")
