@@ -957,4 +957,5 @@ xsl/resources/previous.png -text
 xsl/resources/response.png -text
 xsl/resources/top.png -text
 xsl/resources/wetator.png -text
+xsl/resources/wetator_report.js -text
 xsl/run_report.xsl -text svneol=unset#text/plain
