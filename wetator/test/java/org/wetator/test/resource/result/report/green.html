@@ -5,6 +5,7 @@
 <META content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <META content="text/css" http-equiv="content-style-type">
 <title>Wetator - Test Result</title>
+<script src="resources/jquery-1.10.2.min.js"></script><script src="resources/wetator_report.js"></script>
 <style type="text/css">
                     body { background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px; }
                     table { font-size: 10pt; empty-cells: show; border-collapse: collapse; }
@@ -51,121 +52,6 @@
                     .describe h5 { font-size: 1em; font-weight: bold; color: #3D2117; }
                     .describe h6 { font-size: 1em; font-weight: bold; color: #3D2117; }
                 </style>
-<script src="resources/jquery-1.10.2.min.js"></script><script language="JavaScript" type="text/javascript">
-                function showOrHideAll(image, imageId, id) {
-                    var tmpSearch = "expandall.png";
-                    if (toggleImage(image)) {
-                        tmpSearch = "collapseall.png";
-                    }
-                    for (var i=1; i<arguments.length; i=i+2) {
-                        var tmpImage=document.getElementById(arguments[i]);
-                        if (tmpImage && tmpImage.src.indexOf(tmpSearch) != -1) {
-                            showOrHide(tmpImage, arguments[i+1]);
-                        }
-                    }
-                }
-
-                function showOrHide(image, id) {
-                    var tmpElement=document.getElementById(id);
-                    if (toggleImage(image)) {
-                        tmpElement.style.display = "none";
-                    } else {
-                        tmpElement.style.display = "";
-                    }
-                }
-
-                function toggleImage(image) {
-                    if (image.src.indexOf("collapseall.png") != -1) {
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
-                        return true;
-                    }
-                    if (image.src.indexOf("expandall.png") != -1) {
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
-                        return false;
-                    }
-                    if (image.src.indexOf("collapselog.png") != -1) {
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlog.png";
-                        return true;
-                    }
-                    if (image.src.indexOf("expandlog.png") != -1) {
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
-                        return false;
-                    }
-                    if (image.src.indexOf("collapselogwarn.png") != -1) {
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlogwarn.png";
-                        return true;
-                    }
-                    if (image.src.indexOf("expandlogwarn.png") != -1) {
-                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselogwarn.png";
-                        return false;
-                    }
-                }
-
-                function makeVisible(id) {
-                    var tmpImage = document.getElementById('showHide_' + id);
-                    if (tmpImage && tmpImage.src.indexOf("expandall.png") != -1) {
-                        showOrHide(tmpImage, id);
-                    }
-                }
-
-                function switchTables(tableToHide, tableToShowId, force) {
-                    var overviewSwitcher=document.getElementById('overviewswitcher');
-                    if (force || overviewSwitcher.src.indexOf("expandall.png") != -1) {
-                        tableToHide.style.display = "none";
-                        document.getElementById(tableToShowId).style.display = "";
-                    }
-                }
-
-                function switchOverviewTables(image) {
-                    if (image.src.indexOf("expandall.png") != -1) {
-                        var tmpDetailedOverview=document.getElementById('detailedoverview');
-                        switchTables(tmpDetailedOverview, 'summaryoverview', true);
-                    } else if (image.src.indexOf("collapseall.png") != -1) {
-                        var tmpSummaryOverview=document.getElementById('summaryoverview');
-                        switchTables(tmpSummaryOverview, 'detailedoverview', true);
-                    }
-                }
-
-                function showPreview(e, src) {
-                    // preview only for html and txt files
-                    if ((src.lastIndexOf(".html") != src.length - 5)
-                        && (src.indexOf(".txt") != src.length - 4)) {
-                        return;
-                    }
-                    var tmpFrame = document.getElementById('preview');
-                    tmpFrame.contentWindow.location.replace(src);
-                    tmpFrame.onload = function() {
-                        var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
-                        var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
-
-                        if(window.pageYOffset) {
-                            tmpPosX = tmpPosX + window.pageXOffset;
-                            tmpPosY = tmpPosY + window.pageYOffset;
-                        } else {
-                            tmpPosX = tmpPosX + document.body.scrollLeft;
-                            tmpPosY = tmpPosY + document.body.scrollTop;
-                        }
-                        tmpPosX = tmpPosX + 10;
-                        tmpPosY = tmpPosY + 17;
-
-                        if (window.chrome) {
-                            tmpPosX = tmpPosX / tmpFrame.style.zoom;
-                            tmpPosY = tmpPosY / tmpFrame.style.zoom;
-                        }
-
-                        tmpFrame.style.left= tmpPosX + "px";
-                        tmpFrame.style.top= tmpPosY + "px";
-                        tmpFrame.style.display='block';
-                        tmpFrame.contentWindow.document.onmouseout=hidePreview;
-                        tmpFrame.contentWindow.document.onmouseover=hidePreview;
-                    }
-                }
-
-                function hidePreview() {
-                    var tmpFrame = document.getElementById('preview');
-                    tmpFrame.style.display='none';
-                }
-                </script>
 </head>
 <body>
 <div id="debuginfo">

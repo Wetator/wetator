@@ -1162,4 +1162,5 @@ wetator/xsl/resources/previous.png -text
 wetator/xsl/resources/response.png -text
 wetator/xsl/resources/top.png -text
 wetator/xsl/resources/wetator.png -text
+wetator/xsl/resources/wetator_report.js -text
 wetator/xsl/run_report.xsl -text svneol=unset#text/plain
