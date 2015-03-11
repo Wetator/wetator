@@ -51,7 +51,7 @@ import org.wetator.util.Output;
  */
 public class Log4jProgressListener extends AppenderSkeleton implements IProgressListener {
 
-  private static final Log LOG = LogFactory.getLog(XMLResultWriter.class);
+  private static final Log LOG = LogFactory.getLog(Log4jProgressListener.class);
 
   private File outputDir;
   private String testCase;
