@@ -36,7 +36,6 @@
 	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-1.9.5.jar"/>
-	<classpathentry kind="lib" path="lib/nekohtml-1.9.21.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.8.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.11.jar"/>
@@ -53,5 +52,6 @@
 	<classpathentry kind="lib" path="lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20140925.jar"/>
+	<classpathentry kind="lib" path="lib/nekohtml-1.9.22-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
