@@ -69,7 +69,7 @@ public final class ResponseStore {
 
   private File storeDir;
 
-  private long getUniqueId() {
+  private static long getUniqueId() {
     return ++counter;
   }
 
