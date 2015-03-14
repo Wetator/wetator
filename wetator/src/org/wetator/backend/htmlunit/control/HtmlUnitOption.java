@@ -197,4 +197,12 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
     return tmpHtmlOption.isDisabled() || tmpOptionGroupDisabled || tmpHtmlSelect.isDisabled();
   }
+
+  @Override
+  public String getUniqueSelector() {
+    // highlight the select instead of the option
+    final HtmlOption tmpHtmlOption = getHtmlElement();
+    final HtmlSelect tmpHtmlSelect = tmpHtmlOption.getEnclosingSelect();
+    return getUniqueSelector(tmpHtmlSelect);
+  }
 }

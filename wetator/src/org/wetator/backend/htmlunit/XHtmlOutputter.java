@@ -49,6 +49,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAcronym;
 import com.gargoylesoftware.htmlunit.html.HtmlArea;
 import com.gargoylesoftware.htmlunit.html.HtmlBase;
 import com.gargoylesoftware.htmlunit.html.HtmlBig;
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBold;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
@@ -62,6 +63,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlEmbed;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFont;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlHead;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
 import com.gargoylesoftware.htmlunit.html.HtmlHeading3;
@@ -336,6 +338,14 @@ public final class XHtmlOutputter {
       } else {
         output.println(">");
       }
+
+      if (aDomNode instanceof HtmlHead) {
+        // inject some js libs for highlighting
+        output.indent();
+        output.println("<script src='../resources/jquery-1.10.2.min.js'></script>");
+        output.println("<script src='../resources/wetator_report.js'></script>");
+        output.unindent();
+      }
     } else if (aDomNode instanceof DomText) {
       String tmpText = ((DomText) aDomNode).getData();
       if (StringUtils.isEmpty(tmpText)) {
@@ -376,6 +386,18 @@ public final class XHtmlOutputter {
       output.print(((DomNamespaceNode) aDomNode).getQualifiedName());
       output.println(">");
     } else if (aDomNode instanceof DomElement) {
+      // inject some js libs for highlighting
+      if (aDomNode instanceof HtmlBody) {
+        // our highlighting code
+        output.indent();
+        output.println("<script>");
+        output.indent();
+        output.println("highlight();");
+        output.unindent();
+        output.println("</script>");
+        output.unindent();
+      }
+
       if (!EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print("</");
         output.print(determineTag(aDomNode));
@@ -386,8 +408,6 @@ public final class XHtmlOutputter {
           output.print(">");
         }
       }
-    } else if (aDomNode instanceof DomText) {
-      // nothing to do
     }
     // ignore the unsupported ones because they are reported form the start tag handler
   }

@@ -92,11 +92,6 @@
     }
 
     function showPreview(e, src) {
-        // preview only for html and txt files
-        if ((src.lastIndexOf(".html") != src.length - 5)
-            && (src.indexOf(".txt") != src.length - 4)) {
-            return;
-        }
         var tmpFrame = document.getElementById('preview');
         tmpFrame.contentWindow.location.replace(src);
         tmpFrame.onload = function() {
@@ -129,4 +124,23 @@
     function hidePreview() {
         var tmpFrame = document.getElementById('preview');
         tmpFrame.style.display='none';
+    }
+
+    function highlight() {
+        var elem = $(getParameterByName('highlight'));
+        elem.css('box-shadow', '0 0 2px 2px #E65212');
+        var offset = elem.offset();
+        offset.left -= 200;
+        offset.top -= 200;
+        $('html, body').animate({
+            scrollTop: offset.top,
+            scrollLeft: offset.left
+        })
+    }
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }

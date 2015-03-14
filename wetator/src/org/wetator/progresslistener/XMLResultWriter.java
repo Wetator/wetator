@@ -89,6 +89,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_THIRD_PARAM = "param2";
   private static final String TAG_DESCRIBE = "describe";
   private static final String TAG_RESPONSE = "response";
+  private static final String TAG_HIGHLIGHT = "highlight";
   private static final String TAG_LOG = "log";
   private static final String TAG_LEVEL = "level";
   private static final String TAG_MESSAGE = "message";
@@ -651,6 +652,20 @@ public class XMLResultWriter implements IProgressListener {
   public void responseStored(final String aResponseFileName) {
     try {
       printlnNode(TAG_RESPONSE, aResponseFileName);
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
+   */
+  @Override
+  public void highlightedResponse(final String aResponseFileName) {
+    try {
+      printlnNode(TAG_HIGHLIGHT, aResponseFileName);
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }

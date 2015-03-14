@@ -306,6 +306,15 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
+   */
+  @Override
+  public void highlightedResponse(final String aResponseFileName) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override

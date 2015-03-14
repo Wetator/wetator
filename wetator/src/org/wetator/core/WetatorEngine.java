@@ -643,4 +643,15 @@ public class WetatorEngine {
       tmpListener.responseStored(aResponseFileName);
     }
   }
+
+  /**
+   * Informs all listeners about 'highlightedResponse'.
+   * 
+   * @param aResponseFileName the file name of the stored response.
+   */
+  public void informListenersHighlightedResponse(final String aResponseFileName) {
+    for (final IProgressListener tmpListener : progressListener) {
+      tmpListener.highlightedResponse(aResponseFileName);
+    }
+  }
 }
