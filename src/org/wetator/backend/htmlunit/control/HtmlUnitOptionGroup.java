@@ -23,6 +23,7 @@ import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
  * This is the implementation of the HTML element 'option group' (&lt;optgroup&gt;) using HtmlUnit as backend.
@@ -63,5 +64,13 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
     final HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
 
     return tmpHtmlOptionGroup.isDisabled() || tmpHtmlOptionGroup.getEnclosingSelect().isDisabled();
+  }
+
+  @Override
+  public String getUniqueSelector() {
+      // highlight the select instead of the optgroup
+    final HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
+    final HtmlSelect tmpHtmlSelect = tmpHtmlOptionGroup.getEnclosingSelect();
+    return getUniqueSelector(tmpHtmlSelect);
   }
 }

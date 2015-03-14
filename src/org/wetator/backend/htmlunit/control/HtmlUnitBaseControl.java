@@ -28,7 +28,6 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
-import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
@@ -37,6 +36,7 @@ import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -280,27 +280,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   }
 
   /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.backend.control.IControl#addHighlightStyle(WetatorConfiguration)
-   */
-  @Override
-  public void addHighlightStyle(final WetatorConfiguration aConfiguration) {
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-    final StringBuilder tmpStyle = new StringBuilder(300);
-
-    tmpStyle.append(tmpHtmlElement.getAttribute("style"));
-
-    tmpStyle
-        .append("color: #000000;background-color: #EEEEEE;")
-        .append(
-            "box-shadow: 0 0 2px 2px #E65212;-moz-box-shadow: 0 0 2px 2px #E65212;-webkit-box-shadow: 0 0 2px 2px #E65212;")
-        .append("border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;");
-
-    tmpHtmlElement.setAttribute("style", tmpStyle.toString());
-  }
-
-  /**
    * Wait until the 'immediate' JavaScript jobs are finished.
    * Additionally this informs all context listeners if not all jobs
    * finished in the time frame.
@@ -310,6 +289,71 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    */
   protected void waitForImmediateJobs(final WetatorContext aContext) throws BackendException {
     aContext.getBrowser().waitForImmediateJobs();
+  }
+
+  @Override
+  public String getUniqueSelector() {
+    final HtmlElement tmpHtmlElement = getHtmlElement();
+    return getUniqueSelector(tmpHtmlElement);
+  }
+
+  /**
+   * Helper that constructs the css selector for the given HtmlElement.
+   *
+   * @param aHtmlElement the element
+   * @return the css selector
+   */
+  protected String getUniqueSelector(final HtmlElement aHtmlElement) {
+    HtmlElement tmpHtmlElement = aHtmlElement;
+    String tmpHtmlElementId = tmpHtmlElement.getId();
+
+    if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
+      return "#" + tmpHtmlElementId;
+    }
+
+    HtmlElement tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
+
+    StringBuilder tmpSelector = new StringBuilder();
+    tmpSelector.append('>');
+    tmpSelector.append(tmpHtmlElement.getTagName());
+    tmpSelector.append(":nth-of-type(");
+    tmpSelector.append(childIndex(tmpParent, tmpHtmlElement));
+    tmpSelector.append(')');
+
+    while (DomElement.ATTRIBUTE_NOT_DEFINED == tmpHtmlElementId && !"body".equalsIgnoreCase(tmpParent.getTagName())) {
+      tmpHtmlElement = tmpParent;
+      tmpHtmlElementId = tmpHtmlElement.getId();
+      tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
+
+      final StringBuilder tmpSel = new StringBuilder();
+      tmpSel.append('>');
+      tmpSel.append(tmpHtmlElement.getTagName());
+      tmpSel.append(":nth-of-type(");
+      tmpSel.append(childIndex(tmpParent, tmpHtmlElement));
+      tmpSel.append(')');
+
+      tmpSel.append(tmpSelector);
+      tmpSelector = tmpSel;
+    }
+
+    if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
+      return "#" + tmpHtmlElementId + tmpSelector.toString();
+    }
+
+    return "body" + tmpSelector.toString();
+  }
+
+  private int childIndex(final HtmlElement aParent, final HtmlElement aChild) {
+    int tmpRes = 1;
+    for (DomElement tmpDomElement : aParent.getChildElements()) {
+      if (tmpDomElement == aChild) {
+        return tmpRes;
+      }
+      if (aChild.getTagName().equalsIgnoreCase(tmpDomElement.getTagName())) {
+        tmpRes++;
+      }
+    }
+    return -1;
   }
 
   /**

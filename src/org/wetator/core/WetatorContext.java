@@ -24,7 +24,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
-import org.wetator.backend.control.IControl;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.CommandException;
@@ -226,7 +225,7 @@ public class WetatorContext {
       try {
         tmpCommandImplementation.execute(this, aCommand);
       } catch (final ActionException e) {
-        tmpBrowser.saveCurrentWindowToLog((IControl[]) null);
+        tmpBrowser.saveCurrentWindowToLog();
         tmpBrowser.checkAndResetFailures();
         throw e;
       } catch (final CommandException e) {

@@ -276,6 +276,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
       }
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -310,6 +311,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noClickableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.click(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -344,6 +346,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "no2ClickableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.clickDouble(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -378,6 +381,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noRClickableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.clickRight(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -409,6 +413,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noSelectableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.select(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -440,6 +445,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IDeselectable tmpControl = (IDeselectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.deselect(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -478,6 +484,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.mouseOver(aContext);
       tmpBrowser.saveCurrentWindowToLog();
     }

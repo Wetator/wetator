@@ -144,6 +144,13 @@ public interface IProgressListener {
   void responseStored(String aResponseFileName);
 
   /**
+   * This is called to save the link to an highlighted response.
+   * 
+   * @param aResponseFileName the file name of the stored response
+   */
+  void highlightedResponse(String aResponseFileName);
+
+  /**
    * This is called to log an error.
    * 
    * @param aThrowable the exception thrown

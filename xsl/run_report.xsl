@@ -1410,24 +1410,38 @@
                         </xsl:attribute>
                     </img>
                 </xsl:if>
-                <xsl:if test="count(response) &gt; 0">
-                    <xsl:for-each select="response">
-                        <a target="_blank">
-                            <xsl:attribute name="href">
-                                <xsl:value-of select="."/>
-                            </xsl:attribute>
-                            <xsl:attribute name="onmouseover">
-                                <xsl:text>showPreview(event,'</xsl:text>
-                                <xsl:value-of select="."/>
-                                <xsl:text>')</xsl:text>
-                            </xsl:attribute>
-                            <xsl:attribute name="onmouseout">
-                                <xsl:text>hidePreview()</xsl:text>
-                            </xsl:attribute>
-                            <img src="resources/response.png" alt="view response"/>
-                        </a>
-                    </xsl:for-each>
-                </xsl:if>
+                <xsl:for-each select="highlight">
+                    <a target="_blank">
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="."/>
+                        </xsl:attribute>
+                        <xsl:attribute name="onmouseover">
+                            <xsl:text>showPreview(event,'</xsl:text>
+                            <xsl:value-of select="."/>
+                            <xsl:text>')</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="onmouseout">
+                            <xsl:text>hidePreview()</xsl:text>
+                        </xsl:attribute>
+                        <img src="resources/highlight.png" alt="view highlight"/>
+                    </a>
+                </xsl:for-each>
+                <xsl:for-each select="response">
+                    <a target="_blank">
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="."/>
+                        </xsl:attribute>
+                        <xsl:attribute name="onmouseover">
+                            <xsl:text>showPreview(event,'</xsl:text>
+                            <xsl:value-of select="."/>
+                            <xsl:text>')</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="onmouseout">
+                            <xsl:text>hidePreview()</xsl:text>
+                        </xsl:attribute>
+                        <img src="resources/response.png" alt="view response"/>
+                    </a>
+                </xsl:for-each>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
             <xsl:choose>

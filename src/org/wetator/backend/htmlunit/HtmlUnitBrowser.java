@@ -19,6 +19,7 @@ package org.wetator.backend.htmlunit;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import javax.swing.text.BadLocationException;
 
@@ -126,6 +128,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   protected long jsTimeoutInMillis;
   /** The map containing the bookmarks. */
   protected Map<String, URL> bookmarks;
+  /** Cache of saved pages. */
+  protected WeakHashMap<Page, String> savedPages;
 
   /**
    * This repository contains all additional controls supported by the backend (e.g. added by a command set).
@@ -143,6 +147,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     // setup the backend
     // httpclient should accept all cookies
     System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
+
+    savedPages = new WeakHashMap<Page, String>();
 
     failures = new LinkedList<AssertionException>();
     wetatorEngine = aWetatorEngine;
@@ -319,7 +325,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         // unset the onbeforeunload handler to avoid it interfering
         webClient.setOnbeforeunloadHandler(null);
 
-        webClient.closeAllWindows();
+        webClient.close();
       } catch (final ScriptException e) {
         LOG.warn("Could not close previous window.", e);
       }
@@ -738,10 +744,10 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(org.wetator.backend.control.IControl[])
+   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog()
    */
   @Override
-  public void saveCurrentWindowToLog(final IControl... aControls) {
+  public void saveCurrentWindowToLog() {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
@@ -751,13 +757,53 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          if (null != aControls) {
-            for (final IControl tmpControl : aControls) {
-              tmpControl.addHighlightStyle(wetatorEngine.getConfiguration());
-            }
-          }
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
+          savedPages.put(tmpPage, tmpPageFile);
           wetatorEngine.informListenersResponseStored(tmpPageFile);
+        }
+      } catch (final ResourceException e) {
+        LOG.warn("Saving page failed!", e);
+      } catch (final Throwable e) {
+        LOG.fatal("Problem with window handling. Saving page failed!", e);
+      }
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#markControls(org.wetator.backend.control.IControl[])
+   */
+  @Override
+  public void markControls(final IControl... aControls) {
+    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+
+    if (null != tmpCurrentWindow) {
+      try {
+        // sometimes the current window in HtmlUnit is an
+        // iFrame; but we need the topmost one
+        tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
+        final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
+        if (null != tmpPage) {
+          String tmpPageFile = savedPages.get(tmpPage);
+          if (null != tmpPageFile) {
+            final StringBuilder tmpParam = new StringBuilder();
+            if (null != aControls) {
+              String tmpDelim = "";
+              for (final IControl tmpControl : aControls) {
+                // TODO do we have to make sure the control is related to the page?
+                tmpParam.append("highlight=");
+                tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
+                tmpParam.append(tmpDelim);
+                tmpDelim = "&";
+              }
+            }
+
+            if (tmpParam.length() > 0) {
+              tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+            }
+            wetatorEngine.informListenersHighlightedResponse(tmpPageFile);
+          }
         }
       } catch (final ResourceException e) {
         LOG.warn("Saving page failed!", e);
@@ -804,6 +850,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     @Override
     public void webWindowClosed(final WebWindowEvent anEvent) {
       final Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
+      htmlUnitBrowser.savedPages.remove(tmpPage);
       if (null == tmpPage) {
         LOG.debug("webWindowClosed: (page null)");
       } else {
@@ -815,6 +862,9 @@ public final class HtmlUnitBrowser implements IBrowser {
     @Override
     public void webWindowContentChanged(final WebWindowEvent anEvent) {
       LOG.debug("webWindowContentChanged");
+      if (null != anEvent.getOldPage()) {
+          htmlUnitBrowser.savedPages.remove(anEvent.getOldPage());
+      }
       final Page tmpNewPage = anEvent.getNewPage();
       // first load into a new window
       if (null != tmpNewPage && null == anEvent.getOldPage()) {

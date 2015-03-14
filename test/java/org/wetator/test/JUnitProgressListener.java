@@ -210,6 +210,16 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
+   */
+  @Override
+  public void highlightedResponse(final String aResponseFileName) {
+    // nothing
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override

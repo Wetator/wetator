@@ -16,7 +16,6 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 
@@ -88,10 +87,9 @@ public interface IControl {
   boolean hasSameBackendControl(IControl aControl);
 
   /**
-   * Retrieves the style to be used for highlight this control from the configuration
-   * and adds the style to the control.
+   * Retrieves the css selector of control.
    * 
-   * @param aConfiguration the configuration
+   * @return the css selector
    */
-  void addHighlightStyle(WetatorConfiguration aConfiguration);
+  public String getUniqueSelector();
 }

@@ -188,10 +188,17 @@ public interface IBrowser {
 
   /**
    * Saves the content of the current window to the log.
+   */
+  void saveCurrentWindowToLog();
+
+
+  /**
+   * Creates a new log entry that points to the last save screenshot
+   * including url parameters pointing to the controls to be highlighted.
    * 
    * @param aControls the controls to be highlighted
    */
-  void saveCurrentWindowToLog(IControl... aControls);
+  void markControls(final IControl... aControls);
 
   /**
    * Goes back (simulates the browser's back button) in the current window.
