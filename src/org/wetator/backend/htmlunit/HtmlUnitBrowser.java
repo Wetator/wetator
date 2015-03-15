@@ -744,10 +744,10 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog()
+   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(IControl...)
    */
   @Override
-  public void saveCurrentWindowToLog() {
+  public void saveCurrentWindowToLog(final IControl... aControls) {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
@@ -759,6 +759,25 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (null != tmpPage) {
           final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           savedPages.put(tmpPage, tmpPageFile);
+
+          // highlight changed control if possible
+          // TODO check for same page
+          // final StringBuilder tmpParam = new StringBuilder();
+          // if (null != aControls) {
+          // String tmpDelim = "";
+          // for (final IControl tmpControl : aControls) {
+          // if () {
+          // tmpParam.append("highlight=");
+          // tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
+          // tmpParam.append(tmpDelim);
+          // tmpDelim = "&";
+          // }
+          // }
+          // }
+          //
+          // if (tmpParam.length() > 0) {
+          // tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+          // }
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
       } catch (final ResourceException e) {
@@ -863,7 +882,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     public void webWindowContentChanged(final WebWindowEvent anEvent) {
       LOG.debug("webWindowContentChanged");
       if (null != anEvent.getOldPage()) {
-          htmlUnitBrowser.savedPages.remove(anEvent.getOldPage());
+        htmlUnitBrowser.savedPages.remove(anEvent.getOldPage());
       }
       final Page tmpNewPage = anEvent.getNewPage();
       // first load into a new window
