@@ -39,9 +39,11 @@ public class XHtmlOutputterHtmlPageTest {
 
   private static final String EXPECTED_LEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
-      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> "
-      + "<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/> </head> <body>";
-  private static final String EXPECTED_TRAILING = "</body> </html>";
+      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> " + "<head> "
+      + "<script src='../resources/jquery-1.10.2.min.js'></script> "
+      + "<script src='../resources/wetator_report.js'></script> "
+      + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/> </head> <body>";
+  private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
     BrowserVersion tmpBrowser = BrowserVersion.INTERNET_EXPLORER_8;
