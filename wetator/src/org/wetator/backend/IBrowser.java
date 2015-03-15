@@ -188,9 +188,10 @@ public interface IBrowser {
 
   /**
    * Saves the content of the current window to the log.
+   * 
+   * @param aControls the controls to be highlighted
    */
-  void saveCurrentWindowToLog();
-
+  void saveCurrentWindowToLog(IControl... aControls);
 
   /**
    * Creates a new log entry that points to the last save screenshot
