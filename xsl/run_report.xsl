@@ -1296,6 +1296,7 @@
                         <th style="width: 120px;">Command</th>
                         <!-- module expand/collapse -->
                         <th style="width: 20px;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                        <th style="width: 20px;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th style="width: 50%;"><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
@@ -1397,19 +1398,6 @@
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
-                <xsl:if test="count(testfile) &gt; 0 and count(descendant-or-self::testfile/error) &lt; 1">
-                    <img src="resources/expandall.png" alt="Show/Hide tests from called module" style="cursor: pointer;">
-                        <xsl:attribute name="id">
-                            <xsl:text>showHide_testfile_</xsl:text>
-                            <xsl:value-of select="testfile/@id" />
-                        </xsl:attribute>
-                        <xsl:attribute name="onclick">
-                          <xsl:text>showOrHide(this, 'testfile_</xsl:text>
-                          <xsl:value-of select="testfile/@id" />
-                          <xsl:text>');</xsl:text>
-                        </xsl:attribute>
-                    </img>
-                </xsl:if>
                 <xsl:for-each select="highlight">
                     <a target="_blank">
                         <xsl:attribute name="href">
@@ -1426,6 +1414,24 @@
                         <img src="resources/highlight.png" alt="view highlight"/>
                     </a>
                 </xsl:for-each>
+            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+
+            <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+            <xsl:value-of select="$lineStyle" />
+            <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
+                <xsl:if test="count(testfile) &gt; 0 and count(descendant-or-self::testfile/error) &lt; 1">
+                    <img src="resources/expandall.png" alt="Show/Hide tests from called module" style="cursor: pointer;">
+                        <xsl:attribute name="id">
+                            <xsl:text>showHide_testfile_</xsl:text>
+                            <xsl:value-of select="testfile/@id" />
+                        </xsl:attribute>
+                        <xsl:attribute name="onclick">
+                          <xsl:text>showOrHide(this, 'testfile_</xsl:text>
+                          <xsl:value-of select="testfile/@id" />
+                          <xsl:text>');</xsl:text>
+                        </xsl:attribute>
+                    </img>
+                </xsl:if>
                 <xsl:for-each select="response">
                     <a target="_blank">
                         <xsl:attribute name="href">
@@ -1608,6 +1614,7 @@
                     </xsl:choose>
                 </td>
                 <td class="light"/>
+                <td class="light"/>
                 <xsl:choose>
                     <xsl:when test="descendant-or-self::failure and not(descendant::command/error) and not(descendant::testfile/error)">
                         <td class="failure" colspan="4">
@@ -1631,6 +1638,7 @@
                     <xsl:value-of select="@id" />
                 </xsl:attribute>
 
+                <td class="light"/>
                 <td class="light"/>
                 <td class="light"/>
                 <td class="light"/>
@@ -1681,6 +1689,7 @@
                        <xsl:text>testfile_</xsl:text>
                        <xsl:value-of select="testfile/@id" />
                    </xsl:attribute>
+                   <td class="light"/>
                    <td class="light"/>
                    <td class="light"/>
                    <td class="light"/>
