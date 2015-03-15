@@ -869,10 +869,10 @@ public final class HtmlUnitBrowser implements IBrowser {
     @Override
     public void webWindowClosed(final WebWindowEvent anEvent) {
       final Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
-      htmlUnitBrowser.savedPages.remove(tmpPage);
       if (null == tmpPage) {
         LOG.debug("webWindowClosed: (page null)");
       } else {
+        htmlUnitBrowser.savedPages.remove(tmpPage);
         LOG.debug("webWindowClosed: (url '"
             + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getWebRequest().getUrl() + "')");
       }
@@ -884,6 +884,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (null != anEvent.getOldPage()) {
         htmlUnitBrowser.savedPages.remove(anEvent.getOldPage());
       }
+
       final Page tmpNewPage = anEvent.getNewPage();
       // first load into a new window
       if (null != tmpNewPage && null == anEvent.getOldPage()) {
@@ -978,7 +979,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.INTERNET_EXPLORER_11 == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER_11;
     }
-    return BrowserVersion.FIREFOX_24;
+    return BrowserVersion.FIREFOX_31;
   }
 
   /**
