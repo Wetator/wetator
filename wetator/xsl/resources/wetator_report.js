@@ -92,6 +92,13 @@
     }
 
     function showPreview(e, src) {
+        // preview only for html and txt files
+        if ((src.lastIndexOf(".html") != src.length - 5)
+            && (src.indexOf(".html?highlight=") < 0)
+            && (src.indexOf(".txt") != src.length - 4)) {
+            return;
+        }
+
         var tmpFrame = document.getElementById('preview');
         tmpFrame.contentWindow.location.replace(src);
         tmpFrame.onload = function() {
