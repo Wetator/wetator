@@ -946,6 +946,7 @@ xsl/resources/expandlog.png -text
 xsl/resources/expandlogwarn.png -text
 xsl/resources/failure.png -text
 xsl/resources/firefox.png -text
+xsl/resources/highlight.png -text
 xsl/resources/ie.png -text
 xsl/resources/jquery-1.10.2.min.js -text
 xsl/resources/log_info.png -text

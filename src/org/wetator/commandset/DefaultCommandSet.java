@@ -654,6 +654,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
+      tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
       Assert.assertFalse(tmpIsDisabled, "elementNotEnabled", new String[] { tmpControl.getDescribingText() });
     }
@@ -694,6 +695,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
+      tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
     }
@@ -728,6 +730,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISettable tmpControl = (ISettable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSettableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       tmpControl.assertValue(aContext, tmpValueParam);
     }
   }
@@ -758,6 +761,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noSelectableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
     }
