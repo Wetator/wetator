@@ -354,13 +354,13 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_97">test1.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">2/3</td><td>
+<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td class="step success"><a class="linkToCommand" href="#99">&nbsp;</a></td><td class="step error" title="Command in TestCase test1.wet is very invalid."><a class="linkToCommand" href="#104">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#112">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="Command in TestCase test1.wet is very invalid."><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">0s</td></tr><tr><td><img src="resources/firefox.png" alt="" title=""></td><td class="ignored" align="center">
+</td><td align="right">##DURATION##</td></tr><tr><td><img src="resources/firefox.png" alt="" title=""></td><td class="ignored" align="center">
                                     ignored
                                 </td><td colspan="2"></td></tr><tr></tr>
 <tr>
@@ -369,58 +369,32 @@
 </table>
 <a name="details"></a>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_97">C:/Test/test1.wet</a> (IE8)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_##ID##">/Test/test1.wet</a> (IE8)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
-<th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
+<th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="99"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">0s</td></tr>
-<tr><td class="light topBorder" align="center"><a name="104"></a>2</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >invalid-command</td><td class="light topBorder" align="center"></td><td class="light topBorder" >-</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_104" onclick="showOrHide(this, 'log_104');"></td><td class="light topBorder" align="right">0s</td></tr>
+<tr><td class="light topBorder" align="center"><a name="##ID##"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="##ID##"></a>2</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >invalid-command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >-</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_##ID##" onclick="showOrHide(this, log_2##ID##");"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td class="light errorJumper"></td><td class="light"></td><td colspan="4" class="error">Command in TestCase test1.wet is very invalid.</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"></td><td class="light"></td><td class="light"></td><td colspan="4" class="error">Command in TestCase test1.wet is very invalid.</td>
 </tr>
-<tr style="display: none;" id="log_104">
-<td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
+<tr style="display: none;" id="log_##ID##">
+<td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
 <td><img alt="error" height="11" width="11" src="resources/log_warn.png"></td><td>
 <pre class="details">org.wetator.exception.InvalidInputException: Command in TestCase test1.wet is very invalid.
-	at org.wetator.progresslistener.XSLTransformerTest.invalidInputDuringCommandExecution(XSLTransformerTest.java:279)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
-	at java.lang.reflect.Method.invoke(Method.java:597)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
-	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
-    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
-    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
-    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
-    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
-    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
-    at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-    at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
-    at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
-    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
-    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
-    at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+##DETAILS##
 </pre>
 </td>
 </tr>
 </table>
 </td>
 </tr>
-<tr><td class="ignored topBorder" align="center"><a name="112"></a>3</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">0s</td></tr>
+<tr><td class="ignored topBorder" align="center"><a name="##ID##"></a>3</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">##DURATION##</td></tr>
 <tr>
-<td colspan="7" class="light topBorder"></td><td align="right" class="light topBorder">0s</td>
+<td colspan="7" class="light topBorder"></td><td align="right" class="light topBorder">##DURATION##</td>
 </tr>
 </table>
 <p class="backToTop">
