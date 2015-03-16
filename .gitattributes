@@ -183,6 +183,7 @@ src/org/wetator/scripter/xml/xsd/test-case-1.0.0.xsd -text svneol=unset#text/pla
 src/org/wetator/scripter/xml/xsd/test-command-set-1.0.0.xsd -text svneol=unset#text/plain
 src/org/wetator/util/Assert.java -text
 src/org/wetator/util/ContentUtil.java -text
+src/org/wetator/util/CssUtil.java -text
 src/org/wetator/util/FileUtil.java -text
 src/org/wetator/util/FindSpot.java -text
 src/org/wetator/util/NormalizedString.java -text
@@ -375,6 +376,7 @@ test/java/org/wetator/test/resource/xml.wet -text
 test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
 test/java/org/wetator/util/AssertTest.java -text
 test/java/org/wetator/util/ContentUtilTest.java -text
+test/java/org/wetator/util/CssUtilTest.java -text
 test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
 test/java/org/wetator/util/SecretStringTest.java -text
 test/java/org/wetator/util/StringUtilTest.java -text
