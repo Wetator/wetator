@@ -33,6 +33,7 @@ import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
+import org.wetator.util.CssUtil;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
@@ -331,7 +332,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
-      return "#" + tmpHtmlElementId + tmpSelector.toString();
+      return "#" + CssUtil.escapeIdent(tmpHtmlElementId) + tmpSelector.toString();
     }
 
     return "body" + tmpSelector.toString();
