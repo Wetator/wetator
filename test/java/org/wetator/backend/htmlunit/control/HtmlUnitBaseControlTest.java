@@ -49,6 +49,23 @@ public class HtmlUnitBaseControlTest {
   }
 
   @Test
+  public void getUniqueSelector_IdWithColon() throws IOException {
+    // @formatter:off
+    String tmpHtmlCode = "<html><body>"
+        + "<div>"
+          + "<button id='f:myId'></button>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+        tmpHtmlPage.getHtmlElementById("f:myId"));
+
+    Assert.assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
+  }
+
+  @Test
   public void getUniqueSelector_General() throws IOException {
     // @formatter:off
     String tmpHtmlCode = "<html><body>"
