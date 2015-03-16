@@ -278,7 +278,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
-      tmpBrowser.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog(tmpControl);
     }
   }
 
@@ -313,7 +313,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.click(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog(tmpControl);
     }
   }
 
@@ -348,7 +348,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.clickDouble(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog(tmpControl);
     }
   }
 
@@ -383,7 +383,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.clickRight(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog(tmpControl);
     }
   }
 
@@ -415,7 +415,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.select(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog(tmpControl);
     }
   }
 
@@ -447,7 +447,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.deselect(aContext);
-      tmpBrowser.saveCurrentWindowToLog();
+      tmpBrowser.saveCurrentWindowToLog(tmpControl);
     }
   }
 

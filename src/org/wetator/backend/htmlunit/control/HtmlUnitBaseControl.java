@@ -35,6 +35,7 @@ import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -299,7 +300,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * Helper that constructs the css selector for the given HtmlElement.
-   *
+   * 
    * @param aHtmlElement the element
    * @return the css selector
    */
@@ -341,6 +342,16 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     return "body" + tmpSelector.toString();
+  }
+
+  /**
+   * Returns true if the control is part of the given page.
+   * 
+   * @param aPage the page to check
+   * @return true or false
+   */
+  public boolean isPartOf(final Page aPage) {
+    return aPage == getHtmlElement().getPage();
   }
 
   private int childIndex(final HtmlElement aParent, final HtmlElement aChild) {
