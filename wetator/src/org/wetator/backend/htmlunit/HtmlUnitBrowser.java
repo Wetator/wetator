@@ -757,27 +757,27 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
+          String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           savedPages.put(tmpPage, tmpPageFile);
 
           // highlight changed control if possible
-          // TODO check for same page
-          // final StringBuilder tmpParam = new StringBuilder();
-          // if (null != aControls) {
-          // String tmpDelim = "";
-          // for (final IControl tmpControl : aControls) {
-          // if () {
-          // tmpParam.append("highlight=");
-          // tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
-          // tmpParam.append(tmpDelim);
-          // tmpDelim = "&";
-          // }
-          // }
-          // }
-          //
-          // if (tmpParam.length() > 0) {
-          // tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
-          // }
+          final StringBuilder tmpParam = new StringBuilder();
+          if (null != aControls) {
+            String tmpDelim = "";
+            for (final IControl tmpControl : aControls) {
+              final HtmlUnitBaseControl<HtmlElement> tmpHtmlUnitControl = (HtmlUnitBaseControl<HtmlElement>) tmpControl;
+              if (tmpHtmlUnitControl.isPartOf(tmpPage)) {
+                tmpParam.append("highlight=");
+                tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
+                tmpParam.append(tmpDelim);
+                tmpDelim = "&";
+              }
+            }
+          }
+
+          if (tmpParam.length() > 0) {
+            tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+          }
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
       } catch (final ResourceException e) {
