@@ -414,6 +414,7 @@ wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text

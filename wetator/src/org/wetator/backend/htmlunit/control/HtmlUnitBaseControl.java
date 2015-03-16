@@ -307,25 +307,10 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   protected String getUniqueSelector(final HtmlElement aHtmlElement) {
     HtmlElement tmpHtmlElement = aHtmlElement;
     String tmpHtmlElementId = tmpHtmlElement.getId();
-
-    if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
-      return "#" + tmpHtmlElementId;
-    }
-
     HtmlElement tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
 
     StringBuilder tmpSelector = new StringBuilder();
-    tmpSelector.append('>');
-    tmpSelector.append(tmpHtmlElement.getTagName());
-    tmpSelector.append(":nth-of-type(");
-    tmpSelector.append(childIndex(tmpParent, tmpHtmlElement));
-    tmpSelector.append(')');
-
-    while (DomElement.ATTRIBUTE_NOT_DEFINED == tmpHtmlElementId && !"body".equalsIgnoreCase(tmpParent.getTagName())) {
-      tmpHtmlElement = tmpParent;
-      tmpHtmlElementId = tmpHtmlElement.getId();
-      tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
-
+    while (DomElement.ATTRIBUTE_NOT_DEFINED == tmpHtmlElementId) {
       final StringBuilder tmpSel = new StringBuilder();
       tmpSel.append('>');
       tmpSel.append(tmpHtmlElement.getTagName());
@@ -335,6 +320,14 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
       tmpSel.append(tmpSelector);
       tmpSelector = tmpSel;
+
+      if ("body".equalsIgnoreCase(tmpParent.getTagName())) {
+        break;
+      }
+
+      tmpHtmlElement = tmpParent;
+      tmpHtmlElementId = tmpHtmlElement.getId();
+      tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
     }
 
     if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
