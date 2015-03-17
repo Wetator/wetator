@@ -119,7 +119,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /** Sometimes we like to ignore some jobs. */
   protected JavaScriptJobFilter jobFilter;
   /** ResponseStore. */
-  protected ResponseStore responseStore;
+  protected Map<BrowserVersion, ResponseStore> responseStores;
   /** WetatorEngine. */
   protected WetatorEngine wetatorEngine;
   /** The list of failures ({@link AssertionException}s). */
@@ -156,7 +156,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     // response store
     final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
     jsTimeoutInMillis = tmpConfiguration.getJsTimeoutInSeconds() * 1000L;
-    responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
+    responseStores = new HashMap<BrowserVersion, ResponseStore>();
+    for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
+      final ResponseStore tmpStrore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
+          true);
+      responseStores.put(determineBrowserVersionFor(tmpBrowserType), tmpStrore);
+    }
 
     // add the default controls
     controlRepository.add(HtmlUnitAnchor.class);
@@ -757,7 +762,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          String tmpPageFile = responseStore.storePage(webClient, tmpPage);
+          String tmpPageFile = getResponseStore(webClient.getBrowserVersion()).storePage(webClient, tmpPage);
           savedPages.put(tmpPage, tmpPageFile);
 
           // highlight changed control if possible
@@ -830,6 +835,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
     }
+  }
+
+  private ResponseStore getResponseStore(final BrowserVersion aBrowserVersion) {
+    return responseStores.get(aBrowserVersion);
   }
 
   /**
@@ -1436,7 +1445,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       aContentToWaitFor.matches(aContent, MAX_LENGTH);
     } catch (final AssertionException e) {
       if (aContent.length() > MAX_LENGTH) {
-        final String tmpPageFile = responseStore.storeTextContent(aContent);
+        final String tmpPageFile = getResponseStore(webClient.getBrowserVersion()).storeTextContent(aContent);
         wetatorEngine.informListenersResponseStored(tmpPageFile);
       }
       throw e;

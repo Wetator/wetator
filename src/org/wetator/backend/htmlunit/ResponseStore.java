@@ -68,6 +68,7 @@ public final class ResponseStore {
   private WebClient webClient;
 
   private File storeDir;
+  private String relStoreDir;
 
   private static long getUniqueId() {
     return ++counter;
@@ -77,21 +78,24 @@ public final class ResponseStore {
    * The constructor.
    * 
    * @param anOutputDir the outputDir to set
+   * @param aBrowserSubdir the subdir for the specific browser this store is for
    * @param anOverwriteFlag the overwrite to set
    */
-  public ResponseStore(final File anOutputDir, final boolean anOverwriteFlag) {
+  public ResponseStore(final File anOutputDir, final String aBrowserSubdir, final boolean anOverwriteFlag) {
     super();
     outputDir = anOutputDir;
     overwrite = anOverwriteFlag;
 
-    initOutputDir();
+    initOutputDir(aBrowserSubdir);
     fileNames = new HashMap<String, String>();
   }
 
   /**
    * This method has to be called before any page is logged, because it creates the logdir.
+   * 
+   * @param aBrowserSubdir the subdir for the specific browser this store is for
    */
-  public void initOutputDir() {
+  protected void initOutputDir(final String aBrowserSubdir) {
     String tmpDirectoryName;
     if (overwrite) {
       tmpDirectoryName = "responses_current";
@@ -100,7 +104,9 @@ public final class ResponseStore {
       tmpDirectoryName = "responses_" + tmpFormater.format(new Date());
     }
 
-    storeDir = new File(outputDir, tmpDirectoryName);
+    storeDir = new File(new File(outputDir, aBrowserSubdir.toLowerCase(Locale.ROOT)), tmpDirectoryName.toString());
+    relStoreDir = outputDir.toPath().relativize(storeDir.toPath()).toString();
+    relStoreDir = relStoreDir.replaceAll("\\\\", "/");
 
     try {
       FileUtils.forceMkdir(storeDir);
@@ -125,12 +131,7 @@ public final class ResponseStore {
       tmpFile = new File(storeDir, tmpFileName.toString());
 
       FileUtils.write(tmpFile, aContent);
-
-      // to be sure to have the right slashes in the output
-      String tmpLogDir = storeDir.getName();
-      tmpLogDir = tmpLogDir.replaceAll("\\\\", "/");
-
-      return tmpLogDir + "/" + tmpFileName;
+      return relStoreDir + "/" + tmpFileName;
     } catch (final IOException e) {
       throw new ResourceException("Could not write file '" + tmpFile.getAbsolutePath() + "'.", e);
     }
@@ -180,11 +181,7 @@ public final class ResponseStore {
         tmpOutputStream.close();
       }
 
-      // to be sure to have the right slashes in the output
-      String tmpLogDir = storeDir.getName();
-      tmpLogDir = tmpLogDir.replaceAll("\\\\", "/");
-
-      return tmpLogDir + "/" + tmpFileName;
+      return relStoreDir + "/" + tmpFileName;
     } catch (final IOException e) {
       throw new ResourceException("Could not write file '" + tmpFile.getAbsolutePath() + "'.", e);
     }
