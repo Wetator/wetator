@@ -342,8 +342,8 @@ public final class XHtmlOutputter {
       if (aDomNode instanceof HtmlHead) {
         // inject some js libs for highlighting
         output.indent();
-        output.println("<script src='../resources/jquery-1.10.2.min.js'></script>");
-        output.println("<script src='../resources/wetator_report.js'></script>");
+        output.println("<script src='../../resources/jquery-1.10.2.min.js'></script>");
+        output.println("<script src='../../resources/wetator_report.js'></script>");
         output.unindent();
       }
     } else if (aDomNode instanceof DomText) {
