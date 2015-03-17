@@ -125,6 +125,8 @@
             tmpFrame.style.display='block';
             tmpFrame.contentWindow.document.onmouseout=hidePreview;
             tmpFrame.contentWindow.document.onmouseover=hidePreview;
+
+            tmpFrame.contentWindow.highlight();
         }
     }
 
@@ -138,7 +140,7 @@
         elem.css('box-shadow', '0 0 2px 2px #E65212');
         var offset = elem.offset();
         offset.left -= 200;
-        offset.top -= 200;
+        offset.top -= 400;
         $('html, body').animate({
             scrollTop: offset.top,
             scrollLeft: offset.left
