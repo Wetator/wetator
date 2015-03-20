@@ -1306,7 +1306,7 @@
                         <xsl:call-template name="command"/>
                     </xsl:for-each>
                     <tr>
-                        <td class='light topBorder' colspan='7'></td>
+                        <td class='light topBorder' colspan='8'></td>
 
                         <xsl:variable name="testcaseDuration" select="sum(command/executionTime)"/>
                         <td class='light topBorder' align="right">
