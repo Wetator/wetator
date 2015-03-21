@@ -141,11 +141,13 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
           for (int i = tmpXStart; i < tmpXEnd; i++) {
             for (int j = 0; j < tmpTable.getRowCount(); j++) {
               final HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
-              final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
-              if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos())
-                  && tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX))) {
-                tmpFoundX = true;
-                break;
+              if (null != tmpOuterCellX) {
+                final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
+                if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos())
+                    && tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX))) {
+                  tmpFoundX = true;
+                  break;
+                }
               }
             }
             if (tmpFoundX) {
