@@ -105,7 +105,7 @@
                             Start Time:
                         </td><td style="padding-left: 5px;">##TIME##</td><td style="padding-left: 40px;">
                             Total Time:
-                        </td><td style="padding-left: 5px;">0s</td>
+                        </td><td style="padding-left: 5px;">##DURATION##</td>
 </tr>
 </table>
 <table onmouseover="switchTables(this, 'detailedoverview')" style="margin-top: 20px; text-align: center;" align="center" class="overview" id="summaryoverview">
@@ -130,7 +130,7 @@
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
                                                 " bgcolor="#E75013" title="test cases with error">100%
-                                            </td><td></td>
+                                            </td>
 </tr>
 </table>
 </td>
@@ -157,10 +157,10 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie8','ie8overview', 'ff31','ff31overview')"></td><td><span class="bold">IE8</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE8 overview" onclick="showOrHide(this, 'ie8overview')" src="resources/expandall.png" id="ie8"></td><td><span class="bold">FF31</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF31 overview" onclick="showOrHide(this, 'ff31overview')" src="resources/expandall.png" id="ff31"></td>
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie11','ie11overview', 'ff31','ff31overview')"></td><td><span class="bold">IE11</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE11 overview" onclick="showOrHide(this, 'ie11overview')" src="resources/expandall.png" id="ie11"></td><td><span class="bold">FF31</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF31 overview" onclick="showOrHide(this, 'ff31overview')" src="resources/expandall.png" id="ff31"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ie8overview">
+<table style="display: none; text-align: center;" align="center" class="overview" id="ie11overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
             browserTestStepCount 3<br>
@@ -185,27 +185,27 @@
             browserStepsIgnoredPercentage 34<br>
 </div>
 <tr>
-<td width="150px;">Tests in IE8<img style="padding-left: 4px;" src="resources/ie.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in IE11<img style="padding-left: 4px;" src="resources/ie.png" alt="IE11" title="IE11"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
-                            " bgcolor="#E75013" title="IE8 tests with error">100%
-                        </td><td></td>
+                            " bgcolor="#E75013" title="IE11 tests with error">100%
+                        </td>
 </tr>
 </table>
 </td>
 </tr>
 <tr>
-<td>TestSteps in IE8<img style="padding-left: 4px;" src="resources/ie.png" alt="IE8" title="IE8"></td><td style="padding-right: 0;">
+<td>TestSteps in IE11<img style="padding-left: 4px;" src="resources/ie.png" alt="IE11" title="IE11"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#E75013" title="IE8 steps with error">33%
-                                </td><td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#ACC952" title="successful IE8 steps">33%
-                                </td><td style="text-align: center;" class="smallBorder ignored" width="34%
-                                " bgcolor="#FFFFFF" title="ignored IE8 steps">34%
-                                </td><td></td>
+                            " bgcolor="#E75013" title="IE11 steps with error">33%
+                            </td><td style="text-align: center;" class="smallBorder" width="33%
+                            " bgcolor="#ACC952" title="successful IE11 steps">33%
+                            </td><td style="text-align: center;" class="smallBorder ignored" width="34%
+                            " bgcolor="#FFFFFF" title="ignored IE11 steps">34%
+                            </td>
 </tr>
 </table>
 </td>
@@ -214,8 +214,6 @@
 <td colspan="2" height="10px"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ie11overview"></table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff24overview"></table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ff31overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
@@ -246,7 +244,7 @@
 <tr>
 <td style="text-align: center;" class="smallBorder" width="100%
                             " bgcolor="#E75013" title="FF31 tests with error">100%
-                        </td><td></td>
+                        </td>
 </tr>
 </table>
 </td>
@@ -256,12 +254,12 @@
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#E75013" title="FF31 steps with error">33%
-                                </td><td style="text-align: center;" class="smallBorder" width="33%
-                                " bgcolor="#ACC952" title="successful FF31 steps">33%
-                                </td><td style="text-align: center;" class="smallBorder ignored" width="34%
-                                " bgcolor="#FFFFFF" title="ignored FF31 steps">34%
-                                </td><td></td>
+                            " bgcolor="#E75013" title="FF31 steps with error">33%
+                            </td><td style="text-align: center;" class="smallBorder" width="33%
+                            " bgcolor="#ACC952" title="successful FF31 steps">33%
+                            </td><td style="text-align: center;" class="smallBorder ignored" width="34%
+                            " bgcolor="#FFFFFF" title="ignored FF31 steps">34%
+                            </td>
 </tr>
 </table>
 </td>
@@ -295,7 +293,7 @@
 <td>wetator.jsTimeout</td><td>&nbsp;&nbsp;</td><td>0s</td>
 </tr>
 <tr>
-<td>wetator.httpTimeout</td><td>&nbsp;&nbsp;</td><td>90s</td>
+<td>wetator.httpTimeout</td><td>&nbsp;&nbsp;</td><td>0s</td>
 </tr>
 <tr>
 <td>wetator.wpath.separator</td><td>&nbsp;&nbsp;</td><td></td>
@@ -354,16 +352,16 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img src="resources/ie.png" alt="IE8" title="IE8"></td><td align="center">2/3</td><td>
+<td align="center" rowspan="2">1</td><td rowspan="2"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="2"><a class="link" href="#testspec_x">test1.wet</a></td><td><img src="resources/ie.png" alt="IE11" title="IE11"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#x">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#x">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#x">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">##DURATION##</td></tr><tr><td><img src="resources/firefox.png" alt="Firefox31" title="Firefox31"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#x">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="#x">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="#x">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">##DURATION##</td></tr><tr></tr>
@@ -373,18 +371,18 @@
 </table>
 <a name="details"></a>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_##ID##">/Test/test1.wet</a> (IE8)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_x">/Test/test1.wet</a> (IE11)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
-<tr><td class="comment topBorder" align="center"><a name="##ID##"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_##ID##" onclick="showOrHide(this, log_2##ID##");"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="comment topBorder" align="center"><a name="#x"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="#x"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="#x"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_x" onclick="showOrHide(this, 'log_x');"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="###ID##" onclick="makeVisible(testfile_2##ID##");"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#x" onclick="makeVisible('testfile_x');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
-<tr style="display: none;" id="log_##ID##">
+<tr style="display: none;" id="log_x">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
@@ -397,8 +395,8 @@
 </table>
 </td>
 </tr>
-<tr><td class="ignored topBorder" align="center"><a name="##ID##"></a>4</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="comment topBorder" align="center"><a name="##ID##"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="ignored topBorder" align="center"><a name="#x"></a>4</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="comment topBorder" align="center"><a name="#x"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
 <tr>
 <td colspan="8" class="light topBorder"></td><td align="right" class="light topBorder">##DURATION##</td>
 </tr>
@@ -408,18 +406,18 @@
                 </a>
 </p>
 <h2>
-<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_##ID##">/Test/test1.wet</a> (Firefox31)</h2>
+<img title="error" alt="error" height="10" width="12" src="resources/error.png">&nbsp;<a name="testspec_x">/Test/test1.wet</a> (Firefox31)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
-<tr><td class="comment topBorder" align="center"><a name="##ID##"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_##ID##" onclick="showOrHide(this, log_2##ID##");"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="comment topBorder" align="center"><a name="#x"></a>1</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="#x"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="#x"></a>3</td><td class="light topBorder" align="center"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_x" onclick="showOrHide(this, 'log_x');"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
 <tr>
-<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="###ID##" onclick="makeVisible(testfile_2##ID##");"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a></td><td class="light"></td><td class="light"></td><td colspan="4" class="error">test error</td>
+<td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="#x" onclick="makeVisible('testfile_x');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a></td><td class="light"></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
-<tr style="display: none;" id="log_##ID##">
+<tr style="display: none;" id="log_x">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="message">
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr>
@@ -432,8 +430,8 @@
 </table>
 </td>
 </tr>
-<tr><td class="ignored topBorder" align="center"><a name="##ID##"></a>4</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="comment topBorder" align="center"><a name="##ID##"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="ignored topBorder" align="center"><a name="#x"></a>4</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command</td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" align="center"></td><td class="ignored topBorder" >command value</td><td class="ignored topBorder" >-</td><td class="ignored topBorder" ></td><td class="ignored topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="comment topBorder" align="center"><a name="#x"></a>5</td><td class="comment topBorder" align="center">&nbsp;</td><td class="comment topBorder" ></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" align="center"></td><td class="comment topBorder" >comment value</td><td class="comment topBorder" >-</td><td class="comment topBorder" ></td><td class="comment topBorder" align="right">##DURATION##</td></tr>
 <tr>
 <td colspan="8" class="light topBorder"></td><td align="right" class="light topBorder">##DURATION##</td>
 </tr>
