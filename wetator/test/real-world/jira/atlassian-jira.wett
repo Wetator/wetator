@@ -1,0 +1,11 @@
+# wetator test script for https://jira.atlassian.com
+#
+# does now work for now and is really slow
+
+open-url        || https://jira.atlassian.com
+assert-content  || Dashboards Projects Issues Capture Agile
+assert-content  || System Dashboard, Introduction, Welcome to jira.atlassian.com
+
+click-on        || Projects
+click-on        || View all projects
+assert-content  || abc
