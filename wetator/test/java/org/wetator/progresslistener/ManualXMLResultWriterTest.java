@@ -46,8 +46,8 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * Manual test for creating result files and according reports.<br/>
- * This test is manual because it is unstable due to timing data in report (e.g. differs between 0s and 0.1s).
- * 
+ * This test is manual because it is (was?) unstable due to timing data in report (e.g. differs between 0s and 0.1s).
+ *
  * @author tobwoerk
  * @author frank.danek
  */
@@ -58,8 +58,8 @@ public class ManualXMLResultWriterTest {
   private static final String REPORT_LOG = LOGS_FOLDER + "/run_report.xsl.html";
 
   private static final String COMMAND_NAME = "command";
-  private static final String IE8 = "IE8";
-  private static final String FF24 = "Firefox24";
+  private static final String IE11 = "IE11";
+  private static final String FF31 = "Firefox31";
 
   @Rule
   public TestName testName = new TestName();
@@ -97,7 +97,7 @@ public class ManualXMLResultWriterTest {
 
     // TODO screenshots missing
     lineNo = 1;
-    resultWriter.testRunStart(IE8);
+    resultWriter.testRunStart(IE11);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand(createCommand("open-url", "http://www.google.com"));
     writeCommand(createCommand("set", "search", "Wetator"));
@@ -122,8 +122,8 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE8);
-    writeGreenTestRun(tmpTestCase, FF24);
+    writeGreenTestRun(tmpTestCase, IE11);
+    writeGreenTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -139,7 +139,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     lineNo = 1;
-    resultWriter.testRunStart(FF24);
+    resultWriter.testRunStart(FF31);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     startModule(tmpTestCase);
@@ -163,8 +163,8 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, IE8);
-    writeErrorTestRun(tmpTestCase, FF24);
+    writeErrorTestRun(tmpTestCase, IE11);
+    writeErrorTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -179,7 +179,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeRedWithIgnoredModule(tmpTestCase, FF24);
+    writeRedWithIgnoredModule(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -194,7 +194,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeRedModule(tmpTestCase, FF24);
+    writeRedModule(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -210,7 +210,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     lineNo = 1;
-    resultWriter.testRunStart(FF24);
+    resultWriter.testRunStart(FF31);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     startModule(tmpTestCase);
@@ -233,8 +233,8 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE8);
-    writeFailureTestRun(tmpTestCase, FF24);
+    writeFailureTestRun(tmpTestCase, IE11);
+    writeFailureTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -249,7 +249,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeBlueModule(tmpTestCase, FF24);
+    writeBlueModule(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -264,32 +264,32 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE8);
-    writeGreenTestRun(tmpTestCase, FF24);
+    writeGreenTestRun(tmpTestCase, IE11);
+    writeGreenTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE8);
-    writeFailureTestRun(tmpTestCase, FF24);
+    writeFailureTestRun(tmpTestCase, IE11);
+    writeFailureTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, IE8);
-    writeErrorTestRun(tmpTestCase, FF24);
+    writeErrorTestRun(tmpTestCase, IE11);
+    writeErrorTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeFailureAndErrorTestRun(tmpTestCase, IE8);
-    writeFailureAndErrorTestRun(tmpTestCase, FF24);
+    writeFailureAndErrorTestRun(tmpTestCase, IE11);
+    writeFailureAndErrorTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE8);
-    writeErrorTestRun(tmpTestCase, FF24);
+    writeFailureTestRun(tmpTestCase, IE11);
+    writeErrorTestRun(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -305,7 +305,7 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
 
-    resultWriter.testRunStart(IE8);
+    resultWriter.testRunStart(IE11);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     writeCommandWithError(createCommand("invalid-command", null), new InvalidInputException("Command in TestCase "
@@ -314,7 +314,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
 
-    resultWriter.testRunStart(FF24);
+    resultWriter.testRunStart(FF31);
     resultWriter.testRunIgnored();
     resultWriter.testRunEnd();
 
@@ -333,13 +333,13 @@ public class ManualXMLResultWriterTest {
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
 
-    resultWriter.testRunStart(IE8);
+    resultWriter.testRunStart(IE11);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     resultWriter.error(new InvalidInputException("TestCase " + tmpTestCase.getName() + " is very invalid."));
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
 
-    resultWriter.testRunStart(FF24);
+    resultWriter.testRunStart(FF31);
     resultWriter.testRunIgnored();
     resultWriter.testRunEnd();
 
@@ -357,7 +357,7 @@ public class ManualXMLResultWriterTest {
 
     TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
-    writeRedModuleNotFound(tmpTestCase, FF24);
+    writeRedModuleNotFound(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
 
     resultWriter.end(engine);
@@ -562,7 +562,7 @@ public class ManualXMLResultWriterTest {
 
   private void assertReport() throws IOException {
     InputStream tmpExpectedStream = this.getClass().getClassLoader()
-        .getResourceAsStream("org/wetator/test/resource/report/" + testName.getMethodName() + ".html");
+        .getResourceAsStream("org/wetator/test/resource/result/report/" + testName.getMethodName() + ".html");
     String tmpExpectedReport = getString(tmpExpectedStream);
 
     File tmpActualFile = new File(REPORT_LOG);
@@ -594,7 +594,10 @@ public class ManualXMLResultWriterTest {
     tmpExpectedReport = tmpExpectedReport.replaceAll("\"\\d+\"", "\"#x\"");
     tmpExpectedReport = tmpExpectedReport.replace(tmpWetatorPath, "");
 
-    Assert.assertEquals(tmpExpectedReport, tmpActualReport);
+    // Assert.assertEquals(tmpExpectedReport, tmpActualReport);
+    for (String tmpExpectedPart : tmpExpectedReport.split("##[A-Z]*##")) {
+      Assert.assertTrue("'" + tmpExpectedPart + "' not found", tmpActualReport.contains(tmpExpectedPart));
+    }
   }
 
   private String getString(InputStream anExpectedStream) throws IOException {
