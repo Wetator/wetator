@@ -106,7 +106,7 @@
   </configuration>
   <startTime id="92">28.02.2013 22:58:05</startTime>
   <testcase id="93" name="wetator_google" file="E:\Test\wetator_google">
-    <testrun id="94" browser="IE8">
+    <testrun id="94" browser="IE11">
       <testfile id="95" file="E:\Test\wetator_google">
         <command id="96" name="open-url" line="1">
           <param0 id="97">http://www.google.com</param0>

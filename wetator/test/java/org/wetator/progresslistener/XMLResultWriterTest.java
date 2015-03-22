@@ -26,6 +26,7 @@ import org.wetator.core.TestCase;
 /**
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public class XMLResultWriterTest extends AbstractProgressListenerTest {
 
@@ -47,7 +48,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
 
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE8);
+    writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
