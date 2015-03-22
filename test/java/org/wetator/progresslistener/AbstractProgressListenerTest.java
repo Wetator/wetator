@@ -44,7 +44,7 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * Abstract test class for testing {@link IProgressListener}s.
- * 
+ *
  * @author frank.danek
  * @author rbri
  * @author tobwoerk
@@ -53,7 +53,7 @@ public abstract class AbstractProgressListenerTest {
 
   protected static final String LOGS_FOLDER = "logs";
 
-  protected static final String IE8 = "IE8";
+  protected static final String IE11 = "IE11";
   protected static final String FF31 = "Firefox31";
 
   private static final String COMMAND_NAME = "command";
@@ -95,7 +95,7 @@ public abstract class AbstractProgressListenerTest {
     TestCase tmpTestCase = createTestCase("wetator_google");
     progressListener.testCaseStart(tmpTestCase);
 
-    progressListener.testRunStart(IE8);
+    progressListener.testRunStart(IE11);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand(createCommand("open-url", "http://www.google.com"));
     writeCommand(createCommand("set", "search", "Wetator"));
@@ -120,7 +120,7 @@ public abstract class AbstractProgressListenerTest {
 
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE8);
+    writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
@@ -160,7 +160,7 @@ public abstract class AbstractProgressListenerTest {
 
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, IE8);
+    writeErrorTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
@@ -229,7 +229,7 @@ public abstract class AbstractProgressListenerTest {
 
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE8);
+    writeFailureTestRun(tmpTestCase, IE11);
     writeFailureTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
@@ -260,31 +260,31 @@ public abstract class AbstractProgressListenerTest {
 
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE8);
+    writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE8);
+    writeFailureTestRun(tmpTestCase, IE11);
     writeFailureTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, IE8);
+    writeErrorTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureAndErrorTestRun(tmpTestCase, IE8);
+    writeFailureAndErrorTestRun(tmpTestCase, IE11);
     writeFailureAndErrorTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE8);
+    writeFailureTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF31);
     progressListener.testCaseEnd();
 
@@ -301,7 +301,7 @@ public abstract class AbstractProgressListenerTest {
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
 
-    progressListener.testRunStart(IE8);
+    progressListener.testRunStart(IE11);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     writeCommandWithError(createCommand("invalid-command", null), new InvalidInputException("Command in TestCase "
@@ -329,7 +329,7 @@ public abstract class AbstractProgressListenerTest {
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
 
-    progressListener.testRunStart(IE8);
+    progressListener.testRunStart(IE11);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     progressListener.error(new InvalidInputException("TestCase " + tmpTestCase.getName() + " is very invalid."));
     progressListener.testFileEnd();
@@ -586,6 +586,8 @@ public abstract class AbstractProgressListenerTest {
     tmpResult = tmpResult.replaceAll("HtmlUnit version 2.\\d+(-SNAPSHOT)?", "HtmlUnit");
     // comments
     tmpResult = tmpResult.replaceAll("(?s)<!--.*?-->", "<!-- ... -->");
+    // paths
+    tmpResult = tmpResult.replaceAll("##PATH##", "");
     return tmpResult;
   }
 

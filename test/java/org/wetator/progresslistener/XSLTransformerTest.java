@@ -65,7 +65,7 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
 
     // replace ids
     tmpResult = tmpResult.replaceAll("(name|href|id)=\"([^\"\\d]*)\\d+\"", "$1=\"$2##ID##\"");
-    tmpResult = tmpResult.replaceAll("'(testfile|log)_\\d+'", "$1_2##ID##\"");
+    tmpResult = tmpResult.replaceAll("'(testfile|log)_\\d+'", "'$1_##ID##'");
     // replace debug css
     tmpResult = tmpResult.replace("{display: none;}", "{}");
 
