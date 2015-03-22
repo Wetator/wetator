@@ -14,7 +14,7 @@
  */
 
 
-/* JS functions used by the wetator report */
+/* JS functions used by the Wetator report */
 
 
     function showOrHideAll(image, imageId, id) {
@@ -91,6 +91,18 @@
         }
     }
 
+    function showAllTestCases() {
+    	$('.successful').removeClass('hidden');
+    	$('#hideSuccessful').removeClass('hidden');
+    	$('#showAll').addClass('hidden');
+    }
+    
+    function hideSuccessfulTestCases() {
+    	$('.successful').addClass('hidden');
+    	$('#hideSuccessful').addClass('hidden');
+    	$('#showAll').removeClass('hidden');
+    }
+    
     function showPreview(e, src) {
         // preview only for html and txt files
         if ((src.lastIndexOf(".html") != src.length - 5)
