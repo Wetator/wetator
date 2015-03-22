@@ -698,7 +698,7 @@
                     </tr>
 
                     <xsl:for-each select="/wet/testcase">
-                        <xsl:call-template name="testcaseOverview"/>
+                        <xsl:call-template name="testCaseOverview"/>
                     </xsl:for-each>
                 </table>
 
@@ -1066,7 +1066,7 @@
         </table>
     </xsl:template>
 
-    <xsl:template name="testcaseOverview">
+    <xsl:template name="testCaseOverview">
         <xsl:variable name="hideSuccessful" select="$testCaseOkCount > 0 and $testCaseNotOkCount > 0 and not(count(error) or count(descendant::command/error) or count(descendant::testfile/error) or count(descendant-or-self::failure) &gt; 0)"/>
     
         <tr>
@@ -1300,7 +1300,7 @@
                     <xsl:value-of select="../@browser"/>
                     <xsl:text>)</xsl:text>
                 </h2>
-                <xsl:call-template name="testcaseTable" />
+                <xsl:call-template name="testCaseTable" />
     
                 <p class="backToTop">
                     <a class="link" href="#top">
@@ -1311,7 +1311,7 @@
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template name="testcaseTable">
+    <xsl:template name="testCaseTable">
         <xsl:choose>
             <xsl:when test="count(command) > 0">
                 <table cellpadding="2" cellspacing="0" width="100%" class="smallBorder">
@@ -1334,10 +1334,10 @@
                     <tr>
                         <td class='light topBorder' colspan='8'></td>
 
-                        <xsl:variable name="testcaseDuration" select="sum(command/executionTime)"/>
+                        <xsl:variable name="testCaseDuration" select="sum(command/executionTime)"/>
                         <td class='light topBorder' align="right">
                             <xsl:call-template name="time">
-                                <xsl:with-param name="msecs" select="$testcaseDuration"/>
+                                <xsl:with-param name="msecs" select="$testCaseDuration"/>
                             </xsl:call-template>
                         </td>
                     </tr>
@@ -1722,7 +1722,7 @@
                    <td class="light"/>
                    <td class="light" colspan="4">
                        <xsl:for-each select="testfile">
-                            <xsl:call-template name="testcaseTable"/>
+                            <xsl:call-template name="testCaseTable"/>
                        </xsl:for-each>
                    </td>
               </tr>
