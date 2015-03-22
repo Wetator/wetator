@@ -96,7 +96,8 @@
                     table#testSummary td { padding: 5px; }
                     p.backToTop img { padding-right: 3px; }
                     .bars { color: #ffffff; }
-                    #debuginfo {display: none;}
+                    <xsl:if test="$testCaseOkCount > 0 and $testCaseNotOkCount > 0">.hidden { display: none; }</xsl:if>
+                    #debuginfo { display: none; }
                     #debugtestbrowseroverviewinfo { display: none; }
 
                     .describe { color: #3D2117; }
@@ -675,7 +676,11 @@
 
 
                 <!-- test cases overview -->
-                <table width="100%" cellpadding="2" cellspacing="0" class="smallBorder" border="0">
+                <xsl:if test="$testCaseOkCount > 0 and $testCaseNotOkCount > 0">
+                    <a id="showAll" href="#" onclick="showAllTestCases()">Show all TestCases</a>
+                    <a id="hideSuccessful" href="#" class="hidden" onclick="hideSuccessfulTestCases()">Hide successful TestCases</a>
+                </xsl:if>
+                <table id="testCasesOverview" width="100%" cellpadding="2" cellspacing="0" class="smallBorder" border="0">
                     <tr>
                         <th style="width: 30px;">No</th>
                         <!-- success marker -->
@@ -1062,7 +1067,12 @@
     </xsl:template>
 
     <xsl:template name="testcaseOverview">
+        <xsl:variable name="hideSuccessful" select="$testCaseOkCount > 0 and $testCaseNotOkCount > 0 and not(count(error) or count(descendant::command/error) or count(descendant::testfile/error) or count(descendant-or-self::failure) &gt; 0)"/>
+    
         <tr>
+            <xsl:if test="$hideSuccessful">
+                <xsl:attribute name="class">successful hidden</xsl:attribute>
+            </xsl:if>
             <td align="center">
                 <xsl:attribute name="rowspan"><xsl:value-of select="count(testrun)"/></xsl:attribute>
                 <xsl:number/>
@@ -1249,36 +1259,55 @@
                 </xsl:choose>
 
                 <xsl:text disable-output-escaping="yes">&lt;/tr&gt;</xsl:text>
-                <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="$hideSuccessful">
+                        <xsl:text disable-output-escaping="yes">&lt;tr class="successful hidden"&gt;</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:for-each>
         </tr>
 
-        <tr><td colspan="7" height="7px"/></tr>
+        <tr>
+            <xsl:if test="$hideSuccessful">
+                <xsl:attribute name="class">successful hidden</xsl:attribute>
+            </xsl:if>
+            <td colspan="7" height="7px"/>
+        </tr>
     </xsl:template>
 
     <xsl:template name="testresult">
         <xsl:for-each select="testrun/testfile">
-            <h2>
-                <xsl:call-template name="successIndicator"/>
-                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                <a>
-                    <xsl:attribute name="name">
-                        <xsl:text>testspec_</xsl:text>
-                        <xsl:value-of select="../@id"/>
-                    </xsl:attribute>
-                    <xsl:value-of select="@file"/>
-                </a>
-                <xsl:text> (</xsl:text>
-                <xsl:value-of select="../@browser"/>
-                <xsl:text>)</xsl:text>
-            </h2>
-            <xsl:call-template name="testcaseTable" />
-
-            <p class="backToTop">
-                <a class="link" href="#top">
-                    <img src="resources/top.png" width="11" height="10" alt="top"/>Back to top
-                </a>
-            </p>
+            <xsl:variable name="hideSuccessful" select="$testCaseOkCount > 0 and $testCaseNotOkCount > 0 and not(count(error) or count(descendant::command/error) or count(descendant::testfile/error) or count(descendant-or-self::failure) &gt; 0)"/>
+            
+            <div>
+                <xsl:if test="$hideSuccessful">
+                    <xsl:attribute name="class">successful hidden</xsl:attribute>
+                </xsl:if>            
+                <h2>
+                    <xsl:call-template name="successIndicator"/>
+                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                    <a>
+                        <xsl:attribute name="name">
+                            <xsl:text>testspec_</xsl:text>
+                            <xsl:value-of select="../@id"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="@file"/>
+                    </a>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="../@browser"/>
+                    <xsl:text>)</xsl:text>
+                </h2>
+                <xsl:call-template name="testcaseTable" />
+    
+                <p class="backToTop">
+                    <a class="link" href="#top">
+                        <img src="resources/top.png" width="11" height="10" alt="top"/>Back to top
+                    </a>
+                </p>
+            </div>
         </xsl:for-each>
     </xsl:template>
 
