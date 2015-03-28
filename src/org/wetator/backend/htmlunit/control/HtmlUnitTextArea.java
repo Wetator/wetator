@@ -96,6 +96,12 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       if (tmpFocusedElement == null || tmpHtmlTextArea != tmpFocusedElement) {
         tmpHtmlTextArea.click();
 
+        // onXXXX events are synchronous but the richfaces placeholder
+        // introduces some asynchronous activity
+        // e.g. window.setTimeout( function () { $input.select(); }, 1)
+        // we will wait some time (usually the user needs a moment too)
+        aWetatorContext.getBrowser().waitForImmediateJobs(100);
+
         tmpFocusedElement = tmpHtmlPage.getFocusedElement();
         if (tmpHtmlTextArea != tmpFocusedElement) {
           final IControl tmpFocusedControl = aWetatorContext.getBrowser().getFocusedControl();

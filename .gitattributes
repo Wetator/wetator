@@ -818,6 +818,8 @@ test/webpage/js/jquery/ui/minified/jquery.ui.sortable.min.js -text
 test/webpage/js/jquery/ui/minified/jquery.ui.tabs.min.js -text
 test/webpage/js/jquery/ui/minified/jquery.ui.widget.min.js -text
 test/webpage/js/prototype/prototype.js -text
+test/webpage/js/richfaces/jquery-1.11.2.js -text
+test/webpage/js/richfaces/placeholder.html -text
 test/webpage/mouse_over.html -text
 test/webpage/mouse_over_after.html -text
 test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
@@ -914,6 +916,8 @@ test/xml/open_url_header.wet -text svneol=unset#text/plain
 test/xml/open_url_https.wet -text svneol=unset#text/plain
 test/xml/open_url_redirect.wet -text svneol=unset#text/plain
 test/xml/response_store.wet -text
+test/xml/richfaces.wet -text
+test/xml/richfaces/placeholder.wet -text
 test/xml/select_checkbox.wet -text svneol=unset#text/plain
 test/xml/select_checkbox_after.wet -text svneol=unset#text/plain
 test/xml/select_multipleSelect.wet -text svneol=unset#text/plain
