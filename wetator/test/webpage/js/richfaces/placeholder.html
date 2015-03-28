@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>RichFaces Placeholder</title>
+    <script type="text/javascript" src="./jquery-1.11.2.js"></script>
+</head>
+<body>
+
+<p>The RichFaces Placeholder triggers an asyncronous selection update. This might
+happen while wetator writes via type to the field.</p>
+<form>
+  <label>InputText</label>
+  <input id="myInputText" name="myInputText" type="text" value="test">
+
+  <label>TextArea</label>
+  <textarea id="myTextArea" name="myTextArea" cols='40' rows='1'>textarea text</textarea>
+</form>
+
+<script>
+  $("#myInputText").focus(function() {
+    setTimeout(function() { $("#myInputText").select(); }, 1)
+  });
+  $("#myTextArea").focus(function() {
+    setTimeout(function() { $("#myTextArea").select(); }, 1)
+  });
+</script>
+</body>
+</html>

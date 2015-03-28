@@ -163,6 +163,15 @@ public interface IBrowser {
   boolean waitForImmediateJobs() throws BackendException;
 
   /**
+   * Wait until the 'immediate' JavaScript jobs are finished.
+   * 
+   * @param aTimeoutInMillis the timeout
+   * @return true, if still some javascript jobs pending
+   * @throws BackendException in case of problems
+   */
+  boolean waitForImmediateJobs(long aTimeoutInMillis) throws BackendException;
+
+  /**
    * Checks, if the page title matches the given pattern.<br>
    * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the title again. If
    * the pattern is still not found an {@link AssertionException} is thrown.

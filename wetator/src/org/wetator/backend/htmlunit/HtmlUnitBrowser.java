@@ -1049,12 +1049,22 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public boolean waitForImmediateJobs() throws BackendException {
+    return waitForImmediateJobs(jsTimeoutInMillis);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.IBrowser#waitForImmediateJobs(long)
+   */
+  @Override
+  public boolean waitForImmediateJobs(final long aTimeoutInMillis) throws BackendException {
     boolean tmpPendingJobs = false;
 
     Page tmpPage = getCurrentPage();
     if (tmpPage.isHtmlPage()) {
       // try with wait
-      long tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
+      long tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
       while (System.currentTimeMillis() < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
 
@@ -1073,12 +1083,12 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (!tmpPage.isHtmlPage()) {
           break;
         }
-        tmpEndTime = System.currentTimeMillis() + jsTimeoutInMillis;
+        tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
       }
     }
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
-      wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(jsTimeoutInMillis / 1000) },
+      wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(aTimeoutInMillis / 1000) },
           ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
       return true;
     }

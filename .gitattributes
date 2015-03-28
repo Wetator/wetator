@@ -1023,6 +1023,8 @@ wetator/test/webpage/js/jquery/ui/minified/jquery.ui.sortable.min.js -text
 wetator/test/webpage/js/jquery/ui/minified/jquery.ui.tabs.min.js -text
 wetator/test/webpage/js/jquery/ui/minified/jquery.ui.widget.min.js -text
 wetator/test/webpage/js/prototype/prototype.js -text
+wetator/test/webpage/js/richfaces/jquery-1.11.2.js -text
+wetator/test/webpage/js/richfaces/placeholder.html -text
 wetator/test/webpage/mouse_over.html -text
 wetator/test/webpage/mouse_over_after.html -text
 wetator/test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
@@ -1119,6 +1121,8 @@ wetator/test/xml/open_url_header.wet -text svneol=unset#text/plain
 wetator/test/xml/open_url_https.wet -text svneol=unset#text/plain
 wetator/test/xml/open_url_redirect.wet -text svneol=unset#text/plain
 wetator/test/xml/response_store.wet -text
+wetator/test/xml/richfaces.wet -text
+wetator/test/xml/richfaces/placeholder.wet -text
 wetator/test/xml/select_checkbox.wet -text svneol=unset#text/plain
 wetator/test/xml/select_checkbox_after.wet -text svneol=unset#text/plain
 wetator/test/xml/select_multipleSelect.wet -text svneol=unset#text/plain

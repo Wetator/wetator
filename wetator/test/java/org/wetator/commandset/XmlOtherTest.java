@@ -117,6 +117,16 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
+  public void richfaces() throws InvalidInputException {
+    executeTestFile("richfaces.wet");
+
+    Assert.assertEquals(36, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
   public void jsError() throws InvalidInputException {
     executeTestFile("js_error.wet");
 
