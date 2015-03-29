@@ -12,7 +12,6 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/cssparser-0.9.15-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.16-SNAPSHOT.jar"/>
@@ -53,5 +52,6 @@
 	<classpathentry kind="lib" path="lib/fontbox-1.8.9.jar"/>
 	<classpathentry kind="lib" path="lib/jempbox-1.8.9.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.9.jar"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
