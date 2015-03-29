@@ -42,7 +42,7 @@ public class XHtmlOutputterHtmlPageTest {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> " + "<head> "
       + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
       + "<script src='../../resources/wetator_report.js'></script> "
-      + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/> </head> <body>";
+      + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/></head><body>";
   private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
