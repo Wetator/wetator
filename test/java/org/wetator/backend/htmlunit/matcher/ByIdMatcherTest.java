@@ -190,7 +190,7 @@ public class ByIdMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some Text, yI");
+    SecretString tmpSearch = new SecretString("Some Text > yI");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -208,7 +208,7 @@ public class ByIdMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong Text, myId");
+    SecretString tmpSearch = new SecretString("wrong Text > myId");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -225,7 +225,7 @@ public class ByIdMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong Text, myId");
+    SecretString tmpSearch = new SecretString("wrong Text > myId");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

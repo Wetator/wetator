@@ -230,7 +230,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, Marker");
+    SecretString tmpSearch = new SecretString("wrong text > Marker");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -249,7 +249,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, Marker");
+    SecretString tmpSearch = new SecretString("wrong text > Marker");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
