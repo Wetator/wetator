@@ -222,7 +222,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, Label");
+    SecretString tmpSearch = new SecretString("wrong text > Label");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
@@ -240,7 +240,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, Label");
+    SecretString tmpSearch = new SecretString("wrong text > Label");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
@@ -443,7 +443,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, Label");
+    SecretString tmpSearch = new SecretString("wrong text > Label");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
@@ -462,7 +462,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, Label");
+    SecretString tmpSearch = new SecretString("wrong text > Label");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
