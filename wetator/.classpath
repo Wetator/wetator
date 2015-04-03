@@ -18,9 +18,9 @@
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.16-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.16-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/httpclient-4.4.jar"/>
-	<classpathentry kind="lib" path="lib/httpcore-4.4.jar"/>
-	<classpathentry kind="lib" path="lib/httpmime-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/jempbox-1.8.9.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-continuation-9.2.10.v20150310.jar"/>
