@@ -102,7 +102,9 @@
     	$('#hideSuccessful').addClass('hidden');
     	$('#showAll').removeClass('hidden');
     }
-    
+
+    var wetFrameHeight = -1;
+
     function showPreview(e, src) {
         // preview only for html and txt files
         if ((src.lastIndexOf(".html") != src.length - 5)
@@ -114,8 +116,16 @@
         var tmpFrame = document.getElementById('preview');
         tmpFrame.contentWindow.location.replace(src);
         tmpFrame.onload = function() {
-            var tmpPosX = (e.x)?parseInt(e.x):parseInt(e.clientX);
-            var tmpPosY = (e.y)?parseInt(e.y):parseInt(e.clientY);
+
+            if (wetFrameHeight < 0) {
+                tmpFrame.style.display = 'block';
+                wetFrameHeight = tmpFrame.getBoundingClientRect().height;
+                wetFrameHeight += 30;
+            }
+
+            var box = e.target.getBoundingClientRect();
+            var tmpPosX = box.right + 20;
+            var tmpPosY = Math.max(Math.min(box.top, window.innerHeight - wetFrameHeight), 10);
 
             if(window.pageYOffset) {
                 tmpPosX = tmpPosX + window.pageXOffset;
@@ -124,16 +134,9 @@
                 tmpPosX = tmpPosX + document.body.scrollLeft;
                 tmpPosY = tmpPosY + document.body.scrollTop;
             }
-            tmpPosX = tmpPosX + 10;
-            tmpPosY = tmpPosY + 17;
 
-            if (window.chrome) {
-                tmpPosX = tmpPosX / tmpFrame.style.zoom;
-                tmpPosY = tmpPosY / tmpFrame.style.zoom;
-            }
-
-            tmpFrame.style.left= tmpPosX + "px";
-            tmpFrame.style.top= tmpPosY + "px";
+            tmpFrame.style.left = tmpPosX + "px";
+            tmpFrame.style.top = tmpPosY + "px";
             tmpFrame.style.display='block';
             tmpFrame.contentWindow.document.onmouseout=hidePreview;
             tmpFrame.contentWindow.document.onmouseover=hidePreview;

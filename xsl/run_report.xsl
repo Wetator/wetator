@@ -152,11 +152,15 @@
                         <xsl:value-of select="$previewWidth"/>
                         <xsl:text>px; height: </xsl:text>
                         <xsl:value-of select="$previewHeight"/>
-                        <xsl:text>px; zoom: </xsl:text>
-                        <xsl:value-of select="$previewZoom"/>
-                        <xsl:text>; -moz-transform: scale(</xsl:text>
+                        <xsl:text>px; -moz-transform: scale(</xsl:text>
                         <xsl:value-of select="$previewZoom"/>
                         <xsl:text>); -moz-transform-origin: 0 0;</xsl:text>
+                        <xsl:text> -webkit-transform: scale(</xsl:text>
+                        <xsl:value-of select="$previewZoom"/>
+                        <xsl:text>); -webkit-transform-origin: 0 0;</xsl:text>
+                        <xsl:text> -ms-transform: scale(</xsl:text>
+                        <xsl:value-of select="$previewZoom"/>
+                        <xsl:text>); -ms-transform-origin: 0 0;</xsl:text>
                     </xsl:attribute>
                 </iframe>
 
