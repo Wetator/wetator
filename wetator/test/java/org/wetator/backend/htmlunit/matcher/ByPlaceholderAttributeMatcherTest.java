@@ -66,7 +66,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
@@ -84,7 +84,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
@@ -102,7 +102,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
@@ -120,7 +120,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 9, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 9, 0, 0, tmpMatches.get(0));
   }
 
   @Test
@@ -139,7 +139,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -158,7 +158,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -177,7 +177,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -196,7 +196,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER_TEXT, 11, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 11, 5, 14, tmpMatches.get(0));
   }
 
   @Test
