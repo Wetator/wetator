@@ -317,6 +317,7 @@ wetator/src/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcher.java -t
 wetator/src/org/wetator/backend/htmlunit/matcher/ByLabelTextAfterMatcher.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcher.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcher.java -text svneol=unset#text/plain
+wetator/src/org/wetator/backend/htmlunit/matcher/ByPlaceholderAttributeMatcher.java -text
 wetator/src/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcher.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcher.java -text
@@ -454,6 +455,7 @@ wetator/test/java/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcherTe
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByLabelTextAfterMatcherTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcherTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcherTest.java -text svneol=unset#text/plain
+wetator/test/java/org/wetator/backend/htmlunit/matcher/ByPlaceholderAttributeMatcherTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcherTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTextMatcherTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcherTest.java -text svneol=unset#text/plain

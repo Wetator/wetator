@@ -149,7 +149,15 @@ public class HtmlPageIndexTest {
         + "<p> </p>" //
         + "<input id='idTextInput' name='TextInput' type='text' value='inputValue'>" //
         + "<p> </p>" //
+        + "<input id='idTextInput' name='TextInput' type='text' value='inputValue' placeholder='my placeholder'>" //
+        + "<p> </p>" //
+        + "<input id='idTextInput' name='TextInput' type='text' value='' placeholder='my placeholder'>" //
+        + "<p> </p>" //
         + "<input name='PasswordInput' type='password' value='secretInputValue'>" //
+        + "<p> </p>" //
+        + "<input name='PasswordInput' type='password' value='secretInputValue' placeholder='my pwd placeholder'>" //
+        + "<p> </p>" //
+        + "<input name='PasswordInput' type='password' value='' placeholder='my pwd placeholder'>" //
         + "<p> </p>" //
         + "<input name='HiddenInput' type='hidden' value='hiddenInputValue'>" //
         + "<p> </p>" //
@@ -214,7 +222,11 @@ public class HtmlPageIndexTest {
         + "LegendLabel " //
         + "LabelLabel " //
         + "inputValue " //
+        + "inputValue " //
+        + "my placeholder " //
         + "secretInputValue " //
+        + "secretInputValue " //
+        + "my pwd placeholder " //
         + "textAreaValue " //
         + "Option1Value " //
         + "Option2Value " //

@@ -32,6 +32,12 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputText identified by placeholder</comment>
+    <command><d:assert-set><d:wpath>InputText Placeholder</d:wpath><d:value></d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
     <comment>InputText identified by layout directly before</comment>
     <command><d:assert-set><d:wpath>InputText LayoutLabel before</d:wpath><d:value>inputTextLayoutBeforeValue</d:value></d:assert-set></command>
     <comment></comment>
@@ -96,6 +102,12 @@
     <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
     <comment>InputPassword identified by label</comment>
     <command><d:assert-set><d:wpath>InputPassword Label</d:wpath><d:value>inputPasswordLabelValue</d:value></d:assert-set></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by placeholder</comment>
+    <command><d:assert-set><d:wpath>InputPassword Placeholder</d:wpath><d:value></d:value></d:assert-set></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>assert_set.html</d:url></d:open-url></command>

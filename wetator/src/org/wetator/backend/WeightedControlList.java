@@ -60,6 +60,9 @@ public final class WeightedControlList {
     /** Found by title attribute match. */
     BY_TITLE_ATTRIBUTE(3500),
 
+    /** Found by placeholder text match. */
+    BY_PLACEHOLDER_TEXT(3400),
+
     /** Found by label text match. */
     BY_LABEL_TEXT(3000),
 
