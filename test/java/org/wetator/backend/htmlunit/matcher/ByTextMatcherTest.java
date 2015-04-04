@@ -228,7 +228,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, TestAnchor");
+    SecretString tmpSearch = new SecretString("wrong text > TestAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -245,7 +245,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, TestAnchor");
+    SecretString tmpSearch = new SecretString("wrong text > TestAnchor");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

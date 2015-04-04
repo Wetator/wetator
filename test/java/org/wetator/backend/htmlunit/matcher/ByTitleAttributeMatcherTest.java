@@ -210,7 +210,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, myTitle");
+    SecretString tmpSearch = new SecretString("wrong text > myTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -227,7 +227,7 @@ public class ByTitleAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, myTitle");
+    SecretString tmpSearch = new SecretString("wrong text > myTitle");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 

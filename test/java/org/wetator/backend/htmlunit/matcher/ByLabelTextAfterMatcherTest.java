@@ -210,7 +210,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, CheckBox");
+    SecretString tmpSearch = new SecretString("wrong text> CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
@@ -227,7 +227,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text, CheckBox");
+    SecretString tmpSearch = new SecretString("wrong text > CheckBox");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
