@@ -43,7 +43,7 @@ public class ByPlaceholderAttributeMatcher extends AbstractByAttributeMatcher {
    */
   public ByPlaceholderAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
       final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
-    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_PLACEHOLDER_TEXT);
+    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_PLACEHOLDER);
     matchType = MatchType.CONTAINS;
   }
 
