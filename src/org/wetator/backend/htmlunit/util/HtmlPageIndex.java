@@ -524,7 +524,11 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlInput(final HtmlInput anHtmlInput) {
-    text.append(anHtmlInput.getValueAttribute());
+    String tmpValue = anHtmlInput.getValueAttribute();
+    if (StringUtils.isEmpty(tmpValue)) {
+      tmpValue = anHtmlInput.getAttribute("placeholder");
+    }
+    text.append(tmpValue);
   }
 
   private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea) {

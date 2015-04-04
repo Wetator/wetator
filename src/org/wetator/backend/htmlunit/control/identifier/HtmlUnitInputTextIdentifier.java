@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelTextBeforeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByPlaceholderAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
@@ -95,6 +96,8 @@ public class HtmlUnitInputTextIdentifier extends AbstractMatcherBasedIdentifier 
             tmpWholePathSearchPattern));
 
         aMatchers.add(new ByLabelTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByPlaceholderAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+            tmpSearchPattern));
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 

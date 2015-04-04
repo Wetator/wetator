@@ -62,6 +62,14 @@
     <comment></comment>
     <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
+    <comment>InputText identified by placeholder</comment>
+    <command><d:set><d:wpath>InputText Placeholder</d:wpath><d:value>testValue</d:value></d:set></command>
+    <command><d:click-on><d:wpath>InputTextPlaceholderTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value InputTextPlaceholderTest OK inputText_Placeholder testValue POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
     <comment>InputText identified by layout directly before</comment>
     <command><d:set><d:wpath>InputText LayoutLabel before</d:wpath><d:value>testValue</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputTextLayoutBeforeTest</d:wpath></d:click-on></command>
@@ -195,6 +203,14 @@
     <command><d:set><d:wpath>InputPassword surrounding Label</d:wpath><d:value>testValue</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputPasswordSurroundingLabelTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordSurroundingLabelTest OK inputPassword_SurroundingLabel testValue POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Set</d:title></d:assert-title></command>
+    <comment>InputPassword identified by placeholder</comment>
+    <command><d:set><d:wpath>InputPassword Placeholder</d:wpath><d:value>testValue</d:value></d:set></command>
+    <command><d:click-on><d:wpath>InputPasswordPlaceholderTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value InputPasswordPlaceholderTest OK inputPassword_Placeholder testValue POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>set.html</d:url></d:open-url></command>
