@@ -7,13 +7,15 @@ open-url        || http://www.google.com
 assert-title    || Google
 
 # Let's fill the search box;
-# if no name for the control to be set is given, the Wetator uses the one that has the focu
+# if no name for the control to be set is given, the Wetator uses the one that has the focus.
 
-set             ||                              || GEBIT Solutions
-assert-content  || Startseite - GEBIT Solutions
-assert-content  || 20 Jahre erfolgreiche IT-Projekte
+set          || || Wetator
+click-on        || wetator
+assert-content  || WETATOR / Smart Web Application Testing
+assert-content  || Wetator is a small, flexible, test automation tool
 
-# OK, we found something
+# OK, we found something -> let's navigate
 
-click-on        || Startseite - GEBIT Solutions
-assert-content  || Technologien, Methoden, Werkzeuge, Fundiertes Know-how
+click-on        || WETATOR / Smart
+assert-title    || WETATOR
+assert-content  || Wetator in a Nutshell Wetator is a tool for automatic, GUI, tests
