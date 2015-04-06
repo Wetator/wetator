@@ -21,6 +21,7 @@ wetator/ant_lib/version_tool.jar
 wetator/build
 wetator/deploy
 wetator/infinitest.filters
+wetator/js_filter.cfg
 wetator/lib/*.jar
 wetator/lib/ant
 wetator/lib/automaton
