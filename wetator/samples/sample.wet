@@ -8,7 +8,7 @@
     <command><d:open-url><d:url>http://www.wetator.org</d:url></d:open-url></command>
     <command><d:assert-title><d:title>WETATOR / Smart Web Application Testing</d:title></d:assert-title></command>
     <comment></comment>
-    <command><d:click-on><d:wpath>Documentation</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>documentation</d:wpath></d:click-on></command>
     <command><d:assert-title><d:title>WETATOR / Documentation</d:title></d:assert-title></command>
     <command><d:assert-content><d:content>Documentation</d:content></d:assert-content></command>
 </test-case>
