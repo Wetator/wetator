@@ -9,6 +9,7 @@ ant_lib/version_tool.jar
 /build
 /deploy
 /infinitest.filters
+/js_filter.cfg
 lib/*.jar
 lib/ant
 lib/automaton
