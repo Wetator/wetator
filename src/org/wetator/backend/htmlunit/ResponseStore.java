@@ -243,7 +243,7 @@ public final class ResponseStore {
         tmpFileName = tmpFileName.replaceAll("\\?", "__");
         tmpFileName = tmpFileName.replaceAll("\\*", "__");
 
-        // ensure the postfix
+        // ensure the suffix
         // this helps if the result is browsed from a real server
         if (null != aSuffix && !tmpFileName.endsWith(aSuffix)) {
           tmpFileName = tmpFileName + aSuffix;
@@ -268,8 +268,9 @@ public final class ResponseStore {
 
         if (!tmpResourceFile.exists()) {
           String tmpProcessed = null;
-          if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
-            final String tmpResponse = tmpWebResponse.getContentAsString();
+          final String tmpContentType = tmpWebResponse.getContentType();
+          if ("text/css".equalsIgnoreCase(tmpContentType)) {
+            final String tmpResponse = getContentAsStringWithoutBOM(tmpWebResponse);
             FileUtils.forceMkdir(tmpResourceFile.getParentFile());
 
             // process all url(....) inside
@@ -358,5 +359,27 @@ public final class ResponseStore {
     }
 
     return tmpContent;
+  }
+
+  /**
+   * Our own version to strip BOM bytes from css input if any.
+   */
+  private static String getContentAsStringWithoutBOM(final WebResponse aWebResponse) {
+    final String tmpCharset = aWebResponse.getContentCharset();
+    InputStream tmpIn = null;
+    try {
+      tmpIn = aWebResponse.getContentAsStream();
+      if (null == tmpIn) {
+        return null;
+      }
+
+      // tmpIn = new BOMInputStream(tmpIn);
+      return IOUtils.toString(tmpIn, tmpCharset);
+    } catch (final IOException e) {
+      LOG.warn(e);
+      return null;
+    } finally {
+      IOUtils.closeQuietly(tmpIn);
+    }
   }
 }
