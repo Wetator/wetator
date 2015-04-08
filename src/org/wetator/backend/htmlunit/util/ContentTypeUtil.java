@@ -55,6 +55,7 @@ public final class ContentTypeUtil {
     define(ContentType.GIF, "gif", "image/gif");
     define(ContentType.BMP, "bmp", "image/bmp");
     define(ContentType.JPEG, "jpeg", "image/jpeg");
+    define(ContentType.SVG, "svg", "image/svg+xml");
     // zip
     define(ContentType.ZIP, "zip", "application/zip");
   }
