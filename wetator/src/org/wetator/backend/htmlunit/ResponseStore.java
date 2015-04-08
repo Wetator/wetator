@@ -244,9 +244,17 @@ public final class ResponseStore {
         tmpFileName = tmpFileName.replaceAll("\\*", "__");
 
         // ensure the suffix
-        // this helps if the result is browsed from a real server
-        if (null != aSuffix && !tmpFileName.endsWith(aSuffix)) {
-          tmpFileName = tmpFileName + aSuffix;
+        // this helps the browser and file server to find the correct content type
+        if (null == aSuffix) {
+          final String tmpContentType = tmpWebResponse.getContentType();
+          final String tmpFileSuffix = ContentTypeUtil.getFileSuffix(tmpContentType);
+          if (!tmpFileName.endsWith(tmpFileSuffix)) {
+            tmpFileName = tmpFileName + "." + tmpFileSuffix;
+          }
+        } else {
+          if (!tmpFileName.endsWith(aSuffix)) {
+            tmpFileName = tmpFileName + aSuffix;
+          }
         }
 
         File tmpResourceFile = new File(storeDir, tmpFileName);
