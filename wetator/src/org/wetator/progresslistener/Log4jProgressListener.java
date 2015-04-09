@@ -19,17 +19,14 @@ package org.wetator.progresslistener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Appender;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Layout;
-import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.spi.LoggingEvent;
 import org.wetator.core.Command;
@@ -57,9 +54,6 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
   private String testCase;
   private String browser;
 
-  private Level baseLevel;
-  private List<Appender> baseAppenders;
-
   private int commandCount;
   private List<CommandEvents> commandEvents;
   private CommandEvents currentEvents;
@@ -68,20 +62,10 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
    * The constructor.
    * 
    * @param aCommandCount the number of commands to hold
-   * @param anAppenders the already defined appenders for forwarding
-   * @param aLevel the level defined so far for forwarding
    */
-  public Log4jProgressListener(final int aCommandCount, @SuppressWarnings("rawtypes") final Enumeration anAppenders,
-      final Level aLevel) {
+  public Log4jProgressListener(final int aCommandCount) {
     commandCount = aCommandCount;
     commandEvents = new LinkedList<CommandEvents>();
-
-    baseLevel = aLevel;
-    baseAppenders = new LinkedList<Appender>();
-    while (anAppenders.hasMoreElements()) {
-      final Appender tmpAppender = (Appender) anAppenders.nextElement();
-      baseAppenders.add(tmpAppender);
-    }
 
     setLayout(new PatternLayout("[%5.5t] %m%n"));
   }
@@ -115,12 +99,6 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
   protected void append(final LoggingEvent aLoggingEvent) {
     // aLoggingEvent.getLocationInformation();
     currentEvents.getEvents().add(aLoggingEvent);
-
-    if (baseLevel == null || aLoggingEvent.getLevel().isGreaterOrEqual(baseLevel)) {
-      for (final Appender tmpAppender : baseAppenders) {
-        tmpAppender.doAppend(aLoggingEvent);
-      }
-    }
   }
 
   /**
