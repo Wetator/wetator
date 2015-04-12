@@ -109,6 +109,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
+      tmpBrowser.markControls(tmpControl);
       final boolean tmpHasFocus = tmpControl.hasFocus(aContext);
       Assert.assertTrue(tmpHasFocus, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
     }
@@ -231,6 +232,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           tmpHtmlPage.executeJavaScript(tmpJsString.getValue());
 
           tmpHtmlUnitBrowser.waitForImmediateJobs();
+          tmpBrowser.saveCurrentWindowToLog();
         }
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });

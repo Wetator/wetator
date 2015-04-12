@@ -571,7 +571,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
 
       try {
+        tmpBrowser.markControls();
+
         final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpPattern, tmpTimeout);
+
         if (tmpContentChanged) {
           tmpBrowser.saveCurrentWindowToLog();
         }
@@ -607,7 +610,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
 
       try {
+        tmpBrowser.markControls();
+
         final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpPattern, tmpTimeout);
+
         if (tmpContentChanged) {
           tmpBrowser.saveCurrentWindowToLog();
         }
@@ -793,6 +799,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
 
+      tmpBrowser.markControls(tmpControl);
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
     }
