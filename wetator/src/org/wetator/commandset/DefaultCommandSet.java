@@ -571,10 +571,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
 
       try {
-        tmpBrowser.markControls();
-
         final boolean tmpContentChanged = tmpBrowser.assertTitleInTimeFrame(tmpPattern, tmpTimeout);
-
         if (tmpContentChanged) {
           tmpBrowser.saveCurrentWindowToLog();
         }
@@ -610,10 +607,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
 
       try {
-        tmpBrowser.markControls();
-
         final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpPattern, tmpTimeout);
-
         if (tmpContentChanged) {
           tmpBrowser.saveCurrentWindowToLog();
         }
