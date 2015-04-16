@@ -247,7 +247,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final ContentPattern tmpPattern = new ContentPattern(new SecretString(tmpExpected.toString()));
-      tmpBrowser.markControls();
       final boolean tmpContentChanged = tmpBrowser.assertContentInTimeFrame(tmpPattern, tmpTimeout);
       if (tmpContentChanged) {
         tmpBrowser.saveCurrentWindowToLog();
