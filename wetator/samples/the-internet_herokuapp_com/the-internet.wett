@@ -1,0 +1,40 @@
+#
+# WETATOR sample testing http://the-internet.herokuapp.com
+#
+open-url            || http://the-internet.herokuapp.com
+assert-content      || Welcome to the Internet, Available Examples
+#
+# A/B Testing
+open-url            || http://the-internet.herokuapp.com
+click-on            || A/B Testing
+assert-content      || A/B Test, Also known as split testing.
+#
+# Basic Auth
+open-url            || http://the-internet.herokuapp.com
+click-on            || Basic Auth
+assert-content      || Basic Auth Congratulations! You must have the proper credentials.
+#
+# Broken Images
+open-url            || http://the-internet.herokuapp.com
+click-on            || Broken Images
+assert-content      || Broken Images
+#
+# Challenging DOM
+open-url            || http://the-internet.herokuapp.com
+click-on            || Challenging DOM
+assert-content      || Challenging DOM, Lorem Ipsum Dolor Sit Amet Diceret Action
+# next steps finds the correct control but reports an error because the href is broken
+#click-on            || [Action; Iuvaret1]
+#click-on            || Phaedrum3 > delete
+# foo appears only sometimes
+#click-on            || foo
+#
+# Checkboxes
+open-url            || http://the-internet.herokuapp.com
+click-on            || Checkboxes
+assert-content      || Checkboxes unchecked checked
+assert-selected     || checked
+assert-deselected   || unchecked
+select              || unchecked
+assert-selected     || unchecked
+
