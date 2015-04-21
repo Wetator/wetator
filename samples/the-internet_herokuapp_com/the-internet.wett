@@ -37,4 +37,55 @@ assert-selected     || checked
 assert-deselected   || unchecked
 select              || unchecked
 assert-selected     || unchecked
-
+#
+# TODO Context Menu
+#
+# TODO Disappearing Elements
+#
+# TODO Drag and Drop
+#
+# TODO Dropdown
+#
+# TODO Dynamic Content
+#
+# Dynamic Controls
+open-url            || http://the-internet.herokuapp.com
+click-on            || Dynamic Controls
+assert-content      || Dynamic Controls, This example demonstrates when controls * are added or removed asynchronously.
+assert-content      || Remove, A checkbox
+assert-deselected   || A checkbox
+select              || A checkbox
+click-on            || Remove
+assert-content      || Add, It's gone! || 10
+click-on            || Add
+assert-content      || It's back!, A checkbox || 10
+assert-deselected   || A checkbox
+#
+# Dynamic Loading / Example 1
+open-url            || http://the-internet.herokuapp.com
+click-on            || Dynamic Loading
+assert-content      || Dynamically Loaded Page Elements
+click-on            || Element on page that is hidden
+assert-content      || Example 1: Element on page that is hidden, Start, ~Hello World!
+click-on            || Start
+assert-content      || Hello World! || 10
+# Dynamic Loading / Example 2
+open-url            || http://the-internet.herokuapp.com
+click-on            || Dynamic Loading
+assert-content      || Dynamically Loaded Page Elements
+click-on            || Element rendered after the fact
+assert-content      || Example 2: Element rendered after the fact, Start, ~Hello World!
+click-on            || Start
+assert-content      || Hello World! || 10
+#
+# File Download
+open-url            || http://the-internet.herokuapp.com
+click-on            || File Download
+assert-content      || File Downloader, hello-world.pdf, Location.txt, textfile.txt, Selenium_8thApril.txt, Location1.txt, avatar.jpg, 1.testfile_FileUpload.txt
+click-on            || hello-world.pdf
+assert-content      || Hello World!
+go-back
+click-on            || Location.txt
+assert-content      || gfdgd dgdgd
+go-back
+click-on            || avatar.jpg
