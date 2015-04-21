@@ -89,3 +89,11 @@ click-on            || Location.txt
 assert-content      || gfdgd dgdgd
 go-back
 click-on            || avatar.jpg
+#
+# File Upload
+open-url            || http://the-internet.herokuapp.com
+click-on            || File Upload
+assert-content      || File Uploader Choose a file here on your system that you would like to upload!, Upload
+set                 || Choose a file here on your system that you would like to upload || js_filter.cfg
+click-on            || Upload
+assert-content      || File Uploaded! js_filter.cfg
