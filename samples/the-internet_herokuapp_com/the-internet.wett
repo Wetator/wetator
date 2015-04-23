@@ -1,5 +1,9 @@
-#
-# WETATOR sample testing http://the-internet.herokuapp.com
+describe            ||## WETATOR sample\
+The page [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com) provides:\
+> An example application that captures prominent and ugly functionality found on the web. Perfect for writing automated acceptance tests against.\
+\
+This test suite processes various of the pages and  \
+demonstrates how to write your tests.\
 #
 open-url            || http://the-internet.herokuapp.com
 assert-content      || Welcome to the Internet, Available Examples
@@ -10,6 +14,13 @@ click-on            || A/B Testing
 assert-content      || A/B Test, Also known as split testing.
 #
 # Basic Auth
+describe            || Basic Authorization requires the definition of the credentials inside wetator.config.  \
+Please define the properties\
+\
+* wetator.basicAuthUser and\
+* wetator.basicAuthPassword\
+\
+Checkout the [Configuration Reference](http://www.wetator.org/wetator-documentation/reference/configuration) for details.
 open-url            || http://the-internet.herokuapp.com
 click-on            || Basic Auth
 assert-content      || Basic Auth Congratulations! You must have the proper credentials.
@@ -150,7 +161,3 @@ assert-content      || Hovers, Hover over the image for additional information, 
 # TODO - does not work at the moment
 # mouse-over          || avatar-blank.jpg
 # assert-content      || Hovers, Hover over the image for additional information, name: user1, View profile
-
-
-
-
