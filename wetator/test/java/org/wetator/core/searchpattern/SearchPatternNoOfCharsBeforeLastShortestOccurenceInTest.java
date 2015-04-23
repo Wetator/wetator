@@ -17,7 +17,6 @@
 package org.wetator.core.searchpattern;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**
@@ -28,7 +27,7 @@ public class SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest {
 
   @Test
   public void nullText() {
-    String tmpText = null;
+    final String tmpText = null;
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -66,7 +65,7 @@ public class SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest {
 
   @Test
   public void emptyText() {
-    String tmpText = "";
+    final String tmpText = "";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -104,7 +103,7 @@ public class SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest {
 
   @Test
   public void oneCharText() {
-    String tmpText = "X";
+    final String tmpText = "X";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -156,7 +155,7 @@ public class SearchPatternNoOfCharsBeforeLastShortestOccurenceInTest {
 
   @Test
   public void multipleCharText() {
-    String tmpText = "Wetator";
+    final String tmpText = "Wetator";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);

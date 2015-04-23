@@ -34,15 +34,15 @@ public class HtmlUnitBaseControlTest {
   @Test
   public void getUniqueSelector_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<div>"
-          + "<button id='myId'></button>"
+        + "<button id='myId'></button>"
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertEquals("#myId", tmpControl.getUniqueSelector());
@@ -51,15 +51,15 @@ public class HtmlUnitBaseControlTest {
   @Test
   public void getUniqueSelector_IdWithColon() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<div>"
-          + "<button id='f:myId'></button>"
+        + "<button id='f:myId'></button>"
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getHtmlElementById("f:myId"));
 
     Assert.assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
@@ -68,15 +68,15 @@ public class HtmlUnitBaseControlTest {
   @Test
   public void getUniqueSelector_General() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<div>"
-          + "<a name='myAnchor'>test</a>"
+        + "<a name='myAnchor'>test</a>"
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getAnchorByName("myAnchor"));
 
     Assert.assertEquals("body>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
@@ -85,15 +85,15 @@ public class HtmlUnitBaseControlTest {
   @Test
   public void getUniqueSelector_ParentWithId() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<div id='parent'>"
-          + "<a name='myAnchor'>test</a>"
+        + "<a name='myAnchor'>test</a>"
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getAnchorByName("myAnchor"));
 
     Assert.assertEquals("#parent>a:nth-of-type(1)", tmpControl.getUniqueSelector());
@@ -102,17 +102,17 @@ public class HtmlUnitBaseControlTest {
   @Test
   public void getUniqueSelector_ParentWithId_II() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<div id='parent'>"
-          + "<div>"
-            + "<a name='myAnchor'>test</a>"
-          + "</div>"
+        + "<div>"
+        + "<a name='myAnchor'>test</a>"
+        + "</div>"
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getAnchorByName("myAnchor"));
 
     Assert.assertEquals("#parent>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());

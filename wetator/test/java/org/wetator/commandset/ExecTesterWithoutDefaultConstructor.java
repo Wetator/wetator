@@ -18,13 +18,13 @@ package org.wetator.commandset;
 
 /**
  * Small class that offers some methods to be executed via 'Exec Java' command.
- * 
+ *
  * @author rbri
  */
 @SuppressWarnings("unused")
 public final class ExecTesterWithoutDefaultConstructor {
 
-  public ExecTesterWithoutDefaultConstructor(String anParam) {
+  public ExecTesterWithoutDefaultConstructor(final String anParam) {
     // nothing to do
   }
 

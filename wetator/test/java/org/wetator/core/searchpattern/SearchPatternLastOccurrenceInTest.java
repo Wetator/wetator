@@ -17,7 +17,6 @@
 package org.wetator.core.searchpattern;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 import org.wetator.util.FindSpot;
 
@@ -28,7 +27,7 @@ public class SearchPatternLastOccurrenceInTest {
 
   @Test
   public void nullPattern() {
-    String tmpMatcher = null;
+    final String tmpMatcher = null;
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -47,7 +46,7 @@ public class SearchPatternLastOccurrenceInTest {
 
   @Test
   public void empty() {
-    String tmpMatcher = "";
+    final String tmpMatcher = "";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -66,7 +65,7 @@ public class SearchPatternLastOccurrenceInTest {
 
   @Test
   public void oneChar() {
-    String tmpMatcher = "X";
+    final String tmpMatcher = "X";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -93,7 +92,7 @@ public class SearchPatternLastOccurrenceInTest {
 
   @Test
   public void text() {
-    String tmpMatcher = "Wetator";
+    final String tmpMatcher = "Wetator";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);

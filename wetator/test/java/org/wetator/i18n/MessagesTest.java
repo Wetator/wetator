@@ -26,13 +26,13 @@ public class MessagesTest {
 
   @Test
   public void getMessage() {
-    String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] { "param1" });
+    final String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] { "param1" });
     Assert.assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
   }
 
   @Test
   public void getMessageParamsNull() {
-    String tmpMessage = Messages.getMessage("emptyFirstParameter", null);
+    final String tmpMessage = Messages.getMessage("emptyFirstParameter", null);
     Assert.assertEquals("The command '{0}' requires a first parameter.", tmpMessage);
   }
 

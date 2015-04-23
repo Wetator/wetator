@@ -30,7 +30,7 @@ public class ManualXMLScriptCreatorTest {
 
   @Test
   public void manual() {
-    List<Command> tmpCommands = new ArrayList<Command>();
+    final List<Command> tmpCommands = new ArrayList<Command>();
     Command tmpCommand;
     tmpCommand = new Command("assert-content", false);
     tmpCommand.setLineNo(1);
@@ -49,7 +49,7 @@ public class ManualXMLScriptCreatorTest {
     tmpCommand.setFirstParameter(new Parameter("SELECT sysdate FROM dual"));
     tmpCommands.add(tmpCommand);
 
-    XMLScriptCreator tmpXMLScriptCreator = new XMLScriptCreator();
+    final XMLScriptCreator tmpXMLScriptCreator = new XMLScriptCreator();
     tmpXMLScriptCreator.setOutputDir("build");
     tmpXMLScriptCreator.setFileName("test");
     tmpXMLScriptCreator.setCommands(tmpCommands);

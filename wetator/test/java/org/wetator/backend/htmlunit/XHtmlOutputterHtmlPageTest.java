@@ -65,53 +65,54 @@ public class XHtmlOutputterHtmlPageTest {
 
   @Test
   public void emptyPage() throws IOException {
-    String tmpHtmlCode = LEADING + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void simplePage() throws IOException {
-    String tmpHtmlCode = LEADING + "<p>Paragraph 1</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + "<p>Paragraph 1</p>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void paragraph() throws IOException {
-    String tmpHtmlCode = LEADING + "<p>Paragraph 1</p><p>Paragraph 2</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> <p>Paragraph 2</p> " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + "<p>Paragraph 1</p><p>Paragraph 2</p>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> <p>Paragraph 2</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void font() throws IOException {
-    String tmpHtmlCode = LEADING + "<p><font color='red'>red</font> <font color='green'>green</font></p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING
+    final String tmpHtmlCode = LEADING + "<p><font color='red'>red</font> <font color='green'>green</font></p>"
+        + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
         + " <p><font color=\"red\">red</font> <font color=\"green\">green</font></p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void span() throws IOException {
-    String tmpHtmlCode = LEADING + "<p><span> 17.11 </span> mg" + "</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p><span> 17.11 </span> mg</p> " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + "<p><span> 17.11 </span> mg" + "</p>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p><span> 17.11 </span> mg</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void formatting() throws IOException {
-    String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+    final String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+    final String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void twoImages() throws IOException {
-    String tmpHtmlCode = LEADING + "<p><img/><img/></p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p><img/><img/></p> " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + "<p><img/><img/></p>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p><img/><img/></p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -120,9 +121,9 @@ public class XHtmlOutputterHtmlPageTest {
   public void computerOutput() throws IOException {
     // TODO different Results in IE and FF
 
-    String tmpHtmlCode = LEADING + "<p>"
+    final String tmpHtmlCode = LEADING + "<p>"
         + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>"
+    final String tmpExpected = EXPECTED_LEADING + " <p>"
         + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
@@ -130,10 +131,10 @@ public class XHtmlOutputterHtmlPageTest {
 
   @Test
   public void citationQuotationDefinition() throws IOException {
-    String tmpHtmlCode = LEADING + "<p>"
+    final String tmpHtmlCode = LEADING + "<p>"
         + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p>"
         + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>"
+    final String tmpExpected = EXPECTED_LEADING + " <p>"
         + "<abbr title=\"a\">1</abbr> <acronym title=\"b\">2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
@@ -141,8 +142,8 @@ public class XHtmlOutputterHtmlPageTest {
 
   @Test
   public void mix() throws IOException {
-    String tmpHtmlCode = LEADING + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>This t<font color=\"red\">ext</font> is <b>styled</b>.</p> "
+    final String tmpHtmlCode = LEADING + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p>This t<font color=\"red\">ext</font> is <b>styled</b>.</p> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
@@ -152,9 +153,9 @@ public class XHtmlOutputterHtmlPageTest {
   public void mix2() throws IOException {
     // TODO different Results in IE and FF
 
-    String tmpHtmlCode = LEADING + "<table><tr>"
+    final String tmpHtmlCode = LEADING + "<table><tr>"
         + "<td>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>" + "</tr></table>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <table> <tbody align=\"left\"> <tr> "
+    final String tmpExpected = EXPECTED_LEADING + " <table> <tbody align=\"left\"> <tr> "
         + "<td> Table C <font color=\"red\">lickable</font> <b>forma<i>ted</i> t</b>ext </td> "
         + "</tr> </tbody> </table> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
@@ -162,25 +163,25 @@ public class XHtmlOutputterHtmlPageTest {
 
   @Test
   public void mix3() throws IOException {
-    String tmpHtmlCode = LEADING + "<p>Fi<font color='red'>eld</font>4</p>" + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <p>Fi<font color=\"red\">eld</font>4</p> " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + "<p>Fi<font color='red'>eld</font>4</p>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p>Fi<font color=\"red\">eld</font>4</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void simpleWithJavascript() throws IOException {
-    String tmpHtmlCode = LEADING + "<h1>Test</h1>" + "<script type=\"text/javascript\">alert('WETATOR');</script>"
-        + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <h1>Test</h1> " + EXPECTED_TRAILING;
+    final String tmpHtmlCode = LEADING + "<h1>Test</h1>"
+        + "<script type=\"text/javascript\">alert('WETATOR');</script>" + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <h1>Test</h1> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void specialChars() throws IOException {
-    String tmpHtmlCode = LEADING
+    final String tmpHtmlCode = LEADING
         + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
         + TRAILING;
-    String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
+    final String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
         + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select>"
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);

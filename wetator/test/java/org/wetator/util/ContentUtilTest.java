@@ -36,37 +36,38 @@ public class ContentUtilTest {
 
   @Test
   public void getPdfTitleAsString() throws FileNotFoundException, IOException {
-    String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test_title.pdf"));
+    final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream(
+        "test/webpage/download/wet_test_title.pdf"));
     org.junit.Assert.assertEquals("WETATOR Titel Test", tmpTitle);
   }
 
   @Test
   public void getPdfTitleAsStringEmpty() throws FileNotFoundException, IOException {
-    String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+    final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
     org.junit.Assert.assertEquals("", tmpTitle);
   }
 
   @Test
   public void getPdfTitleAsStringEncrypted() throws FileNotFoundException, IOException {
-    String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/gebit.pdf"));
+    final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/gebit.pdf"));
     org.junit.Assert.assertEquals("GEBIT Solutions / Firmendarstellung", tmpTitle);
   }
 
   @Test
   public void getPdfContentAsString() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
     tmpExpected.append("This file is used to test WeT.");
 
-    String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"),
-        4000);
+    final String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test.pdf"), 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getPdfContentAsStringEncrypted() {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
     tmpExpected.append("This file is used to test WeT.");
@@ -81,15 +82,15 @@ public class ContentUtilTest {
 
   @Test
   public void getZippedPdfContentAsString() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.pdf]");
     tmpExpected.append(" ");
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
     tmpExpected.append("This file is used to test WeT.");
 
-    String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_pdf.zip"), "UTF-8", Locale.ENGLISH, 4000);
+    final String tmpContent = ContentUtil.getZipContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test_pdf.zip"), "UTF-8", Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -98,7 +99,7 @@ public class ContentUtilTest {
     try {
       ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       org.junit.Assert.assertEquals("java.io.IOException: Error: Header doesn't contain versioninfo", e.toString());
     }
   }
@@ -109,7 +110,7 @@ public class ContentUtilTest {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_pdf_error.zip"), "UTF-8",
           Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text "
           + "(reason: java.io.IOException: Error: Header doesn't contain versioninfo).", e.toString());
     }
@@ -117,36 +118,36 @@ public class ContentUtilTest {
 
   @Test
   public void getRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
-    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"),
-        4000);
+    final String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test.rtf"), 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getZippedRtfContentAsString() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.rtf]");
     tmpExpected.append(" ");
     tmpExpected.append("Wetator is great.");
 
-    String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_rtf.zip"), "UTF-8", Locale.ENGLISH, 4000);
+    final String tmpContent = ContentUtil.getZipContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test_rtf.zip"), "UTF-8", Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getRtfContentAsStringError() throws FileNotFoundException, IOException, BadLocationException {
-    String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
-        4000);
+    final String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test.xls"), 4000);
     org.junit.Assert.assertEquals("", tmpContent);
   }
 
   @Test
   public void getXlsContentAsStringDE() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
     tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
@@ -163,14 +164,14 @@ public class ContentUtilTest {
     tmpExpected.append(" date (formated) 14-Jul-11");
     tmpExpected.append(" formula 124,70");
 
-    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
-        Locale.GERMAN, 4000);
+    final String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test.xls"), Locale.GERMAN, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getXlsContentAsStringEN() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
     tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
@@ -187,14 +188,14 @@ public class ContentUtilTest {
     tmpExpected.append(" date (formated) 14-Jul-11");
     tmpExpected.append(" formula 124.70");
 
-    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"),
-        Locale.ENGLISH, 4000);
+    final String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test.xls"), Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getZippedXlsContentAsStringDE() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.xls]");
     tmpExpected.append(" ");
     tmpExpected.append("[Tab1] Wetator Page 1");
@@ -213,8 +214,8 @@ public class ContentUtilTest {
     tmpExpected.append(" date (formated) 14-Jul-11");
     tmpExpected.append(" formula 124,70");
 
-    String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_xls.zip"), "UTF-8", Locale.GERMAN, 4000);
+    final String tmpContent = ContentUtil.getZipContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test_xls.zip"), "UTF-8", Locale.GERMAN, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -222,13 +223,13 @@ public class ContentUtilTest {
   public void getXlsContentAsStringError() {
     try {
       ContentUtil
-          .getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH, 4000);
+      .getXlsContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       org.junit.Assert
-          .assertEquals(
-              "org.apache.poi.poifs.filesystem.NotOLE2FileException: "
-                  + "Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document",
+      .assertEquals(
+          "org.apache.poi.poifs.filesystem.NotOLE2FileException: "
+              + "Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document",
               e.toString());
     }
   }
@@ -239,34 +240,34 @@ public class ContentUtilTest {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xls_error.zip"), "UTF-8",
           Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       org.junit.Assert
-          .assertEquals(
-              "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
-                  + "(reason: org.apache.poi.poifs.filesystem.NotOLE2FileException: Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document).",
+      .assertEquals(
+          "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
+              + "(reason: org.apache.poi.poifs.filesystem.NotOLE2FileException: Invalid header signature; read 0x342E312D46445025, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document).",
               e.toString());
     }
   }
 
   @Test
   public void getTxtContentAsString() {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Some content line two Hallo Wetator.");
 
-    String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.", 4000);
+    final String tmpContent = ContentUtil.getTxtContentAsString("Some content\rline two\r\n\tHallo\tWetator.", 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getZippedTxtContentAsString() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[download.txt]");
     tmpExpected.append(" ");
     tmpExpected.append("This is the content of a simple text file. ");
     tmpExpected.append("This file is used to test WeT.");
 
-    String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_txt.zip"), "UTF-8", Locale.ENGLISH, 4000);
+    final String tmpContent = ContentUtil.getZipContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test_txt.zip"), "UTF-8", Locale.ENGLISH, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -281,7 +282,7 @@ public class ContentUtilTest {
     tmpContent = ContentUtil.getTxtContentAsString(tmpInput, "UTF-8", 4000);
     org.junit.Assert.assertEquals(4004, tmpContent.length());
 
-    StringWriter tmpWriter = new StringWriter();
+    final StringWriter tmpWriter = new StringWriter();
     for (int i = 0; i < 44; i++) {
       tmpWriter.append("0123456789");
     }
@@ -305,7 +306,7 @@ public class ContentUtilTest {
 
   @Test
   public void getZippedContentAsStringMixedContent() throws FileNotFoundException, IOException {
-    StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.csv]");
     tmpExpected.append(" ");
     tmpExpected.append("Col1, Col2 text1, text2");
@@ -341,68 +342,68 @@ public class ContentUtilTest {
     tmpExpected.append(" ");
     tmpExpected.append("<?xml version=\"1.0\"?> <wetator> <Test>Simple xml content</Test> </wetator>");
 
-    String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), "UTF-8", Locale.GERMAN, 4000);
+    final String tmpContent = ContentUtil.getZipContentAsString(new FileInputStream(
+        "test/webpage/download/wet_test_mix.zip"), "UTF-8", Locale.GERMAN, 4000);
     org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void determineLocaleFromRequestNull() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(null);
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(null);
     org.junit.Assert.assertNull(tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequest() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("de");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("de");
     org.junit.Assert.assertEquals(Locale.GERMAN, tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequest2() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("DE");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("DE");
     org.junit.Assert.assertEquals(Locale.GERMAN, tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestEmpty() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("");
     org.junit.Assert.assertNull(tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestUnknown() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("1234");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("1234");
     org.junit.Assert.assertNull(tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestMany() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da,en");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da,en");
     org.junit.Assert.assertEquals(new Locale("da", ""), tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestOperaStyle() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da;1.0,en;0.9");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("da;1.0,en;0.9");
     org.junit.Assert.assertEquals(new Locale("da", ""), tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestIEStyle() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-nz,de;q=0.5");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-nz,de;q=0.5");
     org.junit.Assert.assertEquals(new Locale("en", "NZ"), tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestIEStyle2() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-us");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-us");
     org.junit.Assert.assertEquals(new Locale("en", "US"), tmpLocale);
   }
 
   @Test
   public void determineLocaleFromRequestIEStyle3() {
-    Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-gb");
+    final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader("en-gb");
     org.junit.Assert.assertEquals(new Locale("en", "GB"), tmpLocale);
   }
 }

@@ -30,7 +30,7 @@ import org.wetator.util.SecretString;
 
 /**
  * Commands to make it possible to test other commands (e.g. error situations).
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -42,7 +42,7 @@ public final class TestCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.commandset.AbstractCommandSet#registerCommands()
    */
   @Override
@@ -55,15 +55,15 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   public static final class CommandAssertFail implements ICommandImplementation {
     @Override
-    public void execute(WetatorContext aContext, Command aCommand) throws CommandException {
-      List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
-      SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aContext);
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException {
+      final List<Parameter.Part> tmpFirstParameters = aCommand.getFirstParameter().getParts();
+      final SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aContext);
 
-      SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aContext);
+      final SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aContext);
       String tmpCommandName = tmpCommandParam.getValue();
       // normalize command name
       tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase();
-      Command tmpCommand = new Command(tmpCommandName, false);
+      final Command tmpCommand = new Command(tmpCommandName, false);
       tmpCommand.setLineNo(aCommand.getLineNo());
 
       tmpCommand.setFirstParameter(aCommand.getSecondParameter());
@@ -74,13 +74,13 @@ public final class TestCommandSet extends AbstractCommandSet {
       Throwable tmpException = null;
       try {
         aContext.determineAndExecuteCommandImpl(tmpCommand);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         // TODO distinguish between failure and error?
         tmpException = e;
       }
 
       if (tmpException != null) {
-        NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
+        final NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
         Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
             "wrongErrorMessage", null);
       } else {
@@ -91,17 +91,17 @@ public final class TestCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
    */
   @Override
-  public void initialize(Properties aConfiguration) {
+  public void initialize(final Properties aConfiguration) {
     // nothing to do at the moment
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#cleanup()
    */
   @Override

@@ -25,56 +25,56 @@ public class NormalizedStringTest {
 
   @Test
   public void defaultConstructor() {
-    NormalizedString tmpResult = new NormalizedString();
+    final NormalizedString tmpResult = new NormalizedString();
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
   }
 
   @Test
   public void constructor_Null() {
-    NormalizedString tmpResult = new NormalizedString(null);
+    final NormalizedString tmpResult = new NormalizedString(null);
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
   }
 
   @Test
   public void constructor_Empty() {
-    NormalizedString tmpResult = new NormalizedString("");
+    final NormalizedString tmpResult = new NormalizedString("");
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
   }
 
   @Test
   public void constructor() {
-    NormalizedString tmpResult = new NormalizedString("abcd");
+    final NormalizedString tmpResult = new NormalizedString("abcd");
     org.junit.Assert.assertEquals(4, tmpResult.length());
     org.junit.Assert.assertEquals("abcd", tmpResult.toString());
   }
 
   @Test
   public void constructor_Blanks() {
-    NormalizedString tmpResult = new NormalizedString(" ab   cd  ");
+    final NormalizedString tmpResult = new NormalizedString(" ab   cd  ");
     org.junit.Assert.assertEquals(5, tmpResult.length());
     org.junit.Assert.assertEquals("ab cd", tmpResult.toString());
   }
 
   @Test
   public void constructor_LineBreak() {
-    NormalizedString tmpResult = new NormalizedString("ab\r\n\nc\n\nd\r\r");
+    final NormalizedString tmpResult = new NormalizedString("ab\r\n\nc\n\nd\r\r");
     org.junit.Assert.assertEquals(6, tmpResult.length());
     org.junit.Assert.assertEquals("ab c d", tmpResult.toString());
   }
 
   @Test
   public void constructor_SpecialWhitespace() {
-    NormalizedString tmpResult = new NormalizedString("ab" + (char) 160 + "cd");
+    final NormalizedString tmpResult = new NormalizedString("ab" + (char) 160 + "cd");
     org.junit.Assert.assertEquals(5, tmpResult.length());
     org.junit.Assert.assertEquals("ab cd", tmpResult.toString());
   }
 
   @Test
   public void append() {
-    NormalizedString tmpResult = new NormalizedString();
+    final NormalizedString tmpResult = new NormalizedString();
 
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
@@ -110,7 +110,7 @@ public class NormalizedStringTest {
 
   @Test
   public void appendChars() {
-    NormalizedString tmpResult = new NormalizedString();
+    final NormalizedString tmpResult = new NormalizedString();
 
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
@@ -138,30 +138,30 @@ public class NormalizedStringTest {
 
   @Test
   public void substring_Empty() {
-    NormalizedString tmpTestable = new NormalizedString();
+    final NormalizedString tmpTestable = new NormalizedString();
 
-    String tmpResult = tmpTestable.substring(0, 0);
+    final String tmpResult = tmpTestable.substring(0, 0);
     org.junit.Assert.assertEquals(0, tmpResult.length());
     org.junit.Assert.assertEquals("", tmpResult.toString());
 
     try {
       tmpTestable.substring(0, 1);
       org.junit.Assert.fail("StringIndexOutOfBoundsException expected");
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       org.junit.Assert.assertEquals("NormalizedString index out of range: 1 lenght: 0.", e.getMessage());
     }
 
     try {
       tmpTestable.substring(0, 2);
       org.junit.Assert.fail("StringIndexOutOfBoundsException expected");
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       org.junit.Assert.assertEquals("NormalizedString index out of range: 2 lenght: 0.", e.getMessage());
     }
   }
 
   @Test
   public void substring_BlankAtEnd() {
-    NormalizedString tmpTestable = new NormalizedString("abc ");
+    final NormalizedString tmpTestable = new NormalizedString("abc ");
 
     String tmpResult = tmpTestable.substring(0, 2);
     org.junit.Assert.assertEquals(2, tmpResult.length());
@@ -182,14 +182,14 @@ public class NormalizedStringTest {
     try {
       tmpTestable.substring(0, 4);
       org.junit.Assert.fail("StringIndexOutOfBoundsException expected");
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       org.junit.Assert.assertEquals("NormalizedString index out of range: 4 lenght: 3.", e.getMessage());
     }
   }
 
   @Test
   public void substring_BlankAtStart() {
-    NormalizedString tmpTestable = new NormalizedString(" abc");
+    final NormalizedString tmpTestable = new NormalizedString(" abc");
 
     String tmpResult = tmpTestable.substring(0, 2);
     org.junit.Assert.assertEquals(2, tmpResult.length());
@@ -210,14 +210,14 @@ public class NormalizedStringTest {
     try {
       tmpTestable.substring(0, 4);
       org.junit.Assert.fail("StringIndexOutOfBoundsException expected");
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       org.junit.Assert.assertEquals("NormalizedString index out of range: 4 lenght: 3.", e.getMessage());
     }
   }
 
   @Test
   public void substring_BlankInside() {
-    NormalizedString tmpTestable = new NormalizedString("a bc");
+    final NormalizedString tmpTestable = new NormalizedString("a bc");
 
     String tmpResult = tmpTestable.substring(0, 2);
     org.junit.Assert.assertEquals(1, tmpResult.length());
@@ -238,7 +238,7 @@ public class NormalizedStringTest {
     try {
       tmpTestable.substring(0, 5);
       org.junit.Assert.fail("StringIndexOutOfBoundsException expected");
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       org.junit.Assert.assertEquals("NormalizedString index out of range: 5 lenght: 4.", e.getMessage());
     }
   }

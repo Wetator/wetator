@@ -23,7 +23,7 @@ import org.wetator.exception.ActionException;
  * The common interface for a control.<br/>
  * It includes the actions and checks valid for all controls. If a control does not support an action or a check, an
  * {@link org.wetator.exception.UnsupportedOperationException} is thrown when calling this action or check.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -50,7 +50,7 @@ public interface IControl {
 
   /**
    * Simulates moving the mouse over the control.
-   * 
+   *
    * @param aContext the context
    * @throws ActionException if an error occurred during the mouse over
    */
@@ -58,7 +58,7 @@ public interface IControl {
 
   /**
    * Simulates a mouse click on the control.
-   * 
+   *
    * @param aContext the context
    * @throws ActionException if an error occurred during the click
    */
@@ -66,7 +66,7 @@ public interface IControl {
 
   /**
    * Simulates a mouse double click on the control.
-   * 
+   *
    * @param aContext the context
    * @throws ActionException if an error occurred during the double click
    */
@@ -74,7 +74,7 @@ public interface IControl {
 
   /**
    * Simulates a mouse right click on the control.
-   * 
+   *
    * @param aContext the context
    * @throws ActionException if an error occurred during the right click
    */
@@ -88,8 +88,8 @@ public interface IControl {
 
   /**
    * Retrieves the css selector of control.
-   * 
+   *
    * @return the css selector
    */
-  public String getUniqueSelector();
+  String getUniqueSelector();
 }

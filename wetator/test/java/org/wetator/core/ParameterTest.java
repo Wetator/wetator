@@ -38,8 +38,8 @@ public class ParameterTest {
     context = mock(WetatorContext.class);
     when(context.replaceVariables(anyString())).thenAnswer(new Answer<SecretString>() {
       @Override
-      public SecretString answer(InvocationOnMock anInvocation) throws Throwable {
-        Object[] tmpArgs = anInvocation.getArguments();
+      public SecretString answer(final InvocationOnMock anInvocation) throws Throwable {
+        final Object[] tmpArgs = anInvocation.getArguments();
         return new SecretString((String) tmpArgs[0]);
       }
     });
@@ -47,7 +47,7 @@ public class ParameterTest {
 
   @Test
   public void null1() throws Exception {
-    Parameter tmpParameter = new Parameter(null);
+    final Parameter tmpParameter = new Parameter(null);
     Assert.assertNull(tmpParameter.getValue());
     Assert.assertEquals(0, tmpParameter.getNumberOfParts());
     Assert.assertEquals(0, tmpParameter.getParts().size());
@@ -55,7 +55,7 @@ public class ParameterTest {
 
   @Test
   public void onePartEmpty() throws Exception {
-    Parameter tmpParameter = new Parameter("");
+    final Parameter tmpParameter = new Parameter("");
     Assert.assertEquals("", tmpParameter.getValue());
     Assert.assertEquals(0, tmpParameter.getNumberOfParts());
     Assert.assertEquals(0, tmpParameter.getParts().size());
@@ -63,7 +63,7 @@ public class ParameterTest {
 
   @Test
   public void onePartBlank() throws Exception {
-    Parameter tmpParameter = new Parameter(" ");
+    final Parameter tmpParameter = new Parameter(" ");
     Assert.assertEquals(" ", tmpParameter.getValue());
     Assert.assertEquals(1, tmpParameter.getNumberOfParts());
     Assert.assertEquals(1, tmpParameter.getParts().size());
@@ -73,7 +73,7 @@ public class ParameterTest {
 
   @Test
   public void onePart() throws Exception {
-    Parameter tmpParameter = new Parameter("A");
+    final Parameter tmpParameter = new Parameter("A");
     Assert.assertEquals("A", tmpParameter.getValue());
     Assert.assertEquals(1, tmpParameter.getNumberOfParts());
     Assert.assertEquals(1, tmpParameter.getParts().size());
@@ -83,7 +83,7 @@ public class ParameterTest {
 
   @Test
   public void onePartWithBlank() throws Exception {
-    Parameter tmpParameter = new Parameter("A B");
+    final Parameter tmpParameter = new Parameter("A B");
     Assert.assertEquals("A B", tmpParameter.getValue());
     Assert.assertEquals(1, tmpParameter.getNumberOfParts());
     Assert.assertEquals(1, tmpParameter.getParts().size());
@@ -93,7 +93,7 @@ public class ParameterTest {
 
   @Test
   public void onePartWithDelimiter() throws Exception {
-    Parameter tmpParameter = new Parameter("A\\,B");
+    final Parameter tmpParameter = new Parameter("A\\,B");
     Assert.assertEquals("A\\,B", tmpParameter.getValue());
     Assert.assertEquals(1, tmpParameter.getNumberOfParts());
     Assert.assertEquals(1, tmpParameter.getParts().size());
@@ -103,7 +103,7 @@ public class ParameterTest {
 
   @Test
   public void onePartEmptyWithDelimiter() throws Exception {
-    Parameter tmpParameter = new Parameter("\\,");
+    final Parameter tmpParameter = new Parameter("\\,");
     Assert.assertEquals("\\,", tmpParameter.getValue());
     Assert.assertEquals(1, tmpParameter.getNumberOfParts());
     Assert.assertEquals(1, tmpParameter.getParts().size());
@@ -113,7 +113,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsBothEmpty() throws Exception {
-    Parameter tmpParameter = new Parameter(",");
+    final Parameter tmpParameter = new Parameter(",");
     Assert.assertEquals(",", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -124,7 +124,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsFirstEmpty() throws Exception {
-    Parameter tmpParameter = new Parameter(",B");
+    final Parameter tmpParameter = new Parameter(",B");
     Assert.assertEquals(",B", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -135,7 +135,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsSecondEmpty() throws Exception {
-    Parameter tmpParameter = new Parameter("A,");
+    final Parameter tmpParameter = new Parameter("A,");
     Assert.assertEquals("A,", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -146,7 +146,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsBothBlank() throws Exception {
-    Parameter tmpParameter = new Parameter(" , ");
+    final Parameter tmpParameter = new Parameter(" , ");
     Assert.assertEquals(" , ", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -157,7 +157,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsFirstBlank() throws Exception {
-    Parameter tmpParameter = new Parameter(" ,B");
+    final Parameter tmpParameter = new Parameter(" ,B");
     Assert.assertEquals(" ,B", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -168,7 +168,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsSecondBlank() throws Exception {
-    Parameter tmpParameter = new Parameter("A, ");
+    final Parameter tmpParameter = new Parameter("A, ");
     Assert.assertEquals("A, ", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -179,7 +179,7 @@ public class ParameterTest {
 
   @Test
   public void twoParts() throws Exception {
-    Parameter tmpParameter = new Parameter("A,B");
+    final Parameter tmpParameter = new Parameter("A,B");
     Assert.assertEquals("A,B", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -190,7 +190,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsWithBlank() throws Exception {
-    Parameter tmpParameter = new Parameter("A 1,B 2");
+    final Parameter tmpParameter = new Parameter("A 1,B 2");
     Assert.assertEquals("A 1,B 2", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -201,7 +201,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsWithDelimiter() throws Exception {
-    Parameter tmpParameter = new Parameter("A\\,1,B\\,2");
+    final Parameter tmpParameter = new Parameter("A\\,1,B\\,2");
     Assert.assertEquals("A\\,1,B\\,2", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());
@@ -212,7 +212,7 @@ public class ParameterTest {
 
   @Test
   public void twoPartsEmptyWithDelimiter() throws Exception {
-    Parameter tmpParameter = new Parameter("\\,,\\,");
+    final Parameter tmpParameter = new Parameter("\\,,\\,");
     Assert.assertEquals("\\,,\\,", tmpParameter.getValue());
     Assert.assertEquals(2, tmpParameter.getNumberOfParts());
     Assert.assertEquals(2, tmpParameter.getParts().size());

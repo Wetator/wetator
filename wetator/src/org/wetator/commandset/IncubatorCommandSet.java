@@ -54,7 +54,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * supports at the moment.<br>
  * We are not sure, that these commands are useful extension of
  * the current command set. So we have this set to play a bit.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -80,12 +80,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandAssertFocus implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -121,12 +121,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandOpenBookmark implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -150,12 +150,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandSaveBookmark implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -171,12 +171,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandWait implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpWaitTimeString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -213,12 +213,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandExecJs implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpJsString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -247,12 +247,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandConfirmNext implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
       if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
         final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", new String[] { tmpButton.toString() });
@@ -281,12 +281,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   public final class CommandAssertApplet implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -338,9 +338,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * Check, if the defined applet archives are available for download.
      * This is only done in case of an applet start error; this may create
      * a hint, why the applet start call failed.
-     * 
-     * @param aContext
-     * @param aHtmlApplet
+     *
+     * @param aContext the current {@link WetatorContext}
+     * @param aHtmlApplet the {@link HtmlApplet} to check
      */
     private void checkArchiveAvailability(final WetatorContext aContext, final HtmlApplet aHtmlApplet) {
       aContext.informListenersWarn("assertAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
@@ -361,7 +361,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
    */
   @Override
@@ -371,7 +371,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#cleanup()
    */
   @Override

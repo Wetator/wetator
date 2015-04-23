@@ -32,16 +32,16 @@ public class HtmlUnitInputSubmitTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='submit' id='myId' name='MyName' value='value' disabled='disabled'/>"
+        + "<input type='submit' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
+    final HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -49,16 +49,16 @@ public class HtmlUnitInputSubmitTest {
   @Test
   public void isDisabled_Not() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='submit' id='myId' name='MyName' value='value'/>"
+        + "<input type='submit' id='myId' name='MyName' value='value'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
+    final HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -66,16 +66,16 @@ public class HtmlUnitInputSubmitTest {
   @Test
   public void isDisabled_NotVisible() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='submit' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
+        + "<input type='submit' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
+    final HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }

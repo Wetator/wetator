@@ -32,16 +32,16 @@ public class HtmlUnitInputResetTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='reset' id='myId' name='MyName' value='value' disabled='disabled'/>"
+        + "<input type='reset' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
+    final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -49,16 +49,16 @@ public class HtmlUnitInputResetTest {
   @Test
   public void isDisabled_Not() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='reset' id='myId' name='MyName' value='value'/>"
+        + "<input type='reset' id='myId' name='MyName' value='value'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
+    final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -66,16 +66,16 @@ public class HtmlUnitInputResetTest {
   @Test
   public void isDisabled_NotVisible() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='reset' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
+        + "<input type='reset' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
+    final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }

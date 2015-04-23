@@ -52,12 +52,12 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
 
   @Override
   protected String getActualResult() throws Exception {
-    File tmpActualFile = new File(RESULT_LOG);
+    final File tmpActualFile = new File(RESULT_LOG);
     return FileUtils.readFileToString(tmpActualFile);
   }
 
   @Override
-  protected String normalizeResult(String aResult) {
+  protected String normalizeResult(final String aResult) {
     String tmpResult = super.normalizeResult(aResult);
 
     // remove drive letter (windows)

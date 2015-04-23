@@ -32,16 +32,16 @@ public class HtmlUnitButtonTextTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<button id='myId' name='MyName' disabled='disabled'>Test</button>"
+        + "<button id='myId' name='MyName' disabled='disabled'>Test</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
+    final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -49,16 +49,16 @@ public class HtmlUnitButtonTextTest {
   @Test
   public void isDisabled_Not() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<button id='myId' name='MyName'>Test</button>"
+        + "<button id='myId' name='MyName'>Test</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
+    final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -66,16 +66,16 @@ public class HtmlUnitButtonTextTest {
   @Test
   public void isDisabled_NotVisible() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<button style='visible: none' id='myId' name='MyName' disabled='disabled'>Test</button>"
+        + "<button style='visible: none' id='myId' name='MyName' disabled='disabled'>Test</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
+    final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }

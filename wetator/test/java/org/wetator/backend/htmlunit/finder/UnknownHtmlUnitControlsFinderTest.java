@@ -48,21 +48,21 @@ public class UnknownHtmlUnitControlsFinderTest {
    */
   @Before
   public void createWetatorConfiguration() {
-    Properties tmpProperties = new Properties();
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
   @Test
   public void noHtml() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpHtmlCode = "";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("Name");
+    final SecretString tmpSearch = new SecretString("Name");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -70,17 +70,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void noBody() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html>"
+    final String tmpHtmlCode = "<html>"
         + "<head><title>MyTitle</title></head>"
         + "</html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("Name");
+    final SecretString tmpSearch = new SecretString("Name");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -88,16 +88,16 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void empty() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("Name");
+    final SecretString tmpSearch = new SecretString("Name");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -105,17 +105,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void text_byText_not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "MyText"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("YourText");
+    final SecretString tmpSearch = new SecretString("YourText");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -123,105 +123,105 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void text_byText_exact() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "MyText"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyText");
+    final SecretString tmpSearch = new SecretString("MyText");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 3",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 3",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void text_byText_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "MyText"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyTe*");
+    final SecretString tmpSearch = new SecretString("MyTe*");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 2 distance: 0 start: 0 index: 3",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 2 distance: 0 start: 0 index: 3",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void text_byText_wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "MyText"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("*Text");
+    final SecretString tmpSearch = new SecretString("*Text");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 2 start: 0 index: 3",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 2 start: 0 index: 3",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void text_byText_part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "MyText"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("yTex");
+    final SecretString tmpSearch = new SecretString("yTex");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 1 distance: 1 start: 0 index: 3",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 1 distance: 1 start: 0 index: 3",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void paragraph_byText_not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("YourText");
+    final SecretString tmpSearch = new SecretString("YourText");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -229,17 +229,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byText_exact() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyText");
+    final SecretString tmpSearch = new SecretString("MyText");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 4",
@@ -249,17 +249,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byText_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyTe*");
+    final SecretString tmpSearch = new SecretString("MyTe*");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 2 distance: 0 start: 0 index: 4",
@@ -269,17 +269,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byText_wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("*Text");
+    final SecretString tmpSearch = new SecretString("*Text");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 2 start: 0 index: 4",
@@ -289,17 +289,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byText_part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("yTex");
+    final SecretString tmpSearch = new SecretString("yTex");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 1 distance: 1 start: 0 index: 4",
@@ -309,17 +309,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byText_formated() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>My<b>T</b>ext</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyText");
+    final SecretString tmpSearch = new SecretString("MyText");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 4",
@@ -329,17 +329,17 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byId_not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p id='myId'>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("yourId");
+    final SecretString tmpSearch = new SecretString("yourId");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -347,80 +347,80 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void paragraph_byId_exact() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p id='myId'>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("myId");
+    final SecretString tmpSearch = new SecretString("myId");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void paragraph_byId_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p id='myId'>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("my*");
+    final SecretString tmpSearch = new SecretString("my*");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void paragraph_byId_wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p id='myId'>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("*Id");
+    final SecretString tmpSearch = new SecretString("*Id");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void paragraph_byId_part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>MyText</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("yI");
+    final SecretString tmpSearch = new SecretString("yI");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -428,19 +428,19 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void manyParagraphs() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>My<b>T</b>ext</p>"
         + "<p>line2</p>"
         + "<p>line3</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyText > ine3");
+    final SecretString tmpSearch = new SecretString("MyText > ine3");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8 start: 12 index: 11",
@@ -450,18 +450,18 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void manyParagraphs_matchInside() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>line2</p>"
         + "<p>line3</p>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("line2 li > ne3");
+    final SecretString tmpSearch = new SecretString("line2 li > ne3");
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0 start: 5 index: 6", tmpFound
@@ -471,20 +471,20 @@ public class UnknownHtmlUnitControlsFinderTest {
   @Test
   public void ignoringElementForControl() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<a>MyText</a>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("MyText");
+    final SecretString tmpSearch = new SecretString("MyText");
 
-    HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
 
-    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }

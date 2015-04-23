@@ -63,11 +63,11 @@ public class BrowserRunnerTest implements IBrowserTest {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.test.junit.BrowserRunner.IBrowserTest#setBrowser(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
-  public void setBrowser(BrowserType aBrowserType) {
+  public void setBrowser(final BrowserType aBrowserType) {
     browserType = aBrowserType;
   }
 }

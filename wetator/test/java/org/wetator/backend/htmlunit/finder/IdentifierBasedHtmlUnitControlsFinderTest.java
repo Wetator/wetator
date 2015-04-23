@@ -47,53 +47,56 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
    */
   @Before
   public void createWetatorConfiguration() {
-    Properties tmpProperties = new Properties();
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
   @Test
   public void empty() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpHtmlCode = "<html><body>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("Name");
+    final SecretString tmpSearch = new SecretString("Name");
 
-    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
+        null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void hidden() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("ClickMe");
+    final SecretString tmpSearch = new SecretString("ClickMe");
 
-    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
+        null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void visible() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
-        + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SecretString tmpSearch = new SecretString("ClickMe");
+    final SecretString tmpSearch = new SecretString("ClickMe");
 
-    IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
+        null);
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
   }

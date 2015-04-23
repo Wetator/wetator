@@ -36,7 +36,7 @@ import org.wetator.exception.ResourceException;
 
 /**
  * Tests for {@link WetatorContext#execute()}.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -84,11 +84,11 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandSuccess(tmpInOrder, tmpContext, command1, commandImplementation1);
     assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
@@ -108,17 +108,17 @@ public class WetatorContextExecuteTest {
   @Test
   public void assertionException() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new AssertionException("mocker");
+    final Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandFailure(tmpInOrder, tmpContext, command1, commandImplementation1);
     assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
@@ -137,17 +137,17 @@ public class WetatorContextExecuteTest {
   @Test
   public void actionException() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new ActionException("mocker");
+    final Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -169,17 +169,17 @@ public class WetatorContextExecuteTest {
   @Test
   public void invalidInputExceptionExecute() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new InvalidInputException("mocker");
+    final Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertFalse(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -200,17 +200,17 @@ public class WetatorContextExecuteTest {
   @Test
   public void commandException() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new CommandException("mocker");
+    final Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -231,17 +231,17 @@ public class WetatorContextExecuteTest {
   @Test
   public void runtimeException() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new RuntimeException("mocker");
+    final Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandIgnored(tmpInOrder, tmpContext, command2);
@@ -263,15 +263,15 @@ public class WetatorContextExecuteTest {
   @Test
   public void invalidInputExceptionRead() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new InvalidInputException("mocker");
+    final Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(engine).readCommandsFromFile(file1);
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertFalse(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     tmpInOrder.verify(engine).readCommandsFromFile(file1);
     tmpInOrder.verify(engine).informListenersError(tmpException);
@@ -301,13 +301,13 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandSuccess(tmpInOrder, tmpContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -330,20 +330,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void assertionExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new AssertionException("mocker");
+    final Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandFailure(tmpInOrder, tmpContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -365,20 +365,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void actionExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new ActionException("mocker");
+    final Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -402,20 +402,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void invalidInputExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new InvalidInputException("mocker");
+    final Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertFalse(tmpContext.execute());
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -439,20 +439,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void commandExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new CommandException("mocker");
+    final Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -476,20 +476,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void runtimeExceptionBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new RuntimeException("mocker");
+    final Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -516,13 +516,13 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandSuccess(tmpInOrder, tmpSubContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -545,20 +545,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void assertionExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new AssertionException("mocker");
+    final Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandFailure(tmpInOrder, tmpSubContext, command1, commandImplementation1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -580,20 +580,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void actionExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new ActionException("mocker");
+    final Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -617,20 +617,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void invalidInputExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new InvalidInputException("mocker");
+    final Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertFalse(tmpSubContext.execute());
     Assert.assertFalse(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -654,20 +654,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void commandExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new CommandException("mocker");
+    final Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -691,20 +691,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void runtimeExceptionInSubContext() throws CommandException, InvalidInputException {
     // setup
-    Exception tmpException = new RuntimeException("mocker");
+    final Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
-    WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file2.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpSubContext, command1, commandImplementation1, tmpException);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -732,11 +732,11 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertFalse(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, command1);
     tmpInOrder.verify(engine).informListenersExecuteCommandError(isA(InvalidInputException.class));
@@ -760,16 +760,16 @@ public class WetatorContextExecuteTest {
   @Test
   public void storedAssertionException() throws CommandException, InvalidInputException {
     // setup
-    AssertionException tmpException = new AssertionException("mocker");
+    final AssertionException tmpException = new AssertionException("mocker");
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
     when(browser.checkAndResetFailures()).thenReturn(tmpException, (AssertionException) null);
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandFailure(tmpInOrder, tmpContext, command1, commandImplementation1);
     assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
@@ -789,20 +789,20 @@ public class WetatorContextExecuteTest {
   @Test
   public void forceExecution() throws CommandException, InvalidInputException {
     // setup
-    ICommandImplementation tmpForceExecution = new ForceExecutionCommand(commandImplementation2);
+    final ICommandImplementation tmpForceExecution = new ForceExecutionCommand(commandImplementation2);
 
-    Exception tmpException = new CommandException("mocker");
+    final Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
     when(engine.getCommandImplementationFor("command2")).thenReturn(tmpForceExecution);
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     assertCommandError(tmpInOrder, tmpContext, command1, commandImplementation1, tmpException);
     assertCommandSuccess(tmpInOrder, tmpContext, command2, commandImplementation2);
@@ -824,16 +824,16 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenThrow(new ResourceException("mocker"));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     try {
       tmpContext.execute();
       Assert.fail("ResourceException expected!");
-    } catch (ResourceException e) {
+    } catch (final ResourceException e) {
       // ok
     }
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     tmpInOrder.verify(engine).readCommandsFromFile(file1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -860,16 +860,16 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenThrow(new RuntimeException("mocker"));
 
     // run
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_31);
     try {
       tmpContext.execute();
       Assert.fail("RuntimeException expected!");
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       // ok
     }
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
+    final InOrder tmpInOrder = inOrder(engine, browser, commandImplementation1, commandImplementation2);
     tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
     tmpInOrder.verify(engine).readCommandsFromFile(file1);
     tmpInOrder.verify(engine).informListenersTestFileEnd();
@@ -885,8 +885,8 @@ public class WetatorContextExecuteTest {
     verify(browser, never()).checkAndResetFailures();
   }
 
-  private void assertCommandSuccess(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation) throws CommandException, InvalidInputException {
+  private void assertCommandSuccess(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
+      final ICommandImplementation anImplementation) throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -894,8 +894,8 @@ public class WetatorContextExecuteTest {
     anInOrder.verify(engine).informListenersExecuteCommandEnd();
   }
 
-  private void assertCommandFailure(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation) throws CommandException, InvalidInputException {
+  private void assertCommandFailure(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
+      final ICommandImplementation anImplementation) throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -903,8 +903,9 @@ public class WetatorContextExecuteTest {
     anInOrder.verify(engine).informListenersExecuteCommandEnd();
   }
 
-  private void assertCommandError(InOrder anInOrder, WetatorContext aContext, Command aCommand,
-      ICommandImplementation anImplementation, Throwable aThrowable) throws CommandException, InvalidInputException {
+  private void assertCommandError(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
+      final ICommandImplementation anImplementation, final Throwable aThrowable) throws CommandException,
+      InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -912,7 +913,7 @@ public class WetatorContextExecuteTest {
     anInOrder.verify(engine).informListenersExecuteCommandEnd();
   }
 
-  private void assertCommandIgnored(InOrder anInOrder, WetatorContext aContext, Command aCommand) {
+  private void assertCommandIgnored(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand) {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(engine).informListenersExecuteCommandIgnored();
     anInOrder.verify(engine).informListenersExecuteCommandEnd();
@@ -926,12 +927,13 @@ public class WetatorContextExecuteTest {
 
     private ICommandImplementation wrappedImplementation;
 
-    public ForceExecutionCommand(ICommandImplementation aWrappedImplementation) {
+    public ForceExecutionCommand(final ICommandImplementation aWrappedImplementation) {
       wrappedImplementation = aWrappedImplementation;
     }
 
     @Override
-    public void execute(WetatorContext aContext, Command aCommand) throws CommandException, InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+        InvalidInputException {
       wrappedImplementation.execute(aContext, aCommand);
     }
   }

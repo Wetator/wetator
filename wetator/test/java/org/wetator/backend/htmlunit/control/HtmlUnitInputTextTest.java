@@ -32,16 +32,16 @@ public class HtmlUnitInputTextTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='text' id='myId' name='MyName' value='value' disabled='disabled'/>"
+        + "<input type='text' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
+    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -49,16 +49,16 @@ public class HtmlUnitInputTextTest {
   @Test
   public void isDisabled_Not() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='text' id='myId' name='MyName' value='value'/>"
+        + "<input type='text' id='myId' name='MyName' value='value'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
+    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
@@ -66,16 +66,16 @@ public class HtmlUnitInputTextTest {
   @Test
   public void isDisabled_NotVisible() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='text' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
+        + "<input type='text' style='visible: none' id='myId' name='MyName' value='value' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
+    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -83,16 +83,16 @@ public class HtmlUnitInputTextTest {
   @Test
   public void isDisabled_ReadOnlyAndDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly' disabled='disabled'/>"
+        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly' disabled='disabled'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
+    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }
@@ -100,16 +100,16 @@ public class HtmlUnitInputTextTest {
   @Test
   public void isDisabled_ReadOnly() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-          + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>"
+        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
+    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
     Assert.assertTrue(tmpControl.isDisabled(null));
   }

@@ -26,7 +26,7 @@ import org.wetator.util.SecretString;
 /**
  * The central wildcard handling.<br/>
  * This supports the dos wildcards '*' and '?'.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -46,7 +46,7 @@ public abstract class SearchPattern {
 
   /**
    * Construct a new SearchPattern from a list of SecretString's.
-   * 
+   *
    * @param aSearch the list of SecretString's
    * @param aNumberOfElements the number of elements of the list to be used (from the start of the list)
    * @return the SearchPattern
@@ -69,7 +69,7 @@ public abstract class SearchPattern {
 
   /**
    * Construct a new SearchPattern from a list of SecretString's.
-   * 
+   *
    * @param aSearch the list of SecretString's
    * @return the SearchPattern
    */
@@ -79,7 +79,7 @@ public abstract class SearchPattern {
 
   /**
    * Construct a new SearchPattern from a string.
-   * 
+   *
    * @param aDosStyleWildcardString the string to construct the SearchPattern for.
    *        This supports the wildcards '*' and '?'.
    * @return the SearchPattern
@@ -180,7 +180,7 @@ public abstract class SearchPattern {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anOriginalString the string used to construct the pattern
    */
   protected SearchPattern(final String anOriginalString) {
@@ -190,7 +190,7 @@ public abstract class SearchPattern {
 
   /**
    * Returns true if the patterns matches the whole string.
-   * 
+   *
    * @param aString the String to match with
    * @return true or false
    */
@@ -198,7 +198,7 @@ public abstract class SearchPattern {
 
   /**
    * Returns true, if the string ends with this pattern.
-   * 
+   *
    * @param aString the string to match
    * @return true or false
    */
@@ -206,7 +206,7 @@ public abstract class SearchPattern {
 
   /**
    * Searches for the first occurrence of this search pattern inside the given string.
-   * 
+   *
    * @param aString the string to search inside
    * @return the {@link FindSpot} of the first occurrence
    */
@@ -214,7 +214,7 @@ public abstract class SearchPattern {
 
   /**
    * Searches for the first occurrence of this search pattern inside the given string starting at the given position.
-   * 
+   *
    * @param aString the string to search inside
    * @param aStartPos the position to start
    * @return the {@link FindSpot} of the first occurrence
@@ -223,7 +223,7 @@ public abstract class SearchPattern {
 
   /**
    * Searches for the last occurrence of this search pattern inside the given string.
-   * 
+   *
    * @param aString the string to search inside
    * @return the {@link FindSpot} of the last occurrence
    */
@@ -232,7 +232,7 @@ public abstract class SearchPattern {
   /**
    * Calculates the number of chars before the last occurrence of this search pattern in the given string.<br>
    * If this search pattern is left truncated (star at start), then this returns zero.
-   * 
+   *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
    */
@@ -241,7 +241,7 @@ public abstract class SearchPattern {
   /**
    * Calculates the number of chars before the last shortest occurrence of this search pattern in the given string.<br>
    * If this search pattern is left truncated (star at start), then this returns zero.
-   * 
+   *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
    */
@@ -250,7 +250,7 @@ public abstract class SearchPattern {
   /**
    * Calculates the number of chars after the last occurrence of this search pattern in the given string.<br>
    * If this search pattern is right truncated (star at end), then this returns zero.
-   * 
+   *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
    */
@@ -259,7 +259,7 @@ public abstract class SearchPattern {
   /**
    * Calculates the number of chars after the last shortest occurrence of this search pattern in the given string.<br>
    * If this search pattern is right truncated (star at end), then this returns zero.
-   * 
+   *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
    */
@@ -268,7 +268,7 @@ public abstract class SearchPattern {
   /**
    * Calculates the sum of the number of characters before and after the match of this search pattern in the given
    * string.
-   * 
+   *
    * @param aString the string to search inside
    * @return the number of characters or -1 if the pattern is not found
    */
@@ -283,7 +283,7 @@ public abstract class SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#hashCode()
    */
   @Override
@@ -299,7 +299,7 @@ public abstract class SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
@@ -340,7 +340,7 @@ public abstract class SearchPattern {
     }
 
     /**
-     * @param aDosStyleWildcardString
+     * @param aDosStyleWildcardString the wildcard string
      * @return the cached pattern or null if not found
      */
     public synchronized SearchPattern get(final String aDosStyleWildcardString) {
@@ -353,9 +353,9 @@ public abstract class SearchPattern {
 
     /**
      * Add another entry to the cache.
-     * 
-     * @param aDosStyleWildcardString
-     * @param aSearchPattern
+     *
+     * @param aDosStyleWildcardString the wildcard string
+     * @param aSearchPattern the compiled {@link SearchPattern}
      */
     public synchronized void put(final String aDosStyleWildcardString, final SearchPattern aSearchPattern) {
       cache.put(aDosStyleWildcardString, aSearchPattern);

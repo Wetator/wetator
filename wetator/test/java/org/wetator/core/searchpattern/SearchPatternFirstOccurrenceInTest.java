@@ -17,7 +17,6 @@
 package org.wetator.core.searchpattern;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 import org.wetator.util.FindSpot;
 
@@ -28,7 +27,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void nullString() {
-    String tmpString = null;
+    final String tmpString = null;
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -51,7 +50,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void empty() {
-    String tmpString = "";
+    final String tmpString = "";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -74,7 +73,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void oneChar() {
-    String tmpString = "X";
+    final String tmpString = "X";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -118,7 +117,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void text() {
-    String tmpString = "Wetator";
+    final String tmpString = "Wetator";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -199,7 +198,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void startPosNull() {
-    String tmpString = null;
+    final String tmpString = null;
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -218,7 +217,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void startPosEmpty() {
-    String tmpString = "";
+    final String tmpString = "";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -237,7 +236,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void startPosOneChar() {
-    String tmpString = "X";
+    final String tmpString = "X";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);
@@ -264,7 +263,7 @@ public class SearchPatternFirstOccurrenceInTest {
 
   @Test
   public void startPosText() {
-    String tmpString = "myWetator";
+    final String tmpString = "myWetator";
 
     // match all
     SearchPattern tmpPattern = SearchPattern.compile((String) null);

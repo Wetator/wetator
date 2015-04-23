@@ -28,7 +28,7 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * Tests for {@link ExcelScripter}.
- * 
+ *
  * @author rbri
  * @author frank.danek
  * @author tobwoerk
@@ -37,10 +37,10 @@ public class ExcelScripterTest {
 
   @Test
   public void unsupportedExtension() {
-    ExcelScripter tmpExcelScripter = new ExcelScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
+    final ExcelScripter tmpExcelScripter = new ExcelScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
 
-    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
 
     Assert.assertEquals("File 'legacyXML.xml' not supported by ExcelScripter. Extension is not '.xls'.",
@@ -49,10 +49,10 @@ public class ExcelScripterTest {
 
   @Test
   public void fileNotFound() {
-    ExcelScripter tmpExcelScripter = new ExcelScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xls");
+    final ExcelScripter tmpExcelScripter = new ExcelScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.xls");
 
-    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
 
     Assert.assertEquals("File 'doesNotExist.xls' not supported by ExcelScripter. Could not find file.",
@@ -61,19 +61,19 @@ public class ExcelScripterTest {
 
   @Test
   public void supported() {
-    ExcelScripter tmpExcelScripter = new ExcelScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
+    final ExcelScripter tmpExcelScripter = new ExcelScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
 
-    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
   }
 
   @Test(expected = InvalidInputException.class)
   public void malformed() throws InvalidInputException {
-    ExcelScripter tmpExcelScripter = new ExcelScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/excelMalformed.xls");
+    final ExcelScripter tmpExcelScripter = new ExcelScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/excelMalformed.xls");
 
-    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpExcelScripter.script(tmpFile);
@@ -81,20 +81,20 @@ public class ExcelScripterTest {
 
   @Test
   public void scriptDe() throws InvalidInputException {
-    ExcelScripter tmpExcelScripter = new ExcelScripter();
+    final ExcelScripter tmpExcelScripter = new ExcelScripter();
 
-    Properties tmpProps = new Properties();
+    final Properties tmpProps = new Properties();
     tmpProps.put("wetator.scripter.excel.locale", "de");
     tmpExcelScripter.initialize(tmpProps);
 
-    File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
+    final File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
 
-    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpExcelScripter.script(tmpFile);
 
-    List<Command> tmpCommands = tmpExcelScripter.getCommands();
+    final List<Command> tmpCommands = tmpExcelScripter.getCommands();
     Assert.assertEquals(17, tmpCommands.size());
 
     int tmpPos = 0;
@@ -206,20 +206,20 @@ public class ExcelScripterTest {
 
   @Test
   public void scriptEn() throws InvalidInputException {
-    ExcelScripter tmpExcelScripter = new ExcelScripter();
+    final ExcelScripter tmpExcelScripter = new ExcelScripter();
 
-    Properties tmpProps = new Properties();
+    final Properties tmpProps = new Properties();
     tmpProps.put("wetator.scripter.excel.locale", "en");
     tmpExcelScripter.initialize(tmpProps);
 
-    File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
+    final File tmpFile = new File("test/java/org/wetator/test/resource/excel.xls");
 
-    IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpExcelScripter.script(tmpFile);
 
-    List<Command> tmpCommands = tmpExcelScripter.getCommands();
+    final List<Command> tmpCommands = tmpExcelScripter.getCommands();
     Assert.assertEquals(17, tmpCommands.size());
 
     int tmpPos = 0;

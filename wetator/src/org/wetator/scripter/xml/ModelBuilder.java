@@ -26,6 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.SAXParserFactory;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -53,7 +55,7 @@ import com.sun.xml.xsom.util.DomAnnotationParserFactory;
 
 /**
  * This builder creates the model of command types and their parameter types out of an XML file by parsing the schemas.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -75,7 +77,7 @@ public class ModelBuilder {
    * @throws ParseException in case of problems parsing the file
    */
   public ModelBuilder(final List<XMLSchema> aSchemas, final File aSchemaDirectory) throws IOException, SAXException,
-      ParseException {
+  ParseException {
     final XSSchemaSet tmpSchemaSet = parseSchemas(aSchemas, aSchemaDirectory);
     buildModel(tmpSchemaSet);
   }
@@ -103,13 +105,14 @@ public class ModelBuilder {
   }
 
   private XSSchemaSet parseSchemas(final List<XMLSchema> aSchemaList, final File aSchemaDirectory) throws IOException,
-      SAXException, ParseException {
+  SAXException, ParseException {
     if (aSchemaList == null || aSchemaList.isEmpty()) {
       throw new ImplementationException("No schema to parse.");
     }
 
     final EntityResolver tmpEntityResolver = new LocalEntityResolver(aSchemaDirectory);
-    final XSOMParser tmpParser = new XSOMParser();
+
+    final XSOMParser tmpParser = new XSOMParser(SAXParserFactory.newInstance());
     tmpParser.setAnnotationParser(new DomAnnotationParserFactory());
     tmpParser.setEntityResolver(tmpEntityResolver);
 

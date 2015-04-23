@@ -33,19 +33,19 @@ public class HtmlUnitAnchorTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<a id='myId'>test</a>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlAnchor tmpImage = (HtmlAnchor) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(tmpImage);
+    final HtmlAnchor tmpImage = (HtmlAnchor) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(tmpImage);
 
     try {
       tmpControl.isDisabled(null);
       Assert.fail("UnsupportedOperationException expected");
-    } catch (org.wetator.exception.UnsupportedOperationException e) {
+    } catch (final org.wetator.exception.UnsupportedOperationException e) {
       Assert.assertEquals(
           "The HTML element [HtmlAnchor 'test' (id='myId')] does not support the disabled state/property.",
           e.getMessage());

@@ -70,19 +70,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html'>AnchorText</a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html'>AnchorText</a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -95,19 +95,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor_FormatedText() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html'>A<font>n</font>chor<b>Text</a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html'>A<font>n</font>chor<b>Text</a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -120,19 +120,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html' name='AnchorName'>AnchorText</a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html' name='AnchorName'>AnchorText</a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -145,19 +145,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor_Image() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html'><img src='wet.src'></a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html'><img src='wet.src'></a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -170,19 +170,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor_ImageAndText() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html'><img src='wet.src'>AnchorText</a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html'><img src='wet.src'>AnchorText</a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -195,19 +195,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html' id='AnchorId'>AnchorText</a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html' id='AnchorId'>AnchorText</a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -220,19 +220,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlAnchor_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<a href='wet.html' name='AnchorName' id='AnchorId'>AnchorText</a>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='wet.html' name='AnchorName' id='AnchorId'>AnchorText</a>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
+    final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpAnchor).getDescribingText();
@@ -245,17 +245,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button'>TestButton</button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button'>TestButton</button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -268,17 +268,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_Value() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button' value='TestButton'/>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button' value='TestButton'/>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -291,17 +291,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_PlainText() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button'>TestButton</b></button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button'>TestButton</b></button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -314,17 +314,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_FormatedText() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button'>T<font>e</font>st<b>Button</b></button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button'>T<font>e</font>st<b>Button</b></button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -337,17 +337,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_Image() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>" 
-            + "<button type='button'><img src='wet.src'></button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button'><img src='wet.src'></button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -360,17 +360,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_ImageAndText() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button'><img src='wet.src'>Text</button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button'><img src='wet.src'>Text</button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -383,17 +383,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button' name='ButtonName'>Text</button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button' name='ButtonName'>Text</button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -406,17 +406,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button' id='ButtonId'>Text</button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button' id='ButtonId'>Text</button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -429,17 +429,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButton_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button type='button' id='ButtonId' name='ButtonName'>Text</button>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button type='button' id='ButtonId' name='ButtonName'>Text</button>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
+    final HtmlButton tmpButton = (HtmlButton) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpButton).getDescribingText();
@@ -452,17 +452,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButtonInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='button' value='Button'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='button' value='Button'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
+    final HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
@@ -475,17 +475,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButtonInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input name='ButtonName' type='button' value='Button'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='ButtonName' type='button' value='Button'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
+    final HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
@@ -498,17 +498,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButtonInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='sb' type='button' value='Button'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='sb' type='button' value='Button'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
+    final HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
@@ -521,17 +521,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlButtonInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='sb' name='ButtonName' type='button' value='Button'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='sb' name='ButtonName' type='button' value='Button'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
+    final HtmlButtonInput tmpHtmlButtonInput = (HtmlButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
@@ -544,17 +544,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlCheckBoxInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='checkbox' value='CheckBoxValue'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='checkbox' value='CheckBoxValue'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
+    final HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
@@ -567,17 +567,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlCheckBoxInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='checkbox' value='CheckBoxValue' name='CheckBoxName'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='checkbox' value='CheckBoxValue' name='CheckBoxName'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
+    final HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
@@ -590,17 +590,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlCheckBoxInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='checkbox' value='CheckBoxValue' id='CheckBoxId'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='checkbox' value='CheckBoxValue' id='CheckBoxId'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
+    final HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
@@ -613,17 +613,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlCheckBox_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='checkbox' value='CheckBoxValue' name='CheckBoxName' id='CheckBoxId'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='checkbox' value='CheckBoxValue' name='CheckBoxName' id='CheckBoxId'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
+    final HtmlCheckBoxInput tmpCheckBoxInput = (HtmlCheckBoxInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpCheckBoxInput).getDescribingText();
@@ -636,17 +636,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlFileInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='file'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='file'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
+    final HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
@@ -659,17 +659,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlFileInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='file' name='FileInputName'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='file' name='FileInputName'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
+    final HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
@@ -682,17 +682,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlFileInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='file' id='FileInputId'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='file' id='FileInputId'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
+    final HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
@@ -705,17 +705,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlFileInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='file' name='FileInputName' id='FileInputId'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='file' name='FileInputName' id='FileInputId'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
+    final HtmlFileInput tmpFileInput = (HtmlFileInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpFileInput).getDescribingText();
@@ -728,19 +728,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImage() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<img src='wet.png'>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<img src='wet.png'>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
+    final HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
@@ -753,19 +753,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImage_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<img src='wet.png' name='ImageName'>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<img src='wet.png' name='ImageName'>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
+    final HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
@@ -778,19 +778,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImage_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<img src='wet.png' id='ImageId'>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<img src='wet.png' id='ImageId'>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
+    final HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
@@ -803,19 +803,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImage_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<img src='wet.png' name='ImageName' id='ImageId'>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<img src='wet.png' name='ImageName' id='ImageId'>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
+    final HtmlImage tmpImage = (HtmlImage) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpImage).getDescribingText();
@@ -828,17 +828,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImageInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='Image' value='ImageInput' src='sample.src'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='Image' value='ImageInput' src='sample.src'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
+    final HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
@@ -851,17 +851,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImageInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='Image' name='ImageInputName' value='ImageInput' src='sample.src'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='Image' name='ImageInputName' value='ImageInput' src='sample.src'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
+    final HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
@@ -874,17 +874,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImageInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='Image' id='ImageInputId' value='ImageInput' src='sample.src'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='Image' id='ImageInputId' value='ImageInput' src='sample.src'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
+    final HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
@@ -897,17 +897,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlImageInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='Image' id='ImageInputId' name='ImageInputName' value='ImageInput' src='sample.src'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='Image' id='ImageInputId' name='ImageInputName' value='ImageInput' src='sample.src'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
+    final HtmlImageInput tmpHtmlImageInput = (HtmlImageInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
@@ -922,20 +922,20 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOption() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<option>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<option>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
@@ -948,20 +948,20 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOption_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<option name='optionName'>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<option name='optionName'>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
@@ -974,20 +974,20 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOption_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<option id='optionId'>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<option id='optionId'>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
@@ -1000,20 +1000,20 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOption_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<option name='optionName' id='optionId'>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<option name='optionName' id='optionId'>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOption tmpHtmlOption = tmpHtmlSelect.getOptions().get(0);
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
@@ -1026,22 +1026,22 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOptionGroup() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<optgroup label='optGroupLabel'>"
-            + "<option>Option1</option>"
-            + "</optgroup>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<optgroup label='optGroupLabel'>"
+        + "<option>Option1</option>"
+        + "</optgroup>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
@@ -1054,22 +1054,22 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOptionGroup_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<optgroup label='optGroupLabel' name='optionName'>"
-            + "<option>Option1</option>"
-            + "</optgroup>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<optgroup label='optGroupLabel' name='optionName'>"
+        + "<option>Option1</option>"
+        + "</optgroup>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
@@ -1082,22 +1082,22 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOptionGroup_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<optgroup label='optGroupLabel' id='optionId'>"
-            + "<option>Option1</option>"
-            + "</optgroup>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<optgroup label='optGroupLabel' id='optionId'>"
+        + "<option>Option1</option>"
+        + "</optgroup>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
@@ -1110,22 +1110,22 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlOptionGroup_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<optgroup label='optGroupLabel' name='optionName' id='optionId'>"
-            + "<option>Option1</option>"
-            + "</optgroup>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<optgroup label='optGroupLabel' name='optionName' id='optionId'>"
+        + "<option>Option1</option>"
+        + "</optgroup>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
-    HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpHtmlSelect.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
@@ -1140,19 +1140,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlParagraph() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<p>paragraph text</p>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>paragraph text</p>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+    final HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
@@ -1165,19 +1165,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlParagraph_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<p name='ParagraphName'>paragraph text</p>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<p name='ParagraphName'>paragraph text</p>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+    final HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
@@ -1190,19 +1190,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlParagraph_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<p id='para'>paragraph text</p>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='para'>paragraph text</p>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+    final HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
@@ -1215,19 +1215,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlParagraph_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<p id='para' name='ParagraphName'>paragraph text</p>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='para' name='ParagraphName'>paragraph text</p>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
+    final HtmlParagraph tmpHtmlParagraph = (HtmlParagraph) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
@@ -1240,17 +1240,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlPasswordInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='password' value='Password'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='password' value='Password'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
+    final HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
@@ -1263,17 +1263,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlPasswordInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input name='PasswordName' type='password' value='Password'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='PasswordName' type='password' value='Password'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
+    final HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
@@ -1286,17 +1286,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlPasswordInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='tx' type='password' value='Password'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='password' value='Password'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
+    final HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
@@ -1309,17 +1309,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlPasswordInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='tx' name='PasswordName' type='password' value='Password'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='PasswordName' type='password' value='Password'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
+    final HtmlPasswordInput tmpHtmlPasswordInput = (HtmlPasswordInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
@@ -1332,17 +1332,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlRadioButtonInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='radio' value='RadioButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='radio' value='RadioButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
+    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
@@ -1355,17 +1355,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlRadioButtonInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='radio' value='RadioButton' name='RadioButtonName'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='radio' value='RadioButton' name='RadioButtonName'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
+    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
@@ -1378,17 +1378,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlRadioButtonInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='radio' value='RadioButton' id='RadioButtonId'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='radio' value='RadioButton' id='RadioButtonId'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
+    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
@@ -1401,42 +1401,42 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlRadioButtonInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='radio' value='RadioButton' name='RadioButtonName' id='RadioButtonId'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='radio' value='RadioButton' name='RadioButtonName' id='RadioButtonId'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
+    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
     Assert
-        .assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
+    .assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
     Assert
-        .assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
+    .assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
   }
 
   @Test
   public void getDescribingTextFor_HtmlResetInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='reset' value='ResetButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='reset' value='ResetButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
+    final HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
@@ -1449,17 +1449,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlResetInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input name='ResetButtonName' type='reset' value='ResetButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='ResetButtonName' type='reset' value='ResetButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
+    final HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
@@ -1472,17 +1472,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlResetInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='sb' type='reset' value='ResetButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='sb' type='reset' value='ResetButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
+    final HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
@@ -1495,17 +1495,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlResetInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='sb' name='ResetButtonName' type='reset' value='ResetButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='sb' name='ResetButtonName' type='reset' value='ResetButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
+    final HtmlResetInput tmpHtmlResetInput = (HtmlResetInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
@@ -1518,19 +1518,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSelect() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select>"
-            + "<option>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select>"
+        + "<option>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
@@ -1543,19 +1543,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSelect_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select name='SelectName'>"
-            + "<option>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select name='SelectName'>"
+        + "<option>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
@@ -1568,19 +1568,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSelect_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select id='SelectId'>"
-            + "<option>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='SelectId'>"
+        + "<option>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
@@ -1593,19 +1593,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSelect_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<select id='SelectId' name='SelectName'>"
-            + "<option>Option1</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='SelectId' name='SelectName'>"
+        + "<option>Option1</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
+    final HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
@@ -1618,19 +1618,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSpan() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<span class='abc'>some text</span>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<span class='abc'>some text</span>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
+    final HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
@@ -1643,19 +1643,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSpan_Empty() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<span style='abc'></span>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<span style='abc'></span>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
+    final HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
@@ -1668,19 +1668,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSpan_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<span name='Spanname'>some text</span>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<span name='Spanname'>some text</span>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
+    final HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
@@ -1693,19 +1693,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSpan_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<span id='SpanId'>some text</span>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='SpanId'>some text</span>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
+    final HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
@@ -1718,19 +1718,19 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSpan_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<span id='SpanId' name='Spanname'>some text</span>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='SpanId' name='Spanname'>some text</span>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
     tmpHtmlElements.next();
     tmpHtmlElements.next();
     tmpHtmlElements.next();
 
-    HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
+    final HtmlSpan tmpHtmlSpan = (HtmlSpan) tmpHtmlElements.next();
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
@@ -1743,17 +1743,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSubmitInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='submit' value='SubmitButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='submit' value='SubmitButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
+    final HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
@@ -1766,17 +1766,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSubmitInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input name='SubmitButtonName' type='submit' value='SubmitButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='SubmitButtonName' type='submit' value='SubmitButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
+    final HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
@@ -1789,17 +1789,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSubmitInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='sb' type='submit' value='SubmitButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='sb' type='submit' value='SubmitButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
+    final HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
@@ -1812,17 +1812,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlSubmitInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='sb' name='SubmitButtonName' type='submit' value='SubmitButton'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='sb' name='SubmitButtonName' type='submit' value='SubmitButton'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
+    final HtmlSubmitInput tmpHtmlSubmitInput = (HtmlSubmitInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
@@ -1835,17 +1835,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextInput() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input type='text' value='Text'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='text' value='Text'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
+    final HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
@@ -1858,17 +1858,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextInput_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input name='TextName' type='text' value='Text'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='TextName' type='text' value='Text'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
+    final HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
@@ -1881,17 +1881,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextInput_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='tx' type='text' value='Text'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='text' value='Text'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
+    final HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
@@ -1904,17 +1904,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextInput_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<input id='tx' name='TextName' type='text' value='Text'>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='TextName' type='text' value='Text'>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
+    final HtmlTextInput tmpHtmlTextInput = (HtmlTextInput) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
@@ -1927,17 +1927,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextArea() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<textarea></textarea>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<textarea></textarea>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
+    final HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
@@ -1950,17 +1950,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextArea_Name() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<textarea name='TextAreaName'></textarea>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<textarea name='TextAreaName'></textarea>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
+    final HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
@@ -1973,17 +1973,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextArea_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<textarea id='TextAreaId'></textarea>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<textarea id='TextAreaId'></textarea>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
+    final HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
@@ -1996,17 +1996,17 @@ public class HtmlElementUtilTest {
   @Test
   public void getDescribingTextFor_HtmlTextArea_Name_Id() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<textarea name='TextAreaName' id='TextAreaId'></textarea>"
-            + "</form>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<textarea name='TextAreaName' id='TextAreaId'></textarea>"
+        + "</form>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
-    HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
+    final HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpForm.getFirstChild();
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
@@ -2019,25 +2019,25 @@ public class HtmlElementUtilTest {
   @Test
   public void isBlock() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<div id='div1'>"
-            + "<span id='span1'>Wetator</span>"
-            + "<span id='span2' style='display: block'>Wetator</span>"
-            + "</div>"
-            + "<ul id='ul1'>"
-            + "  <li id='li1'>Wetator</li>"
-            + "  <li id='li2' style='display: block'>Smart</li>"
-            + "  <li id='li3' style='display: inline'>Testing</li>"
-            + "</ul>"
-            + "<select id='select1'>"
-            + "  <option id='option1'>Wetator</option>"
-            + "  <option id='option2' style='display: block'>Smart</option>"
-            + "  <option id='option3' style='display: inline'>Testing</option>"
-            + "</select>"
-            + "<img id='img1' src='smiley.gif'>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='div1'>"
+        + "<span id='span1'>Wetator</span>"
+        + "<span id='span2' style='display: block'>Wetator</span>"
+        + "</div>"
+        + "<ul id='ul1'>"
+        + "  <li id='li1'>Wetator</li>"
+        + "  <li id='li2' style='display: block'>Smart</li>"
+        + "  <li id='li3' style='display: inline'>Testing</li>"
+        + "</ul>"
+        + "<select id='select1'>"
+        + "  <option id='option1'>Wetator</option>"
+        + "  <option id='option2' style='display: block'>Smart</option>"
+        + "  <option id='option3' style='display: inline'>Testing</option>"
+        + "</select>"
+        + "<img id='img1' src='smiley.gif'>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomElement tmpElement = tmpHtmlPage.getElementById("div1");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
@@ -2070,15 +2070,15 @@ public class HtmlElementUtilTest {
   @Test
   public void isFormatElement() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
-            + "<div>"
-            + "<b id='id1'>Wetator</b>"
-            + "</div>"
-            + "</body></html>";
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<b id='id1'>Wetator</b>"
+        + "</div>"
+        + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    DomElement tmpElement = tmpHtmlPage.getElementById("id1");
+    final DomElement tmpElement = tmpHtmlPage.getElementById("id1");
     Assert.assertTrue(HtmlElementUtil.isFormatElement(tmpElement));
   }
 }

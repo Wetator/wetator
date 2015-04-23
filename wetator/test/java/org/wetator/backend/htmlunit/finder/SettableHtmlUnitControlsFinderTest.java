@@ -46,45 +46,45 @@ public class SettableHtmlUnitControlsFinderTest {
    */
   @Before
   public void createWetatorConfiguration() {
-    Properties tmpProperties = new Properties();
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
   @Test
   public void empty() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpHtmlCode = "<html><body>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void hidden() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='text' value='SetMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void firstInputFileOnPage() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='file' value='SetMe'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='file' value='SetMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
@@ -93,13 +93,13 @@ public class SettableHtmlUnitControlsFinderTest {
 
   @Test
   public void firstInputPasswordOnPage() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='password' value='SetMe'>"
-        + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='password' value='SetMe'>" + "</form>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
@@ -108,13 +108,13 @@ public class SettableHtmlUnitControlsFinderTest {
 
   @Test
   public void firstInputTextOnPage() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='text' value='SetMe'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='text' value='SetMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
@@ -123,13 +123,13 @@ public class SettableHtmlUnitControlsFinderTest {
 
   @Test
   public void firstTextAreaOnPage() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea id='myId'>SetMe</textarea>" + "</form>"
-        + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea id='myId'>SetMe</textarea>"
+        + "</form>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",

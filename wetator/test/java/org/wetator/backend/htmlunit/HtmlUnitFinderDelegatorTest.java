@@ -30,7 +30,7 @@ public class HtmlUnitFinderDelegatorTest {
     try {
       new HtmlUnitFinderDelegator(null);
       Assert.fail("NullPointerException expected.");
-    } catch (NullPointerException e) {
+    } catch (final NullPointerException e) {
       Assert.assertEquals("HtmlPage can't be null", e.getMessage());
     }
   }
