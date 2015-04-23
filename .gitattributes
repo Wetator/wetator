@@ -32,8 +32,8 @@ wetator-ant-task/test/ant/commons-exec-1.1.jar -text
 wetator-ant-task/test/ant/failure.wet -text
 wetator-ant-task/test/ant/sample.xls -text
 wetator-ant-task/test/ant/wetator.config -text
-wetator-ant-task/test/checkstyle/checkstyle.xml -text
-wetator-ant-task/test/checkstyle/test-checkstyle.xml -text
+wetator-ant-task/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
+wetator-ant-task/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 wetator-ant-task/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
