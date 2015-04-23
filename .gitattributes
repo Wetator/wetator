@@ -204,6 +204,7 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/two
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/zeroReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/wetresult.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/util/JenkinsPluginTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/wetator-jenkins-plugin[!!-~]-[!!-~]clean[!!-~]compile.launch -text svneol=unset#text/plain
 wetator/.checkstyle -text
 wetator/.classpath -text
 wetator/.project -text

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2008-2014 wetator.org
+  Copyright (c) 2008-2015 wetator.org
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.415</version><!-- which version of Jenkins is this plugin built against? -->
+        <version>1.424</version><!-- which version of Jenkins is this plugin built against? -->
     </parent>
 
     <groupId>org.wetator</groupId>
@@ -97,8 +97,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -110,7 +110,7 @@
                     </providerImplementations>
                     <tagBase>https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin</tagBase>
                 </configuration>
-                <version>2.5</version><!--$NO-MVN-MAN-VER$-->
+                <version>2.5.2</version><!--$NO-MVN-MAN-VER$-->
                 <dependencies>
                     <dependency>
                         <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
@@ -140,7 +140,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.4</version><!--$NO-MVN-MAN-VER$-->
+                <version>3.0.1</version><!--$NO-MVN-MAN-VER$-->
                 <executions>
                     <execution>
                         <id>findbugs-report</id>
@@ -160,7 +160,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.1</version><!--$NO-MVN-MAN-VER$-->
+                <version>3.4</version><!--$NO-MVN-MAN-VER$-->
                 <executions>
                     <execution>
                         <id>pmd-report</id>
@@ -173,9 +173,11 @@
                 </executions>
                 <configuration>
                     <targetDirectory>${project.build.directory}/pmd</targetDirectory>
-                    <targetJdk>1.6</targetJdk>
+                    <targetJdk>1.7</targetJdk>
                     <rulesets>
                         <ruleset>/rulesets/java/basic.xml</ruleset>
+                        <ruleset>/rulesets/java/empty.xml</ruleset>
+                        <ruleset>/rulesets/java/unnecessary.xml</ruleset>
                         <ruleset>/rulesets/java/braces.xml</ruleset>
                         <ruleset>/rulesets/java/clone.xml</ruleset>
                         <ruleset>src/test/pmd/wet-strings.xml</ruleset>
@@ -268,6 +270,7 @@
                                             </goal>
                                             <goal>apt-compile</goal>
                                             <goal>insert-test</goal>
+                                            <goal>validate</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
@@ -277,7 +280,7 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>
-                                            org.codehaus.groovy.maven
+                                            org.codehaus.gmaven
                                         </groupId>
                                         <artifactId>
                                             gmaven-plugin
@@ -341,7 +344,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
