@@ -40,16 +40,16 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='password'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myId");
+    final SecretString tmpSearch = new SecretString("myId");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -61,16 +61,16 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   @Test
   public void byName() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='password'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myName");
+    final SecretString tmpSearch = new SecretString("myName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -82,7 +82,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   @Test
   public void byLabelTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='password'>"
         + "<p>Marker</p>"
@@ -91,22 +91,22 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker");
+    final SecretString tmpSearch = new SecretString("Marker");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6 index: 8",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6 index: 8",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byWholeTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='checkbox'>"
@@ -116,22 +116,22 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1");
+    final SecretString tmpSearch = new SecretString("Marker1");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byHtmlLabel_Text() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='password'>"
@@ -139,9 +139,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Label");
+    final SecretString tmpSearch = new SecretString("Label");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
@@ -153,7 +153,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   @Test
   public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='password'>"
@@ -162,9 +162,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Label");
+    final SecretString tmpSearch = new SecretString("Label");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 

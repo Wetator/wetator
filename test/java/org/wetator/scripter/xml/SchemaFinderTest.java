@@ -22,12 +22,11 @@ import java.util.List;
 import javax.xml.stream.XMLStreamException;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**
  * Tests for the {@link SchemaFinder}.
- * 
+ *
  * @author frank.danek
  */
 public class SchemaFinderTest {
@@ -44,19 +43,19 @@ public class SchemaFinderTest {
 
   @Test
   public void defaultSchemaWithoutLocation() throws XMLStreamException {
-    List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader(
+    final List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader(
         "<content xmlns='http://www.wetator.org/xsd/test-case' />")).getSchemas();
     Assert.assertEquals(0, tmpSchemas.size());
   }
 
   @Test
   public void defaultSchema() throws XMLStreamException {
-    List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
+    final List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
         + "xmlns='http://www.wetator.org/xsd/default' " //
         + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " //
         + "xsi:schemaLocation='http://www.wetator.org/xsd/default default.xsd' />")).getSchemas();
     Assert.assertEquals(1, tmpSchemas.size());
-    XMLSchema tmpSchema = tmpSchemas.get(0);
+    final XMLSchema tmpSchema = tmpSchemas.get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/default", tmpSchema.getNamespace());
     Assert.assertEquals(null, tmpSchema.getPrefix());
     Assert.assertEquals("default.xsd", tmpSchema.getLocation());
@@ -64,12 +63,12 @@ public class SchemaFinderTest {
 
   @Test
   public void prefixSchema() throws XMLStreamException {
-    List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
+    final List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
         + "xmlns:d='http://www.wetator.org/xsd/default' " //
         + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " //
         + "xsi:schemaLocation='http://www.wetator.org/xsd/default default.xsd' />")).getSchemas();
     Assert.assertEquals(1, tmpSchemas.size());
-    XMLSchema tmpSchema = tmpSchemas.get(0);
+    final XMLSchema tmpSchema = tmpSchemas.get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/default", tmpSchema.getNamespace());
     Assert.assertEquals("d", tmpSchema.getPrefix());
     Assert.assertEquals("default.xsd", tmpSchema.getLocation());
@@ -77,7 +76,7 @@ public class SchemaFinderTest {
 
   @Test
   public void multipleSchemas() throws XMLStreamException {
-    List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
+    final List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader("<content " //
         + "xmlns='http://www.wetator.org/xsd/default' " //
         + "xmlns:a='http://www.wetator.org/xsd/schema-a' " //
         + "xmlns:b='http://www.wetator.org/xsd/schema-b' " //

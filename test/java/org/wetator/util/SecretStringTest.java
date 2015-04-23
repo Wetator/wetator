@@ -30,28 +30,28 @@ public class SecretStringTest {
 
   @Test
   public void constructor() {
-    SecretString tmpSecret = new SecretString();
+    final SecretString tmpSecret = new SecretString();
     Assert.assertEquals("", tmpSecret.getValue());
     Assert.assertEquals("", tmpSecret.toString());
   }
 
   @Test
   public void emptyConstructor() {
-    SecretString tmpSecret = new SecretString("");
+    final SecretString tmpSecret = new SecretString("");
     Assert.assertEquals("", tmpSecret.getValue());
     Assert.assertEquals("", tmpSecret.toString());
   }
 
   @Test
   public void stringConstructor() {
-    SecretString tmpSecret = new SecretString("Test");
+    final SecretString tmpSecret = new SecretString("Test");
     Assert.assertEquals("Test", tmpSecret.getValue());
     Assert.assertEquals("Test", tmpSecret.toString());
   }
 
   @Test
   public void simpleSecret() {
-    SecretString tmpSecret = new SecretString().appendSecret("hidden");
+    final SecretString tmpSecret = new SecretString().appendSecret("hidden");
     Assert.assertEquals("hidden", tmpSecret.getValue());
     Assert.assertEquals("****", tmpSecret.toString());
   }
@@ -73,7 +73,7 @@ public class SecretStringTest {
 
   @Test
   public void append() {
-    SecretString tmpSecret = new SecretString();
+    final SecretString tmpSecret = new SecretString();
     tmpSecret.append("1");
     tmpSecret.append(null);
     tmpSecret.append("2");
@@ -93,7 +93,7 @@ public class SecretStringTest {
 
   @Test
   public void appendSecret() {
-    SecretString tmpSecret = new SecretString();
+    final SecretString tmpSecret = new SecretString();
     tmpSecret.appendSecret("1");
     tmpSecret.appendSecret(null);
     tmpSecret.appendSecret("2");
@@ -263,7 +263,7 @@ public class SecretStringTest {
   @Test
   public void split() {
     SecretString tmpSecret = new SecretString("ab,cd");
-    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+    final List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(2, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -277,7 +277,7 @@ public class SecretStringTest {
   @Test
   public void splitAtStart() {
     SecretString tmpSecret = new SecretString(",cd");
-    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+    final List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(2, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -291,7 +291,7 @@ public class SecretStringTest {
   @Test
   public void splitAtEnd() {
     SecretString tmpSecret = new SecretString("cd,");
-    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+    final List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(2, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -305,7 +305,7 @@ public class SecretStringTest {
   @Test
   public void splitEscaped() {
     SecretString tmpSecret = new SecretString("ab,cd\\,de,xy");
-    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+    final List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(3, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -322,7 +322,7 @@ public class SecretStringTest {
   @Test
   public void splitEscapedAtStart() {
     SecretString tmpSecret = new SecretString("\\,ab,xy");
-    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+    final List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(2, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -336,7 +336,7 @@ public class SecretStringTest {
   @Test
   public void splitEscapedAtEnd() {
     SecretString tmpSecret = new SecretString("ab\\,");
-    List<SecretString> tmpParts = tmpSecret.split(",", '\\');
+    final List<SecretString> tmpParts = tmpSecret.split(",", '\\');
 
     Assert.assertEquals(1, tmpParts.size());
     tmpSecret = tmpParts.get(0);
@@ -346,7 +346,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_null() {
-    SecretString tmpSecret = new SecretString(null);
+    final SecretString tmpSecret = new SecretString(null);
     tmpSecret.replaceVariables(null);
 
     Assert.assertEquals("", tmpSecret.getValue());
@@ -360,7 +360,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_Empty_null() {
-    SecretString tmpSecret = new SecretString("");
+    final SecretString tmpSecret = new SecretString("");
     tmpSecret.replaceVariables(null);
 
     Assert.assertEquals("", tmpSecret.getValue());
@@ -424,8 +424,8 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_OneVar_Unknown() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
-    Variable tmpVariable = new Variable("var0", "value0", false);
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
+    final Variable tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
     SecretString tmpSecret = new SecretString("a ${unknown} bc");
@@ -488,7 +488,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_OnlyOneVar() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
@@ -522,7 +522,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_ReplacementLength() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "", true);
     tmpVariables.add(tmpVariable);
     tmpVariable = new Variable("var1", "a", true);
@@ -556,7 +556,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_VarAtStart() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
@@ -590,7 +590,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_VarAtEnd() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
 
@@ -624,7 +624,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_TwoVars() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "value0", false);
     tmpVariables.add(tmpVariable);
     tmpVariable = new Variable("var1", "value1", false);
@@ -775,7 +775,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_brokenSyntax() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "${var1}", true);
     tmpVariables.add(tmpVariable);
     tmpVariable = new Variable("var1", "value1", true);
@@ -814,7 +814,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariable_recursion() {
-    List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<Variable>();
     Variable tmpVariable = new Variable("var0", "${var0}", false);
     tmpVariables.add(tmpVariable);
     tmpVariable = new Variable("var1", "${var2}", false);
@@ -832,7 +832,7 @@ public class SecretStringTest {
     try {
       tmpSecret.replaceVariables(tmpVariables);
       Assert.fail("IllegalArgumentException expected");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       Assert.assertEquals("Recursion during variable replacement (${var2}).", e.getMessage());
     }
   }

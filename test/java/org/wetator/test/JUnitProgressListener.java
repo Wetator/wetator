@@ -35,68 +35,68 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#init(org.wetator.core.WetatorEngine)
    */
   @Override
-  public void init(WetatorEngine aWetatorEngine) {
+  public void init(final WetatorEngine aWetatorEngine) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#start(org.wetator.core.WetatorEngine)
    */
   @Override
-  public void start(WetatorEngine aWetatorEngine) {
+  public void start(final WetatorEngine aWetatorEngine) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
-  public void testCaseStart(TestCase aTestCase) {
+  public void testCaseStart(final TestCase aTestCase) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunStart(java.lang.String)
    */
   @Override
-  public void testRunStart(String aBrowserName) {
+  public void testRunStart(final String aBrowserName) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileStart(java.lang.String)
    */
   @Override
-  public void testFileStart(String aFileName) {
+  public void testFileStart(final String aFileName) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
   @Override
-  public void executeCommandStart(WetatorContext aContext, Command aCommand) {
+  public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
@@ -106,7 +106,7 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandIgnored()
    */
   @Override
@@ -117,29 +117,29 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
-  public void executeCommandFailure(AssertionException aAnAssertionException) {
+  public void executeCommandFailure(final AssertionException anAssertionException) {
     steps++;
     failures++;
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
-  public void executeCommandError(Throwable aThrowable) {
+  public void executeCommandError(final Throwable aThrowable) {
     steps++;
     errors++;
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandEnd()
    */
   @Override
@@ -149,7 +149,7 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
@@ -159,7 +159,7 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunIgnored()
    */
   @Override
@@ -169,7 +169,7 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override
@@ -179,7 +179,7 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseEnd()
    */
   @Override
@@ -189,27 +189,27 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#end(org.wetator.core.WetatorEngine)
    */
   @Override
-  public void end(WetatorEngine aWetatorEngine) {
+  public void end(final WetatorEngine aWetatorEngine) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
    */
   @Override
-  public void responseStored(String aResponseFileName) {
+  public void responseStored(final String aResponseFileName) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
    */
   @Override
@@ -219,37 +219,37 @@ public class JUnitProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override
-  public void error(Throwable aThrowable) {
+  public void error(final Throwable aThrowable) {
     throw new RuntimeException(aThrowable);
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#warn(java.lang.String, java.lang.String[], java.lang.String)
    */
   @Override
-  public void warn(String aMessageKey, String[] aParameterArray, String aDetails) {
+  public void warn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
-  public void info(String aMessageKey, String[] aParameterArray) {
+  public void info(final String aMessageKey, final String[] aParameterArray) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#htmlDescribe(String)
    */
   @Override

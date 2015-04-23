@@ -37,16 +37,16 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -54,16 +54,16 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("CheckBox");
+    final SecretString tmpSearch = new SecretString("CheckBox");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -72,16 +72,16 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("CheckB*");
+    final SecretString tmpSearch = new SecretString("CheckB*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -90,16 +90,16 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*eckBox");
+    final SecretString tmpSearch = new SecretString("*eckBox");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -108,16 +108,16 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("heckBo");
+    final SecretString tmpSearch = new SecretString("heckBo");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 2, 0, 0, tmpMatches.get(0));
@@ -126,7 +126,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
@@ -134,9 +134,9 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > CheckBox");
+    final SecretString tmpSearch = new SecretString("Some text > CheckBox");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
@@ -145,7 +145,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
@@ -153,9 +153,9 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > CheckB*");
+    final SecretString tmpSearch = new SecretString("Some text > CheckB*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
@@ -164,7 +164,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
@@ -172,9 +172,9 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *eckBox");
+    final SecretString tmpSearch = new SecretString("Some text > *eckBox");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
@@ -183,7 +183,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
@@ -191,9 +191,9 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > heckBo");
+    final SecretString tmpSearch = new SecretString("Some text > heckBo");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("MyCheckboxId", FoundType.BY_LABEL_TEXT, 2, 5, 14, tmpMatches.get(0));
@@ -202,7 +202,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
@@ -210,9 +210,9 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text> CheckBox");
+    final SecretString tmpSearch = new SecretString("wrong text> CheckBox");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -220,30 +220,30 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > CheckBox");
+    final SecretString tmpSearch = new SecretString("wrong text > CheckBox");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return new ByLabelTextAfterMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 }

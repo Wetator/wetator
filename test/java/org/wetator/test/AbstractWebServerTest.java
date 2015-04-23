@@ -49,7 +49,7 @@ import org.wetator.test.jetty.SnoopyServlet;
 
 /**
  * Base test class for all WetatorEngine tests that need a web server.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractWebServerTest extends AbstractBrowserTest {
@@ -67,7 +67,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
    * Starts the web server.<br/>
    * The default port is {@link #DEFAULT_PORT}.
    * The default document root is {@link #DEFAULT_DOCUMENT_ROOT}.<br/>
-   * 
+   *
    * @throws Exception if an error occurs starting the web server
    */
   @BeforeClass
@@ -78,14 +78,14 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     server = new Server(DEFAULT_PORT);
 
     // resources
-    ResourceHandler tmpResourceHandler = new ResourceHandler();
+    final ResourceHandler tmpResourceHandler = new ResourceHandler();
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
     tmpResourceHandler.getMimeTypes().addMimeMapping("json", "application/json");
 
     // servlets
-    ServletContextHandler tmpContextHandler = new ServletContextHandler();
+    final ServletContextHandler tmpContextHandler = new ServletContextHandler();
     tmpContextHandler.setContextPath("/");
     tmpContextHandler.setAttribute("javax.servlet.context.tempdir", new File("./tmp"));
     tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
@@ -95,12 +95,12 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopy.php");
     tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopyAuth.php");
 
-    FilterHolder tmpFilterHolder = new FilterHolder(new MultiPartFilter());
+    final FilterHolder tmpFilterHolder = new FilterHolder(new MultiPartFilter());
     tmpFilterHolder.setInitParameter("deleteFiles", "true");
-    EnumSet<DispatcherType> tmpDispatcherTypes = EnumSet.allOf(DispatcherType.class);
+    final EnumSet<DispatcherType> tmpDispatcherTypes = EnumSet.allOf(DispatcherType.class);
     tmpContextHandler.addFilter(tmpFilterHolder, "/snoopy.php", tmpDispatcherTypes);
 
-    HandlerList tmpHandlers = new HandlerList();
+    final HandlerList tmpHandlers = new HandlerList();
     tmpHandlers.setHandlers(new Handler[] { tmpResourceHandler, tmpContextHandler, new DefaultHandler() });
     server.setHandler(tmpHandlers);
 
@@ -132,7 +132,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
    */
   @Before
   public void createWetatorEngine() {
-    Properties tmpProperties = new Properties();
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/");
     if (getBrowser() != null) {
       tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, getBrowser().getSymbol());
@@ -164,7 +164,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty("$wet", "Wetator");
     tmpProperties.setProperty("$$wet-secret", "Wetator");
 
-    WetatorConfiguration tmpConfiguration = new WetatorConfiguration(new File("."), tmpProperties, null);
+    final WetatorConfiguration tmpConfiguration = new WetatorConfiguration(new File("."), tmpProperties, null);
 
     listener = new JUnitProgressListener();
 
@@ -176,7 +176,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
   /**
    * Stops the web server.
-   * 
+   *
    * @throws Exception if an error occurs stopping the web server
    */
   @AfterClass
@@ -187,11 +187,11 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     server = null;
   }
 
-  protected void executeTestFile(File aTestFile) throws InvalidInputException {
+  protected void executeTestFile(final File aTestFile) throws InvalidInputException {
     executeTestFile(aTestFile.getName(), aTestFile);
   }
 
-  protected void executeTestFile(String aTestName, File aTestFile) throws InvalidInputException {
+  protected void executeTestFile(final String aTestName, final File aTestFile) throws InvalidInputException {
     wetatorEngine.addTestCase(aTestName, aTestFile);
     wetatorEngine.executeTests();
   }

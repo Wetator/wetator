@@ -37,16 +37,16 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -54,16 +54,16 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("my placeholder");
+    final SecretString tmpSearch = new SecretString("my placeholder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 0, 0, tmpMatches.get(0));
@@ -72,16 +72,16 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("my pl*");
+    final SecretString tmpSearch = new SecretString("my pl*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 0, 0, tmpMatches.get(0));
@@ -90,16 +90,16 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*holder");
+    final SecretString tmpSearch = new SecretString("*holder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 0, 0, tmpMatches.get(0));
@@ -108,16 +108,16 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("place");
+    final SecretString tmpSearch = new SecretString("place");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 9, 0, 0, tmpMatches.get(0));
@@ -126,7 +126,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
@@ -134,9 +134,9 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > my placeholder");
+    final SecretString tmpSearch = new SecretString("Some text > my placeholder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 5, 14, tmpMatches.get(0));
@@ -145,7 +145,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
@@ -153,9 +153,9 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > my place*");
+    final SecretString tmpSearch = new SecretString("Some text > my place*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 5, 14, tmpMatches.get(0));
@@ -164,7 +164,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
@@ -172,9 +172,9 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *eholder");
+    final SecretString tmpSearch = new SecretString("Some text > *eholder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 5, 14, tmpMatches.get(0));
@@ -183,7 +183,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
@@ -191,9 +191,9 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > ace");
+    final SecretString tmpSearch = new SecretString("Some text > ace");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 11, 5, 14, tmpMatches.get(0));
@@ -202,7 +202,7 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
@@ -210,9 +210,9 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > my placeholder");
+    final SecretString tmpSearch = new SecretString("wrong text > my placeholder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -220,16 +220,16 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > my placeholder");
+    final SecretString tmpSearch = new SecretString("wrong text > my placeholder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -237,30 +237,30 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void valueHidesPlacehoder() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text' value='my value' placeholder='my placeholder'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("my placeholder");
+    final SecretString tmpSearch = new SecretString("my placeholder");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return new ByPlaceholderAttributeMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 }

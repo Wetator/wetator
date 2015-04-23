@@ -821,13 +821,13 @@ public class AutomatonMatcherTest {
     assertGroup(tmpMatcher, 0, 3, "axb");
   }
 
-  private AutomatonMatcher createMatcher(String aPattern, String aText) {
-    Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
-    RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
+  private AutomatonMatcher createMatcher(final String aPattern, final String aText) {
+    final Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
+    final RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
     return tmpRunAutomaton.newMatcher(aText);
   }
 
-  private void assertGroup(AutomatonMatcher aMatcher, int aStart, int anEnd, String aGroup) {
+  private void assertGroup(final AutomatonMatcher aMatcher, final int aStart, final int anEnd, final String aGroup) {
     Assert.assertTrue(aMatcher.find());
     Assert.assertEquals(aStart, aMatcher.start());
     Assert.assertEquals(anEnd, aMatcher.end());

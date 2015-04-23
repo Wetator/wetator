@@ -46,7 +46,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF31);
@@ -68,12 +68,12 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
 
   @Override
   protected String getActualResult() throws Exception {
-    File tmpActualFile = new File(RESULT_LOG);
+    final File tmpActualFile = new File(RESULT_LOG);
     return FileUtils.readFileToString(tmpActualFile);
   }
 
   @Override
-  protected String normalizeResult(String aResult) {
+  protected String normalizeResult(final String aResult) {
     String tmpResult = super.normalizeResult(aResult);
 
     // remove drive letter (windows)
@@ -99,11 +99,12 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     return tmpResult;
   }
 
-  private String replaceElementContent(String anXML, String anElement, String aNewContent) {
+  private String replaceElementContent(final String anXML, final String anElement, final String aNewContent) {
     return replaceElementContent(anXML, anElement, "", aNewContent);
   }
 
-  private String replaceElementContent(String anXML, String anElement, String anOldContent, String aNewContent) {
+  private String replaceElementContent(final String anXML, final String anElement, final String anOldContent,
+      final String aNewContent) {
     return anXML.replaceAll("<" + anElement + "([^>]*)>" + anOldContent + "[^<]*", "<" + anElement + "$1>"
         + aNewContent);
   }

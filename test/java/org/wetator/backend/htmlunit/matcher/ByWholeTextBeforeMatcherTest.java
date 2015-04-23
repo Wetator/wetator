@@ -46,7 +46,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -56,9 +56,9 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1, not");
+    final SecretString tmpSearch = new SecretString("Marker1, not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -66,7 +66,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -76,9 +76,9 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1 > Marker2");
+    final SecretString tmpSearch = new SecretString("Marker1 > Marker2");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
@@ -87,7 +87,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -97,9 +97,9 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1 > Marke*");
+    final SecretString tmpSearch = new SecretString("Marker1 > Marke*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
@@ -108,7 +108,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -118,9 +118,9 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1 > *rker2");
+    final SecretString tmpSearch = new SecretString("Marker1 > *rker2");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
@@ -129,7 +129,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -139,29 +139,29 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1 > arker");
+    final SecretString tmpSearch = new SecretString("Marker1 > arker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 1, 8, 15, tmpMatches.get(0));
   }
 
   @Override
-  protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
-      throws IOException, InvalidInputException {
-    Properties tmpProperties = new Properties();
+  protected List<MatchResult> match(final String aHtmlCode, final SecretString aSearch,
+      final String... anHtmlElementIds) throws IOException, InvalidInputException {
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
-    WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
+    final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
+    final List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
     for (String tmpHtmlElementId : anHtmlElementIds) {
-      HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      WPath tmpPath = new WPath(aSearch, tmpConfig);
+      final WPath tmpPath = new WPath(aSearch, tmpConfig);
 
       final List<SecretString> tmpWholePath = new ArrayList<SecretString>(tmpPath.getPathNodes());
       tmpWholePath.add(tmpPath.getLastNode());
@@ -181,14 +181,14 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return null;
   }
 }

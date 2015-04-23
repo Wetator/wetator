@@ -40,7 +40,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<select id='MyId' name='MySelectName' size='2'>"
         + "<option id='MyOptionId' value='o_value1'>option1</option>"
@@ -51,9 +51,9 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyId");
+    final SecretString tmpSearch = new SecretString("MyId");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
@@ -64,7 +64,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   @Test
   public void byName() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
@@ -82,22 +82,22 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyFirstSelectName");
+    final SecretString tmpSearch = new SecretString("MyFirstSelectName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[HtmlSelect (id='MyFirstSelectId') (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20 start: 20 index: 6",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlSelect (id='MyFirstSelectId') (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20 start: 20 index: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byLabelTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "FirstSelectLabelText"
         + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
@@ -115,22 +115,22 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 0 distance: 45 start: 66 index: 14",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 0 distance: 45 start: 66 index: 14",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byWholeTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Marker1</p>"
         + "<input id='otherId' name='otherName' type='checkbox'>"
@@ -144,22 +144,23 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker1");
+    final SecretString tmpSearch = new SecretString("Marker1");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId",
+        "MySecondSelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byHtmlLabel_Text() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
         + "<select id='MyFirstSelectId' size='2'>"
@@ -177,9 +178,9 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstLabelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstLabelId",
         "MySecondLabelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
@@ -191,7 +192,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   @Test
   public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='MyFirstLabelId'>FirstSelectLabelText"
         + "<select id='MyFirstSelectId' size='2'>"
@@ -211,9 +212,9 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstLabelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstLabelId",
         "MySecondLabelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());

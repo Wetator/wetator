@@ -37,16 +37,16 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -54,16 +54,16 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myName");
+    final SecretString tmpSearch = new SecretString("myName");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_NAME, 0, 0, 0, tmpMatches.get(0));
@@ -72,16 +72,16 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myNa*");
+    final SecretString tmpSearch = new SecretString("myNa*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_NAME, 0, 0, 0, tmpMatches.get(0));
@@ -90,16 +90,16 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*Name");
+    final SecretString tmpSearch = new SecretString("*Name");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_NAME, 0, 0, 0, tmpMatches.get(0));
@@ -108,16 +108,16 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("yNam");
+    final SecretString tmpSearch = new SecretString("yNam");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -125,7 +125,7 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text'>"
@@ -133,9 +133,9 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > myName");
+    final SecretString tmpSearch = new SecretString("Some text > myName");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_NAME, 0, 5, 14, tmpMatches.get(0));
@@ -144,7 +144,7 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text'>"
@@ -152,9 +152,9 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > myNa*");
+    final SecretString tmpSearch = new SecretString("Some text > myNa*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_NAME, 0, 5, 14, tmpMatches.get(0));
@@ -163,7 +163,7 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text'>"
@@ -171,9 +171,9 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *Name");
+    final SecretString tmpSearch = new SecretString("Some text > *Name");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_NAME, 0, 5, 14, tmpMatches.get(0));
@@ -182,7 +182,7 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text'>"
@@ -190,9 +190,9 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > yNam");
+    final SecretString tmpSearch = new SecretString("Some text > yNam");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -200,7 +200,7 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='myId' name='myName' type='text'>"
@@ -208,9 +208,9 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > myName");
+    final SecretString tmpSearch = new SecretString("wrong text > myName");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -218,30 +218,30 @@ public class ByNameAttributeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > myName");
+    final SecretString tmpSearch = new SecretString("wrong text > myName");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return new ByNameAttributeMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 }

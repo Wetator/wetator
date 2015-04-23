@@ -40,7 +40,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
   @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>"
@@ -52,21 +52,21 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("optgroup_colors");
+    final SecretString tmpSearch = new SecretString("optgroup_colors");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byLabel() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>"
@@ -78,14 +78,14 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("colors");
+    final SecretString tmpSearch = new SecretString("colors");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 6",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 }

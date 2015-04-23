@@ -40,94 +40,94 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myId");
+    final SecretString tmpSearch = new SecretString("myId");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byName() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyName");
+    final SecretString tmpSearch = new SecretString("MyName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byText() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("TestAnchor");
+    final SecretString tmpSearch = new SecretString("TestAnchor");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byIdNameText() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myAnchor' name='myAnchor' href='snoopy.php'>myAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myAnchor");
+    final SecretString tmpSearch = new SecretString("myAnchor");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myAnchor");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myAnchor");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byInnerImage_Name() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName'>"
@@ -136,22 +136,22 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyImageName");
+    final SecretString tmpSearch = new SecretString("MyImageName");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byInnerImage_Alt() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' alt='MyAlt'>"
@@ -160,22 +160,22 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyAlt");
+    final SecretString tmpSearch = new SecretString("MyAlt");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byInnerImage_Title() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>"
@@ -184,22 +184,22 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyTitle");
+    final SecretString tmpSearch = new SecretString("MyTitle");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byInnerImage_Src() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>"
@@ -208,15 +208,15 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("picture.png");
+    final SecretString tmpSearch = new SecretString("picture.png");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
-        .assertEquals(
-            "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 }

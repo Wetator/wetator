@@ -31,7 +31,7 @@ import org.wetator.exception.ResourceException;
 
 /**
  * Tests for {@link WetatorEngine#executeTests()}.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -97,7 +97,7 @@ public class WetatorEngineExecuteTestsTest {
     engine.executeTests();
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    final InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
@@ -130,7 +130,7 @@ public class WetatorEngineExecuteTestsTest {
     engine.executeTests();
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    final InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
@@ -159,14 +159,14 @@ public class WetatorEngineExecuteTestsTest {
   @Test
   public void contextExecuteResourceException() {
     // setup
-    Exception tmpException = new ResourceException("mocker");
+    final Exception tmpException = new ResourceException("mocker");
     doThrow(tmpException).doReturn(Boolean.TRUE).when(context).execute();
 
     // run
     engine.executeTests();
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    final InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
@@ -197,14 +197,14 @@ public class WetatorEngineExecuteTestsTest {
   @Test
   public void contextExecuteRuntimeException() {
     // setup
-    Exception tmpException = new RuntimeException("mocker");
+    final Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).doReturn(Boolean.TRUE).when(context).execute();
 
     // run
     engine.executeTests();
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    final InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
@@ -241,7 +241,7 @@ public class WetatorEngineExecuteTestsTest {
     engine.executeTests();
 
     // assert
-    InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    final InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
     tmpInOrder.verify(engine).addDefaultProgressListeners();
     tmpInOrder.verify(engine).informListenersStart();
     tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
@@ -263,7 +263,7 @@ public class WetatorEngineExecuteTestsTest {
     verify(engine, never()).informListenersError(isA(Throwable.class));
   }
 
-  private void assertTestRun(InOrder anInOrder, File aFile, BrowserType aBrowserType) {
+  private void assertTestRun(final InOrder anInOrder, final File aFile, final BrowserType aBrowserType) {
     anInOrder.verify(engine).informListenersTestRunStart(aBrowserType.getLabel());
     anInOrder.verify(browser).startNewSession(aBrowserType);
     anInOrder.verify(engine).createWetatorContext(aFile, aBrowserType);

@@ -366,7 +366,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn(null);
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn(null);
 
     Assert.assertEquals(-1, tmpResult);
   }
@@ -376,7 +376,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("");
 
     Assert.assertEquals(-1, tmpResult);
   }
@@ -386,7 +386,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("f");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("f");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -396,7 +396,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("fa");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("fa");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -406,7 +406,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("af");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("af");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -416,7 +416,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afe");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afe");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -426,7 +426,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("ff");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("ff");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -436,7 +436,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afdfg");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afdfg");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -446,7 +446,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abc f xyz f");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abc f xyz f");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -456,7 +456,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f*");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -466,7 +466,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -476,7 +476,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f*?");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -486,7 +486,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f?");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -496,7 +496,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f???");
-    int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afbcfgh");
+    final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afbcfgh");
 
     Assert.assertEquals(2, tmpResult);
   }
@@ -535,7 +535,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn(null);
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn(null);
 
     Assert.assertEquals(-1, tmpResult);
   }
@@ -545,7 +545,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("");
 
     Assert.assertEquals(-1, tmpResult);
   }
@@ -555,7 +555,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("f");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("f");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -565,7 +565,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("fa");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("fa");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -575,7 +575,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("af");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("af");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -585,7 +585,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("afe");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("afe");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -595,7 +595,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("ff");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("ff");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -605,7 +605,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("afdfg");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("afdfg");
 
     Assert.assertEquals(3, tmpResult);
   }
@@ -615,7 +615,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abc f xyz f");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abc f xyz f");
 
     Assert.assertEquals(10, tmpResult);
   }
@@ -625,7 +625,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -635,7 +635,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -645,7 +645,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(2, tmpResult);
   }
@@ -655,7 +655,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?*f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -665,7 +665,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("???f");
-    int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgfh");
+    final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgfh");
 
     Assert.assertEquals(2, tmpResult);
   }
@@ -704,7 +704,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn(null);
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn(null);
 
     Assert.assertEquals(-1, tmpResult);
   }
@@ -714,7 +714,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("");
 
     Assert.assertEquals(-1, tmpResult);
   }
@@ -724,7 +724,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("f");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("f");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -734,7 +734,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("fa");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("fa");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -744,7 +744,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("af");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("af");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -754,7 +754,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("afe");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("afe");
 
     Assert.assertEquals(2, tmpResult);
   }
@@ -764,7 +764,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("ff");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("ff");
 
     Assert.assertEquals(1, tmpResult);
   }
@@ -774,7 +774,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("afdfg");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("afdfg");
 
     Assert.assertEquals(4, tmpResult);
   }
@@ -784,7 +784,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("abc f xyz f");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abc f xyz f");
 
     Assert.assertEquals(10, tmpResult);
   }
@@ -794,7 +794,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
 
     Assert.assertEquals(2, tmpResult);
   }
@@ -804,7 +804,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
 
     Assert.assertEquals(0, tmpResult);
   }
@@ -814,7 +814,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
 
     Assert.assertEquals(4, tmpResult);
   }
@@ -824,7 +824,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?*f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
 
     Assert.assertEquals(2, tmpResult);
   }
@@ -834,7 +834,7 @@ public class SearchPatternTest {
     SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("???f");
-    int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgfh");
+    final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgfh");
 
     Assert.assertEquals(3, tmpResult);
   }
@@ -870,7 +870,7 @@ public class SearchPatternTest {
 
   @Test
   public void equals() {
-    SearchPattern tmpPattern = SearchPattern.compile("te*");
+    final SearchPattern tmpPattern = SearchPattern.compile("te*");
 
     Assert.assertTrue(tmpPattern.matches("test"));
     Assert.assertFalse("test".equals(tmpPattern));

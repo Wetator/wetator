@@ -28,7 +28,7 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * Tests for {@link WikiTextScripter}.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -36,10 +36,10 @@ public class WikiTextScripterTest {
 
   @Test
   public void unsupportedExtension() {
-    WikiTextScripter tmpScripter = new WikiTextScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/legacyXML.xml");
 
-    IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
 
     Assert.assertEquals("File 'legacyXML.xml' not supported by WikiTextScripter. Extension is not '.wett'.",
@@ -48,10 +48,10 @@ public class WikiTextScripterTest {
 
   @Test
   public void fileNotFound() {
-    WikiTextScripter tmpScripter = new WikiTextScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.wett");
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/doesNotExist.wett");
 
-    IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
 
     Assert.assertEquals("File 'doesNotExist.wett' not supported by WikiTextScripter. Could not find file.",
@@ -60,24 +60,24 @@ public class WikiTextScripterTest {
 
   @Test
   public void supported() {
-    WikiTextScripter tmpScripter = new WikiTextScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/wikiText.wett");
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/wikiText.wett");
 
-    IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
   }
 
   @Test
   public void script() throws InvalidInputException {
-    WikiTextScripter tmpScripter = new WikiTextScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/wikiText.wett");
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/wikiText.wett");
 
-    IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpScripter.script(tmpFile);
 
-    List<Command> tmpCommands = tmpScripter.getCommands();
+    final List<Command> tmpCommands = tmpScripter.getCommands();
     Assert.assertEquals(8, tmpCommands.size());
 
     int tmpPos = 0;
@@ -140,15 +140,15 @@ public class WikiTextScripterTest {
 
   @Test
   public void continuationLines() throws InvalidInputException {
-    WikiTextScripter tmpScripter = new WikiTextScripter();
-    File tmpFile = new File("test/java/org/wetator/test/resource/continuationLines.wett");
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/continuationLines.wett");
 
-    IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
     Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
 
     tmpScripter.script(tmpFile);
 
-    List<Command> tmpCommands = tmpScripter.getCommands();
+    final List<Command> tmpCommands = tmpScripter.getCommands();
     Assert.assertEquals(4, tmpCommands.size());
 
     int tmpPos = 0;

@@ -37,16 +37,16 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -54,16 +54,16 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("TestAnchor");
+    final SecretString tmpSearch = new SecretString("TestAnchor");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -72,16 +72,16 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("TestAnch*");
+    final SecretString tmpSearch = new SecretString("TestAnch*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -90,16 +90,16 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*stAnchor");
+    final SecretString tmpSearch = new SecretString("*stAnchor");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -108,16 +108,16 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("estAncho");
+    final SecretString tmpSearch = new SecretString("estAncho");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 0, 0, tmpMatches.get(0));
@@ -126,16 +126,16 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void formated() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>My<b>T</b>ext</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("MyText");
+    final SecretString tmpSearch = new SecretString("MyText");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
@@ -144,7 +144,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
@@ -152,9 +152,9 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > TestAnchor");
+    final SecretString tmpSearch = new SecretString("Some text > TestAnchor");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
@@ -163,7 +163,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
@@ -171,9 +171,9 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > TestAnch*");
+    final SecretString tmpSearch = new SecretString("Some text > TestAnch*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
@@ -182,7 +182,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
@@ -190,9 +190,9 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *stAnchor");
+    final SecretString tmpSearch = new SecretString("Some text > *stAnchor");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
@@ -201,7 +201,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
@@ -209,9 +209,9 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > estAncho");
+    final SecretString tmpSearch = new SecretString("Some text > estAncho");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 5, 14, tmpMatches.get(0));
@@ -220,7 +220,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
@@ -228,9 +228,9 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > TestAnchor");
+    final SecretString tmpSearch = new SecretString("wrong text > TestAnchor");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -238,30 +238,30 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > TestAnchor");
+    final SecretString tmpSearch = new SecretString("wrong text > TestAnchor");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return new ByTextMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 }

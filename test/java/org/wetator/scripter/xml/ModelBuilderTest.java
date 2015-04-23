@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 import org.wetator.exception.ImplementationException;
 import org.wetator.scripter.ParseException;
@@ -31,7 +30,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Tests for the {@link ModelBuilder}.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -49,7 +48,7 @@ public class ModelBuilderTest {
 
   @Test(expected = ParseException.class)
   public void invalidSchema() throws IOException, SAXException, ParseException {
-    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/invalid-command-set",
         "test/java/org/wetator/test/resource/invalid-command-set.xsd"));
     new ModelBuilder(tmpSchemas, null);
@@ -57,26 +56,26 @@ public class ModelBuilderTest {
 
   @Test
   public void noCommandSets() throws IOException, SAXException, ParseException {
-    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
     Assert.assertEquals(0, new ModelBuilder(tmpSchemas, null).getCommandTypes().size());
   }
 
   @Test(expected = ParseException.class)
   public void unknownCommanddSet() throws IOException, SAXException, ParseException {
-    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/unknown", "unknown.xsd"));
     new ModelBuilder(tmpSchemas, null);
   }
 
   @Test
   public void junitTestCommandSet() throws IOException, SAXException, ParseException {
-    List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+    final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/junit-test-command-set",
         "test/java/org/wetator/test/resource/junit-test-command-set.xsd"));
 
-    List<CommandType> tmpCommandTypes = new ModelBuilder(tmpSchemas, null).getCommandTypes();
+    final List<CommandType> tmpCommandTypes = new ModelBuilder(tmpSchemas, null).getCommandTypes();
 
     Assert.assertEquals(3, tmpCommandTypes.size());
 

@@ -35,15 +35,16 @@ public class RedirectServlet extends HttpServlet {
   private static final long serialVersionUID = -2150482777498443709L;
 
   @Override
-  protected void doGet(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException, IOException {
-    String tmpPath = aRequest.getServletPath();
+  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse) throws ServletException,
+      IOException {
+    final String tmpPath = aRequest.getServletPath();
 
     if (tmpPath.endsWith("redirect_header.php")) {
       aResponse.setStatus(Code.MOVED_TEMPORARILY.getCode());
-      String tmpTarget = determineTarget(aRequest);
+      final String tmpTarget = determineTarget(aRequest);
       aResponse.setHeader("Location", tmpTarget);
     } else if (tmpPath.endsWith("redirect_js.php")) {
-      String tmpTarget = determineTarget(aRequest);
+      final String tmpTarget = determineTarget(aRequest);
       String tmpWait = aRequest.getParameter("wait");
       if (StringUtils.isEmpty(tmpWait)) {
         tmpWait = "444";
@@ -69,7 +70,7 @@ public class RedirectServlet extends HttpServlet {
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
     } else if (tmpPath.endsWith("redirect_meta.php")) {
-      String tmpTarget = determineTarget(aRequest);
+      final String tmpTarget = determineTarget(aRequest);
       String tmpWait = aRequest.getParameter("wait");
       if (StringUtils.isEmpty(tmpWait)) {
         tmpWait = "4";
@@ -93,12 +94,12 @@ public class RedirectServlet extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException,
-      IOException {
+  protected void doPost(final HttpServletRequest aRequest, final HttpServletResponse aResponse)
+      throws ServletException, IOException {
     doGet(aRequest, aResponse);
   }
 
-  protected String determineTarget(HttpServletRequest aRequest) {
+  protected String determineTarget(final HttpServletRequest aRequest) {
     String tmpTarget = aRequest.getParameter("target");
     if (StringUtils.isEmpty(tmpTarget)) {
       return "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;

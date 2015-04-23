@@ -23,7 +23,7 @@ import org.wetator.backend.IBrowser.BrowserType;
 
 /**
  * A special subclass of a {@link FrameworkMethod} to transport a {@link BrowserType}.
- * 
+ *
  * @author frank.danek
  */
 public class BrowserFrameworkMethod extends FrameworkMethod {
@@ -34,7 +34,7 @@ public class BrowserFrameworkMethod extends FrameworkMethod {
    * @param aMethod the method to wrap
    * @param aBrowserType the browser to run the method for
    */
-  public BrowserFrameworkMethod(Method aMethod, BrowserType aBrowserType) {
+  public BrowserFrameworkMethod(final Method aMethod, final BrowserType aBrowserType) {
     super(aMethod);
 
     browserType = aBrowserType;

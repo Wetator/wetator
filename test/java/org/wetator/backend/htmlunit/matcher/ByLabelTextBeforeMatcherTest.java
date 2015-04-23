@@ -37,7 +37,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='text'>"
         + "<p>Marker</p>"
@@ -46,9 +46,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -56,7 +56,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='text'>"
         + "<p>Marker</p>"
@@ -65,9 +65,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Marker");
+    final SecretString tmpSearch = new SecretString("Marker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 6, tmpMatches.get(0));
@@ -76,7 +76,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='text'>"
         + "<p>Marker</p>"
@@ -85,9 +85,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Mark*");
+    final SecretString tmpSearch = new SecretString("Mark*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 6, tmpMatches.get(0));
@@ -96,7 +96,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='text'>"
         + "<p>Marker</p>"
@@ -105,9 +105,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*rker");
+    final SecretString tmpSearch = new SecretString("*rker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 2, 6, tmpMatches.get(0));
@@ -116,7 +116,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='text'>"
         + "<p>Marker</p>"
@@ -125,9 +125,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("arke");
+    final SecretString tmpSearch = new SecretString("arke");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 1, 6, tmpMatches.get(0));
@@ -136,7 +136,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -146,9 +146,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > Marker");
+    final SecretString tmpSearch = new SecretString("Some text > Marker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 6, 21, tmpMatches.get(0));
@@ -157,7 +157,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -167,9 +167,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > Mark*");
+    final SecretString tmpSearch = new SecretString("Some text > Mark*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 6, 21, tmpMatches.get(0));
@@ -178,7 +178,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -188,9 +188,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *rker");
+    final SecretString tmpSearch = new SecretString("Some text > *rker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 8, 21, tmpMatches.get(0));
@@ -199,7 +199,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -209,9 +209,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > arke");
+    final SecretString tmpSearch = new SecretString("Some text > arke");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 7, 21, tmpMatches.get(0));
@@ -220,7 +220,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<input id='otherId' name='otherName' type='text'>"
@@ -230,9 +230,9 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > Marker");
+    final SecretString tmpSearch = new SecretString("wrong text > Marker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -240,7 +240,7 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='otherId' name='otherName' type='text'>"
         + "<p>Marker</p>"
@@ -249,23 +249,23 @@ public class ByLabelTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > Marker");
+    final SecretString tmpSearch = new SecretString("wrong text > Marker");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return new ByLabelTextBeforeMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 }

@@ -102,7 +102,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
 /**
  * The HtmlUnit backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -138,7 +138,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aWetatorEngine the engine to work with
    */
   public HtmlUnitBrowser(final WetatorEngine aWetatorEngine) {
@@ -188,7 +188,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#startNewSession(org.wetator.backend.IBrowser.BrowserType)
    */
   @Override
@@ -319,7 +319,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#endSession()
    */
   @Override
@@ -339,7 +339,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
    */
   @Override
@@ -392,7 +392,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aWetatorEngine the engine to inform about the alert texts.
      */
     public AlertHandler(final WetatorEngine aWetatorEngine) {
@@ -427,7 +427,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aWetatorEngine the engine to inform about the alert texts.
      */
     public ConfirmHandler(final WetatorEngine aWetatorEngine) {
@@ -476,7 +476,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Prepare for the next confirm handler.
-     * 
+     *
      * @param aMessagePattern the expected text
      */
     protected void chooseOkOnNextConfirmFor(final ContentPattern aMessagePattern) {
@@ -486,7 +486,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Prepare for the next confirm handler.
-     * 
+     *
      * @param aMessagePattern the expected text
      */
     protected void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
@@ -503,7 +503,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aWetatorEngine the engine to inform about the alert texts.
      */
     public WebConsoleLogger(final WetatorEngine aWetatorEngine) {
@@ -554,7 +554,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aWetatorEngine the engine to inform about the alert texts.
      */
     public IncorrectnessListener(final WetatorEngine aWetatorEngine) {
@@ -571,7 +571,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * Prepare for the next confirm handler.
-   * 
+   *
    * @param aMessagePattern the expected text
    */
   public void chooseOkOnNextConfirmFor(final ContentPattern aMessagePattern) {
@@ -581,7 +581,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * Prepare for the next confirm handler.
-   * 
+   *
    * @param aMessagePattern the expected text
    */
   public void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
@@ -599,7 +599,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aHtmlUnitBrowser the browser this listener informs
      */
     public JavaScriptErrorListener(final HtmlUnitBrowser aHtmlUnitBrowser) {
@@ -608,7 +608,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#loadScriptError(com.gargoylesoftware.htmlunit.html.HtmlPage,
      *      java.net.URL, java.lang.Exception)
      */
@@ -620,7 +620,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#malformedScriptURL(com.gargoylesoftware.htmlunit.html.HtmlPage,
      *      java.lang.String, java.net.MalformedURLException)
      */
@@ -633,7 +633,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#scriptException(com.gargoylesoftware.htmlunit.html.HtmlPage,
      *      com.gargoylesoftware.htmlunit.ScriptException)
      */
@@ -644,7 +644,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#timeoutError(com.gargoylesoftware.htmlunit.html.HtmlPage,
      *      long, long)
      */
@@ -658,7 +658,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
    */
   @Override
@@ -712,7 +712,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
    */
   @Override
@@ -748,7 +748,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(IControl...)
    */
   @Override
@@ -770,6 +770,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           if (null != aControls) {
             String tmpDelim = "";
             for (final IControl tmpControl : aControls) {
+              @SuppressWarnings("unchecked")
               final HtmlUnitBaseControl<HtmlElement> tmpHtmlUnitControl = (HtmlUnitBaseControl<HtmlElement>) tmpControl;
               if (tmpHtmlUnitControl.isPartOf(tmpPage)) {
                 tmpParam.append("highlight=");
@@ -795,7 +796,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#markControls(org.wetator.backend.control.IControl[])
    */
   @Override
@@ -843,7 +844,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * Checks if the url contains a hash, that the matching anchor is on the page.
-   * 
+   *
    * @param aRef the hash from the url
    * @throws AssertionException if no matching anchor found
    * @throws BackendException if there is no current page
@@ -862,7 +863,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * The constructor.
-     * 
+     *
      * @param anHtmlUnitBrowser the browser to inform
      */
     public WebWindowListener(final HtmlUnitBrowser anHtmlUnitBrowser) {
@@ -918,6 +919,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   public static final class JavaScriptJobFilter implements
       com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
+    @SuppressWarnings("hiding")
     private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
 
     private List<SearchPattern> patterns;
@@ -934,7 +936,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     /**
      * Add a pattern to the list of suppression patterns.
-     * 
+     *
      * @param aPattern the pattern to add
      */
     public void addPattern(final SearchPattern aPattern) {
@@ -993,7 +995,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * Returns the current HtmlPage.
-   * 
+   *
    * @return the current HtmlPage
    * @throws BackendException if there is no current page or the current page is not an HtmlPage
    */
@@ -1009,7 +1011,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#getControlFinder()
    */
   @Override
@@ -1021,7 +1023,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#getFocusedControl()
    */
   @Override
@@ -1044,7 +1046,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#waitForImmediateJobs()
    */
   @Override
@@ -1054,7 +1056,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#waitForImmediateJobs(long)
    */
   @Override
@@ -1134,7 +1136,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#assertTitleInTimeFrame(org.wetator.core.searchpattern.ContentPattern, long)
    */
   @Override
@@ -1238,7 +1240,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#assertContentInTimeFrame(org.wetator.core.searchpattern.ContentPattern, long)
    */
   @Override
@@ -1464,7 +1466,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
@@ -1476,7 +1478,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
@@ -1486,7 +1488,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#checkAndResetFailures()
    */
   @Override
@@ -1506,7 +1508,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#getBookmark(java.lang.String)
    */
   @Override
@@ -1516,7 +1518,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#saveBookmark(java.lang.String, java.net.URL)
    */
   @Override
@@ -1526,7 +1528,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IBrowser#bookmarkPage(String)
    */
   @Override

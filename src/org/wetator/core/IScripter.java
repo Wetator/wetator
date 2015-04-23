@@ -31,7 +31,7 @@ import org.wetator.exception.InvalidInputException;
  * <li>{@link #script(File)}</li>
  * <li>{@link #getCommands()}</li>
  * </ol>
- * 
+ *
  * @author rbri
  * @author frank.danek
  * @author tobwoerk
@@ -42,7 +42,7 @@ public interface IScripter {
    * This result is used to signal that a scripter supports the given file.<br>
    * For performance reason always compare to this result when checking.
    */
-  static final IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
+  IsSupportedResult IS_SUPPORTED = new IsSupportedResult(null);
 
   /**
    * @param aConfiguration the configuration to use for initialization
@@ -60,7 +60,7 @@ public interface IScripter {
 
   /**
    * Scripts the given file by reading all commands.
-   * 
+   *
    * @param aFile the file
    * @throws InvalidInputException in case of an invalid file
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
@@ -82,7 +82,7 @@ public interface IScripter {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aMessage the message
      */
     public IsSupportedResult(final String aMessage) {

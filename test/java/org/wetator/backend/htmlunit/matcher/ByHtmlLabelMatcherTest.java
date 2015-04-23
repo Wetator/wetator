@@ -39,7 +39,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='text'>"
@@ -47,9 +47,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -57,7 +57,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='text'>"
@@ -65,9 +65,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Label");
+    final SecretString tmpSearch = new SecretString("Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
@@ -76,7 +76,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='text'>"
@@ -84,9 +84,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Lab*");
+    final SecretString tmpSearch = new SecretString("Lab*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
@@ -95,7 +95,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='text'>"
@@ -103,9 +103,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*bel");
+    final SecretString tmpSearch = new SecretString("*bel");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
@@ -114,7 +114,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='text'>"
@@ -122,9 +122,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("abe");
+    final SecretString tmpSearch = new SecretString("abe");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 0, 0, tmpMatches.get(0));
@@ -133,7 +133,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>"
@@ -142,9 +142,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > Label");
+    final SecretString tmpSearch = new SecretString("Some text > Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
@@ -153,7 +153,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>"
@@ -162,9 +162,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > Lab*");
+    final SecretString tmpSearch = new SecretString("Some text > Lab*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
@@ -173,7 +173,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>"
@@ -182,9 +182,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *bel");
+    final SecretString tmpSearch = new SecretString("Some text > *bel");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
@@ -193,7 +193,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>"
@@ -202,9 +202,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > abe");
+    final SecretString tmpSearch = new SecretString("Some text > abe");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 14, tmpMatches.get(0));
@@ -213,7 +213,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId' for='myId'>Label</label>"
@@ -222,9 +222,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > Label");
+    final SecretString tmpSearch = new SecretString("wrong text > Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -232,7 +232,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>Label</label>"
         + "<input id='myId' name='myName' type='text'>"
@@ -240,9 +240,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > Label");
+    final SecretString tmpSearch = new SecretString("wrong text > Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -250,7 +250,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childNot() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='text'>"
@@ -259,9 +259,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -269,7 +269,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childFull() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='text'>"
@@ -278,9 +278,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Label");
+    final SecretString tmpSearch = new SecretString("Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
@@ -289,7 +289,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='text'>"
@@ -298,9 +298,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Lab*");
+    final SecretString tmpSearch = new SecretString("Lab*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
@@ -309,7 +309,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childWildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='text'>"
@@ -318,9 +318,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("*bel");
+    final SecretString tmpSearch = new SecretString("*bel");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
@@ -329,7 +329,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childPart() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='text'>"
@@ -338,9 +338,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("abe");
+    final SecretString tmpSearch = new SecretString("abe");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 0, 0, tmpMatches.get(0));
@@ -349,7 +349,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId'>Label"
@@ -359,9 +359,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > Label");
+    final SecretString tmpSearch = new SecretString("Some text > Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
@@ -370,7 +370,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childWildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId'>Label"
@@ -380,9 +380,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > Lab*");
+    final SecretString tmpSearch = new SecretString("Some text > Lab*");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
@@ -391,7 +391,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childWildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId'>Label"
@@ -401,9 +401,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > *bel");
+    final SecretString tmpSearch = new SecretString("Some text > *bel");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 14, tmpMatches.get(0));
@@ -412,7 +412,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childPart_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId'>Label"
@@ -422,9 +422,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("Some text > abe");
+    final SecretString tmpSearch = new SecretString("Some text > abe");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 14, tmpMatches.get(0));
@@ -433,7 +433,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<p>Some text .... </p>"
         + "<label id='labelId'>Label"
@@ -443,9 +443,9 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > Label");
+    final SecretString tmpSearch = new SecretString("wrong text > Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -453,7 +453,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   @Test
   public void childFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId'>Label"
         + "<input id='myId' name='myName' type='text'>"
@@ -462,23 +462,23 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("wrong text > Label");
+    final SecretString tmpSearch = new SecretString("wrong text > Label");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "labelId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return new ByHtmlLabelMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, HtmlTextInput.class);
   }
 }

@@ -18,7 +18,7 @@ package org.wetator.commandset;
 
 /**
  * Small class that offers some methods to be executed via 'Exec Java' command.
- * 
+ *
  * @author rbri
  */
 @SuppressWarnings("unused")
@@ -28,19 +28,19 @@ public final class ExecTester {
     // nothing to do
   }
 
-  public static void staticVoidMethodWithOneParam(String aParam1) {
+  public static void staticVoidMethodWithOneParam(final String aParam1) {
     // nothing to do
   }
 
-  public static void staticVoidMethodWithTwoParams(String aParam1, String aParam2) {
+  public static void staticVoidMethodWithTwoParams(final String aParam1, final String aParam2) {
     // nothing to do
   }
 
-  public static void staticVoidMethodWithStringArray(String[] aParam) {
+  public static void staticVoidMethodWithStringArray(final String[] aParam) {
     // nothing to do
   }
 
-  public static void staticVoidMethodWithVarargs(String... aParams) {
+  public static void staticVoidMethodWithVarargs(final String... aParams) {
     // nothing to do
   }
 
@@ -48,19 +48,19 @@ public final class ExecTester {
     return "staticMethodWithoutParams";
   }
 
-  public static String staticMethodWithOneParam(String aParam1) {
+  public static String staticMethodWithOneParam(final String aParam1) {
     return "staticMethodWithOneParam";
   }
 
-  public static String staticMethodWithTwoParams(String aParam1, String aParam2) {
+  public static String staticMethodWithTwoParams(final String aParam1, final String aParam2) {
     return "staticMethodWithTwoParams";
   }
 
-  public static String staticMethodWithStringArray(String[] aParam) {
+  public static String staticMethodWithStringArray(final String[] aParam) {
     return "staticMethodWithStringArray";
   }
 
-  public static String staticMethodWithVarargs(String... aParams) {
+  public static String staticMethodWithVarargs(final String... aParams) {
     return "staticMethodWithVarargs";
   }
 
@@ -68,19 +68,19 @@ public final class ExecTester {
     // nothing to do
   }
 
-  public void voidMethodWithOneParam(String aParam1) {
+  public void voidMethodWithOneParam(final String aParam1) {
     // nothing to do
   }
 
-  public void voidMethodWithTwoParams(String aParam1, String aParam2) {
+  public void voidMethodWithTwoParams(final String aParam1, final String aParam2) {
     // nothing to do
   }
 
-  public void voidMethodWithStringArray(String[] aParam) {
+  public void voidMethodWithStringArray(final String[] aParam) {
     // nothing to do
   }
 
-  public void voidMethodWithVarargs(String... aParams) {
+  public void voidMethodWithVarargs(final String... aParams) {
     // nothing to do
   }
 
@@ -88,19 +88,19 @@ public final class ExecTester {
     return "staticMethodWithoutParams";
   }
 
-  public String methodWithOneParam(String aParam1) {
+  public String methodWithOneParam(final String aParam1) {
     return "staticMethodWithOneParam";
   }
 
-  public String methodWithTwoParams(String aParam1, String aParam2) {
+  public String methodWithTwoParams(final String aParam1, final String aParam2) {
     return "staticMethodWithTwoParams";
   }
 
-  public String methodWithStringArray(String[] aParam) {
+  public String methodWithStringArray(final String[] aParam) {
     return "staticMethodWithStringArray";
   }
 
-  public String methodWithVarargs(String... aParams) {
+  public String methodWithVarargs(final String... aParams) {
     return "staticMethodWithVarargs";
   }
 

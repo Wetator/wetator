@@ -34,7 +34,7 @@ import org.wetator.backend.IBrowser.BrowserType;
  * {@link BrowserType}s annotated by {@link Browsers}.<br/>
  * Only work correctly if the test class implements {@link IBrowserTest}.<br/>
  * For example, write:
- * 
+ *
  * <pre>
  * &#064;RunWith(BrowserRunner.class)
  * public class SomeTest implements BrowserTest {
@@ -46,29 +46,29 @@ import org.wetator.backend.IBrowser.BrowserType;
  *   }
  * }
  * </pre>
- * 
+ *
  * @author frank.danek
  */
 public class BrowserRunner extends BlockJUnit4ClassRunner {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aKlass the class to run
    * @throws InitializationError if the test class is malformed.
    */
-  public BrowserRunner(Class<?> aKlass) throws InitializationError {
+  public BrowserRunner(final Class<?> aKlass) throws InitializationError {
     super(aKlass);
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.junit.runners.BlockJUnit4ClassRunner#computeTestMethods()
    */
   @Override
   protected List<FrameworkMethod> computeTestMethods() {
-    List<FrameworkMethod> tmpMethods = super.computeTestMethods();
+    final List<FrameworkMethod> tmpMethods = super.computeTestMethods();
     if (!IBrowserTest.class.isAssignableFrom(getTestClass().getJavaClass())) {
       // the test class not implements BrowserTest
       return tmpMethods;
@@ -76,10 +76,10 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
 
     // the test class implements BrowserTest -> we have to check the test methods for Browsers
     // annotations
-    List<FrameworkMethod> tmpBrowserMethods = new ArrayList<FrameworkMethod>(tmpMethods.size());
+    final List<FrameworkMethod> tmpBrowserMethods = new ArrayList<FrameworkMethod>(tmpMethods.size());
 
     for (FrameworkMethod tmpMethod : tmpMethods) {
-      Browsers tmpBrowsers = tmpMethod.getAnnotation(Browsers.class);
+      final Browsers tmpBrowsers = tmpMethod.getAnnotation(Browsers.class);
       if (tmpBrowsers != null) {
         // we found a Browsers annotation -> we add one instance of the test method for each browser to the result
         for (BrowserType tmpBrowserType : tmpBrowsers.value()) {
@@ -95,17 +95,17 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.junit.runners.BlockJUnit4ClassRunner#methodInvoker(org.junit.runners.model.FrameworkMethod,
    *      java.lang.Object)
    */
   @Override
-  protected Statement methodInvoker(FrameworkMethod aMethod, Object aTest) {
+  protected Statement methodInvoker(final FrameworkMethod aMethod, final Object aTest) {
     if (aMethod instanceof BrowserFrameworkMethod && aTest instanceof IBrowserTest) {
       // we have a BrowserFrameworkMethod and an implementation of BrowserTest -> set the browser of the test to the
       // browser given by the BrowserFrameworkMethod
-      BrowserFrameworkMethod tmpBrowserMethod = (BrowserFrameworkMethod) aMethod;
-      IBrowserTest tmpWebServerTest = (IBrowserTest) aTest;
+      final BrowserFrameworkMethod tmpBrowserMethod = (BrowserFrameworkMethod) aMethod;
+      final IBrowserTest tmpWebServerTest = (IBrowserTest) aTest;
       tmpWebServerTest.setBrowser(tmpBrowserMethod.getBrowser());
     }
     return super.methodInvoker(aMethod, aTest);
@@ -113,14 +113,14 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.junit.runners.BlockJUnit4ClassRunner#testName(org.junit.runners.model.FrameworkMethod)
    */
   @Override
   protected String testName(final FrameworkMethod aMethod) {
     if (aMethod instanceof BrowserFrameworkMethod) {
       // we have a BrowserFrameworkMethod -> add the browser label to the test name
-      BrowserFrameworkMethod tmpBrowserMethod = (BrowserFrameworkMethod) aMethod;
+      final BrowserFrameworkMethod tmpBrowserMethod = (BrowserFrameworkMethod) aMethod;
       return String.format("%s[%s]", aMethod.getName(), tmpBrowserMethod.getBrowser().getLabel());
     }
     return super.testName(aMethod);
@@ -141,15 +141,15 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
 
   /**
    * Implement this interface to be able to use the {@link BrowserRunner}.
-   * 
+   *
    * @author frank.danek
    */
-  public static interface IBrowserTest {
+  public interface IBrowserTest {
 
     /**
      * @param aBrowserType the browser to set
      */
-    public void setBrowser(BrowserType aBrowserType);
+    void setBrowser(BrowserType aBrowserType);
 
   }
 }

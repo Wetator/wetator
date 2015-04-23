@@ -71,7 +71,7 @@ public class ManualXMLResultWriterTest {
 
   @Before
   public void setupEnvironment() {
-    WetatorConfiguration tmpConfiguration = mock(WetatorConfiguration.class);
+    final WetatorConfiguration tmpConfiguration = mock(WetatorConfiguration.class);
     when(engine.getConfiguration()).thenReturn(tmpConfiguration);
     when(tmpConfiguration.getOutputDir()).thenReturn(new File(LOGS_FOLDER));
     when(tmpConfiguration.getXslTemplates()).thenReturn(Arrays.asList("xsl/run_report.xsl"));
@@ -90,7 +90,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase("wetator_google");
+    final TestCase tmpTestCase = createTestCase("wetator_google");
     resultWriter.testCaseStart(tmpTestCase);
 
     // TODO screenshots missing
@@ -118,7 +118,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF31);
@@ -134,7 +134,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     lineNo = 1;
     resultWriter.testRunStart(FF31);
@@ -159,7 +159,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeErrorTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF31);
@@ -175,7 +175,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeRedWithIgnoredModule(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
@@ -190,7 +190,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeRedModule(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
@@ -205,7 +205,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     lineNo = 1;
     resultWriter.testRunStart(FF31);
@@ -229,7 +229,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE11);
     writeFailureTestRun(tmpTestCase, FF31);
@@ -245,7 +245,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeBlueModule(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
@@ -300,7 +300,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
 
     resultWriter.testRunStart(IE11);
@@ -328,7 +328,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
 
     resultWriter.testRunStart(IE11);
@@ -353,7 +353,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     resultWriter.testCaseStart(tmpTestCase);
     writeRedModuleNotFound(tmpTestCase, FF31);
     resultWriter.testCaseEnd();
@@ -363,7 +363,7 @@ public class ManualXMLResultWriterTest {
     assertReport();
   }
 
-  private void writeRedWithIgnoredModule(TestCase aTestCase, String aBrowser) {
+  private void writeRedWithIgnoredModule(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -381,7 +381,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeRedModule(TestCase aTestCase, String aBrowser) {
+  private void writeRedModule(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -397,7 +397,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeRedModuleNotFound(TestCase aTestCase, String aBrowser) {
+  private void writeRedModuleNotFound(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -411,7 +411,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeBlueModule(TestCase aTestCase, String aBrowser) {
+  private void writeBlueModule(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -425,7 +425,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeGreenTestRun(TestCase aTestCase, String aBrowser) {
+  private void writeGreenTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -435,7 +435,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeFailureTestRun(TestCase aTestCase, String aBrowser) {
+  private void writeFailureTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -447,7 +447,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeErrorTestRun(TestCase aTestCase, String aBrowser) {
+  private void writeErrorTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -460,7 +460,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunEnd();
   }
 
-  private void writeFailureAndErrorTestRun(TestCase aTestCase, String aBrowser) {
+  private void writeFailureAndErrorTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     resultWriter.testRunStart(aBrowser);
     resultWriter.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -475,12 +475,12 @@ public class ManualXMLResultWriterTest {
   }
 
   private void writeCommand() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     writeCommand(tmpCommand);
   }
 
   private void writeCommandWithFailure() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     resultWriter.executeCommandStart(context, tmpCommand);
     resultWriter.executeCommandFailure(new AssertionException("test failure", new RuntimeException("failure cause")));
     resultWriter.executeCommandEnd();
@@ -490,48 +490,49 @@ public class ManualXMLResultWriterTest {
     writeCommandWithError(new ActionException("test error"));
   }
 
-  private void writeCommandWithError(Exception anException) {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+  private void writeCommandWithError(final Exception anException) {
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     writeCommandWithError(tmpCommand, anException);
   }
 
-  private void writeCommandWithError(Command aCommand, Exception anException) {
+  private void writeCommandWithError(final Command aCommand, final Exception anException) {
     resultWriter.executeCommandStart(context, aCommand);
     resultWriter.executeCommandError(anException);
     resultWriter.executeCommandEnd();
   }
 
   private void writeCommandIgnored() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     resultWriter.executeCommandStart(context, tmpCommand);
     resultWriter.executeCommandIgnored();
     resultWriter.executeCommandEnd();
   }
 
   private void writeComment() {
-    Command tmpComment = createCommand(null, "comment value", true);
+    final Command tmpComment = createCommand(null, "comment value", true);
     writeCommand(tmpComment);
   }
 
-  private void writeCommand(Command aCommand) {
+  private void writeCommand(final Command aCommand) {
     resultWriter.executeCommandStart(context, aCommand);
     resultWriter.executeCommandEnd();
   }
 
-  private Command createCommand(String aCommandName, String aParameterValue) {
+  private Command createCommand(final String aCommandName, final String aParameterValue) {
     return createCommand(aCommandName, aParameterValue, false);
   }
 
-  private Command createCommand(String aCommandName, String aParameterValue, boolean anIsComment) {
-    Command tmpCommand = new Command(aCommandName, anIsComment);
+  private Command createCommand(final String aCommandName, final String aParameterValue, final boolean anIsComment) {
+    final Command tmpCommand = new Command(aCommandName, anIsComment);
     tmpCommand.setLineNo(lineNo);
     tmpCommand.setFirstParameter(new Parameter(aParameterValue));
     lineNo++;
     return tmpCommand;
   }
 
-  private Command createCommand(String aCommandName, String aParameterValue, String aSecondParameterValue) {
-    Command tmpCommand = new Command(aCommandName, false);
+  private Command createCommand(final String aCommandName, final String aParameterValue,
+      final String aSecondParameterValue) {
+    final Command tmpCommand = new Command(aCommandName, false);
     tmpCommand.setLineNo(lineNo);
     tmpCommand.setFirstParameter(new Parameter(aParameterValue));
     tmpCommand.setSecondParameter(new Parameter(aSecondParameterValue));
@@ -539,7 +540,7 @@ public class ManualXMLResultWriterTest {
     return tmpCommand;
   }
 
-  private void startModule(TestCase aTestCase) {
+  private void startModule(final TestCase aTestCase) {
     resultWriter.executeCommandStart(context, createCommand("use-module", "module"));
     resultWriter.testFileStart("module" + aTestCase.getFile().getAbsolutePath());
   }
@@ -550,23 +551,23 @@ public class ManualXMLResultWriterTest {
   }
 
   private TestCase createTestCase() {
-    String tmpName = "test" + testNo++ + ".wet";
+    final String tmpName = "test" + testNo++ + ".wet";
     return createTestCase(tmpName);
   }
 
-  private TestCase createTestCase(String aName) {
+  private TestCase createTestCase(final String aName) {
     return new TestCase(aName, new File("/Test/" + aName));
   }
 
   private void assertReport() throws IOException {
-    InputStream tmpExpectedStream = this.getClass().getClassLoader()
+    final InputStream tmpExpectedStream = this.getClass().getClassLoader()
         .getResourceAsStream("org/wetator/test/resource/result/report/" + testName.getMethodName() + ".html");
     String tmpExpectedReport = getString(tmpExpectedStream);
 
-    File tmpActualFile = new File(REPORT_LOG);
+    final File tmpActualFile = new File(REPORT_LOG);
     String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
 
-    String tmpWetatorPath = System.getProperty("user.dir");
+    final String tmpWetatorPath = System.getProperty("user.dir");
 
     tmpActualReport = tmpActualReport.replaceAll("ManualXMLResultWriterTest\\.java:.*\\)",
         "ManualXMLResultWriterTest.java)");
@@ -598,8 +599,8 @@ public class ManualXMLResultWriterTest {
     }
   }
 
-  private String getString(InputStream anExpectedStream) throws IOException {
-    StringWriter tmpWriter = new StringWriter();
+  private String getString(final InputStream anExpectedStream) throws IOException {
+    final StringWriter tmpWriter = new StringWriter();
     IOUtils.copy(anExpectedStream, tmpWriter, "UTF-8");
     return tmpWriter.toString();
   }

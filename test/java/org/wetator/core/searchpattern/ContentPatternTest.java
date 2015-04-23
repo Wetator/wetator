@@ -32,7 +32,7 @@ public class ContentPatternTest {
     try {
       new ContentPattern(null);
       org.junit.Assert.fail("InvalidInputException expected");
-    } catch (InvalidInputException e) {
+    } catch (final InvalidInputException e) {
       org.junit.Assert.assertEquals("Pattern '' is invalid (empty patterns not supported).", e.getMessage());
     }
   }
@@ -42,15 +42,15 @@ public class ContentPatternTest {
     try {
       new ContentPattern(new SecretString());
       org.junit.Assert.fail("InvalidInputException expected");
-    } catch (InvalidInputException e) {
+    } catch (final InvalidInputException e) {
       org.junit.Assert.assertEquals("Pattern '' is invalid (empty patterns not supported).", e.getMessage());
     }
   }
 
   @Test
   public void matches() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, b, c");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, b, c");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a b c", 100);
     tmpPattern.matches("x a b c y", 100);
@@ -63,21 +63,21 @@ public class ContentPatternTest {
 
   @Test
   public void matchesDots() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("def, ...");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("def, ...");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches(" abc def ghi ... xyz", 100);
   }
 
   @Test
   public void matchesWrongOrder() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, b, c, d");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, b, c, d");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a c b d", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals(
           "Expected content(s) {not found} or [in wrong order]: 'a, b, [c], d' (content: 'a c b d').", e.getMessage());
     }
@@ -85,13 +85,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNotFound() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, b, c");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, b, c");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a b", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals(
           "Expected content(s) {not found} or [in wrong order]: 'a, b, {c}' (content: 'a b').", e.getMessage());
     }
@@ -99,13 +99,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesWrongOrderNotFound() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, b, c, d");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, b, c, d");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("c a d", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals(
           "Expected content(s) {not found} or [in wrong order]: 'a, {b}, [c], d' (content: 'c a d').", e.getMessage());
     }
@@ -113,7 +113,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a c d", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals(
           "Expected content(s) {not found} or [in wrong order]: 'a, {b}, c, d' (content: 'a c d').", e.getMessage());
     }
@@ -121,8 +121,8 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a", 100);
     tmpPattern.matches("a c", 100);
@@ -130,8 +130,8 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated2() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("~a, b");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("~a, b");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("b", 100);
     tmpPattern.matches("c b", 100);
@@ -139,8 +139,8 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated3() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b, c");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b, c");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a c", 100);
     tmpPattern.matches("a c b", 100);
@@ -149,8 +149,8 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated4() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b, ~c");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b, ~c");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a", 100);
     tmpPattern.matches("a d", 100);
@@ -162,8 +162,8 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegated5() throws AssertionException, InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b, c, ~d");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b, c, ~d");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     tmpPattern.matches("a c", 100);
     tmpPattern.matches("a c b", 100);
@@ -173,13 +173,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFailes() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a c b", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}' (content: 'a c b').",
           e.getMessage());
     }
@@ -187,7 +187,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {not found} or [in wrong order]: '{a}, ~b' (content: 'c').",
           e.getMessage());
     }
@@ -195,13 +195,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFailes2() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("~a, b");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("~a, b");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a c b", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: '{~a}, b' (content: 'a c b').",
           e.getMessage());
     }
@@ -209,7 +209,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {not found} or [in wrong order]: '~a, {b}' (content: 'c').",
           e.getMessage());
     }
@@ -217,13 +217,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFailes3() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b, c");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b, c");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a b c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}, c' (content: 'a b c').",
           e.getMessage());
     }
@@ -231,7 +231,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a c b c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}, c' (content: 'a c b c').",
           e.getMessage());
     }
@@ -239,7 +239,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals(
           "Expected content(s) {not found} or [in wrong order]: '{a}, ~b, c' (content: 'c').", e.getMessage());
     }
@@ -247,13 +247,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFails4() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b, ~c");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b, ~c");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a b c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}, {~c}' (content: 'a b c').",
           e.getMessage());
     }
@@ -261,7 +261,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a b", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}, ~c' (content: 'a b').",
           e.getMessage());
     }
@@ -269,7 +269,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, ~b, {~c}' (content: 'a c').",
           e.getMessage());
     }
@@ -277,7 +277,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a c b", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}, ~c' (content: 'a c b').",
           e.getMessage());
     }
@@ -285,13 +285,13 @@ public class ContentPatternTest {
 
   @Test
   public void matchesNegatedFails6() throws InvalidInputException {
-    SecretString tmpExpected = new SecretString("a, ~b, c, ~d");
-    ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+    final SecretString tmpExpected = new SecretString("a, ~b, c, ~d");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
     try {
       tmpPattern.matches("a b c", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, {~b}, c, ~d' (content: 'a b c').",
           e.getMessage());
     }
@@ -299,7 +299,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a c d", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Expected content(s) {found but should not}: 'a, ~b, c, {~d}' (content: 'a c d').",
           e.getMessage());
     }
@@ -307,7 +307,7 @@ public class ContentPatternTest {
     try {
       tmpPattern.matches("a b c d", 100);
       org.junit.Assert.fail("AssertionException expected");
-    } catch (AssertionException e) {
+    } catch (final AssertionException e) {
       org.junit.Assert.assertEquals(
           "Expected content(s) {found but should not}: 'a, {~b}, c, {~d}' (content: 'a b c d').", e.getMessage());
     }
@@ -318,7 +318,7 @@ public class ContentPatternTest {
     try {
       new ContentPattern(new SecretString("~a"));
       org.junit.Assert.fail("AssertionException expected");
-    } catch (InvalidInputException e) {
+    } catch (final InvalidInputException e) {
       org.junit.Assert.assertEquals("Pattern '~a' is invalid (pattern must contain one not negated term at least).",
           e.getMessage());
     }

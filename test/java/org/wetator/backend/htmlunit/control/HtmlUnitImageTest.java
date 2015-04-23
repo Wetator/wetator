@@ -33,19 +33,19 @@ public class HtmlUnitImageTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<img id='myId'>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlImage tmpImage = (HtmlImage) tmpHtmlPage.getHtmlElementById("myId");
-    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitImage(tmpImage);
+    final HtmlImage tmpImage = (HtmlImage) tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitImage(tmpImage);
 
     try {
       tmpControl.isDisabled(null);
       Assert.fail("UnsupportedOperationException expected");
-    } catch (org.wetator.exception.UnsupportedOperationException e) {
+    } catch (final org.wetator.exception.UnsupportedOperationException e) {
       Assert.assertEquals("The HTML element [HtmlImage '' (id='myId')] does not support the disabled state/property.",
           e.getMessage());
     }

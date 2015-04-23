@@ -26,7 +26,7 @@ public class CommandTest {
 
   @Test
   public void constructor() {
-    Command tmpCommand = new Command("command", false);
+    final Command tmpCommand = new Command("command", false);
 
     Assert.assertEquals("command", tmpCommand.getName());
     Assert.assertFalse(tmpCommand.isComment());
@@ -36,7 +36,7 @@ public class CommandTest {
 
   @Test
   public void constructor_comment() {
-    Command tmpCommand = new Command("command", true);
+    final Command tmpCommand = new Command("command", true);
 
     Assert.assertEquals("command", tmpCommand.getName());
     Assert.assertTrue(tmpCommand.isComment());

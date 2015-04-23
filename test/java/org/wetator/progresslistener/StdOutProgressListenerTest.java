@@ -34,12 +34,12 @@ public class StdOutProgressListenerTest extends AbstractProgressListenerTest {
   protected IProgressListener createProgressListener() {
     outStream = new ByteArrayOutputStream();
 
-    PrintStream tmpOriginalSysOut = System.out;
+    final PrintStream tmpOriginalSysOut = System.out;
     originalSysErr = System.err;
     System.setOut(new PrintStream(outStream));
     System.setErr(new PrintStream(outStream));
 
-    IProgressListener tmpProgressListener = new StdOutProgressListener();
+    final IProgressListener tmpProgressListener = new StdOutProgressListener();
 
     System.setOut(tmpOriginalSysOut);
     return tmpProgressListener;
@@ -61,7 +61,7 @@ public class StdOutProgressListenerTest extends AbstractProgressListenerTest {
   }
 
   @Override
-  protected String normalizeResult(String aResult) {
+  protected String normalizeResult(final String aResult) {
     String tmpResult = super.normalizeResult(aResult);
 
     // replace blank-only lines

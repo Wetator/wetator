@@ -92,7 +92,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase("wetator_google");
+    final TestCase tmpTestCase = createTestCase("wetator_google");
     progressListener.testCaseStart(tmpTestCase);
 
     progressListener.testRunStart(IE11);
@@ -118,7 +118,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF31);
@@ -134,7 +134,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     progressListener.testRunStart(FF31);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
@@ -158,7 +158,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeErrorTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF31);
@@ -174,7 +174,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeRedWithIgnoredModule(tmpTestCase, FF31);
     progressListener.testCaseEnd();
@@ -189,7 +189,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeRedModule(tmpTestCase, FF31);
     progressListener.testCaseEnd();
@@ -204,7 +204,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     progressListener.testRunStart(FF31);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
@@ -227,7 +227,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE11);
     writeFailureTestRun(tmpTestCase, FF31);
@@ -243,7 +243,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeBlueModule(tmpTestCase, FF31);
     progressListener.testCaseEnd();
@@ -298,7 +298,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
 
     progressListener.testRunStart(IE11);
@@ -326,7 +326,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
 
     progressListener.testRunStart(IE11);
@@ -351,7 +351,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    TestCase tmpTestCase = createTestCase();
+    final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeRedModuleNotFound(tmpTestCase, FF31);
     progressListener.testCaseEnd();
@@ -361,7 +361,7 @@ public abstract class AbstractProgressListenerTest {
     assertResult();
   }
 
-  protected void writeRedWithIgnoredModule(TestCase aTestCase, String aBrowser) {
+  protected void writeRedWithIgnoredModule(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -379,7 +379,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeRedModule(TestCase aTestCase, String aBrowser) {
+  protected void writeRedModule(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -395,7 +395,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeRedModuleNotFound(TestCase aTestCase, String aBrowser) {
+  protected void writeRedModuleNotFound(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -409,7 +409,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeBlueModule(TestCase aTestCase, String aBrowser) {
+  protected void writeBlueModule(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -423,7 +423,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeGreenTestRun(TestCase aTestCase, String aBrowser) {
+  protected void writeGreenTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -433,7 +433,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeFailureTestRun(TestCase aTestCase, String aBrowser) {
+  protected void writeFailureTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -445,7 +445,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeErrorTestRun(TestCase aTestCase, String aBrowser) {
+  protected void writeErrorTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -458,7 +458,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunEnd();
   }
 
-  protected void writeFailureAndErrorTestRun(TestCase aTestCase, String aBrowser) {
+  protected void writeFailureAndErrorTestRun(final TestCase aTestCase, final String aBrowser) {
     lineNo = 1;
     progressListener.testRunStart(aBrowser);
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath());
@@ -473,15 +473,15 @@ public abstract class AbstractProgressListenerTest {
   }
 
   protected void writeCommand() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     writeCommand(tmpCommand);
   }
 
   private void writeCommandWithFailure() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     progressListener.executeCommandStart(context, tmpCommand);
     progressListener
-        .executeCommandFailure(new AssertionException("test failure", new RuntimeException("failure cause")));
+    .executeCommandFailure(new AssertionException("test failure", new RuntimeException("failure cause")));
     progressListener.executeCommandEnd();
   }
 
@@ -489,49 +489,50 @@ public abstract class AbstractProgressListenerTest {
     writeCommandWithError(new ActionException("test error"));
   }
 
-  private void writeCommandWithError(Exception anException) {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+  private void writeCommandWithError(final Exception anException) {
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     writeCommandWithError(tmpCommand, anException);
   }
 
-  protected void writeCommandWithError(Command aCommand, Exception anException) {
+  protected void writeCommandWithError(final Command aCommand, final Exception anException) {
     progressListener.executeCommandStart(context, aCommand);
     progressListener.executeCommandError(anException);
     progressListener.executeCommandEnd();
   }
 
   protected void writeCommandIgnored() {
-    Command tmpCommand = createCommand(COMMAND_NAME, "command value");
+    final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     progressListener.executeCommandStart(context, tmpCommand);
     progressListener.executeCommandIgnored();
     progressListener.executeCommandEnd();
   }
 
   private void writeComment() {
-    Command tmpComment = createCommand(null, "comment value", true);
+    final Command tmpComment = createCommand(null, "comment value", true);
     writeCommand(tmpComment);
   }
 
-  protected void writeCommand(Command aCommand) {
+  protected void writeCommand(final Command aCommand) {
     progressListener.executeCommandStart(context, aCommand);
     progressListener.executeCommandSuccess();
     progressListener.executeCommandEnd();
   }
 
-  protected Command createCommand(String aCommandName, String aParameterValue) {
+  protected Command createCommand(final String aCommandName, final String aParameterValue) {
     return createCommand(aCommandName, aParameterValue, false);
   }
 
-  private Command createCommand(String aCommandName, String aParameterValue, boolean anIsComment) {
-    Command tmpCommand = new Command(aCommandName, anIsComment);
+  private Command createCommand(final String aCommandName, final String aParameterValue, final boolean anIsComment) {
+    final Command tmpCommand = new Command(aCommandName, anIsComment);
     tmpCommand.setLineNo(lineNo);
     tmpCommand.setFirstParameter(new Parameter(aParameterValue));
     lineNo++;
     return tmpCommand;
   }
 
-  protected Command createCommand(String aCommandName, String aParameterValue, String aSecondParameterValue) {
-    Command tmpCommand = new Command(aCommandName, false);
+  protected Command createCommand(final String aCommandName, final String aParameterValue,
+      final String aSecondParameterValue) {
+    final Command tmpCommand = new Command(aCommandName, false);
     tmpCommand.setLineNo(lineNo);
     tmpCommand.setFirstParameter(new Parameter(aParameterValue));
     tmpCommand.setSecondParameter(new Parameter(aSecondParameterValue));
@@ -539,7 +540,7 @@ public abstract class AbstractProgressListenerTest {
     return tmpCommand;
   }
 
-  protected void startModule(TestCase aTestCase) {
+  protected void startModule(final TestCase aTestCase) {
     progressListener.executeCommandStart(context, createCommand("use-module", "module"));
     progressListener.testFileStart(aTestCase.getFile().getAbsolutePath() + "module");
   }
@@ -550,16 +551,16 @@ public abstract class AbstractProgressListenerTest {
   }
 
   protected TestCase createTestCase() {
-    String tmpName = "test" + testNo++ + ".wet";
+    final String tmpName = "test" + testNo++ + ".wet";
     return createTestCase(tmpName);
   }
 
-  protected TestCase createTestCase(String aName) {
+  protected TestCase createTestCase(final String aName) {
     return new TestCase(aName, new File("/Test/" + aName));
   }
 
   protected void assertResult() throws Exception {
-    InputStream tmpExpectedStream = getClass().getClassLoader().getResourceAsStream(getExpectedFilename());
+    final InputStream tmpExpectedStream = getClass().getClassLoader().getResourceAsStream(getExpectedFilename());
     String tmpExpectedResult = IOUtils.toString(tmpExpectedStream, "UTF-8");
 
     String tmpActualResult = getActualResult();
@@ -574,7 +575,7 @@ public abstract class AbstractProgressListenerTest {
 
   protected abstract String getActualResult() throws Exception;
 
-  protected String normalizeResult(String aResult) {
+  protected String normalizeResult(final String aResult) {
     String tmpResult = aResult;
     // unify line breaks
     tmpResult = tmpResult.replace("\r\n", "\n");
@@ -591,11 +592,11 @@ public abstract class AbstractProgressListenerTest {
     return tmpResult;
   }
 
-  protected String replaceLines(String aResult, String aPrefixLine, String aSuffixLine, String aKeepPattern,
-      String aReplacement) {
+  protected String replaceLines(final String aResult, final String aPrefixLine, final String aSuffixLine,
+      final String aKeepPattern, final String aReplacement) {
     String tmpResult = aResult;
-    Pattern tmpPrefixLinePattern = Pattern.compile("(?m)" + aPrefixLine + "$");
-    Pattern tmpSuffixLinePattern = Pattern.compile("(?m)^" + aSuffixLine);
+    final Pattern tmpPrefixLinePattern = Pattern.compile("(?m)" + aPrefixLine + "$");
+    final Pattern tmpSuffixLinePattern = Pattern.compile("(?m)^" + aSuffixLine);
 
     Matcher tmpPrefixLineMatcher = tmpPrefixLinePattern.matcher(tmpResult);
     Matcher tmpSuffixLineMatcher = tmpSuffixLinePattern.matcher(tmpResult);
@@ -609,12 +610,12 @@ public abstract class AbstractProgressListenerTest {
       }
       tmpLinesEnd = tmpSuffixLineMatcher.start();
 
-      String tmpPartBefore = tmpResult.substring(0, tmpLinesStart + 1);
-      String tmpPart = tmpResult.substring(tmpLinesStart + 1, tmpLinesEnd);
-      String tmpPartAfter = tmpResult.substring(tmpLinesEnd);
+      final String tmpPartBefore = tmpResult.substring(0, tmpLinesStart + 1);
+      final String tmpPart = tmpResult.substring(tmpLinesStart + 1, tmpLinesEnd);
+      final String tmpPartAfter = tmpResult.substring(tmpLinesEnd);
       StringBuilder tmpNormalizedPart = new StringBuilder();
       if (aKeepPattern != null) {
-        String[] tmpLines = tmpPart.split("\\n");
+        final String[] tmpLines = tmpPart.split("\\n");
         for (String tmpLine : tmpLines) {
           if (tmpLine.matches(aKeepPattern)) {
             tmpNormalizedPart.append(tmpLine).append("\n");

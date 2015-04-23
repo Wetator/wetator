@@ -36,28 +36,28 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementNotFound() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
-        + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
-    HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
 
     Assert.assertNull(tmpRepository.getForHtmlElement(tmpHtmlElement));
   }
 
   @Test
   public void getForHtmlElementByElement() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
-        + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
-    HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
 
     Assert.assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
@@ -65,14 +65,15 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementByElementAndAttribute() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
-        + "<a id='myId2' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "<a id='myId2' href='snoopy.php'>TestAnchor</a>"
+        + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId2");
+    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId2");
 
-    HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
     tmpRepository.add(TestControl.class);
 
@@ -81,14 +82,15 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementByElementAndAttributeFallBack() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
-        + "<a id='myId2' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "<a id='myId2' href='snoopy.php'>TestAnchor</a>"
+        + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
+    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
-    HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
     tmpRepository.add(TestControl.class);
 
@@ -103,16 +105,16 @@ public class HtmlUnitControlRepositoryTest {
 
     /**
      * The constructor.
-     * 
+     *
      * @param anHtmlElement the {@link HtmlElement} from the backend
      */
-    public TestControl(HtmlAnchor anHtmlElement) {
+    public TestControl(final HtmlAnchor anHtmlElement) {
       super(anHtmlElement);
     }
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.backend.control.IControl#getDescribingText()
      */
     @Override

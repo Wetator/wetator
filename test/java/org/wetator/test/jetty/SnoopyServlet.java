@@ -39,12 +39,13 @@ public class SnoopyServlet extends HttpServlet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
    *      javax.servlet.http.HttpServletResponse)
    */
   @Override
-  protected void doGet(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException, IOException {
+  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse) throws ServletException,
+  IOException {
     aResponse.getWriter().println(
         "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
     aResponse.getWriter().println("<html>");
@@ -62,11 +63,11 @@ public class SnoopyServlet extends HttpServlet {
     aResponse.getWriter().println("</tr>");
 
     // a small hack to distinguish between get and post parameters
-    Set<String> tmpGetParameterNames = determineGetParameterNames(aRequest);
+    final Set<String> tmpGetParameterNames = determineGetParameterNames(aRequest);
 
-    Set<String> tmpFileParameterNames = determineFileParameterNames(aRequest);
+    final Set<String> tmpFileParameterNames = determineFileParameterNames(aRequest);
 
-    List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
+    final List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
     Collections.sort(tmpParameterNames);
     for (String tmpName : tmpParameterNames) {
       if (tmpGetParameterNames.contains(tmpName)) {
@@ -75,7 +76,7 @@ public class SnoopyServlet extends HttpServlet {
         aResponse.getWriter().println(tmpName);
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("<td>");
-        String[] tmpValues = aRequest.getParameterValues(tmpName);
+        final String[] tmpValues = aRequest.getParameterValues(tmpName);
         boolean tmpIsNotFirst = false;
         if (tmpValues.length != 0) {
           for (String tmpValue : tmpValues) {
@@ -107,7 +108,7 @@ public class SnoopyServlet extends HttpServlet {
         aResponse.getWriter().println(tmpName);
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("<td>");
-        String[] tmpValues = aRequest.getParameterValues(tmpName);
+        final String[] tmpValues = aRequest.getParameterValues(tmpName);
         boolean tmpIsNotFirst = false;
         if (tmpValues.length != 0) {
           for (String tmpValue : tmpValues) {
@@ -153,9 +154,9 @@ public class SnoopyServlet extends HttpServlet {
         aResponse.getWriter().println(aRequest.getParameter(tmpFileParameterName));
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("</tr>");
-        Object tmpAttribute = aRequest.getAttribute(tmpFileParameterName);
+        final Object tmpAttribute = aRequest.getAttribute(tmpFileParameterName);
         if (tmpAttribute instanceof File) {
-          File tmpFile = (File) tmpAttribute;
+          final File tmpFile = (File) tmpAttribute;
           aResponse.getWriter().println("<tr>");
           aResponse.getWriter().println("<td>tmp_name</td>");
           aResponse.getWriter().println("<td>");
@@ -168,14 +169,14 @@ public class SnoopyServlet extends HttpServlet {
           aResponse.getWriter().println(tmpFile.length());
           aResponse.getWriter().println("</td>");
           aResponse.getWriter().println("</tr>");
-          char[] tmpBuffer = new char[13];
-          FileReader tmpReader = new FileReader(tmpFile);
+          final char[] tmpBuffer = new char[13];
+          final FileReader tmpReader = new FileReader(tmpFile);
           try {
             tmpReader.read(tmpBuffer);
           } finally {
             tmpReader.close();
           }
-          String tmpValue = new String(tmpBuffer);
+          final String tmpValue = new String(tmpBuffer);
           if (!tmpValue.isEmpty()) {
             aResponse.getWriter().println("<tr>");
             aResponse.getWriter().println("<td>SampleData</td>");
@@ -185,7 +186,7 @@ public class SnoopyServlet extends HttpServlet {
             aResponse.getWriter().println("</tr>");
           }
         } else if (tmpAttribute instanceof byte[]) {
-          byte[] tmpBytes = (byte[]) tmpAttribute;
+          final byte[] tmpBytes = (byte[]) tmpAttribute;
           aResponse.getWriter().println("<tr>");
           aResponse.getWriter().println("<td>size</td>");
           aResponse.getWriter().println("<td>");
@@ -217,7 +218,7 @@ public class SnoopyServlet extends HttpServlet {
     aResponse.getWriter().println("<th>Key</th>");
     aResponse.getWriter().println("<th>Value</th>");
     aResponse.getWriter().println("</tr>");
-    List<String> tmpHeaderNames = Collections.list(aRequest.getHeaderNames());
+    final List<String> tmpHeaderNames = Collections.list(aRequest.getHeaderNames());
     Collections.sort(tmpHeaderNames);
     for (String tmpEntry : tmpHeaderNames) {
       aResponse.getWriter().println("<tr>");
@@ -239,50 +240,51 @@ public class SnoopyServlet extends HttpServlet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
    *      javax.servlet.http.HttpServletResponse)
    */
   @Override
-  protected void doPost(HttpServletRequest aReq, HttpServletResponse aResp) throws ServletException, IOException {
+  protected void doPost(final HttpServletRequest aReq, final HttpServletResponse aResp) throws ServletException,
+  IOException {
     doGet(aReq, aResp);
   }
 
   /**
    * HttpUtils.parseQueryString is deprecated.
    * So we build our own based on tomcats servlet api impl.
-   * 
+   *
    * @param aRequest the request to read from
    * @return a set with all get parameter names
    */
-  private Set<String> determineGetParameterNames(HttpServletRequest aRequest) {
-    String tmpQueryString = aRequest.getQueryString();
+  private Set<String> determineGetParameterNames(final HttpServletRequest aRequest) {
+    final String tmpQueryString = aRequest.getQueryString();
 
-    Set<String> tmpParamNames = new HashSet<String>();
+    final Set<String> tmpParamNames = new HashSet<String>();
     if (tmpQueryString == null) {
       return tmpParamNames;
     }
 
-    StringTokenizer tmpTokenizer = new StringTokenizer(tmpQueryString, "&");
+    final StringTokenizer tmpTokenizer = new StringTokenizer(tmpQueryString, "&");
     while (tmpTokenizer.hasMoreTokens()) {
-      String tmpPair = tmpTokenizer.nextToken();
-      int tmpPos = tmpPair.indexOf('=');
+      final String tmpPair = tmpTokenizer.nextToken();
+      final int tmpPos = tmpPair.indexOf('=');
       if (tmpPos == -1) {
         throw new IllegalArgumentException();
       }
-      String tmpKey = parseName(tmpPair.substring(0, tmpPos));
+      final String tmpKey = parseName(tmpPair.substring(0, tmpPos));
       tmpParamNames.add(tmpKey);
     }
 
     return tmpParamNames;
   }
 
-  private Set<String> determineFileParameterNames(HttpServletRequest aRequest) {
-    Set<String> tmpFileParameterNames = new HashSet<String>();
+  private Set<String> determineFileParameterNames(final HttpServletRequest aRequest) {
+    final Set<String> tmpFileParameterNames = new HashSet<String>();
 
-    List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
+    final List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
     for (String tmpName : tmpParameterNames) {
-      Object tmpAttribute = aRequest.getAttribute(tmpName);
+      final Object tmpAttribute = aRequest.getAttribute(tmpName);
       if (tmpAttribute != null) {
         if (tmpAttribute instanceof File || tmpAttribute instanceof byte[]) {
           tmpFileParameterNames.add(tmpName);
@@ -296,10 +298,10 @@ public class SnoopyServlet extends HttpServlet {
   /**
    * Parse a name in the query string.
    */
-  private static String parseName(String aString) {
-    StringBuffer tmpResult = new StringBuffer();
+  private static String parseName(final String aString) {
+    final StringBuffer tmpResult = new StringBuffer();
     for (int i = 0; i < aString.length(); i++) {
-      char tmpChar = aString.charAt(i);
+      final char tmpChar = aString.charAt(i);
       switch (tmpChar) {
         case '+':
           tmpResult.append(' ');
@@ -308,10 +310,10 @@ public class SnoopyServlet extends HttpServlet {
           try {
             tmpResult.append((char) Integer.parseInt(aString.substring(i + 1, i + 3), 16));
             i += 2;
-          } catch (NumberFormatException e) {
+          } catch (final NumberFormatException e) {
             throw new IllegalArgumentException();
-          } catch (StringIndexOutOfBoundsException e) {
-            String tmpRest = aString.substring(i);
+          } catch (final StringIndexOutOfBoundsException e) {
+            final String tmpRest = aString.substring(i);
             tmpResult.append(tmpRest);
             if (tmpRest.length() == 2) {
               i++;

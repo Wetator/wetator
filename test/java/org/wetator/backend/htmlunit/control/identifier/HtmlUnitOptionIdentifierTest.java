@@ -40,7 +40,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
   @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<select id='myId' name='myName' size='2'>"
         + "<option id='myOptionId1' value='o_value1'>option1</option>"
@@ -51,15 +51,15 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    SecretString tmpSearch = new SecretString("myOptionId1");
+    final SecretString tmpSearch = new SecretString("myOptionId1");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myOptionId1", "myOptionId2",
-        "myOptionId3");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myOptionId1",
+        "myOptionId2", "myOptionId3");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[HtmlOption 'option1' (id='myOptionId1') part of [HtmlSelect (id='myId') (name='myName')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[HtmlOption 'option1' (id='myOptionId1') part of [HtmlSelect (id='myId') (name='myName')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 }

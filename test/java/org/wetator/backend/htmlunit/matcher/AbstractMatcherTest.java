@@ -42,22 +42,22 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public abstract class AbstractMatcherTest {
 
-  protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
-      throws IOException, InvalidInputException {
-    Properties tmpProperties = new Properties();
+  protected List<MatchResult> match(final String aHtmlCode, final SecretString aSearch,
+      final String... anHtmlElementIds) throws IOException, InvalidInputException {
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
-    WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
+    final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
+    final List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
     for (String tmpHtmlElementId : anHtmlElementIds) {
-      HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      WPath tmpPath = new WPath(aSearch, tmpConfig);
+      final WPath tmpPath = new WPath(aSearch, tmpConfig);
 
-      SearchPattern tmpSearchPattern = tmpPath.getLastNode().getSearchPattern();
+      final SearchPattern tmpSearchPattern = tmpPath.getLastNode().getSearchPattern();
       SearchPattern tmpPathSearchPattern = null;
       FindSpot tmpPathSpot = null;
       if (!tmpPath.getPathNodes().isEmpty()) {
@@ -74,8 +74,9 @@ public abstract class AbstractMatcherTest {
   protected abstract AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
       SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern);
 
-  protected static void assertMatchEquals(String anExpectedId, FoundType anExpectedFoundType, int anExpectedCoverage,
-      int anExpectedDistance, int anExpectedStart, MatchResult anActualMatch) {
+  protected static void assertMatchEquals(final String anExpectedId, final FoundType anExpectedFoundType,
+      final int anExpectedCoverage, final int anExpectedDistance, final int anExpectedStart,
+      final MatchResult anActualMatch) {
     Assert.assertEquals("htmlElement.id", anExpectedId, anActualMatch.getHtmlElement().getId());
     Assert.assertEquals("foundType", anExpectedFoundType, anActualMatch.getFoundType());
     Assert.assertEquals("coverage", anExpectedCoverage, anActualMatch.getCoverage());

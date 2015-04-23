@@ -46,7 +46,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTablePlain() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -70,10 +70,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -82,7 +82,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableNestedX() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -106,10 +106,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -118,7 +118,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableNestedY() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -142,10 +142,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -154,7 +154,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableNestedCell() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -178,10 +178,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -190,7 +190,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableNestedCellMultiple() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -214,10 +214,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3_1", "InputText_2_3_2");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3_1", "InputText_2_3_2");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -227,7 +227,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableNestedTable() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -259,10 +259,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -271,7 +271,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableDifferentTableX() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -308,10 +308,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[cell_o_1_2; row_2]");
+    final SecretString tmpSearch = new SecretString("[cell_o_1_2; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -321,7 +321,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableDifferentTableY() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -358,10 +358,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3; cell_o_2_1]");
+    final SecretString tmpSearch = new SecretString("[header_3; cell_o_2_1]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -371,7 +371,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableOnlyX() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -395,10 +395,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[header_3]");
+    final SecretString tmpSearch = new SecretString("[header_3]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -408,7 +408,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableOnlyPartlyX() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -432,17 +432,17 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[ader_3]");
+    final SecretString tmpSearch = new SecretString("[ader_3]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
   public void inTableOnlyXWithPathBehind() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -466,17 +466,17 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("row_2 > [header_3]");
+    final SecretString tmpSearch = new SecretString("row_2 > [header_3]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
   public void inTableOnlyY() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -500,10 +500,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[; row_2]");
+    final SecretString tmpSearch = new SecretString("[; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(2, tmpMatches.size());
 
@@ -513,7 +513,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void inTableOnlyPartlyY() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -537,17 +537,17 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[; w_2]");
+    final SecretString tmpSearch = new SecretString("[; w_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
   public void inMultipleTable() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -584,10 +584,10 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1] > [header_3; row_2]");
+    final SecretString tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1] > [header_3; row_2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3", "InputText_2_2",
-        "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
 
     Assert.assertEquals(1, tmpMatches.size());
 
@@ -596,7 +596,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void rowSpan() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -632,7 +632,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void brokenRowSpan() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -642,9 +642,9 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[; row_somewhere]");
+    final SecretString tmpSearch = new SecretString("[; row_somewhere]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
 
     // no match but we like to be sure that there was no exception
     Assert.assertEquals(0, tmpMatches.size());
@@ -652,7 +652,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void colSpan() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <thead>" //
         + "        <tr>" //
@@ -683,7 +683,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void brokenColSpan() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -693,9 +693,9 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[col_somewhere ;]");
+    final SecretString tmpSearch = new SecretString("[col_somewhere ;]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
 
     // no match but we like to be sure that there was no exception
     Assert.assertEquals(0, tmpMatches.size());
@@ -703,7 +703,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void brokenColSpan2() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -717,9 +717,9 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[line one;row 2]");
+    final SecretString tmpSearch = new SecretString("[line one;row 2]");
 
-    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
 
     // no match because 'line one' does not span to column 2
     Assert.assertEquals(0, tmpMatches.size());
@@ -727,7 +727,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   @Test
   public void brokenColSpan3() throws IOException, InvalidInputException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "    <table border='0' cellspacing='20' cellpadding='30'>" //
         + "      <tbody>" //
         + "        <tr>" //
@@ -742,7 +742,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "    </table>" //
         + "</body></html>";
 
-    SecretString tmpSearch = new SecretString("[line one;row 2]");
+    final SecretString tmpSearch = new SecretString("[line one;row 2]");
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_1");
 
@@ -755,20 +755,20 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   }
 
   @Override
-  protected List<MatchResult> match(String aHtmlCode, SecretString aSearch, String... anHtmlElementIds)
-      throws IOException, InvalidInputException {
-    Properties tmpProperties = new Properties();
+  protected List<MatchResult> match(final String aHtmlCode, final SecretString aSearch,
+      final String... anHtmlElementIds) throws IOException, InvalidInputException {
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
-    WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
+    final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
+    final List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
     for (String tmpHtmlElementId : anHtmlElementIds) {
-      HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      WPath tmpPath = new WPath(aSearch, tmpConfig);
+      final WPath tmpPath = new WPath(aSearch, tmpConfig);
 
       SearchPattern tmpPathSearchPattern = null;
       FindSpot tmpPathSpot = null;
@@ -785,14 +785,14 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
    *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
    *      org.wetator.core.searchpattern.SearchPattern)
    */
   @Override
-  protected AbstractHtmlUnitElementMatcher createMatcher(HtmlPageIndex aHtmlPageIndex,
-      SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
+      final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     return null;
   }
 }

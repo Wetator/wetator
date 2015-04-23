@@ -113,7 +113,7 @@ public class StringUtilTest {
     try {
       StringUtil.extractStrings("1aa2", "a", 'a');
       org.junit.Assert.assertTrue("IllegalArgumentException expected", false);
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       org.junit.Assert.assertEquals("Delimiter must be different from escape char.", e.getMessage());
     }
   }

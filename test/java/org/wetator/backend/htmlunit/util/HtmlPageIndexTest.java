@@ -48,30 +48,30 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_EmptyPage() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "</body></html>";
 
     asText("", tmpHtmlCode);
   }
 
   @Test
   public void asText_SimplePage() throws IOException {
-    String tmpHtmlCode = "<html>" + "<head>" + "<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
-        + "<title>Page Title</title>" + "</head>" + "<body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>"
-        + "</body></html>";
+    final String tmpHtmlCode = "<html>" + "<head>"
+        + "<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>" + "<title>Page Title</title>"
+        + "</head>" + "<body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>" + "</body></html>";
 
     asText("Paragraph 1 Paragraph 2", tmpHtmlCode);
   }
 
   @Test
   public void asText_Paragraph() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph <br>2</p>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph <br>2</p>" + "</body></html>";
 
     asText("Paragraph 1 Paragraph 2", tmpHtmlCode);
   }
 
   @Test
   public void asText_Font() throws IOException {
-    String tmpHtmlCode = "<html><body><p>" + "<font color='red'>red</font> <font color='green'>green</font>"
+    final String tmpHtmlCode = "<html><body><p>" + "<font color='red'>red</font> <font color='green'>green</font>"
         + "</p></body></html>";
 
     asText("red green", tmpHtmlCode);
@@ -79,14 +79,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Span() throws IOException {
-    String tmpHtmlCode = "<html><body><p>" + "<span> 17.11 </span> mg" + "</p></body></html>";
+    final String tmpHtmlCode = "<html><body><p>" + "<span> 17.11 </span> mg" + "</p></body></html>";
 
     asText("17.11 mg", tmpHtmlCode);
   }
 
   @Test
   public void asText_Formatting() throws IOException {
-    String tmpHtmlCode = "<html><body><p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
+    final String tmpHtmlCode = "<html><body><p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p></body></html>";
 
     asText("1 2 3 4 5 6 7 8 9 10", tmpHtmlCode);
@@ -94,14 +94,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_ComputerOutput() throws IOException {
-    String tmpHtmlCode = "<html><body><p>"
+    final String tmpHtmlCode = "<html><body><p>"
         + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p></body></html>";
     asText("1 2 3 4 5 6", tmpHtmlCode);
   }
 
   @Test
   public void asText_CitationQuotationDefinition() throws IOException {
-    String tmpHtmlCode = "<html><body><p>"
+    final String tmpHtmlCode = "<html><body><p>"
         + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>"
         + "</p></body></html>";
 
@@ -111,7 +111,7 @@ public class HtmlPageIndexTest {
   @Test
   public void asText_Mix() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>"
         + "</body></html>";
     // @formatter:on
@@ -121,7 +121,7 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Mix2() throws IOException {
-    String tmpHtmlCode = "<html><body><table><tr>"
+    final String tmpHtmlCode = "<html><body><table><tr>"
         + "<td style='color:#222288'>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>"
         + "</tr></table></body></html>";
 
@@ -130,14 +130,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Mix3() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>Fi<font color='red'>eld</font>4</p>" + "</p></body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<p>Fi<font color='red'>eld</font>4</p>" + "</p></body></html>";
 
     asText("Field4", tmpHtmlCode);
   }
 
   @Test
   public void asText_AllControls() throws IOException {
-    String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>" //
         + "<p>PageStart</p>" //
         + "<form action='test'>" //
         + "<p> </p>" //
@@ -218,7 +218,7 @@ public class HtmlPageIndexTest {
         + "</form>" //
         + "</body></html>";
 
-    String tmpExpected = "PageStart " //
+    final String tmpExpected = "PageStart " //
         + "LegendLabel " //
         + "LabelLabel " //
         + "inputValue " //
@@ -256,7 +256,7 @@ public class HtmlPageIndexTest {
         + "submitInputValue " //
         + "resetInputValue";
 
-    String tmpExpected2 = "PageStart " //
+    final String tmpExpected2 = "PageStart " //
         + "LegendLabel " //
         + "LabelLabel " //
         + "radioInputLabel1 radioInputLabel2 " //
@@ -264,8 +264,8 @@ public class HtmlPageIndexTest {
 
     asText(tmpExpected, tmpExpected2, tmpHtmlCode);
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("PageStart", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLegend")));
     Assert.assertEquals("PageStart LegendLabel", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLabel")));
@@ -278,12 +278,12 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Heading() throws IOException {
-    String tmpHtmlCode = "<html><body>before" + "<h1>Heading1</h1>" + "<h2>Heading2</h2>" + "<h3>Heading3</h3>"
+    final String tmpHtmlCode = "<html><body>before" + "<h1>Heading1</h1>" + "<h2>Heading2</h2>" + "<h3>Heading3</h3>"
         + "<h4>Heading4</h4>" + "<h5>Heading5</h5>" + "<h6>Heading6</h6>" + "after</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
@@ -291,7 +291,7 @@ public class HtmlPageIndexTest {
   @Test
   public void asText_Table() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = 
+    final String tmpHtmlCode =
         "<html><body>"
             + "<table id='idTable'>"
             + "<tr id='idTr1'>"
@@ -309,10 +309,10 @@ public class HtmlPageIndexTest {
             + "</table>"
             + "</body></html>";
     // @formatter:off
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "header1 header2 data1 data2 data3 data4 data5";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "header1 header2 data1 data2 data3 data4 data5";
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
@@ -340,11 +340,11 @@ public class HtmlPageIndexTest {
 
     Assert.assertEquals("data3 data4", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTr3")));
     Assert
-        .assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTr3")));
+    .assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTr3")));
 
     Assert.assertEquals("data3", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd3")));
     Assert
-        .assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd3")));
+    .assertEquals("header1 header2 data1 data2", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idTd3")));
 
     Assert.assertEquals("data4", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idTd4")));
     Assert.assertEquals("header1 header2 data1 data2 data3",
@@ -361,11 +361,11 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_OrderedList() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before" + "<ol id='idOl'>" + "  <li id='idLi1'>Line1"
+    final String tmpHtmlCode = "<html><body>" + "before" + "<ol id='idOl'>" + "  <li id='idLi1'>Line1"
         + "  <li id='idLi2'>Line2" + "</ol>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals("before 1. Line1 2. Line2 after", tmpResult.getText());
 
     Assert.assertEquals("1. Line1 2. Line2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idOl")));
@@ -380,12 +380,12 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_UnorderedList() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before" + "<ul id='idUl'>" + "  <li id='idLi1'>Line1"
+    final String tmpHtmlCode = "<html><body>" + "before" + "<ul id='idUl'>" + "  <li id='idLi1'>Line1"
         + "  <li id='idLi2'>Line2" + "</ul>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "before Line1 Line2 after";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "before Line1 Line2 after";
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
 
@@ -401,51 +401,51 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Select() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<select>" + "<option value='o_red'>red</option>"
+    final String tmpHtmlCode = "<html><body>" + "<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "red green blue";
+    final String tmpExpected = "red green blue";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals("", tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_EmptySelect() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<select>" + "</select>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final String tmpHtmlCode = "<html><body>" + "<select>" + "</select>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "";
+    final String tmpExpected = "";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_SelectWithText() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "123<select>" + "<option value='o_red'>red</option>"
+    final String tmpHtmlCode = "<html><body>" + "123<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>456"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "123 red green blue 456";
+    final String tmpExpected = "123 red green blue 456";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
   }
 
   @Test
   public void asText_SelectWithOptgroup() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<select>" + "<optgroup label='colors' id='optgroup_colors'>"
+    final String tmpHtmlCode = "<html><body>" + "<select>" + "<optgroup label='colors' id='optgroup_colors'>"
         + "<option value='o_red'>red</option>" + "<option value='o_green'>green</option>"
         + "<option value='o_blue'>blue</option>" + "</optgroup>" + "</select>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("colors red green blue", tmpResult.getText());
     Assert.assertEquals("", tmpResult.getTextWithoutFormControls());
@@ -453,11 +453,11 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_InputImageWithAlt() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before"
+    final String tmpHtmlCode = "<html><body>" + "before"
         + "<input type='image' id='image_id' src='src.img' alt='Test Image'>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     String tmpExpected = "before Test Image after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
@@ -467,24 +467,24 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_ImageWithAlt() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before" + "<img src='src.img' alt='test image'>" + "after"
+    final String tmpHtmlCode = "<html><body>" + "before" + "<img src='src.img' alt='test image'>" + "after"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "before test image after";
+    final String tmpExpected = "before test image after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_SubmitInput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before"
+    final String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MySubmitId' name='MySubmitName' value='Submit' type='submit'>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before Submit after", tmpResult.getText());
     Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
@@ -492,11 +492,11 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_ResetInput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before"
+    final String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyResetId' name='MyResetName' value='Reset' type='reset'>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before Reset after", tmpResult.getText());
     Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
@@ -504,11 +504,11 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_ButtonInput() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before"
+    final String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyButtonId' name='MyButtonName' value='Button' type='button'>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before Button after", tmpResult.getText());
     Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
@@ -516,11 +516,11 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Button() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before" + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
+    final String tmpHtmlCode = "<html><body>" + "before" + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
         + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before Button after", tmpResult.getText());
     Assert.assertEquals("before after", tmpResult.getTextWithoutFormControls());
@@ -528,57 +528,57 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_RadioButton() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before"
+    final String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio'>RadioButton" + " after"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "before RadioButton after";
+    final String tmpExpected = "before RadioButton after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_RadioButtonSelected() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before"
+    final String tmpHtmlCode = "<html><body>" + "before"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' checked>RadioButton"
         + " after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "before RadioButton after";
+    final String tmpExpected = "before RadioButton after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_LabelWithEnclosedRadioButtonSelected() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "before" + "<label>LabelText"
+    final String tmpHtmlCode = "<html><body>" + "before" + "<label>LabelText"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' selected>RadioButton"
         + "</label>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    String tmpExpected = "before LabelText RadioButton after";
+    final String tmpExpected = "before LabelText RadioButton after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_LabelWithEnclosedSelect() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<label>LabelText before"
+    final String tmpHtmlCode = "<html><body>" + "<label>LabelText before"
         + "<select id='idSingleSelect' name='SingleSelect'>" //
         + "<option selected>Option1Value" //
         + "<option>Option2Value" //
         + "</select>" //
         + "</label>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     String tmpExpected = "LabelText before Option1Value Option2Value after";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
@@ -590,16 +590,16 @@ public class HtmlPageIndexTest {
   @Test
   public void asText_SpanWithBlank() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<span>line 1 </span>"
         + "<span> line 2</span>"
         + "<span>line 3</span>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "line 1 line 2line 3";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "line 1 line 2line 3";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
@@ -607,87 +607,88 @@ public class HtmlPageIndexTest {
   @Test
   public void asText_SpanWithBlock() throws IOException {
     // @formatter:off
-    String tmpHtmlCode = "<html><body>"
+    final String tmpHtmlCode = "<html><body>"
         + "<style type='text/css'> .line { display: block; } </style>"
         + "<span class='line'>line 1 </span>"
         + "<span class='line'> line 2</span>"
         + "<span class='line'>line 3</span>"
         + "</body></html>";
     // @formatter:on
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "line 1 line 2 line 3";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "line 1 line 2 line 3";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_Javascript() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<script language='JavaScript' type='text/javascript'>" + "function foo() {}"
-        + "</script>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final String tmpHtmlCode = "<html><body>" + "<script language='JavaScript' type='text/javascript'>"
+        + "function foo() {}" + "</script>" + "</body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void asText_TextTransform() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p style='text-transform: lowercase;'>LoWerCase</p>"
+    final String tmpHtmlCode = "<html><body>" + "<p style='text-transform: lowercase;'>LoWerCase</p>"
         + "<p style='text-transform: uppercase;'>uppErCase</p>"
         + "<p style='text-transform: capitalize;'>capiTalize</p>" + "<p style='text-transform: none;'>nOne</p>"
         + "<div style='text-transform: uppercase'><p>insideDiv</p></div>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    String tmpExpected = "lowercase UPPERCASE CapiTalize nOne INSIDEDIV";
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final String tmpExpected = "lowercase UPPERCASE CapiTalize nOne INSIDEDIV";
     Assert.assertEquals(tmpExpected, tmpResult.getText());
     Assert.assertEquals(tmpExpected, tmpResult.getTextWithoutFormControls());
   }
 
   @Test
   public void getLabelTextBefore_None() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
   public void getLabelTextBefore_AtStart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
   public void getLabelTextBefore_IgnoreHidden() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>MyLabel" + "<input value='hiddenValue' type='hidden'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>MyLabel"
+        + "<input value='hiddenValue' type='hidden'>"
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
   public void getLabelTextBefore_BeforeForm() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<p>MoreText</p>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<p>MoreText</p>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MoreText MyLabel",
         tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -695,35 +696,35 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_IgnoreDifferentForm() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test2'><p>MoreText</p></form>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test2'><p>MoreText</p></form>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
   public void getLabelTextBefore_UntilNext() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "Other<input id='MyOtherInputId' value='value2' type='text'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MyLabel", tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
   }
 
   @Test
   public void getLabelTextBefore_ChainedControls() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "MyLabel <input id='MyOtherInputId' value='value2' type='text'> "
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("MyLabel value2",
         tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -731,12 +732,12 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_InsideButton() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "before<button id='MyButton' type='button'>some button text<img id='myImg'>after</button>" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before some button text",
         tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("myImg"), 0));
@@ -744,12 +745,12 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_ButtonBeforeDirect() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "before<button id='MyButton' type='button'>some button text</button><img id='myImg'>after" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("before some button text",
         tmpHtmlPageIndex.getLabelTextBefore(tmpHtmlPage.getHtmlElementById("myImg"), 0));
@@ -757,36 +758,36 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextAfter_None() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
   public void getLabelTextAfter_AtEnd() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
   public void getLabelTextAfter_IgnoreHidden() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "<input value='hiddenValue' type='hidden'>part2" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("CheckBoxpart2",
         tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
@@ -794,37 +795,37 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextAfter_IgnoreAfterForm() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "<p>MoreText</p>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
   public void getLabelTextAfter_UntilNext() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "<input name='MyOtherCheckboxName' value='value2' type='checkbox'>CheckBox2" + "</form>" + "<p>MoreText</p>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("CheckBox", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
   }
 
   @Test
   public void getLabelTextAfter_InsideButton() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button id='MyButton' type='button'>before<img id='myImg'>some button text</button>after" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("some button text after",
         tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("myImg")));
@@ -832,22 +833,22 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextAfter_ButtonAfterDirect() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<img id='myImg'><button id='MyButton' type='button'>some button text</button>after" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     Assert.assertEquals("", tmpHtmlPageIndex.getLabelTextAfter(tmpHtmlPage.getHtmlElementById("myImg")));
   }
 
   @Test
   public void getHtmlElementById() throws IOException {
-    String tmpHtmlCode = "<html><body>before" + "<h1 id='myH1'>Heading1</h1></body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final String tmpHtmlCode = "<html><body>before" + "<h1 id='myH1'>Heading1</h1></body></html>";
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals("myH1", tmpResult.getHtmlElementById("myH1").getId());
   }
 }

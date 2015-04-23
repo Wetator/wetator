@@ -43,22 +43,24 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
    */
   @Before
   public void createWetatorConfiguration() {
-    Properties tmpProperties = new Properties();
+    final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
-  protected WeightedControlList identify(String aHtmlCode, String anHtmlElementId, WPath aWPath) throws IOException {
+  protected WeightedControlList identify(final String aHtmlCode, final String anHtmlElementId, final WPath aWPath)
+      throws IOException {
     return identify(aHtmlCode, aWPath, anHtmlElementId);
   }
 
-  protected WeightedControlList identify(String aHtmlCode, WPath aWPath, String... anHtmlElementIds) throws IOException {
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+  protected WeightedControlList identify(final String aHtmlCode, final WPath aWPath, final String... anHtmlElementIds)
+      throws IOException {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    WeightedControlList tmpControls = new WeightedControlList();
+    final WeightedControlList tmpControls = new WeightedControlList();
     for (String tmpHtmlElementId : anHtmlElementIds) {
-      HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
       identifier.initialize(tmpHtmlPageIndex);
       tmpControls.addAll(identifier.identify(aWPath, tmpHtmlElement));

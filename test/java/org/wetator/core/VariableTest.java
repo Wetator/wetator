@@ -27,7 +27,7 @@ public class VariableTest {
 
   @Test
   public void constructor() {
-    Variable tmpVariable = new Variable("TestName", "value");
+    final Variable tmpVariable = new Variable("TestName", "value");
 
     Assert.assertEquals("TestName", tmpVariable.getName());
     Assert.assertEquals("value", tmpVariable.getValue().toString());
@@ -37,14 +37,14 @@ public class VariableTest {
   public void constructor_WithoutName() {
     try {
       new Variable(null, "value");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       Assert.assertEquals("Parameter aName can't be null.", e.getMessage());
     }
   }
 
   @Test
   public void constructor_SecretFlag() {
-    Variable tmpVariable = new Variable("TestName", "value", true);
+    final Variable tmpVariable = new Variable("TestName", "value", true);
 
     Assert.assertEquals("TestName", tmpVariable.getName());
     Assert.assertEquals("****", tmpVariable.getValue().toString());
@@ -52,7 +52,7 @@ public class VariableTest {
 
   @Test
   public void constructor_SecretString() {
-    Variable tmpVariable = new Variable("TestName", new SecretString().appendSecret("value"));
+    final Variable tmpVariable = new Variable("TestName", new SecretString().appendSecret("value"));
 
     Assert.assertEquals("TestName", tmpVariable.getName());
     Assert.assertEquals("****", tmpVariable.getValue().toString());

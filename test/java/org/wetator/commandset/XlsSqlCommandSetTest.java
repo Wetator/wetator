@@ -45,7 +45,7 @@ public class XlsSqlCommandSetTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
-  private void executeTestFile(String aTestFileName) throws InvalidInputException {
+  private void executeTestFile(final String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

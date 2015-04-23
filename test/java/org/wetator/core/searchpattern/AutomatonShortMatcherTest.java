@@ -30,7 +30,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dot() throws Exception {
-    String tmpText = "test";
+    final String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -83,7 +83,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotStar() throws Exception {
-    String tmpText = "test";
+    final String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -148,7 +148,7 @@ public class AutomatonShortMatcherTest {
   public void dotStarException1() throws Exception {
     // this test corresponds to noOfCharsBeforeLastOccurenceIn
 
-    String tmpText = "test";
+    final String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText);
 
     boolean tmpFound = tmpMatcher.find();
@@ -173,7 +173,7 @@ public class AutomatonShortMatcherTest {
   public void dotStarException2() throws Exception {
     // this test corresponds to noOfSurroundingCharsIn
 
-    String tmpText = "test";
+    final String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText);
 
     boolean tmpFound = tmpMatcher.find();
@@ -200,7 +200,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotPlus() throws Exception {
-    String tmpText = "test";
+    final String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".+", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -253,7 +253,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotQuest() throws Exception {
-    String tmpText = "test";
+    final String tmpText = "test";
     AutomatonShortMatcher tmpMatcher = createMatcher(".?", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -316,7 +316,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDot() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -349,7 +349,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotStar() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.*", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -392,7 +392,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotPlus() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.+", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -425,7 +425,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotQuest() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.?", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -468,7 +468,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDot() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher(".t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -501,7 +501,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotStar() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher(".*t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -544,7 +544,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotPlus() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher(".+t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -577,7 +577,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotQuest() throws Exception {
-    String tmpText = "testt";
+    final String tmpText = "testt";
     AutomatonShortMatcher tmpMatcher = createMatcher(".?t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -620,7 +620,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDot() throws Exception {
-    String tmpText = "ttett";
+    final String tmpText = "ttett";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -643,7 +643,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotStar() throws Exception {
-    String tmpText = "ttestt";
+    final String tmpText = "ttestt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.*t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -686,7 +686,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotPlus() throws Exception {
-    String tmpText = "ttestt";
+    final String tmpText = "ttestt";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.+t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -709,7 +709,7 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotQuest() throws Exception {
-    String tmpText = "ttett";
+    final String tmpText = "ttett";
     AutomatonShortMatcher tmpMatcher = createMatcher("t.?t", tmpText);
 
     Assert.assertTrue(tmpMatcher.find());
@@ -752,8 +752,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotOffset() throws Exception {
-    String tmpText = "abc_test";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".", tmpText, 4);
+    final String tmpText = "abc_test";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -780,8 +780,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotStarOffset() throws Exception {
-    String tmpText = "abc_test";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText, 4);
+    final String tmpText = "abc_test";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -815,8 +815,8 @@ public class AutomatonShortMatcherTest {
   public void dotStarException1Offset() throws Exception {
     // this test corresponds to noOfCharsBeforeLastOccurenceIn
 
-    String tmpText = "abc_test";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText, 4);
+    final String tmpText = "abc_test";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText, 4);
 
     boolean tmpFound = tmpMatcher.find();
 
@@ -831,8 +831,8 @@ public class AutomatonShortMatcherTest {
   public void dotStarException2Offset() throws Exception {
     // this test corresponds to noOfSurroundingCharsIn
 
-    String tmpText = "abc_test";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText, 4);
+    final String tmpText = "abc_test";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".*", tmpText, 4);
 
     boolean tmpFound = tmpMatcher.find();
 
@@ -847,8 +847,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotPlusOffset() throws Exception {
-    String tmpText = "abc_test";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".+", tmpText, 4);
+    final String tmpText = "abc_test";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".+", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -875,8 +875,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void dotQuestOffset() throws Exception {
-    String tmpText = "abc_test";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".?", tmpText, 4);
+    final String tmpText = "abc_test";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".?", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -908,8 +908,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -926,8 +926,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotStarOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.*", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.*", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -949,8 +949,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotPlusOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.+", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.+", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -967,8 +967,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixDotQuestOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.?", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.?", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -990,8 +990,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".t", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(6, tmpMatcher.start());
@@ -1008,8 +1008,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotStarOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".*t", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".*t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -1031,8 +1031,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotPlusOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".+t", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".+t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(6, tmpMatcher.start());
@@ -1049,8 +1049,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void suffixDotQuestOffset() throws Exception {
-    String tmpText = "abc_testt";
-    AutomatonShortMatcher tmpMatcher = createMatcher(".?t", tmpText, 4);
+    final String tmpText = "abc_testt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher(".?t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -1072,8 +1072,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotOffset() throws Exception {
-    String tmpText = "abc_ttett";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.t", tmpText, 4);
+    final String tmpText = "abc_ttett";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(5, tmpMatcher.start());
@@ -1085,8 +1085,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotStarOffset() throws Exception {
-    String tmpText = "abc_ttestt";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.*t", tmpText, 4);
+    final String tmpText = "abc_ttestt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.*t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -1108,8 +1108,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotPlusOffset() throws Exception {
-    String tmpText = "abc_ttestt";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.+t", tmpText, 4);
+    final String tmpText = "abc_ttestt";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.+t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(5, tmpMatcher.start());
@@ -1121,8 +1121,8 @@ public class AutomatonShortMatcherTest {
 
   @Test
   public void prefixAndSuffixDotQuestOffset() throws Exception {
-    String tmpText = "abc_ttett";
-    AutomatonShortMatcher tmpMatcher = createMatcher("t.?t", tmpText, 4);
+    final String tmpText = "abc_ttett";
+    final AutomatonShortMatcher tmpMatcher = createMatcher("t.?t", tmpText, 4);
 
     Assert.assertTrue(tmpMatcher.find());
     Assert.assertEquals(4, tmpMatcher.start());
@@ -1142,15 +1142,15 @@ public class AutomatonShortMatcherTest {
     Assert.assertFalse(tmpMatcher.find());
   }
 
-  private AutomatonShortMatcher createMatcher(String aPattern, String aText) {
-    Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
-    RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
+  private AutomatonShortMatcher createMatcher(final String aPattern, final String aText) {
+    final Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
+    final RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
     return new AutomatonShortMatcher(aText, tmpRunAutomaton);
   }
 
-  private AutomatonShortMatcher createMatcher(String aPattern, String aText, int aStartPos) {
-    Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
-    RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
+  private AutomatonShortMatcher createMatcher(final String aPattern, final String aText, final int aStartPos) {
+    final Automaton tmpAutomaton = new RegExp(aPattern).toAutomaton();
+    final RunAutomaton tmpRunAutomaton = new RunAutomaton(tmpAutomaton);
     return new AutomatonShortMatcher(aText, aStartPos, tmpRunAutomaton);
   }
 }
