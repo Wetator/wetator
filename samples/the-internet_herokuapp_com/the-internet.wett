@@ -81,12 +81,14 @@ assert-content      || Hello World! || 10
 # File Download
 open-url            || http://the-internet.herokuapp.com
 click-on            || File Download
-assert-content      || File Downloader, hello-world.pdf, Location.txt, textfile.txt, Selenium_8thApril.txt, Location1.txt, avatar.jpg, 1.testfile_FileUpload.txt
+assert-content      || File Downloader, hello-world.pdf
+assert-content      || File Downloader, avatar.jpg
+assert-content      || File Downloader, textfile.txt
 click-on            || hello-world.pdf
 assert-content      || Hello World!
 go-back
-click-on            || Location.txt
-assert-content      || gfdgd dgdgd
+click-on            || textfile.txt
+# assert-content      || 
 go-back
 click-on            || avatar.jpg
 #
@@ -97,3 +99,58 @@ assert-content      || File Uploader Choose a file here on your system that you 
 set                 || Choose a file here on your system that you would like to upload || js_filter.cfg
 click-on            || Upload
 assert-content      || File Uploaded! js_filter.cfg
+#
+# Forgot Password
+open-url            || http://the-internet.herokuapp.com
+click-on            || Forgot Password
+assert-content      || Forgot Password, E-mail, Retrieve password
+set                 || E-mail || wetator
+click-on            || Retrieve password
+assert-content      || Your e-mail's been sent!
+#
+# Form Authentication
+open-url            || http://the-internet.herokuapp.com
+click-on            || Form Authentication
+assert-content      || Login Page, Username, Password
+assert-set          || Username ||
+assert-set          || Password ||
+click-on            || Login
+assert-content      || Your username is invalid!
+assert-set          || Username ||
+assert-set          || Password ||
+set                 || Username || tomsmith
+click-on            || Login
+assert-content      || Your password is invalid!
+assert-set          || Username ||
+assert-set          || Password ||
+set                 || Username || tomsmith
+set                 || Password || SuperSecretPassword!
+click-on            || Login
+assert-content      || You logged into a secure area!, Welcome to the Secure Area. When you are done click logout below.
+click-on            || Logout
+assert-set          || Username ||
+assert-set          || Password ||
+#
+# Frames
+open-url            || http://the-internet.herokuapp.com
+click-on            || Frames
+assert-content      || Frames, Nested Frames, iFrame
+click-on            || Nested Frames
+assert-content      || LEFT MIDDLE RIGHT BOTTOM
+go-back
+click-on            || iFrame
+assert-content      || An iFrame containing the TinyMCE WYSIWYG Editor File Edit View Format Formats Your content goes here.
+#
+# Geolocation
+#
+# Hovers
+open-url            || http://the-internet.herokuapp.com
+click-on            || Hovers
+assert-content      || Hovers, Hover over the image for additional information, ~View profile
+# TODO - does not work at the moment
+# mouse-over          || avatar-blank.jpg
+# assert-content      || Hovers, Hover over the image for additional information, name: user1, View profile
+
+
+
+
