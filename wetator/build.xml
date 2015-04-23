@@ -369,7 +369,7 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="5.6" type="jar"
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.4.1"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
@@ -390,7 +390,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd" revision="5.0.2" type="jar"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.3.0" type="jar"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
@@ -422,12 +422,12 @@
             <fileset dir="${dir.src}">
                 <patternset refid="checkstylePattern" />
             </fileset>
-          <classpath>
-            <fileset dir="${dir.lib}">
-               <patternset refid="libPattern" />
-            </fileset>
+            <classpath>
+                <fileset dir="${dir.lib}">
+                    <patternset refid="libPattern" />
+                </fileset>
                 <path path="${dir.build}/classes" />
-          </classpath>
+            </classpath>
         </checkstyle>
 
         <!-- run findbugs -->
@@ -453,7 +453,7 @@
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true">
-            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
+            <ruleset>rulesets/java/basic.xml,rulesets/java/empty.xml,rulesets/java/unnecessary.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
@@ -700,7 +700,7 @@ ECHO * Please, set the JAVA_HOME variable in your environment to match the *
 ECHO * location of the Java Virtual Machine you want to use.               *
 ECHO *                                                                     *
 ECHO ***********************************************************************
-ECHO 
+ECHO
 PAUSE
 GOTO END
 
@@ -712,7 +712,7 @@ ECHO * File not found:                                                     *
 ECHO *   '%JAVA_HOME%\bin\%JAVA_EXE%'
 ECHO *                                                                     *
 ECHO ***********************************************************************
-ECHO 
+ECHO
 PAUSE
 
 :END
@@ -836,7 +836,6 @@ ENDLOCAL
             <arg value="open_url_https.wet"/>
 
         </exec>
-
     </target>
 
 
