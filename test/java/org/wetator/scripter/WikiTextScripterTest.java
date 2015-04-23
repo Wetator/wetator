@@ -179,7 +179,7 @@ public class WikiTextScripterTest {
 
     String tmpValue = tmpCommand.getFirstParameter().getValue();
     tmpValue = StringUtils.replace(tmpValue, "\r\n", "\n");
-    Assert.assertEquals("text 1\n\ntext 3", tmpValue);
+    Assert.assertEquals("text 1  \n\ntext 3", tmpValue);
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
 }

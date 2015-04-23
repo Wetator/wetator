@@ -119,7 +119,7 @@ public final class WikiTextScripter implements IScripter {
 
           while (tmpLine.endsWith(CONTINUATION)) {
             tmpLine = tmpLine.substring(0, tmpLine.length() - CONTINUATION.length());
-            tmpLine = StringUtils.stripEnd(tmpLine, " \t");
+            tmpLine = StringUtils.stripEnd(tmpLine, "\t");
             tmpLine = tmpLine + NEW_LINE;
             if (tmpLines.hasNext()) {
               tmpLine = tmpLine + StringUtils.stripEnd(tmpLines.next(), null);

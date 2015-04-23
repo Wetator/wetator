@@ -1,9 +1,9 @@
 # Just a comment
 Open-Url   \
      || set.html
-# continuing comment \
+# continuing comment\
 Assert-Title    || Wetator / Set
-describe || text 1\
+describe || text 1  \
 \
 text 3\
 \
