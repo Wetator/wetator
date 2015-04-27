@@ -1,0 +1,13 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Dynamic Controls
+open-url            || http://the-internet.herokuapp.com
+click-on            || Dynamic Controls
+assert-content      || Dynamic Controls, This example demonstrates when controls * are added or removed asynchronously.
+assert-content      || Remove, A checkbox
+assert-deselected   || A checkbox
+select              || A checkbox
+click-on            || Remove
+assert-content      || Add, It's gone! || 10
+click-on            || Add
+assert-content      || It's back!, A checkbox || 10
+assert-deselected   || A checkbox

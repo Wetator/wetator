@@ -1,0 +1,11 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### File Download
+open-url            || http://the-internet.herokuapp.com
+click-on            || File Download
+assert-content      || File Downloader, hello-world.pdf
+assert-content      || File Downloader, avatar.jpg
+click-on            || hello-world.pdf
+assert-content      || Hello World!
+# switch back from the pdf to the download page
+go-back
+click-on            || avatar.jpg
