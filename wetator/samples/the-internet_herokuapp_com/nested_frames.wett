@@ -1,0 +1,5 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Nested Frames
+open-url            || http://the-internet.herokuapp.com
+click-on            || Nested Frames
+assert-content      || LEFT MIDDLE RIGHT BOTTOM

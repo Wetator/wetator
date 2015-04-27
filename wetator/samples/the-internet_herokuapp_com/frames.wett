@@ -1,0 +1,10 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Frames
+open-url            || http://the-internet.herokuapp.com
+click-on            || Frames
+assert-content      || Frames, Nested Frames, iFrame
+click-on            || Nested Frames
+assert-content      || LEFT MIDDLE RIGHT BOTTOM
+go-back
+click-on            || iFrame
+assert-content      || An iFrame containing the TinyMCE WYSIWYG Editor File Edit View Format Formats Your content goes here.

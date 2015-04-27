@@ -1,0 +1,9 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Dynamic Loading / Example 2
+open-url            || http://the-internet.herokuapp.com
+click-on            || Dynamic Loading
+assert-content      || Dynamically Loaded Page Elements
+click-on            || Element rendered after the fact
+assert-content      || Example 2: Element rendered after the fact, Start, ~Hello World!
+click-on            || Start
+assert-content      || Hello World! || 10

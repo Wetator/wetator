@@ -1,0 +1,11 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Large & Deep DOM
+open-url            || http://the-internet.herokuapp.com
+click-on            || Large & Deep DOM
+assert-content      || Large & Deep DOM
+#
+assert-content      || No Siblings No siblings
+#
+assert-content      || 1.1 1.2 1.3, 49.3 50.1 50.2 50.3
+#
+assert-content      || Table, 50.48 50.49 50.50

@@ -1,0 +1,8 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### File Upload
+open-url            || http://the-internet.herokuapp.com
+click-on            || File Upload
+assert-content      || File Uploader Choose a file here on your system that you would like to upload!, Upload
+set                 || Choose a file here on your system that you would like to upload || js_filter.cfg
+click-on            || Upload
+assert-content      || File Uploaded! js_filter.cfg

@@ -1,0 +1,9 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Checkboxes
+open-url            || http://the-internet.herokuapp.com
+click-on            || Checkboxes
+assert-content      || Checkboxes unchecked checked
+assert-selected     || checked
+assert-deselected   || unchecked
+select              || unchecked
+assert-selected     || unchecked

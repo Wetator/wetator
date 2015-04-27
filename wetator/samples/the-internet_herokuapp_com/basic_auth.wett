@@ -1,0 +1,12 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Basic Auth
+describe            || Basic Authorization requires the definition of the credentials inside wetator.config.  \
+Please define the properties\
+\
+* wetator.basicAuthUser and\
+* wetator.basicAuthPassword\
+\
+Checkout the [Configuration Reference](http://www.wetator.org/wetator-documentation/reference/configuration) for details.
+open-url            || http://the-internet.herokuapp.com
+click-on            || Basic Auth
+assert-content      || Basic Auth Congratulations! You must have the proper credentials.

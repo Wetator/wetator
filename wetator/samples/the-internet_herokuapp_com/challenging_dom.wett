@@ -1,0 +1,10 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Challenging DOM
+open-url            || http://the-internet.herokuapp.com
+click-on            || Challenging DOM
+assert-content      || Challenging DOM, Lorem Ipsum Dolor Sit Amet Diceret Action
+# next steps finds the correct control but reports an error because the href is broken
+#click-on            || [Action; Iuvaret1]
+#click-on            || Phaedrum3 > delete
+# foo appears only sometimes
+#click-on            || foo

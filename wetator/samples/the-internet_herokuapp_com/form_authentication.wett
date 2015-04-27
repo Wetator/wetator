@@ -1,0 +1,23 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Form Authentication
+open-url            || http://the-internet.herokuapp.com
+click-on            || Form Authentication
+assert-content      || Login Page, Username, Password
+assert-set          || Username ||
+assert-set          || Password ||
+click-on            || Login
+assert-content      || Your username is invalid!
+assert-set          || Username ||
+assert-set          || Password ||
+set                 || Username || tomsmith
+click-on            || Login
+assert-content      || Your password is invalid!
+assert-set          || Username ||
+assert-set          || Password ||
+set                 || Username || tomsmith
+set                 || Password || SuperSecretPassword!
+click-on            || Login
+assert-content      || You logged into a secure area!, Welcome to the Secure Area. When you are done click logout below.
+click-on            || Logout
+assert-set          || Username ||
+assert-set          || Password ||

@@ -1,0 +1,13 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Multiple Windows
+open-url            || http://the-internet.herokuapp.com
+click-on            || Multiple Windows
+assert-content      || Opening a new window
+#
+click-on            || Click Here
+assert-title        || New Window
+assert-content      || New Window
+# go back to the original window by closing the new one
+close-window
+assert-content      || Opening a new window
+

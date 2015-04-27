@@ -1,0 +1,5 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### A/B Testing
+open-url            || http://the-internet.herokuapp.com
+click-on            || A/B Testing
+assert-content      || A/B Test, Also known as split testing.
