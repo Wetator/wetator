@@ -116,7 +116,7 @@ import com.gargoylesoftware.htmlunit.svg.SvgRect;
 
 /**
  * Helper methods to write the HtmlUnit page as XHtml to a file.
- * 
+ *
  * @author rbri
  */
 public final class XHtmlOutputter {
@@ -223,7 +223,7 @@ public final class XHtmlOutputter {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlPage the page to be written
    * @param aResponseStore the response store that is responsible to store files
    *        linked from this page. The links are changed to point to this page
@@ -236,7 +236,7 @@ public final class XHtmlOutputter {
 
   /**
    * The real worker; dumps the page as XHTML to this file.
-   * 
+   *
    * @param aFile the file to write to
    * @throws IOException in case of error
    */
@@ -247,7 +247,7 @@ public final class XHtmlOutputter {
 
   /**
    * The real worker; dumps the page as XHTML to this file.
-   * 
+   *
    * @param aWriter the writer to write on
    * @throws IOException in case of error
    */
@@ -259,7 +259,7 @@ public final class XHtmlOutputter {
 
       output.println("<?xml version=\"1.0\" encoding=\"" + tmpEncoding + "\"?>");
       output
-          .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+      .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 
       writeSubNodes(htmlPage);
 
@@ -279,7 +279,7 @@ public final class XHtmlOutputter {
 
   /**
    * Helper rot writing subnodes.
-   * 
+   *
    * @param aDomNode the parent node
    * @throws IOException in case of error
    */
@@ -304,7 +304,7 @@ public final class XHtmlOutputter {
 
   /**
    * Writes the opening part of the tag.
-   * 
+   *
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
@@ -374,7 +374,7 @@ public final class XHtmlOutputter {
 
   /**
    * Writes the closing part of the tag.
-   * 
+   *
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
@@ -414,7 +414,7 @@ public final class XHtmlOutputter {
 
   /**
    * Writes the attributes of the tag.
-   * 
+   *
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
@@ -495,7 +495,7 @@ public final class XHtmlOutputter {
               } else {
                 final String tmpStoredFileName = responseStore.storePage(tmpPage);
                 if (null != tmpStoredFileName) {
-                  tmpAttributeValue = "../" + tmpStoredFileName;
+                  tmpAttributeValue = "../../" + tmpStoredFileName;
                 }
               }
             }
