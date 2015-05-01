@@ -27,7 +27,7 @@ import org.wetator.util.SecretString;
 
 /**
  * The interface for all browsers.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -80,14 +80,16 @@ public interface IBrowser {
     /** internet explorer 8. */
     INTERNET_EXPLORER_8("IE8", "IE_8"),
     /** internet explorer 11. */
-    INTERNET_EXPLORER_11("IE11", "IE_11");
+    INTERNET_EXPLORER_11("IE11", "IE_11"),
+    /** chrome. */
+    CHROME("Chrome", "Chrome");
 
     private String label;
     private String symbol;
 
     /**
      * The constructor.
-     * 
+     *
      * @param aLabel the label of the browser type
      * @param aSymbol the symbol for the browser type (e.g. used by the {@link org.wetator.core.WetatorConfiguration})
      */
@@ -134,7 +136,7 @@ public interface IBrowser {
   /**
    * Returns the {@link IControlFinder} for this browser.
    * Every supported browser has its own ControlFinder.
-   * 
+   *
    * @return the ControlFinder for this browser
    * @throws BackendException if no ControlFinder could be found for the current page, e.g. because the page is not a
    *         HTML page
@@ -150,7 +152,7 @@ public interface IBrowser {
   /**
    * Opens the given URL in the current window.<br/>
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
-   * 
+   *
    * @param aUrl the URL to open
    * @throws ActionException if opening the URL fails
    */
@@ -158,7 +160,7 @@ public interface IBrowser {
 
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
-   * 
+   *
    * @return true, if still some javascript jobs pending
    * @throws BackendException in case of problems
    */
@@ -166,7 +168,7 @@ public interface IBrowser {
 
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
-   * 
+   *
    * @param aTimeoutInMillis the timeout
    * @return true, if still some javascript jobs pending
    * @throws BackendException in case of problems
@@ -177,7 +179,7 @@ public interface IBrowser {
    * Checks, if the page title matches the given pattern.<br>
    * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the title again. If
    * the pattern is still not found an {@link AssertionException} is thrown.
-   * 
+   *
    * @param aTitleToWaitFor the expected text
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
@@ -189,7 +191,7 @@ public interface IBrowser {
    * Checks, if the page content matches the given pattern.<br>
    * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the content again. If
    * the pattern is still not found an {@link AssertionException} is thrown.
-   * 
+   *
    * @param aContentToWaitFor the expected content (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
    * @return true, if there was a page change during the wait
@@ -199,7 +201,7 @@ public interface IBrowser {
 
   /**
    * Saves the content of the current window to the log.
-   * 
+   *
    * @param aControls the controls to be highlighted
    */
   void saveCurrentWindowToLog(IControl... aControls);
@@ -207,14 +209,14 @@ public interface IBrowser {
   /**
    * Creates a new log entry that points to the last save screenshot
    * including url parameters pointing to the controls to be highlighted.
-   * 
+   *
    * @param aControls the controls to be highlighted
    */
   void markControls(final IControl... aControls);
 
   /**
    * Goes back (simulates the browser's back button) in the current window.
-   * 
+   *
    * @param aSteps the number of steps to go back
    * @throws ActionException if going back fails
    */
@@ -222,7 +224,7 @@ public interface IBrowser {
 
   /**
    * Closes the window with the given name.
-   * 
+   *
    * @param aWindowName the name
    * @throws ActionException if finding or closing the window fails
    */
@@ -231,7 +233,7 @@ public interface IBrowser {
   /**
    * Starts a new browser session.<br/>
    * If there are any open sessions (and open windows) currently they are closed.
-   * 
+   *
    * @param aBrowserType the browser type to start a session for
    */
   void startNewSession(IBrowser.BrowserType aBrowserType);
@@ -243,7 +245,7 @@ public interface IBrowser {
 
   /**
    * Returns the url for the bookmark with the given name.
-   * 
+   *
    * @param aBookmarkName the name of the bookmark
    * @return the url (including get parameters)
    */
@@ -251,7 +253,7 @@ public interface IBrowser {
 
   /**
    * Stores the given bookmark.
-   * 
+   *
    * @param aBookmarkName the name of the bookmark
    * @param aBookmarkUrl the url (including get parameters)
    */
@@ -259,7 +261,7 @@ public interface IBrowser {
 
   /**
    * Stores the current page as a bookmark with the given name.
-   * 
+   *
    * @param aBookmarkName the name of the bookmark
    * @throws ActionException in case of problems
    */
@@ -269,14 +271,14 @@ public interface IBrowser {
    * The browser manages a list of failures detected during the execution
    * of an action. This failures are collected. Normally such a failure doesn't stop
    * the processing of the action.<br>
-   * 
+   *
    * @param aFailure the original problem
    */
   void addFailure(AssertionException aFailure);
 
   /**
    * Helper to store a failure.
-   * 
+   *
    * @see #addFailure(AssertionException)
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
@@ -287,7 +289,7 @@ public interface IBrowser {
 
   /**
    * This logs all collected exceptions and resets the list.
-   * 
+   *
    * @return the first {@link AssertionException} in the list or null if the list is empty
    */
   AssertionException checkAndResetFailures();
