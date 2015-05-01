@@ -31,6 +31,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JWindow;
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 import org.apache.commons.lang3.StringUtils;
@@ -119,6 +120,7 @@ public final class DialogUtil {
       tmpLastDir = null;
     }
 
+    final LookAndFeel tmpCurrentLook = UIManager.getLookAndFeel();
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (final Exception e) {
@@ -131,6 +133,13 @@ public final class DialogUtil {
     tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
     tmpFileChooser.setSelectedFiles(restoreFiles(tmpPreferences, tmpLastDir));
+
+    try {
+      // reset
+      UIManager.setLookAndFeel(tmpCurrentLook);
+    } catch (final Exception e) {
+      // ignore
+    }
 
     final int tmpChooserAction = tmpFileChooser.showOpenDialog(aWindow);
     switch (tmpChooserAction) {
