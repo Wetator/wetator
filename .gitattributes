@@ -1171,6 +1171,7 @@ wetator/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet.xsd -text svneol=unset#text/plain
+wetator/xsl/resources/chrome.png -text
 wetator/xsl/resources/collapseall.png -text
 wetator/xsl/resources/collapselog.png -text
 wetator/xsl/resources/collapselogwarn.png -text
