@@ -31,6 +31,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JWindow;
+import javax.swing.UIManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Wetator;
@@ -39,7 +40,7 @@ import org.wetator.util.StringUtil;
 
 /**
  * Utility class to display a file selector dialog.
- * 
+ *
  * @author rbri
  */
 public final class DialogUtil {
@@ -54,7 +55,7 @@ public final class DialogUtil {
 
   /**
    * Helper for displaying a file selector dialog.
-   * 
+   *
    * @param aWindow the root JWindow (to see something in the window
    *        switch list (Atl+Tab)
    * @param aPropertyKey a special key for looking up the start directory.
@@ -72,7 +73,7 @@ public final class DialogUtil {
 
   /**
    * Helper for displaying a file selector dialog.
-   * 
+   *
    * @param aWindow the root JWindow (to see something in the window
    *        switch list (Atl+Tab)
    * @param aPropertyKey a special key for looking up the start directory.
@@ -88,7 +89,7 @@ public final class DialogUtil {
 
   /**
    * Displays a file selector dialog using swing.
-   * 
+   *
    * @param aWindow the root JWindow (to see something in the window
    *        switch list (Atl+Tab)
    * @param aPropertyKey a special key for looking up the start directory.
@@ -116,6 +117,12 @@ public final class DialogUtil {
     File tmpLastDir = new File(tmpLastDirName);
     if (!tmpLastDir.exists() || !tmpLastDir.isDirectory()) {
       tmpLastDir = null;
+    }
+
+    try {
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (final Exception e) {
+      // ignore, fall back to the default
     }
 
     final JFileChooser tmpFileChooser = new PlaceableFileChooser(tmpPreferences);
@@ -172,7 +179,7 @@ public final class DialogUtil {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aPreferences the preferences for read/write
      */
     public PlaceableFileChooser(final Preferences aPreferences) {
@@ -181,7 +188,7 @@ public final class DialogUtil {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see javax.swing.JFileChooser#createDialog(java.awt.Component)
      */
     @Override
@@ -193,7 +200,7 @@ public final class DialogUtil {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see javax.swing.JFileChooser#showOpenDialog(java.awt.Component)
      */
     @Override
@@ -206,7 +213,7 @@ public final class DialogUtil {
 
   /**
    * Store frame location and size.
-   * 
+   *
    * @param aPreferences the preferences to write to
    * @param aDialog the dialog you like to store
    */
@@ -225,7 +232,7 @@ public final class DialogUtil {
 
   /**
    * Restore frame location and size.
-   * 
+   *
    * @param aPreferences the preferences to write to
    * @param aDialog the dialog you like to store
    */
@@ -254,7 +261,7 @@ public final class DialogUtil {
 
   /**
    * Store frame location and size.
-   * 
+   *
    * @param aPreferences the preferences to write to
    * @param aFiles the files to store
    */
@@ -278,7 +285,7 @@ public final class DialogUtil {
 
   /**
    * Restore frame location and size.
-   * 
+   *
    * @param aPreferences the preferences to write to
    * @param aDir the the directory we are working on
    * @return the list of remembered files that are still available
