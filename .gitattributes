@@ -16,6 +16,23 @@ ant_lib/ivy-2.4.0.jar -text
 /build.properties -text
 /build.xml -text
 /chat -text
+docu/images/cfg_jsjobs.png -text
+docu/images/cfg_jsjobs_filter.png -text
+docu/images/click_anchor.png -text
+docu/images/click_button.png -text
+docu/images/click_button_title.png -text
+docu/images/click_imgbutton.png -text
+docu/images/confirm_next_dialog.png -text
+docu/images/content_pattern_sample.png -text
+docu/images/describe_result.png -text
+docu/images/empty_wpath.png -text
+docu/images/file_upload.png -text
+docu/images/input_text.png -text
+docu/images/open_url.png -text
+docu/images/open_url_file.png -text
+docu/images/select.png -text
+docu/images/select_list.png -text
+docu/images/wpath_parts.png -text
 docu/sample_pages/docu_screens.html -text
 docu/sample_pages/shopping_cart.png -text
 /exceptions.txt -text svneol=unset#text/plain
