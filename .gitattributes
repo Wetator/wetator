@@ -250,11 +250,6 @@ wetator/samples/google_search/google.wet -text
 wetator/samples/google_search/google.wett -text
 wetator/samples/google_search/google.xls -text
 wetator/samples/google_search/wetator.config -text
-wetator/samples/primefaces/inplace.wett -text
-wetator/samples/primefaces/listbox.wett -text
-wetator/samples/primefaces/one_menu.wett -text
-wetator/samples/primefaces/one_radio.wett -text
-wetator/samples/primefaces/wetator.config -text
 wetator/samples/sample.wet -text
 wetator/samples/sample.wett -text
 wetator/samples/sample.xls -text
@@ -635,6 +630,11 @@ wetator/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-strings.xml -text svneol=unset#text/plain
 wetator/test/real-world/jira/atlassian-jira.wett -text
+wetator/test/real-world/primefaces/inplace.wett -text
+wetator/test/real-world/primefaces/listbox.wett -text
+wetator/test/real-world/primefaces/one_menu.wett -text
+wetator/test/real-world/primefaces/one_radio.wett -text
+wetator/test/real-world/primefaces/wetator.config -text
 wetator/test/real-world/vaadin/proxy.wett -text
 wetator/test/real-world/vaadin/vaadin-sample.wett -text
 wetator/test/real-world/vaadin/vaadin-simple.wett -text
