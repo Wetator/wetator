@@ -1,0 +1,7 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Redirect Link
+open-url            || http://the-internet.herokuapp.com
+click-on            || Redirect Link
+assert-content      || Redirection
+click-on            || here
+assert-content      || Status Codes, 200, 301, 404, 500

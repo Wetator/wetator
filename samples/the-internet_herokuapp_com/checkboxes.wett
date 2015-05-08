@@ -2,8 +2,14 @@ describe            || WETATOR samples based on [http://the-internet.herokuapp.c
 ### Checkboxes
 open-url            || http://the-internet.herokuapp.com
 click-on            || Checkboxes
-assert-content      || Checkboxes unchecked checked
-assert-selected     || checked
-assert-deselected   || unchecked
-select              || unchecked
-assert-selected     || unchecked
+assert-content      || Checkboxes checkbox 1 checkbox 2
+assert-deselected   || checkbox 1
+assert-selected     || checkbox 2
+select              || checkbox 1
+assert-selected     || checkbox 1
+# it is possible to select an already selected checkbox
+select              || checkbox 2
+assert-selected     || checkbox 2
+# time to deselect
+deselect            || checkbox 2
+assert-deselected   || checkbox 2

@@ -1,0 +1,19 @@
+describe            || WETATOR samples based on [http://the-internet.herokuapp.com] (http://the-internet.herokuapp.com)\
+### Secure File Download
+describe            || The download page is protected by Basic Authorization.  \
+Passing the login requires the definition of the credentials inside wetator.config.  \
+Please define the properties\
+\
+* wetator.basicAuthUser and\
+* wetator.basicAuthPassword\
+\
+Checkout the [Configuration Reference](http://www.wetator.org/wetator-documentation/reference/configuration) for details.
+open-url            || http://the-internet.herokuapp.com
+click-on            || Secure File Download
+assert-content      || Secure File Downloader, hello-world.pdf
+assert-content      || Secure File Downloader, avatar.jpg
+click-on            || hello-world.pdf
+assert-content      || Hello World!
+# switch back from the pdf to the download page
+go-back
+click-on            || avatar.jpg

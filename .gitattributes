@@ -51,6 +51,9 @@ samples/the-internet_herokuapp_com/js_filter.cfg -text
 samples/the-internet_herokuapp_com/large_deep_dom.wett -text
 samples/the-internet_herokuapp_com/multiple_windows.wett -text
 samples/the-internet_herokuapp_com/nested_frames.wett -text
+samples/the-internet_herokuapp_com/redirect_link.wett -text
+samples/the-internet_herokuapp_com/secure_file_download.wett -text
+samples/the-internet_herokuapp_com/status_codes.wett -text
 samples/the-internet_herokuapp_com/wetator.config -text
 samples/wetator_testform/wetator.config -text
 samples/wetator_testform/wetator_testform.wet -text
