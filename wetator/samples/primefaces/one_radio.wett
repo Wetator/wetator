@@ -1,7 +1,7 @@
 
 # Simple test case for the PrimeFaces radio
 
-open-url        || http://www.primefaces.org/showcase/index.xhtml
+open-url        || index.xhtml
 assert-content  || PrimeFaces SHOWCASE
 
 click-on        || Input
