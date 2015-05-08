@@ -1010,6 +1010,8 @@ xsl/resources/none.png -text
 xsl/resources/ok.png -text
 xsl/resources/previous.png -text
 xsl/resources/response.png -text
+xsl/resources/show_all.png -text
+xsl/resources/show_errors.png -text
 xsl/resources/top.png -text
 xsl/resources/wetator.png -text
 xsl/resources/wetator_report.js -text
