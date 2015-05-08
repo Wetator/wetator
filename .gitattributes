@@ -257,6 +257,9 @@ wetator/samples/the-internet_herokuapp_com/js_filter.cfg -text
 wetator/samples/the-internet_herokuapp_com/large_deep_dom.wett -text
 wetator/samples/the-internet_herokuapp_com/multiple_windows.wett -text
 wetator/samples/the-internet_herokuapp_com/nested_frames.wett -text
+wetator/samples/the-internet_herokuapp_com/redirect_link.wett -text
+wetator/samples/the-internet_herokuapp_com/secure_file_download.wett -text
+wetator/samples/the-internet_herokuapp_com/status_codes.wett -text
 wetator/samples/the-internet_herokuapp_com/wetator.config -text
 wetator/samples/wetator_testform/wetator.config -text
 wetator/samples/wetator_testform/wetator_testform.wet -text
