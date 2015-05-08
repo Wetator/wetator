@@ -214,8 +214,8 @@ wetator/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 wetator/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 wetator/LICENSE.txt -text
 wetator/actions.txt -text svneol=unset#text/plain
-wetator/ant_lib/bcpg-jdk15on-151.jar -text
-wetator/ant_lib/bcprov-jdk15on-1.51.jar -text
+wetator/ant_lib/bcpg-jdk15on-150.jar -text
+wetator/ant_lib/bcprov-jdk15on-1.50.jar -text
 wetator/ant_lib/ivy-2.4.0.jar -text
 wetator/build-patternset.xml -text svneol=unset#text/plain
 wetator/build-properties.xml -text
