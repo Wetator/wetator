@@ -1,0 +1,7 @@
+open-url    || http://localhost:8080/vaadin-simple/?debug
+
+set || Quelle || abc
+
+click-on || Übernehmen
+
+assert-set || Ziel || abc

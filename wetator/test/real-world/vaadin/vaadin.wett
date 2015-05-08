@@ -1,0 +1,24 @@
+# simple test of vaadin
+
+describe || # Happy path walktrough for our registration workflow.\
+**Use case:** [Register User](http://www.wetator.org/use-cases/regitrer-user)\
+\
+You are now reading a more detailed description of this test case.
+
+open-url        || http://localhost:8080/Vaadin/?debug
+assert-content  || Click Me, Show notification
+
+click-on        || Click Me
+assert-content  || Thank you for clicking
+
+click-on        || Show notification
+assert-content  || Notification message, Notification description
+
+assert-set      || Name || your name
+set             || Name || Wetator
+assert-set      || Name || Wetator
+assert-content  || Name Wetator Password
+
+assert-set      || Password ||
+set             || Password || Victoria
+assert-set      || Password || Victoria

@@ -635,6 +635,10 @@ wetator/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-strings.xml -text svneol=unset#text/plain
 wetator/test/real-world/jira/atlassian-jira.wett -text
+wetator/test/real-world/vaadin/proxy.wett -text
+wetator/test/real-world/vaadin/vaadin-sample.wett -text
+wetator/test/real-world/vaadin/vaadin-simple.wett -text
+wetator/test/real-world/vaadin/vaadin.wett -text
 wetator/test/webpage/ajax/jquery/ajax_javascript_test.js -text
 wetator/test/webpage/ajax/jquery/ajax_options_birds.htms -text
 wetator/test/webpage/ajax/jquery/ajax_options_fish.htms -text
