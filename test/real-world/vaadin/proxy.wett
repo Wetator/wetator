@@ -1,0 +1,5 @@
+# simple test of the proxy settings
+
+open-url        || http://www.wetator.org
+open-url        || http://www.gebit.de
+open-url        || http://www.google.de
