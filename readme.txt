@@ -42,9 +42,12 @@ WETATOR
     - copy trunk/wetator to the new folder
   * build the release
     - ant clean
-    - ant publish-sonatype-snapshots
+    - ant publish-sonatype-releases
   * test the release
     - ant test-release
+  * go to https://oss.sonatype.org/index.html#stagingRepositories
+      close the repository
+      release the repository
 
 WETATOR-ANT
   * force jenkins build and check for success
