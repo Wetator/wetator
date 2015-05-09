@@ -18,12 +18,14 @@
                  usepoms="true"
                  root="https://oss.sonatype.org/content/repositories/snapshots/"
                  checkmodified="true"/>
+        <!-- 
         <ibiblio name="wetator-sh"
                  m2compatible="true"
                  usepoms="true"
                  root="http://www.wetator.org/repo"
                  checkmodified="true"
                  changingPattern="^.+-SNAPSHOT$"/>
+        -->
 
         <filesystem name="local-m2-publish" m2compatible="true">
             <artifact pattern="${user.home}/.m2/repository/[organization]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
@@ -38,7 +40,7 @@
         </url>
 
         <chain name="chain">
-            <resolver ref="wetator-sh" />
+            <!-- resolver ref="wetator-sh" /-->
             <resolver ref="ibiblio" />
             <resolver ref="SonatypeSnapshots" />
         </chain>
