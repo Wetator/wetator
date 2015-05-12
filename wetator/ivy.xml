@@ -43,7 +43,7 @@
         <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.9" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.51" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.51" />
-        <dependency org="org.apache.poi" name="poi" rev="3.11" />
+        <dependency org="org.apache.poi" name="poi" rev="3.12" />
         <dependency org="com.sun.xsom" name="xsom" rev="20140925" />
 
         <dependency org="junit" name="junit" rev="4.12" transitive="false" conf="test,sources" />
