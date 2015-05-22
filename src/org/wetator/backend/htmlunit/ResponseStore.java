@@ -50,7 +50,7 @@ import com.gargoylesoftware.htmlunit.util.UrlUtils;
 
 /**
  * Simple store that manages the storage of the different responses.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -76,7 +76,7 @@ public final class ResponseStore {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anOutputDir the outputDir to set
    * @param aBrowserSubdir the subdir for the specific browser this store is for
    * @param anOverwriteFlag the overwrite to set
@@ -92,7 +92,7 @@ public final class ResponseStore {
 
   /**
    * This method has to be called before any page is logged, because it creates the logdir.
-   * 
+   *
    * @param aBrowserSubdir the subdir for the specific browser this store is for
    */
   protected void initOutputDir(final String aBrowserSubdir) {
@@ -118,7 +118,7 @@ public final class ResponseStore {
 
   /**
    * This method writes the the text to a file with a unique name.
-   * 
+   *
    * @param aContent the text content to save
    * @return the file name used for this page
    */
@@ -139,7 +139,7 @@ public final class ResponseStore {
 
   /**
    * This method writes the page to a file with a unique name.
-   * 
+   *
    * @param aWebClient the web client
    * @param aPage the page to save
    * @return the file name used for this page
@@ -152,7 +152,7 @@ public final class ResponseStore {
 
   /**
    * This method writes the page to a file with a unique name.
-   * 
+   *
    * @param aPage the page to save
    * @return the file name used for this page
    */
@@ -189,7 +189,7 @@ public final class ResponseStore {
 
   /**
    * This method writes the content of a url to a file with a unique name.
-   * 
+   *
    * @param aBaseUrl the url of the page, this is referenced from
    * @param aFullContentUrl the url of the content to save
    * @param aDeep the deep of the parent file in the response store
@@ -279,11 +279,13 @@ public final class ResponseStore {
           final String tmpContentType = tmpWebResponse.getContentType();
           if ("text/css".equalsIgnoreCase(tmpContentType)) {
             final String tmpResponse = getContentAsStringWithoutBOM(tmpWebResponse);
-            FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+            if (null != tmpResponse) {
+              FileUtils.forceMkdir(tmpResourceFile.getParentFile());
 
-            // process all url(....) inside
-            tmpProcessed = processCSS(aFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
-            FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed, Charsets.UTF_8);
+              // process all url(....) inside
+              tmpProcessed = processCSS(aFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
+              FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed, Charsets.UTF_8);
+            }
           }
 
           if (tmpProcessed == null) {
@@ -321,7 +323,7 @@ public final class ResponseStore {
    * This method parses the given css content for url(...);
    * resolves the pictures and returns the content with
    * correct paths.
-   * 
+   *
    * @param aFullContentUrl the url of the page/css, this is referenced from
    * @param aCssContent the css to process
    * @param aDeep the deep of the parent file in the response store
