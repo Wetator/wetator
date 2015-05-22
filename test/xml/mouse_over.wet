@@ -10,29 +10,35 @@
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>Plain Content Pferde fressen keinen Gurkensalat. Font infos in Content</d:content></d:assert-content></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>Gurkensalat</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_plaintext_name, Submit</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Plain Content Pferde fressen keinen Gurkensalat. Plain Content Btn Font infos in Content</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>This text is styled. MouseOver defined on parent</d:content></d:assert-content></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>xt is style</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_formatedtext_name, Submit</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>This text is styled. Font Btn MouseOver defined on parent</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'Submit'.</tst:command-and-message><tst:parameter1>Submit</tst:parameter1></tst:assert-fail></command>
+    <command><d:assert-content><d:content>MouseOver defined on parent Place mouse here Effect with timeout</d:content></d:assert-content></command>
+    <comment>move mouse over the button</comment>
+    <command><d:mouse-over><d:wpath>Place mouse here</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>MouseOver defined on parent Place mouse here Parent Btn Effect with timeout</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
+    <comment>button is not visible</comment>
+    <command><d:assert-content><d:content>Effect with timeout Button will go away after 4s., ~Timeout Btn</d:content></d:assert-content></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>Button will go away</d:wpath></d:mouse-over></command>
-    <command><d:click-on><d:wpath>Submit</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, b_timeout_name, Submit</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Effect with timeout Button will go away after 4s. Timeout Btn</d:content></d:assert-content></command>
 </test-case>
