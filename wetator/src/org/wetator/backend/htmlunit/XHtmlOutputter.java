@@ -259,7 +259,7 @@ public final class XHtmlOutputter {
 
       output.println("<?xml version=\"1.0\" encoding=\"" + tmpEncoding + "\"?>");
       output
-      .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+          .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 
       writeSubNodes(htmlPage);
 
@@ -426,7 +426,9 @@ public final class XHtmlOutputter {
       if (tmpDomElement instanceof HtmlLink) {
         final HtmlLink tmpHtmlLink = (HtmlLink) tmpDomElement;
 
-        if ("text/css".equals(tmpHtmlLink.getTypeAttribute()) && "stylesheet".equals(tmpHtmlLink.getRelAttribute())) {
+        final String tmpType = tmpHtmlLink.getTypeAttribute();
+        if ((StringUtils.isEmpty(tmpType) || "text/css".equals(tmpType))
+            && "stylesheet".equals(tmpHtmlLink.getRelAttribute())) {
           tmpIsCssLink = true;
         }
       }
