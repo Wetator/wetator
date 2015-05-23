@@ -426,9 +426,7 @@ public final class XHtmlOutputter {
       if (tmpDomElement instanceof HtmlLink) {
         final HtmlLink tmpHtmlLink = (HtmlLink) tmpDomElement;
 
-        final String tmpType = tmpHtmlLink.getTypeAttribute();
-        if ((StringUtils.isEmpty(tmpType) || "text/css".equals(tmpType))
-            && "stylesheet".equals(tmpHtmlLink.getRelAttribute())) {
+        if ("stylesheet".equals(tmpHtmlLink.getRelAttribute())) {
           tmpIsCssLink = true;
         }
       }
