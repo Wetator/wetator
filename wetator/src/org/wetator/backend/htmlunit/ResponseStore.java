@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -112,7 +113,7 @@ public final class ResponseStore {
       FileUtils.forceMkdir(storeDir);
       FileUtils.cleanDirectory(storeDir);
     } catch (final IOException e) {
-      LOG.error("IO exception for dir: " + storeDir.getAbsolutePath(), e);
+      LOG.error("IO exception for dir: " + FilenameUtils.normalize(storeDir.getAbsolutePath()), e);
     }
   }
 
@@ -133,7 +134,8 @@ public final class ResponseStore {
       FileUtils.write(tmpFile, aContent);
       return relStoreDir + "/" + tmpFileName;
     } catch (final IOException e) {
-      throw new ResourceException("Could not write file '" + tmpFile.getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not write file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'.",
+          e);
     }
   }
 
@@ -183,7 +185,8 @@ public final class ResponseStore {
 
       return relStoreDir + "/" + tmpFileName;
     } catch (final IOException e) {
-      throw new ResourceException("Could not write file '" + tmpFile.getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not write file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'.",
+          e);
     }
   }
 

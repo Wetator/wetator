@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -58,7 +59,7 @@ import com.github.rjeschke.txtmark.Processor;
 /**
  * The implementation of all build in command that Wetator
  * supports at the moment.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -98,12 +99,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandDescribe implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpMarkdown = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -121,12 +122,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       SecretString tmpUrlParam = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -171,12 +172,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public static final class CommandUseModule implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpModuleParam = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpModuleParameters = aCommand.getSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -192,7 +193,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       // check file
       if (!tmpFile.exists() || !tmpFile.isFile()) {
-        final String tmpMessage = Messages.getMessage("moduleFileNotFound", new String[] { tmpFile.getAbsolutePath() });
+        final String tmpMessage = Messages.getMessage("moduleFileNotFound",
+            new String[] { FilenameUtils.normalize(tmpFile.getAbsolutePath()) });
         throw new InvalidInputException(tmpMessage);
       }
 
@@ -216,12 +218,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandSet implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getFirstParameterValue(aContext), aContext.getConfiguration());
 
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
@@ -288,12 +290,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandClickOn implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -323,12 +325,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandClickDoubleOn implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -358,12 +360,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandClickRightOn implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -393,12 +395,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandSelect implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -425,12 +427,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandDeselect implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -457,12 +459,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandMouseOver implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -496,12 +498,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandCloseWindow implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpWindowNameParam = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -519,12 +521,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandGoBack implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpStepsParam = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -553,12 +555,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertTitle implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredFirstParameterValue(aContext));
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
@@ -589,12 +591,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertContent implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredFirstParameterValue(aContext));
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
@@ -625,12 +627,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertEnabled implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -666,12 +668,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertDisabled implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -707,12 +709,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertSet implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
@@ -741,12 +743,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertSelected implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -773,12 +775,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public final class CommandAssertDeselected implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -806,13 +808,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   public static final class CommandExecJava implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
     @SuppressWarnings("unchecked")
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpCall = aCommand.getRequiredFirstParameterValue(aContext);
       final List<SecretString> tmpMethodParameters = aCommand.getSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -938,7 +940,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
    */
   @Override
@@ -948,7 +950,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#cleanup()
    */
   @Override

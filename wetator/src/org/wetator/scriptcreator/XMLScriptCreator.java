@@ -38,7 +38,7 @@ import org.wetator.scripter.xml.model.ParameterType;
 /**
  * Creates a Wetator test script in XML format from the given commands with the given file name and XSD in the given
  * output directory.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -63,7 +63,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#createScript()
    */
   @Override
@@ -217,7 +217,7 @@ public class XMLScriptCreator implements IScriptCreator {
         }
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException("Can't create output file '"
-            + tmpFile.getAbsolutePath() + "'.");
+            + (tmpFile.getAbsolutePath()) + "'.");
         tmpException.initCause(e);
         throw tmpException;
       }
@@ -238,7 +238,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
    */
   @Override
@@ -248,7 +248,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#setFileName(java.lang.String)
    */
   @Override
@@ -258,7 +258,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#setOutputDir(java.lang.String)
    */
   @Override
@@ -268,7 +268,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
   /**
    * Little helper to store some namespace information.
-   * 
+   *
    * @author frank.danek
    */
   private static class NamespaceBean {
@@ -327,7 +327,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -350,7 +350,7 @@ public class XMLScriptCreator implements IScriptCreator {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

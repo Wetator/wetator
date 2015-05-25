@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
@@ -36,7 +37,7 @@ import org.wetator.util.NormalizedString;
 
 /**
  * Scripter for wiki text files.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -59,7 +60,7 @@ public final class WikiTextScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
@@ -69,7 +70,7 @@ public final class WikiTextScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
@@ -96,7 +97,7 @@ public final class WikiTextScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
@@ -201,15 +202,16 @@ public final class WikiTextScripter implements IScripter {
         tmpLines.close();
       }
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
+      throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.",
+          e);
     } catch (final IOException e) {
-      throw new ResourceException("Could not read file '" + file.getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.", e);
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#getCommands()
    */
   @Override

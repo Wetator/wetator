@@ -40,6 +40,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
@@ -56,7 +57,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Scripter for XML files using the new test XSDs.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -92,7 +93,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
@@ -102,7 +103,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
@@ -144,7 +145,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * This method is used by the WTE.
-   * 
+   *
    * @param aContent the content to check
    * @return true if this scripter is able to handle this content otherwise false
    * @throws ResourceException in case of problems reading the file
@@ -195,7 +196,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
@@ -207,7 +208,8 @@ public class XMLScripter implements IScripter {
       IOUtils.closeQuietly(tmpReader);
 
       if (null == tmpSchemas || tmpSchemas.isEmpty()) {
-        throw new InvalidInputException("No schemas found in file '" + aFile.getAbsolutePath() + "'.");
+        throw new InvalidInputException("No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath())
+            + "'.");
       }
 
       addDefaultSchemas(tmpSchemas);
@@ -219,18 +221,19 @@ public class XMLScripter implements IScripter {
       tmpReader = createUTF8Reader(aFile);
       commands = parseScript(tmpReader);
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException("Could not find file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new InvalidInputException(
+          "Could not find file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.", e);
     } catch (final IOException e) {
-      throw new ResourceException("Could not read file '" + aFile.getAbsolutePath() + "'.", e);
+      throw new ResourceException("Could not read file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.", e);
     } catch (final XMLStreamException e) {
-      throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
-          e);
+      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' ("
+          + e.getMessage() + ").", e);
     } catch (final SAXException e) {
-      throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
-          e);
+      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' ("
+          + e.getMessage() + ").", e);
     } catch (final ParseException e) {
-      throw new InvalidInputException("Error parsing file '" + aFile.getAbsolutePath() + "' (" + e.getMessage() + ").",
-          e);
+      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' ("
+          + e.getMessage() + ").", e);
     } finally {
       IOUtils.closeQuietly(tmpReader);
     }
@@ -239,7 +242,7 @@ public class XMLScripter implements IScripter {
   /**
    * Scripts the given content by reading all commands.<br/>
    * This method is used by the WTE.
-   * 
+   *
    * @param aContent the content
    * @param aDirectory the directory to search for schema files; may be null
    * @throws InvalidInputException in case of an invalid file
@@ -424,7 +427,7 @@ public class XMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#getCommands()
    */
   @Override

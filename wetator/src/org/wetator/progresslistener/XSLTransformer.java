@@ -30,12 +30,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * This class transforms the output.
- * 
+ *
  * @author rbri
  */
 public final class XSLTransformer {
@@ -46,7 +47,7 @@ public final class XSLTransformer {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aXMLResultFile the name of the report xml file
    */
   public XSLTransformer(final File aXMLResultFile) {
@@ -56,7 +57,7 @@ public final class XSLTransformer {
   /**
    * Transforms the result xml file to various output files. The stylesheets are
    * read from the configured location.
-   * 
+   *
    * @param aListOfXslFileNames the names of the xsl files for transformation
    * @param anOutputDirectory the directory to write to
    */
@@ -74,27 +75,28 @@ public final class XSLTransformer {
         tmpTransformerFactory.setErrorListener(new ErrorListener() {
           @Override
           public void warning(final TransformerException anException) throws TransformerException {
-            LOG.warn("Problem parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "' (" + anException.getMessage()
-                + ").");
+            LOG.warn("Problem parsing XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "' ("
+                + anException.getMessage() + ").");
           }
 
           @Override
           public void fatalError(final TransformerException anException) throws TransformerException {
-            LOG.error("Parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "' failed (" + anException.getMessage()
-                + ").");
+            LOG.error("Parsing XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "' failed ("
+                + anException.getMessage() + ").");
           }
 
           @Override
           public void error(final TransformerException anException) throws TransformerException {
-            LOG.error("Problem parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "' failed ("
-                + anException.getMessage() + ").");
+            LOG.error("Problem parsing XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
+                + "' failed (" + anException.getMessage() + ").");
           }
         });
         final Transformer tmpTransformer = tmpTransformerFactory.newTransformer(tmpXlsStreamSource);
         // if building the transformer fails, then
         // we got null here (instead of an exception)
         if (null == tmpTransformer) {
-          LOG.error("Problem parsing XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.");
+          LOG.error("Problem parsing XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
+              + "'. Aborting.");
           return;
         }
 
@@ -109,15 +111,19 @@ public final class XSLTransformer {
 
         copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
 
-        LOG.info("Report written to " + tmpResultFile.getAbsolutePath());
+        LOG.info("Report written to " + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()));
       } catch (final TransformerConfigurationException e) {
-        LOG.error("Problem loading XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
+        LOG.error("Problem loading XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
+            + "'. Aborting.", e);
       } catch (final TransformerException e) {
-        LOG.error("Problem applying XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
+        LOG.error("Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
+            + "'. Aborting.", e);
       } catch (final IOException e) {
-        LOG.error("Problem writing Report '" + tmpResultFile.getAbsolutePath() + "'. Aborting.", e);
+        LOG.error("Problem writing Report '" + FilenameUtils.normalize(tmpResultFile.getAbsolutePath())
+            + "'. Aborting.", e);
       } catch (final Exception e) {
-        LOG.error("Problem applying XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
+        LOG.error("Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
+            + "'. Aborting.", e);
       }
     }
   }
@@ -128,7 +134,7 @@ public final class XSLTransformer {
    * where the stylesheet is located to the folder where
    * the output is written to.
    * If "images" already exists, nothing is copied.
-   * 
+   *
    * @param aSourceDir the directory to copy from
    * @param aTargetDir the directory to copy to
    * @throws IOException in case of problems
@@ -142,7 +148,7 @@ public final class XSLTransformer {
 
   /**
    * Copies the content from one folder to another folder.
-   * 
+   *
    * @param aSourceDir the directory to copy from
    * @param aTargetDir the directory to copy to
    * @throws IOException in case of problems
@@ -154,7 +160,7 @@ public final class XSLTransformer {
     }
 
     if (!aTargetDir.mkdirs()) {
-      LOG.error("Can't create '" + aTargetDir.getAbsolutePath() + "'.");
+      LOG.error("Can't create '" + FilenameUtils.normalize(aTargetDir.getAbsolutePath()) + "'.");
       return;
     }
 
@@ -193,7 +199,7 @@ public final class XSLTransformer {
             tmpIn.close();
           }
         } catch (final IOException e) {
-          LOG.error("Can't copy '" + tmpSourceFile.getAbsolutePath() + "'. File ignored.", e);
+          LOG.error("Can't copy '" + FilenameUtils.normalize(tmpSourceFile.getAbsolutePath()) + "'. File ignored.", e);
         }
       }
     }

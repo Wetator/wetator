@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -44,7 +45,7 @@ import org.wetator.util.NormalizedString;
 
 /**
  * Scripter for excel files.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -68,7 +69,7 @@ public final class ExcelScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
@@ -89,7 +90,7 @@ public final class ExcelScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
@@ -116,7 +117,7 @@ public final class ExcelScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
@@ -146,7 +147,8 @@ public final class ExcelScripter implements IScripter {
       }
 
       if (tmpSheetNo < 0) {
-        throw new InvalidInputException("No test sheet found in file '" + file.getAbsolutePath() + "'.");
+        throw new InvalidInputException("No test sheet found in file '"
+            + FilenameUtils.normalize(file.getAbsolutePath()) + "'.");
       }
 
       final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
@@ -205,10 +207,11 @@ public final class ExcelScripter implements IScripter {
 
       return tmpResult;
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
-    } catch (final IOException e) {
-      throw new InvalidInputException("Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").",
+      throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.",
           e);
+    } catch (final IOException e) {
+      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "' ("
+          + e.getMessage() + ").", e);
     } finally {
       if (tmpInputStream != null) {
         try {
@@ -234,7 +237,7 @@ public final class ExcelScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#getCommands()
    */
   @Override

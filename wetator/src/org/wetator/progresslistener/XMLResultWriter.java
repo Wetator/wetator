@@ -27,6 +27,7 @@ import java.util.Set;
 
 import net.sourceforge.htmlunit.corejs.javascript.Function;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -61,7 +62,7 @@ import dk.brics.automaton.Automaton;
 
 /**
  * The class that generates the XML output.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -124,7 +125,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#init(WetatorEngine)
    */
   @Override
@@ -240,7 +241,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#start(WetatorEngine)
    */
   @Override
@@ -251,13 +252,15 @@ public class XMLResultWriter implements IProgressListener {
       // print the configuration
       printlnStartTag(TAG_CONFIGURATION);
 
+      printConfigurationProperty("configuration file",
+          FilenameUtils.normalize(tmpConfiguration.getSourceFile().getAbsolutePath()));
       printConfigurationProperty(WetatorConfiguration.PROPERTY_BASE_URL, tmpConfiguration.getBaseUrl());
       for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
         printConfigurationProperty(WetatorConfiguration.PROPERTY_BROWSER_TYPE, tmpBrowserType.getLabel());
       }
       printConfigurationProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpConfiguration.getAcceptLanaguage());
-      printConfigurationProperty(WetatorConfiguration.PROPERTY_OUTPUT_DIR, tmpConfiguration.getOutputDir()
-          .getAbsolutePath());
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_OUTPUT_DIR,
+          FilenameUtils.normalize(tmpConfiguration.getOutputDir().getAbsolutePath()));
       printConfigurationProperty(WetatorConfiguration.PROPERTY_JAVASCRIPT_TIMEOUT,
           tmpConfiguration.getJsTimeoutInSeconds() + "s");
       printConfigurationProperty(WetatorConfiguration.PROPERTY_HTTP_TIMEOUT, tmpConfiguration.getHttpTimeoutInSeconds()
@@ -362,7 +365,7 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnNode(TAG_START_TIME, StringUtil.formatDate(new Date()));
       for (final TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
-        printlnNode(TAG_TEST_FILE, tmpTestCase.getFile().getAbsolutePath());
+        printlnNode(TAG_TEST_FILE, FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
       }
 
       executionStartTime = System.currentTimeMillis();
@@ -373,7 +376,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
@@ -383,7 +386,7 @@ public class XMLResultWriter implements IProgressListener {
       output.print(" name=\"");
       output.print(xmlUtil.normalizeAttributeValue(aTestCase.getName()));
       output.print("\" file=\"");
-      output.print(xmlUtil.normalizeAttributeValue(aTestCase.getFile().getAbsolutePath()));
+      output.print(xmlUtil.normalizeAttributeValue(FilenameUtils.normalize(aTestCase.getFile().getAbsolutePath())));
       output.println("\">");
       output.indent();
     } catch (final IOException e) {
@@ -393,7 +396,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunStart(String)
    */
   @Override
@@ -411,7 +414,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileStart(String)
    */
   @Override
@@ -429,7 +432,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
@@ -478,7 +481,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
@@ -488,7 +491,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandIgnored()
    */
   @Override
@@ -503,7 +506,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
@@ -524,7 +527,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
@@ -544,7 +547,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandEnd()
    */
   @Override
@@ -560,7 +563,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
@@ -574,7 +577,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunIgnored()
    */
   @Override
@@ -589,7 +592,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override
@@ -604,7 +607,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseEnd()
    */
   @Override
@@ -619,7 +622,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#end(WetatorEngine)
    */
   @Override
@@ -645,7 +648,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
    */
   @Override
@@ -659,7 +662,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
    */
   @Override
@@ -673,7 +676,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override
@@ -693,7 +696,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#warn(String, String[], String)
    */
   @Override
@@ -721,7 +724,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
@@ -739,7 +742,7 @@ public class XMLResultWriter implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#htmlDescribe(String)
    */
   @Override
