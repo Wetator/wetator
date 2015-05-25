@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +41,7 @@ import org.wetator.progresslistener.XMLResultWriter;
 /**
  * The engine that makes the monster running.<br/>
  * Everything that is in common use for the whole test process is stored here.
- * 
+ *
  * @author rbri
  * @author frank.danek
  * @author tobwoerk
@@ -73,7 +74,7 @@ public class WetatorEngine {
   /**
    * Initializes the wetator engine. The configuration is read from the configuration file got by
    * {@link #getConfigFile()}.
-   * 
+   *
    * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
    */
   public void init() {
@@ -82,7 +83,7 @@ public class WetatorEngine {
 
   /**
    * Initializes the wetator engine using the given configuration.
-   * 
+   *
    * @param aConfiguration the configuration to use
    */
   public void init(final WetatorConfiguration aConfiguration) {
@@ -125,17 +126,19 @@ public class WetatorEngine {
 
   /**
    * Adds a test file to be executed.
-   * 
+   *
    * @param aName the name of the test file to be added
    * @param aFile the test file to be added
    * @throws InvalidInputException if the test file does not exist or is not readable
    */
   public void addTestCase(final String aName, final File aFile) throws InvalidInputException {
     if (!aFile.exists()) {
-      throw new InvalidInputException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+      throw new InvalidInputException("The test file '" + FilenameUtils.normalize(aFile.getAbsolutePath())
+          + "' does not exist.");
     }
     if (!aFile.isFile() || !aFile.canRead()) {
-      throw new InvalidInputException("The test file '" + aFile.getAbsolutePath() + "' is not readable.");
+      throw new InvalidInputException("The test file '" + FilenameUtils.normalize(aFile.getAbsolutePath())
+          + "' is not readable.");
     }
     testCases.add(new TestCase(aName, aFile));
   }
@@ -151,7 +154,7 @@ public class WetatorEngine {
       for (final TestCase tmpTestCase : getTestCases()) {
         boolean tmpValidInput = true;
         final File tmpFile = tmpTestCase.getFile();
-        LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
+        LOG.info("Executing tests from file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'");
         informListenersTestCaseStart(tmpTestCase);
         try {
           boolean tmpErrorOccurred = false;
@@ -197,7 +200,7 @@ public class WetatorEngine {
   /**
    * Initializes the wetator engine. The configuration is read from the configuration file got by
    * {@link #getConfigFile()}.
-   * 
+   *
    * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
    */
   public void shutdown() {
@@ -244,7 +247,7 @@ public class WetatorEngine {
 
   /**
    * Reads all commands of the given file and returns them in the same order they occur in the file.
-   * 
+   *
    * @param aFile the file to read the commands from.
    * @return a list of {@link Command}s.
    * @throws InvalidInputException if no {@link IScripter} can be found for the given file or an error occurs
@@ -272,7 +275,7 @@ public class WetatorEngine {
 
     // construct a detailed error message
     final StringBuilder tmpMessage = new StringBuilder("No scripter found for file '");
-    tmpMessage.append(aFile.getAbsolutePath()).append("' (");
+    tmpMessage.append(FilenameUtils.normalize(aFile.getAbsolutePath())).append("' (");
 
     boolean tmpIsFirst = true;
     for (final IsSupportedResult tmpIsSupportedResult : tmpResults) {
@@ -309,7 +312,7 @@ public class WetatorEngine {
    * <li>the system property <code>wetator.config</code></li>
    * <li>the default configuration file name 'wetator.config'</li>
    * </ol>
-   * 
+   *
    * @return the configuration file
    */
   public File getConfigFile() {
@@ -382,7 +385,7 @@ public class WetatorEngine {
   /**
    * Adds the given {@link IProgressListener} as listener. If this listener is already added it will not be
    * added again but the listener added first will be taken.
-   * 
+   *
    * @param aProgressListener the listener to add
    */
   public void addProgressListener(final IProgressListener aProgressListener) {
@@ -412,7 +415,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'testCaseStart'.
-   * 
+   *
    * @param aTestCase the test case started.
    */
   protected void informListenersTestCaseStart(final TestCase aTestCase) {
@@ -423,7 +426,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'testRunStart'.
-   * 
+   *
    * @param aBrowserName the browser name of the test started.
    */
   protected void informListenersTestRunStart(final String aBrowserName) {
@@ -434,7 +437,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'testFileStart'.
-   * 
+   *
    * @param aFileName the file name of the test started.
    */
   protected void informListenersTestFileStart(final String aFileName) {
@@ -445,7 +448,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'executeCommandStart'.
-   * 
+   *
    * @param aContext the {@link WetatorContext} used to execute the command.
    * @param aCommand the {@link Command} to be executed.
    */
@@ -484,7 +487,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'executeCommandFailure'.
-   * 
+   *
    * @param anAssertionException The exception thrown by the failed command.
    */
   protected void informListenersExecuteCommandFailure(final AssertionException anAssertionException) {
@@ -495,7 +498,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'executeCommandError'.
-   * 
+   *
    * @param aThrowable The exception thrown by the command.
    */
   protected void informListenersExecuteCommandError(final Throwable aThrowable) {
@@ -551,7 +554,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'error'.
-   * 
+   *
    * @param aThrowable the exception thrown
    */
   public void informListenersError(final Throwable aThrowable) {
@@ -562,7 +565,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'warn'.
-   * 
+   *
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    * @param aThrowable the optional reason (with stacktrace) of the warning
@@ -579,7 +582,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'warn'.
-   * 
+   *
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    * @param aDetails the optional reason (with stacktrace) of the warning
@@ -592,7 +595,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'info'.
-   * 
+   *
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
@@ -604,7 +607,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about htmlDescribe.
-   * 
+   *
    * @param aHtmlDescription the html source.
    */
   public void informListenersHtmlDescribe(final String aHtmlDescription) {
@@ -615,7 +618,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'engineResponseStored'.
-   * 
+   *
    * @param aResponseFileName the file name of the stored response.
    */
   public void informListenersResponseStored(final String aResponseFileName) {
@@ -626,7 +629,7 @@ public class WetatorEngine {
 
   /**
    * Informs all listeners about 'highlightedResponse'.
-   * 
+   *
    * @param aResponseFileName the file name of the stored response.
    */
   public void informListenersHighlightedResponse(final String aResponseFileName) {

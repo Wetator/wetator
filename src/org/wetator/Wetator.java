@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.swing.JWindow;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.FileAppender;
@@ -36,7 +37,7 @@ import org.wetator.progresslistener.StdOutProgressListener;
 
 /**
  * The command line interface for the Wetator.
- * 
+ *
  * @author rbri
  * @author tobwoerk
  * @author frank.danek
@@ -47,7 +48,7 @@ public final class Wetator {
 
   /**
    * The start point for the command line call.
-   * 
+   *
    * @param anArgsArray the command line arguments
    */
   public static void main(final String[] anArgsArray) {
@@ -86,7 +87,7 @@ public final class Wetator {
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
     if (null != tmpLogFile) {
-      LOG.info("    Log file: " + tmpLogFile.getAbsolutePath());
+      LOG.info("    Log file: " + FilenameUtils.normalize(tmpLogFile.getAbsolutePath()));
     }
 
     final IProgressListener tmpProgressListener = new StdOutProgressListener();

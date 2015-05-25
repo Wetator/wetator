@@ -19,16 +19,18 @@ package org.wetator.util;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.io.FilenameUtils;
+
 /**
  * FileUtil contains some useful extensions to work with files.
- * 
+ *
  * @author rbri
  */
 public final class FileUtil {
 
   /**
    * Creates the specified directory if needed.
-   * 
+   *
    * @param anOutputDir the name of the directory
    * @throws IOException in case of problems creating the output directory
    */
@@ -41,14 +43,14 @@ public final class FileUtil {
     if (anOutputDir.exists()) {
       if (anOutputDir.isFile()) {
         // I18n
-        throw new IOException("There is already a file ('" + anOutputDir.getAbsolutePath()
+        throw new IOException("There is already a file ('" + FilenameUtils.normalize(anOutputDir.getAbsolutePath())
             + "' with the same name as the configured"
             + " directory. Please change the configured directory or rename the file.");
       }
     } else {
       if (!anOutputDir.mkdirs()) {
         // I18n
-        throw new IOException("Can't create the directory ('" + anOutputDir.getAbsolutePath()
+        throw new IOException("Can't create the directory ('" + FilenameUtils.normalize(anOutputDir.getAbsolutePath())
             + "'. Please change the configuration.");
       }
     }

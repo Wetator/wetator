@@ -33,6 +33,7 @@ import java.util.Set;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +55,7 @@ import org.wetator.util.StringUtil;
 
 /**
  * The configuration for the Wetator and it's components.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -185,6 +186,8 @@ public class WetatorConfiguration {
    */
   public static final String SECRET_PREFIX = "$";
 
+  private File sourceFile;
+
   private List<IScripter> scripters;
   private List<ICommandSet> commandSets;
   private List<Class<? extends IControl>> controls;
@@ -227,21 +230,23 @@ public class WetatorConfiguration {
    * <li>the given external properties</li>
    * </ol>
    * If a property is set by multiple sources, the last source wins.
-   * 
+   *
    * @param aConfigurationPropertyFile the configuration property file
    * @param anExternalPropertiesMap the external properties
    * @throws ConfigurationException in case of problems with the configuration
    */
   public WetatorConfiguration(final File aConfigurationPropertyFile, final Map<String, String> anExternalPropertiesMap) {
-    LOG.info("Configuration: Configuration file is '" + aConfigurationPropertyFile.getAbsolutePath() + "'");
+    LOG.info("Configuration: Configuration file is '"
+        + FilenameUtils.normalize(aConfigurationPropertyFile.getAbsolutePath()) + "'");
+
     // lets do some validations first
     if (!aConfigurationPropertyFile.exists()) {
-      throw new ConfigurationException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
-          + "' does not exist.");
+      throw new ConfigurationException("The configuration file '"
+          + FilenameUtils.normalize(aConfigurationPropertyFile.getAbsolutePath()) + "' does not exist.");
     }
     if (!aConfigurationPropertyFile.canRead()) {
-      throw new ConfigurationException("The configuration file '" + aConfigurationPropertyFile.getAbsolutePath()
-          + "' is not readable.");
+      throw new ConfigurationException("The configuration file '"
+          + FilenameUtils.normalize(aConfigurationPropertyFile.getAbsolutePath()) + "' is not readable.");
     }
 
     Properties tmpProperties;
@@ -265,6 +270,7 @@ public class WetatorConfiguration {
           + aConfigurationPropertyFile.getAbsolutePath() + "'.", e);
     }
 
+    sourceFile = aConfigurationPropertyFile;
     initialize(tmpBaseDirectory, tmpProperties, anExternalPropertiesMap);
   }
 
@@ -276,7 +282,7 @@ public class WetatorConfiguration {
    * <li>the given external properties</li>
    * </ol>
    * If a property is set by multiple sources, the last source wins.
-   * 
+   *
    * @param aBaseDirectory the base directory for all file I/O
    * @param aConfigurationProperties the configuration properties
    * @param anExternalPropertiesMap the external properties
@@ -292,19 +298,22 @@ public class WetatorConfiguration {
       final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
-      throw new ConfigurationException("The base directory '" + aBaseDirectory.getAbsolutePath() + "' does not exist.");
+      throw new ConfigurationException("The base directory '"
+          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' does not exist.");
     }
     if (!aBaseDirectory.isDirectory()) {
-      throw new ConfigurationException("The base directory '" + aBaseDirectory.getAbsolutePath()
-          + "' is not a directory.");
+      throw new ConfigurationException("The base directory '"
+          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not a directory.");
     }
     if (!aBaseDirectory.canRead()) {
-      throw new ConfigurationException("The base directory '" + aBaseDirectory.getAbsolutePath() + "' is not readable.");
+      throw new ConfigurationException("The base directory '"
+          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not readable.");
     }
     if (!aBaseDirectory.canWrite()) {
-      throw new ConfigurationException("The base directory '" + aBaseDirectory.getAbsolutePath() + "' is not writable.");
+      throw new ConfigurationException("The base directory '"
+          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not writable.");
     }
-    LOG.info("Configuration: Base directory is '" + aBaseDirectory.getAbsolutePath() + "'");
+    LOG.info("Configuration: Base directory is '" + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "'");
 
     // we start with the given configuration properties
     final Properties tmpProperties = aConfigurationProperties;
@@ -377,9 +386,10 @@ public class WetatorConfiguration {
     try {
       FileUtil.createOutputDir(outputDir);
     } catch (final IOException e) {
-      throw new ConfigurationException("Could not create output directory '" + outputDir.getAbsolutePath() + "'.", e);
+      throw new ConfigurationException("Could not create output directory '"
+          + FilenameUtils.normalize(outputDir.getAbsolutePath()) + "'.", e);
     }
-    LOG.info("Configuration: OutputDir is '" + outputDir.getAbsolutePath() + "'");
+    LOG.info("Configuration: OutputDir is '" + FilenameUtils.normalize(outputDir.getAbsolutePath()) + "'");
 
     // baseUrl
     tmpValue = tmpProperties.getProperty(PROPERTY_BASE_URL, "");
@@ -526,12 +536,12 @@ public class WetatorConfiguration {
           tmpTemplateFile = new File(aBaseDirectory, tmpString);
         }
         if (!tmpTemplateFile.exists()) {
-          throw new ConfigurationException("The configured XSL template '" + tmpTemplateFile.getAbsolutePath()
-              + "' does not exist.");
+          throw new ConfigurationException("The configured XSL template '"
+              + FilenameUtils.normalize(tmpTemplateFile.getAbsolutePath()) + "' does not exist.");
         }
         if (!tmpTemplateFile.canRead()) {
-          throw new ConfigurationException("The configured XSL template '" + tmpTemplateFile.getAbsolutePath()
-              + "' is not readable.");
+          throw new ConfigurationException("The configured XSL template '"
+              + FilenameUtils.normalize(tmpTemplateFile.getAbsolutePath()) + "' is not readable.");
         }
         xslTemplates.add(tmpTemplateFile.getAbsolutePath());
       }
@@ -551,12 +561,12 @@ public class WetatorConfiguration {
         tmpFilterFile = new File(aBaseDirectory, tmpValue);
       }
       if (!tmpFilterFile.exists()) {
-        throw new ConfigurationException("The configured jsJob filter file '" + tmpFilterFile.getAbsolutePath()
-            + "' does not exist.");
+        throw new ConfigurationException("The configured jsJob filter file '"
+            + FilenameUtils.normalize(tmpFilterFile.getAbsolutePath()) + "' does not exist.");
       }
       if (!tmpFilterFile.canRead()) {
-        throw new ConfigurationException("The configured jsJob filter '" + tmpFilterFile.getAbsolutePath()
-            + "' is not readable.");
+        throw new ConfigurationException("The configured jsJob filter '"
+            + FilenameUtils.normalize(tmpFilterFile.getAbsolutePath()) + "' is not readable.");
       }
 
       try {
@@ -568,8 +578,8 @@ public class WetatorConfiguration {
           }
         }
       } catch (final IOException e) {
-        throw new ConfigurationException("Can't parse jsJob filter file '" + tmpFilterFile.getAbsolutePath()
-            + "' Reason: " + e.getMessage() + ".");
+        throw new ConfigurationException("Can't parse jsJob filter file '"
+            + FilenameUtils.normalize(tmpFilterFile.getAbsolutePath()) + "' Reason: " + e.getMessage() + ".");
       }
     }
 
@@ -788,6 +798,13 @@ public class WetatorConfiguration {
         }
       }
     }
+  }
+
+  /**
+   * @return the source file of this config
+   */
+  public File getSourceFile() {
+    return sourceFile;
   }
 
   /**

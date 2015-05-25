@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.Version;
 import org.wetator.core.Command;
@@ -36,7 +37,7 @@ import org.wetator.util.Output;
 
 /**
  * Simple progress listener that writes to stdout.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -64,7 +65,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#init(WetatorEngine)
    */
   @Override
@@ -76,13 +77,13 @@ public class StdOutProgressListener implements IProgressListener {
 
     final File tmpConfigFile = aWetatorEngine.getConfigFile();
     if (null != tmpConfigFile) {
-      println("Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
+      println("Config:     '" + FilenameUtils.normalize(tmpConfigFile.getAbsolutePath()) + "'");
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#start(WetatorEngine)
    */
   @Override
@@ -112,7 +113,7 @@ public class StdOutProgressListener implements IProgressListener {
         println(tmpProxies.toString());
       }
 
-      println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
+      println("OutputDir:  '" + FilenameUtils.normalize(tmpConfiguration.getOutputDir().getAbsolutePath()) + "'");
 
       boolean tmpFirst = true;
       for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {
@@ -140,11 +141,19 @@ public class StdOutProgressListener implements IProgressListener {
     boolean tmpFirst = true;
     for (final TestCase tmpTestCase : tmpTestCases) {
       if (tmpFirst) {
-        println("TestFiles:  '" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
+        print("TestFiles:  '");
+        print(tmpTestCase.getName());
+        print("' (");
+        print(FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
+        println(")");
         tmpFirst = false;
         output.indent().indent().indent().indent().indent().indent();
       } else {
-        println("'" + tmpTestCase.getName() + "' (" + tmpTestCase.getFile().getAbsolutePath() + ")");
+        print("'");
+        print(tmpTestCase.getName());
+        print("' (");
+        print(FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
+        println(")");
       }
       if (!tmpFirst) {
         output.unindent().unindent().unindent().unindent().unindent().unindent();
@@ -154,7 +163,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
@@ -165,7 +174,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunStart(String)
    */
   @Override
@@ -177,7 +186,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileStart(String)
    */
   @Override
@@ -186,7 +195,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
@@ -196,7 +205,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
@@ -207,7 +216,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandIgnored()
    */
   @Override
@@ -219,7 +228,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
@@ -231,7 +240,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
@@ -243,7 +252,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandEnd()
    */
   @Override
@@ -252,7 +261,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
@@ -261,7 +270,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunIgnored()
    */
   @Override
@@ -270,7 +279,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override
@@ -281,7 +290,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseEnd()
    */
   @Override
@@ -290,7 +299,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#end(WetatorEngine)
    */
   @Override
@@ -303,7 +312,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
    */
   @Override
@@ -312,7 +321,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
    */
   @Override
@@ -321,7 +330,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override
@@ -331,7 +340,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#warn(String, String[], String)
    */
   @Override
@@ -340,7 +349,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
@@ -349,7 +358,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#htmlDescribe(String)
    */
   @Override
@@ -358,7 +367,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * The worker that does the real output.
-   * 
+   *
    * @param aString the output
    */
   protected void println(final String aString) {
@@ -372,7 +381,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * The worker that does the real output.
-   * 
+   *
    * @param aString the output
    */
   protected void print(final String aString) {
@@ -386,7 +395,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * The printing of the progress output.
-   * 
+   *
    * @param aProgressSign the output
    */
   protected void printProgressSign(final String aProgressSign) {

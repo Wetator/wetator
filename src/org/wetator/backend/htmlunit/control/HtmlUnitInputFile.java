@@ -20,6 +20,7 @@ import java.io.File;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.ISettable;
@@ -44,7 +45,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * This is the implementation of the HTML element 'input file' (&lt;input type="file"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -54,7 +55,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlFileInput} from the backend
    */
   public HtmlUnitInputFile(final HtmlFileInput anHtmlElement) {
@@ -63,7 +64,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -73,7 +74,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
    *      java.io.File)
    */
@@ -144,7 +145,8 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
         // validate file
         if (!tmpFile.exists()) {
-          final String tmpMessage = Messages.getMessage("fileNotFound", new String[] { tmpFile.getAbsolutePath() });
+          final String tmpMessage = Messages.getMessage("fileNotFound",
+              new String[] { FilenameUtils.normalize(tmpFile.getAbsolutePath()) });
           throw new ActionException(tmpMessage);
         }
 
@@ -177,7 +179,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
    *      org.wetator.util.SecretString)
    */
@@ -189,7 +191,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

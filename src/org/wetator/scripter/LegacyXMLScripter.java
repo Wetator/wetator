@@ -32,6 +32,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
@@ -41,7 +42,7 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * Scripter for XML files.
- * 
+ *
  * @author tobwoerk
  * @author frank.danek
  */
@@ -80,7 +81,7 @@ public final class LegacyXMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#initialize(java.util.Properties)
    */
   @Override
@@ -90,7 +91,7 @@ public final class LegacyXMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#isSupported(java.io.File)
    */
   @Override
@@ -147,7 +148,7 @@ public final class LegacyXMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#script(java.io.File)
    */
   @Override
@@ -164,7 +165,8 @@ public final class LegacyXMLScripter implements IScripter {
     try {
       tmpInputStream = new FileInputStream(file);
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException("Could not find file '" + file.getAbsolutePath() + "'.", e);
+      throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.",
+          e);
     }
 
     XMLStreamReader tmpReader = null;
@@ -173,8 +175,8 @@ public final class LegacyXMLScripter implements IScripter {
       try {
         tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
       } catch (final XMLStreamException e) {
-        throw new InvalidInputException(
-            "Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+        throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath())
+            + "' (" + e.getMessage() + ").", e);
       }
 
       try {
@@ -213,8 +215,9 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_OPTIONAL_PARAMETER.equals(tmpReader.getLocalName())) {
               final String tmpOptionalParameter = tmpReader.getElementText();
               if (null == tmpCommand) {
-                throw new InvalidInputException("Error parsing file '" + file.getAbsolutePath()
-                    + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
+                throw new InvalidInputException("Error parsing file '"
+                    + FilenameUtils.normalize(file.getAbsolutePath()) + "'. Unexpected optional parameter '"
+                    + tmpOptionalParameter + "'.");
               }
 
               if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
@@ -225,8 +228,9 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_OPTIONAL_PARAMETER2.equals(tmpReader.getLocalName())) {
               final String tmpOptionalParameter = tmpReader.getElementText();
               if (null == tmpCommand) {
-                throw new InvalidInputException("Error parsing file '" + file.getAbsolutePath()
-                    + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
+                throw new InvalidInputException("Error parsing file '"
+                    + FilenameUtils.normalize(file.getAbsolutePath()) + "'. Unexpected optional parameter 2 '"
+                    + tmpOptionalParameter + "'.");
               }
 
               if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
@@ -242,8 +246,8 @@ public final class LegacyXMLScripter implements IScripter {
 
         return tmpResult;
       } catch (final XMLStreamException e) {
-        throw new InvalidInputException(
-            "Error parsing file '" + file.getAbsolutePath() + "' (" + e.getMessage() + ").", e);
+        throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath())
+            + "' (" + e.getMessage() + ").", e);
       }
     } finally {
       if (tmpReader != null) {
@@ -265,7 +269,7 @@ public final class LegacyXMLScripter implements IScripter {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IScripter#getCommands()
    */
   @Override

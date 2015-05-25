@@ -24,13 +24,14 @@ import java.util.List;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.apache.commons.io.FilenameUtils;
 import org.wetator.core.Command;
 import org.wetator.scripter.LegacyXMLScripter;
 
 /**
  * Creates a Wetator test script in XML format from the given commands<br/>
  * with the given file name and DTD in the given output directory.
- * 
+ *
  * @author tobwoerk
  */
 public class LegacyXMLScriptCreator implements IScriptCreator {
@@ -47,7 +48,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#createScript()
    */
   @Override
@@ -123,7 +124,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
         }
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException("Can't create output file '"
-            + tmpFile.getAbsolutePath() + "'.");
+            + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'.");
         tmpException.initCause(e);
         throw tmpException;
       }
@@ -136,7 +137,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
    */
   @Override
@@ -146,7 +147,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#setFileName(java.lang.String)
    */
   @Override
@@ -156,7 +157,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.scriptcreator.IScriptCreator#setOutputDir(java.lang.String)
    */
   @Override
