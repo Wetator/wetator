@@ -90,7 +90,7 @@ public class ManualXMLResultWriterTest {
     resultWriter.init(engine);
     resultWriter.start(engine);
 
-    final TestCase tmpTestCase = createTestCase("wetator_google");
+    final TestCase tmpTestCase = createTestCase("wetator_google.wet");
     resultWriter.testCaseStart(tmpTestCase);
 
     // TODO screenshots missing
@@ -579,6 +579,7 @@ public class ManualXMLResultWriterTest {
     tmpActualReport = tmpActualReport.replaceAll("log_\\d+", "log_x");
     tmpActualReport = tmpActualReport.replaceAll("\"#\\d+\"", "\"#x\"");
     tmpActualReport = tmpActualReport.replaceAll("\"\\d+\"", "\"#x\"");
+    tmpActualReport = tmpActualReport.replaceAll(">.*?\\.wet<", ">##FILE##<");
     tmpActualReport = tmpActualReport.replace(tmpWetatorPath, "");
     tmpActualReport = tmpActualReport.replace('\\', '/');
 
@@ -591,6 +592,7 @@ public class ManualXMLResultWriterTest {
     tmpExpectedReport = tmpExpectedReport.replaceAll("log_\\d+", "log_x");
     tmpExpectedReport = tmpExpectedReport.replaceAll("\"#\\d+\"", "\"#x\"");
     tmpExpectedReport = tmpExpectedReport.replaceAll("\"\\d+\"", "\"#x\"");
+    tmpExpectedReport = tmpExpectedReport.replaceAll(">.*?\\.wet<", ">##FILE##<");
     tmpExpectedReport = tmpExpectedReport.replace(tmpWetatorPath, "");
 
     // Assert.assertEquals(tmpExpectedReport, tmpActualReport);
