@@ -92,7 +92,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    final TestCase tmpTestCase = createTestCase("wetator_google");
+    final TestCase tmpTestCase = createTestCase("wetator_google.wet");
     progressListener.testCaseStart(tmpTestCase);
 
     progressListener.testRunStart(IE11);
@@ -481,7 +481,7 @@ public abstract class AbstractProgressListenerTest {
     final Command tmpCommand = createCommand(COMMAND_NAME, "command value");
     progressListener.executeCommandStart(context, tmpCommand);
     progressListener
-    .executeCommandFailure(new AssertionException("test failure", new RuntimeException("failure cause")));
+        .executeCommandFailure(new AssertionException("test failure", new RuntimeException("failure cause")));
     progressListener.executeCommandEnd();
   }
 
