@@ -543,7 +543,7 @@ public class WetatorConfiguration {
           throw new ConfigurationException("The configured XSL template '"
               + FilenameUtils.normalize(tmpTemplateFile.getAbsolutePath()) + "' is not readable.");
         }
-        xslTemplates.add(tmpTemplateFile.getAbsolutePath());
+        xslTemplates.add(FilenameUtils.normalize(tmpTemplateFile.getAbsolutePath()));
       }
     }
 
