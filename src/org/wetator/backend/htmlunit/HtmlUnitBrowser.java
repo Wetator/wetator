@@ -978,11 +978,11 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
-    if (IBrowser.BrowserType.FIREFOX_24 == aBrowserType) {
-      return BrowserVersion.FIREFOX_24;
-    }
     if (IBrowser.BrowserType.FIREFOX_31 == aBrowserType) {
       return BrowserVersion.FIREFOX_31;
+    }
+    if (IBrowser.BrowserType.FIREFOX_31 == aBrowserType) {
+      return BrowserVersion.FIREFOX_38;
     }
     if (IBrowser.BrowserType.INTERNET_EXPLORER_8 == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER_8;
@@ -993,7 +993,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_31;
+    return BrowserVersion.FIREFOX_38;
   }
 
   /**

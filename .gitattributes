@@ -914,16 +914,11 @@ test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/deselect_radio.wet -text
 test/xml/exec_java.wet -text svneol=unset#text/plain
-test/xml/ff17/event_clickOn.wet -text
-test/xml/ff17/event_deselect.wet -text
-test/xml/ff17/event_handler.wet -text
-test/xml/ff17/event_mouseOver.wet -text
-test/xml/ff17/event_select.wet -text
-test/xml/ff24/event_clickOn.wet -text
-test/xml/ff24/event_deselect.wet -text
-test/xml/ff24/event_handler.wet -text
-test/xml/ff24/event_mouseOver.wet -text
-test/xml/ff24/event_select.wet -text
+test/xml/ff38/event_clickOn.wet -text
+test/xml/ff38/event_deselect.wet -text
+test/xml/ff38/event_handler.wet -text
+test/xml/ff38/event_mouseOver.wet -text
+test/xml/ff38/event_select.wet -text
 test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 test/xml/go_back.wet -text svneol=unset#text/plain
