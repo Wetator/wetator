@@ -1120,16 +1120,11 @@ wetator/test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 wetator/test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 wetator/test/xml/deselect_radio.wet -text
 wetator/test/xml/exec_java.wet -text svneol=unset#text/plain
-wetator/test/xml/ff17/event_clickOn.wet -text
-wetator/test/xml/ff17/event_deselect.wet -text
-wetator/test/xml/ff17/event_handler.wet -text
-wetator/test/xml/ff17/event_mouseOver.wet -text
-wetator/test/xml/ff17/event_select.wet -text
-wetator/test/xml/ff24/event_clickOn.wet -text
-wetator/test/xml/ff24/event_deselect.wet -text
-wetator/test/xml/ff24/event_handler.wet -text
-wetator/test/xml/ff24/event_mouseOver.wet -text
-wetator/test/xml/ff24/event_select.wet -text
+wetator/test/xml/ff38/event_clickOn.wet -text
+wetator/test/xml/ff38/event_deselect.wet -text
+wetator/test/xml/ff38/event_handler.wet -text
+wetator/test/xml/ff38/event_mouseOver.wet -text
+wetator/test/xml/ff38/event_select.wet -text
 wetator/test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 wetator/test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 wetator/test/xml/go_back.wet -text svneol=unset#text/plain

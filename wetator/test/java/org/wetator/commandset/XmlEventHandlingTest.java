@@ -36,9 +36,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_24 })
-  public void eventClickOnFF24() throws InvalidInputException {
-    executeTestFile("ff24/event_clickOn.wet");
+  @Browsers({ BrowserType.FIREFOX_38 })
+  public void eventClickOnFF38() throws InvalidInputException {
+    executeTestFile("ff38/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -56,9 +56,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_24 })
-  public void eventDeselectFF24() throws InvalidInputException {
-    executeTestFile("ff24/event_deselect.wet");
+  @Browsers({ BrowserType.FIREFOX_38 })
+  public void eventDeselectFF38() throws InvalidInputException {
+    executeTestFile("ff38/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -76,9 +76,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_24 })
-  public void eventMouseOverFF24() throws InvalidInputException {
-    executeTestFile("ff24/event_mouseOver.wet");
+  @Browsers({ BrowserType.FIREFOX_38 })
+  public void eventMouseOverFF38() throws InvalidInputException {
+    executeTestFile("ff38/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -96,9 +96,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_24 })
-  public void eventSelectFF24() throws InvalidInputException {
-    executeTestFile("ff24/event_select.wet");
+  @Browsers({ BrowserType.FIREFOX_38 })
+  public void eventSelectFF38() throws InvalidInputException {
+    executeTestFile("ff38/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
