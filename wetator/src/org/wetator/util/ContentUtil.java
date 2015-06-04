@@ -51,7 +51,7 @@ import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
- * 
+ *
  * @author rbri
  */
 public final class ContentUtil {
@@ -61,7 +61,7 @@ public final class ContentUtil {
 
   /**
    * Converts a text document to string.
-   * 
+   *
    * @param aContent the input
    * @param aMaxLength the maximum length
    * @return the normalizes content string
@@ -76,7 +76,7 @@ public final class ContentUtil {
 
   /**
    * Converts an InputStream into a normalized string.
-   * 
+   *
    * @param anInputStream the input
    * @param anEncoding the input stream encoding
    * @param aMaxLength the maximum length
@@ -104,7 +104,7 @@ public final class ContentUtil {
 
   /**
    * Converts a pdf document to string.
-   * 
+   *
    * @param anInputStream the input
    * @param aMaxLength the maximum length
    * @return the normalizes content string
@@ -135,7 +135,7 @@ public final class ContentUtil {
 
   /**
    * Retrieves a pdf document title from the metadata.
-   * 
+   *
    * @param anInputStream the input
    * @return the normalizes title string
    * @throws IOException in case of io errors
@@ -169,7 +169,7 @@ public final class ContentUtil {
 
   /**
    * Converts a rtf document into a normalized string.
-   * 
+   *
    * @param anInputStream the input
    * @param aMaxLength the maximum length
    * @return the normalizes content string
@@ -177,7 +177,7 @@ public final class ContentUtil {
    * @throws BadLocationException if parsing goes wrong
    */
   public static String getRtfContentAsString(final InputStream anInputStream, final int aMaxLength) throws IOException,
-      BadLocationException {
+  BadLocationException {
     final RTFEditorKit tmpRtfEditorKit = new RTFEditorKit();
     final Document tmpDocument = tmpRtfEditorKit.createDefaultDocument();
     tmpRtfEditorKit.read(anInputStream, tmpDocument, 0);
@@ -192,7 +192,7 @@ public final class ContentUtil {
 
   /**
    * Converts an InputStream into a normalized string.
-   * 
+   *
    * @param anInputStream the input
    * @param anEncoding the input stream encoding
    * @param aXlsLocale the locale used for xls formating
@@ -256,7 +256,7 @@ public final class ContentUtil {
 
   /**
    * Converts an xls document into a normalized string.
-   * 
+   *
    * @param anInputStream the input
    * @param aLocale the locale for formating
    * @param aMaxLength the maximum length
@@ -266,48 +266,52 @@ public final class ContentUtil {
   public static String getXlsContentAsString(final InputStream anInputStream, final Locale aLocale, final int aMaxLength)
       throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
+
     final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
-    final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
+    try {
+      final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
-    Locale tmpLocale = aLocale;
-    if (null == tmpLocale) {
-      tmpLocale = Locale.getDefault();
-    }
+      Locale tmpLocale = aLocale;
+      if (null == tmpLocale) {
+        tmpLocale = Locale.getDefault();
+      }
 
-    for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
-      final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
-      tmpResult.append("[");
-      tmpResult.append(tmpSheet.getSheetName());
-      tmpResult.append("] ");
+      for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
+        final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
+        tmpResult.append("[");
+        tmpResult.append(tmpSheet.getSheetName());
+        tmpResult.append("] ");
 
-      for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
-        final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
-        if (null != tmpRow) {
-          for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
-            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator, tmpLocale);
-            if (null != tmpCellValue) {
-              tmpResult.append(tmpCellValue);
-              tmpResult.append(" ");
+        for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
+          final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
+          if (null != tmpRow) {
+            for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
+              final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator, tmpLocale);
+              if (null != tmpCellValue) {
+                tmpResult.append(tmpCellValue);
+                tmpResult.append(" ");
+              }
             }
-          }
 
-          // check after each row
-          if (tmpResult.length() > aMaxLength) {
-            return tmpResult.substring(0, aMaxLength) + MORE;
-          }
+            // check after each row
+            if (tmpResult.length() > aMaxLength) {
+              return tmpResult.substring(0, aMaxLength) + MORE;
+            }
 
-          tmpResult.append(" ");
+            tmpResult.append(" ");
+          }
         }
       }
+    } finally {
+      tmpWorkbook.close();
     }
-
     return tmpResult.toString();
   }
 
   /**
    * Reads the content of an excel cell and converts it into the string
    * visible in the excel sheet.
-   * 
+   *
    * @param aRow the row
    * @param aColumnsNo the column
    * @param aFormulaEvaluator the formula Evaluator
@@ -340,7 +344,7 @@ public final class ContentUtil {
 
   /**
    * Tests if the text is 'readable'.
-   * 
+   *
    * @param aText the input
    * @return true, if the input contains enough characters
    */
@@ -358,7 +362,7 @@ public final class ContentUtil {
   /**
    * This tries to determine the locale based on the 'accept-language' header. <br>
    * If the submitted locale is unknown (ISO639) then this returns null. <br>
-   * 
+   *
    * @param anAcceptLanguageHeader the header value
    * @return the locale or null if the provided information is not parsable
    */
