@@ -40,13 +40,13 @@ import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.javascript.host.Event;
-import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
+import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
+import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
 
 /**
  * This is the implementation of the HTML element 'input password' (&lt;input type="password"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -56,7 +56,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlPasswordInput} from the backend
    */
   public HtmlUnitInputPassword(final HtmlPasswordInput anHtmlElement) {
@@ -65,7 +65,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -75,7 +75,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
    *      java.io.File)
    */
@@ -179,7 +179,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
    *      org.wetator.util.SecretString)
    */
@@ -191,7 +191,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
