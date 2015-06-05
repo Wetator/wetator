@@ -135,74 +135,78 @@ public final class ExcelScripter implements IScripter {
       tmpInputStream = new FileInputStream(file.getAbsoluteFile());
 
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
-      final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
+      try {
+        final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
-      int tmpSheetNo = -1;
-      for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
-        final String tmpSheetName = tmpWorkbook.getSheetName(i);
-        if (StringUtils.isNotEmpty(tmpSheetName) && tmpSheetName.toLowerCase(Locale.ROOT).contains("test")) {
-          tmpSheetNo = i;
-          break;
-        }
-      }
-
-      if (tmpSheetNo < 0) {
-        throw new InvalidInputException("No test sheet found in file '"
-            + FilenameUtils.normalize(file.getAbsolutePath()) + "'.");
-      }
-
-      final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
-
-      for (int tmpLine = 0; tmpLine <= tmpSheet.getLastRowNum(); tmpLine++) {
-        HSSFRow tmpRow;
-        String tmpCommentString;
-        boolean tmpCommentFlag;
-        String tmpCommandName;
-        Parameter tmpParameter;
-
-        tmpRow = tmpSheet.getRow(tmpLine);
-        // strange case but it really happens
-        if (null != tmpRow) {
-          tmpCommentString = ContentUtil
-              .readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator, locale);
-          tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
-
-          tmpCommandName = ContentUtil.readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator,
-              locale);
-          // normalize command name
-          if (StringUtils.isNotEmpty(tmpCommandName)) {
-            tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase(Locale.ROOT);
-          }
-          tmpCommandName = new NormalizedString(tmpCommandName).toString();
-
-          // empty command means comment
-          if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {
-            tmpCommandName = "Comment";
-          }
-
-          if (!StringUtils.isEmpty(tmpCommandName)) {
-            final Command tmpCommand = new Command(tmpCommandName, tmpCommentFlag);
-
-            tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
-            if (null != tmpParameter) {
-              tmpCommand.setFirstParameter(tmpParameter);
-            }
-
-            tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO, tmpFormulaEvaluator);
-            if (null != tmpParameter) {
-              tmpCommand.setSecondParameter(tmpParameter);
-            }
-
-            tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO, tmpFormulaEvaluator);
-            if (null != tmpParameter) {
-              tmpCommand.setThirdParameter(tmpParameter);
-            }
-
-            tmpCommand.setLineNo(tmpLine + 1);
-
-            tmpResult.add(tmpCommand);
+        int tmpSheetNo = -1;
+        for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
+          final String tmpSheetName = tmpWorkbook.getSheetName(i);
+          if (StringUtils.isNotEmpty(tmpSheetName) && tmpSheetName.toLowerCase(Locale.ROOT).contains("test")) {
+            tmpSheetNo = i;
+            break;
           }
         }
+
+        if (tmpSheetNo < 0) {
+          throw new InvalidInputException("No test sheet found in file '"
+              + FilenameUtils.normalize(file.getAbsolutePath()) + "'.");
+        }
+
+        final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
+
+        for (int tmpLine = 0; tmpLine <= tmpSheet.getLastRowNum(); tmpLine++) {
+          HSSFRow tmpRow;
+          String tmpCommentString;
+          boolean tmpCommentFlag;
+          String tmpCommandName;
+          Parameter tmpParameter;
+
+          tmpRow = tmpSheet.getRow(tmpLine);
+          // strange case but it really happens
+          if (null != tmpRow) {
+            tmpCommentString = ContentUtil.readCellContentAsString(tmpRow, COMMENT_COLUMN_NO, tmpFormulaEvaluator,
+                locale);
+            tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
+
+            tmpCommandName = ContentUtil.readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO, tmpFormulaEvaluator,
+                locale);
+            // normalize command name
+            if (StringUtils.isNotEmpty(tmpCommandName)) {
+              tmpCommandName = tmpCommandName.replace(' ', '-').replace('_', '-').toLowerCase(Locale.ROOT);
+            }
+            tmpCommandName = new NormalizedString(tmpCommandName).toString();
+
+            // empty command means comment
+            if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {
+              tmpCommandName = "Comment";
+            }
+
+            if (!StringUtils.isEmpty(tmpCommandName)) {
+              final Command tmpCommand = new Command(tmpCommandName, tmpCommentFlag);
+
+              tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+              if (null != tmpParameter) {
+                tmpCommand.setFirstParameter(tmpParameter);
+              }
+
+              tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+              if (null != tmpParameter) {
+                tmpCommand.setSecondParameter(tmpParameter);
+              }
+
+              tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+              if (null != tmpParameter) {
+                tmpCommand.setThirdParameter(tmpParameter);
+              }
+
+              tmpCommand.setLineNo(tmpLine + 1);
+
+              tmpResult.add(tmpCommand);
+            }
+          }
+        }
+      } finally {
+        tmpWorkbook.close();
       }
 
       return tmpResult;

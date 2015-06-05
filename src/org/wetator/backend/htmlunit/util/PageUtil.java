@@ -34,14 +34,14 @@ import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 
 /**
  * Util class for page handling.
- * 
+ *
  * @author rbri
  */
 public final class PageUtil {
 
   /**
    * Helper for tests.
-   * 
+   *
    * @param anHtmlCode the html source of the page
    * @return the HtmlPage result of parsing the source
    * @throws IOException in case of problems
@@ -52,7 +52,7 @@ public final class PageUtil {
 
   /**
    * Helper for tests.
-   * 
+   *
    * @param aBrowserVersion the browser to simulate
    * @param anHtmlCode the html source of the page
    * @return the HtmlPage result of parsing the source
@@ -62,14 +62,17 @@ public final class PageUtil {
       throws IOException {
     final StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.wetator.org/test.html"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
-    final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
-
-    return tmpPage;
+    try {
+      final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      return tmpPage;
+    } finally {
+      tmpWebClient.close();
+    }
   }
 
   /**
    * Helper for tests.
-   * 
+   *
    * @param anXHtmlCode the XHtml source of the page
    * @return the XHtmlPage result of parsing the source
    * @throws IOException in case of problems
@@ -80,7 +83,7 @@ public final class PageUtil {
 
   /**
    * Helper for tests.
-   * 
+   *
    * @param aBrowserVersion the browser to simulate
    * @param anXHtmlCode the XHtml source of the page
    * @return the XHtmlPage result of parsing the source
@@ -91,14 +94,17 @@ public final class PageUtil {
     final StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode, new URL(
         "http://www.wetator.org/test.xhtml"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
-    final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
-
-    return tmpPage;
+    try {
+      final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      return tmpPage;
+    } finally {
+      tmpWebClient.close();
+    }
   }
 
   /**
    * Check, if the given Anchor is on the page.
-   * 
+   *
    * @param aRef the anchor ref
    * @param aPage the page
    * @throws AssertionException if the anchor is not on the page
