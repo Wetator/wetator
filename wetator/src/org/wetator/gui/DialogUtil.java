@@ -35,6 +35,8 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wetator.Wetator;
 import org.wetator.i18n.Messages;
 import org.wetator.util.StringUtil;
@@ -45,6 +47,7 @@ import org.wetator.util.StringUtil;
  * @author rbri
  */
 public final class DialogUtil {
+  private static final Log LOG = LogFactory.getLog(DialogUtil.class);
 
   private static final char FILE_SEPARATOR = ';';
   private static final String LAST_DIR = "lastDir";
@@ -132,7 +135,14 @@ public final class DialogUtil {
     tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
     tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
-    tmpFileChooser.setSelectedFiles(restoreFiles(tmpPreferences, tmpLastDir));
+
+    final File[] tmpOldFiles = restoreFiles(tmpPreferences, tmpLastDir);
+    try {
+      tmpFileChooser.setSelectedFiles(tmpOldFiles);
+    } catch (final Exception e) {
+      // seems to happen sometimes
+      LOG.error(e.getMessage(), e);
+    }
 
     try {
       // reset
