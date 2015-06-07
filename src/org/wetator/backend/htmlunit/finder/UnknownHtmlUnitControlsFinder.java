@@ -24,6 +24,7 @@ import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
+import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
@@ -37,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * <li>by id</li>
  * <li>by text (the first {@link HtmlElement} which matches the path and which's text contains the search pattern)</li>
  * </ul>
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -47,7 +48,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
   /**
    * The constructor.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aControlRepository the repository of known controls
    */
@@ -60,7 +61,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
    */
   @Override
@@ -86,11 +87,22 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
     final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
-    // search with id
+    // search with id / title
+    final ByIdMatcher tmpIdMatcher = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern);
+    final ByTitleAttributeMatcher tmpTitleMatcher = new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern,
+        tmpPathSpot, tmpSearchPattern);
     for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
       if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
-        final List<MatchResult> tmpMatches = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
-            tmpSearchPattern).matches(tmpHtmlElement);
+        // id
+        List<MatchResult> tmpMatches = tmpIdMatcher.matches(tmpHtmlElement);
+        for (final MatchResult tmpMatch : tmpMatches) {
+          tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
+              tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),
+              htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
+        }
+
+        // title
+        tmpMatches = tmpTitleMatcher.matches(tmpHtmlElement);
         for (final MatchResult tmpMatch : tmpMatches) {
           tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
               tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),

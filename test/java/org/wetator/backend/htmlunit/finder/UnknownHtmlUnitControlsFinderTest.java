@@ -137,9 +137,9 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-    .assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 3",
-        tmpFound.getEntriesSorted().get(0).toString());
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 3",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -159,9 +159,9 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-    .assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 2 distance: 0 start: 0 index: 3",
-        tmpFound.getEntriesSorted().get(0).toString());
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 2 distance: 0 start: 0 index: 3",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -181,9 +181,9 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-    .assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 2 start: 0 index: 3",
-        tmpFound.getEntriesSorted().get(0).toString());
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 2 start: 0 index: 3",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -203,9 +203,9 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
-    .assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 1 distance: 1 start: 0 index: 3",
-        tmpFound.getEntriesSorted().get(0).toString());
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 1 distance: 1 start: 0 index: 3",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -362,7 +362,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-        .getEntriesSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -383,7 +383,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-        .getEntriesSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -404,7 +404,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-        .getEntriesSorted().get(0).toString());
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -423,6 +423,28 @@ public class UnknownHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void paragraph_byTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='tester' title='my title'>MyText</p>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final SecretString tmpSearch = new SecretString("my title");
+
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlParagraph 'MyText' (id='tester')] found by: BY_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 4",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
