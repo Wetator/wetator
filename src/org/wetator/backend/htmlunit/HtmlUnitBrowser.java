@@ -773,10 +773,13 @@ public final class HtmlUnitBrowser implements IBrowser {
               @SuppressWarnings("unchecked")
               final HtmlUnitBaseControl<HtmlElement> tmpHtmlUnitControl = (HtmlUnitBaseControl<HtmlElement>) tmpControl;
               if (tmpHtmlUnitControl.isPartOf(tmpPage)) {
-                tmpParam.append("highlight=");
-                tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
-                tmpParam.append(tmpDelim);
-                tmpDelim = "&";
+                final String tmpSelector = tmpControl.getUniqueSelector();
+                if (null != tmpSelector) {
+                  tmpParam.append("highlight=");
+                  tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
+                  tmpParam.append(tmpDelim);
+                  tmpDelim = "&";
+                }
               }
             }
           }
