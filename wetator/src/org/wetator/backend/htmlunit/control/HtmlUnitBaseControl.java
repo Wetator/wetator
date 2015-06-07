@@ -44,7 +44,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * This is the base implementation of a {@link IControl} using HtmlUnit as backend.
- * 
+ *
  * @param <T> the type of the {@link HtmlElement}.
  * @author rbri
  * @author frank.danek
@@ -57,7 +57,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlElement} from the backend
    */
   protected HtmlUnitBaseControl(final T anHtmlElement) {
@@ -66,7 +66,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#hasSameBackendControl(org.wetator.backend.control.IControl)
    */
   @Override
@@ -88,7 +88,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#click(WetatorContext)
    */
   @Override
@@ -132,7 +132,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#clickDouble(WetatorContext)
    */
   @Override
@@ -172,7 +172,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#clickRight(WetatorContext)
    */
   @Override
@@ -212,7 +212,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
    */
   @Override
@@ -255,7 +255,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
@@ -266,7 +266,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#hasFocus(org.wetator.core.WetatorContext)
    */
   @Override
@@ -285,7 +285,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    * Wait until the 'immediate' JavaScript jobs are finished.
    * Additionally this informs all context listeners if not all jobs
    * finished in the time frame.
-   * 
+   *
    * @param aContext the context
    * @throws BackendException in case of problems
    */
@@ -301,7 +301,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * Helper that constructs the css selector for the given HtmlElement.
-   * 
+   *
    * @param aHtmlElement the element
    * @return the css selector
    */
@@ -329,6 +329,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       tmpHtmlElement = tmpParent;
       tmpHtmlElementId = tmpHtmlElement.getId();
       tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
+      if (null == tmpParent) {
+        return null;
+      }
     }
 
     if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
@@ -340,7 +343,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * Returns true if the control is part of the given page.
-   * 
+   *
    * @param aPage the page to check
    * @return true or false
    */
@@ -363,7 +366,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * This annotation contains the {@link HtmlElement} the HtmlUnit control is for.
-   * 
+   *
    * @author frank.danek
    */
   @Target(ElementType.TYPE)
@@ -387,7 +390,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   /**
    * This annotation contains the identifiers for the HtmlUnit control.
-   * 
+   *
    * @author frank.danek
    */
   @Target(ElementType.TYPE)
