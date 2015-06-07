@@ -31,7 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
 /**
  * This is the implementation of the HTML element 'anchor' (&lt;a&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -41,7 +41,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlAnchor} from the backend
    */
   public HtmlUnitAnchor(final HtmlAnchor anHtmlElement) {
@@ -50,7 +50,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetatorContext)
    */
   @Override
@@ -60,7 +60,9 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
     try {
       final HtmlAnchor tmpHtmlAnchor = getHtmlElement();
       String tmpHref = tmpHtmlAnchor.getHrefAttribute();
-      if (StringUtils.isNotBlank(tmpHref) && '#' == tmpHref.charAt(0)) {
+      // ignore hashbang stuff
+      if (StringUtils.isNotBlank(tmpHref) && '#' == tmpHref.charAt(0)
+          && !(tmpHref.startsWith("#!") || tmpHref.startsWith("#/"))) {
         tmpHref = tmpHref.substring(1);
         PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
       }
@@ -72,7 +74,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
