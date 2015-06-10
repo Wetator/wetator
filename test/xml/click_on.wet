@@ -196,6 +196,13 @@
     <comment></comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor title</comment>
+    <command><d:click-on><d:wpath>Anchor with title</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_title POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <comment>invisible anchor</comment>
     <command><tst:assert-fail><tst:command-and-message>Click On, No clickable HTML element found for 'invisible Anchor with text'.</tst:command-and-message><tst:parameter1>invisible Anchor with text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>

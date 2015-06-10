@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.matcher.ByInnerImageMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTextMatcher;
+import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
@@ -43,14 +44,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * <li>it's id</li>
  * <li>table coordinates</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -60,7 +61,7 @@ public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -86,6 +87,7 @@ public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
 
       aMatchers.add(new ByTextMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+      aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
@@ -97,7 +99,7 @@ public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
