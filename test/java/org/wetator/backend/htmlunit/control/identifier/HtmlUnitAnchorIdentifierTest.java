@@ -103,6 +103,28 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php' title='AnchorTitle'>TestAnchor</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("AnchorTitle");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+    .assertEquals(
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
   public void byIdNameText() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
