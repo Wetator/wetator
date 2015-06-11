@@ -8,11 +8,13 @@
     <command><d:open-url><d:url>http://www.google.com</d:url></d:open-url></command>
     <comment>It is a good idea to check for the right page early</comment>
     <command><d:assert-title><d:title>Google</d:title></d:assert-title></command>
-    <comment>Let's fill the search box; if no name for the control to be set is given, the Wetator uses the first one</comment>
-    <command><d:set><d:wpath>q</d:wpath><d:value>Gebit Solutions</d:value></d:set></command>
-    <command><d:click-on><d:wpath>Google Search</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>Startseite - GEBIT Solutions</d:content></d:assert-content></command>
-    <comment>OK, we found something</comment>
-    <command><d:click-on><d:wpath>Startseite - GEBIT Solutions</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>Technologien, Methoden, Werkzeuge, Fundiertes Know-how</d:content></d:assert-content></command>
+    <comment>Let's fill the search box; if no name for the control to be set is given, the Wetator uses the one that has the focus.</comment>
+    <command><d:set><d:value>Wetator</d:value></d:set></command>
+    <command><d:click-on><d:wpath>wetator</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>WETATOR / Smart Web Application Testing</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Wetator is a small, flexible, test automation tool</d:content></d:assert-content></command>
+    <comment>OK, we found something -&gt; let's navigate</comment>
+    <command><d:click-on><d:wpath>WETATOR / Smart</d:wpath></d:click-on></command>
+    <command><d:assert-title><d:title>WETATOR</d:title></d:assert-title></command>
+    <command><d:assert-content><d:content>Wetator in a Nutshell Wetator is a tool for automatic, GUI, tests</d:content></d:assert-content></command>
 </test-case>

@@ -1,0 +1,21 @@
+# simple test case in wiki format
+
+open-url        || http://www.google.com
+
+# It is a good idea to check for the right page early
+
+assert-title    || Google
+
+# Let's fill the search box;
+# if no name for the control to be set is given, the Wetator uses the one that has the focus.
+
+set          || || Wetator
+click-on        || wetator
+assert-content  || WETATOR / Smart Web Application Testing
+assert-content  || Wetator is a small, flexible, test automation tool
+
+# OK, we found something -> let's navigate
+
+click-on        || WETATOR / Smart
+assert-title    || WETATOR
+assert-content  || Wetator in a Nutshell Wetator is a tool for automatic, GUI, tests

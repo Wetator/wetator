@@ -664,6 +664,7 @@
 
             <zipfileset dir="${dir.samples}" prefix="templates">
                 <include name="wetator.config" />
+                <include name="js_filter.cfg" />
             </zipfileset>
         </zip>
     </target>
