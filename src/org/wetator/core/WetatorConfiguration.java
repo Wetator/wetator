@@ -456,18 +456,31 @@ public class WetatorConfiguration {
 
     browserActiveXObjects = new HashMap<String, String>();
 
-    // TODO detailed error handling
-    // TODO add to config output
     tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (final String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
         final List<String> tmpPices = StringUtil.extractStrings(tmpValue, "|", '\\');
-        if (tmpPices.size() > 1) {
-          browserActiveXObjects.put(tmpPices.get(0).trim(), tmpPices.get(1).trim());
+        if (tmpPices.size() != 2) {
+          throw new ConfigurationException("The configured activeX object '" + tmpValue
+              + "' does not have two parts (separated by '|').");
         }
+
+        final String tmpClsId = tmpPices.get(0);
+        if (StringUtils.isBlank(tmpClsId)) {
+          throw new ConfigurationException("The configured class id of the activeX object '" + tmpValue + "' is blank.");
+        }
+
+        final String tmpMockClass = tmpPices.get(1).trim();
+        try {
+          Class.forName(tmpMockClass);
+        } catch (final Exception e) {
+          throw new ConfigurationException("The configured activeX java class '" + tmpValue
+              + "' is not available/loadable (details: " + e.toString() + ".");
+        }
+
+        browserActiveXObjects.put(tmpClsId.trim(), tmpMockClass);
       }
     }
-    // paranoid
     browserActiveXObjects = Collections.unmodifiableMap(browserActiveXObjects);
 
     // accept language
