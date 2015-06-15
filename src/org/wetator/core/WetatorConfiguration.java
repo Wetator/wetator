@@ -21,7 +21,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -129,6 +131,10 @@ public class WetatorConfiguration {
   public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
   private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_31;
   /**
+   * The property name to define the supported ActiveX mocker.
+   */
+  public static final String PROPERTY_BROWSER_ACTIVEXOBJECTS = PROPERTY_BROWSER_TYPE + ".activeXObjects";
+  /**
    * The property name to set the 'Accept-Language' header of the browser.
    */
   public static final String PROPERTY_ACCEPT_LANGUAGE = PROPERTY_PREFIX + "acceptLanguage";
@@ -200,6 +206,7 @@ public class WetatorConfiguration {
   private List<String> xslTemplates;
 
   private List<BrowserType> browserTypes;
+  private Map<String, String> browserActiveXObjects;
   private String acceptLanaguage;
 
   private SecretString basicAuthUser;
@@ -442,6 +449,26 @@ public class WetatorConfiguration {
     if (browserTypes.isEmpty()) {
       browserTypes.add(DEFAULT_BROWSER_TYPE);
     }
+
+    // activeXObjects
+    tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER_ACTIVEXOBJECTS, "");
+    tmpProperties.remove(PROPERTY_BROWSER_ACTIVEXOBJECTS);
+
+    browserActiveXObjects = new HashMap<String, String>();
+
+    // TODO detailed error handling
+    // TODO add to config output
+    tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
+    for (final String tmpString : tmpParts) {
+      if (StringUtils.isNotBlank(tmpString)) {
+        final List<String> tmpPices = StringUtil.extractStrings(tmpValue, "|", '\\');
+        if (tmpPices.size() > 1) {
+          browserActiveXObjects.put(tmpPices.get(0).trim(), tmpPices.get(1).trim());
+        }
+      }
+    }
+    // paranoid
+    browserActiveXObjects = Collections.unmodifiableMap(browserActiveXObjects);
 
     // accept language
     tmpValue = tmpProperties.getProperty(PROPERTY_ACCEPT_LANGUAGE, DEFAULT_ACCEPT_LANGUAGE);
@@ -868,6 +895,13 @@ public class WetatorConfiguration {
    */
   public List<IBrowser.BrowserType> getBrowserTypes() {
     return browserTypes;
+  }
+
+  /**
+   * @return the configured active x object mocker
+   */
+  public Map<String, String> getBrowserActiveXObjects() {
+    return browserActiveXObjects;
   }
 
   /**
