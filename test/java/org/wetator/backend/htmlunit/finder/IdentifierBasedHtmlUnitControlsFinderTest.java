@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -54,7 +55,10 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
   @Test
   public void empty() throws IOException, InvalidInputException {
-    final String tmpHtmlCode = "<html><body>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "</body></html>";
+    // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -69,8 +73,13 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
   @Test
   public void hidden() throws IOException, InvalidInputException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -86,8 +95,13 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
   @Test
   public void visible() throws IOException, InvalidInputException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' type='submit' value='ClickMe'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -99,5 +113,46 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void label_byTextAndTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<input type='checkbox' name='check' id='myCheckbox' title='checker title'>"
+        + "<label for='myCheckbox'>checker</label>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
+        null);
+    tmpFinder.addIdentifier(HtmlUnitInputCheckBoxIdentifier.class);
+
+    SecretString tmpSearch = new SecretString("check");
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 4",
+            tmpFound.getEntriesSorted().get(0).toString());
+
+    tmpSearch = new SecretString("checker title");
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 4",
+            tmpFound.getEntriesSorted().get(0).toString());
+
+    tmpSearch = new SecretString("checker");
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 4",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 }
