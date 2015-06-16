@@ -27,7 +27,7 @@ import org.wetator.backend.control.IControl;
 /**
  * List to store {@link IControl}s together with some 'weight' information. Then it is possible to sort the list by this
  * criterion.
- * 
+ *
  * @author rbri
  */
 public final class WeightedControlList {
@@ -37,8 +37,16 @@ public final class WeightedControlList {
    * Smaller values are more important.
    */
   public enum FoundType {
+    /**
+     * Found by title match.
+     * This is used from UnknownHtmlUnitControls finder because we
+     * do a text search in this case and a title is not directly visible
+     * to the user -> larger value
+     */
+    BY_TITLE_TEXT(9900),
+
     /** Found by text match. */
-    BY_TEXT(9999),
+    BY_TEXT(9000),
 
     /** Found by table coordindates match. */
     BY_TABLE_COORDINATE(6000),
@@ -92,7 +100,7 @@ public final class WeightedControlList {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.lang.Enum#toString()
      */
     @Override
@@ -121,7 +129,7 @@ public final class WeightedControlList {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -151,7 +159,7 @@ public final class WeightedControlList {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     @Override
@@ -195,7 +203,7 @@ public final class WeightedControlList {
 
   /**
    * Creates a new entry and adds the entry to the list.
-   * 
+   *
    * @param aControl the control
    * @param aFoundType the found type
    * @param aCoverage the coverage
@@ -218,7 +226,7 @@ public final class WeightedControlList {
 
   /**
    * Returns a new list of Entries sorted by weight.
-   * 
+   *
    * @return a new list
    */
   public List<Entry> getEntriesSorted() {
@@ -246,7 +254,7 @@ public final class WeightedControlList {
 
   /**
    * Adds all entries from anOtherWeightedControlList to this list.
-   * 
+   *
    * @param anOtherWeightedControlList the list of entries to add
    */
   public void addAll(final WeightedControlList anOtherWeightedControlList) {
@@ -255,7 +263,7 @@ public final class WeightedControlList {
 
   /**
    * Returns true, if the list is empty.
-   * 
+   *
    * @return true or false
    */
   public boolean isEmpty() {
