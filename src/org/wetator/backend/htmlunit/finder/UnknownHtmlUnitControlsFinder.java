@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -105,7 +106,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
         tmpMatches = tmpTitleMatcher.matches(tmpHtmlElement);
         for (final MatchResult tmpMatch : tmpMatches) {
           tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
-              tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),
+              FoundType.BY_TITLE_TEXT, tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),
               htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
         }
       }
@@ -137,9 +138,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           }
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
-            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement),
-                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(),
-                htmlPageIndex.getIndex(tmpHtmlElement));
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
+                tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }
