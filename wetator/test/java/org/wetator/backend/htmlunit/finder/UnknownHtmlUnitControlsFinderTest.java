@@ -362,7 +362,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -383,7 +383,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -404,7 +404,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 4", tmpFound
-            .getEntriesSorted().get(0).toString());
+        .getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -441,10 +441,36 @@ public class UnknownHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlParagraph 'MyText' (id='tester')] found by: BY_TITLE_TEXT coverage: 0 distance: 0 start: 0 index: 4",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void label_byTextAndTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<input type='checkbox' name='checkbox' id='myCheckbox' title='Checker'>"
+        + "<label for='myCheckbox'>Checker</label>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final SecretString tmpSearch = new SecretString("Checker");
+
+    final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert
-        .assertEquals(
-            "[HtmlParagraph 'MyText' (id='tester')] found by: BY_TITLE_TEXT coverage: 0 distance: 0 start: 0 index: 4",
-            tmpFound.getEntriesSorted().get(0).toString());
+    .assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+    .assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput' (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT coverage: 0 distance: 0 start: 0 index: 4",
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
