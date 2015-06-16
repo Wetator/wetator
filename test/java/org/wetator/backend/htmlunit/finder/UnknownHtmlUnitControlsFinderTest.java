@@ -464,13 +464,13 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert
-    .assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel'] found by: BY_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+            tmpFound.getEntriesSorted().get(0).toString());
     Assert
-    .assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput' (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT coverage: 0 distance: 0 start: 0 index: 4",
-        tmpFound.getEntriesSorted().get(1).toString());
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput' (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT coverage: 0 distance: 0 start: 0 index: 4",
+            tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
