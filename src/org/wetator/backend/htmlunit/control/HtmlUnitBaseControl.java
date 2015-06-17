@@ -309,6 +309,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     HtmlElement tmpHtmlElement = aHtmlElement;
     String tmpHtmlElementId = tmpHtmlElement.getId();
     HtmlElement tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
+    if (null == tmpParent) {
+      return null;
+    }
 
     StringBuilder tmpSelector = new StringBuilder();
     while (DomElement.ATTRIBUTE_NOT_DEFINED == tmpHtmlElementId) {
