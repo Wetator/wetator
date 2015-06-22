@@ -306,6 +306,11 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    * @return the css selector
    */
   protected String getUniqueSelector(final HtmlElement aHtmlElement) {
+    // at least an option might call this with null
+    if (null == aHtmlElement) {
+      return null;
+    }
+
     HtmlElement tmpHtmlElement = aHtmlElement;
     String tmpHtmlElementId = tmpHtmlElement.getId();
     HtmlElement tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
