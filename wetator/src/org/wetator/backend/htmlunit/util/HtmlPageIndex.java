@@ -58,6 +58,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlLegend;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
+import com.gargoylesoftware.htmlunit.html.HtmlObject;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
@@ -73,11 +74,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
 
 /**
  * The text representation of a page text. Indexed by form controls to speed up the calculation of text before and
  * after.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -99,7 +101,7 @@ public class HtmlPageIndex {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aHtmlPage the HtmlPage to index
    */
   public HtmlPageIndex(final HtmlPage aHtmlPage) {
@@ -131,7 +133,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the whole normalized text.
-   * 
+   *
    * @return the whole text
    */
   public String getText() {
@@ -140,7 +142,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the whole text without the form controls trimmed.
-   * 
+   *
    * @return the whole text
    */
   public String getTextWithoutFormControls() {
@@ -149,7 +151,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns a list of all visible HtmlElements.
-   * 
+   *
    * @return the list of all visible HtmlElements
    */
   public List<HtmlElement> getAllVisibleHtmlElements() {
@@ -158,7 +160,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the list of all visible html elements always starting with the leaves.
-   * 
+   *
    * @return the list of all html elements
    */
   public List<HtmlElement> getAllVisibleHtmlElementsBottomUp() {
@@ -167,7 +169,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the index on the page.
-   * 
+   *
    * @param anHtmlElement the element
    * @return the position
    */
@@ -182,7 +184,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the start and end position of this html element as FindSpot.
-   * 
+   *
    * @param anHtmlElement the element
    * @return the position
    */
@@ -197,7 +199,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the start and end position of the first occurrence of the string in the text.
-   * 
+   *
    * @param aSearchPattern the search pattern
    * @return the position
    */
@@ -207,7 +209,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the start and end position of the first occurrence of the string in the text.
-   * 
+   *
    * @param aSearchPattern the search pattern
    * @param aStartPos the pos to start with the search
    * @return the position
@@ -218,7 +220,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the whole (trimmed) text before the given dom node.
-   * 
+   *
    * @param aDomNode the node to look at
    * @return the text before the node
    */
@@ -232,7 +234,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the whole (trimmed) text before the given dom node.
-   * 
+   *
    * @param aDomNode the node to look at
    * @return the text before the node
    */
@@ -246,7 +248,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the whole (trimmed) text between this element and the preceding form element or the form start.
-   * 
+   *
    * @param anHtmlElement the element to start from
    * @param aStartPos the start pos, text found before this will be not part of the result
    * @return the text before
@@ -298,7 +300,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the whole (trimmed) text between this element and the next form element or the form end.
-   * 
+   *
    * @param anHtmlElement the element to start from
    * @return the text after
    */
@@ -339,7 +341,7 @@ public class HtmlPageIndex {
 
   /**
    * Returns the (trimmed) text of the given node and all its children.
-   * 
+   *
    * @param aDomNode the node to look at
    * @return the text
    */
@@ -354,7 +356,7 @@ public class HtmlPageIndex {
   /**
    * Returns the (trimmed) text of the given node and all its children.
    * All form controls are not part of this text.
-   * 
+   *
    * @param aDomNode the node to look at
    * @return the text
    */
@@ -438,6 +440,8 @@ public class HtmlPageIndex {
         appendHtmlButton((HtmlButton) aDomNode);
       } else if (aDomNode instanceof HtmlOrderedList) {
         appendHtmlOrderedList((HtmlOrderedList) aDomNode);
+      } else if (aDomNode instanceof HtmlObject) {
+        appendHtmlHtmlObject((HtmlObject) aDomNode);
       } else if (aDomNode instanceof HtmlInlineQuotation) {
         appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode);
       } else {
@@ -628,7 +632,7 @@ public class HtmlPageIndex {
 
   /**
    * Appends a &lt;ol&gt; taking care to numerate it.
-   * 
+   *
    * @param anHtmlOrderedList the OL element
    */
   private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList) {
@@ -659,6 +663,20 @@ public class HtmlPageIndex {
     }
     text.appendBlank();
     textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlHtmlObject(final HtmlObject anHtmlObject) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+
+    // process childs only if the control is not supported
+    final HTMLObjectElement tmpJsObject = (HTMLObjectElement) anHtmlObject.getScriptObject();
+    if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
+      parseChildren(anHtmlObject);
+    }
+
+    text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation) {
