@@ -17,11 +17,17 @@
 package org.wetator.backend.htmlunit.util;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.StringWebResponse;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HTMLParser;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -40,7 +46,7 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_31, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_38, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -400,6 +406,68 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void asText_Object() throws IOException {
+    final String tmpClsid = "clsid:TESTING-CLASS-ID";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<object id='idObj' classid='" + tmpClsid + "'>"
+        + "Object tag not supported"
+        + "</object>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    // FF
+    final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
+        new URL("http://www.wetator.org/test.html"));
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_38);
+    try {
+      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+
+      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      Assert.assertEquals("before Object tag not supported after", tmpResult.getText());
+
+      Assert.assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+      Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+    } finally {
+      tmpWebClient.close();
+    }
+
+    // IE without support
+    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_11);
+    try {
+      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+
+      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      Assert.assertEquals("before Object tag not supported after", tmpResult.getText());
+
+      Assert.assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+      Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+    } finally {
+      tmpWebClient.close();
+    }
+
+    // IE with support
+    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_11);
+    final Map<String, String> tmpActiveXObjectMap = new HashMap<>();
+    tmpActiveXObjectMap.put(tmpClsid, "org.wetator.backend.htmlunit.util.HtmlPageIndexTest");
+    tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
+
+    try {
+      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+
+      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      Assert.assertEquals("before after", tmpResult.getText());
+
+      Assert.assertEquals("", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+      Assert.assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+    } finally {
+      tmpWebClient.close();
+    }
+  }
+
+  @Test
   public void asText_Select() throws IOException {
     final String tmpHtmlCode = "<html><body>" + "<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>"
@@ -516,8 +584,8 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Button() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "before" + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
-        + "after" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "before"
+        + "<button id='MyButtonId' name='MyButtonName'>Button</button>" + "after" + "</body></html>";
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
