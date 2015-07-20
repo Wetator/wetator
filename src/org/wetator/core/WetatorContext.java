@@ -34,7 +34,7 @@ import org.wetator.util.SecretString;
 /**
  * The context that holds all information about the current executed file and makes them available to the different
  * commands.
- * 
+ *
  * @author rbri
  * @author frank.danek
  * @author tobwoerk
@@ -55,7 +55,7 @@ public class WetatorContext {
 
   /**
    * Constructor for a root context.
-   * 
+   *
    * @param aWetatorEngine the engine that processes this file
    * @param aFile the file this context is for
    * @param aBrowserType the emulated browser type
@@ -70,7 +70,7 @@ public class WetatorContext {
 
   /**
    * Constructor for a sub context.
-   * 
+   *
    * @param aContext the parent context
    * @param aFile the file this context is for
    */
@@ -84,7 +84,7 @@ public class WetatorContext {
 
   /**
    * Use this method to create a sub context.
-   * 
+   *
    * @param aFile the file the sub context is for
    * @return the sub context
    */
@@ -149,7 +149,7 @@ public class WetatorContext {
 
   /**
    * Processes the associated test file by reading all the commands from the file and executing every single command.
-   * 
+   *
    * @return false if execution failed due to invalid input
    * @throws org.wetator.exception.ResourceException in case of problems reading the file
    */
@@ -205,7 +205,7 @@ public class WetatorContext {
 
   /**
    * Determines the command implementation for the given {@link Command} and executes it.
-   * 
+   *
    * @param aCommand the command to be executed
    * @return true if the command was executed, false if the command was ignored
    * @throws CommandException in case of a problem executing the command
@@ -228,13 +228,7 @@ public class WetatorContext {
         tmpBrowser.saveCurrentWindowToLog();
         tmpBrowser.checkAndResetFailures();
         throw e;
-      } catch (final CommandException e) {
-        tmpBrowser.checkAndResetFailures();
-        throw e;
-      } catch (final InvalidInputException e) {
-        tmpBrowser.checkAndResetFailures();
-        throw e;
-      } catch (final RuntimeException e) {
+      } catch (final CommandException | InvalidInputException | RuntimeException | Error e) {
         tmpBrowser.checkAndResetFailures();
         throw e;
       }
@@ -249,7 +243,7 @@ public class WetatorContext {
 
   /**
    * Informs all listeners about 'warn'.
-   * 
+   *
    * @param aMessageKey the message key of the warning
    * @param aParameterArray the message parameters
    */
@@ -259,7 +253,7 @@ public class WetatorContext {
 
   /**
    * Informs all listeners about 'warn'.
-   * 
+   *
    * @param aMessageKey the message key of the warning
    * @param aParameterArray the message parameters
    * @param aDetails optional details
@@ -270,7 +264,7 @@ public class WetatorContext {
 
   /**
    * Informs all listeners about 'warn'.
-   * 
+   *
    * @param aMessageKey the message key of the warning
    * @param aParameterArray the message parameters
    * @param aThrowable the optional reason (with stacktrace) of the warning
@@ -281,7 +275,7 @@ public class WetatorContext {
 
   /**
    * Informs all listeners about 'info'.
-   * 
+   *
    * @param aMessageKey the message key of the information
    * @param aParameterArray the message parameters
    */
@@ -291,7 +285,7 @@ public class WetatorContext {
 
   /**
    * Informs all listeners about 'HtmlDescribe'.
-   * 
+   *
    * @param aHtmlDescription the html source
    */
   public void informListenersHtmlDocu(final String aHtmlDescription) {
@@ -300,7 +294,7 @@ public class WetatorContext {
 
   /**
    * Sets the errorOccurred to the given value. Additionally if a parent context is present it is set there, too.
-   * 
+   *
    * @param anErrorOccurred the errorOccurred to set
    */
   private void setErrorOccurred(final boolean anErrorOccurred) {
@@ -312,7 +306,7 @@ public class WetatorContext {
 
   /**
    * Sets the invalidInput to the given value. Additionally if a parent context is present it is set there, too.
-   * 
+   *
    * @param anInvalidInput the invalidInput to set
    */
   public void setInvalidInput(final boolean anInvalidInput) {
