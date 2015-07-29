@@ -81,6 +81,7 @@ import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.DialogWindow;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
+import com.gargoylesoftware.htmlunit.InteractivePage;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
@@ -599,7 +600,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * stopping the processing.
    */
   public static final class JavaScriptErrorListener implements
-      com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
+  com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
     private HtmlUnitBrowser htmlUnitBrowser;
 
     /**
@@ -614,50 +615,51 @@ public final class HtmlUnitBrowser implements IBrowser {
     /**
      * {@inheritDoc}
      *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#loadScriptError(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#loadScriptError(com.gargoylesoftware.htmlunit.InteractivePage,
      *      java.net.URL, java.lang.Exception)
      */
     @Override
-    public void loadScriptError(final HtmlPage aHtmlPage, final URL aScriptUrl, final Exception anException) {
+    public void loadScriptError(final InteractivePage anInteractivePage, final URL aScriptUrl,
+        final Exception anException) {
       htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aScriptUrl.toExternalForm(),
-          aHtmlPage.getUrl().toExternalForm(), anException.getMessage() }, anException);
+          anInteractivePage.getUrl().toExternalForm(), anException.getMessage() }, anException);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#malformedScriptURL(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#malformedScriptURL(com.gargoylesoftware.htmlunit.InteractivePage,
      *      java.lang.String, java.net.MalformedURLException)
      */
     @Override
-    public void malformedScriptURL(final HtmlPage aHtmlPage, final String aUrl,
+    public void malformedScriptURL(final InteractivePage anInteractivePage, final String aUrl,
         final MalformedURLException aMalformedURLException) {
-      htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aUrl, aHtmlPage.getUrl().toExternalForm(),
-          aMalformedURLException.getMessage() }, aMalformedURLException);
+      htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aUrl,
+          anInteractivePage.getUrl().toExternalForm(), aMalformedURLException.getMessage() }, aMalformedURLException);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#scriptException(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#scriptException(com.gargoylesoftware.htmlunit.InteractivePage,
      *      com.gargoylesoftware.htmlunit.ScriptException)
      */
     @Override
-    public void scriptException(final HtmlPage aHtmlPage, final ScriptException aScriptException) {
+    public void scriptException(final InteractivePage anInteractivePage, final ScriptException aScriptException) {
       htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#timeoutError(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#timeoutError(com.gargoylesoftware.htmlunit.InteractivePage,
      *      long, long)
      */
     @Override
-    public void timeoutError(final HtmlPage aHtmlPage, final long aAllowedTime, final long aExecutionTime) {
+    public void timeoutError(final InteractivePage anInteractivePage, final long aAllowedTime, final long aExecutionTime) {
       htmlUnitBrowser.addFailure("javascriptTimeoutError",
           new String[] { Long.toString(aAllowedTime), Long.toString(aExecutionTime),
-              aHtmlPage.getUrl().toExternalForm() }, null);
+          anInteractivePage.getUrl().toExternalForm() }, null);
     }
   }
 
@@ -925,7 +927,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Ignore some jobs (like heartbeat).
    */
   public static final class JavaScriptJobFilter implements
-      com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+  com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
     private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
@@ -1180,7 +1182,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           if (tmpJobCount > 0) {
             wetatorEngine.informListenersWarn("stillJobsActive",
                 new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                    .getJobManager().jobStatusDump(jobFilter));
+                .getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
         } catch (final AssertionException e) {
@@ -1217,7 +1219,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump(jobFilter));
+              .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
@@ -1286,7 +1288,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
                   new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                      .getJobManager().jobStatusDump(jobFilter));
+                  .getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
           } catch (final AssertionException e) {
@@ -1335,7 +1337,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump(jobFilter));
+              .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();
@@ -1345,7 +1347,8 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       if (tmpPage instanceof XmlPage) {
         final XmlPage tmpXmlPage = (XmlPage) tmpPage;
-        final String tmpNormalizedContent = new NormalizedString(tmpXmlPage.getContent()).toString();
+        final String tmpXmlContent = tmpXmlPage.getWebResponse().getContentAsString();
+        final String tmpNormalizedContent = new NormalizedString(tmpXmlContent).toString();
         matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
       }
