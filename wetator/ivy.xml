@@ -48,14 +48,14 @@
 
         <dependency org="junit" name="junit" rev="4.12" transitive="false" conf="test,sources" />
         <dependency org="org.mockito" name="mockito-core" rev="1.10.19" conf="test,sources" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.2.12.v20150709" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.2.12.v20150709" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.2.12.v20150709" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.2.13.v20150730" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.2.13.v20150730" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.2.13.v20150730" conf="test" />
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.12" transitive="false" conf="test,sources" />
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.12" transitive="false" conf="test" />
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.10" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
-        <override org="org.eclipse.jetty" module="*" rev="9.2.12.v20150709" />
+        <override org="org.eclipse.jetty" module="*" rev="9.2.13.v20150730" />
     </dependencies>
 </ivy-module>
