@@ -550,6 +550,31 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       wetatorEngine.informListenersInfo("ConsoleError", new String[] { aMessage.toString() });
     }
+
+    @Override
+    public boolean isTraceEnabled() {
+      return true;
+    }
+
+    @Override
+    public boolean isDebugEnabled() {
+      return true;
+    }
+
+    @Override
+    public boolean isInfoEnabled() {
+      return true;
+    }
+
+    @Override
+    public boolean isWarnEnabled() {
+      return true;
+    }
+
+    @Override
+    public boolean isErrorEnabled() {
+      return true;
+    }
   }
 
   /**
