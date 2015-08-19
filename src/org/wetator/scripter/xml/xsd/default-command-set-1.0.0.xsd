@@ -295,6 +295,27 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="describe">
+        <xs:annotation>
+            <xs:documentation>Adds a description to the test using markdown syntax.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tc:commandType">
+                    <xs:sequence>
+                        <xs:element name="text" type="tc:parameterType"
+                            minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>The description text.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="deselect">
         <xs:annotation>
             <xs:documentation>Deselects the given control.
