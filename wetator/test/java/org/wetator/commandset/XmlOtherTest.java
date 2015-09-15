@@ -60,7 +60,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   public void jsAnchorInsidePage() throws InvalidInputException {
     executeTestFile("js_anchor_inside_page.wet");
 
-    Assert.assertEquals(8, getSteps());
+    Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

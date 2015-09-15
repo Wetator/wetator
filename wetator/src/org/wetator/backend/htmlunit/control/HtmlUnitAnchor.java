@@ -16,16 +16,11 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.backend.htmlunit.util.PageUtil;
-import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionException;
-import org.wetator.exception.AssertionException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
@@ -46,30 +41,6 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
    */
   public HtmlUnitAnchor(final HtmlAnchor anHtmlElement) {
     super(anHtmlElement);
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetatorContext)
-   */
-  @Override
-  public void click(final WetatorContext aWetatorContext) throws ActionException {
-    super.click(aWetatorContext);
-
-    try {
-      final HtmlAnchor tmpHtmlAnchor = getHtmlElement();
-      String tmpHref = tmpHtmlAnchor.getHrefAttribute();
-      // ignore hashbang stuff
-      if (StringUtils.isNotBlank(tmpHref) && '#' == tmpHref.charAt(0)
-          && !(tmpHref.startsWith("#!") || tmpHref.startsWith("#/"))) {
-        tmpHref = tmpHref.substring(1);
-        PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
-      }
-    } catch (final AssertionException e) {
-      // we are in an action so build the correct exception
-      throw new ActionException(e.getMessage(), e.getCause());
-    }
   }
 
   /**

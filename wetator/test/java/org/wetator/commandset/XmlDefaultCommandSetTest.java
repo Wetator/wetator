@@ -160,7 +160,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void clickOnAnchorInsidePage() throws InvalidInputException {
     executeTestFile("click_on_anchor_inside_page.wet");
 
-    Assert.assertEquals(5, getSteps());
+    Assert.assertEquals(4, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -241,7 +241,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void openUrlAnchorInsidePage() throws InvalidInputException {
     executeTestFile("open_url_anchor_inside_page.wet");
 
-    Assert.assertEquals(4, getSteps());
+    Assert.assertEquals(3, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

@@ -61,7 +61,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
-import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.core.searchpattern.ContentPattern;
@@ -375,19 +374,6 @@ public final class HtmlUnitBrowser implements IBrowser {
           .getMessage("openServerError", new String[] { aUrl.toString(), e.getMessage() });
       throw new ActionException(tmpMessage, e);
     }
-
-    try {
-      final String tmpRef = aUrl.getRef();
-      if (StringUtils.isNotEmpty(tmpRef)) {
-        checkAnchor(tmpRef);
-      }
-    } catch (final AssertionException e) {
-      // we are in an action so build the correct exception
-      throw new ActionException(e.getMessage(), e.getCause());
-    } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
-      throw new ActionException(tmpMessage, e);
-    }
   }
 
   /**
@@ -625,7 +611,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * stopping the processing.
    */
   public static final class JavaScriptErrorListener implements
-  com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
+      com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
     private HtmlUnitBrowser htmlUnitBrowser;
 
     /**
@@ -684,7 +670,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     public void timeoutError(final InteractivePage anInteractivePage, final long aAllowedTime, final long aExecutionTime) {
       htmlUnitBrowser.addFailure("javascriptTimeoutError",
           new String[] { Long.toString(aAllowedTime), Long.toString(aExecutionTime),
-          anInteractivePage.getUrl().toExternalForm() }, null);
+              anInteractivePage.getUrl().toExternalForm() }, null);
     }
   }
 
@@ -878,19 +864,6 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   /**
-   * Checks if the url contains a hash, that the matching anchor is on the page.
-   *
-   * @param aRef the hash from the url
-   * @throws AssertionException if no matching anchor found
-   * @throws BackendException if there is no current page
-   */
-  protected void checkAnchor(final String aRef) throws AssertionException, BackendException {
-    // check the anchor part of the url
-    final Page tmpPage = getCurrentPage();
-    PageUtil.checkAnchor(aRef, tmpPage);
-  }
-
-  /**
    * Our own listener for window content changes.
    */
   public static final class WebWindowListener implements com.gargoylesoftware.htmlunit.WebWindowListener {
@@ -929,22 +902,6 @@ public final class HtmlUnitBrowser implements IBrowser {
       if (null != anEvent.getOldPage()) {
         htmlUnitBrowser.savedPages.remove(anEvent.getOldPage());
       }
-
-      final Page tmpNewPage = anEvent.getNewPage();
-      // first load into a new window
-      if (null != tmpNewPage && null == anEvent.getOldPage()) {
-        final URL tmpUrl = tmpNewPage.getWebResponse().getWebRequest().getUrl();
-        final String tmpRef = tmpUrl.getRef();
-        if (StringUtils.isNotEmpty(tmpRef)) {
-          try {
-            PageUtil.checkAnchor(tmpRef, tmpNewPage);
-          } catch (final AssertionException e) {
-            // TODO this is now inconsistent because open-url and click-on for an anchor throw an ActionException (as
-            // they are actions)
-            htmlUnitBrowser.addFailure(e);
-          }
-        }
-      }
     }
   }
 
@@ -952,7 +909,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Ignore some jobs (like heartbeat).
    */
   public static final class JavaScriptJobFilter implements
-  com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+      com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
     private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
@@ -1207,7 +1164,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           if (tmpJobCount > 0) {
             wetatorEngine.informListenersWarn("stillJobsActive",
                 new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                .getJobManager().jobStatusDump(jobFilter));
+                    .getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
         } catch (final AssertionException e) {
@@ -1244,7 +1201,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-              .getJobManager().jobStatusDump(jobFilter));
+                  .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
@@ -1313,7 +1270,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
                   new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump(jobFilter));
+                      .getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
           } catch (final AssertionException e) {
@@ -1362,7 +1319,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-              .getJobManager().jobStatusDump(jobFilter));
+                  .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();
