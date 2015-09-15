@@ -16,13 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import java.io.IOException;
-
-import org.junit.Assert;
 import org.junit.Test;
-import org.wetator.exception.AssertionException;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
@@ -30,47 +24,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class PageUtilTest {
 
   @Test
-  public void checkAnchor_EmptyPage() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "</body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    try {
-      PageUtil.checkAnchor("ref", tmpHtmlPage);
-      Assert.fail("AssertionException expected");
-    } catch (final AssertionException e) {
-      Assert.assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
-    }
-  }
-
-  @Test
-  public void checkAnchor_NoAnchor() throws IOException {
-    final String tmpHtmlCode = "<html>" + "<head>" + "<title>Page Title</title>" + "</head>" + "<body>"
-        + "<p>Paragraph 1</p>" + "</body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    try {
-      PageUtil.checkAnchor("ref", tmpHtmlPage);
-      Assert.fail("AssertionException expected");
-    } catch (final AssertionException e) {
-      Assert.assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
-    }
-  }
-
-  @Test
-  public void checkAnchor_ById() throws IOException, AssertionException {
-    final String tmpHtmlCode = "<html><head>" + "<title>Page Title</title></head>" + "<body>"
-        + "<p>Paragraph 1 <a id='ref'>Anchor</a></p>" + "</body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    PageUtil.checkAnchor("ref", tmpHtmlPage);
-  }
-
-  @Test
-  public void checkAnchor_ByName() throws IOException, AssertionException {
-    final String tmpHtmlCode = "<html><head>" + "<title>Page Title</title></head>" + "<body>"
-        + "<p>Paragraph 1 <a name='ref'>Anchor</a></p>" + "</body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    PageUtil.checkAnchor("ref", tmpHtmlPage);
+  public void dummy() {
   }
 }

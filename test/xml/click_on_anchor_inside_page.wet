@@ -10,8 +10,6 @@
     <command><d:open-url><d:url>anchor_inside_page.html</d:url></d:open-url></command>
     <command><d:assert-content><d:content>Wetator / Anchor Inside Page</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>jump to 'Chapter 1'</d:wpath></d:click-on></command>
-    <comment>unknown anchor</comment>
-    <command><tst:assert-fail><tst:command-and-message>Click On, No id/anchor found for ref 'chapter3'.</tst:command-and-message><tst:parameter1>jump to non existing anchor</tst:parameter1></tst:assert-fail></command>
     <comment>duplicate anchor</comment>
     <command><d:click-on><d:wpath>jump to duplicate anchor</d:wpath></d:click-on></command>
 </test-case>

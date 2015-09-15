@@ -19,13 +19,7 @@ package org.wetator.backend.htmlunit.util;
 import java.io.IOException;
 import java.net.URL;
 
-import org.apache.commons.lang3.StringUtils;
-import org.wetator.exception.AssertionException;
-import org.wetator.util.Assert;
-
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HTMLParser;
@@ -99,35 +93,6 @@ public final class PageUtil {
       return tmpPage;
     } finally {
       tmpWebClient.close();
-    }
-  }
-
-  /**
-   * Check, if the given Anchor is on the page.
-   *
-   * @param aRef the anchor ref
-   * @param aPage the page
-   * @throws AssertionException if the anchor is not on the page
-   */
-  public static void checkAnchor(final String aRef, final Page aPage) throws AssertionException {
-    if (null == aPage) {
-      return;
-    }
-
-    if (aPage instanceof HtmlPage && StringUtils.isNotEmpty(aRef)) {
-      final HtmlPage tmpHtmlPage = (HtmlPage) aPage;
-      try {
-        // check first with id
-        tmpHtmlPage.getHtmlElementById(aRef);
-      } catch (final ElementNotFoundException e) {
-        // maybe there is an anchor with this name
-        // the browser jumps to the first one
-        try {
-          tmpHtmlPage.getAnchorByName(aRef);
-        } catch (final ElementNotFoundException eNF) {
-          Assert.fail("noAnchor", new String[] { aRef });
-        }
-      }
     }
   }
 
