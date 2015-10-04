@@ -17,9 +17,6 @@
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-2.19-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.19-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.17.jar"/>
-	<classpathentry kind="lib" path="lib/httpclient-4.5.jar"/>
-	<classpathentry kind="lib" path="lib/httpcore-4.4.1.jar"/>
-	<classpathentry kind="lib" path="lib/httpmime-4.5.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/jempbox-1.8.10.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-continuation-9.2.13.v20150730.jar"/>
@@ -38,7 +35,6 @@
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.22.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.10.jar"/>
-	<classpathentry kind="lib" path="lib/poi-3.12.jar"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype-20020414.jar"/>
 	<classpathentry kind="lib" path="lib/sac-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/serializer-2.7.2.jar"/>
@@ -53,5 +49,9 @@
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20140925.jar"/>
 	<classpathentry kind="lib" path="lib/cssparser-0.9.18-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
