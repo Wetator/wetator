@@ -37,7 +37,7 @@ import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
@@ -95,7 +95,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
     try {
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlPasswordInput.getPage();
-      HtmlElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+      DomElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
       if (tmpFocusedElement == null || tmpHtmlPasswordInput != tmpFocusedElement) {
         tmpHtmlPasswordInput.click();
 
