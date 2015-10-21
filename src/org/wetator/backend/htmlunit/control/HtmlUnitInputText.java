@@ -37,7 +37,7 @@ import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
@@ -95,7 +95,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
 
     try {
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlTextInput.getPage();
-      HtmlElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+      DomElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
       if (tmpFocusedElement == null || tmpHtmlTextInput != tmpFocusedElement) {
         tmpHtmlTextInput.click();
 

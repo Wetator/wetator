@@ -37,13 +37,13 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
  * This is the implementation of the HTML element 'textarea' (&lt;textarea&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -53,7 +53,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlTextArea} from the backend
    */
   public HtmlUnitTextArea(final HtmlTextArea anHtmlElement) {
@@ -62,7 +62,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -72,7 +72,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
    *      java.io.File)
    */
@@ -92,7 +92,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
     try {
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlTextArea.getPage();
-      HtmlElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
+      DomElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
       if (tmpFocusedElement == null || tmpHtmlTextArea != tmpFocusedElement) {
         tmpHtmlTextArea.click();
 
@@ -164,7 +164,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
    *      org.wetator.util.SecretString)
    */
@@ -176,7 +176,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

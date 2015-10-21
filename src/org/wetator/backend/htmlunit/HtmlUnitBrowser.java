@@ -91,6 +91,7 @@ import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -1023,8 +1024,9 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   @Override
   public IControl getFocusedControl() throws BackendException {
-    final HtmlElement tmpHtmlElement = getCurrentHtmlPage().getFocusedElement();
-    if (tmpHtmlElement != null) {
+    final DomElement tmpDomElement = getCurrentHtmlPage().getFocusedElement();
+    if (tmpDomElement instanceof HtmlElement) {
+      final HtmlElement tmpHtmlElement = (HtmlElement) tmpDomElement;
       final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository
           .getForHtmlElement(tmpHtmlElement);
       if (tmpControlClass != null) {
