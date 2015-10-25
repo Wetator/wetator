@@ -12,6 +12,11 @@
       var currentTrace = traceCtrl.value
       traceCtrl.value = currentTrace + eventText
     }
+
+    function stealFocus() {
+      var elem = document.getElementById('changedFocus');
+      elem.focus();
+    }
   //-->
   </script>
 
@@ -50,22 +55,22 @@
             </tr>
             <tr>
               <td><label for="inputText">InputText</label></td>
-              <td><input type="text" id="inputText" name="inputText" onfocus="writeTrace('onFocus(inputText);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(inputText);\n');"></td>
+              <td><input type="text" id="inputText" name="inputText" onfocus="writeTrace('onFocus(inputText);');stealFocus();" onblur="writeTrace('onBlur(inputText);\n');"></td>
             </tr>
 
             <tr>
               <td><label for="inputPassword">InputPassword</label></td>
-              <td><input type="password" id="inputPassword" name="inputPassword" onfocus="writeTrace('onFocus(inputPassword);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(inputPassword);\n');"></td>
+              <td><input type="password" id="inputPassword" name="inputPassword" onfocus="writeTrace('onFocus(inputPassword);');stealFocus();" onblur="writeTrace('onBlur(inputPassword);\n');"></td>
             </tr>
 
             <tr>
               <td><label for="textarea">Textarea</label></td>
-              <td><textarea id="textarea" name="textarea" cols="10" rows="1" onfocus="writeTrace('onFocus(textarea);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(textarea);\n');"></textarea></td>
+              <td><textarea id="textarea" name="textarea" cols="10" rows="1" onfocus="writeTrace('onFocus(textarea);');stealFocus();" onblur="writeTrace('onBlur(textarea);\n');"></textarea></td>
             </tr>
 
             <tr>
               <td><label for="upload">Upload</label></td>
-              <td><input type="file" name="upload" id="upload" onfocus="writeTrace('onFocus(upload);');document.getElementById('changedFocus').focus();" onblur="writeTrace('onBlur(upload);\n');"></td>
+              <td><input type="file" name="upload" id="upload" onfocus="writeTrace('onFocus(upload);');stealFocus();" onblur="writeTrace('onBlur(upload);\n');"></td>
             </tr>
 
           </table>
