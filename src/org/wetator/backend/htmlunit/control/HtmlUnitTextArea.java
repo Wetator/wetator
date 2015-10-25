@@ -105,14 +105,21 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
         tmpFocusedElement = tmpHtmlPage.getFocusedElement();
         if (tmpHtmlTextArea != tmpFocusedElement) {
           final IControl tmpFocusedControl = aWetatorContext.getBrowser().getFocusedControl();
-          aWetatorContext.informListenersInfo("focusChanged",
-              new String[] { getDescribingText(), tmpFocusedControl.getDescribingText() });
+
+          if (tmpFocusedControl == null) {
+            aWetatorContext.informListenersInfo("focusRemoved", new String[] { getDescribingText() });
+            throw new ActionException("After clicking on the control '" + getDescribingText()
+                + "' the focus was removed.");
+          }
+
+          final String tmpDesc = tmpFocusedControl.getDescribingText();
+          aWetatorContext.informListenersInfo("focusChanged", new String[] { getDescribingText(), tmpDesc });
 
           if (tmpFocusedControl instanceof ISettable) {
             ((ISettable) tmpFocusedControl).setValue(aWetatorContext, aValue, aDirectory);
             return;
           }
-          throw new ActionException("Focused control '" + tmpFocusedControl.getDescribingText() + "' is not settable.");
+          throw new ActionException("Focused control '" + tmpDesc + "' is not settable.");
         }
       }
     } catch (final ScriptException e) {
