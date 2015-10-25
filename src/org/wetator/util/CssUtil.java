@@ -18,7 +18,7 @@ package org.wetator.util;
 
 /**
  * CssUtil contains some useful helpers for CSS.
- * 
+ *
  * @author rbri
  */
 public final class CssUtil {
@@ -31,9 +31,8 @@ public final class CssUtil {
   }
 
   /**
-   * Escape the the given string. For use as body text.<br>
-   * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns <code>"&amp;lt;\abc&amp;gt;"</code>
-   * 
+   * Escape the the given string. For use as css identifier.<br>
+   *
    * @param aString the String to be normalized or null
    * @return a new String
    */
