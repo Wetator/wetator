@@ -1076,6 +1076,7 @@ wetator/test/webpage/js/richfaces/placeholder.html -text
 wetator/test/webpage/mouse_over.html -text
 wetator/test/webpage/mouse_over_after.html -text
 wetator/test/webpage/onfocus_changefocus.html -text svneol=unset#text/plain
+wetator/test/webpage/onfocus_dropfocus.html -text
 wetator/test/webpage/onfocus_onblur.html -text
 wetator/test/webpage/onkey.html -text
 wetator/test/webpage/response_store/embedded_style.html -text
@@ -1155,6 +1156,10 @@ wetator/test/xml/mouse_over.wet -text svneol=unset#text/plain
 wetator/test/xml/mouse_over_after.wet -text svneol=unset#text/plain
 wetator/test/xml/normalize_command.wet -text svneol=unset#text/plain
 wetator/test/xml/onfocus_changefocus.wet -text
+wetator/test/xml/onfocus_dropfocus_fileupload.wet -text
+wetator/test/xml/onfocus_dropfocus_password.wet -text
+wetator/test/xml/onfocus_dropfocus_text.wet -text
+wetator/test/xml/onfocus_dropfocus_textarea.wet -text
 wetator/test/xml/onfocus_onblur.wet -text svneol=unset#text/plain
 wetator/test/xml/onkey.wet -text svneol=unset#text/plain
 wetator/test/xml/open_url.wet -text svneol=unset#text/plain

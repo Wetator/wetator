@@ -177,6 +177,46 @@ public class XmlOtherTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
+  public void onfocusDropFocusText() throws InvalidInputException {
+    executeTestFile("onfocus_dropfocus_text.wet");
+
+    Assert.assertEquals(9, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(1, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
+  public void onfocusDropFocusPassword() throws InvalidInputException {
+    executeTestFile("onfocus_dropfocus_password.wet");
+
+    Assert.assertEquals(9, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(1, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
+  public void onfocusDropFocusTextArea() throws InvalidInputException {
+    executeTestFile("onfocus_dropfocus_textarea.wet");
+
+    Assert.assertEquals(9, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(1, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
+  public void onfocusDropFocusFileUpload() throws InvalidInputException {
+    executeTestFile("onfocus_dropfocus_fileupload.wet");
+
+    Assert.assertEquals(9, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(1, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
   public void onkey() throws InvalidInputException {
     executeTestFile("onkey.wet");
 
