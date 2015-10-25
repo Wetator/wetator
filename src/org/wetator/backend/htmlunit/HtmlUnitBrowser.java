@@ -840,8 +840,8 @@ public final class HtmlUnitBrowser implements IBrowser {
               for (final IControl tmpControl : aControls) {
                 // TODO do we have to make sure the control is related to the page?
                 tmpParam.append("highlight=");
-                tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
                 tmpParam.append(tmpDelim);
+                tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
                 tmpDelim = "&";
               }
             }
