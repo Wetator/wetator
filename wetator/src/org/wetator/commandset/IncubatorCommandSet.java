@@ -387,6 +387,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
 
           final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
+          aContext.informListenersWarn(tmpHtmlPage.asText(), null);
           try {
             final HtmlAnchor tmpAnchor = findAnchor(tmpHtmlPage, tmpSearch, aContext);
             final IControl tmpControl = new HtmlUnitAnchor(tmpAnchor);
@@ -408,6 +409,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
     private HtmlAnchor findAnchor(final HtmlPage aHtmlPage, final SecretString aSearch, final WetatorContext aContext)
         throws ElementNotFoundException {
+      aContext.informListenersWarn("**** " + aHtmlPage.getAnchors().size(), null);
       for (final HtmlAnchor tmpAnchor : aHtmlPage.getAnchors()) {
         System.out.println(tmpAnchor.getTextContent());
         aContext.informListenersWarn(tmpAnchor.getTextContent(), null);
