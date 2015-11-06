@@ -31,6 +31,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
+import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
@@ -44,8 +45,12 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -72,6 +77,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
+    registerCommand("debug-click-on", new CommandDebugClickOn());
   }
 
   /**
@@ -356,6 +362,70 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           }
         }
       }
+    }
+  }
+
+  /**
+   * Command 'DebugClickOn'.
+   * To click on invisible anchors.
+   */
+  public final class CommandDebugClickOn implements ICommandImplementation {
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
+    InvalidInputException {
+      final SecretString tmpAnchorText = aCommand.getRequiredFirstParameterValue(aContext);
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      try {
+        final IBrowser tmpBrowser = getBrowser(aContext);
+        if (tmpBrowser instanceof HtmlUnitBrowser) {
+          final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+
+          final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
+          try {
+            final HtmlAnchor tmpAnchor = getAnchorByText(tmpHtmlPage, tmpAnchorText.getValue());
+            final IControl tmpControl = new HtmlUnitAnchor(tmpAnchor);
+
+            tmpBrowser.markControls(tmpControl);
+            tmpControl.click(aContext);
+            tmpBrowser.saveCurrentWindowToLog(tmpControl);
+          } catch (final ElementNotFoundException e) {
+            final String tmpMessage = Messages.getMessage("noClickableHtmlElmentFound",
+                new String[] { tmpAnchorText.toString() });
+            throw new ActionException(tmpMessage);
+          }
+        }
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new AssertionException(tmpMessage, e);
+      }
+    }
+
+    private HtmlAnchor getAnchorByText(final HtmlPage aHtmlPage, final String aText) throws ElementNotFoundException {
+      for (final HtmlAnchor tmpAnchor : aHtmlPage.getAnchors()) {
+        if (aText.equals(getAnchorText(tmpAnchor))) {
+          return tmpAnchor;
+        }
+      }
+      throw new ElementNotFoundException("a", "<text>", aText);
+    }
+
+    private String getAnchorText(final HtmlAnchor anAnchor) throws ElementNotFoundException {
+      final StringBuilder tmpResult = new StringBuilder();
+      for (final DomNode tmpNode : anAnchor.getChildNodes()) {
+        if (tmpNode instanceof DomText) {
+          tmpResult.append(((DomText) tmpNode).getData());
+          tmpResult.append(" ");
+        }
+      }
+      return tmpResult.toString().trim();
     }
   }
 
