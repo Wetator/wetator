@@ -46,6 +46,7 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
@@ -419,17 +420,21 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         }
       }
 
+      aContext.informListenersWarn("**** frames " + aHtmlPage.getFrames().size(), null);
       for (final FrameWindow tmpFrame : aHtmlPage.getFrames()) {
-        final HtmlPage tmpHtmlPage = tmpFrame.getEnclosingPage();
-        try {
-          for (final HtmlAnchor tmpAnchor : tmpHtmlPage.getAnchors()) {
-            aContext.informListenersWarn(tmpAnchor.getTextContent(), null);
-            if (aSearch.getSearchPattern().matches(tmpAnchor.getTextContent())) {
-              return tmpAnchor;
+        final Page tmpPage = tmpFrame.getEnclosedPage();
+        if (tmpPage instanceof HtmlPage) {
+          final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+          try {
+            for (final HtmlAnchor tmpAnchor : tmpHtmlPage.getAnchors()) {
+              aContext.informListenersWarn(tmpAnchor.getTextContent(), null);
+              if (aSearch.getSearchPattern().matches(tmpAnchor.getTextContent())) {
+                return tmpAnchor;
+              }
             }
+          } catch (final ElementNotFoundException e) {
+            // ignore
           }
-        } catch (final ElementNotFoundException e) {
-          // ignore
         }
       }
 
