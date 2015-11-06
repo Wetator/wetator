@@ -28,6 +28,13 @@
     <step command='Comment'></step>
     <step command='Open_Url'>incubator/debug_click_on.html</step>
     <step command='Assert_Title'>Wetator / Debug Click On</step>
+    <step command='Comment'>invisible anchor pattern</step>
+    <step command='Debug Click On'>invisible * with text</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_invisible_text POST</step>
+    <step command='Comment'></step>
+    <step command='Comment'></step>
+    <step command='Open_Url'>incubator/debug_click_on.html</step>
+    <step command='Assert_Title'>Wetator / Debug Click On</step>
     <step command='Comment'>missing anchor</step>
     <tst:step command='Assert_Fail'>Debug Click On, No clickable HTML element found for 'unknown Anchor'.<tst:optionalParameter>unknown Anchor</tst:optionalParameter></tst:step>
 </testcase>
