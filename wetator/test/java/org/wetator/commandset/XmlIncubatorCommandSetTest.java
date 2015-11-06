@@ -80,7 +80,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   public void debugClickOn() throws InvalidInputException {
     executeTestFile("debug_click_on.xml");
 
-    Assert.assertEquals(19, getSteps());
+    Assert.assertEquals(23, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
