@@ -77,6 +77,16 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_31 })
+  public void debugClickOn() throws InvalidInputException {
+    executeTestFile("debug_click_on.xml");
+
+    Assert.assertEquals(11, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_31 })
   public void confirm() throws InvalidInputException {
     executeTestFile("confirm.xml");
 
