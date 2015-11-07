@@ -12,7 +12,14 @@
         <exclude name="mockito-*.jar" />
         <exclude name="objenesis-*.jar" />
 
-        <exclude name="jetty-*.jar" />
+        <exclude name="jetty-c*.jar" />
+        <exclude name="jetty-h*.jar" />
+        <exclude name="jetty-i*.jar" />
+        <exclude name="jetty-s*.jar" />
+        <include name="jetty-util-*.jar" />
+        <exclude name="jetty-w*.jar" />
+        <exclude name="jetty-x*.jar" />
+
         <exclude name="javax.servlet-*.jar" />
         <exclude name="slf4j-*.jar" />
     </patternset>
