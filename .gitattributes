@@ -500,6 +500,7 @@ test/webpage/incubator/Panorado.jar -text
 test/webpage/incubator/applet.html -text
 test/webpage/incubator/confirm.html -text
 test/webpage/incubator/debug_click_on.html -text
+test/webpage/incubator/debug_click_on_iframe.html -text
 test/webpage/index.html -text svneol=unset#text/plain
 test/webpage/javascript_boxover.html -text
 test/webpage/javascript_error.html -text
