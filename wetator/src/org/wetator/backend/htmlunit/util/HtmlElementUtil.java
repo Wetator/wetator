@@ -70,7 +70,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLOptionElement;
 
 /**
  * Helper methods to work with the HtmlElements page.
- * 
+ *
  * @author rbri
  */
 public final class HtmlElementUtil {
@@ -84,7 +84,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the {@link HtmlAnchor}.
-   * 
+   *
    * @param anHtmlAnchor the control
    * @return the describing text
    */
@@ -116,7 +116,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlButton.
-   * 
+   *
    * @param anHtmlButton the control
    * @return the describing text
    */
@@ -150,7 +150,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlButtonInput.
-   * 
+   *
    * @param anHtmlButtonInput the control
    * @return the describing text
    */
@@ -168,7 +168,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlCheckBoxInput.
-   * 
+   *
    * @param anHtmlCheckBoxInput the control
    * @return the describing text
    */
@@ -184,7 +184,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlFileInput.
-   * 
+   *
    * @param anHtmlFileInput the control
    * @return the describing text
    */
@@ -202,7 +202,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlHiddenInput.
-   * 
+   *
    * @param anHtmlHiddenInput the control
    * @return the describing text
    */
@@ -218,7 +218,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlImage.
-   * 
+   *
    * @param anHtmlImage the control
    * @return the describing text
    */
@@ -238,7 +238,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlImageInput.
-   * 
+   *
    * @param anHtmlImageInput the control
    * @return the describing text
    */
@@ -258,7 +258,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlParagraph.
-   * 
+   *
    * @param anHtmlParagraph the control
    * @return the describing text
    */
@@ -281,7 +281,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlPasswordInput.
-   * 
+   *
    * @param anHtmlPasswordInput the control
    * @return the describing text
    */
@@ -297,7 +297,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlRadioButtonInput.
-   * 
+   *
    * @param anHtmlRadioButtonInput the control
    * @return the describing text
    */
@@ -315,7 +315,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlResetInput.
-   * 
+   *
    * @param anHtmlResetInput the control
    * @return the describing text
    */
@@ -333,7 +333,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlSelect.
-   * 
+   *
    * @param anHtmlSelect the control
    * @return the describing text
    */
@@ -349,7 +349,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlSpan.
-   * 
+   *
    * @param anHtmlSpan the control
    * @return the describing text
    */
@@ -367,7 +367,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlSubmitInput.
-   * 
+   *
    * @param anHtmlSubmitInput the control
    * @return the describing text
    */
@@ -385,7 +385,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlTextArea.
-   * 
+   *
    * @param anHtmlTextArea the control
    * @return the describing text
    */
@@ -401,7 +401,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlTextInput.
-   * 
+   *
    * @param anHtmlTextInput the control
    * @return the describing text
    */
@@ -417,7 +417,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlOption.
-   * 
+   *
    * @param anHtmlOption the control
    * @return the describing text
    */
@@ -442,7 +442,7 @@ public final class HtmlElementUtil {
 
   /**
    * Generates a describing text for the HtmlOptionGroup.
-   * 
+   *
    * @param anHtmlOptionGroup the control
    * @return the describing text
    */
@@ -488,7 +488,7 @@ public final class HtmlElementUtil {
    * Returns true, if the provided dom node has display block.
    * This respects the default for the various tags and additionally
    * checks for css definitions that might overrule this.
-   * 
+   *
    * @param aDomNode the node
    * @return true or false
    */
@@ -500,7 +500,7 @@ public final class HtmlElementUtil {
       int i = 0;
       while (tmpScriptableObject == null) {
         try {
-          tmpScriptableObject = aDomNode.getScriptObject();
+          tmpScriptableObject = aDomNode.getScriptableObject();
         } catch (final IllegalStateException e) {
           // it is possible, that we address some object under construction
           // in this case this might happen, so we will do a second attempt
@@ -542,7 +542,7 @@ public final class HtmlElementUtil {
 
   /**
    * Returns true, if the provided dom node is a format Element.
-   * 
+   *
    * @param aDomNode the node
    * @return true or false
    */
@@ -567,7 +567,7 @@ public final class HtmlElementUtil {
         || aDomNode instanceof HtmlAbbreviated
         || aDomNode instanceof HtmlInlineQuotation
         || aDomNode instanceof HtmlCitation
-        || aDomNode instanceof HtmlAcronym 
+        || aDomNode instanceof HtmlAcronym
         || aDomNode instanceof HtmlDefinition;
     // @formatter:on
   }

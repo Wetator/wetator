@@ -487,7 +487,7 @@ public class HtmlPageIndex {
 
     if (tmpParent != null) {
       final HtmlElement tmpParentHtmlElement = (HtmlElement) tmpParent;
-      final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptObject();
+      final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptableObject();
       if (tmpScriptableObject instanceof HTMLElement) {
         final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
         final String tmpTransform = tmpStyle.getTextTransform();
@@ -670,7 +670,7 @@ public class HtmlPageIndex {
     textWithoutFormControls.append(" ");
 
     // process childs only if the control is not supported
-    final HTMLObjectElement tmpJsObject = (HTMLObjectElement) anHtmlObject.getScriptObject();
+    final HTMLObjectElement tmpJsObject = (HTMLObjectElement) anHtmlObject.getScriptableObject();
     if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
       parseChildren(anHtmlObject);
     }
