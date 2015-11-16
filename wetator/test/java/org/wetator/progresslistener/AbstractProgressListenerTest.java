@@ -54,7 +54,7 @@ public abstract class AbstractProgressListenerTest {
   protected static final String LOGS_FOLDER = "logs";
 
   protected static final String IE11 = "IE11";
-  protected static final String FF31 = "Firefox31";
+  protected static final String FF38 = "Firefox38";
 
   private static final String COMMAND_NAME = "command";
 
@@ -121,7 +121,7 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
-    writeGreenTestRun(tmpTestCase, FF31);
+    writeGreenTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -136,7 +136,7 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    progressListener.testRunStart(FF31);
+    progressListener.testRunStart(FF38);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     startModule(tmpTestCase);
@@ -161,7 +161,7 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeErrorTestRun(tmpTestCase, IE11);
-    writeErrorTestRun(tmpTestCase, FF31);
+    writeErrorTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -176,7 +176,7 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeRedWithIgnoredModule(tmpTestCase, FF31);
+    writeRedWithIgnoredModule(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -191,7 +191,7 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeRedModule(tmpTestCase, FF31);
+    writeRedModule(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -206,7 +206,7 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    progressListener.testRunStart(FF31);
+    progressListener.testRunStart(FF38);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     startModule(tmpTestCase);
@@ -230,7 +230,7 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE11);
-    writeFailureTestRun(tmpTestCase, FF31);
+    writeFailureTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -245,7 +245,7 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeBlueModule(tmpTestCase, FF31);
+    writeBlueModule(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -261,31 +261,31 @@ public abstract class AbstractProgressListenerTest {
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
-    writeGreenTestRun(tmpTestCase, FF31);
+    writeGreenTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE11);
-    writeFailureTestRun(tmpTestCase, FF31);
+    writeFailureTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeErrorTestRun(tmpTestCase, IE11);
-    writeErrorTestRun(tmpTestCase, FF31);
+    writeErrorTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeFailureAndErrorTestRun(tmpTestCase, IE11);
-    writeFailureAndErrorTestRun(tmpTestCase, FF31);
+    writeFailureAndErrorTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeFailureTestRun(tmpTestCase, IE11);
-    writeErrorTestRun(tmpTestCase, FF31);
+    writeErrorTestRun(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -310,7 +310,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testFileEnd();
     progressListener.testRunEnd();
 
-    progressListener.testRunStart(FF31);
+    progressListener.testRunStart(FF38);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
 
@@ -335,7 +335,7 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testFileEnd();
     progressListener.testRunEnd();
 
-    progressListener.testRunStart(FF31);
+    progressListener.testRunStart(FF38);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
 
@@ -353,7 +353,7 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeRedModuleNotFound(tmpTestCase, FF31);
+    writeRedModuleNotFound(tmpTestCase, FF38);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
