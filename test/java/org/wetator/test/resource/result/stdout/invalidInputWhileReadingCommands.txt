@@ -34,7 +34,7 @@ org.wetator.exception.InvalidInputException: TestCase test1.wet is very invalid.
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
 
-    Firefox31
+    Firefox38
 
 
   Steps: 0,  Failures: 0,  Errors: 0,  Ignored: 0
