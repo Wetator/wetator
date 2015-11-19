@@ -53,9 +53,7 @@
     </module>
     <module name="NoWhitespaceBefore"/>
     <module name="OperatorWrap"/>
-    <module name="ParenPad">
-      <property name="tokens" value="CTOR_CALL,METHOD_CALL,RPAREN,SUPER_CTOR_CALL"/>
-    </module>
+    <module name="ParenPad"/>
     <module name="TypecastParenPad">
       <property name="tokens" value="RPAREN,TYPECAST"/>
     </module>
