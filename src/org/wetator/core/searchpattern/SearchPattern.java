@@ -334,7 +334,7 @@ public abstract class SearchPattern {
     private int hitsCount;
 
     @SuppressWarnings("unchecked")
-    public SearchPatternCache(final int anInitialSize) {
+    SearchPatternCache(final int anInitialSize) {
       cache = new LRUMap(anInitialSize);
 
     }

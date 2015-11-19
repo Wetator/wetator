@@ -190,7 +190,7 @@ public final class DialogUtil {
   /**
    * Helper subclass of JFileChooser to make the dialog placeable.
    */
-  static class PlaceableFileChooser extends JFileChooser {
+  private static class PlaceableFileChooser extends JFileChooser {
     private static final long serialVersionUID = 6223316475899932034L;
 
     private final Preferences preferences;
@@ -201,7 +201,7 @@ public final class DialogUtil {
      *
      * @param aPreferences the preferences for read/write
      */
-    public PlaceableFileChooser(final Preferences aPreferences) {
+    PlaceableFileChooser(final Preferences aPreferences) {
       preferences = aPreferences;
     }
 

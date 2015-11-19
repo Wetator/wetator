@@ -38,7 +38,7 @@ import org.wetator.scripter.XMLScripter;
 
 /**
  * The command line interface for converting test scripts.
- * 
+ *
  * @author tobwoerk
  * @author frank.danek
  * @author rbri
@@ -54,7 +54,7 @@ public final class WetatorScriptConverter {
 
   /**
    * The start point for the command line call.
-   * 
+   *
    * @param anArgsArray
    *        the command line arguments
    */
@@ -182,7 +182,7 @@ public final class WetatorScriptConverter {
 
   /**
    * Scripter enum.
-   * 
+   *
    * @author tobwoerk
    */
   public enum Scripter {
@@ -215,7 +215,7 @@ public final class WetatorScriptConverter {
 
   /**
    * Script creator enum.
-   * 
+   *
    * @author tobwoerk
    */
   public enum ScriptCreator {

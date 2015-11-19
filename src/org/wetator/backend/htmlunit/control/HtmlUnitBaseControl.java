@@ -380,18 +380,19 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
   public static @interface ForHtmlElement {
+
     /**
-     * The {@link HtmlElement}.
+     * @return the {@link HtmlElement}
      */
     Class<? extends HtmlElement> value();
 
     /**
-     * The name of the discriminating attribute.
+     * @return the name of the discriminating attribute
      */
     String attributeName() default "";
 
     /**
-     * The possible values of the discriminating attribute.
+     * @return the possible values of the discriminating attribute
      */
     String[] attributeValues() default { };
   }
@@ -404,8 +405,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
   public static @interface IdentifiedBy {
+
     /**
-     * The identifiers.
+     * @return the identifiers
      */
     Class<? extends AbstractHtmlUnitControlIdentifier>[] value();
   }

@@ -298,7 +298,7 @@ public class XMLScriptCreator implements IScriptCreator {
      * @param aNamespace the namespace to set
      * @param aLocation the location to set
      */
-    public NamespaceBean(final String aSymbol, final String aNamespace, final String aLocation) {
+    NamespaceBean(final String aSymbol, final String aNamespace, final String aLocation) {
       symbol = aSymbol;
       namespace = aNamespace;
       location = aLocation;

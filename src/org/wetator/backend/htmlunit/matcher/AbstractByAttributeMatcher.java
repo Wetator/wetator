@@ -29,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * This is a base class for all matchers checking if an attribute of a {@link HtmlElement} matches a criteria.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElementMatcher {
@@ -43,7 +43,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -58,7 +58,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -77,8 +77,8 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
 
       if (StringUtils.isNotEmpty(tmpValue)
           && (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
-              || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue)) || (MatchType.ENDS_WITH == matchType && searchPattern
-              .matchesAtEnd(tmpValue)))) {
+          || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue)) || (MatchType.ENDS_WITH == matchType && searchPattern
+          .matchesAtEnd(tmpValue)))) {
         int tmpCoverage;
         if (MatchType.ENDS_WITH == matchType) {
           tmpCoverage = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);
@@ -112,7 +112,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   /**
    * Processed the text used to calculate the distance.<br/>
    * The default implementation just returns the original text. Override to change this behavior.
-   * 
+   *
    * @param aTextBefore the text to process
    * @return the processed text
    */
@@ -122,10 +122,10 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
 
   /**
    * This enum contains all types a match could be done.
-   * 
+   *
    * @author frank.danek
    */
-  protected static enum MatchType {
+  protected enum MatchType {
     /**
      * The attribute value contains the search pattern describing the element.
      */
