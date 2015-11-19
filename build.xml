@@ -369,9 +369,9 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.4.1"
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.12.1"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
-        <taskdef resource="checkstyletask.properties" classpathref="taskdef-classpath-checkstyle" />
+        <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
 
 
@@ -401,9 +401,9 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="1.7"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.0"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
-        <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
+        <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>
 
 
