@@ -369,7 +369,7 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.12.1"
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.11.2"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
