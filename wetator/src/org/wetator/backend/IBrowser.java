@@ -36,7 +36,7 @@ public interface IBrowser {
   /**
    * Enum for the supported content types.
    */
-  public enum ContentType {
+  enum ContentType {
     /** html. */
     HTML,
     /** css. */
@@ -72,7 +72,7 @@ public interface IBrowser {
   /**
    * Enum for the supported browser types.
    */
-  public enum BrowserType {
+  enum BrowserType {
     /** firefox 31 ESR. */
     FIREFOX_31("Firefox31", "Firefox_31"),
     /** firefox 38 ESR. */

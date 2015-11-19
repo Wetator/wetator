@@ -29,7 +29,7 @@ import org.wetator.util.SecretString;
 
 /**
  * A content pattern contains the terms of match operations (AssertContent).<br/>
- * 
+ *
  * @author rbri
  */
 public class ContentPattern {
@@ -45,7 +45,7 @@ public class ContentPattern {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anExpectedNodes the nodes expected from the text
    * @throws InvalidInputException if provided pattern is empty or contains only negated nodes
    */
@@ -101,7 +101,7 @@ public class ContentPattern {
   /**
    * Asserts that the given content matches our pattern.
    * Otherwise throws an AssertionFailedException.
-   * 
+   *
    * @param aContent a String to check
    * @param aMaxLength the maximum length of the content used for the
    *        exception text
@@ -230,7 +230,7 @@ public class ContentPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -248,10 +248,10 @@ public class ContentPattern {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aNode the SecretString this is based on
      */
-    public PatternNode(final SecretString aNode) {
+    PatternNode(final SecretString aNode) {
       final String tmpValue = aNode.getValue();
       if (tmpValue.startsWith(NOT_OPERTOR)) {
         // TODO escaping?
@@ -272,7 +272,7 @@ public class ContentPattern {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
