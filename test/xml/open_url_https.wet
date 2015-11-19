@@ -12,6 +12,9 @@
     <comment></comment>
     <comment>expired certificate</comment>
     <command><d:open-url><d:url>https://testssl-expire.disig.sk/index.en.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>The test site with SSL certificate whose validity has been expired</d:title></d:assert-title></command>
-    https://testssl-expire.disig.sk/index.en.html
+    <command><d:assert-content><d:content>You have joined a web site whose SSL certificate is valid.</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>issuer unknown certificate</comment>
+    <command><d:open-url><d:url>https://expired.identrustssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>Your browser should provide a notice about the status of this page.</d:content></d:assert-content></command>
 </test-case>
