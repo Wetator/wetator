@@ -927,13 +927,13 @@ public class WetatorContextExecuteTest {
 
     private ICommandImplementation wrappedImplementation;
 
-    public ForceExecutionCommand(final ICommandImplementation aWrappedImplementation) {
+    ForceExecutionCommand(final ICommandImplementation aWrappedImplementation) {
       wrappedImplementation = aWrappedImplementation;
     }
 
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       wrappedImplementation.execute(aContext, aCommand);
     }
   }

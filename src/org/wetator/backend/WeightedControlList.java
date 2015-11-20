@@ -87,7 +87,10 @@ public final class WeightedControlList {
 
     private int value;
 
-    private FoundType(final int aValue) {
+    /**
+     * @param aValue the weight
+     */
+    FoundType(final int aValue) {
       value = aValue;
     }
 

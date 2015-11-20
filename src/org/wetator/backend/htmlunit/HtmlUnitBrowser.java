@@ -612,7 +612,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * stopping the processing.
    */
   public static final class JavaScriptErrorListener implements
-      com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
+  com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
     private HtmlUnitBrowser htmlUnitBrowser;
 
     /**
@@ -671,7 +671,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     public void timeoutError(final InteractivePage anInteractivePage, final long aAllowedTime, final long aExecutionTime) {
       htmlUnitBrowser.addFailure("javascriptTimeoutError",
           new String[] { Long.toString(aAllowedTime), Long.toString(aExecutionTime),
-              anInteractivePage.getUrl().toExternalForm() }, null);
+          anInteractivePage.getUrl().toExternalForm() }, null);
     }
   }
 
@@ -910,7 +910,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Ignore some jobs (like heartbeat).
    */
   public static final class JavaScriptJobFilter implements
-      com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+  com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
     private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
@@ -1166,7 +1166,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           if (tmpJobCount > 0) {
             wetatorEngine.informListenersWarn("stillJobsActive",
                 new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                    .getJobManager().jobStatusDump(jobFilter));
+                .getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
         } catch (final AssertionException e) {
@@ -1203,7 +1203,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump(jobFilter));
+              .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
@@ -1272,7 +1272,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
                   new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                      .getJobManager().jobStatusDump(jobFilter));
+                  .getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
           } catch (final AssertionException e) {
@@ -1321,7 +1321,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive",
               new String[] { Long.toString(jsTimeoutInMillis / 1000) }, ((HtmlPage) tmpPage).getEnclosingWindow()
-                  .getJobManager().jobStatusDump(jobFilter));
+              .getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();

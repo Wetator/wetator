@@ -240,7 +240,7 @@ public class MultiPartFilter implements Filter {
      * @param aRequest the request to wrap
      * @param aMap the parameter map
      */
-    public Wrapper(final HttpServletRequest aRequest, final MultiMap<String> aMap) {
+    Wrapper(final HttpServletRequest aRequest, final MultiMap<String> aMap) {
       super(aRequest);
       parameters = aMap;
     }
