@@ -108,7 +108,7 @@ public class HtmlUnitControlRepositoryTest {
      *
      * @param anHtmlElement the {@link HtmlElement} from the backend
      */
-    public TestControl(final HtmlAnchor anHtmlElement) {
+    TestControl(final HtmlAnchor anHtmlElement) {
       super(anHtmlElement);
     }
 

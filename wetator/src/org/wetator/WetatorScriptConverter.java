@@ -201,7 +201,10 @@ public final class WetatorScriptConverter {
 
     private IScripter scripter;
 
-    private Scripter(final IScripter aIScripter) {
+    /**
+     * @param aIScripter the {@link IScripter} to use
+     */
+    Scripter(final IScripter aIScripter) {
       scripter = aIScripter;
     }
 
@@ -230,7 +233,10 @@ public final class WetatorScriptConverter {
 
     private IScriptCreator scriptCreator;
 
-    private ScriptCreator(final IScriptCreator aIScriptCreator) {
+    /**
+     * @param aIScriptCreator the {@link IScriptCreator} to use
+     */
+    ScriptCreator(final IScriptCreator aIScriptCreator) {
       scriptCreator = aIScriptCreator;
     }
 
