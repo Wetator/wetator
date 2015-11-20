@@ -2,7 +2,7 @@ HOW TO SETUP THE IDE
 ====================
 Currently we use
     Eclipse 4.4.2 (Luna)
-    Eclipse Checkstyle Plugin 6.4.0 (based on Checkstyle 6.4.1)
+    Eclipse Checkstyle Plugin 6.11.1 (based on Checkstyle 6.11.2)
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 
