@@ -151,20 +151,32 @@
     }
 
     function highlight() {
-        var elem = $(getParameterByName('highlight'));
-        elem.css('box-shadow', '0 0 2px 2px #E65212');
-        var offset = elem.offset();
-        offset.left -= 200;
-        offset.top -= 400;
-        $('html, body').animate({
-            scrollTop: offset.top,
-            scrollLeft: offset.left
-        })
+        setTimeout( function() {
+            var win = window;
+            var sel = getParameterByName(win, 'highlight');
+            while ((!sel || sel.length === 0) && (win.parent && win.parent != win)) {
+                win = win.parent;
+                sel = getParameterByName(win, 'highlight');
+            }
+            if (!sel || sel.length === 0) { return; }
+  
+            var elem = $(sel);
+            if (!elem) { return; }
+
+            elem.css('box-shadow', '0 0 2px 2px #E65212');
+            var offset = elem.offset();
+            offset.left -= 200;
+            offset.top -= 400;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            })
+        }, 44);
     }
 
-    function getParameterByName(name) {
+    function getParameterByName(win, name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-        var results = regex.exec(location.search);
+        var results = regex.exec(win.location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
