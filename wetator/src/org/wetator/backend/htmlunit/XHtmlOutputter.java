@@ -77,6 +77,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
 import com.gargoylesoftware.htmlunit.html.HtmlItalic;
 import com.gargoylesoftware.htmlunit.html.HtmlKeyboard;
@@ -439,6 +440,8 @@ public final class XHtmlOutputter {
       final boolean tmpIsHtmlFrame = tmpDomElement instanceof BaseFrameElement;
       final boolean tmpIsHtmlPasswordInput = tmpDomElement instanceof HtmlPasswordInput;
       final boolean tmpIsHtmlSubmitInput = tmpDomElement instanceof HtmlSubmitInput;
+      final boolean tmpIsChecked = tmpDomElement instanceof HtmlCheckBoxInput
+          || tmpDomElement instanceof HtmlRadioButtonInput;
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
       final Map<String, DomAttr> tmpAttributes = tmpDomElement.getAttributesMap();
@@ -453,6 +456,7 @@ public final class XHtmlOutputter {
 
       for (final DomAttr tmpAttribute : tmpAttributes.values()) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
+        boolean tmpWriteAttribute = true;
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
           String tmpAttributeValue = tmpAttribute.getNodeValue();
@@ -523,18 +527,33 @@ public final class XHtmlOutputter {
           }
 
           // special cases
-          if ("checked".equals(tmpAttributeName) && StringUtils.isEmpty(tmpAttributeValue)) {
-            tmpAttributeValue = "checked";
+          if ("checked".equals(tmpAttributeName)) {
+            if (tmpIsChecked) {
+              // do not pass the checked attribute, we are doing a screenshot here
+              // we have to reflect the current state of the control
+              tmpWriteAttribute = false;
+            } else if (StringUtils.isEmpty(tmpAttributeValue)) {
+              tmpAttributeValue = "checked";
+            }
           }
           if ("multiple".equals(tmpAttributeName) && StringUtils.isEmpty(tmpAttributeValue)) {
             tmpAttributeValue = "multiple";
           }
 
-          output.print(' ');
-          output.print(tmpAttributeName);
-          output.print("=\"");
-          output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
-          output.print('"');
+          if (tmpWriteAttribute) {
+            output.print(' ');
+            output.print(tmpAttributeName);
+            output.print("=\"");
+            output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
+            output.print('"');
+          }
+        }
+      }
+
+      // we are doing a screenshot here; reflect the current state of the control
+      if (tmpIsChecked) {
+        if (((HtmlInput) tmpDomElement).isChecked()) {
+          output.print(" checked=\"checked\"");
         }
       }
     }
