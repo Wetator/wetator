@@ -46,6 +46,8 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.UrlUtils;
 
@@ -195,12 +197,15 @@ public final class ResponseStore {
    *
    * @param aBaseUrl the url of the page, this is referenced from
    * @param aFullContentUrl the url of the content to save
+   * @param aLink if provided use this link to ask for the WebResponse
+   * @param anImage if provided use this image to ask for the WebResponse
    * @param aDeep the deep of the parent file in the response store
    *        (file system). This is used to calculate always relative urls for the return value
    * @param aSuffix to force a specific suffix for the file name
    * @return the file name used for this page (as relative path);
    */
-  public String storeContentFromUrl(final URL aBaseUrl, final URL aFullContentUrl, final int aDeep, final String aSuffix) {
+  public String storeContentFromUrl(final URL aBaseUrl, final URL aFullContentUrl, final HtmlLink aLink,
+      final HtmlImage anImage, final int aDeep, final String aSuffix) {
     try {
       final String tmpBaseHost = aBaseUrl.getHost();
       if (null == tmpBaseHost || !tmpBaseHost.equals(aFullContentUrl.getHost())) {
@@ -212,18 +217,25 @@ public final class ResponseStore {
       String tmpFileName = fileNames.get(aFullContentUrl.toExternalForm());
       if (null == tmpFileName) {
         // read data form url
-        // set the referer header like the browser does
-        final WebRequest tmpRequest = new WebRequest(aFullContentUrl);
-        tmpRequest.setAdditionalHeader("Referer", aBaseUrl.toExternalForm());
-        final WebResponse tmpWebResponse = webClient.loadWebResponse(tmpRequest);
+        final WebResponse tmpWebResponse;
+        if (null != aLink) {
+          tmpWebResponse = aLink.getWebResponse(true);
+        } else if (null != anImage) {
+          tmpWebResponse = anImage.getWebResponse(true);
+        } else {
+          // set the referer header like the browser does
+          final WebRequest tmpRequest = new WebRequest(aFullContentUrl);
+          tmpRequest.setAdditionalHeader("Referer", aBaseUrl.toExternalForm());
+          tmpWebResponse = webClient.loadWebResponse(tmpRequest);
 
-        // we have to check the result code
-        // see Ticket #42
-        // try {
-        // webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
-        // } catch (final FailingHttpStatusCodeException e) {
-        // throw new ResourceException("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
-        // }
+          // we have to check the result code
+          // see Ticket #42
+          // try {
+          // webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
+          // } catch (final FailingHttpStatusCodeException e) {
+          // throw new ResourceException("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
+          // }
+        }
 
         // create path
         tmpFileName = aFullContentUrl.getPath();
@@ -341,7 +353,7 @@ public final class ResponseStore {
     Matcher tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
     while (tmpMatcher.find(tmpStart)) {
       final URL tmpCssUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aFullContentUrl, tmpMatcher.group(2)));
-      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpCssUrl, aDeep, null);
+      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpCssUrl, null, null, aDeep, null);
       if (null == tmpNewUrl) {
         tmpStart = tmpMatcher.end();
       } else {
@@ -358,7 +370,7 @@ public final class ResponseStore {
     tmpMatcher = CSS_IMPORT_URL_PATTERN.matcher(tmpContent);
     while (tmpMatcher.find(tmpStart)) {
       final URL tmpCssUrl = UrlUtils.toUrlUnsafe(UrlUtils.resolveUrl(aFullContentUrl, tmpMatcher.group(2)));
-      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpCssUrl, aDeep, null);
+      final String tmpNewUrl = storeContentFromUrl(aFullContentUrl, tmpCssUrl, null, null, aDeep, null);
       if (null == tmpNewUrl) {
         tmpStart = tmpMatcher.end();
       } else {

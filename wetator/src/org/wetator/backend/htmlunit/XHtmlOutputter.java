@@ -472,15 +472,25 @@ public final class XHtmlOutputter {
 
           if (tmpIsCssLink && "href".equals(tmpAttributeName)) {
             final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
-            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, ".css");
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl,
+                (HtmlLink) tmpDomElement, null, 0, ".css");
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
           }
 
-          if ((tmpIsHtmlImage || tmpIsHtmlImageInput || tmpIsHtmlHtmlEmbed) && "src".equals(tmpAttributeName)) {
+          if (tmpIsHtmlImage && "src".equals(tmpAttributeName)) {
             final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
-            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, null);
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, null,
+                (HtmlImage) tmpDomElement, 0, null);
+            if (null != tmpStoredFileName) {
+              tmpAttributeValue = tmpStoredFileName;
+            }
+          }
+
+          if ((tmpIsHtmlImageInput || tmpIsHtmlHtmlEmbed) && "src".equals(tmpAttributeName)) {
+            final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, null, null, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
@@ -510,7 +520,7 @@ public final class XHtmlOutputter {
               && (tmpDomElement instanceof HtmlTable || tmpDomElement instanceof HtmlTableHeader
                   || tmpDomElement instanceof HtmlTableRow || tmpDomElement instanceof HtmlTableDataCell)) {
             final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
-            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, 0, null);
+            final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, null, null, 0, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
