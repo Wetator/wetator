@@ -36,7 +36,7 @@ public class XmlSqlCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/sql/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_31, BrowserType.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_8 })
   public void sql() throws InvalidInputException {
     executeTestFile("sql.wet");
 

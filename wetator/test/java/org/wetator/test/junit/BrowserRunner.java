@@ -38,11 +38,11 @@ import org.wetator.backend.IBrowser.BrowserType;
  * <pre>
  * &#064;RunWith(BrowserRunner.class)
  * public class SomeTest implements BrowserTest {
- * 
+ *
  *   &#064;Test
- *   &#064;Browsers({ Browser.FIREFOX_31 })
+ *   &#064;Browsers({ Browser.FIREFOX_38 })
  *   public void test() {
- *     // your test method that is run with Firefox 17
+ *     // your test method that is run with Firefox 38
  *   }
  * }
  * </pre>
