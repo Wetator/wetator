@@ -39,6 +39,7 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -356,7 +357,22 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    * @return true or false
    */
   public boolean isPartOf(final Page aPage) {
-    return aPage == getHtmlElement().getPage();
+    final HtmlPage tmpPage = getHtmlElement().getHtmlPageOrNull();
+    if (aPage == tmpPage) {
+      return true;
+    }
+
+    // check frames
+    if (aPage instanceof HtmlPage) {
+      for (FrameWindow tmpFrame : ((HtmlPage) aPage).getFrames()) {
+        final Page tmpFramePage = tmpFrame.getEnclosedPage();
+        if (tmpFramePage instanceof HtmlPage && isPartOf(tmpFramePage)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private int childIndex(final HtmlElement aParent, final HtmlElement aChild) {
