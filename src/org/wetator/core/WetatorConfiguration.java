@@ -129,7 +129,7 @@ public class WetatorConfiguration {
    * The property name to set the supported {@link BrowserType}s (by their {@link BrowserType#getSymbol()}).
    */
   public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
-  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_31;
+  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_38;
   /**
    * The property name to define the supported ActiveX mocker.
    */
