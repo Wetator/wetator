@@ -152,6 +152,54 @@ public class WetatorEngineExecuteTestsTest {
   /**
    * Test for the engine.<br/>
    * <br/>
+   * Assertion: If there was a {@link Error} starting a new session, the run for the current browser
+   * should be aborted. The commands for the other browser of this test should be ignored. The command for all browsers
+   * of the other test should be ignored.
+   */
+  @Test
+  public void browserStartNewSessionError() {
+    // setup
+    doReturn(Boolean.TRUE).when(context).execute();
+    doThrow(new Error("mocker")).doNothing().when(browser).startNewSession(browserType1);
+
+    // run
+    engine.executeTests();
+
+    // assert
+    final InOrder tmpInOrder = inOrder(engine, context, browser, configuration);
+    tmpInOrder.verify(engine).addDefaultProgressListeners();
+    tmpInOrder.verify(engine).informListenersStart();
+
+    // test case 1
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase1);
+    tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
+    tmpInOrder.verify(browser).startNewSession(browserType1);
+    tmpInOrder.verify(engine).informListenersError(isA(Error.class));
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
+
+    tmpInOrder.verify(engine).informListenersTestRunStart(browserType2.getLabel());
+    tmpInOrder.verify(engine).informListenersTestRunIgnored();
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
+    tmpInOrder.verify(engine).informListenersTestCaseEnd();
+
+    // test case 2
+    tmpInOrder.verify(engine).informListenersTestCaseStart(testCase2);
+    tmpInOrder.verify(engine).informListenersTestRunStart(browserType1.getLabel());
+    tmpInOrder.verify(engine).informListenersTestRunIgnored();
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
+    tmpInOrder.verify(engine).informListenersTestRunStart(browserType2.getLabel());
+    tmpInOrder.verify(engine).informListenersTestRunIgnored();
+    tmpInOrder.verify(engine).informListenersTestRunEnd();
+    tmpInOrder.verify(engine).informListenersTestCaseEnd();
+
+    tmpInOrder.verify(engine).informListenersEnd();
+
+    verify(engine, times(1)).informListenersError(isA(Throwable.class));
+  }
+
+  /**
+   * Test for the engine.<br/>
+   * <br/>
    * Assertion: If there was a {@link ResourceException} executing a test file, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
    * of the other test should be executed.

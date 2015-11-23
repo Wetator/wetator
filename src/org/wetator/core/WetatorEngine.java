@@ -151,17 +151,18 @@ public class WetatorEngine {
 
     informListenersStart();
     try {
+      boolean tmpTestCaseErrorOccurred = false;
       for (final TestCase tmpTestCase : getTestCases()) {
         boolean tmpValidInput = true;
         final File tmpFile = tmpTestCase.getFile();
         LOG.info("Executing tests from file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'");
         informListenersTestCaseStart(tmpTestCase);
         try {
-          boolean tmpErrorOccurred = false;
+          boolean tmpTestRunErrorOccurred = false;
           for (final BrowserType tmpBrowserType : getConfiguration().getBrowserTypes()) {
             informListenersTestRunStart(tmpBrowserType.getLabel());
             try {
-              if (!tmpErrorOccurred && tmpValidInput) {
+              if (!tmpTestCaseErrorOccurred && !tmpTestRunErrorOccurred && tmpValidInput) {
                 // new session for every (root) file and browser
                 getBrowser().startNewSession(tmpBrowserType);
                 try {
@@ -170,7 +171,7 @@ public class WetatorEngine {
                   tmpValidInput = tmpWetatorContext.execute();
                   if (!tmpValidInput) {
                     // the input won't be valid for the next browser => continue with next browser but ignore it
-                    tmpErrorOccurred = true;
+                    tmpTestRunErrorOccurred = true;
                   }
                 } finally {
                   getBrowser().endSession();
@@ -181,13 +182,15 @@ public class WetatorEngine {
             } catch (final RuntimeException e) {
               // => continue with next browser
               informListenersError(e);
+            } catch (final Throwable e) {
+              // there is no sense in trying the next browser or case at all
+              // => ignore all following test runs / test cases
+              tmpTestCaseErrorOccurred = true;
+              informListenersError(e);
             } finally {
               informListenersTestRunEnd();
             }
           }
-        } catch (final Throwable e) {
-          // this is the last place to handle exceptions for a test case => continue with next test case
-          informListenersError(e);
         } finally {
           informListenersTestCaseEnd();
         }
