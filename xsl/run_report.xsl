@@ -120,6 +120,8 @@
                     <br/>
                     testCaseFailureCount <xsl:value-of select="$testCaseFailureCount"/><br/>
                     testCaseErrorCount <xsl:value-of select="$testCaseErrorCount"/><br/>
+                    testCaseNotOkCount <xsl:value-of select="$testCaseNotOkCount"/><br/>
+                    testCaseOkCount <xsl:value-of select="$testCaseOkCount"/><br/>
                     testFailureCount <xsl:value-of select="$testFailureCount"/><br/>
                     testErrorCount <xsl:value-of select="$testErrorCount"/><br/>
                     testIgnoredCount <xsl:value-of select="$testIgnoredCount"/><br/>
@@ -1444,10 +1446,10 @@
                     <xsl:when test="count(error) or count(descendant::command/error) or count(descendant::testfile/error) &gt; 0">
                         <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
                     </xsl:when>
-                    <xsl:when test="(count(descendant-or-self::failure)) &gt; 0">
+                    <xsl:when test="count(descendant-or-self::failure) &gt; 0">
                         <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/>
                     </xsl:when>
-                    <xsl:when test="(count(descendant-or-self::ignored)) &gt; 0">
+                    <xsl:when test="count(descendant-or-self::ignored) &gt; 0">
                         <!-- nothing -->
                     </xsl:when>
                     <xsl:otherwise>
@@ -1779,6 +1781,9 @@
             </xsl:when>
             <xsl:when test="count(descendant-or-self::failure) &gt; 0">
                 <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/>
+            </xsl:when>
+            <xsl:when test="count(descendant-or-self::ignored) &gt; 0">
+                <!-- nothing -->
             </xsl:when>
             <xsl:otherwise>
                 <img src="resources/ok.png" width="12" height="10" alt="success" title="success"/>
