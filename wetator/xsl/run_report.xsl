@@ -1443,7 +1443,7 @@
                     <xsl:when test="@isComment">
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
-                    <xsl:when test="count(error) or count(descendant::command/error) or count(descendant::testfile/error) &gt; 0">
+                    <xsl:when test="count(error) &gt; 0 or count(descendant::command/error) &gt; 0 or count(descendant::testfile/error) &gt; 0">
                         <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
                     </xsl:when>
                     <xsl:when test="count(descendant-or-self::failure) &gt; 0">
@@ -1776,7 +1776,7 @@
     <!-- subroutines -->
     <xsl:template name="successIndicator">
         <xsl:choose>
-            <xsl:when test="count(error) or count(descendant::command/error) or count(descendant::testfile/error) &gt; 0">
+            <xsl:when test="count(error) &gt; 0 or count(descendant::command/error) &gt; 0 or count(descendant::testfile/error) &gt; 0">
                 <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
             </xsl:when>
             <xsl:when test="count(descendant-or-self::failure) &gt; 0">
