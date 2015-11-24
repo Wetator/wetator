@@ -1,0 +1,7 @@
+
+# Simple test case for AngularJS
+
+open-url        || http://www.foldnfly.com
+assert-content  || Paper Airplane Designs
+assert-content  || A database of paper airplanes with easy to follow folding instructions.
+assert-content  || 32 out of 32

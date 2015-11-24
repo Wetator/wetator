@@ -248,10 +248,18 @@ wetator/ivy.xml -text svneol=unset#text/plain
 wetator/ivysettings.xml -text svneol=unset#text/plain
 wetator/pom.template.xml -text svneol=unset#text/plain
 wetator/readme.txt -text svneol=unset#text/plain
+wetator/samples/angular/fold_n_fly.wett -text
 wetator/samples/google_search/google.wet -text
 wetator/samples/google_search/google.wett -text
 wetator/samples/google_search/google.xls -text
 wetator/samples/google_search/wetator.config -text
+wetator/samples/gwt/checkbox.wett -text
+wetator/samples/gwt/radiobutton.wett -text
+wetator/samples/primefaces/inplace.wett -text
+wetator/samples/primefaces/listbox.wett -text
+wetator/samples/primefaces/one_menu.wett -text
+wetator/samples/primefaces/one_radio.wett -text
+wetator/samples/primefaces/wetator.config -text
 wetator/samples/sample.wet -text
 wetator/samples/sample.wett -text
 wetator/samples/sample.xls -text

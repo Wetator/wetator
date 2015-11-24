@@ -1,0 +1,14 @@
+
+# Simple test case for the PrimeFaces Listbox
+
+open-url        || index.xhtml
+assert-content  || PrimeFaces SHOWCASE
+
+click-on        || Input
+click-on        || Listbox
+
+select          || Option 1
+select          || Afterwork
+
+click-on        || Submit
+assert-content  || Selected Values, Basic: 1, Advanced: afterwork

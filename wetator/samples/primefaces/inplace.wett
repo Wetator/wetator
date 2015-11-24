@@ -1,0 +1,18 @@
+
+# Simple test case for the PrimeFaces
+
+open-url        || index.xhtml
+assert-content  || PrimeFaces SHOWCASE
+
+click-on        || Input
+click-on        || Inplace
+
+click-on        || Edit Me
+set             || Basic:  || Wetator
+
+click-on        || Ajax: > PrimeFaces
+set             || Ajax:  || smart
+click-on        || Ajax: > Save
+
+click-double-on || Cities
+select          || London

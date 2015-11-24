@@ -1,0 +1,24 @@
+
+# Simple test case for the GWT Showcase application
+
+open-url        || http://samples.gwtproject.org/samples/Showcase/Showcase.html
+assert-title    || Showcase of Features: Checkbox
+assert-content  || Checkbox Basic Checkbox Widgets
+
+assert-deselected || Monday
+assert-deselected || Tuesday
+assert-deselected || Wednesday
+assert-deselected || Thursday
+assert-deselected || Friday
+assert-disabled || Saturday
+assert-disabled || Sunday
+
+select          || Monday
+select          || Thursday
+select          || Friday
+
+assert-selected || Monday
+assert-deselected || Tuesday
+assert-deselected || Wednesday
+assert-selected || Thursday
+assert-selected || Friday
