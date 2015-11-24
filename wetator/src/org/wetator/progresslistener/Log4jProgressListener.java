@@ -26,7 +26,10 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Category;
 import org.apache.log4j.Layout;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.spi.LoggingEvent;
 import org.wetator.core.Command;
@@ -43,7 +46,7 @@ import org.wetator.util.Output;
  * Log4jAppender, that also works as progress listener.
  * The appender saves the log of some steps for dumping
  * in case of failure.
- * 
+ *
  * @author rbri
  */
 public class Log4jProgressListener extends AppenderSkeleton implements IProgressListener {
@@ -60,7 +63,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * The constructor.
-   * 
+   *
    * @param aCommandCount the number of commands to hold
    */
   public Log4jProgressListener(final int aCommandCount) {
@@ -72,7 +75,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.apache.log4j.Appender#close()
    */
   @Override
@@ -82,7 +85,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.apache.log4j.Appender#requiresLayout()
    */
   @Override
@@ -92,7 +95,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.apache.log4j.AppenderSkeleton#append(org.apache.log4j.spi.LoggingEvent)
    */
   @Override
@@ -103,7 +106,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#init(WetatorEngine)
    */
   @Override
@@ -113,8 +116,17 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
   }
 
   /**
+   * Set this as appender for '"org.apache.http.wire"' (level: trace).
+   */
+  public void appendAsWireListener() {
+    final Category tmpCategory = LogManager.getLogger("org.apache.http.wire");
+    tmpCategory.setLevel(Level.TRACE);
+    tmpCategory.addAppender(this);
+  }
+
+  /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#start(WetatorEngine)
    */
   @Override
@@ -123,7 +135,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
    */
   @Override
@@ -133,7 +145,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunStart(String)
    */
   @Override
@@ -144,7 +156,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileStart(String)
    */
   @Override
@@ -153,7 +165,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
    *      org.wetator.core.Command)
    */
@@ -173,7 +185,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandSuccess()
    */
   @Override
@@ -182,7 +194,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandIgnored()
    */
   @Override
@@ -191,7 +203,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
    */
   @Override
@@ -201,7 +213,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
@@ -211,7 +223,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#executeCommandEnd()
    */
   @Override
@@ -220,7 +232,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testFileEnd()
    */
   @Override
@@ -229,7 +241,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunIgnored()
    */
   @Override
@@ -238,7 +250,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testRunEnd()
    */
   @Override
@@ -247,7 +259,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#testCaseEnd()
    */
   @Override
@@ -256,7 +268,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#end(WetatorEngine)
    */
   @Override
@@ -265,7 +277,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#htmlDescribe(String)
    */
   @Override
@@ -274,7 +286,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
    */
   @Override
@@ -283,7 +295,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
    */
   @Override
@@ -292,7 +304,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
    */
   @Override
@@ -302,7 +314,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#warn(String, String[], String)
    */
   @Override
@@ -311,7 +323,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.IProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
