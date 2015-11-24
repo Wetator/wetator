@@ -1,0 +1,22 @@
+
+# Simple test case for the GWT Showcase application
+
+open-url        || http://samples.gwtproject.org/samples/Showcase/Showcase.html
+assert-title    || Showcase of Features: Checkbox
+assert-content  || Checkbox Basic Checkbox Widgets
+
+click-on        || Radio Button
+assert-title    || Showcase of Features: Radio Button
+assert-content  || Radio Button Basic RadioButton Widget
+
+assert-selected || blue
+assert-deselected || red
+assert-disabled || yellow
+assert-deselected || green
+
+select          || green
+
+assert-deselected || blue
+assert-deselected || red
+assert-disabled || yellow
+assert-selected || green
