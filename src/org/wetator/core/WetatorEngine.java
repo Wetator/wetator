@@ -25,9 +25,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Category;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
@@ -231,9 +228,7 @@ public class WetatorEngine {
       final Log4jProgressListener tmpLogListener = new Log4jProgressListener(configuration.getRetrospect());
       tmpLogListener.init(this);
 
-      final Category tmpCategory = LogManager.getLogger("org.apache.http.wire");
-      tmpCategory.setLevel(Level.TRACE);
-      tmpCategory.addAppender(tmpLogListener);
+      tmpLogListener.appendAsWireListener();
 
       addProgressListener(tmpLogListener);
     }
