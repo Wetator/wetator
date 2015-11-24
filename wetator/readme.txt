@@ -50,9 +50,10 @@ WETATOR
       release the repository
 
 WETATOR-ANT
+  * change ivy.xml to point to the latest wetator release
+  * force resolve-dependencies and adjust classpath of the eclipse project and commit
   * force jenkins build and check for success
   * adjust version info in file build-properties.xml and commit
-  * verify that ivy.xml points to the correct wetator version
   * create svn tag
     - copy trunk/wetator-ant-task to the new folder
   * build the release
