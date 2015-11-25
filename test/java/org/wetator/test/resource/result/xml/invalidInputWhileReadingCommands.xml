@@ -101,6 +101,7 @@
     <property id="88" key="wetator.ntlmUser" />
     <property id="89" key="wetator.ntlmWorkstation" />
     <property id="90" key="wetator.ntlmDomain" />
+    <property id="##ID##" key="wetator.retrospect" value="0" />
     <variables id="91">
     </variables>
   </configuration>
