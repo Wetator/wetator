@@ -321,6 +321,9 @@ public class XMLResultWriter implements IProgressListener {
       printConfigurationProperty(WetatorConfiguration.PROPERTY_NTLM_WORKSTATION, tmpConfiguration.getNtlmWorkstation());
       printConfigurationProperty(WetatorConfiguration.PROPERTY_NTLM_DOMAIN, tmpConfiguration.getNtlmDomain());
 
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_RETROSPECT,
+          Integer.toString(tmpConfiguration.getRetrospect()));
+
       printlnStartTag(TAG_VARIABLES);
 
       final List<Variable> tmpVariables = tmpConfiguration.getVariables();
