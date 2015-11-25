@@ -17,6 +17,8 @@
 package org.wetator.core;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,6 @@ import org.wetator.backend.htmlunit.HtmlUnitFinderDelegator;
 import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.progresslistener.Log4jProgressListener;
 import org.wetator.progresslistener.XMLResultWriter;
 
 /**
@@ -225,12 +226,24 @@ public class WetatorEngine {
     addProgressListener(tmpResultWriter);
 
     if (configuration.getRetrospect() > 0) {
-      final Log4jProgressListener tmpLogListener = new Log4jProgressListener(configuration.getRetrospect());
-      tmpLogListener.init(this);
+      // there is no direct dependency to log4j so far;
+      // and this setup is only used for special debug configurations
+      try {
+        final Class<?> tmpClass = Class.forName("org.wetator.progresslistener.Log4jProgressListener");
+        final Constructor<?> tmpConstructor = tmpClass.getConstructor(new Class[] { int.class });
+        final Object tmpLogListener = tmpConstructor.newInstance(new Object[] { configuration.getRetrospect() });
 
-      tmpLogListener.appendAsWireListener();
+        final Method tmpInitMethod = tmpClass.getMethod("init", WetatorEngine.class);
+        tmpInitMethod.invoke(tmpLogListener, this);
 
-      addProgressListener(tmpLogListener);
+        final Method tmpAppendMethod = tmpClass.getMethod("appendAsWireListener");
+        tmpAppendMethod.invoke(tmpLogListener);
+
+        addProgressListener((IProgressListener) tmpLogListener);
+        LOG.info("Retrospect enabled; steps: " + configuration.getRetrospect() + ".");
+      } catch (final Throwable e) {
+        LOG.error("Could not instanciate Log4jProgressListener. Retrospect is disabled.", e);
+      }
     }
   }
 
