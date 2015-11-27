@@ -28,4 +28,8 @@ Wetator local build
     Firefox38
     ..Ei.
 
-  Steps: 43,  Failures: 5,  Errors: 5,  Ignored: 5
+  Failure
+    5 failing step(s) and 5 erroneous step(s)
+
+    Test Runs: 10,  Errors: 0,  Ignored: 0
+    Steps: 43,  Failures: 5,  Errors: 5,  Ignored: 5
