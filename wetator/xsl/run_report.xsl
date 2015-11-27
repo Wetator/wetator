@@ -24,12 +24,12 @@
     <xsl:variable name="testCount" select="$testCaseCount * $browserCount"/>
     <xsl:variable name="testStepCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment)])"/>
 
-    <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-    <xsl:variable name="testCaseErrorCount" select="count(/wet/testcase[boolean(descendant::testfile/error or descendant::command/error)])"/>
+    <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant::failure and not(testrun/error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+    <xsl:variable name="testCaseErrorCount" select="count(/wet/testcase[boolean(testrun/error or descendant::testfile/error or descendant::command/error)])"/>
     <xsl:variable name="testCaseNotOkCount" select="$testCaseFailureCount + $testCaseErrorCount"/>
     <xsl:variable name="testCaseOkCount" select="$testCaseCount - $testCaseNotOkCount"/>
-    <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-    <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+    <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun[boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+    <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
     <xsl:variable name="testIgnoredCount" select="count(/wet/testcase/testrun/ignored)"/>
 
     <xsl:variable name="stepsOkCount" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
@@ -583,8 +583,8 @@
 
                     <xsl:if test="/wet/testcase/testrun/@browser='IE8'">
                         <table id="ie8overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="failedIE8" select="count(/wet/testcase/testrun[@browser='IE8'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsIE8" select="count(/wet/testcase/testrun[@browser='IE8'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
                             <xsl:variable name="ignoredIE8" select="count(/wet/testcase/testrun[@browser='IE8']/ignored)"/>
                             <xsl:variable name="stepsOkIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
                             <xsl:variable name="stepsFailureIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
@@ -605,8 +605,8 @@
                     </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='IE11'">
                         <table id="ie11overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="failedIE11" select="count(/wet/testcase/testrun[@browser='IE11'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsIE11" select="count(/wet/testcase/testrun[@browser='IE11'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
                             <xsl:variable name="ignoredIE11" select="count(/wet/testcase/testrun[@browser='IE11']/ignored)"/>
                             <xsl:variable name="stepsOkIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
                             <xsl:variable name="stepsFailureIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
@@ -627,8 +627,8 @@
                     </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='Firefox31'">
                         <table id="ff31overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="failedFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
                             <xsl:variable name="ignoredFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31']/ignored)"/>
                             <xsl:variable name="stepsOkFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
                             <xsl:variable name="stepsFailureFirefox31" select="count(/wet/testcase/testrun[@browser='Firefox31']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
@@ -649,8 +649,8 @@
                     </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='Firefox38'">
                         <table id="ff38overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="failedFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38'][boolean(descendant::failure and not(error) and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
                             <xsl:variable name="ignoredFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38']/ignored)"/>
                             <xsl:variable name="stepsOkFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
                             <xsl:variable name="stepsFailureFirefox38" select="count(/wet/testcase/testrun[@browser='Firefox38']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
@@ -671,8 +671,8 @@
                     </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='Chrome'">
                         <table id="chromeoverview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedChrome" select="count(/wet/testcase/testrun[@browser='Chrome']/testfile[boolean(descendant::failure and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsChrome" select="count(/wet/testcase/testrun[@browser='Chrome']/testfile[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="failedChrome" select="count(/wet/testcase/testrun[@browser='Chrome'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsChrome" select="count(/wet/testcase/testrun[@browser='Chrome'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
                             <xsl:variable name="ignoredChrome" select="count(/wet/testcase/testrun[@browser='Chrome']/ignored)"/>
                             <xsl:variable name="stepsOkChrome" select="count(/wet/testcase/testrun[@browser='Chrome']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
                             <xsl:variable name="stepsFailureChrome" select="count(/wet/testcase/testrun[@browser='Chrome']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
@@ -1133,7 +1133,7 @@
 
             <xsl:for-each select="testrun">
                 <xsl:choose>
-                    <xsl:when test="ignored or testfile/error">
+                    <xsl:when test="ignored or error or testfile/error">
                         <td>
                             <img>
                                 <xsl:attribute name="src">
@@ -1167,6 +1167,11 @@
                                     ignored
                                 </td>
                                 <td colspan="2"/>
+                            </xsl:when>
+                            <xsl:when test="error">
+                                <td align="center" class="error" colspan="3">
+                                    <xsl:value-of select="error/message"/>
+                                </td>
                             </xsl:when>
                             <xsl:otherwise>
                                 <td align="center" class="error" colspan="3">
