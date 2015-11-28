@@ -108,9 +108,9 @@ public class HtmlPageIndex {
     htmlPage = aHtmlPage;
 
     text = new NormalizedString();
-    positions = new HashMap<DomNode, FindSpot>();
+    positions = new HashMap<DomNode, FindSpot>(256);
+    positionsWithoutFormControls = new HashMap<DomNode, FindSpot>(256);
     textWithoutFormControls = new NormalizedString();
-    positionsWithoutFormControls = new HashMap<DomNode, FindSpot>();
 
     nodes = new LinkedList<DomNode>();
     visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
