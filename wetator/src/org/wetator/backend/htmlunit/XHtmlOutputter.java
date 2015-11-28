@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
@@ -127,6 +128,8 @@ public final class XHtmlOutputter {
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
   private static final Set<String> IGNORED_ATTRIBUTES;
+  private static final Map<Class<? extends Object>, String> TAG_NAMES = new HashMap<Class<? extends Object>, String>(
+      100);
 
   private HtmlPage htmlPage;
   private ResponseStore responseStore;
@@ -570,13 +573,18 @@ public final class XHtmlOutputter {
   }
 
   private String determineTag(final DomNode aDomNode) {
-    String tmpTag = null;
     Class<? extends Object> tmpNodeClass = aDomNode.getClass();
+    // String tmpTag = null;
+    String tmpTag = TAG_NAMES.get(tmpNodeClass);
+    if (null != tmpTag) {
+      return tmpTag;
+    }
 
     while (tmpNodeClass != HtmlElement.class) {
       try {
         final Field tmpField = tmpNodeClass.getDeclaredField("TAG_NAME");
         tmpTag = (String) tmpField.get(null);
+        TAG_NAMES.put(tmpNodeClass, tmpTag);
         return tmpTag;
       } catch (final Exception e) {
         // ignore
