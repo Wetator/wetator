@@ -476,7 +476,7 @@ public class StdOutProgressListener implements IProgressListener {
   /**
    * @return the testRunErrorCout
    */
-  public long getTestRunErrorCout() {
+  public long getTestRunErrorCount() {
     return testRunErrorCout;
   }
 }
