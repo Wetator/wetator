@@ -29,7 +29,7 @@ import org.wetator.util.Output;
  * Developer note:<br>
  * Ant supports only the output of a whole line; we have to do some
  * dirty tricks to show something meaningful
- * 
+ *
  * @author rbri
  */
 public final class AntOutProgressListener extends StdOutProgressListener {
@@ -40,13 +40,13 @@ public final class AntOutProgressListener extends StdOutProgressListener {
   private static class AntWriter extends Writer {
     private Task task;
 
-    public AntWriter(final Task aTask) {
+    AntWriter(final Task aTask) {
       task = aTask;
     }
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.io.Writer#close()
      */
     @Override
@@ -56,7 +56,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.io.Writer#flush()
      */
     @Override
@@ -66,7 +66,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.io.Writer#write(char[], int, int)
      */
     @Override
@@ -85,7 +85,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aWetator the wetator this executes
    */
   public AntOutProgressListener(final Wetator aWetator) {

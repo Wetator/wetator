@@ -39,7 +39,7 @@ import org.wetator.core.WetatorEngine;
 
 /**
  * The AntTask to execute test within an ant script.
- * 
+ *
  * @author rbri
  */
 public class Wetator extends Task {
@@ -117,7 +117,16 @@ public class Wetator extends Task {
         tmpWetatorEngine.executeTests();
 
         // failures
-        if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {
+        if (tmpListener.getTestRunErrorCount() > 0) {
+          if (null != getFailureProperty()) {
+            getProject().setNewProperty(getFailureProperty(), "true");
+          }
+
+          if (isHaltOnFailure()) {
+            throw new BuildException(Version.getProductName() + ": AntTask failed. ("
+                + tmpListener.getTestRunErrorCount() + " TestRun errors)");
+          }
+        } else if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {
           if (null != getFailureProperty()) {
             getProject().setNewProperty(getFailureProperty(), "true");
           }
@@ -146,7 +155,7 @@ public class Wetator extends Task {
 
   /**
    * Reads and returns the properties form ant project and from wetator task.
-   * 
+   *
    * @return a map with properties
    */
   @SuppressWarnings("unchecked")
@@ -206,7 +215,7 @@ public class Wetator extends Task {
 
   /**
    * Creates a new file set and stores it in attribute fileset.
-   * 
+   *
    * @return the new file set
    */
   public FileSet createFileSet() {
@@ -216,7 +225,7 @@ public class Wetator extends Task {
 
   /**
    * Lazy initialization for attribute classpath.
-   * 
+   *
    * @return the attribute classpath
    */
   public Path createClasspath() {
@@ -228,7 +237,7 @@ public class Wetator extends Task {
 
   /**
    * Adds a property to the list of known properties.
-   * 
+   *
    * @param aProperty the new proptery
    */
   public void addProperty(final Property aProperty) {
@@ -237,7 +246,7 @@ public class Wetator extends Task {
 
   /**
    * Adds a system property.
-   * 
+   *
    * @param anEnvironmentVariable the new proptery
    */
   public void addSysproperty(final Environment.Variable anEnvironmentVariable) {
