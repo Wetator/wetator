@@ -26,7 +26,8 @@
 
     <xsl:variable name="testCaseFailureCount" select="count(/wet/testcase[boolean(descendant::failure and not(testrun/error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
     <xsl:variable name="testCaseErrorCount" select="count(/wet/testcase[boolean(testrun/error or descendant::testfile/error or descendant::command/error)])"/>
-    <xsl:variable name="testCaseNotOkCount" select="$testCaseFailureCount + $testCaseErrorCount"/>
+    <xsl:variable name="testCaseIgnoredCount" select="count(/wet/testcase[boolean(testrun/ignored and not(testrun/error) and not(descendant::command/error) and not(descendant::testfile/error) and not (testrun/error) and not (descendant::testfile/error) and not (descendant::command/error))])"/>
+    <xsl:variable name="testCaseNotOkCount" select="$testCaseFailureCount + $testCaseErrorCount + $testCaseIgnoredCount"/>
     <xsl:variable name="testCaseOkCount" select="$testCaseCount - $testCaseNotOkCount"/>
     <xsl:variable name="testFailureCount" select="count(/wet/testcase/testrun[boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
     <xsl:variable name="testErrorCount" select="count(/wet/testcase/testrun[boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
@@ -40,7 +41,8 @@
 
     <xsl:variable name="testCaseFailurePercentage" select="format-number($testCaseFailureCount * 100 div $testCaseCount, '#')"/>
     <xsl:variable name="testCaseErrorPercentage" select="format-number($testCaseErrorCount * 100 div $testCaseCount, '#')"/>
-    <xsl:variable name="testCaseOkPercentage" select="100 - $testCaseFailurePercentage - $testCaseErrorPercentage"/>
+    <xsl:variable name="testCaseIgnoredPercentage" select="format-number($testCaseIgnoredCount * 100 div $testCaseCount, '#')"/>
+    <xsl:variable name="testCaseOkPercentage" select="100 - $testCaseFailurePercentage - $testCaseErrorPercentage - $testCaseIgnoredPercentage"/>
     <xsl:variable name="testFailurePercentage" select="format-number($testFailureCount * 100 div $testCount, '#')"/>
     <xsl:variable name="testErrorPercentage" select="format-number($testErrorCount * 100 div $testCount, '#')"/>
     <xsl:variable name="testIgnoredPercentage" select="format-number($testIgnoredCount * 100 div $testCount, '#')"/>
@@ -120,6 +122,7 @@
                     <br/>
                     testCaseFailureCount <xsl:value-of select="$testCaseFailureCount"/><br/>
                     testCaseErrorCount <xsl:value-of select="$testCaseErrorCount"/><br/>
+                    testCaseIgnoredCount <xsl:value-of select="$testCaseIgnoredCount"/><br/>
                     testCaseNotOkCount <xsl:value-of select="$testCaseNotOkCount"/><br/>
                     testCaseOkCount <xsl:value-of select="$testCaseOkCount"/><br/>
                     testFailureCount <xsl:value-of select="$testFailureCount"/><br/>
@@ -128,6 +131,7 @@
                     <br/>
                     testCaseFailurePercentage <xsl:value-of select="$testCaseFailurePercentage"/><br/>
                     testCaseErrorPercentage <xsl:value-of select="$testCaseErrorPercentage"/><br/>
+                    testCaseIgnoredPercentage <xsl:value-of select="$testCaseIgnoredPercentage"/><br/>
                     testCaseOkPercentage <xsl:value-of select="$testCaseOkPercentage"/><br/>
                     testFailurePercentage <xsl:value-of select="$testFailurePercentage"/><br/>
                     testErrorPercentage <xsl:value-of select="$testErrorPercentage"/><br/>
@@ -348,6 +352,20 @@
                                                     <xsl:value-of select="'test cases with failure'"/>
                                                 </xsl:attribute>
                                                 <xsl:value-of select="$testCaseFailurePercentage"/>%
+                                            </td>
+                                        </xsl:if>
+                                        <xsl:if test="$testCaseIgnoredPercentage > 0">
+                                            <td class="smallBorder" style="text-align: center;">
+                                                <xsl:attribute name="width">
+                                                    <xsl:value-of select="$testCaseIgnoredPercentage"/>%
+                                                </xsl:attribute>
+                                                <xsl:attribute name="bgcolor">
+                                                    <xsl:value-of select="$ignoredColor"/>
+                                                </xsl:attribute>
+                                                <xsl:attribute name="title">
+                                                    <xsl:value-of select="'ignored test cases'"/>
+                                                </xsl:attribute>
+                                                <xsl:value-of select="$testCaseIgnoredPercentage"/>%
                                             </td>
                                         </xsl:if>
                                         <xsl:if test="$testCaseOkPercentage > 0">
