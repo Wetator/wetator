@@ -46,12 +46,12 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.html.BaseFrameElement;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -91,7 +91,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -132,7 +132,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -161,7 +161,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -182,7 +182,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpWaitTimeString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -224,7 +224,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpJsString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -258,7 +258,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
       if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
         final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", new String[] { tmpButton.toString() });
@@ -292,7 +292,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -378,7 +378,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    InvalidInputException {
       final SecretString tmpSearch = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -415,8 +415,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           if (aSearch.getSearchPattern().matches(tmpAnchor.getTextContent())) {
             return tmpAnchor;
           }
-        } else if (tmpHtmlElem instanceof HtmlInlineFrame) {
-          final Page tmpPage = ((HtmlInlineFrame) tmpHtmlElem).getEnclosedPage();
+        } else if (tmpHtmlElem instanceof BaseFrameElement) {
+          final Page tmpPage = ((BaseFrameElement) tmpHtmlElem).getEnclosedPage();
           if (tmpPage instanceof HtmlPage) {
             final HtmlAnchor tmpFound = findAnchor((HtmlPage) tmpPage, aSearch, aContext);
             if (tmpFound != null) {
