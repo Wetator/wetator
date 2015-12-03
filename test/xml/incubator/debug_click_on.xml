@@ -51,4 +51,11 @@
     <step command='Comment'>invisible anchor with special chars inside iframe</step>
     <step command='Debug Click On'>*Raumverwaltung</step>
     <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_invisible_special POST</step>
+    <step command='Comment'></step>
+    <step command='Comment'></step>
+    <step command='Open_Url'>incubator/debug_click_on_frame.html</step>
+    <step command='Assert_Title'>Wetator / Debug Click On - Frame</step>
+    <step command='Comment'>invisible anchor with special chars inside frame</step>
+    <step command='Debug Click On'>*Raumverwaltung</step>
+    <step command='Assert_Content'>GET Parameters Key Value clickOnAnchor a_invisible_special POST</step>
 </testcase>
