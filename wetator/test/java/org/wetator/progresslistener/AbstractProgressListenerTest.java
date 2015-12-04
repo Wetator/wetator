@@ -55,6 +55,7 @@ public abstract class AbstractProgressListenerTest {
 
   protected static final String IE11 = "IE11";
   protected static final String FF38 = "Firefox38";
+  protected static final String CHROME = "CHROME";
 
   private static final String COMMAND_NAME = "command";
 
@@ -354,6 +355,99 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeRedModuleNotFound(tmpTestCase, FF38);
+    progressListener.testCaseEnd();
+
+    progressListener.end(engine);
+
+    assertResult();
+  }
+
+  @Test
+  public void errorOneTestCaseOneBrowser() throws Exception {
+    progressListener.init(engine);
+    progressListener.start(engine);
+
+    final TestCase tmpTestCase = createTestCase();
+    progressListener.testCaseStart(tmpTestCase);
+    progressListener.testRunStart(FF38);
+    progressListener.error(new ClassNotFoundException("test error"));
+    progressListener.testRunEnd();
+    progressListener.testCaseEnd();
+
+    progressListener.end(engine);
+
+    assertResult();
+  }
+
+  @Test
+  public void errorOneTestCaseManyBrowsers() throws Exception {
+    progressListener.init(engine);
+    progressListener.start(engine);
+
+    final TestCase tmpTestCase = createTestCase();
+    progressListener.testCaseStart(tmpTestCase);
+    progressListener.testRunStart(FF38);
+    progressListener.error(new ClassNotFoundException("test error"));
+    progressListener.testRunEnd();
+    progressListener.testRunStart(IE11);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
+    progressListener.testRunStart(CHROME);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
+    progressListener.testCaseEnd();
+
+    progressListener.end(engine);
+
+    assertResult();
+  }
+
+  @Test
+  public void errorTwoTestCasesOneBrowser() throws Exception {
+    progressListener.init(engine);
+    progressListener.start(engine);
+
+    final TestCase tmpTestCase = createTestCase();
+    progressListener.testCaseStart(tmpTestCase);
+    progressListener.testRunStart(FF38);
+    progressListener.error(new ClassNotFoundException("test error"));
+    progressListener.testRunEnd();
+    progressListener.testCaseEnd();
+
+    progressListener.end(engine);
+
+    assertResult();
+  }
+
+  @Test
+  public void errorTwoTestCasesManyBrowsers() throws Exception {
+    progressListener.init(engine);
+    progressListener.start(engine);
+
+    TestCase tmpTestCase = createTestCase();
+    progressListener.testCaseStart(tmpTestCase);
+    progressListener.testRunStart(FF38);
+    progressListener.error(new ClassNotFoundException("test error"));
+    progressListener.testRunEnd();
+    progressListener.testRunStart(IE11);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
+    progressListener.testRunStart(CHROME);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
+    progressListener.testCaseEnd();
+
+    tmpTestCase = createTestCase();
+    progressListener.testCaseStart(tmpTestCase);
+    progressListener.testRunStart(FF38);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
+    progressListener.testRunStart(IE11);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
+    progressListener.testRunStart(CHROME);
+    progressListener.testRunIgnored();
+    progressListener.testRunEnd();
     progressListener.testCaseEnd();
 
     progressListener.end(engine);

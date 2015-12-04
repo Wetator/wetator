@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//Wf3C//Dtd HTML 4.01 Transitional//EN">
+<html xmlns:fn="http://www.w3.org/2005/xpath-functions">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META content="text/css" http-equiv="content-style-type">
+<title>Wetator - Test Result</title>
+<script src="resources/jquery-1.10.2.min.js"></script><script src="resources/wetator_report.js"></script>
+<style type="text/css">
+                    body { background-color: #FFFFFF; font-size: 10pt; font-family: Arial, Helvetica, sans-serif; margin: 4px; }
+                    table { font-size: 10pt; empty-cells: show; border-collapse: collapse; }
+                    table.overview { width: 80%; }
+                    th { font-weight: bold; color: #FFFFFF; background-color: #555555; text-align: left; }
+                    td.step { border:1px solid #999; color: #000000; text-align: center; }
+                    td.light { background-color: #f8f8f8; }
+                    td.topBorder { border-top: 1px solid #999; }
+                    td.message { background-color: #fff8dc; color: #666666; font-size: 10pt; }
+                    td.properties { background-color: #f8f8f8; font-size: 10pt; }
+
+                    td.success { background-color: #ACC952; color: #ffffff; width: 4px; }
+                    td.ignored { background-color: #FFFFFF; color: #717173; width: 4px; }
+                    td.failure { background-color: #00769C; color: #ffffff; width: 8px; }
+                    td.error { background-color: #E75013; color: #ffffff; width: 8px; }
+
+                    td.errorJumper { text-align: right; vertical-align: top; }
+                    td.comment { background-color: #DDDDDD; color: #717173; }
+                    h1 { font-size: 12pt; color: #000000; margin-top: 20px; }
+                    h2 { font-size: 10pt; color: #4682b4; margin-top: 16px; }
+                    p.blue { color: #768bc2; }
+                    pre.details { margin-top: 1px; margin-bottom: 1px; margin-left: 40px; font-family: Courier new, monospace, sans-serif; white-space: pre; }
+                    a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
+                    a.link:hover { text-decoration: underline; }
+                    a.linkToCommand { font-size: smaller; display: block; }
+                    img { border: 0; }
+                    div.header { color: #768bc2; margin-left: 10px; }
+                    div.header img { margin-left: -10px; border: 0; }
+                    div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
+                    .smallBorder { border: 1px solid #999999; }
+                    .bold { font-weight: bold; }
+                    #testSummary { border: 1px solid #555555; }
+                    table#testSummary td { padding: 5px; }
+                    p.backToTop img { padding-right: 3px; }
+                    .bars { color: #ffffff; }
+                    
+                    #debuginfo { display: none; }
+                    #debugtestbrowseroverviewinfo { display: none; }
+
+                    .describe { color: #3D2117; }
+                    .describe h1 { font-size: 1.5em; font-weight: bold; color: #3D2117; }
+                    .describe h2 { font-size: 1.17em; font-weight: bold; color: #3D2117; }
+                    .describe h3 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h4 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h5 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                    .describe h6 { font-size: 1em; font-weight: bold; color: #3D2117; }
+                </style>
+</head>
+<body>
+<div id="debuginfo">
+                    testCaseCount 2<br>
+                    browserCount 3<br>
+                    testCount 6<br>
+                    testStepCount 0<br>
+<br>
+                    testCaseFailureCount 0<br>
+                    testCaseErrorCount 1<br>
+                    testCaseIgnoredCount 1<br>
+                    testCaseNotOkCount 2<br>
+                    testCaseOkCount 0<br>
+                    testFailureCount 0<br>
+                    testErrorCount 1<br>
+                    testIgnoredCount 5<br>
+<br>
+                    testCaseFailurePercentage 0<br>
+                    testCaseErrorPercentage 50<br>
+                    testCaseIgnoredPercentage 50<br>
+                    testCaseOkPercentage 0<br>
+                    testFailurePercentage 0<br>
+                    testErrorPercentage 17<br>
+                    testIgnoredPercentage 83<br>
+                    testNotOkPercentage 100<br>
+                    testOkPercentage 0<br>
+<br>
+                    stepsOkCount 0<br>
+                    stepsFailureCount 0<br>
+                    stepsErrorCount 0<br>
+                    stepsIgnoredCount 0<br>
+                    stepsNotOkCount 0<br>
+<br>
+                    stepsOkPercentage NaN<br>
+                    stepsFailurePercentage NaN<br>
+                    stepsErrorPercentage NaN<br>
+                    stepsIgnoredPercentage NaN<br>
+</div>
+<iframe src="" id="preview" style="overflow: hidden; display: none; position: absolute; background: white; border: solid 3px darkgray; box-shadow: 15px 15px 7px darkgray; width: 1600px; height: 1000px; -moz-transform: scale(0.6); -moz-transform-origin: 0 0; -webkit-transform: scale(0.6); -webkit-transform-origin: 0 0; -ms-transform: scale(0.6); -ms-transform-origin: 0 0;"></iframe>
+<a name="top"></a>
+<center>
+<p>
+<img alt="Wetator" src="resources/wetator.png"></p>
+</center>
+<table align="center" id="testSummary">
+<tr>
+<td class="bold">
+                            Tests:
+                        </td><td style="padding-left: 5px;">6</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="resources/error.png"> Errors:
+                        </td><td style="padding-left: 5px;">6</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;">
+                            Distribution:
+                        </td><td style="padding-left: 5px;">2 TestCases
+                            / 3 Browsers</td><td style="padding-left: 40px;">
+                            Start Time:
+                        </td><td style="padding-left: 5px;">##TIME##</td><td style="padding-left: 40px;">
+                            Total Time:
+                        </td><td style="padding-left: 5px;">##DURATION##</td>
+</tr>
+</table>
+<table onmouseover="switchTables(this, 'detailedoverview')" style="margin-top: 20px; text-align: center;" align="center" class="overview" id="summaryoverview">
+<tr height="20px">
+<td width="100%" class="smallBorder" bgcolor="#E75013"></td>
+</tr>
+</table>
+<table onmouseout="switchTables(this, 'summaryoverview')" style="display: none; margin-top: 20px; text-align: center;" align="center" class="overview bars" id="detailedoverview">
+<tr height="20px;">
+<td class="smallBorder" width="17%
+                                " bgcolor="#E75013" title="tests with error">17%
+                            </td><td class="smallBorder ignored" width="83%
+                                " bgcolor="#FFFFFF" title="ignored tests">83%
+                            </td>
+</tr>
+</table>
+<div style="margin-top: -20px; margin-left: 90.4%;">
+<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
+<table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
+<tr>
+<td width="150px">
+                                TestCases (<span style="color: #E75013; font-weight: bold;">1</span>/2)</td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder" width="50%
+                                                " bgcolor="#E75013" title="test cases with error">50%
+                                            </td><td style="text-align: center;" class="smallBorder" width="50%
+                                                " bgcolor="#FFFFFF" title="ignored test cases">50%
+                                            </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td width="150px">
+                                TestSteps </td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder ignored" width="100%" bgcolor="#FFFFFF" title="ignored steps">
+                                            100%
+                                        </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
+<tr>
+<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie11','ie11overview', 'ff38','ff38overview')"></td><td><span class="bold">IE11</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE11 overview" onclick="showOrHide(this, 'ie11overview')" src="resources/expandall.png" id="ie##ID##"></td><td><span class="bold">FF38</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF38 overview" onclick="showOrHide(this, 'ff38overview')" src="resources/expandall.png" id="ff##ID##"></td>
+</tr>
+</table>
+<table style="display: none; text-align: center;" align="center" class="overview" id="ie11overview">
+<div id="debugtestbrowseroverviewinfo">
+<br>
+            browserTestStepCount 0<br>
+<br>
+            browserTestFailureCount 0<br>
+            browserTestErrorCount 0<br>
+            browserTestIgnoredCount 2<br>
+<br>
+            browserTestFailurePercentage 0<br>
+            browserTestErrorPercentage 0<br>
+            browserTestIgnoredPercentage 100<br>
+            browserTestOkPercentage 0<br>
+<br>
+            browserStepsOkCount 0<br>
+            browserStepsFailureCount 0<br>
+            browserStepsErrorCount 0<br>
+            browserStepsIgnoredCount 0<br>
+<br>
+            browserStepsOkPercentage NaN<br>
+            browserStepsFailurePercentage NaN<br>
+            browserStepsErrorPercentage NaN<br>
+            browserStepsIgnoredPercentage NaN<br>
+</div>
+<tr>
+<td width="150px;">Tests in IE11<img style="padding-left: 4px;" src="resources/ie.png" alt="IE11" title="IE11"></td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder ignored" width="100%
+                            " bgcolor="#FFFFFF" title="ignored IE11 tests">100%
+                        </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>TestSteps in IE11<img style="padding-left: 4px;" src="resources/ie.png" alt="IE11" title="IE11"></td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder ignored" width="
+                                100%
+                            " bgcolor="#FFFFFF" title="ignored IE11 steps">
+                            100%
+                        </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="2" height="10px"></td>
+</tr>
+</table>
+<table style="display: none; text-align: center;" align="center" class="overview" id="ff38overview">
+<div id="debugtestbrowseroverviewinfo">
+<br>
+            browserTestStepCount 0<br>
+<br>
+            browserTestFailureCount 0<br>
+            browserTestErrorCount 1<br>
+            browserTestIgnoredCount 1<br>
+<br>
+            browserTestFailurePercentage 0<br>
+            browserTestErrorPercentage 50<br>
+            browserTestIgnoredPercentage 50<br>
+            browserTestOkPercentage 0<br>
+<br>
+            browserStepsOkCount 0<br>
+            browserStepsFailureCount 0<br>
+            browserStepsErrorCount 0<br>
+            browserStepsIgnoredCount 0<br>
+<br>
+            browserStepsOkPercentage NaN<br>
+            browserStepsFailurePercentage NaN<br>
+            browserStepsErrorPercentage NaN<br>
+            browserStepsIgnoredPercentage NaN<br>
+</div>
+<tr>
+<td width="150px;">Tests in FF38<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF38" title="FF38"></td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder" width="50%
+                            " bgcolor="#E75013" title="FF38 tests with error">50%
+                        </td><td style="text-align: center;" class="smallBorder ignored" width="50%
+                            " bgcolor="#FFFFFF" title="ignored FF38 tests">50%
+                        </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>TestSteps in FF38<img style="padding-left: 4px;" src="resources/firefox.png" alt="FF38" title="FF38"></td><td style="padding-right: 0;">
+<table width="100%" cellspacing="0" cellpadding="0" class="bars">
+<tr>
+<td style="text-align: center;" class="smallBorder ignored" width="
+                                100%
+                            " bgcolor="#FFFFFF" title="ignored FF38 steps">
+                            100%
+                        </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="2" height="10px"></td>
+</tr>
+</table>
+<table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
+<tr>
+<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
+</tr>
+</table>
+<table style="margin-top: 5px;" border="0" cellspacing="0" cellpadding="4" width="100%">
+<tr>
+<td style="width: 50%;" valign="top" align="right">
+<table style="display: none; margin-left: 20px; margin-bottom: 20px;" class="smallBorder" cellspacing="0" cellpadding="2" id="configuration">
+<tr>
+<th>Key</th><th></th><th>Value</th>
+</tr>
+<tr>
+<td>wetator.baseUrl</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.acceptLanguage</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.outputDir</td><td>&nbsp;&nbsp;</td><td>##OUTPUT_DIR##</td>
+</tr>
+<tr>
+<td>wetator.jsTimeout</td><td>&nbsp;&nbsp;</td><td>##DURATION##</td>
+</tr>
+<tr>
+<td>wetator.httpTimeout</td><td>&nbsp;&nbsp;</td><td>##DURATION##</td>
+</tr>
+<tr>
+<td>wetator.wpath.separator</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.xslTemplates</td><td>&nbsp;&nbsp;</td><td>xsl/run_report.xsl</td>
+</tr>
+<tr>
+<td>wetator.commandSets</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.controls</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.scripters</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.proxyHost</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.proxyPort</td><td>&nbsp;&nbsp;</td><td>0</td>
+</tr>
+<tr>
+<td>wetator.proxyHostsToBypass</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.proxyUser</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.basicAuthUser</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.ntlmUser</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.ntlmWorkstation</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.ntlmDomain</td><td>&nbsp;&nbsp;</td><td></td>
+</tr>
+<tr>
+<td>wetator.retrospect</td><td>&nbsp;&nbsp;</td><td>0</td>
+</tr>
+</table>
+</td><td style="width: 50%;" valign="top">
+<table style="display: none; margin-left: 20px; margin-bottom: 20px;" class="smallBorder" cellspacing="0" cellpadding="2" id="variables">
+<tr>
+<th>Name</th><th></th><th>Value</th>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table border="0" class="smallBorder" cellspacing="0" cellpadding="2" width="100%" id="testCasesOverview">
+<tr>
+<th style="width: 30px;">No</th><th style="width: 15px;"></th><th>Name</th><th></th><th style="text-align: center;">Steps</th><th style="width: 80%">Graph</th><th style="text-align: right;">Duration</th>
+</tr>
+<tr>
+<td height="7px;" colspan="7"></td>
+</tr>
+<tr>
+<td align="center" rowspan="3">1</td><td rowspan="3"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="3"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img src="resources/firefox.png" alt="" title=""></td><td colspan="3" class="error" align="center">test error</td></tr><tr><td><img src="resources/ie.png" alt="" title=""></td><td class="ignored" align="center">
+                                    ignored
+                                </td><td colspan="2"></td></tr><tr><td><img src="" alt="" title=""></td><td class="ignored" align="center">
+                                    ignored
+                                </td><td colspan="2"></td></tr><tr></tr>
+<tr>
+<td height="7px" colspan="7"></td>
+</tr>
+<tr>
+<td align="center" rowspan="3">2</td><td rowspan="3"></td><td rowspan="3"><a class="link" href="#testspec_##ID##">test2.wet</a></td><td><img src="resources/firefox.png" alt="" title=""></td><td class="ignored" align="center">
+                                    ignored
+                                </td><td colspan="2"></td></tr><tr><td><img src="resources/ie.png" alt="" title=""></td><td class="ignored" align="center">
+                                    ignored
+                                </td><td colspan="2"></td></tr><tr><td><img src="" alt="" title=""></td><td class="ignored" align="center">
+                                    ignored
+                                </td><td colspan="2"></td></tr><tr></tr>
+<tr>
+<td height="7px" colspan="7"></td>
+</tr>
+</table>
+<a name="details"></a>
+<hr>Created using Wetator version: local build.<div id="preview-spacer" style="margin-bottom: 1000px;"></div>
+</body>
+</html>

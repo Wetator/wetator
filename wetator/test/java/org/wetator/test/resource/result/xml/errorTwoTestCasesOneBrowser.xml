@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<wet id="##ID##">
+  <about id="##ID##">
+    <product id="##ID##">Wetator</product>
+    <version id="##ID##">local build</version>
+    <build id="##ID##"></build>
+    <libraries id="##ID##">
+      <library id="##ID##">htmlunit-</library>
+      <library id="##ID##">htmlunit-core-js-</library>
+      <library id="##ID##">cssparser-</library>
+      <library id="##ID##">NekoHTML </library>
+      <library id="##ID##">Apache Commons Lang </library>
+      <library id="##ID##">Apache Commons Codec </library>
+      <library id="##ID##">Commons Collections </library>
+      <library id="##ID##">Commons IO </library>
+      <library id="##ID##">Apache Commons Logging </library>
+      <library id="##ID##">HttpComponents Apache HttpCore </library>
+      <library id="##ID##">HttpComponents Apache HttpClient </library>
+      <library id="##ID##">HttpComponents Apache HttpClient Mime </library>
+      <library id="##ID##">log</library>
+      <library id="##ID##">automaton-</library>
+      <library id="##ID##">POI </library>
+      <library id="##ID##">PDF Box </library>
+      <library id="##ID##">Apache FontBox </library>
+      <library id="##ID##">XmlCommonsExternal </library>
+      <library id="##ID##">Xerces-J </library>
+      <library id="##ID##">Xalan Java </library>
+    </libraries>
+    <java id="##ID##">
+##JAVA_PROPERTIES##
+    </java>
+  </about>
+  <configuration id="##ID##">
+    <property id="##ID##" key="wetator.baseUrl" />
+    <property id="##ID##" key="wetator.acceptLanguage" />
+    <property id="##ID##" key="wetator.outputDir" value="##OUTPUT_DIR##" />
+    <property id="##ID##" key="wetator.jsTimeout" value="0s" />
+    <property id="##ID##" key="wetator.httpTimeout" value="0s" />
+    <property id="##ID##" key="wetator.wpath.separator" />
+    <property id="##ID##" key="wetator.xslTemplates" value="" />
+    <property id="##ID##" key="wetator.commandSets" value="" />
+    <property id="##ID##" key="wetator.controls" value="" />
+    <property id="##ID##" key="wetator.scripters" value="" />
+    <property id="##ID##" key="wetator.proxyHost" />
+    <property id="##ID##" key="wetator.proxyPort" value="0" />
+    <property id="##ID##" key="wetator.proxyHostsToBypass" value="" />
+    <property id="##ID##" key="wetator.proxyUser" />
+    <property id="##ID##" key="wetator.basicAuthUser" />
+    <property id="##ID##" key="wetator.ntlmUser" />
+    <property id="##ID##" key="wetator.ntlmWorkstation" />
+    <property id="##ID##" key="wetator.ntlmDomain" />
+    <property id="##ID##" key="wetator.retrospect" value="0" />
+    <variables id="##ID##">
+    </variables>
+  </configuration>
+  <startTime id="##ID##">##START_TIME##</startTime>
+  <testcase id="##ID##" name="test1.wet" file="/Test/test1.wet">
+    <testrun id="##ID##" browser="Firefox38">
+      <error id="##ID##">
+        <message id="##ID##">test error</message>
+        <details id="##ID##">java.lang.ClassNotFoundException: test error
+##DETAILS##
+</details>
+      </error>
+    </testrun>
+  </testcase>
+  <executionTime id="##ID##">##EXECUTION_TIME##</executionTime>
+  <!-- ... -->
+</wet>
