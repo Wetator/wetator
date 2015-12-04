@@ -377,6 +377,10 @@ test/java/org/wetator/test/resource/legacyXML.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/report/blue.html -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/report/blueModules.html -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/result/report/errorOneTestCaseManyBrowsers.html -text
+test/java/org/wetator/test/resource/result/report/errorOneTestCaseOneBrowser.html -text
+test/java/org/wetator/test/resource/result/report/errorTwoTestCasesManyBrowsers.html -text
+test/java/org/wetator/test/resource/result/report/errorTwoTestCasesOneBrowser.html -text
 test/java/org/wetator/test/resource/result/report/green.html -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/report/greenModule.html -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/report/homepage.html -text svneol=unset#text/plain
@@ -390,6 +394,10 @@ test/java/org/wetator/test/resource/result/report/redModules.html -text svneol=u
 test/java/org/wetator/test/resource/result/report/redWithIgnoredModule.html -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/stdout/blue.txt -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/stdout/blueModules.txt -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/result/stdout/errorOneTestCaseManyBrowsers.txt -text
+test/java/org/wetator/test/resource/result/stdout/errorOneTestCaseOneBrowser.txt -text
+test/java/org/wetator/test/resource/result/stdout/errorTwoTestCasesManyBrowsers.txt -text
+test/java/org/wetator/test/resource/result/stdout/errorTwoTestCasesOneBrowser.txt -text
 test/java/org/wetator/test/resource/result/stdout/green.txt -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/stdout/greenModule.txt -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/stdout/homepage.txt -text svneol=unset#text/plain
@@ -403,6 +411,10 @@ test/java/org/wetator/test/resource/result/stdout/redModules.txt -text svneol=un
 test/java/org/wetator/test/resource/result/stdout/redWithIgnoredModule.txt -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/xml/blue.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/xml/blueModules.xml -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/result/xml/errorOneTestCaseManyBrowsers.xml -text
+test/java/org/wetator/test/resource/result/xml/errorOneTestCaseOneBrowser.xml -text
+test/java/org/wetator/test/resource/result/xml/errorTwoTestCasesManyBrowsers.xml -text
+test/java/org/wetator/test/resource/result/xml/errorTwoTestCasesOneBrowser.xml -text
 test/java/org/wetator/test/resource/result/xml/green.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/xml/greenModule.xml -text svneol=unset#text/plain
 test/java/org/wetator/test/resource/result/xml/homepage.xml -text svneol=unset#text/plain

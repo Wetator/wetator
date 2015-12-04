@@ -1,0 +1,24 @@
+Wetator local build
+  using HtmlUnit
+  OutputDir:  '##OUTPUT_DIR##'
+  TestFiles: none
+  TestCase: 'test1.wet' (1/0)
+    Firefox38
+java.lang.ClassNotFoundException: test error
+
+    IE11
+
+    CHROME
+
+  TestCase: 'test2.wet' (2/0)
+    Firefox38
+
+    IE11
+
+    CHROME
+
+  Failure
+    1 erroneous Test Run(s)
+
+    Test Runs: 6,  Errors: 1,  Ignored: 5
+    Steps: 0,  Failures: 0,  Errors: 0,  Ignored: 0
