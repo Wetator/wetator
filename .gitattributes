@@ -1153,6 +1153,7 @@ wetator/test/xml/ff38/event_deselect.wet -text
 wetator/test/xml/ff38/event_handler.wet -text
 wetator/test/xml/ff38/event_mouseOver.wet -text
 wetator/test/xml/ff38/event_select.wet -text
+wetator/test/xml/ff38/event_set.wet -text
 wetator/test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 wetator/test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 wetator/test/xml/go_back.wet -text svneol=unset#text/plain

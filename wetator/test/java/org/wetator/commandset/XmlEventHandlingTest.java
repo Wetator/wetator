@@ -115,6 +115,16 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
+  @Test
+  @Browsers({ BrowserType.FIREFOX_38 })
+  public void eventSetFF38() throws InvalidInputException {
+    executeTestFile("ff38/event_set.wet");
+
+    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(2, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
   private void executeTestFile(final String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
