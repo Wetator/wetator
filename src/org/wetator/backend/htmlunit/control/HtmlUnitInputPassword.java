@@ -40,6 +40,7 @@ import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
+import com.gargoylesoftware.htmlunit.html.Keyboard;
 import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
 
@@ -141,10 +142,14 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
       final String tmpValue = aValue.getValue();
       tmpHtmlPasswordInput.select();
 
+      final Keyboard tmpKeyboard = new Keyboard();
       if (tmpValue.length() > 0) {
-        tmpHtmlPasswordInput.type(tmpValue);
+        for (char tmpChar : tmpValue.toCharArray()) {
+          tmpKeyboard.type(tmpChar);
+        }
+        tmpHtmlPasswordInput.type(tmpKeyboard);
       } else {
-        // no way to simulate type of the del key
+        // TODO - do the same as in HtmlUnitInputText if HtmlUnit 2.20 is available
         final char tmpDel = (char) 46;
 
         final Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_DOWN, tmpDel, false,

@@ -945,6 +945,7 @@ test/xml/ff38/event_deselect.wet -text
 test/xml/ff38/event_handler.wet -text
 test/xml/ff38/event_mouseOver.wet -text
 test/xml/ff38/event_select.wet -text
+test/xml/ff38/event_set.wet -text
 test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 test/xml/go_back.wet -text svneol=unset#text/plain

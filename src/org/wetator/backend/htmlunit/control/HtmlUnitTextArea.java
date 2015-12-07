@@ -20,7 +20,6 @@ import java.io.File;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
@@ -37,9 +36,13 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
+import com.gargoylesoftware.htmlunit.html.Keyboard;
+import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
+import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
 
 /**
  * This is the implementation of the HTML element 'textarea' (&lt;textarea&gt;) using HtmlUnit as backend.
@@ -144,10 +147,31 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       final String tmpValue = aValue.getValue();
       tmpHtmlTextArea.select();
 
-      if (StringUtils.isNotBlank(tmpValue)) {
-        tmpHtmlTextArea.type(tmpValue);
+      final Keyboard tmpKeyboard = new Keyboard();
+      if (tmpValue.length() > 0) {
+        for (char tmpChar : tmpValue.toCharArray()) {
+          tmpKeyboard.type(tmpChar);
+        }
+        tmpHtmlTextArea.type(tmpKeyboard);
       } else {
-        tmpHtmlTextArea.setText("");
+        // TODO - do the same as in HtmlUnitInputText if HtmlUnit 2.20 is available
+        final char tmpDel = (char) 46;
+
+        final Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlTextArea, Event.TYPE_KEY_DOWN, tmpDel, false, false,
+            false);
+        final ScriptResult tmpKeyDownResult = tmpHtmlTextArea.fireEvent(tmpKeyDownEvent);
+
+        final Event tmpKeyPressEvent = new KeyboardEvent(tmpHtmlTextArea, Event.TYPE_KEY_PRESS, tmpDel, false, false,
+            false);
+        final ScriptResult tmpKeyPressResult = tmpHtmlTextArea.fireEvent(tmpKeyPressEvent);
+
+        if (!tmpKeyDownEvent.isAborted(tmpKeyDownResult) && !tmpKeyPressEvent.isAborted(tmpKeyPressResult)) {
+          // do it this way to not trigger the onChange handler
+          tmpHtmlTextArea.setText("");
+        }
+
+        final Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlTextArea, Event.TYPE_KEY_UP, tmpDel, false, false, false);
+        tmpHtmlTextArea.fireEvent(tmpKeyUpEvent);
       }
 
       // wait for silence

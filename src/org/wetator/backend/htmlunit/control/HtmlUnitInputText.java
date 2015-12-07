@@ -36,11 +36,10 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
+import com.gargoylesoftware.htmlunit.html.Keyboard;
 import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
 
 /**
@@ -147,28 +146,16 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
       final String tmpValue = aValue.getValue();
       tmpHtmlTextInput.select();
 
+      final Keyboard tmpKeyboard = new Keyboard();
       if (tmpValue.length() > 0) {
-        tmpHtmlTextInput.type(tmpValue);
-      } else {
-        // no way to simulate type of the del key
-        final char tmpDel = (char) 46;
-
-        final Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlTextInput, Event.TYPE_KEY_DOWN, tmpDel, false, false,
-            false);
-        final ScriptResult tmpKeyDownResult = tmpHtmlTextInput.fireEvent(tmpKeyDownEvent);
-
-        final Event tmpKeyPressEvent = new KeyboardEvent(tmpHtmlTextInput, Event.TYPE_KEY_PRESS, tmpDel, false, false,
-            false);
-        final ScriptResult tmpKeyPressResult = tmpHtmlTextInput.fireEvent(tmpKeyPressEvent);
-
-        if (!tmpKeyDownEvent.isAborted(tmpKeyDownResult) && !tmpKeyPressEvent.isAborted(tmpKeyPressResult)) {
-          // do it this way to not trigger the onChange handler
-          tmpHtmlTextInput.setAttribute("value", "");
+        for (char tmpChar : tmpValue.toCharArray()) {
+          tmpKeyboard.type(tmpChar);
         }
-
-        final Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlTextInput, Event.TYPE_KEY_UP, tmpDel, false, false, false);
-        tmpHtmlTextInput.fireEvent(tmpKeyUpEvent);
+      } else {
+          // simulate delete key
+        tmpKeyboard.press(KeyboardEvent.DOM_VK_DELETE);
       }
+      tmpHtmlTextInput.type(tmpKeyboard);
 
       // wait for silence
       waitForImmediateJobs(aWetatorContext);
