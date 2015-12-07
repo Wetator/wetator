@@ -76,28 +76,38 @@ public class WetatorConfiguration {
    * The property name to set the supported {@link ICommandSet}s.
    */
   public static final String PROPERTY_COMMAND_SETS = PROPERTY_PREFIX + "commandSets";
+
   /**
    * The property name to set the WPath separator.
    */
   public static final String PROPERTY_WPATH_SEPARATOR = PROPERTY_PREFIX + "wpath.separator";
   private static final String DEFAULT_WPATH_SEPARATOR = ">";
+
   /**
    * The property name to set the supported {@link IControl}s.
    */
   public static final String PROPERTY_CONTROLS = PROPERTY_PREFIX + "controls";
+
   /**
    * The property name to set the supported {@link IScripter}s.
    */
   public static final String PROPERTY_SCRIPTERS = PROPERTY_PREFIX + "scripters";
+
   /**
    * The property name to set the base URL.
    */
   public static final String PROPERTY_BASE_URL = PROPERTY_PREFIX + "baseUrl";
 
   /**
+   * The property name to set the typing speed of the simulated user.
+   */
+  public static final String PROPERTY_TYPING_SPEED = PROPERTY_PREFIX + "typingSpeed";
+
+  /**
    * The property name to set the javascript timeout.
    */
   public static final String PROPERTY_JAVASCRIPT_TIMEOUT = PROPERTY_PREFIX + "jsTimeout";
+
   /**
    * The property name to set the http timeout.
    */
@@ -109,18 +119,20 @@ public class WetatorConfiguration {
    */
   public static final String PROPERTY_OUTPUT_DIR = PROPERTY_PREFIX + "outputDir";
   private static final String DEFAULT_OUTPUT_DIR = "./logs";
+
   /**
    * The property name to set whether a distinct output directory should be used.
    */
   public static final String PROPERTY_DISTINCT_OUTPUT = PROPERTY_PREFIX + "distinctOutput";
   private static final String DEFAULT_DISTINCT_OUTPUT = "false";
+
   /**
    * The property name to set the XSL templates used to transform the output.
    */
   public static final String PROPERTY_XSL_TEMPLATES = PROPERTY_PREFIX + "xslTemplates";
 
   /**
-   * The property name to set the XSL templates used to transform the output.
+   * The property name to define the number of retrospect steps.
    */
   public static final String PROPERTY_RETROSPECT = PROPERTY_PREFIX + "retrospect";
 
@@ -200,6 +212,7 @@ public class WetatorConfiguration {
   private String baseUrl;
   private int jsTimeoutInSeconds;
   private int httpTimeoutInSeconds;
+  private int typingSpeedInKeystrokesPerMinute;
 
   private String wpathSeparator;
   private File outputDir;
@@ -405,6 +418,15 @@ public class WetatorConfiguration {
       throw new ConfigurationException("The required property '" + PROPERTY_BASE_URL + "' is not set.");
     }
     baseUrl = tmpValue;
+
+    // typingSpeed
+    tmpValue = tmpProperties.getProperty(PROPERTY_TYPING_SPEED, "200");
+    tmpProperties.remove(PROPERTY_TYPING_SPEED);
+    try {
+      typingSpeedInKeystrokesPerMinute = Integer.parseInt(tmpValue);
+    } catch (final NumberFormatException e) {
+      throw new ConfigurationException("The property '" + PROPERTY_TYPING_SPEED + "' is no integer.");
+    }
 
     // jsTimeout
     tmpValue = tmpProperties.getProperty(PROPERTY_JAVASCRIPT_TIMEOUT, "1");
@@ -1020,6 +1042,13 @@ public class WetatorConfiguration {
    */
   public List<Variable> getVariables() {
     return variables;
+  }
+
+  /**
+   * @return the configured typing speed
+   */
+  public int getTypingSpeedInKeystrokesPerMinute() {
+    return typingSpeedInKeystrokesPerMinute;
   }
 
   /**
