@@ -146,16 +146,23 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
       final String tmpValue = aValue.getValue();
       tmpHtmlTextInput.select();
 
-      final Keyboard tmpKeyboard = new Keyboard();
       if (tmpValue.length() > 0) {
-        for (char tmpChar : tmpValue.toCharArray()) {
-          tmpKeyboard.type(tmpChar);
+        final long tmpDelay = 1000L / (aWetatorContext.getConfiguration().getTypingSpeedInKeystrokesPerMinute() / 60);
+
+        tmpHtmlTextInput.type(tmpValue.charAt(0));
+
+        for (int i = 1; i < tmpValue.length(); i++) {
+          aWetatorContext.getBrowser().waitForImmediateJobs(tmpDelay);
+
+          final char tmpChar = tmpValue.charAt(i);
+          tmpHtmlTextInput.type(tmpChar);
         }
       } else {
-          // simulate delete key
+        // simulate delete key
+        final Keyboard tmpKeyboard = new Keyboard();
         tmpKeyboard.press(KeyboardEvent.DOM_VK_DELETE);
+        tmpHtmlTextInput.type(tmpKeyboard);
       }
-      tmpHtmlTextInput.type(tmpKeyboard);
 
       // wait for silence
       waitForImmediateJobs(aWetatorContext);

@@ -40,7 +40,6 @@ import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.Keyboard;
 import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
 import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
 
@@ -147,12 +146,17 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
       final String tmpValue = aValue.getValue();
       tmpHtmlTextArea.select();
 
-      final Keyboard tmpKeyboard = new Keyboard();
       if (tmpValue.length() > 0) {
-        for (char tmpChar : tmpValue.toCharArray()) {
-          tmpKeyboard.type(tmpChar);
+        final long tmpDelay = 1000L / (aWetatorContext.getConfiguration().getTypingSpeedInKeystrokesPerMinute() / 60);
+
+        tmpHtmlTextArea.type(tmpValue.charAt(0));
+
+        for (int i = 1; i < tmpValue.length(); i++) {
+          aWetatorContext.getBrowser().waitForImmediateJobs(tmpDelay);
+
+          final char tmpChar = tmpValue.charAt(i);
+          tmpHtmlTextArea.type(tmpChar);
         }
-        tmpHtmlTextArea.type(tmpKeyboard);
       } else {
         // TODO - do the same as in HtmlUnitInputText if HtmlUnit 2.20 is available
         final char tmpDel = (char) 46;
