@@ -42,6 +42,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 import org.wetator.exception.ResourceException;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
@@ -220,8 +221,20 @@ public final class ResponseStore {
         final WebResponse tmpWebResponse;
         if (null != aLink) {
           tmpWebResponse = aLink.getWebResponse(true);
+
+          // e.g. empty src attrib
+          if (tmpWebResponse == null) {
+            LOG.warn("Ignoring link '" + aLink.asXml() + "'");
+            return null;
+          }
         } else if (null != anImage) {
           tmpWebResponse = anImage.getWebResponse(true);
+
+          // e.g. empty src attrib
+          if (tmpWebResponse == null) {
+            LOG.warn("Ignoring image '" + anImage.asXml() + "'");
+            return null;
+          }
         } else {
           // set the referer header like the browser does
           final WebRequest tmpRequest = new WebRequest(aFullContentUrl);
@@ -230,11 +243,12 @@ public final class ResponseStore {
 
           // we have to check the result code
           // see Ticket #42
-          // try {
-          // webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
-          // } catch (final FailingHttpStatusCodeException e) {
-          // throw new ResourceException("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
-          // }
+          try {
+            webClient.throwFailingHttpStatusCodeExceptionIfNecessary(tmpWebResponse);
+          } catch (final FailingHttpStatusCodeException e) {
+            LOG.warn("Could not read url '" + aFullContentUrl.toExternalForm() + "'.", e);
+            return null;
+          }
         }
 
         // create path
