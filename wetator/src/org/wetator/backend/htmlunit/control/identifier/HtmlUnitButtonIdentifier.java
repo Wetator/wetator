@@ -22,6 +22,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.ByAriaLabelAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByInnerImageMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
@@ -44,14 +45,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * <li>it's id</li>
  * <li>table coordinates</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -61,7 +62,7 @@ public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -89,6 +90,9 @@ public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
       aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+
+      // aria
+      aMatchers.add(new ByAriaLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
@@ -99,7 +103,7 @@ public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

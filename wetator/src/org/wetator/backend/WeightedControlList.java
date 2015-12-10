@@ -51,6 +51,9 @@ public final class WeightedControlList {
     /** Found by table coordindates match. */
     BY_TABLE_COORDINATE(6000),
 
+    /** Found by aria-label text match. */
+    BY_ARIA_LABEL_ATTRIBUTE(5500),
+
     /** Found by image source attribute match. */
     BY_IMG_SRC_ATTRIBUTE(5000),
     /** Found by image alt attribute match. */
