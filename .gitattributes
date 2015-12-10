@@ -144,6 +144,7 @@ src/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinder.java -tex
 src/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinder.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/AbstractByAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/AbstractHtmlUnitElementMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByAriaLabelAttributeMatcher.java -text
 src/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByIdMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByImageAltAttributeMatcher.java -text svneol=unset#text/plain
@@ -282,6 +283,7 @@ test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFin
 test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/AbstractMatcherTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/matcher/ByAriaLabelAttributeMatcherTest.java -text
 test/java/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByIdMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByImageAltAttributeMatcherTest.java -text svneol=unset#text/plain

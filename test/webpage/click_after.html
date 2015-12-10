@@ -119,6 +119,18 @@
                 </td>
               </tr>
 
+              <tr>
+                <td>Button identified by aria-label</td>
+                <td>
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="b_b_aria_label">
+                    <button type="button" aria-label='ariaLabel' onClick="this.form.submit();">
+                      <span style="background: url(./images/sword2.png); height: 52px; width: 87px; display: block;"></span>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
             </table>
 
         <!-- end left column -->
@@ -348,6 +360,18 @@
                     <input type="hidden" name="clickOnButton" value="AFTER_b_b_imageSrc">
                     <button type="button" onClick="this.form.submit();">
                       <img src="./images/sword2.png">
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Button identified by aria-label</td>
+                <td>
+                  <form action="snoopy.php">
+                    <input type="hidden" name="clickOnButton" value="AFTER_b_b_aria_label">
+                    <button type="button" aria-label='ariaLabel' onClick="this.form.submit();">
+                      <span style="background: url(./images/sword2.png); height: 52px; width: 87px; display: block;"></span>
                     </button>
                   </form>
                 </td>
