@@ -46,9 +46,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventClickOnIE8() throws InvalidInputException {
-    executeTestFile("ie8/event_clickOn.wet");
+  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  public void eventClickOnIE11() throws InvalidInputException {
+    executeTestFile("ie11/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -66,9 +66,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventDeselectIE8() throws InvalidInputException {
-    executeTestFile("ie8/event_deselect.wet");
+  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  public void eventDeselectIE1() throws InvalidInputException {
+    executeTestFile("ie11/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -86,9 +86,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventMouseOverIE8() throws InvalidInputException {
-    executeTestFile("ie8/event_mouseOver.wet");
+  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  public void eventMouseOverIE11() throws InvalidInputException {
+    executeTestFile("ie11/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -106,9 +106,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_8 })
-  public void eventSelectIE8() throws InvalidInputException {
-    executeTestFile("ie8/event_select.wet");
+  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  public void eventSelectIE11() throws InvalidInputException {
+    executeTestFile("ie11/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
