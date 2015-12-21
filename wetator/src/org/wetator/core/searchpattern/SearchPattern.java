@@ -16,10 +16,10 @@
 
 package org.wetator.core.searchpattern;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.LRUMap;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
@@ -333,9 +333,8 @@ public abstract class SearchPattern {
     private Map<String, SearchPattern> cache;
     private int hitsCount;
 
-    @SuppressWarnings("unchecked")
     SearchPatternCache(final int anInitialSize) {
-      cache = new LRUMap(anInitialSize);
+      cache = new HashMap<String, SearchPattern>(anInitialSize);
 
     }
 

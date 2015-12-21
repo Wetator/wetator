@@ -36,7 +36,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/incubator/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_11 })
   public void bookmark() throws InvalidInputException {
     executeTestFile("bookmark.xml");
 
@@ -46,7 +46,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_11 })
   public void assertFocus() throws InvalidInputException {
     executeTestFile("assert_focus.xml");
 
@@ -56,7 +56,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_8 })
+  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_11 })
   public void execJs() throws InvalidInputException {
     executeTestFile("exec_js.xml");
 

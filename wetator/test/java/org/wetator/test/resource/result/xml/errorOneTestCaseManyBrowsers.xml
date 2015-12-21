@@ -12,7 +12,6 @@
       <library id="##ID##">NekoHTML </library>
       <library id="##ID##">Apache Commons Lang </library>
       <library id="##ID##">Apache Commons Codec </library>
-      <library id="##ID##">Commons Collections </library>
       <library id="##ID##">Commons IO </library>
       <library id="##ID##">Apache Commons Logging </library>
       <library id="##ID##">HttpComponents Apache HttpCore </library>

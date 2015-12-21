@@ -1160,10 +1160,10 @@ wetator/test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 wetator/test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 wetator/test/xml/go_back.wet -text svneol=unset#text/plain
 wetator/test/xml/htmlunit_javascript.wet -text svneol=unset#text/plain
-wetator/test/xml/ie8/event_clickOn.wet -text
-wetator/test/xml/ie8/event_deselect.wet -text
-wetator/test/xml/ie8/event_mouseOver.wet -text
-wetator/test/xml/ie8/event_select.wet -text
+wetator/test/xml/ie11/event_clickOn.wet -text
+wetator/test/xml/ie11/event_deselect.wet -text
+wetator/test/xml/ie11/event_mouseOver.wet -text
+wetator/test/xml/ie11/event_select.wet -text
 wetator/test/xml/iframe.wet -text
 wetator/test/xml/incubator/assert_applet.xml -text
 wetator/test/xml/incubator/assert_focus.xml -text

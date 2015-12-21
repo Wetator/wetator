@@ -171,9 +171,8 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_LIB, org.cyberneko.html.Version.getVersion());
 
       tmpInfo = new StringBuilder();
-      final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-codec-\\S+jar",
-          "commons-collections-\\S+jar", "commons-io-\\S+jar", "commons-logging-\\S+jar", "httpcore-\\S+jar",
-          "httpclient-\\S+jar", "httpmime-\\S+jar" };
+      final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-codec-\\S+jar", "commons-io-\\S+jar",
+          "commons-logging-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar" };
       for (int i = 0; i < tmpJars.length; i++) {
         tmpInfo.setLength(0);
         tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJars[i], null));
