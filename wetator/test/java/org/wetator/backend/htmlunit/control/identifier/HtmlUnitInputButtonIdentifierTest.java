@@ -160,7 +160,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     Assert
     .assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 56 start: 56 index: 27",
+        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 56 start: 56 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -201,7 +201,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     Assert
     .assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABEL_TEXT coverage: 0 distance: 56 start: 56 index: 27",
+        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABEL_TEXT coverage: 0 distance: 56 start: 56 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

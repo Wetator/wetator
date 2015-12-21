@@ -43,7 +43,7 @@ public class XHtmlOutputterXHtmlPageTest {
   private static final String EXPECTED_TRAILING = " </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anXHtmlCode) throws IOException {
-    XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER_8, anXHtmlCode);
+    XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER_11, anXHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);

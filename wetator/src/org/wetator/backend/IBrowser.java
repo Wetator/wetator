@@ -77,8 +77,6 @@ public interface IBrowser {
     FIREFOX_31("Firefox31", "Firefox_31"),
     /** firefox 38 ESR. */
     FIREFOX_38("Firefox38", "Firefox_38"),
-    /** internet explorer 8. */
-    INTERNET_EXPLORER_8("IE8", "IE_8"),
     /** internet explorer 11. */
     INTERNET_EXPLORER_11("IE11", "IE_11"),
     /** chrome. */

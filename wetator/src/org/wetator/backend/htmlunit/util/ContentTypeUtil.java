@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.wetator.backend.IBrowser.ContentType;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -30,12 +29,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Utility class for content type handling.
- * 
+ *
  * @author rbri
  */
 public final class ContentTypeUtil {
-  @SuppressWarnings("unchecked")
-  private static final Map<String, ContentType> CONTENT_TYPES = new CaseInsensitiveMap();
+  private static final Map<String, ContentType> CONTENT_TYPES = new HashMap<String, ContentType>();
   private static final Map<ContentType, String> FILE_EXTENSIONS = new HashMap<ContentType, String>();
 
   static {
@@ -64,7 +62,7 @@ public final class ContentTypeUtil {
       final String... aContentTypeStrings) {
     FILE_EXTENSIONS.put(aContentType, aFileExtension);
     for (final String tmpContentType : aContentTypeStrings) {
-      CONTENT_TYPES.put(tmpContentType, aContentType);
+      CONTENT_TYPES.put(tmpContentType.toLowerCase(Locale.ROOT), aContentType);
     }
   }
 
@@ -97,7 +95,7 @@ public final class ContentTypeUtil {
    * @return The content type.
    */
   public static ContentType getContentType(final String aContentType) {
-    final ContentType tmpContentType = CONTENT_TYPES.get(aContentType);
+    final ContentType tmpContentType = CONTENT_TYPES.get(aContentType.toLowerCase(Locale.ROOT));
     if (null == tmpContentType) {
       return ContentType.OTHER;
     }
