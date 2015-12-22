@@ -12,19 +12,19 @@
     <comment>Deselect not possible for single selects</comment>
     <command><d:select><d:wpath>Selects with selection &gt; SingleSelect &gt; option2</d:wpath></d:select></command>
     <command><d:select><d:wpath>Selects with selection &gt; SingleSelect &gt; option2</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>Handler mousedown [singleSelectSelected] [1] focus [singleSelectSelected] [-] mouseup [singleSelectSelected] [1] change [singleSelectSelected] [-] click [singleSelectSelected] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [singleSelectSelected] [1] focus [singleSelectSelected] [-] mouseup [singleSelectSelected] [1] change [singleSelectSelected] [-] click [singleSelectSelected] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:deselect><d:wpath>Selects with selection &gt; MultipleSelect &gt; option1</d:wpath></d:deselect></command>
     <command><d:deselect><d:wpath>Selects with selection &gt; MultipleSelect &gt; option1</d:wpath></d:deselect></command>
     <command disabled="true"><d:assert-content><d:content>TODO: Ctrl-Key related events</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousedown [multipleSelectSelected] [1] focus [multipleSelectSelected] [-] mouseup [multipleSelectSelected] [1] change [multipleSelectSelected] [-] click [multipleSelectSelected] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [multipleSelectSelected] [1] focus [multipleSelectSelected] [-] mouseup [multipleSelectSelected] [1] change [multipleSelectSelected] [-] click [multipleSelectSelected] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:deselect><d:wpath>Selects with selection &gt; Checkbox</d:wpath></d:deselect></command>
     <command><d:deselect><d:wpath>Selects with selection &gt; Checkbox</d:wpath></d:deselect></command>
-    <command><d:assert-content><d:content>Handler mousedown [checkboxChecked] [1] focus [checkboxChecked] [-] mouseup [checkboxChecked] [1] click [checkboxChecked] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [checkboxChecked] [1] focus [checkboxChecked] [-] mouseup [checkboxChecked] [1] change [checkboxChecked] [-] click [checkboxChecked] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment>Deselect not possible for radio buttons</comment>
     <command><d:select><d:wpath>Selects with selection &gt; RadioGroup &gt; Radio2</d:wpath></d:select></command>
     <command><d:select><d:wpath>Selects with selection &gt; RadioGroup &gt; Radio2</d:wpath></d:select></command>
-    <command><d:assert-content><d:content>Handler mousedown [radioGroupChecked] [1] focus [radioGroupChecked] [-] mouseup [radioGroupChecked] [1] click [radioGroupChecked] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [radioGroupChecked] [1] focus [radioGroupChecked] [-] mouseup [radioGroupChecked] [1] change [radioGroupChecked] [-] click [radioGroupChecked] [1] OK</d:content></d:assert-content></command>
 </test-case>
