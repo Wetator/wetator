@@ -552,7 +552,6 @@
                                     <img src="resources/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
                                         <xsl:attribute name="onclick">
                                             <xsl:text>showOrHideAll(this</xsl:text>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE8'">, 'ie8','ie8overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE11'">, 'ie11','ie11overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox31'">, 'ff31','ff31overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox38'">, 'ff38','ff38overview'</xsl:if>
@@ -561,13 +560,6 @@
                                         </xsl:attribute>
                                     </img>
                                 </td>
-                            <xsl:if test="/wet/testcase/testrun/@browser='IE8'">
-                                <td>
-                                    <span class="bold">IE8</span>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ie8" src="resources/expandall.png" onclick="showOrHide(this, 'ie8overview')" alt="show/hide IE8 overview" style="cursor: pointer;"/>
-                                </td>
-                            </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='IE11'">
                                 <td>
                                     <span class="bold">IE11</span>
@@ -599,28 +591,6 @@
                         </tr>
                     </table>
 
-                    <xsl:if test="/wet/testcase/testrun/@browser='IE8'">
-                        <table id="ie8overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedIE8" select="count(/wet/testcase/testrun[@browser='IE8'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsIE8" select="count(/wet/testcase/testrun[@browser='IE8'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="ignoredIE8" select="count(/wet/testcase/testrun[@browser='IE8']/ignored)"/>
-                            <xsl:variable name="stepsOkIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
-                            <xsl:variable name="stepsFailureIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
-                            <xsl:variable name="stepsErrorIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="stepsIgnoredIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
-                            <xsl:call-template name="testBrowserOverview">
-                                <xsl:with-param name="browserPicture" select="$browserPicture.IE"/>
-                                <xsl:with-param name="browserName">IE8</xsl:with-param>
-                                <xsl:with-param name="browserTestFailureCount" select="$failedIE8"/>
-                                <xsl:with-param name="browserTestErrorCount" select="$errorsIE8"/>
-                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredIE8"/>
-                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkIE8"/>
-                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureIE8"/>
-                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorIE8"/>
-                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredIE8"/>
-                            </xsl:call-template>
-                        </table>
-                    </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='IE11'">
                         <table id="ie11overview" class="overview" align="center" style="display: none; text-align: center;">
                             <xsl:variable name="failedIE11" select="count(/wet/testcase/testrun[@browser='IE11'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
@@ -1155,9 +1125,6 @@
                         <td>
                             <img>
                                 <xsl:attribute name="src">
-                                    <xsl:if test="@browser='IE8'">
-                                        <xsl:value-of select="$browserPicture.IE"/>
-                                    </xsl:if>
                                     <xsl:if test="@browser='IE11'">
                                         <xsl:value-of select="$browserPicture.IE"/>
                                     </xsl:if>
@@ -1204,9 +1171,6 @@
                             <td>
                                 <img>
                                     <xsl:attribute name="src">
-                                        <xsl:if test="../@browser='IE8'">
-                                            <xsl:value-of select="$browserPicture.IE"/>
-                                        </xsl:if>
                                         <xsl:if test="../@browser='IE11'">
                                             <xsl:value-of select="$browserPicture.IE"/>
                                         </xsl:if>
