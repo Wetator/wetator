@@ -529,7 +529,7 @@ public final class HtmlElementUtil {
           return true;
         }
 
-        // ie fix; ie marks option elements as inline (at least ie6/ie8)
+        // ie fix; ie marks option elements as inline
         // let's hope no browser will ever support inline rendering of options in a select
         if (tmpElement instanceof HTMLOptionElement) {
           return true;
