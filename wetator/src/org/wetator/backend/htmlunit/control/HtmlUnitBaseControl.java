@@ -25,6 +25,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
@@ -229,6 +230,12 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
+    }
+
+    final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER_11;
+    if (tmpIsIE) {
+      // additional mouseMove event
+      tmpHtmlElement.mouseMove();
     }
 
     try {

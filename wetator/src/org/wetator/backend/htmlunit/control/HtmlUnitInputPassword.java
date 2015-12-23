@@ -36,11 +36,10 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
+import com.gargoylesoftware.htmlunit.html.Keyboard;
 import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
 
 /**
@@ -153,25 +152,10 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
           tmpHtmlPasswordInput.type(tmpChar);
         }
       } else {
-        // TODO - do the same as in HtmlUnitInputText if HtmlUnit 2.20 is available
-        final char tmpDel = (char) 46;
-
-        final Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_DOWN, tmpDel, false,
-            false, false);
-        final ScriptResult tmpKeyDownResult = tmpHtmlPasswordInput.fireEvent(tmpKeyDownEvent);
-
-        final Event tmpKeyPressEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_PRESS, tmpDel, false,
-            false, false);
-        final ScriptResult tmpKeyPressResult = tmpHtmlPasswordInput.fireEvent(tmpKeyPressEvent);
-
-        if (!tmpKeyDownEvent.isAborted(tmpKeyDownResult) && !tmpKeyPressEvent.isAborted(tmpKeyPressResult)) {
-          // do it this way to not trigger the onChange handler
-          tmpHtmlPasswordInput.setAttribute("value", "");
-        }
-
-        final Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_UP, tmpDel, false, false,
-            false);
-        tmpHtmlPasswordInput.fireEvent(tmpKeyUpEvent);
+        // simulate delete key
+        final Keyboard tmpKeyboard = new Keyboard();
+        tmpKeyboard.press(KeyboardEvent.DOM_VK_DELETE);
+        tmpHtmlPasswordInput.type(tmpKeyboard);
       }
 
       // wait for silence

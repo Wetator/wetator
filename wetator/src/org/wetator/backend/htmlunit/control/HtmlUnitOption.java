@@ -20,6 +20,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -33,13 +34,15 @@ import org.wetator.exception.BackendException;
 import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
  * This is the implementation of the HTML element 'option' (&lt;option&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -51,7 +54,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlOption} from the backend
    */
   public HtmlUnitOption(final HtmlOption anHtmlElement) {
@@ -60,7 +63,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -70,7 +73,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
@@ -115,7 +118,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
@@ -127,7 +130,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
@@ -180,7 +183,69 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
+   * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
+   */
+  @Override
+  public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
+    final HtmlElement tmpHtmlElement = getHtmlElement();
+
+    try {
+      // simulate mouse move on the document (outside the element)
+      ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
+    } catch (final ScriptException e) {
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+          tmpScriptException);
+    }
+
+    try {
+      final HtmlSelect tmpSelect = ((HtmlOption) tmpHtmlElement).getEnclosingSelect();
+
+      final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER_11;
+      if (tmpIsIE) {
+        // additional mouseMove event
+        tmpSelect.mouseMove();
+        tmpSelect.mouseOver();
+
+        // simulate mouse move on the element
+        tmpSelect.mouseMove();
+      } else {
+        // ff does this before reaching the option
+        tmpSelect.mouseMove();
+        tmpSelect.mouseOver();
+        tmpSelect.mouseOut();
+
+        // simulate mouse over on the element
+        tmpHtmlElement.mouseOver();
+
+        // simulate mouse move on the element
+        tmpHtmlElement.mouseMove();
+      }
+
+      waitForImmediateJobs(aWetatorContext);
+    } catch (final ScriptException e) {
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+          tmpScriptException);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    } catch (final Throwable e) {
+      final String tmpMessage = Messages
+          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

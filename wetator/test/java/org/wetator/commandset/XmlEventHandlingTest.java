@@ -29,6 +29,7 @@ import org.wetator.test.junit.BrowserRunner.Browsers;
 
 /**
  * @author frank.danek
+ * @author rbri
  */
 @RunWith(BrowserRunner.class)
 public class XmlEventHandlingTest extends AbstractWebServerTest {
@@ -111,7 +112,17 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
     executeTestFile("ff38/event_set.wet");
 
     Assert.assertEquals(20, getSteps());
-    Assert.assertEquals(2, getFailures());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  public void eventSetIE11() throws InvalidInputException {
+    executeTestFile("ie11/event_set.wet");
+
+    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
