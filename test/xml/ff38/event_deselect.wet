@@ -21,7 +21,7 @@
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:deselect><d:wpath>Selects with selection &gt; Checkbox</d:wpath></d:deselect></command>
     <command><d:deselect><d:wpath>Selects with selection &gt; Checkbox</d:wpath></d:deselect></command>
-    <command><d:assert-content><d:content>mousedown [checkboxChecked] [1] focus [checkboxChecked] [-] mouseup [checkboxChecked] [1] click [checkboxChecked] [1] change [checkboxChecked] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [checkboxChecked] [1] focus [checkboxChecked] [-] mouseup [checkboxChecked] [1] click [checkboxChecked] [1] change [checkboxChecked] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment>Deselect not possible for radio buttons</comment>
     <command><d:select><d:wpath>Selects with selection &gt; RadioGroup &gt; Radio2</d:wpath></d:select></command>

@@ -955,6 +955,7 @@ test/xml/htmlunit_javascript.wet -text svneol=unset#text/plain
 test/xml/ie11/event_deselect.wet -text
 test/xml/ie11/event_mouseOver.wet -text
 test/xml/ie11/event_select.wet -text
+test/xml/ie11/event_set.wet -text
 test/xml/iframe.wet -text
 test/xml/incubator/assert_applet.xml -text
 test/xml/incubator/assert_focus.xml -text
