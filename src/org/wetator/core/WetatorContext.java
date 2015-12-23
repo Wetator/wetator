@@ -83,6 +83,13 @@ public class WetatorContext {
   }
 
   /**
+   * @return the browserType
+   */
+  public IBrowser.BrowserType getBrowserType() {
+    return browserType;
+  }
+
+  /**
    * Use this method to create a sub context.
    *
    * @param aFile the file the sub context is for
