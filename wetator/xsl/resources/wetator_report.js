@@ -163,7 +163,30 @@
             var elem = $(sel);
             if (!elem) { return; }
 
-            elem.css('box-shadow', '0 0 2px 2px #E65212');
+            var shadow = '0 0 2px 2px #E65212'
+            if (elem.attr('type') === 'checkbox'
+                    || elem.attr('type') === 'radio'
+                    || elem.is('select')
+                    || elem.is('button')
+                    || elem.is('submit')
+                    || elem.is('reset')
+                ) {
+                // we can't set the shadow to 'inset' for these controls
+                // force some margin instead
+                if (elem.outerHeight(true) - elem.innerHeight() < 2) {
+                    elem.css('margin', ' 2px');
+                } else if (elem.outerWidth(true) - elem.innerWidth() < 2) {
+                    elem.css('margin', ' 2px');
+                }
+            } else {
+                if (elem.outerHeight(true) - elem.innerHeight() < 2) {
+                    shadow = shadow + ' inset';
+                } else if (elem.outerWidth(true) - elem.innerWidth() < 2) {
+                    shadow = shadow + ' inset';
+                }
+            }
+            elem.css('box-shadow', shadow);
+
             var offset = elem.offset();
             offset.left -= 200;
             offset.top -= 400;
