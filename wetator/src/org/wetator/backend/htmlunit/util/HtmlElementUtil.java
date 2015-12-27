@@ -66,6 +66,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLinkElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLOptionElement;
 
 /**
@@ -526,6 +527,11 @@ public final class HtmlElementUtil {
           return true;
         }
         if (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay)) {
+          return true;
+        }
+
+        // we like to write this in separate lines
+        if (tmpElement instanceof HTMLLinkElement) {
           return true;
         }
 
