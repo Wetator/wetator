@@ -47,7 +47,7 @@ import com.thoughtworks.xstream.XStream;
  * Tests the XStream serialization.<br/>
  * As the implementation is mainly private there is a copy in this test class. The original code is in
  * {@link WetatorBuildReport}.
- * 
+ *
  * @author frank.danek
  */
 public class XStreamSerializationTest {
@@ -110,7 +110,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -137,7 +137,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -170,7 +170,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test1.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test1.wet[IE8]");
@@ -183,7 +183,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test2.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    tmpBrowserResults = new ArrayList<BrowserResult>();
+    tmpBrowserResults = new ArrayList<>();
     tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test2.wet[IE8]");
@@ -210,7 +210,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -224,7 +224,7 @@ public class XStreamSerializationTest {
     tmpError.setCauseType(CauseType.ERROR);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
-    List<String> tmpParameters = new ArrayList<String>();
+    List<String> tmpParameters = new ArrayList<>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
@@ -249,7 +249,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -269,7 +269,7 @@ public class XStreamSerializationTest {
     tmpError.setCauseType(CauseType.ERROR);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
-    List<String> tmpParameters = new ArrayList<String>();
+    List<String> tmpParameters = new ArrayList<>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
@@ -294,7 +294,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test1.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test1.wet[IE8]");
@@ -307,7 +307,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test2.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    tmpBrowserResults = new ArrayList<BrowserResult>();
+    tmpBrowserResults = new ArrayList<>();
     tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test2.wet[IE8]");
@@ -321,7 +321,7 @@ public class XStreamSerializationTest {
     tmpError.setCauseType(CauseType.ERROR);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
-    List<String> tmpParameters = new ArrayList<String>();
+    List<String> tmpParameters = new ArrayList<>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
@@ -346,7 +346,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -360,7 +360,7 @@ public class XStreamSerializationTest {
     tmpError.setCauseType(CauseType.FAILURE);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
-    List<String> tmpParameters = new ArrayList<String>();
+    List<String> tmpParameters = new ArrayList<>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
@@ -385,7 +385,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -405,7 +405,7 @@ public class XStreamSerializationTest {
     tmpError.setCauseType(CauseType.FAILURE);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
-    List<String> tmpParameters = new ArrayList<String>();
+    List<String> tmpParameters = new ArrayList<>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
@@ -430,7 +430,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test1.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test1.wet[IE8]");
@@ -443,7 +443,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test2.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    tmpBrowserResults = new ArrayList<BrowserResult>();
+    tmpBrowserResults = new ArrayList<>();
     tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test2.wet[IE8]");
@@ -457,7 +457,7 @@ public class XStreamSerializationTest {
     tmpError.setCauseType(CauseType.FAILURE);
     tmpError.setLine(2);
     tmpError.setCommand("open-url");
-    List<String> tmpParameters = new ArrayList<String>();
+    List<String> tmpParameters = new ArrayList<>();
     tmpParameters.add("param1");
     tmpParameters.add("param2");
     tmpError.setParameters(tmpParameters);
@@ -482,7 +482,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -514,7 +514,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test.wet[IE8]");
@@ -552,7 +552,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test1.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    List<BrowserResult> tmpBrowserResults = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpBrowserResults = new ArrayList<>();
     BrowserResult tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test1.wet[IE8]");
@@ -565,7 +565,7 @@ public class XStreamSerializationTest {
     tmpTestFile.setFullName("/public/Test2.wet");
     tmpTest.getTestFileResults().add(tmpTestFile);
 
-    tmpBrowserResults = new ArrayList<BrowserResult>();
+    tmpBrowserResults = new ArrayList<>();
     tmpBrowser = new BrowserResult();
     tmpBrowser.setName("IE8");
     tmpBrowser.setFullName("Test2.wet[IE8]");

@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.jenkins.PluginImpl;
 import org.wetator.jenkins.WetatorBuildReport;
@@ -49,7 +48,7 @@ import com.thoughtworks.xstream.XStream;
  * Tests the XStream deserialization of XML.<br/>
  * As the implementation is mainly private there is a copy in this test class. The original code is in
  * {@link WetatorBuildReport}.
- * 
+ *
  * @author frank.danek
  */
 public class XStreamDeserializationTest {
@@ -172,9 +171,8 @@ public class XStreamDeserializationTest {
     ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
-    Assert.assertEquals("param1", tmpError.getParameters().get(0));
-    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.ERROR, "open-url", "error", tmpError, "param1",
+        "param2");
   }
 
   @Test
@@ -198,9 +196,8 @@ public class XStreamDeserializationTest {
     ResultAssert.assertBrowserResult("FF3.6", "Test.wet[FF3.6]", 3, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
-    Assert.assertEquals("param1", tmpError.getParameters().get(0));
-    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.ERROR, "open-url", "error", tmpError, "param1",
+        "param2");
   }
 
   @Test
@@ -227,9 +224,8 @@ public class XStreamDeserializationTest {
     ResultAssert.assertBrowserResult("IE8", "Test2.wet[IE8]", 3, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError("/public/Test2.wet", 2, CauseType.ERROR, "open-url", 2, "error", tmpError);
-    Assert.assertEquals("param1", tmpError.getParameters().get(0));
-    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+    ResultAssert.assertStepError("/public/Test2.wet", 2, CauseType.ERROR, "open-url", "error", tmpError, "param1",
+        "param2");
   }
 
   @Test
@@ -250,9 +246,8 @@ public class XStreamDeserializationTest {
     ResultAssert.assertBrowserResult("IE8", "Test.wet[IE8]", 2, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.FAILURE, "open-url", 2, "error", tmpError);
-    Assert.assertEquals("param1", tmpError.getParameters().get(0));
-    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.FAILURE, "open-url", "error", tmpError, "param1",
+        "param2");
   }
 
   @Test
@@ -276,9 +271,8 @@ public class XStreamDeserializationTest {
     ResultAssert.assertBrowserResult("FF3.6", "Test.wet[FF3.6]", 3, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.FAILURE, "open-url", 2, "error", tmpError);
-    Assert.assertEquals("param1", tmpError.getParameters().get(0));
-    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+    ResultAssert.assertStepError("/public/Test.wet", 2, CauseType.FAILURE, "open-url", "error", tmpError, "param1",
+        "param2");
   }
 
   @Test
@@ -305,9 +299,8 @@ public class XStreamDeserializationTest {
     ResultAssert.assertBrowserResult("IE8", "Test2.wet[IE8]", 3, 0, 0, 1, false, false, tmpBrowser);
 
     StepError tmpError = (StepError) tmpBrowser.getError();
-    ResultAssert.assertStepError("/public/Test2.wet", 2, CauseType.FAILURE, "open-url", 2, "error", tmpError);
-    Assert.assertEquals("param1", tmpError.getParameters().get(0));
-    Assert.assertEquals("param2", tmpError.getParameters().get(1));
+    ResultAssert.assertStepError("/public/Test2.wet", 2, CauseType.FAILURE, "open-url", "error", tmpError, "param1",
+        "param2");
   }
 
   @Test

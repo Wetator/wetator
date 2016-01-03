@@ -2,7 +2,7 @@ HOW TO SETUP THE IDE
 ====================
 Currently we use
     Eclipse 4.4.2 (Luna)
-    Eclipse Checkstyle Plugin 6.4.0 (based on Checkstyle 6.4.1)
+    Eclipse Checkstyle Plugin 6.11.1 (based on Checkstyle 6.11.2)
     Maven 3.3.1
 with optionally
 	Eclipse m2e Plugin 1.6.0

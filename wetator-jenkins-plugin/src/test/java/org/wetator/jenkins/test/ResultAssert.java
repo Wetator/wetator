@@ -28,101 +28,110 @@ import org.wetator.jenkins.result.TestResults;
 
 /**
  * Asserts for the result objects.
- * 
+ *
  * @author frank.danek
  */
 public class ResultAssert {
 
   public static void assertTestResults(long aDuration, int aPassCount, int aSkipCount, int aFailCount,
-      int aTestResultCount, TestResults aTestResults) {
-    assertTestResults(null, aDuration, aPassCount, aSkipCount, aFailCount, aTestResultCount, aTestResults);
+      int aTestResultCount, TestResults anActualTestResults) {
+    assertTestResults(null, aDuration, aPassCount, aSkipCount, aFailCount, aTestResultCount, anActualTestResults);
   }
 
   public static void assertTestResults(String aName, long aDuration, int aPassCount, int aSkipCount, int aFailCount,
-      int aTestResultCount, TestResults aTestResults) {
+      int aTestResultCount, TestResults anActualTestResults) {
     if (aName != null) {
-      Assert.assertEquals("Name", aName, aTestResults.getName());
+      Assert.assertEquals("Name", aName, anActualTestResults.getName());
     }
-    Assert.assertEquals("Duration", aDuration, aTestResults.getDuration());
-    Assert.assertEquals("TotalCount", aPassCount + aSkipCount + aFailCount, aTestResults.getTotalCount());
-    Assert.assertEquals("PassCount", aPassCount, aTestResults.getPassCount());
-    Assert.assertEquals("SkipCount", aSkipCount, aTestResults.getSkipCount());
-    Assert.assertEquals("FailCount", aFailCount, aTestResults.getFailCount());
-    Assert.assertEquals("TestResults.size", aTestResultCount, aTestResults.getTestResults().size());
+    Assert.assertEquals("Duration", aDuration, anActualTestResults.getDuration());
+    Assert.assertEquals("PassCount", aPassCount, anActualTestResults.getPassCount());
+    Assert.assertEquals("SkipCount", aSkipCount, anActualTestResults.getSkipCount());
+    Assert.assertEquals("FailCount", aFailCount, anActualTestResults.getFailCount());
+    Assert.assertEquals("TotalCount", aPassCount + aSkipCount + aFailCount, anActualTestResults.getTotalCount());
+    Assert.assertEquals("TestResults.size", aTestResultCount, anActualTestResults.getTestResults().size());
   }
 
   public static void assertTestResult(String aName, long aDuration, int aPassCount, int aSkipCount, int aFailCount,
-      int aTestFileResultCount, TestResult aTestResult) {
-    Assert.assertEquals("Name", aName, aTestResult.getName());
-    Assert.assertNull("FullName", aTestResult.getFullName());
-    Assert.assertEquals("DisplayName", aName, aTestResult.getDisplayName());
-    Assert.assertEquals("Duration", aDuration, aTestResult.getDuration());
-    Assert.assertEquals("PassCount", aPassCount, aTestResult.getPassCount());
-    Assert.assertEquals("SkipCount", aSkipCount, aTestResult.getSkipCount());
-    Assert.assertEquals("FailCount", aFailCount, aTestResult.getFailCount());
-    Assert.assertEquals("TestFileResults.size", aTestFileResultCount, aTestResult.getTestFileResults().size());
+      int aTestFileResultCount, TestResult anActualTestResult) {
+    Assert.assertEquals("Name", aName, anActualTestResult.getName());
+    Assert.assertNull("FullName", anActualTestResult.getFullName());
+    Assert.assertEquals("DisplayName", aName, anActualTestResult.getDisplayName());
+    Assert.assertEquals("Duration", aDuration, anActualTestResult.getDuration());
+    Assert.assertEquals("PassCount", aPassCount, anActualTestResult.getPassCount());
+    Assert.assertEquals("SkipCount", aSkipCount, anActualTestResult.getSkipCount());
+    Assert.assertEquals("FailCount", aFailCount, anActualTestResult.getFailCount());
+    Assert.assertEquals("TestFileResults.size", aTestFileResultCount, anActualTestResult.getTestFileResults().size());
   }
 
   public static void assertTestFileResult(String aName, String aFullName, long aDuration, int aPassCount,
-      int aSkipCount, int aFailCount, int aBrowserResultCount, TestFileResult aTestFileResult) {
-    Assert.assertEquals("Name", aName, aTestFileResult.getName());
-    Assert.assertEquals("FullName", aFullName, aTestFileResult.getFullName());
-    Assert.assertEquals("DisplayName", aName, aTestFileResult.getDisplayName());
-    Assert.assertEquals("Duration", aDuration, aTestFileResult.getDuration());
-    Assert.assertEquals("TotalCount", aPassCount + aSkipCount + aFailCount, aTestFileResult.getTotalCount());
-    Assert.assertEquals("PassCount", aPassCount, aTestFileResult.getPassCount());
-    Assert.assertEquals("SkipCount", aSkipCount, aTestFileResult.getSkipCount());
-    Assert.assertEquals("FailCount", aFailCount, aTestFileResult.getFailCount());
-    Assert.assertEquals("BrowserResults.size", aBrowserResultCount, aTestFileResult.getBrowserResults().size());
+      int aSkipCount, int aFailCount, int aBrowserResultCount, TestFileResult anActualTestFileResult) {
+    Assert.assertEquals("Name", aName, anActualTestFileResult.getName());
+    Assert.assertEquals("FullName", aFullName, anActualTestFileResult.getFullName());
+    Assert.assertEquals("DisplayName", aName, anActualTestFileResult.getDisplayName());
+    Assert.assertEquals("Duration", aDuration, anActualTestFileResult.getDuration());
+    Assert.assertEquals("TotalCount", aPassCount + aSkipCount + aFailCount, anActualTestFileResult.getTotalCount());
+    Assert.assertEquals("PassCount", aPassCount, anActualTestFileResult.getPassCount());
+    Assert.assertEquals("SkipCount", aSkipCount, anActualTestFileResult.getSkipCount());
+    Assert.assertEquals("FailCount", aFailCount, anActualTestFileResult.getFailCount());
+    Assert.assertEquals("BrowserResults.size", aBrowserResultCount, anActualTestFileResult.getBrowserResults().size());
   }
 
   public static void assertBrowserResult(String aName, String aFullName, long aDuration, int aPassCount,
-      int aSkipCount, int aFailCount, boolean aPassed, boolean aSkipped, BrowserResult aBrowserResult) {
-    Assert.assertEquals("Name", aName, aBrowserResult.getName());
-    Assert.assertEquals("FullName", aFullName, aBrowserResult.getFullName());
-    Assert.assertEquals("DisplayName", aName, aBrowserResult.getDisplayName());
-    Assert.assertEquals("Duration", aDuration, aBrowserResult.getDuration());
-    Assert.assertEquals("PassCount", aPassCount, aBrowserResult.getPassCount());
-    Assert.assertEquals("SkipCount", aSkipCount, aBrowserResult.getSkipCount());
-    Assert.assertEquals("FailCount", aFailCount, aBrowserResult.getFailCount());
+      int aSkipCount, int aFailCount, boolean aPassed, boolean aSkipped, BrowserResult anActualBrowserResult) {
+    Assert.assertEquals("Name", aName, anActualBrowserResult.getName());
+    Assert.assertEquals("FullName", aFullName, anActualBrowserResult.getFullName());
+    Assert.assertEquals("DisplayName", aName, anActualBrowserResult.getDisplayName());
+    Assert.assertEquals("Duration", aDuration, anActualBrowserResult.getDuration());
+    Assert.assertEquals("PassCount", aPassCount, anActualBrowserResult.getPassCount());
+    Assert.assertEquals("SkipCount", aSkipCount, anActualBrowserResult.getSkipCount());
+    Assert.assertEquals("FailCount", aFailCount, anActualBrowserResult.getFailCount());
     if (aPassed && aSkipped) {
       Assert.fail("wrong usage");
     } else if (aPassed) {
-      Assert.assertTrue("Passed", aBrowserResult.isPassed());
-      Assert.assertFalse("Skipped", aBrowserResult.isSkipped());
-      Assert.assertNull("Error", aBrowserResult.getError());
+      Assert.assertTrue("Passed", anActualBrowserResult.isPassed());
+      Assert.assertFalse("Skipped", anActualBrowserResult.isSkipped());
+      Assert.assertNull("Error", anActualBrowserResult.getError());
     } else if (aSkipped) {
-      Assert.assertFalse("Passed", aBrowserResult.isPassed());
-      Assert.assertTrue("Skipped", aBrowserResult.isSkipped());
-      Assert.assertNull("Error", aBrowserResult.getError());
+      Assert.assertFalse("Passed", anActualBrowserResult.isPassed());
+      Assert.assertTrue("Skipped", anActualBrowserResult.isSkipped());
+      Assert.assertNull("Error", anActualBrowserResult.getError());
     } else {
-      Assert.assertFalse("Passed", aBrowserResult.isPassed());
-      Assert.assertFalse("Skipped", aBrowserResult.isSkipped());
-      Assert.assertNotNull("Error", aBrowserResult.getError());
+      Assert.assertFalse("Passed", anActualBrowserResult.isPassed());
+      Assert.assertFalse("Skipped", anActualBrowserResult.isSkipped());
+      Assert.assertNotNull("Error", anActualBrowserResult.getError());
     }
   }
 
-  public static void assertTestError(String aFile, String anError, TestError aTestError) {
-    Assert.assertEquals(TestError.class, aTestError.getClass());
-    Assert.assertEquals("Type", ErrorType.TEST, aTestError.getType());
-    Assert.assertEquals("File", aFile, aTestError.getFile());
-    Assert.assertEquals("Error", anError, aTestError.getError());
+  public static void assertTestError(String aFile, String anError, TestError anActualTestError) {
+    Assert.assertEquals(TestError.class, anActualTestError.getClass());
+    Assert.assertEquals("Type", ErrorType.TEST, anActualTestError.getType());
+    Assert.assertEquals("File", aFile, anActualTestError.getFile());
+    Assert.assertEquals("Error", anError, anActualTestError.getError());
   }
 
-  public static void assertStepError(String aFile, int aLine, CauseType aCauseType, String aCommand,
-      int aParameterCount, String anError, StepError aStepError) {
-    Assert.assertEquals(StepError.class, aStepError.getClass());
-    Assert.assertEquals("Type", ErrorType.STEP, aStepError.getType());
-    Assert.assertEquals("File", aFile, aStepError.getFile());
-    Assert.assertEquals("Line", aLine, aStepError.getLine());
-    Assert.assertEquals("CauseType", aCauseType, aStepError.getCauseType());
-    Assert.assertEquals("Command", aCommand, aStepError.getCommand());
-    if (aStepError.getParameters() == null) {
-      Assert.assertEquals("Parameters.size", aParameterCount, 0);
+  public static void assertStepError(String aFile, int aLine, CauseType aCauseType, String aCommand, String anError,
+      StepError anActualStepError, String... aParameterValues) {
+    Assert.assertEquals(StepError.class, anActualStepError.getClass());
+    Assert.assertEquals("Type", ErrorType.STEP, anActualStepError.getType());
+    Assert.assertEquals("File", aFile, anActualStepError.getFile());
+    Assert.assertEquals("Line", aLine, anActualStepError.getLine());
+    Assert.assertEquals("CauseType", aCauseType, anActualStepError.getCauseType());
+    Assert.assertEquals("Command", aCommand, anActualStepError.getCommand());
+    if (aParameterValues == null) {
+      Assert.assertNull("Parameters", anActualStepError.getParameters());
     } else {
-      Assert.assertEquals("Parameters.size", aParameterCount, aStepError.getParameters().size());
+      Assert.assertEquals("Parameters.size", aParameterValues.length, anActualStepError.getParameters().size());
+      if (aParameterValues.length > 0) {
+        Assert.assertEquals("Parameters.0", aParameterValues[0], anActualStepError.getParameters().get(0));
+      }
+      if (aParameterValues.length > 1) {
+        Assert.assertEquals("Parameters.1", aParameterValues[1], anActualStepError.getParameters().get(1));
+      }
+      if (aParameterValues.length > 2) {
+        Assert.assertEquals("Parameters.2", aParameterValues[2], anActualStepError.getParameters().get(2));
+      }
     }
-    Assert.assertEquals("Error", anError, aStepError.getError());
+    Assert.assertEquals("Error", anError, anActualStepError.getError());
   }
 
   public static void assertReportFiles(TestResults aTestResults, String... aReportFiles) {
