@@ -30,7 +30,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * This is an extension of the {@link hudson.util.AtomicFileWriter} using GZIP compression.<br/>
  * It is needed because the field 'core' is final and the stream chain is hard coded within the constructor. :-(
- * 
+ *
  * @see hudson.util.AtomicFileWriter
  * @author Kohsuke Kawaguchi
  * @author frank.danek
@@ -44,7 +44,7 @@ public class AtomicGZIPFileWriter extends Writer {
   /**
    * The constructor.<br/>
    * Writes with UTF-8 encoding.
-   * 
+   *
    * @param aFile the file to write
    */
   public AtomicGZIPFileWriter(File aFile) throws IOException {
@@ -54,7 +54,7 @@ public class AtomicGZIPFileWriter extends Writer {
   /**
    * The constructor.<br/>
    * Writes with the given encoding.
-   * 
+   *
    * @param aFile the file to write
    * @param anEncoding
    *        the file encoding to write. If null, platform default encoding is chosen.
@@ -75,51 +75,26 @@ public class AtomicGZIPFileWriter extends Writer {
         anEncoding));
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.io.Writer#write(int)
-   */
   @Override
   public void write(int aChar) throws IOException {
     core.write(aChar);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.io.Writer#write(java.lang.String, int, int)
-   */
   @Override
   public void write(String aString, int anOffset, int aLength) throws IOException {
     core.write(aString, anOffset, aLength);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.io.Writer#write(char[], int, int)
-   */
   @Override
   public void write(char aChars[], int anOffset, int aLength) throws IOException {
     core.write(aChars, anOffset, aLength);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.io.Writer#flush()
-   */
   @Override
   public void flush() throws IOException {
     core.flush();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.io.Writer#close()
-   */
   @Override
   public void close() throws IOException {
     core.close();
@@ -145,11 +120,6 @@ public class AtomicGZIPFileWriter extends Writer {
     temporaryFile.renameTo(destinationFile);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#finalize()
-   */
   @Override
   protected void finalize() throws Throwable {
     // one way or the other, temporary file should be deleted.

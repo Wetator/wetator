@@ -24,7 +24,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Tests all pages of the plugin (project, build, report, test, browser) for different Wetator results.
- * 
+ *
  * @author frank.danek
  */
 // TODO assert anchors

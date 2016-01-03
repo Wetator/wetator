@@ -40,7 +40,7 @@ public class ErrorConverter implements Converter {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMapper the mapper
    * @param aDefaultConverter the default converter for the type
    * @param aReflectionProvider the reflection provider
@@ -51,22 +51,11 @@ public class ErrorConverter implements Converter {
     reflectionProvider = aReflectionProvider;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see com.thoughtworks.xstream.converters.ConverterMatcher#canConvert(java.lang.Class)
-   */
   @Override
   public boolean canConvert(@SuppressWarnings("rawtypes") Class aType) {
     return TestError.class.isAssignableFrom(aType);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see com.thoughtworks.xstream.converters.Converter#marshal(java.lang.Object,
-   *      com.thoughtworks.xstream.io.HierarchicalStreamWriter, com.thoughtworks.xstream.converters.MarshallingContext)
-   */
   @Override
   public void marshal(Object aSource, HierarchicalStreamWriter aWriter, MarshallingContext aContext) {
     if (TestError.class.equals(aSource.getClass())) {
@@ -76,12 +65,6 @@ public class ErrorConverter implements Converter {
     defaultConverter.marshal(aSource, aWriter, aContext);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see com.thoughtworks.xstream.converters.Converter#unmarshal(com.thoughtworks.xstream.io.HierarchicalStreamReader,
-   *      com.thoughtworks.xstream.converters.UnmarshallingContext)
-   */
   @Override
   public Object unmarshal(HierarchicalStreamReader aReader, UnmarshallingContext aContext) {
     String tmpClassName = aReader.getAttribute(mapper.aliasForSystemAttribute("class"));

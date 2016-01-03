@@ -45,7 +45,7 @@ import org.wetator.jenkins.result.TestResults;
 
 /**
  * The recorder parsing the Wetator results and creating the reports.
- * 
+ *
  * @author frank.danek
  */
 public class WetatorRecorder extends Recorder {
@@ -63,7 +63,7 @@ public class WetatorRecorder extends Recorder {
 
   /**
    * The constructor.
-   * 
+   *
    * @param testResults the file patter of the test results
    */
   @DataBoundConstructor
@@ -106,21 +106,11 @@ public class WetatorRecorder extends Recorder {
     return failureThreshold;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.tasks.BuildStep#getRequiredMonitorService()
-   */
   @Override
   public BuildStepMonitor getRequiredMonitorService() {
     return BuildStepMonitor.BUILD;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.tasks.BuildStep#perform(hudson.model.AbstractBuild, hudson.Launcher, hudson.model.BuildListener)
-   */
   @Override
   public boolean perform(AbstractBuild<?, ?> aBuild, Launcher aLauncher, BuildListener aListener)
       throws InterruptedException, IOException {
@@ -171,21 +161,11 @@ public class WetatorRecorder extends Recorder {
     return true;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.tasks.BuildStep#getProjectActions(hudson.model.AbstractProject)
-   */
   @Override
   public Collection<Action> getProjectActions(AbstractProject<?, ?> project) {
     return Collections.<Action> singleton(new WetatorProjectReport(project));
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.tasks.Recorder#getDescriptor()
-   */
   @Override
   public DescriptorImpl getDescriptor() {
     return (DescriptorImpl) super.getDescriptor();
@@ -197,21 +177,12 @@ public class WetatorRecorder extends Recorder {
    */
   @Extension
   public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
-    /**
-     * {@inheritDoc}
-     * 
-     * @see hudson.model.Descriptor#getDisplayName()
-     */
+
     @Override
     public String getDisplayName() {
       return Messages.WetatorRecorder_DisplayName();
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see hudson.tasks.BuildStepDescriptor#isApplicable(java.lang.Class)
-     */
     @Override
     public boolean isApplicable(@SuppressWarnings("rawtypes") Class<? extends AbstractProject> aJobType) {
       return true;
@@ -219,7 +190,7 @@ public class WetatorRecorder extends Recorder {
 
     /**
      * Performs on-the-fly validation on the file mask wildcard.
-     * 
+     *
      * @param project the owner project
      * @param value the value to check
      * @return the result of the check
@@ -233,7 +204,7 @@ public class WetatorRecorder extends Recorder {
 
     /**
      * Performs on-the-fly validation on the unstable threshold.
-     * 
+     *
      * @param project the owner project
      * @param value the value to check
      * @return the result of the check
@@ -250,7 +221,7 @@ public class WetatorRecorder extends Recorder {
 
     /**
      * Performs on-the-fly validation on the failure threshold.
-     * 
+     *
      * @param project the owner project
      * @param value the value to check
      * @return the result of the check

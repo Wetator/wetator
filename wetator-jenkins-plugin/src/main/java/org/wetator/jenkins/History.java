@@ -45,7 +45,7 @@ import org.wetator.jenkins.result.AbstractBaseResult;
 
 /**
  * History of {@link AbstractBaseResult}s over time.
- * 
+ *
  * @author frank.danek
  */
 public class History {
@@ -54,7 +54,7 @@ public class History {
 
   /**
    * The constructor.
-   * 
+   *
    * @param result the result to build the history of
    */
   public History(AbstractBaseResult result) {
@@ -83,7 +83,7 @@ public class History {
    */
   public List<AbstractBaseResult> getList(int start, int end) {
     // the method parameters must be raw (without leading a) to make stapler work
-    List<AbstractBaseResult> tmpList = new ArrayList<AbstractBaseResult>();
+    List<AbstractBaseResult> tmpList = new ArrayList<>();
     int tmpEnd = end;
     tmpEnd = Math.min(tmpEnd, result.getOwner().getParent().getBuilds().size());
     for (AbstractBuild<?, ?> tmpBuild : result.getOwner().getParent().getBuilds().subList(start, tmpEnd)) {
@@ -116,7 +116,7 @@ public class History {
     return new GraphImpl(Messages.History_yLabel()) {
       @Override
       protected DataSetBuilder<String, ChartLabel> createDataSet() {
-        DataSetBuilder<String, ChartLabel> tmpData = new DataSetBuilder<String, ChartLabel>();
+        DataSetBuilder<String, ChartLabel> tmpData = new DataSetBuilder<>();
 
         List<AbstractBaseResult> tmpResults;
         try {
@@ -155,7 +155,7 @@ public class History {
     return new GraphImpl("") {
       @Override
       protected DataSetBuilder<String, ChartLabel> createDataSet() {
-        DataSetBuilder<String, ChartLabel> tmpData = new DataSetBuilder<String, ChartLabel>();
+        DataSetBuilder<String, ChartLabel> tmpData = new DataSetBuilder<>();
 
         List<AbstractBaseResult> tmpResults;
         try {
@@ -187,7 +187,7 @@ public class History {
 
   /**
    * This abstract {@link Graph} builds an area chart of the given data set.
-   * 
+   *
    * @author frank.danek
    */
   private abstract class GraphImpl extends Graph {
@@ -196,7 +196,7 @@ public class History {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aYLabel the label of the y-axis
      */
     protected GraphImpl(String aYLabel) {
@@ -209,11 +209,6 @@ public class History {
      */
     protected abstract DataSetBuilder<String, ChartLabel> createDataSet();
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see hudson.util.Graph#createGraph()
-     */
     @Override
     protected JFreeChart createGraph() {
       final CategoryDataset tmpDataSet = createDataSet().build();
@@ -292,7 +287,7 @@ public class History {
 
   /**
    * This class represents the label of one point of the graph.
-   * 
+   *
    * @author frank.danek
    */
   private abstract class ChartLabel implements Comparable<ChartLabel> {
@@ -302,7 +297,7 @@ public class History {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aResult the result to build the label for
      */
     public ChartLabel(AbstractBaseResult aResult) {
@@ -342,21 +337,11 @@ public class History {
       return null;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
     @Override
     public int compareTo(ChartLabel anOther) {
       return baseResult.getOwner().number - anOther.baseResult.getOwner().number;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object anOther) {
       if (!(anOther instanceof ChartLabel)) {
@@ -366,21 +351,11 @@ public class History {
       return baseResult == tmpOther.baseResult;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
       return baseResult.hashCode();
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       String tmpBuildName = baseResult.getOwner().getDisplayName();

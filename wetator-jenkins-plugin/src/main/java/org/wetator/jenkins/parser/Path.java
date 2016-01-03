@@ -22,14 +22,14 @@ import java.util.List;
 /**
  * Helper class to keep track of the current location in the XML tree.<br/>
  * The delimiter between two nodes is '/'.
- * 
+ *
  * @author frank.danek
  */
 public class Path {
 
   private static final String DELIMITER = "/";
 
-  private List<String> path = new ArrayList<String>();
+  private List<String> path = new ArrayList<>();
   private StringBuilder pathAsString = new StringBuilder();
 
   /**
@@ -43,7 +43,7 @@ public class Path {
 
   /**
    * Removes the last node from the end of the path.
-   * 
+   *
    * @return the removed node
    */
   public String pop() {
@@ -92,11 +92,6 @@ public class Path {
     return pathAsString.toString().endsWith(aPath);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return pathAsString.toString();

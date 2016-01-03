@@ -53,7 +53,7 @@ import org.kohsuke.stapler.export.Exported;
 
 /**
  * The Wetator Report for the whole project.
- * 
+ *
  * @author frank.danek
  */
 public class WetatorProjectReport implements ProminentProjectAction {
@@ -70,11 +70,6 @@ public class WetatorProjectReport implements ProminentProjectAction {
     this.project = project;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.Action#getIconFileName()
-   */
   @Override
   public String getIconFileName() {
     WetatorBuildReport tmpBuildReport = getLastCompletedBuildReport();
@@ -85,11 +80,6 @@ public class WetatorProjectReport implements ProminentProjectAction {
     return PluginImpl.ICON_FILE_NAME;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.Action#getDisplayName()
-   */
   @Override
   public String getDisplayName() {
     return Messages.WetatorProjectReport_DisplayName();
@@ -102,11 +92,6 @@ public class WetatorProjectReport implements ProminentProjectAction {
     return project;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.Action#getUrlName()
-   */
   @Override
   @Exported(visibility = 2)
   public String getUrlName() {
@@ -115,7 +100,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
 
   /**
    * Redirects the index page to the last result.
-   * 
+   *
    * @param request
    *        Stapler request
    * @param response
@@ -169,7 +154,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
 
   /**
    * Display the test result trend.
-   * 
+   *
    * @param request the request
    * @param response the response
    * @throws IOException in case of problems generating the trend graph
@@ -200,7 +185,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
 
   /**
    * Generates the clickable map HTML fragment for {@link #doTrend(StaplerRequest, StaplerResponse)}.
-   * 
+   *
    * @param request the request
    * @param response the response
    * @throws IOException in case of problems generating the trend map
@@ -226,7 +211,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
 
   /**
    * Changes the test result report display mode.
-   * 
+   *
    * @param request the request
    * @param response the response
    * @throws IOException in case of problems during redirect
@@ -275,7 +260,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
   private CategoryDataset buildDataSet(StaplerRequest aRequest) {
     boolean tmpFailureOnly = Boolean.valueOf(aRequest.getParameter("failureOnly"));
 
-    DataSetBuilder<String, NumberOnlyBuildLabel> tmpDataSetBuilder = new DataSetBuilder<String, NumberOnlyBuildLabel>();
+    DataSetBuilder<String, NumberOnlyBuildLabel> tmpDataSetBuilder = new DataSetBuilder<>();
 
     for (AbstractBuild<?, ?> tmpBuild = getLastCompletedBuild(); tmpBuild != null; tmpBuild = tmpBuild
         .getPreviousBuild()) {

@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 /**
  * Contains the information about the error occurred.
- * 
+ *
  * @author frank.danek
  */
 public class TestError implements Serializable {

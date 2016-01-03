@@ -25,9 +25,12 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.wetator.jenkins.parser.AllTests.class, //
-    org.wetator.jenkins.plugin.AllTests.class, //
-    org.wetator.jenkins.xstream.AllTests.class //
+@SuiteClasses({
+  // @formatter:off
+  org.wetator.jenkins.parser.AllTests.class,
+  org.wetator.jenkins.plugin.AllTests.class,
+  org.wetator.jenkins.xstream.AllTests.class
+  // @formatter:on
 })
 public final class AllTests {
 

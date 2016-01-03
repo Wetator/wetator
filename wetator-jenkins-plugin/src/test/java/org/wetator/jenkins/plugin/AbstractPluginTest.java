@@ -43,7 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
 
 /**
  * Abstract base test for all tests testing the plugin running within Jenkins.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractPluginTest extends HudsonTestCase {

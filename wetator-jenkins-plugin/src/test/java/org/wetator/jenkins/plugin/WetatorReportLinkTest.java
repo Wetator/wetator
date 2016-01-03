@@ -24,7 +24,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Tests the links to the Wetator report (HTML).
- * 
+ *
  * @author frank.danek
  */
 public class WetatorReportLinkTest extends AbstractPluginTest {

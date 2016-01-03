@@ -25,10 +25,14 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ResultTest.class, //
-    ResultWithModuleTest.class, //
-    ResultWithPathTest.class, //
-    WetatorReportLinkTest.class })
+@SuiteClasses({
+// @formatter:off
+  ResultTest.class,
+  ResultWithModuleTest.class,
+  ResultWithPathTest.class,
+  WetatorReportLinkTest.class
+  // @formatter:on
+})
 public final class AllTests {
 
   /**

@@ -21,24 +21,19 @@ import java.util.List;
 
 /**
  * This class aggregates all {@link TestFileResult}s of one wetator run.
- * 
+ *
  * @author frank.danek
  */
 public class TestResult extends AbstractBaseResult {
 
   private static final long serialVersionUID = -3067231183241159976L;
 
-  private List<TestFileResult> testFileResults = new ArrayList<TestFileResult>();
+  private List<TestFileResult> testFileResults = new ArrayList<>();
 
   private transient int passCount;
   private transient int skipCount;
   private transient int failCount;
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getUrl()
-   */
   @Override
   public String getUrl() {
     return "";
@@ -58,41 +53,21 @@ public class TestResult extends AbstractBaseResult {
     this.testFileResults = testFileResults;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getPassCount()
-   */
   @Override
   public int getPassCount() {
     return passCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
-   */
   @Override
   public int getSkipCount() {
     return skipCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getFailCount()
-   */
   @Override
   public int getFailCount() {
     return failCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#tally()
-   */
   @Override
   public void tally() {
     passCount = 0;

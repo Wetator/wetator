@@ -96,7 +96,7 @@
   </configuration>
   <startTime id="89">20.12.2010 07:11:07</startTime>
   <testcase id="90" name="test1.wet" file="/public/test1.wet">
-    <testrun id="91" browser="IE8">
+    <testrun id="91" browser="IE11">
       <testfile id="92" file="/public/test1.wet">
         <command id="93" name="" line="1" isComment="true">
           <param0 id="94">comment value</param0>
@@ -112,7 +112,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="103" browser="Firefox3.6">
+    <testrun id="103" browser="Firefox38">
       <testfile id="104" file="/public/test1.wet">
         <command id="105" name="" line="1" isComment="true">
           <param0 id="106">comment value</param0>
@@ -130,7 +130,7 @@
     </testrun>
   </testcase>
   <testcase id="115" name="test2.wet" file="/public/test2.wet">
-    <testrun id="116" browser="IE8">
+    <testrun id="116" browser="IE11">
       <testfile id="117" file="/public/test2.wet">
         <command id="118" name="" line="1" isComment="true">
           <param0 id="119">comment value</param0>
@@ -161,7 +161,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="140" browser="Firefox3.6">
+    <testrun id="140" browser="Firefox38">
       <testfile id="141" file="/public/test2.wet">
         <command id="142" name="" line="1" isComment="true">
           <param0 id="143">comment value</param0>
@@ -194,7 +194,7 @@
     </testrun>
   </testcase>
   <testcase id="164" name="test3.wet" file="/public/test3.wet">
-    <testrun id="165" browser="IE8">
+    <testrun id="165" browser="IE11">
       <testfile id="166" file="/public/test3.wet">
         <command id="167" name="" line="1" isComment="true">
           <param0 id="168">comment value</param0>
@@ -262,7 +262,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="197" browser="Firefox3.6">
+    <testrun id="197" browser="Firefox38">
       <testfile id="198" file="/public/test3.wet">
         <command id="199" name="" line="1" isComment="true">
           <param0 id="200">comment value</param0>
@@ -332,7 +332,7 @@
     </testrun>
   </testcase>
   <testcase id="229" name="test4.wet" file="/public/test4.wet">
-    <testrun id="230" browser="IE8">
+    <testrun id="230" browser="IE11">
       <testfile id="231" file="/public/test4.wet">
         <command id="232" name="" line="1" isComment="true">
           <param0 id="233">comment value</param0>
@@ -408,7 +408,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="268" browser="Firefox3.6">
+    <testrun id="268" browser="Firefox38">
       <testfile id="269" file="/public/test4.wet">
         <command id="270" name="" line="1" isComment="true">
           <param0 id="271">comment value</param0>
@@ -486,7 +486,7 @@
     </testrun>
   </testcase>
   <testcase id="306" name="test5.wet" file="/public/test5.wet">
-    <testrun id="307" browser="IE8">
+    <testrun id="307" browser="IE11">
       <testfile id="308" file="/public/test5.wet">
         <command id="309" name="" line="1" isComment="true">
           <param0 id="310">comment value</param0>
@@ -502,7 +502,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="319" browser="Firefox3.6">
+    <testrun id="319" browser="Firefox38">
       <testfile id="320" file="/public/test5.wet">
         <command id="321" name="" line="1" isComment="true">
           <param0 id="322">comment value</param0>

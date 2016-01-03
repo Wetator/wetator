@@ -53,7 +53,7 @@ import com.thoughtworks.xstream.XStream;
 
 /**
  * The Wetator Report for one build.
- * 
+ *
  * @author frank.danek
  */
 @ExportedBean
@@ -69,11 +69,11 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
   private Integer failCount;
   private Integer totalCount;
 
-  private Map<String, String> descriptions = new ConcurrentHashMap<String, String>();
+  private Map<String, String> descriptions = new ConcurrentHashMap<>();
 
   /**
    * The constructor.
-   * 
+   *
    * @param build the build this report belongs to
    * @param results the {@link TestResults} to report
    */
@@ -83,31 +83,16 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     setResults(results, listener);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.Action#getIconFileName()
-   */
   @Override
   public String getIconFileName() {
     return PluginImpl.ICON_FILE_NAME;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.Action#getDisplayName()
-   */
   @Override
   public String getDisplayName() {
     return Messages.WetatorBuildReport_DisplayName();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.Action#getUrlName()
-   */
   @Override
   public String getUrlName() {
     return PluginImpl.URL_NAME;
@@ -145,7 +130,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Overwrites the {@link TestResults} by a new data set.
-   * 
+   *
    * @param aResults the results to set
    * @param aListener the current {@link BuildListener}
    */
@@ -168,7 +153,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Convenience method to access the totalCount.
-   * 
+   *
    * @return the totalCount
    */
   public int getTotalCount() {
@@ -184,7 +169,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Convenience method to access the failCount.
-   * 
+   *
    * @return the failCount
    */
   public int getFailCount() {
@@ -204,7 +189,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
    * {@link #setDescription(AbstractBaseResult, String)} provide that logic. <br/>
    * <br/>
    * The default implementation stores information in the 'this' object.
-   * 
+   *
    * @see TestObject#getDescription()
    */
   public String getDescription(AbstractBaseResult aResult) {
@@ -221,12 +206,12 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Used for deserialization (magic java method name).
-   * 
+   *
    * @return this
    */
   public Object readResolve() {
     if (descriptions == null) {
-      descriptions = new ConcurrentHashMap<String, String>();
+      descriptions = new ConcurrentHashMap<>();
     }
     return this;
   }
@@ -245,11 +230,6 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     return " " + Messages.WetatorBuildReport_FailureDiff(Functions.getDiffString(tmpDiff));
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.HealthReportingAction#getBuildHealth()
-   */
   @Override
   public HealthReport getBuildHealth() {
     final int tmpTotalCount = getTotalCount();
@@ -281,7 +261,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Finds the result for the given name.
-   * 
+   *
    * @param aName the name of the result
    * @return the result
    */
@@ -312,7 +292,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Loads a {@link TestResults} from disk.
-   * 
+   *
    * @return the loaded {@link TestResults}
    */
   private TestResults load() {
@@ -346,11 +326,6 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     anXStream.registerConverter(new HeapSpaceStringConverter(), 100);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.kohsuke.stapler.StaplerProxy#getTarget()
-   */
   @Override
   public Object getTarget() {
     return getResults();
@@ -358,7 +333,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   /**
    * Used by stapler.
-   * 
+   *
    * @param token the token to get
    * @param request the request
    * @param response the response

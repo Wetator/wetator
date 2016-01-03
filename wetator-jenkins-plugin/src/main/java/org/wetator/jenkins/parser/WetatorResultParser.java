@@ -26,7 +26,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,14 +52,14 @@ import org.wetator.jenkins.result.TestResults;
 /**
  * This parser parses some Wetator XML result files and generates a {@link TestResults} containing all results of all
  * files parsed.
- * 
+ *
  * @author frank.danek
  */
 public class WetatorResultParser {
 
   /**
    * Starts a process on the <b>slave</b> parsing the test results.
-   * 
+   *
    * @param aTestResultLocations the location of the test results
    * @param aTestReportLocations the location of the test reports (optional)
    * @param aBuild the build
@@ -74,8 +76,8 @@ public class WetatorResultParser {
 
   /**
    * <b>INTERNAL API</b>
-   * 
-   * @param anInputStream a stream containing the wetator result file to parse
+   *
+   * @param anInputStream a stream containing the Wetator result file to parse
    * @return the {@link TestResults}
    * @throws XMLStreamException if an error occurs during parsing the file
    */
@@ -91,7 +93,7 @@ public class WetatorResultParser {
       BrowserResult tmpBrowserResult = null;
       long tmpDuration = 0;
       int tmpLine = 0;
-      String tmpCurrentTestFile = null;
+      // String tmpCurrentTestFile = null;
       String tmpCommand = null;
       String tmpParam0 = null;
       String tmpParam1 = null;
@@ -101,6 +103,7 @@ public class WetatorResultParser {
       StepError tmpStepError = null;
 
       Path tmpPath = new Path();
+      Deque<String> tmpTestFileStack = new ArrayDeque<>();
 
       while (tmpReader.hasNext()) {
         int tmpEvent = tmpReader.next();
@@ -117,33 +120,40 @@ public class WetatorResultParser {
             tmpPath.pop();
           } else if (tmpPath.matches("/wet/testcase")) {
             tmpTestFileResult = new TestFileResult();
-            String tmpTestcaseName = tmpReader.getAttributeValue(null, "name");
+            String tmpTestCaseName = tmpReader.getAttributeValue(null, "name");
             String tmpTestFileName = tmpReader.getAttributeValue(null, "file");
-            tmpTestFileResult.setName(tmpTestcaseName);
+            tmpTestFileResult.setName(tmpTestCaseName);
             if (tmpTestFileName != null && !"".equals(tmpTestFileName)) {
               tmpTestFileResult.setFullName(tmpTestFileName);
             } else {
-              tmpTestFileResult.setFullName(tmpTestcaseName);
+              tmpTestFileResult.setFullName(tmpTestCaseName);
             }
-            tmpBrowserResults = new ArrayList<BrowserResult>();
+            tmpBrowserResults = new ArrayList<>();
           } else if (tmpPath.matches("/wet/testcase/testrun")) {
             tmpBrowserResult = new BrowserResult();
-            String tmpTestrunBrowser = tmpReader.getAttributeValue(null, "browser");
-            tmpBrowserResult.setName(tmpTestrunBrowser);
-            tmpBrowserResult.setFullName(tmpTestFileResult.getName() + "[" + tmpTestrunBrowser + "]");
+            String tmpTestRunBrowser = tmpReader.getAttributeValue(null, "browser");
+            tmpBrowserResult.setName(tmpTestRunBrowser);
+            tmpBrowserResult.setFullName(tmpTestFileResult.getName() + "[" + tmpTestRunBrowser + "]");
             tmpTestError = null;
             tmpStepError = null;
             tmpDuration = 0;
+          } else if (tmpPath.matches("/wet/testcase/testrun/error/message")) {
+            tmpTestError = new TestError();
+            tmpTestError.setFile(tmpTestFileResult.getFullName());
+            tmpTestError.setError(tmpReader.getElementText());
+            tmpBrowserResult.setError(tmpTestError);
+            tmpPath.pop();
           } else if (tmpPath.matches("/wet/testcase/testrun/ignored")) {
             tmpBrowserResult.setSkipped(true);
           } else if (tmpPath.endsWith("/testfile")) {
-            tmpCurrentTestFile = tmpReader.getAttributeValue(null, "file");
+            String tmpCurrentTestFile = tmpReader.getAttributeValue(null, "file");
+            tmpTestFileStack.push(tmpCurrentTestFile);
             if (tmpPath.matches("/wet/testcase/testrun/testfile")) {
-              tmpTestFileResult.setFullName(tmpReader.getAttributeValue(null, "file"));
+              tmpTestFileResult.setFullName(tmpCurrentTestFile);
             }
           } else if (tmpPath.startsWith("/wet/testcase/testrun") && tmpPath.endsWith("/testfile/error/message")) {
             tmpTestError = new TestError();
-            tmpTestError.setFile(tmpCurrentTestFile);
+            tmpTestError.setFile(tmpTestFileStack.peek());
             tmpTestError.setError(tmpReader.getElementText());
             tmpBrowserResult.setError(tmpTestError);
             tmpPath.pop();
@@ -174,7 +184,7 @@ public class WetatorResultParser {
             if (tmpStepError == null) {
               // only save the first error or failure per browser run
               tmpStepError = new StepError();
-              tmpStepError.setFile(tmpCurrentTestFile);
+              tmpStepError.setFile(tmpTestFileStack.peek());
               tmpStepError.setLine(tmpLine);
               if (tmpPath.endsWith("/command/failure/message")) {
                 tmpStepError.setCauseType(CauseType.FAILURE);
@@ -182,7 +192,7 @@ public class WetatorResultParser {
                 tmpStepError.setCauseType(CauseType.ERROR);
               }
               tmpStepError.setCommand(tmpCommand);
-              List<String> tmpParameters = new ArrayList<String>();
+              List<String> tmpParameters = new ArrayList<>();
               if (tmpParam0 != null && !"".equals(tmpParam0)) {
                 tmpParameters.add(tmpParam0);
               }
@@ -202,7 +212,9 @@ public class WetatorResultParser {
             }
           }
         } else if (tmpEvent == XMLStreamConstants.END_ELEMENT) {
-          if (tmpPath.matches("/wet/testcase/testrun")) {
+          if (tmpPath.endsWith("/testfile")) {
+            tmpTestFileStack.pop();
+          } else if (tmpPath.matches("/wet/testcase/testrun")) {
             tmpBrowserResult.setDuration(tmpDuration);
             tmpBrowserResults.add(tmpBrowserResult);
             if (tmpTestError == null && tmpStepError == null) {
@@ -210,11 +222,15 @@ public class WetatorResultParser {
             } else {
               tmpTestResults.getFailedTests().add(tmpBrowserResult);
             }
+            tmpBrowserResult = null;
           } else if (tmpPath.matches("/wet/testcase")) {
             tmpTestFileResult.setBrowserResults(tmpBrowserResults);
             tmpTestResult.getTestFileResults().add(tmpTestFileResult);
+            tmpBrowserResults = null;
+            tmpTestFileResult = null;
           } else if (tmpPath.matches("/wet")) {
             tmpTestResults.getTestResults().add(tmpTestResult);
+            tmpTestResult = null;
           }
 
           tmpPath.pop();
@@ -231,7 +247,7 @@ public class WetatorResultParser {
 
   /**
    * The worker really parsing the results. It runs on the slave.
-   * 
+   *
    * @author frank.danek
    */
   private static final class ParseResultCallable implements FilePath.FileCallable<TestResults> {
@@ -243,7 +259,7 @@ public class WetatorResultParser {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aTestResultLocations the location of the test results
      * @param aTestReportLocations the location of the test reports (optional)
      */
@@ -252,11 +268,6 @@ public class WetatorResultParser {
       testReportLocations = aTestReportLocations;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see hudson.FilePath.FileCallable#invoke(java.io.File, hudson.remoting.VirtualChannel)
-     */
     @Override
     public TestResults invoke(File aWorkspace, VirtualChannel aChannel) throws IOException {
       // compared to the junit parser we do not check the last modified of the result against the build time
@@ -280,7 +291,7 @@ public class WetatorResultParser {
         String[] tmpReportFiles = tmpReportScanner.getIncludedFiles();
 
         if (tmpReportFiles.length > 0) {
-          List<String> tmpNormalizedReportFiles = new ArrayList<String>();
+          List<String> tmpNormalizedReportFiles = new ArrayList<>();
           for (String tmpReportFile : tmpReportFiles) {
             tmpNormalizedReportFiles.add(tmpReportFile.replace('\\', '/'));
           }

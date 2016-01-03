@@ -25,8 +25,12 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ PathTest.class, //
-    WetatorResultParserTest.class })
+@SuiteClasses({
+// @formatter:off
+  PathTest.class,
+  WetatorResultParserTest.class
+  // @formatter:on
+})
 public final class AllTests {
 
   /**

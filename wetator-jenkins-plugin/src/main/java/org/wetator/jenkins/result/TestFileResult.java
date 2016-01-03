@@ -26,47 +26,32 @@ import org.kohsuke.stapler.StaplerResponse;
 
 /**
  * This class represents the results of one wetator test file and aggregates all {@link BrowserResult}s for this file.
- * 
+ *
  * @author frank.danek
  */
 public class TestFileResult extends AbstractBaseResult {
 
   private static final long serialVersionUID = -2934518518588582888L;
 
-  private List<BrowserResult> browserResults = new ArrayList<BrowserResult>();
+  private List<BrowserResult> browserResults = new ArrayList<>();
 
-  private transient List<BrowserResult> passedTests = new ArrayList<BrowserResult>();
-  private transient List<BrowserResult> skippedTests = new ArrayList<BrowserResult>();
-  private transient List<BrowserResult> failedTests = new ArrayList<BrowserResult>();
+  private transient List<BrowserResult> passedTests = new ArrayList<>();
+  private transient List<BrowserResult> skippedTests = new ArrayList<>();
+  private transient List<BrowserResult> failedTests = new ArrayList<>();
   private transient int skipCount;
   private transient int failCount;
   private transient int totalCount;
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getPassCount()
-   */
   @Override
   public int getPassCount() {
     return totalCount - skipCount - failCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
-   */
   @Override
   public int getSkipCount() {
     return skipCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getFailCount()
-   */
   @Override
   public int getFailCount() {
     return failCount;
@@ -90,7 +75,7 @@ public class TestFileResult extends AbstractBaseResult {
    * @return a new list containing all browser results
    */
   public List<BrowserResult> getBrowserResults() {
-    List<BrowserResult> tmpList = new ArrayList<BrowserResult>();
+    List<BrowserResult> tmpList = new ArrayList<>();
     for (BrowserResult tmpBrowserResult : browserResults) {
       tmpList.add(tmpBrowserResult);
     }
@@ -125,11 +110,6 @@ public class TestFileResult extends AbstractBaseResult {
     return failedTests;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#setOwner(hudson.model.AbstractBuild)
-   */
   @Override
   public void setOwner(AbstractBuild<?, ?> owner) {
     super.setOwner(owner);
@@ -139,20 +119,15 @@ public class TestFileResult extends AbstractBaseResult {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#tally()
-   */
   @Override
   public void tally() {
     duration = 0;
     skipCount = 0;
     failCount = 0;
     totalCount = 0;
-    passedTests = new ArrayList<BrowserResult>();
-    skippedTests = new ArrayList<BrowserResult>();
-    failedTests = new ArrayList<BrowserResult>();
+    passedTests = new ArrayList<>();
+    skippedTests = new ArrayList<>();
+    failedTests = new ArrayList<>();
     for (BrowserResult tmpBrowserResult : browserResults) {
       duration += tmpBrowserResult.getDuration();
       totalCount++;
@@ -185,7 +160,7 @@ public class TestFileResult extends AbstractBaseResult {
 
   /**
    * Used by stapler.
-   * 
+   *
    * @param token the token to get
    * @param req the request
    * @param rsp the response

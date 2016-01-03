@@ -33,7 +33,7 @@ import org.wetator.jenkins.WetatorBuildReport;
 
 /**
  * The base class for all test results.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractBaseResult extends AbstractModelObject implements Serializable {
@@ -48,21 +48,11 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
   protected String fullName;
   protected long duration;
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.model.ModelObject#getDisplayName()
-   */
   @Override
   public String getDisplayName() {
     return getName();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see hudson.search.SearchItem#getSearchUrl()
-   */
   @Override
   public String getSearchUrl() {
     return safe(getName());
@@ -204,7 +194,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
 
   /**
    * Gets the counter part of this {@link AbstractBaseResult} in the previous run.
-   * 
+   *
    * @return null if no such counter part exists.
    */
   public AbstractBaseResult getPreviousResult() {
@@ -229,7 +219,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
 
   /**
    * Gets the counter part of this {@link AbstractBaseResult} in the specified run.
-   * 
+   *
    * @return null if no such counter part exists.
    */
   public AbstractBaseResult getResultInBuild(AbstractBuild<?, ?> build) {
@@ -264,7 +254,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
 
   /**
    * Used by stabler.
-   * 
+   *
    * @param description the description to save
    * @return the response
    * @throws IOException in case of problems
@@ -282,11 +272,6 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
     return new HttpRedirect(".");
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return name;

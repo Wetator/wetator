@@ -30,7 +30,7 @@ import org.wetator.jenkins.WetatorBuildReport;
 
 /**
  * This class represents the result of one browser run of one wetator test file.
- * 
+ *
  * @author frank.danek
  */
 public class BrowserResult extends AbstractBaseResult {
@@ -77,11 +77,6 @@ public class BrowserResult extends AbstractBaseResult {
     this.error = error;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getPassCount()
-   */
   @Override
   public int getPassCount() {
     if (isPassed()) {
@@ -90,11 +85,6 @@ public class BrowserResult extends AbstractBaseResult {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
-   */
   @Override
   public int getSkipCount() {
     if (isSkipped()) {
@@ -103,11 +93,6 @@ public class BrowserResult extends AbstractBaseResult {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getFailCount()
-   */
   @Override
   public int getFailCount() {
     if (!isPassed() && !isSkipped()) {
@@ -116,11 +101,6 @@ public class BrowserResult extends AbstractBaseResult {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#isPassed()
-   */
   @Override
   public boolean isPassed() {
     return !skipped && error == null;
@@ -141,11 +121,6 @@ public class BrowserResult extends AbstractBaseResult {
     skipped = aSkipped;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#tally()
-   */
   @Override
   public void tally() {
     // nothing to do here
@@ -214,11 +189,6 @@ public class BrowserResult extends AbstractBaseResult {
     return getOwner().getParent().getBuildByNumber(getFailedSince());
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getResultInBuild(hudson.model.AbstractBuild)
-   */
   @Override
   public AbstractBaseResult getResultInBuild(AbstractBuild<?, ?> build) {
     WetatorBuildReport tmpBuildReport = build.getAction(WetatorBuildReport.class);
@@ -228,11 +198,6 @@ public class BrowserResult extends AbstractBaseResult {
     return tmpBuildReport.findCorrespondingResult(getFullName());
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getPreviousResult()
-   */
   @Override
   public BrowserResult getPreviousResult() {
     if (parent == null) {
@@ -247,7 +212,7 @@ public class BrowserResult extends AbstractBaseResult {
 
   /**
    * Used by stapler.
-   * 
+   *
    * @param token the token to get
    * @param req the request
    * @param rsp the response
@@ -293,7 +258,7 @@ public class BrowserResult extends AbstractBaseResult {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aCssClass the corresponding CSS class
      * @param aMessage the localized message
      * @param anOk true if the build was successful

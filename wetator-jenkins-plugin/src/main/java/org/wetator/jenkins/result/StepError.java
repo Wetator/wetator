@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Contains the information about the error occurred.
- * 
+ *
  * @author frank.danek
  */
 public class StepError extends TestError {

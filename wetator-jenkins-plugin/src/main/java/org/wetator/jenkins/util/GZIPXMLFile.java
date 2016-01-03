@@ -51,7 +51,7 @@ import com.thoughtworks.xstream.io.xml.XppReader;
  * This is an extension of the {@link hudson.XmlFile} using GZIP compression.<br/>
  * It is needed because the class XmlFile is final and the stream chain is hard coded (at different places). :-(<br/>
  * An automatic fall back to an XML file is included, if the given (.gz) file is not found.
- * 
+ *
  * @see hudson.XmlFile
  * @author Kohsuke Kawaguchi
  * @author frank.danek
@@ -74,7 +74,7 @@ public class GZIPXMLFile {
   /**
    * The constructor.<br/>
    * It uses the default {@link XStream}.
-   * 
+   *
    * @param aFile the file to work with
    */
   public GZIPXMLFile(File aFile) {
@@ -83,7 +83,7 @@ public class GZIPXMLFile {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anXStream the {@link XStream} to use
    * @param aFile the file to work with
    */
@@ -113,7 +113,7 @@ public class GZIPXMLFile {
 
   /**
    * Loads the contents of this file into a new object.
-   * 
+   *
    * @return the loaded object
    * @throws IOException in case of problems reading the file
    */
@@ -134,7 +134,7 @@ public class GZIPXMLFile {
 
   /**
    * Loads the contents of this file into an existing object.
-   * 
+   *
    * @param anObject the object to load into
    * @return the unmarshalled object. Usually the same as <tt>anObject</tt>, but would be different
    *         if the XML representation is completely new.
@@ -157,7 +157,7 @@ public class GZIPXMLFile {
 
   /**
    * Writes the given object to this file.
-   * 
+   *
    * @param anObject the object to write
    * @throws IOException in case of problems writing the file
    */
@@ -200,7 +200,7 @@ public class GZIPXMLFile {
    * Opens a {@link Reader} that loads XML.
    * This method uses {@link #sniffEncoding() the right encoding},
    * not just the system default encoding.
-   * 
+   *
    * @return a {@link Reader} using the right encoding
    * @throws IOException in case of problems reading the file
    */
@@ -221,7 +221,7 @@ public class GZIPXMLFile {
   /**
    * Writes the raw XML to the given {@link Writer}.
    * Writer will not be closed by the implementation.
-   * 
+   *
    * @param aWriter the {@link Writer} to write to
    * @throws IOException in case of problems writing the file
    */
@@ -234,11 +234,6 @@ public class GZIPXMLFile {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return file.toString();
@@ -246,7 +241,7 @@ public class GZIPXMLFile {
 
   /**
    * Parses the beginning of the file and determines the encoding.
-   * 
+   *
    * @return the found encoding. always non-null.
    * @throws IOException if failed to detect encoding.
    */
@@ -264,32 +259,16 @@ public class GZIPXMLFile {
       JAXP.newSAXParser().parse(file, new DefaultHandler() {
         private Locator locator;
 
-        /**
-         * {@inheritDoc}
-         * 
-         * @see org.xml.sax.helpers.DefaultHandler#setDocumentLocator(org.xml.sax.Locator)
-         */
         @Override
         public void setDocumentLocator(Locator aLocator) {
           locator = aLocator;
         }
 
-        /**
-         * {@inheritDoc}
-         * 
-         * @see org.xml.sax.helpers.DefaultHandler#startDocument()
-         */
         @Override
         public void startDocument() throws SAXException {
           attempt();
         }
 
-        /**
-         * {@inheritDoc}
-         * 
-         * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String,
-         *      org.xml.sax.Attributes)
-         */
         @Override
         public void startElement(String anURI, String aLocalName, String aQName, Attributes anAttributes)
             throws SAXException {

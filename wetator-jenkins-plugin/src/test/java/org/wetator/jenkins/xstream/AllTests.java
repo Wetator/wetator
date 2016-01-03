@@ -25,9 +25,13 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ XStreamDeserializationTest.class, //
-    XStreamLegacyDeserializationTest.class, //
-    XStreamSerializationTest.class })
+@SuiteClasses({
+// @formatter:off
+  XStreamDeserializationTest.class,
+  XStreamLegacyDeserializationTest.class,
+  XStreamSerializationTest.class
+  // @formatter:on
+})
 public final class AllTests {
 
   /**

@@ -21,7 +21,7 @@ import hudson.Plugin;
 
 /**
  * The Wetator plug-in entry point.
- * 
+ *
  * @author frank.danek
  */
 @Extension

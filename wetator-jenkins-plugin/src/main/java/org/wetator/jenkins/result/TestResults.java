@@ -35,21 +35,21 @@ public class TestResults extends AbstractBaseResult {
 
   private static final long serialVersionUID = 5332974371295204003L;
 
-  private List<TestResult> testResults = new ArrayList<TestResult>();
-  private List<String> reportFiles = new ArrayList<String>();
-  private transient List<BrowserResult> passedTests = new ArrayList<BrowserResult>();
-  private transient List<BrowserResult> skippedTests = new ArrayList<BrowserResult>();
-  private transient List<BrowserResult> failedTests = new ArrayList<BrowserResult>();
+  private List<TestResult> testResults = new ArrayList<>();
+  private List<String> reportFiles = new ArrayList<>();
+  private transient List<BrowserResult> passedTests = new ArrayList<>();
+  private transient List<BrowserResult> skippedTests = new ArrayList<>();
+  private transient List<BrowserResult> failedTests = new ArrayList<>();
   private transient int totalCount;
   private transient int passCount;
   private transient int skipCount;
   private transient int failCount;
-  private transient Map<String, TestFileResult> testFileMap = new HashMap<String, TestFileResult>();
-  private transient Map<String, TestFileResult> testFileUrlMap = new HashMap<String, TestFileResult>();
+  private transient Map<String, TestFileResult> testFileMap = new HashMap<>();
+  private transient Map<String, TestFileResult> testFileUrlMap = new HashMap<>();
 
   /**
    * The constructor.
-   * 
+   *
    * @param name the name to set
    */
   public TestResults(String name) {
@@ -61,11 +61,6 @@ public class TestResults extends AbstractBaseResult {
     return Messages.WetatorBuildReport_DisplayName();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getUrl()
-   */
   @Override
   public String getUrl() {
     return "";
@@ -133,31 +128,16 @@ public class TestResults extends AbstractBaseResult {
     return totalCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getPassCount()
-   */
   @Override
   public int getPassCount() {
     return passCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getSkipCount()
-   */
   @Override
   public int getSkipCount() {
     return skipCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#getFailCount()
-   */
   @Override
   public int getFailCount() {
     return failCount;
@@ -184,11 +164,6 @@ public class TestResults extends AbstractBaseResult {
     this.testFileMap = testFileMap;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#setOwner(hudson.model.AbstractBuild)
-   */
   @Override
   public void setOwner(AbstractBuild<?, ?> owner) {
     super.setOwner(owner);
@@ -202,7 +177,7 @@ public class TestResults extends AbstractBaseResult {
 
   /**
    * Finds the result for the given name.
-   * 
+   *
    * @param aName the name of the result
    * @return the result
    */
@@ -229,11 +204,6 @@ public class TestResults extends AbstractBaseResult {
     return tmpBrowserResult;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(Object anOther) {
     if (this == anOther) {
@@ -246,11 +216,6 @@ public class TestResults extends AbstractBaseResult {
     return name.equals(tmpOther.name) && !(owner != null ? !owner.equals(tmpOther.owner) : tmpOther.owner != null);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     int tmpResult;
@@ -259,11 +224,6 @@ public class TestResults extends AbstractBaseResult {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return "TestResults{" + "name='" + name + '\'' + ", totalCount=" + totalCount + ", skipCount=" + skipCount
@@ -288,19 +248,14 @@ public class TestResults extends AbstractBaseResult {
     add(aTestResults, true);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.wetator.jenkins.result.AbstractBaseResult#tally()
-   */
   @Override
   public void tally() {
     duration = 0;
-    passedTests = new ArrayList<BrowserResult>();
-    skippedTests = new ArrayList<BrowserResult>();
-    failedTests = new ArrayList<BrowserResult>();
-    testFileMap = new HashMap<String, TestFileResult>();
-    testFileUrlMap = new HashMap<String, TestFileResult>();
+    passedTests = new ArrayList<>();
+    skippedTests = new ArrayList<>();
+    failedTests = new ArrayList<>();
+    testFileMap = new HashMap<>();
+    testFileUrlMap = new HashMap<>();
     for (TestResult tmpTestResult : testResults) {
       tmpTestResult.tally();
       duration += tmpTestResult.getDuration();
@@ -325,7 +280,7 @@ public class TestResults extends AbstractBaseResult {
 
   /**
    * Used by stapler.
-   * 
+   *
    * @param token the token to get
    * @param request the request
    * @param response the response
