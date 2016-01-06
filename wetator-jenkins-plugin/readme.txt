@@ -1,11 +1,11 @@
 HOW TO SETUP THE IDE
 ====================
 Currently we use
-    Eclipse 4.4.2 (Luna)
-    Eclipse Checkstyle Plugin 6.11.1 (based on Checkstyle 6.11.2)
-    Maven 3.3.1
+    Eclipse 4.5.1 (Mars)
+    Eclipse Checkstyle Plugin 6.11.2 (based on Checkstyle 6.11.2)
+    Maven 3.3.9
 with optionally
-	Eclipse m2e Plugin 1.6.0
+	Eclipse m2e Plugin 1.6.2
 	m2e connector for build-helper-maven-plugin	0.15
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
