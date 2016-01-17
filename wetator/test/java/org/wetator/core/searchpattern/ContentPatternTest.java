@@ -120,6 +120,23 @@ public class ContentPatternTest {
   }
 
   @Test
+  public void matchesNotSoNiceErrorMessage() throws InvalidInputException {
+    // in this case our error message has to be improved
+
+    final SecretString tmpExpected = new SecretString("A, Patents, Search, Patents, R");
+    final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
+
+    try {
+      tmpPattern.matches("A Patent Search Patents R", 100);
+      org.junit.Assert.fail("AssertionException expected");
+    } catch (final AssertionException e) {
+      org.junit.Assert.assertEquals(
+          "Expected content(s) {not found} or [in wrong order]: 'A, Patents, [Search], [Patents], R' (content: 'A Patent Search Patents R').",
+          e.getMessage());
+    }
+  }
+
+  @Test
   public void matchesNegated() throws AssertionException, InvalidInputException {
     final SecretString tmpExpected = new SecretString("a, ~b");
     final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
@@ -240,8 +257,8 @@ public class ContentPatternTest {
       tmpPattern.matches("c", 100);
       org.junit.Assert.fail("AssertionException expected");
     } catch (final AssertionException e) {
-      org.junit.Assert.assertEquals(
-          "Expected content(s) {not found} or [in wrong order]: '{a}, ~b, c' (content: 'c').", e.getMessage());
+      org.junit.Assert.assertEquals("Expected content(s) {not found} or [in wrong order]: '{a}, ~b, c' (content: 'c').",
+          e.getMessage());
     }
   }
 
