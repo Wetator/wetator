@@ -57,7 +57,6 @@
     <xsl:template match="/">
         <html>
             <head>
-                <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <META http-equiv="content-style-type" content="text/css"/>
                 <title>Wetator - Test Result</title>
 
