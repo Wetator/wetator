@@ -16,15 +16,6 @@
 
 package org.wetator.jenkins;
 
-import hudson.Functions;
-import hudson.model.BuildListener;
-import hudson.model.HealthReport;
-import hudson.model.HealthReportingAction;
-import hudson.model.AbstractBuild;
-import hudson.tasks.test.TestObject;
-import hudson.util.HeapSpaceStringConverter;
-import hudson.util.XStream2;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -51,6 +42,15 @@ import org.wetator.jenkins.util.GZIPXMLFile;
 
 import com.thoughtworks.xstream.XStream;
 
+import hudson.Functions;
+import hudson.model.AbstractBuild;
+import hudson.model.BuildListener;
+import hudson.model.HealthReport;
+import hudson.model.HealthReportingAction;
+import hudson.tasks.test.TestObject;
+import hudson.util.HeapSpaceStringConverter;
+import hudson.util.XStream2;
+
 /**
  * The Wetator Report for one build.
  *
@@ -67,6 +67,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
   private transient WeakReference<TestResults> results;
   private Integer failCount;
+  private Integer skipCount;
   private Integer totalCount;
 
   private Map<String, String> descriptions = new ConcurrentHashMap<>();
@@ -124,6 +125,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     if (totalCount == null) {
       totalCount = Integer.valueOf(tmpResults.getTotalCount());
       failCount = Integer.valueOf(tmpResults.getFailCount());
+      skipCount = Integer.valueOf(tmpResults.getSkipCount());
     }
     return tmpResults;
   }
@@ -140,6 +142,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
 
     totalCount = Integer.valueOf(aResults.getTotalCount());
     failCount = Integer.valueOf(aResults.getFailCount());
+    skipCount = Integer.valueOf(aResults.getSkipCount());
 
     // persist the data
     try {
@@ -184,10 +187,26 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
   }
 
   /**
+   * Convenience method to access the skipCount.
+   *
+   * @return the skipCount
+   */
+  public int getSkipCount() {
+    if (skipCount == null) {
+      // this will compute the result
+      getResults();
+    }
+    if (skipCount == null) {
+      return 0;
+    }
+    return skipCount.intValue();
+  }
+
+  /**
    * {@link AbstractBaseResult}s do not have their own persistence mechanism, so updatable data of
    * {@link AbstractBaseResult}s need to be persisted by the owning {@link WetatorBuildReport}, and this method and
-   * {@link #setDescription(AbstractBaseResult, String)} provide that logic. <br/>
-   * <br/>
+   * {@link #setDescription(AbstractBaseResult, String)} provide that logic.<br>
+   * <br>
    * The default implementation stores information in the 'this' object.
    *
    * @see TestObject#getDescription()
@@ -217,7 +236,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
   }
 
   /**
-   * Gets the diff string of failures.<br/>
+   * Gets the diff string of failures.<br>
    * (for resultSummary.jelly)
    */
   public final String getFailureDiffString() {
@@ -234,16 +253,18 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
   public HealthReport getBuildHealth() {
     final int tmpTotalCount = getTotalCount();
     final int tmpFailCount = getFailCount();
+    final int tmpSkipCount = getSkipCount();
     int tmpScore = 100;
     if (tmpTotalCount != 0) {
-      tmpScore = (int) (100.0 * (1.0 - ((double) tmpFailCount) / tmpTotalCount));
+      tmpScore = (int) (100.0 * (1.0 - ((double) tmpFailCount + tmpSkipCount) / tmpTotalCount));
     }
     Localizable tmpDisplayName = Messages._WetatorBuildReport_DisplayName();
     Localizable tmpDescription;
     if (tmpTotalCount == 0) {
       tmpDescription = Messages._WetatorBuildReport_zeroTestDescription(tmpDisplayName);
     } else {
-      tmpDescription = Messages._WetatorBuildReport_TestsDescription(tmpDisplayName, tmpFailCount, tmpTotalCount);
+      tmpDescription = Messages._WetatorBuildReport_TestsDescription(tmpDisplayName, tmpFailCount, tmpTotalCount,
+          tmpSkipCount);
     }
     return new HealthReport(tmpScore, tmpDescription);
   }
@@ -321,8 +342,8 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
     anXStream.alias("browserResult", BrowserResult.class);
     anXStream.alias("stepError", StepError.class);
     anXStream.alias("testError", TestError.class);
-    anXStream.registerConverter(new ErrorConverter(anXStream.getMapper(), anXStream.getConverterLookup()
-        .lookupConverterForType(TestError.class), anXStream.getReflectionProvider()));
+    anXStream.registerConverter(new ErrorConverter(anXStream.getMapper(),
+        anXStream.getConverterLookup().lookupConverterForType(TestError.class), anXStream.getReflectionProvider()));
     anXStream.registerConverter(new HeapSpaceStringConverter(), 100);
   }
 
