@@ -16,8 +16,8 @@
 
 package org.wetator.jenkins.plugin;
 
-import hudson.model.FreeStyleBuild;
-import hudson.model.FreeStyleProject;
+import org.wetator.core.TestCase;
+import org.wetator.jenkins.test.ResultXMLBuilder;
 
 import com.gargoylesoftware.htmlunit.WebAssert;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -30,11 +30,20 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class WetatorReportLinkTest extends AbstractPluginTest {
 
   public void testReport() throws Exception {
-    FreeStyleProject tmpProject = createProject(WETATOR_RESULT_PATH + "ok.xml",
-        "src/test/resources/org/wetator/jenkins/wetreport/dummy.html");
-    FreeStyleBuild tmpBuild = runBuild(tmpProject);
+    builder.startEngine();
+    TestCase tmpTestCase = builder.startTestCase();
 
-    HtmlPage tmpReportPage = webClient.getPage(tmpProject, tmpBuild.getNumber() + "/wetatorReport");
+    builder.startTestRun(tmpTestCase, ResultXMLBuilder.FF38);
+    builder.writeComment();
+    builder.writeCommand();
+    builder.endTestRun();
+
+    builder.endTestCase();
+    builder.endEngine();
+
+    runBuild("src/test/resources/org/wetator/jenkins/wetreport/dummy.html");
+
+    HtmlPage tmpReportPage = openReportPage();
     WebAssert.assertTextPresent(tmpReportPage, "Test Report");
     WebAssert.assertLinkPresentWithText(tmpReportPage, WETATOR_REPORT_FILENAME);
 
@@ -43,10 +52,20 @@ public class WetatorReportLinkTest extends AbstractPluginTest {
   }
 
   public void testNoReport() throws Exception {
-    FreeStyleProject tmpProject = createProject(WETATOR_RESULT_PATH + "ok.xml");
-    FreeStyleBuild tmpBuild = runBuild(tmpProject);
+    builder.startEngine();
+    TestCase tmpTestCase = builder.startTestCase();
 
-    HtmlPage tmpReportPage = webClient.getPage(tmpProject, tmpBuild.getNumber() + "/wetatorReport");
+    builder.startTestRun(tmpTestCase, ResultXMLBuilder.FF38);
+    builder.writeComment();
+    builder.writeCommand();
+    builder.endTestRun();
+
+    builder.endTestCase();
+    builder.endEngine();
+
+    runBuild();
+
+    HtmlPage tmpReportPage = openReportPage();
     WebAssert.assertTextNotPresent(tmpReportPage, "Test Report");
     WebAssert.assertLinkNotPresentWithText(tmpReportPage, WETATOR_REPORT_FILENAME);
   }

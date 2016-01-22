@@ -26,10 +26,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-// @formatter:off
+  // @formatter:off
   ResultTest.class,
-  ResultWithModuleTest.class,
-  ResultWithPathTest.class,
   WetatorReportLinkTest.class
   // @formatter:on
 })
