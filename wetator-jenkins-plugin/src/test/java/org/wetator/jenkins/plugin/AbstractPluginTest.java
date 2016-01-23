@@ -50,6 +50,8 @@ import hudson.tasks.Builder;
  */
 public abstract class AbstractPluginTest extends HudsonTestCase {
 
+  private static final String NL = System.lineSeparator();
+
   protected static final String WETATOR_RESULT_FILENAME = "wetresult.xml";
   protected static final String WETATOR_REPORT_FILENAME = "run_report.xsl.html";
   protected static final String WETATOR_RESULT_PATH = "src/test/resources/org/wetator/jenkins/wetresult/";
@@ -173,13 +175,13 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
     WebAssert.assertTitleContains(anActualPage, "Wetator Test Result");
     if (anExpectedSkipCount == 0) {
       WebAssert.assertTextPresent(anActualPage,
-          "\r\n" + anExpectedFailCount + " failure" + (anExpectedFailCount == 1 ? "" : "s"));
+          NL + anExpectedFailCount + " failure" + (anExpectedFailCount == 1 ? "" : "s"));
     } else {
-      WebAssert.assertTextPresent(anActualPage, "\r\n" + anExpectedFailCount + " failure"
+      WebAssert.assertTextPresent(anActualPage, NL + anExpectedFailCount + " failure"
           + (anExpectedFailCount == 1 ? "" : "s") + " , " + anExpectedSkipCount + " skipped");
     }
     WebAssert.assertTextPresent(anActualPage,
-        "\r\n" + anExpectedTotalCount + " test" + (anExpectedTotalCount == 1 ? "" : "s"));
+        NL + anExpectedTotalCount + " test" + (anExpectedTotalCount == 1 ? "" : "s"));
     WebAssert.assertTextPresent(anActualPage, "Took " + anExpectedDuration + ".");
     if (anExpectedFailCount == 0) {
       WebAssert.assertTextNotPresent(anActualPage, "All Failed Tests");
@@ -195,7 +197,7 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   protected void assertTestPage(String anExpectedFile, String anExpectedAbsoluteFile, String anExpectedDuration,
       HtmlPage anActualPage) {
     WebAssert.assertTitleContains(anActualPage, anExpectedFile);
-    WebAssert.assertTextPresent(anActualPage, "\t" + anExpectedFile + anExpectedAbsoluteFile + "\r\n");
+    WebAssert.assertTextPresent(anActualPage, "\t" + anExpectedFile + anExpectedAbsoluteFile + NL);
     WebAssert.assertTextPresent(anActualPage, "Took " + anExpectedDuration + ".");
   }
 
@@ -208,9 +210,9 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   protected void assertBrowserPage(String anExpectedBrowser, String anExpectedResult, String anExpectedFile,
       String anExpectedAbsoluteFile, String anExpectedDuration, HtmlPage anActualPage) {
     WebAssert.assertTitleContains(anActualPage, anExpectedBrowser);
-    WebAssert.assertTextPresent(anActualPage, "\t" + anExpectedResult + "\r\n");
+    WebAssert.assertTextPresent(anActualPage, "\t" + anExpectedResult + NL);
     WebAssert.assertTextPresent(anActualPage,
-        "\r\n" + anExpectedFile + "[" + anExpectedBrowser + "] from " + anExpectedAbsoluteFile + "\r\n");
+        NL + anExpectedFile + "[" + anExpectedBrowser + "] from " + anExpectedAbsoluteFile + NL);
     WebAssert.assertTextPresent(anActualPage, "Took " + anExpectedDuration + ".");
   }
 
@@ -224,8 +226,8 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
       String anExpectedMessage, HtmlPage anActualPage) {
     WebAssert.assertTextPresent(anActualPage, "Failing for the past 1 build (Since #1 )");
     WebAssert.assertTextPresent(anActualPage, "Error Message");
-    WebAssert.assertTextPresent(anActualPage, "File: " + anExpectedAbsoluteFile + "\r\n");
-    WebAssert.assertTextPresent(anActualPage, "Cause: " + anExpectedCause + "\r\n");
+    WebAssert.assertTextPresent(anActualPage, "File: " + anExpectedAbsoluteFile + NL);
+    WebAssert.assertTextPresent(anActualPage, "Cause: " + anExpectedCause + NL);
     assertPaneTableRowContains(anActualPage, 0, anExpectedCommandLine);
     assertPaneTableRowContains(anActualPage, 1, anExpectedMessage);
   }
@@ -237,8 +239,8 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   protected void assertBrowserError(String anExpectedAbsoluteFile, String anExpectedMessage, HtmlPage anActualPage) {
     WebAssert.assertTextPresent(anActualPage, "Failing for the past 1 build (Since #1 )");
     WebAssert.assertTextPresent(anActualPage, "Error Message");
-    WebAssert.assertTextPresent(anActualPage, "File: " + anExpectedAbsoluteFile + "\r\n");
-    WebAssert.assertTextPresent(anActualPage, "\r\n" + anExpectedMessage + "\r\n");
+    WebAssert.assertTextPresent(anActualPage, "File: " + anExpectedAbsoluteFile + NL);
+    WebAssert.assertTextPresent(anActualPage, NL + anExpectedMessage + NL);
   }
 
   protected void assertBrowserSkipped(HtmlPage anActualPage) {
