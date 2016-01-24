@@ -16,32 +16,32 @@
 
 package org.wetator.jenkins;
 
-import hudson.AbortException;
-import hudson.Extension;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.model.Action;
-import hudson.model.BuildListener;
-import hudson.model.Result;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.tasks.BuildStepDescriptor;
-import hudson.tasks.BuildStepMonitor;
-import hudson.tasks.Publisher;
-import hudson.tasks.Recorder;
-import hudson.util.FormValidation;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.types.FileSet;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.wetator.jenkins.parser.WetatorResultParser;
 import org.wetator.jenkins.result.TestResults;
+
+import hudson.AbortException;
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.Action;
+import hudson.model.BuildListener;
+import hudson.model.Result;
+import hudson.tasks.BuildStepDescriptor;
+import hudson.tasks.BuildStepMonitor;
+import hudson.tasks.Publisher;
+import hudson.tasks.Recorder;
+import hudson.util.FormValidation;
 
 /**
  * The recorder parsing the Wetator results and creating the reports.
@@ -72,7 +72,7 @@ public class WetatorRecorder extends Recorder {
     this.testResults = testResults;
     this.testReports = testReports;
     this.unstableThreshold = unstableThreshold;
-    if (this.unstableThreshold == null || "".equals(this.unstableThreshold)) {
+    if (StringUtils.isBlank(this.unstableThreshold)) {
       this.unstableThreshold = "0";
     }
     this.failureThreshold = failureThreshold;
@@ -153,7 +153,7 @@ public class WetatorRecorder extends Recorder {
     if (tmpReport.getResults().getFailCount() > Integer.parseInt(unstableThreshold)) {
       aBuild.setResult(Result.UNSTABLE);
     }
-    if (failureThreshold != null && !"".equals(failureThreshold)
+    if (!StringUtils.isBlank(failureThreshold)
         && tmpReport.getResults().getFailCount() > Integer.parseInt(failureThreshold)) {
       aBuild.setResult(Result.FAILURE);
     }
@@ -196,8 +196,8 @@ public class WetatorRecorder extends Recorder {
      * @return the result of the check
      * @throws IOException in case of problems
      */
-    public FormValidation doCheckTestResults(@AncestorInPath AbstractProject<?, ?> project, @QueryParameter String value)
-        throws IOException {
+    public FormValidation doCheckTestResults(@AncestorInPath AbstractProject<?, ?> project,
+        @QueryParameter String value) throws IOException {
       // the method parameters must be raw (without leading a) to make stapler work
       return FilePath.validateFileMask(project.getSomeWorkspace(), value);
     }

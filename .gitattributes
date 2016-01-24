@@ -125,6 +125,8 @@ wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/parser/WetatorResultPar
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/AbstractPluginTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/AllTests.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/ResultTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/WetatorRecorderConfigurationTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/WetatorRecorderTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/WetatorReportLinkTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/test/ResultAssert.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/test/ResultXMLBuilder.java -text svneol=unset#text/plain

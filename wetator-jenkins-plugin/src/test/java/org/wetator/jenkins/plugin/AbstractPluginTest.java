@@ -25,11 +25,11 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.jvnet.hudson.test.HudsonTestCase;
 import org.jvnet.hudson.test.TestBuilder;
+import org.wetator.jenkins.WetatorRecorder;
 import org.wetator.jenkins.test.ResultXMLBuilder;
 import org.xml.sax.SAXException;
 
 import com.gargoylesoftware.htmlunit.WebAssert;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
 
@@ -79,7 +79,14 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   protected void runBuild(String aWetatorReportFile) throws Exception {
     normalizeResultFile();
 
-    project = createProject(ResultXMLBuilder.RESULT_LOG, aWetatorReportFile);
+    project = createProject(ResultXMLBuilder.RESULT_LOG, aWetatorReportFile, "0", null);
+    build = runBuild(project);
+  }
+
+  protected void runBuild(String anUnstableThreshold, String aFailureThreshold) throws Exception {
+    normalizeResultFile();
+
+    project = createProject(ResultXMLBuilder.RESULT_LOG, null, anUnstableThreshold, aFailureThreshold);
     build = runBuild(project);
   }
 
@@ -87,14 +94,15 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
     FileUtils.write(new File(ResultXMLBuilder.RESULT_LOG), builder.getNormalizedResult(), "utf-8");
   }
 
-  private FreeStyleProject createProject(String aWetatorResultFile, String aWetatorReportFile) throws Exception {
+  private FreeStyleProject createProject(String aWetatorResultFile, String aWetatorReportFile,
+      String anUnstableThreshold, String aFailureThreshold) throws Exception {
     FreeStyleProject tmpProject = createFreeStyleProject();
 
-    HtmlForm tmpConfigForm = createWebClient().getPage(tmpProject, "configure").getFormByName("config");
-    tmpConfigForm.getInputByName("org-wetator-jenkins-WetatorRecorder").setChecked(true);
-    tmpConfigForm.getInputsByName("_.testResults").get(1).setValueAttribute(WETATOR_RESULT_FILENAME);
-    tmpConfigForm.getInputByName("_.testReports").setValueAttribute(WETATOR_REPORT_FILENAME);
-    submit(tmpConfigForm);
+    WetatorRecorder tmpBefore = new WetatorRecorder(WETATOR_RESULT_FILENAME, WETATOR_REPORT_FILENAME,
+        anUnstableThreshold, aFailureThreshold);
+    tmpProject.getPublishersList().add(tmpBefore);
+    // we have to submit the config page once to really activate the recorder
+    submit(webClient.getPage(tmpProject, "configure").getFormByName("config"));
 
     tmpProject.getBuildersList().add(new CopyBuilder(aWetatorResultFile, aWetatorReportFile));
 
@@ -138,6 +146,10 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
       int anExpectedSkipCount, int anExceptedTotalCount) {
     assertBuild(anExpectedResult, anExpectedScore, anExpectedFailCount, anExpectedSkipCount, anExceptedTotalCount,
         build);
+  }
+
+  protected void assertBuild(Result anExpectedResult) {
+    assertEquals(anExpectedResult, build.getResult());
   }
 
   private void assertBuild(Result anExpectedResult, int anExpectedScore, int anExpectedFailCount,

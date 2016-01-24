@@ -28,6 +28,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
   // @formatter:off
   ResultTest.class,
+  WetatorRecorderConfigurationTest.class,
+  WetatorRecorderTest.class,
   WetatorReportLinkTest.class
   // @formatter:on
 })
