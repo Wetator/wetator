@@ -16,12 +16,6 @@
 
 package org.wetator.jenkins.parser;
 
-import hudson.AbortException;
-import hudson.FilePath;
-import hudson.Util;
-import hudson.model.AbstractBuild;
-import hudson.remoting.VirtualChannel;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -49,6 +43,12 @@ import org.wetator.jenkins.result.TestFileResult;
 import org.wetator.jenkins.result.TestResult;
 import org.wetator.jenkins.result.TestResults;
 
+import hudson.AbortException;
+import hudson.FilePath;
+import hudson.Util;
+import hudson.model.AbstractBuild;
+import hudson.remoting.VirtualChannel;
+
 /**
  * This parser parses some Wetator XML result files and generates a {@link TestResults} containing all results of all
  * files parsed.
@@ -69,8 +69,8 @@ public class WetatorResultParser {
    */
   public TestResults parse(String aTestResultLocations, String aTestReportLocations, AbstractBuild<?, ?> aBuild)
       throws InterruptedException, IOException {
-    TestResults tmpTestResults = aBuild.getWorkspace().act(
-        new ParseResultCallable(aTestResultLocations, aTestReportLocations));
+    TestResults tmpTestResults = aBuild.getWorkspace()
+        .act(new ParseResultCallable(aTestResultLocations, aTestReportLocations));
     return tmpTestResults;
   }
 
@@ -116,7 +116,7 @@ public class WetatorResultParser {
             tmpTestResult.setName(tmpReader.getElementText());
             tmpPath.pop();
           } else if (tmpPath.matches("/wet/executionTime")) {
-            tmpTestResult.setDuration(Long.valueOf(tmpReader.getElementText()));
+            tmpTestResult.setDuration(Long.parseLong(tmpReader.getElementText()));
             tmpPath.pop();
           } else if (tmpPath.matches("/wet/testcase")) {
             tmpTestFileResult = new TestFileResult();
@@ -176,8 +176,9 @@ public class WetatorResultParser {
           } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param3")) {
             tmpParam3 = tmpReader.getElementText();
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/executionTime")) {
-            tmpDuration += Long.valueOf(tmpReader.getElementText()).longValue();
+          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile")
+              && tmpPath.endsWith("/command/executionTime")) {
+            tmpDuration += Long.parseLong(tmpReader.getElementText());
             tmpPath.pop();
           } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile")
               && (tmpPath.endsWith("/command/error/message") || tmpPath.endsWith("/command/failure/message"))) {

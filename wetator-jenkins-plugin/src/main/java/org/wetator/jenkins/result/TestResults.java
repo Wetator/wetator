@@ -16,8 +16,6 @@
 
 package org.wetator.jenkins.result;
 
-import hudson.model.AbstractBuild;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +25,8 @@ import java.util.Set;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.wetator.jenkins.Messages;
+
+import hudson.model.AbstractBuild;
 
 /**
  * @author frank.danek
@@ -170,8 +170,8 @@ public class TestResults extends AbstractBaseResult {
     for (TestResult tmpTest : testResults) {
       tmpTest.setOwner(owner);
     }
-    for (String tmpClass : testFileMap.keySet()) {
-      testFileMap.get(tmpClass).setOwner(owner);
+    for (TestFileResult tmpTestFileResult : testFileMap.values()) {
+      tmpTestFileResult.setOwner(owner);
     }
   }
 
@@ -266,8 +266,7 @@ public class TestResults extends AbstractBaseResult {
         testFileUrlMap.put(safe(tmpFileName), tmpTestFileResult);
       }
     }
-    for (String tmpFileName : testFileMap.keySet()) {
-      TestFileResult tmpTestFileResult = testFileMap.get(tmpFileName);
+    for (TestFileResult tmpTestFileResult : testFileMap.values()) {
       passedTests.addAll(tmpTestFileResult.getPassedTests());
       skippedTests.addAll(tmpTestFileResult.getSkippedTests());
       failedTests.addAll(tmpTestFileResult.getFailedTests());
