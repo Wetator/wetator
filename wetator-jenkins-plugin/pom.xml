@@ -24,7 +24,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator-jenkins-plugin</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.5</version>
     <packaging>hpi</packaging>
 
     <name>Wetator Report Plug-in</name>
@@ -65,9 +65,9 @@
     </developers>
 
     <scm>
-        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator-jenkins-plugin</connection>
-        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/wetator-jenkins-plugin</developerConnection>
-        <url>http://wetator.repositoryhosting.com/svn_public/wetator_wetator</url>
+        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/tags/wetator-jenkins-plugin/wetator-jenkins-plugin-0.5</connection>
+        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/tags/wetator-jenkins-plugin/wetator-jenkins-plugin-0.5</developerConnection>
+        <url>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/tags/wetator-jenkins-plugin/wetator-jenkins-plugin-0.5</url>
     </scm>
     <issueManagement>
         <system>trac</system>
