@@ -57,6 +57,11 @@ import hudson.remoting.VirtualChannel;
  */
 public class WetatorResultParser {
 
+  private static final String PATH_ROOT = "/wet";
+  private static final String PATH_TEST_CASE = PATH_ROOT + "/testcase";
+  private static final String PATH_TEST_RUN = PATH_TEST_CASE + "/testrun";
+  private static final String PATH_TEST_FILE = PATH_TEST_RUN + "/testfile";
+
   /**
    * Starts a process on the <b>slave</b> parsing the test results.
    *
@@ -93,7 +98,6 @@ public class WetatorResultParser {
       BrowserResult tmpBrowserResult = null;
       long tmpDuration = 0;
       int tmpLine = 0;
-      // String tmpCurrentTestFile = null;
       String tmpCommand = null;
       String tmpParam0 = null;
       String tmpParam1 = null;
@@ -110,15 +114,15 @@ public class WetatorResultParser {
         if (tmpEvent == XMLStreamConstants.START_ELEMENT) {
           tmpPath.push(tmpReader.getLocalName());
 
-          if (tmpPath.matches("/wet")) {
+          if (tmpPath.matches(PATH_ROOT)) {
             tmpTestResult = new TestResult();
-          } else if (tmpPath.matches("/wet/startTime")) {
+          } else if (tmpPath.matches(PATH_ROOT + "/startTime")) {
             tmpTestResult.setName(tmpReader.getElementText());
             tmpPath.pop();
-          } else if (tmpPath.matches("/wet/executionTime")) {
+          } else if (tmpPath.matches(PATH_ROOT + "/executionTime")) {
             tmpTestResult.setDuration(Long.parseLong(tmpReader.getElementText()));
             tmpPath.pop();
-          } else if (tmpPath.matches("/wet/testcase")) {
+          } else if (tmpPath.matches(PATH_TEST_CASE)) {
             tmpTestFileResult = new TestFileResult();
             String tmpTestCaseName = tmpReader.getAttributeValue(null, "name");
             String tmpTestFileName = tmpReader.getAttributeValue(null, "file");
@@ -129,7 +133,7 @@ public class WetatorResultParser {
               tmpTestFileResult.setFullName(tmpTestCaseName);
             }
             tmpBrowserResults = new ArrayList<>();
-          } else if (tmpPath.matches("/wet/testcase/testrun")) {
+          } else if (tmpPath.matches(PATH_TEST_RUN)) {
             tmpBrowserResult = new BrowserResult();
             String tmpTestRunBrowser = tmpReader.getAttributeValue(null, "browser");
             tmpBrowserResult.setName(tmpTestRunBrowser);
@@ -137,85 +141,83 @@ public class WetatorResultParser {
             tmpTestError = null;
             tmpStepError = null;
             tmpDuration = 0;
-          } else if (tmpPath.matches("/wet/testcase/testrun/error/message")) {
+          } else if (tmpPath.matches(PATH_TEST_RUN + "/error/message")) {
             tmpTestError = new TestError();
             tmpTestError.setFile(tmpTestFileResult.getFullName());
             tmpTestError.setError(tmpReader.getElementText());
             tmpBrowserResult.setError(tmpTestError);
             tmpPath.pop();
-          } else if (tmpPath.matches("/wet/testcase/testrun/ignored")) {
+          } else if (tmpPath.matches(PATH_TEST_RUN + "/ignored")) {
             tmpBrowserResult.setSkipped(true);
           } else if (tmpPath.endsWith("/testfile")) {
             String tmpCurrentTestFile = tmpReader.getAttributeValue(null, "file");
             tmpTestFileStack.push(tmpCurrentTestFile);
-            if (tmpPath.matches("/wet/testcase/testrun/testfile")) {
+            if (tmpPath.matches(PATH_TEST_FILE)) {
               tmpTestFileResult.setFullName(tmpCurrentTestFile);
             }
-          } else if (tmpPath.startsWith("/wet/testcase/testrun") && tmpPath.endsWith("/testfile/error/message")) {
+          } else if (tmpPath.startsWith(PATH_TEST_RUN) && tmpPath.endsWith("/testfile/error/message")) {
             tmpTestError = new TestError();
             tmpTestError.setFile(tmpTestFileStack.peek());
             tmpTestError.setError(tmpReader.getElementText());
             tmpBrowserResult.setError(tmpTestError);
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command")) {
-            tmpLine = Integer.valueOf(tmpReader.getAttributeValue(null, "line")).intValue();
+          } else if (tmpPath.startsWith(PATH_TEST_FILE) && tmpPath.endsWith("/command")) {
+            tmpLine = Integer.parseInt(tmpReader.getAttributeValue(null, "line"));
             tmpCommand = tmpReader.getAttributeValue(null, "name");
             tmpParam0 = null;
             tmpParam1 = null;
             tmpParam2 = null;
             tmpParam3 = null;
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param0")) {
+          } else if (tmpPath.startsWith(PATH_TEST_FILE) && tmpPath.endsWith("/command/param0")) {
             tmpParam0 = tmpReader.getElementText();
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param1")) {
+          } else if (tmpPath.startsWith(PATH_TEST_FILE) && tmpPath.endsWith("/command/param1")) {
             tmpParam1 = tmpReader.getElementText();
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param2")) {
+          } else if (tmpPath.startsWith(PATH_TEST_FILE) && tmpPath.endsWith("/command/param2")) {
             tmpParam2 = tmpReader.getElementText();
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile") && tmpPath.endsWith("/command/param3")) {
+          } else if (tmpPath.startsWith(PATH_TEST_FILE) && tmpPath.endsWith("/command/param3")) {
             tmpParam3 = tmpReader.getElementText();
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile")
-              && tmpPath.endsWith("/command/executionTime")) {
+          } else if (tmpPath.startsWith(PATH_TEST_FILE) && tmpPath.endsWith("/command/executionTime")) {
             tmpDuration += Long.parseLong(tmpReader.getElementText());
             tmpPath.pop();
-          } else if (tmpPath.startsWith("/wet/testcase/testrun/testfile")
-              && (tmpPath.endsWith("/command/error/message") || tmpPath.endsWith("/command/failure/message"))) {
-            if (tmpStepError == null) {
-              // only save the first error or failure per browser run
-              tmpStepError = new StepError();
-              tmpStepError.setFile(tmpTestFileStack.peek());
-              tmpStepError.setLine(tmpLine);
-              if (tmpPath.endsWith("/command/failure/message")) {
-                tmpStepError.setCauseType(CauseType.FAILURE);
-              } else {
-                tmpStepError.setCauseType(CauseType.ERROR);
-              }
-              tmpStepError.setCommand(tmpCommand);
-              List<String> tmpParameters = new ArrayList<>();
-              if (tmpParam0 != null && !"".equals(tmpParam0)) {
-                tmpParameters.add(tmpParam0);
-              }
-              if (tmpParam1 != null && !"".equals(tmpParam1)) {
-                tmpParameters.add(tmpParam1);
-              }
-              if (tmpParam2 != null && !"".equals(tmpParam2)) {
-                tmpParameters.add(tmpParam2);
-              }
-              if (tmpParam3 != null && !"".equals(tmpParam3)) {
-                tmpParameters.add(tmpParam3);
-              }
-              tmpStepError.setParameters(tmpParameters);
-              tmpStepError.setError(tmpReader.getElementText());
-              tmpBrowserResult.setError(tmpStepError);
-              tmpPath.pop();
+          } else if (tmpPath.startsWith(PATH_TEST_FILE)
+              && (tmpPath.endsWith("/command/error/message") || tmpPath.endsWith("/command/failure/message"))
+              && tmpStepError == null) {
+            // only save the first error or failure per browser run
+            tmpStepError = new StepError();
+            tmpStepError.setFile(tmpTestFileStack.peek());
+            tmpStepError.setLine(tmpLine);
+            if (tmpPath.endsWith("/command/failure/message")) {
+              tmpStepError.setCauseType(CauseType.FAILURE);
+            } else {
+              tmpStepError.setCauseType(CauseType.ERROR);
             }
+            tmpStepError.setCommand(tmpCommand);
+            List<String> tmpParameters = new ArrayList<>();
+            if (tmpParam0 != null && !"".equals(tmpParam0)) {
+              tmpParameters.add(tmpParam0);
+            }
+            if (tmpParam1 != null && !"".equals(tmpParam1)) {
+              tmpParameters.add(tmpParam1);
+            }
+            if (tmpParam2 != null && !"".equals(tmpParam2)) {
+              tmpParameters.add(tmpParam2);
+            }
+            if (tmpParam3 != null && !"".equals(tmpParam3)) {
+              tmpParameters.add(tmpParam3);
+            }
+            tmpStepError.setParameters(tmpParameters);
+            tmpStepError.setError(tmpReader.getElementText());
+            tmpBrowserResult.setError(tmpStepError);
+            tmpPath.pop();
           }
         } else if (tmpEvent == XMLStreamConstants.END_ELEMENT) {
           if (tmpPath.endsWith("/testfile")) {
             tmpTestFileStack.pop();
-          } else if (tmpPath.matches("/wet/testcase/testrun")) {
+          } else if (tmpPath.matches(PATH_TEST_RUN)) {
             tmpBrowserResult.setDuration(tmpDuration);
             tmpBrowserResults.add(tmpBrowserResult);
             if (tmpTestError == null && tmpStepError == null) {
@@ -224,12 +226,12 @@ public class WetatorResultParser {
               tmpTestResults.getFailedTests().add(tmpBrowserResult);
             }
             tmpBrowserResult = null;
-          } else if (tmpPath.matches("/wet/testcase")) {
+          } else if (tmpPath.matches(PATH_TEST_CASE)) {
             tmpTestFileResult.setBrowserResults(tmpBrowserResults);
             tmpTestResult.getTestFileResults().add(tmpTestFileResult);
             tmpBrowserResults = null;
             tmpTestFileResult = null;
-          } else if (tmpPath.matches("/wet")) {
+          } else if (tmpPath.matches(PATH_ROOT)) {
             tmpTestResults.getTestResults().add(tmpTestResult);
             tmpTestResult = null;
           }

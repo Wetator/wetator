@@ -186,7 +186,7 @@ public class TestResults extends AbstractBaseResult {
       return this;
     }
 
-    int tmpBraket = aName.indexOf("[");
+    int tmpBraket = aName.indexOf('[');
     String tmpTestFileName = aName;
     String tmpBrowserName = null;
     if (tmpBraket >= 0) {

@@ -16,18 +16,6 @@
 
 package org.wetator.jenkins;
 
-import hudson.Functions;
-import hudson.model.ProminentProjectAction;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.util.Area;
-import hudson.util.ChartUtil;
-import hudson.util.ChartUtil.NumberOnlyBuildLabel;
-import hudson.util.ColorPalette;
-import hudson.util.DataSetBuilder;
-import hudson.util.ShiftedCategoryAxis;
-import hudson.util.StackedAreaRenderer2;
-
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Calendar;
@@ -50,6 +38,18 @@ import org.kohsuke.stapler.Ancestor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
+
+import hudson.Functions;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.ProminentProjectAction;
+import hudson.util.Area;
+import hudson.util.ChartUtil;
+import hudson.util.ChartUtil.NumberOnlyBuildLabel;
+import hudson.util.ColorPalette;
+import hudson.util.DataSetBuilder;
+import hudson.util.ShiftedCategoryAxis;
+import hudson.util.StackedAreaRenderer2;
 
 /**
  * The Wetator Report for the whole project.
@@ -224,8 +224,9 @@ public class WetatorProjectReport implements ProminentProjectAction {
     Cookie[] tmpCookies = request.getCookies();
     if (tmpCookies != null) {
       for (Cookie tmpCookie : tmpCookies) {
-        if (tmpCookie.getName().equals(FAILURE_ONLY_COOKIE))
+        if (tmpCookie.getName().equals(FAILURE_ONLY_COOKIE)) {
           tmpFailureOnly = Boolean.parseBoolean(tmpCookie.getValue());
+        }
       }
     }
 
@@ -271,8 +272,8 @@ public class WetatorProjectReport implements ProminentProjectAction {
       }
       tmpDataSetBuilder.add(tmpReport.getFailCount(), "failed", new NumberOnlyBuildLabel(tmpReport.build));
       if (!tmpFailureOnly) {
-        tmpDataSetBuilder.add(tmpReport.getTotalCount() - tmpReport.getFailCount(), "passed", new NumberOnlyBuildLabel(
-            tmpReport.build));
+        tmpDataSetBuilder.add(tmpReport.getTotalCount() - tmpReport.getFailCount(), "passed",
+            new NumberOnlyBuildLabel(tmpReport.build));
       }
     }
     return tmpDataSetBuilder.build();
@@ -290,7 +291,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
         false, // include legend
         true, // tooltips
         false // urls
-        );
+    );
 
     // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 
@@ -337,11 +338,11 @@ public class WetatorProjectReport implements ProminentProjectAction {
         NumberOnlyBuildLabel tmpLabel = (NumberOnlyBuildLabel) aCategoryDataset.getColumnKey(aColumn);
         WetatorBuildReport tmpBuildReport = tmpLabel.build.getAction(WetatorBuildReport.class);
         if (aRow == 0) {
-          return String.valueOf(Messages.WetatorBuildReport_fail(tmpLabel.build.getNumber(),
-              tmpBuildReport.getFailCount()));
+          return String
+              .valueOf(Messages.WetatorBuildReport_fail(tmpLabel.build.getNumber(), tmpBuildReport.getFailCount()));
         }
-        return String.valueOf(Messages.WetatorBuildReport_test(tmpLabel.build.getNumber(),
-            tmpBuildReport.getTotalCount()));
+        return String
+            .valueOf(Messages.WetatorBuildReport_test(tmpLabel.build.getNumber(), tmpBuildReport.getTotalCount()));
       }
     };
     tmpPlot.setRenderer(tmpAreaRenderer);

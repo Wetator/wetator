@@ -16,15 +16,6 @@
 
 package org.wetator.jenkins;
 
-import hudson.model.AbstractBuild;
-import hudson.model.Hudson;
-import hudson.util.ChartUtil;
-import hudson.util.ColorPalette;
-import hudson.util.DataSetBuilder;
-import hudson.util.Graph;
-import hudson.util.ShiftedCategoryAxis;
-import hudson.util.StackedAreaRenderer2;
-
 import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
@@ -42,6 +33,15 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.ui.RectangleInsets;
 import org.kohsuke.stapler.Stapler;
 import org.wetator.jenkins.result.AbstractBaseResult;
+
+import hudson.model.AbstractBuild;
+import hudson.model.Hudson;
+import hudson.util.ChartUtil;
+import hudson.util.ColorPalette;
+import hudson.util.DataSetBuilder;
+import hudson.util.Graph;
+import hudson.util.ShiftedCategoryAxis;
+import hudson.util.StackedAreaRenderer2;
 
 /**
  * History of {@link AbstractBaseResult}s over time.
@@ -73,7 +73,7 @@ public class History {
    * @return true if a history is available, so if more than one build was executed
    */
   public boolean historyAvailable() {
-    return (result.getOwner().getParent().getBuilds().size() > 1);
+    return result.getOwner().getParent().getBuilds().size() > 1;
   }
 
   /**
@@ -222,7 +222,7 @@ public class History {
           false, // include legend
           true, // tooltips
           false // urls
-          );
+      );
 
       tmpChart.setBackgroundPaint(Color.white);
 

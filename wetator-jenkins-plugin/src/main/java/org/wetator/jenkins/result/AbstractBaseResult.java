@@ -16,11 +16,6 @@
 
 package org.wetator.jenkins.result;
 
-import hudson.Util;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractModelObject;
-import hudson.model.Run;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Logger;
@@ -30,6 +25,11 @@ import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
 import org.wetator.jenkins.History;
 import org.wetator.jenkins.WetatorBuildReport;
+
+import hudson.Util;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractModelObject;
+import hudson.model.Run;
 
 /**
  * The base class for all test results.
@@ -169,7 +169,7 @@ public abstract class AbstractBaseResult extends AbstractModelObject implements 
    * @return true if the test did not fail, false otherwise.
    */
   public boolean isPassed() {
-    return (getFailCount() == 0);
+    return getFailCount() == 0;
   }
 
   /**

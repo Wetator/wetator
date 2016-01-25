@@ -287,9 +287,6 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
    * @return the result
    */
   public AbstractBaseResult findCorrespondingResult(String aName) {
-    if (getResults() == null) {
-      return null;
-    }
     return getResults().findCorrespondingResult(aName);
   }
 
@@ -362,9 +359,6 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
    */
   public Object getDynamic(String token, StaplerRequest request, StaplerResponse response) {
     // the method parameters must be raw (without leading a) to make stapler work
-    if (getResults() == null) {
-      return null;
-    }
     return getResults().getDynamic(token, request, response);
   }
 }

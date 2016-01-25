@@ -16,8 +16,6 @@
 
 package org.wetator.jenkins.util;
 
-import hudson.util.IOException2;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +24,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPOutputStream;
+
+import hudson.util.IOException2;
 
 /**
  * This is an extension of the {@link hudson.util.AtomicFileWriter} using GZIP compression.<br/>
@@ -71,8 +71,8 @@ public class AtomicGZIPFileWriter extends Writer {
     if (anEncoding == null) {
       anEncoding = Charset.defaultCharset().name();
     }
-    core = new BufferedWriter(new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(temporaryFile)),
-        anEncoding));
+    core = new BufferedWriter(
+        new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(temporaryFile)), anEncoding));
   }
 
   @Override
@@ -124,6 +124,8 @@ public class AtomicGZIPFileWriter extends Writer {
   protected void finalize() throws Throwable {
     // one way or the other, temporary file should be deleted.
     temporaryFile.delete();
+
+    super.finalize();
   }
 
   /**
