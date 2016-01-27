@@ -85,6 +85,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpResourceHandler.getMimeTypes().addMimeMapping("json", "application/json");
     tmpResourceHandler.getMimeTypes().addMimeMapping("xlsx",
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    tmpResourceHandler.getMimeTypes().addMimeMapping("docx",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
     // servlets
     final ServletContextHandler tmpContextHandler = new ServletContextHandler();

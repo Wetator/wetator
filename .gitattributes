@@ -691,12 +691,16 @@ wetator/test/webpage/download/download.txt -text
 wetator/test/webpage/download/gebit.pdf -text svneol=unset#unset
 wetator/test/webpage/download/unknown_content_type.bin -text
 wetator/test/webpage/download/wet_test.csv -text
+wetator/test/webpage/download/wet_test.docx -text
 wetator/test/webpage/download/wet_test.json -text
 wetator/test/webpage/download/wet_test.pdf -text
 wetator/test/webpage/download/wet_test.rtf -text
 wetator/test/webpage/download/wet_test.xls -text
 wetator/test/webpage/download/wet_test.xlsx -text
 wetator/test/webpage/download/wet_test_csv.xls -text
+wetator/test/webpage/download/wet_test_docx.zip -text
+wetator/test/webpage/download/wet_test_docx_error.zip -text
+wetator/test/webpage/download/wet_test_error.docx -text
 wetator/test/webpage/download/wet_test_error.pdf -text
 wetator/test/webpage/download/wet_test_error.rtf -text
 wetator/test/webpage/download/wet_test_error.xls -text
