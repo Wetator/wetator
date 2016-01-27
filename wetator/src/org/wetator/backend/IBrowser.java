@@ -53,6 +53,8 @@ public interface IBrowser {
     XLS,
     /** excel. */
     XLSX,
+    /** word. */
+    DOCX,
     /** rtf. */
     RTF,
     /** png. */
