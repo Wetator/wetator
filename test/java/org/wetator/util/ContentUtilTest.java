@@ -18,7 +18,6 @@ package org.wetator.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -31,31 +30,33 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Test;
 
 /**
+ * Test for {@link ContentUtil}.
+ *
  * @author rbri
  */
 public class ContentUtilTest {
 
   @Test
-  public void getPdfTitleAsString() throws FileNotFoundException, IOException {
+  public void getPdfTitleAsString() throws IOException {
     final String tmpTitle = ContentUtil
         .getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test_title.pdf"));
     org.junit.Assert.assertEquals("WETATOR Titel Test", tmpTitle);
   }
 
   @Test
-  public void getPdfTitleAsStringEmpty() throws FileNotFoundException, IOException {
+  public void getPdfTitleAsStringEmpty() throws IOException {
     final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
     org.junit.Assert.assertEquals("", tmpTitle);
   }
 
   @Test
-  public void getPdfTitleAsStringEncrypted() throws FileNotFoundException, IOException {
+  public void getPdfTitleAsStringEncrypted() throws IOException {
     final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/gebit.pdf"));
     org.junit.Assert.assertEquals("GEBIT Solutions / Firmendarstellung", tmpTitle);
   }
 
   @Test
-  public void getPdfContentAsString() throws FileNotFoundException, IOException {
+  public void getPdfContentAsString() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");
     tmpExpected.append(" ");
@@ -82,7 +83,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getZippedPdfContentAsString() throws FileNotFoundException, IOException {
+  public void getZippedPdfContentAsString() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.pdf]");
     tmpExpected.append(" ");
@@ -118,7 +119,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getRtfContentAsString() throws FileNotFoundException, IOException, BadLocationException {
+  public void getRtfContentAsString() throws IOException, BadLocationException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("Wetator is great.");
 
@@ -128,7 +129,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getZippedRtfContentAsString() throws FileNotFoundException, IOException {
+  public void getZippedRtfContentAsString() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.rtf]");
     tmpExpected.append(" ");
@@ -140,14 +141,48 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getRtfContentAsStringError() throws FileNotFoundException, IOException, BadLocationException {
+  public void getRtfContentAsStringError() throws IOException, BadLocationException {
     final String tmpContent = ContentUtil
         .getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
     org.junit.Assert.assertEquals("", tmpContent);
   }
 
   @Test
-  public void getXlsContentAsStringDE() throws FileNotFoundException, IOException, InvalidFormatException {
+  public void getWordContentAsString() throws IOException, InvalidFormatException {
+    final StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("Wetator is great.");
+
+    final String tmpContent = ContentUtil
+        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.docx"), 4000);
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void getZippedWordContentAsString() throws IOException {
+    final StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[wet_test.docx]");
+    tmpExpected.append(" ");
+    tmpExpected.append("Wetator is great.");
+
+    final String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_docx.zip"), "UTF-8", Locale.ENGLISH, 4000);
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
+  }
+
+  @Test
+  public void getWordContentAsStringError() {
+    try {
+      ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
+      org.junit.Assert.fail("POIXMLException expected");
+    } catch (final Exception e) {
+      org.junit.Assert.assertEquals(
+          "org.apache.poi.POIXMLException: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Package should contain a content type part [M1.13]",
+          e.toString());
+    }
+  }
+
+  @Test
+  public void getXlsContentAsStringDE() throws IOException, InvalidFormatException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -171,7 +206,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getXlsContentAsStringEN() throws FileNotFoundException, IOException, InvalidFormatException {
+  public void getXlsContentAsStringEN() throws IOException, InvalidFormatException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -195,7 +230,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getZippedXlsContentAsStringDE() throws FileNotFoundException, IOException {
+  public void getZippedXlsContentAsStringDE() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.xls]");
     tmpExpected.append(" ");
@@ -248,7 +283,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getXlsxContentAsStringDE() throws FileNotFoundException, IOException, InvalidFormatException {
+  public void getXlsxContentAsStringDE() throws IOException, InvalidFormatException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -272,7 +307,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getXlsxContentAsStringEN() throws FileNotFoundException, IOException, InvalidFormatException {
+  public void getXlsxContentAsStringEN() throws IOException, InvalidFormatException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
     tmpExpected.append(" ");
@@ -296,7 +331,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getZippedXlsxContentAsStringDE() throws FileNotFoundException, IOException {
+  public void getZippedXlsxContentAsStringDE() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.xlsx]");
     tmpExpected.append(" ");
@@ -358,7 +393,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getZippedTxtContentAsString() throws FileNotFoundException, IOException {
+  public void getZippedTxtContentAsString() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[download.txt]");
     tmpExpected.append(" ");
@@ -392,7 +427,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void isTxt() throws FileNotFoundException, IOException {
+  public void isTxt() throws IOException {
     String tmpText = "Some readable text for testing WETATOR.";
     org.junit.Assert.assertTrue(ContentUtil.isTxt(tmpText));
 
@@ -404,7 +439,7 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getZippedContentAsStringMixedContent() throws FileNotFoundException, IOException {
+  public void getZippedContentAsStringMixedContent() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[wet_test.csv]");
     tmpExpected.append(" ");
