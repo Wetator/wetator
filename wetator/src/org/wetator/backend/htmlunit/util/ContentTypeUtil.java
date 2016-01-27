@@ -44,9 +44,15 @@ public final class ContentTypeUtil {
 
     define(ContentType.XML, "xml", "text/xml");
     define(ContentType.PDF, "pdf", "application/pdf");
+    define(ContentType.TEXT, "csv", "text/csv");
+
+    // Excel
     define(ContentType.XLS, "xls", "application/vnd.ms-excel");
     define(ContentType.XLSX, "xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    define(ContentType.TEXT, "csv", "text/csv");
+
+    // Word
+    define(ContentType.DOCX, "docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
     // RTF
     define(ContentType.RTF, "rtf", "application/rtf", "text/rtf", "text/richtext", "text/enriched");
     // images

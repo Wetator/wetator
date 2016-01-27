@@ -39,6 +39,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.poi.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -48,6 +49,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.wetator.backend.IBrowser.ContentType;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 
@@ -231,6 +234,16 @@ public final class ContentUtil {
           throw new IOException(
               "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
+      } else if (ContentType.DOCX == tmpType) {
+        try {
+          tmpResult.append(getWordContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
+        } catch (final IOException e) {
+          throw new IOException(
+              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        } catch (final InvalidFormatException e) {
+          throw new IOException(
+              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        }
       } else if (ContentType.RTF == tmpType) {
         try {
           tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
@@ -257,6 +270,51 @@ public final class ContentUtil {
     }
 
     return tmpResult.toString();
+  }
+
+  /**
+   * Converts an Word document into a normalized string.
+   *
+   * @param anInputStream the input
+   * @param aMaxLength the maximum length
+   * @return the normalizes content string
+   * @throws IOException in case of io errors
+   * @throws InvalidFormatException in case of file has not the expected format
+   */
+  public static String getWordContentAsString(final InputStream anInputStream, final int aMaxLength)
+      throws IOException, InvalidFormatException {
+    NormalizedString tmpResult = new NormalizedString();
+
+    // TODO support old word format
+    try {
+      final XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
+      try {
+        final XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument);
+        try {
+          tmpResult.append(tmpExtractor.getText());
+
+          if (tmpResult.length() <= aMaxLength) {
+            return tmpResult.toString();
+          }
+
+          tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
+          tmpResult.append(MORE);
+          return tmpResult.toString();
+
+        } finally {
+          tmpExtractor.close();
+        }
+      } finally {
+        tmpDocument.close();
+      }
+    } catch (final POIXMLException e) {
+      if (e.getCause() instanceof InvalidFormatException) {
+        throw (InvalidFormatException) e.getCause();
+      }
+      final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage());
+      tmpEx.initCause(e);
+      throw tmpEx;
+    }
   }
 
   /**
