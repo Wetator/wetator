@@ -42,6 +42,9 @@ public class ContentTypeUtilTest {
     tmpType = ContentTypeUtil.getContentTypeForFileName("Test File.XLS");
     Assert.assertEquals(ContentType.XLS, tmpType);
 
+    tmpType = ContentTypeUtil.getContentTypeForFileName("Test File.xlsx");
+    Assert.assertEquals(ContentType.XLSX, tmpType);
+
     tmpType = ContentTypeUtil.getContentTypeForFileName("test.zip");
     Assert.assertEquals(ContentType.ZIP, tmpType);
   }
