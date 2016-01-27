@@ -18,7 +18,7 @@ package org.wetator.util;
 
 /**
  * XmlUtil contains some useful helpers for XML-File handling.
- * 
+ *
  * @author rbri
  */
 public class XMLUtil {
@@ -33,7 +33,7 @@ public class XMLUtil {
   /**
    * Escape the the given string. For use as body text.<br>
    * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns <code>"&amp;lt;\abc&amp;gt;"</code>
-   * 
+   *
    * @param aString the String to be normalized or null
    * @return a new String
    */
@@ -55,6 +55,11 @@ public class XMLUtil {
       tmpChar = aString.charAt(i);
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
+        // ignore
+        tmpResult.append(aString.substring(0, i));
+        i++;
+        break;
+      } else if ((tmpChar > 0xD7FF && tmpChar < 0xE000) || tmpChar > 0xFFFD) {
         // ignore
         tmpResult.append(aString.substring(0, i));
         i++;
@@ -88,7 +93,8 @@ public class XMLUtil {
     while (i < tmpLength) {
       tmpChar = aString.charAt(i);
 
-      if (tmpChar > 31 || tmpChar == 9 || tmpChar == 10 || tmpChar == 13) {
+      if (tmpChar == 9 || tmpChar == 10 || tmpChar == 13
+          || (tmpChar > 31 && (tmpChar <= 0xD7FF || (tmpChar >= 0xE000 && tmpChar <= 0xFFFD)))) {
 
         switch (tmpChar) {
           case '<': {
@@ -128,7 +134,7 @@ public class XMLUtil {
    * Escape the <code>toString</code> of the given String. For use in an
    * attribute value.<br>
    * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns <code>&amp;lt;&amp;apos;abc&amp;gt;</code>
-   * 
+   *
    * @param aString
    *        the String to be normalized or null
    * @return a new String
@@ -148,6 +154,11 @@ public class XMLUtil {
       tmpChar = aString.charAt(i);
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
+        // ignore
+        tmpResult.append(aString.substring(0, i));
+        i++;
+        break;
+      } else if ((tmpChar > 0xD7FF && tmpChar < 0xE000) || tmpChar > 0xFFFD) {
         // ignore
         tmpResult.append(aString.substring(0, i));
         i++;
@@ -190,7 +201,8 @@ public class XMLUtil {
     for (; i < tmpLength; i++) {
       tmpChar = aString.charAt(i);
 
-      if (tmpChar > 31 || tmpChar == 9 || tmpChar == 10 || tmpChar == 13) {
+      if (tmpChar == 9 || tmpChar == 10 || tmpChar == 13
+          || (tmpChar > 31 && (tmpChar <= 0xD7FF || (tmpChar >= 0xE000 && tmpChar <= 0xFFFD)))) {
 
         switch (tmpChar) {
           case '<': {
@@ -231,6 +243,7 @@ public class XMLUtil {
       return aString;
     }
     return tmpResult.toString();
+
   }
 
   private boolean canEncode(final char aChar) {

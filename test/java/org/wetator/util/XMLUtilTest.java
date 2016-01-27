@@ -47,6 +47,14 @@ public class XMLUtilTest {
   }
 
   @Test
+  public void normalizeBodyValue_ForbiddenChars2() {
+    final XMLUtil tmpXMLUtil = new XMLUtil();
+    final String tmpInput = "\uD7FF\uD800\uDFFF\uE000\uFFFD\uFFFE\uFFFF";
+
+    org.junit.Assert.assertEquals("&#55295;&#57344;&#65533;", tmpXMLUtil.normalizeBodyValue(tmpInput));
+  }
+
+  @Test
   public void normalizeBodyValue_Empty() {
     final XMLUtil tmpXMLUtil = new XMLUtil();
     org.junit.Assert.assertEquals("", tmpXMLUtil.normalizeBodyValue(null));
@@ -103,6 +111,14 @@ public class XMLUtilTest {
         + "\u0020\u0010";
 
     org.junit.Assert.assertEquals("\t\r\n ", tmpXMLUtil.normalizeAttributeValue(tmpInput));
+  }
+
+  @Test
+  public void normalizeAttributeValue_ForbiddenChars2() {
+    final XMLUtil tmpXMLUtil = new XMLUtil();
+    final String tmpInput = "\uD7FF\uD800\uDFFF\uE000\uFFFD\uFFFE\uFFFF";
+
+    org.junit.Assert.assertEquals("&#55295;&#57344;&#65533;", tmpXMLUtil.normalizeAttributeValue(tmpInput));
   }
 
   @Test
