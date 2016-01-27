@@ -39,13 +39,15 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.util.PDFTextStripper;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.wetator.backend.IBrowser.ContentType;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 
@@ -176,8 +178,8 @@ public final class ContentUtil {
    * @throws IOException in case of io errors
    * @throws BadLocationException if parsing goes wrong
    */
-  public static String getRtfContentAsString(final InputStream anInputStream, final int aMaxLength) throws IOException,
-  BadLocationException {
+  public static String getRtfContentAsString(final InputStream anInputStream, final int aMaxLength)
+      throws IOException, BadLocationException {
     final RTFEditorKit tmpRtfEditorKit = new RTFEditorKit();
     final Document tmpDocument = tmpRtfEditorKit.createDefaultDocument();
     tmpRtfEditorKit.read(anInputStream, tmpDocument, 0);
@@ -216,25 +218,28 @@ public final class ContentUtil {
         try {
           tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: "
-              + e.toString() + ").");
+          throw new IOException(
+              "Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
-      } else if (ContentType.XLS == tmpType) {
+      } else if (ContentType.XLS == tmpType || ContentType.XLSX == tmpType) {
         try {
-          tmpResult.append(getXlsContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale, aMaxLength));
+          tmpResult.append(getExcelContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale, aMaxLength));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: "
-              + e.toString() + ").");
+          throw new IOException(
+              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        } catch (final InvalidFormatException e) {
+          throw new IOException(
+              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
       } else if (ContentType.RTF == tmpType) {
         try {
           tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: "
-              + e.toString() + ").");
+          throw new IOException(
+              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         } catch (final BadLocationException e) {
-          throw new IOException("Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: "
-              + e.toString() + ").");
+          throw new IOException(
+              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
       } else {
         try {
@@ -255,19 +260,20 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts an xls document into a normalized string.
+   * Converts an Excel document into a normalized string.
    *
    * @param anInputStream the input
    * @param aLocale the locale for formating
    * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of io errors
+   * @throws InvalidFormatException in case of file has not the expected format
    */
-  public static String getXlsContentAsString(final InputStream anInputStream, final Locale aLocale, final int aMaxLength)
-      throws IOException {
+  public static String getExcelContentAsString(final InputStream anInputStream, final Locale aLocale,
+      final int aMaxLength) throws IOException, InvalidFormatException {
     final NormalizedString tmpResult = new NormalizedString();
 
-    final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
+    final Workbook tmpWorkbook = WorkbookFactory.create(anInputStream);
     try {
       final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
@@ -277,13 +283,13 @@ public final class ContentUtil {
       }
 
       for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
-        final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
+        final Sheet tmpSheet = tmpWorkbook.getSheetAt(i);
         tmpResult.append("[");
         tmpResult.append(tmpSheet.getSheetName());
         tmpResult.append("] ");
 
         for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
-          final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
+          final Row tmpRow = tmpSheet.getRow(tmpRowNum);
           if (null != tmpRow) {
             for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
               final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum, tmpFormulaEvaluator, tmpLocale);
@@ -318,9 +324,9 @@ public final class ContentUtil {
    * @param aLocale used for parsing and formating
    * @return the display string
    */
-  public static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo,
+  public static String readCellContentAsString(final Row aRow, final int aColumnsNo,
       final FormulaEvaluator aFormulaEvaluator, final Locale aLocale) {
-    final HSSFCell tmpCell = aRow.getCell(aColumnsNo);
+    final Cell tmpCell = aRow.getCell(aColumnsNo);
     if (null == tmpCell) {
       return null;
     }
