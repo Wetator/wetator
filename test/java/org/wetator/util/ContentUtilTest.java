@@ -101,7 +101,7 @@ public class ContentUtilTest {
     try {
       ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (final Exception e) {
+    } catch (final IOException e) {
       org.junit.Assert.assertEquals("java.io.IOException: Error: Header doesn't contain versioninfo", e.toString());
     }
   }
@@ -112,7 +112,7 @@ public class ContentUtilTest {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_pdf_error.zip"), "UTF-8",
           Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (final Exception e) {
+    } catch (final IOException e) {
       org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text "
           + "(reason: java.io.IOException: Error: Header doesn't contain versioninfo).", e.toString());
     }
@@ -173,10 +173,10 @@ public class ContentUtilTest {
   public void getWordContentAsStringError() {
     try {
       ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
-      org.junit.Assert.fail("POIXMLException expected");
-    } catch (final Exception e) {
+      org.junit.Assert.fail("InvalidFormatException expected");
+    } catch (final InvalidFormatException | IOException e) {
       org.junit.Assert.assertEquals(
-          "org.apache.poi.POIXMLException: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Package should contain a content type part [M1.13]",
+          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Package should contain a content type part [M1.13]",
           e.toString());
     }
   }
@@ -260,8 +260,8 @@ public class ContentUtilTest {
     try {
       ContentUtil.getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH,
           4000);
-      org.junit.Assert.fail("IOException expected");
-    } catch (final Exception e) {
+      org.junit.Assert.fail("InvalidFormatException expected");
+    } catch (final InvalidFormatException | IOException e) {
       org.junit.Assert.assertEquals(
           "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream",
           e.toString());
@@ -274,7 +274,7 @@ public class ContentUtilTest {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xls_error.zip"), "UTF-8",
           Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (final Exception e) {
+    } catch (final IOException e) {
       org.junit.Assert.assertEquals(
           "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
               + "(reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
@@ -361,8 +361,8 @@ public class ContentUtilTest {
     try {
       ContentUtil.getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH,
           4000);
-      org.junit.Assert.fail("IOException expected");
-    } catch (final Exception e) {
+      org.junit.Assert.fail("InvalidFormatException expected");
+    } catch (final InvalidFormatException | IOException e) {
       org.junit.Assert.assertEquals(
           "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream",
           e.toString());
@@ -375,7 +375,7 @@ public class ContentUtilTest {
       ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xlsx_error.zip"), "UTF-8",
           Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
-    } catch (final Exception e) {
+    } catch (final IOException e) {
       org.junit.Assert.assertEquals(
           "java.io.IOException: Can't convert the zipped xls 'wet_test.xlsx' into text "
               + "(reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",

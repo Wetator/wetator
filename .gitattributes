@@ -483,12 +483,16 @@ test/webpage/download/download.txt -text
 test/webpage/download/gebit.pdf -text svneol=unset#unset
 test/webpage/download/unknown_content_type.bin -text
 test/webpage/download/wet_test.csv -text
+test/webpage/download/wet_test.docx -text
 test/webpage/download/wet_test.json -text
 test/webpage/download/wet_test.pdf -text
 test/webpage/download/wet_test.rtf -text
 test/webpage/download/wet_test.xls -text
 test/webpage/download/wet_test.xlsx -text
 test/webpage/download/wet_test_csv.xls -text
+test/webpage/download/wet_test_docx.zip -text
+test/webpage/download/wet_test_docx_error.zip -text
+test/webpage/download/wet_test_error.docx -text
 test/webpage/download/wet_test_error.pdf -text
 test/webpage/download/wet_test_error.rtf -text
 test/webpage/download/wet_test_error.xls -text
