@@ -37,6 +37,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.control.IControl;
@@ -1356,13 +1357,13 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
 
-      if (ContentType.XLS == tmpContentType) {
+      if (ContentType.XLS == tmpContentType || ContentType.XLSX == tmpContentType) {
         String tmpNormalizedContent = "";
         try {
           final String tmpAcceptLangHeader = tmpPage.getWebResponse().getWebRequest().getAdditionalHeaders()
               .get("Accept-Language");
           final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(tmpAcceptLangHeader);
-          tmpNormalizedContent = ContentUtil.getXlsContentAsString(tmpResponse.getContentAsStream(), tmpLocale,
+          tmpNormalizedContent = ContentUtil.getExcelContentAsString(tmpResponse.getContentAsStream(), tmpLocale,
               MAX_LENGTH);
         } catch (final IOException e) {
           // some server send csv files with xls mime type
@@ -1379,6 +1380,8 @@ public final class HtmlUnitBrowser implements IBrowser {
           } catch (final IOException eAsString) {
             Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
           }
+          Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
+        } catch (final InvalidFormatException e) {
           Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
         }
         matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
