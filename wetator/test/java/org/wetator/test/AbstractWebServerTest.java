@@ -83,6 +83,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
     tmpResourceHandler.getMimeTypes().addMimeMapping("json", "application/json");
+    tmpResourceHandler.getMimeTypes().addMimeMapping("xlsx",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
     // servlets
     final ServletContextHandler tmpContextHandler = new ServletContextHandler();
@@ -140,9 +142,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, "de-de,de;q=0.8,en-us;q=0.5,en;q=0.3");
 
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/run_report.xsl");
-    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS,
-        "org.wetator.commandset.IncubatorCommandSet, " + "org.wetator.commandset.SqlCommandSet, "
-            + "org.wetator.commandset.TestCommandSet");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, "org.wetator.commandset.IncubatorCommandSet, "
+        + "org.wetator.commandset.SqlCommandSet, " + "org.wetator.commandset.TestCommandSet");
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
     tmpProperties.setProperty("wetator.basicAuthUser", "wetator");
