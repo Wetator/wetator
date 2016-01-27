@@ -1365,23 +1365,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           final Locale tmpLocale = ContentUtil.determineLocaleFromRequestHeader(tmpAcceptLangHeader);
           tmpNormalizedContent = ContentUtil.getExcelContentAsString(tmpResponse.getContentAsStream(), tmpLocale,
               MAX_LENGTH);
-        } catch (final IOException e) {
-          // some server send csv files with xls mime type
-          // so lets make another try
-          try {
-            tmpNormalizedContent = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
-                tmpResponse.getContentCharset(), MAX_LENGTH);
-
-            if (ContentUtil.isTxt(tmpNormalizedContent)) {
-              wetatorEngine.informListenersWarn("xlsConversionToTextFailed", new String[] { e.getMessage() }, e);
-              matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
-              return tmpPageChanged;
-            }
-          } catch (final IOException eAsString) {
-            Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
-          }
-          Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-        } catch (final InvalidFormatException e) {
+        } catch (final IOException | InvalidFormatException e) {
           // some server send csv files with xls mime type
           // so lets make another try
           try {
@@ -1400,6 +1384,18 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
         matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
+      }
+
+      if (ContentType.DOCX == tmpContentType) {
+        try {
+          final String tmpNormalizedContent = ContentUtil.getWordContentAsString(tmpResponse.getContentAsStream(),
+              MAX_LENGTH);
+          matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
+          return tmpPageChanged;
+        } catch (final IOException | InvalidFormatException e) {
+          Assert.fail("docConversionToTextFailed", new String[] { e.getMessage() });
+          return tmpPageChanged;
+        }
       }
 
       if (ContentType.RTF == tmpContentType) {
