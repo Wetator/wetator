@@ -256,7 +256,7 @@ public class ResultXMLBuilder {
         "<executionTime$2>" + OVERALL_EXECUTION_TIME);
     // replace stacktraces
     tmpResult = replaceLines(tmpResult, "<details id=\"##ID##\">[^\\n]*", "</details>", null, "##DETAILS##");
-    System.out.println(tmpResult);
+    // System.out.println(tmpResult);
     return tmpResult;
   }
 

@@ -43,6 +43,7 @@ import hudson.Functions;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.ProminentProjectAction;
+import hudson.model.Run;
 import hudson.util.Area;
 import hudson.util.ChartUtil;
 import hudson.util.ChartUtil.NumberOnlyBuildLabel;
@@ -74,7 +75,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
   public String getIconFileName() {
     WetatorBuildReport tmpBuildReport = getLastCompletedBuildReport();
     if (tmpBuildReport == null) {
-      // no wetator result so far -> hide the summary by returning null
+      // no Wetator result so far -> hide the summary by returning null
       return null;
     }
     return PluginImpl.ICON_FILE_NAME;
@@ -164,7 +165,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
     // the method parameters must be raw (without leading a) to make stapler work
     WetatorBuildReport tmpBuildReport = getLastCompletedBuildReport();
     if (tmpBuildReport == null) {
-      // no wetator result so far
+      // no Wetator result so far
       response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       return;
     }
@@ -195,7 +196,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
     // the method parameters must be raw (without leading a) to make stapler work
     WetatorBuildReport tmpBuildReport = getLastCompletedBuildReport();
     if (tmpBuildReport == null) {
-      // no wetator result so far
+      // no Wetator result so far
       response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       return;
     }
@@ -270,10 +271,12 @@ public class WetatorProjectReport implements ProminentProjectAction {
         // no report so just ignore the build
         continue;
       }
-      tmpDataSetBuilder.add(tmpReport.getFailCount(), "failed", new NumberOnlyBuildLabel(tmpReport.build));
+      tmpDataSetBuilder.add(tmpReport.getFailCount(), "failed", new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
       if (!tmpFailureOnly) {
-        tmpDataSetBuilder.add(tmpReport.getTotalCount() - tmpReport.getFailCount(), "passed",
-            new NumberOnlyBuildLabel(tmpReport.build));
+        tmpDataSetBuilder.add(tmpReport.getSkipCount(), "skipped",
+            new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
+        tmpDataSetBuilder.add(tmpReport.getTotalCount() - tmpReport.getFailCount() - tmpReport.getSkipCount(), "passed",
+            new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
       }
     }
     return tmpDataSetBuilder.build();
@@ -330,23 +333,28 @@ public class WetatorProjectReport implements ProminentProjectAction {
       @Override
       public String generateURL(CategoryDataset aCategoryDataset, int aRow, int aColumn) {
         NumberOnlyBuildLabel tmpLabel = (NumberOnlyBuildLabel) aCategoryDataset.getColumnKey(aColumn);
-        return tmpRelPath + tmpLabel.build.getNumber() + "/" + getUrlName() + "/";
+        return tmpRelPath + tmpLabel.getRun().getNumber() + "/" + getUrlName() + "/";
       }
 
       @Override
       public String generateToolTip(CategoryDataset aCategoryDataset, int aRow, int aColumn) {
         NumberOnlyBuildLabel tmpLabel = (NumberOnlyBuildLabel) aCategoryDataset.getColumnKey(aColumn);
-        WetatorBuildReport tmpBuildReport = tmpLabel.build.getAction(WetatorBuildReport.class);
+        WetatorBuildReport tmpBuildReport = tmpLabel.getRun().getAction(WetatorBuildReport.class);
         if (aRow == 0) {
           return String
-              .valueOf(Messages.WetatorBuildReport_fail(tmpLabel.build.getNumber(), tmpBuildReport.getFailCount()));
+              .valueOf(Messages.WetatorBuildReport_fail(tmpLabel.getRun().getNumber(), tmpBuildReport.getFailCount()));
+        }
+        if (aRow == 1) {
+          return String.valueOf(
+              Messages.WetatorBuildReport_skipped(tmpLabel.getRun().getNumber(), tmpBuildReport.getSkipCount()));
         }
         return String
-            .valueOf(Messages.WetatorBuildReport_test(tmpLabel.build.getNumber(), tmpBuildReport.getTotalCount()));
+            .valueOf(Messages.WetatorBuildReport_test(tmpLabel.getRun().getNumber(), tmpBuildReport.getTotalCount()));
       }
     };
     tmpPlot.setRenderer(tmpAreaRenderer);
     tmpAreaRenderer.setSeriesPaint(0, ColorPalette.RED); // Failures.
+    tmpAreaRenderer.setSeriesPaint(1, ColorPalette.YELLOW); // Skips.
     tmpAreaRenderer.setSeriesPaint(1, ColorPalette.BLUE); // Passes.
 
     // crop extra space around the graph

@@ -25,7 +25,7 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPOutputStream;
 
-import hudson.util.IOException2;
+import hudson.Util;
 
 /**
  * This is an extension of the {@link hudson.util.AtomicFileWriter} using GZIP compression.<br/>
@@ -42,7 +42,7 @@ public class AtomicGZIPFileWriter extends Writer {
   private final File destinationFile;
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Writes with UTF-8 encoding.
    *
    * @param aFile the file to write
@@ -52,7 +52,7 @@ public class AtomicGZIPFileWriter extends Writer {
   }
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Writes with the given encoding.
    *
    * @param aFile the file to write
@@ -65,7 +65,7 @@ public class AtomicGZIPFileWriter extends Writer {
       tmpDirectory.mkdirs();
       temporaryFile = File.createTempFile("atomic", null, tmpDirectory);
     } catch (IOException e) {
-      throw new IOException2("Failed to create a temporary file in " + tmpDirectory, e);
+      throw new IOException("Failed to create a temporary file in " + tmpDirectory, e);
     }
     destinationFile = aFile;
     if (anEncoding == null) {
@@ -113,9 +113,13 @@ public class AtomicGZIPFileWriter extends Writer {
 
   public void commit() throws IOException {
     close();
-    if (destinationFile.exists() && !destinationFile.delete()) {
-      temporaryFile.delete();
-      throw new IOException("Unable to delete " + destinationFile);
+    if (destinationFile.exists()) {
+      try {
+        Util.deleteFile(destinationFile);
+      } catch (IOException x) {
+        temporaryFile.delete();
+        throw x;
+      }
     }
     temporaryFile.renameTo(destinationFile);
   }
@@ -123,6 +127,7 @@ public class AtomicGZIPFileWriter extends Writer {
   @Override
   protected void finalize() throws Throwable {
     // one way or the other, temporary file should be deleted.
+    close();
     temporaryFile.delete();
 
     super.finalize();

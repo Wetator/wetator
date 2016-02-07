@@ -35,13 +35,13 @@ import org.kohsuke.stapler.Stapler;
 import org.wetator.jenkins.result.AbstractBaseResult;
 
 import hudson.model.AbstractBuild;
-import hudson.model.Hudson;
 import hudson.util.ChartUtil;
 import hudson.util.ColorPalette;
 import hudson.util.DataSetBuilder;
 import hudson.util.Graph;
 import hudson.util.ShiftedCategoryAxis;
 import hudson.util.StackedAreaRenderer2;
+import jenkins.model.Jenkins;
 
 /**
  * History of {@link AbstractBaseResult}s over time.
@@ -72,6 +72,7 @@ public class History {
   /**
    * @return true if a history is available, so if more than one build was executed
    */
+  @SuppressWarnings("deprecation")
   public boolean historyAvailable() {
     return result.getOwner().getParent().getBuilds().size() > 1;
   }
@@ -81,6 +82,7 @@ public class History {
    * @param end the index of the last build to get the result of
    * @return a list containing the results
    */
+  @SuppressWarnings("deprecation")
   public List<AbstractBaseResult> getList(int start, int end) {
     // the method parameters must be raw (without leading a) to make stapler work
     List<AbstractBaseResult> tmpList = new ArrayList<>();
@@ -105,6 +107,7 @@ public class History {
   /**
    * @return a list containing the results of all builds
    */
+  @SuppressWarnings("deprecation")
   public List<AbstractBaseResult> getList() {
     return getList(0, result.getOwner().getParent().getBuilds().size());
   }
@@ -132,6 +135,9 @@ public class History {
             public Color getColor() {
               if (baseResult.getFailCount() > 0) {
                 return ColorPalette.RED;
+              }
+              if (baseResult.getSkipCount() > 0) {
+                return ColorPalette.YELLOW;
               }
               return ColorPalette.BLUE;
             }
@@ -171,14 +177,19 @@ public class History {
             public String getToolTip(int aRow) {
               if (aRow == 0) {
                 return baseResult.getOwner().getDisplayName() + " : "
+                    + Messages.History_skip(baseResult.getSkipCount());
+              }
+              if (aRow == 1) {
+                return baseResult.getOwner().getDisplayName() + " : "
                     + Messages.History_fail(baseResult.getFailCount());
               }
-              return baseResult.getOwner().getDisplayName() + " : "
-                  + Messages.History_test(baseResult.getPassCount() + baseResult.getFailCount());
+              return baseResult.getOwner().getDisplayName() + " : " + Messages
+                  .History_test(baseResult.getPassCount() + baseResult.getFailCount() + baseResult.getSkipCount());
             }
           };
           tmpData.add(tmpResult.getPassCount(), "2Passed", tmpLabel);
           tmpData.add(tmpResult.getFailCount(), "1Failed", tmpLabel);
+          tmpData.add(tmpResult.getSkipCount(), "0Skipped", tmpLabel);
         }
         return tmpData;
       }
@@ -275,8 +286,9 @@ public class History {
         }
       };
       tmpPlot.setRenderer(tmpAreaRenderer);
-      tmpAreaRenderer.setSeriesPaint(0, ColorPalette.RED); // Failures.
-      tmpAreaRenderer.setSeriesPaint(1, ColorPalette.BLUE); // Total.
+      tmpAreaRenderer.setSeriesPaint(0, ColorPalette.YELLOW); // Skips.
+      tmpAreaRenderer.setSeriesPaint(1, ColorPalette.RED); // Failures.
+      tmpAreaRenderer.setSeriesPaint(2, ColorPalette.BLUE); // Total.
 
       // crop extra space around the graph
       tmpPlot.setInsets(new RectangleInsets(0, 0, 0, 5.0));
@@ -319,7 +331,7 @@ public class History {
       AbstractBuild<?, ?> tmpBuild = baseResult.getOwner();
       String tmpBuildLink = tmpBuild.getUrl();
       String tmpActionUrl = baseResult.getOwner().getAction(WetatorBuildReport.class).getUrlName();
-      url = Hudson.getInstance().getRootUrl() + tmpBuildLink + tmpActionUrl + baseResult.getUrl();
+      url = Jenkins.getInstance().getRootUrl() + tmpBuildLink + tmpActionUrl + baseResult.getUrl();
     }
 
     /**

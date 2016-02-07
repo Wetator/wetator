@@ -26,6 +26,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -46,8 +47,8 @@ import org.wetator.jenkins.result.TestResults;
 import hudson.AbortException;
 import hudson.FilePath;
 import hudson.Util;
-import hudson.model.AbstractBuild;
 import hudson.remoting.VirtualChannel;
+import jenkins.MasterToSlaveFileCallable;
 
 /**
  * This parser parses some Wetator XML result files and generates a {@link TestResults} containing all results of all
@@ -62,21 +63,34 @@ public class WetatorResultParser {
   private static final String PATH_TEST_RUN = PATH_TEST_CASE + "/testrun";
   private static final String PATH_TEST_FILE = PATH_TEST_RUN + "/testfile";
 
+  private boolean allowEmptyResults;
+
+  /**
+   * @param anAllowEmptyResults if true empty results are allowed
+   */
+  public WetatorResultParser(boolean anAllowEmptyResults) {
+    allowEmptyResults = anAllowEmptyResults;
+  }
+
   /**
    * Starts a process on the <b>slave</b> parsing the test results.
    *
-   * @param aTestResultLocations the location of the test results
-   * @param aTestReportLocations the location of the test reports (optional)
-   * @param aBuild the build
+   * @param aTestResultLocations the pattern relative to the {@code workspace} that specifies the locations of the test
+   *        result files; never null
+   * @param aTestReportLocations the pattern relative to the {@code workspace} that specifies the locations of the test
+   *        reports; may be null
+   * @param aWorkspace the workspace in which tests can be found
    * @return a {@link TestResults} containing all results of all files parsed
-   * @throws InterruptedException in case of problems with the slave
-   * @throws IOException in case of problems with the slave
+   * @throws InterruptedException if the user cancels the build, it will be received as a thread interruption; do not
+   *         catch it, and instead just forward that through the call stack
+   * @throws IOException if you don't care about handling exceptions gracefully, you can just throw IOException and let
+   *         the default exception handling in Jenkins takes care of it
+   * @throws AbortException if you encounter an error that you handled gracefully, throw this exception and Jenkins will
+   *         not show a stack trace
    */
-  public TestResults parse(String aTestResultLocations, String aTestReportLocations, AbstractBuild<?, ?> aBuild)
+  public TestResults parseResult(String aTestResultLocations, String aTestReportLocations, @Nonnull FilePath aWorkspace)
       throws InterruptedException, IOException {
-    TestResults tmpTestResults = aBuild.getWorkspace()
-        .act(new ParseResultCallable(aTestResultLocations, aTestReportLocations));
-    return tmpTestResults;
+    return aWorkspace.act(new ParseResultCallable(aTestResultLocations, aTestReportLocations, allowEmptyResults));
   }
 
   /**
@@ -253,36 +267,40 @@ public class WetatorResultParser {
    *
    * @author frank.danek
    */
-  private static final class ParseResultCallable implements FilePath.FileCallable<TestResults> {
+  private static final class ParseResultCallable extends MasterToSlaveFileCallable<TestResults> {
 
     private static final long serialVersionUID = -876970965386374113L;
 
     private String testResultLocations;
     private String testReportLocations;
+    private boolean allowEmptyResults;
 
     /**
      * The constructor.
      *
-     * @param aTestResultLocations the location of the test results
-     * @param aTestReportLocations the location of the test reports (optional)
+     * @param aTestResultLocations the pattern relative to the {@code workspace} that specifies the locations of the
+     *        test result files; never null
+     * @param aTestReportLocations the pattern relative to the {@code workspace} that specifies the locations of the
+     *        test reports; may be null
+     * @param anAllowEmptyResults if true empty results are allowed
      */
-    private ParseResultCallable(String aTestResultLocations, String aTestReportLocations) {
+    private ParseResultCallable(String aTestResultLocations, String aTestReportLocations, boolean anAllowEmptyResults) {
       testResultLocations = aTestResultLocations;
       testReportLocations = aTestReportLocations;
+      allowEmptyResults = anAllowEmptyResults;
     }
 
     @Override
     public TestResults invoke(File aWorkspace, VirtualChannel aChannel) throws IOException {
-      // compared to the junit parser we do not check the last modified of the result against the build time
-
+      // compared to the JUnit parser we do not check the last modified of the result against the build time
       FileSet tmpResultFileSet = Util.createFileSet(aWorkspace, testResultLocations);
       DirectoryScanner tmpResultScanner = tmpResultFileSet.getDirectoryScanner();
 
       String[] tmpResultFiles = tmpResultScanner.getIncludedFiles();
-      if (tmpResultFiles.length == 0) {
+
+      if (tmpResultFiles.length == 0 && !allowEmptyResults) {
         // no test result. Most likely a configuration error or fatal problem
         throw new AbortException(Messages.WetatorRecorder_NoTestReportFound());
-        // TODO make abortion for missing test results optional?
       }
 
       TestResults tmpAllResults = new TestResults(UUID.randomUUID().toString());
@@ -305,21 +323,15 @@ public class WetatorResultParser {
       File tmpBaseDir = tmpResultScanner.getBasedir();
       for (String tmpFile : tmpResultFiles) {
         File tmpReportFile = new File(tmpBaseDir, tmpFile);
-        TestResults tmpTestResults;
-        InputStream tmpInputStream = new FileInputStream(tmpReportFile);
-        try {
-          tmpTestResults = parse(tmpInputStream);
+        try (InputStream tmpInputStream = new FileInputStream(tmpReportFile)) {
+          TestResults tmpTestResults = parse(tmpInputStream);
           if (tmpTestResults != null) {
             tmpAllResults.add(tmpTestResults);
           }
         } catch (XMLStreamException e) {
-          // TODO exception handling
-          e.printStackTrace();
-        } finally {
-          tmpInputStream.close();
+          throw new IOException("Failed to read " + tmpReportFile, e);
         }
       }
-
       tmpAllResults.tally();
 
       return tmpAllResults;

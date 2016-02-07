@@ -16,6 +16,7 @@
 
 package org.wetator.jenkins.plugin;
 
+import org.junit.Test;
 import org.wetator.core.TestCase;
 import org.wetator.jenkins.test.ResultXMLBuilder;
 
@@ -29,7 +30,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class WetatorReportLinkTest extends AbstractPluginTest {
 
-  public void testReport() throws Exception {
+  @Test
+  public void report() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -51,7 +53,8 @@ public class WetatorReportLinkTest extends AbstractPluginTest {
     WebAssert.assertTextPresent(tmpWetatorReportPage, "Dummy Report");
   }
 
-  public void testNoReport() throws Exception {
+  @Test
+  public void noReport() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 

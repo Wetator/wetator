@@ -50,16 +50,14 @@ import hudson.util.FormValidation;
  */
 public class WetatorRecorder extends Recorder {
 
-  /**
-   * {@link FileSet} "includes" string, like "foo/bar/*.xml"
-   */
+  /** {@link FileSet} "includes" string, like "foo/bar/*.xml" */
   private String testResults;
-  /**
-   * {@link FileSet} "includes" string, like "foo/bar/*.xml"
-   */
+  /** {@link FileSet} "includes" string, like "foo/bar/*.xml" */
   private String testReports;
   private String unstableThreshold;
   private String failureThreshold;
+  /** If true, don't throw an exception on missing test results or no files found */
+  private boolean allowEmptyResults;
 
   /**
    * The constructor.
@@ -115,7 +113,6 @@ public class WetatorRecorder extends Recorder {
   public boolean perform(AbstractBuild<?, ?> aBuild, Launcher aLauncher, BuildListener aListener)
       throws InterruptedException, IOException {
     aListener.getLogger().println(Messages.WetatorRecorder_Recording());
-    WetatorBuildReport tmpReport;
 
     final String tmpTestResults = aBuild.getEnvironment(aListener).expand(testResults);
     String tmpTestReports = null;
@@ -123,8 +120,10 @@ public class WetatorRecorder extends Recorder {
       tmpTestReports = aBuild.getEnvironment(aListener).expand(testReports);
     }
 
+    WetatorBuildReport tmpReport;
     try {
-      TestResults tmpResult = new WetatorResultParser().parse(tmpTestResults, tmpTestReports, aBuild);
+      TestResults tmpResult = new WetatorResultParser(allowEmptyResults).parseResult(tmpTestResults, tmpTestReports,
+          aBuild.getWorkspace());
       tmpResult.setName(PluginImpl.TEST_RESULTS_NAME);
 
       try {
@@ -148,7 +147,7 @@ public class WetatorRecorder extends Recorder {
       return true;
     }
 
-    aBuild.getActions().add(tmpReport);
+    aBuild.replaceAction(tmpReport);
 
     if (tmpReport.getResults().getFailCount() > Integer.parseInt(unstableThreshold)) {
       aBuild.setResult(Result.UNSTABLE);
@@ -199,6 +198,9 @@ public class WetatorRecorder extends Recorder {
     public FormValidation doCheckTestResults(@AncestorInPath AbstractProject<?, ?> project,
         @QueryParameter String value) throws IOException {
       // the method parameters must be raw (without leading a) to make stapler work
+      if (project == null) {
+        return FormValidation.ok();
+      }
       return FilePath.validateFileMask(project.getSomeWorkspace(), value);
     }
 
@@ -213,7 +215,7 @@ public class WetatorRecorder extends Recorder {
     public FormValidation doCheckUnstableThreshold(@AncestorInPath AbstractProject<?, ?> project,
         @QueryParameter String value) throws IOException {
       // the method parameters must be raw (without leading a) to make stapler work
-      if (value == null || "".equals(value)) {
+      if (StringUtils.isBlank(value)) {
         return FormValidation.ok();
       }
       return FormValidation.validateNonNegativeInteger(value);
@@ -230,7 +232,7 @@ public class WetatorRecorder extends Recorder {
     public FormValidation doCheckFailureThreshold(@AncestorInPath AbstractProject<?, ?> project,
         @QueryParameter String value) throws IOException {
       // the method parameters must be raw (without leading a) to make stapler work
-      if (value == null || "".equals(value)) {
+      if (StringUtils.isBlank(value)) {
         return FormValidation.ok();
       }
       return FormValidation.validateNonNegativeInteger(value);

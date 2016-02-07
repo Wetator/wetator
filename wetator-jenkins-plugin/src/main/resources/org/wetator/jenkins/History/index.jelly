@@ -21,7 +21,6 @@
                 document.getElementById("graph").alt = document.getElementById("count-graph").alt;
 				document.getElementById("duration-link").style.display = "";
 				document.getElementById("count-link").style.display = "none";
-                //Behaviour.apply();
 			}
 			function setDuration() {
 				document.getElementById("graph").src = document.getElementById("duration-graph").src;
@@ -29,7 +28,6 @@
                 document.getElementById("graph").alt = document.getElementById("duration-graph").alt;
 				document.getElementById("duration-link").style.display = "none";
 				document.getElementById("count-link").style.display = "";
-                //Behaviour.apply();
 			}
 		 </script>
 
@@ -55,12 +53,12 @@
       </j:choose>
       <st:include from="${it.result}" it="${it.result}" page="list.jelly" optional="true"/>
       	<div>
-	      <j:if test="${start > 0}">
-	      		<a href="${app.rootUrl}${it.result.owner.url}${it.result.parentBuildReport.urlName}${it.result.url}/history${(start-25)>0?'?start='+(start-25):''}">${%Newer}</a>
-	      </j:if>
-	       
 	      <j:if test="${it.result.owner.project.builds.size() > end}">
 	      		<a href="${app.rootUrl}${it.result.owner.url}${it.result.parentBuildReport.urlName}${it.result.url}/history?start=${end+1}">${%Older}</a>
+	      </j:if>
+
+	      <j:if test="${start > 0}">
+	      		<a href="${app.rootUrl}${it.result.owner.url}${it.result.parentBuildReport.urlName}${it.result.url}/history${(start-25)>0?'?start='+(start-25):''}">${%Newer}</a>
 	      </j:if>
       	</div>
     </l:main-panel>

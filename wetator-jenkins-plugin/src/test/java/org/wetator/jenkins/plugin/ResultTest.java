@@ -18,6 +18,7 @@ package org.wetator.jenkins.plugin;
 
 import java.io.FileNotFoundException;
 
+import org.junit.Test;
 import org.wetator.core.TestCase;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.jenkins.test.ResultXMLBuilder;
@@ -34,7 +35,8 @@ import hudson.model.Result;
 // TODO assert anchors
 public class ResultTest extends AbstractPluginTest {
 
-  public void testGreen() throws Exception {
+  @Test
+  public void green() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -68,7 +70,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserPage(ResultXMLBuilder.FF38, "Passed", "20 ms", tmpBrowserPage);
   }
 
-  public void testGreenWithModule() throws Exception {
+  @Test
+  public void greenWithModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -106,7 +109,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserPage(ResultXMLBuilder.FF38, "Passed", "50 ms", tmpBrowserPage);
   }
 
-  public void testInSubFolder() throws Exception {
+  @Test
+  public void inSubFolder() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase("sub/test%TESTNO%.wet");
 
@@ -140,7 +144,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserPage(ResultXMLBuilder.FF38, "Passed", "20 ms", tmpBrowserPage);
   }
 
-  public void testBlue() throws Exception {
+  @Test
+  public void blue() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -179,7 +184,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Failure", "2 " + ResultXMLBuilder.COMMAND_NAME, "test failure", tmpBrowserPage);
   }
 
-  public void testBlueWithCommandParameter() throws Exception {
+  @Test
+  public void blueWithCommandParameter() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -218,7 +224,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Failure", "2 " + ResultXMLBuilder.COMMAND_NAME + " value1", "test failure", tmpBrowserPage);
   }
 
-  public void testBlueWithMultipleCommandParameters() throws Exception {
+  @Test
+  public void blueWithMultipleCommandParameters() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -258,7 +265,8 @@ public class ResultTest extends AbstractPluginTest {
         tmpBrowserPage);
   }
 
-  public void testBlueBeforeModule() throws Exception {
+  @Test
+  public void blueBeforeModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -301,7 +309,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Failure", "2 " + ResultXMLBuilder.COMMAND_NAME, "test failure", tmpBrowserPage);
   }
 
-  public void testBlueInModule() throws Exception {
+  @Test
+  public void blueInModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -345,7 +354,8 @@ public class ResultTest extends AbstractPluginTest {
         "test failure", tmpBrowserPage);
   }
 
-  public void testBlueAfterModule() throws Exception {
+  @Test
+  public void blueAfterModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -388,7 +398,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Failure", "5 " + ResultXMLBuilder.COMMAND_NAME, "test failure", tmpBrowserPage);
   }
 
-  public void testRed() throws Exception {
+  @Test
+  public void red() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -427,7 +438,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Error", "2 " + ResultXMLBuilder.COMMAND_NAME, "test error", tmpBrowserPage);
   }
 
-  public void testRedWithCommandParameter() throws Exception {
+  @Test
+  public void redWithCommandParameter() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -466,7 +478,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Error", "2 " + ResultXMLBuilder.COMMAND_NAME + " value1", "test error", tmpBrowserPage);
   }
 
-  public void testRedWithMultipleCommandParameters() throws Exception {
+  @Test
+  public void redWithMultipleCommandParameters() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -506,7 +519,8 @@ public class ResultTest extends AbstractPluginTest {
         tmpBrowserPage);
   }
 
-  public void testRedBeforeModule() throws Exception {
+  @Test
+  public void redBeforeModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -549,7 +563,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Error", "2 " + ResultXMLBuilder.COMMAND_NAME, "test error", tmpBrowserPage);
   }
 
-  public void testRedInModule() throws Exception {
+  @Test
+  public void redInModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -593,7 +608,8 @@ public class ResultTest extends AbstractPluginTest {
         "test error", tmpBrowserPage);
   }
 
-  public void testRedAfterModule() throws Exception {
+  @Test
+  public void redAfterModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -636,7 +652,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Error", "5 " + ResultXMLBuilder.COMMAND_NAME, "test error", tmpBrowserPage);
   }
 
-  public void testBlueRedPriority() throws Exception {
+  @Test
+  public void blueRedPriority() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -674,7 +691,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Failure", "1 " + ResultXMLBuilder.COMMAND_NAME, "test failure", tmpBrowserPage);
   }
 
-  public void testBlueRedPriorityInModule() throws Exception {
+  @Test
+  public void blueRedPriorityInModule() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -714,7 +732,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserError("Failure", "1 " + ResultXMLBuilder.COMMAND_NAME, "test failure", tmpBrowserPage);
   }
 
-  public void testExceptionInvalidInputWhileReadingCommands() throws Exception {
+  @Test
+  public void exceptionInvalidInputWhileReadingCommands() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -758,7 +777,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserSkipped(tmpBrowserPage);
   }
 
-  public void testExceptionInvalidInputDuringCommandExecution() throws Exception {
+  @Test
+  public void exceptionInvalidInputDuringCommandExecution() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -804,7 +824,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserSkipped(tmpBrowserPage);
   }
 
-  public void testExceptionInvalidInputModuleNotFound() throws Exception {
+  @Test
+  public void exceptionInvalidInputModuleNotFound() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -852,7 +873,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserSkipped(tmpBrowserPage);
   }
 
-  public void testExceptionJavaError() throws Exception {
+  @Test
+  public void exceptionJavaError() throws Exception {
     builder.startEngine();
     builder.startTestCase();
 
@@ -896,7 +918,8 @@ public class ResultTest extends AbstractPluginTest {
     assertBrowserSkipped(tmpBrowserPage);
   }
 
-  public void testExceptionJavaErrorMultipleTestCases() throws Exception {
+  @Test
+  public void exceptionJavaErrorMultipleTestCases() throws Exception {
     builder.startEngine();
 
     TestCase tmpTestCase = builder.startTestCase();

@@ -16,10 +16,6 @@
 
 package org.wetator.jenkins.util;
 
-import hudson.Util;
-import hudson.util.IOException2;
-import hudson.util.XStream2;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,15 +33,19 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.Locator2;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.ConversionException;
+import com.thoughtworks.xstream.XStreamException;
 import com.thoughtworks.xstream.io.StreamException;
-import com.thoughtworks.xstream.io.xml.XppReader;
+import com.thoughtworks.xstream.io.xml.XppDriver;
+
+import hudson.Util;
+import hudson.util.XStream2;
 
 /**
  * This is an extension of the {@link hudson.XmlFile} using GZIP compression.<br/>
@@ -64,9 +64,12 @@ public class GZIPXMLFile {
    */
   private static final XStream DEFAULT_XSTREAM = new XStream2();
   private static final SAXParserFactory JAXP = SAXParserFactory.newInstance();
+
   static {
     JAXP.setNamespaceAware(true);
   }
+
+  private static final XppDriver DEFAULT_DRIVER = new XppDriver();
 
   private final XStream xs;
   private final File file;
@@ -121,12 +124,10 @@ public class GZIPXMLFile {
     Reader tmpReader = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
     try {
       return xs.fromXML(tmpReader);
-    } catch (StreamException e) {
-      throw new IOException2("Unable to read " + file, e);
-    } catch (ConversionException e) {
-      throw new IOException2("Unable to read " + file, e);
+    } catch (XStreamException e) {
+      throw new IOException("Unable to read " + file, e);
     } catch (Error e) { // mostly reflection errors
-      throw new IOException2("Unable to read " + file, e);
+      throw new IOException("Unable to read " + file, e);
     } finally {
       tmpReader.close();
     }
@@ -143,13 +144,11 @@ public class GZIPXMLFile {
   public Object unmarshal(Object anObject) throws IOException {
     Reader tmpReader = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
     try {
-      return xs.unmarshal(new XppReader(tmpReader), anObject);
-    } catch (StreamException e) {
-      throw new IOException2("Unable to read " + file, e);
-    } catch (ConversionException e) {
-      throw new IOException2("Unable to read " + file, e);
+      return xs.unmarshal(DEFAULT_DRIVER.createReader(tmpReader), anObject);
+    } catch (XStreamException e) {
+      throw new IOException("Unable to read " + file, e);
     } catch (Error e) {// mostly reflection errors
-      throw new IOException2("Unable to read " + file, e);
+      throw new IOException("Unable to read " + file, e);
     } finally {
       tmpReader.close();
     }
@@ -169,7 +168,7 @@ public class GZIPXMLFile {
       xs.toXML(anObject, tmpWriter);
       tmpWriter.commit();
     } catch (StreamException e) {
-      throw new IOException2(e);
+      throw new IOException(e);
     } finally {
       tmpWriter.abort();
     }
@@ -255,6 +254,9 @@ public class GZIPXMLFile {
         encoding = anEncoding;
       }
     }
+    InputSource input = new InputSource(file.toURI().toASCIIString());
+    input.setByteStream(new FileInputStream(file));
+
     try {
       JAXP.newSAXParser().parse(file, new DefaultHandler() {
         private Locator locator;
@@ -267,6 +269,8 @@ public class GZIPXMLFile {
         @Override
         public void startDocument() throws SAXException {
           attempt();
+          // if we still haven't found it at the first start element, then we are not going to find it.
+          throw new Eureka(null);
         }
 
         @Override
@@ -294,14 +298,19 @@ public class GZIPXMLFile {
       // can't reach here
       throw new AssertionError();
     } catch (Eureka e) {
-      if (e.encoding == null) {
-        throw new IOException("Failed to detect encoding of " + file);
+      if (e.encoding != null) {
+        return e.encoding;
       }
-      return e.encoding;
+      // the environment can contain old version of Xerces and others that do not support Locator2
+      // in such a case, assume UTF-8 rather than fail, since Jenkins internally always write XML in UTF-8
+      return "UTF-8";
     } catch (SAXException e) {
-      throw new IOException2("Failed to detect encoding of " + file, e);
+      throw new IOException("Failed to detect encoding of " + file, e);
     } catch (ParserConfigurationException e) {
       throw new AssertionError(e); // impossible
+    } finally {
+      // some JAXP implementations appear to leak the file handle if we just call parse(File,DefaultHandler)
+      input.getByteStream().close();
     }
   }
 }

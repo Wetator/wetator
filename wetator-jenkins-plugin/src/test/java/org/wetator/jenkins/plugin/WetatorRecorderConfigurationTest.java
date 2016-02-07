@@ -16,6 +16,9 @@
 
 package org.wetator.jenkins.plugin;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 import org.wetator.jenkins.WetatorRecorder;
 
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
@@ -29,26 +32,28 @@ import hudson.model.FreeStyleProject;
  */
 public class WetatorRecorderConfigurationTest extends AbstractPluginTest {
 
-  public void testRoundTrip() throws Exception {
-    FreeStyleProject tmpProject = createFreeStyleProject();
+  @Test
+  public void roundTrip() throws Exception {
+    FreeStyleProject tmpProject = jenkins.createFreeStyleProject();
     WetatorRecorder tmpBefore = new WetatorRecorder("a", "b", "12", "23");
     tmpProject.getPublishersList().add(tmpBefore);
 
-    submit(webClient.getPage(tmpProject, "configure").getFormByName("config"));
+    jenkins.submit(webClient.getPage(tmpProject, "configure").getFormByName("config"));
 
     WetatorRecorder tmpAfter = tmpProject.getPublishersList().get(WetatorRecorder.class);
 
-    assertEqualBeans(tmpBefore, tmpAfter, "testResults,testReports,unstableThreshold,failureThreshold");
+    jenkins.assertEqualBeans(tmpBefore, tmpAfter, "testResults,testReports,unstableThreshold,failureThreshold");
   }
 
-  public void testUnstableThresholdEmpty() throws Exception {
-    FreeStyleProject tmpProject = createFreeStyleProject();
+  @Test
+  public void unstableThresholdEmpty() throws Exception {
+    FreeStyleProject tmpProject = jenkins.createFreeStyleProject();
     WetatorRecorder tmpBefore = new WetatorRecorder("a", "b", "12", "23");
     tmpProject.getPublishersList().add(tmpBefore);
 
     HtmlForm tmpConfigForm = webClient.getPage(tmpProject, "configure").getFormByName("config");
     tmpConfigForm.getInputByName("_.unstableThreshold").setValueAttribute("");
-    submit(tmpConfigForm);
+    jenkins.submit(tmpConfigForm);
 
     WetatorRecorder tmpAfter = tmpProject.getPublishersList().get(WetatorRecorder.class);
 

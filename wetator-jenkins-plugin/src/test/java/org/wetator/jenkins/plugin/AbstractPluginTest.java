@@ -16,6 +16,8 @@
 
 package org.wetator.jenkins.plugin;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -23,7 +25,10 @@ import java.util.concurrent.ExecutionException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
-import org.jvnet.hudson.test.HudsonTestCase;
+import org.junit.Before;
+import org.junit.Rule;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.JenkinsRule.WebClient;
 import org.jvnet.hudson.test.TestBuilder;
 import org.wetator.jenkins.WetatorRecorder;
 import org.wetator.jenkins.test.ResultXMLBuilder;
@@ -48,13 +53,16 @@ import hudson.tasks.Builder;
  *
  * @author frank.danek
  */
-public abstract class AbstractPluginTest extends HudsonTestCase {
+public abstract class AbstractPluginTest {
 
   private static final String NL = System.lineSeparator();
 
   protected static final String WETATOR_RESULT_FILENAME = "wetresult.xml";
   protected static final String WETATOR_REPORT_FILENAME = "run_report.xsl.html";
   protected static final String WETATOR_RESULT_PATH = "src/test/resources/org/wetator/jenkins/wetresult/";
+
+  @Rule
+  public JenkinsRule jenkins = new JenkinsRule();
 
   protected ResultXMLBuilder builder;
 
@@ -63,13 +71,11 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
 
   protected WebClient webClient;
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-
+  @Before
+  public void setUp() throws Exception {
     builder = new ResultXMLBuilder();
 
-    webClient = createWebClient();
+    webClient = jenkins.new WebClient();
   }
 
   protected void runBuild() throws Exception {
@@ -96,14 +102,11 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
 
   private FreeStyleProject createProject(String aWetatorResultFile, String aWetatorReportFile,
       String anUnstableThreshold, String aFailureThreshold) throws Exception {
-    FreeStyleProject tmpProject = createFreeStyleProject();
+    FreeStyleProject tmpProject = jenkins.createFreeStyleProject();
 
-    WetatorRecorder tmpBefore = new WetatorRecorder(WETATOR_RESULT_FILENAME, WETATOR_REPORT_FILENAME,
+    WetatorRecorder tmpRecorder = new WetatorRecorder(WETATOR_RESULT_FILENAME, WETATOR_REPORT_FILENAME,
         anUnstableThreshold, aFailureThreshold);
-    tmpProject.getPublishersList().add(tmpBefore);
-    // we have to submit the config page once to really activate the recorder
-    submit(webClient.getPage(tmpProject, "configure").getFormByName("config"));
-
+    tmpProject.getPublishersList().add(tmpRecorder);
     tmpProject.getBuildersList().add(new CopyBuilder(aWetatorResultFile, aWetatorReportFile));
 
     System.out.println("Created project '" + tmpProject.getName() + "'.");
@@ -209,7 +212,7 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   protected void assertTestPage(String anExpectedFile, String anExpectedAbsoluteFile, String anExpectedDuration,
       HtmlPage anActualPage) {
     WebAssert.assertTitleContains(anActualPage, anExpectedFile);
-    WebAssert.assertTextPresent(anActualPage, "\t" + anExpectedFile + anExpectedAbsoluteFile + NL);
+    WebAssert.assertTextPresent(anActualPage, NL + anExpectedFile + NL + anExpectedAbsoluteFile + NL);
     WebAssert.assertTextPresent(anActualPage, "Took " + anExpectedDuration + ".");
   }
 
@@ -222,7 +225,7 @@ public abstract class AbstractPluginTest extends HudsonTestCase {
   protected void assertBrowserPage(String anExpectedBrowser, String anExpectedResult, String anExpectedFile,
       String anExpectedAbsoluteFile, String anExpectedDuration, HtmlPage anActualPage) {
     WebAssert.assertTitleContains(anActualPage, anExpectedBrowser);
-    WebAssert.assertTextPresent(anActualPage, "\t" + anExpectedResult + NL);
+    WebAssert.assertTextPresent(anActualPage, NL + anExpectedResult + NL);
     WebAssert.assertTextPresent(anActualPage,
         NL + anExpectedFile + "[" + anExpectedBrowser + "] from " + anExpectedAbsoluteFile + NL);
     WebAssert.assertTextPresent(anActualPage, "Took " + anExpectedDuration + ".");

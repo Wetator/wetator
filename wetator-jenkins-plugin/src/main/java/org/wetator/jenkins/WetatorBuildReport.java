@@ -47,7 +47,6 @@ import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.HealthReport;
 import hudson.model.HealthReportingAction;
-import hudson.tasks.test.TestObject;
 import hudson.util.HeapSpaceStringConverter;
 import hudson.util.XStream2;
 
@@ -209,7 +208,7 @@ public class WetatorBuildReport implements HealthReportingAction, StaplerProxy, 
    * <br>
    * The default implementation stores information in the 'this' object.
    *
-   * @see TestObject#getDescription()
+   * @see hudson.tasks.test.TestObject#getDescription()
    */
   public String getDescription(AbstractBaseResult aResult) {
     return descriptions.get(aResult.getName());

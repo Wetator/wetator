@@ -16,6 +16,7 @@
 
 package org.wetator.jenkins.plugin;
 
+import org.junit.Test;
 import org.wetator.core.TestCase;
 import org.wetator.jenkins.WetatorRecorder;
 import org.wetator.jenkins.test.ResultXMLBuilder;
@@ -29,7 +30,8 @@ import hudson.model.Result;
  */
 public class WetatorRecorderTest extends AbstractPluginTest {
 
-  public void testStable() throws Exception {
+  @Test
+  public void stable() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -45,7 +47,8 @@ public class WetatorRecorderTest extends AbstractPluginTest {
     assertBuild(Result.SUCCESS);
   }
 
-  public void testUnstable() throws Exception {
+  @Test
+  public void unstable() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -61,7 +64,8 @@ public class WetatorRecorderTest extends AbstractPluginTest {
     assertBuild(Result.UNSTABLE);
   }
 
-  public void testBelowUnstableThreshold() throws Exception {
+  @Test
+  public void belowUnstableThreshold() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -77,7 +81,8 @@ public class WetatorRecorderTest extends AbstractPluginTest {
     assertBuild(Result.SUCCESS);
   }
 
-  public void testAboveUnstableThreshold() throws Exception {
+  @Test
+  public void aboveUnstableThreshold() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -97,7 +102,8 @@ public class WetatorRecorderTest extends AbstractPluginTest {
     assertBuild(Result.UNSTABLE);
   }
 
-  public void testBelowFailueThreshold() throws Exception {
+  @Test
+  public void belowFailueThreshold() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
@@ -113,7 +119,8 @@ public class WetatorRecorderTest extends AbstractPluginTest {
     assertBuild(Result.UNSTABLE);
   }
 
-  public void testAboveFailureThreshold() throws Exception {
+  @Test
+  public void aboveFailureThreshold() throws Exception {
     builder.startEngine();
     TestCase tmpTestCase = builder.startTestCase();
 
