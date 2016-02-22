@@ -303,6 +303,7 @@ wetator/src/org/wetator/backend/control/IControl.java -text
 wetator/src/org/wetator/backend/control/IDeselectable.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/control/ISelectable.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/control/ISettable.java -text svneol=unset#text/plain
+wetator/src/org/wetator/backend/control/KeySequence.java -text
 wetator/src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
 wetator/src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
