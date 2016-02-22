@@ -81,6 +81,15 @@ public interface IControl {
   void clickRight(WetatorContext aContext) throws ActionException;
 
   /**
+   * Simulates pressing of keys.
+   *
+   * @param aContext the context
+   * @param aKeySequence the sequence of keys to simulate
+   * @throws ActionException if an error occurred
+   */
+  void type(WetatorContext aContext, KeySequence aKeySequence) throws ActionException;
+
+  /**
    * @param aControl the control to compare with
    * @return true, if the given control has the same backend control
    */

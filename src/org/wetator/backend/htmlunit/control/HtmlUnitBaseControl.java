@@ -16,17 +16,18 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import java.io.IOException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.KeySequence;
+import org.wetator.backend.control.KeySequence.Key;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.core.WetatorContext;
@@ -43,6 +44,10 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.Keyboard;
+import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
+
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * This is the base implementation of a {@link IControl} using HtmlUnit as backend.
@@ -208,6 +213,45 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     } catch (final Throwable e) {
       final String tmpMessage = Messages
           .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    }
+  }
+
+  @Override
+  public void type(final WetatorContext aWetatorContext, final KeySequence aKeySequence) throws ActionException {
+    final HtmlElement tmpHtmlElement = getHtmlElement();
+
+    try {
+      final Keyboard tmpKeyboard = new Keyboard();
+
+      for (Key tmpKey : aKeySequence.getKeys()) {
+        if (Key.KEY_RETURN == tmpKey) {
+          tmpKeyboard.press(KeyboardEvent.DOM_VK_RETURN);
+        } else {
+          tmpKeyboard.press(tmpKey.getChar());
+        }
+      }
+
+      tmpHtmlElement.type(tmpKeyboard);
+
+      waitForImmediateJobs(aWetatorContext);
+    } catch (final ScriptException e) {
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+          tmpScriptException);
+    } catch (final BackendException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    } catch (final IOException e) {
+      final String tmpMessage = Messages.getMessage("backendError",
+          new String[] { e.getMessage(), getDescribingText() });
+      throw new ActionException(tmpMessage, e);
+    } catch (final Throwable e) {
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }

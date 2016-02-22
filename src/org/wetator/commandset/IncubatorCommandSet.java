@@ -30,6 +30,7 @@ import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.core.Command;
@@ -72,6 +73,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("open-bookmark", new CommandOpenBookmark());
     registerCommand("assert-applet", new CommandAssertApplet());
     registerCommand("exec-js", new CommandExecJs());
+
+    registerCommand("type", new CommandType());
 
     registerCommand("confirm-next", new CommandConfirmNext());
 
@@ -426,6 +429,38 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         }
       }
       return null;
+    }
+  }
+
+  /**
+   * Command 'Type'.
+   */
+  public final class CommandType implements ICommandImplementation {
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
+     */
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
+      final String tmpKeys = aCommand.getRequiredFirstParameterValue(aContext).getValue();
+
+      aCommand.checkNoUnusedSecondParameter(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      try {
+        final IControl tmpFocusedControl = tmpBrowser.getFocusedControl();
+
+        tmpBrowser.markControls(tmpFocusedControl);
+        tmpFocusedControl.type(aContext, KeySequence.parse(tmpKeys));
+
+        tmpBrowser.saveCurrentWindowToLog(tmpFocusedControl);
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        throw new ActionException(tmpMessage, e);
+      }
     }
   }
 
