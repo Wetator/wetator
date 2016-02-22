@@ -14,7 +14,7 @@
 
         <exclude name="jetty-c*.jar" />
         <exclude name="jetty-h*.jar" />
-        <exclude name="jetty-i*.jar" />
+        <include name="jetty-io-*.jar" />
         <exclude name="jetty-s*.jar" />
         <include name="jetty-util-*.jar" />
         <exclude name="jetty-w*.jar" />
