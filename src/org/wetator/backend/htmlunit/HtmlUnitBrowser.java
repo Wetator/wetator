@@ -32,8 +32,6 @@ import java.util.WeakHashMap;
 
 import javax.swing.text.BadLocationException;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,7 +98,10 @@ import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
 import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
+import com.gargoylesoftware.htmlunit.util.WebClientUtils;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
+
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * The HtmlUnit backend.
@@ -321,7 +322,9 @@ public final class HtmlUnitBrowser implements IBrowser {
       tmpContextFactory.setDebugger(new DebuggerImpl());
     }
     // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-    // WebClientUtils.attachVisualDebugger(webClient);
+    if (tmpConfiguration.startJsDebugger()) {
+      WebClientUtils.attachVisualDebugger(webClient);
+    }
   }
 
   /**
