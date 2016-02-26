@@ -25,8 +25,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import net.sourceforge.htmlunit.corejs.javascript.Function;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
@@ -59,6 +57,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.steadystate.css.parser.CSSOMParser;
 
 import dk.brics.automaton.Automaton;
+import net.sourceforge.htmlunit.corejs.javascript.Function;
 
 /**
  * The class that generates the XML output.
@@ -265,8 +264,8 @@ public class XMLResultWriter implements IProgressListener {
           FilenameUtils.normalize(tmpConfiguration.getOutputDir().getAbsolutePath()));
       printConfigurationProperty(WetatorConfiguration.PROPERTY_JAVASCRIPT_TIMEOUT,
           tmpConfiguration.getJsTimeoutInSeconds() + "s");
-      printConfigurationProperty(WetatorConfiguration.PROPERTY_HTTP_TIMEOUT, tmpConfiguration.getHttpTimeoutInSeconds()
-          + "s");
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_HTTP_TIMEOUT,
+          tmpConfiguration.getHttpTimeoutInSeconds() + "s");
       // TODO jsJob filter patterns
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_WPATH_SEPARATOR, tmpConfiguration.getWPathSeparator());
@@ -322,6 +321,9 @@ public class XMLResultWriter implements IProgressListener {
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_RETROSPECT,
           Integer.toString(tmpConfiguration.getRetrospect()));
+
+      printConfigurationProperty(WetatorConfiguration.PROPERTY_JS_DEBUGGER,
+          Boolean.toString(tmpConfiguration.startJsDebugger()));
 
       printlnStartTag(TAG_VARIABLES);
 
