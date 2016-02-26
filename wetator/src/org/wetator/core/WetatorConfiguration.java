@@ -132,6 +132,11 @@ public class WetatorConfiguration {
   public static final String PROPERTY_XSL_TEMPLATES = PROPERTY_PREFIX + "xslTemplates";
 
   /**
+   * The property name to enable the jsDebugger.
+   */
+  public static final String PROPERTY_JS_DEBUGGER = PROPERTY_PREFIX + "jsDebugger";
+
+  /**
    * The property name to define the number of retrospect steps.
    */
   public static final String PROPERTY_RETROSPECT = PROPERTY_PREFIX + "retrospect";
@@ -236,6 +241,7 @@ public class WetatorConfiguration {
   private SecretString proxyPassword;
 
   private Set<SearchPattern> jsJobFilterPatterns;
+  private boolean jsDebugger;
 
   private List<Variable> variables; // store them in defined order
 
@@ -645,7 +651,12 @@ public class WetatorConfiguration {
       }
     }
 
-    // read the rest only if needed
+    // jsDebugger
+    tmpValue = tmpProperties.getProperty(PROPERTY_JS_DEBUGGER, "");
+    tmpProperties.remove(PROPERTY_JS_DEBUGGER);
+    jsDebugger = StringUtils.isNoneBlank(tmpValue);
+
+    // retrospect
     tmpValue = tmpProperties.getProperty(PROPERTY_RETROSPECT, "-1");
     tmpProperties.remove(PROPERTY_RETROSPECT);
     try {
@@ -930,6 +941,13 @@ public class WetatorConfiguration {
    */
   public List<IBrowser.BrowserType> getBrowserTypes() {
     return browserTypes;
+  }
+
+  /**
+   * @return the configured jsDebugger switch
+   */
+  public boolean startJsDebugger() {
+    return jsDebugger;
   }
 
   /**
