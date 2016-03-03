@@ -17,12 +17,14 @@
 package org.wetator;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JWindow;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.FileAppender;
@@ -126,9 +128,21 @@ public final class Wetator {
             tmpWindow.dispose();
           }
         } else {
+          final File tmpCurrentDir = new File(".");
           for (final String tmpFileName : tmpFileNames) {
-            final File tmpFile = new File(tmpFileName);
-            tmpWetatorEngine.addTestCase(tmpFileName, tmpFile);
+            final File tmpSearchFile = new File(tmpCurrentDir, tmpFileName);
+            if (tmpSearchFile.exists()) {
+              tmpWetatorEngine.addTestCase(tmpFileName, tmpSearchFile);
+            } else {
+              final File tmpDir = tmpSearchFile.getParentFile();
+              if (tmpDir != null && tmpDir.exists()) {
+                final FileFilter tmpFilter = new WildcardFileFilter(tmpSearchFile.getName());
+                final File[] tmpFiles = tmpDir.listFiles(tmpFilter);
+                for (int i = 0; i < tmpFiles.length; i++) {
+                  tmpWetatorEngine.addTestCase(tmpFiles[i].getName(), tmpFiles[i]);
+                }
+              }
+            }
           }
         }
 
