@@ -62,4 +62,11 @@ wetator/lib_src/pdfbox-1.1.0-src.zip
 wetator/lib_src/poi-src-3.6-20091214.zip
 wetator/logs/*
 wetator/sonar-project.properties
+wetator/tmp/*
+wetator/tmp/*.wett
+wetator/tmp/jQuery
+wetator/tmp/jira
+wetator/tmp/kai
+wetator/tmp/optionsclick
+wetator/tmp/timo
 wetator/wetator.config
