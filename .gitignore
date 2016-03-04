@@ -50,4 +50,11 @@ lib_src/pdfbox-1.1.0-src.zip
 lib_src/poi-src-3.6-20091214.zip
 logs/*
 /sonar-project.properties
+tmp/*
+tmp/*.wett
+tmp/jQuery
+tmp/jira
+tmp/kai
+tmp/optionsclick
+tmp/timo
 /wetator.config
