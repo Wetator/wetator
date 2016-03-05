@@ -55,6 +55,6 @@
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20140925.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.20.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.21-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
