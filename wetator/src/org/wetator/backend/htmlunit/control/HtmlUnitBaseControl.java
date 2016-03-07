@@ -41,6 +41,7 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.ElementFromPointHandler;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -114,8 +115,22 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       LOG.debug("Click - HtmlUnitBaseControl<T>.click() '" + tmpHtmlElement + "'");
+
+      final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
+      if (tmpHtmlPage != null) {
+        tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
+
+          @Override
+          public HtmlElement getElementFromPoint(HtmlPage aArg0, int aArg1, int aArg2) {
+            return tmpHtmlElement;
+          }
+        });
+      }
+
       tmpHtmlElement.click();
       waitForImmediateJobs(aWetatorContext);
+
+      tmpHtmlPage.setElementFromPointHandler(null);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -123,16 +138,16 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("backendError",
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -158,8 +173,22 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.dblClick() '" + tmpHtmlElement + "'");
+
+      final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
+      if (tmpHtmlPage != null) {
+        tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
+
+          @Override
+          public HtmlElement getElementFromPoint(HtmlPage aArg0, int aArg1, int aArg2) {
+            return tmpHtmlElement;
+          }
+        });
+      }
+
       tmpHtmlElement.dblClick();
       waitForImmediateJobs(aWetatorContext);
+
+      tmpHtmlPage.setElementFromPointHandler(null);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -171,8 +200,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -198,8 +227,22 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       LOG.debug("ClickRight - HtmlUnitBaseControl<T>.rightClick() '" + tmpHtmlElement + "'");
+
+      final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
+      if (tmpHtmlPage != null) {
+        tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
+
+          @Override
+          public HtmlElement getElementFromPoint(HtmlPage aArg0, int aArg1, int aArg2) {
+            return tmpHtmlElement;
+          }
+        });
+      }
+
       tmpHtmlElement.rightClick();
       waitForImmediateJobs(aWetatorContext);
+
+      tmpHtmlPage.setElementFromPointHandler(null);
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -211,8 +254,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -299,8 +342,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
