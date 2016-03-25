@@ -8,8 +8,8 @@
     <libraries id="##ID##">
       <library id="##ID##">htmlunit-</library>
       <library id="##ID##">htmlunit-core-js-</library>
+      <library id="##ID##">neko-htmlunit-</library>
       <library id="##ID##">cssparser-</library>
-      <library id="##ID##">NekoHTML </library>
       <library id="##ID##">Apache Commons Lang </library>
       <library id="##ID##">Apache Commons Codec </library>
       <library id="##ID##">Commons IO </library>

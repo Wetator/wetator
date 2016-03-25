@@ -58,6 +58,7 @@ import com.steadystate.css.parser.CSSOMParser;
 
 import dk.brics.automaton.Automaton;
 import net.sourceforge.htmlunit.corejs.javascript.Function;
+import net.sourceforge.htmlunit.cyberneko.HTMLElements;
 
 /**
  * The class that generates the XML output.
@@ -158,7 +159,8 @@ public class XMLResultWriter implements IProgressListener {
 
       StringBuilder tmpInfo = new StringBuilder();
 
-      final Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, CSSOMParser.class };
+      final Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, HTMLElements.class,
+          CSSOMParser.class };
       for (int i = 0; i < tmpLibs.length; i++) {
         tmpInfo.setLength(0);
         tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpLibs[i]));
@@ -167,7 +169,6 @@ public class XMLResultWriter implements IProgressListener {
         tmpInfo.append(')');
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
-      printlnNode(TAG_LIB, org.cyberneko.html.Version.getVersion());
 
       tmpInfo = new StringBuilder();
       final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-codec-\\S+jar", "commons-io-\\S+jar",
