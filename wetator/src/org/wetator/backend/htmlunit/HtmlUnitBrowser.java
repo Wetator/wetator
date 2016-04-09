@@ -39,12 +39,6 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.control.IControl;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser.AlertHandler;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser.ConfirmHandler;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser.IncorrectnessListener;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser.JavaScriptErrorListener;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser.WebConsoleLogger;
-import org.wetator.backend.htmlunit.HtmlUnitBrowser.WebWindowListener;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
@@ -92,10 +86,10 @@ import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
-import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -766,12 +760,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       throw new ActionException(tmpMessage);
     }
 
-    try {
-      tmpHistory.go(-1 * aSteps);
-    } catch (final IOException e) {
-      final String tmpMessage = Messages.getMessage("historyFailed", new String[] { e.getMessage() });
-      throw new ActionException(tmpMessage);
-    }
+    tmpHistory.go(-1 * aSteps);
   }
 
   /**
