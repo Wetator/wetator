@@ -264,8 +264,8 @@ public final class XHtmlOutputter {
       output = new Output(aWriter, "  ");
 
       output.println("<?xml version=\"1.0\" encoding=\"" + tmpEncoding + "\"?>");
-      output
-          .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+      output.println(
+          "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 
       writeSubNodes(htmlPage);
 
@@ -295,8 +295,10 @@ public final class XHtmlOutputter {
     tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
+      // ignore script required; we build a screenshot
+      // ignore HtmlBase because we rebuild reletive css links to our local files
       if (!(tmpChild instanceof DomDocumentType) && !(tmpChild instanceof HtmlScript)
-          && !(tmpChild instanceof DomComment)) {
+          && !(tmpChild instanceof DomComment) && !(tmpChild instanceof HtmlBase)) {
         writeStartTag(tmpChild);
         output.indent();
         writeSubNodes(tmpChild);
