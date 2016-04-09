@@ -23,8 +23,6 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.logging.Log;
@@ -73,8 +71,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import com.gargoylesoftware.htmlunit.javascript.host.css.StyleAttributes.Definition;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
+
+import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 
 /**
  * The text representation of a page text. Indexed by form controls to speed up the calculation of text before and
@@ -490,7 +491,7 @@ public class HtmlPageIndex {
       final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptableObject();
       if (tmpScriptableObject instanceof HTMLElement) {
         final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
-        final String tmpTransform = tmpStyle.getTextTransform();
+        final String tmpTransform = tmpStyle.getStyleAttribute(Definition.TEXT_TRANSFORM);
 
         if ("uppercase".equalsIgnoreCase(tmpTransform)) {
           tmpTxt = tmpTxt.toUpperCase(Locale.ROOT); // TODO we have to use the browser locale
@@ -692,8 +693,8 @@ public class HtmlPageIndex {
    */
   public void dumpToLog() {
     final StringBuilder tmpLog = new StringBuilder(400);
-    tmpLog
-        .append("\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ");
+    tmpLog.append(
+        "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ");
     tmpLog.append(text);
     tmpLog.append('\n');
 
