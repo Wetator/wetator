@@ -20,9 +20,11 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * A simple helper to write formated to a writer.
- * 
+ *
  * @author rbri
  */
 public final class Output {
@@ -35,7 +37,7 @@ public final class Output {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aWriter the writer to write to
    * @param anIndent String to be used for indenting (e.g. "", " ", " ", "\t")
    */
@@ -47,7 +49,7 @@ public final class Output {
 
   /**
    * Write the char.
-   * 
+   *
    * @param aChar the char to be written
    * @return this (for convenience)
    * @throws IOException in case of problems
@@ -61,7 +63,7 @@ public final class Output {
 
   /**
    * Write the String.
-   * 
+   *
    * @param aString the string to be written
    * @return this (for convenience)
    * @throws IOException in case of problems
@@ -77,12 +79,18 @@ public final class Output {
 
   /**
    * Write the string on a new line.
-   * 
+   *
    * @param aString the string to be written
    * @return this (for convenience)
    * @throws IOException in case of problems
    */
   public Output println(final String aString) throws IOException {
+    // no need to indent whitespace
+    if (afterNewLine && StringUtils.isBlank(aString)) {
+      writer.write(NEW_LINE); // to be sure to do not remove any whitespace
+      return this;
+    }
+
     writeIndentIfNeeded();
     writer.write(aString);
     writer.write(NEW_LINE);
@@ -93,7 +101,7 @@ public final class Output {
 
   /**
    * Start a newline.
-   * 
+   *
    * @return this (for convenience)
    * @throws IOException in case of problems
    */
@@ -106,7 +114,7 @@ public final class Output {
 
   /**
    * Write the string; we know, this string already ends with a newline.
-   * 
+   *
    * @param aString the string to be written
    * @return this (for convenience)
    * @throws IOException in case of problems
@@ -121,7 +129,7 @@ public final class Output {
 
   /**
    * Flushes the output.
-   * 
+   *
    * @return this (for convenience)
    * @throws IOException in case of error
    */
@@ -133,7 +141,7 @@ public final class Output {
 
   /**
    * Closes the output. Makes a {@link #flush()} first.
-   * 
+   *
    * @return this (for convenience)
    * @throws IOException in case of error
    */
@@ -146,7 +154,7 @@ public final class Output {
 
   /**
    * Indent the following.
-   * 
+   *
    * @return this (for convenience)
    */
   public Output indent() {
@@ -157,7 +165,7 @@ public final class Output {
 
   /**
    * Clear the indent.
-   * 
+   *
    * @return this (for convenience)
    */
   public Output unindent() {
@@ -168,7 +176,7 @@ public final class Output {
 
   /**
    * Helper to write a newline.
-   * 
+   *
    * @throws IOException in case of problems
    */
   private void writeIndentIfNeeded() throws IOException {
