@@ -65,12 +65,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import com.gargoylesoftware.htmlunit.javascript.host.css.ComputedCSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.css.StyleAttributes.Definition;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
@@ -385,7 +387,7 @@ public class HtmlPageIndex {
     tmpFindSpotWFC.setStartPos(textWithoutFormControls.length());
     positionsWithoutFormControls.put(aDomNode, tmpFindSpotWFC);
 
-    if (aDomNode.isDisplayed()) {
+    if (isDisplayed(aDomNode)) {
       final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
       if (tmpIsHtmlElement) {
         visibleHtmlElements.add((HtmlElement) aDomNode);
@@ -469,6 +471,31 @@ public class HtmlPageIndex {
 
     tmpFindSpotWFC = positionsWithoutFormControls.get(aDomNode);
     tmpFindSpotWFC.setEndPos(textWithoutFormControls.length());
+  }
+
+  private boolean isDisplayed(final DomNode aDomNode) {
+    if (!aDomNode.isDisplayed()) {
+      return false;
+    }
+
+    // RichFaces uses this to hide some entry fields
+    // for performance do this check only for span elements at the moment
+    if (aDomNode instanceof HtmlSpan) {
+      final ScriptableObject tmpScriptableObject = ((HtmlElement) aDomNode).getScriptableObject();
+      if (tmpScriptableObject instanceof HTMLElement) {
+        HTMLElement tmpHtmlElement = (HTMLElement) tmpScriptableObject;
+        final ComputedCSSStyleDeclaration tmpStyle = tmpHtmlElement.getWindow().getComputedStyle(tmpHtmlElement, null);
+        final String tmpPosition = tmpStyle.getStyleAttribute(Definition.POSITION);
+
+        if ("absolute".equalsIgnoreCase(tmpPosition)) {
+          final String tmpClip = tmpStyle.getStyleAttribute(Definition.CLIP);
+          if ("rect(0px, 0px, 1px, 1px)".equals(tmpClip)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   private void parseChildren(final DomNode aNode) {
