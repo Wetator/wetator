@@ -16,8 +16,6 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -68,6 +66,8 @@ import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLinkElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLOptionElement;
+
+import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 
 /**
  * Helper methods to work with the HtmlElements page.
@@ -526,7 +526,7 @@ public final class HtmlElementUtil {
         if ("block".equals(tmpDisplay) || "list-item".equals(tmpDisplay) || "flex".equals(tmpDisplay)) {
           return true;
         }
-        if (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay)) {
+        if (tmpDisplay != null && (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay))) {
           return true;
         }
 
