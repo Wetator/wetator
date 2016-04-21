@@ -41,12 +41,12 @@ public class HtmlPageIndexTest {
 
   private void asText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
       throws IOException {
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER_11, anHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, anHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_38, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_45, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -421,7 +421,7 @@ public class HtmlPageIndexTest {
     // FF
     final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
         new URL("http://www.wetator.org/test.html"));
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_38);
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_45);
     try {
       final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
@@ -435,7 +435,7 @@ public class HtmlPageIndexTest {
     }
 
     // IE without support
-    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_11);
+    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
     try {
       final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
@@ -449,7 +449,7 @@ public class HtmlPageIndexTest {
     }
 
     // IE with support
-    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_11);
+    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
     final Map<String, String> tmpActiveXObjectMap = new HashMap<>();
     tmpActiveXObjectMap.put(tmpClsid, "org.wetator.backend.htmlunit.util.HtmlPageIndexTest");
     tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);

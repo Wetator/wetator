@@ -319,7 +319,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
           tmpScriptException);
     }
 
-    final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER_11;
+    final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER;
     if (tmpIsIE) {
       // additional mouseMove event
       tmpHtmlElement.mouseMove();

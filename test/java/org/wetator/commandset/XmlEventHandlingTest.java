@@ -37,7 +37,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER_11 })
+  @Browsers({ BrowserType.FIREFOX_45, BrowserType.INTERNET_EXPLORER })
   public void eventClickOn() throws InvalidInputException {
     executeTestFile("event_clickOn.wet");
 
@@ -47,7 +47,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38 })
+  @Browsers({ BrowserType.FIREFOX_45 })
   public void eventDeselectFF38() throws InvalidInputException {
     executeTestFile("ff38/event_deselect.wet");
 
@@ -57,7 +57,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER })
   public void eventDeselectIE1() throws InvalidInputException {
     executeTestFile("ie11/event_deselect.wet");
 
@@ -67,7 +67,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38 })
+  @Browsers({ BrowserType.FIREFOX_45 })
   public void eventMouseOverFF38() throws InvalidInputException {
     executeTestFile("ff38/event_mouseOver.wet");
 
@@ -77,7 +77,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER })
   public void eventMouseOverIE11() throws InvalidInputException {
     executeTestFile("ie11/event_mouseOver.wet");
 
@@ -87,7 +87,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38 })
+  @Browsers({ BrowserType.FIREFOX_45 })
   public void eventSelectFF38() throws InvalidInputException {
     executeTestFile("ff38/event_select.wet");
 
@@ -97,7 +97,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER })
   public void eventSelectIE11() throws InvalidInputException {
     executeTestFile("ie11/event_select.wet");
 
@@ -107,7 +107,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_38 })
+  @Browsers({ BrowserType.FIREFOX_45 })
   public void eventSetFF38() throws InvalidInputException {
     executeTestFile("ff38/event_set.wet");
 
@@ -117,7 +117,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.INTERNET_EXPLORER_11 })
+  @Browsers({ BrowserType.INTERNET_EXPLORER })
   public void eventSetIE11() throws InvalidInputException {
     executeTestFile("ie11/event_set.wet");
 
