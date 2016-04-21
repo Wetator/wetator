@@ -65,8 +65,8 @@ public class WetatorEngineExecuteTestsTest {
 
     configuration = mock(WetatorConfiguration.class);
 
-    browserType1 = BrowserType.INTERNET_EXPLORER_11;
-    browserType2 = BrowserType.FIREFOX_38;
+    browserType1 = BrowserType.INTERNET_EXPLORER;
+    browserType2 = BrowserType.FIREFOX_45;
 
     browser = mock(IBrowser.class);
 

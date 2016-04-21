@@ -204,7 +204,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     try {
       final HtmlSelect tmpSelect = ((HtmlOption) tmpHtmlElement).getEnclosingSelect();
 
-      final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER_11;
+      final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER;
       if (tmpIsIE) {
         // additional mouseMove event
         tmpSelect.mouseMove();

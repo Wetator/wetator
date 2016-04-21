@@ -46,7 +46,7 @@ public class XHtmlOutputterHtmlPageTest {
   private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
-    BrowserVersion tmpBrowser = BrowserVersion.INTERNET_EXPLORER_11;
+    BrowserVersion tmpBrowser = BrowserVersion.INTERNET_EXPLORER;
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
@@ -54,7 +54,7 @@ public class XHtmlOutputterHtmlPageTest {
     Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
         new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpBrowser = BrowserVersion.FIREFOX_38;
+    tmpBrowser = BrowserVersion.FIREFOX_45;
     tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();

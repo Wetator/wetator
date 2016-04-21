@@ -82,7 +82,7 @@ public interface IBrowser {
     /** firefox 45 ESR. */
     FIREFOX_45("Firefox45", "Firefox_45"),
     /** internet explorer 11. */
-    INTERNET_EXPLORER_11("IE11", "IE_11"),
+    INTERNET_EXPLORER("IE11", "IE_11"),
     /** chrome. */
     CHROME("Chrome", "Chrome");
 
