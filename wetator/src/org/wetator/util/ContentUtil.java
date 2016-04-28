@@ -38,6 +38,8 @@ import org.apache.pdfbox.exceptions.CryptographyException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.BadSecurityHandlerException;
+import org.apache.pdfbox.pdmodel.encryption.StandardDecryptionMaterial;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -165,7 +167,9 @@ public final class ContentUtil {
   private static void decryptPdfIfNeeded(final PDDocument aDocument) throws IOException {
     if (aDocument.isEncrypted()) {
       try {
-        aDocument.decrypt("");
+        aDocument.openProtection(new StandardDecryptionMaterial(""));
+      } catch (final BadSecurityHandlerException e) {
+        throw new IOExceptionWithCause("Decryption fo the pdf document failed", e);
       } catch (final CryptographyException e) {
         throw new IOExceptionWithCause("Decryption fo the pdf document failed", e);
       }

@@ -40,7 +40,7 @@
         <!-- dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.17" changing="true" /> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.18-SNAPSHOT" changing="true" /> -->
         <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false" />
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.11" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.12" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.54" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.54" />
         <dependency org="org.apache.poi" name="poi-ooxml" rev="3.13" />
