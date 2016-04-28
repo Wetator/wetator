@@ -31,7 +31,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
 
-import org.apache.commons.io.IOExceptionWithCause;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.pdfbox.exceptions.CryptographyException;
@@ -169,9 +168,9 @@ public final class ContentUtil {
       try {
         aDocument.openProtection(new StandardDecryptionMaterial(""));
       } catch (final BadSecurityHandlerException e) {
-        throw new IOExceptionWithCause("Decryption fo the pdf document failed", e);
+        throw new IOException("Decryption fo the pdf document failed", e);
       } catch (final CryptographyException e) {
-        throw new IOExceptionWithCause("Decryption fo the pdf document failed", e);
+        throw new IOException("Decryption fo the pdf document failed", e);
       }
     }
   }

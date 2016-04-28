@@ -13,7 +13,7 @@
       <library id="10">Commons Lang 3.1</library>
       <library id="11">Commons Codec 1.4</library>
       <library id="12">Commons Collections 3.2.1</library>
-      <library id="13">Commons IO 2.1</library>
+      <library id="13">Apache Commons IO 2.1</library>
       <library id="14">Jakarta Commons Logging 1.1.1</library>
       <library id="15">HttpComponents HttpCore 4.1.2</library>
       <library id="16">HttpComponents HttpClient 4.1.2</library>

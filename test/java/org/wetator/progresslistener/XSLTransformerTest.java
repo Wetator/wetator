@@ -19,6 +19,7 @@ package org.wetator.progresslistener;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
@@ -53,7 +54,7 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
   @Override
   protected String getActualResult() throws Exception {
     final File tmpActualFile = new File(RESULT_LOG);
-    return FileUtils.readFileToString(tmpActualFile);
+    return FileUtils.readFileToString(tmpActualFile, StandardCharsets.UTF_8);
   }
 
   @Override

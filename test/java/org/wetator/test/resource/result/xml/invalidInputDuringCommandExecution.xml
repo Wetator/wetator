@@ -12,7 +12,7 @@
       <library id="9">cssparser-0.9.18.jar (2015-10-27)</library>
       <library id="10">Apache Commons Lang 3.1</library>
       <library id="11">Apache Commons Codec 1.7</library>
-      <library id="13">Commons IO 2.4</library>
+      <library id="13">Apache Commons IO 2.4</library>
       <library id="14">Apache Commons Logging 1.1.1</library>
       <library id="##ID##">HttpComponents Apache HttpCore </library>
       <library id="##ID##">HttpComponents Apache HttpClient </library>

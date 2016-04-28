@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,7 +33,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -134,7 +134,7 @@ public final class ResponseStore {
       tmpFileName.append(".txt");
       tmpFile = new File(storeDir, tmpFileName.toString());
 
-      FileUtils.write(tmpFile, aContent);
+      FileUtils.write(tmpFile, aContent, StandardCharsets.UTF_8);
       return relStoreDir + "/" + tmpFileName;
     } catch (final IOException e) {
       throw new ResourceException("Could not write file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'.",
@@ -313,7 +313,7 @@ public final class ResponseStore {
 
               // process all url(....) inside
               tmpProcessed = processCSS(aFullContentUrl, tmpResponse, StringUtils.countMatches(tmpFileName, "/"));
-              FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed, Charsets.UTF_8);
+              FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed, StandardCharsets.UTF_8);
             }
           }
 
