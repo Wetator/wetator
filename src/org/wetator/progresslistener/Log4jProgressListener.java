@@ -70,7 +70,10 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     commandCount = aCommandCount;
     commandEvents = new LinkedList<CommandEvents>();
 
-    setLayout(new PatternLayout("[%5.5t] %m%n"));
+    Command tmpCommand = new Command("--startup--", false);
+    currentEvents = new CommandEvents(tmpCommand);
+
+    setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
   }
 
   /**
@@ -119,7 +122,11 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
    * Set this as appender for '"org.apache.http.wire"' (level: trace).
    */
   public void appendAsWireListener() {
-    final Category tmpCategory = LogManager.getLogger("org.apache.http.wire");
+    Category tmpCategory = LogManager.getLogger("org.apache.http.wire");
+    tmpCategory.setLevel(Level.TRACE);
+    tmpCategory.addAppender(this);
+
+    tmpCategory = LogManager.getLogger("org.wetator");
     tmpCategory.setLevel(Level.TRACE);
     tmpCategory.addAppender(this);
   }
