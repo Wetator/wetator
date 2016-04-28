@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -251,8 +252,8 @@ public class XMLScripterTest {
     tmpCommand = tmpCommands.get(6);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-content", tmpCommand.getName());
-    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
-        .getFirstParameter().getValue());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK",
+        tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
     Assert.assertFalse(tmpCommand.isComment());
@@ -272,30 +273,32 @@ public class XMLScripterTest {
   @Test
   public void emptyContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/empty.xml"));
+    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/empty.xml"),
+        StandardCharsets.UTF_8);
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
 
   @Test
   public void unsupportedContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils
-        .toString(new FileInputStream("test/java/org/wetator/test/resource/legacyXML.wet"));
+    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/legacyXML.wet"),
+        StandardCharsets.UTF_8);
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
 
   @Test
   public void supportedContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"));
+    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"),
+        StandardCharsets.UTF_8);
     Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
   }
 
   @Test
   public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream(
-        "test/java/org/wetator/test/resource/emptyNoDefault.xml"));
+    final String tmpContent = IOUtils.toString(
+        new FileInputStream("test/java/org/wetator/test/resource/emptyNoDefault.xml"), StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
 
@@ -315,8 +318,8 @@ public class XMLScripterTest {
   @Test
   public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream(
-        "test/java/org/wetator/test/resource/emptyWrongDefault.xml"));
+    final String tmpContent = IOUtils.toString(
+        new FileInputStream("test/java/org/wetator/test/resource/emptyWrongDefault.xml"), StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
 
@@ -336,8 +339,8 @@ public class XMLScripterTest {
   @Test
   public void schemasFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream(
-        "test/java/org/wetator/test/resource/emptyMultipleSchemas.xml"));
+    final String tmpContent = IOUtils.toString(
+        new FileInputStream("test/java/org/wetator/test/resource/emptyMultipleSchemas.xml"), StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
 
@@ -367,7 +370,8 @@ public class XMLScripterTest {
   @Test
   public void scriptContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"));
+    final String tmpContent = IOUtils.toString(new FileInputStream("test/java/org/wetator/test/resource/xml.xml"),
+        StandardCharsets.UTF_8);
     tmpXMLScripter.script(tmpContent, null);
 
     final List<Command> tmpCommands = tmpXMLScripter.getCommands();
@@ -407,8 +411,8 @@ public class XMLScripterTest {
     tmpCommand = tmpCommands.get(6);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-content", tmpCommand.getName());
-    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
-        .getFirstParameter().getValue());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK",
+        tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
     Assert.assertFalse(tmpCommand.isComment());

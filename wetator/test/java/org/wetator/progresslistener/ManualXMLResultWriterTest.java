@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
@@ -306,8 +307,8 @@ public class ManualXMLResultWriterTest {
     resultWriter.testRunStart(IE11);
     resultWriter.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
-    writeCommandWithError(createCommand("invalid-command", null), new InvalidInputException("Command in TestCase "
-        + tmpTestCase.getName() + " is very invalid."));
+    writeCommandWithError(createCommand("invalid-command", null),
+        new InvalidInputException("Command in TestCase " + tmpTestCase.getName() + " is very invalid."));
     writeCommandIgnored();
     resultWriter.testFileEnd();
     resultWriter.testRunEnd();
@@ -565,7 +566,7 @@ public class ManualXMLResultWriterTest {
     String tmpExpectedReport = getString(tmpExpectedStream);
 
     final File tmpActualFile = new File(REPORT_LOG);
-    String tmpActualReport = FileUtils.readFileToString(tmpActualFile);
+    String tmpActualReport = FileUtils.readFileToString(tmpActualFile, StandardCharsets.UTF_8);
 
     final String tmpWetatorPath = System.getProperty("user.dir");
 

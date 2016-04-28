@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 import javax.swing.text.BadLocationException;
@@ -431,10 +432,10 @@ public class ContentUtilTest {
     String tmpText = "Some readable text for testing WETATOR.";
     org.junit.Assert.assertTrue(ContentUtil.isTxt(tmpText));
 
-    tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+    tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.pdf"), StandardCharsets.UTF_8);
     org.junit.Assert.assertFalse(ContentUtil.isTxt(tmpText));
 
-    tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.xls"));
+    tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.xls"), StandardCharsets.UTF_8);
     org.junit.Assert.assertFalse(ContentUtil.isTxt(tmpText));
   }
 

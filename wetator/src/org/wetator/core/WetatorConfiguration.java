@@ -19,6 +19,7 @@ package org.wetator.core;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,6 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -261,7 +261,8 @@ public class WetatorConfiguration {
    * @param anExternalPropertiesMap the external properties
    * @throws ConfigurationException in case of problems with the configuration
    */
-  public WetatorConfiguration(final File aConfigurationPropertyFile, final Map<String, String> anExternalPropertiesMap) {
+  public WetatorConfiguration(final File aConfigurationPropertyFile,
+      final Map<String, String> anExternalPropertiesMap) {
     LOG.info("Configuration: Configuration file is '"
         + FilenameUtils.normalize(aConfigurationPropertyFile.getAbsolutePath()) + "'");
 
@@ -324,20 +325,20 @@ public class WetatorConfiguration {
       final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
-      throw new ConfigurationException("The base directory '"
-          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' does not exist.");
+      throw new ConfigurationException(
+          "The base directory '" + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' does not exist.");
     }
     if (!aBaseDirectory.isDirectory()) {
-      throw new ConfigurationException("The base directory '"
-          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not a directory.");
+      throw new ConfigurationException(
+          "The base directory '" + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not a directory.");
     }
     if (!aBaseDirectory.canRead()) {
-      throw new ConfigurationException("The base directory '"
-          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not readable.");
+      throw new ConfigurationException(
+          "The base directory '" + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not readable.");
     }
     if (!aBaseDirectory.canWrite()) {
-      throw new ConfigurationException("The base directory '"
-          + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not writable.");
+      throw new ConfigurationException(
+          "The base directory '" + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "' is not writable.");
     }
     LOG.info("Configuration: Base directory is '" + FilenameUtils.normalize(aBaseDirectory.getAbsolutePath()) + "'");
 
@@ -412,8 +413,8 @@ public class WetatorConfiguration {
     try {
       FileUtil.createOutputDir(outputDir);
     } catch (final IOException e) {
-      throw new ConfigurationException("Could not create output directory '"
-          + FilenameUtils.normalize(outputDir.getAbsolutePath()) + "'.", e);
+      throw new ConfigurationException(
+          "Could not create output directory '" + FilenameUtils.normalize(outputDir.getAbsolutePath()) + "'.", e);
     }
     LOG.info("Configuration: OutputDir is '" + FilenameUtils.normalize(outputDir.getAbsolutePath()) + "'");
 
@@ -489,13 +490,14 @@ public class WetatorConfiguration {
       if (StringUtils.isNotBlank(tmpString)) {
         final List<String> tmpPices = StringUtil.extractStrings(tmpValue, "|", '\\');
         if (tmpPices.size() != 2) {
-          throw new ConfigurationException("The configured activeX object '" + tmpValue
-              + "' does not have two parts (separated by '|').");
+          throw new ConfigurationException(
+              "The configured activeX object '" + tmpValue + "' does not have two parts (separated by '|').");
         }
 
         final String tmpClsId = tmpPices.get(0);
         if (StringUtils.isBlank(tmpClsId)) {
-          throw new ConfigurationException("The configured class id of the activeX object '" + tmpValue + "' is blank.");
+          throw new ConfigurationException(
+              "The configured class id of the activeX object '" + tmpValue + "' is blank.");
         }
 
         final String tmpMockClass = tmpPices.get(1).trim();
@@ -638,7 +640,7 @@ public class WetatorConfiguration {
       }
 
       try {
-        final List<String> tmpLines = FileUtils.readLines(tmpFilterFile, Charsets.UTF_8);
+        final List<String> tmpLines = FileUtils.readLines(tmpFilterFile, StandardCharsets.UTF_8);
 
         for (final String tmpLine : tmpLines) {
           if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
