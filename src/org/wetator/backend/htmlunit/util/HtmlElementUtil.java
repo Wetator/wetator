@@ -522,12 +522,14 @@ public final class HtmlElementUtil {
       if (tmpScriptableObject instanceof HTMLElement) {
         final HTMLElement tmpElement = (HTMLElement) tmpScriptableObject;
         final CSSStyleDeclaration tmpStyle = tmpElement.getCurrentStyle();
-        final String tmpDisplay = tmpStyle.getDisplay();
-        if ("block".equals(tmpDisplay) || "list-item".equals(tmpDisplay) || "flex".equals(tmpDisplay)) {
-          return true;
-        }
-        if (tmpDisplay != null && (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay))) {
-          return true;
+        if (tmpStyle != null) {
+          final String tmpDisplay = tmpStyle.getDisplay();
+          if ("block".equals(tmpDisplay) || "list-item".equals(tmpDisplay) || "flex".equals(tmpDisplay)) {
+            return true;
+          }
+          if (tmpDisplay != null && (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay))) {
+            return true;
+          }
         }
 
         // we like to write this in separate lines
