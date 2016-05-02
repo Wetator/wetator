@@ -518,14 +518,16 @@ public class HtmlPageIndex {
       final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptableObject();
       if (tmpScriptableObject instanceof HTMLElement) {
         final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
-        final String tmpTransform = tmpStyle.getStyleAttribute(Definition.TEXT_TRANSFORM);
+        if (tmpStyle != null) {
+          final String tmpTransform = tmpStyle.getStyleAttribute(Definition.TEXT_TRANSFORM);
 
-        if ("uppercase".equalsIgnoreCase(tmpTransform)) {
-          tmpTxt = tmpTxt.toUpperCase(Locale.ROOT); // TODO we have to use the browser locale
-        } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
-          tmpTxt = tmpTxt.toLowerCase(Locale.ROOT); // TODO we have to use the browser locale
-        } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
-          tmpTxt = WordUtils.capitalize(tmpTxt);
+          if ("uppercase".equalsIgnoreCase(tmpTransform)) {
+            tmpTxt = tmpTxt.toUpperCase(Locale.ROOT); // TODO we have to use the browser locale
+          } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
+            tmpTxt = tmpTxt.toLowerCase(Locale.ROOT); // TODO we have to use the browser locale
+          } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
+            tmpTxt = WordUtils.capitalize(tmpTxt);
+          }
         }
       }
     }
