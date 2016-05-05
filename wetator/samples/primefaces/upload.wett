@@ -1,6 +1,7 @@
-# single
-#open-url || http://www.primefaces.org/showcase/ui/file/upload/single.xhtml
-open-url        || http://localhost:8080/showcase/ui/file/upload/single.xhtml
+
+# Simple test case for the PrimeFaces upload
+
+open-url        || ui/file/upload/single.xhtml
 set             || Choose || ..\..\test\webpage\images\wetator.png
 assert-content  || Choose Upload Cancel wetator.png 23.5 KB
 click-on        || Upload
