@@ -130,7 +130,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       tmpHtmlElement.click();
       waitForImmediateJobs(aWetatorContext);
 
-      tmpHtmlPage.setElementFromPointHandler(null);
+      if (tmpHtmlPage != null) {
+        tmpHtmlPage.setElementFromPointHandler(null);
+      }
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -188,7 +190,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       tmpHtmlElement.dblClick();
       waitForImmediateJobs(aWetatorContext);
 
-      tmpHtmlPage.setElementFromPointHandler(null);
+      if (tmpHtmlPage != null) {
+        tmpHtmlPage.setElementFromPointHandler(null);
+      }
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -242,7 +246,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       tmpHtmlElement.rightClick();
       waitForImmediateJobs(aWetatorContext);
 
-      tmpHtmlPage.setElementFromPointHandler(null);
+      if (tmpHtmlPage != null) {
+        tmpHtmlPage.setElementFromPointHandler(null);
+      }
     } catch (final ScriptException e) {
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
