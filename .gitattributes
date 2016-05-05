@@ -259,6 +259,7 @@ wetator/samples/primefaces/inplace.wett -text
 wetator/samples/primefaces/listbox.wett -text
 wetator/samples/primefaces/one_menu.wett -text
 wetator/samples/primefaces/one_radio.wett -text
+wetator/samples/primefaces/upload.wett -text
 wetator/samples/primefaces/wetator.config -text
 wetator/samples/sample.wet -text
 wetator/samples/sample.wett -text
