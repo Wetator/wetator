@@ -54,6 +54,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBold;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
+import com.gargoylesoftware.htmlunit.html.HtmlCanvas;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCitation;
 import com.gargoylesoftware.htmlunit.html.HtmlCode;
@@ -62,6 +63,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlEmbed;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
+import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFont;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlFrame;
@@ -109,6 +111,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLCanvasElement;
 import com.gargoylesoftware.htmlunit.svg.SvgCircle;
 import com.gargoylesoftware.htmlunit.svg.SvgEllipse;
 import com.gargoylesoftware.htmlunit.svg.SvgLine;
@@ -152,6 +155,7 @@ public final class XHtmlOutputter {
     EMPTY_TAGS.add(HtmlImageInput.class.getName());
     EMPTY_TAGS.add(HtmlCheckBoxInput.class.getName());
     EMPTY_TAGS.add(HtmlRadioButtonInput.class.getName());
+    EMPTY_TAGS.add(HtmlFileInput.class.getName());
 
     EMPTY_TAGS.add(HtmlBreak.class.getName());
     EMPTY_TAGS.add(HtmlHorizontalRule.class.getName());
@@ -187,6 +191,7 @@ public final class XHtmlOutputter {
     SINGLE_LINE_TAGS.add(HtmlItalic.class.getName());
     SINGLE_LINE_TAGS.add(HtmlBold.class.getName());
     SINGLE_LINE_TAGS.add(HtmlBig.class.getName());
+    SINGLE_LINE_TAGS.add(HtmlCanvas.class.getName());
     SINGLE_LINE_TAGS.add(HtmlEmphasis.class.getName());
     SINGLE_LINE_TAGS.add(HtmlSmall.class.getName());
     SINGLE_LINE_TAGS.add(HtmlStrong.class.getName());
@@ -299,11 +304,16 @@ public final class XHtmlOutputter {
       // ignore HtmlBase because we rebuild reletive css links to our local files
       if (!(tmpChild instanceof DomDocumentType) && !(tmpChild instanceof HtmlScript)
           && !(tmpChild instanceof DomComment) && !(tmpChild instanceof HtmlBase)) {
-        writeStartTag(tmpChild);
-        output.indent();
-        writeSubNodes(tmpChild);
-        output.unindent();
-        writeEndTag(tmpChild);
+
+        if (tmpChild instanceof HtmlCanvas) {
+          writeCanvasImage((HtmlCanvas) tmpChild);
+        } else {
+          writeStartTag(tmpChild);
+          output.indent();
+          writeSubNodes(tmpChild);
+          output.unindent();
+          writeEndTag(tmpChild);
+        }
       }
 
       tmpChild = tmpChild.getNextSibling();
@@ -597,4 +607,22 @@ public final class XHtmlOutputter {
     LOG.warn("Unsupported element " + aDomNode);
     return aDomNode.getClass().getName();
   }
+
+  private void writeCanvasImage(HtmlCanvas aCanvas) throws IOException {
+    output.print("<!-- ");
+    writeStartTag(aCanvas);
+    output.indent();
+    writeSubNodes(aCanvas);
+    output.unindent();
+    writeEndTag(aCanvas);
+    output.println("-->");
+
+    final HTMLCanvasElement tmpCanvas = (HTMLCanvasElement) aCanvas.getScriptableObject();
+    output.print("<img src='");
+    output.print(tmpCanvas.toDataURL("png"));
+    output.print("' height='" + tmpCanvas.getHeight());
+    output.print("' width='" + tmpCanvas.getWidth());
+    output.print("'>");
+  }
+
 }
