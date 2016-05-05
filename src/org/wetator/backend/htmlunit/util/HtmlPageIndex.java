@@ -483,7 +483,7 @@ public class HtmlPageIndex {
     if (aDomNode instanceof HtmlSpan) {
       final ScriptableObject tmpScriptableObject = ((HtmlElement) aDomNode).getScriptableObject();
       if (tmpScriptableObject instanceof HTMLElement) {
-        HTMLElement tmpHtmlElement = (HTMLElement) tmpScriptableObject;
+        final HTMLElement tmpHtmlElement = (HTMLElement) tmpScriptableObject;
         final ComputedCSSStyleDeclaration tmpStyle = tmpHtmlElement.getWindow().getComputedStyle(tmpHtmlElement, null);
         final String tmpPosition = tmpStyle.getStyleAttribute(Definition.POSITION);
 
