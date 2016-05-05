@@ -1,0 +1,5 @@
+# auto
+#open-url || http://www.primefaces.org/showcase/ui/file/upload/auto.xhtml
+open-url        || http://localhost:8080/showcase/ui/file/upload/auto.xhtml
+set             || Choose || ..\..\test\webpage\images\wetator.png
+assert-content  || Succesful wetator.png is uploaded.
