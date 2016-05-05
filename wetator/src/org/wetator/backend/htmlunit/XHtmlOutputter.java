@@ -608,7 +608,7 @@ public final class XHtmlOutputter {
     return aDomNode.getClass().getName();
   }
 
-  private void writeCanvasImage(HtmlCanvas aCanvas) throws IOException {
+  private void writeCanvasImage(final HtmlCanvas aCanvas) throws IOException {
     output.print("<!-- ");
     writeStartTag(aCanvas);
     output.indent();

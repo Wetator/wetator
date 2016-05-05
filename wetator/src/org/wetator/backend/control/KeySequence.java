@@ -39,15 +39,29 @@ public class KeySequence {
     private Key() {
     }
 
+    /**
+     * Ctor.
+     *
+     * @param aChar the char
+     */
     Key(char aChar) {
       character = aChar;
     }
 
+    /**
+     * @return the char
+     */
     public char getChar() {
       return character;
     }
   }
 
+  /**
+   * Parse the input.
+   *
+   * @param aKeySequenceString the input
+   * @return the KeySequence
+   */
   public static KeySequence parse(String aKeySequenceString) {
     KeySequence tmpSequence = new KeySequence();
 
@@ -98,6 +112,9 @@ public class KeySequence {
     keys.add(aKey);
   }
 
+  /**
+   * @return a lit of Key's
+   */
   public List<Key> getKeys() {
     return Collections.unmodifiableList(keys);
   }
