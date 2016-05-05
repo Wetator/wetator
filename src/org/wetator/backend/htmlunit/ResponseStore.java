@@ -418,7 +418,9 @@ public final class ResponseStore {
       LOG.warn(e);
       return null;
     } finally {
-      IOUtils.closeQuietly(tmpIn);
+      if (tmpIn != null) {
+        IOUtils.closeQuietly(tmpIn);
+      }
     }
   }
 }
