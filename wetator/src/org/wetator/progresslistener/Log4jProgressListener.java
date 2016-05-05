@@ -70,7 +70,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     commandCount = aCommandCount;
     commandEvents = new LinkedList<CommandEvents>();
 
-    Command tmpCommand = new Command("--startup--", false);
+    final Command tmpCommand = new Command("--startup--", false);
     currentEvents = new CommandEvents(tmpCommand);
 
     setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
