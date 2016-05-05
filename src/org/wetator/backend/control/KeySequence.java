@@ -32,7 +32,7 @@ public class KeySequence {
    * Supported keys.
    */
   public static final class Key {
-    /** the return key constant */
+    /** The return key constant. */
     public static final Key KEY_RETURN = new Key();
 
     private char character;
