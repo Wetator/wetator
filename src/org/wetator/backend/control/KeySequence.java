@@ -32,6 +32,7 @@ public class KeySequence {
    * Supported keys.
    */
   public static final class Key {
+    /** the return key constant */
     public static final Key KEY_RETURN = new Key();
 
     private char character;
@@ -44,7 +45,7 @@ public class KeySequence {
      *
      * @param aChar the char
      */
-    Key(char aChar) {
+    Key(final char aChar) {
       character = aChar;
     }
 
@@ -62,11 +63,11 @@ public class KeySequence {
    * @param aKeySequenceString the input
    * @return the KeySequence
    */
-  public static KeySequence parse(String aKeySequenceString) {
-    KeySequence tmpSequence = new KeySequence();
+  public static KeySequence parse(final String aKeySequenceString) {
+    final KeySequence tmpSequence = new KeySequence();
 
     for (int i = 0; i < aKeySequenceString.length(); i++) {
-      char tmpChar = aKeySequenceString.charAt(i);
+      final char tmpChar = aKeySequenceString.charAt(i);
 
       if (tmpChar == '\\') {
         i++;
@@ -75,12 +76,12 @@ public class KeySequence {
         }
         tmpSequence.type(aKeySequenceString.charAt(i));
       } else if (tmpChar == '[') {
-        int tmpEndPos = aKeySequenceString.indexOf(']', i);
+        final int tmpEndPos = aKeySequenceString.indexOf(']', i);
         if (tmpEndPos == -1) {
           throw new IllegalArgumentException("Invalid special key definition; closing ']' missing.");
         }
 
-        String tmpKeyName = aKeySequenceString.substring(i + 1, tmpEndPos);
+        final String tmpKeyName = aKeySequenceString.substring(i + 1, tmpEndPos);
         if ("ENTER".equals(tmpKeyName)) {
           tmpSequence.pressKey(Key.KEY_RETURN);
         } else {
