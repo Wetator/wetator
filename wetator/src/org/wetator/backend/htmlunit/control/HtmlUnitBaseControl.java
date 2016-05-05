@@ -121,7 +121,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
         tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
 
           @Override
-          public HtmlElement getElementFromPoint(final HtmlPage aPage, final int x, final int y) {
+          public HtmlElement getElementFromPoint(final HtmlPage aHtmlPage, final int anX, final int anY) {
             return tmpHtmlElement;
           }
         });
@@ -179,7 +179,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
         tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
 
           @Override
-          public HtmlElement getElementFromPoint(final HtmlPage htmlPage, final int x, final int y) {
+          public HtmlElement getElementFromPoint(final HtmlPage aHtmlPage, final int anX, final int anY) {
             return tmpHtmlElement;
           }
         });
@@ -233,7 +233,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
         tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
 
           @Override
-          public HtmlElement getElementFromPoint(final HtmlPage htmlPage, final int x, final int y) {
+          public HtmlElement getElementFromPoint(final HtmlPage aHtmlPage, final int anX, final int anY) {
             return tmpHtmlElement;
           }
         });
