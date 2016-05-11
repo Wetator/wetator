@@ -126,8 +126,8 @@ public class WikiTextScripterTest {
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-content", tmpCommand.getName());
-    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
-        .getFirstParameter().getValue());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK",
+        tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
@@ -180,6 +180,57 @@ public class WikiTextScripterTest {
     String tmpValue = tmpCommand.getFirstParameter().getValue();
     tmpValue = StringUtils.replace(tmpValue, "\r\n", "\n");
     Assert.assertEquals("text 1  \n\ntext 3", tmpValue);
+    Assert.assertNull(tmpCommand.getSecondParameter());
+  }
+
+  @Test
+  public void utf8() throws InvalidInputException {
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/utf8.wett");
+
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    tmpScripter.script(tmpFile);
+
+    final List<Command> tmpCommands = tmpScripter.getCommands();
+    Assert.assertEquals(6, tmpCommands.size());
+
+    int tmpPos = 0;
+    Command tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("!\"#$%&'()*+,-./0123456789:;<=>?@", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("abcdefghijklmnopqrstuvwxyz\u00e4\u00f6\u00fc\u00df",
+        tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("\u00ec\u00ed\u00ee\u00ef", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("\u0430\u0431\u0432\u0433", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
 }
