@@ -161,15 +161,16 @@ public final class HtmlUnitBrowser implements IBrowser {
     jsTimeoutInMillis = tmpConfiguration.getJsTimeoutInSeconds() * 1000L;
     responseStores = new HashMap<BrowserVersion, ResponseStore>();
     for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
+      final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(tmpBrowserType);
       // manipulate the browser version before using it as key for a map
       // because this manipulation will change the hash value
       for (Map.Entry<String, String> tmpMapping : tmpConfiguration.getMimeTypes().entrySet()) {
-        determineBrowserVersionFor(tmpBrowserType).registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
+        tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
       }
 
       final ResponseStore tmpStrore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
           true);
-      responseStores.put(determineBrowserVersionFor(tmpBrowserType), tmpStrore);
+      responseStores.put(tmpBrowserVersion, tmpStrore);
     }
 
     // add the default controls
