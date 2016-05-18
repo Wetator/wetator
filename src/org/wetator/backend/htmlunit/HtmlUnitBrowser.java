@@ -206,6 +206,10 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
 
+    for (Map.Entry<String, String> tmpMapping : tmpConfiguration.getMimeTypes().entrySet()) {
+      tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
+    }
+
     DefaultCredentialsProvider tmpCredentialProvider = null;
 
     final String tmpHost = tmpConfiguration.getProxyHost();
