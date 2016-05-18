@@ -200,6 +200,11 @@ public class WetatorConfiguration {
   private static final String PROPERTY_JS_JOB_FILTER_FILE = PROPERTY_PREFIX + "jsJobFilterFile";
 
   /**
+   * The property name to define the number of retrospect steps.
+   */
+  public static final String PROPERTY_UPLOAD_MIME_TYPE = PROPERTY_PREFIX + "uploadMimeType";
+
+  /**
    * The prefix identifying a property a variable.
    */
   public static final String VARIABLE_PREFIX = "$";
@@ -243,6 +248,7 @@ public class WetatorConfiguration {
   private Set<SearchPattern> jsJobFilterPatterns;
   private boolean jsDebugger;
 
+  private Map<String, String> mimeTypes;
   private List<Variable> variables; // store them in defined order
 
   private boolean log;
@@ -668,8 +674,20 @@ public class WetatorConfiguration {
     }
 
     // all properties starting with $ are variables
+    mimeTypes = new HashMap<String, String>();
+    Set<Entry<Object, Object>> tmpOtherEntries = tmpProperties.entrySet();
+    for (final Entry<Object, Object> tmpEntry : tmpOtherEntries) {
+      String tmpKey = (String) tmpEntry.getKey();
+      if (tmpKey.startsWith(PROPERTY_UPLOAD_MIME_TYPE)) {
+        // ok it is a mime type def
+        tmpKey = tmpKey.substring(PROPERTY_UPLOAD_MIME_TYPE.length() + 1);
+        mimeTypes.put(tmpKey, (String) tmpEntry.getValue());
+      }
+    }
+
+    // all properties starting with $ are variables
     variables = new LinkedList<Variable>();
-    final Set<Entry<Object, Object>> tmpOtherEntries = tmpProperties.entrySet();
+    tmpOtherEntries = tmpProperties.entrySet();
     for (final Entry<Object, Object> tmpEntry : tmpOtherEntries) {
       String tmpKey = (String) tmpEntry.getKey();
       final String tmpVariableValue = (String) tmpEntry.getValue();
@@ -1055,6 +1073,13 @@ public class WetatorConfiguration {
    */
   public Set<SearchPattern> getJsJobFilterPatterns() {
     return jsJobFilterPatterns;
+  }
+
+  /**
+   * @return a map with additional mime type configurations
+   */
+  public Map<String, String> getMimeTypes() {
+    return mimeTypes;
   }
 
   /**
