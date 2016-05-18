@@ -161,6 +161,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     jsTimeoutInMillis = tmpConfiguration.getJsTimeoutInSeconds() * 1000L;
     responseStores = new HashMap<BrowserVersion, ResponseStore>();
     for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
+      // manipulate the browser version before using it as key for a map
+      // because this manipulation will change the hash value
+      for (Map.Entry<String, String> tmpMapping : tmpConfiguration.getMimeTypes().entrySet()) {
+        determineBrowserVersionFor(tmpBrowserType).registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
+      }
+
       final ResponseStore tmpStrore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
           true);
       responseStores.put(determineBrowserVersionFor(tmpBrowserType), tmpStrore);
@@ -205,10 +211,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     bookmarks = new HashMap<String, URL>();
 
     final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
-
-    for (Map.Entry<String, String> tmpMapping : tmpConfiguration.getMimeTypes().entrySet()) {
-      tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
-    }
 
     DefaultCredentialsProvider tmpCredentialProvider = null;
 
@@ -783,7 +785,8 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpCurrentWindow = tmpCurrentWindow.getTopWindow();
         final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          String tmpPageFile = getResponseStore(webClient.getBrowserVersion()).storePage(webClient, tmpPage);
+          final ResponseStore tmpResponseStore = getResponseStore(webClient.getBrowserVersion());
+          String tmpPageFile = tmpResponseStore.storePage(webClient, tmpPage);
           savedPages.put(tmpPage, tmpPageFile);
 
           // highlight changed control if possible
