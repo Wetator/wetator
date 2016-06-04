@@ -224,6 +224,7 @@ wetator/build-properties.xml -text
 wetator/build.properties -text
 wetator/build.xml -text
 wetator/chat -text
+wetator/docu/droid-sans.zip -text
 wetator/docu/images/cfg_jsjobs.png -text
 wetator/docu/images/cfg_jsjobs_filter.png -text
 wetator/docu/images/click_anchor.png -text
