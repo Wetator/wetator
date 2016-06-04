@@ -27,15 +27,11 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorEngine;
 import org.wetator.gui.DialogUtil;
 import org.wetator.progresslistener.StdOutProgressListener;
+import org.wetator.util.Log4jUtil;
 
 /**
  * The command line interface for the Wetator.
@@ -62,21 +58,8 @@ public final class Wetator {
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();
       if ("-log".equals(tmpArg)) {
-        final FileAppender tmpFileAppender = new FileAppender();
-        tmpFileAppender.setName("w_file");
         tmpLogFile = new File("wetator.log");
-        tmpFileAppender.setFile(tmpLogFile.getAbsolutePath());
-        tmpFileAppender.setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
-        tmpFileAppender.setAppend(false);
-        tmpFileAppender.activateOptions();
-        Logger.getRootLogger().addAppender(tmpFileAppender);
-
-        for (final String tmpLog : new String[] { "org.wetator",
-            "com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl",
-            "com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine", "org.apache.http.wire" }) {
-          final Logger tmpLogger = LogManager.getLogger(tmpLog);
-          tmpLogger.setLevel(Level.TRACE);
-        }
+        Log4jUtil.configureLog(tmpLogFile);
       } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;

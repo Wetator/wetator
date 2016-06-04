@@ -442,6 +442,7 @@ wetator/src/org/wetator/util/ContentUtil.java -text
 wetator/src/org/wetator/util/CssUtil.java -text
 wetator/src/org/wetator/util/FileUtil.java -text
 wetator/src/org/wetator/util/FindSpot.java -text
+wetator/src/org/wetator/util/Log4jUtil.java -text
 wetator/src/org/wetator/util/NormalizedString.java -text
 wetator/src/org/wetator/util/Output.java -text
 wetator/src/org/wetator/util/SecretString.java -text
