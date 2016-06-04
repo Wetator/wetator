@@ -234,6 +234,7 @@ src/org/wetator/util/ContentUtil.java -text
 src/org/wetator/util/CssUtil.java -text
 src/org/wetator/util/FileUtil.java -text
 src/org/wetator/util/FindSpot.java -text
+src/org/wetator/util/Log4jUtil.java -text
 src/org/wetator/util/NormalizedString.java -text
 src/org/wetator/util/Output.java -text
 src/org/wetator/util/SecretString.java -text
