@@ -208,6 +208,10 @@ public final class ResponseStore {
   public String storeContentFromUrl(final URL aBaseUrl, final URL aFullContentUrl, final HtmlLink aLink,
       final HtmlImage anImage, final int aDeep, final String aSuffix) {
     try {
+      if ("data".equals(aFullContentUrl.getProtocol())) {
+        return null;
+      }
+
       final String tmpBaseHost = aBaseUrl.getHost();
       if (null == tmpBaseHost || !tmpBaseHost.equals(aFullContentUrl.getHost())) {
         LOG.info("Ignoring URL '" + aFullContentUrl.toExternalForm() + "' (wrong host).");
