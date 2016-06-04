@@ -11,27 +11,27 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/cssparser-0.9.19-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.19.jar"/>
 	<classpathentry kind="lib" path="lib/fontbox-1.8.12.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.22-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.22-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.22.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.22.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.4.4.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/jempbox-1.8.12.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-continuation-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-http-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-io-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-security-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-server-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-servlet-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-servlets-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-util-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-webapp-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-xml-9.2.16.v20160414.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-continuation-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-security-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-server-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlet-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlets-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-webapp-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-xml-9.2.17.v20160517.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-1.10.19.jar"/>
@@ -48,9 +48,9 @@
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.21.jar"/>
 	<classpathentry kind="lib" path="lib/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/txtmark-0.13.jar"/>
-	<classpathentry kind="lib" path="lib/websocket-api-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/websocket-client-9.2.16.v20160414.jar"/>
-	<classpathentry kind="lib" path="lib/websocket-common-9.2.16.v20160414.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-api-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-client-9.2.17.v20160517.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-common-9.2.17.v20160517.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-2.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
