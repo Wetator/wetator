@@ -230,20 +230,20 @@ public class JUnitProgressListener implements IProgressListener {
   /**
    * {@inheritDoc}
    *
-   * @see org.wetator.core.IProgressListener#warn(java.lang.String, java.lang.String[], java.lang.String)
+   * @see org.wetator.core.IProgressListener#warn(String, Object[], String)
    */
   @Override
-  public void warn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
+  public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
     // nothing
   }
 
   /**
    * {@inheritDoc}
    *
-   * @see org.wetator.core.IProgressListener#info(java.lang.String, java.lang.String[])
+   * @see org.wetator.core.IProgressListener#info(String, Object[])
    */
   @Override
-  public void info(final String aMessageKey, final String[] aParameterArray) {
+  public void info(final String aMessageKey, final Object[] aParameterArray) {
     // nothing
   }
 

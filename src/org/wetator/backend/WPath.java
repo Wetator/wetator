@@ -27,7 +27,7 @@ import org.wetator.util.SecretString;
 
 /**
  * A WPath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.<br/>
- * 
+ *
  * @author frank.danek
  * @author rbri
  */
@@ -44,7 +44,7 @@ public class WPath {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aPathNodes the nodes of the path
    * @param aConfiguration the configuration
    * @throws InvalidInputException in case of an invalid {@link WPath}
@@ -52,8 +52,8 @@ public class WPath {
   public WPath(final SecretString aPathNodes, final WetatorConfiguration aConfiguration) throws InvalidInputException {
     if (aPathNodes == null) {
       // TODO i18n
-      final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { "null",
-          "Invalid WPath. Must not be null." });
+      final String tmpMessage = Messages.getMessage("invalidWPath",
+          new Object[] { "null", "Invalid WPath. Must not be null." });
       throw new InvalidInputException(tmpMessage);
     }
     rawPath = aPathNodes;
@@ -97,7 +97,7 @@ public class WPath {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -118,8 +118,8 @@ public class WPath {
             && !tmpNode.endsWith(TABLE_COORDINATES_END_ESCAPED)) {
           if (tmpTableCoordinatesFinished) {
             // TODO i18n
-            final String tmpMessage = Messages.getMessage("invalidWPath", new String[] { rawPath.toString(),
-                "Invalid WPath. Only one group of table coordinates allowed." });
+            final String tmpMessage = Messages.getMessage("invalidWPath",
+                new Object[] { rawPath, "Invalid WPath. Only one group of table coordinates allowed." });
             throw new InvalidInputException(tmpMessage);
           }
           tableCoordinates.add(new TableCoordinate(tmpNode));
@@ -151,7 +151,7 @@ public class WPath {
    * <li>contains at least one of x coordinate and y coordinate</li>
    * <li>ends with ']'</li>
    * </ul>
-   * 
+   *
    * @author frank.danek
    */
   public static class TableCoordinate {
@@ -161,7 +161,7 @@ public class WPath {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aTableCoordinates the {@link SecretString} containing the table coordinates
      * @throws InvalidInputException in case of invalid table coordinates
      */
@@ -201,7 +201,7 @@ public class WPath {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
