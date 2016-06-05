@@ -131,12 +131,12 @@ public class WetatorEngine {
    */
   public void addTestCase(final String aName, final File aFile) throws InvalidInputException {
     if (!aFile.exists()) {
-      throw new InvalidInputException("The test file '" + FilenameUtils.normalize(aFile.getAbsolutePath())
-          + "' does not exist.");
+      throw new InvalidInputException(
+          "The test file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' does not exist.");
     }
     if (!aFile.isFile() || !aFile.canRead()) {
-      throw new InvalidInputException("The test file '" + FilenameUtils.normalize(aFile.getAbsolutePath())
-          + "' is not readable.");
+      throw new InvalidInputException(
+          "The test file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' is not readable.");
     }
     testCases.add(new TestCase(aName, aFile));
   }
@@ -581,7 +581,8 @@ public class WetatorEngine {
    * @param aParameterArray the message parameters.
    * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final Throwable aThrowable) {
+  public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray,
+      final Throwable aThrowable) {
     String tmpStackTrace = null;
     if (null != aThrowable) {
       tmpStackTrace = ExceptionUtils.getStackTrace(aThrowable);
@@ -598,7 +599,7 @@ public class WetatorEngine {
    * @param aParameterArray the message parameters.
    * @param aDetails the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
+  public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
     for (final IProgressListener tmpListener : progressListener) {
       tmpListener.warn(aMessageKey, aParameterArray, aDetails);
     }
@@ -610,7 +611,7 @@ public class WetatorEngine {
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
-  public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
+  public void informListenersInfo(final String aMessageKey, final Object[] aParameterArray) {
     for (final IProgressListener tmpListener : progressListener) {
       tmpListener.info(aMessageKey, aParameterArray);
     }

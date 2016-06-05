@@ -370,20 +370,17 @@ public final class HtmlUnitBrowser implements IBrowser {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       addFailure("javascriptError", new String[] { tmpScriptException.getMessage() }, tmpScriptException);
     } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages.getMessage("openServerError",
-          new String[] { aUrl.toString(), e.getMessage() });
+      final String tmpMessage = Messages.getMessage("openServerError", new Object[] { aUrl, e.getMessage() });
       throw new ActionException(tmpMessage, e);
     } catch (final UnknownHostException e) {
-      final String tmpMessage = Messages.getMessage("unknownHostError",
-          new String[] { aUrl.toString(), e.getMessage() });
+      final String tmpMessage = Messages.getMessage("unknownHostError", new Object[] { aUrl, e.getMessage() });
       throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "' fails. " + e.getMessage());
-      final String tmpMessage = Messages.getMessage("openServerError",
-          new String[] { aUrl.toString(), e.getMessage() });
+      final String tmpMessage = Messages.getMessage("openServerError", new Object[] { aUrl, e.getMessage() });
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -518,35 +515,35 @@ public final class HtmlUnitBrowser implements IBrowser {
     public void trace(final Object aMessage) {
       LOG.debug("Console [trace]: " + aMessage);
 
-      wetatorEngine.informListenersInfo("ConsoleTrace", new String[] { aMessage.toString() });
+      wetatorEngine.informListenersInfo("ConsoleTrace", new Object[] { aMessage });
     }
 
     @Override
     public void debug(final Object aMessage) {
       LOG.debug("Console [debug]: " + aMessage);
 
-      wetatorEngine.informListenersInfo("ConsoleDebug", new String[] { aMessage.toString() });
+      wetatorEngine.informListenersInfo("ConsoleDebug", new Object[] { aMessage });
     }
 
     @Override
     public void info(final Object aMessage) {
       LOG.debug("Console [info]: " + aMessage);
 
-      wetatorEngine.informListenersInfo("ConsoleInfo", new String[] { aMessage.toString() });
+      wetatorEngine.informListenersInfo("ConsoleInfo", new Object[] { aMessage });
     }
 
     @Override
     public void warn(final Object aMessage) {
       LOG.debug("Console [warn]: " + aMessage);
 
-      wetatorEngine.informListenersInfo("ConsoleWarn", new String[] { aMessage.toString() });
+      wetatorEngine.informListenersInfo("ConsoleWarn", new Object[] { aMessage });
     }
 
     @Override
     public void error(final Object aMessage) {
       LOG.debug("Console [error]: " + aMessage);
 
-      wetatorEngine.informListenersInfo("ConsoleError", new String[] { aMessage.toString() });
+      wetatorEngine.informListenersInfo("ConsoleError", new Object[] { aMessage });
     }
 
     @Override
@@ -594,7 +591,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     public void notify(final String aMessage, final Object anOrigin) {
       LOG.warn("Incorrectness: " + aMessage + " (detected by: " + anOrigin + ")");
 
-      wetatorEngine.informListenersWarn("Incorrectness", new String[] { aMessage, anOrigin.toString() }, (String) null);
+      wetatorEngine.informListenersWarn("Incorrectness", new Object[] { aMessage, anOrigin }, (String) null);
     }
   }
 
@@ -682,8 +679,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     @Override
     public void timeoutError(final InteractivePage anInteractivePage, final long aAllowedTime,
         final long aExecutionTime) {
-      htmlUnitBrowser.addFailure("javascriptTimeoutError", new String[] { Long.toString(aAllowedTime),
-          Long.toString(aExecutionTime), anInteractivePage.getUrl().toExternalForm() }, null);
+      htmlUnitBrowser.addFailure("javascriptTimeoutError",
+          new Object[] { aAllowedTime, aExecutionTime, anInteractivePage.getUrl().toExternalForm() }, null);
     }
   }
 
@@ -737,7 +734,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
       }
     }
-    final String tmpMessage = Messages.getMessage("noWindowByNameToClose", new String[] { aWindowName.toString() });
+    final String tmpMessage = Messages.getMessage("noWindowByNameToClose", new Object[] { aWindowName });
     throw new ActionException(tmpMessage);
   }
 
@@ -762,8 +759,8 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
-      final String tmpMessage = Messages.getMessage("outsideHistory", new String[] { Integer.toString(aSteps),
-          Integer.toString(tmpIndexPos), Integer.toString(tmpHistory.getLength()) });
+      final String tmpMessage = Messages.getMessage("outsideHistory",
+          new Object[] { aSteps, tmpIndexPos, tmpHistory.getLength() });
       throw new ActionException(tmpMessage);
     }
 
@@ -1004,7 +1001,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       return (HtmlPage) tmpPage;
     }
 
-    final String tmpMessage = Messages.getMessage("noHtmlPage", new String[] { tmpPage.getClass().toString() });
+    final String tmpMessage = Messages.getMessage("noHtmlPage", new Object[] { tmpPage.getClass() });
     throw new BackendException(tmpMessage);
   }
 
@@ -1090,7 +1087,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
-      wetatorEngine.informListenersWarn("stillJobsPending", new String[] { Long.toString(aTimeoutInMillis / 1000) },
+      wetatorEngine.informListenersWarn("stillJobsPending", new Object[] { aTimeoutInMillis / 1000d },
           ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
       return true;
     }
@@ -1168,7 +1165,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           final int tmpJobCount = areJobsActive(tmpHtmlPage);
           if (tmpJobCount > 0) {
             wetatorEngine.informListenersWarn("stillJobsActive",
-                new String[] { Long.toString(jsTimeoutInMillis / 1000) },
+                new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
                 ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
@@ -1204,7 +1201,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         // inform if there are still pending js jobs
         final int tmpJobCount = areJobsActive(tmpHtmlPage);
         if (tmpJobCount > 0) {
-          wetatorEngine.informListenersWarn("stillJobsActive", new String[] { Long.toString(jsTimeoutInMillis / 1000) },
+          wetatorEngine.informListenersWarn("stillJobsActive", new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
               ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
         }
 
@@ -1227,10 +1224,10 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
 
       // content type without title
-      Assert.fail("assertTitleUnsupportedContent", new String[] { tmpContentType.toString() });
+      Assert.fail("assertTitleUnsupportedContent", new Object[] { tmpContentType });
 
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("browserBackendError", new Object[] { e.getMessage() });
       throw new AssertionException(tmpMessage, e);
     }
 
@@ -1273,7 +1270,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             final int tmpJobCount = areJobsActive(tmpHtmlPage);
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
-                  new String[] { Long.toString(jsTimeoutInMillis / 1000) },
+                  new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
                   ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
@@ -1321,7 +1318,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         // inform if there are still pending js jobs
         final int tmpJobCount = areJobsActive(tmpHtmlPage);
         if (tmpJobCount > 0) {
-          wetatorEngine.informListenersWarn("stillJobsActive", new String[] { Long.toString(jsTimeoutInMillis / 1000) },
+          wetatorEngine.informListenersWarn("stillJobsActive", new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
               ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
         }
 
