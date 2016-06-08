@@ -33,67 +33,85 @@ import org.wetator.backend.control.IControl;
 public final class WeightedControlList {
 
   /**
-   * Enum for the different found by types.<br/>
+   * Class for the different found by types.<br/>
    * Smaller values are more important.
    */
-  public enum FoundType {
+  public static final class FoundType {
     /**
      * Found by title match.
      * This is used from UnknownHtmlUnitControls finder because we
      * do a text search in this case and a title is not directly visible
      * to the user -> larger value
      */
-    BY_TITLE_TEXT(9900),
+    public static final FoundType BY_TITLE_TEXT = new FoundType("BY_TITLE_TEXT", 9900);
 
     /** Found by text match. */
-    BY_TEXT(9000),
+    public static final FoundType BY_TEXT = new FoundType("BY_TEXT", 9000);
 
-    /** Found by table coordindates match. */
-    BY_TABLE_COORDINATE(6000),
+    /** Found by table coordinates match. */
+    public static final FoundType BY_TABLE_COORDINATE = new FoundType("BY_TABLE_COORDINATE", 6000);
 
     /** Found by aria-label text match. */
-    BY_ARIA_LABEL_ATTRIBUTE(5500),
+    public static final FoundType BY_ARIA_LABEL_ATTRIBUTE = new FoundType("BY_ARIA_LABEL_ATTRIBUTE", 5500);
 
     /** Found by image source attribute match. */
-    BY_IMG_SRC_ATTRIBUTE(5000),
+    public static final FoundType BY_IMG_SRC_ATTRIBUTE = new FoundType("BY_IMG_SRC_ATTRIBUTE", 5000);
+
     /** Found by image alt attribute match. */
-    BY_IMG_ALT_ATTRIBUTE(5000),
+    public static final FoundType BY_IMG_ALT_ATTRIBUTE = new FoundType("BY_IMG_ALT_ATTRIBUTE", 5000);
+
     /** Found by image title attribute match. */
-    BY_IMG_TITLE_ATTRIBUTE(5000),
+    public static final FoundType BY_IMG_TITLE_ATTRIBUTE = new FoundType("BY_IMG_TITLE_ATTRIBUTE", 5000);
 
     /** Found by inner image source attribute match. */
-    BY_INNER_IMG_SRC_ATTRIBUTE(4000),
+    public static final FoundType BY_INNER_IMG_SRC_ATTRIBUTE = new FoundType("BY_INNER_IMG_SRC_ATTRIBUTE", 4000);
+
     /** Found by inner image alt attribute match. */
-    BY_INNER_IMG_ALT_ATTRIBUTE(4000),
+    public static final FoundType BY_INNER_IMG_ALT_ATTRIBUTE = new FoundType("BY_INNER_IMG_ALT_ATTRIBUTE", 4000);
+
     /** Found by inner image title attribute match. */
-    BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
+    public static final FoundType BY_INNER_IMG_TITLE_ATTRIBUTE = new FoundType("BY_INNER_IMG_TITLE_ATTRIBUTE", 4000);
 
     /** Found by title attribute match. */
-    BY_TITLE_ATTRIBUTE(3500),
+    public static final FoundType BY_TITLE_ATTRIBUTE = new FoundType("BY_TITLE_ATTRIBUTE", 3500);
 
     /** Found by label text match. */
-    BY_LABEL_TEXT(3000),
+    public static final FoundType BY_LABEL_TEXT = new FoundType("BY_LABEL_TEXT", 3000);
 
     /** Found by placeholder text match. */
-    BY_PLACEHOLDER(2500),
+    public static final FoundType BY_PLACEHOLDER = new FoundType("BY_PLACEHOLDER", 2500);
 
     /** Found by label match. */
-    BY_LABEL(2000),
+    public static final FoundType BY_LABEL = new FoundType("BY_LABEL", 2000);
 
     /** Found by name match. */
-    BY_NAME(1000),
+    public static final FoundType BY_NAME = new FoundType("BY_NAME", 1000);
+
     /** Found by inner name match. */
-    BY_INNER_NAME(900),
+    public static final FoundType BY_INNER_NAME = new FoundType("BY_INNER_NAME", 900);
 
     /** Found by id match. */
-    BY_ID(400);
+    public static final FoundType BY_ID = new FoundType("BY_ID", 400);
 
-    private int value;
+    private final String name;
+    private final int value;
 
     /**
+     * @param aName the name
+     * @param aBaseType the type to be used as base for the new value calculation
+     * @param anOffset the offset to be added
+     */
+    public FoundType(final String aName, final FoundType aBaseType, final int anOffset) {
+      name = aName;
+      value = aBaseType.value + anOffset;
+    }
+
+    /**
+     * @param aName the name
      * @param aValue the weight
      */
-    FoundType(final int aValue) {
+    FoundType(final String aName, final int aValue) {
+      name = aName;
       value = aValue;
     }
 
@@ -111,7 +129,8 @@ public final class WeightedControlList {
      */
     @Override
     public String toString() {
-      return name();
+      // return name + "(" + value + ")";
+      return name;
     }
   }
 
