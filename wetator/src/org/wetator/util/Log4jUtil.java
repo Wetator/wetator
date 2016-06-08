@@ -31,7 +31,7 @@ import org.apache.log4j.PatternLayout;
  *
  * @author rbri
  */
-public class Log4jUtil {
+public final class Log4jUtil {
 
   /**
    * The constructor.
@@ -44,7 +44,7 @@ public class Log4jUtil {
    * @see org.wetator.Wetator#main(String[])
    * @param aLogFile the log target
    */
-  public static void configureLog(File aLogFile) {
+  public static void configureLog(final File aLogFile) {
     final FileAppender tmpFileAppender = new FileAppender();
     tmpFileAppender.setName("w_file");
     tmpFileAppender.setFile(aLogFile.getAbsolutePath());
