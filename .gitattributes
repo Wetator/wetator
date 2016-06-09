@@ -207,6 +207,12 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/zer
 wetator-jenkins-plugin/src/test/resources/wetresult.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/util/JenkinsPluginTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/wetator-jenkins-plugin[!!-~]-[!!-~]clean[!!-~]compile.launch -text svneol=unset#text/plain
+wetator-jsf-ext/.checkstyle -text
+wetator-jsf-ext/.classpath -text
+wetator-jsf-ext/.project -text
+wetator-jsf-ext/.settings/org.eclipse.jdt.core.prefs -text
+wetator-jsf-ext/src/org/wetator/primefaces/backend/htmlunit/control/HtmlUnitPrimeFacesOption.java -text
+wetator-jsf-ext/src/org/wetator/primefaces/backend/htmlunit/control/identifier/HtmlUnitPrimeFacesOptionInSelectIdentifier.java -text
 wetator/.checkstyle -text
 wetator/.classpath -text
 wetator/.project -text
