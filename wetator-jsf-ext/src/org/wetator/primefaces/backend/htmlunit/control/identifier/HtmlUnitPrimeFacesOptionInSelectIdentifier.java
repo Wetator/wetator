@@ -16,12 +16,16 @@
 
 package org.wetator.primefaces.backend.htmlunit.control.identifier;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WPath.TableCoordinate;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
+import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.primefaces.backend.htmlunit.control.HtmlUnitPrimeFacesOption;
 import org.wetator.util.FindSpot;
@@ -139,7 +143,7 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance, tmpResult);
           }
         }
 
@@ -155,7 +159,7 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance, tmpResult);
           }
         }
 
@@ -171,7 +175,7 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance, tmpResult);
           }
         }
       }
@@ -181,14 +185,15 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
 
   /**
    * Searches for nested option of a given select by label, value or text.
-   * 
+   *
    * @param aSelect HtmlSelect which should contain this option
    * @param aSearchPattern value or label of option
    * @param aDistance the distance of the control
    * @param aWeightedControlList the list to add the control to
    * @return found
    */
-  protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern, final int aDistance,
+  protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern,
+      final List<TableCoordinate> aTableCoordinates, final int aDistance,
       final WeightedControlList aWeightedControlList) {
     boolean tmpFound = false;
     final Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
@@ -198,9 +203,14 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitPrimeFacesOption((HtmlDivision) aSelect.getParentNode().getParentNode(), tmpOption), BY_LABEL_PF, tmpCoverage,
-              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-          tmpFound = true;
+          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+          if (isInTable) {
+              aWeightedControlList.add(new HtmlUnitPrimeFacesOption((HtmlDivision) aSelect.getParentNode().getParentNode(), tmpOption), BY_LABEL_PF, tmpCoverage,
+                      aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            tmpFound = true;
+          }
         }
       }
 
@@ -208,9 +218,14 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitPrimeFacesOption((HtmlDivision) aSelect.getParentNode().getParentNode(), tmpOption), BY_LABEL_PF, tmpCoverage,
-              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-          tmpFound = true;
+          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+          if (isInTable) {
+              aWeightedControlList.add(new HtmlUnitPrimeFacesOption((HtmlDivision) aSelect.getParentNode().getParentNode(), tmpOption), BY_LABEL_PF, tmpCoverage,
+                      aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            tmpFound = true;
+          }
         }
       }
 
@@ -218,9 +233,14 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitPrimeFacesOption((HtmlDivision) aSelect.getParentNode().getParentNode(), tmpOption), BY_LABEL_PF, tmpCoverage,
-              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-          tmpFound = true;
+          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+          if (isInTable) {
+              aWeightedControlList.add(new HtmlUnitPrimeFacesOption((HtmlDivision) aSelect.getParentNode().getParentNode(), tmpOption), BY_LABEL_PF, tmpCoverage,
+                      aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            tmpFound = true;
+          }
         }
       }
     }
