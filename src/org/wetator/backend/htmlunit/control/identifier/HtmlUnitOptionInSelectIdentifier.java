@@ -16,10 +16,14 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WPath;
+import org.wetator.backend.WPath.TableCoordinate;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
+import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
@@ -44,14 +48,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * <li>it's id</li>
  * <li>a label</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -61,14 +65,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
   public WeightedControlList identify(final WPath aWPath, final HtmlElement aHtmlElement) {
     if (aWPath.getLastNode() == null) {
-      // TODO implement table coordinate support
+      // this identifier requires at least one node (the label of the option to select)
+      // if not available, we can't do anything
       return new WeightedControlList();
     }
 
@@ -115,7 +120,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
+                tmpResult);
           }
         }
 
@@ -131,7 +137,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
+                tmpResult);
           }
         }
 
@@ -147,7 +154,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
+            getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
+                tmpResult);
           }
         }
       }
@@ -178,7 +186,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
                 } else {
                   tmpDistance = tmpTextBefore.length();
                 }
-                getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, tmpResult);
+                getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
+                    tmpResult);
               }
             } catch (final ElementNotFoundException e) {
               // not found
@@ -196,7 +205,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
               } else {
                 tmpDistance = tmpTextBefore.length();
               }
-              getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, tmpResult);
+              getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
+                  tmpResult);
             }
           }
         }
@@ -207,14 +217,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
   /**
    * Searches for nested option of a given select by label, value or text.
-   * 
+   *
    * @param aSelect HtmlSelect which should contain this option
    * @param aSearchPattern value or label of option
    * @param aDistance the distance of the control
    * @param aWeightedControlList the list to add the control to
    * @return found
    */
-  protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern, final int aDistance,
+  protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern,
+      final List<TableCoordinate> aTableCoordinates, final int aDistance,
       final WeightedControlList aWeightedControlList) {
     boolean tmpFound = false;
     final Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
@@ -224,9 +235,14 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-          tmpFound = true;
+          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+          if (isInTable) {
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+                aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            tmpFound = true;
+          }
         }
       }
 
@@ -234,9 +250,14 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-          tmpFound = true;
+          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+          if (isInTable) {
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+                aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            tmpFound = true;
+          }
         }
       }
 
@@ -244,9 +265,14 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-          tmpFound = true;
+          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+          if (isInTable) {
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+                aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            tmpFound = true;
+          }
         }
       }
     }
