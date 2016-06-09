@@ -213,6 +213,8 @@ wetator-jsf-ext/.project -text
 wetator-jsf-ext/.settings/org.eclipse.jdt.core.prefs -text
 wetator-jsf-ext/src/org/wetator/primefaces/backend/htmlunit/control/HtmlUnitPrimeFacesOption.java -text
 wetator-jsf-ext/src/org/wetator/primefaces/backend/htmlunit/control/identifier/HtmlUnitPrimeFacesOptionInSelectIdentifier.java -text
+wetator-jsf-ext/test/source/wetator/selectOneMenu.wett -text
+wetator-jsf-ext/test/source/wetator/wetator.config -text
 wetator/.checkstyle -text
 wetator/.classpath -text
 wetator/.project -text

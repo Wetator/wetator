@@ -1,0 +1,14 @@
+
+# Simple test case for the PrimeFaces menu
+
+open-url        || ui/input/oneMenu.xhtml
+
+select          || Wii U
+
+#select          || Volkswagen
+#set             || Editable || Köln
+#select          || Vader
+
+#click-on        || Submit
+# assert-content  || Values, Basic: Wii U, Grouping: Volkswagen, Editable Köln, Barcelona, Advanced: Vader
+#assert-content  || Values, Basic: Wii U, Grouping: Volkswagen, Editable, Advanced: Vader
