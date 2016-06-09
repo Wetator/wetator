@@ -64,11 +64,23 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
     if (!(aHtmlElement instanceof HtmlSelect)) {
         return false;
     };
-    HtmlSelect tmpSelect = (HtmlSelect) aHtmlElement;
-    
-    HtmlElement tmpParent = (HtmlElement) tmpSelect.getParentNode().getParentNode();
+    final HtmlSelect tmpSelect = (HtmlSelect) aHtmlElement;
+
+    HtmlElement tmpParent = (HtmlElement) tmpSelect.getParentNode();
+    if (tmpParent == null) {
+        return false;
+    }
+
+    tmpParent = (HtmlElement) tmpSelect.getParentNode();
+    if (tmpParent == null) {
+        return false;
+    }
+
     String tmpClass = tmpParent.getAttribute("class");
-    return tmpClass.contains("ui-selectonemenu");
+    return tmpClass.equals("ui-selectonemenu")
+                || tmpClass.startsWith("ui-selectonemenu ")
+                || tmpClass.endsWith(" ui-selectonemenu")
+                || tmpClass.contains(" ui-selectonemenu ");
   }
 
   /**
