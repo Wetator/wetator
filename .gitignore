@@ -9,6 +9,7 @@ wetator-jenkins-plugin/deploy/org
 wetator-jenkins-plugin/infinitest.filters
 wetator-jenkins-plugin/target
 wetator-jenkins-plugin/work
+wetator-jsf-ext/bin
 /wetator.config
 wetator/.settings/org.sonar.ide.eclipse.core.prefs
 wetator/.sonar
