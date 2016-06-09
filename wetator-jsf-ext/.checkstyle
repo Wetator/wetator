@@ -7,10 +7,4 @@
   <local-check-config name="SRSDevTest" location="test/source/checkstyle/SRSDevTestCheckstyle_4.4.2.xml" type="project" description="">
     <additional-data name="protect-config-file" value="true"/>
   </local-check-config>
-  <fileset name="java source" enabled="true" check-config-name="SRSDev" local="true">
-    <file-match-pattern match-pattern="^src/.*\.java" include-pattern="true"/>
-  </fileset>
-  <fileset name="test source" enabled="true" check-config-name="SRSDevTest" local="true">
-    <file-match-pattern match-pattern="^test/source/java/.*\.java" include-pattern="true"/>
-  </fileset>
 </fileset-config>
