@@ -38,7 +38,7 @@ public final class Messages {
    */
   public static String getMessage(final String aMessageKey, final Object[] aParameterArray) {
     // TODO move the messages file to the root level
-    final ResourceBundle tmpMessages = ResourceBundle.getBundle("org.wetator.Messages");
+    final ResourceBundle tmpMessages = ResourceBundle.getBundle("org.wetator.Messages", Locale.ROOT);
 
     StringBuilder tmpMessageResource;
     try {
