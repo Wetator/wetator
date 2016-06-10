@@ -973,6 +973,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     return tmpPage;
   }
 
+  @SuppressWarnings("deprecation")
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
     if (IBrowser.BrowserType.FIREFOX_38 == aBrowserType) {
       return BrowserVersion.FIREFOX_38;
