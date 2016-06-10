@@ -40,8 +40,8 @@ public abstract class SearchPattern {
   /**
    * @return a string with some statistic info
    */
-  public static String getStatics() {
-    return searchPatternCache.getStatics();
+  public static String getStatistics() {
+    return searchPatternCache.getStatistics();
   }
 
   /**
@@ -363,16 +363,13 @@ public abstract class SearchPattern {
     /**
      * @return a string with some statistic info
      */
-    public synchronized String getStatics() {
-      final StringBuilder tmpResult = new StringBuilder(80);
-      tmpResult.append("SearchPatternCache statistics:\n");
-
-      tmpResult.append("      Entries: ");
-      tmpResult.append(cache.size());
-      tmpResult.append('\n');
-
-      tmpResult.append("      Hits:    ");
-      tmpResult.append(hitsCount);
+    public synchronized String getStatistics() {
+      // @formatter:off
+      final StringBuilder tmpResult = new StringBuilder(80)
+        .append("SearchPatternCache statistics:\n")
+        .append("      Entries: ").append(cache.size()).append('\n')
+        .append("      Hits:    ").append(hitsCount);
+      // @formatter:on
 
       return tmpResult.toString();
     }
