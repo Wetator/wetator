@@ -210,7 +210,7 @@ public class ByLabelTextAfterMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text> CheckBox");
+    final SecretString tmpSearch = new SecretString("wrong text > CheckBox");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 

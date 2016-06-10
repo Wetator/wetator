@@ -95,7 +95,7 @@ public class WPathTest {
 
   @Test
   public void emptyPathLastNode() throws Exception {
-    final WPath tmpWPath = new WPath(new SecretString(">last"), config);
+    final WPath tmpWPath = new WPath(new SecretString("> last"), config);
 
     Assert.assertFalse(tmpWPath.isEmpty());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
@@ -107,7 +107,7 @@ public class WPathTest {
 
   @Test
   public void pathEmptyLastNode() throws Exception {
-    final WPath tmpWPath = new WPath(new SecretString("path>"), config);
+    final WPath tmpWPath = new WPath(new SecretString("path >"), config);
 
     Assert.assertFalse(tmpWPath.isEmpty());
     Assert.assertEquals(1, tmpWPath.getPathNodes().size());
@@ -119,6 +119,18 @@ public class WPathTest {
 
   @Test
   public void pathLastNode() throws Exception {
+    final WPath tmpWPath = new WPath(new SecretString("path > last"), config);
+
+    Assert.assertFalse(tmpWPath.isEmpty());
+    Assert.assertEquals(1, tmpWPath.getPathNodes().size());
+    Assert.assertEquals("path", tmpWPath.getPathNodes().get(0).getValue());
+    Assert.assertEquals("last", tmpWPath.getLastNode().getValue());
+    Assert.assertEquals(0, tmpWPath.getTableCoordinates().size());
+    Assert.assertEquals(0, tmpWPath.getTableCoordinatesReversed().size());
+  }
+
+  @Test
+  public void pathLastNodeNoWhiteSpace() throws Exception {
     final WPath tmpWPath = new WPath(new SecretString("path>last"), config);
 
     Assert.assertFalse(tmpWPath.isEmpty());
@@ -131,7 +143,7 @@ public class WPathTest {
 
   @Test
   public void multiplePathLastNode() throws Exception {
-    final WPath tmpWPath = new WPath(new SecretString("path1>path2>last"), config);
+    final WPath tmpWPath = new WPath(new SecretString("path1 > path2 > last"), config);
 
     Assert.assertFalse(tmpWPath.isEmpty());
     Assert.assertEquals(2, tmpWPath.getPathNodes().size());
@@ -213,7 +225,7 @@ public class WPathTest {
 
   @Test(expected = InvalidInputException.class)
   public void tablePathTableLastNode() throws Exception {
-    new WPath(new SecretString("[x;y]>path>[x;y]>last"), config);
+    new WPath(new SecretString("[x;y] > path > [x;y] > last"), config);
   }
 
   @Test

@@ -56,7 +56,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker1, not");
+    final SecretString tmpSearch = new SecretString("Marker1 > not");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "otherId", "myId");
 
@@ -173,8 +173,9 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
       }
 
-      tmpMatches.addAll(new ByWholeTextBeforeMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
-          tmpWholePathSearchPattern).matches(tmpHtmlElement));
+      tmpMatches.addAll(
+          new ByWholeTextBeforeMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern)
+              .matches(tmpHtmlElement));
     }
     return tmpMatches;
   }

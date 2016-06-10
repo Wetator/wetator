@@ -62,7 +62,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("not, o_value3");
+    final SecretString tmpSearch = new SecretString("not > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -187,7 +187,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectId, o_value3");
+    final SecretString tmpSearch = new SecretString("SecondSelectId > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -312,7 +312,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText, ySecondSelectI, o_value3");
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > ySecondSelectI > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -341,7 +341,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, MySecondSelectId, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectId > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -363,7 +363,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, MySecondSelectId, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectId > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySecondSelectId");
 
@@ -487,7 +487,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectName, o_value3");
+    final SecretString tmpSearch = new SecretString("SecondSelectName > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -612,7 +612,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText, ySecondSelectNam, o_value3");
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > ySecondSelectNam > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -641,7 +641,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, MySecondSelectName, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectName > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -663,7 +663,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, MySecondSelectName, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectName > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySecondSelectId");
 
@@ -947,7 +947,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, SecondSelectLabelText, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
@@ -970,7 +970,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, SecondSelectLabelText, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySecondSelectId");
 
@@ -1254,7 +1254,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, SecondSelectLabelText, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "labelId", "MySecondSelectId");
@@ -1277,7 +1277,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, SecondSelectLabelText, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId",
         "MySecondSelectId");
@@ -1571,7 +1571,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, SecondSelectLabelText, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "labelId", "MySecondSelectId");
@@ -1595,7 +1595,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text, SecondSelectLabelText, o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId",
         "MySecondSelectId");
@@ -1624,7 +1624,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId, not");
+    final SecretString tmpSearch = new SecretString("MySecondSelectId > not");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
         "MySecondSelectId");
