@@ -390,7 +390,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.3.0" type="jar"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.3.7" type="jar"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
@@ -401,7 +401,7 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.0"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.1"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
         <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>
@@ -466,15 +466,16 @@
         </cpd>
 
         <!-- run forbiddenapis -->
-        <forbiddenapis internalRuntimeForbidden="true" dir="${dir.build}/classes" >
+        <forbiddenapis dir="${dir.build}/classes" targetVersion="${javac.target}">
             <classpath>
                 <fileset dir="${dir.lib}">
                     <patternset refid="libPattern" />
                 </fileset>
             </classpath>
 
-            <bundledsignatures name="jdk-unsafe-${javac.target}"/>
-            <bundledsignatures name="jdk-deprecated-${javac.target}"/>
+            <bundledsignatures name="jdk-unsafe"/>
+            <bundledsignatures name="jdk-deprecated"/>
+        	<bundledsignatures name="jdk-non-portable"/>
             <bundledsignatures name="commons-io-unsafe-2.4"/>
             <!--signaturesFileset file="path/to/signatures.txt"/-->
         </forbiddenapis>
