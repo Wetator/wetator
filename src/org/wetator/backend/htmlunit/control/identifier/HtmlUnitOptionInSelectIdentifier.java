@@ -220,6 +220,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    *
    * @param aSelect HtmlSelect which should contain this option
    * @param aSearchPattern value or label of option
+   * @param aTableCoordinates the table coordinates to check if our option is inside or an empty list
    * @param aDistance the distance of the control
    * @param aWeightedControlList the list to add the control to
    * @return found
@@ -235,10 +236,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+          final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
-          if (isInTable) {
+          if (tmpIsInTable) {
             aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
                 aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
@@ -250,10 +251,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+          final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
-          if (isInTable) {
+          if (tmpIsInTable) {
             aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
                 aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
@@ -265,10 +266,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       if (StringUtils.isNotEmpty(tmpText)) {
         final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
-          final boolean isInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+          final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
-          if (isInTable) {
+          if (tmpIsInTable) {
             aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
                 aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
