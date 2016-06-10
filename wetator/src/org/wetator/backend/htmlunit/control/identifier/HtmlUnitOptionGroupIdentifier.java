@@ -34,17 +34,17 @@ import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
  * The identifier for a {@link HtmlUnitOptionGroup}.<br />
  * It can be identified by:
  * <ul>
- * <li>it's label attribute</li>
- * <li>it's id</li>
+ * <li>its label attribute</li>
+ * <li>its id</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -54,7 +54,7 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -67,8 +67,8 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
       tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
 
       if (!aWPath.getPathNodes().isEmpty()) {
-        final SearchPattern tmpPathSearchPatternSelect = SearchPattern.createFromList(aWPath.getPathNodes(), aWPath
-            .getPathNodes().size() - 1);
+        final SearchPattern tmpPathSearchPatternSelect = SearchPattern.createFromList(aWPath.getPathNodes(),
+            aWPath.getPathNodes().size() - 1);
         tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
       }
     }
@@ -80,15 +80,16 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
     if (aWPath.getLastNode() != null) {
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
-      aMatchers.add(new ByLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect,
-          tmpSearchPattern));
+      aMatchers
+          .add(new ByLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
+
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
