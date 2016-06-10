@@ -111,33 +111,33 @@ public class XMLScripter implements IScripter {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
     if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '" + XML_FILE_EXTENSION
-          + "'.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by XMLScripter. Extension is not '" + WET_FILE_EXTENSION
+              + "' or '" + XML_FILE_EXTENSION + "'.");
     }
 
     // second check the file accessibility
     if (!aFile.exists() || !aFile.isFile()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Could not find file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by XMLScripter. Could not find file.");
     }
     if (!aFile.canRead()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Could not read file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by XMLScripter. Could not read file.");
     }
 
     // third check the content
     try {
       if (!isSupported(createUTF8Reader(aFile))) {
-        return new IScripter.IsSupportedResult("File '" + aFile.getName()
-            + "' not supported by XMLScripter. Could not parse file.");
+        return new IScripter.IsSupportedResult(
+            "File '" + aFile.getName() + "' not supported by XMLScripter. Could not parse file.");
       }
     } catch (final FileNotFoundException e) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Could not find file (" + e.getMessage() + ").");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by XMLScripter. Could not find file (" + e.getMessage() + ").");
     } catch (final IOException e) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by XMLScripter. Could not read file (" + e.getMessage() + ").");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by XMLScripter. Could not read file (" + e.getMessage() + ").");
     }
 
     return IScripter.IS_SUPPORTED;
@@ -208,8 +208,8 @@ public class XMLScripter implements IScripter {
       IOUtils.closeQuietly(tmpReader);
 
       if (null == tmpSchemas || tmpSchemas.isEmpty()) {
-        throw new InvalidInputException("No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath())
-            + "'.");
+        throw new InvalidInputException(
+            "No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.");
       }
 
       addDefaultSchemas(tmpSchemas);
@@ -221,19 +221,19 @@ public class XMLScripter implements IScripter {
       tmpReader = createUTF8Reader(aFile);
       commands = parseScript(tmpReader);
     } catch (final FileNotFoundException e) {
-      throw new InvalidInputException(
-          "Could not find file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.", e);
+      throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.",
+          e);
     } catch (final IOException e) {
       throw new ResourceException("Could not read file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.", e);
     } catch (final XMLStreamException e) {
-      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' ("
-          + e.getMessage() + ").", e);
+      throw new InvalidInputException(
+          "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
     } catch (final SAXException e) {
-      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' ("
-          + e.getMessage() + ").", e);
+      throw new InvalidInputException(
+          "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
     } catch (final ParseException e) {
-      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' ("
-          + e.getMessage() + ").", e);
+      throw new InvalidInputException(
+          "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
     } finally {
       IOUtils.closeQuietly(tmpReader);
     }

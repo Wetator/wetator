@@ -93,8 +93,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
       aCommand.checkNoUnusedSecondParameter(aContext);
@@ -134,8 +134,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -163,8 +163,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpBookmarkName = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -184,8 +184,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpWaitTimeString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -196,12 +196,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         tmpWaitTime = tmpValue.longValueExact();
       } catch (final NumberFormatException e) {
         // TODO i18n
-        final String tmpMessage = Messages.getMessage("integerParameterExpected", new String[] { "wait",
-            tmpWaitTimeString.toString(), "1" });
+        final String tmpMessage = Messages.getMessage("integerParameterExpected",
+            new String[] { "wait", tmpWaitTimeString.toString(), "1" });
         throw new InvalidInputException(tmpMessage);
       } catch (final ArithmeticException e) {
-        final String tmpMessage = Messages.getMessage("integerParameterExpected", new String[] { "wait",
-            tmpWaitTimeString.toString(), "1" });
+        final String tmpMessage = Messages.getMessage("integerParameterExpected",
+            new String[] { "wait", tmpWaitTimeString.toString(), "1" });
         throw new InvalidInputException(tmpMessage);
       }
 
@@ -226,8 +226,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpJsString = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -260,8 +260,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
       if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
         final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", new String[] { tmpButton.toString() });
@@ -294,8 +294,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -314,7 +314,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           final DomNodeList<DomElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
           for (final DomElement tmpAppletElement : tmpAppletElements) {
             final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
-            if (StringUtils.isEmpty(tmpAppletNameValue) || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
+            if (StringUtils.isEmpty(tmpAppletNameValue)
+                || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
               aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
               tmpAppletTested = true;
               try {
@@ -380,8 +381,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-    InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpSearch = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -395,8 +396,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
           final HtmlAnchor tmpAnchor = findAnchor(tmpHtmlPage, tmpSearch, aContext);
           if (null == tmpAnchor) {
-            final String tmpMessage = Messages.getMessage("noClickableHtmlElmentFound", new String[] { tmpSearch
-                .toString().toString().trim() });
+            final String tmpMessage = Messages.getMessage("noClickableHtmlElmentFound",
+                new String[] { tmpSearch.toString().toString().trim() });
             throw new ActionException(tmpMessage);
           }
           final IControl tmpControl = new HtmlUnitAnchor(tmpAnchor);

@@ -29,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * The base class for all matchers.<br/>
  * A matcher checks if a {@link HtmlElement} matches one or multiple criteria. If it matches it is added to the result
  * list. A control may be added multiple times if it matches multiple criteria.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractHtmlUnitElementMatcher {
@@ -54,7 +54,7 @@ public abstract class AbstractHtmlUnitElementMatcher {
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -76,7 +76,7 @@ public abstract class AbstractHtmlUnitElementMatcher {
 
   /**
    * This is a container for the result of a match.
-   * 
+   *
    * @author frank.danek
    */
   public static class MatchResult {

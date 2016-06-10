@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 /**
  * This matcher checks if the attribute 'alt' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches
  * the criteria.
- * 
+ *
  * @author frank.danek
  */
 public class ByImageAltAttributeMatcher extends AbstractByAttributeMatcher {
@@ -36,7 +36,7 @@ public class ByImageAltAttributeMatcher extends AbstractByAttributeMatcher {
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -49,7 +49,7 @@ public class ByImageAltAttributeMatcher extends AbstractByAttributeMatcher {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

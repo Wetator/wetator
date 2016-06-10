@@ -36,8 +36,8 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementNotFound() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "</form>" + "</body></html>";
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -50,8 +50,8 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementByElement() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "</form>" + "</body></html>";
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -65,9 +65,8 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementByElementAndAttribute() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "<a id='myId2' href='snoopy.php'>TestAnchor</a>"
-        + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "<a id='myId2' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -82,9 +81,8 @@ public class HtmlUnitControlRepositoryTest {
 
   @Test
   public void getForHtmlElementByElementAndAttributeFallBack() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<a id='myId' href='snoopy.php'>TestAnchor</a>" + "<a id='myId2' href='snoopy.php'>TestAnchor</a>"
-        + "</form>" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "<a id='myId2' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 

@@ -18,8 +18,6 @@ package org.wetator.backend.htmlunit.control;
 
 import java.io.File;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
@@ -35,10 +33,12 @@ import org.wetator.util.SecretString;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
+
 /**
  * This is the implementation of the HTML element 'input hidden' (&lt;input type="hidden"&gt;) using HtmlUnit as
  * backend. There is no identifier for this control as it may not be set via wetator.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -47,7 +47,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlHiddenInput} from the backend
    */
   public HtmlUnitInputHidden(final HtmlHiddenInput anHtmlElement) {
@@ -56,7 +56,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -66,7 +66,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
    *      java.io.File)
    */
@@ -101,15 +101,15 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
    *      org.wetator.util.SecretString)
    */
@@ -121,7 +121,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

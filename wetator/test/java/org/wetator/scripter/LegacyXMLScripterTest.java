@@ -181,8 +181,8 @@ public class LegacyXMLScripterTest {
     tmpCommand = tmpCommands.get(6);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-content", tmpCommand.getName());
-    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
-        .getFirstParameter().getValue());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK",
+        tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
     Assert.assertFalse(tmpCommand.isComment());
@@ -246,8 +246,8 @@ public class LegacyXMLScripterTest {
     tmpCommand = tmpCommands.get(6);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-content", tmpCommand.getName());
-    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK", tmpCommand
-        .getFirstParameter().getValue());
+    Assert.assertEquals("GET Parameters Key Value inputText_Name testValue InputTextNameTest OK",
+        tmpCommand.getFirstParameter().getValue());
 
     tmpCommand = tmpCommands.get(7);
     Assert.assertFalse(tmpCommand.isComment());

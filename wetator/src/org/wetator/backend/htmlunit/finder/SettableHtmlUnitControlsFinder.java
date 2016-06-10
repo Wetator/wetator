@@ -42,14 +42,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * <li>{@link HtmlUnitInputText}</li>
  * <li>{@link HtmlUnitTextArea}</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitControlsFinder {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be null
    */
@@ -59,7 +59,7 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder#find(WPath)
    */
   @Override
@@ -82,8 +82,8 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
               htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
         }
         if (tmpHtmlElement instanceof HtmlTextArea) {
-          tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement),
-              WeightedControlList.FoundType.BY_ID, 0, // no coverage
+          tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
+              0, // no coverage
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
               htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
         }

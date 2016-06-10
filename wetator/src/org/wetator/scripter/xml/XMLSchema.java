@@ -18,7 +18,7 @@ package org.wetator.scripter.xml;
 
 /**
  * An XML Schema meta representation bean.
- * 
+ *
  * @author tobwoerk
  * @author frank.danek
  */
@@ -30,7 +30,7 @@ public class XMLSchema {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aNamespace the namespace to set
    * @param aLocation the location to set
    */
@@ -41,7 +41,7 @@ public class XMLSchema {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aPrefix the prefix to set
    * @param aNamespace the namespace to set
    * @param aLocation the location to set
@@ -97,7 +97,7 @@ public class XMLSchema {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#hashCode()
    */
   @Override
@@ -113,7 +113,7 @@ public class XMLSchema {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
@@ -140,7 +140,7 @@ public class XMLSchema {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

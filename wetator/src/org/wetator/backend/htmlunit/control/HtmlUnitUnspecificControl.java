@@ -32,7 +32,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 /**
  * This is the implementation of a {@link HtmlUnitBaseControl} for so far not supported elements.
- * 
+ *
  * @param <T> the type of the {@link HtmlElement}.
  * @author rbri
  * @author frank.danek
@@ -43,7 +43,7 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlElement} from the backend
    */
   public HtmlUnitUnspecificControl(final T anHtmlElement) {
@@ -53,7 +53,7 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#getDescribingText()
    */
   @Override
@@ -101,7 +101,7 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

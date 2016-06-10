@@ -170,8 +170,8 @@ public class XHtmlOutputterHtmlPageTest {
 
   @Test
   public void simpleWithJavascript() throws IOException {
-    final String tmpHtmlCode = LEADING + "<h1>Test</h1>"
-        + "<script type=\"text/javascript\">alert('WETATOR');</script>" + TRAILING;
+    final String tmpHtmlCode = LEADING + "<h1>Test</h1>" + "<script type=\"text/javascript\">alert('WETATOR');</script>"
+        + TRAILING;
     final String tmpExpected = EXPECTED_LEADING + " <h1>Test</h1> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }

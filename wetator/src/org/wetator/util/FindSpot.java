@@ -22,7 +22,7 @@ import org.wetator.exception.ImplementationException;
  * An object that stores the start and end position of a match.<br/>
  * Like in {@link String#substring(int, int)} the start position is inclusive but the end position is exclusive. So the
  * last character of the match is <code>endPos - 1</code>.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -51,7 +51,7 @@ public class FindSpot {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aStartPos the startPos
    * @param anEndPos the endPos
    */
@@ -90,7 +90,7 @@ public class FindSpot {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#hashCode()
    */
   @Override
@@ -104,7 +104,7 @@ public class FindSpot {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
@@ -130,7 +130,7 @@ public class FindSpot {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -140,14 +140,14 @@ public class FindSpot {
 
   /**
    * A find spot with fixed start and end position.
-   * 
+   *
    * @author frank.danek
    */
   public static final class FixedFindSpot extends FindSpot {
 
     /**
      * The constructor.
-     * 
+     *
      * @param aStartPos the startPos
      * @param anEndPos the endPos
      */
@@ -157,7 +157,7 @@ public class FindSpot {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.util.FindSpot#setStartPos(int)
      */
     @Override
@@ -167,7 +167,7 @@ public class FindSpot {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.util.FindSpot#setEndPos(int)
      */
     @Override
@@ -177,7 +177,7 @@ public class FindSpot {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.util.FindSpot#toString()
      */
     @Override

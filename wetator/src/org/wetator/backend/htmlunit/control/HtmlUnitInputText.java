@@ -18,8 +18,6 @@ package org.wetator.backend.htmlunit.control;
 
 import java.io.File;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
@@ -41,6 +39,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.Keyboard;
 import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
+
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * This is the implementation of the HTML element 'input text' (&lt;input type="text"&gt;) using HtmlUnit as
@@ -110,8 +110,8 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
 
           if (tmpFocusedControl == null) {
             aWetatorContext.informListenersInfo("focusRemoved", new String[] { getDescribingText() });
-            throw new ActionException("After clicking on the control '" + getDescribingText()
-                + "' the focus was removed.");
+            throw new ActionException(
+                "After clicking on the control '" + getDescribingText() + "' the focus was removed.");
           }
 
           final String tmpDesc = tmpFocusedControl.getDescribingText();
@@ -137,8 +137,8 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     } catch (final ActionException e) {
       throw e;
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
 
@@ -177,8 +177,8 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }

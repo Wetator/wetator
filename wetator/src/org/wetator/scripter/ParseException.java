@@ -18,7 +18,7 @@ package org.wetator.scripter;
 
 /**
  * This exception is thrown if parsing a test file fails.
- * 
+ *
  * @author tobwoerk
  * @author frank.danek
  */
@@ -28,7 +28,7 @@ public class ParseException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public ParseException(final String aMessage) {

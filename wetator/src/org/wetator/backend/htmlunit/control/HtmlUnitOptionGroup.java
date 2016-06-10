@@ -27,7 +27,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
  * This is the implementation of the HTML element 'option group' (&lt;optgroup&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -37,7 +37,7 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlOptionGroup} from the backend
    */
   public HtmlUnitOptionGroup(final HtmlOptionGroup anHtmlElement) {
@@ -46,7 +46,7 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -56,7 +56,7 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
@@ -68,7 +68,7 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
 
   @Override
   public String getUniqueSelector() {
-      // highlight the select instead of the optgroup
+    // highlight the select instead of the optgroup
     final HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
     final HtmlSelect tmpHtmlSelect = tmpHtmlOptionGroup.getEnclosingSelect();
     return getUniqueSelector(tmpHtmlSelect);

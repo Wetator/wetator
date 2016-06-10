@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * This exception is thrown for configuration initialization problems.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -28,7 +28,7 @@ public class ConfigurationException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public ConfigurationException(final String aMessage) {
@@ -37,7 +37,7 @@ public class ConfigurationException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

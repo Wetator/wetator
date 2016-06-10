@@ -113,17 +113,20 @@ public final class XSLTransformer {
 
         LOG.info("Report written to " + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()));
       } catch (final TransformerConfigurationException e) {
-        LOG.error("Problem loading XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
-            + "'. Aborting.", e);
+        LOG.error(
+            "Problem loading XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "'. Aborting.",
+            e);
       } catch (final TransformerException e) {
-        LOG.error("Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
-            + "'. Aborting.", e);
+        LOG.error(
+            "Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "'. Aborting.",
+            e);
       } catch (final IOException e) {
-        LOG.error("Problem writing Report '" + FilenameUtils.normalize(tmpResultFile.getAbsolutePath())
-            + "'. Aborting.", e);
+        LOG.error(
+            "Problem writing Report '" + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()) + "'. Aborting.", e);
       } catch (final Exception e) {
-        LOG.error("Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath())
-            + "'. Aborting.", e);
+        LOG.error(
+            "Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "'. Aborting.",
+            e);
       }
     }
   }

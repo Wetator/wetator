@@ -28,7 +28,7 @@ import dk.brics.automaton.RunAutomaton;
  * This is the standard implementation of a {@link SearchPattern} based on automaton RegExp.<br/>
  * <b>Notice:</b> the currently used RegExp implementation dk.briks.automaton does not support all functionality of
  * RegExp. But it is fast. ;)
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -70,7 +70,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anOriginalString the string used to construct the pattern
    * @param aPatternString the compiled pattern used by the automaton
    */
@@ -86,7 +86,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
    */
   @Override
@@ -105,7 +105,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
    */
   @Override
@@ -129,7 +129,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
    */
   @Override
@@ -139,7 +139,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String, int)
    */
   @Override
@@ -166,7 +166,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#lastOccurenceIn(java.lang.String)
    */
   @Override
@@ -193,7 +193,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastOccurenceIn(java.lang.String)
    */
   @Override
@@ -223,7 +223,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
    */
   @Override
@@ -253,7 +253,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastOccurenceIn(java.lang.String)
    */
   @Override
@@ -283,7 +283,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
    */
   @Override
@@ -313,7 +313,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
    */
   @Override
@@ -342,7 +342,7 @@ final class RegExpSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

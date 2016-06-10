@@ -16,8 +16,6 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.IDeselectable;
@@ -34,10 +32,12 @@ import org.wetator.i18n.Messages;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
+
 /**
  * This is the implementation of the HTML element 'input checkbox' (&lt;input type="checkbox"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -49,7 +49,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlCheckBoxInput} from the backend
    */
   public HtmlUnitInputCheckBox(final HtmlCheckBoxInput anHtmlElement) {
@@ -58,7 +58,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -68,7 +68,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
    */
   @Override
@@ -105,15 +105,15 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
    */
   @Override
@@ -125,7 +125,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
    */
   @Override
@@ -162,15 +162,15 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

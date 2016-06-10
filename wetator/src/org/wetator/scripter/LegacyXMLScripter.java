@@ -99,19 +99,19 @@ public final class LegacyXMLScripter implements IScripter {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
     if (!tmpFileName.endsWith(WET_FILE_EXTENSION) && !tmpFileName.endsWith(XML_FILE_EXTENSION)) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by LegacyXMLScripter. Extension is not '" + WET_FILE_EXTENSION + "' or '"
-          + XML_FILE_EXTENSION + "'.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by LegacyXMLScripter. Extension is not '" + WET_FILE_EXTENSION
+              + "' or '" + XML_FILE_EXTENSION + "'.");
     }
 
     // second check the file accessibility
     if (!aFile.exists() || !aFile.isFile()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by LegacyXMLScripter. Could not find file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by LegacyXMLScripter. Could not find file.");
     }
     if (!aFile.canRead()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by LegacyXMLScripter. Could not read file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by LegacyXMLScripter. Could not read file.");
     }
 
     // third check the content (root element and schema)
@@ -142,8 +142,8 @@ public final class LegacyXMLScripter implements IScripter {
           + "' not supported by LegacyXMLScripter. Could not read file (" + e.getMessage() + ").");
     }
 
-    return new IScripter.IsSupportedResult("File '" + aFile.getName()
-        + "' not supported by LegacyXMLScripter. Could not parse file.");
+    return new IScripter.IsSupportedResult(
+        "File '" + aFile.getName() + "' not supported by LegacyXMLScripter. Could not parse file.");
   }
 
   /**
@@ -175,8 +175,9 @@ public final class LegacyXMLScripter implements IScripter {
       try {
         tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
       } catch (final XMLStreamException e) {
-        throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath())
-            + "' (" + e.getMessage() + ").", e);
+        throw new InvalidInputException(
+            "Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "' (" + e.getMessage() + ").",
+            e);
       }
 
       try {
@@ -215,9 +216,8 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_OPTIONAL_PARAMETER.equals(tmpReader.getLocalName())) {
               final String tmpOptionalParameter = tmpReader.getElementText();
               if (null == tmpCommand) {
-                throw new InvalidInputException("Error parsing file '"
-                    + FilenameUtils.normalize(file.getAbsolutePath()) + "'. Unexpected optional parameter '"
-                    + tmpOptionalParameter + "'.");
+                throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath())
+                    + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
               }
 
               if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
@@ -228,9 +228,8 @@ public final class LegacyXMLScripter implements IScripter {
             if (E_OPTIONAL_PARAMETER2.equals(tmpReader.getLocalName())) {
               final String tmpOptionalParameter = tmpReader.getElementText();
               if (null == tmpCommand) {
-                throw new InvalidInputException("Error parsing file '"
-                    + FilenameUtils.normalize(file.getAbsolutePath()) + "'. Unexpected optional parameter 2 '"
-                    + tmpOptionalParameter + "'.");
+                throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath())
+                    + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
               }
 
               if (StringUtils.isNotEmpty(tmpOptionalParameter)) {
@@ -246,8 +245,9 @@ public final class LegacyXMLScripter implements IScripter {
 
         return tmpResult;
       } catch (final XMLStreamException e) {
-        throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath())
-            + "' (" + e.getMessage() + ").", e);
+        throw new InvalidInputException(
+            "Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "' (" + e.getMessage() + ").",
+            e);
       }
     } finally {
       if (tmpReader != null) {

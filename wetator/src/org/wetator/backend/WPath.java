@@ -166,7 +166,8 @@ public class WPath {
      * @throws InvalidInputException in case of invalid table coordinates
      */
     public TableCoordinate(final SecretString aTableCoordinates) throws InvalidInputException {
-      if (!aTableCoordinates.startsWith(TABLE_COORDINATES_START) || !aTableCoordinates.endsWith(TABLE_COORDINATES_END)) {
+      if (!aTableCoordinates.startsWith(TABLE_COORDINATES_START)
+          || !aTableCoordinates.endsWith(TABLE_COORDINATES_END)) {
         throw new InvalidInputException(aTableCoordinates.toString() + " is not a valid table coordinate.");
       }
       // cut away [ and ]

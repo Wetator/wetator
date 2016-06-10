@@ -23,7 +23,7 @@ import dk.brics.automaton.RunAutomaton;
 /**
  * Abstract class for the common code of all automaton
  * based matchers.
- * 
+ *
  * @author rbri
  */
 public abstract class AbstractAutomatonMatcher implements MatchResult {
@@ -39,7 +39,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aCharSequence the string to search inside
    * @param anAutomaton the regex automaton
    */
@@ -50,7 +50,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Stores a match.
-   * 
+   *
    * @param aMatchStart the start of the match to store
    * @param aMatchEnd the end of the match to store
    * @throws IllegalArgumentException if aMatchStart is greater than aMatchEnd.
@@ -65,7 +65,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Returns the offset after the last character matched.
-   * 
+   *
    * @return The offset after the last character matched.
    * @throws IllegalStateException if there has not been a match attempt or
    *         if the last attempt yielded no results.
@@ -81,7 +81,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    * capturing group. <br />
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
-   * 
+   *
    * @param aGroup the desired capturing group.
    * @return The offset after the last character matched of the specified
    *         capturing group.
@@ -98,7 +98,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Returns the subsequence of the input found by the previous match.
-   * 
+   *
    * @return The subsequence of the input found by the previous match.
    * @throws IllegalStateException if there has not been a match attempt or
    *         if the last attempt yielded no results.
@@ -114,7 +114,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    * group during the previous match operation. <br />
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
-   * 
+   *
    * @param aGroup the desired capturing group.
    * @return The subsequence of the input found by the specified capturing
    *         group during the previous match operation the previous match. Or {@code null} if the given group did match.
@@ -133,7 +133,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    * Returns the number of capturing groups in the underlying automaton. <br />
    * Note that because the automaton does not support capturing groups this
    * method will always return 0.
-   * 
+   *
    * @return The number of capturing groups in the underlying automaton.
    */
   @Override
@@ -143,7 +143,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Returns the offset of the first character matched.
-   * 
+   *
    * @return The offset of the first character matched.
    * @throws IllegalStateException if there has not been a match attempt or
    *         if the last attempt yielded no results.
@@ -159,7 +159,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    * capturing group. <br />
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
-   * 
+   *
    * @param aGroup the desired capturing group.
    * @return The offset of the first character matched of the specified
    *         capturing group.

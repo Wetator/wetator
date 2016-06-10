@@ -28,7 +28,7 @@ import java.util.Locale;
  * StringUtil contains some useful extensions to java.lang.String. Due to the
  * fact, that this class cannot be extended, all methods herein are defined
  * as static and contain the receiver as a first argument.
- * 
+ *
  * @author rbri
  */
 public final class StringUtil {
@@ -38,28 +38,27 @@ public final class StringUtil {
    * an optional escape character usable to escape field delimits.
    * <P>
    * Example:
-   * 
+   *
    * <PRE>
    *    extractStrings("1\\n\\n2\\n3\\\\n4", "\\n", '\\') ->
    *    returns 4 strings: "1", "", "2" and "3\\n4"
    * </PRE>
-   * 
+   *
    * Example (escape with no delimiter):
-   * 
+   *
    * <PRE>
    *    extractStrings("123\\c4", "\\n", '\\') ->
    *    returns 1 string: "123\\c4"
    * </PRE>
-   * 
+   *
    * Example (escape with escape):
-   * 
+   *
    * <PRE>
    *    extractStrings("123\\\\4", "\\n", '\\') ->
    *    returns 1 string: "123\\4"
    * </PRE>
-   * 
    * </p>
-   * 
+   *
    * @param aReceiver is the string to be split into tokens
    * @param aDelimiter is a String
    * @param anEscapeChar an optional character, that can be used as an escape
@@ -139,7 +138,7 @@ public final class StringUtil {
 
   /**
    * Split the given string into fixed length parts.
-   * 
+   *
    * @param aText the given text
    * @param aSize the size of the parts
    * @return an list of parts

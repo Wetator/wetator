@@ -44,10 +44,10 @@ public class SnoopyServlet extends HttpServlet {
    *      javax.servlet.http.HttpServletResponse)
    */
   @Override
-  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse) throws ServletException,
-  IOException {
-    aResponse.getWriter().println(
-        "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
+  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse)
+      throws ServletException, IOException {
+    aResponse.getWriter()
+        .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
     aResponse.getWriter().println("<html>");
     aResponse.getWriter().println("<head>");
     aResponse.getWriter().println("<title>Wetator / Request Snoopy / Jetty</title>");
@@ -245,8 +245,8 @@ public class SnoopyServlet extends HttpServlet {
    *      javax.servlet.http.HttpServletResponse)
    */
   @Override
-  protected void doPost(final HttpServletRequest aReq, final HttpServletResponse aResp) throws ServletException,
-  IOException {
+  protected void doPost(final HttpServletRequest aReq, final HttpServletResponse aResp)
+      throws ServletException, IOException {
     doGet(aReq, aResp);
   }
 

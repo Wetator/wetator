@@ -54,8 +54,8 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5", tmpFound
-        .getEntriesSorted().get(0).toString());
+        "[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -74,8 +74,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -117,8 +116,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlSubmitInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }

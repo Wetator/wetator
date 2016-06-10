@@ -89,7 +89,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
     final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     // search with id / title
-    final ByIdMatcher tmpIdMatcher = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern);
+    final ByIdMatcher tmpIdMatcher = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+        tmpSearchPattern);
     final ByTitleAttributeMatcher tmpTitleMatcher = new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern,
         tmpPathSpot, tmpSearchPattern);
     for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
@@ -123,7 +124,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       // find the first element that surrounds this
       for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
         final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
-        if (tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos() && tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos()) {
+        if (tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos()
+            && tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos()) {
           // found one
           String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
           final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);

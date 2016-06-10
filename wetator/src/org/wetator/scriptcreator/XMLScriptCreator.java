@@ -72,12 +72,12 @@ public class XMLScriptCreator implements IScriptCreator {
     try {
       final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
       tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
-      tmpSchemas.add(new XMLSchema("d", "http://www.wetator.org/xsd/default-command-set",
-          "default-command-set-1.0.0.xsd"));
+      tmpSchemas
+          .add(new XMLSchema("d", "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd"));
       tmpSchemas.add(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd"));
       tmpSchemas.add(new XMLSchema("tst", "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd"));
-      tmpSchemas.add(new XMLSchema("inc", "http://www.wetator.org/xsd/incubator-command-set",
-          "incubator-command-set-1.0.0.xsd"));
+      tmpSchemas.add(
+          new XMLSchema("inc", "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd"));
       final ModelBuilder tmpModel = new ModelBuilder(tmpSchemas, outputDir);
 
       // get used namespaces
@@ -114,8 +114,8 @@ public class XMLScriptCreator implements IScriptCreator {
             // tmpWriter.writeNamespace("i", "http://www.wetator.org/xsd/incubator-command-set");
             // tmpWriter.writeNamespace("t", "http://www.wetator.org/xsd/test-command-set");
             tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            final StringBuilder tmpLocations = new StringBuilder("http://www.wetator.org/xsd/test-case test-case-"
-                + TEST_CASE_XSD_VERSION + ".xsd\n");
+            final StringBuilder tmpLocations = new StringBuilder(
+                "http://www.wetator.org/xsd/test-case test-case-" + TEST_CASE_XSD_VERSION + ".xsd\n");
             for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
               tmpLocations.append(tmpNamespaceBean.getNamespace());
               tmpLocations.append(' ');
@@ -216,8 +216,8 @@ public class XMLScriptCreator implements IScriptCreator {
           tmpFileOut.close();
         }
       } catch (final FileNotFoundException e) {
-        final FileNotFoundException tmpException = new FileNotFoundException("Can't create output file '"
-            + (tmpFile.getAbsolutePath()) + "'.");
+        final FileNotFoundException tmpException = new FileNotFoundException(
+            "Can't create output file '" + (tmpFile.getAbsolutePath()) + "'.");
         tmpException.initCause(e);
         throw tmpException;
       }

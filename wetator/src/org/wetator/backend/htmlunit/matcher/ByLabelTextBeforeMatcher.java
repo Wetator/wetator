@@ -25,7 +25,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * This matcher checks if the label text before the given element matches the criteria.
- * 
+ *
  * @author frank.danek
  */
 public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
@@ -33,7 +33,7 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -46,7 +46,7 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -60,7 +60,7 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#processTextForDistance(java.lang.String)
    */
   @Override

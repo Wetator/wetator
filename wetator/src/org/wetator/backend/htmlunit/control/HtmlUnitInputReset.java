@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 /**
  * This is the implementation of the HTML element 'input reset' (&lt;input type="reset"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -38,7 +38,7 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlResetInput} from the backend
    */
   public HtmlUnitInputReset(final HtmlResetInput anHtmlElement) {
@@ -47,7 +47,7 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -57,7 +57,7 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

@@ -34,16 +34,16 @@ public class HttpHeaderServlet extends HttpServlet {
   private static final long serialVersionUID = 2466057799555730590L;
 
   @Override
-  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse) throws ServletException,
-      IOException {
+  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse)
+      throws ServletException, IOException {
     final String tmpCode = aRequest.getParameter("code");
     final Code tmpStatusCode = HttpStatus.getCode(Integer.valueOf(tmpCode));
     aResponse.sendError(tmpStatusCode.getCode(), tmpStatusCode.getMessage());
   }
 
   @Override
-  protected void doPost(final HttpServletRequest aReq, final HttpServletResponse aResp) throws ServletException,
-      IOException {
+  protected void doPost(final HttpServletRequest aReq, final HttpServletResponse aResp)
+      throws ServletException, IOException {
     doGet(aReq, aResp);
   }
 

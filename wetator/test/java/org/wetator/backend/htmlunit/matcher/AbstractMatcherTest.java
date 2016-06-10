@@ -65,8 +65,8 @@ public abstract class AbstractMatcherTest {
         tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
       }
 
-      tmpMatches.addAll(createMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern).matches(
-          tmpHtmlElement));
+      tmpMatches.addAll(
+          createMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern).matches(tmpHtmlElement));
     }
     return tmpMatches;
   }

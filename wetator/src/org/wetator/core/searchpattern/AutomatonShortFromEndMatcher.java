@@ -25,7 +25,7 @@ public final class AutomatonShortFromEndMatcher extends AbstractAutomatonMatcher
 
   /**
    * Constructor.
-   * 
+   *
    * @param aCharSequence the chars to set
    * @param anAutomaton the automaton to set
    */
@@ -36,7 +36,7 @@ public final class AutomatonShortFromEndMatcher extends AbstractAutomatonMatcher
   /**
    * Find the next matching subsequence of the input. <br />
    * This also updates the values for the {@code start}, {@code end}, and {@code group} methods.
-   * 
+   *
    * @return {@code true} if there is a matching subsequence.
    */
   public boolean find() {

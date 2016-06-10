@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 /**
  * This matcher checks if the given element matches the given table coordinates.
- * 
+ *
  * @author frank.danek
  */
 public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
@@ -44,7 +44,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -52,7 +52,8 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aClass the class of the element to find
    */
   public ByTableCoordinatesMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
-      final FindSpot aPathSpot, final List<TableCoordinate> aTableCoordinates, final Class<? extends HtmlElement> aClass) {
+      final FindSpot aPathSpot, final List<TableCoordinate> aTableCoordinates,
+      final Class<? extends HtmlElement> aClass) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, null);
 
     tableCoordinates = aTableCoordinates;
@@ -61,7 +62,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -87,15 +88,15 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       } else {
         tmpDistance = tmpTextBefore.length();
       }
-      tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot
-          .getStartPos()));
+      tmpMatches
+          .add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot.getStartPos()));
     }
     return tmpMatches;
   }
 
   /**
    * Checks if the given {@link HtmlElement} is found within the given {@link TableCoordinate}s.
-   * 
+   *
    * @param aHtmlElement the {@link HtmlElement} to check
    * @param aTableCoordinates the {@link TableCoordinate}s to search for
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the check is based on

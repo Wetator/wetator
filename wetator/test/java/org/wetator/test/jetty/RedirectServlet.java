@@ -35,8 +35,8 @@ public class RedirectServlet extends HttpServlet {
   private static final long serialVersionUID = -2150482777498443709L;
 
   @Override
-  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse) throws ServletException,
-      IOException {
+  protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse)
+      throws ServletException, IOException {
     final String tmpPath = aRequest.getServletPath();
 
     if (tmpPath.endsWith("redirect_header.php")) {
@@ -50,8 +50,8 @@ public class RedirectServlet extends HttpServlet {
         tmpWait = "444";
       }
 
-      aResponse.getWriter().println(
-          "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
+      aResponse.getWriter()
+          .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
       aResponse.getWriter().println("<title>Wetator / Redirect via JavaScript</title>");
@@ -76,8 +76,8 @@ public class RedirectServlet extends HttpServlet {
         tmpWait = "4";
       }
 
-      aResponse.getWriter().println(
-          "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
+      aResponse.getWriter()
+          .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
       aResponse.getWriter().println("<meta http-equiv='refresh' content='" + tmpWait + "; URL=" + tmpTarget + "'/>");

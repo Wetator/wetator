@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * This is the HtmlUnit specific implementation of a {@link IControlFinder}. All requests for
  * {@link org.wetator.backend.control.IControl}s are delegated to the specific finder.
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitFinderDelegator implements IControlFinder {
@@ -76,8 +76,8 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   private static synchronized ThreadPoolExecutor getThreadPool() {
     if (threadPool == null) {
-      final ThreadPoolExecutor tmpThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime()
-          .availableProcessors());
+      final ThreadPoolExecutor tmpThreadPool = (ThreadPoolExecutor) Executors
+          .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
       tmpThreadPool.setThreadFactory(new ThreadNamingFactory(tmpThreadPool.getThreadFactory()));
       tmpThreadPool.prestartAllCoreThreads();
       threadPool = tmpThreadPool;
@@ -87,7 +87,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * Shutdown the Thread pool.
-   * 
+   *
    * @throws InterruptedException in case of error
    */
   public static synchronized void shutdownThreadPool() throws InterruptedException {
@@ -100,7 +100,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * The default constructor.
-   * 
+   *
    * @param anHtmlPage the page to search in
    */
   public HtmlUnitFinderDelegator(final HtmlPage anHtmlPage) {
@@ -109,7 +109,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlPage the page to search in
    * @param aControlRepository the repository of controls this delegator supports
    */
@@ -139,7 +139,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IControlFinder#getAllSettables(WPath)
    */
   @Override
@@ -149,7 +149,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IControlFinder#getAllClickables(WPath)
    */
   @Override
@@ -159,7 +159,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IControlFinder#getAllSelectables(WPath)
    */
   @Override
@@ -169,7 +169,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IControlFinder#getAllDeselectables(WPath)
    */
   @Override
@@ -179,7 +179,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IControlFinder#getAllOtherControls(WPath)
    */
   @Override
@@ -189,7 +189,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.IControlFinder#getAllControlsForText(WPath)
    */
   @Override

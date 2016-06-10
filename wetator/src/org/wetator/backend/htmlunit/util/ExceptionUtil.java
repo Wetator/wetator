@@ -16,13 +16,13 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import com.gargoylesoftware.htmlunit.ScriptException;
+
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * Utility class for exception handling.
- * 
+ *
  * @author rbri
  */
 public final class ExceptionUtil {
@@ -36,7 +36,7 @@ public final class ExceptionUtil {
 
   /**
    * Try to get the included script exception.
-   * 
+   *
    * @param aWrappedException the exception to analyze
    * @return the ScriptException
    */

@@ -26,7 +26,7 @@ import org.wetator.util.StringUtil;
 
 /**
  * An object that breaks a value into a list of parts and stores them.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -45,7 +45,7 @@ public final class Parameter {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aValue the value of this parameter
    */
   public Parameter(final String aValue) {
@@ -54,7 +54,7 @@ public final class Parameter {
 
   /**
    * Constructs a secret string from the value.
-   * 
+   *
    * @param aContext the context needed to resolve the value (variables)
    * @return the constructed secret string
    */
@@ -106,7 +106,7 @@ public final class Parameter {
   /**
    * Returns the <b>RAW</b> value. Secrets are not replaced and so are readable. Use this method with greatest
    * care according security.
-   * 
+   *
    * @return the raw value
    */
   // TODO how can we assure security here?
@@ -123,7 +123,7 @@ public final class Parameter {
 
     /**
      * Constructor.
-     * 
+     *
      * @param aValue the value of this part
      */
     protected Part(final String aValue) {
@@ -132,7 +132,7 @@ public final class Parameter {
 
     /**
      * Constructs a secret string from the value.
-     * 
+     *
      * @param aContext the context needed to resolve the value (variables)
      * @return the constructed secret string
      */

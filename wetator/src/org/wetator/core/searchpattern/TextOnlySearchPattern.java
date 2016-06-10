@@ -22,7 +22,7 @@ import org.wetator.util.FindSpot;
 /**
  * This is a special implementation of a {@link SearchPattern} that contains only plain text and no wildcards.<br/>
  * The execution is faster compared to {@link RegExpSearchPattern} (containing no wildcards).
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -33,7 +33,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anOriginalString the string used to construct the pattern
    * @param aPatternString the string to compare with
    */
@@ -45,7 +45,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
    */
   @Override
@@ -55,7 +55,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
    */
   @Override
@@ -69,7 +69,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
    */
   @Override
@@ -79,7 +79,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String, int)
    */
   @Override
@@ -98,7 +98,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#lastOccurenceIn(java.lang.String)
    */
   @Override
@@ -117,7 +117,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastOccurenceIn(java.lang.String)
    */
   @Override
@@ -131,7 +131,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
    */
   @Override
@@ -141,7 +141,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastOccurenceIn(java.lang.String)
    */
   @Override
@@ -160,7 +160,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
    */
   @Override
@@ -170,7 +170,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
    */
   @Override
@@ -189,7 +189,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

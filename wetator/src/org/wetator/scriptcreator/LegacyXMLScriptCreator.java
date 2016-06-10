@@ -123,8 +123,8 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
           tmpFileOut.close();
         }
       } catch (final FileNotFoundException e) {
-        final FileNotFoundException tmpException = new FileNotFoundException("Can't create output file '"
-            + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'.");
+        final FileNotFoundException tmpException = new FileNotFoundException(
+            "Can't create output file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'.");
         tmpException.initCause(e);
         throw tmpException;
       }

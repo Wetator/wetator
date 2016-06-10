@@ -29,7 +29,7 @@ import org.wetator.core.searchpattern.SearchPattern;
 
 /**
  * An object that stores a variable.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -140,7 +140,7 @@ public final class SecretString {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aValue the value of the string
    */
   public SecretString(final String aValue) {
@@ -151,7 +151,7 @@ public final class SecretString {
 
   /**
    * Appends the given text.
-   * 
+   *
    * @param aPublicText the text to append
    * @return the receiver
    */
@@ -164,7 +164,7 @@ public final class SecretString {
 
   /**
    * Appends the given secret text.
-   * 
+   *
    * @param aSecretText the secret text to append
    * @return the receiver
    */
@@ -187,7 +187,7 @@ public final class SecretString {
 
   /**
    * Prefixes the value and the printout with the given string.
-   * 
+   *
    * @param aValuePrefix the prefix
    */
   public void prefixWith(final String aValuePrefix) {
@@ -199,7 +199,7 @@ public final class SecretString {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -223,7 +223,7 @@ public final class SecretString {
 
   /**
    * Constructs and returns a new search pattern from the value.
-   * 
+   *
    * @return the search pattern
    */
   public SearchPattern getSearchPattern() {
@@ -232,7 +232,7 @@ public final class SecretString {
 
   /**
    * Returns true if a value starts with the given prefix.
-   * 
+   *
    * @param aPrefix the prefix
    * @return true or false
    */
@@ -242,7 +242,7 @@ public final class SecretString {
 
   /**
    * Returns true if a value starts at offset with the given prefix.
-   * 
+   *
    * @param aPrefix the prefix
    * @param anOffset the start position
    * @return true or false
@@ -253,7 +253,7 @@ public final class SecretString {
 
   /**
    * Returns true if a value ends with the given suffix.
-   * 
+   *
    * @param aSuffix the suffix
    * @return true or false
    */
@@ -263,7 +263,7 @@ public final class SecretString {
 
   /**
    * Returns the lower case form of the string.
-   * 
+   *
    * @param aLocale the locale for the conversion
    * @return the lower case form of the string
    */
@@ -274,7 +274,7 @@ public final class SecretString {
   /**
    * Trims the value and the print value of this object.<br>
    * this returns NOT a new object
-   * 
+   *
    * @return this
    */
   public SecretString trim() {
@@ -304,7 +304,7 @@ public final class SecretString {
    * Returns a new string that is a substring of this string. The
    * substring begins with the character at the specified index and
    * extends to the end of this string.
-   * 
+   *
    * @param aBeginIndex the beginning index, inclusive.
    * @return the specified substring.
    * @exception IndexOutOfBoundsException if <code>beginIndex</code> is negative or larger than the
@@ -319,7 +319,7 @@ public final class SecretString {
    * substring begins at the specified <code>beginIndex</code> and
    * extends to the character at index <code>endIndex - 1</code>.
    * Thus the length of the substring is <code>endIndex-beginIndex</code>.
-   * 
+   *
    * @param aBeginIndex the beginning index, inclusive.
    * @param anEndIndex the ending index, exclusive.
    * @return the specified substring.
@@ -337,7 +337,7 @@ public final class SecretString {
 
   /**
    * Splits this string around matches of the given delimiter.
-   * 
+   *
    * @param aDelimiter the delimiting string
    * @param anEscapeChar an optional character, that can be used as an escape
    *        character inside receiver to make delimiter characters ignored.
@@ -397,7 +397,7 @@ public final class SecretString {
 
   /**
    * Returns the length of this string.
-   * 
+   *
    * @return the length
    */
   public int length() {
@@ -407,7 +407,7 @@ public final class SecretString {
   /**
    * Returns true if and only if this string contains the specified
    * sequence of char values.
-   * 
+   *
    * @param aPart the sequence to search for
    * @return true if this string contains <code>s</code>, false otherwise
    */

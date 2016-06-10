@@ -104,12 +104,12 @@ public final class ExcelScripter implements IScripter {
 
     // second check the file accessibility
     if (!aFile.exists() || !aFile.isFile()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by ExcelScripter. Could not find file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by ExcelScripter. Could not find file.");
     }
     if (!aFile.canRead()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by ExcelScripter. Could not read file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by ExcelScripter. Could not read file.");
     }
 
     return IScripter.IS_SUPPORTED;
@@ -148,8 +148,8 @@ public final class ExcelScripter implements IScripter {
         }
 
         if (tmpSheetNo < 0) {
-          throw new InvalidInputException("No test sheet found in file '"
-              + FilenameUtils.normalize(file.getAbsolutePath()) + "'.");
+          throw new InvalidInputException(
+              "No test sheet found in file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.");
         }
 
         final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
@@ -214,8 +214,8 @@ public final class ExcelScripter implements IScripter {
       throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.",
           e);
     } catch (final IOException e) {
-      throw new InvalidInputException("Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "' ("
-          + e.getMessage() + ").", e);
+      throw new InvalidInputException(
+          "Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
     } finally {
       if (tmpInputStream != null) {
         try {

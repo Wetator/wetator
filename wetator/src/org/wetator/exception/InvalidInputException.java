@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * This exception is thrown for problems caused by invalid user input.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -28,7 +28,7 @@ public class InvalidInputException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public InvalidInputException(final String aMessage) {
@@ -37,7 +37,7 @@ public class InvalidInputException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

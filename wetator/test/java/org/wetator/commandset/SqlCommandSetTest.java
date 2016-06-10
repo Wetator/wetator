@@ -63,8 +63,10 @@ public class SqlCommandSetTest extends AbstractWebServerTest {
       tmpSql.initialize(tmpProperties);
       Assert.fail("ConfigurationException expected");
     } catch (final ConfigurationException e) {
-      Assert.assertEquals("Error during load of database driver class 'org.db.jdbcDriver' for"
-          + " connection named 'wetdb' (reason: java.lang.ClassNotFoundException: org.db.jdbcDriver).", e.getMessage());
+      Assert.assertEquals(
+          "Error during load of database driver class 'org.db.jdbcDriver' for"
+              + " connection named 'wetdb' (reason: java.lang.ClassNotFoundException: org.db.jdbcDriver).",
+          e.getMessage());
     }
   }
 

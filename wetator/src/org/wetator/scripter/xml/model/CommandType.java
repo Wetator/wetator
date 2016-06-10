@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Meta-model representation of a command.
- * 
+ *
  * @author frank.danek
  */
 public class CommandType {
@@ -82,7 +82,7 @@ public class CommandType {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

@@ -22,7 +22,7 @@ import java.io.File;
  * Our test case.
  * The test case has a name and a file with all the commands.
  * The commands are executed for all browsers.
- * 
+ *
  * @author rbri
  */
 public final class TestCase {
@@ -31,7 +31,7 @@ public final class TestCase {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aName the name of the test case (e.g. the name of the file without the path)
    * @param aFile the file containing the test definition
    */

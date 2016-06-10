@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * Signals a bug.
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -28,7 +28,7 @@ public class ImplementationException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public ImplementationException(final String aMessage) {
@@ -37,7 +37,7 @@ public class ImplementationException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

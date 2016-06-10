@@ -21,7 +21,7 @@ package org.wetator.backend.control;
  * {@link org.wetator.backend.IControlFinder#getAllClickables(org.wetator.backend.WPath)}.<br/>
  * As all controls implement {@link #click(org.wetator.core.WetatorContext)} no additional action needs to be
  * implemented.
- * 
+ *
  * @author frank.danek
  */
 public interface IClickable extends IControl {

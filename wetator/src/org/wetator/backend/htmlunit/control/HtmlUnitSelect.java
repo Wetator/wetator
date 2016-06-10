@@ -26,7 +26,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
  * This is the implementation of the HTML element 'select' (&lt;select&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -36,7 +36,7 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlSelect} from the backend
    */
   public HtmlUnitSelect(final HtmlSelect anHtmlElement) {
@@ -45,7 +45,7 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -55,7 +55,7 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

@@ -26,7 +26,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
 
 /**
  * This is the implementation of the HTML element 'image' (&lt;img&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -36,7 +36,7 @@ public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements ICl
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlImage} from the backend
    */
   public HtmlUnitImage(final HtmlImage anHtmlElement) {
@@ -45,7 +45,7 @@ public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements ICl
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override

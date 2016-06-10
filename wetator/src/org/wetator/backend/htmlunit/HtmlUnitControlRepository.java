@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * Central repository for all supported {@link HtmlUnitBaseControl}s.
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitControlRepository {
@@ -130,8 +130,8 @@ public class HtmlUnitControlRepository {
     if (anHtmlElement == null) {
       return null;
     }
-    final Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap.get(anHtmlElement
-        .getClass().getName());
+    final Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
+        .get(anHtmlElement.getClass().getName());
     if (tmpAttributeMap != null) {
       for (final Entry<String, Class<HtmlUnitBaseControl<?>>> tmpEntry : tmpAttributeMap.entrySet()) {
         final String[] tmpParts = tmpEntry.getKey().split("\\|\\|");

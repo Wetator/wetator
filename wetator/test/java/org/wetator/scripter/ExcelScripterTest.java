@@ -199,8 +199,8 @@ public class ExcelScripterTest {
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-title", tmpCommand.getName());
-    Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )", tmpCommand.getFirstParameter()
-        .getValue());
+    Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )",
+        tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
 
@@ -324,8 +324,8 @@ public class ExcelScripterTest {
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-title", tmpCommand.getName());
-    Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )", tmpCommand.getFirstParameter()
-        .getValue());
+    Assert.assertEquals("ARBEITSTAG(DATE(YEAR(TODAY()),MONTH(TODAY())+1,0),-10, )",
+        tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
 }

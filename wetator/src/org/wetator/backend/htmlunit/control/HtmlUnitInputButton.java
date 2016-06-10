@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 /**
  * This is the implementation of the HTML element 'input button' (&lt;input type="button"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -38,7 +38,7 @@ public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> im
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlButtonInput} from the backend
    */
   public HtmlUnitInputButton(final HtmlButtonInput anHtmlElement) {
@@ -47,7 +47,7 @@ public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -57,7 +57,7 @@ public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

@@ -20,7 +20,7 @@ import org.wetator.util.VersionUtil;
 
 /**
  * A small class to maintain the version information.
- * 
+ *
  * @author rbri
  */
 public final class Version {
@@ -29,7 +29,7 @@ public final class Version {
 
   /**
    * A simple main function to be able to ask for the version from a command line.
-   * 
+   *
    * @param anArgsArray ignored
    */
   public static void main(final String[] anArgsArray) {

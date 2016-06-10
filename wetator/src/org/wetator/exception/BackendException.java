@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * Signals a problem in the backend.
- * 
+ *
  * @author frank.danek
  */
 public class BackendException extends Exception {
@@ -27,7 +27,7 @@ public class BackendException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public BackendException(final String aMessage) {
@@ -36,7 +36,7 @@ public class BackendException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

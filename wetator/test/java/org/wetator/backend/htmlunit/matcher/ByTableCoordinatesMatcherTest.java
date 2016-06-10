@@ -777,8 +777,8 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
       }
 
-      tmpMatches.addAll(new ByTableCoordinatesMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpPath
-          .getTableCoordinatesReversed(), HtmlTextInput.class).matches(tmpHtmlElement));
+      tmpMatches.addAll(new ByTableCoordinatesMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          tmpPath.getTableCoordinatesReversed(), HtmlTextInput.class).matches(tmpHtmlElement));
     }
     return tmpMatches;
   }

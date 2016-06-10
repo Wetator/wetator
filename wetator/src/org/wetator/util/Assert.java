@@ -23,7 +23,7 @@ import org.wetator.i18n.Messages;
 
 /**
  * A small set of assert methods.
- * 
+ *
  * @author rbri
  */
 public final class Assert {
@@ -41,7 +41,7 @@ public final class Assert {
   /**
    * Throws an AssertionException with the given
    * message.
-   * 
+   *
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
    * @throws AssertionException always
@@ -54,7 +54,7 @@ public final class Assert {
   /**
    * Throws an AssertionException with the given
    * message if the object is null.
-   * 
+   *
    * @param anObject an object to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
@@ -71,7 +71,7 @@ public final class Assert {
   /**
    * Throws an AssertionException with the given
    * message if the value is null or empty.
-   * 
+   *
    * @param aValue a string to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
@@ -88,7 +88,7 @@ public final class Assert {
   /**
    * Throws an AssertionException with the given
    * message if the condition is NOT true.
-   * 
+   *
    * @param aCondition a boolean to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
@@ -105,7 +105,7 @@ public final class Assert {
   /**
    * Throws an AssertionException with the given
    * message if the condition is NOT false.
-   * 
+   *
    * @param aCondition a boolean to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
@@ -122,7 +122,7 @@ public final class Assert {
   /**
    * Asserts that two booleans are equal.
    * Otherwise throws an AssertionException.
-   * 
+   *
    * @param anExpectedBoolean a boolean to check
    * @param aCurrentBoolean a boolean to check
    * @param aMessageKey the key for the message lookup
@@ -140,7 +140,7 @@ public final class Assert {
   /**
    * Asserts that two Strings are equal.
    * Otherwise throws an AssertionException.
-   * 
+   *
    * @param anExpectedString a String to check
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup
@@ -166,7 +166,7 @@ public final class Assert {
   /**
    * Asserts that a SecretString and a String are equal.
    * Otherwise throws an AssertionException.
-   * 
+   *
    * @param anExpectedString a SecretString to check
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup
@@ -264,7 +264,7 @@ public final class Assert {
    * Asserts that two Strings are matching.
    * This supports dos style wildcards.
    * Otherwise throws an AssertionException.
-   * 
+   *
    * @param anExpectedPattern a String to check including '*' as wildcard
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup

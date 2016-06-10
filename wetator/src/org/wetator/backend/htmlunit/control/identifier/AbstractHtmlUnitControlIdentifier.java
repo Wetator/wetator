@@ -29,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * matching
  * a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use
  * {@link #isHtmlElementSupported(HtmlElement)}.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
@@ -50,7 +50,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   /**
    * Initializes the identifier.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    */
   public void initialize(final HtmlPageIndex aHtmlPageIndex) {
@@ -59,7 +59,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   /**
    * Initializes the identifier to work asynchronously.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @param aWPath the wpath used to identify the controls
@@ -82,14 +82,14 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Runnable#run()
    */
   @Override
   public void run() {
     if (!initializedForAsynch) {
-      throw new ImplementationException(getClass().getName()
-          + " is not initialized to work asynchronously. Use initializeForAsynch().");
+      throw new ImplementationException(
+          getClass().getName() + " is not initialized to work asynchronously. Use initializeForAsynch().");
     }
     final WeightedControlList tmpResult = identify(wPath, htmlElement);
     if (tmpResult != null) {
@@ -99,7 +99,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
   /**
    * Tries to identify the given {@link HtmlElement} using the given wpath.
-   * 
+   *
    * @param aWPath the wpath used to identify the controls
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @return the list containing the identified controls

@@ -38,7 +38,7 @@ import org.wetator.i18n.Messages;
 
 /**
  * A parent class for command sets.
- * 
+ *
  * @author rbri
  * @author frank.danek
  * @author tobwoerk
@@ -70,7 +70,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#getCommandImplementationFor(java.lang.String)
    */
   @Override
@@ -80,7 +80,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#getInitializationMessages()
    */
   @Override
@@ -90,7 +90,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   /**
    * Adds an initialization message to this command set.
-   * 
+   *
    * @param aMessage the message to be added
    */
   public void addInitializationMessage(final String aMessage) {
@@ -104,7 +104,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   /**
    * Registers a command under the given name.
-   * 
+   *
    * @param aCommandName the name of the command
    * @param aCommandImplementation the implementation (class) of the command
    */
@@ -142,7 +142,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
   /**
    * Returns the first control from the WeightedControlList or null if no controls found.<br>
    * If the list has elements for more than one control then some warnings are fired.
-   * 
+   *
    * @param aContext the context
    * @param aWeightedControlList the WeightedControlList
    * @param aWPath the wpath (only needed for the warning message)
@@ -152,7 +152,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    */
   protected IControl getFirstRequiredHtmlElementFrom(final WetatorContext aContext,
       final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNothingFoundMsgKey)
-      throws ActionException {
+          throws ActionException {
     final IControl tmpControl = getFirstHtmlElementFrom(aContext, aWeightedControlList, aWPath);
     if (null == tmpControl) {
       final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, new String[] { aWPath.toString() });
@@ -164,7 +164,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
   /**
    * Returns the first control from the WeightedControlList or null if no controls found.<br>
    * If the list has elements for more than one control then some warnings are fired.
-   * 
+   *
    * @param aContext the context
    * @param aWeightedControlList the WeightedControlList
    * @param aWPath the wpath (only needed for the warning message)
@@ -180,8 +180,8 @@ public abstract class AbstractCommandSet implements ICommandSet {
     final WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
-      aContext.informListenersInfo("manyElementsFound", new String[] { aWPath.toString(),
-          tmpEntry.getControl().getDescribingText() });
+      aContext.informListenersInfo("manyElementsFound",
+          new String[] { aWPath.toString(), tmpEntry.getControl().getDescribingText() });
     }
 
     for (final WeightedControlList.Entry tmpEachEntry : tmpEntries) {
