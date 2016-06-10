@@ -639,7 +639,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - executionStartTime));
 
       output.println("<!--");
-      output.println(SearchPattern.getStatics());
+      output.println(SearchPattern.getStatistics());
       output.println("-->");
 
       printlnEndTag(TAG_WET);
