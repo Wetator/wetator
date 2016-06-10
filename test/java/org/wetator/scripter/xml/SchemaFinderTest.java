@@ -43,8 +43,8 @@ public class SchemaFinderTest {
 
   @Test
   public void defaultSchemaWithoutLocation() throws XMLStreamException {
-    final List<XMLSchema> tmpSchemas = new SchemaFinder(new StringReader(
-        "<content xmlns='http://www.wetator.org/xsd/test-case' />")).getSchemas();
+    final List<XMLSchema> tmpSchemas = new SchemaFinder(
+        new StringReader("<content xmlns='http://www.wetator.org/xsd/test-case' />")).getSchemas();
     Assert.assertEquals(0, tmpSchemas.size());
   }
 

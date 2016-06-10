@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * This exception is thrown if an action fails.
- * 
+ *
  * @author frank.danek
  */
 public class ActionException extends CommandException {
@@ -27,7 +27,7 @@ public class ActionException extends CommandException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public ActionException(final String aMessage) {
@@ -36,7 +36,7 @@ public class ActionException extends CommandException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aCause the cause
    */

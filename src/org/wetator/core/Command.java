@@ -27,7 +27,7 @@ import org.wetator.util.SecretString;
 /**
  * The Command;
  * our class that represents a command read from an source file.
- * 
+ *
  * @author rbri
  */
 public final class Command {
@@ -40,7 +40,7 @@ public final class Command {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aName the name of the command
    * @param anIsCommentFlag true if the command is a comment
    */
@@ -125,7 +125,7 @@ public final class Command {
   /**
    * Creates a printable String from the command.
    * This takes care of secrets.
-   * 
+   *
    * @param aContext the context
    * @return the string
    */
@@ -166,7 +166,7 @@ public final class Command {
   /**
    * Returns the first parameter as secret string.
    * The parameter is taken at whole, not parsed.
-   * 
+   *
    * @param aContext the context
    * @return a secret string or null if the first parameter was not set
    */
@@ -184,7 +184,7 @@ public final class Command {
   /**
    * Returns the first parameter as secret string.
    * The parameter is taken at whole, not parsed.
-   * 
+   *
    * @param aContext the context
    * @return a secret string
    * @throws InvalidInputException if the first parameter is not set
@@ -202,7 +202,7 @@ public final class Command {
 
   /**
    * Returns the list of secret strings parsed from the second parameter.
-   * 
+   *
    * @param aContext the context
    * @return the list of secret strings (never null)
    */
@@ -226,7 +226,7 @@ public final class Command {
   /**
    * Returns the second parameter as secret string.
    * The parameter is taken at whole, not parsed.
-   * 
+   *
    * @param aContext the context
    * @return a secret string or null if the second parameter was not set
    */
@@ -243,7 +243,7 @@ public final class Command {
 
   /**
    * Returns the second parameter as long.
-   * 
+   *
    * @param aContext the context
    * @return a Long (or null if not set)
    * @throws InvalidInputException if the second parameter is not convertible into a long
@@ -264,18 +264,18 @@ public final class Command {
       final BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
       return Long.valueOf(tmpValue.longValueExact());
     } catch (final NumberFormatException e) {
-      invalidInput("integerParameterExpected", new String[] { getName(),
-          tmpSecondParameter.getValue(aContext).toString(), "2" });
+      invalidInput("integerParameterExpected",
+          new String[] { getName(), tmpSecondParameter.getValue(aContext).toString(), "2" });
     } catch (final ArithmeticException e) {
-      invalidInput("integerParameterExpected", new String[] { getName(),
-          tmpSecondParameter.getValue(aContext).toString(), "2" });
+      invalidInput("integerParameterExpected",
+          new String[] { getName(), tmpSecondParameter.getValue(aContext).toString(), "2" });
     }
     return null;
   }
 
   /**
    * Returns the list of secret strings parsed from the second parameter.
-   * 
+   *
    * @param aContext the context
    * @return the list of secret strings (never null)
    * @throws InvalidInputException if the second parameter is not set
@@ -294,7 +294,7 @@ public final class Command {
   /**
    * Returns the second parameter as secret string.
    * The parameter is taken at whole, not parsed.
-   * 
+   *
    * @param aContext the context
    * @return a secret string
    * @throws InvalidInputException if the second parameter is not set
@@ -312,7 +312,7 @@ public final class Command {
 
   /**
    * Asserts that the second parameter is not set.
-   * 
+   *
    * @param aContext the context
    * @throws InvalidInputException if the second parameter is set
    */
@@ -325,7 +325,7 @@ public final class Command {
 
   /**
    * Asserts that the third parameter is not set.
-   * 
+   *
    * @param aContext the context
    * @throws InvalidInputException if the third parameter is set
    */

@@ -18,7 +18,7 @@ package org.wetator.backend;
 
 /**
  * The common interface for the backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -26,7 +26,7 @@ public interface IControlFinder {
 
   /**
    * Return a list of all clickable controls for the given wpath.
-   * 
+   *
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
@@ -34,7 +34,7 @@ public interface IControlFinder {
 
   /**
    * Return a list of all selectable controls for the given wpath.
-   * 
+   *
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
@@ -42,7 +42,7 @@ public interface IControlFinder {
 
   /**
    * Return a list of all deselectable controls for the given wpath.
-   * 
+   *
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
@@ -50,7 +50,7 @@ public interface IControlFinder {
 
   /**
    * Return a list of all settable controls for the given wpath.
-   * 
+   *
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
@@ -58,7 +58,7 @@ public interface IControlFinder {
 
   /**
    * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given wpath.
-   * 
+   *
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
@@ -66,7 +66,7 @@ public interface IControlFinder {
 
   /**
    * Return a list of all controls for the given wpath.
-   * 
+   *
    * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */

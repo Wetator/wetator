@@ -22,14 +22,14 @@ import org.wetator.exception.ActionException;
 /**
  * This interface marks all selectable {@link IControl}s. These controls are returned by
  * {@link org.wetator.backend.IControlFinder#getAllSelectables(org.wetator.backend.WPath)}.
- * 
+ *
  * @author frank.danek
  */
 public interface ISelectable extends IControl {
 
   /**
    * Selects the control.
-   * 
+   *
    * @param aContext the context
    * @throws ActionException if an error occurred during the select
    */

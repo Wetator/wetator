@@ -24,7 +24,7 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
  * The base class for all HtmlUnit finders.<br />
  * A finder is used to find all {@link org.wetator.backend.control.IControl}s matching a given search. These controls
  * are returned as a {@link WeightedControlList}.
- * 
+ *
  * @author frank.danek
  */
 public abstract class AbstractHtmlUnitControlsFinder {
@@ -36,7 +36,7 @@ public abstract class AbstractHtmlUnitControlsFinder {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    */
   public AbstractHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex) {
@@ -45,7 +45,7 @@ public abstract class AbstractHtmlUnitControlsFinder {
 
   /**
    * Returns all {@link org.wetator.backend.control.IControl}s on the page matching the given wpath.
-   * 
+   *
    * @param aWPath the wpath
    * @return the list of matching controls
    */

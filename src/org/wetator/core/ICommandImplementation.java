@@ -21,7 +21,7 @@ import org.wetator.exception.InvalidInputException;
 
 /**
  * The interface every implemented command fulfills.
- * 
+ *
  * @author rbri
  * @author frank.danek
  * @author tobwoerk
@@ -31,7 +31,7 @@ public interface ICommandImplementation {
   /**
    * This method executes the given {@link Command}. The implementation of this method must contain the logic for
    * executing the {@link Command}.
-   * 
+   *
    * @param aContext the current {@link WetatorContext}
    * @param aCommand the {@link Command} to execute
    * @throws CommandException in case of a problem executing the command

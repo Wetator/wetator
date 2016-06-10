@@ -16,8 +16,6 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
@@ -39,6 +37,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+
+import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * This is the implementation of the HTML element 'option' (&lt;option&gt;) using HtmlUnit as backend.
@@ -110,8 +110,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -175,8 +175,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -237,8 +237,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
           new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages
-          .getMessage("serverError", new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError",
+          new String[] { e.getMessage(), getDescribingText() });
       throw new ActionException(tmpMessage, e);
     }
   }

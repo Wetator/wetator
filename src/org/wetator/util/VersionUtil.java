@@ -34,7 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * VersionUtil contains some useful extensions to read version info
  * from various sources.
- * 
+ *
  * @author rbri
  */
 public final class VersionUtil {
@@ -44,7 +44,7 @@ public final class VersionUtil {
 
   /**
    * Returns the name of the jar file the class is loaded from.
-   * 
+   *
    * @param aClass a class that is known to be loaded form the jar
    *        in question
    * @return the name of the jar file or "unknown"
@@ -60,7 +60,7 @@ public final class VersionUtil {
 
   /**
    * Returns the name of the jar file the class is loaded from.
-   * 
+   *
    * @param aClass a class that is known to be loaded form the jar
    *        in question
    * @return the name of the jar file or "unknown"
@@ -88,7 +88,7 @@ public final class VersionUtil {
 
   /**
    * Returns the version of the jar file the class is loaded from.
-   * 
+   *
    * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
@@ -100,7 +100,7 @@ public final class VersionUtil {
 
   /**
    * Returns the title of the jar file the class is loaded from.
-   * 
+   *
    * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
@@ -112,7 +112,7 @@ public final class VersionUtil {
 
   /**
    * Returns the title of the jar file the class is loaded from.
-   * 
+   *
    * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
@@ -123,7 +123,7 @@ public final class VersionUtil {
 
   /**
    * Returns the version of the jar file the class is loaded from.
-   * 
+   *
    * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @return the name of the jar file or "unknown"
@@ -135,7 +135,7 @@ public final class VersionUtil {
   /**
    * Returns the attribute from the manifest of the jar file or the default
    * if not found.
-   * 
+   *
    * @param aJarFilePattern the regex pattern of the jar file
    * @param aPackage the name of the package or null
    * @param anAttributeName the name of the attribute to look for

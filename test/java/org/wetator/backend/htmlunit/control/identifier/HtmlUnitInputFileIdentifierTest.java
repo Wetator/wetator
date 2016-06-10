@@ -97,8 +97,7 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }

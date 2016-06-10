@@ -23,7 +23,7 @@ import org.wetator.util.SecretString;
  * An object that stores a variable.
  * This supports a name, a value and a secret flag.
  * The value of variables marked as secret is never visible in any kind of output.
- * 
+ *
  * @author rbri
  */
 public final class Variable {
@@ -33,7 +33,7 @@ public final class Variable {
   /**
    * Constructor.
    * The value is not secret
-   * 
+   *
    * @param aName the name of the variable (required)
    * @param aValue the value of the variable
    */
@@ -43,7 +43,7 @@ public final class Variable {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aName the name of the variable (required)
    * @param aValue the value of the variable
    * @param anSecretFlag true if the value is a secret
@@ -65,7 +65,7 @@ public final class Variable {
 
   /**
    * Constructor.
-   * 
+   *
    * @param aName the name of the variable
    * @param aValue the value as SecretString
    */

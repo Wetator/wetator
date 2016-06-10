@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  * <li>as a file in the given schema directory.</li>
  * <li>as a URL.</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  * @author tobwoerk
  */
@@ -52,14 +52,14 @@ public class LocalEntityResolver implements EntityResolver {
     final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<String, List<XMLSchema>>();
     tmpKnownSchemas.put(XMLScripter.BASE_SCHEMA.getNamespace(),
         Arrays.asList(new XMLSchema(XMLScripter.BASE_SCHEMA.getNamespace(), "test-case-1.0.0.xsd")));
-    tmpKnownSchemas.put(XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Arrays.asList(new XMLSchema("d",
-        XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), "default-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put(XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Arrays.asList(
+        new XMLSchema("d", XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), "default-command-set-1.0.0.xsd")));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set",
         Arrays.asList(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd")));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays.asList(new XMLSchema("tst",
-        "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd")));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", Arrays.asList(new XMLSchema("inc",
-        "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays
+        .asList(new XMLSchema("tst", "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", Arrays.asList(
+        new XMLSchema("inc", "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd")));
     return tmpKnownSchemas;
   }
 
@@ -73,7 +73,7 @@ public class LocalEntityResolver implements EntityResolver {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aSchemaDirectory the directory to look in for schema files
    */
   public LocalEntityResolver(final File aSchemaDirectory) {
@@ -82,7 +82,7 @@ public class LocalEntityResolver implements EntityResolver {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
    */
   @Override
@@ -94,11 +94,11 @@ public class LocalEntityResolver implements EntityResolver {
         final String tmpKnownSchemaFileLocation = tmpKnownSchemaFile.getLocation();
         if (aSystemId.equals(tmpKnownSchemaFileLocation) || aSystemId.endsWith("/" + tmpKnownSchemaFileLocation)
             || aSystemId.endsWith("\\" + tmpKnownSchemaFileLocation)) {
-          final InputSource tmpInputSource = new InputSource(getClass().getResourceAsStream(
-              XSD_DIRECTORY + tmpKnownSchemaFileLocation));
+          final InputSource tmpInputSource = new InputSource(
+              getClass().getResourceAsStream(XSD_DIRECTORY + tmpKnownSchemaFileLocation));
           tmpInputSource.setPublicId(aPublicId);
-          tmpInputSource.setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFileLocation)
-              .toExternalForm());
+          tmpInputSource
+              .setSystemId(getClass().getResource(XSD_DIRECTORY + tmpKnownSchemaFileLocation).toExternalForm());
           return tmpInputSource;
         }
       }

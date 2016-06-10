@@ -18,7 +18,7 @@ package org.wetator.scripter.xml.model;
 
 /**
  * Meta-model representation of a parameter.
- * 
+ *
  * @author frank.danek
  */
 public class ParameterType {
@@ -86,7 +86,7 @@ public class ParameterType {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

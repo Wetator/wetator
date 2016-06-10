@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 /**
  * This matcher checks if the attribute 'src' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches
  * the criteria.
- * 
+ *
  * @author frank.danek
  */
 public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
@@ -36,7 +36,7 @@ public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -50,7 +50,7 @@ public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

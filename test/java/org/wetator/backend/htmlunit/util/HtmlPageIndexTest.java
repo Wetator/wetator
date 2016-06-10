@@ -584,8 +584,8 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Button() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "before"
-        + "<button id='MyButtonId' name='MyButtonName'>Button</button>" + "after" + "</body></html>";
+    final String tmpHtmlCode = "<html><body>" + "before" + "<button id='MyButtonId' name='MyButtonName'>Button</button>"
+        + "after" + "</body></html>";
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);

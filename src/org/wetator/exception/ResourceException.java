@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * This exception is thrown for problems accessing a resource.
- * 
+ *
  * @author frank.danek
  */
 public class ResourceException extends RuntimeException {
@@ -27,7 +27,7 @@ public class ResourceException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public ResourceException(final String aMessage) {
@@ -36,7 +36,7 @@ public class ResourceException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 /**
  * This is the implementation of the HTML element 'input submit' (&lt;input type="submit"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -38,7 +38,7 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlSubmitInput} from the backend
    */
   public HtmlUnitInputSubmit(final HtmlSubmitInput anHtmlElement) {
@@ -47,7 +47,7 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -57,7 +57,7 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

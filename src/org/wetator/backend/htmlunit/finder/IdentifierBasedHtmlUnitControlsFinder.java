@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * executing {@link #find(WPath)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
  * a match is found. So the returned {@link WeightedControlList} may contain multiple
  * {@link org.wetator.backend.control.IControl}s (multiple times).
- * 
+ *
  * @author frank.danek
  */
 public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinder {
@@ -57,11 +57,12 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
 
   /**
    * The constructor.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be null
    */
-  public IdentifierBasedHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex, final ThreadPoolExecutor aThreadPool) {
+  public IdentifierBasedHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex,
+      final ThreadPoolExecutor aThreadPool) {
     super(aHtmlPageIndex);
 
     threadPool = aThreadPool;
@@ -88,7 +89,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
    */
   @Override
@@ -103,11 +104,11 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
             execute(tmpIdentifier);
           }
         } catch (final IllegalAccessException e) {
-          throw new ImplementationException(
-              "Could not access identifier class '" + tmpIdentifierClass.getName() + "'.", e);
+          throw new ImplementationException("Could not access identifier class '" + tmpIdentifierClass.getName() + "'.",
+              e);
         } catch (final InstantiationException e) {
-          throw new ImplementationException("Could not instantiate identifier for class '"
-              + tmpIdentifierClass.getName() + "'.", e);
+          throw new ImplementationException(
+              "Could not instantiate identifier for class '" + tmpIdentifierClass.getName() + "'.", e);
         }
       }
     }
@@ -117,7 +118,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
 
   /**
    * Executes the given identifier asynchronously in the thread pool.
-   * 
+   *
    * @param anIdentifier the identifier
    */
   protected void execute(final AbstractHtmlUnitControlIdentifier anIdentifier) {

@@ -26,14 +26,14 @@ import org.wetator.util.SecretString;
 /**
  * This interface marks all settable {@link IControl}s. These controls are returned by
  * {@link org.wetator.backend.IControlFinder#getAllSettables(org.wetator.backend.WPath)}.
- * 
+ *
  * @author frank.danek
  */
 public interface ISettable extends IControl {
 
   /**
    * Sets the value of the control.
-   * 
+   *
    * @param aContext the context
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
@@ -44,7 +44,7 @@ public interface ISettable extends IControl {
 
   /**
    * Asserts that the value of the control is equal to the given (expected) value.
-   * 
+   *
    * @param aContext the context
    * @param anExpectedValue the expected value of the control
    * @throws AssertionException if the value of the control does not match the expected value

@@ -29,7 +29,7 @@ import javax.xml.stream.XMLStreamReader;
 
 /**
  * This class finds the schema declarations in XML data.
- * 
+ *
  * @author frank.danek
  */
 public class SchemaFinder {
@@ -38,7 +38,7 @@ public class SchemaFinder {
 
   /**
    * The constructor.
-   * 
+   *
    * @param anXMLReader a reader reading the XML data
    * @throws XMLStreamException in case of problems
    */

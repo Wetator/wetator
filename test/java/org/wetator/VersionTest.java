@@ -20,7 +20,7 @@ import org.junit.Test;
 
 /**
  * Test cases for class Version.
- * 
+ *
  * @author rbri
  */
 public class VersionTest {

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * This annotation signals that the annotated implementation of the interface {@link ICommandImplementation} should be
  * executed even in case of previous errors.
- * 
+ *
  * @author frank.danek
  */
 @Documented

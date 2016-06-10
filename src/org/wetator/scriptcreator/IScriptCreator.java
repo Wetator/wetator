@@ -23,7 +23,7 @@ import org.wetator.core.Command;
 /**
  * The interface for all script creators.<br/>
  * This interface is not inside the core package because it is only used for converting scripts.
- * 
+ *
  * @author tobwoerk
  */
 public interface IScriptCreator {
@@ -35,7 +35,7 @@ public interface IScriptCreator {
 
   /**
    * Sets the file this script writer works on.
-   * 
+   *
    * @param aCommandList the commands that should be in the script
    */
   void setCommands(List<Command> aCommandList);

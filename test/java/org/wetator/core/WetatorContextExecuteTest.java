@@ -904,8 +904,8 @@ public class WetatorContextExecuteTest {
   }
 
   private void assertCommandError(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
-      final ICommandImplementation anImplementation, final Throwable aThrowable) throws CommandException,
-      InvalidInputException {
+      final ICommandImplementation anImplementation, final Throwable aThrowable)
+          throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();
@@ -932,8 +932,8 @@ public class WetatorContextExecuteTest {
     }
 
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       wrappedImplementation.execute(aContext, aCommand);
     }
   }

@@ -84,12 +84,12 @@ public final class WikiTextScripter implements IScripter {
 
     // second check the file accessibility
     if (!aFile.exists() || !aFile.isFile()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by WikiTextScripter. Could not find file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by WikiTextScripter. Could not find file.");
     }
     if (!aFile.canRead()) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by WikiTextScripter. Could not read file.");
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by WikiTextScripter. Could not read file.");
     }
 
     return IScripter.IS_SUPPORTED;

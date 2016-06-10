@@ -27,7 +27,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 
 /**
  * This is the implementation of the HTML element 'button' (&lt;button&gt;) using HtmlUnit as backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -37,7 +37,7 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements I
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlButton} from the backend
    */
   public HtmlUnitButton(final HtmlButton anHtmlElement) {
@@ -46,7 +46,7 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -56,7 +56,7 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements I
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override

@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * This class provides all messages that are used by the wetator.
- * 
+ *
  * @author rbri
  */
 public final class Messages {
@@ -31,7 +31,7 @@ public final class Messages {
   /**
    * Returns the message for the given message key from the resource bundle 'org.wetator.Messages'. Additionally the
    * values from the given parameter array are applied to the found message (see {@link MessageFormat}).
-   * 
+   *
    * @param aMessageKey The message key.
    * @param aParameterArray An array containing the message parameters.
    * @return The message.

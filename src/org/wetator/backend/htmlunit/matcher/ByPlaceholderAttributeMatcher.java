@@ -27,7 +27,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlInput;
 
 /**
  * This matcher checks if the attribute 'placeholder' of the given element matches the criteria.
- * 
+ *
  * @author rbri
  */
 public class ByPlaceholderAttributeMatcher extends AbstractByAttributeMatcher {
@@ -35,7 +35,7 @@ public class ByPlaceholderAttributeMatcher extends AbstractByAttributeMatcher {
   /**
    * The constructor.<br/>
    * Creates a new matcher with the given criteria.
-   * 
+   *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
    * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
    * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
@@ -49,7 +49,7 @@ public class ByPlaceholderAttributeMatcher extends AbstractByAttributeMatcher {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

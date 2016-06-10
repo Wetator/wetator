@@ -21,7 +21,7 @@ package org.wetator.util;
  * All whitespace is reduced to one blank;
  * Blanks/whitespace at the start and the end are trimmed.<br>
  * Char(160) is also recognized as whitespace.
- * 
+ *
  * @author rbri
  */
 public class NormalizedString {
@@ -39,7 +39,7 @@ public class NormalizedString {
 
   /**
    * Default constructor; creates a new NormalizedString with an initial value.
-   * 
+   *
    * @param aString the initial value
    */
   public NormalizedString(final String aString) {
@@ -63,7 +63,7 @@ public class NormalizedString {
 
   /**
    * Appends the specified String to this sequence.
-   * 
+   *
    * @param aString the string to append.
    * @return a reference to this object.
    */
@@ -99,7 +99,7 @@ public class NormalizedString {
 
   /**
    * Appends the first aLength chars from the array to this sequence.
-   * 
+   *
    * @param aChars the string to append.
    * @param aLength the number of chars too append
    * @return a reference to this object.
@@ -137,7 +137,7 @@ public class NormalizedString {
   /**
    * Appends a single blank at the end (if needed).
    * This method is here for performance.
-   * 
+   *
    * @return a reference to this object.
    */
   public NormalizedString appendBlank() {
@@ -161,7 +161,7 @@ public class NormalizedString {
    * extends to the character at index <code>end - 1</code>.
    * The String has no whitespace at the beginning or the end. So be careful, the length may differ from anEndPos -
    * anStartPos
-   * 
+   *
    * @param aStartPos The beginning index, inclusive.
    * @param anEndPos The ending index, exclusive.
    * @return The new string.
@@ -173,8 +173,8 @@ public class NormalizedString {
     final int tmpLength = length();
 
     if (anEndPos > tmpLength) {
-      throw new StringIndexOutOfBoundsException("NormalizedString index out of range: " + anEndPos + " lenght: "
-          + tmpLength + ".");
+      throw new StringIndexOutOfBoundsException(
+          "NormalizedString index out of range: " + anEndPos + " lenght: " + tmpLength + ".");
     }
 
     if (tmpLength == 0) {
@@ -204,7 +204,7 @@ public class NormalizedString {
 
   /**
    * Returns the length of the normalized String.
-   * 
+   *
    * @return the length
    */
   public int length() {
@@ -221,7 +221,7 @@ public class NormalizedString {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

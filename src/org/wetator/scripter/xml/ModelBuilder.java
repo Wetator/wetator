@@ -76,8 +76,8 @@ public class ModelBuilder {
    * @throws SAXException in case of problems reading the file
    * @throws ParseException in case of problems parsing the file
    */
-  public ModelBuilder(final List<XMLSchema> aSchemas, final File aSchemaDirectory) throws IOException, SAXException,
-  ParseException {
+  public ModelBuilder(final List<XMLSchema> aSchemas, final File aSchemaDirectory)
+      throws IOException, SAXException, ParseException {
     final XSSchemaSet tmpSchemaSet = parseSchemas(aSchemas, aSchemaDirectory);
     buildModel(tmpSchemaSet);
   }
@@ -104,8 +104,8 @@ public class ModelBuilder {
     return tmpCommandTypes;
   }
 
-  private XSSchemaSet parseSchemas(final List<XMLSchema> aSchemaList, final File aSchemaDirectory) throws IOException,
-  SAXException, ParseException {
+  private XSSchemaSet parseSchemas(final List<XMLSchema> aSchemaList, final File aSchemaDirectory)
+      throws IOException, SAXException, ParseException {
     if (aSchemaList == null || aSchemaList.isEmpty()) {
       throw new ImplementationException("No schema to parse.");
     }

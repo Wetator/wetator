@@ -305,8 +305,8 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunStart(IE11);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
-    writeCommandWithError(createCommand("invalid-command", null), new InvalidInputException("Command in TestCase "
-        + tmpTestCase.getName() + " is very invalid."));
+    writeCommandWithError(createCommand("invalid-command", null),
+        new InvalidInputException("Command in TestCase " + tmpTestCase.getName() + " is very invalid."));
     writeCommandIgnored();
     progressListener.testFileEnd();
     progressListener.testRunEnd();

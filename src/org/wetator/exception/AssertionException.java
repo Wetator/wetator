@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * This exception is thrown if an assertion fails.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -29,7 +29,7 @@ public class AssertionException extends CommandException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public AssertionException(final String aMessage) {
@@ -38,7 +38,7 @@ public class AssertionException extends CommandException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aCause the cause
    */

@@ -18,7 +18,7 @@ package org.wetator.exception;
 
 /**
  * This exception is thrown for problems during command execution.
- * 
+ *
  * @author frank.danek
  */
 public class CommandException extends Exception {
@@ -27,7 +27,7 @@ public class CommandException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public CommandException(final String aMessage) {
@@ -36,7 +36,7 @@ public class CommandException extends Exception {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

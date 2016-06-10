@@ -19,7 +19,7 @@ package org.wetator.exception;
 /**
  * This exception is thrown if an operation is executed that is not supported, e.g. to check a control whether it is
  * disabled that does not support being disabled.
- * 
+ *
  * @author frank.danek
  */
 public class UnsupportedOperationException extends RuntimeException {
@@ -28,7 +28,7 @@ public class UnsupportedOperationException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    */
   public UnsupportedOperationException(final String aMessage) {
@@ -37,7 +37,7 @@ public class UnsupportedOperationException extends RuntimeException {
 
   /**
    * The constructor.
-   * 
+   *
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */

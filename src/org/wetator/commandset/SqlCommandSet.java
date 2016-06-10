@@ -47,7 +47,7 @@ import org.wetator.util.StringUtil;
 
 /**
  * The implementation of all sql commands.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -91,12 +91,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
   public final class CommandExecSql implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -130,12 +130,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
   public final class CommandAssertSql implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       final SecretString tmpExpected = aCommand.getRequiredSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
@@ -189,12 +189,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
   public final class CommandAssertSqlInContent implements ICommandImplementation {
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
      */
     @Override
-    public void execute(final WetatorContext aContext, final Command aCommand) throws CommandException,
-        InvalidInputException {
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
       Long tmpTimeout = aCommand.getSecondParameterLongValue(aContext);
       if (null == tmpTimeout) {
@@ -256,7 +256,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
    */
   @Override
@@ -280,13 +280,13 @@ public final class SqlCommandSet extends AbstractCommandSet {
       final String tmpDriver = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_DRIVER);
       final String tmpUrl = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_URL);
       final String tmpUser = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_USER);
-      final String tmpPassword = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName
-          + PROPERTY_PART_PASSWORD);
+      final String tmpPassword = aConfiguration
+          .getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
 
       if (StringUtils.isEmpty(tmpDriver)) {
         LOG.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
-        throw new ConfigurationException("No database driver class specified for connection named '"
-            + tmpConnectionName + "'.");
+        throw new ConfigurationException(
+            "No database driver class specified for connection named '" + tmpConnectionName + "'.");
       }
 
       try {
@@ -325,7 +325,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   /**
    * Extract the connection name from a string.
-   * 
+   *
    * @param aContext the context
    * @param aParameter the parameter
    * @return the connection name
@@ -354,7 +354,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   /**
    * Removes the connection name from an sql.
-   * 
+   *
    * @param aSql the sql
    * @param aConnectionName the connection name
    * @return the connection name
@@ -371,7 +371,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.ICommandSet#cleanup()
    */
   @Override

@@ -22,7 +22,7 @@ import java.util.Properties;
 /**
  * A collection of available commands.
  * The implementation of this interface also holds the implementation of the commands.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -31,7 +31,7 @@ public interface ICommandSet {
   /**
    * Initialize everything the command set needs here. To leave messages for the result presentation use
    * {@link #getInitializationMessages()}.
-   * 
+   *
    * @param aConfiguration The configuration properties.
    * @throws org.wetator.exception.ConfigurationException in case of problems during initialization
    */
@@ -50,7 +50,7 @@ public interface ICommandSet {
   /**
    * Returns the {@link ICommandImplementation} for the given command name or null, if no {@link ICommandImplementation}
    * was found.
-   * 
+   *
    * @param aCommandName The name of the {@link ICommandImplementation}.
    * @return The found {@link ICommandImplementation}.
    */

@@ -20,7 +20,7 @@ import org.wetator.util.FindSpot;
 
 /**
  * This is a special implementation of a {@link SearchPattern} that matches everything.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -35,7 +35,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
    */
   @Override
@@ -45,7 +45,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
    */
   @Override
@@ -55,7 +55,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
    */
   @Override
@@ -65,7 +65,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String, int)
    */
   @Override
@@ -75,7 +75,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#lastOccurenceIn(java.lang.String)
    */
   @Override
@@ -85,7 +85,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastOccurenceIn(java.lang.String)
    */
   @Override
@@ -98,7 +98,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
    */
   @Override
@@ -111,7 +111,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastOccurenceIn(java.lang.String)
    */
   @Override
@@ -124,7 +124,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
    */
   @Override
@@ -134,7 +134,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
    */
   @Override
@@ -147,7 +147,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

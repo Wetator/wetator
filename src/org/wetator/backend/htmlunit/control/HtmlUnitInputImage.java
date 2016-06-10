@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 /**
  * This is the implementation of the HTML element 'input image' (&lt;input type="image"&gt;) using HtmlUnit as
  * backend.
- * 
+ *
  * @author rbri
  * @author frank.danek
  */
@@ -38,7 +38,7 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
 
   /**
    * The constructor.
-   * 
+   *
    * @param anHtmlElement the {@link HtmlImageInput} from the backend
    */
   public HtmlUnitInputImage(final HtmlImageInput anHtmlElement) {
@@ -47,7 +47,7 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
    */
   @Override
@@ -57,7 +57,7 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
    */
   @Override
