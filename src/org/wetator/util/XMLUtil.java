@@ -59,7 +59,7 @@ public class XMLUtil {
         tmpResult.append(aString.substring(0, i));
         i++;
         break;
-      } else if ((tmpChar > 0xD7FF && tmpChar < 0xE000) || tmpChar > 0xFFFD) {
+      } else if (tmpChar > 0xD7FF && tmpChar < 0xE000 || tmpChar > 0xFFFD) {
         // ignore
         tmpResult.append(aString.substring(0, i));
         i++;
@@ -94,7 +94,7 @@ public class XMLUtil {
       tmpChar = aString.charAt(i);
 
       if (tmpChar == 9 || tmpChar == 10 || tmpChar == 13
-          || (tmpChar > 31 && (tmpChar <= 0xD7FF || (tmpChar >= 0xE000 && tmpChar <= 0xFFFD)))) {
+          || tmpChar > 31 && (tmpChar <= 0xD7FF || tmpChar >= 0xE000 && tmpChar <= 0xFFFD)) {
 
         switch (tmpChar) {
           case '<': {
@@ -158,7 +158,7 @@ public class XMLUtil {
         tmpResult.append(aString.substring(0, i));
         i++;
         break;
-      } else if ((tmpChar > 0xD7FF && tmpChar < 0xE000) || tmpChar > 0xFFFD) {
+      } else if (tmpChar > 0xD7FF && tmpChar < 0xE000 || tmpChar > 0xFFFD) {
         // ignore
         tmpResult.append(aString.substring(0, i));
         i++;
@@ -202,7 +202,7 @@ public class XMLUtil {
       tmpChar = aString.charAt(i);
 
       if (tmpChar == 9 || tmpChar == 10 || tmpChar == 13
-          || (tmpChar > 31 && (tmpChar <= 0xD7FF || (tmpChar >= 0xE000 && tmpChar <= 0xFFFD)))) {
+          || tmpChar > 31 && (tmpChar <= 0xD7FF || tmpChar >= 0xE000 && tmpChar <= 0xFFFD)) {
 
         switch (tmpChar) {
           case '<': {

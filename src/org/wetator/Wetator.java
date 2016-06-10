@@ -125,8 +125,10 @@ public final class Wetator {
                 if (tmpDir != null && tmpDir.exists()) {
                   final FileFilter tmpFilter = new WildcardFileFilter(tmpSearchFile.getName());
                   final File[] tmpFiles = tmpDir.listFiles(tmpFilter);
-                  for (int i = 0; i < tmpFiles.length; i++) {
-                    tmpWetatorEngine.addTestCase(tmpFiles[i].getName(), tmpFiles[i]);
+                  if (tmpFiles != null) {
+                    for (int i = 0; i < tmpFiles.length; i++) {
+                      tmpWetatorEngine.addTestCase(tmpFiles[i].getName(), tmpFiles[i]);
+                    }
                   }
                 }
               }

@@ -321,7 +321,7 @@ public class StdOutProgressListener implements IProgressListener {
       println("Failure");
       println("  " + testRunErrorCout + " erroneous Test Run(s)");
       println("");
-    } else if ((failureCount > 0) || (errorCount > 0)) {
+    } else if (failureCount > 0 || errorCount > 0) {
       println("Failure");
       final StringBuilder tmpMsg = new StringBuilder("  ");
       if (failureCount > 0) {

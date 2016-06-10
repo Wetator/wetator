@@ -108,7 +108,7 @@ public final class ResponseStore {
       tmpDirectoryName = "responses_" + tmpFormater.format(new Date());
     }
 
-    storeDir = new File(new File(outputDir, aBrowserSubdir.toLowerCase(Locale.ROOT)), tmpDirectoryName.toString());
+    storeDir = new File(new File(outputDir, aBrowserSubdir.toLowerCase(Locale.ROOT)), tmpDirectoryName);
     relStoreDir = outputDir.toPath().relativize(storeDir.toPath()).toString();
     relStoreDir = relStoreDir.replaceAll("\\\\", "/");
 
@@ -419,7 +419,7 @@ public final class ResponseStore {
       // tmpIn = new BOMInputStream(tmpIn);
       return IOUtils.toString(tmpIn, tmpCharset);
     } catch (final IOException e) {
-      LOG.warn(e);
+      LOG.warn("", e);
       return null;
     } finally {
       if (tmpIn != null) {

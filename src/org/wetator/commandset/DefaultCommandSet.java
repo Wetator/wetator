@@ -96,7 +96,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   /**
    * Command 'Describe'.
    */
-  public final class CommandDescribe implements ICommandImplementation {
+  public static final class CommandDescribe implements ICommandImplementation {
     /**
      * {@inheritDoc}
      *
