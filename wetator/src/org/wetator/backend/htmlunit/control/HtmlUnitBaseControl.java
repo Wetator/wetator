@@ -273,7 +273,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     try {
       final Keyboard tmpKeyboard = new Keyboard();
 
-      for (Key tmpKey : aKeySequence.getKeys()) {
+      for (final Key tmpKey : aKeySequence.getKeys()) {
         if (Key.KEY_RETURN == tmpKey) {
           tmpKeyboard.press(KeyboardEvent.DOM_VK_RETURN);
         } else {
@@ -464,7 +464,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     // check frames
     if (aPage instanceof HtmlPage) {
-      for (FrameWindow tmpFrame : ((HtmlPage) aPage).getFrames()) {
+      for (final FrameWindow tmpFrame : ((HtmlPage) aPage).getFrames()) {
         final Page tmpFramePage = tmpFrame.getEnclosedPage();
         if (tmpFramePage instanceof HtmlPage && isPartOf(tmpFramePage)) {
           return true;
@@ -477,7 +477,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   private int childIndex(final HtmlElement aParent, final HtmlElement aChild) {
     int tmpRes = 1;
-    for (DomElement tmpDomElement : aParent.getChildElements()) {
+    for (final DomElement tmpDomElement : aParent.getChildElements()) {
       if (tmpDomElement == aChild) {
         return tmpRes;
       }

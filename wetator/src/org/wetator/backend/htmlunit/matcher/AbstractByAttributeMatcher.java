@@ -76,8 +76,8 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
       final String tmpValue = getAttributeValue(aHtmlElement);
 
       if (StringUtils.isNotEmpty(tmpValue) && (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
-          || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue))
-          || (MatchType.ENDS_WITH == matchType && searchPattern.matchesAtEnd(tmpValue)))) {
+          || MatchType.EXACT == matchType && searchPattern.matches(tmpValue)
+          || MatchType.ENDS_WITH == matchType && searchPattern.matchesAtEnd(tmpValue))) {
         int tmpCoverage;
         if (MatchType.ENDS_WITH == matchType) {
           tmpCoverage = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);

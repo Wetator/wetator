@@ -164,7 +164,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(tmpBrowserType);
       // manipulate the browser version before using it as key for a map
       // because this manipulation will change the hash value
-      for (Map.Entry<String, String> tmpMapping : tmpConfiguration.getMimeTypes().entrySet()) {
+      for (final Map.Entry<String, String> tmpMapping : tmpConfiguration.getMimeTypes().entrySet()) {
         tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
       }
 

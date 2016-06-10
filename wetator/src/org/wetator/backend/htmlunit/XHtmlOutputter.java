@@ -576,10 +576,8 @@ public final class XHtmlOutputter {
       }
 
       // we are doing a screenshot here; reflect the current state of the control
-      if (tmpIsChecked) {
-        if (((HtmlInput) tmpDomElement).isChecked()) {
-          output.print(" checked=\"checked\"");
-        }
+      if (tmpIsChecked && ((HtmlInput) tmpDomElement).isChecked()) {
+        output.print(" checked=\"checked\"");
       }
     }
   }
@@ -598,7 +596,7 @@ public final class XHtmlOutputter {
         tmpTag = (String) tmpField.get(null);
         TAG_NAMES.put(tmpNodeClass, tmpTag);
         return tmpTag;
-      } catch (final Exception e) {
+      } catch (final NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
         // ignore
       }
       tmpNodeClass = tmpNodeClass.getSuperclass();

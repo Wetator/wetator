@@ -60,7 +60,7 @@ public final class CssUtil {
         // If the character is in the range [\1-\1f] (U+0001 to U+001F) or is U+007F, then the character escaped as code
         // point.
         tmpResult.append(aString.substring(0, i));
-        tmpResult.append("\\");
+        tmpResult.append('\\');
         tmpResult.append(Integer.toString(tmpChar, 16));
         i++;
         break;
@@ -68,19 +68,19 @@ public final class CssUtil {
         // If the character is the first character and is in the range [0-9] (U+0030 to U+0039), then the character
         // escaped as code point.
         tmpResult.append(aString.substring(0, i));
-        tmpResult.append("\\");
+        tmpResult.append('\\');
         tmpResult.append(Integer.toString(tmpChar, 16));
         i++;
         break;
-      } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || (tmpChar >= 0x0030 && tmpChar <= 0x0039)
-          || (tmpChar >= 0x0041 && tmpChar <= 0x005A) || (tmpChar >= 0x0061 && tmpChar <= 0x007a)) {
+      } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || tmpChar >= 0x0030 && tmpChar <= 0x0039
+          || tmpChar >= 0x0041 && tmpChar <= 0x005A || tmpChar >= 0x0061 && tmpChar <= 0x007a) {
         // If the character is not handled by one of the above rules and is greater than or equal to U+0080,
         // is "-" (U+002D) or "_" (U+005F), or is in one of the ranges [0-9] (U+0030 to U+0039),
         // [A-Z] (U+0041 to U+005A), or \[a-z] (U+0061 to U+007A), then the character itself.
       } else {
         // Otherwise, the escaped character.
         tmpResult.append(aString.substring(0, i));
-        tmpResult.append("\\");
+        tmpResult.append('\\');
         tmpResult.append(Integer.toString(tmpChar, 16));
         i++;
         break;
@@ -101,13 +101,13 @@ public final class CssUtil {
         tmpResult.append('\\');
         tmpResult.append(Integer.toString(tmpChar, 16));
         tmpEscaped = true;
-      } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || (tmpChar >= 0x0030 && tmpChar <= 0x0039)
-          || (tmpChar >= 0x0041 && tmpChar <= 0x005A) || (tmpChar >= 0x0061 && tmpChar <= 0x007a)) {
+      } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || tmpChar >= 0x0030 && tmpChar <= 0x0039
+          || tmpChar >= 0x0041 && tmpChar <= 0x005A || tmpChar >= 0x0061 && tmpChar <= 0x007a) {
         // If the character is not handled by one of the above rules and is greater than or equal to U+0080,
         // is "-" (U+002D) or "_" (U+005F), or is in one of the ranges [0-9] (U+0030 to U+0039),
         // [A-Z] (U+0041 to U+005A), or \[a-z] (U+0061 to U+007A), then the character itself.
-        if (tmpEscaped && ((tmpChar >= 0x0030 && tmpChar <= 0x0039) || (tmpChar >= 0x0041 && tmpChar <= 0x0046)
-            || (tmpChar >= 0x0061 && tmpChar <= 0x0066))) {
+        if (tmpEscaped && (tmpChar >= 0x0030 && tmpChar <= 0x0039 || tmpChar >= 0x0041 && tmpChar <= 0x0046
+            || tmpChar >= 0x0061 && tmpChar <= 0x0066)) {
           tmpResult.append(' ');
         }
         tmpResult.append(tmpChar);

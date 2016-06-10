@@ -439,7 +439,7 @@ public final class SecretString {
         tmpSpot.setEndPos(Math.min(tmpLength, tmpEnd + aDistance));
       }
 
-      if ((0 > tmpSpot.getEndPos()) || (tmpSpot.getEndPos() <= tmpSpot.getStartPos())) {
+      if (0 > tmpSpot.getEndPos() || tmpSpot.getEndPos() <= tmpSpot.getStartPos()) {
         tmpSecrets.remove();
       }
     }
