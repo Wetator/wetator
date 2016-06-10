@@ -33,16 +33,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
  * The identifier for a {@link HtmlUnitOption}.<br />
  * It can be identified by:
  * <ul>
- * <li>it's id</li>
+ * <li>its id</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitOptionIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -52,7 +52,7 @@ public class HtmlUnitOptionIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -79,7 +79,7 @@ public class HtmlUnitOptionIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

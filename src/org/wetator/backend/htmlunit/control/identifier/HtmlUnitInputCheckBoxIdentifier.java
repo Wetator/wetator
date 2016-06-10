@@ -40,13 +40,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * It can be identified by:
  * <ul>
  * <li>the label text after</li>
- * <li>it's title attribute</li>
- * <li>it's name</li>
- * <li>it's id</li>
+ * <li>its title attribute</li>
+ * <li>its name</li>
+ * <li>its id</li>
  * <li>a label</li>
  * <li>table coordinates</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  * @author rbri
  */
@@ -54,7 +54,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -64,7 +64,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -87,10 +87,10 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlCheckBoxInput) {
         aMatchers.add(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-        aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-        aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
+        aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (aHtmlElement instanceof HtmlLabel) {
         aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
             HtmlCheckBoxInput.class));
@@ -98,14 +98,14 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
-      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
-          .getTableCoordinatesReversed(), HtmlCheckBoxInput.class));
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          aWPath.getTableCoordinatesReversed(), HtmlCheckBoxInput.class));
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

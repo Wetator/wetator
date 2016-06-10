@@ -37,15 +37,15 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * The identifier for a {@link HtmlUnitOption} nested inside a select.<br />
  * It can be identified by:
  * <ul>
- * <li>it's text</li>
- * <li>it's label attribute</li>
- * <li>it's value attribute</li>
+ * <li>its text</li>
+ * <li>its label attribute</li>
+ * <li>its value attribute</li>
  * </ul>
  * The surrounding select can be identified by:
  * <ul>
  * <li>the label text before</li>
- * <li>it's name</li>
- * <li>it's id</li>
+ * <li>its name</li>
+ * <li>its id</li>
  * <li>a label</li>
  * </ul>
  *
@@ -72,7 +72,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
   @Override
   public WeightedControlList identify(final WPath aWPath, final HtmlElement aHtmlElement) {
     if (aWPath.getLastNode() == null) {
-      // this identifier requires at least one node (the label of the option to select)
+      // this identifier requires at least one node (to identify the option to select)
       // if not available, we can't do anything
       return new WeightedControlList();
     }

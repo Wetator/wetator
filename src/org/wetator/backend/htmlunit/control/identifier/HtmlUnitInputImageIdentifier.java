@@ -38,21 +38,21 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
  * The identifier for a {@link HtmlUnitInputImage}.<br />
  * It can be identified by:
  * <ul>
- * <li>it's alt attribute</li>
- * <li>it's title attribute</li>
- * <li>it's src attribute</li>
- * <li>it's name</li>
- * <li>it's id</li>
+ * <li>its alt attribute</li>
+ * <li>its src attribute</li>
+ * <li>its title attribute</li>
+ * <li>its name</li>
+ * <li>its id</li>
  * <li>table coordinates</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitInputImageIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -62,7 +62,7 @@ public class HtmlUnitInputImageIdentifier extends AbstractMatcherBasedIdentifier
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -96,14 +96,14 @@ public class HtmlUnitInputImageIdentifier extends AbstractMatcherBasedIdentifier
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
-      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
-          .getTableCoordinatesReversed(), HtmlImageInput.class));
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          aWPath.getTableCoordinatesReversed(), HtmlImageInput.class));
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

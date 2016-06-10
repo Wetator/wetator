@@ -43,19 +43,19 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * <ul>
  * <li>the whole text before</li>
  * <li>the label text before</li>
- * <li>it's name</li>
- * <li>it's id</li>
+ * <li>its name</li>
+ * <li>its id</li>
  * <li>a label</li>
  * <li>table coordinates</li>
  * </ul>
- * 
+ *
  * @author frank.danek
  */
 public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
@@ -65,7 +65,7 @@ public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
@@ -91,13 +91,13 @@ public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
       final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
       if (aHtmlElement instanceof HtmlSelect) {
         // whole text before
-        aMatchers.add(new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
-            tmpWholePathSearchPattern));
+        aMatchers.add(
+            new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
 
         aMatchers.add(new ByLabelTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-
       } else if (aHtmlElement instanceof HtmlLabel) {
         aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
             HtmlSelect.class));
@@ -105,14 +105,14 @@ public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
-      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
-          .getTableCoordinatesReversed(), HtmlSelect.class));
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          aWPath.getTableCoordinatesReversed(), HtmlSelect.class));
     }
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override

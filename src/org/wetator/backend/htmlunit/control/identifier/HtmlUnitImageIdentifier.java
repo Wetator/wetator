@@ -39,11 +39,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  * The identifier for a {@link HtmlUnitImage}.<br />
  * It can be identified by:
  * <ul>
- * <li>it's alt attribute</li>
- * <li>it's title attribute</li>
- * <li>it's src attribute</li>
- * <li>it's name</li>
- * <li>it's id</li>
+ * <li>its alt attribute</li>
+ * <li>its src attribute</li>
+ * <li>its title attribute</li>
+ * <li>its aria label attribute</li>
+ * <li>its name</li>
+ * <li>its id</li>
  * <li>table coordinates</li>
  * </ul>
  *
@@ -90,18 +91,17 @@ public class HtmlUnitImageIdentifier extends AbstractMatcherBasedIdentifier {
       aMatchers.add(new ByImageSrcAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       // does image title-text match?
       aMatchers
-      .add(new ByImageTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+          .add(new ByImageTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+      aMatchers
+          .add(new ByAriaLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
       aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-
-      // aria
-      aMatchers.add(new ByAriaLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
-      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
-          .getTableCoordinatesReversed(), HtmlImage.class));
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          aWPath.getTableCoordinatesReversed(), HtmlImage.class));
     }
   }
 

@@ -39,9 +39,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * It can be identified by:
  * <ul>
  * <li>some attributes of a nested image</li>
- * <li>it's text</li>
- * <li>it's name</li>
- * <li>it's id</li>
+ * <li>its text</li>
+ * <li>its title attribute</li>
+ * <li>its name</li>
+ * <li>its id</li>
  * <li>table coordinates</li>
  * </ul>
  *
@@ -86,14 +87,15 @@ public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
       aMatchers.add(new ByInnerImageMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
       aMatchers.add(new ByTextMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-      aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+
+      aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
       // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
-      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
-          .getTableCoordinatesReversed(), HtmlAnchor.class));
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          aWPath.getTableCoordinatesReversed(), HtmlAnchor.class));
     }
   }
 
