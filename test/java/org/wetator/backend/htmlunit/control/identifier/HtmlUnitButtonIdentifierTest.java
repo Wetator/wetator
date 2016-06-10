@@ -55,8 +55,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -79,8 +78,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -103,18 +101,40 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byIdNameText() throws IOException, InvalidInputException {
+  public void byAriaLabel() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='MyName' type='button' name='MyName'>"
+        + "<button id='myId' type='button' name='MyName' aria-label='myAria'>"
+        + "<p>ButtonWithText</p>"
+        + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myAria");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdNameTextAriaLabel() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button id='MyName' type='button' name='MyName' aria-label='MyName'>"
         + "<p>MyName</p>"
         + "</button>"
         + "</form>"
@@ -127,8 +147,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -151,8 +170,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -175,8 +193,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -199,8 +216,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -223,8 +239,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }

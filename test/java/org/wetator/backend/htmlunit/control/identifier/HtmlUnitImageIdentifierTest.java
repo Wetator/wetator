@@ -53,8 +53,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -75,8 +74,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -97,8 +95,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -119,8 +116,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -141,18 +137,38 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byIdNameAltTitleSrc() throws IOException, InvalidInputException {
+  public void byAriaLabel() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='MyName' name='MyName' src='MyName' alt='MyName' title='MyName'>"
+        + "<img id='myId' name='MyName' src='picture.png' aria-label='myAria'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myAria");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdNameAltTitleSrcAriaLabel() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<img id='MyName' name='MyName' src='MyName' alt='MyName' title='MyName' aria-label='MyName'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -186,8 +202,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -210,8 +225,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -234,8 +248,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -258,9 +271,31 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void inAnchor_byAriaLabel() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<img id='myInnerId' src='picture.png' name='MyImageName' aria-label='myAria'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myAria");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -282,8 +317,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -306,8 +340,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -330,8 +363,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
@@ -354,9 +386,31 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert
-    .assertEquals(
+    Assert.assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void inButton_byAriaLabelAttribute() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button id='myId' type='button' name='MyName'>"
+        + "<img id='myInnerId' src='picture.png' name='MyImageName' aria-label='myAria'>"
+        + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myAria");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

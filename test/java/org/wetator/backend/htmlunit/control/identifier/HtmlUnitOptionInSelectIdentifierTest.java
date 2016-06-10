@@ -1604,6 +1604,68 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
+  public void inTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'>"
+        + "            SelectLabelText"
+        + "            <select id='MySelectId_1_2' name='MySelectName_1_2' size='2'>"
+        + "              <option label='MyLabel' value='o_value1'>option1</option>"
+        + "              <option value='o_value2'>option2</option>"
+        + "            </select>"
+        + "          </td>"
+        + "          <td id='cell_1_3'>"
+        + "            SelectLabelText"
+        + "            <select id='MySelectId_1_3' name='MySelectName_1_3' size='2'>"
+        + "              <option label='MyLabel' value='o_value1'>option1</option>"
+        + "              <option value='o_value2'>option2</option>"
+        + "            </select>"
+        + "          </td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'>"
+        + "            SelectLabelText"
+        + "            <select id='MySelectId_2_2' name='MySelectName_2_2' size='2'>"
+        + "              <option label='MyLabel' value='o_value1'>option1</option>"
+        + "              <option value='o_value2'>option2</option>"
+        + "            </select>"
+        + "          </td>"
+        + "          <td id='cell_2_3'>"
+        + "            SelectLabelText"
+        + "            <select id='MySelectId_2_3' name='MySelectName_2_3' size='2'>"
+        + "              <option label='MyLabel' value='o_value1'>option1</option>"
+        + "              <option value='o_value2'>option2</option>"
+        + "            </select>"
+        + "          </td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("[header_3; row_2] > SelectLabelText > option2");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySelectId_1_2",
+        "MySelectId_1_3", "MySelectId_2_2", "MySelectId_2_3");
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlOption 'option2' part of [HtmlSelect (id='MySelectId_2_3') (name='MySelectName_2_3')]] found by: BY_LABEL coverage: 0 distance: 150 start: 158 index: 67",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
   public void option_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -2361,9 +2423,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
-  public void inTablePlain() throws IOException, InvalidInputException {
+  public void noSelectPart_inTable() throws IOException, InvalidInputException {
     // @formatter:off
-    final String tmpHtmlCode = "<html><body>" //
+    final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
         + "      <thead>"
         + "        <tr>"
@@ -2410,16 +2472,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2] > option2");
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId_1_2", new WPath(tmpSearch, config));
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-
-    tmpFound = identify(tmpHtmlCode, "MySelectId_1_3", new WPath(tmpSearch, config));
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-
-    tmpFound = identify(tmpHtmlCode, "MySelectId_2_2", new WPath(tmpSearch, config));
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-
-    tmpFound = identify(tmpHtmlCode, "MySelectId_2_3", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySelectId_1_2",
+        "MySelectId_1_3", "MySelectId_2_2", "MySelectId_2_3");
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlOption 'option2' part of [HtmlSelect (id='MySelectId_2_3') (name='MySelectName_2_3')]] found by: BY_LABEL coverage: 0 distance: 86 start: 94 index: 67",
