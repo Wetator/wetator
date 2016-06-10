@@ -112,21 +112,6 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
   }
 
   /**
-   * {@inheritDoc}
-   *
-   * @see org.junit.runners.BlockJUnit4ClassRunner#testName(org.junit.runners.model.FrameworkMethod)
-   */
-  @Override
-  protected String testName(final FrameworkMethod aMethod) {
-    if (aMethod instanceof BrowserFrameworkMethod) {
-      // we have a BrowserFrameworkMethod -> add the browser label to the test name
-      final BrowserFrameworkMethod tmpBrowserMethod = (BrowserFrameworkMethod) aMethod;
-      return String.format("%s[%s]", aMethod.getName(), tmpBrowserMethod.getBrowser().getLabel());
-    }
-    return super.testName(aMethod);
-  }
-
-  /**
    * This annotation marks a test method that should be run with specific browsers.
    */
   @Retention(RetentionPolicy.RUNTIME)

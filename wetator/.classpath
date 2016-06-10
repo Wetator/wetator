@@ -32,7 +32,7 @@
 	<classpathentry kind="lib" path="lib/jetty-util-9.2.17.v20160517.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-webapp-9.2.17.v20160517.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-9.2.17.v20160517.jar"/>
-	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.12.jar" sourcepath="lib_src/junit-4.12-sources.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-1.10.19.jar"/>
 	<classpathentry kind="lib" path="lib/neko-htmlunit-2.23-SNAPSHOT.jar"/>

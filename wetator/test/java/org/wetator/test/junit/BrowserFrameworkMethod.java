@@ -47,4 +47,54 @@ public class BrowserFrameworkMethod extends FrameworkMethod {
     return browserType;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @see org.junit.runners.model.FrameworkMethod#getName()
+   */
+  @Override
+  public String getName() {
+    return String.format("%s[%s]", super.getName(), browserType.getLabel());
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see org.junit.runners.model.FrameworkMethod#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object aObj) {
+    final boolean tmpResult = super.equals(aObj);
+
+    if (tmpResult && aObj instanceof BrowserFrameworkMethod) {
+      return browserType == ((BrowserFrameworkMethod) aObj).browserType;
+    }
+    return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see org.junit.runners.model.FrameworkMethod#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int tmpPrime = 31;
+    int tmpResult = super.hashCode();
+    tmpResult = tmpPrime * tmpResult;
+    if (browserType != null) {
+      tmpResult += browserType.hashCode();
+    }
+    return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see org.junit.runners.model.FrameworkMethod#toString()
+   */
+  @Override
+  public String toString() {
+    return super.toString() + "@" + browserType;
+  }
 }
