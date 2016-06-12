@@ -219,4 +219,60 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44 start: 66 index: 16",
         tmpFound.getEntriesSorted().get(0).toString());
   }
+
+  @Test
+  public void byTableCoordinates() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><select id='myId_1_2' size='2'>"
+        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option value='o_value2'>option2</option>"
+        + "            <option value='o_value3'>option3</option>"
+        + "          </select></td>"
+        + "          <td id='cell_1_3'><select id='myId_1_3' size='2'>"
+        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option value='o_value2'>option2</option>"
+        + "            <option value='o_value3'>option3</option>"
+        + "          </select></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><select id='myId_2_2' size='2'>"
+        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option value='o_value2'>option2</option>"
+        + "            <option value='o_value3'>option3</option>"
+        + "          </select></td>"
+        + "          <td id='cell_2_3'><select id='myId_2_3' size='2'>"
+        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option value='o_value2'>option2</option>"
+        + "            <option value='o_value3'>option3</option>"
+        + "          </select></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
+        "myId_2_2", "myId_2_3");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlSelect (id='myId_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 110 start: 110 index: 63",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
 }

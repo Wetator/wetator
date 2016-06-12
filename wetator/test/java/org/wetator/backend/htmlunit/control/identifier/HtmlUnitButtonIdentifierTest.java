@@ -243,4 +243,44 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
         "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
+
+  @Test
+  public void byTableCoordinates() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><button id='myId_1_2'>ClickMe</button></td>"
+        + "          <td id='cell_1_3'><button id='myId_1_3'>ClickMe</button></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><button id='myId_2_2'>ClickMe</button></td>"
+        + "          <td id='cell_2_3'><button id='myId_2_3'>ClickMe</button></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
+        "myId_2_2", "myId_2_3");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlButton 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 62 start: 62 index: 48",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
 }

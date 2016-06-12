@@ -130,4 +130,44 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
         "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 27 start: 43 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
+
+  @Test
+  public void byTableCoordinates() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input id='MyRadioButtonId_1_2' name='MyRadioButtonName_1_2' value='value_1_2' type='radio'></td>"
+        + "          <td id='cell_1_3'><input id='MyRadioButtonId_1_3' name='MyRadioButtonName_1_3' value='value_1_3' type='radio'></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input id='MyRadioButtonId_2_2' name='MyRadioButtonName_2_2' value='value_2_2' type='radio'></td>"
+        + "          <td id='cell_2_3'><input id='MyRadioButtonId_2_3' name='MyRadioButtonName_2_3' value='value_2_3' type='radio'></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId_1_2",
+        "MyRadioButtonId_1_3", "MyRadioButtonId_2_2", "MyRadioButtonId_2_3");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'value_2_3' (id='MyRadioButtonId_2_3') (name='MyRadioButtonName_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 38 start: 38 index: 45",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
 }
