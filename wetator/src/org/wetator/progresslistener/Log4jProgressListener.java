@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.AppenderSkeleton;
@@ -341,7 +342,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
    * The worker that does the real output.
    */
   protected void dump() {
-    final String tmpFileName = "wire_" + testCase + "_" + browser;
+    final String tmpFileName = "wire_" + StringUtils.replace(testCase, File.pathSeparator, "__") + "_" + browser;
     String tmpSuffix = "";
     int tmpCount = 0;
     File tmpResultFile;
