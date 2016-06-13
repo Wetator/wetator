@@ -342,8 +342,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
    * The worker that does the real output.
    */
   protected void dump() {
-    String tmpFileName = StringUtils.replace(testCase, File.pathSeparator, "__");
-    tmpFileName = StringUtils.replace(tmpFileName, ".", "_");
+    String tmpFileName = StringUtils.replace(testCase, File.separator, "__");
     tmpFileName = "wire_" + tmpFileName + "_" + browser;
     String tmpSuffix = "";
     int tmpCount = 0;
