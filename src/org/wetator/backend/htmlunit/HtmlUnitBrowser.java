@@ -1065,10 +1065,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (tmpPage.isHtmlPage()) {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
-      while (System.currentTimeMillis() < tmpEndTime) {
+      long tmpNow;
+      while ((tmpNow = System.currentTimeMillis()) < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
 
-        tmpPendingJobs = areJobsPendig(tmpHtmlPage, System.currentTimeMillis() - tmpEndTime);
+        tmpPendingJobs = areJobsPendig(tmpHtmlPage, tmpEndTime - tmpNow);
         if (tmpPendingJobs) {
           continue;
         }
