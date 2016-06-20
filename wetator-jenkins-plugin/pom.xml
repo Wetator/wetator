@@ -343,7 +343,7 @@
         <dependency>
             <groupId>org.wetator</groupId>
             <artifactId>wetator</artifactId>
-            <version>1.3.0</version>
+            <version>1.6.0-SNAPSHOT</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -365,6 +365,13 @@
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.11.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- needed by Wetator -->
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>neko-htmlunit</artifactId>
+            <version>2.23-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
