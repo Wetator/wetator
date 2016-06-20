@@ -43,7 +43,13 @@
       <xs:enumeration value="Save_Bookmark" />
       <xs:enumeration value="Open_Bookmark" />
       <xs:enumeration value="Assert_Applet" />
+
+      <xs:enumeration value="Exec-Js" />
+      <xs:enumeration value="Type" />
+      <xs:enumeration value="Confirm_Next" />
+
       <xs:enumeration value="Wait" />
+      <xs:enumeration value="Debug_Click_On" />
     </xs:restriction>
   </xs:simpleType>
 
