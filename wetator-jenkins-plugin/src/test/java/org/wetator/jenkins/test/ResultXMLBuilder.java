@@ -210,7 +210,7 @@ public class ResultXMLBuilder {
 
   public String getNormalizedResult() throws Exception {
     File tmpActualFile = new File(RESULT_LOG);
-    String tmpActualResult = FileUtils.readFileToString(tmpActualFile);
+    String tmpActualResult = FileUtils.readFileToString(tmpActualFile, "utf-8");
     return normalizeResult(tmpActualResult);
   }
 
