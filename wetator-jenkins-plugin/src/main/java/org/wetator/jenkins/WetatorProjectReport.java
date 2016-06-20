@@ -355,7 +355,7 @@ public class WetatorProjectReport implements ProminentProjectAction {
     tmpPlot.setRenderer(tmpAreaRenderer);
     tmpAreaRenderer.setSeriesPaint(0, ColorPalette.RED); // Failures.
     tmpAreaRenderer.setSeriesPaint(1, ColorPalette.YELLOW); // Skips.
-    tmpAreaRenderer.setSeriesPaint(1, ColorPalette.BLUE); // Passes.
+    tmpAreaRenderer.setSeriesPaint(2, ColorPalette.BLUE); // Passes.
 
     // crop extra space around the graph
     tmpPlot.setInsets(new RectangleInsets(0, 0, 0, 5.0));
