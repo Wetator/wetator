@@ -53,12 +53,7 @@ import org.wetator.util.StringUtil;
 import org.wetator.util.VersionUtil;
 import org.wetator.util.XMLUtil;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.steadystate.css.parser.CSSOMParser;
-
 import dk.brics.automaton.Automaton;
-import net.sourceforge.htmlunit.corejs.javascript.Function;
-import net.sourceforge.htmlunit.cyberneko.HTMLElements;
 
 /**
  * The class that generates the XML output.
@@ -159,14 +154,20 @@ public class XMLResultWriter implements IProgressListener {
 
       StringBuilder tmpInfo = new StringBuilder();
 
-      final Class<?>[] tmpLibs = new Class<?>[] { WebClient.class, Function.class, HTMLElements.class,
-          CSSOMParser.class };
+      final String[] tmpLibs = new String[] { "com.gargoylesoftware.htmlunit.WebClient",
+          "net.sourceforge.htmlunit.corejs.javascript.Function", "net.sourceforge.htmlunit.cyberneko.HTMLElements",
+          "com.steadystate.css.parser.CSSOMParser" };
       for (int i = 0; i < tmpLibs.length; i++) {
         tmpInfo.setLength(0);
-        tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpLibs[i]));
-        tmpInfo.append(" (");
-        tmpInfo.append(VersionUtil.determineCreationDateFromJarFileName(tmpLibs[i]));
-        tmpInfo.append(')');
+        try {
+          Class<?> tmpClass = Class.forName(tmpLibs[i]);
+          tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpClass));
+          tmpInfo.append(" (");
+          tmpInfo.append(VersionUtil.determineCreationDateFromJarFileName(tmpClass));
+          tmpInfo.append(')');
+        } catch (ClassNotFoundException e) {
+          tmpInfo.append("Class '" + tmpLibs[i] + "' not found in classpath.");
+        }
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
