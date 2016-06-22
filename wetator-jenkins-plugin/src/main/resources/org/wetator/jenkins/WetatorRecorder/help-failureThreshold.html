@@ -1,3 +1,6 @@
 <div>
-The minimal number of failing Wetator tests to mark the build as failure (default: never).
+If the number of failing Wetator tests is greater than this threshold then the build is marked as failure.
+I.e., a value of 0 means that the build status is changed if there is at least one failing Wetator test.
+Leave this field empty if the state of the build should not be set to failure depending on the number of failing Wetator tests.
+(default: never)
 </div>
