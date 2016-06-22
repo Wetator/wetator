@@ -160,12 +160,12 @@ public class XMLResultWriter implements IProgressListener {
       for (int i = 0; i < tmpLibs.length; i++) {
         tmpInfo.setLength(0);
         try {
-          Class<?> tmpClass = Class.forName(tmpLibs[i]);
+          final Class<?> tmpClass = Class.forName(tmpLibs[i]);
           tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpClass));
           tmpInfo.append(" (");
           tmpInfo.append(VersionUtil.determineCreationDateFromJarFileName(tmpClass));
           tmpInfo.append(')');
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
           tmpInfo.append("Class '" + tmpLibs[i] + "' not found in classpath.");
         }
         printlnNode(TAG_LIB, tmpInfo.toString());
