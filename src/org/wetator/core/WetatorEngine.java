@@ -37,7 +37,7 @@ import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.XMLResultWriter;
 
 /**
- * The engine that makes the monster running.<br/>
+ * The engine that makes the monster running.<br>
  * Everything that is in common use for the whole test process is stored here.
  *
  * @author rbri

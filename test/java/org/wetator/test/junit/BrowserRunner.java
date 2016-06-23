@@ -31,8 +31,8 @@ import org.wetator.backend.IBrowser.BrowserType;
 
 /**
  * This custom runner implements browser parameterized tests. When running a test class, each method is run for all
- * {@link BrowserType}s annotated by {@link Browsers}.<br/>
- * Only work correctly if the test class implements {@link IBrowserTest}.<br/>
+ * {@link BrowserType}s annotated by {@link Browsers}.<br>
+ * Only work correctly if the test class implements {@link IBrowserTest}.<br>
  * For example, write:
  *
  * <pre>

@@ -33,7 +33,7 @@ import org.wetator.backend.control.IControl;
 public final class WeightedControlList {
 
   /**
-   * Class for the different found by types.<br/>
+   * Class for the different found by types.<br>
    * Smaller values are more important.
    */
   public static final class FoundType {

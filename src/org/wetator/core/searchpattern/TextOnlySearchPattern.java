@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.util.FindSpot;
 
 /**
- * This is a special implementation of a {@link SearchPattern} that contains only plain text and no wildcards.<br/>
+ * This is a special implementation of a {@link SearchPattern} that contains only plain text and no wildcards.<br>
  * The execution is faster compared to {@link RegExpSearchPattern} (containing no wildcards).
  *
  * @author rbri

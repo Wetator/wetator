@@ -26,7 +26,7 @@ import org.wetator.util.FindSpot;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * The base class for all matchers.<br/>
+ * The base class for all matchers.<br>
  * A matcher checks if a {@link HtmlElement} matches one or multiple criteria. If it matches it is added to the result
  * list. A control may be added multiple times if it matches multiple criteria.
  *
@@ -52,7 +52,7 @@ public abstract class AbstractHtmlUnitElementMatcher {
   protected SearchPattern searchPattern;
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on

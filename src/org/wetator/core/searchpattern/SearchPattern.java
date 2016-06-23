@@ -24,7 +24,7 @@ import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
 /**
- * The central wildcard handling.<br/>
+ * The central wildcard handling.<br>
  * This supports the dos wildcards '*' and '?'.
  *
  * @author rbri

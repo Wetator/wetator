@@ -84,8 +84,8 @@ public class WetatorEngineExecuteTestsTest {
   }
 
   /**
-   * Test for the engine.<br/>
-   * <br/>
+   * Test for the engine.<br>
+   * <br>
    * Assertion: If everything is ok, the commands for all browsers of all tests should be executed.
    */
   @Test
@@ -114,8 +114,8 @@ public class WetatorEngineExecuteTestsTest {
   }
 
   /**
-   * Test for the engine.<br/>
-   * <br/>
+   * Test for the engine.<br>
+   * <br>
    * Assertion: If there was a {@link RuntimeException} starting a new session, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
    * of the other test should be executed.
@@ -150,8 +150,8 @@ public class WetatorEngineExecuteTestsTest {
   }
 
   /**
-   * Test for the engine.<br/>
-   * <br/>
+   * Test for the engine.<br>
+   * <br>
    * Assertion: If there was a {@link Error} starting a new session, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be ignored. The command for all browsers
    * of the other test should be ignored.
@@ -198,8 +198,8 @@ public class WetatorEngineExecuteTestsTest {
   }
 
   /**
-   * Test for the engine.<br/>
-   * <br/>
+   * Test for the engine.<br>
+   * <br>
    * Assertion: If there was a {@link ResourceException} executing a test file, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
    * of the other test should be executed.
@@ -236,8 +236,8 @@ public class WetatorEngineExecuteTestsTest {
   }
 
   /**
-   * Test for the engine.<br/>
-   * <br/>
+   * Test for the engine.<br>
+   * <br>
    * Assertion: If there was a {@link RuntimeException} executing a test file, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be executed. The command for all browsers
    * of the other test should be executed.
@@ -274,8 +274,8 @@ public class WetatorEngineExecuteTestsTest {
   }
 
   /**
-   * Test for the engine.<br/>
-   * <br/>
+   * Test for the engine.<br>
+   * <br>
    * Assertion: If the execution of a test file fails due to invalid input, the run for the current browser
    * should be aborted. The commands for the other browser of this test should be ignored. The command for all browsers
    * of the other test should be executed.

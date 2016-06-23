@@ -19,7 +19,7 @@ package org.wetator.util;
 import org.wetator.exception.ImplementationException;
 
 /**
- * An object that stores the start and end position of a match.<br/>
+ * An object that stores the start and end position of a match.<br>
  * Like in {@link String#substring(int, int)} the start position is inclusive but the end position is exclusive. So the
  * last character of the match is <code>endPos - 1</code>.
  *

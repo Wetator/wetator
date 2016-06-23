@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 public class ByImageAltAttributeMatcher extends AbstractByAttributeMatcher {
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on

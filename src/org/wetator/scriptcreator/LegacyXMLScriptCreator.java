@@ -29,7 +29,7 @@ import org.wetator.core.Command;
 import org.wetator.scripter.LegacyXMLScripter;
 
 /**
- * Creates a Wetator test script in XML format from the given commands<br/>
+ * Creates a Wetator test script in XML format from the given commands<br>
  * with the given file name and DTD in the given output directory.
  *
  * @author tobwoerk

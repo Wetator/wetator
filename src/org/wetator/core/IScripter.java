@@ -23,8 +23,8 @@ import java.util.Properties;
 import org.wetator.exception.InvalidInputException;
 
 /**
- * The interface for scripters.<br/>
- * Scripters are responsible for reading an input file and parsing the commands.<br/>
+ * The interface for scripters.<br>
+ * Scripters are responsible for reading an input file and parsing the commands.<br>
  * Scripters are reused for many files. The flow is:
  * <ol>
  * <li>{@link #isSupported(File)}</li>
@@ -73,7 +73,7 @@ public interface IScripter {
   List<Command> getCommands();
 
   /**
-   * The result for the {@link IScripter#isSupported(File)} method call.<br/>
+   * The result for the {@link IScripter#isSupported(File)} method call.<br>
    * This offers a way to transport some info message.
    */
   final class IsSupportedResult {

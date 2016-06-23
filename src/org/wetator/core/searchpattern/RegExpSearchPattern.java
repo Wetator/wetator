@@ -25,7 +25,7 @@ import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
 /**
- * This is the standard implementation of a {@link SearchPattern} based on automaton RegExp.<br/>
+ * This is the standard implementation of a {@link SearchPattern} based on automaton RegExp.<br>
  * <b>Notice:</b> the currently used RegExp implementation dk.briks.automaton does not support all functionality of
  * RegExp. But it is fast. ;)
  *
