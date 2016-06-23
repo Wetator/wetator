@@ -74,8 +74,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If everything is ok, all commands should be executed.
    */
   @Test
@@ -101,8 +101,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was an {@link AssertionException}, all following commands should be executed.
    */
   @Test
@@ -130,8 +130,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was an {@link ActionException}, all following commands should be ignored.
    */
   @Test
@@ -161,8 +161,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link InvalidInputException} during execution of a command, all following commands
    * should be ignored.
    */
@@ -193,8 +193,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link CommandException}, all following commands should be ignored.
    */
   @Test
@@ -224,8 +224,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link RuntimeException}, all following commands should be ignored.
    */
   @Test
@@ -255,8 +255,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was an {@link InvalidInputException} (during reading the commands), no commands should be
    * executed and it should be thrown.
    */
@@ -290,8 +290,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If everything is ok in the context, all commands should be executed in the sub context.
    */
   @Test
@@ -322,8 +322,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was an {@link AssertionException} in the context, all commands should be executed in the sub
    * context.
    */
@@ -357,8 +357,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was an {@link ActionException} in the context, all following commands should be ignored in the
    * sub context.
    */
@@ -394,8 +394,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was an {@link InvalidInputException} in the context, all following commands should be
    * ignored in the sub context.
    */
@@ -431,8 +431,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was a {@link CommandException} in the context, all following commands should be
    * ignored in the sub context.
    */
@@ -468,8 +468,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was a {@link RuntimeException} in the context, all following commands should be ignored in the
    * sub context.
    */
@@ -505,8 +505,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If everything is ok in the sub context, all commands should be executed in the context.
    */
   @Test
@@ -537,8 +537,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was an {@link AssertionException} in the sub context, all commands should be executed in the
    * context.
    */
@@ -572,8 +572,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was an {@link ActionException} in the sub context, all following commands should be ignored in
    * the context.
    */
@@ -609,8 +609,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was an {@link InvalidInputException} in the sub context, all following commands should be
    * ignored in the context.
    */
@@ -646,8 +646,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was a {@link CommandException} in the sub context, all following commands should be
    * ignored in the context.
    */
@@ -683,8 +683,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the sub context.<br/>
-   * <br/>
+   * Test for the sub context.<br>
+   * <br>
    * Assertion: If there was a {@link RuntimeException} in the sub context, all following commands should be ignored in
    * the context.
    */
@@ -720,8 +720,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If no {@link ICommandImplementation} is found, all following commands should be ignored.
    */
   @Test
@@ -752,8 +752,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was an {@link AssertionException} stored in the browser, all following commands should be
    * executed.
    */
@@ -781,8 +781,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link CommandException}, all following commands annotated with {@link ForceExecution}
    * should be executed anyway.
    */
@@ -814,8 +814,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link ResourceException} reading the commands, no commands (can and) should be executed.
    */
   @Test
@@ -850,8 +850,8 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br/>
-   * <br/>
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link RuntimeException} reading the commands, no commands (can and) should be executed.
    */
   @Test

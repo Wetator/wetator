@@ -152,7 +152,7 @@ public interface IBrowser {
   IControl getFocusedControl() throws BackendException;
 
   /**
-   * Opens the given URL in the current window.<br/>
+   * Opens the given URL in the current window.<br>
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    *
    * @param aUrl the URL to open
@@ -233,7 +233,7 @@ public interface IBrowser {
   void closeWindow(SecretString aWindowName) throws ActionException;
 
   /**
-   * Starts a new browser session.<br/>
+   * Starts a new browser session.<br>
    * If there are any open sessions (and open windows) currently they are closed.
    *
    * @param aBrowserType the browser type to start a session for
@@ -241,7 +241,7 @@ public interface IBrowser {
   void startNewSession(IBrowser.BrowserType aBrowserType);
 
   /**
-   * Closes the current browser session and cleans up all associated resources.<br/>
+   * Closes the current browser session and cleans up all associated resources.<br>
    */
   void endSession();
 

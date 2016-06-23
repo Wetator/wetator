@@ -82,7 +82,7 @@ import org.eclipse.jetty.util.StringUtil;
  * <p>
  * The init parameter deleteFiles controls if uploaded files are automatically deleted after the request completes. Use
  * init parameter "maxFileSize" to set the max size file that can be uploaded. Use init parameter "maxRequestSize" to
- * limit the size of the multipart request. <br/>
+ * limit the size of the multipart request. <br>
  * Modified for Wetator test: Now also the byte[] created if no filename is given is stored as a request attribute. So
  * we can access it via the attributes as byte[] and not only via the parameters as automatically converted string. (see
  * 'WETATOR modified')

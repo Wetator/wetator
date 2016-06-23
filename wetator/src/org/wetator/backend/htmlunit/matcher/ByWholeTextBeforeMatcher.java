@@ -31,7 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 public class ByWholeTextBeforeMatcher extends AbstractByAttributeMatcher {
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on

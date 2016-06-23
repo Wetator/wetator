@@ -21,7 +21,7 @@ import java.util.List;
 import org.wetator.core.Command;
 
 /**
- * The interface for all script creators.<br/>
+ * The interface for all script creators.<br>
  * This interface is not inside the core package because it is only used for converting scripts.
  *
  * @author tobwoerk

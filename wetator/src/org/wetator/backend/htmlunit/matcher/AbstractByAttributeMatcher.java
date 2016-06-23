@@ -41,7 +41,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   private FoundType foundType;
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
@@ -109,7 +109,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   protected abstract String getAttributeValue(HtmlElement aHtmlElement);
 
   /**
-   * Processed the text used to calculate the distance.<br/>
+   * Processed the text used to calculate the distance.<br>
    * The default implementation just returns the original text. Override to change this behavior.
    *
    * @param aTextBefore the text to process

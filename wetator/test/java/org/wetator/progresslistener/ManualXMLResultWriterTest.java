@@ -45,7 +45,7 @@ import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 
 /**
- * Manual test for creating result files and according reports.<br/>
+ * Manual test for creating result files and according reports.<br>
  * This test is manual because it is (was?) unstable due to timing data in report (e.g. differs between 0s and 0.1s).
  *
  * @author tobwoerk

@@ -27,7 +27,7 @@ import org.wetator.exception.AssertionException;
 public interface IProgressListener {
 
   /**
-   * This is called before the setup is done and before the test are starting.<br/>
+   * This is called before the setup is done and before the test are starting.<br>
    * Only the configuration path is available. The listener can dump the version and the configuration file used (if
    * any).
    *
@@ -36,7 +36,7 @@ public interface IProgressListener {
   void init(WetatorEngine aWetatorEngine);
 
   /**
-   * This is called after the setup is done and before the test are starting.<br/>
+   * This is called after the setup is done and before the test are starting.<br>
    * The listener can dump the setup.
    *
    * @param aWetatorEngine the engine
@@ -44,21 +44,21 @@ public interface IProgressListener {
   void start(WetatorEngine aWetatorEngine);
 
   /**
-   * This is called before a test case (grouping the browser runs) is started.<br/>
+   * This is called before a test case (grouping the browser runs) is started.<br>
    *
    * @param aTestCase the test case
    */
   void testCaseStart(TestCase aTestCase);
 
   /**
-   * This is called before a run of a test case for one browser is started.<br/>
+   * This is called before a run of a test case for one browser is started.<br>
    *
    * @param aBrowserName the name of the browser
    */
   void testRunStart(String aBrowserName);
 
   /**
-   * This is called before a test file is started.<br/>
+   * This is called before a test file is started.<br>
    * This happens for a top level test file as well as for included modules.
    *
    * @param aFileName the file name of the test file

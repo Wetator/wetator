@@ -20,7 +20,7 @@ import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 
 /**
- * The common interface for a control.<br/>
+ * The common interface for a control.<br>
  * It includes the actions and checks valid for all controls. If a control does not support an action or a check, an
  * {@link org.wetator.exception.UnsupportedOperationException} is thrown when calling this action or check.
  *

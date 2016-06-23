@@ -39,7 +39,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
   private Class<? extends HtmlElement> clazz;
 
   /**
-   * The constructor.<br/>
+   * The constructor.<br>
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on

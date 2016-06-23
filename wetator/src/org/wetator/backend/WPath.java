@@ -26,7 +26,7 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 
 /**
- * A WPath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.<br/>
+ * A WPath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.<br>
  *
  * @author frank.danek
  * @author rbri
@@ -142,7 +142,7 @@ public class WPath {
   }
 
   /**
-   * A parser and container for a table coordinate.<br/>
+   * A parser and container for a table coordinate.<br>
    * A valid table coordinate
    * <ul>
    * <li>starts with '['</li>

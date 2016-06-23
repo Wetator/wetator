@@ -28,7 +28,7 @@ import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
 /**
- * A content pattern contains the terms of match operations (AssertContent).<br/>
+ * A content pattern contains the terms of match operations (AssertContent).<br>
  *
  * @author rbri
  */
@@ -239,7 +239,7 @@ public class ContentPattern {
   }
 
   /**
-   * Internal helper class.<br/>
+   * Internal helper class.<br>
    */
   static final class PatternNode implements Cloneable {
     private SecretString value;

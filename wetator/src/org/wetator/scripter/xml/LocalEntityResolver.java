@@ -64,7 +64,7 @@ public class LocalEntityResolver implements EntityResolver {
   }
 
   /**
-   * The default constructor.<br/>
+   * The default constructor.<br>
    * Sets the schema directory to null.
    */
   public LocalEntityResolver() {

@@ -240,7 +240,7 @@ public class XMLScripter implements IScripter {
   }
 
   /**
-   * Scripts the given content by reading all commands.<br/>
+   * Scripts the given content by reading all commands.<br>
    * This method is used by the WTE.
    *
    * @param aContent the content

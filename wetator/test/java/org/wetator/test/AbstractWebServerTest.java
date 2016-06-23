@@ -64,9 +64,9 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
   private JUnitProgressListener listener;
 
   /**
-   * Starts the web server.<br/>
+   * Starts the web server.<br>
    * The default port is {@link #DEFAULT_PORT}.
-   * The default document root is {@link #DEFAULT_DOCUMENT_ROOT}.<br/>
+   * The default document root is {@link #DEFAULT_DOCUMENT_ROOT}.<br>
    *
    * @throws Exception if an error occurs starting the web server
    */
