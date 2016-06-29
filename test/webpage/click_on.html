@@ -136,7 +136,7 @@
                 <td>
                   <form action="snoopy.php">
                     <input type="hidden" name="clickOnButton" value="b_b_aria_label">
-                    <button type="button" aria-label='ariaLabel' onClick="this.form.submit();">
+                    <button type="button" aria-label='button ariaLabel' onClick="this.form.submit();">
                       <span style="background: url(./images/sword2.png); height: 52px; width: 87px; display: block;"></span>
                     </button>
                   </form>
@@ -201,7 +201,11 @@
               </tr>
               <tr>
                 <td>Anchor with title</td>
-                <td><a href="snoopy.php?clickOnAnchor=a_title" title="Anchor with title"><span style="background-color: blue; width: 10px; height: 10px; display: block;"></span></a></td>
+                <td><a href="snoopy.php?clickOnAnchor=a_title" title="anchorTitle"><span style="background-color: blue; width: 10px; height: 10px; display: block;"></span></a></td>
+              </tr>
+              <tr>
+                <td>Anchor with aria-label</td>
+                <td><a href="snoopy.php?clickOnAnchor=a_ariaLabel" aria-label='anchor ariaLabel'>Anchor with aria-label</a></td>
               </tr>
               <tr>
                 <td>Invisible Anchor with text</td>
