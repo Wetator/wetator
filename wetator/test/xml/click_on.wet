@@ -139,7 +139,7 @@
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <comment>button aria-label</comment>
-    <command><d:click-on><d:wpath>ariaLabel</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>button ariaLabel</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton b_b_aria_label POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
@@ -204,8 +204,15 @@
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <comment>anchor title</comment>
-    <command><d:click-on><d:wpath>Anchor with title</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>anchorTitle</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_title POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
+    <comment>anchor aria-label</comment>
+    <command><d:click-on><d:wpath>anchor ariaLabel</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor a_ariaLabel POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
