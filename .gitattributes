@@ -264,6 +264,7 @@ wetator/samples/google_search/google.xls -text
 wetator/samples/google_search/wetator.config -text
 wetator/samples/gwt/checkbox.wett -text
 wetator/samples/gwt/radiobutton.wett -text
+wetator/samples/primefaces/boolean_checkbox.wett -text
 wetator/samples/primefaces/inplace.wett -text
 wetator/samples/primefaces/listbox.wett -text
 wetator/samples/primefaces/one_menu.wett -text

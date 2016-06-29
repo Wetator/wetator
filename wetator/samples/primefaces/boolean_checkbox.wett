@@ -1,0 +1,33 @@
+
+# Simple test case for the PrimeFaces checkbox
+
+open-url          || http://www.primefaces.org/showcase/index.xhtml
+assert-content    || PrimeFaces SHOWCASE
+
+click-on          || Input
+click-on          || BooleanCheckbox
+
+assert-content    || SelectBooleanCheckbox is used to select a boolean value. Basic: Ajax: Submit
+
+# basic
+# this is a bit strange here but the makers of the showcase decide to do not
+# use any kind of label for the checkboxes and placing the text before the checkbox
+# from WETATOR's point of view this is uncommon so we have to use the text after
+assert-deselected || Basic >
+select            || Basic >
+click-on          || Submit
+assert-content    || Value 1: true Value 2: false
+click-on          || Close
+
+# ajax
+assert-deselected || Ajax >
+select            || Ajax >
+assert-content    || Checked
+click-on          || Submit
+assert-content    || Value 1: true Value 2: true
+click-on          || Close
+deselect          || Ajax >
+assert-content    || Unchecked
+click-on          || Submit
+assert-content    || Value 1: true Value 2: false
+click-on          || Close
