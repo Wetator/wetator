@@ -182,7 +182,7 @@ public class XHtmlOutputterHtmlPageTest {
         + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
         + TRAILING;
     final String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
-        + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select>"
+        + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
