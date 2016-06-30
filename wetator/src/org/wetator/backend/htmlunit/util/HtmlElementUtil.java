@@ -524,7 +524,8 @@ public final class HtmlElementUtil {
         final CSSStyleDeclaration tmpStyle = tmpElement.getCurrentStyle();
         if (tmpStyle != null) {
           final String tmpDisplay = tmpStyle.getDisplay();
-          if ("block".equals(tmpDisplay) || "list-item".equals(tmpDisplay) || "flex".equals(tmpDisplay)) {
+          if ("block".equals(tmpDisplay) || "inline-block".equals(tmpDisplay) || "list-item".equals(tmpDisplay)
+              || "flex".equals(tmpDisplay)) {
             return true;
           }
           if (tmpDisplay != null && (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay))) {

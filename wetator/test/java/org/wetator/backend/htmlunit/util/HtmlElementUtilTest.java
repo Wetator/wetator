@@ -2023,16 +2023,19 @@ public class HtmlElementUtilTest {
         + "<div id='div1'>"
         + "<span id='span1'>Wetator</span>"
         + "<span id='span2' style='display: block'>Wetator</span>"
+        + "<span id='span3' style='display: inline-block'>Wetator</span>"
         + "</div>"
         + "<ul id='ul1'>"
         + "  <li id='li1'>Wetator</li>"
         + "  <li id='li2' style='display: block'>Smart</li>"
-        + "  <li id='li3' style='display: inline'>Testing</li>"
+        + "  <li id='li3' style='display: inline-block'>Web</li>"
+        + "  <li id='li4' style='display: inline'>Testing</li>"
         + "</ul>"
         + "<select id='select1'>"
         + "  <option id='option1'>Wetator</option>"
         + "  <option id='option2' style='display: block'>Smart</option>"
-        + "  <option id='option3' style='display: inline'>Testing</option>"
+        + "  <option id='option3' style='display: inline-block'>Web</option>"
+        + "  <option id='option4' style='display: inline'>Testing</option>"
         + "</select>"
         + "<img id='img1' src='smiley.gif'>"
         + "</body></html>";
@@ -2046,12 +2049,16 @@ public class HtmlElementUtilTest {
     Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("span2");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("span3");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
 
     tmpElement = tmpHtmlPage.getElementById("li1");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("li2");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("li3");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("li4");
     Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
 
     // options are always block, see inline comment in
@@ -2061,6 +2068,8 @@ public class HtmlElementUtilTest {
     tmpElement = tmpHtmlPage.getElementById("option2");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("option3");
+    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    tmpElement = tmpHtmlPage.getElementById("option4");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
 
     tmpElement = tmpHtmlPage.getElementById("img1");
