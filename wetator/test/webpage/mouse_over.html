@@ -18,6 +18,11 @@
 
   //-->
   </script>
+
+  <style>
+    .hidden-text { display: none }
+    #hover-target:hover .hidden-text { display: inline }
+  </style>
 </head>
 
 
@@ -52,7 +57,11 @@
         <input style="visibility: hidden;" type="button" id="b_timeout_id" name="b_timeout_name" value="Timeout Btn">
     </p>
 
+    <h3>CSS hover</h3>
+    <div id='hover-target'>Hover me <span class='hidden-text'><input type="button" id="b_css" value="You did it"></span></div>
+
   </div>
+
 
 </form>
 </body>

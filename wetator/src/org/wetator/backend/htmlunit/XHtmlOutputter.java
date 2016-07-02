@@ -111,7 +111,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
+import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLCanvasElement;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.svg.SvgCircle;
 import com.gargoylesoftware.htmlunit.svg.SvgEllipse;
 import com.gargoylesoftware.htmlunit.svg.SvgLine;
@@ -469,6 +471,7 @@ public final class XHtmlOutputter {
         }
       }
 
+      boolean styleDefined = false;
       for (final DomAttr tmpAttribute : tmpAttributes.values()) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
         boolean tmpWriteAttribute = true;
@@ -483,6 +486,13 @@ public final class XHtmlOutputter {
           if ("style".equals(tmpAttributeName)) {
             // process all url(....) inside
             tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
+
+            if (aDomNode instanceof HtmlElement) {
+              final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
+              final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
+              // for the moment i have no better idea than always hard wire the display info
+              tmpAttributeValue = tmpAttributeValue + "; display: " + style.getDisplay();
+            }
           }
 
           if (tmpIsCssLink && "href".equals(tmpAttributeName)) {
@@ -575,11 +585,21 @@ public final class XHtmlOutputter {
         }
       }
 
+      if (!styleDefined && aDomNode instanceof HtmlElement) {
+        final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
+        final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
+        // for the moment i have no better idea than always hard wire the display info
+        output.print(" style=\"display: ");
+        output.print(style.getDisplay());
+        output.print('"');
+      }
+
       // we are doing a screenshot here; reflect the current state of the control
       if (tmpIsChecked && ((HtmlInput) tmpDomElement).isChecked()) {
         output.print(" checked=\"checked\"");
       }
     }
+
   }
 
   private String determineTag(final DomNode aDomNode) {
