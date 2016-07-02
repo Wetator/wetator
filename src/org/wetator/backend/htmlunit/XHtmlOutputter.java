@@ -61,6 +61,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCode;
 import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
 import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlElement.DisplayStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlEmbed;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
@@ -484,14 +485,19 @@ public final class XHtmlOutputter {
           }
 
           if ("style".equals(tmpAttributeName)) {
+            styleDefined = true;
+
             // process all url(....) inside
             tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
 
             if (aDomNode instanceof HtmlElement) {
               final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
-              final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
-              // for the moment i have no better idea than always hard wire the display info
-              tmpAttributeValue = tmpAttributeValue + "; display: " + style.getDisplay();
+              // hopefully no one will ever made thinks like head visible
+              if (!DisplayStyle.NONE.value().equals(elem.getDefaultStyleDisplay())) {
+                final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
+                // for the moment i have no better idea than always hard wire the display info
+                tmpAttributeValue = tmpAttributeValue + "; display: " + style.getDisplay();
+              }
             }
           }
 
@@ -587,11 +593,15 @@ public final class XHtmlOutputter {
 
       if (!styleDefined && aDomNode instanceof HtmlElement) {
         final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
-        final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
-        // for the moment i have no better idea than always hard wire the display info
-        output.print(" style=\"display: ");
-        output.print(style.getDisplay());
-        output.print('"');
+        // hopefully no one will ever made thinks like head visible
+        System.out.println(elem + "~" + elem.getDefaultStyleDisplay());
+        if (!DisplayStyle.NONE.value().equals(elem.getDefaultStyleDisplay())) {
+          final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
+          // for the moment i have no better idea than always hard wire the display info
+          output.print(" style=\"display: ");
+          output.print(style.getDisplay());
+          output.print('"');
+        }
       }
 
       // we are doing a screenshot here; reflect the current state of the control

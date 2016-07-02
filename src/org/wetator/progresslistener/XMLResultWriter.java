@@ -201,7 +201,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_LIB, tmpInfo.toString());
 
       tmpInfo = new StringBuilder("PDF Box ");
-      tmpInfo.append(org.apache.pdfbox.Version.getVersion());
+      tmpInfo.append(org.apache.pdfbox.util.Version.getVersion());
       printlnNode(TAG_LIB, tmpInfo.toString());
 
       tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest("fontbox\\S+jar", null));

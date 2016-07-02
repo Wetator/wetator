@@ -42,7 +42,7 @@ public class XHtmlOutputterHtmlPageTest {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> " + "<head> "
       + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
       + "<script src='../../resources/wetator_report.js'></script> "
-      + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/></head><body>";
+      + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/></head><body style=\"display: block\">";
   private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
@@ -73,14 +73,16 @@ public class XHtmlOutputterHtmlPageTest {
   @Test
   public void simplePage() throws IOException {
     final String tmpHtmlCode = LEADING + "<p>Paragraph 1</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p style=\"display: block\">Paragraph 1</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void paragraph() throws IOException {
     final String tmpHtmlCode = LEADING + "<p>Paragraph 1</p><p>Paragraph 2</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>Paragraph 1</p> <p>Paragraph 2</p> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
+        + " <p style=\"display: block\">Paragraph 1</p> <p style=\"display: block\">Paragraph 2</p> "
+        + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -89,14 +91,16 @@ public class XHtmlOutputterHtmlPageTest {
     final String tmpHtmlCode = LEADING + "<p><font color='red'>red</font> <font color='green'>green</font></p>"
         + TRAILING;
     final String tmpExpected = EXPECTED_LEADING
-        + " <p><font color=\"red\">red</font> <font color=\"green\">green</font></p> " + EXPECTED_TRAILING;
+        + " <p style=\"display: block\"><font color=\"red\" style=\"display: inline\">red</font> <font color=\"green\" style=\"display: inline\">green</font></p> "
+        + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void span() throws IOException {
     final String tmpHtmlCode = LEADING + "<p><span> 17.11 </span> mg" + "</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p><span> 17.11 </span> mg</p> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
+        + " <p style=\"display: block\"><span style=\"display: inline\"> 17.11 </span> mg</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -104,15 +108,22 @@ public class XHtmlOutputterHtmlPageTest {
   public void formatting() throws IOException {
     final String tmpHtmlCode = LEADING + "<p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
         + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>" + "<b>1</b> <big>2</big> <em>3</em><i>4</i> <small>5</small> "
-        + "<strong>6</strong> <sub>7</sub> <sup>8</sup> <ins>9</ins> <del>10</del>" + "</p> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p style=\"display: block\">"
+        + "<b style=\"display: inline\">1</b> " + "<big style=\"display: inline\">2</big> "
+        + "<em style=\"display: inline\">3</em><i style=\"display: inline\">4</i> "
+        + "<small style=\"display: inline\">5</small> "
+        + "<strong style=\"display: inline\">6</strong> <sub style=\"display: inline\">7</sub> "
+        + "<sup style=\"display: inline\">8</sup> " + "<ins style=\"display: inline\">9</ins> "
+        + "<del style=\"display: inline\">10</del>" + "</p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
   @Test
   public void twoImages() throws IOException {
     final String tmpHtmlCode = LEADING + "<p><img/><img/></p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p><img/><img/></p> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
+        + " <p style=\"display: block\"><img style=\"display: inline\"/><img style=\"display: inline\"/></p> "
+        + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -134,8 +145,10 @@ public class XHtmlOutputterHtmlPageTest {
     final String tmpHtmlCode = LEADING + "<p>"
         + "<abbr title='a'>1</abbr> <acronym title='b'>2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p>"
         + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>"
-        + "<abbr title=\"a\">1</abbr> <acronym title=\"b\">2</acronym> <q>3</q> <cite>4</cite> <dfn>5</dfn>" + "</p> "
+    final String tmpExpected = EXPECTED_LEADING + " <p style=\"display: block\">"
+        + "<abbr title=\"a\" style=\"display: inline\">1</abbr> "
+        + "<acronym title=\"b\" style=\"display: inline\">2</acronym> " + "<q style=\"display: inline\">3</q> "
+        + "<cite style=\"display: inline\">4</cite> " + "<dfn style=\"display: inline\">5</dfn>" + "</p> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
@@ -143,7 +156,8 @@ public class XHtmlOutputterHtmlPageTest {
   @Test
   public void mix() throws IOException {
     final String tmpHtmlCode = LEADING + "<p>This t<font color='red'>ext</font> is <b>styled</b>.</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>This t<font color=\"red\">ext</font> is <b>styled</b>.</p> "
+    final String tmpExpected = EXPECTED_LEADING
+        + " <p style=\"display: block\">This t<font color=\"red\" style=\"display: inline\">ext</font> is <b style=\"display: inline\">styled</b>.</p> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
@@ -164,7 +178,9 @@ public class XHtmlOutputterHtmlPageTest {
   @Test
   public void mix3() throws IOException {
     final String tmpHtmlCode = LEADING + "<p>Fi<font color='red'>eld</font>4</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>Fi<font color=\"red\">eld</font>4</p> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
+        + " <p style=\"display: block\">Fi<font color=\"red\" style=\"display: inline\">eld</font>4</p> "
+        + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -172,7 +188,7 @@ public class XHtmlOutputterHtmlPageTest {
   public void simpleWithJavascript() throws IOException {
     final String tmpHtmlCode = LEADING + "<h1>Test</h1>" + "<script type=\"text/javascript\">alert('WETATOR');</script>"
         + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <h1>Test</h1> " + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <h1 style=\"display: block\">Test</h1> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -181,8 +197,10 @@ public class XHtmlOutputterHtmlPageTest {
     final String tmpHtmlCode = LEADING
         + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
         + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <h1>&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
-        + " <ul> <li> &#956;g </li> </ul> " + "<select> <option selected value=\"&#956;g\">&#956;g</option> </select> "
+    final String tmpExpected = EXPECTED_LEADING
+        + " <h1 style=\"display: block\">&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
+        + " <ul style=\"display: block\"> <li style=\"display: list-item\"> &#956;g </li> </ul> "
+        + "<select style=\"display: inline-block\"> <option selected value=\"&#956;g\" style=\"display: binline\">&#956;g</option> </select> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }

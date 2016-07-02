@@ -59,7 +59,8 @@ public class XHtmlOutputterXHtmlPageTest {
   @Test
   public void testSimple() throws IOException {
     final String tmpXHtmlCode = LEADING + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + "<body> <script> highlight(); </script> </body>" + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
+        + "<body style=\"display: block\"> <script> highlight(); </script> </body>" + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpXHtmlCode);
   }
 
@@ -70,7 +71,8 @@ public class XHtmlOutputterXHtmlPageTest {
     final String tmpExpected = EXPECTED_LEADING + "<head> "
         + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
         + "<script src='../../resources/wetator_report.js'></script> "
-        + "</head><body> <h1>Test</h1> <script> highlight(); </script> </body>" + EXPECTED_TRAILING;
+        + "</head><body style=\"display: block\"> <h1 style=\"display: block\">Test</h1> <script> highlight(); </script> </body>"
+        + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpXHtmlCode);
   }
 
@@ -80,7 +82,8 @@ public class XHtmlOutputterXHtmlPageTest {
     final String tmpExpected = EXPECTED_LEADING + "<head> "
         + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
         + "<script src='../../resources/wetator_report.js'></script> "
-        + "</head><body> <h1>1&#160;2</h1> <script> highlight(); </script> </body>" + EXPECTED_TRAILING;
+        + "</head><body style=\"display: block\"> <h1 style=\"display: block\">1&#160;2</h1> <script> highlight(); </script> </body>"
+        + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 }
