@@ -486,8 +486,9 @@ test/webpage/assert_title_normalize.html -text
 test/webpage/click_after.html -text
 test/webpage/click_on.html -text
 test/webpage/click_on_table.html -text svneol=unset#text/plain
+test/webpage/download/can_not_extract_content.pdf -text
 test/webpage/download/download.txt -text
-test/webpage/download/gebit.pdf -text svneol=unset#unset
+test/webpage/download/not_editable.pdf -text
 test/webpage/download/unknown_content_type.bin -text
 test/webpage/download/wet_test.csv -text
 test/webpage/download/wet_test.docx -text
