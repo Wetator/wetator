@@ -476,7 +476,7 @@
             <bundledsignatures name="jdk-unsafe"/>
             <bundledsignatures name="jdk-deprecated"/>
         	<bundledsignatures name="jdk-non-portable"/>
-            <bundledsignatures name="commons-io-unsafe-2.4"/>
+            <bundledsignatures name="commons-io-unsafe-2.5"/>
             <!--signaturesFileset file="path/to/signatures.txt"/-->
         </forbiddenapis>
     </target>
