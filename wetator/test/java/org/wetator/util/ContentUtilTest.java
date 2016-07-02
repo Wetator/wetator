@@ -18,6 +18,7 @@ package org.wetator.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -51,9 +52,17 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getPdfTitleAsStringEncrypted() throws IOException {
-    final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/gebit.pdf"));
-    org.junit.Assert.assertEquals("GEBIT Solutions / Firmendarstellung", tmpTitle);
+  public void getPdfTitleAsStringEncryptedReadable() throws IOException {
+    final String tmpTitle = ContentUtil
+        .getPdfTitleAsString(new FileInputStream("test/webpage/download/not_editable.pdf"));
+    org.junit.Assert.assertEquals("WETATOR PDF Test", tmpTitle);
+  }
+
+  @Test
+  public void getPdfTitleAsStringEncryptedNotReadable() throws IOException {
+    final String tmpTitle = ContentUtil
+        .getPdfTitleAsString(new FileInputStream("test/webpage/download/can_not_extract_content.pdf"));
+    org.junit.Assert.assertEquals("WETATOR PDF Test", tmpTitle);
   }
 
   @Test
@@ -69,14 +78,17 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getPdfContentAsStringEncrypted() {
-    final StringBuilder tmpExpected = new StringBuilder();
-    tmpExpected.append("This is the content of a simple PDF file.");
-    tmpExpected.append(" ");
-    tmpExpected.append("This file is used to test WeT.");
+  public void getPdfContentAsStringEncryptedReadable() throws FileNotFoundException, IOException {
+    final String tmpContent = ContentUtil
+        .getPdfContentAsString(new FileInputStream("test/webpage/download/not_editable.pdf"), 40);
+    org.junit.Assert.assertEquals("WETATOR", tmpContent);
+  }
 
+  @Test
+  public void getPdfContentAsStringEncryptedNotReadable() {
     try {
-      System.out.println(ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/gebit.pdf"), 40));
+      System.out.println(ContentUtil
+          .getPdfContentAsString(new FileInputStream("test/webpage/download/can_not_extract_content.pdf"), 40));
       org.junit.Assert.fail("IOException expected");
     } catch (final IOException e) {
       org.junit.Assert.assertEquals("Content extraction forbidden for the given PDF document.", e.getMessage());
