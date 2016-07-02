@@ -488,7 +488,9 @@ public final class XHtmlOutputter {
             styleDefined = true;
 
             // process all url(....) inside
-            tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
+            if (responseStore != null) {
+              tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
+            }
 
             if (aDomNode instanceof HtmlElement) {
               final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
