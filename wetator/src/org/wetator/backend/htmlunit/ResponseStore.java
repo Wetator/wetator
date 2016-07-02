@@ -279,8 +279,7 @@ public final class ResponseStore {
         // ensure the suffix
         // this helps the browser and file server to find the correct content type
         if (null == aSuffix) {
-          final String tmpContentType = tmpWebResponse.getContentType();
-          final String tmpFileSuffix = ContentTypeUtil.getFileSuffix(tmpContentType);
+          final String tmpFileSuffix = ContentTypeUtil.getFileSuffix(tmpWebResponse);
           if (!tmpFileName.endsWith(tmpFileSuffix)) {
             tmpFileName = tmpFileName + "." + tmpFileSuffix;
           }
@@ -298,8 +297,7 @@ public final class ResponseStore {
           if (null != aSuffix) {
             tmpFileName = tmpFileName + aSuffix;
           } else {
-            final String tmpContentType = tmpWebResponse.getContentType();
-            tmpFileName = tmpFileName + "." + ContentTypeUtil.getFileSuffix(tmpContentType);
+            tmpFileName = tmpFileName + "." + ContentTypeUtil.getFileSuffix(tmpWebResponse);
           }
           tmpResourceFile = new File(storeDir, tmpFileName);
         }

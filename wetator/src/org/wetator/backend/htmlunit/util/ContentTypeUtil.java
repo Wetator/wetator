@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.IBrowser.ContentType;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -85,6 +86,9 @@ public final class ContentTypeUtil {
    * @return The content type.
    */
   public static ContentType getContentType(final Page aPage) {
+    if (aPage == null) {
+      return ContentType.OTHER;
+    }
     if (aPage instanceof HtmlPage) {
       return ContentType.HTML;
     }
@@ -92,17 +96,20 @@ public final class ContentTypeUtil {
       return ContentType.TEXT;
     }
 
-    final WebResponse tmpWebResponse = aPage.getWebResponse();
-    final String tmpContentType = tmpWebResponse.getContentType();
-    return getContentType(tmpContentType);
+    return getContentType(aPage.getWebResponse());
   }
 
   /**
-   * @param aContentType The content type string.
+   * @param aWebResponse The WebResponse.
    * @return The content type.
    */
-  public static ContentType getContentType(final String aContentType) {
-    final ContentType tmpContentType = CONTENT_TYPES.get(aContentType.toLowerCase(Locale.ROOT));
+  private static ContentType getContentType(final WebResponse aWebResponse) {
+    if (null == aWebResponse) {
+      return ContentType.OTHER;
+    }
+    final String tmpContentTypeString = aWebResponse.getContentType();
+
+    final ContentType tmpContentType = CONTENT_TYPES.get(tmpContentTypeString.toLowerCase(Locale.ROOT));
     if (null == tmpContentType) {
       return ContentType.OTHER;
     }
@@ -115,28 +122,80 @@ public final class ContentTypeUtil {
    */
   public static String getFileSuffix(final Page aPage) {
     final ContentType tmpContentType = getContentType(aPage);
-    return getFileSuffix(tmpContentType);
+    if (aPage != null) {
+      return getFileSuffix(tmpContentType, aPage.getWebResponse());
+    }
+    return getFileSuffix(tmpContentType, null);
   }
 
   /**
-   * @param aContentType The content type string.
+   * @param aWebResponse The WebResponse.
    * @return The file suffix.
    */
-  public static String getFileSuffix(final String aContentType) {
-    final ContentType tmpContentType = getContentType(aContentType);
-    return getFileSuffix(tmpContentType);
+  public static String getFileSuffix(final WebResponse aWebResponse) {
+    final ContentType tmpContentType = getContentType(aWebResponse);
+    return getFileSuffix(tmpContentType, aWebResponse);
   }
 
   /**
    * @param aContentType The content type.
+   * @param aWebResponse The WebResponse.
    * @return The file suffix.
    */
-  public static String getFileSuffix(final ContentType aContentType) {
+  private static String getFileSuffix(final ContentType aContentType, final WebResponse aWebResponse) {
     final String tmpResult = FILE_EXTENSIONS.get(aContentType);
+
+    // content type is not known, have a look at the content disposition header
     if (null == tmpResult) {
+      String tmpFileName = getSuggestedFilename(aWebResponse);
+      if (StringUtils.isNotBlank(tmpFileName)) {
+        tmpFileName = tmpFileName.trim();
+        final int tmpDotPos = tmpFileName.lastIndexOf(".");
+        if (tmpDotPos > -1 && tmpDotPos < tmpFileName.length() - 1) {
+          tmpFileName = tmpFileName.substring(tmpDotPos + 1);
+          return tmpFileName;
+        }
+      }
       return "bin";
     }
     return tmpResult;
+  }
+
+  /**
+   * Returns the attachment's filename, as suggested by the <tt>Content-Disposition</tt>
+   * header, or {@code null} if no filename was suggested.
+   *
+   * @param aContentType The content type.
+   * @return the attachment's suggested filename, or {@code null} if none was suggested
+   */
+  private static String getSuggestedFilename(final WebResponse aWebResponse) {
+    if (aWebResponse == null) {
+      return null;
+    }
+
+    final String tmpDisp = aWebResponse.getResponseHeaderValue("Content-Disposition");
+    if (StringUtils.isBlank(tmpDisp)) {
+      return null;
+    }
+
+    int start = tmpDisp.indexOf("filename=");
+    if (start == -1) {
+      return null;
+    }
+    start += "filename=".length();
+    if (start >= tmpDisp.length()) {
+      return null;
+    }
+
+    int end = tmpDisp.indexOf(';', start);
+    if (end == -1) {
+      end = tmpDisp.length();
+    }
+    if (tmpDisp.charAt(start) == '"' && tmpDisp.charAt(end - 1) == '"') {
+      start++;
+      end--;
+    }
+    return tmpDisp.substring(start, end);
   }
 
   /**
