@@ -194,13 +194,14 @@ public class XHtmlOutputterHtmlPageTest {
 
   @Test
   public void specialChars() throws IOException {
+    // provide a style here because the default for option is different in IE and FF
     final String tmpHtmlCode = LEADING
-        + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g'>&#956;g</option>"
+        + "<h1>&#956;g 1&nbsp;2&#160;3&ensp;4&emsp;5&thinsp;6</h1><ul><li>&#956;g</ul><select><option value='&#956;g' style=\"display: inline\">&#956;g</option>"
         + TRAILING;
     final String tmpExpected = EXPECTED_LEADING
         + " <h1 style=\"display: block\">&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
         + " <ul style=\"display: block\"> <li style=\"display: list-item\"> &#956;g </li> </ul> "
-        + "<select style=\"display: inline-block\"> <option selected value=\"&#956;g\" style=\"display: binline\">&#956;g</option> </select> "
+        + "<select style=\"display: inline-block\"> <option selected value=\"&#956;g\" style=\"display: inline; display: inline\">&#956;g</option> </select> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
