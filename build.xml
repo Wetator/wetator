@@ -401,7 +401,7 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.1"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.2"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
         <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>
