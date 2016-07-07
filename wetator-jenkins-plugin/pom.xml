@@ -95,7 +95,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version><!--$NO-MVN-MAN-VER$-->
+                <version>3.5.1</version><!--$NO-MVN-MAN-VER$-->
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -122,7 +122,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version><!--$NO-MVN-MAN-VER$-->
+                <version>1.11</version><!--$NO-MVN-MAN-VER$-->
                 <executions>
                     <execution>
                         <id>add-eclipse-sources</id>
