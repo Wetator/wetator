@@ -298,9 +298,7 @@ public final class XHtmlOutputter {
    * @throws IOException in case of error
    */
   protected void writeSubNodes(final DomNode aDomNode) throws IOException {
-    DomNode tmpChild;
-
-    tmpChild = aDomNode.getFirstChild();
+    DomNode tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
       // ignore script required; we build a screenshot
