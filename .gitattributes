@@ -26,8 +26,10 @@ wetator-ant-task/samples/google_search/wetator.config -text
 wetator-ant-task/samples/js_filter.cfg -text
 wetator-ant-task/samples/wetator.config -text
 wetator-ant-task/src/org/wetator/ant/AntOutProgressListener.java -text
+wetator-ant-task/src/org/wetator/ant/AntWriter.java -text
 wetator-ant-task/src/org/wetator/ant/Version.java -text
 wetator-ant-task/src/org/wetator/ant/Wetator.java -text
+wetator-ant-task/src/org/wetator/ant/WetatorExecutor.java -text
 wetator-ant-task/test/ant/ant_task_classpath_test.xls -text
 wetator-ant-task/test/ant/build.xml -text
 wetator-ant-task/test/ant/commons-exec-1.1.jar -text

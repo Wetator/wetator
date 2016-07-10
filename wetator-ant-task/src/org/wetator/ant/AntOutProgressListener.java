@@ -16,11 +16,8 @@
 
 package org.wetator.ant;
 
-import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
 import org.wetator.progresslistener.StdOutProgressListener;
 import org.wetator.util.Output;
 
@@ -33,52 +30,6 @@ import org.wetator.util.Output;
  * @author rbri
  */
 public final class AntOutProgressListener extends StdOutProgressListener {
-
-  /**
-   * A wrapper around a {@link Writer}.
-   */
-  private static class AntWriter extends Writer {
-    private Task task;
-
-    AntWriter(final Task aTask) {
-      task = aTask;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.io.Writer#close()
-     */
-    @Override
-    public void close() throws IOException {
-      // ignore
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.io.Writer#flush()
-     */
-    @Override
-    public void flush() throws IOException {
-      // ignore
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.io.Writer#write(char[], int, int)
-     */
-    @Override
-    public void write(final char[] aCbuf, final int aOff, final int aLen) throws IOException {
-      // remove the trailing line feeds
-      String tmpOutput = String.valueOf(aCbuf, aOff, aLen);
-      tmpOutput = tmpOutput.replaceAll("\\s+$", "");
-      task.log(tmpOutput, Project.MSG_INFO);
-    }
-
-  }
-
   private static final int PRINT_AFTER_SECONDS = 4;
   private StringBuilder printBuffer;
   private long lastPrint;
@@ -86,11 +37,11 @@ public final class AntOutProgressListener extends StdOutProgressListener {
   /**
    * The constructor.
    *
-   * @param aWetator the wetator this executes
+   * @param aWriter the writer to write on
    */
-  public AntOutProgressListener(final Wetator aWetator) {
+  public AntOutProgressListener(final Writer aWriter) {
     super();
-    output = new Output(new AntWriter(aWetator), "  ");
+    output = new Output(aWriter, "  ");
     printBuffer = new StringBuilder();
     lastPrint = System.currentTimeMillis();
   }

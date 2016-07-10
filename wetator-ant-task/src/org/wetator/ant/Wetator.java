@@ -17,13 +17,15 @@
 package org.wetator.ant;
 
 import java.io.File;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -33,9 +35,6 @@ import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
-import org.wetator.Version;
-import org.wetator.core.WetatorConfiguration;
-import org.wetator.core.WetatorEngine;
 
 /**
  * The AntTask to execute test within an ant script.
@@ -46,7 +45,7 @@ public class Wetator extends Task {
   private String config;
   private Path classpath;
   private FileSet fileset;
-  private List<Property> properties = new ArrayList<Property>();
+  private Map<String, String> properties = new HashMap<String, String>();
   private List<Environment.Variable> sysproperties = new ArrayList<Environment.Variable>();
   private boolean haltOnFailure;
   private String failureProperty;
@@ -56,7 +55,6 @@ public class Wetator extends Task {
    */
   @Override
   public void execute() {
-    AntClassLoader tmpAntClassLoader = null;
     try {
       // check the input
 
@@ -66,130 +64,89 @@ public class Wetator extends Task {
       }
 
       if (null == getFileset()) {
-        throw new BuildException(Version.getProductName()
-            + " Ant: Fileset is required (define a fileset for all your test files).");
+        throw new BuildException(
+            Version.getProductName() + " Ant: Fileset is required (define a fileset for all your test files).");
       }
 
-      if (classpath != null) {
-        log("Classpath:", Project.MSG_INFO);
-        final String[] tmpPaths = classpath.list();
-        for (int i = 0; i < tmpPaths.length; i++) {
-          log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
-        }
+      if (classpath == null) {
+        log("Classpath not defined", Project.MSG_INFO);
 
-        // AntClassLoader
-        // We are using the system classloader, because the loader is only needed
-        // for the 'Exec Java' command.<br>
-        // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
-        tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath, false);
-        tmpAntClassLoader.setThreadContextLoader();
+        throw new RuntimeException("Classpath not defined");
       }
 
-      // process sysproperties
-      for (final Environment.Variable tmpVar : sysproperties) {
-        final String tmpKey = tmpVar.getKey();
-        if (StringUtils.isNotEmpty(tmpKey)) {
-          System.setProperty(tmpKey, tmpVar.getValue());
-        }
+      log("Classpath:", Project.MSG_INFO);
+      final String[] tmpPaths = classpath.list();
+      for (int i = 0; i < tmpPaths.length; i++) {
+        log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
       }
 
-      final WetatorEngine tmpWetatorEngine = new WetatorEngine();
+      // AntClassLoader
+      // We are using the system classloader, because the loader is only needed
+      // for the 'Exec Java' command.<br>
+      // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
+      AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath,
+          false);
       try {
-        // configuration is relative to the base dir of the project
-        final File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
-        tmpWetatorEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
+        tmpAntClassLoader.setThreadContextLoader();
 
-        final Map<String, String> tmpOurProperties = getPropertiesFromAnt();
-        tmpWetatorEngine.setExternalProperties(tmpOurProperties);
-        final AntOutProgressListener tmpListener = new AntOutProgressListener(this);
-        tmpWetatorEngine.addProgressListener(tmpListener);
-        tmpWetatorEngine.init();
+        // process sysproperties
+        for (final Environment.Variable tmpVar : sysproperties) {
+          final String tmpKey = tmpVar.getKey();
+          if (tmpKey != null && !tmpKey.isEmpty()) {
+            System.setProperty(tmpKey, tmpVar.getValue());
+          }
+        }
 
         // add all files
         final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
         final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
 
-        for (int i = 0; i < tmpListOfFiles.length; i++) {
-          final String tmpFileName = tmpListOfFiles[i];
-          tmpWetatorEngine.addTestCase(tmpFileName, new File(tmpDirScanner.getBasedir(), tmpFileName));
-        }
+        // do the
+        Class<?> tmpExecutorClass = tmpAntClassLoader.loadClass("org.wetator.ant.WetatorExecutor");
+        Constructor<?> tmpConstructor = tmpExecutorClass.getConstructor(File.class, String.class, File.class,
+            String[].class, Map.class, Map.class, Writer.class);
+        Object tmpExecutor = tmpConstructor.newInstance(getProject().getBaseDir(), getConfig(),
+            tmpDirScanner.getBasedir(), tmpListOfFiles, getProject().getProperties(), getProperties(),
+            new AntWriter(this));
+        Method tmpRunMethod = tmpExecutorClass.getDeclaredMethod("runWetator");
 
-        tmpWetatorEngine.executeTests();
+        long[] tmpResult = (long[]) tmpRunMethod.invoke(tmpExecutor);
 
         // failures
-        if (tmpListener.getTestRunErrorCount() > 0) {
+        if (tmpResult[3] > 0) {
           if (null != getFailureProperty()) {
             getProject().setNewProperty(getFailureProperty(), "true");
           }
 
           if (isHaltOnFailure()) {
-            throw new BuildException(Version.getProductName() + ": AntTask failed. ("
-                + tmpListener.getTestRunErrorCount() + " TestRun errors)");
+            throw new BuildException(
+                Version.getProductName() + ": AntTask failed. (" + tmpResult[3] + " TestRun errors)");
           }
-        } else if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {
+        } else if (tmpResult[0] + tmpResult[1] > 0) {
           if (null != getFailureProperty()) {
             getProject().setNewProperty(getFailureProperty(), "true");
           }
 
           if (isHaltOnFailure()) {
-            throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpListener.getFailureCount()
-                + " failures " + tmpListener.getErrorCount() + " errors)");
+            throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpResult[1] + " failures "
+                + tmpResult[0] + " errors)");
           }
         }
       } finally {
-        tmpWetatorEngine.shutdown();
+        tmpAntClassLoader.resetThreadContextLoader();
+        tmpAntClassLoader.cleanup();
       }
+    } catch (final InvocationTargetException e) {
+      // use e.toString() instead of e.getMessage() because e.g. the message for
+      // ClassNotFoundException is not understandable when calling only getMessage
+      final String tmpMessage = e.getTargetException().toString();
+      throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpMessage + ")", e);
     } catch (final Throwable e) {
       // use e.toString() instead of e.getMessage() because e.g. the message for
       // ClassNotFoundException is not understandable when calling only getMessage
       final String tmpMessage = e.toString();
       throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpMessage + ")", e);
-    } finally {
-      if (null != tmpAntClassLoader) {
-        // cleanup
-        tmpAntClassLoader.resetThreadContextLoader();
-        tmpAntClassLoader.cleanup();
-      }
     }
-  }
-
-  /**
-   * Reads and returns the properties form ant project and from wetator task.
-   *
-   * @return a map with properties
-   */
-  @SuppressWarnings("unchecked")
-  protected Map<String, String> getPropertiesFromAnt() {
-    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
-
-    // read the properties from project
-    final Map<String, String> tmpProjectProperties = getProject().getProperties();
-    for (final Entry<String, String> tmpEntry : tmpProjectProperties.entrySet()) {
-      if (tmpEntry.getKey().startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
-        tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
-        log("set property '" + tmpEntry.getKey() + "' to '****' (from project)", Project.MSG_INFO);
-      } else if (tmpEntry.getKey().startsWith(WetatorConfiguration.PROPERTY_PREFIX)
-          || tmpEntry.getKey().startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
-        tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
-        log("set property '" + tmpEntry.getKey() + "' to '" + tmpEntry.getValue() + "' (from project)",
-            Project.MSG_INFO);
-      }
-    }
-
-    // read the properties from property sets
-    for (final Property tmpProperty : properties) {
-      final String tmpName = tmpProperty.getName();
-      if (tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
-        tmpOurProperties.put(tmpName, tmpProperty.getValue());
-        log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
-      } else if (tmpName.startsWith(WetatorConfiguration.PROPERTY_PREFIX)
-          || tmpName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
-        tmpOurProperties.put(tmpName, tmpProperty.getValue());
-        log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
-      }
-    }
-
-    return tmpOurProperties;
   }
 
   /**
@@ -241,7 +198,17 @@ public class Wetator extends Task {
    * @param aProperty the new proptery
    */
   public void addProperty(final Property aProperty) {
-    properties.add(aProperty);
+    final String tmpName = aProperty.getName();
+    if (tmpName != null) {
+      properties.put(tmpName, aProperty.getValue());
+    }
+  }
+
+  /**
+   * @return list of properties
+   */
+  public Map<String, String> getProperties() {
+    return properties;
   }
 
   /**
