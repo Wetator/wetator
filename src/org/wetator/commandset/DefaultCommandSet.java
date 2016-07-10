@@ -856,7 +856,14 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final StringBuffer tmpMethodLabel = new StringBuffer(tmpMethodName);
 
       try {
-        final Class<?> tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpClassName);
+        Class<?> tmpClass;
+        try {
+          tmpClass = ClassUtils.getClass(tmpClassName);
+        } catch (final ClassNotFoundException e) {
+          // make Ant happy
+          tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpClassName);
+        }
+
         Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
         if (null == tmpMethod) {
           tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] { String[].class });
