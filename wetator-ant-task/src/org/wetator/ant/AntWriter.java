@@ -30,6 +30,11 @@ import org.apache.tools.ant.Task;
 class AntWriter extends Writer {
   private Task task;
 
+  /**
+   * Ctor.
+   *
+   * @param aTask the ant task for calling the log function
+   */
   AntWriter(final Task aTask) {
     task = aTask;
   }

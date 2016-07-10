@@ -84,8 +84,8 @@ public class Wetator extends Task {
       // We are using the system classloader, because the loader is only needed
       // for the 'Exec Java' command.<br>
       // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
-      AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath,
-          false);
+      final AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
+          classpath, false);
       try {
         tmpAntClassLoader.setThreadContextLoader();
 
@@ -102,15 +102,15 @@ public class Wetator extends Task {
         final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
 
         // do the
-        Class<?> tmpExecutorClass = tmpAntClassLoader.loadClass("org.wetator.ant.WetatorExecutor");
-        Constructor<?> tmpConstructor = tmpExecutorClass.getConstructor(File.class, String.class, File.class,
+        final Class<?> tmpExecutorClass = tmpAntClassLoader.loadClass("org.wetator.ant.WetatorExecutor");
+        final Constructor<?> tmpConstructor = tmpExecutorClass.getConstructor(File.class, String.class, File.class,
             String[].class, Map.class, Map.class, Writer.class);
-        Object tmpExecutor = tmpConstructor.newInstance(getProject().getBaseDir(), getConfig(),
+        final Object tmpExecutor = tmpConstructor.newInstance(getProject().getBaseDir(), getConfig(),
             tmpDirScanner.getBasedir(), tmpListOfFiles, getProject().getProperties(), getProperties(),
             new AntWriter(this));
-        Method tmpRunMethod = tmpExecutorClass.getDeclaredMethod("runWetator");
+        final Method tmpRunMethod = tmpExecutorClass.getDeclaredMethod("runWetator");
 
-        long[] tmpResult = (long[]) tmpRunMethod.invoke(tmpExecutor);
+        final long[] tmpResult = (long[]) tmpRunMethod.invoke(tmpExecutor);
 
         // failures
         if (tmpResult[3] > 0) {

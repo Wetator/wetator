@@ -57,8 +57,9 @@ public class WetatorExecutor {
    * @param aProperties the properties provided by the ant task
    * @param aWriter the writer for the log output
    */
-  public WetatorExecutor(final File aBaseDir, final String aConfig, final File aFilesBaseDir, String[] aListOfFiles,
-      final Map<String, String> aProjectProperties, final Map<String, String> aProperties, final Writer aWriter) {
+  public WetatorExecutor(final File aBaseDir, final String aConfig, final File aFilesBaseDir,
+      final String[] aListOfFiles, final Map<String, String> aProjectProperties, final Map<String, String> aProperties,
+      final Writer aWriter) {
     baseDir = aBaseDir;
     config = aConfig;
     filesBaseDir = aFilesBaseDir;
@@ -71,7 +72,8 @@ public class WetatorExecutor {
   /**
    * Run the wetator tests.
    *
-   * @throws InvalidInputException
+   * @return an array with the various error counts
+   * @throws InvalidInputException in case of error
    */
   public long[] runWetator() throws InvalidInputException {
     final WetatorEngine tmpWetatorEngine = new WetatorEngine();
@@ -98,7 +100,7 @@ public class WetatorExecutor {
       // 2 ignored count
       // 3 test run error count
       // 4 test run ignored count
-      long[] tmpResult = new long[] { tmpListener.getErrorCount(), tmpListener.getFailureCount(),
+      final long[] tmpResult = new long[] { tmpListener.getErrorCount(), tmpListener.getFailureCount(),
           tmpListener.getIgnoredCount(), tmpListener.getTestRunErrorCount(), tmpListener.getTestRunIgnoredCout() };
       return tmpResult;
     } finally {
