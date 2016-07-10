@@ -729,12 +729,8 @@ public class WetatorConfiguration {
       if (!StringUtils.isEmpty(tmpScripterClassName)) {
         Class<?> tmpClass = null;
         try {
-          try {
-            tmpClass = ClassUtils.getClass(tmpScripterClassName);
-          } catch (final ClassNotFoundException e) {
-            // make Ant happy
-            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
-          }
+          tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
+
           @SuppressWarnings("unchecked")
           final Class<? extends IScripter> tmpScripterClass = (Class<? extends IScripter>) tmpClass;
           final IScripter tmpIScripter = tmpScripterClass.newInstance();
