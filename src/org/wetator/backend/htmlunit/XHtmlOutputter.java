@@ -470,7 +470,7 @@ public final class XHtmlOutputter {
         }
       }
 
-      boolean styleDefined = false;
+      boolean tmpStyleDefined = false;
       for (final DomAttr tmpAttribute : tmpAttributes.values()) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
         boolean tmpWriteAttribute = true;
@@ -483,7 +483,7 @@ public final class XHtmlOutputter {
           }
 
           if ("style".equals(tmpAttributeName)) {
-            styleDefined = true;
+            tmpStyleDefined = true;
 
             // process all url(....) inside
             if (responseStore != null) {
@@ -491,12 +491,12 @@ public final class XHtmlOutputter {
             }
 
             if (aDomNode instanceof HtmlElement) {
-              final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
+              final HTMLElement tmElem = (HTMLElement) aDomNode.getScriptableObject();
               // hopefully no one will ever made thinks like head visible
-              if (!DisplayStyle.NONE.value().equals(elem.getDefaultStyleDisplay())) {
-                final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
+              if (!DisplayStyle.NONE.value().equals(tmElem.getDefaultStyleDisplay())) {
+                final CSSStyleDeclaration tmpStyle = tmElem.getWindow().getComputedStyle(tmElem, null);
                 // for the moment i have no better idea than always hard wire the display info
-                tmpAttributeValue = tmpAttributeValue + "; display: " + style.getDisplay();
+                tmpAttributeValue = tmpAttributeValue + "; display: " + tmpStyle.getDisplay();
               }
             }
           }
@@ -591,14 +591,14 @@ public final class XHtmlOutputter {
         }
       }
 
-      if (!styleDefined && aDomNode instanceof HtmlElement) {
-        final HTMLElement elem = (HTMLElement) aDomNode.getScriptableObject();
+      if (!tmpStyleDefined && aDomNode instanceof HtmlElement) {
+        final HTMLElement tmpElem = (HTMLElement) aDomNode.getScriptableObject();
         // hopefully no one will ever made thinks like head visible
-        if (!DisplayStyle.NONE.value().equals(elem.getDefaultStyleDisplay())) {
-          final CSSStyleDeclaration style = elem.getWindow().getComputedStyle(elem, null);
+        if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay())) {
+          final CSSStyleDeclaration tmpStyle = tmpElem.getWindow().getComputedStyle(tmpElem, null);
           // for the moment i have no better idea than always hard wire the display info
           output.print(" style=\"display: ");
-          output.print(style.getDisplay());
+          output.print(tmpStyle.getDisplay());
           output.print('"');
         }
       }
