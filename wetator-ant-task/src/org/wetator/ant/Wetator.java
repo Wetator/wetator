@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
@@ -45,7 +46,7 @@ public class Wetator extends Task {
   private String config;
   private Path classpath;
   private FileSet fileset;
-  private Map<String, String> properties = new HashMap<String, String>();
+  private List<Property> properties = new ArrayList<Property>();
   private List<Environment.Variable> sysproperties = new ArrayList<Environment.Variable>();
   private boolean haltOnFailure;
   private String failureProperty;
@@ -104,10 +105,9 @@ public class Wetator extends Task {
         // do the
         final Class<?> tmpExecutorClass = tmpAntClassLoader.loadClass("org.wetator.ant.WetatorExecutor");
         final Constructor<?> tmpConstructor = tmpExecutorClass.getConstructor(File.class, String.class, File.class,
-            String[].class, Map.class, Map.class, Writer.class);
+            String[].class, Map.class, Writer.class);
         final Object tmpExecutor = tmpConstructor.newInstance(getProject().getBaseDir(), getConfig(),
-            tmpDirScanner.getBasedir(), tmpListOfFiles, getProject().getProperties(), getProperties(),
-            new AntWriter(this));
+            tmpDirScanner.getBasedir(), tmpListOfFiles, getPropertiesFromAnt(), new AntWriter(this));
         final Method tmpRunMethod = tmpExecutorClass.getDeclaredMethod("runWetator");
 
         final long[] tmpResult = (long[]) tmpRunMethod.invoke(tmpExecutor);
@@ -198,17 +198,30 @@ public class Wetator extends Task {
    * @param aProperty the new proptery
    */
   public void addProperty(final Property aProperty) {
-    final String tmpName = aProperty.getName();
-    if (tmpName != null) {
-      properties.put(tmpName, aProperty.getValue());
-    }
+    properties.add(aProperty);
   }
 
   /**
-   * @return list of properties
+   * Reads and returns the properties form ant project and from wetator task.
+   *
+   * @return a map with properties
    */
-  public Map<String, String> getProperties() {
-    return properties;
+  @SuppressWarnings("unchecked")
+  protected Map<String, String> getPropertiesFromAnt() {
+    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
+
+    // read the properties from project
+    final Map<String, String> tmpProjectProperties = getProject().getProperties();
+    for (final Entry<String, String> tmpEntry : tmpProjectProperties.entrySet()) {
+      tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
+    }
+
+    // read the properties from property sets
+    for (final Property tmpProperty : properties) {
+      tmpOurProperties.put(tmpProperty.getName(), tmpProperty.getValue());
+    }
+
+    return tmpOurProperties;
   }
 
   /**

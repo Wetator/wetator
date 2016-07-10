@@ -41,7 +41,6 @@ public class WetatorExecutor {
   private String config;
   private final File filesBaseDir;
   private final String[] listOfFiles;
-  private final Map<String, String> projectProperties;
   private final Map<String, String> properties;
   private final Writer writer;
 
@@ -53,18 +52,15 @@ public class WetatorExecutor {
    * @param aConfig the wetator config
    * @param aFilesBaseDir the base dir for the files
    * @param aListOfFiles the list of wetator test cases
-   * @param aProjectProperties the project properties
    * @param aProperties the properties provided by the ant task
    * @param aWriter the writer for the log output
    */
   public WetatorExecutor(final File aBaseDir, final String aConfig, final File aFilesBaseDir,
-      final String[] aListOfFiles, final Map<String, String> aProjectProperties, final Map<String, String> aProperties,
-      final Writer aWriter) {
+      final String[] aListOfFiles, final Map<String, String> aProperties, final Writer aWriter) {
     baseDir = aBaseDir;
     config = aConfig;
     filesBaseDir = aFilesBaseDir;
     listOfFiles = aListOfFiles;
-    projectProperties = aProjectProperties;
     properties = aProperties;
     writer = aWriter;
   }
@@ -116,19 +112,6 @@ public class WetatorExecutor {
   protected Map<String, String> getPropertiesFromAnt() {
     final Map<String, String> tmpOurProperties = new HashMap<String, String>();
 
-    // read the properties from project
-    for (final Entry<String, String> tmpEntry : projectProperties.entrySet()) {
-      if (tmpEntry.getKey().startsWith(WetatorConfiguration.VARIABLE_PREFIX + WetatorConfiguration.SECRET_PREFIX)) {
-        tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
-        LOG.info("set property '" + tmpEntry.getKey() + "' to '****' (from project)");
-      } else if (tmpEntry.getKey().startsWith(WetatorConfiguration.PROPERTY_PREFIX)
-          || tmpEntry.getKey().startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
-        tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
-        LOG.info("set property '" + tmpEntry.getKey() + "' to '" + tmpEntry.getValue() + "' (from project)");
-      }
-    }
-
-    // read the properties from property sets
     for (final Entry<String, String> tmpEntry : properties.entrySet()) {
       final String tmpName = tmpEntry.getKey();
       if (tmpName != null) {
