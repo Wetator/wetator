@@ -178,24 +178,24 @@ public final class ContentTypeUtil {
       return null;
     }
 
-    int start = tmpDisp.indexOf("filename=");
-    if (start == -1) {
+    int tmpStart = tmpDisp.indexOf("filename=");
+    if (tmpStart == -1) {
       return null;
     }
-    start += "filename=".length();
-    if (start >= tmpDisp.length()) {
+    tmpStart += "filename=".length();
+    if (tmpStart >= tmpDisp.length()) {
       return null;
     }
 
-    int end = tmpDisp.indexOf(';', start);
-    if (end == -1) {
-      end = tmpDisp.length();
+    int tmpEnd = tmpDisp.indexOf(';', tmpStart);
+    if (tmpEnd == -1) {
+      tmpEnd = tmpDisp.length();
     }
-    if (tmpDisp.charAt(start) == '"' && tmpDisp.charAt(end - 1) == '"') {
-      start++;
-      end--;
+    if (tmpDisp.charAt(tmpStart) == '"' && tmpDisp.charAt(tmpEnd - 1) == '"') {
+      tmpStart++;
+      tmpEnd--;
     }
-    return tmpDisp.substring(start, end);
+    return tmpDisp.substring(tmpStart, tmpEnd);
   }
 
   /**
