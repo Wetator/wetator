@@ -27,7 +27,6 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -856,7 +855,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final StringBuffer tmpMethodLabel = new StringBuffer(tmpMethodName);
 
       try {
-        final Class<?> tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpClassName);
+        final Class<?> tmpClass = Class.forName(tmpClassName);
         Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
         if (null == tmpMethod) {
           tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] { String[].class });
