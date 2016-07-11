@@ -37,7 +37,6 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -729,7 +728,7 @@ public class WetatorConfiguration {
       if (!StringUtils.isEmpty(tmpScripterClassName)) {
         Class<?> tmpClass = null;
         try {
-          tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
+          tmpClass = Class.forName(tmpScripterClassName);
 
           @SuppressWarnings("unchecked")
           final Class<? extends IScripter> tmpScripterClass = (Class<? extends IScripter>) tmpClass;
@@ -789,12 +788,8 @@ public class WetatorConfiguration {
       if (!StringUtils.isEmpty(tmpCommandSetClassName)) {
         Class<?> tmpClass = null;
         try {
-          try {
-            tmpClass = ClassUtils.getClass(tmpCommandSetClassName);
-          } catch (final ClassNotFoundException e) {
-            // make Ant happy
-            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
-          }
+          tmpClass = Class.forName(tmpCommandSetClassName);
+
           @SuppressWarnings("unchecked")
           final Class<? extends ICommandSet> tmpCommandSetClass = (Class<? extends ICommandSet>) tmpClass;
           final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
@@ -850,12 +845,8 @@ public class WetatorConfiguration {
       if (!StringUtils.isEmpty(tmpControlClassName)) {
         Class<?> tmpClass = null;
         try {
-          try {
-            tmpClass = ClassUtils.getClass(tmpControlClassName);
-          } catch (final ClassNotFoundException e) {
-            // make Ant happy
-            tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpControlClassName);
-          }
+          tmpClass = Class.forName(tmpControlClassName);
+
           @SuppressWarnings("unchecked")
           final Class<? extends IControl> tmpControlClass = (Class<? extends IControl>) tmpClass;
           controls.add(tmpControlClass);
