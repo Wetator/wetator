@@ -126,6 +126,7 @@ wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/parser/PathTest.java -t
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/parser/WetatorResultParserTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/AbstractPluginTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/AllTests.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/ResultGraphTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/ResultTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/WetatorRecorderConfigurationTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/plugin/WetatorRecorderTest.java -text svneol=unset#text/plain

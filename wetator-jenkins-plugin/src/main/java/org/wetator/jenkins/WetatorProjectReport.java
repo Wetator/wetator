@@ -271,12 +271,12 @@ public class WetatorProjectReport implements ProminentProjectAction {
         // no report so just ignore the build
         continue;
       }
-      tmpDataSetBuilder.add(tmpReport.getFailCount(), "failed", new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
+      tmpDataSetBuilder.add(tmpReport.getFailCount(), "0failed", new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
       if (!tmpFailureOnly) {
-        tmpDataSetBuilder.add(tmpReport.getSkipCount(), "skipped",
+        tmpDataSetBuilder.add(tmpReport.getSkipCount(), "1skipped",
             new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
-        tmpDataSetBuilder.add(tmpReport.getTotalCount() - tmpReport.getFailCount() - tmpReport.getSkipCount(), "passed",
-            new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
+        tmpDataSetBuilder.add(tmpReport.getTotalCount() - tmpReport.getFailCount() - tmpReport.getSkipCount(),
+            "2passed", new NumberOnlyBuildLabel((Run<?, ?>) tmpReport.build));
       }
     }
     return tmpDataSetBuilder.build();

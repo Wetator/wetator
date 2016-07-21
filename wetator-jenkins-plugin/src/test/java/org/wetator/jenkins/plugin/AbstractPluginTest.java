@@ -67,15 +67,20 @@ public abstract class AbstractPluginTest {
   protected ResultXMLBuilder builder;
 
   private FreeStyleProject project;
-  private FreeStyleBuild build;
+  // FIXME make private again?
+  protected FreeStyleBuild build;
 
   protected WebClient webClient;
 
   @Before
   public void setUp() throws Exception {
-    builder = new ResultXMLBuilder();
+    resetBuilder();
 
     webClient = jenkins.new WebClient();
+  }
+
+  protected void resetBuilder() {
+    builder = new ResultXMLBuilder();
   }
 
   protected void runBuild() throws Exception {
@@ -93,6 +98,12 @@ public abstract class AbstractPluginTest {
     normalizeResultFile();
 
     project = createProject(ResultXMLBuilder.RESULT_LOG, null, anUnstableThreshold, aFailureThreshold);
+    build = runBuild(project);
+  }
+
+  protected void rerunBuild() throws Exception {
+    normalizeResultFile();
+
     build = runBuild(project);
   }
 
@@ -146,8 +157,8 @@ public abstract class AbstractPluginTest {
   }
 
   protected void assertBuild(Result anExpectedResult, int anExpectedScore, int anExpectedFailCount,
-      int anExpectedSkipCount, int anExceptedTotalCount) {
-    assertBuild(anExpectedResult, anExpectedScore, anExpectedFailCount, anExpectedSkipCount, anExceptedTotalCount,
+      int anExpectedSkipCount, int anExpectedTotalCount) {
+    assertBuild(anExpectedResult, anExpectedScore, anExpectedFailCount, anExpectedSkipCount, anExpectedTotalCount,
         build);
   }
 
@@ -156,13 +167,13 @@ public abstract class AbstractPluginTest {
   }
 
   private void assertBuild(Result anExpectedResult, int anExpectedScore, int anExpectedFailCount,
-      int anExpectedSkipCount, int anExceptedTotalCount, FreeStyleBuild anActualBuild) {
+      int anExpectedSkipCount, int anExpectedTotalCount, FreeStyleBuild anActualBuild) {
     assertEquals(anExpectedResult, anActualBuild.getResult());
 
     assertEquals(anExpectedScore, anActualBuild.getProject().getBuildHealth().getScore());
     assertEquals(
         "Wetator Test Result: " + anExpectedFailCount + " test" + (anExpectedFailCount == 1 ? "" : "s")
-            + " failing out of a total of " + anExceptedTotalCount + " test" + (anExceptedTotalCount == 1 ? "" : "s")
+            + " failing out of a total of " + anExpectedTotalCount + " test" + (anExpectedTotalCount == 1 ? "" : "s")
             + " (" + anExpectedSkipCount + " test" + (anExpectedSkipCount == 1 ? "" : "s") + " skipped).",
         anActualBuild.getProject().getBuildHealth().getDescription());
   }
