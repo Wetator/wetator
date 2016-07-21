@@ -67,7 +67,6 @@ public abstract class AbstractPluginTest {
   protected ResultXMLBuilder builder;
 
   private FreeStyleProject project;
-  // FIXME make private again?
   protected FreeStyleBuild build;
 
   protected WebClient webClient;
