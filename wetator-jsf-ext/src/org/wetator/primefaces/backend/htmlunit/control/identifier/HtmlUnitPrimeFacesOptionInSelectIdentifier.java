@@ -20,10 +20,9 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WPath;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WPath.TableCoordinate;
+import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
@@ -36,22 +35,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
- * The identifier for a {@link HtmlUnitOption} nested inside a select.<br />
- * It can be identified by:
- * <ul>
- * <li>it's text</li>
- * <li>it's label attribute</li>
- * <li>it's value attribute</li>
- * </ul>
- * The surrounding select can be identified by:
- * <ul>
- * <li>the label text before</li>
- * <li>it's name</li>
- * <li>it's id</li>
- * <li>a label</li>
- * </ul>
+ * TODO
  * 
- * @author frank.danek
+ * @author rbri
  */
 public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnitControlIdentifier {
 
@@ -68,23 +54,23 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
     if (!(aHtmlElement instanceof HtmlSelect)) {
         return false;
     };
-    final HtmlSelect tmpSelect = (HtmlSelect) aHtmlElement;
 
-    HtmlElement tmpParent = (HtmlElement) tmpSelect.getParentNode();
+    HtmlElement tmpParent = (HtmlElement) aHtmlElement.getParentNode();
     if (tmpParent == null) {
         return false;
     }
 
-    tmpParent = (HtmlElement) tmpSelect.getParentNode();
+    tmpParent = (HtmlElement) tmpParent.getParentNode();
     if (tmpParent == null) {
         return false;
     }
 
     String tmpClass = tmpParent.getAttribute("class");
-    return tmpClass.equals("ui-selectonemenu")
+    return tmpClass != null
+            && (tmpClass.equals("ui-selectonemenu")
                 || tmpClass.startsWith("ui-selectonemenu ")
                 || tmpClass.endsWith(" ui-selectonemenu")
-                || tmpClass.contains(" ui-selectonemenu ");
+                || tmpClass.contains(" ui-selectonemenu "));
   }
 
   /**

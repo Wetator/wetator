@@ -20,7 +20,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
-import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.core.WetatorContext;
@@ -38,11 +37,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
- * This is the implementation of the HTML element 'option' (&lt;option&gt;) using HtmlUnit as backend.
+ * Support for PrimeFaces SelectOne.
  *
  * @author rbri
  */
-@ForHtmlElement(HtmlDivision.class)
 @IdentifiedBy({ HtmlUnitPrimeFacesOptionInSelectIdentifier.class })
 public class HtmlUnitPrimeFacesOption extends HtmlUnitBaseControl<HtmlDivision> implements ISelectable {
 
