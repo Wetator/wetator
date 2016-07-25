@@ -764,7 +764,12 @@ public final class HtmlUnitBrowser implements IBrowser {
       throw new ActionException(tmpMessage);
     }
 
-    tmpHistory.go(-1 * aSteps);
+    try {
+      tmpHistory.go(-1 * aSteps);
+    } catch (final IOException e) {
+      final String tmpMessage = Messages.getMessage("historyFailed", new String[] { e.getMessage() });
+      throw new ActionException(tmpMessage);
+    }
   }
 
   /**
