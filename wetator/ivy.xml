@@ -36,7 +36,7 @@
         <dependency org="com.github.rjeschke" name="txtmark" rev="0.13" />
         <dependency org="commons-io" name="commons-io" rev="2.5" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.4" />
-        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.23-SNAPSHOT" changing="true" />
+        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.23" changing="true" />
         <!-- dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.17" changing="true" /> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.18-SNAPSHOT" changing="true" /> -->
         <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false" />
