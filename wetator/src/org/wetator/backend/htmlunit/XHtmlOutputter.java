@@ -491,10 +491,10 @@ public final class XHtmlOutputter {
             }
 
             if (aDomNode instanceof HtmlElement) {
-              final HTMLElement tmElem = (HTMLElement) aDomNode.getScriptableObject();
+              final HTMLElement tmpElement = (HTMLElement) aDomNode.getScriptableObject();
               // hopefully no one will ever made thinks like head visible
-              if (!DisplayStyle.NONE.value().equals(tmElem.getDefaultStyleDisplay())) {
-                final CSSStyleDeclaration tmpStyle = tmElem.getWindow().getComputedStyle(tmElem, null);
+              if (!DisplayStyle.NONE.value().equals(tmpElement.getDefaultStyleDisplay())) {
+                final CSSStyleDeclaration tmpStyle = tmpElement.getWindow().getComputedStyle(tmpElement, null);
                 // for the moment i have no better idea than always hard wire the display info
                 tmpAttributeValue = tmpAttributeValue + "; display: " + tmpStyle.getDisplay();
               }
