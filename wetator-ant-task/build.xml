@@ -734,12 +734,20 @@
         <echo file="${dir.build}/test-release/ant/build.xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Wetator Ant Test" basedir="${basedir}/${dir.build}/test-release/ant" default="run_wetator">
   <path id="wetator-classpath">
+    <path path="../../bin"/>
     <fileset dir="./lib" includes="**/**.jar"/>
   </path>
-  <taskdef name="wetator" classname="org.wetator.ant.Wetator" classpathref="wetator-classpath" />
+  
+  <taskdef name="wetator" classname="org.wetator.ant.Wetator" classpathref="wetator-classpath">
+    <classpath>
+      <path path="../../bin"/>
+    </classpath>
+  </taskdef>
+
 
   <target name="run_wetator">
     <wetator config="wetator.config">
+      <classpath refid="wetator-classpath" />
       <fileset dir="." >
         <include name="*.xls"/>
       </fileset>
