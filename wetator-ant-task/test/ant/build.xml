@@ -13,11 +13,12 @@
     <taskdef name="wetator" classname="org.wetator.ant.Wetator">
         <classpath>
             <path path="../../bin"/>
-            <fileset dir="../../lib" includes="**/**.jar"/>
         </classpath>
     </taskdef>
 
     <path id="wetator.classpath">
+        <path path="../../bin"/>
+        <fileset dir="../../lib" includes="**/**.jar"/>
         <fileset dir="." includes="commons-exec-1.1.jar"/>
     </path>
 
