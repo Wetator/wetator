@@ -141,7 +141,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.3</version><!--$NO-MVN-MAN-VER$-->
+                <version>3.0.4</version><!--$NO-MVN-MAN-VER$-->
                 <executions>
                     <execution>
                         <id>findbugs-report</id>
