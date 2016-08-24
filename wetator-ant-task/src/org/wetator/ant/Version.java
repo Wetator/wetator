@@ -21,14 +21,14 @@ import java.util.jar.Manifest;
 
 /**
  * A small class to maintain the version information.
- * 
+ *
  * @author rbri
  */
 public final class Version {
 
   /**
    * A simple main function to be able to ask for the version from a command line.
-   * 
+   *
    * @param anArgsArray ignored
    */
   public static void main(final String[] anArgsArray) {
@@ -80,7 +80,7 @@ public final class Version {
     final int tmpPos = tmpPathToThisClass.indexOf('!');
     final StringBuilder tmpPathToManifest = new StringBuilder(tmpPathToThisClass.substring(0, tmpPos + 1));
     tmpPathToManifest.append("/META-INF/MANIFEST.MF");
-    Manifest tmpManifest;
+    final Manifest tmpManifest;
     try {
       tmpManifest = new Manifest(new URL(tmpPathToManifest.toString()).openStream());
       final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
