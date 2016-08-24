@@ -155,11 +155,10 @@ public final class ExcelScripter implements IScripter {
         final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
 
         for (int tmpLine = 0; tmpLine <= tmpSheet.getLastRowNum(); tmpLine++) {
-          HSSFRow tmpRow;
-          String tmpCommentString;
-          boolean tmpCommentFlag;
+          final HSSFRow tmpRow;
+          final String tmpCommentString;
+          final boolean tmpCommentFlag;
           String tmpCommandName;
-          Parameter tmpParameter;
 
           tmpRow = tmpSheet.getRow(tmpLine);
           // strange case but it really happens
@@ -184,7 +183,7 @@ public final class ExcelScripter implements IScripter {
             if (!StringUtils.isEmpty(tmpCommandName)) {
               final Command tmpCommand = new Command(tmpCommandName, tmpCommentFlag);
 
-              tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
+              Parameter tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO, tmpFormulaEvaluator);
               if (null != tmpParameter) {
                 tmpCommand.setFirstParameter(tmpParameter);
               }
@@ -229,7 +228,7 @@ public final class ExcelScripter implements IScripter {
 
   private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
       final FormulaEvaluator aFormulaEvaluator) {
-    String tmpContent;
+    final String tmpContent;
 
     tmpContent = ContentUtil.readCellContentAsString(aRow, aColumnsNo, aFormulaEvaluator, locale);
     if (StringUtils.isEmpty(tmpContent)) {

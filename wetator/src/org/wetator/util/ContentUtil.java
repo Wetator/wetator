@@ -114,7 +114,7 @@ public final class ContentUtil {
    * @throws IOException in case of io errors
    */
   public static String getPdfContentAsString(final InputStream anInputStream, final int aMaxLength) throws IOException {
-    PDDocument tmpDocument;
+    final PDDocument tmpDocument;
     tmpDocument = PDDocument.load(anInputStream);
     try {
       final AccessPermission tmpPermissions = tmpDocument.getCurrentAccessPermission();
@@ -142,7 +142,7 @@ public final class ContentUtil {
    * @throws IOException in case of io errors
    */
   public static String getPdfTitleAsString(final InputStream anInputStream) throws IOException {
-    PDDocument tmpDocument;
+    final PDDocument tmpDocument;
     tmpDocument = PDDocument.load(anInputStream);
     try {
       final PDDocumentInformation tmpInfo = tmpDocument.getDocumentInformation();

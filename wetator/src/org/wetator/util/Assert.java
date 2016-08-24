@@ -185,7 +185,7 @@ public final class Assert {
     }
 
     String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    String tmpExpected;
+    final String tmpExpected;
     String tmpCurrent = aCurrentString;
     if (anExpectedString == null) {
       tmpExpected = "null";

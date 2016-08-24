@@ -66,7 +66,7 @@ public final class DialogUtil {
    * @return the files
    */
   public static File chooseFile(final JWindow aWindow, final String aPropertyKey) {
-    File[] tmpResult;
+    final File[] tmpResult;
     // we can make this configurable later
     tmpResult = chooseFilesSwing(aWindow, aPropertyKey, false);
     if (null == tmpResult) {
@@ -84,7 +84,7 @@ public final class DialogUtil {
    * @return the files
    */
   public static File[] chooseFiles(final JWindow aWindow, final String aPropertyKey) {
-    File[] tmpResult;
+    final File[] tmpResult;
     // we can make this configurable later
     tmpResult = chooseFilesSwing(aWindow, aPropertyKey, true);
 

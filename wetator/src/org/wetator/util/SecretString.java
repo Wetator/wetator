@@ -121,7 +121,7 @@ public final class SecretString {
         }
 
         // avoid recursion
-        if (!tmpVarSecretValue.equals(VAR_START_SEQ + tmpVarName + VAR_END_SEQ)) {
+        if (!(VAR_START_SEQ + tmpVarName + VAR_END_SEQ).equals(tmpVarSecretValue)) {
           return aFrom;
         }
       }
