@@ -129,7 +129,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @throws ActionException in case of problems
    */
   protected IControlFinder getControlFinder(final IBrowser aBrowser) throws ActionException {
-    IControlFinder tmpControlFinder;
+    final IControlFinder tmpControlFinder;
     try {
       tmpControlFinder = aBrowser.getControlFinder();
     } catch (final BackendException e) {
@@ -152,7 +152,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    */
   protected IControl getFirstRequiredHtmlElementFrom(final WetatorContext aContext,
       final WeightedControlList aWeightedControlList, final WPath aWPath, final String aNothingFoundMsgKey)
-          throws ActionException {
+      throws ActionException {
     final IControl tmpControl = getFirstHtmlElementFrom(aContext, aWeightedControlList, aWPath);
     if (null == tmpControl) {
       final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, new String[] { aWPath.toString() });

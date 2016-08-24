@@ -339,7 +339,7 @@ public class WetatorEngine {
       tmpConfigName = System.getProperty(PROPERTY_TEST_CONFIG, CONFIG_FILE_DEFAULT_NAME);
     }
 
-    File tmpConfigFile;
+    final File tmpConfigFile;
     tmpConfigFile = new File(tmpConfigName);
     return tmpConfigFile;
   }

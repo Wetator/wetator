@@ -100,7 +100,7 @@ public final class ResponseStore {
    * @param aBrowserSubdir the subdir for the specific browser this store is for
    */
   protected void initOutputDir(final String aBrowserSubdir) {
-    String tmpDirectoryName;
+    final String tmpDirectoryName;
     if (overwrite) {
       tmpDirectoryName = "responses_current";
     } else {

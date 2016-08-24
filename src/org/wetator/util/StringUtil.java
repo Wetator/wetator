@@ -70,8 +70,8 @@ public final class StringUtil {
     final List<String> tmpResult = new LinkedList<String>();
     StringBuilder tmpCurrentToken;
     int tmpIndex;
-    int tmpSize;
-    int tmpDelimiterSize;
+    final int tmpSize;
+    final int tmpDelimiterSize;
     char tmpChar;
 
     if (null == aReceiver) {

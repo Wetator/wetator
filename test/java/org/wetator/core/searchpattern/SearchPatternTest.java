@@ -26,7 +26,7 @@ public class SearchPatternTest {
 
   @Test
   public void compileNull() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile(null);
 
@@ -36,7 +36,7 @@ public class SearchPatternTest {
 
   @Test
   public void empty() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("");
 
@@ -46,7 +46,7 @@ public class SearchPatternTest {
 
   @Test
   public void starAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("Test*");
 
@@ -57,7 +57,7 @@ public class SearchPatternTest {
 
   @Test
   public void star() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("Te*st");
 
@@ -68,7 +68,7 @@ public class SearchPatternTest {
 
   @Test
   public void starMany() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("T*e*s*t");
 
@@ -79,7 +79,7 @@ public class SearchPatternTest {
 
   @Test
   public void starDouble() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("Te****st");
 
@@ -90,7 +90,7 @@ public class SearchPatternTest {
 
   @Test
   public void starAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*rest");
 
@@ -101,7 +101,7 @@ public class SearchPatternTest {
 
   @Test
   public void starEscaped() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("re\\*st");
 
@@ -111,7 +111,7 @@ public class SearchPatternTest {
 
   @Test
   public void questionMarkAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("Test?");
 
@@ -122,7 +122,7 @@ public class SearchPatternTest {
 
   @Test
   public void questionMark() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("Te?st");
 
@@ -134,7 +134,7 @@ public class SearchPatternTest {
 
   @Test
   public void questionMarkMany() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("T?e?s?t");
 
@@ -146,7 +146,7 @@ public class SearchPatternTest {
 
   @Test
   public void questionMarkDouble() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("Te??st");
 
@@ -157,7 +157,7 @@ public class SearchPatternTest {
 
   @Test
   public void questionMarkAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?est");
 
@@ -168,7 +168,7 @@ public class SearchPatternTest {
 
   @Test
   public void questionMarkEscaped() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("te\\?st");
 
@@ -178,7 +178,7 @@ public class SearchPatternTest {
 
   @Test
   public void slash() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab\\cd");
 
@@ -187,7 +187,7 @@ public class SearchPatternTest {
 
   @Test
   public void slashAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("\\ab");
 
@@ -196,7 +196,7 @@ public class SearchPatternTest {
 
   @Test
   public void slashAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab\\");
 
@@ -205,7 +205,7 @@ public class SearchPatternTest {
 
   @Test
   public void specialCharactersBrackets() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("t[e](s)t");
 
@@ -259,7 +259,7 @@ public class SearchPatternTest {
 
   @Test
   public void test_Tab() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab\tc");
     Assert.assertEquals(true, tmpPattern.matches("ab\tc"));
@@ -267,7 +267,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_null() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc");
     Assert.assertFalse(tmpPattern.matchesAtEnd(null));
@@ -275,7 +275,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_empty() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc");
     Assert.assertFalse(tmpPattern.matchesAtEnd(""));
@@ -283,7 +283,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_same() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc");
     Assert.assertTrue(tmpPattern.matchesAtEnd("abc"));
@@ -291,7 +291,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_atStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc");
     Assert.assertFalse(tmpPattern.matchesAtEnd("abcdef"));
@@ -299,7 +299,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_inTheMiddle() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc");
     Assert.assertFalse(tmpPattern.matchesAtEnd("xyzabcdef"));
@@ -307,7 +307,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_atEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc");
     Assert.assertTrue(tmpPattern.matchesAtEnd("12abc"));
@@ -315,7 +315,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_StartAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*abc");
     Assert.assertTrue(tmpPattern.matchesAtEnd("xyabc"));
@@ -323,7 +323,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_Star() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("a*bc");
     Assert.assertTrue(tmpPattern.matchesAtEnd("xya__bc"));
@@ -331,7 +331,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_StartAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc*");
     Assert.assertTrue(tmpPattern.matchesAtEnd("xyabccd"));
@@ -339,7 +339,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_QuestionMarkAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?abc");
     Assert.assertTrue(tmpPattern.matchesAtEnd("xyabc"));
@@ -347,7 +347,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_QuestionMark() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("a?bc");
     Assert.assertTrue(tmpPattern.matchesAtEnd("xya_bc"));
@@ -355,7 +355,7 @@ public class SearchPatternTest {
 
   @Test
   public void matchesAtEnd_QuestionMarkAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("abc?");
     Assert.assertTrue(tmpPattern.matchesAtEnd("xyabcd"));
@@ -363,7 +363,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_Null() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn(null);
@@ -373,7 +373,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_Empty() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("");
@@ -383,7 +383,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_CompleteMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("f");
@@ -393,7 +393,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_MatchAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("fa");
@@ -403,7 +403,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_MatchAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("af");
@@ -413,7 +413,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_MatchInside() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afe");
@@ -423,7 +423,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_CompleteDoubleMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("ff");
@@ -433,7 +433,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_DoubleMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afdfg");
@@ -443,7 +443,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_LastMatchAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abc f xyz f");
@@ -453,7 +453,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_RightTruncated() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f*");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
@@ -463,7 +463,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_StartOnlyPattern() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
@@ -473,7 +473,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_QuestionMarkAtEndRightTruncated() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f*?");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
@@ -483,7 +483,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_QuestionMarkAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f?");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
@@ -493,7 +493,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_ManyQuestionMarkAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f???");
     final int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("afbcfgh");
@@ -503,7 +503,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_Mixed() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab?*d");
 
@@ -519,7 +519,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsAfterLastOccurenceIn_Mixed2() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab*?d");
 
@@ -532,7 +532,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_Null() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn(null);
@@ -542,7 +542,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_Empty() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("");
@@ -552,7 +552,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_CompleteMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("f");
@@ -562,7 +562,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_MatchAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("fa");
@@ -572,7 +572,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_MatchAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("af");
@@ -582,7 +582,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_MatchInside() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("afe");
@@ -592,7 +592,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_CompleteDoubleMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("ff");
@@ -602,7 +602,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_DoubleMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("afdfg");
@@ -612,7 +612,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_LastMatchAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abc f xyz f");
@@ -622,7 +622,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_LeftTruncated() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
@@ -632,7 +632,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_StartOnlyPattern() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
@@ -642,7 +642,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_QuestionMarkAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
@@ -652,7 +652,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_QuestionMarkAtStartLeftTruncated() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?*f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgh");
@@ -662,7 +662,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_ManyQuestionMarkAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("???f");
     final int tmpResult = tmpPattern.noOfCharsBeforeLastOccurenceIn("abcfgfh");
@@ -672,7 +672,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_Mixed() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab?*d");
 
@@ -688,7 +688,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfCharsBeforeLastOccurenceIn_Mixed2() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab*?d");
 
@@ -701,7 +701,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_Null() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn(null);
@@ -711,7 +711,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_Empty() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("");
@@ -721,7 +721,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_CompleteMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("f");
@@ -731,7 +731,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_MatchAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("fa");
@@ -741,7 +741,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_MatchAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("af");
@@ -751,7 +751,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_MatchInside() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("afe");
@@ -761,7 +761,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_CompleteDoubleMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("ff");
@@ -771,7 +771,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_DoubleMatch() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("afdfg");
@@ -781,7 +781,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_LastMatchAtEnd() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abc f xyz f");
@@ -791,7 +791,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_LeftTruncated() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
@@ -801,7 +801,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_StartOnlyPattern() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("*");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
@@ -811,7 +811,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_QuestionMarkAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
@@ -821,7 +821,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_QuestionMarkAtStartLeftTruncated() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("?*f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgh");
@@ -831,7 +831,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_ManyQuestionMarkAtStart() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("???f");
     final int tmpResult = tmpPattern.noOfSurroundingCharsIn("abcfgfh");
@@ -841,7 +841,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_Mixed() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab?*d");
 
@@ -857,7 +857,7 @@ public class SearchPatternTest {
 
   @Test
   public void noOfSurroundingCharsIn_Mixed2() {
-    SearchPattern tmpPattern;
+    final SearchPattern tmpPattern;
 
     tmpPattern = SearchPattern.compile("ab*?d");
 

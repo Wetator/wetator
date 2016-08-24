@@ -29,7 +29,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings_Null() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings(null, ",", 'x');
     org.junit.Assert.assertEquals(0, tmpResult.size());
@@ -48,7 +48,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings10() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1xab2ab3ab4", "ab", 'x');
     org.junit.Assert.assertEquals(3, tmpResult.size());
@@ -59,7 +59,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings11() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2xab3ab4", "ab", 'x');
     org.junit.Assert.assertEquals(3, tmpResult.size());
@@ -70,7 +70,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings12() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2xab", "ab", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -80,7 +80,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings13() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2xa", "ab", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -90,7 +90,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings14() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1ab2x", "ab", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -100,7 +100,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings15() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1xxab2", "ab", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -120,7 +120,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings17() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1\\n2", "\\n", '\\');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -130,7 +130,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings2() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12a34", "a", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -140,7 +140,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings3() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12a34a", "a", 'x');
     org.junit.Assert.assertEquals(3, tmpResult.size());
@@ -151,7 +151,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings4() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("a", "a", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -161,7 +161,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings5() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("aa", "a", 'x');
     org.junit.Assert.assertEquals(3, tmpResult.size());
@@ -172,7 +172,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings6() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12aa34", "aa", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -182,7 +182,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings7() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("12aa34a", "aa", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -192,7 +192,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings8() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("1a2aa34", "aa", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());
@@ -202,7 +202,7 @@ public class StringUtilTest {
 
   @Test
   public void extractStrings9() {
-    List<String> tmpResult;
+    final List<String> tmpResult;
 
     tmpResult = StringUtil.extractStrings("a12aa34", "aa", 'x');
     org.junit.Assert.assertEquals(2, tmpResult.size());

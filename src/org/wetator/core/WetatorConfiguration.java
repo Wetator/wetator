@@ -281,7 +281,7 @@ public class WetatorConfiguration {
           + FilenameUtils.normalize(aConfigurationPropertyFile.getAbsolutePath()) + "' is not readable.");
     }
 
-    Properties tmpProperties;
+    final Properties tmpProperties;
     File tmpBaseDirectory;
     // ok, we can start to read the file
     try {
