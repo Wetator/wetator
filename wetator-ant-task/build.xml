@@ -381,7 +381,7 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.19"
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="6.19" type="jar,bundle"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
@@ -392,7 +392,7 @@
          =========================================== -->
     <target name="-load-findbugs" depends="-load-ivy" unless="skip.metrics">
         <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
-        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="3.0.1"
+        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="3.0.1" type="jar,bundle"
             pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
         <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
     </target>
@@ -402,7 +402,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.5.1" type="jar"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.5.1" type="jar,bundle"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
@@ -413,7 +413,7 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.2"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.2" type="maven-plugin"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
         <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>
@@ -487,7 +487,7 @@
 
             <bundledsignatures name="jdk-unsafe"/>
             <bundledsignatures name="jdk-deprecated"/>
-        	<bundledsignatures name="jdk-non-portable"/>
+            <bundledsignatures name="jdk-non-portable"/>
             <bundledsignatures name="commons-io-unsafe-2.5"/>
             <!--signaturesFileset file="path/to/signatures.txt"/-->
         </forbiddenapis>
@@ -569,7 +569,7 @@
             </manifest>
         </jar>
 
-    	<!-- generate javadoc -->
+        <!-- generate javadoc -->
         <delete file="${dir.build}/${application.jar-basename}-javadoc.jar"/>
         <javadoc destdir="${dir.build}/jdoc">
             <fileset dir="${dir.src}" >
