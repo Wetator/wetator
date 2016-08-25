@@ -62,7 +62,7 @@ public class StdOutProgressListener implements IProgressListener {
    * The constructor.
    */
   public StdOutProgressListener() {
-    // use the default charset when writing to the consol
+    // use the default charset when writing to the console
     output = new Output(new OutputStreamWriter(System.out, Charset.defaultCharset()), "  ");
   }
 
