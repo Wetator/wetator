@@ -39,6 +39,8 @@ wetator-ant-task/test/ant/wetator.config -text
 wetator-ant-task/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
 wetator-ant-task/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 wetator-ant-task/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+wetator-ant-task/test/findbugs/findbugsfilter.xsd -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-clone.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator-ant-task/test/pmd/wet-strings.xml -text svneol=unset#text/plain

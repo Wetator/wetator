@@ -465,7 +465,7 @@
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true">
-            <ruleset>rulesets/java/basic.xml,rulesets/java/empty.xml,rulesets/java/unnecessary.xml,rulesets/java/braces.xml,rulesets/java/clone.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unusedcode.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-optimizations.xml</ruleset>
+            <ruleset>rulesets/java/basic.xml,rulesets/java/empty.xml,rulesets/java/unnecessary.xml,rulesets/java/braces.xml,rulesets/java/unusedcode.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-clone.xml,${dir.test}/pmd/wet-strings.xml,${dir.test}/pmd/wet-optimizations.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
