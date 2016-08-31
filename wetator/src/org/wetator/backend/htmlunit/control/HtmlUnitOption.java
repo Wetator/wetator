@@ -93,7 +93,9 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       if (tmpHtmlOption.isSelected()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
+        }
         tmpHtmlOption.click();
       }
 

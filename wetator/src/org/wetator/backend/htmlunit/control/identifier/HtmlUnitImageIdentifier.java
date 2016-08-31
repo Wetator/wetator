@@ -36,7 +36,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 
 /**
- * The identifier for a {@link HtmlUnitImage}.<br />
+ * The identifier for a {@link HtmlUnitImage}.<br>
  * It can be identified by:
  * <ul>
  * <li>its alt attribute</li>

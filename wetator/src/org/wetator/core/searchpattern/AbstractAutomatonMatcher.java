@@ -78,7 +78,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Returns the offset after the last character matched of the specified
-   * capturing group. <br />
+   * capturing group. <br>
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
    *
@@ -111,7 +111,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Returns the subsequence of the input found by the specified capturing
-   * group during the previous match operation. <br />
+   * group during the previous match operation. <br>
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
    *
@@ -130,7 +130,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
   }
 
   /**
-   * Returns the number of capturing groups in the underlying automaton. <br />
+   * Returns the number of capturing groups in the underlying automaton. <br>
    * Note that because the automaton does not support capturing groups this
    * method will always return 0.
    *
@@ -156,7 +156,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
 
   /**
    * Returns the offset of the first character matched of the specified
-   * capturing group. <br />
+   * capturing group. <br>
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
    *

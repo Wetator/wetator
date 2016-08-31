@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
 /**
- * The identifier for a {@link HtmlUnitInputFile}.<br />
+ * The identifier for a {@link HtmlUnitInputFile}.<br>
  * It can be identified by:
  * <ul>
  * <li>the whole text before</li>

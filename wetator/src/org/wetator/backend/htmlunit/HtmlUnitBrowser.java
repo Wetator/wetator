@@ -402,7 +402,9 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     @Override
     public void handleAlert(final Page aPage, final String aMessage) {
-      LOG.debug("handleAlert " + aMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("handleAlert " + aMessage);
+      }
 
       String tmpMessage = "";
       if (StringUtils.isNotEmpty(aMessage)) {
@@ -438,7 +440,9 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     @Override
     public boolean handleConfirm(final Page aPage, final String aConfirmationMessage) {
-      LOG.debug("handleConfirm " + aConfirmationMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("handleConfirm " + aConfirmationMessage);
+      }
       String tmpConfirmationMessage = "";
       if (StringUtils.isNotEmpty(aConfirmationMessage)) {
         tmpConfirmationMessage = aConfirmationMessage;
@@ -513,35 +517,45 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     @Override
     public void trace(final Object aMessage) {
-      LOG.debug("Console [trace]: " + aMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Console [trace]: " + aMessage);
+      }
 
       wetatorEngine.informListenersInfo("ConsoleTrace", new Object[] { aMessage });
     }
 
     @Override
     public void debug(final Object aMessage) {
-      LOG.debug("Console [debug]: " + aMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Console [debug]: " + aMessage);
+      }
 
       wetatorEngine.informListenersInfo("ConsoleDebug", new Object[] { aMessage });
     }
 
     @Override
     public void info(final Object aMessage) {
-      LOG.debug("Console [info]: " + aMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Console [info]: " + aMessage);
+      }
 
       wetatorEngine.informListenersInfo("ConsoleInfo", new Object[] { aMessage });
     }
 
     @Override
     public void warn(final Object aMessage) {
-      LOG.debug("Console [warn]: " + aMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Console [warn]: " + aMessage);
+      }
 
       wetatorEngine.informListenersInfo("ConsoleWarn", new Object[] { aMessage });
     }
 
     @Override
     public void error(final Object aMessage) {
-      LOG.debug("Console [error]: " + aMessage);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Console [error]: " + aMessage);
+      }
 
       wetatorEngine.informListenersInfo("ConsoleError", new Object[] { aMessage });
     }
@@ -900,8 +914,10 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.debug("webWindowClosed: (page null)");
       } else {
         htmlUnitBrowser.savedPages.remove(tmpPage);
-        LOG.debug("webWindowClosed: (url '"
-            + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getWebRequest().getUrl() + "')");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("webWindowClosed: (url '"
+              + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getWebRequest().getUrl() + "')");
+        }
       }
     }
 
@@ -949,7 +965,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       final String tmpJob = aJob.toString().replace("\n", "").replace("\r", "");
       for (final SearchPattern tmpPattern : patterns) {
         if (tmpPattern.matches(tmpJob)) {
-          if (isDebugEnabled) {
+          if (isDebugEnabled && LOG.isDebugEnabled()) {
             LOG.debug("JsJob filtered out: '" + tmpJob + "'");
           }
           return false;

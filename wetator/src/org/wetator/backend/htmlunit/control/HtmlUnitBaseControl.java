@@ -114,7 +114,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     try {
-      LOG.debug("Click - HtmlUnitBaseControl<T>.click() '" + tmpHtmlElement + "'");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Click - HtmlUnitBaseControl<T>.click() '" + tmpHtmlElement + "'");
+      }
 
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
       if (tmpHtmlPage != null) {
@@ -174,7 +176,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     try {
-      LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.dblClick() '" + tmpHtmlElement + "'");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.dblClick() '" + tmpHtmlElement + "'");
+      }
 
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
       if (tmpHtmlPage != null) {
@@ -230,7 +234,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     try {
-      LOG.debug("ClickRight - HtmlUnitBaseControl<T>.rightClick() '" + tmpHtmlElement + "'");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("ClickRight - HtmlUnitBaseControl<T>.rightClick() '" + tmpHtmlElement + "'");
+      }
 
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
       if (tmpHtmlPage != null) {

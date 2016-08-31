@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * The identifier for a {@link HtmlUnitInputButton}.<br />
+ * The identifier for a {@link HtmlUnitInputButton}.<br>
  * It can be identified by:
  * <ul>
  * <li>its value</li>

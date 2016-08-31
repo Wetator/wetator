@@ -48,7 +48,9 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
    */
   public HtmlUnitUnspecificControl(final T anHtmlElement) {
     super(anHtmlElement);
-    LOG.debug("NonSpecificHtmlUnitControl for " + anHtmlElement + " created.");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("NonSpecificHtmlUnitControl for " + anHtmlElement + " created.");
+    }
   }
 
   /**

@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
- * The identifier for a {@link HtmlUnitTextArea}.<br />
+ * The identifier for a {@link HtmlUnitTextArea}.<br>
  * It can be identified by:
  * <ul>
  * <li>the whole text before</li>

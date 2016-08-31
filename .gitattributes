@@ -469,6 +469,7 @@ wetator/test/excel/default_command_set.xls -text
 wetator/test/excel/modules/module.xls -text
 wetator/test/excel/sql_command_set.xls -text
 wetator/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+wetator/test/findbugs/findbugsfilter.xsd -text svneol=unset#text/plain
 wetator/test/java/org/wetator/VersionTest.java -text
 wetator/test/java/org/wetator/automatonTest.jpage -text
 wetator/test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
@@ -668,6 +669,7 @@ wetator/test/java/org/wetator/util/XMLUtilTest.java -text
 wetator/test/legacy_xml/default_command_set.xml -text
 wetator/test/legacy_xml/modules/module.xml -text
 wetator/test/legacy_xml/sql_command_set.xml -text
+wetator/test/pmd/wet-clone.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-strings.xml -text svneol=unset#text/plain

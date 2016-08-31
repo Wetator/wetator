@@ -30,7 +30,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 
 /**
- * The identifier for a {@link HtmlUnitOption}.<br />
+ * The identifier for a {@link HtmlUnitOption}.<br>
  * It can be identified by:
  * <ul>
  * <li>its id</li>
