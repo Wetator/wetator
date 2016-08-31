@@ -177,11 +177,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
-      final SecretString tmpModuleParam = aCommand.getRequiredFirstParameterValue(aContext);
-      final List<SecretString> tmpModuleParameters = aCommand.getSecondParameterValues(aContext);
+      final SecretString tmpModuleParameter = aCommand.getRequiredFirstParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
-      final String tmpModule = tmpModuleParam.getValue();
+      final String tmpModule = tmpModuleParameter.getValue();
 
       File tmpFile = new File(tmpModule);
 
@@ -200,6 +199,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // setup the new context
       final WetatorContext tmpWetatorContext = aContext.createSubContext(tmpFile);
 
+      final List<SecretString> tmpModuleParameters = aCommand.getSecondParameterValues(aContext);
       int i = 1;
       for (final SecretString tmpSecretString : tmpModuleParameters) {
         final Variable tmpVariable = new Variable(Integer.toString(i), tmpSecretString);
@@ -815,7 +815,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
       final SecretString tmpCall = aCommand.getRequiredFirstParameterValue(aContext);
-      final List<SecretString> tmpMethodParameters = aCommand.getSecondParameterValues(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final String tmpCallString = tmpCall.toString();
@@ -843,6 +842,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpMethodName = tmpMethodName.substring(0, tmpMethodName.length() - 2);
       }
 
+      final List<SecretString> tmpMethodParameters = aCommand.getSecondParameterValues(aContext);
       Object[] tmpParams = new String[tmpMethodParameters.size()];
       final Class<String>[] tmpParamTypes = new Class[tmpMethodParameters.size()];
       int i = 0;

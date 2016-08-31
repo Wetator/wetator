@@ -141,7 +141,6 @@ public class ModelBuilder {
     for (final Iterator<XSElementDecl> tmpIterator = aSchemaSet.iterateElementDecls(); tmpIterator.hasNext();) {
       final XSElementDecl tmpElement = tmpIterator.next();
       if (tmpElement.getType().isDerivedFrom(baseCommandType) && !((XSComplexType) tmpElement.getType()).isAbstract()) {
-        final XSComplexType tmpType = (XSComplexType) tmpElement.getType();
 
         final String tmpElementName = tmpElement.getName();
         final CommandType tmpExistingCommandType = commandTypes.get(tmpElementName);
@@ -157,6 +156,7 @@ public class ModelBuilder {
         tmpCommandType.setDocumentation(getDocumentation(tmpElement));
         commandTypes.put(tmpElementName, tmpCommandType);
 
+        final XSComplexType tmpType = (XSComplexType) tmpElement.getType();
         for (final ParameterType tmpParameterType : getParameterTypes(tmpType)) {
           final String tmpParameterName = tmpParameterType.getName();
           for (final ParameterType tmpCommandParameterType : tmpCommandType.getParameterTypes()) {

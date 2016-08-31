@@ -159,18 +159,19 @@ public final class WeightedControlList {
      */
     @Override
     public String toString() {
-      final StringBuilder tmpResult = new StringBuilder(50);
-      tmpResult.append(control.getDescribingText());
-      tmpResult.append(" found by: ");
-      tmpResult.append(foundType.toString());
-      tmpResult.append(" coverage: ");
-      tmpResult.append(Integer.toString(coverage));
-      tmpResult.append(" distance: ");
-      tmpResult.append(Integer.toString(distance));
-      tmpResult.append(" start: ");
-      tmpResult.append(Integer.toString(start));
-      tmpResult.append(" index: ");
-      tmpResult.append(Integer.toString(index));
+      // @formatter:off
+      final StringBuilder tmpResult = new StringBuilder(control.getDescribingText())
+          .append(" found by: ")
+          .append(foundType.toString())
+          .append(" coverage: ")
+          .append(Integer.toString(coverage))
+          .append(" distance: ")
+          .append(Integer.toString(distance))
+          .append(" start: ")
+          .append(Integer.toString(start))
+          .append(" index: ")
+          .append(Integer.toString(index));
+      // @formatter:on
       return tmpResult.toString();
     }
   }

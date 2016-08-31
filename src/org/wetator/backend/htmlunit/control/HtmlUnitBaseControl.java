@@ -419,22 +419,24 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     HtmlElement tmpHtmlElement = aHtmlElement;
-    String tmpHtmlElementId = tmpHtmlElement.getId();
     HtmlElement tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
     if (null == tmpParent) {
       return null;
     }
+    String tmpHtmlElementId = tmpHtmlElement.getId();
 
     StringBuilder tmpSelector = new StringBuilder();
     while (DomElement.ATTRIBUTE_NOT_DEFINED == tmpHtmlElementId) {
-      final StringBuilder tmpSel = new StringBuilder();
-      tmpSel.append('>');
-      tmpSel.append(tmpHtmlElement.getTagName());
-      tmpSel.append(":nth-of-type(");
-      tmpSel.append(childIndex(tmpParent, tmpHtmlElement));
-      tmpSel.append(')');
+      // @formatter:off
+      final StringBuilder tmpSel = new StringBuilder()
+          .append('>')
+          .append(tmpHtmlElement.getTagName())
+          .append(":nth-of-type(")
+          .append(childIndex(tmpParent, tmpHtmlElement))
+          .append(')')
 
-      tmpSel.append(tmpSelector);
+          .append(tmpSelector);
+      // @formatter:on
       tmpSelector = tmpSel;
 
       if ("body".equalsIgnoreCase(tmpParent.getTagName())) {

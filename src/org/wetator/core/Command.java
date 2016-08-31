@@ -130,10 +130,7 @@ public final class Command {
    * @return the string
    */
   public String toPrintableString(final WetatorContext aContext) {
-    final StringBuilder tmpResult = new StringBuilder(60);
-    tmpResult.append("[Command '");
-    tmpResult.append(getName());
-    tmpResult.append('\'');
+    final StringBuilder tmpResult = new StringBuilder("[Command '").append(getName()).append('\'');
     if (isComment) {
       tmpResult.append(" COMMENT");
     }
@@ -154,9 +151,7 @@ public final class Command {
 
     tmpParameter = getThirdParameter();
     if (null != tmpParameter) {
-      tmpResult.append(" '");
-      tmpResult.append(getThirdParameter().getValue(aContext).toString());
-      tmpResult.append('\'');
+      tmpResult.append(" '").append(getThirdParameter().getValue(aContext).toString()).append('\'');
     }
 
     tmpResult.append(']');

@@ -159,7 +159,6 @@ public final class LegacyXMLScripter implements IScripter {
   }
 
   private List<Command> readCommands() throws InvalidInputException {
-    final List<Command> tmpResult = new ArrayList<Command>();
 
     InputStream tmpInputStream = null;
     try {
@@ -181,6 +180,8 @@ public final class LegacyXMLScripter implements IScripter {
       }
 
       try {
+        final List<Command> tmpResult = new ArrayList<Command>();
+
         Command tmpCommand = null;
         while (tmpReader.hasNext()) {
           if (tmpReader.next() == XMLStreamConstants.START_ELEMENT) {
