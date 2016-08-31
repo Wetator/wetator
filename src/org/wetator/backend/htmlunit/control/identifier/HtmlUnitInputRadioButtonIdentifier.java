@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 /**
- * The identifier for a {@link HtmlUnitInputRadioButton}.<br />
+ * The identifier for a {@link HtmlUnitInputRadioButton}.<br>
  * It can be identified by:
  * <ul>
  * <li>the label text after</li>

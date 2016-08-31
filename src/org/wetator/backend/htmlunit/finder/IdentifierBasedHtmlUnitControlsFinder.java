@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given
- * search.<br />
+ * search.<br>
  * The identifiers must be added by {@link #addIdentifier(Class)} or {@link #addIdentifiers(List)} before
  * executing {@link #find(WPath)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
  * a match is found. So the returned {@link WeightedControlList} may contain multiple

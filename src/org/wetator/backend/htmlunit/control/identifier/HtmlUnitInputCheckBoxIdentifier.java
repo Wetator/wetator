@@ -36,7 +36,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
 /**
- * The identifier for a {@link HtmlUnitInputCheckBox}.<br />
+ * The identifier for a {@link HtmlUnitInputCheckBox}.<br>
  * It can be identified by:
  * <ul>
  * <li>the label text after</li>

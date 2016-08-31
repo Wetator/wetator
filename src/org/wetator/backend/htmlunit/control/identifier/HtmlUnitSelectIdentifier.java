@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
- * The identifier for a {@link HtmlUnitSelect}.<br />
+ * The identifier for a {@link HtmlUnitSelect}.<br>
  * It can be identified by:
  * <ul>
  * <li>the whole text before</li>

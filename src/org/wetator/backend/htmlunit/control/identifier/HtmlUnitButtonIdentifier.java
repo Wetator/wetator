@@ -36,7 +36,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * The identifier for a {@link HtmlUnitButton}.<br />
+ * The identifier for a {@link HtmlUnitButton}.<br>
  * It can be identified by:
  * <ul>
  * <li>some attributes of a nested image</li>

@@ -97,20 +97,17 @@ public class XMLUtil {
           || tmpChar > 31 && (tmpChar <= 0xD7FF || tmpChar >= 0xE000 && tmpChar <= 0xFFFD)) {
 
         switch (tmpChar) {
-          case '<': {
+          case '<':
             tmpResult.append("&lt;");
             break;
-          }
-          case '>': {
+          case '>':
             tmpResult.append("&gt;");
             break;
-          }
-          case '&': {
+          case '&':
             tmpResult.append("&amp;");
             break;
-          }
 
-          default: {
+          default:
             if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
@@ -118,7 +115,6 @@ public class XMLUtil {
               tmpResult.append(Integer.toString(tmpChar));
               tmpResult.append(';');
             }
-          }
         }
       }
       i++;
@@ -205,28 +201,23 @@ public class XMLUtil {
           || tmpChar > 31 && (tmpChar <= 0xD7FF || tmpChar >= 0xE000 && tmpChar <= 0xFFFD)) {
 
         switch (tmpChar) {
-          case '<': {
+          case '<':
             tmpResult.append("&lt;");
             break;
-          }
-          case '>': {
+          case '>':
             tmpResult.append("&gt;");
             break;
-          }
-          case '&': {
+          case '&':
             tmpResult.append("&amp;");
             break;
-          }
-          case '\'': {
+          case '\'':
             tmpResult.append("&apos;");
             break;
-          }
-          case '"': {
+          case '"':
             tmpResult.append("&quot;");
             break;
-          }
 
-          default: {
+          default:
             if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
@@ -234,7 +225,6 @@ public class XMLUtil {
               tmpResult.append(Integer.toString(tmpChar));
               tmpResult.append(';');
             }
-          }
         }
       }
     }

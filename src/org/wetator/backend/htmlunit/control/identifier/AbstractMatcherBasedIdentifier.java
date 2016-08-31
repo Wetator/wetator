@@ -33,7 +33,7 @@ import org.wetator.util.FindSpot;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link IControl}.<br />
+ * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link IControl}.<br>
  * Implement {@link #addMatchers(WPath, HtmlElement, List)} to add the matcher to use and
  * {@link #createControl(HtmlElement)} to create a {@link IControl} for an {@link HtmlElement}.
  *

@@ -88,7 +88,9 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       if (tmpHtmlCheckBoxInput.isChecked()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        }
         tmpHtmlCheckBoxInput.click();
       }
 
@@ -143,7 +145,9 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
     try {
       if (tmpHtmlCheckBoxInput.isChecked()) {
-        LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        }
         tmpHtmlCheckBoxInput.click();
       } else {
         aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });

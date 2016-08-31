@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 
 /**
- * The identifier for a {@link HtmlUnitInputReset}.<br />
+ * The identifier for a {@link HtmlUnitInputReset}.<br>
  * It can be identified by:
  * <ul>
  * <li>its value</li>

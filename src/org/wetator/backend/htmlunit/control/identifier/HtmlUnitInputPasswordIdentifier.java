@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 
 /**
- * The identifier for a {@link HtmlUnitInputPassword}.<br />
+ * The identifier for a {@link HtmlUnitInputPassword}.<br>
  * It can be identified by:
  * <ul>
  * <li>the whole text before</li>

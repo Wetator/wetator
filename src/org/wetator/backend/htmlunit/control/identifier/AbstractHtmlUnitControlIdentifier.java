@@ -24,7 +24,7 @@ import org.wetator.exception.ImplementationException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * The base class for all identifiers.<br />
+ * The base class for all identifiers.<br>
  * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.IControl}
  * matching
  * a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use

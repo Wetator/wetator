@@ -59,13 +59,17 @@ public abstract class AbstractCommandSet implements ICommandSet {
     initializationMessages = new LinkedList<String>();
     noOfCommands = 0;
 
-    LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
+    }
     commandImplementations = new HashMap<String, ICommandImplementation>();
 
     // initialize the list of supported commands
     registerCommands();
 
-    LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registered; " + noOfCommands + " commands added");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registered; " + noOfCommands + " commands added");
+    }
   }
 
   /**
@@ -109,7 +113,9 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @param aCommandImplementation the implementation (class) of the command
    */
   protected void registerCommand(final String aCommandName, final ICommandImplementation aCommandImplementation) {
-    LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " - register command : '" + aCommandName + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " - register command : '" + aCommandName + "'");
+    }
     commandImplementations.put(aCommandName, aCommandImplementation);
     noOfCommands++;
   }

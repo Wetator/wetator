@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
 /**
- * The identifier for a {@link HtmlUnitInputImage}.<br />
+ * The identifier for a {@link HtmlUnitInputImage}.<br>
  * It can be identified by:
  * <ul>
  * <li>its alt attribute</li>

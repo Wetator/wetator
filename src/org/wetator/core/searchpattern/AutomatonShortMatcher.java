@@ -19,6 +19,9 @@ package org.wetator.core.searchpattern;
 import dk.brics.automaton.RunAutomaton;
 
 /**
+ * A tool that performs match operations on a given character sequence using a compiled automaton.
+ * This tries to find the first shortest match by starting at the front of the char sequence.
+ *
  * @author rbri
  */
 public final class AutomatonShortMatcher extends AbstractAutomatonMatcher {
@@ -46,7 +49,7 @@ public final class AutomatonShortMatcher extends AbstractAutomatonMatcher {
   }
 
   /**
-   * Find the next matching subsequence of the input. <br />
+   * Find the next matching subsequence of the input. <br>
    * This also updates the values for the {@code start}, {@code end}, and {@code group} methods.
    *
    * @return {@code true} if there is a matching subsequence.

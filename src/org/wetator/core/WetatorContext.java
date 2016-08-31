@@ -185,7 +185,9 @@ public class WetatorContext {
     engine.informListenersExecuteCommandStart(this, aCommand);
     try {
       if (aCommand.isComment()) {
-        LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Comment: '" + aCommand.toPrintableString(this) + "'");
+        }
       } else {
         try {
           if (determineAndExecuteCommandImpl(aCommand)) {
@@ -228,7 +230,9 @@ public class WetatorContext {
     // execute the command only if no error occurred so far or the command should be executed even if an error occurred
     if (!errorOccurred || tmpCommandImplementation.getClass().isAnnotationPresent(ForceExecution.class)) {
       final IBrowser tmpBrowser = getBrowser();
-      LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Executing '" + aCommand.toPrintableString(this) + "'");
+      }
       try {
         tmpCommandImplementation.execute(this, aCommand);
       } catch (final ActionException e) {

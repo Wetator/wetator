@@ -31,7 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 
 /**
- * The identifier for a {@link HtmlUnitOptionGroup}.<br />
+ * The identifier for a {@link HtmlUnitOptionGroup}.<br>
  * It can be identified by:
  * <ul>
  * <li>its label attribute</li>

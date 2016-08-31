@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 /**
- * The identifier for a {@link HtmlUnitInputSubmit}.<br />
+ * The identifier for a {@link HtmlUnitInputSubmit}.<br>
  * It can be identified by:
  * <ul>
  * <li>its value</li>

@@ -21,7 +21,7 @@ import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 
 /**
- * The base class for all HtmlUnit finders.<br />
+ * The base class for all HtmlUnit finders.<br>
  * A finder is used to find all {@link org.wetator.backend.control.IControl}s matching a given search. These controls
  * are returned as a {@link WeightedControlList}.
  *

@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
- * The identifier for a {@link HtmlUnitOption} nested inside a select.<br />
+ * The identifier for a {@link HtmlUnitOption} nested inside a select.<br>
  * It can be identified by:
  * <ul>
  * <li>its text</li>
