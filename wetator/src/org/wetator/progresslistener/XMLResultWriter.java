@@ -161,12 +161,14 @@ public class XMLResultWriter implements IProgressListener {
         tmpInfo.setLength(0);
         try {
           final Class<?> tmpClass = Class.forName(tmpLibs[i]);
-          tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpClass));
-          tmpInfo.append(" (");
-          tmpInfo.append(VersionUtil.determineCreationDateFromJarFileName(tmpClass));
-          tmpInfo.append(')');
+          // @formatter:off
+          tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpClass))
+              .append(" (")
+              .append(VersionUtil.determineCreationDateFromJarFileName(tmpClass))
+              .append(')');
+          // @formatter:on
         } catch (final ClassNotFoundException e) {
-          tmpInfo.append("Class '" + tmpLibs[i] + "' not found in classpath.");
+          tmpInfo.append("Class '").append(tmpLibs[i]).append("' not found in classpath.");
         }
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
@@ -176,16 +178,20 @@ public class XMLResultWriter implements IProgressListener {
           "commons-logging-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar" };
       for (int i = 0; i < tmpJars.length; i++) {
         tmpInfo.setLength(0);
-        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJars[i], null));
-        tmpInfo.append(' ');
-        tmpInfo.append(VersionUtil.determineVersionFromJarManifest(tmpJars[i], null));
+        // @formatter:off
+        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJars[i], null))
+            .append(' ')
+            .append(VersionUtil.determineVersionFromJarManifest(tmpJars[i], null));
+        // @formatter:on
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
       try {
-        tmpInfo = new StringBuilder(VersionUtil.determineTitleFromJarManifest("log4j-\\S+jar", "org.apache.log4j"));
-        tmpInfo.append(' ');
-        tmpInfo.append(VersionUtil.determineVersionFromJarManifest("log4j-\\S+jar", "org.apache.log4j"));
+        // @formatter:off
+        tmpInfo = new StringBuilder(VersionUtil.determineTitleFromJarManifest("log4j-\\S+jar", "org.apache.log4j"))
+            .append(' ')
+            .append(VersionUtil.determineVersionFromJarManifest("log4j-\\S+jar", "org.apache.log4j"));
+        // @formatter:on
         printlnNode(TAG_LIB, tmpInfo.toString());
       } catch (final RuntimeException e) {
         throw e;
@@ -195,18 +201,24 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(Automaton.class));
 
-      tmpInfo = new StringBuilder(org.apache.poi.Version.getProduct());
-      tmpInfo.append(' ');
-      tmpInfo.append(org.apache.poi.Version.getVersion());
+      // @formatter:off
+      tmpInfo = new StringBuilder(org.apache.poi.Version.getProduct())
+          .append(' ')
+          .append(org.apache.poi.Version.getVersion());
+      // @formatter:on
       printlnNode(TAG_LIB, tmpInfo.toString());
 
-      tmpInfo = new StringBuilder("PDF Box ");
-      tmpInfo.append(org.apache.pdfbox.util.Version.getVersion());
+      // @formatter:off
+      tmpInfo = new StringBuilder("PDF Box ")
+          .append(org.apache.pdfbox.util.Version.getVersion());
+      // @formatter:on
       printlnNode(TAG_LIB, tmpInfo.toString());
 
-      tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest("fontbox\\S+jar", null));
-      tmpInfo.append(' ');
-      tmpInfo.append(VersionUtil.determineBundleVersionFromJarManifest("fontbox\\S+jar", null));
+      // @formatter:off
+      tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest("fontbox\\S+jar", null))
+          .append(' ')
+          .append(VersionUtil.determineBundleVersionFromJarManifest("fontbox\\S+jar", null));
+      // @formatter:on
       printlnNode(TAG_LIB, tmpInfo.toString());
 
       printlnNode(TAG_LIB, org.apache.xmlcommons.Version.getVersion());
@@ -233,7 +245,6 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_JAVA);
 
       printlnEndTag(TAG_ABOUT);
-
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }

@@ -136,8 +136,6 @@ public final class ExcelScripter implements IScripter {
 
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
       try {
-        final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
-
         int tmpSheetNo = -1;
         for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
           final String tmpSheetName = tmpWorkbook.getSheetName(i);
@@ -153,6 +151,7 @@ public final class ExcelScripter implements IScripter {
         }
 
         final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
+        final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
         for (int tmpLine = 0; tmpLine <= tmpSheet.getLastRowNum(); tmpLine++) {
           final HSSFRow tmpRow;

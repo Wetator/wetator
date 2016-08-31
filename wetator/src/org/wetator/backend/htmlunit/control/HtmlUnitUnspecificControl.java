@@ -70,11 +70,11 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
     }
 
     // handle things that are not implemented at the moment
-    final StringBuilder tmpResult = new StringBuilder(42);
-
-    tmpResult.append("[Unknown HtmlElement '");
-    tmpResult.append(tmpHtmlElement.getClass());
-    tmpResult.append('\'');
+    // @formatter:off
+    final StringBuilder tmpResult = new StringBuilder("[Unknown HtmlElement '")
+        .append(tmpHtmlElement.getClass())
+        .append('\'');
+    // @formatter:on
 
     addId(tmpResult, tmpHtmlElement);
     addName(tmpResult, tmpHtmlElement);

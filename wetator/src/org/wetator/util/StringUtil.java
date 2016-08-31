@@ -68,35 +68,30 @@ public final class StringUtil {
    */
   public static List<String> extractStrings(final String aReceiver, final String aDelimiter, final int anEscapeChar) {
     final List<String> tmpResult = new LinkedList<String>();
-    StringBuilder tmpCurrentToken;
-    int tmpIndex;
-    final int tmpSize;
-    final int tmpDelimiterSize;
-    char tmpChar;
 
     if (null == aReceiver) {
       return tmpResult;
     }
 
-    tmpSize = aReceiver.length();
+    final int tmpSize = aReceiver.length();
     if (tmpSize < 1) {
       return tmpResult;
     }
 
-    tmpDelimiterSize = aDelimiter.length();
+    final int tmpDelimiterSize = aDelimiter.length();
     if (tmpDelimiterSize == 1 && aDelimiter.charAt(0) == anEscapeChar) {
       throw new IllegalArgumentException("Delimiter must be different from escape char.");
     }
 
-    tmpCurrentToken = new StringBuilder();
+    StringBuilder tmpCurrentToken = new StringBuilder();
 
-    for (tmpIndex = 0; tmpIndex < tmpSize; tmpIndex++) {
+    for (int tmpIndex = 0; tmpIndex < tmpSize; tmpIndex++) {
       if (aReceiver.startsWith(aDelimiter, tmpIndex)) {
         tmpResult.add(tmpCurrentToken.toString());
         tmpCurrentToken = new StringBuilder();
         tmpIndex = tmpIndex + tmpDelimiterSize - 1;
       } else {
-        tmpChar = aReceiver.charAt(tmpIndex);
+        final char tmpChar = aReceiver.charAt(tmpIndex);
 
         if (anEscapeChar == tmpChar) {
           tmpIndex++;

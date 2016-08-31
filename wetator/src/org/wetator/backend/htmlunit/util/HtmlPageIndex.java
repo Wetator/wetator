@@ -721,29 +721,28 @@ public class HtmlPageIndex {
    * Helper for debugging.
    */
   public void dumpToLog() {
-    final StringBuilder tmpLog = new StringBuilder(400);
-    tmpLog.append(
-        "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ");
-    tmpLog.append(text);
-    tmpLog.append('\n');
+    final StringBuilder tmpLog = new StringBuilder(400)
+        .append(
+            "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ")
+        .append(text).append('\n');
 
     // nodes/positions
     for (final DomNode tmpDomNode : nodes) {
       final FindSpot tmpPos = positions.get(tmpDomNode);
-      tmpLog.append("  ");
-      tmpLog.append(tmpDomNode.getNodeName());
-      tmpLog.append("  [");
-      tmpLog.append(Integer.toString(tmpPos.getStartPos()));
-      tmpLog.append(", ");
-      tmpLog.append(Integer.toString(tmpPos.getEndPos()));
-      tmpLog.append("]  ");
-      tmpLog.append(tmpDomNode.getClass().getName());
+      // @formatter:off
+      tmpLog.append("  ")
+          .append(tmpDomNode.getNodeName())
+          .append("  [")
+          .append(Integer.toString(tmpPos.getStartPos()))
+          .append(", ")
+          .append(Integer.toString(tmpPos.getEndPos()))
+          .append("]  ")
+          .append(tmpDomNode.getClass().getName());
+      // @formatter:on
 
       final String tmpValue = tmpDomNode.getNodeValue();
       if (null != tmpValue) {
-        tmpLog.append("  '");
-        tmpLog.append(tmpValue);
-        tmpLog.append('\'');
+        tmpLog.append("  '").append(tmpValue).append('\'');
       }
       tmpLog.append('\n');
     }

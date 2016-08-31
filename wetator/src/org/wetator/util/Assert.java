@@ -157,9 +157,11 @@ public final class Assert {
       return;
     }
 
-    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray));
-    tmpMessage.append(' ');
-    tmpMessage.append(constructComparisonMessage(anExpectedString, aCurrentString));
+    // @formatter:off
+    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray))
+        .append(' ')
+        .append(constructComparisonMessage(anExpectedString, aCurrentString));
+    // @formatter:on
     throw new AssertionException(tmpMessage.toString());
   }
 

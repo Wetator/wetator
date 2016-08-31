@@ -137,9 +137,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
       final SecretString tmpSqlParam = aCommand.getRequiredFirstParameterValue(aContext);
-      final SecretString tmpExpected = aCommand.getRequiredSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
-      final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
       tmpSqlParam.trim();
       final String tmpConnectionName = extractConnectionName(aContext, tmpSqlParam);
@@ -177,6 +175,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
             new String[] { tmpSqlParam.toString(), e.getMessage() });
         throw new AssertionException(tmpMessage, e);
       }
+
+      final SecretString tmpExpected = aCommand.getRequiredSecondParameterValue(aContext);
+      final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
 
       final String tmpResultString = tmpResult.toString().trim();
       tmpPattern.matches(tmpResultString, 10000);
@@ -278,10 +279,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       final String tmpDriver = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_DRIVER);
-      final String tmpUrl = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_URL);
-      final String tmpUser = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_USER);
-      final String tmpPassword = aConfiguration
-          .getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
 
       if (StringUtils.isEmpty(tmpDriver)) {
         LOG.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
@@ -298,6 +295,10 @@ public final class SqlCommandSet extends AbstractCommandSet {
             + "' for connection named '" + tmpConnectionName + "' (reason: " + e.toString() + ").");
       }
 
+      final String tmpUrl = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_URL);
+      final String tmpUser = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_USER);
+      final String tmpPassword = aConfiguration
+          .getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
       try {
         final Connection tmpConnection = DriverManager.getConnection(tmpUrl, tmpUser, tmpPassword);
         // to be sure

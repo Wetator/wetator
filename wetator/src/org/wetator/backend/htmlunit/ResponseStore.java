@@ -129,9 +129,7 @@ public final class ResponseStore {
   public String storeTextContent(final String aContent) {
     File tmpFile = null;
     try {
-      final StringBuilder tmpFileName = new StringBuilder("content_").append(getUniqueId());
-
-      tmpFileName.append(".txt");
+      final StringBuilder tmpFileName = new StringBuilder("content_").append(getUniqueId()).append(".txt");
       tmpFile = new File(storeDir, tmpFileName.toString());
 
       FileUtils.write(tmpFile, aContent, StandardCharsets.UTF_8);
