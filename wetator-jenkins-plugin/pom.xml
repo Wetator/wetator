@@ -180,12 +180,12 @@
                         <ruleset>/rulesets/java/empty.xml</ruleset>
                         <ruleset>/rulesets/java/unnecessary.xml</ruleset>
                         <ruleset>/rulesets/java/braces.xml</ruleset>
-                        <ruleset>/rulesets/java/clone.xml</ruleset>
-                        <ruleset>src/test/pmd/wet-strings.xml</ruleset>
                         <ruleset>/rulesets/java/unusedcode.xml</ruleset>
-                        <ruleset>src/test/pmd/wet-logging-jakarta-commons.xml</ruleset>
                         <ruleset>/rulesets/java/finalizers.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-clone.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-strings.xml</ruleset>
                         <ruleset>src/test/pmd/wet-optimizations.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-logging-jakarta-commons.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>
