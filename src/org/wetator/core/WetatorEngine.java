@@ -59,6 +59,7 @@ public class WetatorEngine {
   private IBrowser browser;
   private List<ICommandSet> commandSets;
   private List<IScripter> scripter;
+  // access to the progressListeners must be synchronized to prevent interference in multithreading situations
   private List<IProgressListener> progressListener;
 
   /**
@@ -400,18 +401,22 @@ public class WetatorEngine {
    * @param aProgressListener the listener to add
    */
   public void addProgressListener(final IProgressListener aProgressListener) {
-    if (progressListener.contains(aProgressListener)) {
-      return;
+    synchronized (progressListener) {
+      if (progressListener.contains(aProgressListener)) {
+        return;
+      }
+      progressListener.add(aProgressListener);
     }
-    progressListener.add(aProgressListener);
   }
 
   /**
    * Informs all listeners about 'init'.
    */
   protected void informListenersInit() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.init(this);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.init(this);
+      }
     }
   }
 
@@ -419,8 +424,10 @@ public class WetatorEngine {
    * Informs all listeners about 'start'.
    */
   protected void informListenersStart() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.start(this);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.start(this);
+      }
     }
   }
 
@@ -430,8 +437,10 @@ public class WetatorEngine {
    * @param aTestCase the test case started.
    */
   protected void informListenersTestCaseStart(final TestCase aTestCase) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testCaseStart(aTestCase);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testCaseStart(aTestCase);
+      }
     }
   }
 
@@ -441,8 +450,10 @@ public class WetatorEngine {
    * @param aBrowserName the browser name of the test started.
    */
   protected void informListenersTestRunStart(final String aBrowserName) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testRunStart(aBrowserName);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testRunStart(aBrowserName);
+      }
     }
   }
 
@@ -452,8 +463,10 @@ public class WetatorEngine {
    * @param aFileName the file name of the test started.
    */
   protected void informListenersTestFileStart(final String aFileName) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testFileStart(aFileName);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testFileStart(aFileName);
+      }
     }
   }
 
@@ -464,8 +477,10 @@ public class WetatorEngine {
    * @param aCommand the {@link Command} to be executed.
    */
   protected void informListenersExecuteCommandStart(final WetatorContext aContext, final Command aCommand) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandStart(aContext, aCommand);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.executeCommandStart(aContext, aCommand);
+      }
     }
   }
 
@@ -473,8 +488,10 @@ public class WetatorEngine {
    * Informs all listeners about 'executeCommandEnd'.
    */
   protected void informListenersExecuteCommandEnd() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandEnd();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.executeCommandEnd();
+      }
     }
   }
 
@@ -482,8 +499,10 @@ public class WetatorEngine {
    * Informs all listeners about 'executeCommandSuccess'.
    */
   protected void informListenersExecuteCommandSuccess() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandSuccess();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.executeCommandSuccess();
+      }
     }
   }
 
@@ -491,8 +510,10 @@ public class WetatorEngine {
    * Informs all listeners about 'executeCommandIgnored'.
    */
   protected void informListenersExecuteCommandIgnored() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandIgnored();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.executeCommandIgnored();
+      }
     }
   }
 
@@ -502,8 +523,10 @@ public class WetatorEngine {
    * @param anAssertionException The exception thrown by the failed command.
    */
   protected void informListenersExecuteCommandFailure(final AssertionException anAssertionException) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandFailure(anAssertionException);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.executeCommandFailure(anAssertionException);
+      }
     }
   }
 
@@ -513,8 +536,10 @@ public class WetatorEngine {
    * @param aThrowable The exception thrown by the command.
    */
   protected void informListenersExecuteCommandError(final Throwable aThrowable) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.executeCommandError(aThrowable);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.executeCommandError(aThrowable);
+      }
     }
   }
 
@@ -522,8 +547,10 @@ public class WetatorEngine {
    * Informs all listeners about 'testFileEnd'.
    */
   protected void informListenersTestFileEnd() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testFileEnd();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testFileEnd();
+      }
     }
   }
 
@@ -531,8 +558,10 @@ public class WetatorEngine {
    * Informs all listeners about 'testRunIgnored'.
    */
   protected void informListenersTestRunIgnored() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testRunIgnored();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testRunIgnored();
+      }
     }
   }
 
@@ -540,8 +569,10 @@ public class WetatorEngine {
    * Informs all listeners about 'testRunEnd'.
    */
   protected void informListenersTestRunEnd() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testRunEnd();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testRunEnd();
+      }
     }
   }
 
@@ -549,8 +580,10 @@ public class WetatorEngine {
    * Informs all listeners about 'testEnd'.
    */
   protected void informListenersTestCaseEnd() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.testCaseEnd();
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.testCaseEnd();
+      }
     }
   }
 
@@ -558,8 +591,10 @@ public class WetatorEngine {
    * Informs all listeners about 'end'.
    */
   protected void informListenersEnd() {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.end(this);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.end(this);
+      }
     }
   }
 
@@ -569,8 +604,10 @@ public class WetatorEngine {
    * @param aThrowable the exception thrown
    */
   public void informListenersError(final Throwable aThrowable) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.error(aThrowable);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.error(aThrowable);
+      }
     }
   }
 
@@ -587,8 +624,10 @@ public class WetatorEngine {
     if (null != aThrowable) {
       tmpStackTrace = ExceptionUtils.getStackTrace(aThrowable);
     }
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.warn(aMessageKey, aParameterArray, tmpStackTrace);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.warn(aMessageKey, aParameterArray, tmpStackTrace);
+      }
     }
   }
 
@@ -600,8 +639,10 @@ public class WetatorEngine {
    * @param aDetails the optional reason (with stacktrace) of the warning
    */
   public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.warn(aMessageKey, aParameterArray, aDetails);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.warn(aMessageKey, aParameterArray, aDetails);
+      }
     }
   }
 
@@ -612,8 +653,10 @@ public class WetatorEngine {
    * @param aParameterArray the message parameters.
    */
   public void informListenersInfo(final String aMessageKey, final Object[] aParameterArray) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.info(aMessageKey, aParameterArray);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.info(aMessageKey, aParameterArray);
+      }
     }
   }
 
@@ -623,8 +666,10 @@ public class WetatorEngine {
    * @param aHtmlDescription the html source.
    */
   public void informListenersHtmlDescribe(final String aHtmlDescription) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.htmlDescribe(aHtmlDescription);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.htmlDescribe(aHtmlDescription);
+      }
     }
   }
 
@@ -634,8 +679,10 @@ public class WetatorEngine {
    * @param aResponseFileName the file name of the stored response.
    */
   public void informListenersResponseStored(final String aResponseFileName) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.responseStored(aResponseFileName);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.responseStored(aResponseFileName);
+      }
     }
   }
 
@@ -645,8 +692,10 @@ public class WetatorEngine {
    * @param aResponseFileName the file name of the stored response.
    */
   public void informListenersHighlightedResponse(final String aResponseFileName) {
-    for (final IProgressListener tmpListener : progressListener) {
-      tmpListener.highlightedResponse(aResponseFileName);
+    synchronized (progressListener) {
+      for (final IProgressListener tmpListener : progressListener) {
+        tmpListener.highlightedResponse(aResponseFileName);
+      }
     }
   }
 }
