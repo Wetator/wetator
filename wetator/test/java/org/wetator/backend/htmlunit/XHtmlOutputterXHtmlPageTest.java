@@ -25,6 +25,7 @@ import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 
 /**
@@ -85,5 +86,40 @@ public class XHtmlOutputterXHtmlPageTest {
         + "</head><body style=\"display: block\"> <h1 style=\"display: block\">1&#160;2</h1> <script> highlight(); </script> </body>"
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void select() throws IOException {
+    final String tmpHtmlCode = LEADING + "<select>" + "<option id='tst'>opt1</option>"
+        + "<option selected>opt2</option>" + "</select>" + TRAILING;
+
+    String tmpExpected = EXPECTED_LEADING + "<head> " + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+        + "<script src='../../resources/wetator_report.js'></script> " + "</head><body style=\"display: block\"> "
+        + "<select style=\"display: inline-block\"> " + "<option id=\"tst\" style=\"display: inline\">opt1</option> "
+        + "<option selected style=\"display: inline\">opt2</option> " + "</select> "
+        + "<script> highlight(); </script> </body>" + EXPECTED_TRAILING;
+
+    XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    final HtmlOption tmpOption = (HtmlOption) tmpXHtmlPage.getElementById("tst");
+    tmpOption.setSelected(true);
+
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    tmpExpected = EXPECTED_LEADING + "<head> " + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+        + "<script src='../../resources/wetator_report.js'></script> " + "</head><body style=\"display: block\"> "
+        + "<select style=\"display: inline-block\"> " + "<option id=\"tst\" style=\"display: inline\">opt1</option> "
+        + "<option selected style=\"display: inline\">opt2</option> " + "</select> "
+        + "<script> highlight(); </script> </body>" + EXPECTED_TRAILING;
+
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
   }
 }
