@@ -28,6 +28,14 @@ docu/images/content_pattern_sample.png -text
 docu/images/describe_result.png -text
 docu/images/empty_wpath.png -text
 docu/images/file_upload.png -text
+docu/images/first_test_screen.png -text
+docu/images/first_test_step1_open_url.png -text
+docu/images/first_test_step1_open_url_report.png -text
+docu/images/first_test_step1_open_url_report_preview.png -text
+docu/images/first_test_step2_assert.png -text
+docu/images/first_test_step3_set-project-report-highlight.png -text
+docu/images/first_test_step3_set-project-report.png -text
+docu/images/first_test_step3_set-project.png -text
 docu/images/input_text.png -text
 docu/images/open_url.png -text
 docu/images/open_url_file.png -text
