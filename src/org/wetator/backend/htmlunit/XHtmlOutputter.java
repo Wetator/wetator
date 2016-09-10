@@ -451,21 +451,19 @@ public final class XHtmlOutputter {
 
       final boolean tmpIsHtmlImage = tmpDomElement instanceof HtmlImage;
       final boolean tmpIsHtmlImageInput = tmpDomElement instanceof HtmlImageInput;
-      final boolean tmpIsHtmlHtmlEmbed = tmpDomElement instanceof HtmlEmbed;
 
-      final boolean tmpIsHtmlFrame = tmpDomElement instanceof BaseFrameElement;
-      final boolean tmpIsHtmlPasswordInput = tmpDomElement instanceof HtmlPasswordInput;
-      final boolean tmpIsHtmlSubmitInput = tmpDomElement instanceof HtmlSubmitInput;
       final boolean tmpIsChecked = tmpDomElement instanceof HtmlCheckBoxInput
           || tmpDomElement instanceof HtmlRadioButtonInput;
+      final boolean tmpIsHtmlOption = tmpDomElement instanceof HtmlOption;
+
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
       final Map<String, DomAttr> tmpAttributes = tmpDomElement.getAttributesMap();
 
       // some HtmlUnitControls are special
-      if (tmpDomElement instanceof HtmlOption) {
+      if (tmpIsHtmlOption) {
         final HtmlOption tmpHtmlOption = (HtmlOption) tmpDomElement;
-        if (tmpHtmlOption.isSelected() && tmpHtmlOption.getAttribute("selected") == DomElement.ATTRIBUTE_NOT_DEFINED) {
+        if (tmpHtmlOption.isSelected()) {
           output.print(" selected");
         }
       }
@@ -476,6 +474,12 @@ public final class XHtmlOutputter {
         boolean tmpWriteAttribute = true;
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
+
+          // selected attribute is handled based on the isSelected state already
+          if (tmpIsHtmlOption && "selected".equals(tmpAttributeName)) {
+            continue;
+          }
+
           String tmpAttributeValue = tmpAttribute.getNodeValue();
           // no output of javascript actions
           if (StringUtils.startsWithIgnoreCase(tmpAttributeValue, "javascript:")) {
@@ -519,7 +523,7 @@ public final class XHtmlOutputter {
             }
           }
 
-          if ((tmpIsHtmlImageInput || tmpIsHtmlHtmlEmbed) && "src".equals(tmpAttributeName)) {
+          if ((tmpIsHtmlImageInput || tmpDomElement instanceof HtmlEmbed) && "src".equals(tmpAttributeName)) {
             final URL tmpUrl = tmpDomElement.getHtmlPageOrNull().getFullyQualifiedUrl(tmpAttributeValue);
             final String tmpStoredFileName = responseStore.storeContentFromUrl(tmpBaseUrl, tmpUrl, null, null, 0, null);
             if (null != tmpStoredFileName) {
@@ -527,7 +531,7 @@ public final class XHtmlOutputter {
             }
           }
 
-          if (tmpIsHtmlFrame && "src".equals(tmpAttributeName)) {
+          if (tmpDomElement instanceof BaseFrameElement && "src".equals(tmpAttributeName)) {
             final BaseFrameElement tmpFrame = (BaseFrameElement) aDomNode;
 
             // prevent NPE
@@ -557,13 +561,15 @@ public final class XHtmlOutputter {
             }
           }
 
-          if (tmpIsHtmlPasswordInput && "value".equals(tmpAttributeName) && StringUtils.isNotEmpty(tmpAttributeValue)) {
+          if (tmpDomElement instanceof HtmlPasswordInput && "value".equals(tmpAttributeName)
+              && StringUtils.isNotEmpty(tmpAttributeValue)) {
             tmpAttributeValue = "*******";
           }
 
           // Don't print if value="Submit Query"
           // see com.gargoylesoftware.htmlunit.html.HtmlSubmitInput
-          if (tmpIsHtmlSubmitInput && "value".equals(tmpAttributeName) && "Submit Query".equals(tmpAttributeValue)) {
+          if (tmpDomElement instanceof HtmlSubmitInput && "value".equals(tmpAttributeName)
+              && "Submit Query".equals(tmpAttributeValue)) {
             continue;
           }
 
