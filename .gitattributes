@@ -251,6 +251,14 @@ wetator/docu/images/content_pattern_sample.png -text
 wetator/docu/images/describe_result.png -text
 wetator/docu/images/empty_wpath.png -text
 wetator/docu/images/file_upload.png -text
+wetator/docu/images/first_test_screen.png -text
+wetator/docu/images/first_test_step1_open_url.png -text
+wetator/docu/images/first_test_step1_open_url_report.png -text
+wetator/docu/images/first_test_step1_open_url_report_preview.png -text
+wetator/docu/images/first_test_step2_assert.png -text
+wetator/docu/images/first_test_step3_set-project-report-highlight.png -text
+wetator/docu/images/first_test_step3_set-project-report.png -text
+wetator/docu/images/first_test_step3_set-project.png -text
 wetator/docu/images/input_text.png -text
 wetator/docu/images/open_url.png -text
 wetator/docu/images/open_url_file.png -text
