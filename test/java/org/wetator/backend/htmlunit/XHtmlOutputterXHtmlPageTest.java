@@ -26,6 +26,7 @@ import org.wetator.util.NormalizedString;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
+import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 
 /**
@@ -90,36 +91,123 @@ public class XHtmlOutputterXHtmlPageTest {
 
   @Test
   public void select() throws IOException {
-    final String tmpHtmlCode = LEADING + "<select>" + "<option id='tst'>opt1</option>"
-        + "<option selected>opt2</option>" + "</select>" + TRAILING;
+    // @formatter:off
+    final String tmpHtmlCode =
+            LEADING
+            + "<select>"
+              + "<option id='tst'>opt1</option>"
+              + "<option selected>opt2</option>"
+            + "</select>"
+            + TRAILING;
+    // @formatter:on
 
-    String tmpExpected = EXPECTED_LEADING + "<head> " + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-        + "<script src='../../resources/wetator_report.js'></script> " + "</head><body style=\"display: block\"> "
-        + "<select style=\"display: inline-block\"> " + "<option id=\"tst\" style=\"display: inline\">opt1</option> "
-        + "<option selected style=\"display: inline\">opt2</option> " + "</select> "
-        + "<script> highlight(); </script> </body>" + EXPECTED_TRAILING;
-
-    XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    final XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    String tmpExpected =
+            EXPECTED_LEADING
+            + "<head> "
+              + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+              + "<script src='../../resources/wetator_report.js'></script> "
+            + "</head>"
+            + "<body style=\"display: block\"> "
+              + "<select style=\"display: inline-block\"> "
+                + "<option id=\"tst\" style=\"display: inline\">opt1</option> "
+                + "<option selected=\"selected\" style=\"display: inline\">opt2</option> "
+              + "</select> "
+            + "<script> highlight(); </script> "
+            + "</body>"
+            + EXPECTED_TRAILING;
+    // @formatter:on
     Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     final HtmlOption tmpOption = (HtmlOption) tmpXHtmlPage.getElementById("tst");
     tmpOption.setSelected(true);
 
-    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    tmpExpected = EXPECTED_LEADING + "<head> " + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-        + "<script src='../../resources/wetator_report.js'></script> " + "</head><body style=\"display: block\"> "
-        + "<select style=\"display: inline-block\"> " + "<option id=\"tst\" style=\"display: inline\">opt1</option> "
-        + "<option selected style=\"display: inline\">opt2</option> " + "</select> "
-        + "<script> highlight(); </script> </body>" + EXPECTED_TRAILING;
-
+    // @formatter:off
+    tmpExpected =
+            EXPECTED_LEADING
+            + "<head> "
+              + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+              + "<script src='../../resources/wetator_report.js'></script> "
+            + "</head>"
+            + "<body style=\"display: block\"> "
+              + "<select style=\"display: inline-block\"> "
+                + "<option selected=\"selected\" id=\"tst\" style=\"display: inline\">opt1</option> "
+                + "<option style=\"display: inline\">opt2</option> "
+              + "</select> "
+            + "<script> highlight(); </script> "
+            + "</body>"
+            + EXPECTED_TRAILING;
+    // @formatter:on
     Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
 
+  @Test
+  public void radio() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode =
+            LEADING
+              + "<form>"
+                + "<input id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\"> Male"
+                + "<input type=\"radio\" name=\"gender\" value=\"female\" checked> Female"
+              + "</form>"
+            + TRAILING;
+    // @formatter:on
+
+    final XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    String tmpExpected =
+        EXPECTED_LEADING
+        + "<head> "
+          + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+          + "<script src='../../resources/wetator_report.js'></script> "
+        + "</head>"
+        + "<body style=\"display: block\"> "
+          + "<form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
+            + "<input checked=\"checked\" type=\"radio\" name=\"gender\" value=\"female\" style=\"display: inline-block\"/> Female "
+          + "</form> "
+        + "<script> highlight(); </script> "
+        + "</body>"
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    // Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    final HtmlRadioButtonInput tmpRadio = (HtmlRadioButtonInput) tmpXHtmlPage.getElementById("tst");
+    tmpRadio.setChecked(true);
+
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    tmpExpected =
+        EXPECTED_LEADING
+        + "<head> "
+          + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+          + "<script src='../../resources/wetator_report.js'></script> "
+        + "</head>"
+        + "<body style=\"display: block\"> "
+          + "<form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input checked=\"checked\" id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
+            + "<input type=\"radio\" name=\"gender\" value=\"female\" style=\"display: inline-block\"/> Female "
+          + "</form> "
+        + "<script> highlight(); </script> "
+        + "</body>"
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 }

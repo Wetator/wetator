@@ -26,7 +26,9 @@ import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 /**
  * @author rbri
@@ -201,8 +203,102 @@ public class XHtmlOutputterHtmlPageTest {
     final String tmpExpected = EXPECTED_LEADING
         + " <h1 style=\"display: block\">&#956;g 1&#160;2&#160;3&#8194;4&#8195;5&#8201;6</h1>"
         + " <ul style=\"display: block\"> <li style=\"display: list-item\"> &#956;g </li> </ul> "
-        + "<select style=\"display: inline-block\"> <option selected value=\"&#956;g\" style=\"display: inline; display: inline\">&#956;g</option> </select> "
+        + "<select style=\"display: inline-block\"> <option selected=\"selected\" value=\"&#956;g\" style=\"display: inline; display: inline\">&#956;g</option> </select> "
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
+  }
+
+  @Test
+  public void select() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode =
+            LEADING
+            + "<select>"
+              + "<option id='tst'>opt1</option>"
+              + "<option selected>opt2</option>"
+            + "</select>"
+            + TRAILING;
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    String tmpExpected =
+            EXPECTED_LEADING
+            + " <select style=\"display: inline-block\"> "
+              + "<option id=\"tst\" style=\"display: inline\">opt1</option> "
+              + "<option selected=\"selected\" style=\"display: inline\">opt2</option> "
+            + "</select> "
+            + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    final HtmlOption tmpOption = (HtmlOption) tmpHtmlPage.getElementById("tst");
+    tmpOption.setSelected(true);
+
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    tmpExpected =
+            EXPECTED_LEADING
+            + " <select style=\"display: inline-block\"> "
+              + "<option selected=\"selected\" id=\"tst\" style=\"display: inline\">opt1</option> "
+              + "<option style=\"display: inline\">opt2</option> "
+            + "</select> "
+            + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
+
+  @Test
+  public void radio() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode =
+            LEADING
+              + " <form>"
+                + "<input id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\"> Male"
+                + "<input type=\"radio\" name=\"gender\" value=\"female\" checked> Female"
+              + "</form>"
+            + TRAILING;
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    String tmpExpected =
+        EXPECTED_LEADING
+          + " <form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
+            + "<input checked=\"checked\" type=\"radio\" name=\"gender\" value=\"female\" style=\"display: inline-block\"/> Female "
+          + "</form> "
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    final HtmlRadioButtonInput tmpRadio = (HtmlRadioButtonInput) tmpHtmlPage.getElementById("tst");
+    tmpRadio.setChecked(true);
+
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    tmpExpected =
+        EXPECTED_LEADING
+          + " <form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input checked=\"checked\" id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
+            + "<input type=\"radio\" name=\"gender\" value=\"female\" style=\"display: inline-block\"/> Female "
+          + "</form> "
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 }
