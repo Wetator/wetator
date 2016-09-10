@@ -461,17 +461,18 @@ public final class XHtmlOutputter {
       final Map<String, DomAttr> tmpAttributes = tmpDomElement.getAttributesMap();
 
       // some HtmlUnitControls are special
-      if (tmpIsHtmlOption) {
-        final HtmlOption tmpHtmlOption = (HtmlOption) tmpDomElement;
-        if (tmpHtmlOption.isSelected()) {
-          output.print(" selected");
-        }
+      if (tmpIsHtmlOption && ((HtmlOption) tmpDomElement).isSelected()) {
+        output.print(" selected=\"selected\"");
+      }
+
+      // we are doing a screenshot here; reflect the current state of the control
+      if (tmpIsChecked && ((HtmlInput) tmpDomElement).isChecked()) {
+        output.print(" checked=\"checked\"");
       }
 
       boolean tmpStyleDefined = false;
       for (final DomAttr tmpAttribute : tmpAttributes.values()) {
         final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
-        boolean tmpWriteAttribute = true;
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
 
@@ -578,8 +579,9 @@ public final class XHtmlOutputter {
             if (tmpIsChecked) {
               // do not pass the checked attribute, we are doing a screenshot here
               // we have to reflect the current state of the control
-              tmpWriteAttribute = false;
-            } else if (StringUtils.isEmpty(tmpAttributeValue)) {
+              continue;
+            }
+            if (StringUtils.isEmpty(tmpAttributeValue)) {
               tmpAttributeValue = "checked";
             }
           }
@@ -587,13 +589,11 @@ public final class XHtmlOutputter {
             tmpAttributeValue = "multiple";
           }
 
-          if (tmpWriteAttribute) {
-            output.print(' ');
-            output.print(tmpAttributeName);
-            output.print("=\"");
-            output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
-            output.print('"');
-          }
+          output.print(' ');
+          output.print(tmpAttributeName);
+          output.print("=\"");
+          output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
+          output.print('"');
         }
       }
 
@@ -607,11 +607,6 @@ public final class XHtmlOutputter {
           output.print(tmpStyle.getDisplay());
           output.print('"');
         }
-      }
-
-      // we are doing a screenshot here; reflect the current state of the control
-      if (tmpIsChecked && ((HtmlInput) tmpDomElement).isChecked()) {
-        output.print(" checked=\"checked\"");
       }
     }
 
