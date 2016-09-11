@@ -19,6 +19,7 @@
     <test>test</test>
     <test-src>${dir.test}/java</test-src>
     <samples>samples</samples>
+    <templates>templates</templates>
     <lib>lib</lib>
     <lib-src>lib_src</lib-src>
     <ant-lib>ant_lib</ant-lib>

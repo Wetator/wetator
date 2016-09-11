@@ -611,6 +611,10 @@
                 <exclude name="**/**" />
             </zipfileset>
 
+            <zipfileset dir="${dir.templates}" prefix="${dir.templates}">
+                <exclude name="**/**" />
+            </zipfileset>
+
             <zipfileset dir="${dir.src}" prefix="${dir.src}">
                 <exclude name="**/jdoc/**" />
                 <exclude name="**/*.jpage*" />
@@ -745,7 +749,11 @@ ENDLOCAL
             <zipfileset dir="${dir.xsl}" prefix="xsl">
             </zipfileset>
 
-            <zipfileset dir="${dir.src}" prefix="templates">
+            <zipfileset dir="${dir.templates}" prefix="templates">
+                <include name="empty.xls" />
+            </zipfileset>
+
+        	<zipfileset dir="${dir.src}" prefix="templates">
                 <include name="wetator.config" />
                 <include name="js_filter.cfg" />
             </zipfileset>
