@@ -751,6 +751,7 @@ ENDLOCAL
 
             <zipfileset dir="${dir.templates}" prefix="templates">
                 <include name="empty.xls" />
+                <include name="empty.wet" />
             </zipfileset>
 
         	<zipfileset dir="${dir.src}" prefix="templates">
