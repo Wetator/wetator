@@ -33,9 +33,13 @@ docu/images/first_test_step1_open_url.png -text
 docu/images/first_test_step1_open_url_report.png -text
 docu/images/first_test_step1_open_url_report_preview.png -text
 docu/images/first_test_step2_assert.png -text
+docu/images/first_test_step3_fill_form.png -text
+docu/images/first_test_step3_fill_form_result.png -text
 docu/images/first_test_step3_set-project-report-highlight.png -text
 docu/images/first_test_step3_set-project-report.png -text
 docu/images/first_test_step3_set-project.png -text
+docu/images/first_test_step4_submit_assert.png -text
+docu/images/first_test_step4_submit_assert_report.png -text
 docu/images/input_text.png -text
 docu/images/open_url.png -text
 docu/images/open_url_file.png -text
