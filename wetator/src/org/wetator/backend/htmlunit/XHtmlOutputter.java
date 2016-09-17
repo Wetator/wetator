@@ -496,10 +496,11 @@ public final class XHtmlOutputter {
             }
 
             if (aDomNode instanceof HtmlElement) {
-              final HTMLElement tmpElement = (HTMLElement) aDomNode.getScriptableObject();
-              // hopefully no one will ever made thinks like head visible
+              final HtmlElement tmpElement = (HtmlElement) aDomNode;
+              // hopefully no one will ever made tags like head visible
               if (!DisplayStyle.NONE.value().equals(tmpElement.getDefaultStyleDisplay())) {
-                final CSSStyleDeclaration tmpStyle = tmpElement.getWindow().getComputedStyle(tmpElement, null);
+                final HTMLElement tmpElemScript = (HTMLElement) aDomNode.getScriptableObject();
+                final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
                 // for the moment i have no better idea than always hard wire the display info
                 tmpAttributeValue = tmpAttributeValue + "; display: " + tmpStyle.getDisplay();
               }
@@ -598,10 +599,11 @@ public final class XHtmlOutputter {
       }
 
       if (!tmpStyleDefined && aDomNode instanceof HtmlElement) {
-        final HTMLElement tmpElem = (HTMLElement) aDomNode.getScriptableObject();
-        // hopefully no one will ever made thinks like head visible
+        final HtmlElement tmpElem = (HtmlElement) aDomNode;
+        // hopefully no one will ever made tags like head visible
         if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay())) {
-          final CSSStyleDeclaration tmpStyle = tmpElem.getWindow().getComputedStyle(tmpElem, null);
+          final HTMLElement tmpElemScript = (HTMLElement) aDomNode.getScriptableObject();
+          final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
           // for the moment i have no better idea than always hard wire the display info
           output.print(" style=\"display: ");
           output.print(tmpStyle.getDisplay());
