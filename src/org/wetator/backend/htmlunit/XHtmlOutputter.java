@@ -498,7 +498,7 @@ public final class XHtmlOutputter {
             if (aDomNode instanceof HtmlElement) {
               final HtmlElement tmpElement = (HtmlElement) aDomNode;
               // hopefully no one will ever made tags like head visible
-              if (!DisplayStyle.NONE.value().equals(tmpElement.getDefaultStyleDisplay())) {
+              if (!DisplayStyle.NONE.value().equals(tmpElement.getDefaultStyleDisplay().value())) {
                 final HTMLElement tmpElemScript = (HTMLElement) aDomNode.getScriptableObject();
                 final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
                 // for the moment i have no better idea than always hard wire the display info
@@ -601,7 +601,7 @@ public final class XHtmlOutputter {
       if (!tmpStyleDefined && aDomNode instanceof HtmlElement) {
         final HtmlElement tmpElem = (HtmlElement) aDomNode;
         // hopefully no one will ever made tags like head visible
-        if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay())) {
+        if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay().value())) {
           final HTMLElement tmpElemScript = (HTMLElement) aDomNode.getScriptableObject();
           final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
           // for the moment i have no better idea than always hard wire the display info
