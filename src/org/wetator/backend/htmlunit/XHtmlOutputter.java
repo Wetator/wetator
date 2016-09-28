@@ -652,6 +652,17 @@ public final class XHtmlOutputter {
     output.print(tmpCanvas.toDataURL("png"));
     output.print("' height='" + tmpCanvas.getHeight());
     output.print("' width='" + tmpCanvas.getWidth());
+
+    String tmpAttrib =  aCanvas.getAttribute("style");
+    if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpAttrib) {
+      output.print("' style='" + aCanvas.getAttribute("style"));
+    }
+
+    tmpAttrib =  aCanvas.getAttribute("class");
+    if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpAttrib) {
+      output.print("' class='" + aCanvas.getAttribute("class"));
+    }
+
     output.print("'>");
   }
 
