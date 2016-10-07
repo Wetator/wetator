@@ -302,7 +302,7 @@ public final class XHtmlOutputter {
 
     while (null != tmpChild) {
       // ignore script required; we build a screenshot
-      // ignore HtmlBase because we rebuild reletive css links to our local files
+      // ignore HtmlBase because we rebuild relative css links to our local files
       if (!(tmpChild instanceof DomDocumentType) && !(tmpChild instanceof HtmlScript)
           && !(tmpChild instanceof DomComment) && !(tmpChild instanceof HtmlBase)) {
 
@@ -653,12 +653,12 @@ public final class XHtmlOutputter {
     output.print("' height='" + tmpCanvas.getHeight());
     output.print("' width='" + tmpCanvas.getWidth());
 
-    String tmpAttrib =  aCanvas.getAttribute("style");
+    String tmpAttrib = aCanvas.getAttribute("style");
     if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpAttrib) {
       output.print("' style='" + aCanvas.getAttribute("style"));
     }
 
-    tmpAttrib =  aCanvas.getAttribute("class");
+    tmpAttrib = aCanvas.getAttribute("class");
     if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpAttrib) {
       output.print("' class='" + aCanvas.getAttribute("class"));
     }
