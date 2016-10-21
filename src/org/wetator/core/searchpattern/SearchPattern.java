@@ -25,7 +25,7 @@ import org.wetator.util.SecretString;
 
 /**
  * The central wildcard handling.<br>
- * This supports the dos wildcards '*' and '?'.
+ * This supports the DOS wildcards '*' and '?'.
  *
  * @author rbri
  * @author frank.danek
@@ -45,11 +45,11 @@ public abstract class SearchPattern {
   }
 
   /**
-   * Construct a new SearchPattern from a list of SecretString's.
+   * Constructs a new {@link SearchPattern} from a list of {@link SecretString}s.
    *
-   * @param aSearch the list of SecretString's
+   * @param aSearch the list of {@link SecretString}s
    * @param aNumberOfElements the number of elements of the list to be used (from the start of the list)
-   * @return the SearchPattern
+   * @return the {@link SearchPattern}
    */
   public static SearchPattern createFromList(final List<SecretString> aSearch, final int aNumberOfElements) {
     final StringBuilder tmpPattern = new StringBuilder();
@@ -68,21 +68,21 @@ public abstract class SearchPattern {
   }
 
   /**
-   * Construct a new SearchPattern from a list of SecretString's.
+   * Constructs a new {@link SearchPattern} from a list of {@link SecretString}s.
    *
-   * @param aSearch the list of SecretString's
-   * @return the SearchPattern
+   * @param aSearch the list of {@link SecretString}s
+   * @return the {@link SearchPattern}
    */
   public static SearchPattern createFromList(final List<SecretString> aSearch) {
     return createFromList(aSearch, aSearch.size());
   }
 
   /**
-   * Construct a new SearchPattern from a string.
+   * Constructs a new {@link SearchPattern} from a string.
    *
-   * @param aDosStyleWildcardString the string to construct the SearchPattern for.
-   *        This supports the wildcards '*' and '?'.
-   * @return the SearchPattern
+   * @param aDosStyleWildcardString the string to construct the {@link SearchPattern} from;
+   *        It supports the wildcards '*' and '?'.
+   * @return the {@link SearchPattern}
    */
   public static SearchPattern compile(final String aDosStyleWildcardString) {
     String tmpDosStyleWildcardString = "";
@@ -147,6 +147,7 @@ public abstract class SearchPattern {
           tmpTextPattern.append(tmpChar);
           continue;
         } else if ('\\' == tmpChar) {
+          tmpIsStarPattern = false;
           tmpSlash = true;
           continue;
         } else {
@@ -189,23 +190,24 @@ public abstract class SearchPattern {
   }
 
   /**
-   * Returns true if the patterns matches the whole string.
-   *
-   * @param aString the String to match with
-   * @return true or false
+   * @return the minimal length of a string that this {@link SearchPattern} can match
+   */
+  public abstract int getMinLength();
+
+  /**
+   * @param aString the string to match
+   * @return <code>true</code> if this {@link SearchPattern} matches the whole given string
    */
   public abstract boolean matches(String aString);
 
   /**
-   * Returns true, if the string ends with this pattern.
-   *
    * @param aString the string to match
-   * @return true or false
+   * @return <code>true</code>, if this {@link SearchPattern} matches the given string's end
    */
   public abstract boolean matchesAtEnd(String aString);
 
   /**
-   * Searches for the first occurrence of this search pattern inside the given string.
+   * Searches for the first occurrence of this {@link SearchPattern} inside the given string.
    *
    * @param aString the string to search inside
    * @return the {@link FindSpot} of the first occurrence
@@ -213,7 +215,8 @@ public abstract class SearchPattern {
   public abstract FindSpot firstOccurenceIn(String aString);
 
   /**
-   * Searches for the first occurrence of this search pattern inside the given string starting at the given position.
+   * Searches for the first occurrence of this {@link SearchPattern} inside the given string starting at the given
+   * position.
    *
    * @param aString the string to search inside
    * @param aStartPos the position to start
@@ -222,7 +225,7 @@ public abstract class SearchPattern {
   public abstract FindSpot firstOccurenceIn(String aString, int aStartPos);
 
   /**
-   * Searches for the last occurrence of this search pattern inside the given string.
+   * Searches for the last occurrence of this {@link SearchPattern} inside the given string.
    *
    * @param aString the string to search inside
    * @return the {@link FindSpot} of the last occurrence
@@ -230,8 +233,8 @@ public abstract class SearchPattern {
   public abstract FindSpot lastOccurenceIn(String aString);
 
   /**
-   * Calculates the number of chars before the last occurrence of this search pattern in the given string.<br>
-   * If this search pattern is left truncated (star at start), then this returns zero.
+   * Calculates the number of chars before the last occurrence of this {@link SearchPattern} in the given string.<br>
+   * If this {@link SearchPattern} is left truncated (star at start), then this returns zero.
    *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
@@ -239,8 +242,9 @@ public abstract class SearchPattern {
   public abstract int noOfCharsBeforeLastOccurenceIn(String aString);
 
   /**
-   * Calculates the number of chars before the last shortest occurrence of this search pattern in the given string.<br>
-   * If this search pattern is left truncated (star at start), then this returns zero.
+   * Calculates the number of chars before the last shortest occurrence of this {@link SearchPattern} in the given
+   * string.<br>
+   * If this {@link SearchPattern} is left truncated (star at start), then this returns zero.
    *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
@@ -248,8 +252,8 @@ public abstract class SearchPattern {
   public abstract int noOfCharsBeforeLastShortestOccurenceIn(String aString);
 
   /**
-   * Calculates the number of chars after the last occurrence of this search pattern in the given string.<br>
-   * If this search pattern is right truncated (star at end), then this returns zero.
+   * Calculates the number of chars after the last occurrence of this {@link SearchPattern} in the given string.<br>
+   * If this {@link SearchPattern} is right truncated (star at end), then this returns zero.
    *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
@@ -257,8 +261,9 @@ public abstract class SearchPattern {
   public abstract int noOfCharsAfterLastOccurenceIn(String aString);
 
   /**
-   * Calculates the number of chars after the last shortest occurrence of this search pattern in the given string.<br>
-   * If this search pattern is right truncated (star at end), then this returns zero.
+   * Calculates the number of chars after the last shortest occurrence of this {@link SearchPattern} in the given
+   * string.<br>
+   * If this {@link SearchPattern} is right truncated (star at end), then this returns zero.
    *
    * @param aString the string to search inside
    * @return the number of chars or -1 if the pattern is not found
@@ -266,8 +271,8 @@ public abstract class SearchPattern {
   public abstract int noOfCharsAfterLastShortestOccurenceIn(String aString);
 
   /**
-   * Calculates the sum of the number of characters before and after the match of this search pattern in the given
-   * string.
+   * Calculates the sum of the number of characters before and after the match of this {@link SearchPattern} in the
+   * given string.
    *
    * @param aString the string to search inside
    * @return the number of characters or -1 if the pattern is not found
@@ -275,17 +280,12 @@ public abstract class SearchPattern {
   public abstract int noOfSurroundingCharsIn(String aString);
 
   /**
-   * @return the originalString
+   * @return the string used to construct this {@link SearchPattern}
    */
   public String getOriginalString() {
     return originalString;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     final int tmpPrime = 31;
@@ -297,11 +297,6 @@ public abstract class SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(final Object anObject) {
     if (this == anObject) {
@@ -340,7 +335,7 @@ public abstract class SearchPattern {
 
     /**
      * @param aDosStyleWildcardString the wildcard string
-     * @return the cached pattern or null if not found
+     * @return the cached pattern or <code>null</code> if not found
      */
     public synchronized SearchPattern get(final String aDosStyleWildcardString) {
       final SearchPattern tmpPattern = cache.get(aDosStyleWildcardString);
@@ -351,7 +346,7 @@ public abstract class SearchPattern {
     }
 
     /**
-     * Add another entry to the cache.
+     * Adds another entry to the cache.
      *
      * @param aDosStyleWildcardString the wildcard string
      * @param aSearchPattern the compiled {@link SearchPattern}

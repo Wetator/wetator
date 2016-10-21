@@ -33,61 +33,36 @@ public final class MatchAllSearchPattern extends SearchPattern {
     super("*");
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
-   */
+  @Override
+  public int getMinLength() {
+    return 0;
+  }
+
   @Override
   public boolean matches(final String aString) {
     return true;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
-   */
   @Override
   public boolean matchesAtEnd(final String aString) {
     return false;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
-   */
   @Override
   public FindSpot firstOccurenceIn(final String aString) {
     return FindSpot.NOT_FOUND;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String, int)
-   */
   @Override
   public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
     return FindSpot.NOT_FOUND;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#lastOccurenceIn(java.lang.String)
-   */
   @Override
   public FindSpot lastOccurenceIn(final String aString) {
     return FindSpot.NOT_FOUND;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsBeforeLastOccurenceIn(final String aString) {
     if (aString == null) {
@@ -96,11 +71,6 @@ public final class MatchAllSearchPattern extends SearchPattern {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsBeforeLastShortestOccurenceIn(final String aString) {
     if (aString == null) {
@@ -109,11 +79,6 @@ public final class MatchAllSearchPattern extends SearchPattern {
     return aString.length();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsAfterLastOccurenceIn(final String aString) {
     if (aString == null) {
@@ -122,21 +87,11 @@ public final class MatchAllSearchPattern extends SearchPattern {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsAfterLastShortestOccurenceIn(final String aString) {
     return noOfCharsAfterLastOccurenceIn(aString);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
-   */
   @Override
   public int noOfSurroundingCharsIn(final String aString) {
     if (aString == null) {
@@ -145,11 +100,6 @@ public final class MatchAllSearchPattern extends SearchPattern {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return "SearchPattern '" + getOriginalString() + "' [matchAll]";

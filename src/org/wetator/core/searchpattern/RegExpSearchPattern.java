@@ -84,11 +84,11 @@ final class RegExpSearchPattern extends SearchPattern {
     runAutomaton = new RunAutomaton(tmpAutomaton);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#matches(java.lang.String)
-   */
+  @Override
+  public int getMinLength() {
+    return minLength;
+  }
+
   @Override
   public boolean matches(final String aString) {
     matches++;
@@ -103,11 +103,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return runAutomaton.run(aString);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#matchesAtEnd(java.lang.String)
-   */
   @Override
   public boolean matchesAtEnd(final String aString) {
     matchesAtEnd++;
@@ -127,21 +122,11 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpMatcher.end() == aString.length();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String)
-   */
   @Override
   public FindSpot firstOccurenceIn(final String aString) {
     return firstOccurenceIn(aString, 0);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#firstOccurenceIn(java.lang.String, int)
-   */
   @Override
   public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
     firstOccurenceIn++;
@@ -164,11 +149,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return new FindSpot(tmpMatcher.start(), tmpMatcher.end());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#lastOccurenceIn(java.lang.String)
-   */
   @Override
   public FindSpot lastOccurenceIn(final String aString) {
     lastOccurenceIn++;
@@ -191,11 +171,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return new FindSpot(tmpMatcher.start(), tmpMatcher.end());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsBeforeLastOccurenceIn(final String aString) {
     noOfCharsBeforeLastOccurenceIn++;
@@ -221,11 +196,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsBeforeLastShortestOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsBeforeLastShortestOccurenceIn(final String aString) {
     noOfCharsBeforeLastShortestOccurenceIn++;
@@ -251,11 +221,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsAfterLastOccurenceIn(final String aString) {
     noOfCharsAfterLastOccurenceIn++;
@@ -281,11 +246,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfCharsAfterLastShortestOccurenceIn(java.lang.String)
-   */
   @Override
   public int noOfCharsAfterLastShortestOccurenceIn(final String aString) {
     noOfCharsAfterLastShortestOccurenceIn++;
@@ -311,11 +271,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.searchpattern.SearchPattern#noOfSurroundingCharsIn(java.lang.String)
-   */
   @Override
   public int noOfSurroundingCharsIn(final String aString) {
     noOfSurroundingCharsIn++;
@@ -340,11 +295,6 @@ final class RegExpSearchPattern extends SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return "SearchPattern '" + getOriginalString() + "' [regexp: '" + patternString + "']";
