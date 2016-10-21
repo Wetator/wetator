@@ -39,31 +39,16 @@ class AntWriter extends Writer {
     task = aTask;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.io.Writer#close()
-   */
   @Override
   public void close() throws IOException {
     // ignore
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.io.Writer#flush()
-   */
   @Override
   public void flush() throws IOException {
     // ignore
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.io.Writer#write(char[], int, int)
-   */
   @Override
   public void write(final char[] aCbuf, final int aOff, final int aLen) throws IOException {
     // remove the trailing line feeds
