@@ -287,7 +287,7 @@ public class SnoopyServlet extends HttpServlet {
    * Parse a name in the query string.
    */
   private static String parseName(final String aString) {
-    final StringBuffer tmpResult = new StringBuffer();
+    final StringBuilder tmpResult = new StringBuilder();
     for (int i = 0; i < aString.length(); i++) {
       final char tmpChar = aString.charAt(i);
       switch (tmpChar) {
