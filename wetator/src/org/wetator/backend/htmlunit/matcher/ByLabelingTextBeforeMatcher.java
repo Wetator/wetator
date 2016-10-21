@@ -24,33 +24,40 @@ import org.wetator.util.FindSpot;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * This matcher checks if the label text after the given element matches the criteria.
+ * This matcher checks if the labeling text before the given element matches the criteria.
  *
  * @author frank.danek
  */
-public class ByLabelTextAfterMatcher extends AbstractByAttributeMatcher {
+public class ByLabelingTextBeforeMatcher extends AbstractByAttributeMatcher {
 
   /**
    * The constructor.<br>
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public ByLabelTextAfterMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+  public ByLabelingTextBeforeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
       final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
-    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_LABEL_TEXT);
+    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_LABELING_TEXT);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    return htmlPageIndex.getLabelTextAfter(aHtmlElement);
+    int tmpStartPosition = 0;
+    if (pathSpot != null) {
+      tmpStartPosition = pathSpot.getEndPos();
+    }
+    return htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPosition);
+  }
+
+  @Override
+  protected String processTextForDistance(final String aTextBefore) {
+    // in this case the label is part of the text before
+    // lets try to remove that
+    return aTextBefore.substring(0, searchPattern.noOfCharsBeforeLastShortestOccurenceIn(aTextBefore));
   }
 }

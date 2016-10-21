@@ -22,9 +22,12 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
 /**
- * This matcher checks if the attribute 'title' of the given element matches the criteria.
+ * This matcher checks if the attribute 'title' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches
+ * the criteria.
  *
  * @author frank.danek
  */
@@ -35,8 +38,9 @@ public class ByImageTitleAttributeMatcher extends AbstractByAttributeMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByImageTitleAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -44,13 +48,11 @@ public class ByImageTitleAttributeMatcher extends AbstractByAttributeMatcher {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_IMG_TITLE_ATTRIBUTE);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    return aHtmlElement.getAttribute("title");
+    if (aHtmlElement instanceof HtmlImage || aHtmlElement instanceof HtmlImageInput) {
+      return aHtmlElement.getAttribute("title");
+    }
+    return null;
   }
 }

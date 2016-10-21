@@ -38,8 +38,9 @@ public class ByImageAltAttributeMatcher extends AbstractByAttributeMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByImageAltAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -47,20 +48,14 @@ public class ByImageAltAttributeMatcher extends AbstractByAttributeMatcher {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_IMG_ALT_ATTRIBUTE);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    String tmpValue = null;
     if (aHtmlElement instanceof HtmlImage) {
-      tmpValue = ((HtmlImage) aHtmlElement).getAltAttribute();
+      return ((HtmlImage) aHtmlElement).getAltAttribute();
     }
     if (aHtmlElement instanceof HtmlImageInput) {
-      tmpValue = ((HtmlImageInput) aHtmlElement).getAltAttribute();
+      return ((HtmlImageInput) aHtmlElement).getAltAttribute();
     }
-    return tmpValue;
+    return null;
   }
 }

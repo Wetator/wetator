@@ -38,7 +38,7 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='myId' name='myName' aria-label='text'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
@@ -53,11 +53,11 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myName");
+    final SecretString tmpSearch = new SecretString("myLabel");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -69,11 +69,11 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myNa*");
+    final SecretString tmpSearch = new SecretString("myLab*");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -85,11 +85,11 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*Name");
+    final SecretString tmpSearch = new SecretString("*Label");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -101,11 +101,11 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("yNam");
+    final SecretString tmpSearch = new SecretString("yLabe");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
@@ -114,85 +114,107 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_TextBefore() throws IOException, InvalidInputException {
+  public void empty_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId' aria-label='myLabel'>X</button>"
         + "<p>Some text .... </p>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > myName");
+    final SecretString tmpSearch = new SecretString("Some text > ");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void full_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId' aria-label='myLabel'>X</button>"
+        + "<p>Some text .... </p>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Some text > myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 0, 5, 16, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId' aria-label='myLabel'>X</button>"
         + "<p>Some text .... </p>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > myNa*");
+    final SecretString tmpSearch = new SecretString("Some text > myLab*");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 0, 5, 16, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId' aria-label='myLabel'>X</button>"
         + "<p>Some text .... </p>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > *Name");
+    final SecretString tmpSearch = new SecretString("Some text > *Label");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 0, 5, 16, tmpMatches.get(0));
   }
 
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId' aria-label='myLabel'>X</button>"
         + "<p>Some text .... </p>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > yNam");
+    final SecretString tmpSearch = new SecretString("Some text > yLabe");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 2, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_ARIA_LABEL_ATTRIBUTE, 2, 5, 16, tmpMatches.get(0));
   }
 
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId' aria-label='myLabel'>X</button>"
         + "<p>Some text .... </p>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > myName");
+    final SecretString tmpSearch = new SecretString("wrong text > myLabel");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -201,24 +223,17 @@ public class ByAriaLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='myId' aria-label='myName'>X</button>"
+        + "<button id='myId' aria-label='myLabel'>X</button>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > myName");
+    final SecretString tmpSearch = new SecretString("wrong text > myLabel");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
-   *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
-   *      org.wetator.core.searchpattern.SearchPattern)
-   */
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

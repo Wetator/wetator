@@ -24,7 +24,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
-import org.wetator.backend.htmlunit.matcher.ByLabelTextAfterMatcher;
+import org.wetator.backend.htmlunit.matcher.ByLabelingTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * The identifier for a {@link HtmlUnitInputCheckBox}.<br>
  * It can be identified by:
  * <ul>
- * <li>the label text after</li>
+ * <li>the labeling text after</li>
  * <li>its title attribute</li>
  * <li>its name</li>
  * <li>its id</li>
@@ -52,22 +52,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  */
 public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlCheckBoxInput || aHtmlElement instanceof HtmlLabel;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
-   */
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
@@ -86,7 +75,8 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlCheckBoxInput) {
-        aMatchers.add(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers
+            .add(new ByLabelingTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
@@ -103,11 +93,6 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aHtmlElement);

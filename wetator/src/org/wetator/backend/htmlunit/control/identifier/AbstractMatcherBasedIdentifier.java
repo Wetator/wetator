@@ -41,17 +41,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  */
 public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitControlIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath, HtmlElement)
-   */
   @Override
   public WeightedControlList identify(final WPath aWPath, final HtmlElement aHtmlElement) {
     final List<AbstractHtmlUnitElementMatcher> tmpMatchers = new ArrayList<AbstractHtmlUnitElementMatcher>();
     addMatchers(aWPath, aHtmlElement, tmpMatchers);
     if (tmpMatchers.isEmpty()) {
-      return new WeightedControlList();
+      return WeightedControlList.EMPTY_LIST;
     }
 
     final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
@@ -97,7 +92,7 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
   }
 
   /**
-   * @param aWPath the wpath used to identify the controls
+   * @param aWPath the {@link WPath} used to identify the controls
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @param aMatchers the list the matcher should be added to
    */

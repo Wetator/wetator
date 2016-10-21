@@ -42,10 +42,10 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='myId' name='myName' size='2'>"
-        + "<option id='myOptionId1' value='o_value1'>option1</option>"
-        + "<option id='myOptionId2' value='o_value2'>option2</option>"
-        + "<option id='myOptionId3' value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -58,7 +58,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' (id='myOptionId1') part of [HtmlSelect (id='myId') (name='myName')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

@@ -113,7 +113,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

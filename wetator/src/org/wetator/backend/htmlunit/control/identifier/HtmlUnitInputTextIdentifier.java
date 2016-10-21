@@ -25,7 +25,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
-import org.wetator.backend.htmlunit.matcher.ByLabelTextBeforeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByPlaceholderAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
@@ -43,7 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * It can be identified by:
  * <ul>
  * <li>the whole text before</li>
- * <li>the label text before</li>
+ * <li>the labeling text before</li>
  * <li>its placeholder attribute</li>
  * <li>its name</li>
  * <li>its id</li>
@@ -55,22 +55,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  */
 public class HtmlUnitInputTextIdentifier extends AbstractMatcherBasedIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlTextInput || aHtmlElement instanceof HtmlLabel;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
-   */
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
@@ -88,15 +77,16 @@ public class HtmlUnitInputTextIdentifier extends AbstractMatcherBasedIdentifier 
     if (aWPath.getLastNode() != null) {
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
-      final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
-      tmpWholePath.add(aWPath.getLastNode());
-      final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
       if (aHtmlElement instanceof HtmlTextInput) {
         // whole text before
+        final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+        tmpWholePath.add(aWPath.getLastNode());
+        final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
         aMatchers.add(
             new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
 
-        aMatchers.add(new ByLabelTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers
+            .add(new ByLabelingTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers
             .add(new ByPlaceholderAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
@@ -114,11 +104,6 @@ public class HtmlUnitInputTextIdentifier extends AbstractMatcherBasedIdentifier 
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitInputText((HtmlTextInput) aHtmlElement);

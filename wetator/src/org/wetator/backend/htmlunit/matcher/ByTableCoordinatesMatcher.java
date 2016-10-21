@@ -16,7 +16,8 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.wetator.backend.WPath.TableCoordinate;
@@ -46,8 +47,9 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aTableCoordinates the {@link TableCoordinate}s to match
    * @param aClass the class of the element to find
    */
@@ -60,21 +62,15 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     clazz = aClass;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public List<MatchResult> matches(final HtmlElement aHtmlElement) {
-    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (!clazz.isAssignableFrom(aHtmlElement.getClass())) {
-      return tmpMatches;
+      return Collections.emptyList();
     }
 
     // was the path found at all
     if (FindSpot.NOT_FOUND == pathSpot) {
-      return tmpMatches;
+      return Collections.emptyList();
     }
 
     // has the node the text before
@@ -88,10 +84,11 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       } else {
         tmpDistance = tmpTextBefore.length();
       }
-      tmpMatches
-          .add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot.getStartPos()));
+      return Arrays.asList(
+          new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot.getStartPos()));
     }
-    return tmpMatches;
+
+    return Collections.emptyList();
   }
 
   /**
@@ -100,8 +97,8 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aHtmlElement the {@link HtmlElement} to check
    * @param aTableCoordinates the {@link TableCoordinate}s to search for
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the check is based on
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
-   * @return true if the given element is found
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
+   * @return <code>true</code> if the given element is found
    */
   public static boolean isHtmlElementInTableCoordinates(final HtmlElement aHtmlElement,
       final List<TableCoordinate> aTableCoordinates, final HtmlPageIndex aHtmlPageIndex, final FindSpot aPathSpot) {

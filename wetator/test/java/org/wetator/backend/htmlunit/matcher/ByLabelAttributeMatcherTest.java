@@ -38,20 +38,16 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
         + "</body></html>";
     // @formatter:on
 
     final SecretString tmpSearch = new SecretString("not");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -60,209 +56,216 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("colors");
+    final SecretString tmpSearch = new SecretString("myLabel");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("colo*");
+    final SecretString tmpSearch = new SecretString("myLab*");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*lors");
+    final SecretString tmpSearch = new SecretString("*Label");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("olor");
+    final SecretString tmpSearch = new SecretString("yLabe");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void empty_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<select id='otherSelectId'>"
+        + "<optgroup id='otherId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Some text > ");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
+
+    Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Some text .... </p>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='otherSelectId'>"
+        + "<optgroup id='otherId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > colors");
+    final SecretString tmpSearch = new SecretString("Some text > myLabel");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 26, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Some text .... </p>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='otherSelectId'>"
+        + "<optgroup id='otherId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > colo*");
+    final SecretString tmpSearch = new SecretString("Some text > myLab*");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 26, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Some text .... </p>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='otherSelectId'>"
+        + "<optgroup id='otherId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > *lors");
+    final SecretString tmpSearch = new SecretString("Some text > *Label");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 26, tmpMatches.get(0));
   }
 
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Some text .... </p>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='otherSelectId'>"
+        + "<optgroup id='otherId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > olor");
+    final SecretString tmpSearch = new SecretString("Some text > yLabe");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("optgroup_colors", FoundType.BY_LABEL_TEXT, 2, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 5, 26, tmpMatches.get(0));
   }
 
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Some text .... </p>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='otherSelectId'>"
+        + "<optgroup id='otherId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > colors");
+    final SecretString tmpSearch = new SecretString("wrong text > myLabel");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -271,31 +274,20 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<optgroup label='colors' id='optgroup_colors'>"
+        + "<select id='mySelectId'>"
+        + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
         + "</select>"
-        + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > colors");
+    final SecretString tmpSearch = new SecretString("wrong text > myLabel");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "optgroup_colors");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
-   *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
-   *      org.wetator.core.searchpattern.SearchPattern)
-   */
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

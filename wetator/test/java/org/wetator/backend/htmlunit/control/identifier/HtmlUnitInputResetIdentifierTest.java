@@ -96,7 +96,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

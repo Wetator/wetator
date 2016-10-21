@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,8 +42,9 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByInnerImageMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -50,23 +52,17 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public List<MatchResult> matches(final HtmlElement aHtmlElement) {
-    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-
     // was the path found at all
     if (FindSpot.NOT_FOUND == pathSpot) {
-      return tmpMatches;
+      return Collections.emptyList();
     }
 
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
+      final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
 
       // now check for the including image
       final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();
@@ -89,8 +85,10 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
                   .matches(aHtmlElement));
         }
       }
+      return tmpMatches;
     }
-    return tmpMatches;
+
+    return Collections.emptyList();
   }
 
   /**
@@ -108,8 +106,9 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      *
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+     *        path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -119,21 +118,15 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
       innerHtmlElement = anInnerHtmlElement;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-     */
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      String tmpValue = null;
       if (innerHtmlElement instanceof HtmlImage) {
-        tmpValue = ((HtmlImage) innerHtmlElement).getAltAttribute();
+        return ((HtmlImage) innerHtmlElement).getAltAttribute();
       }
       if (innerHtmlElement instanceof HtmlImageInput) {
-        tmpValue = ((HtmlImageInput) innerHtmlElement).getAltAttribute();
+        return ((HtmlImageInput) innerHtmlElement).getAltAttribute();
       }
-      return tmpValue;
+      return null;
     }
   }
 
@@ -152,8 +145,9 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      *
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+     *        path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -164,21 +158,15 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
       matchType = MatchType.ENDS_WITH;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-     */
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      String tmpValue = null;
       if (innerHtmlElement instanceof HtmlImage) {
-        tmpValue = ((HtmlImage) innerHtmlElement).getSrcAttribute();
+        return ((HtmlImage) innerHtmlElement).getSrcAttribute();
       }
       if (innerHtmlElement instanceof HtmlImageInput) {
-        tmpValue = ((HtmlImageInput) innerHtmlElement).getSrcAttribute();
+        return ((HtmlImageInput) innerHtmlElement).getSrcAttribute();
       }
-      return tmpValue;
+      return null;
     }
   }
 
@@ -197,8 +185,9 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      *
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+     *        path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -208,14 +197,12 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
       innerHtmlElement = anInnerHtmlElement;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-     */
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      return innerHtmlElement.getAttribute("title");
+      if (innerHtmlElement instanceof HtmlImage || innerHtmlElement instanceof HtmlImageInput) {
+        return innerHtmlElement.getAttribute("title");
+      }
+      return null;
     }
   }
 
@@ -234,8 +221,9 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      * Creates a new matcher with the given criteria.
      *
      * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-     * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+     * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+     *        path given
+     * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
      * @param anInnerHtmlElement the inner image element
      */
@@ -246,14 +234,12 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
       matchType = MatchType.EXACT;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-     */
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      return innerHtmlElement.getAttribute("name");
+      if (innerHtmlElement instanceof HtmlImage || innerHtmlElement instanceof HtmlImageInput) {
+        return innerHtmlElement.getAttribute("name");
+      }
+      return null;
     }
   }
 }
