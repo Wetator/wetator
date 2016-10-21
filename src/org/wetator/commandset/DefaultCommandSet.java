@@ -752,7 +752,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         i++;
       }
 
-      final StringBuffer tmpMethodLabel = new StringBuffer(tmpMethodName);
+      final StringBuilder tmpMethodLabel = new StringBuilder(tmpMethodName);
 
       try {
         final Class<?> tmpClass = Class.forName(tmpClassName);
@@ -762,7 +762,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           tmpParams = new Object[] { tmpParams };
         }
 
-        // build a more descriptive method name
+        // build a more descriptive method name for thrown exceptions
         tmpMethodLabel.append('(');
         for (int j = 0; j < tmpParamTypes.length; j++) {
           if (j > 0) {
@@ -779,12 +779,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
 
         Object tmpReceiver = null;
+        Object tmpResult = null;
         if (!Modifier.isStatic(tmpMethod.getModifiers())) {
           tmpReceiver = tmpClass.newInstance();
+          tmpResult = MethodUtils.invokeMethod(tmpReceiver, tmpMethod.getName(), tmpParams);
+        } else {
+          tmpResult = MethodUtils.invokeStaticMethod(tmpClass, tmpMethod.getName(), tmpParams);
         }
 
         // time to execute
-        final Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
+        // final Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
         if (Void.TYPE != tmpMethod.getReturnType()) {
           if (null == tmpResult) {
             aContext.informListenersInfo("javaExecResult", new String[] { "null" });
@@ -833,6 +837,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final String tmpMessage = Messages.getMessage("javaExecInstantiation", new String[] { tmpClassName,
             tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getCause().toString() });
         throw new CommandException(tmpMessage);
+      } catch (final NoSuchMethodException e) {
+        final String tmpMessage = Messages.getMessage("javaExecMethodNotFound",
+            new String[] { tmpClassName, tmpMethodLabel.toString() });
+        throw new InvalidInputException(tmpMessage);
       }
     }
   }
