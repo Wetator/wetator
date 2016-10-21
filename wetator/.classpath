@@ -9,7 +9,7 @@
 	<classpathentry kind="lib" path="lib/bcprov-jdk15on-1.54.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-lang3-3.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang3-3.5.jar" sourcepath="lib_src/commons-lang3-3.5-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/cssparser-0.9.20.jar"/>
 	<classpathentry kind="lib" path="lib/fontbox-2.0.3.jar"/>
