@@ -16,7 +16,8 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,8 +46,9 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    * @param aFoundType the {@link FoundType} the matcher should use when adding the element
    */
@@ -56,18 +58,16 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
     foundType = aFoundType;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public List<MatchResult> matches(final HtmlElement aHtmlElement) {
-    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-
     // was the path found at all
     if (FindSpot.NOT_FOUND == pathSpot) {
-      return tmpMatches;
+      return Collections.emptyList();
+    }
+
+    // has the search pattern something to match
+    if (searchPattern.getMinLength() == 0) {
+      return Collections.emptyList();
     }
 
     // has the node the text before
@@ -95,11 +95,13 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
           } else {
             tmpDistance = tmpTextBefore.length();
           }
-          tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
+          return Arrays
+              .asList(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
         }
       }
     }
-    return tmpMatches;
+
+    return Collections.emptyList();
   }
 
   /**
@@ -109,14 +111,14 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
   protected abstract String getAttributeValue(HtmlElement aHtmlElement);
 
   /**
-   * Processed the text used to calculate the distance.<br>
+   * Processes the text used to calculate the distance.<br>
    * The default implementation just returns the original text. Override to change this behavior.
    *
-   * @param aTextBefore the text to process
+   * @param aText the text to process
    * @return the processed text
    */
-  protected String processTextForDistance(final String aTextBefore) {
-    return aTextBefore;
+  protected String processTextForDistance(final String aText) {
+    return aText;
   }
 
   /**

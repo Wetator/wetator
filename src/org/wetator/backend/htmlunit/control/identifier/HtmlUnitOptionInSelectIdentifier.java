@@ -28,6 +28,7 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -39,11 +40,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * <ul>
  * <li>its text</li>
  * <li>its label attribute</li>
- * <li>its value attribute</li>
  * </ul>
  * The surrounding select can be identified by:
  * <ul>
- * <li>the label text before</li>
+ * <li>the labeling text before</li>
  * <li>its name</li>
  * <li>its id</li>
  * <li>a label</li>
@@ -53,31 +53,18 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  */
 public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlSelect || aHtmlElement instanceof HtmlLabel;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public WeightedControlList identify(final WPath aWPath, final HtmlElement aHtmlElement) {
     if (aWPath.getLastNode() == null) {
       // this identifier requires at least one node (to identify the option to select)
       // if not available, we can't do anything
-      return new WeightedControlList();
+      return WeightedControlList.EMPTY_LIST;
     }
-
-    final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     final SearchPattern tmpSearchPatternSelect;
     SearchPattern tmpPathSearchPatternSelect = null;
@@ -95,8 +82,10 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
     // was the path found at all
     if (tmpPathSpotSelect == FindSpot.NOT_FOUND) {
-      return new WeightedControlList();
+      return WeightedControlList.EMPTY_LIST;
     }
+
+    final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     final WeightedControlList tmpResult = new WeightedControlList();
     if (aHtmlElement instanceof HtmlSelect) {
@@ -218,60 +207,59 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
   /**
    * Searches for nested option of a given select by label, value or text.
    *
-   * @param aSelect HtmlSelect which should contain this option
+   * @param aSelect {@link HtmlSelect} which should contain this option
    * @param aSearchPattern value or label of option
    * @param aTableCoordinates the table coordinates to check if our option is inside or an empty list
    * @param aDistance the distance of the control
    * @param aWeightedControlList the list to add the control to
    * @return found
    */
+  // FIXME why distance of select and not of option?
   protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern,
       final List<TableCoordinate> aTableCoordinates, final int aDistance,
       final WeightedControlList aWeightedControlList) {
     boolean tmpFound = false;
     final Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
     for (final HtmlOption tmpOption : tmpOptions) {
-      String tmpText = htmlPageIndex.getAsText(tmpOption);
       final int tmpStart = htmlPageIndex.getPosition(tmpOption).getStartPos();
-      if (StringUtils.isNotEmpty(tmpText)) {
-        final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+
+      // does the text match?
+      final String tmpText = htmlPageIndex.getAsText(tmpOption);
+      if (tmpText != null) {
+        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
+          if (aSearchPattern.getMinLength() == 0) {
+            // as options with an empty text are valid we redefine the coverage here
+            tmpCoverage = tmpText.length();
+          }
+
           final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
           if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-                aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
+                tmpCoverage, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
         }
       }
 
-      tmpText = tmpOption.getLabelAttribute();
-      if (StringUtils.isNotEmpty(tmpText)) {
-        final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+      // does the label attribute match?
+      final String tmpLabel = tmpOption.getLabelAttribute();
+      if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpLabel) {
+        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpLabel);
         if (tmpCoverage > -1) {
-          final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
-              .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
-
-          if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-                aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
-            tmpFound = true;
+          if (aSearchPattern.getMinLength() == 0) {
+            // as options with an empty label attribute are valid we redefine the coverage here
+            tmpCoverage = tmpLabel.length();
           }
-        }
-      }
 
-      tmpText = tmpOption.getValueAttribute();
-      if (StringUtils.isNotEmpty(tmpText)) {
-        final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
-        if (tmpCoverage > -1) {
           final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
           if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-                aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
+                tmpCoverage, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
         }

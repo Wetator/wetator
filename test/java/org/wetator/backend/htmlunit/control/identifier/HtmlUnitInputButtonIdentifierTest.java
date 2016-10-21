@@ -96,7 +96,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -197,7 +197,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABEL_TEXT coverage: 0 distance: 56 start: 56 index: 45",
+        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABELING_TEXT coverage: 0 distance: 56 start: 56 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

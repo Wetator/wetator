@@ -46,26 +46,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("not > o_value3");
+    final SecretString tmpSearch = new SecretString("not > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -75,30 +75,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -107,30 +107,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelect* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -139,30 +139,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*SecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("*ySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -171,26 +171,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("SecondSelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -200,30 +200,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > MySecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 0 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -232,30 +232,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > MySecondSelect* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectI* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 0 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -264,30 +264,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > *SecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > *ySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 0 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -296,26 +296,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > ySecondSelectI > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > ySecondSelectI > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -325,26 +325,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -354,18 +354,18 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectId > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -375,30 +375,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -407,30 +407,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectNa* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectNa* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -439,30 +439,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*SecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("*ySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -471,26 +471,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("SecondSelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -500,30 +500,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > MySecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -532,30 +532,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > MySecondSelectNa* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectNa* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -564,30 +564,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > *SecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > *ySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -596,26 +596,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > ySecondSelectNam > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > ySecondSelectNam > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -625,26 +625,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -654,325 +654,325 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > MySecondSelectName > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void byLabelTextBeforeFull() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeFull() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforeWildcardRight() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeWildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelingTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforeWildcardLeft() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeWildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*condSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("*ySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforePart() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforePart() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("econdSelectLabelTex > o_value3");
+    final SecretString tmpSearch = new SecretString("ySelectLabelingTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 66 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforeFull_TextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeFull_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 46 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 45 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforeWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeWildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > SecondSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelingTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 46 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 45 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforeWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeWildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > *condSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 46 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 45 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforePart_TextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforePart_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > econdSelectLabelTex > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelingTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 46 start: 82 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 45 start: 84 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byLabelTextBeforeFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeFull_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void byLabelTextBeforeFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeFull_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -982,30 +982,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1014,30 +1014,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1046,30 +1046,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*condSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("*ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1078,30 +1078,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("econdSelectLabelTex > o_value3");
+    final SecretString tmpSearch = new SecretString("ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1110,30 +1110,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1142,30 +1142,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > SecondSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1174,30 +1174,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > *condSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1206,30 +1206,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > econdSelectLabelTex > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1238,26 +1238,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1267,20 +1267,19 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1290,31 +1289,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1323,31 +1322,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1356,31 +1355,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*condSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("*ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1389,31 +1388,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("econdSelectLabelTex > o_value3");
+    final SecretString tmpSearch = new SecretString("ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 47 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1422,31 +1421,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1455,31 +1454,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > SecondSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1488,31 +1487,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > *condSelectLabelTe* > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1521,31 +1520,31 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("FirstSelectLabelText > econdSelectLabelTex > o_value3");
+    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option3' (id='2_3') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 24 start: 82 index: 20",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABELING_TEXT coverage: 0 distance: 24 start: 81 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1554,27 +1553,27 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "labelId", "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1584,21 +1583,20 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > SecondSelectLabelText > o_value3");
+    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1620,16 +1618,16 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "          <td id='cell_1_1'>row_1</td>"
         + "          <td id='cell_1_2'>"
         + "            SelectLabelText"
-        + "            <select id='MySelectId_1_2' name='MySelectName_1_2' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_1_2' name='mySelectName_1_2' size='2'>"
+        + "              <option value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "          <td id='cell_1_3'>"
         + "            SelectLabelText"
-        + "            <select id='MySelectId_1_3' name='MySelectName_1_3' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_1_3' name='mySelectName_1_3' size='2'>"
+        + "              <option value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "        </tr>"
@@ -1637,16 +1635,16 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "          <td id='cell_2_1'>row_2</td>"
         + "          <td id='cell_2_2'>"
         + "            SelectLabelText"
-        + "            <select id='MySelectId_2_2' name='MySelectName_2_2' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_2_2' name='mySelectName_2_2' size='2'>"
+        + "              <option value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "          <td id='cell_2_3'>"
         + "            SelectLabelText"
-        + "            <select id='MySelectId_2_3' name='MySelectName_2_3' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_2_3' name='mySelectName_2_3' size='2'>"
+        + "              <option value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "        </tr>"
@@ -1655,13 +1653,13 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2] > SelectLabelText > option2");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2] > SelectLabelText > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySelectId_1_2",
-        "MySelectId_1_3", "MySelectId_2_2", "MySelectId_2_3");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId_1_2",
+        "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' part of [HtmlSelect (id='MySelectId_2_3') (name='MySelectName_2_3')]] found by: BY_LABEL coverage: 0 distance: 150 start: 158 index: 67",
+        "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABELING_TEXT coverage: 0 distance: 150 start: 158 index: 67",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1670,26 +1668,26 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > not");
+    final SecretString tmpSearch = new SecretString("mySelectId > not");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1699,30 +1697,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > option2");
+    final SecretString tmpSearch = new SecretString("mySelectId > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1731,30 +1729,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>1option</option>"
-        + "<option id='1_2' value='o_value2'>2option</option>"
-        + "<option id='1_3' value='o_value3'>3option</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>1option</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>2option</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>3option</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>1option</option>"
-        + "<option id='2_2' value='o_value2'>2option</option>"
-        + "<option id='2_3' value='o_value3'>3option</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>1option</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>2option</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>3option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > 2opti*");
+    final SecretString tmpSearch = new SecretString("mySelectId > 2opti*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption '2option' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption '2option' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1763,30 +1761,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > *tion2");
+    final SecretString tmpSearch = new SecretString("mySelectId > *Text2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1795,30 +1793,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > tion2");
+    final SecretString tmpSearch = new SecretString("mySelectId > Text2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 2 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 2 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1827,31 +1825,69 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>op<b>t</b>ion2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>my<b>T</b>ext2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > option2");
+    final SecretString tmpSearch = new SecretString("mySelectId > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void option_byTextEmpty() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'></option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("mySelectId > ");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
+
+    Assert.assertEquals(3, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlOption '' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId2_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 7 distance: 68 start: 68 index: 15",
+        tmpFound.getEntriesSorted().get(1).toString());
+    Assert.assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 7 distance: 68 start: 76 index: 18",
+        tmpFound.getEntriesSorted().get(2).toString());
   }
 
   @Test
@@ -1859,30 +1895,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > o_label2");
+    final SecretString tmpSearch = new SecretString("mySelectId > myLabel2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1891,30 +1927,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='1myLabel' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='2myLabel' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='3myLabel' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' label='1myLabel' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' label='2myLabel' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' label='3myLabel' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > o_labe*");
+    final SecretString tmpSearch = new SecretString("mySelectId > 2myLab*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1923,30 +1959,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > *label2");
+    final SecretString tmpSearch = new SecretString("mySelectId > *Label2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1955,159 +1991,69 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' label='o_label2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > label2");
+    final SecretString tmpSearch = new SecretString("mySelectId > Label2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 2 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 2 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void option_byValueFull() throws IOException, InvalidInputException {
+  public void option_byLabelEmpty() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' label='' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > o_value2");
+    final SecretString tmpSearch = new SecretString("mySelectId > ");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(3, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 68 start: 76 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void option_byValueWildcardRight() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='1o_value'>option1</option>"
-        + "<option id='1_2' value='2o_value'>option2</option>"
-        + "<option id='1_3' value='3o_value'>option3</option>"
-        + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='1o_value'>option1</option>"
-        + "<option id='2_2' value='2o_value'>option2</option>"
-        + "<option id='2_3' value='3o_value'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > 2o_val*");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void option_byValueWildcardLeft() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > *value2");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+        "[HtmlOption 'myText1' (id='myOptionId2_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 7 distance: 68 start: 68 index: 15",
+        tmpFound.getEntriesSorted().get(1).toString());
     Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66 start: 74 index: 17",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void option_byValuePart() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("MySecondSelectId > value2");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
-        "MySecondSelectId");
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')]] found by: BY_LABEL coverage: 2 distance: 66 start: 74 index: 17",
-        tmpFound.getEntriesSorted().get(0).toString());
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 7 distance: 68 start: 84 index: 19",
+        tmpFound.getEntriesSorted().get(2).toString());
   }
 
   @Test
@@ -2115,22 +2061,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option id='MyOptionId1' value='o_value1'>option1</option>"
-        + "<option id='MyOptionId2' value='o_value2'>option2</option>"
-        + "<option id='MyOptionId3' value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("option1");
+    final SecretString tmpSearch = new SecretString("myText1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' (id='MyOptionId1') part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2139,10 +2085,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option value='o_value1'>1option</option>"
-        + "<option value='o_value2'>2option</option>"
-        + "<option value='o_value3'>3option</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>1option</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>2option</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>3option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -2150,11 +2096,11 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("1opti*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption '1option' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption '1option' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2163,22 +2109,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*tion1");
+    final SecretString tmpSearch = new SecretString("*Text1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2187,22 +2133,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("tion1");
+    final SecretString tmpSearch = new SecretString("Text1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 2 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 2 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2211,22 +2157,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option id='MyOptionId1' value='o_value1'>op<b>t</b>ion1</option>"
-        + "<option id='MyOptionId2' value='o_value2'>option2</option>"
-        + "<option id='MyOptionId3' value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>my<b>T</b>ext1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("option1");
+    final SecretString tmpSearch = new SecretString("myText1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' (id='MyOptionId1') part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2235,22 +2181,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyLabel");
+    final SecretString tmpSearch = new SecretString("myLabel1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2259,22 +2205,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='1myLabel' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='2myLabel' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='3myLabel' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyLab*");
+    final SecretString tmpSearch = new SecretString("1myLab*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2283,22 +2229,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*Label");
+    final SecretString tmpSearch = new SecretString("*Label1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2307,118 +2253,22 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' label='myLabel3' value='myValue3'>myText3</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Label");
+    final SecretString tmpSearch = new SecretString("bel1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 2 distance: 0 start: 0 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void noSelectPart_byValueFull() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("o_value1");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void noSelectPart_byValueWildcardRight() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='1o_value'>option1</option>"
-        + "<option value='2o_value'>option2</option>"
-        + "<option value='3o_value'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("1o_val*");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void noSelectPart_byValueWildcardLeft() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("*value1");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void noSelectPart_byValuePart() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<select id='MySelectId' name='MySelectName' size='2'>"
-        + "<option label='MyLabel' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final SecretString tmpSearch = new SecretString("value1");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "MySelectId", new WPath(tmpSearch, config));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'option1' part of [HtmlSelect (id='MySelectId') (name='MySelectName')]] found by: BY_LABEL coverage: 2 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABELING_TEXT coverage: 4 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2438,30 +2288,30 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
         + "          <td id='cell_1_2'>"
-        + "            <select id='MySelectId_1_2' name='MySelectName_1_2' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_1_2' name='mySelectName_1_2' size='2'>"
+        + "              <option label='MyLabel' value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "          <td id='cell_1_3'>"
-        + "            <select id='MySelectId_1_3' name='MySelectName_1_3' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_1_3' name='mySelectName_1_3' size='2'>"
+        + "              <option label='MyLabel' value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "        </tr>"
         + "        <tr>"
         + "          <td id='cell_2_1'>row_2</td>"
         + "          <td id='cell_2_2'>"
-        + "            <select id='MySelectId_2_2' name='MySelectName_2_2' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_2_2' name='mySelectName_2_2' size='2'>"
+        + "              <option label='MyLabel' value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "          <td id='cell_2_3'>"
-        + "            <select id='MySelectId_2_3' name='MySelectName_2_3' size='2'>"
-        + "              <option label='MyLabel' value='o_value1'>option1</option>"
-        + "              <option value='o_value2'>option2</option>"
+        + "            <select id='mySelectId_2_3' name='mySelectName_2_3' size='2'>"
+        + "              <option label='MyLabel' value='myValue1'>myText1</option>"
+        + "              <option value='myValue2'>myText2</option>"
         + "            </select>"
         + "          </td>"
         + "        </tr>"
@@ -2470,13 +2320,13 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2] > option2");
+    final SecretString tmpSearch = new SecretString("[header_3; row_2] > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MySelectId_1_2",
-        "MySelectId_1_3", "MySelectId_2_2", "MySelectId_2_3");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId_1_2",
+        "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'option2' part of [HtmlSelect (id='MySelectId_2_3') (name='MySelectName_2_3')]] found by: BY_LABEL coverage: 0 distance: 86 start: 94 index: 67",
+        "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABELING_TEXT coverage: 0 distance: 86 start: 94 index: 67",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

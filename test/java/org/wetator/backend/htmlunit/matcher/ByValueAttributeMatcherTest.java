@@ -38,9 +38,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
@@ -55,164 +53,168 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("ClickMe");
+    final SecretString tmpSearch = new SecretString("myValue");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Click*");
+    final SecretString tmpSearch = new SecretString("myVal*");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*ickMe");
+    final SecretString tmpSearch = new SecretString("*Value");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
   }
 
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("lickM");
+    final SecretString tmpSearch = new SecretString("yValu");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 0, 0, tmpMatches.get(0));
+  }
+
+  @Test
+  public void empty_TextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<input id='otherId' type='button' value='myValue'>"
+        + "<p>Some text .... </p>"
+        + "<input id='myId' type='button' value='myValue'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Some text > ");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
+
+    Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
   public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
+        + "<input id='otherId' type='button' value='myValue'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > ClickMe");
+    final SecretString tmpSearch = new SecretString("Some text > myValue");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 22, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
+        + "<input id='otherId' type='button' value='myValue'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > Click*");
+    final SecretString tmpSearch = new SecretString("Some text > myVal*");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 22, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
+        + "<input id='otherId' type='button' value='myValue'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > *ickMe");
+    final SecretString tmpSearch = new SecretString("Some text > *Value");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 22, tmpMatches.get(0));
   }
 
   @Test
   public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
+        + "<input id='otherId' type='button' value='myValue'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > lickM");
+    final SecretString tmpSearch = new SecretString("Some text > yValu");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABEL_TEXT, 2, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 5, 22, tmpMatches.get(0));
   }
 
   @Test
   public void full_WrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
+        + "<input id='otherId' type='button' value='myValue'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > ClickMe");
+    final SecretString tmpSearch = new SecretString("wrong text > myValue");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
@@ -221,26 +223,17 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
   public void full_NoTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='button' value='ClickMe'>"
-        + "</form>"
+        + "<input id='myId' type='button' value='myValue'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > ClickMe");
+    final SecretString tmpSearch = new SecretString("wrong text > myValue");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractMatcherTest#createMatcher(org.wetator.backend.htmlunit.util.HtmlPageIndex,
-   *      org.wetator.core.searchpattern.SearchPattern, org.wetator.util.FindSpot,
-   *      org.wetator.core.searchpattern.SearchPattern)
-   */
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

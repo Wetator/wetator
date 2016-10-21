@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,10 +44,11 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
-   * @param aClass the class of the {@link HtmlElement} the matching label labels.
+   * @param aClass the class of the {@link HtmlElement} the matching label labels
    */
   public ByHtmlLabelMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
       final FindSpot aPathSpot, final SearchPattern aSearchPattern, final Class<? extends HtmlElement> aClass) {
@@ -54,21 +56,20 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
     clazz = aClass;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public List<MatchResult> matches(final HtmlElement aHtmlElement) {
-    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (!(aHtmlElement instanceof HtmlLabel)) {
-      return tmpMatches;
+      return Collections.emptyList();
     }
 
     // was the path found at all
     if (FindSpot.NOT_FOUND == pathSpot) {
-      return tmpMatches;
+      return Collections.emptyList();
+    }
+
+    // has the search pattern something to match
+    if (searchPattern.getMinLength() == 0) {
+      return Collections.emptyList();
     }
 
     // has the node the text before
@@ -80,6 +81,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
       final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
       final int tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpCoverage > -1) {
+        final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+
         final String tmpForAttribute = tmpLabel.getForAttribute();
         // label contains a for-attribute => find corresponding element
         if (StringUtils.isNotEmpty(tmpForAttribute)) {
@@ -118,8 +121,10 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
                 tmpNodeSpot.getStartPos()));
           }
         }
+        return tmpMatches;
       }
     }
-    return tmpMatches;
+
+    return Collections.emptyList();
   }
 }

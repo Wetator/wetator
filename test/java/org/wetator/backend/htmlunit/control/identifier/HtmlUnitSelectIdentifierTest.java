@@ -121,7 +121,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABEL_TEXT coverage: 0 distance: 45 start: 66 index: 14",
+        "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABELING_TEXT coverage: 0 distance: 45 start: 66 index: 14",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -152,6 +152,41 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     Assert.assertEquals(
         "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker > ");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstSelectId",
+        "MySecondSelectId");
+
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlSelect (id='MyFirstSelectId') (name='MyFirstSelectName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_TEXT coverage: 0 distance: 24 start: 30 index: 14",
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test

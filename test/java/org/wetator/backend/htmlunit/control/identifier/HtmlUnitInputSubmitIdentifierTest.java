@@ -96,7 +96,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

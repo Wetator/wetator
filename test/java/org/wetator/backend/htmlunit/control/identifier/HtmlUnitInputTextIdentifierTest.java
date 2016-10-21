@@ -116,7 +116,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6 index: 8",
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 6 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -142,6 +142,32 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(
         "[HtmlTextInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 8 distance: 15 start: 15 index: 10",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>"
+        + "<input id='otherId' name='otherName' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker > ");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
+
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlTextInput (id='otherId') (name='otherName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 8",
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test

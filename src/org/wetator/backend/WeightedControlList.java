@@ -29,6 +29,7 @@ import org.wetator.backend.control.IControl;
  * criterion.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class WeightedControlList {
 
@@ -38,10 +39,10 @@ public final class WeightedControlList {
    */
   public static final class FoundType {
     /**
-     * Found by title match.
+     * Found by title match.<br>
      * This is used from UnknownHtmlUnitControls finder because we
      * do a text search in this case and a title is not directly visible
-     * to the user -> larger value
+     * to the user -&gt; larger value
      */
     public static final FoundType BY_TITLE_TEXT = new FoundType("BY_TITLE_TEXT", 9900);
 
@@ -51,7 +52,7 @@ public final class WeightedControlList {
     /** Found by table coordinates match. */
     public static final FoundType BY_TABLE_COORDINATE = new FoundType("BY_TABLE_COORDINATE", 6000);
 
-    /** Found by aria-label text match. */
+    /** Found by aria-label attribute match. */
     public static final FoundType BY_ARIA_LABEL_ATTRIBUTE = new FoundType("BY_ARIA_LABEL_ATTRIBUTE", 5500);
 
     /** Found by image source attribute match. */
@@ -75,13 +76,13 @@ public final class WeightedControlList {
     /** Found by title attribute match. */
     public static final FoundType BY_TITLE_ATTRIBUTE = new FoundType("BY_TITLE_ATTRIBUTE", 3500);
 
-    /** Found by label text match. */
-    public static final FoundType BY_LABEL_TEXT = new FoundType("BY_LABEL_TEXT", 3000);
+    /** Found by labeling text match. */
+    public static final FoundType BY_LABELING_TEXT = new FoundType("BY_LABELING_TEXT", 3000);
 
     /** Found by placeholder text match. */
     public static final FoundType BY_PLACEHOLDER = new FoundType("BY_PLACEHOLDER", 2500);
 
-    /** Found by label match. */
+    /** Found by label HTML element match. */
     public static final FoundType BY_LABEL = new FoundType("BY_LABEL", 2000);
 
     /** Found by name match. */
@@ -122,11 +123,6 @@ public final class WeightedControlList {
       return value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.lang.Enum#toString()
-     */
     @Override
     public String toString() {
       // return name + "(" + value + ")";
@@ -135,7 +131,7 @@ public final class WeightedControlList {
   }
 
   /**
-   * The class for the WeightedControlList entries.
+   * An entry of a {@link WeightedControlList}.
    */
   public static final class Entry {
     private IControl control;
@@ -152,11 +148,6 @@ public final class WeightedControlList {
       return control;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       // @formatter:off
@@ -177,17 +168,12 @@ public final class WeightedControlList {
   }
 
   /**
-   * The comparator used to sort WeightedControlList entries.
+   * The comparator used to sort {@link WeightedControlList} entries.
    */
   private static final class EntryComperator implements Comparator<Entry>, Serializable {
 
     private static final long serialVersionUID = 8655421244982375767L;
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-     */
     @Override
     public int compare(final Entry anEntry1, final Entry anEntry2) {
       final int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
@@ -217,6 +203,9 @@ public final class WeightedControlList {
       return tmpWeightComp;
     }
   }
+
+  /** An empty {@link WeightedControlList}. */
+  public static final WeightedControlList EMPTY_LIST = new WeightedControlList();
 
   private final List<Entry> entries;
 
@@ -251,9 +240,7 @@ public final class WeightedControlList {
   }
 
   /**
-   * Returns a new list of Entries sorted by weight.
-   *
-   * @return a new list
+   * @return a new list of Entries sorted by weight
    */
   public List<Entry> getEntriesSorted() {
     Collections.sort(entries, new EntryComperator());
@@ -279,7 +266,7 @@ public final class WeightedControlList {
   }
 
   /**
-   * Adds all entries from anOtherWeightedControlList to this list.
+   * Adds all entries from the given {@link WeightedControlList} to this list.
    *
    * @param anOtherWeightedControlList the list of entries to add
    */
@@ -288,11 +275,14 @@ public final class WeightedControlList {
   }
 
   /**
-   * Returns true, if the list is empty.
-   *
-   * @return true or false
+   * @return <code>true</code>, if the list is empty
    */
   public boolean isEmpty() {
     return entries.isEmpty();
+  }
+
+  @Override
+  public String toString() {
+    return "WeightedControlList " + entries;
   }
 }

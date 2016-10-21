@@ -38,8 +38,9 @@ public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByImageSrcAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -48,20 +49,14 @@ public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
     matchType = MatchType.ENDS_WITH;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    String tmpValue = null;
     if (aHtmlElement instanceof HtmlImage) {
-      tmpValue = ((HtmlImage) aHtmlElement).getSrcAttribute();
+      return ((HtmlImage) aHtmlElement).getSrcAttribute();
     }
     if (aHtmlElement instanceof HtmlImageInput) {
-      tmpValue = ((HtmlImageInput) aHtmlElement).getSrcAttribute();
+      return ((HtmlImageInput) aHtmlElement).getSrcAttribute();
     }
-    return tmpValue;
+    return null;
   }
 }
