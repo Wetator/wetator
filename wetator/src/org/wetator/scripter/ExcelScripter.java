@@ -67,11 +67,6 @@ public final class ExcelScripter implements IScripter {
   private List<Command> commands;
   private Locale locale = Locale.getDefault();
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     final String tmpPropLocale = aConfiguration.getProperty(PROPERTY_LOCALE);
@@ -88,11 +83,6 @@ public final class ExcelScripter implements IScripter {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#isSupported(java.io.File)
-   */
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
@@ -115,11 +105,6 @@ public final class ExcelScripter implements IScripter {
     return IScripter.IS_SUPPORTED;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#script(java.io.File)
-   */
   @Override
   public void script(final File aFile) throws InvalidInputException {
     file = aFile;
@@ -237,11 +222,6 @@ public final class ExcelScripter implements IScripter {
     return new Parameter(tmpContent);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#getCommands()
-   */
   @Override
   public List<Command> getCommands() {
     return commands;

@@ -205,11 +205,6 @@ public final class DialogUtil {
       preferences = aPreferences;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see javax.swing.JFileChooser#createDialog(java.awt.Component)
-     */
     @Override
     protected JDialog createDialog(final Component aParent) throws HeadlessException {
       jDialog = super.createDialog(aParent);
@@ -217,11 +212,6 @@ public final class DialogUtil {
       return jDialog;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see javax.swing.JFileChooser#showOpenDialog(java.awt.Component)
-     */
     @Override
     public int showOpenDialog(final Component aParent) throws HeadlessException {
       final int tmpResult = super.showOpenDialog(aParent);

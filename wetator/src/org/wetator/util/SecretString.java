@@ -197,11 +197,6 @@ public final class SecretString {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     final StringBuilder tmpResult = new StringBuilder();

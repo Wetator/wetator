@@ -37,12 +37,6 @@ public class SnoopyServlet extends HttpServlet {
 
   private static final long serialVersionUID = -2387076015181680367L;
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
-   *      javax.servlet.http.HttpServletResponse)
-   */
   @Override
   protected void doGet(final HttpServletRequest aRequest, final HttpServletResponse aResponse)
       throws ServletException, IOException {
@@ -238,12 +232,6 @@ public class SnoopyServlet extends HttpServlet {
     aResponse.getWriter().flush();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
-   *      javax.servlet.http.HttpServletResponse)
-   */
   @Override
   protected void doPost(final HttpServletRequest aReq, final HttpServletResponse aResp)
       throws ServletException, IOException {

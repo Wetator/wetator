@@ -56,21 +56,11 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(getHtmlElement());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
-   */
   @Override
   public void select(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
@@ -113,11 +103,6 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
@@ -125,11 +110,6 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     return tmpHtmlCheckBoxInput.isChecked();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
-   */
   @Override
   public void deselect(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
@@ -172,11 +152,6 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();

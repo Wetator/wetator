@@ -93,14 +93,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Describe'.
+   * Command 'describe'.
    */
   public static final class CommandDescribe implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -114,16 +109,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Open Url'.
+   * Command 'open-url'.
    */
   public final class CommandOpenUrl implements ICommandImplementation {
     private static final String SLASH = "/";
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -165,15 +155,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Use Module'.
+   * Command 'use-module'.
    */
   @ForceExecution
   public static final class CommandUseModule implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -212,14 +197,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Set'.
+   * Command 'set'.
    */
   public final class CommandSet implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -284,14 +264,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Click On'.
+   * Command 'click-on'.
    */
   public final class CommandClickOn implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -319,14 +294,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Click Double On'.
+   * Command 'click-double-on'.
    */
   public final class CommandClickDoubleOn implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -354,14 +324,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Click Right On'.
+   * Command 'click-right-on'.
    */
   public final class CommandClickRightOn implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -389,14 +354,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Select'.
+   * Command 'select'.
    */
   public final class CommandSelect implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -421,14 +381,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Deselect'.
+   * Command 'deselect'.
    */
   public final class CommandDeselect implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -453,14 +408,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Mouse Over'.
+   * Command 'mouse-over'.
    */
   public final class CommandMouseOver implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -492,14 +442,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'close Window'.
+   * Command 'close-window'.
    */
   public final class CommandCloseWindow implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -515,14 +460,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Go Back'.
+   * Command 'go-back'.
    */
   public final class CommandGoBack implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -549,14 +489,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Title'.
+   * Command 'assert-title'.
    */
   public final class CommandAssertTitle implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -585,14 +520,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Content'.
+   * Command 'assert-content'.
    */
   public final class CommandAssertContent implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -621,14 +551,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Enabled'.
+   * Command 'assert-enabled'.
    */
   public final class CommandAssertEnabled implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -662,14 +587,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Disabled'.
+   * Command 'assert-disabled'.
    */
   public final class CommandAssertDisabled implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -703,14 +623,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Set'.
+   * Command 'assert-set'.
    */
   public final class CommandAssertSet implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -737,14 +652,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Selected'.
+   * Command 'assert-selected'.
    */
   public final class CommandAssertSelected implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -769,14 +679,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Deselected'.
+   * Command 'assert-deselected'.
    */
   public final class CommandAssertDeselected implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -801,15 +706,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Exec Java'.
+   * Command 'exec-java'.
    */
   @ForceExecution
   public static final class CommandExecJava implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     @SuppressWarnings("unchecked")
     public void execute(final WetatorContext aContext, final Command aCommand)
@@ -937,21 +837,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // nothing to do at the moment
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#cleanup()
-   */
   @Override
   public void cleanup() {
     // nothing to do at the moment

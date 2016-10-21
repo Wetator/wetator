@@ -43,21 +43,11 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlSelect(getHtmlElement());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlSelect tmpHtmlSelect = getHtmlElement();

@@ -72,21 +72,11 @@ public abstract class AbstractCommandSet implements ICommandSet {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#getCommandImplementationFor(java.lang.String)
-   */
   @Override
   public final ICommandImplementation getCommandImplementationFor(final String aCommandName) {
     return commandImplementations.get(aCommandName);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#getInitializationMessages()
-   */
   @Override
   public List<String> getInitializationMessages() {
     return initializationMessages;

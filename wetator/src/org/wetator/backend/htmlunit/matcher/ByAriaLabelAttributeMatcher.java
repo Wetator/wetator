@@ -24,7 +24,7 @@ import org.wetator.util.FindSpot;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * This matcher checks if the aria-label text matches the criteria.
+ * This matcher checks if the attribute 'aria-label' of the given element matches the criteria.
  *
  * @author rbri
  */
@@ -35,8 +35,9 @@ public class ByAriaLabelAttributeMatcher extends AbstractByAttributeMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public ByAriaLabelAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -44,11 +45,6 @@ public class ByAriaLabelAttributeMatcher extends AbstractByAttributeMatcher {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_ARIA_LABEL_ATTRIBUTE);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
     return aHtmlElement.getAttribute("aria-label");

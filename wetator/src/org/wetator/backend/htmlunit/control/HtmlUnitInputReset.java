@@ -45,21 +45,11 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlResetInput(getHtmlElement());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlResetInput tmpHtmlResetInput = getHtmlElement();

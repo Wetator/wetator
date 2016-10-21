@@ -46,11 +46,6 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
   private static final String ENCODING = "UTF-8";
   private static final String VERSION = "1.0";
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#createScript()
-   */
   @Override
   public void createScript() {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
@@ -135,31 +130,16 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
-   */
   @Override
   public void setCommands(final List<Command> aCommandList) {
     commands = aCommandList;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#setFileName(java.lang.String)
-   */
   @Override
   public void setFileName(final String aFileName) {
     fileName = aFileName;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#setOutputDir(java.lang.String)
-   */
   @Override
   public void setOutputDir(final String anOutputDir) {
     outputDir = new File(anOutputDir);

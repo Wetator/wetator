@@ -56,8 +56,9 @@ public abstract class AbstractHtmlUnitElementMatcher {
    * Creates a new matcher with the given criteria.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
-   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or null if no path given
-   * @param aPathSpot the {@link FindSpot} the path was found first or null if no path given
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
   public AbstractHtmlUnitElementMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
@@ -70,7 +71,7 @@ public abstract class AbstractHtmlUnitElementMatcher {
 
   /**
    * @param aHtmlElement the element to match
-   * @return true if the given element matches at least one criterion
+   * @return a list containing the {@link MatchResult}s or an empty list if the given element does not match
    */
   public abstract List<MatchResult> matches(HtmlElement aHtmlElement);
 
@@ -92,7 +93,7 @@ public abstract class AbstractHtmlUnitElementMatcher {
      * @param aFoundType the {@link FoundType}
      * @param aCoverage the coverage
      * @param aDistance the distance
-     * @param aStart the start
+     * @param aStart the starting position
      */
     public MatchResult(final HtmlElement aHtmlElement, final FoundType aFoundType, final int aCoverage,
         final int aDistance, final int aStart) {

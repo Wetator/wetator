@@ -42,22 +42,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
  */
 public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlOptionGroup;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
-   */
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
@@ -87,11 +76,6 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitOptionGroup((HtmlOptionGroup) aHtmlElement);

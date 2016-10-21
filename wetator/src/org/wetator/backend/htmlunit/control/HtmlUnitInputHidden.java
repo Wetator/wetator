@@ -54,22 +54,11 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlHiddenInput(getHtmlElement());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.ISettable#setValue(org.wetator.core.WetatorContext, org.wetator.util.SecretString,
-   *      java.io.File)
-   */
   @Override
   public void setValue(final WetatorContext aWetatorContext, final SecretString aValue, final File aDirectory)
       throws ActionException {
@@ -107,23 +96,12 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.ISettable#assertValue(org.wetator.core.WetatorContext,
-   *      org.wetator.util.SecretString)
-   */
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();

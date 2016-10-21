@@ -72,11 +72,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     htmlElement = anHtmlElement;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#hasSameBackendControl(org.wetator.backend.control.IControl)
-   */
   @Override
   public boolean hasSameBackendControl(final IControl aControl) {
     if (aControl instanceof HtmlUnitBaseControl<?>) {
@@ -94,11 +89,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     return htmlElement;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#click(WetatorContext)
-   */
   @Override
   public void click(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -156,11 +146,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#clickDouble(WetatorContext)
-   */
   @Override
   public void clickDouble(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -214,11 +199,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#clickRight(WetatorContext)
-   */
   @Override
   public void clickRight(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -311,11 +291,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
-   */
   @Override
   public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -360,22 +335,12 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
     throw new UnsupportedOperationException(tmpMessage);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#hasFocus(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean hasFocus(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();

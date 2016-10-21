@@ -61,11 +61,6 @@ public class XMLScriptCreator implements IScriptCreator {
 
   private static final Pattern CHARACTER_DATA_PATTERN = Pattern.compile(".*[<>&]");
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#createScript()
-   */
   @Override
   public void createScript() {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
@@ -236,31 +231,16 @@ public class XMLScriptCreator implements IScriptCreator {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#setCommands(java.util.List)
-   */
   @Override
   public void setCommands(final List<Command> aCommandList) {
     commands = aCommandList;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#setFileName(java.lang.String)
-   */
   @Override
   public void setFileName(final String aFileName) {
     fileName = aFileName;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.scriptcreator.IScriptCreator#setOutputDir(java.lang.String)
-   */
   @Override
   public void setOutputDir(final String anOutputDir) {
     outputDir = new File(anOutputDir);
@@ -325,11 +305,6 @@ public class XMLScriptCreator implements IScriptCreator {
       return location;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
       final int tmpPrime = 31;
@@ -348,11 +323,6 @@ public class XMLScriptCreator implements IScriptCreator {
       return tmpResult;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object anObj) {
       if (this == anObj) {

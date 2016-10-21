@@ -43,11 +43,6 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlAnchor(getHtmlElement());

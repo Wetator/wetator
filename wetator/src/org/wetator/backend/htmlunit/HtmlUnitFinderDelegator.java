@@ -137,61 +137,31 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IControlFinder#getAllSettables(WPath)
-   */
   @Override
   public WeightedControlList getAllSettables(final WPath aWPath) {
     return settablesFinder.find(aWPath);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IControlFinder#getAllClickables(WPath)
-   */
   @Override
   public WeightedControlList getAllClickables(final WPath aWPath) {
     return clickablesFinder.find(aWPath);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IControlFinder#getAllSelectables(WPath)
-   */
   @Override
   public WeightedControlList getAllSelectables(final WPath aWPath) {
     return selectablesFinder.find(aWPath);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IControlFinder#getAllDeselectables(WPath)
-   */
   @Override
   public WeightedControlList getAllDeselectables(final WPath aWPath) {
     return deselectablesFinder.find(aWPath);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IControlFinder#getAllOtherControls(WPath)
-   */
   @Override
   public WeightedControlList getAllOtherControls(final WPath aWPath) {
     return othersFinder.find(aWPath);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IControlFinder#getAllControlsForText(WPath)
-   */
   @Override
   public WeightedControlList getAllControlsForText(final WPath aWPath) {
     return forTextFinder.find(aWPath);

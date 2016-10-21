@@ -86,14 +86,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Exec Sql'.
+   * Command 'exec-sql'.
    */
   public final class CommandExecSql implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -125,14 +120,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Sql'.
+   * Command 'assert-sql'.
    */
   public final class CommandAssertSql implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -185,14 +175,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Sql in Content'.
+   * Command 'assert-sql-in-content'.
    */
   public final class CommandAssertSqlInContent implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -255,11 +240,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // any connections defined?
@@ -370,11 +350,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
     return aSql;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#cleanup()
-   */
   @Override
   public void cleanup() {
     for (final Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {

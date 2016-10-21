@@ -91,21 +91,11 @@ public class XMLScripter implements IScripter {
   private ModelBuilder model;
   private List<Command> commands;
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // nothing to do
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#isSupported(java.io.File)
-   */
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
@@ -194,11 +184,6 @@ public class XMLScripter implements IScripter {
     return false;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#script(java.io.File)
-   */
   @Override
   public void script(final File aFile) throws InvalidInputException {
     Reader tmpReader = null;
@@ -425,11 +410,6 @@ public class XMLScripter implements IScripter {
     return new InputStreamReader(new FileInputStream(aFile), "UTF-8");
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#getCommands()
-   */
   @Override
   public List<Command> getCommands() {
     return commands;

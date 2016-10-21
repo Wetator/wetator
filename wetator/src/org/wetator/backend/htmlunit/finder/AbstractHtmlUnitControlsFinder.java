@@ -29,9 +29,7 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
  */
 public abstract class AbstractHtmlUnitControlsFinder {
 
-  /**
-   * The index of the page.
-   */
+  /** The index of the page. */
   protected HtmlPageIndex htmlPageIndex;
 
   /**
@@ -44,9 +42,9 @@ public abstract class AbstractHtmlUnitControlsFinder {
   }
 
   /**
-   * Returns all {@link org.wetator.backend.control.IControl}s on the page matching the given wpath.
+   * Returns all {@link org.wetator.backend.control.IControl}s on the page matching the given {@link WPath}.
    *
-   * @param aWPath the wpath
+   * @param aWPath the {@link WPath}
    * @return the list of matching controls
    */
   public abstract WeightedControlList find(WPath aWPath);

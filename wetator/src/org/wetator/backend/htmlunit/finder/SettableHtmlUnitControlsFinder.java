@@ -57,11 +57,6 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
     super(aHtmlPageIndex, aThreadPool);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder#find(WPath)
-   */
   @Override
   public WeightedControlList find(final WPath aWPath) {
     final WeightedControlList tmpFoundControls = new WeightedControlList();

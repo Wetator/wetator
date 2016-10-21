@@ -110,11 +110,6 @@ public class HtmlUnitControlRepositoryTest {
       super(anHtmlElement);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.backend.control.IControl#getDescribingText()
-     */
     @Override
     public String getDescribingText() {
       return "TestControl";

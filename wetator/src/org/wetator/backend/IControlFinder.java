@@ -25,50 +25,51 @@ package org.wetator.backend;
 public interface IControlFinder {
 
   /**
-   * Return a list of all clickable controls for the given wpath.
+   * Return a list of all clickable controls for the given {@link WPath}.
    *
-   * @param aWPath the wpath describing the controls
-   * @return a WeightedControlList
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
    */
   WeightedControlList getAllClickables(WPath aWPath);
 
   /**
-   * Return a list of all selectable controls for the given wpath.
+   * Return a list of all selectable controls for the given {@link WPath}.
    *
-   * @param aWPath the wpath describing the controls
-   * @return a WeightedControlList
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
    */
   WeightedControlList getAllDeselectables(WPath aWPath);
 
   /**
-   * Return a list of all deselectable controls for the given wpath.
+   * Return a list of all deselectable controls for the given {@link WPath}.
    *
-   * @param aWPath the wpath describing the controls
-   * @return a WeightedControlList
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
    */
   WeightedControlList getAllSelectables(WPath aWPath);
 
   /**
-   * Return a list of all settable controls for the given wpath.
+   * Return a list of all settable controls for the given {@link WPath}.
    *
-   * @param aWPath the wpath describing the controls
-   * @return a WeightedControlList
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
    */
   WeightedControlList getAllSettables(WPath aWPath);
 
   /**
-   * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given wpath.
+   * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given
+   * {@link WPath}.
    *
-   * @param aWPath the wpath describing the controls
-   * @return a WeightedControlList
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
    */
   WeightedControlList getAllOtherControls(WPath aWPath);
 
   /**
-   * Return a list of all controls for the given wpath.
+   * Return a list of all controls for the given {@link WPath}.
    *
-   * @param aWPath the wpath describing the controls
-   * @return a WeightedControlList
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
    */
   WeightedControlList getAllControlsForText(WPath aWPath);
 }

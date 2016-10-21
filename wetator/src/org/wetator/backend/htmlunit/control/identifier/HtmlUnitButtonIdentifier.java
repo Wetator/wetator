@@ -42,7 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * <li>some attributes of a nested image</li>
  * <li>its text</li>
  * <li>its title attribute</li>
- * <li>its aria label attribute</li>
+ * <li>its aria-label attribute</li>
  * <li>its name</li>
  * <li>its id</li>
  * <li>table coordinates</li>
@@ -52,22 +52,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  */
 public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlButton;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
-   */
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
@@ -103,14 +92,8 @@ public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitButton((HtmlButton) aHtmlElement);
   }
-
 }
