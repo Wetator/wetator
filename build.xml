@@ -147,7 +147,7 @@
 
 
     <!-- *******************************************
-         target tests-no-resolve
+         target tests-only
            runs the tests only:
            info -> compile
            -> compile-tests -> run-tests
@@ -483,7 +483,7 @@
 
 
     <!-- ===========================================
-         private target check-build
+         private target check-tests
          =========================================== -->
     <target name="-check-tests" if="unittestsfailed">
         <fail message="Unit tests failing; build failed." />
@@ -801,9 +801,10 @@ ENDLOCAL
     </target>
 
 
-    <!-- ******************************************* -->
-    <!-- target test-release                         -->
-    <!-- ******************************************* -->
+    <!-- *******************************************
+         target test-release
+           tests the release artifacts
+         ******************************************* -->
     <target name="test-release" description="test the wetator release artefacts" >
         <echo level="info">Testing version: ${application.version}</echo>
         <echo></echo>
