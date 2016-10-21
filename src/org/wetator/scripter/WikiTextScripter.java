@@ -58,21 +58,11 @@ public final class WikiTextScripter implements IScripter {
   private File file;
   private List<Command> commands;
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // nothing to do
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#isSupported(java.io.File)
-   */
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
@@ -95,11 +85,6 @@ public final class WikiTextScripter implements IScripter {
     return IScripter.IS_SUPPORTED;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#script(java.io.File)
-   */
   @Override
   public void script(final File aFile) throws InvalidInputException {
     file = aFile;
@@ -209,11 +194,6 @@ public final class WikiTextScripter implements IScripter {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#getCommands()
-   */
   @Override
   public List<Command> getCommands() {
     return commands;

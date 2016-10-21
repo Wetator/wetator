@@ -61,21 +61,11 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlOption(getHtmlElement());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.ISelectable#select(org.wetator.core.WetatorContext)
-   */
   @Override
   public void select(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
@@ -118,11 +108,6 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.ISelectable#isSelected(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) {
     final HtmlOption tmpHtmlOption = getHtmlElement();
@@ -130,11 +115,6 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     return tmpHtmlOption.isSelected();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IDeselectable#deselect(org.wetator.core.WetatorContext)
-   */
   @Override
   public void deselect(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlOption tmpHtmlOption = getHtmlElement();
@@ -183,11 +163,6 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#mouseOver(WetatorContext)
-   */
   @Override
   public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -245,11 +220,6 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlOption tmpHtmlOption = getHtmlElement();

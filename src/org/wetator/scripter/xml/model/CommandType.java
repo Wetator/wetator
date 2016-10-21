@@ -80,11 +80,6 @@ public class CommandType {
     return parameterTypes;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return namespace + ":" + name;

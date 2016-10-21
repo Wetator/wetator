@@ -88,11 +88,6 @@ public class FindSpot {
     endPos = aEndPos;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     final int tmpPrime = 31;
@@ -102,11 +97,6 @@ public class FindSpot {
     return tmpHash;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(final Object anObject) {
     if (this == anObject) {
@@ -128,11 +118,6 @@ public class FindSpot {
     return true;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return "FindSpot(" + startPos + ", " + endPos + ")";
@@ -155,31 +140,16 @@ public class FindSpot {
       super(aStartPos, anEndPos);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.util.FindSpot#setStartPos(int)
-     */
     @Override
     public void setStartPos(final int aStartPos) {
       throw new ImplementationException("FixedFindSpot does not support changing its values.");
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.util.FindSpot#setEndPos(int)
-     */
     @Override
     public void setEndPos(final int aEndPos) {
       throw new ImplementationException("FixedFindSpot does not support changing its values.");
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.util.FindSpot#toString()
-     */
     @Override
     public String toString() {
       if (this == FindSpot.NOT_FOUND) {

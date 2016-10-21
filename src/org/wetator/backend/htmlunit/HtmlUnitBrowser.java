@@ -196,11 +196,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     controlRepository.addAll(tmpConfiguration.getControls());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#startNewSession(org.wetator.backend.IBrowser.BrowserType)
-   */
   @Override
   public void startNewSession(final IBrowser.BrowserType aBrowserType) {
     // at first take care there is now other session active
@@ -334,11 +329,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#endSession()
-   */
   @Override
   public void endSession() {
     if (null != webClient) {
@@ -354,11 +344,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#openUrl(java.net.URL)
-   */
   @Override
   public void openUrl(final URL aUrl) throws ActionException {
     try {
@@ -646,12 +631,6 @@ public final class HtmlUnitBrowser implements IBrowser {
       htmlUnitBrowser = aHtmlUnitBrowser;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#loadScriptError(com.gargoylesoftware.htmlunit.InteractivePage,
-     *      java.net.URL, java.lang.Exception)
-     */
     @Override
     public void loadScriptError(final InteractivePage anInteractivePage, final URL aScriptUrl,
         final Exception anException) {
@@ -659,12 +638,6 @@ public final class HtmlUnitBrowser implements IBrowser {
           anInteractivePage.getUrl().toExternalForm(), anException.getMessage() }, anException);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#malformedScriptURL(com.gargoylesoftware.htmlunit.InteractivePage,
-     *      java.lang.String, java.net.MalformedURLException)
-     */
     @Override
     public void malformedScriptURL(final InteractivePage anInteractivePage, final String aUrl,
         final MalformedURLException aMalformedURLException) {
@@ -673,23 +646,11 @@ public final class HtmlUnitBrowser implements IBrowser {
           aMalformedURLException);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#scriptException(com.gargoylesoftware.htmlunit.InteractivePage,
-     *      com.gargoylesoftware.htmlunit.ScriptException)
-     */
     @Override
     public void scriptException(final InteractivePage anInteractivePage, final ScriptException aScriptException) {
       htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#timeoutError(com.gargoylesoftware.htmlunit.InteractivePage,
-     *      long, long)
-     */
     @Override
     public void timeoutError(final InteractivePage anInteractivePage, final long aAllowedTime,
         final long aExecutionTime) {
@@ -698,11 +659,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#closeWindow(org.wetator.util.SecretString)
-   */
   @Override
   public void closeWindow(final SecretString aWindowName) throws ActionException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
@@ -752,11 +708,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     throw new ActionException(tmpMessage);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#goBackInCurrentWindow(int)
-   */
   @Override
   public void goBackInCurrentWindow(final int aSteps) throws ActionException {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
@@ -786,11 +737,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#saveCurrentWindowToLog(IControl...)
-   */
   @Override
   public void saveCurrentWindowToLog(final IControl... aControls) {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
@@ -838,11 +784,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#markControls(org.wetator.backend.control.IControl[])
-   */
   @Override
   public void markControls(final IControl... aControls) {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
@@ -1027,11 +968,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     throw new BackendException(tmpMessage);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#getControlFinder()
-   */
   @Override
   public IControlFinder getControlFinder() throws BackendException {
     final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
@@ -1039,11 +975,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#getFocusedControl()
-   */
   @Override
   public IControl getFocusedControl() throws BackendException {
     final DomElement tmpDomElement = getCurrentHtmlPage().getFocusedElement();
@@ -1063,21 +994,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     return null;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#waitForImmediateJobs()
-   */
   @Override
   public boolean waitForImmediateJobs() throws BackendException {
     return waitForImmediateJobs(jsTimeoutInMillis);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#waitForImmediateJobs(long)
-   */
   @Override
   public boolean waitForImmediateJobs(final long aTimeoutInMillis) throws BackendException {
     boolean tmpPendingJobs = false;
@@ -1154,11 +1075,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#assertTitleInTimeFrame(org.wetator.core.searchpattern.ContentPattern, long)
-   */
   @Override
   public boolean assertTitleInTimeFrame(final ContentPattern aTitleToWaitFor, final long aTimeoutInSeconds)
       throws AssertionException {
@@ -1257,11 +1173,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     return tmpPageChanged;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#assertContentInTimeFrame(org.wetator.core.searchpattern.ContentPattern, long)
-   */
   @Override
   public boolean assertContentInTimeFrame(final ContentPattern aContentToWaitFor, final long aTimeoutInSeconds)
       throws AssertionException {
@@ -1495,11 +1406,6 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
-   */
   @Override
   public void addFailure(final String aMessageKey, final Object[] aParameterArray, final Throwable aCause) {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
@@ -1507,21 +1413,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     addFailure(tmpFailure);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
-   */
   @Override
   public void addFailure(final AssertionException aFailure) {
     failures.add(aFailure);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#checkAndResetFailures()
-   */
   @Override
   public AssertionException checkAndResetFailures() {
     if (failures.isEmpty()) {
@@ -1537,31 +1433,16 @@ public final class HtmlUnitBrowser implements IBrowser {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#getBookmark(java.lang.String)
-   */
   @Override
   public URL getBookmark(final String aBookmarkName) {
     return bookmarks.get(aBookmarkName);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#saveBookmark(java.lang.String, java.net.URL)
-   */
   @Override
   public void saveBookmark(final String aBookmarkName, final URL aBookmarkUrl) {
     bookmarks.put(aBookmarkName, aBookmarkUrl);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.IBrowser#bookmarkPage(String)
-   */
   @Override
   public void bookmarkPage(final String aBookmarkName) throws ActionException {
     try {

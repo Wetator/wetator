@@ -46,22 +46,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  */
 public class HtmlUnitInputButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlButtonInput;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
-   */
   @Override
   protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
       final List<AbstractHtmlUnitElementMatcher> aMatchers) {
@@ -91,11 +80,6 @@ public class HtmlUnitInputButtonIdentifier extends AbstractMatcherBasedIdentifie
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
-   */
   @Override
   protected IControl createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitInputButton((HtmlButtonInput) aHtmlElement);

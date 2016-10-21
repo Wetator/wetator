@@ -146,7 +146,7 @@ public interface IBrowser {
   IControlFinder getControlFinder() throws BackendException;
 
   /**
-   * @return the currently focused {@link IControl} or null if no focus is set
+   * @return the currently focused {@link IControl} or <code>null</code> if no focus is set
    * @throws BackendException if no control could be created for the currently focused element
    */
   IControl getFocusedControl() throws BackendException;
@@ -155,48 +155,48 @@ public interface IBrowser {
    * Opens the given URL in the current window.<br>
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    *
-   * @param aUrl the URL to open
-   * @throws ActionException if opening the URL fails
+   * @param aUrl the {@link URL} to open
+   * @throws ActionException if opening the {@link URL} fails
    */
   void openUrl(URL aUrl) throws ActionException;
 
   /**
-   * Wait until the 'immediate' JavaScript jobs are finished.
+   * Waits until the 'immediate' JavaScript jobs are finished.
    *
-   * @return true, if still some javascript jobs pending
+   * @return <code>true</code> if still some JavaScript jobs are pending
    * @throws BackendException in case of problems
    */
   boolean waitForImmediateJobs() throws BackendException;
 
   /**
-   * Wait until the 'immediate' JavaScript jobs are finished.
+   * Waits until the 'immediate' JavaScript jobs are finished.
    *
    * @param aTimeoutInMillis the timeout
-   * @return true, if still some javascript jobs pending
+   * @return <code>true</code> if still some JavaScript jobs pending
    * @throws BackendException in case of problems
    */
   boolean waitForImmediateJobs(long aTimeoutInMillis) throws BackendException;
 
   /**
-   * Checks, if the page title matches the given pattern.<br>
+   * Checks if the page title matches the given pattern.<br>
    * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the title again. If
    * the pattern is still not found an {@link AssertionException} is thrown.
    *
-   * @param aTitleToWaitFor the expected text
+   * @param aTitleToWaitFor the expected title
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
-   * @return true, if there was a page change during the wait
+   * @return <code>true</code> if there was a page change during the wait
    * @throws AssertionException if the content was not available
    */
   boolean assertTitleInTimeFrame(ContentPattern aTitleToWaitFor, long aTimeoutInSeconds) throws AssertionException;
 
   /**
-   * Checks, if the page content matches the given pattern.<br>
+   * Checks if the page content matches the given pattern.<br>
    * If the pattern is not found, this method waits for <code>aTimeoutInSeconds</code> and checks the content again. If
    * the pattern is still not found an {@link AssertionException} is thrown.
    *
    * @param aContentToWaitFor the expected content (parts)
    * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
-   * @return true, if there was a page change during the wait
+   * @return <code>true</code> if there was a page change during the wait
    * @throws AssertionException if the content was not available
    */
   boolean assertContentInTimeFrame(ContentPattern aContentToWaitFor, long aTimeoutInSeconds) throws AssertionException;
@@ -209,8 +209,8 @@ public interface IBrowser {
   void saveCurrentWindowToLog(IControl... aControls);
 
   /**
-   * Creates a new log entry that points to the last save screenshot
-   * including url parameters pointing to the controls to be highlighted.
+   * Creates a new log entry that points to the last saved screenshot
+   * including URL parameters pointing to the controls to be highlighted.
    *
    * @param aControls the controls to be highlighted
    */
@@ -246,10 +246,10 @@ public interface IBrowser {
   void endSession();
 
   /**
-   * Returns the url for the bookmark with the given name.
+   * Returns the {@link URL} for the bookmark with the given name.
    *
    * @param aBookmarkName the name of the bookmark
-   * @return the url (including get parameters)
+   * @return the {@link URL} (including GET parameters)
    */
   URL getBookmark(String aBookmarkName);
 
@@ -257,7 +257,7 @@ public interface IBrowser {
    * Stores the given bookmark.
    *
    * @param aBookmarkName the name of the bookmark
-   * @param aBookmarkUrl the url (including get parameters)
+   * @param aBookmarkUrl the {@link URL} (including GET parameters)
    */
   void saveBookmark(String aBookmarkName, URL aBookmarkUrl);
 
@@ -271,8 +271,8 @@ public interface IBrowser {
 
   /**
    * The browser manages a list of failures detected during the execution
-   * of an action. This failures are collected. Normally such a failure doesn't stop
-   * the processing of the action.<br>
+   * of an action. These failures are collected. Normally such a failure doesn't stop
+   * the processing of the action.
    *
    * @param aFailure the original problem
    */
@@ -290,9 +290,9 @@ public interface IBrowser {
   void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause);
 
   /**
-   * This logs all collected exceptions and resets the list.
+   * Logs all collected exceptions and resets the list.
    *
-   * @return the first {@link AssertionException} in the list or null if the list is empty
+   * @return the first {@link AssertionException} in the list or <code>null</code> if the list is empty
    */
   AssertionException checkAndResetFailures();
 }

@@ -58,10 +58,10 @@ public class KeySequence {
   }
 
   /**
-   * Parse the input.
+   * Parses the input.
    *
    * @param aKeySequenceString the input
-   * @return the KeySequence
+   * @return the {@link KeySequence}
    */
   public static KeySequence parse(final String aKeySequenceString) {
     final KeySequence tmpSequence = new KeySequence();
@@ -105,7 +105,7 @@ public class KeySequence {
   }
 
   /**
-   * Press the specified special key.
+   * Presses the specified special key.
    *
    * @param aKey the key
    */
@@ -114,7 +114,7 @@ public class KeySequence {
   }
 
   /**
-   * @return a lit of Key's
+   * @return a list of keys
    */
   public List<Key> getKeys() {
     return Collections.unmodifiableList(keys);

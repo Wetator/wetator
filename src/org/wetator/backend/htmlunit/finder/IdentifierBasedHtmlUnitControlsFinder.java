@@ -44,13 +44,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  */
 public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinder {
 
-  /**
-   * The thread pool to use for worker threads.
-   */
+  /** The thread pool to use for worker threads. */
   protected ThreadPoolExecutor threadPool;
-  /**
-   * The supported identifiers.
-   */
+  /** The supported identifiers. */
   protected List<Class<? extends AbstractHtmlUnitControlIdentifier>> identifiers = new ArrayList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
 
   private List<Future<?>> futures = new LinkedList<Future<?>>();
@@ -59,7 +55,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    * The constructor.
    *
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
-   * @param aThreadPool the thread pool to use for worker threads; may be null
+   * @param aThreadPool the thread pool to use for worker threads; may be <code>null</code>
    */
   public IdentifierBasedHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex,
       final ThreadPoolExecutor aThreadPool) {
@@ -87,11 +83,6 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
     identifiers.addAll(anIdentifierList);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
-   */
   @Override
   public WeightedControlList find(final WPath aWPath) {
     final WeightedControlList tmpFoundControls = new WeightedControlList();

@@ -33,225 +33,114 @@ public class JUnitProgressListener implements IProgressListener {
   private int failures;
   private int ignored;
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#init(org.wetator.core.WetatorEngine)
-   */
   @Override
   public void init(final WetatorEngine aWetatorEngine) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#start(org.wetator.core.WetatorEngine)
-   */
   @Override
   public void start(final WetatorEngine aWetatorEngine) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
-   */
   @Override
   public void testCaseStart(final TestCase aTestCase) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testRunStart(java.lang.String)
-   */
   @Override
   public void testRunStart(final String aBrowserName) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testFileStart(java.lang.String)
-   */
   @Override
   public void testFileStart(final String aFileName) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
-   *      org.wetator.core.Command)
-   */
   @Override
   public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandSuccess()
-   */
   @Override
   public void executeCommandSuccess() {
     steps++;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandIgnored()
-   */
   @Override
   public void executeCommandIgnored() {
     steps++;
     ignored++;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
-   */
   @Override
   public void executeCommandFailure(final AssertionException anAssertionException) {
     steps++;
     failures++;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
-   */
   @Override
   public void executeCommandError(final Throwable aThrowable) {
     steps++;
     errors++;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandEnd()
-   */
   @Override
   public void executeCommandEnd() {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testFileEnd()
-   */
   @Override
   public void testFileEnd() {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testRunIgnored()
-   */
   @Override
   public void testRunIgnored() {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testRunEnd()
-   */
   @Override
   public void testRunEnd() {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testCaseEnd()
-   */
   @Override
   public void testCaseEnd() {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#end(org.wetator.core.WetatorEngine)
-   */
   @Override
   public void end(final WetatorEngine aWetatorEngine) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
-   */
   @Override
   public void responseStored(final String aResponseFileName) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
-   */
   @Override
   public void highlightedResponse(final String aResponseFileName) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
-   */
   @Override
   public void error(final Throwable aThrowable) {
     throw new RuntimeException(aThrowable);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#warn(String, Object[], String)
-   */
   @Override
   public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#info(String, Object[])
-   */
   @Override
   public void info(final String aMessageKey, final Object[] aParameterArray) {
     // nothing
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#htmlDescribe(String)
-   */
   @Override
   public void htmlDescribe(final String aHtmlDescription) {
     // nothing

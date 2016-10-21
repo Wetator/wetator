@@ -34,7 +34,7 @@ public interface ISettable extends IControl {
   /**
    * Sets the value of the control.
    *
-   * @param aContext the context
+   * @param aContext the current {@link WetatorContext}
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
    *        aDirectory points to the directory for searching the file
@@ -45,7 +45,7 @@ public interface ISettable extends IControl {
   /**
    * Asserts that the value of the control is equal to the given (expected) value.
    *
-   * @param aContext the context
+   * @param aContext the current {@link WetatorContext}
    * @param anExpectedValue the expected value of the control
    * @throws AssertionException if the value of the control does not match the expected value
    */

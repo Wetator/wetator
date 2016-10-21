@@ -53,11 +53,6 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -101,11 +96,6 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.control.IControl#isDisabled(org.wetator.core.WetatorContext)
-   */
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();

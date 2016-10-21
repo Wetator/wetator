@@ -43,11 +43,6 @@ public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements ICl
     super(anHtmlElement);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#getDescribingText()
-   */
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlImage(getHtmlElement());

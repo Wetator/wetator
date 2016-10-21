@@ -79,21 +79,11 @@ public final class LegacyXMLScripter implements IScripter {
 
   private List<Command> commands;
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // nothing to do
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#isSupported(java.io.File)
-   */
   @Override
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
@@ -146,11 +136,6 @@ public final class LegacyXMLScripter implements IScripter {
         "File '" + aFile.getName() + "' not supported by LegacyXMLScripter. Could not parse file.");
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#script(java.io.File)
-   */
   @Override
   public void script(final File aFile) throws InvalidInputException {
     file = aFile;
@@ -268,11 +253,6 @@ public final class LegacyXMLScripter implements IScripter {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IScripter#getCommands()
-   */
   @Override
   public List<Command> getCommands() {
     return commands;

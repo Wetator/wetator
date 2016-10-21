@@ -80,11 +80,6 @@ public class LocalEntityResolver implements EntityResolver {
     schemaDirectory = aSchemaDirectory;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
-   */
   @Override
   public InputSource resolveEntity(final String aPublicId, final String aSystemId) throws SAXException, IOException {
     // first try the known schemas

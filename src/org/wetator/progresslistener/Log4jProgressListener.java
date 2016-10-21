@@ -77,42 +77,22 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.apache.log4j.Appender#close()
-   */
   @Override
   public void close() {
     commandEvents = new LinkedList<CommandEvents>();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.apache.log4j.Appender#requiresLayout()
-   */
   @Override
   public boolean requiresLayout() {
     return false;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.apache.log4j.AppenderSkeleton#append(org.apache.log4j.spi.LoggingEvent)
-   */
   @Override
   protected void append(final LoggingEvent aLoggingEvent) {
     // aLoggingEvent.getLocationInformation();
     currentEvents.getEvents().add(aLoggingEvent);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#init(WetatorEngine)
-   */
   @Override
   public void init(final WetatorEngine aWetatorEngine) {
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
@@ -132,51 +112,25 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     tmpCategory.addAppender(this);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#start(WetatorEngine)
-   */
   @Override
   public void start(final WetatorEngine aWetatorEngine) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testCaseStart(org.wetator.core.TestCase)
-   */
   @Override
   public void testCaseStart(final TestCase aTestCase) {
     testCase = aTestCase.getName();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testRunStart(String)
-   */
   @Override
   public void testRunStart(final String aBrowserName) {
     browser = aBrowserName;
     commandEvents = new LinkedList<CommandEvents>();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testFileStart(String)
-   */
   @Override
   public void testFileStart(final String aFileName) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandStart(org.wetator.core.WetatorContext,
-   *      org.wetator.core.Command)
-   */
   @Override
   public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
     if (aCommand.isComment()) {
@@ -191,149 +145,69 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandSuccess()
-   */
   @Override
   public void executeCommandSuccess() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandIgnored()
-   */
   @Override
   public void executeCommandIgnored() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandFailure(org.wetator.exception.AssertionException)
-   */
   @Override
   public void executeCommandFailure(final AssertionException anAssertionException) {
     dump();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandError(java.lang.Throwable)
-   */
   @Override
   public void executeCommandError(final Throwable aThrowable) {
     dump();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#executeCommandEnd()
-   */
   @Override
   public void executeCommandEnd() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testFileEnd()
-   */
   @Override
   public void testFileEnd() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testRunIgnored()
-   */
   @Override
   public void testRunIgnored() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testRunEnd()
-   */
   @Override
   public void testRunEnd() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#testCaseEnd()
-   */
   @Override
   public void testCaseEnd() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#end(WetatorEngine)
-   */
   @Override
   public void end(final WetatorEngine aWetatorEngine) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#htmlDescribe(String)
-   */
   @Override
   public void htmlDescribe(final String aHtmlDescription) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#responseStored(java.lang.String)
-   */
   @Override
   public void responseStored(final String aResponseFileName) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#highlightedResponse(java.lang.String)
-   */
   @Override
   public void highlightedResponse(final String aResponseFileName) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#error(java.lang.Throwable)
-   */
   @Override
   public void error(final Throwable aThrowable) {
     aThrowable.printStackTrace();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#warn(String, Object[], String)
-   */
   @Override
   public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.IProgressListener#info(String, Object[])
-   */
   @Override
   public void info(final String aMessageKey, final Object[] aParameterArray) {
   }

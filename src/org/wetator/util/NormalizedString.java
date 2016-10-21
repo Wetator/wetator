@@ -219,11 +219,6 @@ public class NormalizedString {
     return tmpLength;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return substring(0, length());

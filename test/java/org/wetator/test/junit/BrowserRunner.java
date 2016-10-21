@@ -61,11 +61,6 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
     super(aKlass);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.junit.runners.BlockJUnit4ClassRunner#computeTestMethods()
-   */
   @Override
   protected List<FrameworkMethod> computeTestMethods() {
     final List<FrameworkMethod> tmpMethods = super.computeTestMethods();
@@ -93,12 +88,6 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
     return tmpBrowserMethods;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.junit.runners.BlockJUnit4ClassRunner#methodInvoker(org.junit.runners.model.FrameworkMethod,
-   *      java.lang.Object)
-   */
   @Override
   protected Statement methodInvoker(final FrameworkMethod aMethod, final Object aTest) {
     if (aMethod instanceof BrowserFrameworkMethod && aTest instanceof IBrowserTest) {

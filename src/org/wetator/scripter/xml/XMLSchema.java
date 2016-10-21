@@ -95,11 +95,6 @@ public class XMLSchema {
     location = aLocation;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     final int tmpPrime = 31;
@@ -111,11 +106,6 @@ public class XMLSchema {
     return tmpResult;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(final Object anObj) {
     if (this == anObj) {
@@ -138,11 +128,6 @@ public class XMLSchema {
     return true;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return "XMLSchema [namespace=" + namespace + "]";

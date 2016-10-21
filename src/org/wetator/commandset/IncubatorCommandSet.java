@@ -84,14 +84,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Assert Focus'.
+   * Command 'assert-focus'.
    */
   public final class CommandAssertFocus implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -125,14 +120,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Open Bookmark'.
+   * Command 'open-bookmark'.
    */
   public final class CommandOpenBookmark implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -154,14 +144,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Save Bookmark'.
+   * Command 'save-bookmark'.
    */
   public final class CommandSaveBookmark implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -175,14 +160,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Wait'.
+   * Command 'wait'.
    */
   public final class CommandWait implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -220,11 +200,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
    * Command 'exec-js'.
    */
   public final class CommandExecJs implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -254,11 +229,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
    * Command 'confirm-next'.
    */
   public final class CommandConfirmNext implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -284,15 +254,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'AssertApplet'.
+   * Command 'assert-applet'.<br>
    * Checks that an applet is runnable.
    */
   public final class CommandAssertApplet implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -370,16 +335,10 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'DebugClickOn'.
+   * Command 'debug-click-on'.<br>
    * To click on invisible anchors.
    */
   public final class CommandDebugClickOn implements ICommandImplementation {
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -434,14 +393,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   }
 
   /**
-   * Command 'Type'.
+   * Command 'type'.
    */
   public final class CommandType implements ICommandImplementation {
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.wetator.core.ICommandImplementation#execute(org.wetator.core.WetatorContext, org.wetator.core.Command)
-     */
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
@@ -465,21 +419,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // nothing to do at the moment
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#cleanup()
-   */
   @Override
   public void cleanup() {
     // nothing to do at the moment

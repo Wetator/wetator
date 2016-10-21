@@ -34,9 +34,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * This finder is a generic finder for all {@link HtmlElement}s not known by the {@link HtmlUnitControlRepository}. Only
- * instances of {@link HtmlUnitUnspecificControl} are returned. This finder supports just two find methods:
+ * instances of {@link HtmlUnitUnspecificControl} are returned. This finder supports just three find methods:
  * <ul>
  * <li>by id</li>
+ * <li>by title attribute</li>
  * <li>by text (the first {@link HtmlElement} which matches the path and which's text contains the search pattern)</li>
  * </ul>
  *
@@ -60,11 +61,6 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
     controlRepository = aControlRepository;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
-   */
   @Override
   public WeightedControlList find(final WPath aWPath) {
     final WeightedControlList tmpFoundControls = new WeightedControlList();

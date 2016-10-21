@@ -28,7 +28,7 @@ import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
 /**
- * A content pattern contains the terms of match operations (AssertContent).<br>
+ * A content pattern contains the terms of match operations (AssertContent).
  *
  * @author rbri
  */
@@ -228,11 +228,6 @@ public class ContentPattern {
     Assert.fail("contentsFoundButNegated", new String[] { "{", "}", tmpResultMessage.toString(), tmpContent });
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return rawNode.toString();
@@ -270,11 +265,6 @@ public class ContentPattern {
       return value.getValue();
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       if (isNegated) {

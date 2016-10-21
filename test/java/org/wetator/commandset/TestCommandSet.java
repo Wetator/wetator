@@ -40,18 +40,13 @@ public final class TestCommandSet extends AbstractCommandSet {
     super();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.commandset.AbstractCommandSet#registerCommands()
-   */
   @Override
   protected void registerCommands() {
     registerCommand("assert-fail", new CommandAssertFail());
   }
 
   /**
-   * The assert fail command.
+   * The assert-fail command.
    */
   public static final class CommandAssertFail implements ICommandImplementation {
     @Override
@@ -89,21 +84,11 @@ public final class TestCommandSet extends AbstractCommandSet {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#initialize(java.util.Properties)
-   */
   @Override
   public void initialize(final Properties aConfiguration) {
     // nothing to do at the moment
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.wetator.core.ICommandSet#cleanup()
-   */
   @Override
   public void cleanup() {
     // nothing

@@ -26,7 +26,7 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.SecretString;
 
 /**
- * A WPath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.<br>
+ * A WPath contains the nodes describing the path to a {@link org.wetator.backend.control.IControl}.
  *
  * @author frank.danek
  * @author rbri
@@ -46,7 +46,7 @@ public class WPath {
    * The constructor.
    *
    * @param aPathNodes the nodes of the path
-   * @param aConfiguration the configuration
+   * @param aConfiguration the {@link WetatorConfiguration}
    * @throws InvalidInputException in case of an invalid {@link WPath}
    */
   public WPath(final SecretString aPathNodes, final WetatorConfiguration aConfiguration) throws InvalidInputException {
@@ -89,17 +89,12 @@ public class WPath {
   }
 
   /**
-   * @return true if the path contains no nodes
+   * @return <code>true</code> if the {@link WPath} contains no nodes
    */
   public boolean isEmpty() {
     return rawPath.isEmpty();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return rawPath.toString();
@@ -200,11 +195,6 @@ public class WPath {
       return coordinateY;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       return new StringBuilder().append(TABLE_COORDINATES_START).append(coordinateX).append(';').append(coordinateY)

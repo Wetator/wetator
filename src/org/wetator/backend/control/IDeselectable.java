@@ -31,7 +31,7 @@ public interface IDeselectable extends ISelectable {
   /**
    * Deselects the control.
    *
-   * @param aContext the context
+   * @param aContext the current {@link WetatorContext}
    * @throws ActionException if an error occurred during the deselect
    */
   void deselect(WetatorContext aContext) throws ActionException;

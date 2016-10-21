@@ -26,21 +26,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 /**
  * The base class for all identifiers.<br>
  * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.IControl}
- * matching
- * a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use
+ * matching a specific {@link WPath}. To check if a {@link HtmlElement} is supported by an identifier at all, use
  * {@link #isHtmlElementSupported(HtmlElement)}.
  *
  * @author frank.danek
  */
 public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
 
-  /**
-   * The HtmlPageIndex index of the page.
-   */
+  /** The {@link HtmlPageIndex} index of the page. */
   protected HtmlPageIndex htmlPageIndex;
-  /**
-   * The list the found controls should be added to.
-   */
+  /** The list the found controls should be added to. */
   private WeightedControlList foundControls;
 
   // for asynchronous use
@@ -80,11 +75,6 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    */
   public abstract boolean isHtmlElementSupported(HtmlElement aHtmlElement);
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see java.lang.Runnable#run()
-   */
   @Override
   public void run() {
     if (!initializedForAsynch) {
@@ -98,9 +88,9 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
   }
 
   /**
-   * Tries to identify the given {@link HtmlElement} using the given wpath.
+   * Tries to identify the given {@link HtmlElement} using the given {@link WPath}.
    *
-   * @param aWPath the wpath used to identify the controls
+   * @param aWPath the {@link WPath} used to identify the controls
    * @param aHtmlElement the {@link HtmlElement} to be identified
    * @return the list containing the identified controls
    */
