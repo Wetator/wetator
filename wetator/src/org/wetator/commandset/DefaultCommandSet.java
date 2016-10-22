@@ -27,9 +27,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.http.util.ExceptionUtils;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -780,11 +778,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
         Object tmpReceiver = null;
         Object tmpResult = null;
-        if (!Modifier.isStatic(tmpMethod.getModifiers())) {
+        if (Modifier.isStatic(tmpMethod.getModifiers())) {
+          tmpResult = MethodUtils.invokeStaticMethod(tmpClass, tmpMethod.getName(), tmpParams);
+        } else {
           tmpReceiver = tmpClass.newInstance();
           tmpResult = MethodUtils.invokeMethod(tmpReceiver, tmpMethod.getName(), tmpParams);
-        } else {
-          tmpResult = MethodUtils.invokeStaticMethod(tmpClass, tmpMethod.getName(), tmpParams);
         }
 
         // time to execute
