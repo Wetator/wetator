@@ -33,11 +33,11 @@ import org.wetator.util.SecretString;
  * @author rbri
  */
 public class ContentPattern {
-  /**
-   * The delimiter used for content parts.
-   */
+
+  /** The delimiter used for content parts. */
   public static final String DELIMITER = ",";
   private static final String NOT_OPERTOR = "~";
+  private static final String ESCAPE_CHAR = "\\";
 
   private SecretString rawNode;
   private List<PatternNode> nodes;
@@ -47,7 +47,7 @@ public class ContentPattern {
    * The constructor.
    *
    * @param anExpectedNodes the nodes expected from the text
-   * @throws InvalidInputException if provided pattern is empty or contains only negated nodes
+   * @throws InvalidInputException if the provided pattern is empty or contains only negated nodes
    */
   public ContentPattern(final SecretString anExpectedNodes) throws InvalidInputException {
     rawNode = anExpectedNodes;
@@ -100,12 +100,12 @@ public class ContentPattern {
 
   /**
    * Asserts that the given content matches our pattern.
-   * Otherwise throws an AssertionFailedException.
+   * Otherwise throws an {@link AssertionException}.
    *
    * @param aContent a String to check
    * @param aMaxLength the maximum length of the content used for the
    *        exception text
-   * @throws AssertionException if the two strings are not the same
+   * @throws AssertionException if pattern does not match the given String
    */
   public void matches(final String aContent, final int aMaxLength) throws AssertionException {
     // first the positive only check
@@ -234,28 +234,30 @@ public class ContentPattern {
   }
 
   /**
-   * Internal helper class.<br>
+   * Internal helper class representing one node of a {@link ContentPattern}.
    */
   static final class PatternNode implements Cloneable {
+
     private SecretString value;
-    private boolean isNegated;
-    private boolean isIgnored;
+    private boolean negated;
+    private boolean negatedEscaped;
 
     /**
      * Constructor.
      *
-     * @param aNode the SecretString this is based on
+     * @param aNode the {@link SecretString} this node is based on
      */
     PatternNode(final SecretString aNode) {
       final String tmpValue = aNode.getValue();
       if (tmpValue.startsWith(NOT_OPERTOR)) {
-        // TODO escaping?
-        isNegated = true;
+        negated = true;
         value = aNode.substring(1);
-        return;
+      } else if (tmpValue.startsWith(ESCAPE_CHAR + NOT_OPERTOR)) {
+        negatedEscaped = true;
+        value = aNode.substring(1);
+      } else {
+        value = aNode;
       }
-
-      value = aNode;
     }
 
     /**
@@ -265,38 +267,31 @@ public class ContentPattern {
       return value.getValue();
     }
 
+    /**
+     * @return <code>true</code> if this node is negated
+     */
+    public boolean isNegated() {
+      return negated;
+    }
+
     @Override
     public String toString() {
-      if (isNegated) {
+      if (negated) {
         return NOT_OPERTOR + value.toString();
+      }
+      if (negatedEscaped) {
+        return ESCAPE_CHAR + value.toString();
       }
       return value.toString();
     }
 
-    /**
-     * @return the isNegated
-     */
-    public boolean isNegated() {
-      return isNegated;
-    }
-
-    /**
-     * @return the isIgnored
-     */
-    public boolean isIgnored() {
-      return isIgnored;
-    }
-
-    /**
-     * Set the isIgnored property to true.
-     */
-    public void setIgnored() {
-      isIgnored = true;
-    }
-
     @Override
-    public PatternNode clone() throws CloneNotSupportedException {
-      return (PatternNode) super.clone();
+    public PatternNode clone() {
+      try {
+        return (PatternNode) super.clone();
+      } catch (final CloneNotSupportedException e) {
+        throw new RuntimeException(e);
+      }
     }
   }
 }
