@@ -210,7 +210,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
             for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
               final String tmpValue = tmpResultSet.getString(i);
               if (tmpResultSet.wasNull()) {
-                // TODO maybe report column and row
                 aContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
               } else {
                 if (tmpExpected.length() > 0) {
