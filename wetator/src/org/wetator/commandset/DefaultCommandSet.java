@@ -27,7 +27,9 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.http.util.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
