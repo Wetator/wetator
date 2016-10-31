@@ -495,7 +495,8 @@ public final class XHtmlOutputter {
               tmpAttributeValue = responseStore.processCSS(tmpBaseUrl, tmpAttributeValue, 0);
             }
 
-            if (aDomNode instanceof HtmlElement) {
+            // ignore options for the moment, IE reports display style inline for options
+            if (aDomNode instanceof HtmlElement && !(aDomNode instanceof HtmlOption)) {
               final HtmlElement tmpElement = (HtmlElement) aDomNode;
               // hopefully no one will ever made tags like head visible
               if (!DisplayStyle.NONE.value().equals(tmpElement.getDefaultStyleDisplay().value())) {
@@ -598,7 +599,8 @@ public final class XHtmlOutputter {
         }
       }
 
-      if (!tmpStyleDefined && aDomNode instanceof HtmlElement) {
+      // ignore options for the moment, IE reports display style inline for options
+      if (!tmpStyleDefined && aDomNode instanceof HtmlElement && !(aDomNode instanceof HtmlOption)) {
         final HtmlElement tmpElem = (HtmlElement) aDomNode;
         // hopefully no one will ever made tags like head visible
         if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay().value())) {
