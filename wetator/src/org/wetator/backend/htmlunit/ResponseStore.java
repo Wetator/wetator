@@ -318,13 +318,10 @@ public final class ResponseStore {
           }
 
           if (tmpProcessed == null) {
-            final InputStream tmpInStream = tmpWebResponse.getContentAsStream();
             FileUtils.forceMkdir(tmpResourceFile.getParentFile());
-            final FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
-            try {
+            try (final InputStream tmpInStream = tmpWebResponse.getContentAsStream();
+                final FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile)) {
               IOUtils.copy(tmpInStream, tmpOutStream);
-            } finally {
-              tmpOutStream.close();
             }
           }
         }
