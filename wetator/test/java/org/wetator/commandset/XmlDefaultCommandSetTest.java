@@ -133,7 +133,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedFromJavascript() throws InvalidInputException {
     executeTestFile("assert_selected_fromJavascript.wet");
 
-    Assert.assertEquals(16, getSteps());
+    Assert.assertEquals(21, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

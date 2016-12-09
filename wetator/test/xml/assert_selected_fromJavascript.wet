@@ -9,6 +9,14 @@
     <command><d:open-url><d:url>assert_selected_from_javascript.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Selected from Javascript</d:title></d:assert-title></command>
     <comment>checkbox selected</comment>
+    <command><d:assert-selected><d:wpath>option4</d:wpath></d:assert-selected></command>
+    <command><d:click-on><d:wpath>SingleSelectSelectedByJsTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Key Value SingleSelectSelectedByJsTest OK singleSelect_SelectedByJs o_value4 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected_from_javascript.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected from Javascript</d:title></d:assert-title></command>
+    <comment>checkbox selected</comment>
     <command><d:assert-selected><d:wpath>CheckBox selected by js</d:wpath></d:assert-selected></command>
     <command><d:click-on><d:wpath>CheckBoxSelectedByJsTest</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>Key Value CheckBoxSelectedByJsTest OK checkBox_SelectedByJs check_SelectedByJs POST</d:content></d:assert-content></command>

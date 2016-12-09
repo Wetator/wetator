@@ -18,6 +18,39 @@
         <td>
         <!-- left column -->
 
+          <h3>SingleSelect</h3>
+
+          <h4>selected from javascript</h4>
+
+          <table border='0'>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="singleSelectId_SelectedByJs">SingleSelect selected by js</label></td>
+                      <td>
+                        <select id="singleSelectId_SelectedByJs" name="singleSelect_SelectedByJs" size="5">
+                          <option value="o_value1">option1</option>
+                          <option value="o_value2" selected>option2</option>
+                          <option value="o_value3">option3</option>
+                          <option value="o_value4">option4</option>
+                        </select>
+                      </td>
+                      <td><input type="submit" name="SingleSelectSelectedByJsTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </table>
+          <script>document.getElementById('singleSelectId_SelectedByJs').selectedIndex=3;</script>
+
+        <!-- end left column -->
+        </td>
+        <td>
+        <!-- center column -->
+
           <h3>Checkbox</h3>
 
           <h4>selected from javascript</h4>
@@ -54,7 +87,7 @@
           <script>document.getElementById('checkBoxId_DeselectedByJs').checked=false;</script>
 
 
-        <!-- end left column -->
+        <!-- end center column -->
         </td>
         <td>
         <!-- right column -->
