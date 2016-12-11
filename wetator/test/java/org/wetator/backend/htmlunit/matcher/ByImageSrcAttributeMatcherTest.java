@@ -38,6 +38,7 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<img id='myId' src='picture.png'>"
         + "</body></html>";
     // @formatter:on
@@ -53,6 +54,7 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<img id='myId' src='picture.png'>"
         + "</body></html>";
     // @formatter:on
@@ -62,13 +64,14 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<img id='myId' src='picture.png'>"
         + "</body></html>";
     // @formatter:on
@@ -78,13 +81,14 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<img id='myId' src='picture.png'>"
         + "</body></html>";
     // @formatter:on
@@ -94,13 +98,14 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<img id='myId' src='picture.png'>"
         + "</body></html>";
     // @formatter:on
@@ -116,6 +121,7 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
   public void withPath() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<img id='myId' src='web/picture.png'>"
         + "</body></html>";
     // @formatter:on
@@ -125,7 +131,7 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 4, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 4, 14, 14, tmpMatches.get(0));
   }
 
   @Test

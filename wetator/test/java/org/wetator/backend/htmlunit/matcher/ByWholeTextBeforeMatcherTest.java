@@ -47,22 +47,110 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<p>Marker1</p>"
-        + "<input id='otherId' type='text'>"
-        + "<p>Marker2</p>"
+        + "<p>Some text .... </p>"
+        + "<p>Marker</p>"
         + "<input id='myId' type='text'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker1 > not");
+    final SecretString tmpSearch = new SecretString("not");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(0, tmpMatches.size());
   }
 
   @Test
   public void full() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p>Marker</p>"
+        + "<input id='myId' type='text'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_TEXT, 0, 21, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardRight() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p>Marker</p>"
+        + "<input id='myId' type='text'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marke*");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_TEXT, 0, 21, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p>Marker</p>"
+        + "<input id='myId' type='text'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("*arker");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_TEXT, 0, 21, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void part() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p>Marker</p>"
+        + "<input id='myId' type='text'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("arke");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_TEXT, 1, 21, 21, tmpMatches.get(0));
+  }
+
+  @Test
+  public void wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p>Marker</p>"
+        + "<input id='myId' type='text'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("*");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void full_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Marker1</p>"
@@ -81,7 +169,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardRight() throws IOException, InvalidInputException {
+  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Marker1</p>"
@@ -100,7 +188,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardLeft() throws IOException, InvalidInputException {
+  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Marker1</p>"
@@ -119,7 +207,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void part() throws IOException, InvalidInputException {
+  public void part_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Marker1</p>"
@@ -138,7 +226,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardOnly() throws IOException, InvalidInputException {
+  public void wildcardOnly_TextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Marker1</p>"
@@ -148,7 +236,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker1 > ");
+    final SecretString tmpSearch = new SecretString("Marker1 > *");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
