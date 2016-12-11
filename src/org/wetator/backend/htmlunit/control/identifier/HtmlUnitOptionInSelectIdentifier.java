@@ -90,24 +90,28 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     final WeightedControlList tmpResult = new WeightedControlList();
     if (aHtmlElement instanceof HtmlSelect) {
       // has the node the text before
-      final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-      if (tmpPathSpotSelect == null || tmpPathSpotSelect.getEndPos() <= tmpNodeSpot.getStartPos()) {
+      final FindSpot tmpNodeSpotSelect = htmlPageIndex.getPosition(aHtmlElement);
+      if (tmpPathSpotSelect == null || tmpPathSpotSelect.getEndPos() <= tmpNodeSpotSelect.getStartPos()) {
 
         // if the select follows text directly and text matches => choose it
         int tmpStartPos = 0;
         if (tmpPathSpotSelect != null) {
           tmpStartPos = tmpPathSpotSelect.getEndPos();
         }
-        final String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPos);
-        if (StringUtils.isNotEmpty(tmpText)) {
-          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpText);
+
+        // labeling text before
+        final String tmpLabelingTextBefore = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPos);
+        if (StringUtils.isNotEmpty(tmpLabelingTextBefore)) {
+          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpLabelingTextBefore);
           if (tmpCoverage > -1) {
-            final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             final int tmpDistance;
-            if (tmpPathSearchPatternSelect != null) {
-              tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-            } else {
+            if (aWPath.getPathNodes().isEmpty()) {
+              // no select part -> distance from select to page start
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
               tmpDistance = tmpTextBefore.length();
+            } else {
+              // select part -> distance from select to end of part
+              tmpDistance = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpLabelingTextBefore);
             }
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                 tmpResult);
@@ -119,12 +123,14 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         if (StringUtils.isNotEmpty(tmpName) && tmpSearchPatternSelect.matches(tmpName)) {
           final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
           if (tmpCoverage > -1) {
-            final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             final int tmpDistance;
-            if (tmpPathSearchPatternSelect != null) {
-              tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-            } else {
+            if (aWPath.getPathNodes().isEmpty()) {
+              // no select part -> distance from select to page start
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
               tmpDistance = tmpTextBefore.length();
+            } else {
+              // id matched select directly -> distance from option to select -> distance 0
+              tmpDistance = 0;
             }
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                 tmpResult);
@@ -136,12 +142,14 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
           final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
           if (tmpCoverage > -1) {
-            final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             final int tmpDistance;
-            if (tmpPathSearchPatternSelect != null) {
-              tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-            } else {
+            if (aWPath.getPathNodes().isEmpty()) {
+              // no select part -> distance from select to page start
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
               tmpDistance = tmpTextBefore.length();
+            } else {
+              // id matched select directly -> distance from option to select -> distance 0
+              tmpDistance = 0;
             }
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                 tmpResult);
@@ -168,12 +176,14 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
             try {
               final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
               if (tmpElementForLabel instanceof HtmlSelect && tmpElementForLabel.isDisplayed()) {
-                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpElementForLabel);
                 final int tmpDistance;
-                if (tmpPathSearchPatternSelect != null) {
-                  tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-                } else {
+                if (aWPath.getPathNodes().isEmpty()) {
+                  // no select part -> distance from select to page start
                   tmpDistance = tmpTextBefore.length();
+                } else {
+                  // select part -> distance from select to end of part
+                  tmpDistance = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                 }
                 getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                     tmpResult);
@@ -183,16 +193,18 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
             }
           }
 
-          // Element must be a nested element of label
+          // element must be a nested element of label
           final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
           for (final HtmlElement tmpChildElement : tmpChilds) {
             if (tmpChildElement instanceof HtmlSelect && tmpChildElement.isDisplayed()) {
-              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpChildElement);
               final int tmpDistance;
-              if (tmpPathSearchPatternSelect != null) {
-                tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-              } else {
+              if (aWPath.getPathNodes().isEmpty()) {
+                // no select part -> distance from select to page start
                 tmpDistance = tmpTextBefore.length();
+              } else {
+                // select part -> distance from select to end of part
+                tmpDistance = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
               }
               getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                   tmpResult);
@@ -214,7 +226,6 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    * @param aWeightedControlList the list to add the control to
    * @return found
    */
-  // FIXME why distance of select and not of option?
   protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern,
       final List<TableCoordinate> aTableCoordinates, final int aDistance,
       final WeightedControlList aWeightedControlList) {
