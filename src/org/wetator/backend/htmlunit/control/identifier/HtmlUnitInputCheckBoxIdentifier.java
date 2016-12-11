@@ -50,6 +50,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * @author frank.danek
  * @author rbri
  */
+// FIXME add ByWholeTextBeforeMatcher
 public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentifier {
 
   @Override

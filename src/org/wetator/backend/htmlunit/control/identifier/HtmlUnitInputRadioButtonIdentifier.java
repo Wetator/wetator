@@ -45,6 +45,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
  *
  * @author frank.danek
  */
+// FIXME add ByWholeTextBeforeMatcher
 public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
   @Override
