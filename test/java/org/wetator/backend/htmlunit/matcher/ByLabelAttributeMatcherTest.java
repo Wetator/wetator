@@ -38,6 +38,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<select id='mySelectId'>"
         + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
@@ -56,6 +57,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<select id='mySelectId'>"
         + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
@@ -68,13 +70,14 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<select id='mySelectId'>"
         + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
@@ -87,13 +90,14 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<select id='mySelectId'>"
         + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
@@ -106,13 +110,14 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<select id='mySelectId'>"
         + "<optgroup id='myId' label='myLabel'>"
         + "<option value='o_red'>red</option>"
@@ -125,7 +130,7 @@ public class ByLabelAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 14, 14, tmpMatches.get(0));
   }
 
   @Test

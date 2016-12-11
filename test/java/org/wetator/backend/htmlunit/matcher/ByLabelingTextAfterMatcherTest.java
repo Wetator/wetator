@@ -38,6 +38,7 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
   public void not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
         + "<input id='myId' type='checkbox'>CheckBox"
         + "<input id='otherId2' type='checkbox'>"
@@ -55,6 +56,7 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
   public void full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
         + "<input id='myId' type='checkbox'>CheckBox"
         + "<input id='otherId2' type='checkbox'>"
@@ -66,13 +68,14 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
         + "<input id='myId' type='checkbox'>CheckBox"
         + "<input id='otherId2' type='checkbox'>"
@@ -84,13 +87,14 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
         + "<input id='myId' type='checkbox'>CheckBox"
         + "<input id='otherId2' type='checkbox'>"
@@ -102,13 +106,14 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
   public void part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
         + "<input id='myId' type='checkbox'>CheckBox"
         + "<input id='otherId2' type='checkbox'>"
@@ -120,7 +125,7 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 0, 0, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 14, 14, tmpMatches.get(0));
   }
 
   @Test
