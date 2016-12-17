@@ -19,19 +19,49 @@
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><d:assert-content><d:content>This text is styled. MouseOver defined on parent</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>This text is styled. Buttons</d:content></d:assert-content></command>
     <comment>move mouse over the button</comment>
     <command><d:mouse-over><d:wpath>xt is style</d:wpath></d:mouse-over></command>
-    <command><d:assert-content><d:content>This text is styled. Font Btn MouseOver defined on parent</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>This text is styled. Font Btn Buttons</d:content></d:assert-content></command>
+
+    <comment></comment>
+    <comment></comment>
+    <comment>Mouse over for disabled controls works for FF45 only at the moment</comment>
+    <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
+    <comment>button is not visible</comment>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Hover Btn Hover disabled SubmitBtn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
+    <comment>move mouse over the button</comment>
+    <command><d:mouse-over><d:wpath>Hover SubmitBtn</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Mouse over Submit Btn Hover Btn Hover disabled SubmitBtn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
     <comment>button is not visible</comment>
-    <command><d:assert-content><d:content>MouseOver defined on parent Place mouse here Effect with timeout</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Hover Btn Hover disabled SubmitBtn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
     <comment>move mouse over the button</comment>
-    <command><d:mouse-over><d:wpath>Place mouse here</d:wpath></d:mouse-over></command>
-    <command><d:assert-content><d:content>MouseOver defined on parent Place mouse here Parent Btn Effect with timeout</d:content></d:assert-content></command>
+    <command><d:mouse-over><d:wpath>Hover Btn</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Hover Btn Mouse over Btn Hover disabled SubmitBtn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
+    <comment>button is not visible</comment>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Hover Btn Hover disabled SubmitBtn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
+    <comment>move mouse over the button</comment>
+    <command><d:mouse-over><d:wpath>Hover disabled SubmitBtn</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Hover Btn Hover disabled SubmitBtn Mouse over disabled Submit Btn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Mouse Over</d:title></d:assert-title></command>
+    <comment>button is not visible</comment>
+    <command><d:assert-content><d:content>Buttons Hover SubmitBtn Hover Btn Hover disabled SubmitBtn Hover disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
+    <comment>move mouse over the button</comment>
+    <command><d:mouse-over><d:wpath>Hover disabled Btn</d:wpath></d:mouse-over></command>
+    <command><d:assert-content><d:content> Buttons Hover SubmitBtn Hover Btn Hover disabled SubmitBtn Hover disabled Btn Mouse over disabled Btn MouseOver defined on parent</d:content></d:assert-content></command>
+
     <comment></comment>
     <comment></comment>
     <command><d:open-url><d:url>mouse_over.html</d:url></d:open-url></command>

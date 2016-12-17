@@ -45,6 +45,23 @@
         <input style="visibility: hidden;" type="button" id="b_formatedtext_id" value="Font Btn">
     </p>
 
+    <h3>Buttons</h3>
+    <input type="submit" value="Hover SubmitBtn" onmouseover="show('b_submit_id');" onmouseout="hide('b_submit_id');" />
+        <input style="visibility: hidden;" type="button" id="b_submit_id" value="Mouse over Submit Btn">
+    </p>
+
+    <input type="button" value="Hover Btn" onmouseover="show('b_button_id');" onmouseout="hide('b_button_id');" />
+        <input style="visibility: hidden;" type="button" id="b_button_id" value="Mouse over Btn">
+    </p>
+
+    <input type="submit" value="Hover disabled SubmitBtn" onmouseover="show('b_disabled_submit_id');" onmouseout="hide('b_disabled_submit_id');" disabled />
+        <input style="visibility: hidden;" type="button" id="b_disabled_submit_id" value="Mouse over disabled Submit Btn">
+    </p>
+
+    <input type="button" value="Hover disabled Btn" onmouseover="show('b_disabled_button_id');" onmouseout="hide('b_disabled_button_id');" disabled />
+        <input style="visibility: hidden;" type="button" id="b_disabled_button_id" value="Mouse over disabled Btn">
+    </p>
+
     <h3>MouseOver defined on parent</h3>
     <div onmouseover="show('b_parent_id');" onmouseout="hide('b_parent_id');">
       <input type="button" id="b_overparent_id" value="Place mouse here">
