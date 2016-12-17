@@ -241,7 +241,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void mouseOver() throws InvalidInputException {
     executeTestFile("mouse_over.wet");
 
-    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(45, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
