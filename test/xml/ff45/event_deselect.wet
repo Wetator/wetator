@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>event_handler.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <comment>Deselect not possible for single selects</comment>
+    <command><d:select><d:wpath>Selects with selection &gt; SingleSelect &gt; option2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Selects with selection &gt; SingleSelect &gt; option2</d:wpath></d:select></command>
+    <command><d:assert-content><d:content>Handler mousedown [singleSelectSelected_o_value2] [1] focus [singleSelectSelected] [-] mouseup [singleSelectSelected_o_value2] [1] change [singleSelectSelected] [-] click [singleSelectSelected_o_value2] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:deselect><d:wpath>Selects with selection &gt; MultipleSelect &gt; option1</d:wpath></d:deselect></command>
+    <command><d:deselect><d:wpath>Selects with selection &gt; MultipleSelect &gt; option1</d:wpath></d:deselect></command>
+    <command disabled="true"><d:assert-content><d:content>TODO: Ctrl-Key related events</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [multipleSelectSelected_o_value1] [1] focus [multipleSelectSelected] [-] mouseup [multipleSelectSelected_o_value1] [1] change [multipleSelectSelected] [-] click [multipleSelectSelected_o_value1] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:deselect><d:wpath>Selects with selection &gt; Checkbox</d:wpath></d:deselect></command>
+    <command><d:deselect><d:wpath>Selects with selection &gt; Checkbox</d:wpath></d:deselect></command>
+    <command><d:assert-content><d:content>Handler mousedown [checkboxChecked] [1] focus [checkboxChecked] [-] mouseup [checkboxChecked] [1] click [checkboxChecked] [1] change [checkboxChecked] [-] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <comment>Deselect not possible for radio buttons</comment>
+    <command><d:select><d:wpath>Selects with selection &gt; RadioGroup &gt; Radio2</d:wpath></d:select></command>
+    <command><d:select><d:wpath>Selects with selection &gt; RadioGroup &gt; Radio2</d:wpath></d:select></command>
+    <command><d:assert-content><d:content>Handler mousedown [radioGroupChecked] [1] focus [radioGroupChecked] [-] mouseup [radioGroupChecked] [1] click [radioGroupChecked] [1] change [radioGroupChecked] [-] OK</d:content></d:assert-content></command>
+</test-case>
