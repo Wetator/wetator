@@ -1415,22 +1415,26 @@ public final class HtmlUnitBrowser implements IBrowser {
 
   @Override
   public void addFailure(final AssertionException aFailure) {
-    failures.add(aFailure);
+    synchronized (failures) {
+      failures.add(aFailure);
+    }
   }
 
   @Override
   public AssertionException checkAndResetFailures() {
-    if (failures.isEmpty()) {
-      return null;
-    }
+    synchronized (failures) {
+      if (failures.isEmpty()) {
+        return null;
+      }
 
-    final AssertionException tmpResult = failures.get(0);
-    for (final AssertionException tmpException : failures) {
-      final Throwable tmpCause = tmpException.getCause();
-      wetatorEngine.informListenersWarn("pageError", new String[] { tmpException.getMessage() }, tmpCause);
+      final AssertionException tmpResult = failures.get(0);
+      for (final AssertionException tmpException : failures) {
+        final Throwable tmpCause = tmpException.getCause();
+        wetatorEngine.informListenersWarn("pageError", new String[] { tmpException.getMessage() }, tmpCause);
+      }
+      failures.clear();
+      return tmpResult;
     }
-    failures = new LinkedList<AssertionException>();
-    return tmpResult;
   }
 
   @Override
