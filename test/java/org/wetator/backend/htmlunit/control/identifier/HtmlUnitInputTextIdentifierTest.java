@@ -98,7 +98,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byLabelTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

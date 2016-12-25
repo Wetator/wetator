@@ -80,11 +80,11 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
   }
 
   @Test
-  public void byLabelTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='otherId' name='otherName' type='file'>"
+        + "<textarea id='otherId' name='otherName' cols='50' rows='1'></textarea>"
         + "<p>Marker</p>"
         + "<textarea id='myId' name='myName' cols='50' rows='1'></textarea>"
         + "</form>"
