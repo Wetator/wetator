@@ -60,7 +60,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
-  public void byLabelTextAfter() throws IOException, InvalidInputException {
+  public void byLabelingTextAfter() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
