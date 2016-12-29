@@ -132,4 +132,58 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="confirm-next">
+        <xs:annotation>
+            <xs:documentation>Defines the action for the next confirm dialog.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tc:commandType">
+                    <xs:sequence>
+                        <xs:element name="action"
+                            minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>The action for the next dialog.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="tc:parameterType">
+                                    <xs:enumeration value="ok">
+                                        <xs:annotation>
+                                            <xs:documentation>Confirm the next dialog.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                    <xs:enumeration value="cancel">
+                                        <xs:annotation>
+                                            <xs:documentation>Cancel the next dialog.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="type">
+        <xs:annotation>
+            <xs:documentation>Types the given keys into the currently focused control.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tc:commandType">
+                    <xs:sequence>
+                        <xs:element name="keys" type="tc:parameterType"
+                            minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>The keys to type.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
