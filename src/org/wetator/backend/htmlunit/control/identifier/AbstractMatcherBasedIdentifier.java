@@ -78,15 +78,19 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
     final WeightedControlList tmpResult = new WeightedControlList();
     for (final MatchResult tmpMatch : tmpProcessedMatches) {
       final HtmlElement tmpHtmlElement = tmpMatch.getHtmlElement();
-      final IControl tmpControl = createControl(tmpHtmlElement);
-      final FoundType tmpFoundType = tmpMatch.getFoundType();
-      final int tmpCoverarge = tmpMatch.getCoverage();
-      final int tmpDistance = tmpMatch.getDistance();
       final FindSpot tmpPosition = htmlPageIndex.getPosition(tmpHtmlElement);
-      final int tmpStartPosition = tmpPosition.getStartPos();
-      final int tmpIndex = htmlPageIndex.getIndex(tmpHtmlElement);
+      // the page index does a more sophisticated visibility check
+      // because of this the control might be missing from the index
+      if (tmpPosition != null) {
+        final IControl tmpControl = createControl(tmpHtmlElement);
+        final FoundType tmpFoundType = tmpMatch.getFoundType();
+        final int tmpCoverarge = tmpMatch.getCoverage();
+        final int tmpDistance = tmpMatch.getDistance();
+        final int tmpStartPosition = tmpPosition.getStartPos();
+        final int tmpIndex = htmlPageIndex.getIndex(tmpHtmlElement);
 
-      tmpResult.add(tmpControl, tmpFoundType, tmpCoverarge, tmpDistance, tmpStartPosition, tmpIndex);
+        tmpResult.add(tmpControl, tmpFoundType, tmpCoverarge, tmpDistance, tmpStartPosition, tmpIndex);
+      }
     }
     return tmpResult;
   }
