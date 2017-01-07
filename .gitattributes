@@ -698,6 +698,7 @@ wetator/test/real-world/primefaces/listbox.wett -text
 wetator/test/real-world/primefaces/one_menu.wett -text
 wetator/test/real-world/primefaces/one_radio.wett -text
 wetator/test/real-world/primefaces/wetator.config -text
+wetator/test/real-world/richfaces/autocomplete.wett -text
 wetator/test/real-world/vaadin/proxy.wett -text
 wetator/test/real-world/vaadin/vaadin-sample.wett -text
 wetator/test/real-world/vaadin/vaadin-simple.wett -text

@@ -1,0 +1,14 @@
+#
+open-url        || http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=autocomplete&skin=blueSky
+
+set             || 1) provides suggestions || al
+assert-content  || Alabama Alaska
+click-on        || Alabama
+assert-content  || Alabama, ~Alaska
+
+click-on        || Custom Popup Layouts
+
+set             || order to define cells || a
+assert-content  || Alabama Montgomery, Alaska Juneau, Arizona Phoenix, Arkansas Little Rock 
+click-on        || Little Rock
+assert-content  || ~Alabama, ~Montgomery, ~Alaska, ~Juneau, ~Arizona, ~Phoenix, Arkansas, ~Little Rock
