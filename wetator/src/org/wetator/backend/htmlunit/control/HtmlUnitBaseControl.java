@@ -91,16 +91,20 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   @Override
   public void click(final WetatorContext aWetatorContext) throws ActionException {
+    mouseOver(aWetatorContext);
+
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    try {
-      tmpHtmlElement.focus();
-    } catch (final ScriptException e) {
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (final WrappedException e) {
-      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-          tmpScriptException);
+    if (canReceiveFocus(aWetatorContext)) {
+      try {
+        tmpHtmlElement.focus();
+      } catch (final ScriptException e) {
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      } catch (final WrappedException e) {
+        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+            tmpScriptException);
+      }
     }
 
     try {
@@ -148,16 +152,20 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   @Override
   public void clickDouble(final WetatorContext aWetatorContext) throws ActionException {
+    mouseOver(aWetatorContext);
+
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    try {
-      tmpHtmlElement.focus();
-    } catch (final ScriptException e) {
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (final WrappedException e) {
-      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-          tmpScriptException);
+    if (canReceiveFocus(aWetatorContext)) {
+      try {
+        tmpHtmlElement.focus();
+      } catch (final ScriptException e) {
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      } catch (final WrappedException e) {
+        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+            tmpScriptException);
+      }
     }
 
     try {
@@ -201,16 +209,20 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
   @Override
   public void clickRight(final WetatorContext aWetatorContext) throws ActionException {
+    mouseOver(aWetatorContext);
+
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    try {
-      tmpHtmlElement.focus();
-    } catch (final ScriptException e) {
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (final WrappedException e) {
-      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-          tmpScriptException);
+    if (canReceiveFocus(aWetatorContext)) {
+      try {
+        tmpHtmlElement.focus();
+      } catch (final ScriptException e) {
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      } catch (final WrappedException e) {
+        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+            tmpScriptException);
+      }
     }
 
     try {
@@ -295,15 +307,17 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    try {
-      // simulate mouse move on the document (outside the element)
-      ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
-    } catch (final ScriptException e) {
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (final WrappedException e) {
-      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-      aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-          tmpScriptException);
+    if (!tmpHtmlElement.isMouseOver()) {
+      try {
+        // simulate mouse move on the document (outside the element)
+        ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
+      } catch (final ScriptException e) {
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
+      } catch (final WrappedException e) {
+        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
+            tmpScriptException);
+      }
     }
 
     final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER;
@@ -314,7 +328,10 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       // simulate mouse over on the element
-      tmpHtmlElement.mouseOver();
+      if (!tmpHtmlElement.isMouseOver()) {
+        tmpHtmlElement.mouseOver();
+      }
+
       // simulate mouse move on the element
       tmpHtmlElement.mouseMove();
       waitForImmediateJobs(aWetatorContext);
@@ -339,6 +356,11 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public boolean isDisabled(final WetatorContext aWetatorContext) {
     final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
     throw new UnsupportedOperationException(tmpMessage);
+  }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return false;
   }
 
   @Override

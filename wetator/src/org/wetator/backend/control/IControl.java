@@ -43,6 +43,12 @@ public interface IControl {
 
   /**
    * @param aContext the current {@link WetatorContext}
+   * @return <code>true</code> if the control can receive the focus
+   */
+  boolean canReceiveFocus(final WetatorContext aContext);
+
+  /**
+   * @param aContext the current {@link WetatorContext}
    * @return <code>true</code> if the control has the focus
    * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported by the control
    */

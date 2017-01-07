@@ -185,4 +185,9 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
     return tmpHtmlFileInput.isDisabled();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

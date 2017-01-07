@@ -184,4 +184,9 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
 
     return tmpHtmlTextInput.isDisabled() || tmpHtmlTextInput.isReadOnly();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

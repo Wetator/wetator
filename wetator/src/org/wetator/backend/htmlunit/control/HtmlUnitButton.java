@@ -55,4 +55,9 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements I
 
     return tmpHtmlButton.isDisabled();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

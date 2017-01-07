@@ -178,4 +178,9 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
 
     return tmpHtmlPasswordInput.isDisabled() || tmpHtmlPasswordInput.isReadOnly();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

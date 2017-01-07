@@ -37,9 +37,29 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_45, BrowserType.FIREFOX_38, BrowserType.INTERNET_EXPLORER })
-  public void eventClickOn() throws InvalidInputException {
-    executeTestFile("event_clickOn.wet");
+  @Browsers({ BrowserType.FIREFOX_38 })
+  public void eventClickOnFF38() throws InvalidInputException {
+    executeTestFile("ff38/event_clickOn.wet");
+
+    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_45 })
+  public void eventClickOnFF45() throws InvalidInputException {
+    executeTestFile("ff45/event_clickOn.wet");
+
+    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.INTERNET_EXPLORER })
+  public void eventClickOnIE() throws InvalidInputException {
+    executeTestFile("ie11/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(0, getFailures());
