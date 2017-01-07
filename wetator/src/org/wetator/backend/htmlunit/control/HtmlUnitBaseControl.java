@@ -307,7 +307,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    if (!tmpHtmlElement.isMouseOver()) {
+    final boolean tmpMouseOver = tmpHtmlElement.isMouseOver();
+    if (!tmpMouseOver) {
       try {
         // simulate mouse move on the document (outside the element)
         ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
@@ -328,7 +329,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       // simulate mouse over on the element
-      if (!tmpHtmlElement.isMouseOver()) {
+      if (!tmpMouseOver) {
         tmpHtmlElement.mouseOver();
       }
 
