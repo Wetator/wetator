@@ -12,17 +12,17 @@
     <command><d:click-on><d:wpath>submitTest</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>submitTest</d:wpath></d:click-on></command>
     <command disabled="true"><d:assert-content><d:content>Handler mouseover [submitTest] [1] mousemove [submitTest] [1] mousedown [submitTest] [1] focus [submitTest] [-] mouseup [submitTest] [1] click [submitTest] [1] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [submitTest] [1] focus [submitTest] [-] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] mousemove [submitTest] [1] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [submitTest] [1] mouseover [submitTest] [1] mousemove [submitTest] [1] focus [submitTest] [-] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] mousemove [submitTest] [1] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>resetTest</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>resetTest</d:wpath></d:click-on></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousemove [resetTest] [1] mouseover [resetTest] [1] mousemove [resetTest] [1] mousedown [resetTest] [1] focus [resetTest] [-] mouseup [resetTest] [1] click [resetTest] [1] mousemove [resetTest] [1] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [resetTest] [1] focus [resetTest] [-] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] mousemove [resetTest] [1] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [resetTest] [1] mouseover [resetTest] [1] mousemove [resetTest] [1] focus [resetTest] [-] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] mousemove [resetTest] [1] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>buttonTest</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>buttonTest</d:wpath></d:click-on></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousemove [buttonTest] [1] mouseover [buttonTest] [1] mousemove [buttonTest] [1] mousedown [buttonTest] [1] focus [buttonTest] [-] mouseup [buttonTest] [1] click [buttonTest] [1] mousemove [buttonTest] [1] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [buttonTest] [1] focus [buttonTest] [-] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] mousemove [buttonTest] [1] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [buttonTest] [1] mouseover [buttonTest] [1] mousemove [buttonTest] [1] focus [buttonTest] [-] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] mousemove [buttonTest] [1] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>InputText</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>InputText</d:wpath></d:click-on></command>
@@ -45,17 +45,17 @@
     <command><d:click-on><d:wpath>Anchor</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>Anchor</d:wpath></d:click-on></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousemove [anchor] [1] mouseover [anchor] [1] mousemove [anchor] [1] mousedown [anchor] [1] focus [anchor] [-] mousemove [anchor] [1] mouseup [anchor] [1] click [anchor] [1] mousemove [anchor] [1] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [anchor] [1] focus [anchor] [-] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] mousemove [anchor] [1] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [anchor] [1] mouseover [anchor] [1] mousemove [anchor] [1] focus [anchor] [-] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] mousemove [anchor] [1] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>Span</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>Span</d:wpath></d:click-on></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousemove [span] [1] mouseover [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [span] [1] mouseover [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>SpanWithTabIndex</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>SpanWithTabIndex</d:wpath></d:click-on></command>
     <command disabled="true"><d:assert-content><d:content>Handler mousemove [spanWithTabIndex] [1] mouseover [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] focus [spanWithTabIndex] [-] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1]click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [spanWithTabIndex] [1] mouseover [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
     <comment>Click on disabled elements</comment>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>submitTestDisabled</d:wpath></d:click-on></command>
