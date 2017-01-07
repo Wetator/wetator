@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <command><d:open-url><d:url>event_handler.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Event Handler</d:title></d:assert-title></command>
+    <comment>Click for enabled elements</comment>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>submitTest</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>submitTest</d:wpath></d:click-on></command>
+    <command disabled="true"><d:assert-content><d:content>Handler mouseover [submitTest] [1] mousemove [submitTest] [1] mousedown [submitTest] [1] focus [submitTest] [-] mouseup [submitTest] [1] click [submitTest] [1] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [submitTest] [1] mousemove [submitTest] [1] focus [submitTest] [-] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] mousemove [submitTest] [1] mousedown [submitTest] [1] mouseup [submitTest] [1] click [submitTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>resetTest</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>resetTest</d:wpath></d:click-on></command>
+    <command disabled="true"><d:assert-content><d:content>Handler mouseover [resetTest] [1] mousemove [resetTest] [1] mousedown [resetTest] [1] focus [resetTest] [-] mouseup [resetTest] [1] click [resetTest] [1] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [resetTest] [1] mousemove [resetTest] [1] focus [resetTest] [-] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] mousemove [resetTest] [1] mousedown [resetTest] [1] mouseup [resetTest] [1] click [resetTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>buttonTest</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>buttonTest</d:wpath></d:click-on></command>
+    <command disabled="true"><d:assert-content><d:content>Handler mouseover [buttonTest] [1] mousemove [buttonTest] [1] mousedown [buttonTest] [1] focus [buttonTest] [-] mouseup [buttonTest] [1] click [buttonTest] [1] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [buttonTest] [1] mousemove [buttonTest] [1] focus [buttonTest] [-] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] mousemove [buttonTest] [1] mousedown [buttonTest] [1] mouseup [buttonTest] [1] click [buttonTest] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>InputText</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>InputText</d:wpath></d:click-on></command>
+    <command disabled="true"><d:assert-content><d:content>Handler focus [inputText] [-] select [inputText] [-] click [inputText] [1] blur [inputText] [-] focus [inputText] [-] select [inputText] [-] click [inputText] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler focus [inputText] [-] click [inputText] [1] blur [inputText] [-] focus [inputText] [-] click [inputText] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>InputPassword</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>InputPassword</d:wpath></d:click-on></command>
+    <command disabled="true"><d:assert-content><d:content>Handler focus [inputPassword] [-] select [inputPassword] [-] click [inputPassword] [1] blur [inputPassword] [-] focus [inputPassword] [-] select [inputPassword] [-] click [inputPassword] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler focus [inputPassword] [-] click [inputPassword] [1] blur [inputPassword] [-] focus [inputPassword] [-] click [inputPassword] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Textarea</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Textarea</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler focus [textarea] [-] click [textarea] [1] blur [textarea] [-] focus [textarea] [-] click [textarea] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Upload</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Upload</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler focus [upload] [-] click [upload] [1] blur [upload] [-] focus [upload] [-] click [upload] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Anchor</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Anchor</d:wpath></d:click-on></command>
+    <command disabled="true"><d:assert-content><d:content>Handler mouseover [anchor] [1] mousemove [anchor] [1] mousedown [anchor] [1] focus [anchor] [-] mouseup [anchor] [1] click [anchor] [1] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [anchor] [1] mousemove [anchor] [1] focus [anchor] [-] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] mousemove [anchor] [1] mousedown [anchor] [1] mouseup [anchor] [1] click [anchor] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Span</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Span</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler mouseover [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] mousemove [span] [1] mousedown [span] [1] mouseup [span] [1] click [span] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>SpanWithTabIndex</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>SpanWithTabIndex</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler mouseover [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
+    <comment>Click on disabled elements</comment>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>submitTestDisabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler mouseover [submitTestDisabled] [1] mousemove [submitTestDisabled] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>resetTestDisabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler mouseover [resetTestDisabled] [1] mousemove [resetTestDisabled] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>buttonTestDisabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler mouseover [buttonTestDisabled] [1] mousemove [buttonTestDisabled] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>InputText Disabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>InputPassword Disabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Textarea Disabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Upload Disabled</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>Handler OK</d:content></d:assert-content></command>
+</test-case>

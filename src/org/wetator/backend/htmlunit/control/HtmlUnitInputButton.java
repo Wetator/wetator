@@ -56,4 +56,9 @@ public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> im
 
     return tmpHtmlButtonInput.isDisabled();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

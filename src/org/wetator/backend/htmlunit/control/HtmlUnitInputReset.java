@@ -56,4 +56,9 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
 
     return tmpHtmlResetInput.isDisabled();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

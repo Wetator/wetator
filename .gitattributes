@@ -976,11 +976,13 @@ test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/deselect_radio.wet -text
 test/xml/event_clickOn.wet -text
 test/xml/exec_java.wet -text svneol=unset#text/plain
+test/xml/ff38/event_clickOn.wet -text
 test/xml/ff38/event_deselect.wet -text
 test/xml/ff38/event_handler.wet -text
 test/xml/ff38/event_mouseOver.wet -text
 test/xml/ff38/event_select.wet -text
 test/xml/ff38/event_set.wet -text
+test/xml/ff45/event_clickOn.wet -text
 test/xml/ff45/event_deselect.wet -text
 test/xml/ff45/event_handler.wet -text
 test/xml/ff45/event_mouseOver.wet -text
@@ -990,6 +992,7 @@ test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 test/xml/go_back.wet -text svneol=unset#text/plain
 test/xml/htmlunit_javascript.wet -text svneol=unset#text/plain
+test/xml/ie11/event_clickOn.wet -text
 test/xml/ie11/event_deselect.wet -text
 test/xml/ie11/event_mouseOver.wet -text
 test/xml/ie11/event_select.wet -text

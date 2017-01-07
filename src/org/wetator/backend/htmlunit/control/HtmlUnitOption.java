@@ -242,4 +242,9 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     final HtmlSelect tmpHtmlSelect = tmpHtmlOption.getEnclosingSelect();
     return getUniqueSelector(tmpHtmlSelect);
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

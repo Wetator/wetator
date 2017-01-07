@@ -54,4 +54,9 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
 
     return tmpHtmlSelect.isDisabled();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }

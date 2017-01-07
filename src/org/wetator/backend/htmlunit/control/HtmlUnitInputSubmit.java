@@ -56,4 +56,9 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
 
     return tmpHtmlSubmitInput.isDisabled();
   }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
+  }
 }
