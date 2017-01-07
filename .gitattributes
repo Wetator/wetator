@@ -475,6 +475,7 @@ test/real-world/primefaces/listbox.wett -text
 test/real-world/primefaces/one_menu.wett -text
 test/real-world/primefaces/one_radio.wett -text
 test/real-world/primefaces/wetator.config -text
+test/real-world/richfaces/autocomplete.wett -text
 test/real-world/vaadin/proxy.wett -text
 test/real-world/vaadin/vaadin-sample.wett -text
 test/real-world/vaadin/vaadin-simple.wett -text
