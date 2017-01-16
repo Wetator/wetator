@@ -55,7 +55,7 @@ public class WetatorEngineExecuteTestsTest {
    * The setting.
    * <ul>
    * <li>2 TestCases</li>
-   * <li>2 Browsers (IE11, FF38)</li>
+   * <li>2 Browsers (IE11, FF45)</li>
    * </ul>
    */
   @Before
