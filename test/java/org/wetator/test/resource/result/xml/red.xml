@@ -176,7 +176,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="125" browser="Firefox38">
+    <testrun id="125" browser="Firefox45">
       <testfile id="126" file="E:\Test\test1.wet">
         <command id="127" name="" line="1" isComment="true">
           <param0 id="128">comment value</param0>
