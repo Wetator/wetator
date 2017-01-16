@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2016 wetator.org
+ * Copyright (c) 2008-2017 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -935,11 +935,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     return tmpPage;
   }
 
-  @SuppressWarnings("deprecation")
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
-    if (IBrowser.BrowserType.FIREFOX_38 == aBrowserType) {
-      return BrowserVersion.FIREFOX_38;
-    }
     if (IBrowser.BrowserType.FIREFOX_45 == aBrowserType) {
       return BrowserVersion.FIREFOX_45;
     }
@@ -949,7 +945,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_38;
+    return BrowserVersion.FIREFOX_45;
   }
 
   /**
