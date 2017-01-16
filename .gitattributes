@@ -1199,12 +1199,6 @@ wetator/test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 wetator/test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 wetator/test/xml/deselect_radio.wet -text
 wetator/test/xml/exec_java.wet -text svneol=unset#text/plain
-wetator/test/xml/ff38/event_clickOn.wet -text
-wetator/test/xml/ff38/event_deselect.wet -text
-wetator/test/xml/ff38/event_handler.wet -text
-wetator/test/xml/ff38/event_mouseOver.wet -text
-wetator/test/xml/ff38/event_select.wet -text
-wetator/test/xml/ff38/event_set.wet -text
 wetator/test/xml/ff45/event_clickOn.wet -text
 wetator/test/xml/ff45/event_deselect.wet -text
 wetator/test/xml/ff45/event_handler.wet -text
