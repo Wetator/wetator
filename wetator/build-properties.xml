@@ -8,7 +8,7 @@
 
   <application>
     <name>Wetator</name>
-    <version>1_7_0_beta4</version>
+    <version>1_7_0_beta5</version>
     <pubversion>1.7.0-SNAPSHOT</pubversion>
     <jar-basename>wetator</jar-basename>
     <vendor>wetator.org</vendor>
@@ -36,8 +36,8 @@
   </ivy>
 
   <javac>
-    <source>1.7</source>
-    <target>1.7</target>
+    <source>1.8</source>
+    <target>1.8</target>
   </javac>
 
   <!-- display number (used for xvfb in CI only) -->
