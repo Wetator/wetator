@@ -22,6 +22,7 @@ import java.util.Properties;
 
 import javax.servlet.DispatcherType;
 
+import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.HashLoginService;
@@ -82,11 +83,12 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
-    tmpResourceHandler.getMimeTypes().addMimeMapping("json", "application/json");
-    tmpResourceHandler.getMimeTypes().addMimeMapping("xlsx",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    tmpResourceHandler.getMimeTypes().addMimeMapping("docx",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+    final MimeTypes tmpMimeTypes = new MimeTypes();
+    tmpMimeTypes.addMimeMapping("json", "application/json");
+    tmpMimeTypes.addMimeMapping("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    tmpMimeTypes.addMimeMapping("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+    tmpResourceHandler.setMimeTypes(tmpMimeTypes);
 
     // servlets
     final ServletContextHandler tmpContextHandler = new ServletContextHandler();
