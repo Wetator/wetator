@@ -281,6 +281,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // setup our listener
     webClient.addWebWindowListener(new WebWindowListener(this));
+    webClient.setAttachmentHandler(new AttachmentHandler());
     webClient.setAlertHandler(new AlertHandler(wetatorEngine));
     webClient.getWebConsole().setLogger(new WebConsoleLogger(wetatorEngine));
     webClient.setIncorrectnessListener(new IncorrectnessListener(wetatorEngine));
@@ -402,6 +403,20 @@ public final class HtmlUnitBrowser implements IBrowser {
         // ignore
       }
       wetatorEngine.informListenersInfo("javascriptAlert", new String[] { tmpMessage, tmpUrl });
+    }
+  }
+
+  /**
+   * Our own alert handler.
+   */
+  public static final class AttachmentHandler implements com.gargoylesoftware.htmlunit.attachment.AttachmentHandler {
+
+    @Override
+    public void handleAttachment(final Page aPage) {
+      // Wetator likes to switch to the new window;
+      // if we are finished with asserts against the attachment
+      // we have to close the window.
+      aPage.getEnclosingWindow().getWebClient().setCurrentWindow(aPage.getEnclosingWindow());
     }
   }
 

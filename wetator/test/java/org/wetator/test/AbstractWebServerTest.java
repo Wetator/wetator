@@ -42,6 +42,7 @@ import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.StdOutProgressListener;
+import org.wetator.test.jetty.ContentServlet;
 import org.wetator.test.jetty.HttpHeaderServlet;
 import org.wetator.test.jetty.MultiPartFilter;
 import org.wetator.test.jetty.RedirectServlet;
@@ -97,6 +98,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_meta.php");
+    tmpContextHandler.addServlet(new ServletHolder(new ContentServlet()), "/create_excel");
     tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopy.php");
     tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopyAuth.php");
 
