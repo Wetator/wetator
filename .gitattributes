@@ -379,6 +379,7 @@ test/java/org/wetator/scripter/xml/SchemaFinderTest.java -text svneol=unset#text
 test/java/org/wetator/test/AbstractBrowserTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/AbstractWebServerTest.java -text svneol=unset#text/plain
 test/java/org/wetator/test/JUnitProgressListener.java -text svneol=unset#text/plain
+test/java/org/wetator/test/jetty/ContentServlet.java -text
 test/java/org/wetator/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
@@ -956,6 +957,7 @@ test/wett/sql_command_set.wett -text
 test/xml/ajax_jquery.wet -text svneol=unset#text/plain
 test/xml/ajax_prototype.wet -text svneol=unset#text/plain
 test/xml/assert_content.wet -text svneol=unset#text/plain
+test/xml/assert_content_submit.wet -text
 test/xml/assert_deselected_checkbox.wet -text svneol=unset#text/plain
 test/xml/assert_deselected_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/assert_deselected_radio.wet -text svneol=unset#text/plain

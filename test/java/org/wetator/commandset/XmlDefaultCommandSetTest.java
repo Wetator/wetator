@@ -40,6 +40,15 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
+  public void assertContentSubmit() throws InvalidInputException {
+    executeTestFile("assert_content_submit.wet");
+
+    Assert.assertEquals(6, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
   public void assertDeselectedCheckbox() throws InvalidInputException {
     executeTestFile("assert_deselected_checkbox.wet");
 
