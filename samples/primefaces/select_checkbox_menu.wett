@@ -1,0 +1,16 @@
+
+# Simple test case for the PrimeFaces menu
+
+open-url        || http://www.primefaces.org/showcase/index.xhtml
+assert-content  || PrimeFaces SHOWCASE
+
+click-on        || Input
+click-on        || CheckboxMenu
+
+click-on        || Location: > Cities
+assert-content  || Miami, London, Paris, Berlin
+click-on        || Miami
+click-on        || Berlin
+
+click-on        || Submit
+assert-content  || Location: Cities Submit Miami Berlin

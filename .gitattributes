@@ -65,6 +65,7 @@ samples/primefaces/inplace.wett -text
 samples/primefaces/listbox.wett -text
 samples/primefaces/one_menu.wett -text
 samples/primefaces/one_radio.wett -text
+samples/primefaces/select_checkbox_menu.wett -text
 samples/primefaces/upload.wett -text
 samples/primefaces/upload_auto.wett -text
 samples/primefaces/wetator.config -text
