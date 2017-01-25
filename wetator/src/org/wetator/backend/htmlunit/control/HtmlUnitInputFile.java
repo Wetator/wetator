@@ -85,6 +85,9 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlFileInput.getPage();
       DomElement tmpFocusedElement = tmpHtmlPage.getFocusedElement();
       if (tmpFocusedElement == null || tmpHtmlFileInput != tmpFocusedElement) {
+        tmpHtmlFileInput.mouseOver();
+        tmpHtmlFileInput.mouseMove();
+
         tmpHtmlFileInput.click();
 
         tmpFocusedElement = tmpHtmlPage.getFocusedElement();
@@ -147,9 +150,9 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
         }
 
         // simulate events during file selection via file dialog
-        ((HtmlPage) tmpHtmlFileInput.getPage()).setFocusedElement(null);
+        tmpHtmlFileInput.mouseOut();
         tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
-        tmpHtmlFileInput.focus();
+        ((HtmlPage) tmpHtmlFileInput.getPage()).setFocusedElement(null);
       }
 
       // wait for silence

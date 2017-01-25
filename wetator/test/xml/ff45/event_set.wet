@@ -21,6 +21,11 @@
     <command><d:set><d:wpath>Textarea</d:wpath><d:value>te</d:value></d:set></command>
     <command><d:assert-content><d:content>Handler mousedown [textarea] [1] focus [textarea] [-] mouseup [textarea] [1] click [textarea] [1] keydown [textarea] [84] keypress [textarea] [116] keyup [textarea] [84] keydown [textarea] [69] keypress [textarea] [101] keyup [textarea] [69] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <comment>Set file input</comment>
+    <command><d:set><d:wpath>Upload</d:wpath><d:value>event_set.wet</d:value></d:set></command>
+    <command disabled="true"><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] blur [upload] [-] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment></comment>
     <comment>Reset input text</comment>
     <command><d:set><d:wpath>InputText</d:wpath><d:value></d:value></d:set></command>
@@ -33,4 +38,10 @@
     <comment>Reset text area</comment>
     <command><d:set><d:wpath>Textarea</d:wpath><d:value></d:value></d:set></command>
     <command><d:assert-content><d:content>Handler mousedown [textarea] [1] focus [textarea] [-] mouseup [textarea] [1] click [textarea] [1] keydown [textarea] [46] keypress [textarea] [46] keyup [textarea] [46] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
+    <comment>Set file input</comment>
+    <command><d:set><d:wpath>Upload</d:wpath><d:value></d:value></d:set></command>
+    <command disabled="true"><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] OK</d:content></d:assert-content></command>
+    <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
 </test-case>
