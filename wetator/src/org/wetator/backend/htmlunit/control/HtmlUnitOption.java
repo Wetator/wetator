@@ -86,7 +86,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
         if (LOG.isDebugEnabled()) {
           LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
         }
-        tmpHtmlOption.click();
+        tmpHtmlOption.click(true, false, false);
       }
 
       // wait for silence
