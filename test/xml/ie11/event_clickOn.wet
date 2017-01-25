@@ -54,8 +54,7 @@
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>SpanWithTabIndex</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>SpanWithTabIndex</d:wpath></d:click-on></command>
-    <command disabled="true"><d:assert-content><d:content>Handler mousemove [spanWithTabIndex] [1] mouseover [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] focus [spanWithTabIndex] [-] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1]click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mousemove [spanWithTabIndex] [1] mouseover [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousemove [spanWithTabIndex] [1] mouseover [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] focus [spanWithTabIndex] [-] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousemove [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] OK</d:content></d:assert-content></command>
     <comment>Click on disabled elements</comment>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <command><d:click-on><d:wpath>submitTestDisabled</d:wpath></d:click-on></command>
