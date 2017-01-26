@@ -99,6 +99,7 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_PROPERTY = "property";
   private static final String TAG_COMMAND_SET = "commandSet";
   private static final String TAG_CONTROL = "control";
+  private static final String TAG_MIME_TYPE = "mimetype";
   private static final String TAG_IGNORED = "ignored";
 
   private Output output;
@@ -327,6 +328,15 @@ public class XMLResultWriter implements IProgressListener {
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_JS_DEBUGGER,
           Boolean.toString(tmpConfiguration.startJsDebugger()));
+
+      for (final java.util.Map.Entry<String, String> tmpEntry : tmpConfiguration.getMimeTypes().entrySet()) {
+        printStartTagOpener(TAG_MIME_TYPE);
+        output.print(" extension=\"");
+        output.print(xmlUtil.normalizeAttributeValue(tmpEntry.getKey()));
+        output.print("\" type=\"");
+        output.print(xmlUtil.normalizeAttributeValue(tmpEntry.getValue()));
+        output.println("\"/>");
+      }
 
       printlnStartTag(TAG_VARIABLES);
 
