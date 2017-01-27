@@ -152,7 +152,6 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
         // simulate events during file selection via file dialog
         tmpHtmlFileInput.mouseOut();
         tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
-        ((HtmlPage) tmpHtmlFileInput.getPage()).setFocusedElement(null);
       }
 
       // wait for silence
