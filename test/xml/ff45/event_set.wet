@@ -23,8 +23,7 @@
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment>Set file input</comment>
     <command><d:set><d:wpath>Upload</d:wpath><d:value>event_set.wet</d:value></d:set></command>
-    <command disabled="true"><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] blur [upload] [-] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment></comment>
     <comment>Reset input text</comment>
@@ -42,6 +41,6 @@
     <comment>Set file input</comment>
     <command><d:set><d:wpath>Upload</d:wpath><d:value></d:value></d:set></command>
     <command disabled="true"><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] mouseout [upload] [1] change [upload] [-] OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mouseover [upload] [1] mousemove [upload] [1] mousedown [upload] [1] focus [upload] [-] mouseup [upload] [1] click [upload] [1] change [upload] [-] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
 </test-case>
