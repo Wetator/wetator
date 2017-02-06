@@ -32,7 +32,6 @@ import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
-import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
@@ -46,13 +45,9 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.BaseFrameElement;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -80,7 +75,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
-    registerCommand("debug-click-on", new CommandDebugClickOn());
   }
 
   /**
@@ -331,64 +325,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           }
         }
       }
-    }
-  }
-
-  /**
-   * Command 'debug-click-on'.<br>
-   * To click on invisible anchors.
-   */
-  public final class CommandDebugClickOn implements ICommandImplementation {
-    @Override
-    public void execute(final WetatorContext aContext, final Command aCommand)
-        throws CommandException, InvalidInputException {
-      final SecretString tmpSearch = aCommand.getRequiredFirstParameterValue(aContext);
-      aCommand.checkNoUnusedSecondParameter(aContext);
-      aCommand.checkNoUnusedThirdParameter(aContext);
-
-      try {
-        final IBrowser tmpBrowser = getBrowser(aContext);
-        if (tmpBrowser instanceof HtmlUnitBrowser) {
-          final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
-
-          final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
-
-          final HtmlAnchor tmpAnchor = findAnchor(tmpHtmlPage, tmpSearch, aContext);
-          if (null == tmpAnchor) {
-            final String tmpMessage = Messages.getMessage("noClickableHtmlElmentFound",
-                new String[] { tmpSearch.toString().toString().trim() });
-            throw new ActionException(tmpMessage);
-          }
-          final IControl tmpControl = new HtmlUnitAnchor(tmpAnchor);
-
-          tmpBrowser.markControls(tmpControl);
-          tmpControl.click(aContext);
-          tmpBrowser.saveCurrentWindowToLog(tmpControl);
-        }
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
-        throw new AssertionException(tmpMessage, e);
-      }
-    }
-
-    private HtmlAnchor findAnchor(final HtmlPage aHtmlPage, final SecretString aSearch, final WetatorContext aContext) {
-      for (final HtmlElement tmpHtmlElem : aHtmlPage.getHtmlElementDescendants()) {
-        if (tmpHtmlElem instanceof HtmlAnchor) {
-          final HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElem;
-          if (aSearch.getSearchPattern().matches(tmpAnchor.getTextContent())) {
-            return tmpAnchor;
-          }
-        } else if (tmpHtmlElem instanceof BaseFrameElement) {
-          final Page tmpPage = ((BaseFrameElement) tmpHtmlElem).getEnclosedPage();
-          if (tmpPage instanceof HtmlPage) {
-            final HtmlAnchor tmpFound = findAnchor((HtmlPage) tmpPage, aSearch, aContext);
-            if (tmpFound != null) {
-              return tmpFound;
-            }
-          }
-        }
-      }
-      return null;
     }
   }
 

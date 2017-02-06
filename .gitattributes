@@ -781,9 +781,6 @@ wetator/test/webpage/incubator/GSort.class -text
 wetator/test/webpage/incubator/Panorado.jar -text
 wetator/test/webpage/incubator/applet.html -text
 wetator/test/webpage/incubator/confirm.html -text
-wetator/test/webpage/incubator/debug_click_on.html -text
-wetator/test/webpage/incubator/debug_click_on_frame.html -text
-wetator/test/webpage/incubator/debug_click_on_iframe.html -text
 wetator/test/webpage/index.html -text svneol=unset#text/plain
 wetator/test/webpage/javascript_boxover.html -text
 wetator/test/webpage/javascript_error.html -text
@@ -1222,7 +1219,6 @@ wetator/test/xml/incubator/assert_applet.xml -text
 wetator/test/xml/incubator/assert_focus.xml -text
 wetator/test/xml/incubator/bookmark.xml -text
 wetator/test/xml/incubator/confirm.xml -text
-wetator/test/xml/incubator/debug_click_on.xml -text
 wetator/test/xml/incubator/exec_js.xml -text
 wetator/test/xml/jquery.wet -text svneol=unset#text/plain
 wetator/test/xml/jquery/modal_confirmation.wet -text svneol=unset#text/plain

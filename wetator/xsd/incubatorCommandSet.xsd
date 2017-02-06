@@ -49,7 +49,6 @@
       <xs:enumeration value="Confirm_Next" />
 
       <xs:enumeration value="Wait" />
-      <xs:enumeration value="Debug_Click_On" />
     </xs:restriction>
   </xs:simpleType>
 
