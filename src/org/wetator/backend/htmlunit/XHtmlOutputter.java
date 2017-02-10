@@ -566,7 +566,7 @@ public final class XHtmlOutputter {
 
           if (tmpDomElement instanceof HtmlPasswordInput && "value".equals(tmpAttributeName)
               && StringUtils.isNotEmpty(tmpAttributeValue)) {
-            tmpAttributeValue = "*******";
+            tmpAttributeValue = StringUtils.repeat("*", tmpAttributeValue.length());
           }
 
           // Don't print if value="Submit Query"
