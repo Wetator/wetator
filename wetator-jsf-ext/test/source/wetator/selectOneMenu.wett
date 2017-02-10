@@ -4,11 +4,10 @@
 open-url        || ui/input/oneMenu.xhtml
 
 select          || Wii U
-
-#select          || Volkswagen
+select          || Volkswagen
 #set             || Editable || Köln
-#select          || Vader
+select          || Vader
 
-#click-on        || Submit
-# assert-content  || Values, Basic: Wii U, Grouping: Volkswagen, Editable Köln, Barcelona, Advanced: Vader
-#assert-content  || Values, Basic: Wii U, Grouping: Volkswagen, Editable, Advanced: Vader
+click-on        || Submit
+## assert-content  || Values, Basic: Wii U, Grouping: Volkswagen, Editable Köln, Barcelona, Advanced: Vader
+assert-content  || Values, Basic: Wii U, Grouping: Volkswagen, Editable, Advanced: Vader
