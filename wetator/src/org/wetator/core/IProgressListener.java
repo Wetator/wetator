@@ -134,7 +134,7 @@ public interface IProgressListener {
    *
    * @param aHtmlDescription the html source of the description
    */
-  void htmlDescribe(final String aHtmlDescription);
+  void htmlDescribe(String aHtmlDescription);
 
   /**
    * This is called after a response was stored in disk.
