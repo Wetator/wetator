@@ -90,8 +90,6 @@ public class HtmlUnitPrimeFacesOption extends HtmlUnitBaseControl<HtmlDivision> 
       if (tmpHtmlOption.isSelected()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
-//        tmpHtmlOption.click();
         final int tmpPos = tmpHtmlOption.getEnclosingSelect().getOptions().indexOf(tmpHtmlOption);
 
         String tmpId = tmpHtmlOption.getEnclosingSelect().getId();
@@ -99,8 +97,6 @@ public class HtmlUnitPrimeFacesOption extends HtmlUnitBaseControl<HtmlDivision> 
             final String tmpMessage = Messages.getMessage("PrimefacesOption_unsupportedID", new String[] { tmpId });
             throw new ActionException(tmpMessage);
         }
-        tmpId = tmpId.substring(0, tmpId.length() - "input".length());
-        tmpId += Integer.toString(tmpPos);
 
         final HtmlPage tmpPage = tmpHtmlOption.getHtmlPageOrNull();
         if (tmpPage == null) {
@@ -108,12 +104,43 @@ public class HtmlUnitPrimeFacesOption extends HtmlUnitBaseControl<HtmlDivision> 
             throw new ActionException(tmpMessage);
         }
 
-        final DomElement tmpTarget = tmpPage.getElementById(tmpId);
+        tmpId = tmpId.substring(0, tmpId.length() - "_input".length());
+
+        LOG.debug("PF Select - '" + tmpId + "'");
+
+        DomElement tmpTarget = tmpPage.getElementById(tmpId);
         if (tmpTarget == null) {
-            final String tmpMessage = Messages.getMessage("PrimefacesOption_pageNull", new String[] { tmpId });
+            final String tmpMessage = Messages.getMessage("PrimefacesOption_controlNull", new String[] { tmpId });
             throw new ActionException(tmpMessage);
         }
 
+        DomElement tmpTrigger = null;
+        for (DomElement tmpChild : tmpTarget.getChildElements()) {
+            String tmpClass = tmpChild.getAttribute("class");
+            if (tmpClass != null
+                    && (tmpClass.equals("ui-selectonemenu-trigger")
+                        || tmpClass.startsWith("ui-selectonemenu-trigger ")
+                        || tmpClass.endsWith(" ui-selectonemenu-trigger")
+                        || tmpClass.contains(" ui-selectonemenu-trigger "))) {
+                tmpTrigger = tmpChild;
+                break;
+            }
+        }
+
+        if (tmpTrigger == null) {
+            final String tmpMessage = Messages.getMessage("PrimefacesOption_triggerNull", new String[] { tmpId });
+            throw new ActionException(tmpMessage);
+        }
+        tmpTrigger.click();
+
+        // now it is time to click on the popup
+        tmpId += "_" + Integer.toString(tmpPos);
+
+        tmpTarget = tmpPage.getElementById(tmpId);
+        if (tmpTarget == null) {
+            final String tmpMessage = Messages.getMessage("PrimefacesOption_optionNull", new String[] { tmpId });
+            throw new ActionException(tmpMessage);
+        }
         tmpTarget.click();
       }
 
@@ -151,5 +178,10 @@ public class HtmlUnitPrimeFacesOption extends HtmlUnitBaseControl<HtmlDivision> 
   @Override
   public String getUniqueSelector() {
     return getUniqueSelector(getHtmlElement());
+  }
+
+  @Override
+  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
+    return !isDisabled(aWetatorContext);
   }
 }
