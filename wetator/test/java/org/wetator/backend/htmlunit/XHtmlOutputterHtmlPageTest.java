@@ -301,4 +301,58 @@ public class XHtmlOutputterHtmlPageTest {
     // @formatter:on
     Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
+
+  @Test
+  public void text() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode =
+            LEADING
+              + " <form>"
+                + "<input type=\"text\" name=\"input\" value=\"1234\" >"
+              + "</form>"
+            + TRAILING;
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    final StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    final String tmpExpected =
+        EXPECTED_LEADING
+          + " <form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input type=\"text\" name=\"input\" value=\"1234\" style=\"display: inline-block\"/> "
+          + "</form> "
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
+
+  @Test
+  public void password() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode =
+            LEADING
+              + " <form>"
+                + "<input type=\"password\" name=\"secret\" value=\"1234\" >"
+              + "</form>"
+            + TRAILING;
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    final StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    final String tmpExpected =
+        EXPECTED_LEADING
+          + " <form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input type=\"password\" name=\"secret\" value=\"****\" style=\"display: inline-block\"/>"
+          + "</form> "
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
 }
