@@ -212,7 +212,7 @@ public interface IBrowser {
    *
    * @param aControls the controls to be highlighted
    */
-  void markControls(final IControl... aControls);
+  void markControls(IControl... aControls);
 
   /**
    * Goes back (simulates the browser's back button) in the current window.
