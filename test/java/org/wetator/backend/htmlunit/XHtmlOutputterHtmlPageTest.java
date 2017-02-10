@@ -28,7 +28,9 @@ import org.wetator.util.NormalizedString;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
  * @author rbri
@@ -305,7 +307,7 @@ public class XHtmlOutputterHtmlPageTest {
   @Test
   public void text() throws IOException {
     // @formatter:off
-    final String tmpHtmlCode =
+    String tmpHtmlCode =
             LEADING
               + " <form>"
                 + "<input type=\"text\" name=\"input\" value=\"1234\" >"
@@ -313,16 +315,43 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    final StringWriter tmpWriter = new StringWriter();
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
     // @formatter:off
-    final String tmpExpected =
+    String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input type=\"text\" name=\"input\" value=\"1234\" style=\"display: inline-block\"/> "
+          + "</form> "
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    // @formatter:off
+    tmpHtmlCode =
+            LEADING
+              + " <form>"
+                + "<input id=\"tst\" type=\"text\" name=\"input\" >"
+              + "</form>"
+            + TRAILING;
+    // @formatter:on
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getElementById("tst");
+    tmpText.type("1234");
+
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    tmpExpected =
+        EXPECTED_LEADING
+          + " <form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input id=\"tst\" type=\"text\" name=\"input\" value=\"1234\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
@@ -332,7 +361,7 @@ public class XHtmlOutputterHtmlPageTest {
   @Test
   public void password() throws IOException {
     // @formatter:off
-    final String tmpHtmlCode =
+    String tmpHtmlCode =
             LEADING
               + " <form>"
                 + "<input type=\"password\" name=\"secret\" value=\"1234\" >"
@@ -340,16 +369,43 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    final StringWriter tmpWriter = new StringWriter();
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
     // @formatter:off
-    final String tmpExpected =
+    String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input type=\"password\" name=\"secret\" value=\"****\" style=\"display: inline-block\"/>"
+            + "<input type=\"password\" name=\"secret\" value=\"****\" style=\"display: inline-block\"/> "
+          + "</form> "
+        + EXPECTED_TRAILING;
+    // @formatter:on
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    // @formatter:off
+    tmpHtmlCode =
+            LEADING
+              + " <form>"
+                + "<input id=\"tst\" type=\"password\" name=\"secret\" value=\"\" >"
+              + "</form>"
+            + TRAILING;
+    // @formatter:on
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    final HtmlPasswordInput tmpPassword = (HtmlPasswordInput) tmpHtmlPage.getElementById("tst");
+    tmpPassword.type("1234");
+
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    tmpExpected =
+        EXPECTED_LEADING
+          + " <form style=\"display: block\" onsubmit=\"return false;\"> "
+            + "<input id=\"tst\" type=\"password\" name=\"secret\" value=\"****\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
