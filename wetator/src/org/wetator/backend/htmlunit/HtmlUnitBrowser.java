@@ -79,7 +79,6 @@ import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.DialogWindow;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
-import com.gargoylesoftware.htmlunit.InteractivePage;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.TextPage;
@@ -647,30 +646,29 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     @Override
-    public void loadScriptError(final InteractivePage anInteractivePage, final URL aScriptUrl,
-        final Exception anException) {
-      htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aScriptUrl.toExternalForm(),
-          anInteractivePage.getUrl().toExternalForm(), anException.getMessage() }, anException);
+    public void loadScriptError(final HtmlPage aHtmlPage, final URL aScriptUrl, final Exception anException) {
+      htmlUnitBrowser.addFailure("javascriptLoadError",
+          new String[] { aScriptUrl.toExternalForm(), aHtmlPage.getUrl().toExternalForm(), anException.getMessage() },
+          anException);
     }
 
     @Override
-    public void malformedScriptURL(final InteractivePage anInteractivePage, final String aUrl,
+    public void malformedScriptURL(final HtmlPage aHtmlPage, final String aUrl,
         final MalformedURLException aMalformedURLException) {
       htmlUnitBrowser.addFailure("javascriptLoadError",
-          new String[] { aUrl, anInteractivePage.getUrl().toExternalForm(), aMalformedURLException.getMessage() },
+          new String[] { aUrl, aHtmlPage.getUrl().toExternalForm(), aMalformedURLException.getMessage() },
           aMalformedURLException);
     }
 
     @Override
-    public void scriptException(final InteractivePage anInteractivePage, final ScriptException aScriptException) {
+    public void scriptException(final HtmlPage aHtmlPage, final ScriptException aScriptException) {
       htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
     }
 
     @Override
-    public void timeoutError(final InteractivePage anInteractivePage, final long aAllowedTime,
-        final long aExecutionTime) {
+    public void timeoutError(final HtmlPage aHtmlPage, final long aAllowedTime, final long aExecutionTime) {
       htmlUnitBrowser.addFailure("javascriptTimeoutError",
-          new Object[] { aAllowedTime, aExecutionTime, anInteractivePage.getUrl().toExternalForm() }, null);
+          new Object[] { aAllowedTime, aExecutionTime, aHtmlPage.getUrl().toExternalForm() }, null);
     }
   }
 
