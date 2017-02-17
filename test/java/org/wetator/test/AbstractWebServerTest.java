@@ -25,6 +25,7 @@ import javax.servlet.DispatcherType;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.HashLoginService;
+import org.eclipse.jetty.security.LoginService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -34,7 +35,6 @@ import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.security.Constraint;
-import org.eclipse.jetty.util.security.Credential;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -121,8 +121,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpConstraintMapping.setConstraint(tmpConstraint);
     tmpConstraintMapping.setPathSpec("/snoopyAuth.php");
 
-    final HashLoginService tmpLoginService = new HashLoginService("wetator");
-    tmpLoginService.putUser("wetator", Credential.getCredential("secret"), new String[] { "user" });
+    final LoginService tmpLoginService = new HashLoginService("wetator",
+        "test/java/org/wetator/test/jetty/realm.properties");
 
     final ConstraintSecurityHandler tmpSecurityHandler = new ConstraintSecurityHandler();
     tmpSecurityHandler.setLoginService(tmpLoginService);
