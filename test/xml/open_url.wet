@@ -24,15 +24,15 @@
     <comment>400</comment>
     <command><tst:assert-fail><tst:command-and-message>Open Url, Opening URL '*http_header.php?code=400' fails with server error '400 Bad Request for *http_header.php?code=400'.</tst:command-and-message><tst:parameter1>http_header.php?code=400</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 400</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR: 400 Problem accessing /http_header.php. Reason: Bad Request Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 400 Problem accessing /http_header.php. Reason: Bad Request Powered by Jetty</d:content></d:assert-content></command>
     <comment>404</comment>
     <command><tst:assert-fail><tst:command-and-message>Open Url, Opening URL '*http_header.php?code=404' fails with server error '404 Not Found for *http_header.php?code=404'.</tst:command-and-message><tst:parameter1>http_header.php?code=404</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 404</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR: 404 Problem accessing /http_header.php. Reason: Not Found Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 404 Problem accessing /http_header.php. Reason: Not Found Powered by Jetty</d:content></d:assert-content></command>
     <comment>500</comment>
     <command><tst:assert-fail><tst:command-and-message>Open Url, Opening URL '*http_header.php?code=500' fails with server error '500 Server Error for *http_header.php?code=500'.</tst:command-and-message><tst:parameter1>http_header.php?code=500</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 500</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR: 500 Problem accessing /http_header.php. Reason: Server Error Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 500 Problem accessing /http_header.php. Reason: Server Error Powered by Jetty</d:content></d:assert-content></command>
     <comment></comment>
     <comment>final test</comment>
     <command><d:open-url><d:url>assert_title.html</d:url></d:open-url></command>
