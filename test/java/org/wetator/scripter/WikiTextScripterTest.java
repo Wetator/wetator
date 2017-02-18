@@ -233,4 +233,25 @@ public class WikiTextScripterTest {
     Assert.assertEquals("\u0430\u0431\u0432\u0433", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
+
+  @Test
+  public void unicode() throws InvalidInputException {
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/unicode.wett");
+
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    tmpScripter.script(tmpFile);
+
+    final List<Command> tmpCommands = tmpScripter.getCommands();
+    Assert.assertEquals(1, tmpCommands.size());
+
+    final int tmpPos = 0;
+    final Command tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("\u00ec \u00ed \u00ee \u00ef", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+  }
 }
