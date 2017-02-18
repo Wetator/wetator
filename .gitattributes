@@ -678,6 +678,7 @@ wetator/test/java/org/wetator/test/resource/result/xml/redAfterModule.xml -text 
 wetator/test/java/org/wetator/test/resource/result/xml/redModuleNotFound.xml -text svneol=unset#text/plain
 wetator/test/java/org/wetator/test/resource/result/xml/redModules.xml -text svneol=unset#text/plain
 wetator/test/java/org/wetator/test/resource/result/xml/redWithIgnoredModule.xml -text svneol=unset#text/plain
+wetator/test/java/org/wetator/test/resource/unicode.wett -text
 wetator/test/java/org/wetator/test/resource/utf8.wett -text svneol=unset#text/plain%3B+charset%3DUTF-8
 wetator/test/java/org/wetator/test/resource/wikiText.wett -text
 wetator/test/java/org/wetator/test/resource/xml.wet -text
