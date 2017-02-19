@@ -27,6 +27,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.LineIterator;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
@@ -117,6 +118,8 @@ public final class WikiTextScripter implements IScripter {
           if (StringUtils.isBlank(tmpLine)) {
             continue;
           }
+
+          tmpLine = StringEscapeUtils.unescapeJava(tmpLine);
 
           boolean tmpComment = false;
           if (tmpLine.startsWith(COMMENT_LINE)) {
