@@ -17,11 +17,14 @@
 package org.wetator.test;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.EnumSet;
 import java.util.Properties;
 
+import javax.security.auth.Subject;
 import javax.servlet.DispatcherType;
 
+import org.eclipse.jetty.security.AbstractLoginService;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.HashLoginService;
@@ -35,6 +38,7 @@ import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.security.Constraint;
+import org.eclipse.jetty.util.security.Password;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -121,8 +125,9 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpConstraintMapping.setConstraint(tmpConstraint);
     tmpConstraintMapping.setPathSpec("/snoopyAuth.php");
 
-    final LoginService tmpLoginService = new HashLoginService("wetator",
-        "test/java/org/wetator/test/jetty/realm.properties");
+    final LoginService tmpLoginService = new HashLoginService();
+    final Principal tmpPrincipal = new AbstractLoginService.UserPrincipal("wetator", new Password("secret"));
+    tmpLoginService.getIdentityService().newUserIdentity(new Subject(), tmpPrincipal, new String[] { "user" });
 
     final ConstraintSecurityHandler tmpSecurityHandler = new ConstraintSecurityHandler();
     tmpSecurityHandler.setLoginService(tmpLoginService);
