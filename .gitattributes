@@ -385,7 +385,6 @@ test/java/org/wetator/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/
 test/java/org/wetator/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
-test/java/org/wetator/test/jetty/realm.properties -text
 test/java/org/wetator/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
 test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plain
 test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
