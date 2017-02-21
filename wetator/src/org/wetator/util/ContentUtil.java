@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -81,15 +82,15 @@ public final class ContentUtil {
    * Converts an InputStream into a normalized string.
    *
    * @param anInputStream the input
-   * @param anEncoding the input stream encoding
+   * @param aCharset the input stream encoding
    * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of error
    */
-  public static String getTxtContentAsString(final InputStream anInputStream, final String anEncoding,
+  public static String getTxtContentAsString(final InputStream anInputStream, final Charset aCharset,
       final int aMaxLength) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
-    final Reader tmpReader = new InputStreamReader(anInputStream, anEncoding);
+    final Reader tmpReader = new InputStreamReader(anInputStream, aCharset);
     final char[] tmpCharBuffer = new char[1024];
 
     int tmpChars = 0;
@@ -183,13 +184,13 @@ public final class ContentUtil {
    * Converts an InputStream into a normalized string.
    *
    * @param anInputStream the input
-   * @param anEncoding the input stream encoding
+   * @param aCharset the input stream encoding
    * @param aXlsLocale the locale used for xls formating
    * @param aMaxLength the maximum length
    * @return the normalizes content string
    * @throws IOException in case of error
    */
-  public static String getZipContentAsString(final InputStream anInputStream, final String anEncoding,
+  public static String getZipContentAsString(final InputStream anInputStream, final Charset aCharset,
       final Locale aXlsLocale, final int aMaxLength) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
     final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream);
@@ -240,7 +241,7 @@ public final class ContentUtil {
         }
       } else {
         try {
-          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), anEncoding, aMaxLength));
+          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), aCharset, aMaxLength));
         } catch (final IOException e) {
           throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text (reason: "
               + e.toString() + ").");

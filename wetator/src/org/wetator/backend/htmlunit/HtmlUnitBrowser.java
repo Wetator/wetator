@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -1385,9 +1386,9 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       // unsupported content type
       // warn and process the content as plain ascii
-      final String tmpCharset = tmpResponse.getContentCharset();
+      final Charset tmpCharset = tmpResponse.getContentCharset();
       wetatorEngine.informListenersInfo("unsupportedPageType",
-          new String[] { tmpPage.getWebResponse().getContentType(), tmpCharset });
+          new String[] { tmpPage.getWebResponse().getContentType(), tmpCharset.name() });
       try {
         final String tmpNormalizedContent = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
             tmpCharset, MAX_LENGTH);
