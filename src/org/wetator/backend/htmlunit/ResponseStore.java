@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -401,7 +402,7 @@ public final class ResponseStore {
    * Our own version to strip BOM bytes from css input if any.
    */
   private static String getContentAsStringWithoutBOM(final WebResponse aWebResponse) {
-    final String tmpCharset = aWebResponse.getContentCharset();
+    final Charset tmpCharset = aWebResponse.getContentCharset();
     InputStream tmpIn = null;
     try {
       tmpIn = aWebResponse.getContentAsStream();
