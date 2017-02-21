@@ -255,7 +255,7 @@ public final class XHtmlOutputter {
    * @throws IOException in case of error
    */
   public void writeTo(final File aFile) throws IOException {
-    final FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, determineEncoding());
+    final FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getCharset());
     writeTo(tmpFileWriter);
   }
 
@@ -267,11 +267,10 @@ public final class XHtmlOutputter {
    */
   public void writeTo(final Writer aWriter) throws IOException {
     try {
-      final String tmpEncoding = determineEncoding();
       xmlUtil = new XMLUtil();
       output = new Output(aWriter, "  ");
 
-      output.println("<?xml version=\"1.0\" encoding=\"" + tmpEncoding + "\"?>");
+      output.println("<?xml version=\"1.0\" encoding=\"" + htmlPage.getCharset().name() + "\"?>");
       output.println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 
@@ -281,14 +280,6 @@ public final class XHtmlOutputter {
     } finally {
       aWriter.close();
     }
-  }
-
-  private String determineEncoding() {
-    final String tmpEncoding = htmlPage.getPageEncoding();
-    if (StringUtils.isBlank(tmpEncoding)) {
-      return "UTF-8";
-    }
-    return tmpEncoding.toUpperCase(Locale.ROOT);
   }
 
   /**
