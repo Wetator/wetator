@@ -174,15 +174,15 @@ public final class ResponseStore {
         tmpHtmlOutputter.writeTo(tmpFile);
       } else {
         final WebResponse tmpWebResponse = aPage.getWebResponse();
-        final InputStream tmpIn = tmpWebResponse.getContentAsStream();
-        final OutputStream tmpOutputStream = new FileOutputStream(tmpFile);
 
-        final byte[] tmpBuffer = new byte[1024];
-        int tmpBytes;
-        while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
-          tmpOutputStream.write(tmpBuffer, 0, tmpBytes);
+        try (final InputStream tmpIn = tmpWebResponse.getContentAsStream();
+            final OutputStream tmpOutputStream = new FileOutputStream(tmpFile)) {
+          final byte[] tmpBuffer = new byte[1024];
+          int tmpBytes;
+          while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
+            tmpOutputStream.write(tmpBuffer, 0, tmpBytes);
+          }
         }
-        tmpOutputStream.close();
       }
 
       return relStoreDir + "/" + tmpFileName;
