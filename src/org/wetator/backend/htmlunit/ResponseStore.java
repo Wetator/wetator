@@ -231,7 +231,7 @@ public final class ResponseStore {
             return null;
           }
         } else if (null != anImage) {
-          tmpWebResponse = anImage.getWebResponse(false);
+          tmpWebResponse = anImage.getWebResponse(true);
 
           // e.g. empty src attrib
           if (tmpWebResponse == null) {
