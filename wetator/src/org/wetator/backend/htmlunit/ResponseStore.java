@@ -231,7 +231,7 @@ public final class ResponseStore {
             return null;
           }
         } else if (null != anImage) {
-          tmpWebResponse = anImage.getWebResponse(true);
+          tmpWebResponse = anImage.getWebResponse(false);
 
           // e.g. empty src attrib
           if (tmpWebResponse == null) {
@@ -306,6 +306,12 @@ public final class ResponseStore {
 
         if (!tmpResourceFile.exists()) {
           String tmpProcessed = null;
+
+          if (null != anImage) {
+            FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+            anImage.saveAs(tmpResourceFile);
+          }
+
           final String tmpContentType = tmpWebResponse.getContentType();
           if ("text/css".equalsIgnoreCase(tmpContentType)) {
             final String tmpResponse = getContentAsStringWithoutBOM(tmpWebResponse);
