@@ -151,6 +151,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
         // simulate events during file selection via file dialog
         tmpHtmlFileInput.mouseOut();
+        aWetatorContext.informListenersInfo("setFile", new String[] { tmpFile.getAbsolutePath() });
         tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
       }
 
