@@ -186,7 +186,7 @@ public final class Assert {
       return;
     }
 
-    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray));
     final String tmpExpected;
     String tmpCurrent = aCurrentString;
     if (anExpectedString == null) {
@@ -206,9 +206,9 @@ public final class Assert {
         }
       }
     }
-    tmpMessage = tmpMessage + " " + constructComparisonMessage(tmpExpected, tmpCurrent);
 
-    throw new AssertionException(tmpMessage);
+    tmpMessage.append(" ").append(constructComparisonMessage(tmpExpected, tmpCurrent));
+    throw new AssertionException(tmpMessage.toString());
   }
 
   /**
@@ -237,29 +237,32 @@ public final class Assert {
       }
     }
 
-    String tmpCurrent;
-    String tmpExpected;
-
     // equal strings
     if (j < i && k < i) {
-      tmpExpected = anExpectedString;
-      tmpCurrent = aCurrentString;
-    } else {
-      tmpExpected = anExpectedString.substring(i, j + 1);
-      tmpCurrent = aCurrentString.substring(i, k + 1);
-      if (i <= tmpEnd && i > 0) {
-        tmpExpected = MORE_MARKER + tmpExpected;
-        tmpCurrent = MORE_MARKER + tmpCurrent;
-      }
-
-      if (j < anExpectedString.length() - 1) {
-        tmpExpected = tmpExpected + MORE_MARKER;
-      }
-      if (k < aCurrentString.length() - 1) {
-        tmpCurrent = tmpCurrent + MORE_MARKER;
-      }
+      return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
     }
-    return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
+
+    final StringBuilder tmpExpected = new StringBuilder();
+    final StringBuilder tmpCurrent = new StringBuilder();
+
+    int tmpFrom = 0;
+    if (i > 4) {
+      tmpExpected.append(MORE_MARKER);
+      tmpCurrent.append(MORE_MARKER);
+      tmpFrom = i;
+    }
+
+    if (j + 5 < tmpEnd && k + 5 < tmpEnd) {
+      tmpExpected.append(anExpectedString.substring(tmpFrom, j + 1));
+      tmpCurrent.append(aCurrentString.substring(tmpFrom, k + 1));
+
+      tmpExpected.append(MORE_MARKER);
+      tmpCurrent.append(MORE_MARKER);
+    } else {
+      tmpExpected.append(anExpectedString.substring(tmpFrom));
+      tmpCurrent.append(aCurrentString.substring(tmpFrom));
+    }
+    return Messages.getMessage("assertExpectedActual", new String[] { tmpExpected.toString(), tmpCurrent.toString() });
   }
 
   /**
@@ -292,8 +295,11 @@ public final class Assert {
       }
     }
 
-    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    tmpMessage = tmpMessage + " " + constructComparisonMessage(anExpectedPattern, aCurrentString);
-    throw new AssertionException(tmpMessage);
+    // @formatter:off
+    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray))
+        .append(' ')
+        .append(constructComparisonMessage(anExpectedPattern, aCurrentString));
+    // @formatter:on
+    throw new AssertionException(tmpMessage.toString());
   }
 }
