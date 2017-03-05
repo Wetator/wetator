@@ -440,7 +440,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
-      return "#" + CssUtil.escapeIdent(tmpHtmlElementId) + tmpSelector.toString();
+      return "#" + CssUtil.escapeIdentifier(tmpHtmlElementId) + tmpSelector.toString();
     }
 
     return "body" + tmpSelector.toString();
