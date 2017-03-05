@@ -51,9 +51,7 @@ public class WPath {
    */
   public WPath(final SecretString aPathNodes, final WetatorConfiguration aConfiguration) throws InvalidInputException {
     if (aPathNodes == null) {
-      // TODO i18n
-      final String tmpMessage = Messages.getMessage("invalidWPath",
-          new Object[] { "null", "Invalid WPath. Must not be null." });
+      final String tmpMessage = Messages.getMessage("invalidNullWPath", null);
       throw new InvalidInputException(tmpMessage);
     }
     rawPath = aPathNodes;
@@ -112,9 +110,7 @@ public class WPath {
         if (tmpNode.startsWith(TABLE_COORDINATES_START) && tmpNode.endsWith(TABLE_COORDINATES_END)
             && !tmpNode.endsWith(TABLE_COORDINATES_END_ESCAPED)) {
           if (tmpTableCoordinatesFinished) {
-            // TODO i18n
-            final String tmpMessage = Messages.getMessage("invalidWPath",
-                new Object[] { rawPath, "Invalid WPath. Only one group of table coordinates allowed." });
+            final String tmpMessage = Messages.getMessage("invalidWPath", new Object[] { rawPath });
             throw new InvalidInputException(tmpMessage);
           }
           tableCoordinates.add(new TableCoordinate(tmpNode));
