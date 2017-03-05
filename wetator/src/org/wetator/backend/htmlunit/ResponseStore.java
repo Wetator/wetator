@@ -175,8 +175,8 @@ public final class ResponseStore {
       } else {
         final WebResponse tmpWebResponse = aPage.getWebResponse();
 
-        try (final InputStream tmpIn = tmpWebResponse.getContentAsStream();
-            final OutputStream tmpOutputStream = new FileOutputStream(tmpFile)) {
+        try (InputStream tmpIn = tmpWebResponse.getContentAsStream();
+            OutputStream tmpOutputStream = new FileOutputStream(tmpFile)) {
           final byte[] tmpBuffer = new byte[1024];
           int tmpBytes;
           while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
@@ -326,8 +326,8 @@ public final class ResponseStore {
 
           if (tmpProcessed == null) {
             FileUtils.forceMkdir(tmpResourceFile.getParentFile());
-            try (final InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-                final FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile)) {
+            try (InputStream tmpInStream = tmpWebResponse.getContentAsStream();
+                FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile)) {
               IOUtils.copy(tmpInStream, tmpOutStream);
             }
           }
