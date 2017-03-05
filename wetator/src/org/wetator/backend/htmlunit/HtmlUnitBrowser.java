@@ -333,7 +333,6 @@ public final class HtmlUnitBrowser implements IBrowser {
   @Override
   public void endSession() {
     if (null != webClient) {
-      // TODO maybe we have to do more here
       try {
         // unset the onbeforeunload handler to avoid it interfering
         webClient.setOnbeforeunloadHandler(null);

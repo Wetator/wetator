@@ -521,10 +521,11 @@ public class HtmlPageIndex {
         if (tmpStyle != null) {
           final String tmpTransform = tmpStyle.getStyleAttribute(Definition.TEXT_TRANSFORM);
 
+          // for the moment we do not depend on the html lang attribute
           if ("uppercase".equalsIgnoreCase(tmpTransform)) {
-            tmpTxt = tmpTxt.toUpperCase(Locale.ROOT); // TODO we have to use the browser locale
+            tmpTxt = tmpTxt.toUpperCase(Locale.ROOT);
           } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
-            tmpTxt = tmpTxt.toLowerCase(Locale.ROOT); // TODO we have to use the browser locale
+            tmpTxt = tmpTxt.toLowerCase(Locale.ROOT);
           } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
             tmpTxt = WordUtils.capitalize(tmpTxt);
           }
