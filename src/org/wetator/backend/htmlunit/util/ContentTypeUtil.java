@@ -150,7 +150,7 @@ public final class ContentTypeUtil {
       String tmpFileName = getSuggestedFilename(aWebResponse);
       if (StringUtils.isNotBlank(tmpFileName)) {
         tmpFileName = tmpFileName.trim();
-        final int tmpDotPos = tmpFileName.lastIndexOf(".");
+        final int tmpDotPos = tmpFileName.lastIndexOf('.');
         if (tmpDotPos > -1 && tmpDotPos < tmpFileName.length() - 1) {
           tmpFileName = tmpFileName.substring(tmpDotPos + 1);
           return tmpFileName;

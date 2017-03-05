@@ -163,5 +163,26 @@ public class AssertTest {
     } catch (final AssertionException e) {
       org.junit.Assert.assertEquals("Wrong error message: expected: <a*c> but was: <abx>", e.getMessage());
     }
+
+    try {
+      Assert.assertMatch("012345*c", "012345bx", "wrongErrorMessage", null);
+      org.junit.Assert.fail("AssertionException expected");
+    } catch (final AssertionException e) {
+      org.junit.Assert.assertEquals("Wrong error message: expected: <...*c> but was: <...bx>", e.getMessage());
+    }
+
+    try {
+      Assert.assertMatch("ab012345", "ac012345", "wrongErrorMessage", null);
+      org.junit.Assert.fail("AssertionException expected");
+    } catch (final AssertionException e) {
+      org.junit.Assert.assertEquals("Wrong error message: expected: <ab...> but was: <ac...>", e.getMessage());
+    }
+
+    try {
+      Assert.assertMatch("012345ab012345", "012345ca012345", "wrongErrorMessage", null);
+      org.junit.Assert.fail("AssertionException expected");
+    } catch (final AssertionException e) {
+      org.junit.Assert.assertEquals("Wrong error message: expected: <...ab...> but was: <...ca...>", e.getMessage());
+    }
   }
 }
