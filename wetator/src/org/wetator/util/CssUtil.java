@@ -36,7 +36,7 @@ public final class CssUtil {
    * @param aString the String to be normalized or null
    * @return a new String
    */
-  public static String escapeIdent(final String aString) {
+  public static String escapeIdentifier(final String aString) {
     if (aString == null) {
       return "";
     }

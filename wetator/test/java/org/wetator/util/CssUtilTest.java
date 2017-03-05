@@ -46,6 +46,6 @@ public class CssUtilTest {
   }
 
   private void escapeIdent(final String anExpected, final String anInput) {
-    org.junit.Assert.assertEquals(anExpected, CssUtil.escapeIdent(anInput));
+    org.junit.Assert.assertEquals(anExpected, CssUtil.escapeIdentifier(anInput));
   }
 }
