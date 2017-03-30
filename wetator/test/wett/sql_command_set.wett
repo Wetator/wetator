@@ -2,7 +2,7 @@
 Exec SQL              || DROP TABLE IF EXISTS test_tbl                       
 Exec SQL              || @secondDb DROP TABLE IF EXISTS second_tbl                       
 # Comment default connection                      
-Exec SQL              || CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)                     
+Exec SQL              || CREATE TABLE test_tbl (col1 CHAR(40), col2 NUMERIC)                     
 Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)                       
 Exec SQL              || INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)                      
 Assert SQL            || SELECT * FROM test_tbl ORDER BY col2 || First, Second                   

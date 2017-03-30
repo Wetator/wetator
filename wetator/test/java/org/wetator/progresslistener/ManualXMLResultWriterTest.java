@@ -16,7 +16,7 @@
 
 package org.wetator.progresslistener;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -77,7 +77,7 @@ public class ManualXMLResultWriterTest {
     when(tmpConfiguration.getOutputDir()).thenReturn(new File(LOGS_FOLDER));
     when(tmpConfiguration.getXslTemplates()).thenReturn(Arrays.asList("xsl/run_report.xsl"));
 
-    when(context.replaceVariables(any(String.class))).thenCallRealMethod();
+    when(context.replaceVariables(any())).thenCallRealMethod();
   }
 
   @Before

@@ -10,7 +10,7 @@
     <command><sql:exec-sql><sql:sql>DROP TABLE IF EXISTS test_tbl</sql:sql></sql:exec-sql></command>
     <command><sql:exec-sql><sql:sql>@secondDb DROP TABLE IF EXISTS second_tbl</sql:sql></sql:exec-sql></command>
     <comment>default connection</comment>
-    <command><sql:exec-sql><sql:sql>CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)</sql:sql></sql:exec-sql></command>
+    <command><sql:exec-sql><sql:sql>CREATE TABLE test_tbl (col1 CHAR(40), col2 NUMERIC)</sql:sql></sql:exec-sql></command>
     <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)</sql:sql></sql:exec-sql></command>
     <command><sql:exec-sql><sql:sql>INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)</sql:sql></sql:exec-sql></command>
     <command><sql:assert-sql><sql:sql>SELECT * FROM test_tbl ORDER BY col2</sql:sql><sql:result>First, Second</sql:result></sql:assert-sql></command>

@@ -83,8 +83,10 @@ public class SqlCommandSetTest extends AbstractWebServerTest {
       tmpSql.initialize(tmpProperties);
       Assert.fail("ConfigurationException expected");
     } catch (final ConfigurationException e) {
-      Assert.assertEquals("Connection to database 'jdbc:hsqldb:mem:wetdb' for connection named 'wetdb' failed"
-          + " (reason: java.sql.SQLException: User not found: UNKNOWN).", e.getMessage());
+      Assert.assertEquals(
+          "Connection to database 'jdbc:hsqldb:mem:wetdb' for connection named 'wetdb' failed"
+              + " (reason: java.sql.SQLInvalidAuthorizationSpecException: invalid authorization specification - not found: unknown).",
+          e.getMessage());
     }
   }
 }

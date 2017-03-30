@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Assert;
