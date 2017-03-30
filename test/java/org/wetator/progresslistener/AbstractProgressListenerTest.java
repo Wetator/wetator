@@ -16,7 +16,7 @@
 
 package org.wetator.progresslistener;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -75,7 +75,7 @@ public abstract class AbstractProgressListenerTest {
   public void setupEnvironment() {
     when(configuration.getOutputDir()).thenReturn(new File(LOGS_FOLDER));
     when(engine.getConfiguration()).thenReturn(configuration);
-    when(context.replaceVariables(any(String.class))).thenCallRealMethod();
+    when(context.replaceVariables(any())).thenCallRealMethod();
 
     progressListener = createProgressListener();
   }

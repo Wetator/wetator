@@ -4,7 +4,7 @@
     <step command='Exec_SQL'>DROP TABLE IF EXISTS test_tbl</step>
     <step command='Exec_SQL'>@secondDb DROP TABLE IF EXISTS second_tbl</step>
     <step comment='true' command=''>Comment default connection</step>
-    <step command='Exec_SQL'>CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)</step>
+    <step command='Exec_SQL'>CREATE TABLE test_tbl (col1 CHAR(40), col2 NUMERIC)</step>
     <step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('First', 1)</step>
     <step command='Exec_SQL'>INSERT INTO test_tbl (col1, col2) VALUES ('Second', 2)</step>
     <step command='Assert_SQL'>SELECT * FROM test_tbl ORDER BY col2<optionalParameter>First, Second</optionalParameter></step>

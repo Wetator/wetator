@@ -16,7 +16,7 @@
 
 package org.wetator.core;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -905,7 +905,7 @@ public class WetatorContextExecuteTest {
 
   private void assertCommandError(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
       final ICommandImplementation anImplementation, final Throwable aThrowable)
-          throws CommandException, InvalidInputException {
+      throws CommandException, InvalidInputException {
     anInOrder.verify(engine).informListenersExecuteCommandStart(aContext, aCommand);
     anInOrder.verify(anImplementation).execute(aContext, aCommand);
     anInOrder.verify(browser).checkAndResetFailures();

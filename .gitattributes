@@ -327,7 +327,6 @@ test/java/org/wetator/backend/htmlunit/util/ContentTypeUtilTest.java -text
 test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
-test/java/org/wetator/commandset/CloudbeesTest.java -text svneol=unset#text/plain
 test/java/org/wetator/commandset/ExecTester.java -text
 test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
 test/java/org/wetator/commandset/LegacyXmlDefaultCommandSetTest.java -text

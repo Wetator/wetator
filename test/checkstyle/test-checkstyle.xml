@@ -94,10 +94,10 @@
     <module name="MultipleVariableDeclarations"/>
     <module name="UnnecessaryParentheses"/>
     <module name="AvoidStarImport">
-      <property name="excludes" value="org.mockito.Mockito,org.mockito.Matchers,org.junit.Assert"/>
+      <property name="excludes" value="org.mockito.Mockito,org.mockito.ArgumentMatchers,org.junit.Assert"/>
     </module>
     <module name="AvoidStaticImport">
-      <property name="excludes" value="org.mockito.Mockito.*,org.mockito.Matchers.*,org.junit.Assert.*"/>
+      <property name="excludes" value="org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.Assert.*"/>
     </module>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
