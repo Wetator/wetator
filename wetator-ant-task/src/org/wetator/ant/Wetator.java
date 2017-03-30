@@ -41,6 +41,7 @@ import org.apache.tools.ant.types.Path;
  * The AntTask to execute test within an ant script.
  *
  * @author rbri
+ * @author frank.danek
  */
 public class Wetator extends Task {
   private String config;
@@ -195,7 +196,7 @@ public class Wetator extends Task {
   /**
    * Adds a property to the list of known properties.
    *
-   * @param aProperty the new proptery
+   * @param aProperty the new property
    */
   public void addProperty(final Property aProperty) {
     properties.add(aProperty);
@@ -206,14 +207,13 @@ public class Wetator extends Task {
    *
    * @return a map with properties
    */
-  @SuppressWarnings("unchecked")
   protected Map<String, String> getPropertiesFromAnt() {
     final Map<String, String> tmpOurProperties = new HashMap<String, String>();
 
     // read the properties from project
-    final Map<String, String> tmpProjectProperties = getProject().getProperties();
-    for (final Entry<String, String> tmpEntry : tmpProjectProperties.entrySet()) {
-      tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue());
+    final Map<String, Object> tmpProjectProperties = getProject().getProperties();
+    for (final Entry<String, Object> tmpEntry : tmpProjectProperties.entrySet()) {
+      tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue() == null ? null : String.valueOf(tmpEntry.getValue()));
     }
 
     // read the properties from property sets
@@ -227,7 +227,7 @@ public class Wetator extends Task {
   /**
    * Adds a system property.
    *
-   * @param anEnvironmentVariable the new proptery
+   * @param anEnvironmentVariable the new property
    */
   public void addSysproperty(final Environment.Variable anEnvironmentVariable) {
     sysproperties.add(anEnvironmentVariable);

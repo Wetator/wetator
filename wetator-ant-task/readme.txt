@@ -1,8 +1,8 @@
 HOW TO SETUP THE IDE
 ====================
 Currently we use
-    Eclipse 4.5.2 (Mars)
-    Eclipse Checkstyle Plugin 6.19.1 (based on Checkstyle 6.19)
+    Eclipse 4.6.3 (Neon.3)
+    Eclipse Checkstyle Plugin 7.6.0 (based on Checkstyle 7.6)
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 
