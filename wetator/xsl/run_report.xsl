@@ -1770,27 +1770,30 @@
     <xsl:template name="time">
         <xsl:param name="msecs"/>
 
-        <xsl:choose>
-            <xsl:when test="$msecs > 5000">
-                <xsl:variable name="base" select="round($msecs div 1000)"/>
-                <xsl:variable name="hours" select="floor($base div 3600)"/>
-                <xsl:variable name="mins" select="floor(($base - $hours*3600) div 60)"/>
-                <xsl:variable name="secs" select="floor(($base - $hours*3600) - $mins*60)"/>
+        <xsl:variable name="base" select="round($msecs div 100)"/>
+        <xsl:variable name="hours" select="floor($base div 36000)"/>
+        <xsl:variable name="mins" select="floor(($base - $hours*36000) div 600)"/>
+        <xsl:variable name="secs" select="floor((($base - $hours*36000) - $mins*600) div 10)"/>
+        <xsl:variable name="tenth" select="floor(($base - $hours*36000) - $mins*600)  - $secs*10"/>
 
-                <xsl:if test="10 > $hours">0</xsl:if>
-                <xsl:value-of select="$hours"/>
-                <xsl:text>:</xsl:text>
-                <xsl:if test="10 > $mins">0</xsl:if>
-                <xsl:value-of select="$mins"/>
-                <xsl:text>:</xsl:text>
-                <xsl:if test="10 > $secs">0</xsl:if>
-                <xsl:value-of select="$secs"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="round($msecs div 100) div 10"/>
-                <xsl:text>s</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
+        <span>
+          <xsl:attribute name="title">
+            <xsl:if test="10 > $hours">0</xsl:if>
+            <xsl:value-of select="$hours"/>
+            <xsl:text>:</xsl:text>
+            <xsl:if test="10 > $mins">0</xsl:if>
+            <xsl:value-of select="$mins"/>
+            <xsl:text>:</xsl:text>
+            <xsl:if test="10 > $secs">0</xsl:if>
+            <xsl:value-of select="$secs"/>
+            <xsl:text>:</xsl:text>
+            <xsl:value-of select="$tenth"/>
+          </xsl:attribute>
+
+          <xsl:if test="0 = $base">0.</xsl:if>
+          <xsl:value-of select="$base div 10"/>
+          <xsl:text>s</xsl:text>
+        </span>
     </xsl:template>
 
 </xsl:stylesheet>
