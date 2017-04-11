@@ -96,6 +96,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
 import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
+import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.util.WebClientUtils;
@@ -321,7 +322,8 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // debug stuff
     if (tmpConfiguration.isLogEnabled()) {
-      final HtmlUnitContextFactory tmpContextFactory = webClient.getJavaScriptEngine().getContextFactory();
+      final HtmlUnitContextFactory tmpContextFactory = ((JavaScriptEngine) webClient.getJavaScriptEngine())
+          .getContextFactory();
       tmpContextFactory.setDebugger(new DebuggerImpl());
     }
     // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
