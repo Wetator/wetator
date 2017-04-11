@@ -40,6 +40,7 @@ import org.wetator.util.CssUtil;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.ElementFromPointHandler;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
@@ -411,8 +412,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     if (null == tmpParent) {
       return null;
     }
-    String tmpHtmlElementId = tmpHtmlElement.getId();
-
+    String tmpHtmlElementId = getUniqueElementId(tmpHtmlElement);
     StringBuilder tmpSelector = new StringBuilder();
     while (DomElement.ATTRIBUTE_NOT_DEFINED == tmpHtmlElementId) {
       // @formatter:off
@@ -432,7 +432,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       }
 
       tmpHtmlElement = tmpParent;
-      tmpHtmlElementId = tmpHtmlElement.getId();
+      tmpHtmlElementId = getUniqueElementId(tmpHtmlElement);
       tmpParent = (HtmlElement) tmpHtmlElement.getParentNode();
       if (null == tmpParent) {
         return null;
@@ -444,6 +444,17 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     return "body" + tmpSelector.toString();
+  }
+
+  private String getUniqueElementId(final HtmlElement aHtmlElement) {
+    final String tmpHtmlElementId = aHtmlElement.getId();
+    if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpHtmlElementId) {
+      final SgmlPage tmpSgmlPage = aHtmlElement.getPage();
+      if (tmpSgmlPage instanceof HtmlPage && ((HtmlPage) tmpSgmlPage).getElementsById(tmpHtmlElementId).size() > 1) {
+        return DomElement.ATTRIBUTE_NOT_DEFINED;
+      }
+    }
+    return tmpHtmlElementId;
   }
 
   /**
