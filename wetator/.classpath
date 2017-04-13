@@ -37,7 +37,7 @@
 	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-2.7.20.jar" sourcepath="lib_src/mockito-core-2.7.20-sources.jar"/>
-	<classpathentry kind="lib" path="lib/neko-htmlunit-2.25.jar"/>
+	<classpathentry kind="lib" path="lib/neko-htmlunit-2.26-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-2.0.5.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.13.jar"/>
