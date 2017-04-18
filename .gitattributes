@@ -619,6 +619,7 @@ wetator/test/java/org/wetator/test/resource/empty.xml -text svneol=unset#text/pl
 wetator/test/java/org/wetator/test/resource/emptyMultipleSchemas.xml -text svneol=unset#text/plain
 wetator/test/java/org/wetator/test/resource/emptyNoDefault.xml -text svneol=unset#text/plain
 wetator/test/java/org/wetator/test/resource/emptyWrongDefault.xml -text svneol=unset#text/plain
+wetator/test/java/org/wetator/test/resource/escaping.wett -text
 wetator/test/java/org/wetator/test/resource/excel.xls -text
 wetator/test/java/org/wetator/test/resource/excelMalformed.xls -text svneol=unset#application/octet-stream
 wetator/test/java/org/wetator/test/resource/invalid-command-set.xsd -text svneol=unset#text/plain

@@ -27,8 +27,11 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.LineIterator;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.translate.AggregateTranslator;
+import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
+import org.apache.commons.lang3.text.translate.OctalUnescaper;
+import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
@@ -55,6 +58,14 @@ public final class WikiTextScripter implements IScripter {
   private static final int FIRST_PARAM_COLUMN_NO = 1;
   private static final int SECOND_PARAM_COLUMN_NO = 2;
   private static final int THIRD_PARAM_COLUMN_NO = 3;
+
+  // @formatter:off
+  private static final CharSequenceTranslator UNESCAPER =
+      new AggregateTranslator(
+          new OctalUnescaper(),     // .between('\1', '\377'),
+          new UnicodeUnescaper()
+      );
+  // @formatter:on
 
   private File file;
   private List<Command> commands;
@@ -103,7 +114,6 @@ public final class WikiTextScripter implements IScripter {
         while (tmpLines.hasNext()) {
           tmpLineNo++;
           String tmpLine = tmpLines.next().trim();
-
           while (tmpLine.endsWith(CONTINUATION)) {
             tmpLine = tmpLine.substring(0, tmpLine.length() - CONTINUATION.length());
             tmpLine = StringUtils.stripEnd(tmpLine, "\t");
@@ -119,7 +129,7 @@ public final class WikiTextScripter implements IScripter {
             continue;
           }
 
-          tmpLine = StringEscapeUtils.unescapeJava(tmpLine);
+          tmpLine = UNESCAPER.translate(tmpLine);
 
           boolean tmpComment = false;
           if (tmpLine.startsWith(COMMENT_LINE)) {

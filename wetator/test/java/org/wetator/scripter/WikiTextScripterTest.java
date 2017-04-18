@@ -254,4 +254,43 @@ public class WikiTextScripterTest {
     Assert.assertEquals("\u00ec \u00ed \u00ee \u00ef", tmpCommand.getFirstParameter().getValue());
     Assert.assertNull(tmpCommand.getSecondParameter());
   }
+
+  @Test
+  public void escaping() throws InvalidInputException {
+    final WikiTextScripter tmpScripter = new WikiTextScripter();
+    final File tmpFile = new File("test/java/org/wetator/test/resource/escaping.wett");
+
+    final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
+    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+
+    tmpScripter.script(tmpFile);
+
+    final List<Command> tmpCommands = tmpScripter.getCommands();
+    Assert.assertEquals(4, tmpCommands.size());
+
+    int tmpPos = 0;
+    Command tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("test, ~\\?\\?\\?", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertTrue(tmpCommand.isComment());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("test,wetator", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+
+    tmpPos++;
+    tmpCommand = tmpCommands.get(tmpPos);
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals("assert-content", tmpCommand.getName());
+    Assert.assertEquals("test\\,wetator", tmpCommand.getFirstParameter().getValue());
+    Assert.assertNull(tmpCommand.getSecondParameter());
+  }
 }
