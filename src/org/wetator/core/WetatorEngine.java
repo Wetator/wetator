@@ -98,10 +98,6 @@ public class WetatorEngine {
 
     // setup the command sets
     commandSets = getConfiguration().getCommandSets();
-
-    // setup the browser
-    final IBrowser tmpBrowser = createBrowser();
-    setBrowser(tmpBrowser);
   }
 
   private WetatorConfiguration readConfiguration() {
@@ -146,6 +142,10 @@ public class WetatorEngine {
    * Executes the tests.
    */
   public void executeTests() {
+    // setup the browser
+    final IBrowser tmpBrowser = createBrowser();
+    setBrowser(tmpBrowser);
+
     addDefaultProgressListeners();
 
     informListenersStart();
