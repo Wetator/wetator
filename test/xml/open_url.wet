@@ -7,8 +7,8 @@
     xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
     version='1.0.0'>
     <comment>hard coded url</comment>
-    <command><d:open-url><d:url>http://www.gebit.de</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>GEBIT Solutions*</d:title></d:assert-title></command>
+    <command><d:open-url><d:url>http://www.wetator.org</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>WETATOR / Smart Web Application Testing</d:title></d:assert-title></command>
     <comment>with starting slash</comment>
     <command><d:open-url><d:url>/assert_title.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Title</d:title></d:assert-title></command>
