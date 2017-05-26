@@ -1,0 +1,22 @@
+
+# Simple test case for the PrimeFaces InputSwitch
+
+# open-url        || http://www.primefaces.org/showcase/index.xhtml
+# assert-content  || PrimeFaces SHOWCASE
+
+# click-on        || Input
+# click-on        || Switch
+
+open-url        || http://www.primefaces.org/showcase/ui/input/inputSwitch.xhtml
+assert-content  || InputSwitch InputSwitch is used to select a boolean value. 
+
+click-on        || Basic > off
+
+click-on        || Basic > Ajax > off
+assert-content  || Checked
+
+click-on        || Basic > Ajax > on
+assert-content  || Unchecked
+
+click-on        || Submit
+assert-content  || Values, Value 1: true Value 2: false
