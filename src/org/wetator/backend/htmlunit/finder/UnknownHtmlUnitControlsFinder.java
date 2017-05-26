@@ -91,25 +91,24 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
         final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
         if (tmpStartPos <= tmpNodeSpot.getStartPos()) {
-          if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
-            if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
-                tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
+          if ((controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null)
+              && (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+                  tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
 
-              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpHtmlElement);
-              final int tmpCoverage = htmlPageIndex.getAsText(tmpHtmlElement).length();
+            final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpHtmlElement);
+            final int tmpCoverage = htmlPageIndex.getAsText(tmpHtmlElement).length();
 
-              final int tmpDistance;
-              if (tmpPathSearchPattern != null) {
-                tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-              } else {
-                tmpDistance = tmpTextBefore.length();
-              }
-
-              tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-                  tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
-
-              break;
+            final int tmpDistance;
+            if (tmpPathSearchPattern != null) {
+              tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+            } else {
+              tmpDistance = tmpTextBefore.length();
             }
+
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
+                tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+
+            break;
           }
         }
       }
@@ -164,25 +163,24 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
         if (tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos()
             && tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos()) {
           // found one
-          if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
-            if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
-                tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
+          if ((controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null)
+              && (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+                  tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
 
-              String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
-              final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
-              final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
+            String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
+            final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
+            final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
 
-              tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
-              final int tmpDistance;
-              if (tmpPathSearchPattern != null) {
-                tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-              } else {
-                tmpDistance = tmpTextBefore.length();
-              }
-
-              tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-                  tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+            tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
+            final int tmpDistance;
+            if (tmpPathSearchPattern != null) {
+              tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+            } else {
+              tmpDistance = tmpTextBefore.length();
             }
+
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
+                tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }
