@@ -684,4 +684,270 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
+
+  @Test
+  public void inTablePlainByCoordinates() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [header_3; row_2]
+    SecretString tmpSearch = new SecretString("[header_3; row_2]");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TEXT coverage: 8 distance: 65 start: 65 index: 48",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [header_2; row_1] > Text_2_3
+    tmpSearch = new SecretString("[header_2; row_1]");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_1_2'] found by: BY_TEXT coverage: 8 distance: 32 start: 32 index: 30",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void inTablePlainByCoordinatesHorizontalOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><span>row_1</span></td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [; row_2]
+    SecretString tmpSearch = new SecretString("[; row_2]");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell' (id='cell_2_1')] found by: BY_TEXT coverage: 5 distance: 50 start: 50 index: 41",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [; row_1]
+    tmpSearch = new SecretString("[; row_1]");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'row_1'] found by: BY_TEXT coverage: 5 distance: 26 start: 26 index: 27",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void inTablePlainByCoordinatesHorizontalOnlyTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><span>row_1</span></td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [; row_2] > Text_2_2 >
+    SecretString tmpSearch = new SecretString("[; row_2] > Text_2_2 >");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TEXT coverage: 8 distance: 0 start: 65 index: 49",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [; row_1] > Text_1_3 >
+    tmpSearch = new SecretString("[; row_1] > Text_1_3 >");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void inTablePlainByCoordinatesVerticalOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><span>row_1</span></td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [header_1;]
+    SecretString tmpSearch = new SecretString("[header_1;]");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_1')] found by: BY_TEXT coverage: 8 distance: 0 start: 0 index: 11",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [header_3;]
+    tmpSearch = new SecretString("[header_3;]");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_3')] found by: BY_TEXT coverage: 8 distance: 17 start: 17 index: 17",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void inTablePlainByCoordinatesVerticalOnlyTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><span>row_1</span></td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'><span>Text_2_1</span></td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [header_1;] > Text_1_2
+    SecretString tmpSearch = new SecretString("[header_1;] > Text_1_2 >");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_2_1'] found by: BY_TEXT coverage: 8 distance: 9 start: 50 index: 42",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [header_2;] > row_1 >
+    tmpSearch = new SecretString("[header_2;] > row_1 >");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_1_2'] found by: BY_TEXT coverage: 8 distance: 0 start: 32 index: 31",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
 }
