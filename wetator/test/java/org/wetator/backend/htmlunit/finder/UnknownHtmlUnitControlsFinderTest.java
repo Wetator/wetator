@@ -530,4 +530,158 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
+
+  @Test
+  public void inTablePlainById() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span id='id_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span id='id_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span id='id_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span id='id_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [header_3; row_2] > id_2_3
+    SecretString tmpSearch = new SecretString("[header_3; row_2] > id_2_3");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlSpan 'Text_2_3' (id='id_2_3')] found by: BY_ID coverage: 0 distance: 65 start: 65 index: 48",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [header_2; row_2] > id_2_3
+    tmpSearch = new SecretString("[header_2; row_2] > id_2_3");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void inTablePlainByTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span title='title_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span title='title_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span title='title_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span title='title_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [header_3; row_2] > title_2_3
+    SecretString tmpSearch = new SecretString("[header_3; row_2] > title_2_3");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT coverage: 0 distance: 65 start: 65 index: 48",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [header_2; row_2] > title_2_3
+    tmpSearch = new SecretString("[header_2; row_2] > title_2_3");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void inTablePlainByText() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+
+    // [header_3; row_2] > Text_2_3
+    SecretString tmpSearch = new SecretString("[header_3; row_2] > Text_2_3");
+
+    UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TEXT coverage: 0 distance: 66 start: 65 index: 48",
+        tmpFound.getEntriesSorted().get(0).toString());
+
+    // [header_2; row_2] > Text_2_3
+    tmpSearch = new SecretString("[header_2; row_2] > Text_2_3");
+
+    tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
+    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
 }
