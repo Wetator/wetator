@@ -234,9 +234,66 @@ input.error {
 
 
     <div class="action"><input type="submit" name="submit" value="Submit My Truth" id="submit" /></div>
+    <a href='javascript: res=window.confirm("Do you really like to delete all data?");alert(res);'>Confirm</a>
+
+    <fieldset>
+      <legend>Tables</legend>
+      <div>
+        <table style='margin: 0 0 40px 0' cellspacing='0'>
+          <thead style='background: #2980b9;font-weight: 900;color: #ffffff'>
+            <tr style='padding: 8px 0'>
+              <th style='padding: 6px 12px'>Id</th>
+              <th style='padding: 6px 12px'>Item</th>
+              <th style='padding: 6px 12px;text-align: center;' colspan='2'>Price</th>
+              <th style='padding: 6px 12px'>Quantity</th>
+              <th style='padding: 6px 12px;text-align: center;' colspan='2'>Total</th>
+              <th style='padding: 6px 12px'></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style='padding: 8px 0; background: #eeeeee'>
+              <td style='padding: 6px 12px'>1</td>
+              <td style='padding: 6px 12px'>Charles Web Proxy</td>
+              <td style='padding: 6px 2px 6px 12px;text-align: right;'>42</td>
+              <td style='padding: 6px 12px 6px 2px'>&euro;</td>
+              <td style='padding: 6px 12px;text-align: right;'><input type="text" value = '2' size="4" style='width: 20px;text-align: right;padding-right: 4px;'/></td>
+              <td style='padding: 6px 2px 6px 12px;text-align: right;'>84</td>
+              <td style='padding: 6px 12px 6px 2px'>&euro;</td>
+              <td style='padding: 6px 12px 6px 2px'>
+                <a id="boxclose" style="background-color: #c0c0c0;border: 1px solid black;color: white;height: 26px;padding-left: 4px;padding-right: 3px;width: 20px;">&#10006;</a>
+              </td>
+            </tr>
+            <tr style='padding: 8px 0; background: #fafafa'>
+              <td style='padding: 6px 12px'>2</td>
+              <td style='padding: 6px 12px'>JProfiler</td>
+              <td style='padding: 6px 2px 6px 12px;text-align: right;'>4711</td>
+              <td style='padding: 6px 12px 6px 2px'>&euro;</td>
+              <td style='padding: 6px 12px;text-align: right;'><input type="text" value = '1' size="4" style='width: 20px;text-align: right;padding-right: 4px;'/></td>
+              <td style='padding: 6px 2px 6px 12px;text-align: right;'>4711</td>
+              <td style='padding: 6px 12px 6px 2px'>&euro;</td>
+              <td style='padding: 6px 12px 6px 2px'>
+                <a id="boxclose" style="background-color: #c0c0c0;border: 1px solid black;color: white;height: 26px;padding-left: 4px;padding-right: 3px;width: 20px;">&#10006;</a>
+              </td>
+            </tr>
+            <tr style='padding: 8px 0; background: #eeeeee'>
+              <td style='padding: 6px 12px'>3</td>
+              <td style='padding: 6px 12px'>WETATOR</td>
+              <td style='padding: 6px 2px 6px 12px;text-align: right;'>1</td>
+              <td style='padding: 6px 12px 6px 2px'>beer</td>
+              <td style='padding: 6px 12px;text-align: right;'><input type="text" value = '7' size="4" style='width: 20px;text-align: right;padding-right: 4px;'/></td>
+              <td style='padding: 6px 2px 6px 12px;text-align: right;'>7</td>
+              <td style='padding: 6px 12px 6px 2px'>beer</td>
+              <td style='padding: 6px 12px 6px 2px'>
+                <a id="boxclose" style="background-color: #c0c0c0;border: 1px solid black;color: white;height: 26px;padding-left: 4px;padding-right: 3px;width: 20px;">&#10006;</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+
   </form> 
 
-    <a href='javascript: res=window.confirm("Do you really like to delete all data?");alert(res);'>Confirm</a>
 
 </body>
 </html>
