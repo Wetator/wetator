@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
@@ -28,8 +29,10 @@ import org.wetator.backend.htmlunit.matcher.ByLabelingTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
+import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -39,6 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * The identifier for a {@link HtmlUnitInputCheckBox}.<br>
  * It can be identified by:
  * <ul>
+ * <li>the whole text before</li>
  * <li>the labeling text after</li>
  * <li>its title attribute</li>
  * <li>its name</li>
@@ -50,7 +54,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * @author frank.danek
  * @author rbri
  */
-// FIXME add ByWholeTextBeforeMatcher
 public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentifier {
 
   @Override
@@ -76,13 +79,23 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlCheckBoxInput) {
+        // whole text before
+        final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+        tmpWholePath.add(aWPath.getLastNode());
+        final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
+        aMatchers.add(
+            new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
+
+        // element specific
         aMatchers
             .add(new ByLabelingTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
+        // default
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (aHtmlElement instanceof HtmlLabel) {
+        // label
         aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
             HtmlCheckBoxInput.class));
       }

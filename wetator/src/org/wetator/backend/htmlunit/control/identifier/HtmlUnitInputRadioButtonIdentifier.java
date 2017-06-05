@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
@@ -26,8 +27,10 @@ import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
+import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
+import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
@@ -37,6 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
  * The identifier for a {@link HtmlUnitInputRadioButton}.<br>
  * It can be identified by:
  * <ul>
+ * <li>the whole text before</li>
  * <li>the labeling text after</li>
  * <li>its id</li>
  * <li>a label</li>
@@ -45,7 +49,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
  *
  * @author frank.danek
  */
-// FIXME add ByWholeTextBeforeMatcher
 public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
   @Override
@@ -71,10 +74,21 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIden
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlRadioButtonInput) {
+        // whole text before
+        final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+        tmpWholePath.add(aWPath.getLastNode());
+        final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
+        aMatchers.add(
+            new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
+
+        // element specific
         aMatchers
             .add(new ByLabelingTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+
+        // default
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (aHtmlElement instanceof HtmlLabel) {
+        // label
         aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
             HtmlRadioButtonInput.class));
       }

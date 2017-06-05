@@ -278,7 +278,7 @@ public class HtmlPageIndex {
       if (tmpNode instanceof SubmittableElement && !(tmpNode instanceof HtmlHiddenInput)) {
         tmpStartPos = positions.get(tmpNode).getEndPos();
 
-        // the searched control is placed inside a button tag
+        // the searched control is chained directly after a leading control or placed inside a button tag
         if (tmpStartPos <= tmpFindSpot.getStartPos()) {
           final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
           if (StringUtils.isNotEmpty(tmpText)) {

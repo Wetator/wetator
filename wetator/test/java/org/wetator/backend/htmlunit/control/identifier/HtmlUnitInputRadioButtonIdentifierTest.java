@@ -75,10 +75,13 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
         "MyRadioButtonId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_TEXT coverage: 0 distance: 12 start: 12 index: 7",
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -132,6 +135,55 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
+  public void byWholeTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<input id='otherId' name='otherName' value='otherValue' type='submit'>"
+        + "<p>Some text ...</p>"
+        + "<input id='myId' name='myName' value='myValue' type='radio'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'myValue' (id='myId') (name='myName')] found by: BY_TEXT coverage: 25 distance: 31 start: 31 index: 10",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' value='myValue' type='radio'>"
+        + "<p>Some text ...</p>"
+        + "<input id='otherId' name='otherName' value='otherValue' type='radio'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker > ");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
+
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'myValue' (id='myId') (name='myName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'otherValue' (id='otherId') (name='otherName')] found by: BY_TEXT coverage: 0 distance: 14 start: 20 index: 10",
+        tmpFound.getEntriesSorted().get(1).toString());
+  }
+
+  @Test
   public void byTableCoordinates() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -165,7 +217,6 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
         "MyRadioButtonId_1_3", "MyRadioButtonId_2_2", "MyRadioButtonId_2_3");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-
     Assert.assertEquals(
         "[HtmlRadioButtonInput 'value_2_3' (id='MyRadioButtonId_2_3') (name='MyRadioButtonName_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 38 start: 38 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
