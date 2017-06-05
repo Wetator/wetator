@@ -102,19 +102,24 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
+        + "<input id='MyCheckboxId1' name='MyCheckboxName1' value='value1' type='checkbox'>CheckBox1"
+        + "<input id='MyCheckboxId2' name='MyCheckboxName2' value='value1' type='checkbox'>CheckBox2"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("CheckBox");
+    final SecretString tmpSearch = new SecretString("CheckBox1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId1",
+        "MyCheckboxId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlCheckBoxInput (id='MyCheckboxId1') (name='MyCheckboxName1')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxName2')] found by: BY_TEXT coverage: 0 distance: 9 start: 9 index: 7",
+        tmpFound.getEntriesSorted().get(1).toString());
   }
 
   @Test
@@ -168,6 +173,55 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
+  public void byWholeTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<input id='otherId' name='otherName' type='submit'>"
+        + "<p>Some text ...</p>"
+        + "<input id='myId' name='myName' type='checkbox'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 14 distance: 20 start: 20 index: 10",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='checkbox'>"
+        + "<p>Some text ...</p>"
+        + "<input id='otherId' name='otherName' type='checkbox'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker > ");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
+
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlCheckBoxInput (id='otherId') (name='otherName')] found by: BY_TEXT coverage: 0 distance: 14 start: 20 index: 10",
+        tmpFound.getEntriesSorted().get(1).toString());
+  }
+
+  @Test
   public void byTableCoordinates() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -201,7 +255,6 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
         "MyCheckboxId_1_3", "MyCheckboxId_2_2", "MyCheckboxId_2_3");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-
     Assert.assertEquals(
         "[HtmlCheckBoxInput (id='MyCheckboxId_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 38 start: 38 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());

@@ -692,8 +692,13 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_Javascript() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<script language='JavaScript' type='text/javascript'>"
-        + "function foo() {}" + "</script>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<script language='JavaScript' type='text/javascript'>"
+        + "function foo() {}"
+        + "</script>"
+        + "</body></html>";
+    // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -704,10 +709,15 @@ public class HtmlPageIndexTest {
 
   @Test
   public void asText_TextTransform() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<p style='text-transform: lowercase;'>LoWerCase</p>"
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p style='text-transform: lowercase;'>LoWerCase</p>"
         + "<p style='text-transform: uppercase;'>uppErCase</p>"
-        + "<p style='text-transform: capitalize;'>capiTalize</p>" + "<p style='text-transform: none;'>nOne</p>"
-        + "<div style='text-transform: uppercase'><p>insideDiv</p></div>" + "</body></html>";
+        + "<p style='text-transform: capitalize;'>capiTalize</p>"
+        + "<p style='text-transform: none;'>nOne</p>"
+        + "<div style='text-transform: uppercase'><p>insideDiv</p></div>"
+        + "</body></html>";
+    // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -718,8 +728,13 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_None() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -729,8 +744,13 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_AtStart() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -740,9 +760,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_IgnoreHidden() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>MyLabel"
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>MyLabel"
         + "<input value='hiddenValue' type='hidden'>"
-        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -752,8 +777,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_BeforeForm() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<p>MoreText</p>" + "<form action='test'>"
-        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>MoreText</p>"
+        + "<form action='test'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -764,8 +795,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_IgnoreDifferentForm() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test2'><p>MoreText</p></form>" + "<form action='test'>"
-        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test2'><p>MoreText</p></form>"
+        + "<form action='test'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -775,9 +812,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_UntilNext() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
         + "Other<input id='MyOtherInputId' value='value2' type='text'>"
-        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -787,9 +829,14 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_ChainedControls() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
         + "MyLabel <input id='MyOtherInputId' value='value2' type='text'> "
-        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -800,9 +847,13 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_InsideButton() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "before<button id='MyButton' type='button'>some button text<img id='myImg'>after</button>" + "</form>"
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "before<button id='MyButton' type='button'>some button text<img id='myImg'>after</button>"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
@@ -813,9 +864,13 @@ public class HtmlPageIndexTest {
 
   @Test
   public void getLabelTextBefore_ButtonBeforeDirect() throws IOException {
-    final String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "before<button id='MyButton' type='button'>some button text</button><img id='myImg'>after" + "</form>"
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "before<button id='MyButton' type='button'>some button text</button><img id='myImg'>after"
+        + "</form>"
         + "</body></html>";
+    // @formatter:on
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);

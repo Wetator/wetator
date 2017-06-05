@@ -83,12 +83,15 @@ public class HtmlUnitSelectIdentifier extends AbstractMatcherBasedIdentifier {
         aMatchers.add(
             new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
 
+        // element specific
         aMatchers
             .add(new ByLabelingTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
+        // default
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (aHtmlElement instanceof HtmlLabel) {
+        // label
         aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
             HtmlSelect.class));
       }
