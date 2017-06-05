@@ -127,7 +127,6 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
         // id
         List<MatchResult> tmpMatches = tmpIdMatcher.matches(tmpHtmlElement);
         for (final MatchResult tmpMatch : tmpMatches) {
-
           if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, tmpPathSpot)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
