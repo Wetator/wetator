@@ -54,7 +54,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -75,7 +75,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -96,7 +96,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -117,7 +117,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -138,7 +138,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -159,7 +159,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -180,7 +180,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'MyName' (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlImage 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -220,7 +220,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myId_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 38 start: 38 index: 45",
+        "[HtmlImage 'picture.png' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -243,7 +243,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -266,7 +266,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -289,7 +289,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -312,7 +312,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -335,7 +335,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -358,7 +358,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -381,7 +381,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -404,7 +404,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -427,7 +427,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -450,7 +450,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

@@ -136,7 +136,7 @@ public final class WeightedControlList {
   public static final class Entry {
     private IControl control;
     private FoundType foundType;
-    private int coverage;
+    private int deviation;
     private int distance;
     private int start;
     private int index;
@@ -154,8 +154,8 @@ public final class WeightedControlList {
       final StringBuilder tmpResult = new StringBuilder(control.getDescribingText())
           .append(" found by: ")
           .append(foundType.toString())
-          .append(" coverage: ")
-          .append(Integer.toString(coverage))
+          .append(" deviation: ")
+          .append(Integer.toString(deviation))
           .append(" distance: ")
           .append(Integer.toString(distance))
           .append(" start: ")
@@ -179,9 +179,9 @@ public final class WeightedControlList {
       final int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
 
       if (0 == tmpWeightComp) {
-        final int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
+        final int tmpDeviationComp = anEntry1.deviation - anEntry2.deviation;
 
-        if (0 == tmpCoverageComp) {
+        if (0 == tmpDeviationComp) {
           final int tmpDistanceComp = anEntry1.distance - anEntry2.distance;
 
           if (0 == tmpDistanceComp) {
@@ -197,7 +197,7 @@ public final class WeightedControlList {
           return tmpDistanceComp;
         }
 
-        return tmpCoverageComp;
+        return tmpDeviationComp;
       }
 
       return tmpWeightComp;
@@ -221,17 +221,17 @@ public final class WeightedControlList {
    *
    * @param aControl the control
    * @param aFoundType the found type
-   * @param aCoverage the coverage
+   * @param aDeviation the deviation
    * @param aDistance the distance
    * @param aStart the start
    * @param anIndex the index
    */
-  public void add(final IControl aControl, final FoundType aFoundType, final int aCoverage, final int aDistance,
+  public void add(final IControl aControl, final FoundType aFoundType, final int aDeviation, final int aDistance,
       final int aStart, final int anIndex) {
     final Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
     tmpEntry.foundType = aFoundType;
-    tmpEntry.coverage = aCoverage;
+    tmpEntry.deviation = aDeviation;
     tmpEntry.distance = aDistance;
     tmpEntry.start = aStart;
     tmpEntry.index = anIndex;

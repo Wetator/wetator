@@ -83,16 +83,16 @@ public class WeightedControlListTest {
 
     final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 10 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 100 distance: 10 start: 1 index: 0",
         tmpSorted.get(0).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 11 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 100 distance: 11 start: 1 index: 0",
         tmpSorted.get(1).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 12 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 100 distance: 12 start: 1 index: 0",
         tmpSorted.get(2).toString());
   }
 
   @Test
-  public void getElementsSorted_Coverage() throws IOException {
+  public void getElementsSorted_Deviation() throws IOException {
     final WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
@@ -109,13 +109,13 @@ public class WeightedControlListTest {
 
     final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 10 start: 1 index: 0",
         tmpSorted.get(0).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 11 start: 1 index: 0",
         tmpSorted.get(1).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 9 distance: 11 start: 1 index: 0",
         tmpSorted.get(2).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 10 distance: 12 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 10 distance: 12 start: 1 index: 0",
         tmpSorted.get(3).toString());
   }
 
@@ -137,13 +137,13 @@ public class WeightedControlListTest {
 
     final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 10 start: 1 index: 0",
         tmpSorted.get(0).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 11 start: 1 index: 0",
         tmpSorted.get(1).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 9 distance: 11 start: 1 index: 0",
         tmpSorted.get(2).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL coverage: 10 distance: 12 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL deviation: 10 distance: 12 start: 1 index: 0",
         tmpSorted.get(3).toString());
   }
 
@@ -165,13 +165,13 @@ public class WeightedControlListTest {
 
     final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 1 distance: 1 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 index: 0",
         tmpSorted.get(0).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 1 distance: 1 start: 2 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 2 index: 0",
         tmpSorted.get(1).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 1 distance: 1 start: 3 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 3 index: 0",
         tmpSorted.get(2).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 1 distance: 1 start: 4 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 4 index: 0",
         tmpSorted.get(3).toString());
   }
 
@@ -189,9 +189,9 @@ public class WeightedControlListTest {
 
     final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 10 start: 1 index: 0",
         tmpSorted.get(0).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11 start: 1 index: 0",
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 11 start: 1 index: 0",
         tmpSorted.get(1).toString());
   }
 

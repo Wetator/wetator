@@ -53,7 +53,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -73,7 +73,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -95,7 +95,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 6 index: 8",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 6 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -115,7 +115,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_PLACEHOLDER coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_PLACEHOLDER deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -136,7 +136,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5 index: 7",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 5 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -158,7 +158,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5 index: 7",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 5 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -181,7 +181,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 14 distance: 20 start: 20 index: 10",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 index: 10",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -204,10 +204,10 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 7",
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='otherId') (name='otherName')] found by: BY_TEXT coverage: 0 distance: 14 start: 20 index: 10",
+        "[HtmlPasswordInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 index: 10",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -246,7 +246,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 38 start: 38 index: 45",
+        "[HtmlPasswordInput (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

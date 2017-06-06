@@ -84,23 +84,23 @@ public abstract class AbstractHtmlUnitElementMatcher {
 
     private HtmlElement htmlElement;
     private FoundType foundType;
-    private int coverage;
+    private int deviation;
     private int distance;
     private int start;
 
     /**
      * @param aHtmlElement the matching {@link HtmlElement}
      * @param aFoundType the {@link FoundType}
-     * @param aCoverage the coverage
+     * @param aDeviation the deviation
      * @param aDistance the distance
      * @param aStart the starting position
      */
-    public MatchResult(final HtmlElement aHtmlElement, final FoundType aFoundType, final int aCoverage,
+    public MatchResult(final HtmlElement aHtmlElement, final FoundType aFoundType, final int aDeviation,
         final int aDistance, final int aStart) {
       super();
       htmlElement = aHtmlElement;
       foundType = aFoundType;
-      coverage = aCoverage;
+      deviation = aDeviation;
       distance = aDistance;
       start = aStart;
     }
@@ -120,10 +120,10 @@ public abstract class AbstractHtmlUnitElementMatcher {
     }
 
     /**
-     * @return the coverage
+     * @return the deviation
      */
-    public int getCoverage() {
-      return coverage;
+    public int getDeviation() {
+      return deviation;
     }
 
     /**
