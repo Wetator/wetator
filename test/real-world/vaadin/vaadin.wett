@@ -1,6 +1,6 @@
 # simple test of vaadin
 
-describe || # Happy path walktrough for our registration workflow.\
+describe || # Happy path walkthrough for our registration workflow.\
 **Use case:** [Register User](http://www.wetator.org/use-cases/regitrer-user)\
 \
 You are now reading a more detailed description of this test case.
