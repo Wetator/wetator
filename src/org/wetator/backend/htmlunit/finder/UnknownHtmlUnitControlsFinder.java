@@ -96,7 +96,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
                   tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
 
             final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpHtmlElement);
-            final int tmpCoverage = htmlPageIndex.getAsText(tmpHtmlElement).length();
+            final int tmpDeviation = htmlPageIndex.getAsText(tmpHtmlElement).length();
 
             final int tmpDistance;
             if (tmpPathSearchPattern != null) {
@@ -106,7 +106,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             }
 
             tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-                tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+                tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
 
             break;
           }
@@ -130,7 +130,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, tmpPathSpot)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
-                tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                tmpMatch.getFoundType(), tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -141,7 +141,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
-                FoundType.BY_TITLE_TEXT, tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                FoundType.BY_TITLE_TEXT, tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -168,7 +168,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
             String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
             final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
-            final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
+            final int tmpDeviation = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
 
             tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
             final int tmpDistance;
@@ -179,7 +179,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             }
 
             tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-                tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+                tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }

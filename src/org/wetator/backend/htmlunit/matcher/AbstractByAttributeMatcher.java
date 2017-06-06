@@ -78,15 +78,15 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
       if (StringUtils.isNotEmpty(tmpValue) && (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
           || MatchType.EXACT == matchType && searchPattern.matches(tmpValue)
           || MatchType.ENDS_WITH == matchType && searchPattern.matchesAtEnd(tmpValue))) {
-        final int tmpCoverage;
+        final int tmpDeviation;
         if (MatchType.ENDS_WITH == matchType) {
-          tmpCoverage = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);
+          tmpDeviation = searchPattern.noOfCharsBeforeLastOccurenceIn(tmpValue);
         } else if (MatchType.STARTS_WITH == matchType) {
-          tmpCoverage = searchPattern.noOfCharsAfterLastOccurenceIn(tmpValue);
+          tmpDeviation = searchPattern.noOfCharsAfterLastOccurenceIn(tmpValue);
         } else {
-          tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpValue);
+          tmpDeviation = searchPattern.noOfSurroundingCharsIn(tmpValue);
         }
-        if (tmpCoverage > -1) {
+        if (tmpDeviation > -1) {
           String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
           tmpTextBefore = processTextForDistance(tmpTextBefore);
           final int tmpDistance;
@@ -96,7 +96,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
             tmpDistance = tmpTextBefore.length();
           }
           return Arrays
-              .asList(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.getStartPos()));
+              .asList(new MatchResult(aHtmlElement, foundType, tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
         }
       }
     }

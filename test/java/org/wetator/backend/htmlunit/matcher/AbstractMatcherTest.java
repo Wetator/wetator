@@ -75,11 +75,11 @@ public abstract class AbstractMatcherTest {
       SearchPattern aPathSearchPattern, FindSpot aPathSpot, SearchPattern aSearchPattern);
 
   protected static void assertMatchEquals(final String anExpectedId, final FoundType anExpectedFoundType,
-      final int anExpectedCoverage, final int anExpectedDistance, final int anExpectedStart,
+      final int anExpectedDeviation, final int anExpectedDistance, final int anExpectedStart,
       final MatchResult anActualMatch) {
     Assert.assertEquals("htmlElement.id", anExpectedId, anActualMatch.getHtmlElement().getId());
     Assert.assertEquals("foundType", anExpectedFoundType, anActualMatch.getFoundType());
-    Assert.assertEquals("coverage", anExpectedCoverage, anActualMatch.getCoverage());
+    Assert.assertEquals("deviation", anExpectedDeviation, anActualMatch.getDeviation());
     Assert.assertEquals("distance", anExpectedDistance, anActualMatch.getDistance());
     Assert.assertEquals("start", anExpectedStart, anActualMatch.getStart());
   }

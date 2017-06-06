@@ -87,7 +87,7 @@ public class SettableHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+    Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -102,7 +102,7 @@ public class SettableHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+    Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -117,7 +117,7 @@ public class SettableHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+    Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -132,7 +132,7 @@ public class SettableHtmlUnitControlsFinderTest {
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+    Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

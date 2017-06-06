@@ -84,12 +84,12 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
       if (tmpPosition != null) {
         final IControl tmpControl = createControl(tmpHtmlElement);
         final FoundType tmpFoundType = tmpMatch.getFoundType();
-        final int tmpCoverarge = tmpMatch.getCoverage();
+        final int tmpDeviation = tmpMatch.getDeviation();
         final int tmpDistance = tmpMatch.getDistance();
         final int tmpStartPosition = tmpPosition.getStartPos();
         final int tmpIndex = htmlPageIndex.getIndex(tmpHtmlElement);
 
-        tmpResult.add(tmpControl, tmpFoundType, tmpCoverarge, tmpDistance, tmpStartPosition, tmpIndex);
+        tmpResult.add(tmpControl, tmpFoundType, tmpDeviation, tmpDistance, tmpStartPosition, tmpIndex);
       }
     }
     return tmpResult;

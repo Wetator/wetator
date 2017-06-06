@@ -374,7 +374,7 @@
           <param2 id="323"></param2>
           <log id="324">
             <level id="325">INFO</level>
-            <message id="326">Found control '[HtmlAnchor 'download.txt'] found by: BY_LABEL_TEXT coverage: 0 distance: 366 start: 366'.</message>
+            <message id="326">Found control '[HtmlAnchor 'download.txt'] found by: BY_LABEL_TEXT deviation: 0 distance: 366 start: 366'.</message>
           </log>
           <response id="327">responses_current/response_100004.txt</response>
           <executionTime id="328">57</executionTime>
@@ -408,7 +408,7 @@
           <param2 id="351"></param2>
           <log id="352">
             <level id="353">INFO</level>
-            <message id="354">Found control '[HtmlAnchor 'wet_test.pdf'] found by: BY_LABEL_TEXT coverage: 0 distance: 379 start: 379'.</message>
+            <message id="354">Found control '[HtmlAnchor 'wet_test.pdf'] found by: BY_LABEL_TEXT deviation: 0 distance: 379 start: 379'.</message>
           </log>
           <response id="355">responses_current/response_100006.pdf</response>
           <executionTime id="356">54</executionTime>
@@ -442,7 +442,7 @@
           <param2 id="379"></param2>
           <log id="380">
             <level id="381">INFO</level>
-            <message id="382">Found control '[HtmlAnchor 'wet_test.rtf'] found by: BY_LABEL_TEXT coverage: 0 distance: 392 start: 392'.</message>
+            <message id="382">Found control '[HtmlAnchor 'wet_test.rtf'] found by: BY_LABEL_TEXT deviation: 0 distance: 392 start: 392'.</message>
           </log>
           <response id="383">responses_current/response_100008.rtf</response>
           <executionTime id="384">21</executionTime>
@@ -476,7 +476,7 @@
           <param2 id="407"></param2>
           <log id="408">
             <level id="409">INFO</level>
-            <message id="410">Found control '[HtmlAnchor 'wet_test.xml'] found by: BY_LABEL_TEXT coverage: 0 distance: 405 start: 405'.</message>
+            <message id="410">Found control '[HtmlAnchor 'wet_test.xml'] found by: BY_LABEL_TEXT deviation: 0 distance: 405 start: 405'.</message>
           </log>
           <response id="411">responses_current/response_100010.bin</response>
           <executionTime id="412">21</executionTime>
@@ -510,7 +510,7 @@
           <param2 id="435"></param2>
           <log id="436">
             <level id="437">INFO</level>
-            <message id="438">Found control '[HtmlAnchor 'wet_test.xls'] found by: BY_LABEL_TEXT coverage: 0 distance: 418 start: 418'.</message>
+            <message id="438">Found control '[HtmlAnchor 'wet_test.xls'] found by: BY_LABEL_TEXT deviation: 0 distance: 418 start: 418'.</message>
           </log>
           <response id="439">responses_current/response_100012.xls</response>
           <executionTime id="440">15</executionTime>
@@ -544,7 +544,7 @@
           <param2 id="463"></param2>
           <log id="464">
             <level id="465">INFO</level>
-            <message id="466">Found control '[HtmlAnchor 'sword4.png'] found by: BY_LABEL_TEXT coverage: 0 distance: 456 start: 456'.</message>
+            <message id="466">Found control '[HtmlAnchor 'sword4.png'] found by: BY_LABEL_TEXT deviation: 0 distance: 456 start: 456'.</message>
           </log>
           <response id="467">responses_current/response_100014.png</response>
           <executionTime id="468">20</executionTime>
@@ -579,7 +579,7 @@
           <param2 id="492"></param2>
           <log id="493">
             <level id="494">INFO</level>
-            <message id="495">Found control '[HtmlAnchor 'unknown_content_type.bin'] found by: BY_LABEL_TEXT coverage: 0 distance: 431 start: 431'.</message>
+            <message id="495">Found control '[HtmlAnchor 'unknown_content_type.bin'] found by: BY_LABEL_TEXT deviation: 0 distance: 431 start: 431'.</message>
           </log>
           <response id="496">responses_current/response_100017.bin</response>
           <executionTime id="497">17</executionTime>

@@ -58,7 +58,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOption 'myText1' (id='myOptionId1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

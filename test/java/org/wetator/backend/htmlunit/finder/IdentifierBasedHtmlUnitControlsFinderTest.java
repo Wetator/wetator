@@ -134,14 +134,14 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 4",
+        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
 
     tmpSearch = new SecretString("checker title");
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 4",
+        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
 
     tmpSearch = new SecretString("checker");
@@ -149,7 +149,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL coverage: 0 distance: 0 start: 0 index: 4",
+        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

@@ -53,7 +53,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_ID coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -73,7 +73,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_NAME coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -93,7 +93,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -115,10 +115,10 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId1') (name='MyCheckboxName1')] found by: BY_LABELING_TEXT coverage: 0 distance: 0 start: 0 index: 5",
+        "[HtmlCheckBoxInput (id='MyCheckboxId1') (name='MyCheckboxName1')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxName2')] found by: BY_TEXT coverage: 0 distance: 9 start: 9 index: 7",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxName2')] found by: BY_TEXT deviation: 0 distance: 9 start: 9 index: 7",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -142,7 +142,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 0 distance: 24 start: 40 index: 11",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL deviation: 0 distance: 24 start: 40 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -168,7 +168,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL coverage: 10 distance: 24 start: 40 index: 11",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL deviation: 10 distance: 24 start: 40 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -191,7 +191,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 14 distance: 20 start: 20 index: 10",
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 index: 10",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -214,10 +214,10 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT coverage: 0 distance: 0 start: 6 index: 7",
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='otherId') (name='otherName')] found by: BY_TEXT coverage: 0 distance: 14 start: 20 index: 10",
+        "[HtmlCheckBoxInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 index: 10",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -256,7 +256,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId_2_3')] found by: BY_TABLE_COORDINATE coverage: 0 distance: 38 start: 38 index: 45",
+        "[HtmlCheckBoxInput (id='MyCheckboxId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

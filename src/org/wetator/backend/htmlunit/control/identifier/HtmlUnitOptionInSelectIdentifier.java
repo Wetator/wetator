@@ -102,8 +102,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         // labeling text before
         final String tmpLabelingTextBefore = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPos);
         if (StringUtils.isNotEmpty(tmpLabelingTextBefore)) {
-          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpLabelingTextBefore);
-          if (tmpCoverage > -1) {
+          final int tmpDeviation = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpLabelingTextBefore);
+          if (tmpDeviation > -1) {
             final int tmpDistance;
             if (aWPath.getPathNodes().isEmpty()) {
               // no select part -> distance from select to page start
@@ -121,8 +121,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         // name
         final String tmpName = aHtmlElement.getAttribute("name");
         if (StringUtils.isNotEmpty(tmpName) && tmpSearchPatternSelect.matches(tmpName)) {
-          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
-          if (tmpCoverage > -1) {
+          final int tmpDeviation = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
+          if (tmpDeviation > -1) {
             final int tmpDistance;
             if (aWPath.getPathNodes().isEmpty()) {
               // no select part -> distance from select to page start
@@ -140,8 +140,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         // id
         final String tmpId = aHtmlElement.getId();
         if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
-          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
-          if (tmpCoverage > -1) {
+          final int tmpDeviation = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
+          if (tmpDeviation > -1) {
             final int tmpDistance;
             if (aWPath.getPathNodes().isEmpty()) {
               // no select part -> distance from select to page start
@@ -168,8 +168,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       // select
       if (tmpPathSpotSelect == null || tmpPathSpotSelect.getEndPos() <= tmpNodeSpot.getStartPos()) {
 
-        final int tmpCoverage = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
-        if (tmpCoverage > -1) {
+        final int tmpDeviation = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
+        if (tmpDeviation > -1) {
           final String tmpForAttribute = tmpLabel.getForAttribute();
           // label contains a for-attribute => find corresponding element
           if (StringUtils.isNotEmpty(tmpForAttribute)) {
@@ -237,11 +237,11 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       // does the text match?
       final String tmpText = htmlPageIndex.getAsText(tmpOption);
       if (tmpText != null) {
-        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
-        if (tmpCoverage > -1) {
+        int tmpDeviation = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+        if (tmpDeviation > -1) {
           if (aSearchPattern.getMinLength() == 0) {
-            // as options with an empty text are valid we redefine the coverage here
-            tmpCoverage = tmpText.length();
+            // as options with an empty text are valid we redefine the deviation here
+            tmpDeviation = tmpText.length();
           }
 
           final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
@@ -249,7 +249,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
           if (tmpIsInTable) {
             aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
-                tmpCoverage, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+                tmpDeviation, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
         }
@@ -258,11 +258,11 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       // does the label attribute match?
       final String tmpLabel = tmpOption.getLabelAttribute();
       if (DomElement.ATTRIBUTE_NOT_DEFINED != tmpLabel) {
-        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpLabel);
-        if (tmpCoverage > -1) {
+        int tmpDeviation = aSearchPattern.noOfSurroundingCharsIn(tmpLabel);
+        if (tmpDeviation > -1) {
           if (aSearchPattern.getMinLength() == 0) {
-            // as options with an empty label attribute are valid we redefine the coverage here
-            tmpCoverage = tmpLabel.length();
+            // as options with an empty label attribute are valid we redefine the deviation here
+            tmpDeviation = tmpLabel.length();
           }
 
           final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
@@ -270,7 +270,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
           if (tmpIsInTable) {
             aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
-                tmpCoverage, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
+                tmpDeviation, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
         }
