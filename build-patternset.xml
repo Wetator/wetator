@@ -10,6 +10,7 @@
         <exclude name="junit-*.jar" />
         <exclude name="hamcrest-*.jar" />
         <exclude name="mockito-*.jar" />
+        <exclude name="byte-buddy-*.jar" />
         <exclude name="objenesis-*.jar" />
 
         <exclude name="jetty-c*.jar" />
