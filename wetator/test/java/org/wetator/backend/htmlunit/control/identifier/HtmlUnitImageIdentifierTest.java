@@ -185,6 +185,55 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
+  public void byWholeTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<input id='otherId' name='otherName' type='submit'>"
+        + "<p>Some text ...</p>"
+        + "<img id='myId' name='myName' src='picture.png'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 index: 10",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Marker</p>"
+        + "<img id='myId' name='myName' src='picture.png'>"
+        + "<p>Some text ...</p>"
+        + "<img id='otherId' name='otherName' src='picture.png'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker > ");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
+
+    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 index: 7",
+        tmpFound.getEntriesSorted().get(0).toString());
+    Assert.assertEquals(
+        "[HtmlImage 'picture.png' (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 index: 10",
+        tmpFound.getEntriesSorted().get(1).toString());
+  }
+
+  @Test
   public void byTableCoordinates() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
