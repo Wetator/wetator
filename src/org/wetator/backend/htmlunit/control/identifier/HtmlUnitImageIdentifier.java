@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
@@ -29,8 +30,10 @@ import org.wetator.backend.htmlunit.matcher.ByImageSrcAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByImageTitleAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
+import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
+import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
@@ -39,6 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  * The identifier for a {@link HtmlUnitImage}.<br>
  * It can be identified by:
  * <ul>
+ * <li>the whole text before</li>
  * <li>its alt attribute</li>
  * <li>its src attribute</li>
  * <li>its title attribute</li>
@@ -74,16 +78,23 @@ public class HtmlUnitImageIdentifier extends AbstractMatcherBasedIdentifier {
     if (aWPath.getLastNode() != null) {
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
-      // does image alt-text match?
+
+      // whole text before
+      final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+      tmpWholePath.add(aWPath.getLastNode());
+      final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
+      aMatchers.add(
+          new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
+
+      // element specific
       aMatchers.add(new ByImageAltAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-      // does image filename match?
       aMatchers.add(new ByImageSrcAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
-      // does image title-text match?
       aMatchers
           .add(new ByImageTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers
           .add(new ByAriaLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
+      // default
       aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
