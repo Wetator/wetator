@@ -24,9 +24,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.WordUtils;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;
