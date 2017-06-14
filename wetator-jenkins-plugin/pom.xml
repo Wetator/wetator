@@ -97,8 +97,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version><!--$NO-MVN-MAN-VER$-->
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -174,7 +174,7 @@
                 </executions>
                 <configuration>
                     <targetDirectory>${project.build.directory}/pmd</targetDirectory>
-                    <targetJdk>1.7</targetJdk>
+                    <targetJdk>1.8</targetJdk>
                     <rulesets>
                         <ruleset>/rulesets/java/basic.xml</ruleset>
                         <ruleset>/rulesets/java/empty.xml</ruleset>
