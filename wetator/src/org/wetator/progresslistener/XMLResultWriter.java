@@ -19,9 +19,11 @@ package org.wetator.progresslistener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Deque;
 import java.util.List;
 import java.util.Set;
 
@@ -110,13 +112,14 @@ public class XMLResultWriter implements IProgressListener {
 
   private long tagId;
   private long executionStartTime;
-  private long commandExecutionStartTime;
+  private Deque<Long> commandExecutionStartTimes;
 
   /**
    * The constructor.
    */
   public XMLResultWriter() {
     tagId = 0;
+    commandExecutionStartTimes = new ArrayDeque<Long>();
   }
 
   @Override
@@ -472,7 +475,7 @@ public class XMLResultWriter implements IProgressListener {
       printEndTag(TAG_THIRD_PARAM);
       output.println();
 
-      commandExecutionStartTime = System.currentTimeMillis();
+      commandExecutionStartTimes.push(System.currentTimeMillis());
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -527,7 +530,7 @@ public class XMLResultWriter implements IProgressListener {
   @Override
   public void executeCommandEnd() {
     try {
-      printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - commandExecutionStartTime));
+      printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - commandExecutionStartTimes.pop()));
 
       printlnEndTag(TAG_COMMAND);
     } catch (final IOException e) {
