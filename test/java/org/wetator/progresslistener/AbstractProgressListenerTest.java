@@ -55,6 +55,7 @@ public abstract class AbstractProgressListenerTest {
 
   protected static final String IE11 = "IE11";
   protected static final String FF45 = "Firefox45";
+  protected static final String FF52 = "Firefox52";
   protected static final String CHROME = "CHROME";
 
   private static final String COMMAND_NAME = "command";

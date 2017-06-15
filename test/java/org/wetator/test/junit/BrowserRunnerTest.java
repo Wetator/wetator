@@ -41,7 +41,7 @@ public class BrowserRunnerTest implements IBrowserTest {
   @Test
   @Browsers
   public void testDefault() {
-    Assert.assertEquals(BrowserType.FIREFOX_45, browserType);
+    Assert.assertEquals(BrowserType.FIREFOX_52, browserType);
   }
 
   @Test
@@ -51,10 +51,10 @@ public class BrowserRunnerTest implements IBrowserTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_45, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
   public void testMultiple() {
     if (!firstFound) {
-      Assert.assertEquals(BrowserType.FIREFOX_45, browserType);
+      Assert.assertEquals(BrowserType.FIREFOX_52, browserType);
       firstFound = true;
     } else {
       Assert.assertEquals(BrowserType.INTERNET_EXPLORER, browserType);
