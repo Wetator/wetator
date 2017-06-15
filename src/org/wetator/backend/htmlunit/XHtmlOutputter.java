@@ -112,6 +112,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
 import com.gargoylesoftware.htmlunit.html.HtmlVariable;
+import com.gargoylesoftware.htmlunit.javascript.host.Element;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLCanvasElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
@@ -595,7 +596,7 @@ public final class XHtmlOutputter {
         final HtmlElement tmpElem = (HtmlElement) aDomNode;
         // hopefully no one will ever made tags like head visible
         if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay().value())) {
-          final HTMLElement tmpElemScript = (HTMLElement) aDomNode.getScriptableObject();
+          final Element tmpElemScript = (Element) aDomNode.getScriptableObject();
           final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
           // for the moment i have no better idea than always hard wire the display info
           output.print(" style=\"display: ");
