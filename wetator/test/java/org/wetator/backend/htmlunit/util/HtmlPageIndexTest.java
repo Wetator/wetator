@@ -46,7 +46,7 @@ public class HtmlPageIndexTest {
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_45, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_52, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     Assert.assertEquals(anExpected, tmpResult.getText());
     Assert.assertEquals(anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -421,7 +421,7 @@ public class HtmlPageIndexTest {
     // FF
     final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
         new URL("http://www.wetator.org/test.html"));
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_45);
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_52);
     try {
       final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
