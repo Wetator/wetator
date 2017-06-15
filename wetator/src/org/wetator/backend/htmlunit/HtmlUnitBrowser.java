@@ -954,13 +954,16 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.FIREFOX_45 == aBrowserType) {
       return BrowserVersion.FIREFOX_45;
     }
+    if (IBrowser.BrowserType.FIREFOX_52 == aBrowserType) {
+      return BrowserVersion.FIREFOX_52;
+    }
     if (IBrowser.BrowserType.INTERNET_EXPLORER == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER;
     }
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_45;
+    return BrowserVersion.FIREFOX_52;
   }
 
   /**
