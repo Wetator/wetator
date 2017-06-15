@@ -5,27 +5,27 @@ Wetator local build
   TestCase: 'test1.wet' (1/0)
     IE11
     ..
-    Firefox45
+    Firefox52
     ..
   TestCase: 'test2.wet' (2/0)
     IE11
     ..F.
-    Firefox45
+    Firefox52
     ..F.
   TestCase: 'test3.wet' (3/0)
     IE11
     ..Ei.
-    Firefox45
+    Firefox52
     ..Ei.
   TestCase: 'test4.wet' (4/0)
     IE11
     ..F.Ei
-    Firefox45
+    Firefox52
     ..F.Ei
   TestCase: 'test5.wet' (5/0)
     IE11
     ..F.
-    Firefox45
+    Firefox52
     ..Ei.
 
   Failure
