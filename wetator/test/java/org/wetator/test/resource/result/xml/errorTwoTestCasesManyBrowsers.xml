@@ -56,7 +56,7 @@
   </configuration>
   <startTime id="##ID##">##START_TIME##</startTime>
   <testcase id="##ID##" name="test1.wet" file="/Test/test1.wet">
-    <testrun id="##ID##" browser="Firefox45">
+    <testrun id="##ID##" browser="Firefox52">
       <error id="##ID##">
         <message id="##ID##">test error</message>
         <details id="##ID##">java.lang.ClassNotFoundException: test error
@@ -72,7 +72,7 @@
     </testrun>
   </testcase>
   <testcase id="##ID##" name="test2.wet" file="/Test/test2.wet">
-    <testrun id="##ID##" browser="Firefox45">
+    <testrun id="##ID##" browser="Firefox52">
       <ignored id="##ID##"/>
     </testrun>
     <testrun id="##ID##" browser="IE11">
