@@ -7,7 +7,7 @@ assert-content  || PrimeFaces SHOWCASE
 click-on        || Input
 click-on        || CheckboxMenu
 
-click-on        || Location: > Cities
+click-on        || Location: >
 assert-content  || Miami, London, Paris, Berlin
 click-on        || Miami
 click-on        || Berlin

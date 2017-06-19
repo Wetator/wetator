@@ -65,12 +65,15 @@ samples/google_search/wetator.config -text
 samples/gwt/checkbox.wett -text
 samples/gwt/radiobutton.wett -text
 samples/primefaces/boolean_checkbox.wett -text
+samples/primefaces/datatable_selection.wett -text
 samples/primefaces/inplace.wett -text
 samples/primefaces/listbox.wett -text
 samples/primefaces/one_menu.wett -text
+samples/primefaces/one_menu2.wett -text
 samples/primefaces/one_radio.wett -text
 samples/primefaces/select_checkbox_menu.wett -text
 samples/primefaces/switch.wett -text
+samples/primefaces/textarea.wett -text
 samples/primefaces/upload.wett -text
 samples/primefaces/upload_auto.wett -text
 samples/primefaces/wetator.config -text
