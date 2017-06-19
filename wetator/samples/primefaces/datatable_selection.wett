@@ -1,0 +1,20 @@
+
+# Simple test case for the PrimeFaces checkbox
+
+open-url          || http://www.primefaces.org/showcase/index.xhtml
+assert-content    || PrimeFaces SHOWCASE
+
+click-on          || Data
+click-on          || DataTable
+click-on          || Selection
+
+assert-content    || Checkbox Id Year Brand Color, View
+
+# the list is random, sometimes this fails
+#select            || Checkbox > Volkswagen
+#select            || Checkbox > BMW
+#click-on          || Checkbox > View
+#assert-content    || Selected Cars, BMW
+#click-on          || Close
+
+select            || Checkbox > Id

@@ -9,9 +9,11 @@ assert-title    || Google
 # Let's fill the search box;
 # if no name for the control to be set is given, the Wetator uses the one that has the focus.
 
-set          || || Wetator
-click-on        || wetator
-assert-content  || WETATOR / Smart Web Application Testing
+set             || || Wetator
+
+# use the aria-label for the button
+click-on        || Google Search
+assert-content  || WETATOR / Smart Web Application Testing || 5
 assert-content  || Wetator is a small, flexible, test automation tool
 
 # OK, we found something -> let's navigate
