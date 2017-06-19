@@ -24,7 +24,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator-jenkins-plugin</artifactId>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
     <name>Wetator Report Plug-in</name>
