@@ -51,7 +51,7 @@ public class ByLabelingTextBeforeMatcher extends AbstractByAttributeMatcher {
     if (pathSpot != null) {
       tmpStartPosition = pathSpot.getEndPos();
     }
-    return htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPosition);
+    return htmlPageIndex.getLabelingTextBefore(aHtmlElement, tmpStartPosition);
   }
 
   @Override

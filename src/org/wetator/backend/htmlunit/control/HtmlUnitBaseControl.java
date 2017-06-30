@@ -42,7 +42,6 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.ElementFromPointHandler;
 import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -115,13 +114,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
       if (tmpHtmlPage != null) {
-        tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
-
-          @Override
-          public HtmlElement getElementFromPoint(final HtmlPage aHtmlPage, final int anX, final int anY) {
-            return tmpHtmlElement;
-          }
-        });
+        tmpHtmlPage.setElementFromPointHandler((aHtmlPage, anX, anY) -> tmpHtmlElement);
       }
 
       tmpHtmlElement.click();
@@ -171,18 +164,12 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.dblClick() '" + tmpHtmlElement + "'");
+        LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.clickDouble() '" + tmpHtmlElement + "'");
       }
 
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
       if (tmpHtmlPage != null) {
-        tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
-
-          @Override
-          public HtmlElement getElementFromPoint(final HtmlPage aHtmlPage, final int anX, final int anY) {
-            return tmpHtmlElement;
-          }
-        });
+        tmpHtmlPage.setElementFromPointHandler((aHtmlPage, anX, anY) -> tmpHtmlElement);
       }
 
       tmpHtmlElement.dblClick();
@@ -228,18 +215,12 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
 
     try {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("ClickRight - HtmlUnitBaseControl<T>.rightClick() '" + tmpHtmlElement + "'");
+        LOG.debug("ClickRight - HtmlUnitBaseControl<T>.clickRight() '" + tmpHtmlElement + "'");
       }
 
       final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
       if (tmpHtmlPage != null) {
-        tmpHtmlPage.setElementFromPointHandler(new ElementFromPointHandler() {
-
-          @Override
-          public HtmlElement getElementFromPoint(final HtmlPage aHtmlPage, final int anX, final int anY) {
-            return tmpHtmlElement;
-          }
-        });
+        tmpHtmlPage.setElementFromPointHandler((aHtmlPage, anX, anY) -> tmpHtmlElement);
       }
 
       tmpHtmlElement.rightClick();
