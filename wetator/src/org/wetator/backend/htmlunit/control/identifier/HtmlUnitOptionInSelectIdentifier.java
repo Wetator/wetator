@@ -100,7 +100,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         }
 
         // labeling text before
-        final String tmpLabelingTextBefore = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPos);
+        final String tmpLabelingTextBefore = htmlPageIndex.getLabelingTextBefore(aHtmlElement, tmpStartPos);
         if (StringUtils.isNotEmpty(tmpLabelingTextBefore)) {
           final int tmpDeviation = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpLabelingTextBefore);
           if (tmpDeviation > -1) {

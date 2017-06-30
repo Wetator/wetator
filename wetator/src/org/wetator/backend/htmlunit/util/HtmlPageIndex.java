@@ -74,6 +74,7 @@ import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.css.ComputedCSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.css.StyleAttributes.Definition;
+import com.gargoylesoftware.htmlunit.javascript.host.event.MouseEvent;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
 
@@ -89,6 +90,8 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 public class HtmlPageIndex {
   private static final Log LOG = LogFactory.getLog(HtmlPageIndex.class);
 
+  private static final String EVENT_NAME_CLICK = "on" + MouseEvent.TYPE_CLICK;
+
   private HtmlPage htmlPage;
 
   private NormalizedString text;
@@ -99,6 +102,8 @@ public class HtmlPageIndex {
   private List<DomNode> nodes;
   private List<HtmlElement> visibleHtmlElementsBottomUp;
   private List<HtmlElement> visibleHtmlElements;
+
+  private List<HtmlElement> htmlElementsWithClickListener;
 
   private boolean lastOneWasHtmlElement;
 
@@ -118,6 +123,8 @@ public class HtmlPageIndex {
     nodes = new LinkedList<DomNode>();
     visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
     visibleHtmlElements = new LinkedList<HtmlElement>();
+
+    htmlElementsWithClickListener = new LinkedList<HtmlElement>();
 
     parseDomNode(aHtmlPage);
   }
@@ -250,13 +257,13 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole (trimmed) text between this element and the preceding form element or the form start.
+   * Returns the whole (trimmed) text between the given element and the preceding form element or the form start.
    *
    * @param anHtmlElement the element to start from
-   * @param aStartPos the start pos, text found before this will be not part of the result
-   * @return the text before
+   * @param aStartPos the start position, text found before this will be not part of the result
+   * @return the labeling text before
    */
-  public String getLabelTextBefore(final HtmlElement anHtmlElement, final int aStartPos) {
+  public String getLabelingTextBefore(final HtmlElement anHtmlElement, final int aStartPos) {
     final FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
@@ -302,12 +309,12 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns the whole (trimmed) text between this element and the next form element or the form end.
+   * Returns the whole (trimmed) text between the given element and the next form element or the form end.
    *
    * @param anHtmlElement the element to start from
-   * @return the text after
+   * @return the labeling text after
    */
-  public String getLabelTextAfter(final HtmlElement anHtmlElement) {
+  public String getLabelingTextAfter(final HtmlElement anHtmlElement) {
     final FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
@@ -372,14 +379,24 @@ public class HtmlPageIndex {
     return textWithoutFormControls.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
+  /**
+   * Return <code>true</code> if the given element has an event listener for the <code>click</code> event.
+   *
+   * @param anHtmlElement the element to check
+   * @return <code>true</code> if the given element has an event listener for the <code>click</code> event
+   */
+  public boolean hasClickListener(final HtmlElement anHtmlElement) {
+    return htmlElementsWithClickListener.contains(anHtmlElement);
+  }
+
   private void parseDomNode(final DomNode aDomNode) {
     if (null == aDomNode) {
       return;
     }
     nodes.add(aDomNode);
 
-    // mark pos before
     FindSpot tmpFindSpot = new FindSpot();
+    // mark start position of the DOM node
     tmpFindSpot.setStartPos(text.length());
     positions.put(aDomNode, tmpFindSpot);
 
@@ -390,7 +407,17 @@ public class HtmlPageIndex {
     if (isDisplayed(aDomNode)) {
       final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
       if (tmpIsHtmlElement) {
-        visibleHtmlElements.add((HtmlElement) aDomNode);
+        final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
+        visibleHtmlElements.add(tmpHtmlElement);
+
+        // FIXME do we have to support more mouse events (for other commands)?
+        // click: mousedown, mouseup
+        // mouse-over: mouseenter, mouseover, mousemove
+        // click-double: dblclick, mousedown, mouseup
+        // click-right: contextmenu, mousedown, mouseup
+        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
+          htmlElementsWithClickListener.add(tmpHtmlElement);
+        }
 
         if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
           // IE suppresses whitespace between two elements
@@ -465,7 +492,7 @@ public class HtmlPageIndex {
         visibleHtmlElementsBottomUp.add((HtmlElement) aDomNode);
       }
     }
-    // mark pos after
+    // mark end position of the DOM node
     tmpFindSpot = positions.get(aDomNode);
     tmpFindSpot.setEndPos(text.length());
 

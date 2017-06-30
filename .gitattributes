@@ -389,6 +389,7 @@ wetator/src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSele
 wetator/src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifier.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifier.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/finder/AbstractHtmlUnitControlsFinder.java -text svneol=unset#text/plain
+wetator/src/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinder.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinder.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinder.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinder.java -text svneol=unset#text/plain
@@ -533,6 +534,8 @@ wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOption
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
+wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+wetator/test/java/org/wetator/backend/htmlunit/finder/HtmlUnitClickListeningControlIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain

@@ -34,10 +34,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given
- * search.<br>
+ * {@link WPath}.<br>
  * The identifiers must be added by {@link #addIdentifier(Class)} or {@link #addIdentifiers(List)} before
- * executing {@link #find(WPath)}. For all visible {@link HtmlElement}s all configured identifiers are executed, even if
- * a match is found. So the returned {@link WeightedControlList} may contain multiple
+ * executing {@link #find(WPath)}. For all visible {@link HtmlElement}s all added identifiers are executed, even if
+ * a match is found before. So the returned {@link WeightedControlList} may contain multiple
  * {@link org.wetator.backend.control.IControl}s (multiple times).
  *
  * @author frank.danek
@@ -54,7 +54,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   /**
    * The constructor.
    *
-   * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
+   * @param aHtmlPageIndex the {@link HtmlPageIndex index} of the current HTML page
    * @param aThreadPool the thread pool to use for worker threads; may be <code>null</code>
    */
   public IdentifierBasedHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex,
@@ -87,24 +87,42 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   public WeightedControlList find(final WPath aWPath) {
     final WeightedControlList tmpFoundControls = new WeightedControlList();
     for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
-      for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
-        try {
-          final AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
-          tmpIdentifier.initializeForAsynch(htmlPageIndex, tmpHtmlElement, aWPath, tmpFoundControls);
-          if (tmpIdentifier.isHtmlElementSupported(tmpHtmlElement)) {
-            execute(tmpIdentifier);
-          }
-        } catch (final IllegalAccessException e) {
-          throw new ImplementationException("Could not access identifier class '" + tmpIdentifierClass.getName() + "'.",
-              e);
-        } catch (final InstantiationException e) {
-          throw new ImplementationException(
-              "Could not instantiate identifier for class '" + tmpIdentifierClass.getName() + "'.", e);
-        }
-      }
+      identify(tmpHtmlElement, aWPath, tmpFoundControls);
     }
     waitUntilExecuted();
     return tmpFoundControls;
+  }
+
+  /**
+   * Tries to identify if the given {@link HtmlElement} matches the given {@link WPath} using all added
+   * {@link AbstractHtmlUnitControlIdentifier}s.
+   *
+   * @param aHtmlElement the {@link HtmlElement} to check
+   * @param aWPath the {@link WPath} that must be matched
+   * @param aFoundControls the {@link WeightedControlList} the matches are added to
+   * @return <code>true</code> if at least one {@link AbstractHtmlUnitControlIdentifier} supported the given
+   *         {@link HtmlElement}
+   */
+  protected boolean identify(final HtmlElement aHtmlElement, final WPath aWPath,
+      final WeightedControlList aFoundControls) {
+    boolean tmpSupported = false;
+    for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
+      try {
+        final AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
+        tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
+        if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
+          tmpSupported = true;
+          execute(tmpIdentifier);
+        }
+      } catch (final IllegalAccessException e) {
+        throw new ImplementationException("Could not access identifier class '" + tmpIdentifierClass.getName() + "'.",
+            e);
+      } catch (final InstantiationException e) {
+        throw new ImplementationException(
+            "Could not instantiate identifier for class '" + tmpIdentifierClass.getName() + "'.", e);
+      }
+    }
+    return tmpSupported;
   }
 
   /**

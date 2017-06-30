@@ -47,6 +47,6 @@ public class ByLabelingTextAfterMatcher extends AbstractByAttributeMatcher {
 
   @Override
   protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    return htmlPageIndex.getLabelTextAfter(aHtmlElement);
+    return htmlPageIndex.getLabelingTextAfter(aHtmlElement);
   }
 }
