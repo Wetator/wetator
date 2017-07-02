@@ -40,7 +40,7 @@
 	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-2.8.47.jar"/>
-	<classpathentry kind="lib" path="lib/neko-htmlunit-2.27.jar"/>
+	<classpathentry kind="lib" path="lib/neko-htmlunit-2.28-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-2.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.13.jar"/>
@@ -53,9 +53,9 @@
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.25.jar"/>
 	<classpathentry kind="lib" path="lib/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/txtmark-0.13.jar"/>
-	<classpathentry kind="lib" path="lib/websocket-api-9.4.5.v20170502.jar"/>
-	<classpathentry kind="lib" path="lib/websocket-client-9.4.5.v20170502.jar"/>
-	<classpathentry kind="lib" path="lib/websocket-common-9.4.5.v20170502.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-api-9.4.6.v20170531.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-client-9.4.6.v20170531.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-common-9.4.6.v20170531.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-2.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
