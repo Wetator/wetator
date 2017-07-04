@@ -1079,6 +1079,7 @@ xsl/resources/firefox.png -text
 xsl/resources/highlight.png -text
 xsl/resources/ie.png -text
 xsl/resources/jquery-1.10.2.min.js -text
+xsl/resources/jquery.color-2.1.2.min.js -text
 xsl/resources/log_info.png -text
 xsl/resources/log_warn.png -text
 xsl/resources/next.png -text
