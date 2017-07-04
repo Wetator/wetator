@@ -1303,6 +1303,7 @@ wetator/xsl/resources/firefox.png -text
 wetator/xsl/resources/highlight.png -text
 wetator/xsl/resources/ie.png -text
 wetator/xsl/resources/jquery-1.10.2.min.js -text
+wetator/xsl/resources/jquery.color-2.1.2.min.js -text
 wetator/xsl/resources/log_info.png -text
 wetator/xsl/resources/log_warn.png -text
 wetator/xsl/resources/next.png -text

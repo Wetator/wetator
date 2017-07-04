@@ -92,15 +92,15 @@
     }
 
     function showAllTestCases() {
-    	$('.successful').removeClass('hidden');
-    	$('#hideSuccessful').removeClass('hidden');
-    	$('#showAll').addClass('hidden');
+        $('.successful').removeClass('hidden');
+        $('#hideSuccessful').removeClass('hidden');
+        $('#showAll').addClass('hidden');
     }
     
     function hideSuccessfulTestCases() {
-    	$('.successful').addClass('hidden');
-    	$('#hideSuccessful').addClass('hidden');
-    	$('#showAll').removeClass('hidden');
+        $('.successful').addClass('hidden');
+        $('#hideSuccessful').addClass('hidden');
+        $('#showAll').removeClass('hidden');
     }
 
     var wetFrameHeight = -1;
@@ -152,6 +152,9 @@
 
     function highlight() {
         setTimeout( function() {
+            var orange = jQuery.Color('#E65212');
+            var blue = jQuery.Color('#00769C');
+
             var win = window;
             var sel = getParameterByName(win, 'highlight');
             while ((!sel || sel.length === 0) && (win.parent && win.parent != win)) {
@@ -163,7 +166,14 @@
             var elem = $(sel);
             if (!elem) { return; }
 
-            var shadow = '0 0 2px 2px #E65212'
+            var shadow = '; box-shadow: 0 0 2px 2px ';
+            var bkg = jQuery.Color(elem.css('background-color'));
+            if (Math.abs(bkg.hue() - orange.hue()) > 20) {
+                shadow = shadow + orange;
+            } else {
+                shadow = shadow + blue;
+            }
+
             if (elem.attr('type') === 'checkbox'
                     || elem.attr('type') === 'radio'
                     || elem.is('select')
@@ -185,7 +195,7 @@
                     shadow = shadow + ' inset';
                 }
             }
-            elem.css('box-shadow', shadow);
+            elem.attr('style', function(i,s) { return s + shadow + ' !important;' });
 
             var offset = elem.offset();
             offset.left -= 200;

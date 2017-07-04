@@ -354,6 +354,7 @@ public final class XHtmlOutputter {
         // inject some js libs for highlighting
         output.indent();
         output.println("<script src='../../resources/jquery-1.10.2.min.js'></script>");
+        output.println("<script src='../../resources/jquery.color-2.1.2.min.js'></script>");
         output.println("<script src='../../resources/wetator_report.js'></script>");
         output.unindent();
       }
