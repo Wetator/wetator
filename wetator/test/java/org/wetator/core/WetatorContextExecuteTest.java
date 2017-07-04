@@ -52,12 +52,13 @@ public class WetatorContextExecuteTest {
   private ICommandImplementation commandImplementation2;
 
   private IBrowser browser;
+  private WetatorConfiguration configuration;
   private WetatorEngine engine;
 
   @Before
   public void setupMocks() {
     file1 = new File("file1");
-    file2 = new File("file2");
+    file2 = new File("file2.xml");
 
     command1 = new Command("command1", false);
     command2 = new Command("command2", false);
@@ -67,8 +68,11 @@ public class WetatorContextExecuteTest {
 
     browser = mock(IBrowser.class);
 
+    configuration = mock(WetatorConfiguration.class);
+
     engine = mock(WetatorEngine.class);
     when(engine.getBrowser()).thenReturn(browser);
+    when(engine.getConfiguration()).thenReturn(configuration);
     when(engine.getCommandImplementationFor("command1")).thenReturn(commandImplementation1);
     when(engine.getCommandImplementationFor("command2")).thenReturn(commandImplementation2);
   }
@@ -883,6 +887,20 @@ public class WetatorContextExecuteTest {
     verify(commandImplementation1, never()).execute(tmpContext, command1);
     verify(commandImplementation2, never()).execute(tmpContext, command2);
     verify(browser, never()).checkAndResetFailures();
+  }
+
+  /**
+   * Test for the context.<br>
+   * <br>
+   * Assertion: If everything is ok, all commands should be executed.
+   */
+  @Test
+  public void testcaseVar() {
+    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    Assert.assertEquals("file1", tmpContext.replaceVariables("${testcase}").getValue());
+
+    tmpContext = new WetatorContext(engine, file2, BrowserType.FIREFOX_52);
+    Assert.assertEquals("file2.xml", tmpContext.replaceVariables("${testcase}").getValue());
   }
 
   private void assertCommandSuccess(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
