@@ -118,7 +118,7 @@ public class HtmlUnitPrimeFacesOptionInSelectIdentifier extends AbstractHtmlUnit
         if (tmpPathSpotSelect != null) {
           tmpStartPos = tmpPathSpotSelect.getEndPos();
         }
-        final String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpStartPos);
+        final String tmpText = htmlPageIndex.getLabelingTextBefore(aHtmlElement, tmpStartPos);
         if (StringUtils.isNotEmpty(tmpText)) {
           final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpText);
           if (tmpCoverage > -1) {
