@@ -72,6 +72,7 @@ public class XHtmlOutputterXHtmlPageTest {
         + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + TRAILING;
     final String tmpExpected = EXPECTED_LEADING + "<head> "
         + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+        + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
         + "<script src='../../resources/wetator_report.js'></script> "
         + "</head><body style=\"display: block\"> <h1 style=\"display: block\">Test</h1> <script> highlight(); </script> </body>"
         + EXPECTED_TRAILING;
@@ -83,6 +84,7 @@ public class XHtmlOutputterXHtmlPageTest {
     final String tmpHtmlCode = LEADING + "<h1>1&#160;2</h1>" + TRAILING;
     final String tmpExpected = EXPECTED_LEADING + "<head> "
         + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+        + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
         + "<script src='../../resources/wetator_report.js'></script> "
         + "</head><body style=\"display: block\"> <h1 style=\"display: block\">1&#160;2</h1> <script> highlight(); </script> </body>"
         + EXPECTED_TRAILING;
@@ -111,6 +113,7 @@ public class XHtmlOutputterXHtmlPageTest {
             EXPECTED_LEADING
             + "<head> "
               + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+              + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
               + "<script src='../../resources/wetator_report.js'></script> "
             + "</head>"
             + "<body style=\"display: block\"> "
@@ -136,6 +139,7 @@ public class XHtmlOutputterXHtmlPageTest {
             EXPECTED_LEADING
             + "<head> "
               + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+              + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
               + "<script src='../../resources/wetator_report.js'></script> "
             + "</head>"
             + "<body style=\"display: block\"> "
@@ -172,6 +176,7 @@ public class XHtmlOutputterXHtmlPageTest {
         EXPECTED_LEADING
         + "<head> "
           + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+          + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
           + "<script src='../../resources/wetator_report.js'></script> "
         + "</head>"
         + "<body style=\"display: block\"> "
@@ -197,6 +202,7 @@ public class XHtmlOutputterXHtmlPageTest {
         EXPECTED_LEADING
         + "<head> "
           + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+          + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
           + "<script src='../../resources/wetator_report.js'></script> "
         + "</head>"
         + "<body style=\"display: block\"> "
