@@ -153,7 +153,7 @@
     function highlight() {
         setTimeout( function() {
             var orange = jQuery.Color('#E65212');
-            var blue = jQuery.Color('#00769C');
+            var blue = jQuery.Color('#0000ff');
 
             var win = window;
             var sel = getParameterByName(win, 'highlight');
@@ -166,14 +166,15 @@
             var elem = $(sel);
             if (!elem) { return; }
 
-            var shadow = '; box-shadow: 0 0 2px 2px ';
+            var shadow = '0 0 2px 2px ';
             var bkg = jQuery.Color(elem.css('background-color'));
-            if (Math.abs(bkg.hue() - orange.hue()) > 20) {
+            if (Math.abs(bkg.hue() - orange.hue()) > 10) {
                 shadow = shadow + orange;
             } else {
                 shadow = shadow + blue;
             }
 
+            var inset = '';
             if (elem.attr('type') === 'checkbox'
                     || elem.attr('type') === 'radio'
                     || elem.is('select')
@@ -190,12 +191,19 @@
                 }
             } else {
                 if (elem.outerHeight(true) - elem.innerHeight() < 2) {
-                    shadow = shadow + ' inset';
+                    inset = ' inset';
                 } else if (elem.outerWidth(true) - elem.innerWidth() < 2) {
-                    shadow = shadow + ' inset';
+                    inset = ' inset';
                 }
             }
-            elem.attr('style', function(i,s) { return s + shadow + ' !important;' });
+
+            elem.attr('style', function(i,s) { return s + '; box-shadow: ' + shadow + inset + ' !important;' });
+
+            // images inside anchors are special
+            if (elem.is('a')) {
+                elem.children('img').first().css('box-shadow', shadow);
+            }
+
 
             var offset = elem.offset();
             offset.left -= 200;
