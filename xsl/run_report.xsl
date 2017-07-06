@@ -94,8 +94,8 @@
                     #testSummary img.resultIcon { padding: 2px; }
                     img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: bottom; }
                     img.expandCollapse#overviewswitcher { padding: 0; }
-                    
                     #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
+                    
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
@@ -219,7 +219,7 @@
                             Total Time:
                         </td>
                         <td style="padding-left: 5px;">
-                            <xsl:call-template name="time">
+                            <xsl:call-template name="timeFormatted">
                                 <xsl:with-param name="msecs" select="wet/executionTime"/>
                             </xsl:call-template>
                         </td>
@@ -1285,7 +1285,7 @@
 
                             <xsl:variable name="duration" select="sum(command/executionTime)"/>
                             <td align="right">
-                                <xsl:call-template name="time">
+                                <xsl:call-template name="timeInSeconds">
                                     <xsl:with-param name="msecs" select="$duration"/>
                                 </xsl:call-template>
                             </td>
@@ -1372,7 +1372,7 @@
 
                         <xsl:variable name="testCaseDuration" select="sum(command/executionTime)"/>
                         <td class='light topBorder' align="right">
-                            <xsl:call-template name="time">
+                            <xsl:call-template name="timeInSeconds">
                                 <xsl:with-param name="msecs" select="$testCaseDuration"/>
                             </xsl:call-template>
                         </td>
@@ -1588,7 +1588,7 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="right"&gt;</xsl:text>
                 &#32;
-                <xsl:call-template name="time">
+                <xsl:call-template name="timeInSeconds">
                     <xsl:with-param name="msecs" select="executionTime"/>
                 </xsl:call-template>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
@@ -1810,7 +1810,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template name="time">
+    <xsl:template name="timeInSeconds">
         <xsl:param name="msecs"/>
 
         <xsl:variable name="base" select="round($msecs div 100)"/>
@@ -1839,4 +1839,29 @@
         </span>
     </xsl:template>
 
+    <xsl:template name="timeFormatted">
+        <xsl:param name="msecs"/>
+
+        <xsl:choose>
+            <xsl:when test="$msecs > 5000">
+                <xsl:variable name="base" select="round($msecs div 1000)"/>
+                <xsl:variable name="hours" select="floor($base div 3600)"/>
+                <xsl:variable name="mins" select="floor(($base - $hours*3600) div 60)"/>
+                <xsl:variable name="secs" select="floor(($base - $hours*3600) - $mins*60)"/>
+
+                <xsl:if test="10 > $hours">0</xsl:if>
+                <xsl:value-of select="$hours"/>
+                <xsl:text>:</xsl:text>
+                <xsl:if test="10 > $mins">0</xsl:if>
+                <xsl:value-of select="$mins"/>
+                <xsl:text>:</xsl:text>
+                <xsl:if test="10 > $secs">0</xsl:if>
+                <xsl:value-of select="$secs"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="round($msecs div 100) div 10"/>
+                <xsl:text>s</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>
