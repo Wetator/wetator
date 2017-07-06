@@ -30,7 +30,14 @@
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
+                    
                     img { border: 0; }
+                    img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
+                    #testSummary img.resultIcon { padding: 2px; }
+                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: bottom; }
+                    img.expandCollapse#overviewswitcher { padding: 0; }
+                    
+                    #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
@@ -100,8 +107,8 @@
 <tr>
 <td class="bold">
                             Tests:
-                        </td><td style="padding-left: 5px;">1</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="resources/error.png"> Errors:
-                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">1</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" class="resultIcon" src="resources/error.png"> Errors:
+                        </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" class="resultIcon" src="resources/failure.png"> Failures:
                         </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;">
                             Distribution:
                         </td><td style="padding-left: 5px;">1 TestCase
@@ -125,7 +132,7 @@
 </tr>
 </table>
 <div style="margin-top: -20px; margin-left: 90.4%;">
-<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
+<img class="expandCollapse" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
 <table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
 <tr>
 <td width="150px">
@@ -142,7 +149,7 @@
 </table>
 <table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
+<td><span class="bold">Configuration</span>&nbsp;<img class="expandCollapse" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img class="expandCollapse" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
 </tr>
 </table>
 <table style="margin-top: 5px;" border="0" cellspacing="0" cellpadding="4" width="100%">
@@ -159,7 +166,7 @@
 <td>wetator.acceptLanguage</td><td>&nbsp;&nbsp;</td><td></td>
 </tr>
 <tr>
-<td>wetator.outputDir</td><td>&nbsp;&nbsp;</td><td>/logs</td>
+<td>wetator.outputDir</td><td>&nbsp;&nbsp;</td><td>/Users/tobiaswoerenkaemper/Documents/workspace_wetator/wetator/logs</td>
 </tr>
 <tr>
 <td>wetator.jsTimeout</td><td>&nbsp;&nbsp;</td><td>0s</td>
@@ -230,10 +237,10 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="1">1</td><td rowspan="1"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td rowspan="1"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img src="resources/firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">3/3</td><td>
+<td align="center" rowspan="1">1</td><td rowspan="1"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td rowspan="1"><a class="link" href="#testspec_105">test1.wet</a></td><td><img class="browser" src="resources/firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
-<td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="###ID##">2</a></td><td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
+<td class="step success"><a class="linkToCommand" href="#107">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="#112">2</a></td><td class="step success"><a class="linkToCommand" href="#128">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
 </td><td align="right">##DURATION##</td></tr><tr></tr>
@@ -244,28 +251,28 @@
 <a name="details"></a>
 <div>
 <h2>
-<img title="success" alt="success" height="10" width="12" src="resources/ok.png">&nbsp;<a name="testspec_##ID##">/Test/test1.wet</a> (Firefox52)</h2>
+<img title="success" alt="success" class="resultIcon" src="resources/ok.png">&nbsp;<a name="testspec_105">/Test/test1.wet</a> (Firefox52)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >use-module</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"><img style="cursor: pointer;" alt="Show/Hide tests from called module" src="resources/expandall.png" id="showHide_testfile_##ID##" onclick="showOrHide(this, 'testfile_##ID##');"></td><td class="light topBorder" >module</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
-<tr style="display: none" id="testfile_##ID##">
+<tr><td class="light topBorder" align="center"><a name="107"></a>1</td><td class="light topBorder" align="center"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="112"></a>2</td><td class="light topBorder" align="center"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td class="light topBorder" >use-module</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"><img class="expandCollapse" alt="Show/Hide tests from called module" src="resources/expandall.png" id="showHide_testfile_116" onclick="showOrHide(this, 'testfile_116');"></td><td class="light topBorder" >module</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr style="display: none" id="testfile_116">
 <td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td class="light"></td><td colspan="4" class="light">
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>3</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="117"></a>3</td><td class="light topBorder" align="center"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="122"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
 <tr>
 <td colspan="8" class="light topBorder"></td><td align="right" class="light topBorder">##DURATION##</td>
 </tr>
 </table>
 </td>
 </tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>5</td><td class="light topBorder" align="center"><img title="success" alt="success" height="10" width="12" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="128"></a>5</td><td class="light topBorder" align="center"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
 <tr>
 <td colspan="8" class="light topBorder"></td><td align="right" class="light topBorder">##DURATION##</td>
 </tr>
