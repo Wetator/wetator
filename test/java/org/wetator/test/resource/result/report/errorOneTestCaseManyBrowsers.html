@@ -30,7 +30,14 @@
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
+                    
                     img { border: 0; }
+                    img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
+                    #testSummary img.resultIcon { padding: 2px; }
+                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: bottom; }
+                    img.expandCollapse#overviewswitcher { padding: 0; }
+                    #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
+                    
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
@@ -100,8 +107,8 @@
 <tr>
 <td class="bold">
                             Tests:
-                        </td><td style="padding-left: 5px;">3</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" height="10" width="12" src="resources/error.png"> Errors:
-                        </td><td style="padding-left: 5px;">3</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" height="10" width="12" src="resources/failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">3</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" class="resultIcon" src="resources/error.png"> Errors:
+                        </td><td style="padding-left: 5px;">3</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" class="resultIcon" src="resources/failure.png"> Failures:
                         </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;">
                             Distribution:
                         </td><td style="padding-left: 5px;">1 TestCase
@@ -127,7 +134,7 @@
 </tr>
 </table>
 <div style="margin-top: -20px; margin-left: 90.4%;">
-<img style="cursor: pointer;" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
+<img class="expandCollapse" onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" alt="show/hide TestCases &amp; -Steps" src="resources/expandall.png" id="overviewswitcher"></div>
 <table style="display: none; margin-top: 5px; float: center; text-align: center;" align="center" class="overview" id="casesandsteps">
 <tr>
 <td width="150px">
@@ -159,7 +166,7 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img style="cursor: pointer;" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie11','ie11overview', 'ff52','ff52overview')"></td><td><span class="bold">IE11</span>&nbsp;<img style="cursor: pointer;" alt="show/hide IE11 overview" onclick="showOrHide(this, 'ie11overview')" src="resources/expandall.png" id="ie##ID##"></td><td><span class="bold">FF52</span>&nbsp;<img style="cursor: pointer;" alt="show/hide FF52 overview" onclick="showOrHide(this, 'ff52overview')" src="resources/expandall.png" id="ff##ID##"></td>
+<td></td><td><span class="bold">All</span>&nbsp;<img class="expandCollapse" alt="show/hide all browser overviews" src="resources/expandall.png" onclick="showOrHideAll(this, 'ie11','ie11overview', 'ff52','ff52overview')"></td><td><span class="bold">IE11</span>&nbsp;<img class="expandCollapse" alt="show/hide IE11 overview" onclick="showOrHide(this, 'ie11overview')" src="resources/expandall.png" id="ie##ID##"></td><td><span class="bold">FF52</span>&nbsp;<img class="expandCollapse" alt="show/hide FF52 overview" onclick="showOrHide(this, 'ff52overview')" src="resources/expandall.png" id="ff##ID##"></td>
 </tr>
 </table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie11overview">
@@ -268,7 +275,7 @@
 </table>
 <table style="margin-top: 10px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td><span class="bold">Configuration</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img style="cursor: pointer;" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
+<td><span class="bold">Configuration</span>&nbsp;<img class="expandCollapse" alt="show/hide Configuration" onclick="showOrHide(this, 'configuration')" src="resources/expandall.png"></td><td width="50px"></td><td><span class="bold">Variables</span>&nbsp;<img class="expandCollapse" alt="show/hide Variables" onclick="showOrHide(this, 'variables')" src="resources/expandall.png"></td>
 </tr>
 </table>
 <table style="margin-top: 5px;" border="0" cellspacing="0" cellpadding="4" width="100%">
@@ -356,9 +363,9 @@
 <td height="7px;" colspan="7"></td>
 </tr>
 <tr>
-<td align="center" rowspan="3">1</td><td rowspan="3"><img title="error" alt="error" height="10" width="12" src="resources/error.png"></td><td rowspan="3"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img src="resources/firefox.png" alt="" title=""></td><td colspan="3" class="error" align="center">test error</td></tr><tr><td><img src="resources/ie.png" alt="" title=""></td><td class="ignored" align="center">
+<td align="center" rowspan="3">1</td><td rowspan="3"><img title="error" alt="error" class="resultIcon" src="resources/error.png"></td><td rowspan="3"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img class="browser" src="resources/firefox.png" alt="" title=""></td><td colspan="3" class="error" align="center">test error</td></tr><tr><td><img class="browser" src="resources/ie.png" alt="" title=""></td><td class="ignored" align="center">
                                     ignored
-                                </td><td colspan="2"></td></tr><tr><td><img src="" alt="" title=""></td><td class="ignored" align="center">
+                                </td><td colspan="2"></td></tr><tr><td><img class="browser" src="" alt="" title=""></td><td class="ignored" align="center">
                                     ignored
                                 </td><td colspan="2"></td></tr><tr></tr>
 <tr>
