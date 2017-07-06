@@ -88,7 +88,14 @@
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
+                    
                     img { border: 0; }
+                    img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
+                    #testSummary img.resultIcon { padding: 2px; }
+                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: bottom; }
+                    img.expandCollapse#overviewswitcher { padding: 0; }
+                    
+                    #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
@@ -183,13 +190,13 @@
                             <xsl:value-of select="$testCount"/>
                         </td>
                         <td class="bold" style="padding-left: 40px;">
-                             <img src="resources/error.png" width="12" height="10" alt="error" title="error"/> Errors:
+                             <img src="resources/error.png" class="resultIcon" alt="error" title="error"/> Errors:
                         </td>
                         <td style="padding-left: 5px;">
                             <xsl:value-of select="$testErrorCount + $testIgnoredCount"/>
                         </td>
                         <td class="bold" style="padding-left: 40px;">
-                             <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/> Failures:
+                             <img src="resources/failure.png" class="resultIcon" alt="failure" title="failure"/> Failures:
                         </td>
                         <td style="padding-left: 5px;">
                             <xsl:value-of select="$testFailureCount"/>
@@ -300,7 +307,7 @@
                 </table>
                 <div style="margin-top: -20px; margin-left: 90.4%;">
                     <img id="overviewswitcher" src="resources/expandall.png" alt="show/hide TestCases &amp; -Steps"
-                        onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" style="cursor: pointer;"/>
+                        onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" class="expandCollapse"/>
                 </div>
 
                 <table id="casesandsteps" class="overview" align="center" style="display: none; margin-top: 5px; float: center; text-align: center;">
@@ -548,7 +555,7 @@
                                 <td>
                                     <span class="bold">All</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img src="resources/expandall.png" alt="show/hide all browser overviews" style="cursor: pointer;">
+                                    <img src="resources/expandall.png" alt="show/hide all browser overviews" class="expandCollapse">
                                         <xsl:attribute name="onclick">
                                             <xsl:text>showOrHideAll(this</xsl:text>
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE11'">, 'ie11','ie11overview'</xsl:if>
@@ -563,28 +570,28 @@
                                 <td>
                                     <span class="bold">IE11</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ie11" src="resources/expandall.png" onclick="showOrHide(this, 'ie11overview')" alt="show/hide IE11 overview" style="cursor: pointer;"/>
+                                    <img id="ie11" src="resources/expandall.png" onclick="showOrHide(this, 'ie11overview')" alt="show/hide IE11 overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox45'">
                                 <td>
                                     <span class="bold">FF45</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff45" src="resources/expandall.png" onclick="showOrHide(this, 'ff45overview')" alt="show/hide FF45 overview" style="cursor: pointer;"/>
+                                    <img id="ff45" src="resources/expandall.png" onclick="showOrHide(this, 'ff45overview')" alt="show/hide FF45 overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox52'">
                                 <td>
                                     <span class="bold">FF52</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff52" src="resources/expandall.png" onclick="showOrHide(this, 'ff52overview')" alt="show/hide FF52 overview" style="cursor: pointer;"/>
+                                    <img id="ff52" src="resources/expandall.png" onclick="showOrHide(this, 'ff52overview')" alt="show/hide FF52 overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Chrome'">
                                 <td>
                                     <span class="bold">Chrome</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="chrome" src="resources/expandall.png" onclick="showOrHide(this, 'chromeoverview')" alt="show/hide Chrome overview" style="cursor: pointer;"/>
+                                    <img id="chrome" src="resources/expandall.png" onclick="showOrHide(this, 'chromeoverview')" alt="show/hide Chrome overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
                         </tr>
@@ -686,13 +693,13 @@
                         <td>
                             <span class="bold">Configuration</span>
                             <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                            <img src="resources/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration" style="cursor: pointer;"/>
+                            <img src="resources/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration" class="expandCollapse"/>
                         </td>
                         <td width="50px"></td>
                         <td>
                             <span class="bold">Variables</span>
                             <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                            <img src="resources/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables" style="cursor: pointer;"/>
+                            <img src="resources/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables" class="expandCollapse"/>
                         </td>
                     </tr>
                 </table>
@@ -1122,7 +1129,7 @@
                 <xsl:choose>
                     <xsl:when test="ignored or error or testfile/error">
                         <td>
-                            <img>
+                            <img class="browser">
                                 <xsl:attribute name="src">
                                     <xsl:if test="@browser='IE11'">
                                         <xsl:value-of select="$browserPicture.IE"/>
@@ -1168,7 +1175,7 @@
                     <xsl:otherwise>
                         <xsl:for-each select="testfile">
                             <td>
-                                <img>
+                                <img class="browser">
                                     <xsl:attribute name="src">
                                         <xsl:if test="../@browser='IE11'">
                                             <xsl:value-of select="$browserPicture.IE"/>
@@ -1382,7 +1389,7 @@
                     <xsl:for-each select="error">
                     <tr>
                       <td>
-                        <img src="resources/error.png" width="12" height="10" alt="error"/>
+                        <img src="resources/error.png" class="resultIcon" alt="error"/>
                       </td>
                       <td class="error">
                         <xsl:value-of select="message"/>
@@ -1430,16 +1437,16 @@
                         <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                     </xsl:when>
                     <xsl:when test="count(error) &gt; 0 or count(descendant::command/error) &gt; 0 or count(descendant::testfile/error) &gt; 0">
-                        <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
+                        <img src="resources/error.png" class="resultIcon" alt="error" title="error"/>
                     </xsl:when>
                     <xsl:when test="count(descendant-or-self::failure) &gt; 0">
-                        <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/>
+                        <img src="resources/failure.png" class="resultIcon" alt="failure" title="failure"/>
                     </xsl:when>
                     <xsl:when test="count(descendant-or-self::ignored) &gt; 0">
                         <!-- nothing -->
                     </xsl:when>
                     <xsl:otherwise>
-                        <img src="resources/ok.png" width="12" height="10" alt="success" title="success"/>
+                        <img src="resources/ok.png" class="resultIcon" alt="success" title="success"/>
                     </xsl:otherwise>
                 </xsl:choose>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
@@ -1475,7 +1482,7 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
                 <xsl:if test="count(testfile) &gt; 0 and count(descendant-or-self::testfile/error) &lt; 1">
-                    <img src="resources/expandall.png" alt="Show/Hide tests from called module" style="cursor: pointer;">
+                    <img src="resources/expandall.png" alt="Show/Hide tests from called module" class="expandCollapse">
                         <xsl:attribute name="id">
                             <xsl:text>showHide_testfile_</xsl:text>
                             <xsl:value-of select="testfile/@id" />
@@ -1763,16 +1770,16 @@
     <xsl:template name="successIndicator">
         <xsl:choose>
             <xsl:when test="count(error) &gt; 0 or count(testrun/error) &gt; 0 or count(descendant::command/error) &gt; 0 or count(descendant::testfile/error) &gt; 0">
-                <img src="resources/error.png" width="12" height="10" alt="error" title="error"/>
+                <img src="resources/error.png" class="resultIcon" alt="error" title="error"/>
             </xsl:when>
             <xsl:when test="count(descendant-or-self::failure) &gt; 0">
-                <img src="resources/failure.png" width="12" height="10" alt="failure" title="failure"/>
+                <img src="resources/failure.png" class="resultIcon" alt="failure" title="failure"/>
             </xsl:when>
             <xsl:when test="count(descendant-or-self::ignored) &gt; 0">
                 <!-- nothing -->
             </xsl:when>
             <xsl:otherwise>
-                <img src="resources/ok.png" width="12" height="10" alt="success" title="success"/>
+                <img src="resources/ok.png" class="resultIcon" alt="success" title="success"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
