@@ -92,9 +92,11 @@
                     img { border: 0; }
                     img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
                     #testSummary img.resultIcon { padding: 2px; }
-                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: bottom; }
+                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: text-top; }
                     img.expandCollapse#overviewswitcher { padding: 0; }
                     #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
+                    img.testStepScreenshot { vertical-align: top; }
+                    img.testStepInfo { cursor: pointer; vertical-align: bottom; }
                     
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
@@ -1473,7 +1475,7 @@
                         <xsl:attribute name="onmouseout">
                             <xsl:text>hidePreview()</xsl:text>
                         </xsl:attribute>
-                        <img src="resources/highlight.png" alt="view highlight"/>
+                        <img src="resources/highlight.png" alt="view highlight" class="testStepScreenshot"/>
                     </a>
                 </xsl:for-each>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
@@ -1507,7 +1509,7 @@
                         <xsl:attribute name="onmouseout">
                             <xsl:text>hidePreview()</xsl:text>
                         </xsl:attribute>
-                        <img src="resources/response.png" alt="view response"/>
+                        <img src="resources/response.png" alt="view response" class="testStepScreenshot"/>
                     </a>
                 </xsl:for-each>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
@@ -1558,7 +1560,7 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
                 <xsl:if test="count(log) &gt; 0 or count(error/details) &gt; 0">
-                    <img src="resources/expandlogwarn.png" alt="Show/Hide log entries" style="cursor: pointer;">
+                    <img src="resources/expandlogwarn.png" alt="Show/Hide log entries" class="testStepInfo">
                         <xsl:choose>
                             <xsl:when test="count(log/level[text() = 'WARN']) &gt; 0 or count(error/details) &gt; 0">
                                 <xsl:attribute name="src">

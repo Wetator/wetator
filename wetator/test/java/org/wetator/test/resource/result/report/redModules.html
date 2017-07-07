@@ -34,9 +34,11 @@
                     img { border: 0; }
                     img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
                     #testSummary img.resultIcon { padding: 2px; }
-                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: bottom; }
+                    img.expandCollapse { cursor: pointer; padding: 1px; vertical-align: text-top; }
                     img.expandCollapse#overviewswitcher { padding: 0; }
                     #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
+                    img.testStepScreenshot { vertical-align: top; }
+                    img.testStepInfo { cursor: pointer; vertical-align: bottom; }
                     
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
@@ -276,7 +278,7 @@
 <td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="###ID##" onclick="makeVisible('testfile_##ID##');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a><a href="#131" onclick="makeVisible('testfile_116');"><img title="next failure/error" alt="next failure/error" height="10" width="11" src="resources/next.png"></a></td><td class="light"></td><td class="light"></td><td colspan="4" class="failure">test failure</td>
 </tr>
 <tr><td class="light topBorder" align="center"><a name="##ID##"></a>4</td><td class="light topBorder" align="center"><img title="success" alt="success" class="resultIcon" src="resources/ok.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ></td><td class="light topBorder" align="right">##DURATION##</td></tr>
-<tr><td class="light topBorder" align="center"><a name="##ID##"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" class="resultIcon" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img style="cursor: pointer;" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_##ID##" onclick="showOrHide(this, 'log_131');"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
+<tr><td class="light topBorder" align="center"><a name="##ID##"></a>5</td><td class="light topBorder" align="center"><img title="error" alt="error" class="resultIcon" src="resources/error.png"></td><td class="light topBorder" >command</td><td class="light topBorder" align="center"></td><td class="light topBorder" align="center"></td><td class="light topBorder" >command value</td><td class="light topBorder" >-</td><td class="light topBorder" ><img class="testStepInfo" alt="Show/Hide log entries" src="resources/expandlogwarn.png" id="showHide_log_##ID##" onclick="showOrHide(this, 'log_131');"></td><td class="light topBorder" align="right">##DURATION##</td></tr>
 <tr>
 <td class="light"></td><td class="light"></td><td class="light errorJumper"><a href="###ID##" onclick="makeVisible('testfile_##ID##');"><img title="previous failure/error" alt="previous failure/error" height="10" width="11" src="resources/previous.png"></a></td><td class="light"></td><td class="light"></td><td colspan="4" class="error">test error</td>
 </tr>
