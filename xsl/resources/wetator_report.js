@@ -18,9 +18,9 @@
 
 
     function showOrHideAll(image, imageId, id) {
-        var tmpSearch = "expandall.png";
+        var tmpSearch = "expand-square.png";
         if (toggleImage(image)) {
-            tmpSearch = "collapseall.png";
+            tmpSearch = "collapse-square.png";
         }
         for (var i=1; i<arguments.length; i=i+2) {
             var tmpImage=document.getElementById(arguments[i]);
@@ -40,52 +40,52 @@
     }
 
     function toggleImage(image) {
-        if (image.src.indexOf("collapseall.png") != -1) {
-            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandall.png";
+        if (image.src.indexOf("collapse-square.png") != -1) {
+            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expand-square.png";
             return true;
         }
-        if (image.src.indexOf("expandall.png") != -1) {
-            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
+        if (image.src.indexOf("expand-square.png") != -1) {
+            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapse-square.png";
             return false;
         }
-        if (image.src.indexOf("collapselog.png") != -1) {
-            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlog.png";
+        if (image.src.indexOf("collapse-circle.png") != -1) {
+            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expand-circle.png";
             return true;
         }
-        if (image.src.indexOf("expandlog.png") != -1) {
-            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
+        if (image.src.indexOf("expand-circle.png") != -1) {
+            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapse-circle.png";
             return false;
         }
-        if (image.src.indexOf("collapselogwarn.png") != -1) {
-            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlogwarn.png";
+        if (image.src.indexOf("collapse-circle-blue.png") != -1) {
+            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expand-circle-blue.png";
             return true;
         }
-        if (image.src.indexOf("expandlogwarn.png") != -1) {
-            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselogwarn.png";
+        if (image.src.indexOf("expand-circle-blue.png") != -1) {
+            image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapse-circle-blue.png";
             return false;
         }
     }
 
     function makeVisible(id) {
         var tmpImage = document.getElementById('showHide_' + id);
-        if (tmpImage && tmpImage.src.indexOf("expandall.png") != -1) {
+        if (tmpImage && tmpImage.src.indexOf("expand-square.png") != -1) {
             showOrHide(tmpImage, id);
         }
     }
 
     function switchTables(tableToHide, tableToShowId, force) {
         var overviewSwitcher=document.getElementById('overviewswitcher');
-        if (force || overviewSwitcher.src.indexOf("expandall.png") != -1) {
+        if (force || overviewSwitcher.src.indexOf("expand-square.png") != -1) {
             tableToHide.style.display = "none";
             document.getElementById(tableToShowId).style.display = "";
         }
     }
 
     function switchOverviewTables(image) {
-        if (image.src.indexOf("expandall.png") != -1) {
+        if (image.src.indexOf("expand-square.png") != -1) {
             var tmpDetailedOverview=document.getElementById('detailedoverview');
             switchTables(tmpDetailedOverview, 'summaryoverview', true);
-        } else if (image.src.indexOf("collapseall.png") != -1) {
+        } else if (image.src.indexOf("collapse-square.png") != -1) {
             var tmpSummaryOverview=document.getElementById('summaryoverview');
             switchTables(tmpSummaryOverview, 'detailedoverview', true);
         }
