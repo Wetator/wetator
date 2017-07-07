@@ -1290,27 +1290,26 @@ wetator/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet-0.9.3.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 wetator/xsd/testCommandSet.xsd -text svneol=unset#text/plain
-wetator/xsl/resources/chrome.png -text
-wetator/xsl/resources/collapseall.png -text
-wetator/xsl/resources/collapselog.png -text
-wetator/xsl/resources/collapselogwarn.png -text
-wetator/xsl/resources/error.png -text
-wetator/xsl/resources/expandall.png -text
-wetator/xsl/resources/expandlog.png -text
-wetator/xsl/resources/expandlogwarn.png -text
-wetator/xsl/resources/failure.png -text
-wetator/xsl/resources/firefox.png -text
-wetator/xsl/resources/highlight.png -text
-wetator/xsl/resources/ie.png -text
+wetator/xsl/resources/arrow-down.png -text
+wetator/xsl/resources/arrow-up.png -text
+wetator/xsl/resources/browser-chrome.png -text
+wetator/xsl/resources/browser-firefox.png -text
+wetator/xsl/resources/browser-ie.png -text
+wetator/xsl/resources/collapse-circle-blue.png -text
+wetator/xsl/resources/collapse-circle.png -text
+wetator/xsl/resources/collapse-square.png -text
+wetator/xsl/resources/expand-circle-blue.png -text
+wetator/xsl/resources/expand-circle.png -text
+wetator/xsl/resources/expand-square.png -text
+wetator/xsl/resources/file-highlighted.png -text
+wetator/xsl/resources/file.png -text
+wetator/xsl/resources/info-blue.png -text
+wetator/xsl/resources/info-green.png -text
 wetator/xsl/resources/jquery-1.10.2.min.js -text
 wetator/xsl/resources/jquery.color-2.1.2.min.js -text
-wetator/xsl/resources/log_info.png -text
-wetator/xsl/resources/log_warn.png -text
-wetator/xsl/resources/next.png -text
 wetator/xsl/resources/ok.png -text
-wetator/xsl/resources/previous.png -text
-wetator/xsl/resources/response.png -text
-wetator/xsl/resources/top.png -text
 wetator/xsl/resources/wetator.png -text
 wetator/xsl/resources/wetator_report.js -text
+wetator/xsl/resources/x-error.png -text
+wetator/xsl/resources/x-failure.png -text
 wetator/xsl/run_report.xsl -text svneol=unset#text/plain
