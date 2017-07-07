@@ -1083,12 +1083,9 @@ xsl/resources/jquery.color-2.1.2.min.js -text
 xsl/resources/log_info.png -text
 xsl/resources/log_warn.png -text
 xsl/resources/next.png -text
-xsl/resources/none.png -text
 xsl/resources/ok.png -text
 xsl/resources/previous.png -text
 xsl/resources/response.png -text
-xsl/resources/show_all.png -text
-xsl/resources/show_errors.png -text
 xsl/resources/top.png -text
 xsl/resources/wetator.png -text
 xsl/resources/wetator_report.js -text
