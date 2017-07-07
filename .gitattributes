@@ -1307,12 +1307,9 @@ wetator/xsl/resources/jquery.color-2.1.2.min.js -text
 wetator/xsl/resources/log_info.png -text
 wetator/xsl/resources/log_warn.png -text
 wetator/xsl/resources/next.png -text
-wetator/xsl/resources/none.png -text
 wetator/xsl/resources/ok.png -text
 wetator/xsl/resources/previous.png -text
 wetator/xsl/resources/response.png -text
-wetator/xsl/resources/show_all.png -text
-wetator/xsl/resources/show_errors.png -text
 wetator/xsl/resources/top.png -text
 wetator/xsl/resources/wetator.png -text
 wetator/xsl/resources/wetator_report.js -text
