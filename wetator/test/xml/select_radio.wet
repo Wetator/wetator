@@ -46,6 +46,14 @@
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>Invisible RadioButton identified by label with for attribute</comment>
+    <command><d:select><d:wpath>Invisible Radio2 LabelFor</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>RadioButtonLabelForInvisibleTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value RadioButtonLabelForInvisibleTest OK radioButton_LabelForInvisible ri_value2 POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>RadioButton identified by by surrounding label</comment>
     <command><d:select><d:wpath>Radio1 surrounding Label</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>RadioButtonSurroundingLabelTest</d:wpath></d:click-on></command>

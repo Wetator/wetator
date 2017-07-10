@@ -791,6 +791,22 @@
             </tr>
 
             <tr>
+              <td>Invisible CheckBox identified by label with for attribute</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="checkBoxId_LabelForInvisible">Invisible CheckBox Label with For</label></td>
+                      <td><input type="checkbox" id="checkBoxId_LabelForInvisible" name="checkBox_LabelForInvisible" value="check_LabelForInvisible" style="display: none;" checked></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
               <td>CheckBox identified by surrounding label</td>
             </tr>
             <tr>
@@ -988,6 +1004,30 @@
                       <td>
                         <input type="radio" id="radioLabelForValue1" name="radioButton_LabelFor" value="r_value1" checked><br>
                         <input type="radio" id="radioLabelForValue2" name="radioButton_LabelFor" value="r_value2"><br>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Invisible RadioButton identified by label with for attribute</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="radioLabelForInvisibleValue1">Invisible Radio1 LabelFor</label></td>
+                    </tr>
+                    <tr>
+                      <td><label for="radioLabelForInvisibleValue2">Invisible Radio2 LabelFor</label></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="radio" id="radioLabelForInvisibleValue1" name="radioButton_LabelForInvisible" value="ri_value1" style="display: none;" checked><br>
+                        <input type="radio" id="radioLabelForInvisibleValue2" name="radioButton_LabelForInvisible" value="ri_value2" style="display: none;"><br>
                       </td>
                     </tr>
                   </table>

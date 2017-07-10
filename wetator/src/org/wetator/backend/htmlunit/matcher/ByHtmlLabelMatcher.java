@@ -27,8 +27,10 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 /**
  * This matcher checks if the given {@link HtmlLabel} matches the criteria and labels the needed type of element.
@@ -88,7 +90,9 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
         if (StringUtils.isNotEmpty(tmpForAttribute)) {
           try {
             final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
-            if (clazz.isAssignableFrom(tmpElementForLabel.getClass()) && tmpElementForLabel.isDisplayed()) {
+            if (clazz.isAssignableFrom(tmpElementForLabel.getClass())
+                && (tmpElementForLabel instanceof HtmlCheckBoxInput
+                    || tmpElementForLabel instanceof HtmlRadioButtonInput || tmpElementForLabel.isDisplayed())) {
               tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               final int tmpDistance;
@@ -97,8 +101,15 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               } else {
                 tmpDistance = tmpTextBefore.length();
               }
-              tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpDeviation, tmpDistance,
-                  tmpNodeSpot.getStartPos()));
+              if ((tmpElementForLabel instanceof HtmlCheckBoxInput
+                  || tmpElementForLabel instanceof HtmlRadioButtonInput) && !tmpElementForLabel.isDisplayed()) {
+                // if the radio button / checkbox is hidden or invisible we have to click on the label
+                tmpMatches.add(new MatchResult(tmpLabel, FoundType.BY_LABEL, tmpDeviation, tmpDistance,
+                    tmpNodeSpot.getStartPos()));
+              } else {
+                tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpDeviation, tmpDistance,
+                    tmpNodeSpot.getStartPos()));
+              }
             }
           } catch (final ElementNotFoundException e) {
             // not found

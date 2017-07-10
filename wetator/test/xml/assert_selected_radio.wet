@@ -34,6 +34,12 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>Invisible RadioButton identified by label with for attribute</comment>
+    <command><d:assert-selected><d:wpath>Invisible Radio1 LabelFor</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
     <comment>RadioButton identified by by surrounding label</comment>
     <command><d:assert-selected><d:wpath>Radio2 surrounding Label</d:wpath></d:assert-selected></command>
     <comment></comment>

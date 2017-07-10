@@ -38,6 +38,12 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
+    <comment>Invisible CheckBox identified by label with for attribute</comment>
+    <command><d:assert-selected><d:wpath>Invisible CheckBox Label with For</d:wpath></d:assert-selected></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>assert_selected.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Assert Selected</d:title></d:assert-title></command>
     <comment>CheckBox identified by surrounding label</comment>
     <command><d:assert-selected><d:wpath>CheckBox surrounding Label</d:wpath></d:assert-selected></command>
     <comment></comment>

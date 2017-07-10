@@ -54,6 +54,14 @@
     <comment></comment>
     <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
+    <comment>Invisible CheckBox identified by label with for attribute</comment>
+    <command><d:select><d:wpath>Invisible CheckBox Label with For</d:wpath></d:select></command>
+    <command><d:click-on><d:wpath>CheckBoxLabelForInvisibleTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value CheckBoxLabelForInvisibleTest OK checkBox_LabelForInvisible check_LabelForInvisible POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>select.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Select</d:title></d:assert-title></command>
     <comment>CheckBox identified identified by surrounding label</comment>
     <command><d:select><d:wpath>CheckBox surrounding Label</d:wpath></d:select></command>
     <command><d:click-on><d:wpath>CheckBoxSurroundingLabelTest</d:wpath></d:click-on></command>
