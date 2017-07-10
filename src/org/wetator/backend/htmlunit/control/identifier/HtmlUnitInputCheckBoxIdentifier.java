@@ -22,6 +22,7 @@ import java.util.List;
 import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitLabel;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
@@ -109,6 +110,9 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
 
   @Override
   protected IControl createControl(final HtmlElement aHtmlElement) {
+    if (aHtmlElement instanceof HtmlLabel) {
+      return new HtmlUnitLabel((HtmlLabel) aHtmlElement);
+    }
     return new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aHtmlElement);
   }
 }

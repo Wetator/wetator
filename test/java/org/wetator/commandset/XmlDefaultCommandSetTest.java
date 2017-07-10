@@ -106,7 +106,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedCheckbox() throws InvalidInputException {
     executeTestFile("assert_selected_checkbox.wet");
 
-    Assert.assertEquals(39, getSteps());
+    Assert.assertEquals(42, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -124,7 +124,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSelectedRadio() throws InvalidInputException {
     executeTestFile("assert_selected_radio.wet");
 
-    Assert.assertEquals(29, getSteps());
+    Assert.assertEquals(32, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -322,7 +322,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectCheckbox() throws InvalidInputException {
     executeTestFile("select_checkbox.wet");
 
-    Assert.assertEquals(66, getSteps());
+    Assert.assertEquals(71, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -340,7 +340,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void selectRadio() throws InvalidInputException {
     executeTestFile("select_radio.wet");
 
-    Assert.assertEquals(49, getSteps());
+    Assert.assertEquals(54, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

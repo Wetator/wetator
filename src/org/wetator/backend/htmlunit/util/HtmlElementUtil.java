@@ -42,6 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
 import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
 import com.gargoylesoftware.htmlunit.html.HtmlItalic;
 import com.gargoylesoftware.htmlunit.html.HtmlKeyboard;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -240,6 +241,34 @@ public final class HtmlElementUtil {
 
     addId(tmpResult, anHtmlImageInput);
     addName(tmpResult, anHtmlImageInput);
+
+    tmpResult.append(']');
+    return tmpResult.toString();
+  }
+
+  /**
+   * Generates a describing text for the HtmlLabel.
+   *
+   * @param anHtmlLabel the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlLabel(final HtmlLabel anHtmlLabel) {
+    final StringBuilder tmpResult = new StringBuilder("[HtmlLabel");
+
+    final String tmpText = anHtmlLabel.asText();
+    if (StringUtils.isNotEmpty(tmpText)) {
+      tmpResult.append(" '").append(tmpText).append('\'');
+    }
+
+    addId(tmpResult, anHtmlLabel);
+    addName(tmpResult, anHtmlLabel);
+
+    final String tmpFor = anHtmlLabel.getForAttribute();
+    if (StringUtils.isNotEmpty(tmpFor)) {
+      tmpResult.append(" for='");
+      tmpResult.append(tmpFor);
+      tmpResult.append("'");
+    }
 
     tmpResult.append(']');
     return tmpResult.toString();
