@@ -42,7 +42,8 @@ import org.wetator.util.SecretString;
 public class WetatorContext {
 
   private static final Log LOG = LogFactory.getLog(WetatorContext.class);
-  private static final String VARIABLE_TESTCASE = "testcase";
+
+  private static final String VARIABLE_TESTFILE = "wetator.testfile";
 
   private WetatorEngine engine;
   private File file;
@@ -68,8 +69,8 @@ public class WetatorContext {
     browserType = aBrowserType;
     variables = new LinkedList<Variable>();
 
-    final Variable tmpTestcaseVar = new Variable(VARIABLE_TESTCASE, new SecretString(file.getName()));
-    addVariable(tmpTestcaseVar);
+    final Variable tmpVar = new Variable(VARIABLE_TESTFILE, new SecretString(aFile.getName()));
+    addVariable(tmpVar);
   }
 
   /**

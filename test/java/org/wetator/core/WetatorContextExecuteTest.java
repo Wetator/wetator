@@ -890,17 +890,15 @@ public class WetatorContextExecuteTest {
   }
 
   /**
-   * Test for the context.<br>
-   * <br>
-   * Assertion: If everything is ok, all commands should be executed.
+   * Test var wetator.testfile.
    */
   @Test
-  public void testcaseVar() {
+  public void testfileVar() {
     WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
-    Assert.assertEquals("file1", tmpContext.replaceVariables("${testcase}").getValue());
+    Assert.assertEquals("file1", tmpContext.replaceVariables("${wetator.testfile}").getValue());
 
     tmpContext = new WetatorContext(engine, file2, BrowserType.FIREFOX_52);
-    Assert.assertEquals("file2.xml", tmpContext.replaceVariables("${testcase}").getValue());
+    Assert.assertEquals("file2.xml", tmpContext.replaceVariables("${wetator.testfile}").getValue());
   }
 
   private void assertCommandSuccess(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
