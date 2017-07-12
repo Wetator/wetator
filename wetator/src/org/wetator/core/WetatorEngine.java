@@ -35,6 +35,7 @@ import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.XMLResultWriter;
+import org.wetator.util.SecretString;
 
 /**
  * The engine that makes the monster running.<br>
@@ -50,6 +51,9 @@ public class WetatorEngine {
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
   private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
+
+  private static final String VARIABLE_TESTCASE = "wetator.testcase";
+  private static final String VARIABLE_BROWSER = "wetator.browser";
 
   private String configFileName;
   private Map<String, String> externalProperties;
@@ -167,6 +171,12 @@ public class WetatorEngine {
                 try {
                   // setup the context
                   final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
+
+                  Variable tmpVar = new Variable(VARIABLE_TESTCASE, new SecretString(tmpTestCase.getName()));
+                  tmpWetatorContext.addVariable(tmpVar);
+                  tmpVar = new Variable(VARIABLE_BROWSER, new SecretString(tmpBrowserType.getLabel()));
+                  tmpWetatorContext.addVariable(tmpVar);
+
                   tmpValidInput = tmpWetatorContext.execute();
                   if (!tmpValidInput) {
                     // the input won't be valid for the next browser => continue with next browser but ignore it
