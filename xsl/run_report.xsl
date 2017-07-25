@@ -747,15 +747,8 @@
                 <xsl:value-of select="wet/about/product"/>
                 <xsl:text>&#32;version:&#32;</xsl:text>
                 <xsl:value-of select="wet/about/version"/>
-                <xsl:text>.</xsl:text>
+                <xsl:text>.&#10;</xsl:text>
 
-                <div id="preview-spacer">
-                    <xsl:attribute name="style">
-                        <xsl:text>margin-bottom: </xsl:text>
-                        <xsl:value-of select="$previewHeight"/>
-                        <xsl:text>px;</xsl:text>
-                    </xsl:attribute>
-                </div>
             </body>
         </html>
     </xsl:template>
