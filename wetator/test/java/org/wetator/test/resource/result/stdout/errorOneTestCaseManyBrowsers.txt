@@ -11,7 +11,7 @@ java.lang.ClassNotFoundException: test error
     CHROME
 
   Failure
-    1 erroneous Test Run(s)
+    3 unsuccessful Tests
 
-    Test Runs: 3,  Errors: 1,  Ignored: 2
-    Steps: 0,  Failures: 0,  Errors: 0,  Ignored: 0
+    Tests: 3,  Errors: 1,  Failures: 0,  Ignored: 2
+    Steps: 0,  Errors: 0,  Failures: 0,  Ignored: 0

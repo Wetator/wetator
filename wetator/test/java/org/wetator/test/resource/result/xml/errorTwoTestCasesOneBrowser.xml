@@ -65,6 +65,11 @@
       </error>
     </testrun>
   </testcase>
+  <testcase id="##ID##" name="test2.wet" file="/Test/test2.wet">
+    <testrun id="##ID##" browser="Firefox52">
+      <ignored id="##ID##"/>
+    </testrun>
+  </testcase>
   <executionTime id="##ID##">##EXECUTION_TIME##</executionTime>
   <!-- ... -->
 </wet>

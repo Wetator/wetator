@@ -6,8 +6,11 @@ Wetator local build
     Firefox52
 java.lang.ClassNotFoundException: test error
 
-  Failure
-    1 erroneous Test Run(s)
+  TestCase: 'test2.wet' (2/0)
+    Firefox52
 
-    Test Runs: 1,  Errors: 1,  Ignored: 0
-    Steps: 0,  Failures: 0,  Errors: 0,  Ignored: 0
+  Failure
+    2 unsuccessful Tests
+
+    Tests: 2,  Errors: 1,  Failures: 0,  Ignored: 1
+    Steps: 0,  Errors: 0,  Failures: 0,  Ignored: 0

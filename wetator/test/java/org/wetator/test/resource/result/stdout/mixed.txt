@@ -29,7 +29,7 @@ Wetator local build
     ..Ei.
 
   Failure
-    5 failing step(s) and 5 erroneous step(s)
+    8 unsuccessful Tests
 
-    Test Runs: 10,  Errors: 0,  Ignored: 0
-    Steps: 43,  Failures: 5,  Errors: 5,  Ignored: 5
+    Tests: 10,  Errors: 5,  Failures: 3,  Ignored: 0
+    Steps: 43,  Errors: 5,  Failures: 5,  Ignored: 5
