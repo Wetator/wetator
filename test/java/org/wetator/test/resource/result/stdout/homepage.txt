@@ -7,5 +7,5 @@ Wetator local build
     .......
 
   Success
-    Test Runs: 1,  Errors: 0,  Ignored: 0
-    Steps: 7,  Failures: 0,  Errors: 0,  Ignored: 0
+    Tests: 1,  Errors: 0,  Failures: 0,  Ignored: 0
+    Steps: 7,  Errors: 0,  Failures: 0,  Ignored: 0

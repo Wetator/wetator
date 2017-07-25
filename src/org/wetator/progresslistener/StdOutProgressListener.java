@@ -44,20 +44,30 @@ import org.wetator.util.Output;
  */
 public class StdOutProgressListener implements IProgressListener {
 
-  private static final int DOTS_PER_LINE = 100;
-
   /** The output used. */
   protected Output output;
-  private long stepsCount;
-  private long errorCount;
-  private long failureCount;
-  private long ignoredCount;
+
+  private static final int DOTS_PER_LINE = 100;
   private int dotCount;
-  private int testCaseCount;
-  private int processedTestCaseCount;
-  private int processedTestRunCount;
-  private int testRunErrorCount;
-  private int testRunIgnoredCount;
+
+  // count the test cases (files)
+  private int testCaseCountTotal;
+  private int testCaseCountProcessed;
+
+  // count the overall tests (runs)
+  private int testCountProcessed;
+  private int testCountError;
+  private int testCountFailure;
+  private int testCountIgnored;
+
+  // count the overall test steps
+  private long stepsCountTotal;
+  private long stepsCountError;
+  private long stepsCountFailure;
+  private long stepsCountIgnore;
+
+  // helper remembering the result per test (run)
+  private TestResult testResult;
 
   /**
    * The constructor.
@@ -82,16 +92,17 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void start(final WetatorEngine aWetatorEngine) {
-    stepsCount = 0;
-    errorCount = 0;
-    failureCount = 0;
-    ignoredCount = 0;
+    testCaseCountProcessed = 0;
 
-    processedTestRunCount = 0;
-    testRunErrorCount = 0;
-    testRunIgnoredCount = 0;
+    testCountProcessed = 0;
+    testCountError = 0;
+    testCountFailure = 0;
+    testCountIgnored = 0;
 
-    processedTestCaseCount = 0;
+    stepsCountTotal = 0;
+    stepsCountError = 0;
+    stepsCountFailure = 0;
+    stepsCountIgnore = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
@@ -130,7 +141,7 @@ public class StdOutProgressListener implements IProgressListener {
     }
 
     final List<TestCase> tmpTestCases = aWetatorEngine.getTestCases();
-    testCaseCount = tmpTestCases.size();
+    testCaseCountTotal = tmpTestCases.size();
 
     if (tmpTestCases.isEmpty()) {
       println("TestFiles: none");
@@ -162,13 +173,14 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void testCaseStart(final TestCase aTestCase) {
-    processedTestCaseCount++;
-    println("TestCase: '" + aTestCase.getName() + "' (" + processedTestCaseCount + "/" + testCaseCount + ")");
+    testCaseCountProcessed++;
+    println("TestCase: '" + aTestCase.getName() + "' (" + testCaseCountProcessed + "/" + testCaseCountTotal + ")");
   }
 
   @Override
   public void testRunStart(final String aBrowserName) {
-    processedTestRunCount++;
+    testCountProcessed++;
+    testResult = TestResult.SUCCESS;
 
     output.indent();
     println(aBrowserName);
@@ -185,28 +197,32 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void executeCommandSuccess() {
-    stepsCount++;
+    stepsCountTotal++;
     printProgressSign(".");
   }
 
   @Override
   public void executeCommandIgnored() {
-    stepsCount++;
-    ignoredCount++;
+    stepsCountTotal++;
+    stepsCountIgnore++;
     printProgressSign("i");
   }
 
   @Override
   public void executeCommandFailure(final AssertionException anAssertionException) {
-    stepsCount++;
-    failureCount++;
+    stepsCountTotal++;
+    stepsCountFailure++;
+    if (TestResult.ERROR != testResult) {
+      testResult = TestResult.FAILURE;
+    }
     printProgressSign("F");
   }
 
   @Override
   public void executeCommandError(final Throwable aThrowable) {
-    stepsCount++;
-    errorCount++;
+    stepsCountTotal++;
+    stepsCountError++;
+    testResult = TestResult.ERROR;
     printProgressSign("E");
   }
 
@@ -220,13 +236,24 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void testRunIgnored() {
-    testRunIgnoredCount++;
+    testCountIgnored++;
   }
 
   @Override
   public void testRunEnd() {
     println("");
     output.unindent();
+
+    switch (testResult) {
+      case ERROR:
+        testCountError++;
+        break;
+      case FAILURE:
+        testCountFailure++;
+        break;
+      default:
+        // nothing to do for successful and ignored tests
+    }
   }
 
   @Override
@@ -237,33 +264,18 @@ public class StdOutProgressListener implements IProgressListener {
   public void end(final WetatorEngine aWetatorEngine) {
     // print summary
     println("");
-    if (testRunErrorCount > 0) {
+    final int tmpUnsuccessfulTestCount = testCountError + testCountFailure + testCountIgnored;
+    if (tmpUnsuccessfulTestCount > 0) {
       println("Failure");
-      println("  " + testRunErrorCount + " erroneous Test Run(s)");
-      println("");
-    } else if (failureCount > 0 || errorCount > 0) {
-      println("Failure");
-      final StringBuilder tmpMsg = new StringBuilder("  ");
-      if (failureCount > 0) {
-        tmpMsg.append(Long.toString(failureCount));
-        tmpMsg.append(" failing step(s)");
-        if (errorCount > 0) {
-          tmpMsg.append(" and ");
-        }
-      }
-      if (errorCount > 0) {
-        tmpMsg.append(Long.toString(errorCount));
-        tmpMsg.append(" erroneous step(s)");
-      }
-      println(tmpMsg.toString());
+      println("  " + tmpUnsuccessfulTestCount + " unsuccessful Test" + (tmpUnsuccessfulTestCount > 1 ? "s" : ""));
       println("");
     } else {
       println("Success");
     }
-    println("  Test Runs: " + processedTestRunCount + ",  Errors: " + testRunErrorCount + ",  Ignored: "
-        + testRunIgnoredCount);
-    println("  Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount + ",  Ignored: "
-        + ignoredCount);
+    println("  Tests: " + testCountProcessed + ",  Errors: " + testCountError + ",  Failures: " + testCountFailure
+        + ",  Ignored: " + testCountIgnored);
+    println("  Steps: " + stepsCountTotal + ",  Errors: " + stepsCountError + ",  Failures: " + stepsCountFailure
+        + ",  Ignored: " + stepsCountIgnore);
   }
 
   @Override
@@ -276,7 +288,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void error(final Throwable aThrowable) {
-    testRunErrorCount++;
+    testResult = TestResult.ERROR;
     aThrowable.printStackTrace();
   }
 
@@ -336,37 +348,13 @@ public class StdOutProgressListener implements IProgressListener {
   }
 
   /**
-   * @return the errorCount
+   * Summarized result of a test (run).
+   *
+   * @author tobwoerk
    */
-  public long getErrorCount() {
-    return errorCount;
-  }
-
-  /**
-   * @return the failureCount
-   */
-  public long getFailureCount() {
-    return failureCount;
-  }
-
-  /**
-   * @return the ignoredCount
-   */
-  public long getIgnoredCount() {
-    return ignoredCount;
-  }
-
-  /**
-   * @return the testRunIgnoredCout
-   */
-  public long getTestRunIgnoredCout() {
-    return testRunIgnoredCount;
-  }
-
-  /**
-   * @return the testRunErrorCout
-   */
-  public long getTestRunErrorCount() {
-    return testRunErrorCount;
+  private enum TestResult {
+    SUCCESS,
+    ERROR,
+    FAILURE;
   }
 }

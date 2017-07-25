@@ -7,7 +7,7 @@ Wetator local build
     ..E
 
   Failure
-    1 erroneous step(s)
+    1 unsuccessful Test
 
-    Test Runs: 1,  Errors: 0,  Ignored: 0
-    Steps: 3,  Failures: 0,  Errors: 1,  Ignored: 0
+    Tests: 1,  Errors: 1,  Failures: 0,  Ignored: 0
+    Steps: 3,  Errors: 1,  Failures: 0,  Ignored: 0

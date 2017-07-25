@@ -9,7 +9,7 @@ Wetator local build
     ..F.
 
   Failure
-    2 failing step(s)
+    2 unsuccessful Tests
 
-    Test Runs: 2,  Errors: 0,  Ignored: 0
-    Steps: 8,  Failures: 2,  Errors: 0,  Ignored: 0
+    Tests: 2,  Errors: 0,  Failures: 2,  Ignored: 0
+    Steps: 8,  Errors: 0,  Failures: 2,  Ignored: 0

@@ -407,10 +407,17 @@ public abstract class AbstractProgressListenerTest {
     progressListener.init(engine);
     progressListener.start(engine);
 
-    final TestCase tmpTestCase = createTestCase();
+    TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     progressListener.testRunStart(FF52);
     progressListener.error(new ClassNotFoundException("test error"));
+    progressListener.testRunEnd();
+    progressListener.testCaseEnd();
+
+    tmpTestCase = createTestCase();
+    progressListener.testCaseStart(tmpTestCase);
+    progressListener.testRunStart(FF52);
+    progressListener.testRunIgnored();
     progressListener.testRunEnd();
     progressListener.testCaseEnd();
 

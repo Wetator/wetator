@@ -63,27 +63,27 @@
 </head>
 <body>
 <div id="debuginfo">
-                    testCaseCount 1<br>
+                    testCaseCount 2<br>
                     browserCount 1<br>
-                    testCount 1<br>
+                    testCount 2<br>
                     testStepCount 0<br>
 <br>
                     testCaseFailureCount 0<br>
                     testCaseErrorCount 1<br>
-                    testCaseIgnoredCount 0<br>
-                    testCaseNotOkCount 1<br>
+                    testCaseIgnoredCount 1<br>
+                    testCaseNotOkCount 2<br>
                     testCaseOkCount 0<br>
                     testFailureCount 0<br>
                     testErrorCount 1<br>
-                    testIgnoredCount 0<br>
+                    testIgnoredCount 1<br>
 <br>
                     testCaseFailurePercentage 0<br>
-                    testCaseErrorPercentage 100<br>
-                    testCaseIgnoredPercentage 0<br>
+                    testCaseErrorPercentage 50<br>
+                    testCaseIgnoredPercentage 50<br>
                     testCaseOkPercentage 0<br>
                     testFailurePercentage 0<br>
-                    testErrorPercentage 100<br>
-                    testIgnoredPercentage 0<br>
+                    testErrorPercentage 50<br>
+                    testIgnoredPercentage 50<br>
                     testNotOkPercentage 100<br>
                     testOkPercentage 0<br>
 <br>
@@ -108,11 +108,11 @@
 <tr>
 <td class="bold">
                             Tests:
-                        </td><td style="padding-left: 5px;">1</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" class="resultIcon" src="resources/x-error.png"> Errors:
-                        </td><td style="padding-left: 5px;">1</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" class="resultIcon" src="resources/x-failure.png"> Failures:
+                        </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;" class="bold"><img title="error" alt="error" class="resultIcon" src="resources/x-error.png"> Errors:
+                        </td><td style="padding-left: 5px;">2</td><td style="padding-left: 40px;" class="bold"><img title="failure" alt="failure" class="resultIcon" src="resources/x-failure.png"> Failures:
                         </td><td style="padding-left: 5px;">0</td><td style="padding-left: 40px;">
                             Distribution:
-                        </td><td style="padding-left: 5px;">1 TestCase
+                        </td><td style="padding-left: 5px;">2 TestCases
                             / 1 Browser</td><td style="padding-left: 40px;">
                             Start Time:
                         </td><td style="padding-left: 5px;">##TIME##</td><td style="padding-left: 40px;">
@@ -127,8 +127,10 @@
 </table>
 <table onmouseout="switchTables(this, 'summaryoverview')" style="display: none; margin-top: 20px; text-align: center;" align="center" class="overview bars" id="detailedoverview">
 <tr height="20px;">
-<td class="smallBorder" width="100%
-                                " bgcolor="#E75013" title="tests with error">100%
+<td class="smallBorder" width="50%
+                                " bgcolor="#E75013" title="tests with error">50%
+                            </td><td class="smallBorder ignored" width="50%
+                                " bgcolor="#FFFFFF" title="ignored tests">50%
                             </td>
 </tr>
 </table>
@@ -239,6 +241,13 @@
 </tr>
 <tr>
 <td align="center" rowspan="1">1</td><td rowspan="1"><img title="error" alt="error" class="resultIcon" src="resources/x-error.png"></td><td rowspan="1"><a class="link" href="#testspec_##ID##">test1.wet</a></td><td><img class="browser" src="resources/browser-firefox.png" alt="" title=""></td><td colspan="3" class="error" align="center">test error</td></tr><tr></tr>
+<tr>
+<td height="7px" colspan="7"></td>
+</tr>
+<tr>
+<td align="center" rowspan="1">2</td><td rowspan="1"></td><td rowspan="1"><a class="link" href="#testspec_##ID##">test2.wet</a></td><td><img class="browser" src="resources/browser-firefox.png" alt="" title=""></td><td class="ignored" align="center">
+                                    ignored
+                                </td><td colspan="2"></td></tr><tr></tr>
 <tr>
 <td height="7px" colspan="7"></td>
 </tr>

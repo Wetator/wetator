@@ -19,10 +19,11 @@ package org.wetator.core;
 import org.wetator.exception.AssertionException;
 
 /**
- * The interface for listeners of the wetator run progress. Register a listener to be informed.
+ * The interface for listeners of the Wetator run progress. Register a listener to be informed.
  *
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public interface IProgressListener {
 
@@ -84,14 +85,14 @@ public interface IProgressListener {
   void executeCommandIgnored();
 
   /**
-   * This is called if a the execution of a command resulted in a failure.
+   * This is called if the execution of a command resulted in a failure.
    *
    * @param anAssertionException the failure
    */
   void executeCommandFailure(AssertionException anAssertionException);
 
   /**
-   * This is called if a the execution of a command resulted in an error.
+   * This is called if the execution of a command resulted in an error.
    *
    * @param aThrowable the error
    */
