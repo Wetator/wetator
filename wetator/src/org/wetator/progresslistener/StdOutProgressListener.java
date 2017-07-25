@@ -40,6 +40,7 @@ import org.wetator.util.Output;
  *
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public class StdOutProgressListener implements IProgressListener {
 
@@ -53,10 +54,10 @@ public class StdOutProgressListener implements IProgressListener {
   private long ignoredCount;
   private int dotCount;
   private int testCaseCout;
-  private int processedTestCaseCout;
-  private int processedTestRunCout;
+  private int processedTestCaseCount;
+  private int processedTestRunCount;
   private int testRunErrorCout;
-  private int testRunIgnoredCout;
+  private int testRunIgnoredCount;
 
   /**
    * The constructor.
@@ -86,11 +87,11 @@ public class StdOutProgressListener implements IProgressListener {
     failureCount = 0;
     ignoredCount = 0;
 
-    processedTestRunCout = 0;
+    processedTestRunCount = 0;
     testRunErrorCout = 0;
-    testRunIgnoredCout = 0;
+    testRunIgnoredCount = 0;
 
-    processedTestCaseCout = 0;
+    processedTestCaseCount = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
@@ -161,13 +162,13 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void testCaseStart(final TestCase aTestCase) {
-    processedTestCaseCout++;
-    println("TestCase: '" + aTestCase.getName() + "' (" + processedTestCaseCout + "/" + testCaseCout + ")");
+    processedTestCaseCount++;
+    println("TestCase: '" + aTestCase.getName() + "' (" + processedTestCaseCount + "/" + testCaseCout + ")");
   }
 
   @Override
   public void testRunStart(final String aBrowserName) {
-    processedTestRunCout++;
+    processedTestRunCount++;
 
     output.indent();
     println(aBrowserName);
@@ -219,7 +220,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void testRunIgnored() {
-    testRunIgnoredCout++;
+    testRunIgnoredCount++;
   }
 
   @Override
@@ -259,8 +260,8 @@ public class StdOutProgressListener implements IProgressListener {
     } else {
       println("Success");
     }
-    println("  Test Runs: " + processedTestRunCout + ",  Errors: " + testRunErrorCout + ",  Ignored: "
-        + testRunIgnoredCout);
+    println("  Test Runs: " + processedTestRunCount + ",  Errors: " + testRunErrorCout + ",  Ignored: "
+        + testRunIgnoredCount);
     println("  Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount + ",  Ignored: "
         + ignoredCount);
   }
@@ -359,7 +360,7 @@ public class StdOutProgressListener implements IProgressListener {
    * @return the testRunIgnoredCout
    */
   public long getTestRunIgnoredCout() {
-    return testRunIgnoredCout;
+    return testRunIgnoredCount;
   }
 
   /**
