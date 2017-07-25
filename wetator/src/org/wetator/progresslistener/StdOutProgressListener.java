@@ -53,10 +53,10 @@ public class StdOutProgressListener implements IProgressListener {
   private long failureCount;
   private long ignoredCount;
   private int dotCount;
-  private int testCaseCout;
+  private int testCaseCount;
   private int processedTestCaseCount;
   private int processedTestRunCount;
-  private int testRunErrorCout;
+  private int testRunErrorCount;
   private int testRunIgnoredCount;
 
   /**
@@ -88,7 +88,7 @@ public class StdOutProgressListener implements IProgressListener {
     ignoredCount = 0;
 
     processedTestRunCount = 0;
-    testRunErrorCout = 0;
+    testRunErrorCount = 0;
     testRunIgnoredCount = 0;
 
     processedTestCaseCount = 0;
@@ -130,7 +130,7 @@ public class StdOutProgressListener implements IProgressListener {
     }
 
     final List<TestCase> tmpTestCases = aWetatorEngine.getTestCases();
-    testCaseCout = tmpTestCases.size();
+    testCaseCount = tmpTestCases.size();
 
     if (tmpTestCases.isEmpty()) {
       println("TestFiles: none");
@@ -163,7 +163,7 @@ public class StdOutProgressListener implements IProgressListener {
   @Override
   public void testCaseStart(final TestCase aTestCase) {
     processedTestCaseCount++;
-    println("TestCase: '" + aTestCase.getName() + "' (" + processedTestCaseCount + "/" + testCaseCout + ")");
+    println("TestCase: '" + aTestCase.getName() + "' (" + processedTestCaseCount + "/" + testCaseCount + ")");
   }
 
   @Override
@@ -237,9 +237,9 @@ public class StdOutProgressListener implements IProgressListener {
   public void end(final WetatorEngine aWetatorEngine) {
     // print summary
     println("");
-    if (testRunErrorCout > 0) {
+    if (testRunErrorCount > 0) {
       println("Failure");
-      println("  " + testRunErrorCout + " erroneous Test Run(s)");
+      println("  " + testRunErrorCount + " erroneous Test Run(s)");
       println("");
     } else if (failureCount > 0 || errorCount > 0) {
       println("Failure");
@@ -260,7 +260,7 @@ public class StdOutProgressListener implements IProgressListener {
     } else {
       println("Success");
     }
-    println("  Test Runs: " + processedTestRunCount + ",  Errors: " + testRunErrorCout + ",  Ignored: "
+    println("  Test Runs: " + processedTestRunCount + ",  Errors: " + testRunErrorCount + ",  Ignored: "
         + testRunIgnoredCount);
     println("  Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount + ",  Ignored: "
         + ignoredCount);
@@ -276,7 +276,7 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void error(final Throwable aThrowable) {
-    testRunErrorCout++;
+    testRunErrorCount++;
     aThrowable.printStackTrace();
   }
 
@@ -367,6 +367,6 @@ public class StdOutProgressListener implements IProgressListener {
    * @return the testRunErrorCout
    */
   public long getTestRunErrorCount() {
-    return testRunErrorCout;
+    return testRunErrorCount;
   }
 }
