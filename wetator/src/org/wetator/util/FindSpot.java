@@ -61,6 +61,16 @@ public class FindSpot {
   }
 
   /**
+   * Copy constructor.
+   *
+   * @param aFindSpot the {@link FindSpot} to copy
+   */
+  public FindSpot(final FindSpot aFindSpot) {
+    startPos = aFindSpot.getStartPos();
+    endPos = aFindSpot.getEndPos();
+  }
+
+  /**
    * @return the startPos
    */
   public int getStartPos() {
