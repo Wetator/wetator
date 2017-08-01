@@ -371,7 +371,7 @@ public final class SecretString {
         final int tmpOffset = tmpVarSecretValue.length() - (tmpVarEndPos - tmpVarStartPos);
         // merge in the secrets
         boolean tmpEnclosed = false;
-        for (Iterator<FindSpot> tmpSecretsIterator = secrets.iterator(); tmpSecretsIterator.hasNext();) {
+        for (final Iterator<FindSpot> tmpSecretsIterator = secrets.iterator(); tmpSecretsIterator.hasNext();) {
           final FindSpot tmpSpot = tmpSecretsIterator.next();
           if (tmpSpot.getStartPos() <= tmpVarStartPos && tmpVarEndPos <= tmpSpot.getEndPos()) {
             // whole replace area was a secret
