@@ -1444,37 +1444,6 @@ public class SecretStringTest {
 
     assertEquals("hidden123", tmpSecret.toLowerCase(Locale.ROOT));
   }
-  // FIXME rework tests for replaceVariables()
-  /*
-   * public
-   * string: null
-   * string: empty
-   * string: fix
-   * string: one var vars: null
-   * string: one var vars: empty
-   * string: one var vars: unknown
-   * string: one var vars: match only
-   * string: one var vars: match at start
-   * string: one var vars: match in the middle
-   * string: one var vars: match at end
-   * string: one var vars: secret match at start
-   * string: one var vars: secret match in the middle
-   * string: one var vars: secret match at end
-   * string: one var vars: match multiple
-   * string: two vars vars: match
-   * string: reused vars vars: match
-   * string: one var vars: var in var
-   * ---
-   * secret
-   * s.o.
-   * replacement length
-   * ---
-   * broken
-   * start seq only
-   * start seq twice
-   * end seq only
-   * end seq twice
-   */
 
   @Test
   public void replaceVariablesStringNull() {
