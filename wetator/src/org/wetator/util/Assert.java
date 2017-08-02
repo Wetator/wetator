@@ -207,7 +207,7 @@ public final class Assert {
       }
     }
 
-    tmpMessage.append(" ").append(constructComparisonMessage(tmpExpected, tmpCurrent));
+    tmpMessage.append(' ').append(constructComparisonMessage(tmpExpected, tmpCurrent));
     throw new AssertionException(tmpMessage.toString());
   }
 
