@@ -74,7 +74,6 @@ import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.css.ComputedCSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.css.StyleAttributes.Definition;
-import com.gargoylesoftware.htmlunit.javascript.host.event.MouseEvent;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
 
@@ -90,8 +89,6 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 public class HtmlPageIndex {
   private static final Log LOG = LogFactory.getLog(HtmlPageIndex.class);
 
-  private static final String EVENT_NAME_CLICK = "on" + MouseEvent.TYPE_CLICK;
-
   private HtmlPage htmlPage;
 
   private NormalizedString text;
@@ -102,8 +99,6 @@ public class HtmlPageIndex {
   private List<DomNode> nodes;
   private List<HtmlElement> visibleHtmlElementsBottomUp;
   private List<HtmlElement> visibleHtmlElements;
-
-  private List<HtmlElement> htmlElementsWithClickListener;
 
   private boolean lastOneWasHtmlElement;
 
@@ -123,8 +118,6 @@ public class HtmlPageIndex {
     nodes = new LinkedList<DomNode>();
     visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
     visibleHtmlElements = new LinkedList<HtmlElement>();
-
-    htmlElementsWithClickListener = new LinkedList<HtmlElement>();
 
     parseDomNode(aHtmlPage);
   }
@@ -379,16 +372,6 @@ public class HtmlPageIndex {
     return textWithoutFormControls.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
-  /**
-   * Return <code>true</code> if the given element has an event listener for the <code>click</code> event.
-   *
-   * @param anHtmlElement the element to check
-   * @return <code>true</code> if the given element has an event listener for the <code>click</code> event
-   */
-  public boolean hasClickListener(final HtmlElement anHtmlElement) {
-    return htmlElementsWithClickListener.contains(anHtmlElement);
-  }
-
   private void parseDomNode(final DomNode aDomNode) {
     if (null == aDomNode) {
       return;
@@ -407,17 +390,7 @@ public class HtmlPageIndex {
     if (isDisplayed(aDomNode)) {
       final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
       if (tmpIsHtmlElement) {
-        final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
-        visibleHtmlElements.add(tmpHtmlElement);
-
-        // FIXME do we have to support more mouse events (for other commands)?
-        // click: mousedown, mouseup
-        // mouse-over: mouseenter, mouseover, mousemove
-        // click-double: dblclick, mousedown, mouseup
-        // click-right: contextmenu, mousedown, mouseup
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
-          htmlElementsWithClickListener.add(tmpHtmlElement);
-        }
+        visibleHtmlElements.add((HtmlElement) aDomNode);
 
         if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
           // IE suppresses whitespace between two elements
@@ -749,9 +722,8 @@ public class HtmlPageIndex {
    * Helper for debugging.
    */
   public void dumpToLog() {
-    final StringBuilder tmpLog = new StringBuilder(400)
-        .append(
-            "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ")
+    final StringBuilder tmpLog = new StringBuilder(400).append(
+        "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ")
         .append(text).append('\n');
 
     // nodes/positions
