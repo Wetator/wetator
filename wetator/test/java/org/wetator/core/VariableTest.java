@@ -16,45 +16,239 @@
 
 package org.wetator.core;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.wetator.util.SecretString;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class VariableTest {
 
   @Test
-  public void constructor() {
-    final Variable tmpVariable = new Variable("TestName", "value");
-
-    Assert.assertEquals("TestName", tmpVariable.getName());
-    Assert.assertEquals("value", tmpVariable.getValue().toString());
-  }
-
-  @Test
-  public void constructor_WithoutName() {
+  public void stringOnlyNameNull() {
     try {
       new Variable(null, "value");
     } catch (final IllegalArgumentException e) {
-      Assert.assertEquals("Parameter aName can't be null.", e.getMessage());
+      assertEquals("The variable's name is mandatory.", e.getMessage());
     }
   }
 
   @Test
-  public void constructor_SecretFlag() {
-    final Variable tmpVariable = new Variable("TestName", "value", true);
-
-    Assert.assertEquals("TestName", tmpVariable.getName());
-    Assert.assertEquals("****", tmpVariable.getValue().toString());
+  public void stringOnlyNameEmpty() {
+    try {
+      new Variable("", "value");
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
   }
 
   @Test
-  public void constructor_SecretString() {
+  public void stringOnlyNameBlank() {
+    try {
+      new Variable(" ", "value");
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringOnlyValueNull() {
+    final Variable tmpVariable = new Variable("TestName", (String) null);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("", tmpVariable.getValue().getValue());
+    assertEquals("", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringOnlyValueEmpty() {
+    final Variable tmpVariable = new Variable("TestName", "");
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("", tmpVariable.getValue().getValue());
+    assertEquals("", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringOnlyValueBlank() {
+    final Variable tmpVariable = new Variable("TestName", " ");
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals(" ", tmpVariable.getValue().getValue());
+    assertEquals(" ", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringOnly() {
+    final Variable tmpVariable = new Variable("TestName", "value");
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("value", tmpVariable.getValue().getValue());
+    assertEquals("value", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringPublicNameNull() {
+    try {
+      new Variable(null, "value", false);
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringPublicNameEmpty() {
+    try {
+      new Variable("", "value", false);
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringPublicNameBlank() {
+    try {
+      new Variable(" ", "value", false);
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringPublicValueNull() {
+    final Variable tmpVariable = new Variable("TestName", null, false);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("", tmpVariable.getValue().getValue());
+    assertEquals("", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringPublicValueEmpty() {
+    final Variable tmpVariable = new Variable("TestName", "", false);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("", tmpVariable.getValue().getValue());
+    assertEquals("", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringPublicValueBlank() {
+    final Variable tmpVariable = new Variable("TestName", " ", false);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals(" ", tmpVariable.getValue().getValue());
+    assertEquals(" ", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringPublic() {
+    final Variable tmpVariable = new Variable("TestName", "value", false);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("value", tmpVariable.getValue().getValue());
+    assertEquals("value", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringSecretNameNull() {
+    try {
+      new Variable(null, "value", true);
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringSecretNameEmpty() {
+    try {
+      new Variable("", "value", true);
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringSecretNameBlank() {
+    try {
+      new Variable(" ", "value", true);
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void stringSecretValueNull() {
+    final Variable tmpVariable = new Variable("TestName", null, true);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("", tmpVariable.getValue().getValue());
+    assertEquals("", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringSecretValueEmpty() {
+    final Variable tmpVariable = new Variable("TestName", "", true);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("", tmpVariable.getValue().getValue());
+    assertEquals("****", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringSecretValueBlank() {
+    final Variable tmpVariable = new Variable("TestName", " ", true);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals(" ", tmpVariable.getValue().getValue());
+    assertEquals("****", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void stringSecret() {
+    final Variable tmpVariable = new Variable("TestName", "value", true);
+
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("value", tmpVariable.getValue().getValue());
+    assertEquals("****", tmpVariable.getValue().toString());
+  }
+
+  @Test
+  public void secretStringNameNull() {
+    try {
+      new Variable(null, new SecretString().appendSecret("value"));
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void secreStringtNameEmpty() {
+    try {
+      new Variable("", new SecretString().appendSecret("value"));
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void secretStringNameBlank() {
+    try {
+      new Variable(" ", new SecretString().appendSecret("value"));
+    } catch (final IllegalArgumentException e) {
+      assertEquals("The variable's name is mandatory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void secretString() {
     final Variable tmpVariable = new Variable("TestName", new SecretString().appendSecret("value"));
 
-    Assert.assertEquals("TestName", tmpVariable.getName());
-    Assert.assertEquals("****", tmpVariable.getValue().toString());
+    assertEquals("TestName", tmpVariable.getName());
+    assertEquals("value", tmpVariable.getValue().getValue());
+    assertEquals("****", tmpVariable.getValue().toString());
   }
 }
