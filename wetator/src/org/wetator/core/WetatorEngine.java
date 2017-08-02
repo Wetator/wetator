@@ -30,7 +30,6 @@ import org.apache.commons.logging.LogFactory;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
-import org.wetator.backend.htmlunit.HtmlUnitFinderDelegator;
 import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
@@ -201,15 +200,10 @@ public class WetatorEngine {
   }
 
   /**
-   * Shuts the Wetator engine down closing acquired resources.
+   * Shuts the Wetator engine down and releases all resources.
    */
   public void shutdown() {
-    try {
-      // TODO we have to decouple this
-      HtmlUnitFinderDelegator.shutdownThreadPool();
-    } catch (final InterruptedException e) {
-      LOG.warn("Could not shutdown the Thread Pool.", e);
-    }
+    getBrowser().close();
   }
 
   /**

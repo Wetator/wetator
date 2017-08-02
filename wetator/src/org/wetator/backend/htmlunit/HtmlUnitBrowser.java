@@ -198,6 +198,15 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   @Override
+  public void close() {
+    try {
+      HtmlUnitFinderDelegator.shutdownThreadPool();
+    } catch (final InterruptedException e) {
+      LOG.warn("Could not shutdown the Thread Pool.", e);
+    }
+  }
+
+  @Override
   public void startNewSession(final IBrowser.BrowserType aBrowserType) {
     // at first take care there is now other session active
     endSession();
