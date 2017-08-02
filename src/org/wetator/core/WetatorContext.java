@@ -43,9 +43,15 @@ public class WetatorContext {
 
   private static final Log LOG = LogFactory.getLog(WetatorContext.class);
 
-  private static final String VARIABLE_TESTFILE = "wetator.testfile";
+  /** The name of the {@link Variable} containing the name of the current test case. */
+  public static final String VARIABLE_TESTCASE = "wetator.testcase";
+  /** The name of the {@link Variable} containing the label of the current browser. */
+  public static final String VARIABLE_BROWSER = "wetator.browser";
+  /** The name of the {@link Variable} containing the name of the current test file. */
+  public static final String VARIABLE_TESTFILE = "wetator.testfile";
 
   private WetatorEngine engine;
+  private String testCaseName;
   private File file;
   private BrowserType browserType;
   private List<Variable> variables; // store them in defined order
@@ -59,18 +65,24 @@ public class WetatorContext {
    * Constructor for a root context.
    *
    * @param aWetatorEngine the engine that processes this file
+   * @param aTestCaseName the name of the test case this context is for
    * @param aFile the file this context is for
    * @param aBrowserType the emulated browser type
    */
-  public WetatorContext(final WetatorEngine aWetatorEngine, final File aFile, final BrowserType aBrowserType) {
+  public WetatorContext(final WetatorEngine aWetatorEngine, final String aTestCaseName, final File aFile,
+      final BrowserType aBrowserType) {
     super();
     engine = aWetatorEngine;
+    testCaseName = aTestCaseName;
     file = aFile;
     browserType = aBrowserType;
     variables = new LinkedList<Variable>();
 
-    final Variable tmpVar = new Variable(VARIABLE_TESTFILE, new SecretString(aFile.getName()));
-    addVariable(tmpVar);
+    // we add our implicit variables first so they always 'win' against variables with the same name defined
+    // programmatically or by configuration
+    addVariable(new Variable(VARIABLE_TESTCASE, new SecretString(aTestCaseName)));
+    addVariable(new Variable(VARIABLE_BROWSER, new SecretString(aBrowserType.getLabel())));
+    addVariable(new Variable(VARIABLE_TESTFILE, new SecretString(aFile.getName())));
   }
 
   /**
@@ -80,7 +92,7 @@ public class WetatorContext {
    * @param aFile the file this context is for
    */
   protected WetatorContext(final WetatorContext aContext, final File aFile) {
-    this(aContext.engine, aFile, aContext.browserType);
+    this(aContext.engine, aContext.testCaseName, aFile, aContext.browserType);
 
     parentContext = aContext;
     // do not use setErrorOccurred here as it would also reset the value in the parent context
@@ -133,15 +145,18 @@ public class WetatorContext {
   }
 
   /**
-   * @return the list of known {@link Variable}s.
+   * @return the list of known {@link Variable}s
    */
   public List<Variable> getVariables() {
     final List<Variable> tmpResult = new LinkedList<Variable>();
 
+    // we just add all variables to one combined list; as the replace algorithm always takes the first occurrence of a
+    // variable we do not need to implement a shadowing or filter mechanism but 'just' ensure the correct order
+
     // first our own
     tmpResult.addAll(variables);
 
-    // then the stuff from parent or configuration
+    // then the stuff from the parent or from the configuration in case of the root context
     if (null == parentContext) {
       tmpResult.addAll(getConfiguration().getVariables());
     } else {

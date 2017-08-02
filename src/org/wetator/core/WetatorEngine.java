@@ -35,7 +35,6 @@ import org.wetator.core.IScripter.IsSupportedResult;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.XMLResultWriter;
-import org.wetator.util.SecretString;
 
 /**
  * The engine that makes the monster running.<br>
@@ -51,9 +50,6 @@ public class WetatorEngine {
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
   private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
-
-  private static final String VARIABLE_TESTCASE = "wetator.testcase";
-  private static final String VARIABLE_BROWSER = "wetator.browser";
 
   private String configFileName;
   private Map<String, String> externalProperties;
@@ -75,7 +71,7 @@ public class WetatorEngine {
   }
 
   /**
-   * Initializes the wetator engine. The configuration is read from the configuration file got by
+   * Initializes the Wetator engine. The configuration is read from the configuration file got by
    * {@link #getConfigFile()}.
    *
    * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
@@ -85,7 +81,7 @@ public class WetatorEngine {
   }
 
   /**
-   * Initializes the wetator engine using the given configuration.
+   * Initializes the Wetator engine using the given configuration.
    *
    * @param aConfiguration the configuration to use
    */
@@ -170,12 +166,7 @@ public class WetatorEngine {
                 getBrowser().startNewSession(tmpBrowserType);
                 try {
                   // setup the context
-                  final WetatorContext tmpWetatorContext = createWetatorContext(tmpFile, tmpBrowserType);
-
-                  Variable tmpVar = new Variable(VARIABLE_TESTCASE, new SecretString(tmpTestCase.getName()));
-                  tmpWetatorContext.addVariable(tmpVar);
-                  tmpVar = new Variable(VARIABLE_BROWSER, new SecretString(tmpBrowserType.getLabel()));
-                  tmpWetatorContext.addVariable(tmpVar);
+                  final WetatorContext tmpWetatorContext = createWetatorContext(tmpTestCase, tmpBrowserType);
 
                   tmpValidInput = tmpWetatorContext.execute();
                   if (!tmpValidInput) {
@@ -210,10 +201,7 @@ public class WetatorEngine {
   }
 
   /**
-   * Initializes the wetator engine. The configuration is read from the configuration file got by
-   * {@link #getConfigFile()}.
-   *
-   * @throws org.wetator.exception.ConfigurationException in case of problems with the configuration
+   * Shuts the Wetator engine down closing acquired resources.
    */
   public void shutdown() {
     try {
@@ -259,12 +247,12 @@ public class WetatorEngine {
   }
 
   /**
-   * @param aFile the file to execute
+   * @param aTestCase the {@link TestCase} to execute
    * @param aBrowserType the browser type to use
    * @return the {@link WetatorContext} to use for executing the given file
    */
-  protected WetatorContext createWetatorContext(final File aFile, final BrowserType aBrowserType) {
-    return new WetatorContext(this, aFile, aBrowserType);
+  protected WetatorContext createWetatorContext(final TestCase aTestCase, final BrowserType aBrowserType) {
+    return new WetatorContext(this, aTestCase.getName(), aTestCase.getFile(), aBrowserType);
   }
 
   /**
@@ -315,7 +303,7 @@ public class WetatorEngine {
 
   /**
    * @param aCommandName the name of the {@link ICommandImplementation}
-   * @return the {@link ICommandImplementation} for the given name or null if none was found
+   * @return the {@link ICommandImplementation} for the given name or <code>null</code> if none was found
    */
   protected ICommandImplementation getCommandImplementationFor(final String aCommandName) {
     for (final ICommandSet tmpCommandSet : commandSets) {
@@ -350,9 +338,7 @@ public class WetatorEngine {
       tmpConfigName = System.getProperty(PROPERTY_TEST_CONFIG, CONFIG_FILE_DEFAULT_NAME);
     }
 
-    final File tmpConfigFile;
-    tmpConfigFile = new File(tmpConfigName);
-    return tmpConfigFile;
+    return new File(tmpConfigName);
   }
 
   /**

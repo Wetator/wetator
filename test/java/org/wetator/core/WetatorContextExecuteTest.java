@@ -42,6 +42,8 @@ import org.wetator.exception.ResourceException;
  */
 public class WetatorContextExecuteTest {
 
+  private BrowserType browserType = BrowserType.FIREFOX_52;
+
   private File file1;
   private File file2;
 
@@ -73,8 +75,8 @@ public class WetatorContextExecuteTest {
     engine = mock(WetatorEngine.class);
     when(engine.getBrowser()).thenReturn(browser);
     when(engine.getConfiguration()).thenReturn(configuration);
-    when(engine.getCommandImplementationFor("command1")).thenReturn(commandImplementation1);
-    when(engine.getCommandImplementationFor("command2")).thenReturn(commandImplementation2);
+    when(engine.getCommandImplementationFor(command1.getName())).thenReturn(commandImplementation1);
+    when(engine.getCommandImplementationFor(command2.getName())).thenReturn(commandImplementation2);
   }
 
   /**
@@ -88,7 +90,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -118,7 +120,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -147,7 +149,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -179,7 +181,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertFalse(tmpContext.execute());
 
     // assert
@@ -210,7 +212,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -241,7 +243,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -271,7 +273,7 @@ public class WetatorContextExecuteTest {
     doThrow(tmpException).when(engine).readCommandsFromFile(file1);
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertFalse(tmpContext.execute());
 
     // assert
@@ -305,7 +307,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
@@ -341,7 +343,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
@@ -376,7 +378,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
@@ -413,7 +415,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertFalse(tmpContext.execute());
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
@@ -450,7 +452,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
@@ -487,7 +489,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
@@ -520,7 +522,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
@@ -556,7 +558,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
@@ -591,7 +593,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
@@ -628,7 +630,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertFalse(tmpSubContext.execute());
     Assert.assertFalse(tmpContext.execute());
@@ -665,7 +667,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
@@ -702,7 +704,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
     Assert.assertTrue(tmpSubContext.execute());
     Assert.assertTrue(tmpContext.execute());
@@ -736,7 +738,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1, command2));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertFalse(tmpContext.execute());
 
     // assert
@@ -769,7 +771,7 @@ public class WetatorContextExecuteTest {
     when(browser.checkAndResetFailures()).thenReturn(tmpException, (AssertionException) null);
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -802,7 +804,7 @@ public class WetatorContextExecuteTest {
     when(engine.getCommandImplementationFor("command2")).thenReturn(tmpForceExecution);
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     Assert.assertTrue(tmpContext.execute());
 
     // assert
@@ -828,7 +830,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenThrow(new ResourceException("mocker"));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     try {
       tmpContext.execute();
       Assert.fail("ResourceException expected!");
@@ -864,7 +866,7 @@ public class WetatorContextExecuteTest {
     when(engine.readCommandsFromFile(file1)).thenThrow(new RuntimeException("mocker"));
 
     // run
-    final WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     try {
       tmpContext.execute();
       Assert.fail("RuntimeException expected!");
@@ -887,18 +889,6 @@ public class WetatorContextExecuteTest {
     verify(commandImplementation1, never()).execute(tmpContext, command1);
     verify(commandImplementation2, never()).execute(tmpContext, command2);
     verify(browser, never()).checkAndResetFailures();
-  }
-
-  /**
-   * Test var wetator.testfile.
-   */
-  @Test
-  public void testfileVar() {
-    WetatorContext tmpContext = new WetatorContext(engine, file1, BrowserType.FIREFOX_52);
-    Assert.assertEquals("file1", tmpContext.replaceVariables("${wetator.testfile}").getValue());
-
-    tmpContext = new WetatorContext(engine, file2, BrowserType.FIREFOX_52);
-    Assert.assertEquals("file2.xml", tmpContext.replaceVariables("${wetator.testfile}").getValue());
   }
 
   private void assertCommandSuccess(final InOrder anInOrder, final WetatorContext aContext, final Command aCommand,
