@@ -20,19 +20,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.util.SecretString;
 
 /**
- * An object that stores a variable.
- * This supports a name, a value and a secret flag.
- * The value of variables marked as secret is never visible in any kind of output.
+ * An object that stores a variable consisting of a {@link #getName() name} and a {@link #getValue() value}.<br>
+ * The value can be marked as secret masking it in the print out (see {@link SecretString} for details). Use
+ * {@link #Variable(String, String, boolean)} with the secret flag set to <code>true</code> or
+ * {@link #Variable(String, SecretString)} with a secret {@link SecretString}.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class Variable {
+
   private String name;
   private SecretString value;
 
   /**
-   * Constructor.
-   * The value is not secret
+   * Constructor.<br>
+   * The value is not secret.
    *
    * @param aName the name of the variable (required)
    * @param aValue the value of the variable
@@ -46,13 +49,11 @@ public final class Variable {
    *
    * @param aName the name of the variable (required)
    * @param aValue the value of the variable
-   * @param anSecretFlag true if the value is a secret
+   * @param anSecretFlag <code>true</code> if the value should be secret
    */
   public Variable(final String aName, final String aValue, final boolean anSecretFlag) {
-    super();
-
-    if (StringUtils.isEmpty(aName)) {
-      throw new IllegalArgumentException("Parameter aName can't be null.");
+    if (StringUtils.isBlank(aName)) {
+      throw new IllegalArgumentException("The variable's name is mandatory.");
     }
 
     name = aName;
@@ -67,13 +68,11 @@ public final class Variable {
    * Constructor.
    *
    * @param aName the name of the variable
-   * @param aValue the value as SecretString
+   * @param aValue the value of the variable as {@link SecretString}
    */
   public Variable(final String aName, final SecretString aValue) {
-    super();
-
-    if (StringUtils.isEmpty(aName)) {
-      throw new IllegalArgumentException("Parameter aName can't be null.");
+    if (StringUtils.isBlank(aName)) {
+      throw new IllegalArgumentException("The variable's name is mandatory.");
     }
 
     name = aName;
@@ -88,7 +87,7 @@ public final class Variable {
   }
 
   /**
-   * @return the secret string
+   * @return the value of this variable
    */
   public SecretString getValue() {
     return value;
