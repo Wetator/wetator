@@ -152,6 +152,24 @@ public interface IBrowser {
   IControl getFocusedControl() throws BackendException;
 
   /**
+   * Closes the browser and releases all resources.
+   */
+  void close();
+
+  /**
+   * Starts a new browser session.<br>
+   * If there are any open sessions (and open windows) currently they are closed.
+   *
+   * @param aBrowserType the browser type to start a session for
+   */
+  void startNewSession(IBrowser.BrowserType aBrowserType);
+
+  /**
+   * Closes the current browser session and cleans up all associated resources.<br>
+   */
+  void endSession();
+
+  /**
    * Opens the given URL in the current window.<br>
    * Adds failures for JavaScript problems and failing HTTP status codes. All other problems result in exceptions.
    *
@@ -231,19 +249,6 @@ public interface IBrowser {
    * @throws ActionException if finding or closing the window fails
    */
   void closeWindow(SecretString aWindowName) throws ActionException;
-
-  /**
-   * Starts a new browser session.<br>
-   * If there are any open sessions (and open windows) currently they are closed.
-   *
-   * @param aBrowserType the browser type to start a session for
-   */
-  void startNewSession(IBrowser.BrowserType aBrowserType);
-
-  /**
-   * Closes the current browser session and cleans up all associated resources.<br>
-   */
-  void endSession();
 
   /**
    * Returns the {@link URL} for the bookmark with the given name.
