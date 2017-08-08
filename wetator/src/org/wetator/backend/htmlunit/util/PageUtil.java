@@ -41,7 +41,8 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
-    return constructHtmlPage(BrowserVersion.getDefault(), anHtmlCode);
+    // Take care: this has to be in sync with our default browser
+    return constructHtmlPage(BrowserVersion.FIREFOX_52, anHtmlCode);
   }
 
   /**
