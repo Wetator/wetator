@@ -180,46 +180,46 @@
 
                 <a name="top"/>
 
-                <center><p><img src="resources/wetator.png" alt="Wetator"/></p></center>
+                <div style="text-align: center;"><img src="resources/wetator.png" alt="Wetator"/></div>
 
                 <table id="testSummary" align="center">
                     <tr>
                         <td class="bold">
                             Tests:
                         </td>
-                        <td style="padding-left: 5px;">
+                        <td style="padding-left: 3px;">
                             <xsl:value-of select="$testCount"/>
                         </td>
-                        <td class="bold" style="padding-left: 40px;">
+                        <td class="bold" style="padding-left: 25px; white-space: nowrap;">
                              <img src="resources/x-error.png" class="resultIcon" alt="error" title="error"/> Errors:
                         </td>
-                        <td style="padding-left: 5px;">
+                        <td style="padding-left: 3px;">
                             <xsl:value-of select="$testErrorCount + $testIgnoredCount"/>
                         </td>
-                        <td class="bold" style="padding-left: 40px;">
+                        <td class="bold" style="padding-left: 25px; white-space: nowrap;">
                              <img src="resources/x-failure.png" class="resultIcon" alt="failure" title="failure"/> Failures:
                         </td>
-                        <td style="padding-left: 5px;">
+                        <td style="padding-left: 3px;">
                             <xsl:value-of select="$testFailureCount"/>
                         </td>
 
-                        <td style="padding-left: 40px;">
+                        <td class="bold" style="padding-left: 25px;">
                             Distribution:
                         </td>
-                        <td style="padding-left: 5px;">
+                        <td style="padding-left: 3px;">
                             <xsl:value-of select="$testCaseCount"/> TestCase<xsl:if test="$testCaseCount > 1">s</xsl:if>
                             / <xsl:value-of select="$browserCount"/> Browser<xsl:if test="$browserCount > 1">s</xsl:if>
                         </td>
-                        <td style="padding-left: 40px;">
+                        <td class="bold" style="padding-left: 25px;">
                             Start Time:
                         </td>
-                        <td style="padding-left: 5px;">
+                        <td style="padding-left: 3px;">
                         	<xsl:value-of select="wet/startTime"/>
                         </td>
-                        <td style="padding-left: 40px;">
+                        <td class="bold" style="padding-left: 25px;">
                             Total Time:
                         </td>
-                        <td style="padding-left: 5px;">
+                        <td style="padding-left: 3px;">
                             <xsl:call-template name="timeFormatted">
                                 <xsl:with-param name="msecs" select="wet/executionTime"/>
                             </xsl:call-template>
@@ -227,7 +227,7 @@
                     </tr>
                 </table>
 
-                <table id="summaryoverview" class="overview" align="center" style="margin-top: 20px; text-align: center;"
+                <table id="summaryoverview" class="overview" align="center" style="margin-top: 5px; text-align: center;"
                     onmouseover="switchTables(this, 'detailedoverview')">
                     <tr height="20px">
                         <td class="smallBorder" width="100%">
@@ -245,7 +245,7 @@
                     </tr>
                 </table>
 
-                <table id="detailedoverview" class="overview bars"  align="center" style="display: none; margin-top: 20px; text-align: center;"
+                <table id="detailedoverview" class="overview bars"  align="center" style="display: none; margin-top: 5px; text-align: center;"
                     onmouseout="switchTables(this, 'summaryoverview')">
                     <tr height="20px;">
                         <xsl:if test="$testErrorPercentage > 0">
