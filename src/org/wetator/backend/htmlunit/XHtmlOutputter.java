@@ -321,6 +321,7 @@ public final class XHtmlOutputter {
   protected void writeStartTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
+      output.print("<!-- Browser URL: ").print(htmlPage.getUrl().toExternalForm()).println(" -->");
     } else if (aDomNode instanceof HtmlUnknownElement) {
       output.print('<');
       output.print(((HtmlUnknownElement) aDomNode).getQualifiedName());
