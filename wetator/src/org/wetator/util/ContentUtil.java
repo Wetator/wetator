@@ -39,6 +39,7 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.POIXMLException;
+import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -292,7 +293,7 @@ public final class ContentUtil {
       } finally {
         tmpDocument.close();
       }
-    } catch (final POIXMLException e) {
+    } catch (final POIXMLException | UnsupportedFileFormatException e) {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();
       }

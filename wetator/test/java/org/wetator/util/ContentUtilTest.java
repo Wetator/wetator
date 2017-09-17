@@ -183,14 +183,12 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getWordContentAsStringError() {
+  public void getWordContentAsStringError() throws IOException {
     try {
       ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
       org.junit.Assert.fail("InvalidFormatException expected");
-    } catch (final InvalidFormatException | IOException e) {
-      org.junit.Assert.assertEquals(
-          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Package should contain a content type part [M1.13]",
-          e.toString());
+    } catch (final InvalidFormatException e) {
+      // expected
     }
   }
 

@@ -98,11 +98,11 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_error.docx</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response doc into text (Package should contain a content type part [M1.13]).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response doc into text (No valid entries or contents found\, this is not a valid OOXML (Office Open XML) file).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_docx_error.zip</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped doc 'wet_test.docx' into text (reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Package should contain a content type part [M1.13]).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped doc 'wet_test.docx' into text (reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: No valid entries or contents found\, this is not a valid OOXML (Office Open XML) file).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment>content type xls</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
