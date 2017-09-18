@@ -32,7 +32,7 @@
     </publications>
 
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
-        <dependency org="dk.brics.automaton" name="automaton" rev="1.11-8" />
+        <dependency org="dk.brics" name="automaton" rev="1.12-1" />
         <dependency org="com.github.rjeschke" name="txtmark" rev="0.13" />
         <dependency org="commons-io" name="commons-io" rev="2.5" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.6" />
