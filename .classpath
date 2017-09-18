@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="lib/asm-all-5.1.jar"/>
-	<classpathentry kind="lib" path="lib/automaton-1.11-8.jar"/>
+	<classpathentry kind="lib" path="lib/automaton-1.12-1.jar" sourcepath="lib_src/automaton-1.12-1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/bcmail-jdk15on-1.57.jar"/>
 	<classpathentry kind="lib" path="lib/bcpkix-jdk15on-1.57.jar"/>
 	<classpathentry kind="lib" path="lib/bcprov-jdk15on-1.57.jar"/>
