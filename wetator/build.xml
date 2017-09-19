@@ -369,7 +369,7 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="7.6" type="jar,bundle"
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="8.0" type="jar,bundle"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
@@ -390,7 +390,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.5.1" type="jar,bundle"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.8.1" type="jar,bundle"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
@@ -401,7 +401,7 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.2" type="maven-plugin"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.3" type="maven-plugin"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
         <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>

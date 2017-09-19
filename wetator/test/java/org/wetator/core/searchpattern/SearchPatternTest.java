@@ -968,6 +968,7 @@ public class SearchPatternTest {
   }
 
   @Test
+  @SuppressWarnings("unlikely-arg-type")
   public void equals() {
     final SearchPattern tmpPattern = SearchPattern.compile("te*");
 
