@@ -349,8 +349,6 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * Summarized result of a test (run).
-   *
-   * @author tobwoerk
    */
   private enum TestResult {
     SUCCESS,
