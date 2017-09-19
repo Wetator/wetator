@@ -36,7 +36,7 @@ public final class StringUtil {
   /**
    * Extract all fields in a String given a list of delimiter characters and
    * an optional escape character usable to escape field delimits.
-   * <P>
+   * <BR>
    * Example:
    *
    * <PRE>
@@ -57,7 +57,6 @@ public final class StringUtil {
    *    extractStrings("123\\\\4", "\\n", '\\')
    *    returns one string: "123\\4"
    * </PRE>
-   * </P>
    *
    * @param aReceiver is the string to be split into tokens
    * @param aDelimiter is a String
