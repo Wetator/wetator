@@ -483,7 +483,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    */
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
-  public static @interface ForHtmlElement {
+  public @interface ForHtmlElement {
 
     /**
      * @return the {@link HtmlElement}
@@ -508,7 +508,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    */
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
-  public static @interface IdentifiedBy {
+  public @interface IdentifiedBy {
 
     /**
      * @return the identifiers
