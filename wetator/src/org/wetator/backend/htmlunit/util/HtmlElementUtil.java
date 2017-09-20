@@ -267,7 +267,7 @@ public final class HtmlElementUtil {
     if (StringUtils.isNotEmpty(tmpFor)) {
       tmpResult.append(" for='");
       tmpResult.append(tmpFor);
-      tmpResult.append("'");
+      tmpResult.append('\'');
     }
 
     tmpResult.append(']');
