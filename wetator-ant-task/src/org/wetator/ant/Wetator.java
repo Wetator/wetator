@@ -111,26 +111,22 @@ public class Wetator extends Task {
             tmpDirScanner.getBasedir(), tmpListOfFiles, getPropertiesFromAnt(), new AntWriter(this));
         final Method tmpRunMethod = tmpExecutorClass.getDeclaredMethod("runWetator");
 
-        final long[] tmpResult = (long[]) tmpRunMethod.invoke(tmpExecutor);
+        final int[] tmpResult = (int[]) tmpRunMethod.invoke(tmpExecutor);
 
-        // failures
-        if (tmpResult[3] > 0) {
+        final int tmpTestCountProcessed = tmpResult[0];
+        final int tmpTestCountError = tmpResult[1];
+        final int tmpTestCountFailure = tmpResult[2];
+        final int tmpTestCountIgnored = tmpResult[3];
+        final long tmpUnsuccessfulTestCount = tmpTestCountError + tmpTestCountFailure + tmpTestCountIgnored;
+        if (tmpUnsuccessfulTestCount > 0) {
           if (null != getFailureProperty()) {
             getProject().setNewProperty(getFailureProperty(), "true");
           }
 
           if (isHaltOnFailure()) {
-            throw new BuildException(
-                Version.getProductName() + ": AntTask failed. (" + tmpResult[3] + " TestRun errors)");
-          }
-        } else if (tmpResult[0] + tmpResult[1] > 0) {
-          if (null != getFailureProperty()) {
-            getProject().setNewProperty(getFailureProperty(), "true");
-          }
-
-          if (isHaltOnFailure()) {
-            throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpResult[1] + " failures "
-                + tmpResult[0] + " errors)");
+            throw new BuildException(Version.getProductName() + ": AntTask failed. (Tests: " + tmpTestCountProcessed
+                + ",  Errors: " + tmpTestCountError + ",  Failures: " + tmpTestCountFailure + ",  Ignored: "
+                + tmpTestCountIgnored + ")");
           }
         }
       } finally {

@@ -91,13 +91,12 @@ public class WetatorExecutor {
 
       tmpWetatorEngine.executeTests();
 
-      // 0 error count
-      // 1 failure count
-      // 2 ignored count
-      // 3 test run error count
-      // 4 test run ignored count
-      final long[] tmpResult = new long[] { tmpListener.getErrorCount(), tmpListener.getFailureCount(),
-          tmpListener.getIgnoredCount(), tmpListener.getTestRunErrorCount(), tmpListener.getTestRunIgnoredCout() };
+      // 0 testCountProcessed
+      // 1 testCountError
+      // 2 testCountFailure
+      // 3 testCountIgnored
+      final long[] tmpResult = new long[] { tmpListener.getTestCountProcessed(), tmpListener.getTestCountError(),
+          tmpListener.getTestCountFailure(), tmpListener.getTestCountIgnored() };
       return tmpResult;
     } finally {
       tmpWetatorEngine.shutdown();
