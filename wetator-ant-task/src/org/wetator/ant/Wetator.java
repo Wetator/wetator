@@ -111,12 +111,12 @@ public class Wetator extends Task {
             tmpDirScanner.getBasedir(), tmpListOfFiles, getPropertiesFromAnt(), new AntWriter(this));
         final Method tmpRunMethod = tmpExecutorClass.getDeclaredMethod("runWetator");
 
-        final int[] tmpResult = (int[]) tmpRunMethod.invoke(tmpExecutor);
+        final long[] tmpResult = (long[]) tmpRunMethod.invoke(tmpExecutor);
 
-        final int tmpTestCountProcessed = tmpResult[0];
-        final int tmpTestCountError = tmpResult[1];
-        final int tmpTestCountFailure = tmpResult[2];
-        final int tmpTestCountIgnored = tmpResult[3];
+        final long tmpTestCountProcessed = tmpResult[0];
+        final long tmpTestCountError = tmpResult[1];
+        final long tmpTestCountFailure = tmpResult[2];
+        final long tmpTestCountIgnored = tmpResult[3];
         final long tmpUnsuccessfulTestCount = tmpTestCountError + tmpTestCountFailure + tmpTestCountIgnored;
         if (tmpUnsuccessfulTestCount > 0) {
           if (null != getFailureProperty()) {
