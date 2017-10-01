@@ -63,11 +63,12 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
   public String getDescribingText() {
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
-    String tmpText = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput);
+    final StringBuilder tmpText = new StringBuilder(
+        HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput));
     if (!tmpHtmlCheckBoxInput.isDisplayed() && htmlLabel != null) {
-      tmpText += " by " + HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel);
+      tmpText.append(" by ").append(HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel));
     }
-    return tmpText;
+    return tmpText.toString();
   }
 
   @Override

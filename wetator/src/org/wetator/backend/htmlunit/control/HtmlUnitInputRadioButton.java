@@ -63,11 +63,12 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
   public String getDescribingText() {
     final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
-    String tmpText = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
+    final StringBuilder tmpText = new StringBuilder(
+        HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput));
     if (!tmpHtmlRadioButtonInput.isDisplayed() && htmlLabel != null) {
-      tmpText += " by " + HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel);
+      tmpText.append(" by ").append(HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel));
     }
-    return tmpText;
+    return tmpText.toString();
   }
 
   @Override
