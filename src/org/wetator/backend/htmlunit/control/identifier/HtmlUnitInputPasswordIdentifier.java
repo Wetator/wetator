@@ -23,6 +23,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeMatcher;
@@ -108,7 +109,7 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractMatcherBasedIdentif
   }
 
   @Override
-  protected IControl createControl(final HtmlElement aHtmlElement) {
-    return new HtmlUnitInputPassword((HtmlPasswordInput) aHtmlElement);
+  protected IControl createControl(final MatchResult aMatch) {
+    return new HtmlUnitInputPassword((HtmlPasswordInput) aMatch.getHtmlElement());
   }
 }

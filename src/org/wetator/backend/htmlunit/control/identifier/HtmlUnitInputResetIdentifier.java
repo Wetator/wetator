@@ -22,6 +22,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
@@ -81,7 +82,7 @@ public class HtmlUnitInputResetIdentifier extends AbstractMatcherBasedIdentifier
   }
 
   @Override
-  protected IControl createControl(final HtmlElement aHtmlElement) {
-    return new HtmlUnitInputReset((HtmlResetInput) aHtmlElement);
+  protected IControl createControl(final MatchResult aMatch) {
+    return new HtmlUnitInputReset((HtmlResetInput) aMatch.getHtmlElement());
   }
 }

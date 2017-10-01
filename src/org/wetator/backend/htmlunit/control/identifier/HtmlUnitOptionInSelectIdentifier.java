@@ -194,8 +194,8 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           }
 
           // element must be a nested element of label
-          final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
-          for (final HtmlElement tmpChildElement : tmpChilds) {
+          final Iterable<HtmlElement> tmpChildren = tmpLabel.getHtmlElementDescendants();
+          for (final HtmlElement tmpChildElement : tmpChildren) {
             if (tmpChildElement instanceof HtmlSelect && tmpChildElement.isDisplayed()) {
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpChildElement);
               final int tmpDistance;

@@ -31,6 +31,7 @@ import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -47,6 +48,8 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
   private static final Log LOG = LogFactory.getLog(HtmlUnitInputCheckBox.class);
 
+  private HtmlLabel htmlLabel;
+
   /**
    * The constructor.
    *
@@ -58,7 +61,13 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
   @Override
   public String getDescribingText() {
-    return HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(getHtmlElement());
+    final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
+
+    String tmpText = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput);
+    if (!tmpHtmlCheckBoxInput.isDisplayed() && htmlLabel != null) {
+      tmpText += " by " + HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel);
+    }
+    return tmpText;
   }
 
   @Override
@@ -78,10 +87,17 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       if (tmpHtmlCheckBoxInput.isChecked()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        if (tmpHtmlCheckBoxInput.isDisplayed()) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+          }
+          tmpHtmlCheckBoxInput.click();
+        } else if (htmlLabel != null) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + htmlLabel + "'");
+          }
+          htmlLabel.click();
         }
-        tmpHtmlCheckBoxInput.click();
       }
 
       // wait for silence
@@ -125,10 +141,17 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
     try {
       if (tmpHtmlCheckBoxInput.isChecked()) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+        if (tmpHtmlCheckBoxInput.isDisplayed()) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Deselect - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
+          }
+          tmpHtmlCheckBoxInput.click();
+        } else if (htmlLabel != null) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Deselect - HtmlUnitInputCheckBox.click() '" + htmlLabel + "'");
+          }
+          htmlLabel.click();
         }
-        tmpHtmlCheckBoxInput.click();
       } else {
         aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });
       }
@@ -162,5 +185,12 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
   @Override
   public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
     return !isDisabled(aWetatorContext);
+  }
+
+  /**
+   * @param aHtmlLabel the {@link HtmlLabel} the control was found by
+   */
+  public void setHtmlLabel(final HtmlLabel aHtmlLabel) {
+    htmlLabel = aHtmlLabel;
   }
 }

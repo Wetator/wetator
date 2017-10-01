@@ -161,6 +161,24 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
+  public void byHtmlLabel_Text_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text' style='display: none;'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Label");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
   public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -180,6 +198,25 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     Assert.assertEquals(
         "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 5 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabelChild_Text_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='text' style='display: none;'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Label");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test

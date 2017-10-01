@@ -22,6 +22,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByImageAltAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByImageSrcAttributeMatcher;
@@ -91,7 +92,7 @@ public class HtmlUnitInputImageIdentifier extends AbstractMatcherBasedIdentifier
   }
 
   @Override
-  protected IControl createControl(final HtmlElement aHtmlElement) {
-    return new HtmlUnitInputImage((HtmlImageInput) aHtmlElement);
+  protected IControl createControl(final MatchResult aMatch) {
+    return new HtmlUnitInputImage((HtmlImageInput) aMatch.getHtmlElement());
   }
 }

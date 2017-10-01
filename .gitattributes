@@ -140,7 +140,6 @@ src/org/wetator/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svn
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputReset.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmit.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputText.java -text svneol=unset#text/plain
-src/org/wetator/backend/htmlunit/control/HtmlUnitLabel.java -text
 src/org/wetator/backend/htmlunit/control/HtmlUnitOption.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain

@@ -109,6 +109,30 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
+  public void byHtmlLabel_Text_invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyLabelId1' for='MyRadioButtonId1'>FirstLabelText</label>"
+        + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
+        + "<label id='MyLabelId2' for='MyRadioButtonId2'>SecondLabelText</label>"
+        + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio' style='display: none;'>RadioButton2"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("SecondLabelText");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
+        "MyLabelId2");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') for='MyRadioButtonId2'] found by: BY_LABEL deviation: 0 distance: 27 start: 43 index: 11",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
   public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -131,6 +155,32 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
         "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL deviation: 13 distance: 27 start: 43 index: 11",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabelChild_Text_invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyLabelId1'>FirstLabelText"
+        + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
+        + "</label>"
+        + "<label id='MyLabelId2'>SecondLabelText"
+        + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio' style='display: none;'>RadioButton2"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("SecondLabelText");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
+        "MyLabelId2");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelTextuncheckedRadioButton2' (id='MyLabelId2')] found by: BY_LABEL deviation: 12 distance: 27 start: 43 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

@@ -30,6 +30,7 @@ import org.wetator.exception.BackendException;
 import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
@@ -47,6 +48,8 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
 
   private static final Log LOG = LogFactory.getLog(HtmlUnitInputRadioButton.class);
 
+  private HtmlLabel htmlLabel;
+
   /**
    * The constructor.
    *
@@ -58,7 +61,13 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
 
   @Override
   public String getDescribingText() {
-    return HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(getHtmlElement());
+    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
+
+    String tmpText = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
+    if (!tmpHtmlRadioButtonInput.isDisplayed() && htmlLabel != null) {
+      tmpText += " by " + HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel);
+    }
+    return tmpText;
   }
 
   @Override
@@ -78,10 +87,17 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
       if (tmpHtmlRadioButtonInput.isChecked()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Select - HtmlUnitInputRadioButton.click() '" + tmpHtmlRadioButtonInput + "'");
+        if (tmpHtmlRadioButtonInput.isDisplayed()) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Select - HtmlUnitInputRadioButton.click() '" + tmpHtmlRadioButtonInput + "'");
+          }
+          tmpHtmlRadioButtonInput.click();
+        } else if (htmlLabel != null) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Select - HtmlUnitInputRadioButton.click() '" + htmlLabel + "'");
+          }
+          htmlLabel.click();
         }
-        tmpHtmlRadioButtonInput.click();
       }
 
       // wait for silence
@@ -120,5 +136,12 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
   @Override
   public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
     return !isDisabled(aWetatorContext);
+  }
+
+  /**
+   * @param aHtmlLabel the {@link HtmlLabel} the control was found by
+   */
+  public void setHtmlLabel(final HtmlLabel aHtmlLabel) {
+    htmlLabel = aHtmlLabel;
   }
 }

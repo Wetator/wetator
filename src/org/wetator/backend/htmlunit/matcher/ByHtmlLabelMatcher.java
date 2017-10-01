@@ -27,10 +27,8 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 
 /**
  * This matcher checks if the given {@link HtmlLabel} matches the criteria and labels the needed type of element.
@@ -40,6 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
 
   private Class<? extends HtmlElement> clazz;
+  private boolean matchInvisible;
 
   /**
    * The constructor.<br>
@@ -54,8 +53,27 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    */
   public ByHtmlLabelMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
       final FindSpot aPathSpot, final SearchPattern aSearchPattern, final Class<? extends HtmlElement> aClass) {
+    this(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, aClass, false);
+  }
+
+  /**
+   * The constructor.<br>
+   * Creates a new matcher with the given criteria.
+   *
+   * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page the match is based on
+   * @param aPathSearchPattern the {@link SearchPattern} describing the path to the element or <code>null</code> if no
+   *        path given
+   * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
+   * @param aSearchPattern the {@link SearchPattern} describing the element
+   * @param aClass the class of the {@link HtmlElement} the matching label labels
+   * @param aMatchInvisible if <code>true</code> also invisible (= not displayed) elements match
+   */
+  public ByHtmlLabelMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern, final Class<? extends HtmlElement> aClass,
+      final boolean aMatchInvisible) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
     clazz = aClass;
+    matchInvisible = aMatchInvisible;
   }
 
   @Override
@@ -91,8 +109,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
           try {
             final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
             if (clazz.isAssignableFrom(tmpElementForLabel.getClass())
-                && (tmpElementForLabel instanceof HtmlCheckBoxInput
-                    || tmpElementForLabel instanceof HtmlRadioButtonInput || tmpElementForLabel.isDisplayed())) {
+                && (tmpElementForLabel.isDisplayed() || matchInvisible)) {
               tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               final int tmpDistance;
@@ -101,25 +118,18 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               } else {
                 tmpDistance = tmpTextBefore.length();
               }
-              if ((tmpElementForLabel instanceof HtmlCheckBoxInput
-                  || tmpElementForLabel instanceof HtmlRadioButtonInput) && !tmpElementForLabel.isDisplayed()) {
-                // if the radio button / checkbox is hidden or invisible we have to click on the label
-                tmpMatches.add(new MatchResult(tmpLabel, FoundType.BY_LABEL, tmpDeviation, tmpDistance,
-                    tmpNodeSpot.getStartPos()));
-              } else {
-                tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpDeviation, tmpDistance,
-                    tmpNodeSpot.getStartPos()));
-              }
+              tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL, tmpDeviation,
+                  tmpDistance, tmpNodeSpot.getStartPos()));
             }
           } catch (final ElementNotFoundException e) {
             // not found
           }
         }
 
-        // Element must be a nested element of label
+        // element must be a nested element of label
         final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
         for (final HtmlElement tmpChildElement : tmpChilds) {
-          if (clazz.isAssignableFrom(tmpChildElement.getClass()) && tmpChildElement.isDisplayed()) {
+          if (clazz.isAssignableFrom(tmpChildElement.getClass()) && (tmpChildElement.isDisplayed() || matchInvisible)) {
             tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
             final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
             final int tmpDistance;
@@ -128,8 +138,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpDeviation, tmpDistance,
-                tmpNodeSpot.getStartPos()));
+            tmpMatches.add(new ByHtmlLabelMatchResult(tmpChildElement, tmpLabel, FoundType.BY_LABEL, tmpDeviation,
+                tmpDistance, tmpNodeSpot.getStartPos()));
           }
         }
         return tmpMatches;
@@ -137,5 +147,38 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
     }
 
     return Collections.emptyList();
+  }
+
+  /**
+   * Special {@link AbstractHtmlUnitElementMatcher.MatchResult} for transporting
+   * the {@link HtmlLabel} the element was found by.
+   *
+   * @author frank.danek
+   */
+  public static class ByHtmlLabelMatchResult extends MatchResult {
+
+    private HtmlLabel label;
+
+    /**
+     * @param aHtmlElement the matching {@link HtmlElement}
+     * @param aLabel the {@link HtmlLabel} the element was found by
+     * @param aFoundType the {@link FoundType}
+     * @param aDeviation the deviation
+     * @param aDistance the distance
+     * @param aStart the starting position
+     */
+    public ByHtmlLabelMatchResult(final HtmlElement aHtmlElement, final HtmlLabel aLabel, final FoundType aFoundType,
+        final int aDeviation, final int aDistance, final int aStart) {
+      super(aHtmlElement, aFoundType, aDeviation, aDistance, aStart);
+
+      label = aLabel;
+    }
+
+    /**
+     * @return the {@link HtmlLabel} the element was found by
+     */
+    public HtmlLabel getLabel() {
+      return label;
+    }
   }
 }
