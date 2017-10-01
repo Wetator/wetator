@@ -1285,6 +1285,35 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
   }
 
   @Test
+  public void byHtmlLabel_TextFull_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "<label id='labelId' for='mySelectId'>mySelectLabelText</label>"
+        + "<select id='mySelectId' size='2' style='display: none;'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
   public void byHtmlLabelChild_TextFull() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1597,6 +1626,36 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void byHtmlLabelChild_TextFull_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "<label id='labelId'>mySelectLabelText"
+        + "<select id='mySelectId' size='2' style='display: none;'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+        "labelId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }

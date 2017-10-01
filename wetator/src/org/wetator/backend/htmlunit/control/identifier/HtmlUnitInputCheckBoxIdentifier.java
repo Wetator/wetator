@@ -22,9 +22,10 @@ import java.util.List;
 import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
-import org.wetator.backend.htmlunit.control.HtmlUnitLabel;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
+import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher.ByHtmlLabelMatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
@@ -98,7 +99,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
       } else if (aHtmlElement instanceof HtmlLabel) {
         // label
         aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-            HtmlCheckBoxInput.class));
+            HtmlCheckBoxInput.class, true));
       }
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher
@@ -109,10 +110,12 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
   }
 
   @Override
-  protected IControl createControl(final HtmlElement aHtmlElement) {
-    if (aHtmlElement instanceof HtmlLabel) {
-      return new HtmlUnitLabel((HtmlLabel) aHtmlElement);
+  protected IControl createControl(final MatchResult aMatch) {
+    final HtmlUnitInputCheckBox tmpCheckBox = new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aMatch.getHtmlElement());
+    if (aMatch instanceof ByHtmlLabelMatchResult) {
+      // if found by a label we pass this label to the control so we might use it later
+      tmpCheckBox.setHtmlLabel(((ByHtmlLabelMatchResult) aMatch).getLabel());
     }
-    return new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aHtmlElement);
+    return tmpCheckBox;
   }
 }

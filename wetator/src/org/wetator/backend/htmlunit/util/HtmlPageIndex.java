@@ -179,7 +179,7 @@ public class HtmlPageIndex {
   public int getIndex(final HtmlElement anHtmlElement) {
     final int tmpResult = nodes.indexOf(anHtmlElement);
     if (tmpResult < 0) {
-      LOG.error("No index found for DomNode: " + anHtmlElement.toString());
+      LOG.error("No index found for HtmlElement: " + anHtmlElement.toString());
       dumpToLog();
     }
     return tmpResult;
@@ -194,7 +194,7 @@ public class HtmlPageIndex {
   public FindSpot getPosition(final HtmlElement anHtmlElement) {
     final FindSpot tmpResult = positions.get(anHtmlElement);
     if (null == tmpResult) {
-      LOG.error("No FindSpot found for HtmlElement: " + anHtmlElement.toString());
+      LOG.error("No position found for HtmlElement: " + anHtmlElement.toString());
       dumpToLog();
     }
     return tmpResult;
@@ -675,11 +675,11 @@ public class HtmlPageIndex {
       if (tmpItem instanceof HtmlListItem) {
         // hack for fixing the start pos
         final int tmpStartPos = text.length();
-        text.append(String.valueOf(i++));
+        text.append(String.valueOf(i));
         text.append(". ");
 
         final int tmpStartPosWFC = textWithoutFormControls.length();
-        textWithoutFormControls.append(String.valueOf(i));
+        textWithoutFormControls.append(String.valueOf(i++));
         textWithoutFormControls.append(". ");
 
         parseDomNode(tmpItem);

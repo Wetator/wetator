@@ -133,6 +133,9 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
         }
 
         if (tmpHtmlOption.isSelected()) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Deselect - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
+          }
           tmpHtmlOption.click(false, true, false);
         } else {
           aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });

@@ -22,6 +22,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
@@ -67,7 +68,7 @@ public class HtmlUnitOptionIdentifier extends AbstractMatcherBasedIdentifier {
   }
 
   @Override
-  protected IControl createControl(final HtmlElement aHtmlElement) {
-    return new HtmlUnitOption((HtmlOption) aHtmlElement);
+  protected IControl createControl(final MatchResult aMatch) {
+    return new HtmlUnitOption((HtmlOption) aMatch.getHtmlElement());
   }
 }

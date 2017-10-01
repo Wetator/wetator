@@ -23,6 +23,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeMatcher;
@@ -104,7 +105,7 @@ public class HtmlUnitInputFileIdentifier extends AbstractMatcherBasedIdentifier 
   }
 
   @Override
-  protected IControl createControl(final HtmlElement aHtmlElement) {
-    return new HtmlUnitInputFile((HtmlFileInput) aHtmlElement);
+  protected IControl createControl(final MatchResult aMatch) {
+    return new HtmlUnitInputFile((HtmlFileInput) aMatch.getHtmlElement());
   }
 }

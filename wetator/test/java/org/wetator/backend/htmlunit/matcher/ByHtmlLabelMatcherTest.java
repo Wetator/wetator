@@ -16,6 +16,8 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -23,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher.ByHtmlLabelMatchResult;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
@@ -35,6 +38,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * @author frank.danek
  */
 public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
+
+  private boolean matchInvisible;
 
   @Test
   public void not() throws IOException, InvalidInputException {
@@ -69,6 +74,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -87,6 +93,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -105,6 +112,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -123,6 +131,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 14, 14, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -162,6 +171,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -182,6 +192,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -202,6 +213,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -222,6 +234,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -260,6 +273,44 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
+  public void matchInvisibleNot() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<label id='myLabelId' for='myId'>myLabel</label>"
+        + "<input id='myId' type='text' style='display: none;'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void matchInvisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<label id='myLabelId' for='myId'>myLabel</label>"
+        + "<input id='myId' type='text' style='display: none;'>"
+        + "</body></html>";
+    // @formatter:on
+
+    matchInvisible = true;
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
+  }
+
+  @Test
   public void childNot() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -292,6 +343,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -310,6 +362,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -328,6 +381,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -346,6 +400,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 0, 0, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -389,6 +444,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -411,6 +467,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -433,6 +490,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -455,6 +513,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     Assert.assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 22, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
   @Test
@@ -499,9 +558,53 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
     Assert.assertEquals(0, tmpMatches.size());
   }
 
+  @Test
+  public void childMatchInvisibleNot() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<label id='myLabelId'>myLabel"
+        + "<input id='myId' type='text' style='display: none;'>"
+        + "</label>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void childMatchInvisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<label id='myLabelId'>myLabel"
+        + "<input id='myId' type='text' style='display: none;'>"
+        + "</label>"
+        + "</body></html>";
+    // @formatter:on
+
+    matchInvisible = true;
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_LABEL, 0, 0, 0, tmpMatches.get(0));
+    assertLabelEquals("myLabelId", tmpMatches.get(0));
+  }
+
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
-    return new ByHtmlLabelMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, HtmlTextInput.class);
+    return new ByHtmlLabelMatcher(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, HtmlTextInput.class,
+        matchInvisible);
+  }
+
+  private static void assertLabelEquals(final String anExpectedId, final MatchResult anActualMatch) {
+    assertTrue(anActualMatch instanceof ByHtmlLabelMatchResult);
+    assertEquals(anExpectedId, ((ByHtmlLabelMatchResult) anActualMatch).getLabel().getId());
   }
 }
