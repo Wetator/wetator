@@ -203,7 +203,10 @@ public class WetatorEngine {
    * Shuts the Wetator engine down and releases all resources.
    */
   public void shutdown() {
-    getBrowser().close();
+    final IBrowser tmpBrowser = getBrowser();
+    if (tmpBrowser != null) {
+      tmpBrowser.close();
+    }
   }
 
   /**
