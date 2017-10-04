@@ -112,8 +112,9 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
   @Override
   protected IControl createControl(final MatchResult aMatch) {
     final HtmlUnitInputCheckBox tmpCheckBox = new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aMatch.getHtmlElement());
-    if (aMatch instanceof ByHtmlLabelMatchResult) {
-      // if found by a label we pass this label to the control so we might use it later
+    if (aMatch instanceof ByHtmlLabelMatchResult && !htmlPageIndex.isVisible(aMatch.getHtmlElement())) {
+      // we support finding an invisible control by label
+      // in that case we pass this label to the control so we might use it later
       tmpCheckBox.setHtmlLabel(((ByHtmlLabelMatchResult) aMatch).getLabel());
     }
     return tmpCheckBox;
