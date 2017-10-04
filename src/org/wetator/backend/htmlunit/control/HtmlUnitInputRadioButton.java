@@ -65,7 +65,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
 
     final StringBuilder tmpText = new StringBuilder(
         HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput));
-    if (!tmpHtmlRadioButtonInput.isDisplayed() && htmlLabel != null) {
+    if (htmlLabel != null) {
       tmpText.append(" by ").append(HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel));
     }
     return tmpText.toString();
@@ -88,12 +88,12 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
       if (tmpHtmlRadioButtonInput.isChecked()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        if (tmpHtmlRadioButtonInput.isDisplayed()) {
+        if (htmlLabel == null) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Select - HtmlUnitInputRadioButton.click() '" + tmpHtmlRadioButtonInput + "'");
           }
           tmpHtmlRadioButtonInput.click();
-        } else if (htmlLabel != null) {
+        } else {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Select - HtmlUnitInputRadioButton.click() '" + htmlLabel + "'");
           }

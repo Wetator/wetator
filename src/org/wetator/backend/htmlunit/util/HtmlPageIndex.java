@@ -17,11 +17,13 @@
 package org.wetator.backend.htmlunit.util;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -97,27 +99,28 @@ public class HtmlPageIndex {
   private Map<DomNode, FindSpot> positionsWithoutFormControls;
 
   private List<DomNode> nodes;
-  private List<HtmlElement> visibleHtmlElementsBottomUp;
-  private List<HtmlElement> visibleHtmlElements;
+  private Set<HtmlElement> visibleHtmlElementsBottomUp;
+  private Set<HtmlElement> visibleHtmlElements;
 
   private boolean lastOneWasHtmlElement;
 
   /**
    * The constructor.
    *
-   * @param aHtmlPage the HtmlPage to index
+   * @param aHtmlPage the {@link HtmlPage} to index
    */
   public HtmlPageIndex(final HtmlPage aHtmlPage) {
     htmlPage = aHtmlPage;
 
     text = new NormalizedString();
-    positions = new HashMap<DomNode, FindSpot>(256);
-    positionsWithoutFormControls = new HashMap<DomNode, FindSpot>(256);
+    positions = new HashMap<>(256);
+    positionsWithoutFormControls = new HashMap<>(256);
     textWithoutFormControls = new NormalizedString();
 
     nodes = new LinkedList<DomNode>();
-    visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
-    visibleHtmlElements = new LinkedList<HtmlElement>();
+    // LinkedHashSets to preserve the order and have a fast contains
+    visibleHtmlElementsBottomUp = new LinkedHashSet<>();
+    visibleHtmlElements = new LinkedHashSet<>();
 
     parseDomNode(aHtmlPage);
   }
@@ -153,21 +156,31 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns a list of all visible HtmlElements.
+   * Returns an ordered set of all visible {@link HtmlElement}s starting from the root.
    *
-   * @return the list of all visible HtmlElements
+   * @return an ordered set of all visible {@link HtmlElement}s
    */
-  public List<HtmlElement> getAllVisibleHtmlElements() {
+  public Set<HtmlElement> getAllVisibleHtmlElements() {
     return visibleHtmlElements;
   }
 
   /**
-   * Returns the list of all visible html elements always starting with the leaves.
+   * Returns an ordered set of all visible {@link HtmlElement}s starting with the last leaf.
    *
-   * @return the list of all html elements
+   * @return an ordered set of all visible {@link HtmlElement}s
    */
-  public List<HtmlElement> getAllVisibleHtmlElementsBottomUp() {
+  public Set<HtmlElement> getAllVisibleHtmlElementsBottomUp() {
     return visibleHtmlElementsBottomUp;
+  }
+
+  /**
+   * Returns the visibility of the given {@link HtmlElement}.
+   *
+   * @param anHtmlElement the {@link HtmlElement} to check
+   * @return <code>true</code> if the given {@link HtmlElement} is visible, <code>false</code> otherwise
+   */
+  public boolean isVisible(final HtmlElement anHtmlElement) {
+    return visibleHtmlElements.contains(anHtmlElement);
   }
 
   /**

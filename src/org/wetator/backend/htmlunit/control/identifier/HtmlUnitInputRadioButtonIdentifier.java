@@ -106,8 +106,9 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIden
   protected IControl createControl(final MatchResult aMatch) {
     final HtmlUnitInputRadioButton tmpRadioButton = new HtmlUnitInputRadioButton(
         (HtmlRadioButtonInput) aMatch.getHtmlElement());
-    if (aMatch instanceof ByHtmlLabelMatchResult) {
-      // if found by a label we pass this label to the control so we might use it later
+    if (aMatch instanceof ByHtmlLabelMatchResult && !htmlPageIndex.isVisible(aMatch.getHtmlElement())) {
+      // we support finding an invisible control by label
+      // in that case we pass this label to the control so we might use it later
       tmpRadioButton.setHtmlLabel(((ByHtmlLabelMatchResult) aMatch).getLabel());
     }
     return tmpRadioButton;

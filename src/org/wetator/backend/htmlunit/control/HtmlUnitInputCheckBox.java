@@ -65,7 +65,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
     final StringBuilder tmpText = new StringBuilder(
         HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput));
-    if (!tmpHtmlCheckBoxInput.isDisplayed() && htmlLabel != null) {
+    if (htmlLabel != null) {
       tmpText.append(" by ").append(HtmlElementUtil.getDescribingTextForHtmlLabel(htmlLabel));
     }
     return tmpText.toString();
@@ -88,12 +88,12 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       if (tmpHtmlCheckBoxInput.isChecked()) {
         aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
       } else {
-        if (tmpHtmlCheckBoxInput.isDisplayed()) {
+        if (htmlLabel == null) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
           }
           tmpHtmlCheckBoxInput.click();
-        } else if (htmlLabel != null) {
+        } else {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Select - HtmlUnitInputCheckBox.click() '" + htmlLabel + "'");
           }
@@ -142,12 +142,12 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
     try {
       if (tmpHtmlCheckBoxInput.isChecked()) {
-        if (tmpHtmlCheckBoxInput.isDisplayed()) {
+        if (htmlLabel == null) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Deselect - HtmlUnitInputCheckBox.click() '" + tmpHtmlCheckBoxInput + "'");
           }
           tmpHtmlCheckBoxInput.click();
-        } else if (htmlLabel != null) {
+        } else {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Deselect - HtmlUnitInputCheckBox.click() '" + htmlLabel + "'");
           }

@@ -175,7 +175,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           if (StringUtils.isNotEmpty(tmpForAttribute)) {
             try {
               final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
-              if (tmpElementForLabel instanceof HtmlSelect && tmpElementForLabel.isDisplayed()) {
+              if (tmpElementForLabel instanceof HtmlSelect && htmlPageIndex.isVisible(tmpElementForLabel)) {
                 final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpElementForLabel);
                 final int tmpDistance;
                 if (aWPath.getPathNodes().isEmpty()) {
@@ -196,7 +196,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           // element must be a nested element of label
           final Iterable<HtmlElement> tmpChildren = tmpLabel.getHtmlElementDescendants();
           for (final HtmlElement tmpChildElement : tmpChildren) {
-            if (tmpChildElement instanceof HtmlSelect && tmpChildElement.isDisplayed()) {
+            if (tmpChildElement instanceof HtmlSelect && htmlPageIndex.isVisible(tmpChildElement)) {
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpChildElement);
               final int tmpDistance;
               if (aWPath.getPathNodes().isEmpty()) {

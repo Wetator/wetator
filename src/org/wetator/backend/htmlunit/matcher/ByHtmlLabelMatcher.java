@@ -109,7 +109,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
           try {
             final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
             if (clazz.isAssignableFrom(tmpElementForLabel.getClass())
-                && (tmpElementForLabel.isDisplayed() || matchInvisible)) {
+                && (htmlPageIndex.isVisible(tmpElementForLabel) || matchInvisible)) {
               tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               final int tmpDistance;
@@ -129,7 +129,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
         // element must be a nested element of label
         final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
         for (final HtmlElement tmpChildElement : tmpChilds) {
-          if (clazz.isAssignableFrom(tmpChildElement.getClass()) && (tmpChildElement.isDisplayed() || matchInvisible)) {
+          if (clazz.isAssignableFrom(tmpChildElement.getClass())
+              && (htmlPageIndex.isVisible(tmpChildElement) || matchInvisible)) {
             tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
             final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
             final int tmpDistance;
