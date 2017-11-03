@@ -83,6 +83,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
+    tmpResourceHandler.setRedirectWelcome(true); // see https://github.com/eclipse/jetty.project/issues/1856
 
     // final MimeTypes tmpMimeTypes = new MimeTypes();
     // tmpMimeTypes.addMimeMapping("json", "application/json");
