@@ -243,6 +243,8 @@
         <ivy:retrieve pattern="${dir.lib-src}${ivy.retrieve.pattern}" sync="true" type="source" />
         <ivy:resolve conf="default, master, compile, provided, runtime, test, optional" />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
+
+        <ivy:checkdepsupdate revisionToCheck="latest.release" />
     </target>
 
 
