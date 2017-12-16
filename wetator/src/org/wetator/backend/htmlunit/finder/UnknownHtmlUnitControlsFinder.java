@@ -90,26 +90,25 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
       for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
         final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
-        if (tmpStartPos <= tmpNodeSpot.getStartPos()) {
-          if ((controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null)
-              && (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
-                  tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
+        if (tmpStartPos <= tmpNodeSpot.getStartPos()
+            && (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null)
+            && (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+                tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
 
-            final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpHtmlElement);
-            final int tmpDeviation = htmlPageIndex.getAsText(tmpHtmlElement).length();
+          final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpHtmlElement);
+          final int tmpDeviation = htmlPageIndex.getAsText(tmpHtmlElement).length();
 
-            final int tmpDistance;
-            if (tmpPathSearchPattern != null) {
-              tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-            } else {
-              tmpDistance = tmpTextBefore.length();
-            }
-
-            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-                tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
-
-            break;
+          final int tmpDistance;
+          if (tmpPathSearchPattern != null) {
+            tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+          } else {
+            tmpDistance = tmpTextBefore.length();
           }
+
+          tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
+              tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+
+          break;
         }
       }
       return tmpFoundControls;
