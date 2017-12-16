@@ -423,7 +423,11 @@ public final class ResponseStore {
       return null;
     } finally {
       if (tmpIn != null) {
-        IOUtils.closeQuietly(tmpIn);
+        try {
+          tmpIn.close();
+        } catch (final Exception e) {
+          // NOPMD bad luck
+        }
       }
     }
   }

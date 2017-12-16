@@ -41,7 +41,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
@@ -151,8 +150,7 @@ public class XMLScripter implements IScripter {
 
   private boolean isSupported(final Reader aContent) throws IOException {
     // now check root element, schema and version
-    final BufferedReader tmpReader = new BufferedReader(aContent);
-    try {
+    try (BufferedReader tmpReader = new BufferedReader(aContent)) {
       String tmpLine;
       boolean tmpTestCase = false;
       boolean tmpBaseSchema = false;
@@ -177,8 +175,6 @@ public class XMLScripter implements IScripter {
           return true;
         }
       }
-    } finally {
-      IOUtils.closeQuietly(tmpReader);
     }
 
     return false;
@@ -186,25 +182,25 @@ public class XMLScripter implements IScripter {
 
   @Override
   public void script(final File aFile) throws InvalidInputException {
-    Reader tmpReader = null;
     try {
-      tmpReader = createUTF8Reader(aFile);
-      final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-      IOUtils.closeQuietly(tmpReader);
+      try (Reader tmpReader = createUTF8Reader(aFile)) {
+        final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
 
-      if (null == tmpSchemas || tmpSchemas.isEmpty()) {
-        throw new InvalidInputException(
-            "No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.");
+        if (null == tmpSchemas || tmpSchemas.isEmpty()) {
+          throw new InvalidInputException(
+              "No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.");
+        }
+
+        addDefaultSchemas(tmpSchemas);
+        removeDuplicateSchemas(tmpSchemas);
+        schemas = tmpSchemas;
+
+        model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
       }
 
-      addDefaultSchemas(tmpSchemas);
-      removeDuplicateSchemas(tmpSchemas);
-      schemas = tmpSchemas;
-
-      model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
-
-      tmpReader = createUTF8Reader(aFile);
-      commands = parseScript(tmpReader);
+      try (Reader tmpReader = createUTF8Reader(aFile)) {
+        commands = parseScript(tmpReader);
+      }
     } catch (final FileNotFoundException e) {
       throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.",
           e);
@@ -219,8 +215,6 @@ public class XMLScripter implements IScripter {
     } catch (final ParseException e) {
       throw new InvalidInputException(
           "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
-    } finally {
-      IOUtils.closeQuietly(tmpReader);
     }
   }
 
@@ -234,9 +228,7 @@ public class XMLScripter implements IScripter {
    * @throws ResourceException in case of problems reading the file
    */
   public void script(final String aContent, final File aDirectory) throws InvalidInputException {
-    Reader tmpReader = null;
-    try {
-      tmpReader = new StringReader(aContent);
+    try (Reader tmpReader = new StringReader(aContent)) {
       final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
 
       if (null == tmpSchemas || tmpSchemas.isEmpty()) {
@@ -259,8 +251,6 @@ public class XMLScripter implements IScripter {
       throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
     } catch (final ParseException e) {
       throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
-    } finally {
-      IOUtils.closeQuietly(tmpReader);
     }
   }
 
@@ -392,15 +382,17 @@ public class XMLScripter implements IScripter {
         }
       }
     } finally {
-      if (tmpReader != null) {
+      try {
+        tmpReader.close();
+      } catch (final Exception e) {
+        // bad luck
+      }
+      if (aContent != null) {
         try {
-          tmpReader.close();
+          aContent.close();
         } catch (final Exception e) {
           // bad luck
         }
-      }
-      if (aContent != null) {
-        IOUtils.closeQuietly(aContent);
       }
     }
     return tmpResult;

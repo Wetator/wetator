@@ -403,7 +403,7 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.3" type="maven-plugin"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.4.1" type="maven-plugin"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
         <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>

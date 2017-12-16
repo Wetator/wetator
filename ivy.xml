@@ -36,7 +36,7 @@
         <dependency org="com.github.rjeschke" name="txtmark" rev="0.13" />
         <dependency org="commons-io" name="commons-io" rev="2.6" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.7" />
-        <dependency org="org.apache.commons" name="commons-text" rev="1.1" />
+        <dependency org="org.apache.commons" name="commons-text" rev="1.2" />
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.29-SNAPSHOT" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.17" changing="true" /> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.18-SNAPSHOT" changing="true" /> -->
@@ -48,15 +48,15 @@
         <dependency org="com.sun.xsom" name="xsom" rev="20140925" />
 
         <dependency org="junit" name="junit" rev="4.12" transitive="true" conf="test,sources" />
-        <dependency org="org.mockito" name="mockito-core" rev="2.12.0" conf="test,sources" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.7.v20170914" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.7.v20170914" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.7.v20170914" conf="test" />
+        <dependency org="org.mockito" name="mockito-core" rev="2.13.0" conf="test,sources" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.8.v20171121" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.8.v20171121" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.8.v20171121" conf="test" />
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" transitive="false" conf="test,sources" />
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.25" transitive="false" conf="test" />
         <dependency org="org.hsqldb" name="hsqldb" rev="2.4.0" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
-        <override org="org.eclipse.jetty" module="*" rev="9.4.7.v20170914" />
+        <override org="org.eclipse.jetty" module="*" rev="9.4.8.v20171121" />
     </dependencies>
 </ivy-module>
