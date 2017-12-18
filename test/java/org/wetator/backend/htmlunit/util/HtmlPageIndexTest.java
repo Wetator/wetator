@@ -696,7 +696,7 @@ public class HtmlPageIndexTest {
 
   @Test
   @Ignore("handling of visibility:hidden is currently broken")
-  // FIXME handling of visibility:hidden is currently broken
+  // TODO handling of visibility:hidden is currently broken
   public void getText_CSSVisibilityHidden() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1117,7 +1117,7 @@ public class HtmlPageIndexTest {
 
   @Test
   @Ignore("add not-displayed children of not-displayed elements to the index?")
-  // FIXME add not-displayed children of not-displayed elements to the index?
+  // TODO add not-displayed children of not-displayed elements to the index?
   public void getIndex_InsideCSSDisplayNone() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1155,7 +1155,7 @@ public class HtmlPageIndexTest {
 
   @Test
   @Ignore("add hidden children of hidden elements to the index?")
-  // FIXME add hidden children of hidden elements to the index?
+  // TODO add hidden children of hidden elements to the index?
   public void getIndex_InsideCSSVisibilityHidden() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1170,7 +1170,7 @@ public class HtmlPageIndexTest {
 
   @Test
   @Ignore("handling of visibility:hidden is currently broken")
-  // FIXME handling of visibility:hidden is currently broken
+  // TODO handling of visibility:hidden is currently broken
   public void getIndex_InsideCSSVisibilityHiddenButVisible() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
