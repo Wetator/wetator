@@ -17,7 +17,7 @@
 package org.wetator.jenkins.result;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,8 +44,8 @@ public class TestResults extends AbstractBaseResult {
   private transient int passCount;
   private transient int skipCount;
   private transient int failCount;
-  private transient Map<String, TestFileResult> testFileMap = new HashMap<>();
-  private transient Map<String, TestFileResult> testFileUrlMap = new HashMap<>();
+  private transient Map<String, TestFileResult> testFileMap = new LinkedHashMap<>();
+  private transient Map<String, TestFileResult> testFileUrlMap = new LinkedHashMap<>();
 
   /**
    * The constructor.
@@ -254,8 +254,8 @@ public class TestResults extends AbstractBaseResult {
     passedTests = new ArrayList<>();
     skippedTests = new ArrayList<>();
     failedTests = new ArrayList<>();
-    testFileMap = new HashMap<>();
-    testFileUrlMap = new HashMap<>();
+    testFileMap = new LinkedHashMap<>();
+    testFileUrlMap = new LinkedHashMap<>();
     for (TestResult tmpTestResult : testResults) {
       tmpTestResult.tally();
       duration += tmpTestResult.getDuration();
