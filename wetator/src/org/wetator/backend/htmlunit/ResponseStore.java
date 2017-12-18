@@ -409,9 +409,7 @@ public final class ResponseStore {
    */
   private static String getContentAsStringWithoutBOM(final WebResponse aWebResponse) {
     final Charset tmpCharset = aWebResponse.getContentCharset();
-    InputStream tmpIn = null;
-    try {
-      tmpIn = aWebResponse.getContentAsStream();
+    try (InputStream tmpIn = aWebResponse.getContentAsStream()) {
       if (null == tmpIn) {
         return null;
       }
@@ -421,14 +419,6 @@ public final class ResponseStore {
     } catch (final IOException e) {
       LOG.warn("", e);
       return null;
-    } finally {
-      if (tmpIn != null) {
-        try {
-          tmpIn.close();
-        } catch (final Exception e) {
-          // NOPMD bad luck
-        }
-      }
     }
   }
 }
