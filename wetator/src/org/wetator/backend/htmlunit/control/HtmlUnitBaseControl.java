@@ -257,7 +257,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
         if (Key.KEY_RETURN == tmpKey) {
           tmpKeyboard.press(KeyboardEvent.DOM_VK_RETURN);
         } else {
-          tmpKeyboard.press(tmpKey.getChar());
+          tmpKeyboard.type(tmpKey.getChar());
         }
       }
 

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:i='http://www.wetator.org/xsd/incubator-command-set'
+    xmlns:tst='http://www.wetator.org/xsd/test-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/incubator-command-set incubator-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <comment>Input Text</comment>
+    <comment>characters</comment>
+    <command><d:open-url><d:url>incubator/type.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>to inputText</d:wpath></d:click-on></command>
+    <command><i:type><i:keys>Ab1</i:keys></i:type></command>
+    <command><d:assert-set><d:wpath>Input Text</d:wpath><d:value>Ab1</d:value></d:assert-set></command>
+    <comment>enter</comment>
+    <command><d:open-url><d:url>incubator/type.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>to inputText</d:wpath></d:click-on></command>
+    <command><i:type><i:keys>[ENTER]</i:keys></i:type></command>
+    <command><d:assert-content><d:content>Result enter pressed</d:content></d:assert-content></command>
+    <comment>TextArea</comment>
+    <comment>characters</comment>
+    <command><d:open-url><d:url>incubator/type.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>to textarea</d:wpath></d:click-on></command>
+    <command><i:type><i:keys>Ab1</i:keys></i:type></command>
+    <command><d:assert-set><d:wpath>TextArea</d:wpath><d:value>Ab1</d:value></d:assert-set></command>
+    <comment>enter</comment>
+    <command><d:open-url><d:url>incubator/type.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>to textarea</d:wpath></d:click-on></command>
+    <command><i:type><i:keys>[ENTER]</i:keys></i:type></command>
+    <command><d:assert-content><d:content>Result enter pressed</d:content></d:assert-content></command>
+    <comment>mixed 1</comment>
+    <command><d:open-url><d:url>incubator/type.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>to textarea</d:wpath></d:click-on></command>
+    <command><i:type><i:keys>Ab1</i:keys></i:type></command>
+    <command><i:type><i:keys>[ENTER]</i:keys></i:type></command>
+    <command><i:type><i:keys>Ab1</i:keys></i:type></command>
+    <command><d:assert-set><d:wpath>TextArea</d:wpath><d:value>Ab1Ab1</d:value></d:assert-set></command>
+    <command><d:assert-content><d:content>Result enter pressed</d:content></d:assert-content></command>
+    <comment>mixed 2</comment>
+    <command><d:open-url><d:url>incubator/type.html</d:url></d:open-url></command>
+    <command><d:click-on><d:wpath>to textarea</d:wpath></d:click-on></command>
+    <command><i:type><i:keys>Ab1[ENTER]Ab1</i:keys></i:type></command>
+    <command><d:assert-set><d:wpath>TextArea</d:wpath><d:value>Ab1Ab1</d:value></d:assert-set></command>
+    <command><d:assert-content><d:content>Result enter pressed</d:content></d:assert-content></command>
+</test-case>

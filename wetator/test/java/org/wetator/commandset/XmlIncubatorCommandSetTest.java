@@ -85,6 +85,16 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
     Assert.assertEquals(0, getErrors());
   }
 
+  @Test
+  @Browsers({ BrowserType.FIREFOX_52 })
+  public void type() throws InvalidInputException {
+    executeTestFile("type.wet");
+
+    Assert.assertEquals(28, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
   private void executeTestFile(final String aTestFileName) throws InvalidInputException {
     executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
