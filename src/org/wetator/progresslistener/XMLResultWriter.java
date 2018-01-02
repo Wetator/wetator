@@ -155,7 +155,7 @@ public class XMLResultWriter implements IProgressListener {
       final String[] tmpClassNames = new String[] { "com.gargoylesoftware.htmlunit.WebClient",
           "net.sourceforge.htmlunit.corejs.javascript.Function", "net.sourceforge.htmlunit.cyberneko.HTMLElements",
           "com.steadystate.css.parser.CSSOMParser" };
-      for (String tmpClassName : tmpClassNames) {
+      for (final String tmpClassName : tmpClassNames) {
         tmpInfo.setLength(0);
         try {
           final Class<?> tmpClass = Class.forName(tmpClassName);
@@ -174,7 +174,7 @@ public class XMLResultWriter implements IProgressListener {
       final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-text-\\S+jar", "commons-codec-\\S+jar",
           "commons-io-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar", "log4j-api-\\S+jar",
           "log4j-core-\\S+jar" };
-      for (String tmpJar : tmpJars) {
+      for (final String tmpJar : tmpJars) {
         tmpInfo.setLength(0);
         // @formatter:off
         tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJar, null))
