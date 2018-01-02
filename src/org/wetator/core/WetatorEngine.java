@@ -18,7 +18,6 @@ package org.wetator.core;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -210,32 +209,33 @@ public class WetatorEngine {
   }
 
   /**
-   * Adds the default {@link IProgressListener}.
+   * Adds the default {@link IProgressListener}s.
    * <ul>
    * <li>{@link XMLResultWriter}</li>
+   * <li><code>Log4jProgressListener</code> if retrospect is enabled</li>
    * </ul>
    */
   protected void addDefaultProgressListeners() {
-    // create new result writer and call the init() method.
     final XMLResultWriter tmpResultWriter = new XMLResultWriter();
     tmpResultWriter.init(this);
     addProgressListener(tmpResultWriter);
 
+    // enable retrospect if configured
     if (configuration.getRetrospect() > 0) {
-      // there is no direct dependency to log4j so far;
+      // we do not want to have a direct dependency to the log4j implementation
       // and this setup is only used for special debug configurations
+      // => we use reflection here to stay decoupled
       try {
-        final Class<?> tmpClass = Class.forName("org.wetator.progresslistener.Log4jProgressListener");
-        final Constructor<?> tmpConstructor = tmpClass.getConstructor(new Class[] { int.class });
-        final Object tmpLogListener = tmpConstructor.newInstance(new Object[] { configuration.getRetrospect() });
+        @SuppressWarnings("unchecked")
+        final Class<? extends IProgressListener> tmpClass = (Class<? extends IProgressListener>) Class
+            .forName("org.wetator.progresslistener.Log4jProgressListener");
+        final Constructor<? extends IProgressListener> tmpConstructor = tmpClass
+            .getConstructor(new Class[] { int.class });
+        final IProgressListener tmpProgressListener = tmpConstructor
+            .newInstance(new Object[] { configuration.getRetrospect() });
 
-        final Method tmpInitMethod = tmpClass.getMethod("init", WetatorEngine.class);
-        tmpInitMethod.invoke(tmpLogListener, this);
-
-        final Method tmpAppendMethod = tmpClass.getMethod("appendAsWireListener");
-        tmpAppendMethod.invoke(tmpLogListener);
-
-        addProgressListener((IProgressListener) tmpLogListener);
+        tmpProgressListener.init(this);
+        addProgressListener(tmpProgressListener);
         LOG.info("Retrospect enabled; steps: " + configuration.getRetrospect() + ".");
       } catch (final Throwable e) {
         LOG.error("Could not instanciate Log4jProgressListener. Retrospect is disabled.", e);

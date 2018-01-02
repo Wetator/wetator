@@ -86,7 +86,6 @@ import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
@@ -330,7 +329,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setTimeout(tmpConfiguration.getHttpTimeoutInSeconds() * 1000);
 
     // debug stuff
-    if (tmpConfiguration.isLogEnabled()) {
+    if (tmpConfiguration.isDebugLoggingEnabled()) {
       final HtmlUnitContextFactory tmpContextFactory = ((JavaScriptEngine) webClient.getJavaScriptEngine())
           .getContextFactory();
       tmpContextFactory.setDebugger(new DebuggerImpl());
@@ -513,7 +512,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own WebConsole logger.
    */
-  public static class WebConsoleLogger implements Logger {
+  public static class WebConsoleLogger implements com.gargoylesoftware.htmlunit.WebConsole.Logger {
     private WetatorEngine wetatorEngine;
 
     /**

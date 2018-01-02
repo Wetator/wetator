@@ -106,7 +106,7 @@ samples/wetator_testform/wetator_testform.wet -text
 samples/wetator_testform/wetator_testform.wett -text
 samples/wetator_testform/wetator_testform.xls -text
 src/js_filter.cfg -text
-src/log4j.properties -text
+src/log4j2.xml -text svneol=unset#text/plain
 src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
 src/org/wetator/Wetator.java -text

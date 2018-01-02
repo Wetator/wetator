@@ -249,7 +249,7 @@ public class WetatorConfiguration {
   private Map<String, String> mimeTypes;
   private List<Variable> variables; // store them in defined order
 
-  private boolean log;
+  private boolean debugLogging;
   private int retrospect;
 
   /**
@@ -1078,23 +1078,23 @@ public class WetatorConfiguration {
   }
 
   /**
-   * @return the configured proxy port
+   * @return the configured number of steps for retrospection
    */
   public int getRetrospect() {
     return retrospect;
   }
 
   /**
-   * @return true if the (javascript) log is switched on
+   * @return <code>true</code> if the (javascript) debug logging is switched on
    */
-  public boolean isLogEnabled() {
-    return log;
+  public boolean isDebugLoggingEnabled() {
+    return debugLogging;
   }
 
   /**
-   * Switches the (javascript) log on.
+   * Switches the (javascript) debug logging on.
    */
-  public void enableLog() {
-    log = true;
+  public void enableDebugLogging() {
+    debugLogging = true;
   }
 }
