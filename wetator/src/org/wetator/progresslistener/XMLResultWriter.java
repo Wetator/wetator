@@ -141,25 +141,24 @@ public class XMLResultWriter implements IProgressListener {
 
       printlnStartTag(TAG_WET);
 
-      // about wetator
+      // about Wetator
       printlnStartTag(TAG_ABOUT);
 
       printlnNode(TAG_PRODUCT, Version.getProductName());
       printlnNode(TAG_VERSION, Version.getVersion());
       printlnNode(TAG_BUILD, Version.getBuild());
 
-      // wetator libs
+      // Wetator libs
       printlnStartTag(TAG_LIBS);
 
       StringBuilder tmpInfo = new StringBuilder();
-
-      final String[] tmpLibs = new String[] { "com.gargoylesoftware.htmlunit.WebClient",
+      final String[] tmpClassNames = new String[] { "com.gargoylesoftware.htmlunit.WebClient",
           "net.sourceforge.htmlunit.corejs.javascript.Function", "net.sourceforge.htmlunit.cyberneko.HTMLElements",
           "com.steadystate.css.parser.CSSOMParser" };
-      for (int i = 0; i < tmpLibs.length; i++) {
+      for (String tmpClassName : tmpClassNames) {
         tmpInfo.setLength(0);
         try {
-          final Class<?> tmpClass = Class.forName(tmpLibs[i]);
+          final Class<?> tmpClass = Class.forName(tmpClassName);
           // @formatter:off
           tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpClass))
               .append(" (")
@@ -167,35 +166,22 @@ public class XMLResultWriter implements IProgressListener {
               .append(')');
           // @formatter:on
         } catch (final ClassNotFoundException e) {
-          tmpInfo.append("Class '").append(tmpLibs[i]).append("' not found in classpath.");
+          tmpInfo.append("Class '").append(tmpClassName).append("' not found in classpath.");
         }
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
-      tmpInfo = new StringBuilder();
-      final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-codec-\\S+jar", "commons-io-\\S+jar",
-          "commons-logging-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar" };
-      for (int i = 0; i < tmpJars.length; i++) {
+      final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-text-\\S+jar", "commons-codec-\\S+jar",
+          "commons-io-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar", "log4j-api-\\S+jar",
+          "log4j-core-\\S+jar" };
+      for (String tmpJar : tmpJars) {
         tmpInfo.setLength(0);
         // @formatter:off
-        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJars[i], null))
+        tmpInfo.append(VersionUtil.determineTitleFromJarManifest(tmpJar, null))
             .append(' ')
-            .append(VersionUtil.determineVersionFromJarManifest(tmpJars[i], null));
+            .append(VersionUtil.determineVersionFromJarManifest(tmpJar, null));
         // @formatter:on
         printlnNode(TAG_LIB, tmpInfo.toString());
-      }
-
-      try {
-        // @formatter:off
-        tmpInfo = new StringBuilder(VersionUtil.determineTitleFromJarManifest("log4j-\\S+jar", "org.apache.log4j"))
-            .append(' ')
-            .append(VersionUtil.determineVersionFromJarManifest("log4j-\\S+jar", "org.apache.log4j"));
-        // @formatter:on
-        printlnNode(TAG_LIB, tmpInfo.toString());
-      } catch (final RuntimeException e) {
-        throw e;
-      } catch (final Exception e) {
-        printlnNode(TAG_LIB, "log4j not in classpath.");
       }
 
       printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(Automaton.class));
@@ -208,7 +194,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnNode(TAG_LIB, tmpInfo.toString());
 
       // @formatter:off
-      tmpInfo = new StringBuilder("PDF Box ")
+      tmpInfo = new StringBuilder("Apache PDFBox ")
           .append(org.apache.pdfbox.util.Version.getVersion());
       // @formatter:on
       printlnNode(TAG_LIB, tmpInfo.toString());
@@ -244,7 +230,9 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_JAVA);
 
       printlnEndTag(TAG_ABOUT);
-    } catch (final IOException e) {
+    } catch (
+
+    final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }

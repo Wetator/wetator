@@ -330,7 +330,7 @@ wetator/samples/wetator_testform/wetator_testform.wet -text
 wetator/samples/wetator_testform/wetator_testform.wett -text
 wetator/samples/wetator_testform/wetator_testform.xls -text
 wetator/src/js_filter.cfg -text
-wetator/src/log4j.properties -text
+wetator/src/log4j2.xml -text svneol=unset#text/plain
 wetator/src/org/wetator/Messages.properties -text
 wetator/src/org/wetator/Version.java -text
 wetator/src/org/wetator/Wetator.java -text

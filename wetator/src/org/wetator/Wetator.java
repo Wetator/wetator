@@ -50,16 +50,15 @@ public final class Wetator {
    * @param anArgsArray the command line arguments
    */
   public static void main(final String[] anArgsArray) {
-
     String tmpConfigFileName = null;
-    File tmpLogFile = null;
+    File tmpDebugLogFile = null;
     final List<String> tmpFileNames = new LinkedList<String>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();
       if ("-log".equals(tmpArg)) {
-        tmpLogFile = new File("wetator.log");
-        Log4jUtil.configureLog(tmpLogFile);
+        tmpDebugLogFile = new File("wetator.log");
+        Log4jUtil.configureDebugLogging(tmpDebugLogFile);
       } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;
@@ -71,8 +70,8 @@ public final class Wetator {
     LOG.info(Version.getFullProductName());
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
-    if (null != tmpLogFile) {
-      LOG.info("    Log file: " + FilenameUtils.normalize(tmpLogFile.getAbsolutePath()));
+    if (null != tmpDebugLogFile) {
+      LOG.info("    Debug log file: " + FilenameUtils.normalize(tmpDebugLogFile.getAbsolutePath()));
     }
 
     final IProgressListener tmpProgressListener = new StdOutProgressListener();
@@ -86,8 +85,8 @@ public final class Wetator {
           tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
         }
         tmpWetatorEngine.init();
-        if (null != tmpLogFile) {
-          tmpWetatorEngine.getConfiguration().enableLog();
+        if (null != tmpDebugLogFile) {
+          tmpWetatorEngine.getConfiguration().enableDebugLogging();
         }
 
         if (tmpFileNames.isEmpty()) {
