@@ -378,13 +378,12 @@
 
 
     <!-- ===========================================
-         private target load-findbugs
+         private target load-spotbugs
          =========================================== -->
-    <target name="-load-findbugs" depends="-load-ivy" unless="skip.metrics">
-        <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
-        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="3.0.1" type="jar,bundle"
-            pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
-        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
+    <target name="-load-spotbugs" depends="-load-ivy" unless="skip.metrics">
+        <ivy:cachepath organisation="com.github.spotbugs" module="spotbugs-ant" revision="3.1.1" type="jar,bundle"
+            pathid="taskdef-classpath-spotbugs" inline="true" transitive="true" log="download-only" />
+        <taskdef resource="edu/umd/cs/findbugs/anttask/tasks.properties" classpathref="taskdef-classpath-spotbugs" />
     </target>
 
 
@@ -414,7 +413,7 @@
            gathers all metrics
          =========================================== -->
     <target name="-gather-metrics" description="gathers all metrics"
-        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd, -load-forbiddenapis" unless="skip.metrics">
+        depends="-compile, -load-checkstyle, -load-spotbugs, -load-pmd, -load-forbiddenapis" unless="skip.metrics">
         <!-- run checkstyle -->
         <echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
         <delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
@@ -432,24 +431,24 @@
             </classpath>
         </checkstyle>
 
-        <!-- run findbugs -->
-        <echo level="info">Running Findbugs (output: ${dir.deploy}/findbugs)</echo>
-        <path id="findbugs-aux-classpath">
+        <!-- run spotbugs -->
+        <echo level="info">Running SpotBugs (output: ${dir.deploy}/spotbugs)</echo>
+        <path id="spotbugs-aux-classpath">
             <fileset dir="${dir.lib}">
                 <patternset refid="libPattern" />
             </fileset>
         </path>
 
-        <delete dir="${dir.deploy}/findbugs" includeemptydirs="true" />
-        <mkdir dir="${dir.deploy}/findbugs" />
-        <findbugs jvmargs="-Xmx512m" output="xml:withMessages"
-            outputFile="${dir.deploy}/findbugs/findbugs-report.xml" timeout="1800000"
-            excludeFilter="${dir.test}/findbugs/exclude-filter.xml">
-            <classpath refid="taskdef-classpath-findbugs" />
-            <auxclasspath refid="findbugs-aux-classpath" />
+        <delete dir="${dir.deploy}/spotbugs" includeemptydirs="true" />
+        <mkdir dir="${dir.deploy}/spotbugs" />
+        <spotbugs jvmargs="-Xmx512m" output="xml:withMessages"
+            outputFile="${dir.deploy}/spotbugs/spotbugs-report.xml" timeout="1800000"
+            excludeFilter="${dir.test}/spotbugs/exclude-filter.xml">
+            <classpath refid="taskdef-classpath-spotbugs" />
+            <auxclasspath refid="spotbugs-aux-classpath" />
             <sourcePath path="${dir.src}" />
             <class location="${dir.build}/classes" />
-        </findbugs>
+        </spotbugs>
 
         <!-- run pmd -->
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
