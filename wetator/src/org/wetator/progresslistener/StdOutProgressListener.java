@@ -289,7 +289,7 @@ public class StdOutProgressListener implements IProgressListener {
   @Override
   public void error(final Throwable aThrowable) {
     testResult = TestResult.ERROR;
-    aThrowable.printStackTrace();
+    aThrowable.printStackTrace(); // NOPMD
   }
 
   @Override
@@ -342,7 +342,7 @@ public class StdOutProgressListener implements IProgressListener {
       output.println(aString);
       output.flush();
     } catch (final IOException e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
     }
   }
 
@@ -356,7 +356,7 @@ public class StdOutProgressListener implements IProgressListener {
       output.print(aString);
       output.flush();
     } catch (final IOException e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
     }
   }
 

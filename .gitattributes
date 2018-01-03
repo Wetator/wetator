@@ -701,7 +701,9 @@ wetator/test/legacy_xml/default_command_set.xml -text
 wetator/test/legacy_xml/modules/module.xml -text
 wetator/test/legacy_xml/sql_command_set.xml -text
 wetator/test/pmd/wet-clone.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-coupling.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-logging-java.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator/test/pmd/wet-strings.xml -text svneol=unset#text/plain
 wetator/test/real-world/jira/atlassian-jira.wett -text

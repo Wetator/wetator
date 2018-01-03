@@ -219,7 +219,7 @@ public class XMLScriptCreator implements IScriptCreator {
     } catch (final RuntimeException e) {
       throw e;
     } catch (final Exception e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
     }
   }
 

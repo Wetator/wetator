@@ -391,7 +391,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.8.1" type="jar,bundle"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="6.0.0" type="jar,bundle"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
@@ -453,14 +453,17 @@
         <!-- run pmd -->
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
-        <pmd shortFilenames="true">
-            <ruleset>rulesets/java/basic.xml,rulesets/java/empty.xml,rulesets/java/unnecessary.xml,rulesets/java/braces.xml,rulesets/java/unusedcode.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-clone.xml,${dir.test}/pmd/wet-strings.xml,${dir.test}/pmd/wet-optimizations.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml</ruleset>
-            <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
+        <pmd shortFilenames="true" encoding="UTF-8" cacheLocation="${dir.build}/pmd">
+        	<sourceLanguage name="java" version="${javac.target}"/>
+            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,${dir.test}/pmd/wet-clone.xml,${dir.test}/pmd/wet-coupling.xml,rulesets/java/empty.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,${dir.test}/pmd/wet-logging-java.xml,${dir.test}/pmd/wet-optimizations.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unnecessary.xml,rulesets/java/unusedcode.xml</ruleset>
+            <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml">
+            	<param name="encoding" value="UTF-8" />
+            </formatter>
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
             </fileset>
         </pmd>
-        <cpd minimumTokenCount="100" outputFile="${dir.deploy}/pmd/cpd-report.xml" format="xml">
+        <cpd minimumTokenCount="100" outputFile="${dir.deploy}/pmd/cpd-report.xml" format="xml" encoding="UTF-8">
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
             </fileset>

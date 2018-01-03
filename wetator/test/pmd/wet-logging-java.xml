@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<ruleset name="Java Logging (Wetator adjusted)"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+  <description>
+The Java Logging ruleset contains a collection of rules that find questionable usages of the logger.
+
+This is a copy of PMD's logging-java, but we have configured it to
+- ignore GuardLogStatementJavaUtil
+  </description>
+
+    <!-- Rules, that have been moved into a category -->
+    <rule ref="category/java/errorprone.xml/InvalidSlf4jMessageFormat" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/LoggerIsNotStaticFinal" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/MoreThanOneLogger" deprecated="true" />
+
+    <rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace" deprecated="true" />
+    <!-- GuardLogStatementJavaUtil has been merged into GuardLogStatement -->
+    <!--<rule ref="category/java/bestpractices.xml/GuardLogStatement" name="GuardLogStatementJavaUtil" deprecated="true" />-->
+    <rule ref="category/java/bestpractices.xml/SystemPrintln" deprecated="true" />
+
+</ruleset>
