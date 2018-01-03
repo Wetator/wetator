@@ -97,8 +97,8 @@ public final class WetatorScriptConverter {
         System.exit(0);
       }
 
-      for (int i = 0; i < tmpFiles.length; i++) {
-        tmpConverter.addTestFile(tmpFiles[i]);
+      for (final File tmpFile : tmpFiles) {
+        tmpConverter.addTestFile(tmpFile);
       }
 
       System.out.println("Begin converting..."); // NOPMD

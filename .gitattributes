@@ -480,6 +480,7 @@ test/pmd/wet-clone.xml -text svneol=unset#text/plain
 test/pmd/wet-coupling.xml -text svneol=unset#text/plain
 test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 test/pmd/wet-logging-java.xml -text svneol=unset#text/plain
+test/pmd/wet-migrating.xml -text svneol=unset#text/plain
 test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 test/pmd/wet-strings.xml -text svneol=unset#text/plain
 test/real-world/jira/atlassian-jira.wett -text

@@ -173,9 +173,7 @@ public final class XSLTransformer {
     }
 
     // copy each file from the list
-    for (int i = 0; i < tmpImageFiles.length; i++) {
-      final File tmpSourceFile = tmpImageFiles[i];
-
+    for (final File tmpSourceFile : tmpImageFiles) {
       final String tmpSourceFileName = tmpSourceFile.getName();
       if (null != tmpSourceFileName && tmpSourceFileName.startsWith(".")) {
         // ignore files starting with '.'

@@ -437,16 +437,16 @@ public final class ContentUtil {
 
       final String[] tmpISO639 = Locale.getISOLanguages();
       final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
-      for (int i = 0; i < tmpISO639.length; i++) {
-        if (tmpISO639[i].equals(tmpLanguage)) {
+      for (final String tmpISO639Language : tmpISO639) {
+        if (tmpISO639Language.equals(tmpLanguage)) {
           // found a valid language
           // check the country
           String tmpCountry3166 = "";
           if (tmpLocaleDescriptor.size() > 1) {
             final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
             final String[] tmpISO3166 = Locale.getISOCountries();
-            for (int j = 0; j < tmpISO3166.length; j++) {
-              if (tmpISO3166[j].equals(tmpCountry)) {
+            for (final String tmpISO3166Country : tmpISO3166) {
+              if (tmpISO3166Country.equals(tmpCountry)) {
                 tmpCountry3166 = tmpCountry;
               }
             }
