@@ -176,7 +176,7 @@ public final class VersionUtil {
         }
       }
     } catch (final Throwable e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
       // fallback to default
     }
     return aDefault;

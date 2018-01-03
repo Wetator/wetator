@@ -930,7 +930,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       for (final SearchPattern tmpPattern : patterns) {
         if (tmpPattern.matches(tmpJob)) {
           if (isDebugEnabled && LOG.isDebugEnabled()) {
-            LOG.debug("JsJob filtered out: '" + tmpJob + "'");
+            LOG.debug("JsJob filtered out: '" + tmpJob + "'"); // NOPMD
           }
           return false;
         }

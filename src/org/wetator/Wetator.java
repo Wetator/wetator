@@ -141,7 +141,7 @@ public final class Wetator {
       }
       // SearchPattern.dumpStatistics();
     } catch (final Throwable e) {
-      System.out.println("Wetator execution failed: " + e.getMessage());
+      System.out.println("Wetator execution failed: " + e.getMessage()); // NOPMD
       LOG.fatal("Wetator execution failed:", e);
 
       // System.exit is needed because we have started swing

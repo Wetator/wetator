@@ -223,7 +223,7 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
 
   @Override
   public void error(final Throwable aThrowable) {
-    aThrowable.printStackTrace();
+    aThrowable.printStackTrace(); // NOPMD
   }
 
   @Override

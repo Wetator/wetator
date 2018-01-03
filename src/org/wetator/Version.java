@@ -33,7 +33,7 @@ public final class Version {
    * @param anArgsArray ignored
    */
   public static void main(final String[] anArgsArray) {
-    System.out.println(getFullProductName());
+    System.out.println(getFullProductName()); // NOPMD
   }
 
   /**
