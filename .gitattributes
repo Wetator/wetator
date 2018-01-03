@@ -272,8 +272,6 @@ test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 test/excel/default_command_set.xls -text
 test/excel/modules/module.xls -text
 test/excel/sql_command_set.xls -text
-test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
-test/findbugs/findbugsfilter.xsd -text svneol=unset#text/plain
 test/java/org/wetator/VersionTest.java -text
 test/java/org/wetator/automatonTest.jpage -text
 test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
@@ -493,6 +491,7 @@ test/real-world/vaadin/proxy.wett -text
 test/real-world/vaadin/vaadin-sample.wett -text
 test/real-world/vaadin/vaadin-simple.wett -text
 test/real-world/vaadin/vaadin.wett -text
+test/spotbugs/exclude-filter.xml -text svneol=unset#text/plain
 test/webpage/ajax/jquery/ajax_javascript_test.js -text
 test/webpage/ajax/jquery/ajax_options_birds.htms -text
 test/webpage/ajax/jquery/ajax_options_fish.htms -text
