@@ -20,8 +20,8 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.ActionException;
@@ -41,7 +41,7 @@ import org.wetator.util.SecretString;
  */
 public class WetatorContext {
 
-  private static final Log LOG = LogFactory.getLog(WetatorContext.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorContext.class);
 
   /** The name of the {@link Variable} containing the name of the current test case. */
   public static final String VARIABLE_TESTCASE = "wetator.testcase";

@@ -31,8 +31,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class transforms the output.
@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * @author rbri
  */
 public final class XSLTransformer {
-  private static final Log LOG = LogFactory.getLog(XSLTransformer.class);
+  private static final Logger LOG = LogManager.getLogger(XSLTransformer.class);
 
   private static final String RESOURCES_DIRECTORY = "resources";
   private File xmlResultFile;

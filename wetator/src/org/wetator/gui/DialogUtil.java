@@ -35,8 +35,8 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.Wetator;
 import org.wetator.i18n.Messages;
 import org.wetator.util.StringUtil;
@@ -47,7 +47,7 @@ import org.wetator.util.StringUtil;
  * @author rbri
  */
 public final class DialogUtil {
-  private static final Log LOG = LogFactory.getLog(DialogUtil.class);
+  private static final Logger LOG = LogManager.getLogger(DialogUtil.class);
 
   private static final char FILE_SEPARATOR = ';';
   private static final String LAST_DIR = "lastDir";

@@ -24,8 +24,8 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
@@ -44,7 +44,7 @@ import org.wetator.progresslistener.XMLResultWriter;
  */
 public class WetatorEngine {
 
-  private static final Log LOG = LogFactory.getLog(WetatorEngine.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorEngine.class);
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
   private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";

@@ -31,8 +31,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.Version;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -65,7 +65,7 @@ import dk.brics.automaton.Automaton;
  */
 public class XMLResultWriter implements IProgressListener {
 
-  private static final Log LOG = LogFactory.getLog(XMLResultWriter.class);
+  private static final Logger LOG = LogManager.getLogger(XMLResultWriter.class);
 
   private static final String TAG_WET = "wet";
   private static final String TAG_ABOUT = "about";

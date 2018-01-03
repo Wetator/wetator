@@ -38,8 +38,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 import org.wetator.exception.ResourceException;
 
@@ -60,7 +60,7 @@ import com.gargoylesoftware.htmlunit.util.UrlUtils;
  * @author frank.danek
  */
 public final class ResponseStore {
-  private static final Log LOG = LogFactory.getLog(ResponseStore.class);
+  private static final Logger LOG = LogManager.getLogger(ResponseStore.class);
   private static final Pattern CSS_URL_PATTERN = Pattern.compile("url\\(\\s*([\"']?)(.*?)([\"']?)\\s*\\)");
   private static final Pattern CSS_IMPORT_URL_PATTERN = Pattern.compile("@import\\s+([\"'])(.*?)([\"'])");
   private static final int MAX_FILE_NAME_LENGTH = 200;

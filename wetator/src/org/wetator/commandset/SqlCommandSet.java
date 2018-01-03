@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
@@ -57,7 +57,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
    */
   protected static final String DB_NAME_PREFIX = "@";
 
-  private static final Log LOG = LogFactory.getLog(SqlCommandSet.class);
+  private static final Logger LOG = LogManager.getLogger(SqlCommandSet.class);
 
   private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "db.";
   private static final String PROPERTY_CONNECTIONS = PROPERTY_PREFIX + "connections";

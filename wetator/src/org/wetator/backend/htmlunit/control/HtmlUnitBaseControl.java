@@ -22,8 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.KeySequence;
@@ -59,7 +59,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBaseControl.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitBaseControl.class);
 
   private T htmlElement;
 

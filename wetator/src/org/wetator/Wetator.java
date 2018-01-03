@@ -25,8 +25,8 @@ import javax.swing.JWindow;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorEngine;
 import org.wetator.gui.DialogUtil;
@@ -42,7 +42,7 @@ import org.wetator.util.Log4jUtil;
  */
 public final class Wetator {
 
-  private static final Log LOG = LogFactory.getLog(Wetator.class);
+  private static final Logger LOG = LogManager.getLogger(Wetator.class);
 
   /**
    * The start point for the command line call.
