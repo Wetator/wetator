@@ -8,7 +8,7 @@
   <description>
 Rules which find instances of high or inappropriate coupling between objects and packages.
 
-This is a copy of PMD's optimizations, but we have configured it to
+This is a copy of PMD's coupling, but we have configured it to
 - ignore CouplingBetweenObjects.
 - ignore ExcessiveImports.
 - ignore LawOfDemeter.

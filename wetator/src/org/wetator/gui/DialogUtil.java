@@ -280,8 +280,8 @@ public final class DialogUtil {
     }
 
     final StringBuilder tmpFiles = new StringBuilder();
-    for (int i = 0; i < aFiles.length; i++) {
-      tmpFiles.append(aFiles[i].getAbsolutePath());
+    for (final File tmpFile : aFiles) {
+      tmpFiles.append(tmpFile.getAbsolutePath());
       tmpFiles.append(FILE_SEPARATOR);
     }
 

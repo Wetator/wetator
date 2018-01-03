@@ -138,7 +138,7 @@ public class ModelBuilder {
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);
 
     // find all command types and their parameter types
-    for (final Iterator<XSElementDecl> tmpIterator = aSchemaSet.iterateElementDecls(); tmpIterator.hasNext();) {
+    for (final Iterator<XSElementDecl> tmpIterator = aSchemaSet.iterateElementDecls(); tmpIterator.hasNext();) { // NOPMD
       final XSElementDecl tmpElement = tmpIterator.next();
       if (tmpElement.getType().isDerivedFrom(baseCommandType) && !((XSComplexType) tmpElement.getType()).isAbstract()) {
 
