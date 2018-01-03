@@ -26,10 +26,9 @@ import java.util.List;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
@@ -65,7 +64,7 @@ import org.wetator.util.Output;
  */
 public class Log4jProgressListener extends AbstractAppender implements IProgressListener {
 
-  private static final Log LOG = LogFactory.getLog(Log4jProgressListener.class);
+  private static final Logger LOG = LogManager.getLogger(Log4jProgressListener.class);
 
   private int commandCount;
   private List<CommandEvents> commandEvents = new LinkedList<CommandEvents>();

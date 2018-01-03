@@ -16,8 +16,8 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -46,7 +46,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 @IdentifiedBy(HtmlUnitInputRadioButtonIdentifier.class)
 public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButtonInput> implements ISelectable {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitInputRadioButton.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitInputRadioButton.class);
 
   private HtmlLabel htmlLabel;
 

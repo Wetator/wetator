@@ -32,8 +32,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
@@ -60,7 +60,7 @@ import org.wetator.backend.htmlunit.util.ContentTypeUtil;
  * @author rbri
  */
 public final class ContentUtil {
-  private static final Log LOG = LogFactory.getLog(ContentUtil.class);
+  private static final Logger LOG = LogManager.getLogger(ContentUtil.class);
 
   private static final String MORE = " ...";
 

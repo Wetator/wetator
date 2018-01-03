@@ -16,8 +16,8 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
@@ -50,7 +50,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 @IdentifiedBy({ HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
 public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements IDeselectable {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitOption.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitOption.class);
 
   /**
    * The constructor.

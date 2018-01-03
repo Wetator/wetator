@@ -34,8 +34,8 @@ import java.util.WeakHashMap;
 import javax.swing.text.BadLocationException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
@@ -110,7 +110,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  * @author frank.danek
  */
 public final class HtmlUnitBrowser implements IBrowser {
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitBrowser.class);
 
   private static final int MAX_LENGTH = 4000;
 
@@ -901,7 +901,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       implements com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
-    private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
+    private static final Logger LOG = LogManager.getLogger(JavaScriptJobFilter.class);
 
     private List<SearchPattern> patterns;
     private boolean isDebugEnabled;

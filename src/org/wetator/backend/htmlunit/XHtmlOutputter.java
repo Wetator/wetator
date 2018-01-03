@@ -29,8 +29,8 @@ import java.util.Set;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.util.Output;
 import org.wetator.util.XMLUtil;
@@ -129,7 +129,7 @@ import com.gargoylesoftware.htmlunit.svg.SvgRect;
  * @author rbri
  */
 public final class XHtmlOutputter {
-  private static final Log LOG = LogFactory.getLog(XHtmlOutputter.class);
+  private static final Logger LOG = LogManager.getLogger(XHtmlOutputter.class);
 
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;

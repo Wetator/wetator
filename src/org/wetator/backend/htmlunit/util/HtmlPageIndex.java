@@ -26,9 +26,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.WordUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;
@@ -89,7 +89,7 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
  * @author frank.danek
  */
 public class HtmlPageIndex {
-  private static final Log LOG = LogFactory.getLog(HtmlPageIndex.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlPageIndex.class);
 
   private HtmlPage htmlPage;
 

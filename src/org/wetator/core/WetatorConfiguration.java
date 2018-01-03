@@ -37,8 +37,8 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -62,7 +62,7 @@ import org.wetator.util.StringUtil;
 // TODO we have to split this into one common part and one part for configuring the backend
 public class WetatorConfiguration {
 
-  private static final Log LOG = LogFactory.getLog(WetatorConfiguration.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorConfiguration.class);
 
   /**
    * The prefix for all wetator properties.

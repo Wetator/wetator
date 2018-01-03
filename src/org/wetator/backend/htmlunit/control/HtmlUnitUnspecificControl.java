@@ -17,8 +17,8 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.UnsupportedOperationException;
@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
  */
 public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBaseControl<HtmlElement> {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitUnspecificControl.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitUnspecificControl.class);
 
   /**
    * The constructor.

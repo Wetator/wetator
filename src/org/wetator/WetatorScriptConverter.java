@@ -23,8 +23,8 @@ import java.util.Locale;
 
 import javax.swing.JWindow;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.exception.InvalidInputException;
@@ -45,7 +45,7 @@ import org.wetator.scripter.XMLScripter;
  */
 public final class WetatorScriptConverter {
 
-  private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorScriptConverter.class);
 
   private IScripter scripter;
   private IScriptCreator creator;
