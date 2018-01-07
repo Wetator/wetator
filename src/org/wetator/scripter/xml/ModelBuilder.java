@@ -64,7 +64,6 @@ public class ModelBuilder {
   private static final String BASE_COMMAND_TYPE = "commandType";
   private static final String BASE_PARAMETER_TYPE = "parameterType";
 
-  private XSComplexType baseCommandType;
   private XSSimpleType baseParameterType;
 
   private Map<String, CommandType> commandTypes = new LinkedHashMap<String, CommandType>();
@@ -134,13 +133,14 @@ public class ModelBuilder {
     if (tmpBaseSchema == null) {
       throw new ParseException("No base schema '" + XMLScripter.BASE_SCHEMA.getNamespace() + "' found.");
     }
-    baseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
+    final XSComplexType tmpBaseCommandType = tmpBaseSchema.getComplexType(BASE_COMMAND_TYPE);
     baseParameterType = tmpBaseSchema.getSimpleType(BASE_PARAMETER_TYPE);
 
     // find all command types and their parameter types
     for (final Iterator<XSElementDecl> tmpIterator = aSchemaSet.iterateElementDecls(); tmpIterator.hasNext();) { // NOPMD
       final XSElementDecl tmpElement = tmpIterator.next();
-      if (tmpElement.getType().isDerivedFrom(baseCommandType) && !((XSComplexType) tmpElement.getType()).isAbstract()) {
+      if (tmpElement.getType().isDerivedFrom(tmpBaseCommandType)
+          && !((XSComplexType) tmpElement.getType()).isAbstract()) {
 
         final String tmpElementName = tmpElement.getName();
         final CommandType tmpExistingCommandType = commandTypes.get(tmpElementName);

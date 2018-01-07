@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<ruleset name="Multithreading (Wetator adjusted)"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+Rules that flag issues when dealing with multiple threads of execution.
+
+This is a subset of PMD's 'Multithreading' ruleset.
+    </description>
+
+    <!-- <rule ref="category/java/multithreading.xml/AvoidSynchronizedAtMethodLevel" /> -->
+    <rule ref="category/java/multithreading.xml/AvoidThreadGroup" />
+    <!-- <rule ref="category/java/multithreading.xml/AvoidUsingVolatile" /> -->
+    <!-- <rule ref="category/java/multithreading.xml/DoNotUseThreads" /> -->
+    <rule ref="category/java/multithreading.xml/DontCallThreadRun" />
+    <rule ref="category/java/multithreading.xml/DoubleCheckedLocking" />
+    <!-- <rule ref="category/java/multithreading.xml/NonThreadSafeSingleton" /> -->
+    <rule ref="category/java/multithreading.xml/UnsynchronizedStaticDateFormatter" />
+    <!-- <rule ref="category/java/multithreading.xml/UseConcurrentHashMap" /> -->
+    <rule ref="category/java/multithreading.xml/UseNotifyAllInsteadOfNotify" />
+
+</ruleset>

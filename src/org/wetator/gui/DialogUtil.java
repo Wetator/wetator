@@ -45,6 +45,7 @@ import org.wetator.util.StringUtil;
  * Utility class to display a file selector dialog.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class DialogUtil {
   private static final Logger LOG = LogManager.getLogger(DialogUtil.class);
@@ -100,7 +101,7 @@ public final class DialogUtil {
    * @param aMultiSelectionFlag if true multiple files can be selected.
    * @return the selected files.
    */
-  protected static File[] chooseFilesSwing(final JWindow aWindow, final String aPropertyKey,
+  private static File[] chooseFilesSwing(final JWindow aWindow, final String aPropertyKey,
       final boolean aMultiSelectionFlag) {
     final Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
 
@@ -126,14 +127,14 @@ public final class DialogUtil {
     final LookAndFeel tmpCurrentLook = UIManager.getLookAndFeel();
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD
       // ignore, fall back to the default
     }
 
     final JFileChooser tmpFileChooser = new PlaceableFileChooser(tmpPreferences);
     tmpFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
-    tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
+    tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle"));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
 
     final File[] tmpOldFiles = restoreFiles(tmpPreferences, tmpLastDir);
@@ -147,7 +148,7 @@ public final class DialogUtil {
     try {
       // reset
       UIManager.setLookAndFeel(tmpCurrentLook);
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD
       // ignore
     }
 
@@ -274,7 +275,7 @@ public final class DialogUtil {
    * @param aPreferences the preferences to write to
    * @param aFiles the files to store
    */
-  public static void storeFiles(final Preferences aPreferences, final File[] aFiles) {
+  public static void storeFiles(final Preferences aPreferences, final File... aFiles) {
     if (null == aFiles) {
       return;
     }
@@ -308,7 +309,7 @@ public final class DialogUtil {
     int tmpPartsCount = 1;
     try {
       tmpPartsCount = Integer.parseInt(aPreferences.get(LAST_FILES, "1"));
-    } catch (final NumberFormatException e) {
+    } catch (final NumberFormatException e) { // NOPMD
       // ignore
     }
 

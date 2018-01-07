@@ -18,13 +18,12 @@ package org.wetator.scripter;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -384,13 +383,13 @@ public class XMLScripter implements IScripter {
     } finally {
       try {
         tmpReader.close();
-      } catch (final Exception e) {
+      } catch (final Exception e) { // NOPMD
         // bad luck
       }
       if (aContent != null) {
         try {
           aContent.close();
-        } catch (final Exception e) {
+        } catch (final Exception e) { // NOPMD
           // bad luck
         }
       }
@@ -398,8 +397,8 @@ public class XMLScripter implements IScripter {
     return tmpResult;
   }
 
-  private Reader createUTF8Reader(final File aFile) throws UnsupportedEncodingException, FileNotFoundException {
-    return new InputStreamReader(new FileInputStream(aFile), "UTF-8");
+  private Reader createUTF8Reader(final File aFile) throws IOException {
+    return Files.newBufferedReader(aFile.toPath(), StandardCharsets.UTF_8);
   }
 
   @Override

@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,6 +25,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,7 +100,7 @@ public final class ResponseStore {
    *
    * @param aBrowserSubdir the subdir for the specific browser this store is for
    */
-  protected void initOutputDir(final String aBrowserSubdir) {
+  private void initOutputDir(final String aBrowserSubdir) {
     final String tmpDirectoryName;
     if (overwrite) {
       tmpDirectoryName = "responses_current";
@@ -163,10 +163,9 @@ public final class ResponseStore {
   public String storePage(final Page aPage) {
     File tmpFile = null;
     try {
-      final StringBuilder tmpFileName = new StringBuilder("response_").append(getUniqueId());
       final String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
-
-      tmpFileName.append('.').append(tmpSuffix);
+      final StringBuilder tmpFileName = new StringBuilder("response_").append(getUniqueId()).append('.')
+          .append(tmpSuffix);
       tmpFile = new File(storeDir, tmpFileName.toString());
 
       if (aPage instanceof HtmlPage) {
@@ -176,7 +175,7 @@ public final class ResponseStore {
         final WebResponse tmpWebResponse = aPage.getWebResponse();
 
         try (InputStream tmpIn = tmpWebResponse.getContentAsStream();
-            OutputStream tmpOutputStream = new FileOutputStream(tmpFile)) {
+            OutputStream tmpOutputStream = Files.newOutputStream(tmpFile.toPath())) {
           final byte[] tmpBuffer = new byte[1024];
           int tmpBytes;
           while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
@@ -327,7 +326,7 @@ public final class ResponseStore {
           if (tmpProcessed == null) {
             FileUtils.forceMkdir(tmpResourceFile.getParentFile());
             try (InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-                FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile)) {
+                OutputStream tmpOutStream = Files.newOutputStream(tmpResourceFile.toPath())) {
               IOUtils.copy(tmpInStream, tmpOutStream);
             }
           }

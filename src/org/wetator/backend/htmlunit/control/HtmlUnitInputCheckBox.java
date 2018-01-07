@@ -76,17 +76,17 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     if (tmpHtmlCheckBoxInput.isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
     if (tmpHtmlCheckBoxInput.isReadOnly()) {
-      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", getDescribingText());
       throw new ActionException(tmpMessage);
     }
 
     try {
       if (tmpHtmlCheckBoxInput.isChecked()) {
-        aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
+        aWetatorContext.informListenersWarn("elementAlreadySelected", getDescribingText());
       } else {
         if (htmlLabel == null) {
           if (LOG.isDebugEnabled()) {
@@ -110,12 +110,10 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -132,11 +130,11 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     if (tmpHtmlCheckBoxInput.isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
     if (tmpHtmlCheckBoxInput.isReadOnly()) {
-      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", getDescribingText());
       throw new ActionException(tmpMessage);
     }
 
@@ -166,12 +164,10 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }

@@ -65,11 +65,11 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
     final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
     if (tmpHtmlHiddenInput.isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
     if (tmpHtmlHiddenInput.isReadOnly()) {
-      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", getDescribingText());
       throw new ActionException(tmpMessage);
     }
 
@@ -86,12 +86,10 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -99,7 +97,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionException {
-    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
+    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound");
   }
 
   @Override

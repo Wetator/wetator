@@ -115,8 +115,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @return the {@link IBrowser}
    */
   protected IBrowser getBrowser(final WetatorContext aContext) {
-    final IBrowser tmpBrowser = aContext.getBrowser();
-    return tmpBrowser;
+    return aContext.getBrowser();
   }
 
   /**
@@ -129,7 +128,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
     try {
       tmpControlFinder = aBrowser.getControlFinder();
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
       throw new ActionException(tmpMessage, e);
     }
     return tmpControlFinder;
@@ -151,7 +150,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
       throws ActionException {
     final IControl tmpControl = getFirstHtmlElementFrom(aContext, aWeightedControlList, aWPath);
     if (null == tmpControl) {
-      final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, new String[] { aWPath.toString() });
+      final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, aWPath.toString());
       throw new ActionException(tmpMessage);
     }
     return tmpControl;
@@ -176,12 +175,11 @@ public abstract class AbstractCommandSet implements ICommandSet {
     final WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
-      aContext.informListenersInfo("manyElementsFound",
-          new String[] { aWPath.toString(), tmpEntry.getControl().getDescribingText() });
+      aContext.informListenersInfo("manyElementsFound", aWPath.toString(), tmpEntry.getControl().getDescribingText());
     }
 
     for (final WeightedControlList.Entry tmpEachEntry : tmpEntries) {
-      aContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
+      aContext.informListenersInfo("elementFound", tmpEachEntry.toString());
     }
 
     return tmpEntry.getControl();

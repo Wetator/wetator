@@ -30,6 +30,7 @@ import com.gargoylesoftware.htmlunit.html.XHtmlPage;
  * Util class for page handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class PageUtil {
 
@@ -59,8 +60,7 @@ public final class PageUtil {
         new URL("http://www.wetator.org/test.html"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
-      return tmpPage;
+      return HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
     } finally {
       tmpWebClient.close();
     }
@@ -91,8 +91,7 @@ public final class PageUtil {
         new URL("http://www.wetator.org/test.xhtml"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
-      return tmpPage;
+      return HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
     } finally {
       tmpWebClient.close();
     }

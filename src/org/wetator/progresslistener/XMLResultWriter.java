@@ -163,7 +163,7 @@ public class XMLResultWriter implements IProgressListener {
           tmpInfo.append(VersionUtil.determineVersionFromJarFileName(tmpClass))
               .append(" (")
               .append(VersionUtil.determineCreationDateFromJarFileName(tmpClass))
-              .append(')');
+              .append(')'); // NOPMD
           // @formatter:on
         } catch (final ClassNotFoundException e) {
           tmpInfo.append("Class '").append(tmpClassName).append("' not found in classpath.");
@@ -620,9 +620,9 @@ public class XMLResultWriter implements IProgressListener {
   }
 
   @Override
-  public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  public void warn(final String aMessageKey, final Object[] aParameters, final String aDetails) {
     try {
-      final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+      final String tmpMessage = Messages.getMessage(aMessageKey, aParameters);
       if (LOG.isWarnEnabled()) {
         LOG.warn(tmpMessage);
       }
@@ -643,9 +643,9 @@ public class XMLResultWriter implements IProgressListener {
   }
 
   @Override
-  public void info(final String aMessageKey, final Object[] aParameterArray) {
+  public void info(final String aMessageKey, final Object... aParameters) {
     try {
-      final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+      final String tmpMessage = Messages.getMessage(aMessageKey, aParameters);
       if (LOG.isInfoEnabled()) {
         LOG.info(tmpMessage);
       }

@@ -265,9 +265,7 @@ public class WetatorEngine {
     final IScripter tmpScripter = createScripter(aFile);
 
     tmpScripter.script(aFile);
-    final List<Command> tmpResult = tmpScripter.getCommands();
-
-    return tmpResult;
+    return tmpScripter.getCommands();
   }
 
   private IScripter createScripter(final File aFile) throws InvalidInputException {
@@ -607,19 +605,18 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'warn'.
    *
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameters the message parameters
    * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray,
-      final Throwable aThrowable) {
+  public void informListenersWarn(final String aMessageKey, final Object[] aParameters, final Throwable aThrowable) {
     String tmpStackTrace = null;
     if (null != aThrowable) {
       tmpStackTrace = ExceptionUtils.getStackTrace(aThrowable);
     }
     synchronized (progressListener) {
       for (final IProgressListener tmpListener : progressListener) {
-        tmpListener.warn(aMessageKey, aParameterArray, tmpStackTrace);
+        tmpListener.warn(aMessageKey, aParameters, tmpStackTrace);
       }
     }
   }
@@ -627,14 +624,14 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'warn'.
    *
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameters the message parameters
    * @param aDetails the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  public void informListenersWarn(final String aMessageKey, final Object[] aParameters, final String aDetails) {
     synchronized (progressListener) {
       for (final IProgressListener tmpListener : progressListener) {
-        tmpListener.warn(aMessageKey, aParameterArray, aDetails);
+        tmpListener.warn(aMessageKey, aParameters, aDetails);
       }
     }
   }
@@ -642,13 +639,13 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'info'.
    *
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameters the message parameters
    */
-  public void informListenersInfo(final String aMessageKey, final Object[] aParameterArray) {
+  public void informListenersInfo(final String aMessageKey, final Object... aParameters) {
     synchronized (progressListener) {
       for (final IProgressListener tmpListener : progressListener) {
-        tmpListener.info(aMessageKey, aParameterArray);
+        tmpListener.info(aMessageKey, aParameters);
       }
     }
   }
@@ -656,7 +653,7 @@ public class WetatorEngine {
   /**
    * Informs all listeners about htmlDescribe.
    *
-   * @param aHtmlDescription the html source.
+   * @param aHtmlDescription the html source
    */
   public void informListenersHtmlDescribe(final String aHtmlDescription) {
     synchronized (progressListener) {
@@ -669,7 +666,7 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'engineResponseStored'.
    *
-   * @param aResponseFileName the file name of the stored response.
+   * @param aResponseFileName the file name of the stored response
    */
   public void informListenersResponseStored(final String aResponseFileName) {
     synchronized (progressListener) {
@@ -682,7 +679,7 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'highlightedResponse'.
    *
-   * @param aResponseFileName the file name of the stored response.
+   * @param aResponseFileName the file name of the stored response
    */
   public void informListenersHighlightedResponse(final String aResponseFileName) {
     synchronized (progressListener) {

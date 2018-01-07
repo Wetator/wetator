@@ -115,7 +115,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
    */
   public HtmlUnitFinderDelegator(final HtmlPage anHtmlPage, final HtmlUnitControlRepository aControlRepository) {
     if (null == anHtmlPage) {
-      throw new NullPointerException("HtmlPage can't be null");
+      throw new IllegalArgumentException("HtmlPage can't be null");
     }
     htmlPageIndex = new HtmlPageIndex(anHtmlPage);
 

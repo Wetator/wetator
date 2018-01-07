@@ -100,8 +100,7 @@ public final class TextOnlySearchPattern extends SearchPattern {
     if (StringUtils.isEmpty(aString)) {
       return -1;
     }
-    final int tmpPos = aString.lastIndexOf(patternString);
-    return tmpPos;
+    return aString.lastIndexOf(patternString);
   }
 
   @Override

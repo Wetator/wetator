@@ -85,7 +85,7 @@ public class SchemaFinder {
     } finally {
       try {
         tmpReader.close();
-      } catch (final XMLStreamException e) {
+      } catch (final XMLStreamException e) { // NOPMD
         // ignore
       }
     }

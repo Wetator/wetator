@@ -63,8 +63,7 @@ public abstract class SearchPattern {
       tmpPattern.append(tmpExpectedString);
     }
 
-    final SearchPattern tmpSearchPattern = SearchPattern.compile(tmpPattern.toString());
-    return tmpSearchPattern;
+    return SearchPattern.compile(tmpPattern.toString());
   }
 
   /**
@@ -360,7 +359,7 @@ public abstract class SearchPattern {
      */
     public synchronized String getStatistics() {
       // @formatter:off
-      final StringBuilder tmpResult = new StringBuilder(80)
+      final StringBuilder tmpResult = new StringBuilder(80) // NOPMD
         .append("SearchPatternCache statistics:\n")
         .append("      Entries: ").append(cache.size()).append('\n')
         .append("      Hits:    ").append(hitsCount);

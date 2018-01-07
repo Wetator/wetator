@@ -122,10 +122,7 @@ public class FindSpot {
     if (endPos != tmpOtherFindSpot.endPos) {
       return false;
     }
-    if (startPos != tmpOtherFindSpot.startPos) {
-      return false;
-    }
-    return true;
+    return startPos == tmpOtherFindSpot.startPos;
   }
 
   @Override

@@ -73,11 +73,11 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     final HtmlTextInput tmpHtmlTextInput = getHtmlElement();
 
     if (tmpHtmlTextInput.isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
     if (tmpHtmlTextInput.isReadOnly()) {
-      final String tmpMessage = Messages.getMessage("elementReadOnly", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementReadOnly", getDescribingText());
       throw new ActionException(tmpMessage);
     }
 
@@ -98,13 +98,13 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
           final IControl tmpFocusedControl = aWetatorContext.getBrowser().getFocusedControl();
 
           if (tmpFocusedControl == null) {
-            aWetatorContext.informListenersInfo("focusRemoved", new String[] { getDescribingText() });
+            aWetatorContext.informListenersInfo("focusRemoved", getDescribingText());
             throw new ActionException(
                 "After clicking on the control '" + getDescribingText() + "' the focus was removed.");
           }
 
           final String tmpDesc = tmpFocusedControl.getDescribingText();
-          aWetatorContext.informListenersInfo("focusChanged", new String[] { getDescribingText(), tmpDesc });
+          aWetatorContext.informListenersInfo("focusChanged", getDescribingText(), tmpDesc);
 
           if (tmpFocusedControl instanceof ISettable) {
             ((ISettable) tmpFocusedControl).setValue(aWetatorContext, aValue, aDirectory);
@@ -120,14 +120,12 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final ActionException e) {
       throw e;
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
 
@@ -162,12 +160,10 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -175,7 +171,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionException {
-    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
+    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound");
   }
 
   @Override

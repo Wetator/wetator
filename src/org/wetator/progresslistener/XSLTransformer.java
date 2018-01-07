@@ -18,9 +18,10 @@ package org.wetator.progresslistener;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Transformer;
@@ -38,6 +39,7 @@ import org.apache.logging.log4j.Logger;
  * This class transforms the output.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class XSLTransformer {
   private static final Logger LOG = LogManager.getLogger(XSLTransformer.class);
@@ -102,7 +104,7 @@ public final class XSLTransformer {
 
         final StreamSource tmpXmlStreamSource = new StreamSource(xmlResultFile);
 
-        final FileOutputStream tmpFileOutputStream = new FileOutputStream(tmpResultFile);
+        final OutputStream tmpFileOutputStream = Files.newOutputStream(tmpResultFile.toPath());
         final BufferedOutputStream tmpBufferedOutputStream = new BufferedOutputStream(tmpFileOutputStream);
         final StreamResult tmpStreamResult = new StreamResult(tmpBufferedOutputStream);
 
@@ -156,7 +158,7 @@ public final class XSLTransformer {
    * @param aTargetDir the directory to copy to
    * @throws IOException in case of problems
    */
-  protected void copyFiles(final File aSourceDir, final File aTargetDir) throws IOException {
+  private void copyFiles(final File aSourceDir, final File aTargetDir) throws IOException {
     if (aTargetDir.exists()) {
       // do not copy anything
       return;
@@ -175,7 +177,7 @@ public final class XSLTransformer {
     // copy each file from the list
     for (final File tmpSourceFile : tmpImageFiles) {
       final String tmpSourceFileName = tmpSourceFile.getName();
-      if (null != tmpSourceFileName && tmpSourceFileName.startsWith(".")) {
+      if (null != tmpSourceFileName && tmpSourceFileName.startsWith(".")) { // NOPMD
         // ignore files starting with '.'
       } else if (tmpSourceFile.isDirectory()) {
         final File tmpTargetSubDir = new File(aTargetDir, tmpSourceFile.getName());
@@ -183,21 +185,12 @@ public final class XSLTransformer {
       } else {
         final File tmpTargetFile = new File(aTargetDir, tmpSourceFile.getName());
 
-        try {
-          final FileInputStream tmpIn = new FileInputStream(tmpSourceFile);
-          try {
-            final FileOutputStream tmpOut = new FileOutputStream(tmpTargetFile);
-            try {
-              final byte[] tmpBuffer = new byte[1024];
-              int tmpBytes = 0;
-              while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
-                tmpOut.write(tmpBuffer, 0, tmpBytes);
-              }
-            } finally {
-              tmpOut.close();
-            }
-          } finally {
-            tmpIn.close();
+        try (InputStream tmpIn = Files.newInputStream(tmpSourceFile.toPath());
+            OutputStream tmpOut = Files.newOutputStream(tmpTargetFile.toPath())) {
+          final byte[] tmpBuffer = new byte[1024];
+          int tmpBytes = 0;
+          while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
+            tmpOut.write(tmpBuffer, 0, tmpBytes);
           }
         } catch (final IOException e) {
           LOG.error("Can't copy '" + FilenameUtils.normalize(tmpSourceFile.getAbsolutePath()) + "'. File ignored.", e);

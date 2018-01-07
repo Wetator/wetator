@@ -130,16 +130,13 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -185,12 +182,10 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -236,12 +231,10 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -271,16 +264,13 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final IOException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -325,19 +315,17 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+    final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", getDescribingText());
     throw new UnsupportedOperationException(tmpMessage);
   }
 
@@ -351,11 +339,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
-    if (tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement())) {
-      return true;
-    }
-
-    return false;
+    return tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement());
   }
 
   /**
@@ -493,7 +477,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     /**
      * @return the name of the discriminating attribute
      */
-    String attributeName() default "";
+    String attributeName()
+
+    default "";
 
     /**
      * @return the possible values of the discriminating attribute

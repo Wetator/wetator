@@ -115,7 +115,7 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
     }
 
     if (!tmpSupported) {
-      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", getDescribingText());
       throw new UnsupportedOperationException(tmpMessage);
     }
 

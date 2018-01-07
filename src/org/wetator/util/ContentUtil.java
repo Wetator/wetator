@@ -58,6 +58,7 @@ import org.wetator.backend.htmlunit.util.ContentTypeUtil;
  * ContentUtil contains some useful helpers for content conversion handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class ContentUtil {
   private static final Logger LOG = LogManager.getLogger(ContentUtil.class);
@@ -377,8 +378,7 @@ public final class ContentUtil {
 
     final DataFormatter tmpDataFormatter = new DataFormatter(aLocale);
     try {
-      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
-      return tmpResult;
+      return tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
     } catch (final NotImplementedException e) {
       final StringBuilder tmpMsg = new StringBuilder(e.getMessage());
       if (null != e.getCause()) {
@@ -387,8 +387,7 @@ public final class ContentUtil {
         tmpMsg.append(')');
       }
       LOG.error(tmpMsg.toString());
-      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
-      return tmpResult;
+      return tmpDataFormatter.formatCellValue(tmpCell, null);
     }
   }
 
@@ -424,14 +423,14 @@ public final class ContentUtil {
     final Iterator<String> tmpLanguages = StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1).iterator();
     while (tmpLanguages.hasNext()) {
       final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(tmpLanguages.next(), ";", -1);
-      if (tmpLanguageDescriptor.size() < 1) {
+      if (tmpLanguageDescriptor.isEmpty()) {
         return null;
       }
 
       final String tmpLocaleString = tmpLanguageDescriptor.get(0);
 
       final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
-      if (tmpLocaleDescriptor.size() < 1) {
+      if (tmpLocaleDescriptor.isEmpty()) {
         break;
       }
 

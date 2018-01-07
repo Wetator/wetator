@@ -36,6 +36,7 @@ import org.apache.commons.lang3.StringUtils;
  * from various sources.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class VersionUtil {
   private static final String BUNDLE_NAME = "Bundle-Name";
@@ -80,7 +81,7 @@ public final class VersionUtil {
       } finally {
         tmpJar.close();
       }
-    } catch (final Throwable e) {
+    } catch (final Throwable e) { // NOPMD
       // ignore
     }
     return DEFAULT;
