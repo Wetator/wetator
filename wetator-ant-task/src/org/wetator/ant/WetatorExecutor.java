@@ -29,10 +29,11 @@ import org.wetator.core.WetatorEngine;
 import org.wetator.exception.InvalidInputException;
 
 /**
- * Separate class that runs WETATOR.
+ * Separate class that runs Wetator.
  * This class is the entry point into our own class loader.
  *
  * @author rbri
+ * @author frank.danek
  */
 public class WetatorExecutor {
   private static final Log LOG = LogFactory.getLog(WetatorExecutor.class);
@@ -84,8 +85,7 @@ public class WetatorExecutor {
       tmpWetatorEngine.addProgressListener(tmpListener);
       tmpWetatorEngine.init();
 
-      for (int i = 0; i < listOfFiles.length; i++) {
-        final String tmpFileName = listOfFiles[i];
+      for (final String tmpFileName : listOfFiles) {
         tmpWetatorEngine.addTestCase(tmpFileName, new File(filesBaseDir, tmpFileName));
       }
 
@@ -95,9 +95,8 @@ public class WetatorExecutor {
       // 1 testCountError
       // 2 testCountFailure
       // 3 testCountIgnored
-      final long[] tmpResult = new long[] { tmpListener.getTestCountProcessed(), tmpListener.getTestCountError(),
+      return new long[] { tmpListener.getTestCountProcessed(), tmpListener.getTestCountError(),
           tmpListener.getTestCountFailure(), tmpListener.getTestCountIgnored() };
-      return tmpResult;
     } finally {
       tmpWetatorEngine.shutdown();
     }

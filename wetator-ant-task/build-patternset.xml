@@ -10,16 +10,18 @@
         <exclude name="junit-*.jar" />
         <exclude name="hamcrest-*.jar" />
         <exclude name="mockito-*.jar" />
+        <exclude name="byte-buddy-*.jar" />
         <exclude name="objenesis-*.jar" />
 
-        <exclude name="jetty-client*.jar" />
-        <exclude name="jetty-continuation*.jar" />
-        <exclude name="jetty-jmx*.jar" />
-        <exclude name="jetty-security*.jar" />
-        <exclude name="jetty-server*.jar" />
-        <exclude name="jetty-servlet*.jar" />
-        <exclude name="jetty-webapp*.jar" />
-        <exclude name="jetty-xml*.jar" />
+        <exclude name="jetty-co*.jar" />
+        <include name="jetty-client-*.jar" />
+        <include name="jetty-http-*.jar" />
+        <include name="jetty-io-*.jar" />
+        <exclude name="jetty-s*.jar" />
+        <include name="jetty-util-*.jar" />
+        <exclude name="jetty-w*.jar" />
+        <exclude name="jetty-x*.jar" />
+
         <exclude name="javax.servlet-*.jar" />
         <exclude name="slf4j-*.jar" />
     </patternset>

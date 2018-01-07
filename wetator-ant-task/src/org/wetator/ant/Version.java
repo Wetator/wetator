@@ -23,6 +23,7 @@ import java.util.jar.Manifest;
  * A small class to maintain the version information.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class Version {
 
@@ -32,7 +33,7 @@ public final class Version {
    * @param anArgsArray ignored
    */
   public static void main(final String[] anArgsArray) {
-    System.out.println(getFullProductName());
+    System.out.println(getFullProductName()); // NOPMD
   }
 
   /**
@@ -80,11 +81,9 @@ public final class Version {
     final int tmpPos = tmpPathToThisClass.indexOf('!');
     final StringBuilder tmpPathToManifest = new StringBuilder(tmpPathToThisClass.substring(0, tmpPos + 1));
     tmpPathToManifest.append("/META-INF/MANIFEST.MF");
-    final Manifest tmpManifest;
     try {
-      tmpManifest = new Manifest(new URL(tmpPathToManifest.toString()).openStream());
-      final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
-      return tmpValue;
+      final Manifest tmpManifest = new Manifest(new URL(tmpPathToManifest.toString()).openStream());
+      return tmpManifest.getAttributes("Application").getValue(anAttributeName);
     } catch (final RuntimeException e) {
       throw e;
     } catch (final Exception e) {

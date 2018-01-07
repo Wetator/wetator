@@ -78,8 +78,8 @@ public class Wetator extends Task {
 
       log("Classpath:", Project.MSG_INFO);
       final String[] tmpPaths = classpath.list();
-      for (int i = 0; i < tmpPaths.length; i++) {
-        log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
+      for (final String tmpPath : tmpPaths) {
+        log("    '" + tmpPath + "'", Project.MSG_INFO);
       }
 
       // AntClassLoader

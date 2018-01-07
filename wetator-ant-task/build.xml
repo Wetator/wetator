@@ -388,13 +388,12 @@
 
 
     <!-- ===========================================
-         private target load-findbugs
+         private target load-spotbugs
          =========================================== -->
-    <target name="-load-findbugs" depends="-load-ivy" unless="skip.metrics">
-        <echo level="info">Resolving sources and javadoc makes problems for findbugs so ignore such failures</echo>
-        <ivy:cachepath organisation="com.google.code.findbugs" module="findbugs" revision="3.0.1" type="jar,bundle"
-            pathid="taskdef-classpath-findbugs" inline="true" transitive="true" log="download-only" haltonfailure="false" />
-        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="taskdef-classpath-findbugs" />
+    <target name="-load-spotbugs" depends="-load-ivy" unless="skip.metrics">
+        <ivy:cachepath organisation="com.github.spotbugs" module="spotbugs-ant" revision="3.1.1" type="jar,bundle"
+            pathid="taskdef-classpath-spotbugs" inline="true" transitive="true" log="download-only" />
+        <taskdef resource="edu/umd/cs/findbugs/anttask/tasks.properties" classpathref="taskdef-classpath-spotbugs" />
     </target>
 
 
@@ -402,7 +401,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="5.8.1" type="jar,bundle"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="6.0.0" type="jar,bundle"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />
@@ -413,7 +412,7 @@
          private target load-forbiddenapis
          =========================================== -->
     <target name="-load-forbiddenapis" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.3" type="maven-plugin"
+        <ivy:cachepath organisation="de.thetaphi" module="forbiddenapis" revision="2.4.1" type="maven-plugin"
             pathid="taskdef-classpath-forbiddenapis" inline="true" transitive="true" log="download-only" />
         <taskdef name="forbiddenapis" classname="de.thetaphi.forbiddenapis.ant.AntTask" classpathref="taskdef-classpath-forbiddenapis" />
     </target>
@@ -424,7 +423,7 @@
            gathers all metrics
          =========================================== -->
     <target name="-gather-metrics" description="gathers all metrics"
-        depends="-compile, -load-checkstyle, -load-findbugs, -load-pmd, -load-forbiddenapis" unless="skip.metrics">
+        depends="-compile, -load-checkstyle, -load-spotbugs, -load-pmd, -load-forbiddenapis" unless="skip.metrics">
         <!-- run checkstyle -->
         <echo level="info">Running Checkstyle (output: ${dir.deploy}/checkstyle)</echo>
         <delete dir="${dir.deploy}/checkstyle" includeemptydirs="true" />
@@ -442,36 +441,39 @@
             </classpath>
         </checkstyle>
 
-        <!-- run findbugs -->
-        <echo level="info">Running Findbugs (output: ${dir.deploy}/findbugs)</echo>
-        <path id="findbugs-aux-classpath">
+        <!-- run spotbugs -->
+        <echo level="info">Running SpotBugs (output: ${dir.deploy}/spotbugs)</echo>
+        <path id="spotbugs-aux-classpath">
             <fileset dir="${dir.lib}">
                 <patternset refid="libPattern" />
             </fileset>
         </path>
 
-        <delete dir="${dir.deploy}/findbugs" includeemptydirs="true" />
-        <mkdir dir="${dir.deploy}/findbugs" />
-        <findbugs jvmargs="-Xmx512m" output="xml:withMessages"
-            outputFile="${dir.deploy}/findbugs/findbugs-report.xml" timeout="1800000"
-            excludeFilter="${dir.test}/findbugs/exclude-filter.xml">
-            <classpath refid="taskdef-classpath-findbugs" />
-            <auxclasspath refid="findbugs-aux-classpath" />
+        <delete dir="${dir.deploy}/spotbugs" includeemptydirs="true" />
+        <mkdir dir="${dir.deploy}/spotbugs" />
+        <spotbugs jvmargs="-Xmx512m" output="xml:withMessages"
+            outputFile="${dir.deploy}/spotbugs/spotbugs-report.xml" timeout="1800000"
+            excludeFilter="${dir.test}/spotbugs/exclude-filter.xml">
+            <classpath refid="taskdef-classpath-spotbugs" />
+            <auxclasspath refid="spotbugs-aux-classpath" />
             <sourcePath path="${dir.src}" />
             <class location="${dir.build}/classes" />
-        </findbugs>
+        </spotbugs>
 
         <!-- run pmd -->
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
-        <pmd shortFilenames="true">
-            <ruleset>rulesets/java/basic.xml,rulesets/java/empty.xml,rulesets/java/unnecessary.xml,rulesets/java/braces.xml,rulesets/java/unusedcode.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-clone.xml,${dir.test}/pmd/wet-strings.xml,${dir.test}/pmd/wet-optimizations.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml</ruleset>
-            <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml" />
+        <pmd shortFilenames="true" encoding="UTF-8" cacheLocation="${dir.build}/pmd">
+        	<sourceLanguage name="java" version="${javac.target}"/>
+            <ruleset>${dir.test}/pmd/wet-bestpractices.xml,${dir.test}/pmd/wet-codestyle.xml,${dir.test}/pmd/wet-design.xml,${dir.test}/pmd/wet-errorprone.xml,${dir.test}/pmd/wet-multithreading.xml,${dir.test}/pmd/wet-performance.xml</ruleset>
+            <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml">
+            	<param name="encoding" value="UTF-8" />
+            </formatter>
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
             </fileset>
         </pmd>
-        <cpd minimumTokenCount="100" outputFile="${dir.deploy}/pmd/cpd-report.xml" format="xml">
+        <cpd minimumTokenCount="100" outputFile="${dir.deploy}/pmd/cpd-report.xml" format="xml" encoding="UTF-8">
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
             </fileset>
