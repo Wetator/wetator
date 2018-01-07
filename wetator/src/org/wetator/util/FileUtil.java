@@ -25,6 +25,7 @@ import org.apache.commons.io.FilenameUtils;
  * FileUtil contains some useful extensions to work with files.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class FileUtil {
 
@@ -37,7 +38,7 @@ public final class FileUtil {
   public static void createOutputDir(final File anOutputDir) throws IOException {
     if (null == anOutputDir) {
       // I18n
-      throw new NullPointerException("No output directory specified.");
+      throw new IllegalArgumentException("No output directory specified.");
     }
 
     if (anOutputDir.exists()) {

@@ -25,11 +25,12 @@ import org.wetator.i18n.Messages;
  * A small set of assert methods.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class Assert {
 
   /** The marker for more content. */
-  protected static final String MORE_MARKER = "...";
+  private static final String MORE_MARKER = "...";
 
   /**
    * This class should not be instantiated.
@@ -43,11 +44,11 @@ public final class Assert {
    * message.
    *
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException always
    */
-  public static void fail(final String aMessageKey, final Object[] aParameterArray) throws AssertionException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+  public static void fail(final String aMessageKey, final Object... aParameters) throws AssertionException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameters);
     throw new AssertionException(tmpMessage);
   }
 
@@ -57,15 +58,15 @@ public final class Assert {
    *
    * @param anObject an object to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException always
    */
-  public static void assertNotNull(final Object anObject, final String aMessageKey, final Object[] aParameterArray)
+  public static void assertNotNull(final Object anObject, final String aMessageKey, final Object... aParameters)
       throws AssertionException {
     if (null != anObject) {
       return;
     }
-    fail(aMessageKey, aParameterArray);
+    fail(aMessageKey, aParameters);
   }
 
   /**
@@ -74,15 +75,15 @@ public final class Assert {
    *
    * @param aValue a string to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the value is null or empty
    */
-  public static void assertNotEmptyOrNull(final String aValue, final String aMessageKey, final Object[] aParameterArray)
+  public static void assertNotEmptyOrNull(final String aValue, final String aMessageKey, final Object... aParameters)
       throws AssertionException {
     if (StringUtils.isNotEmpty(aValue)) {
       return;
     }
-    fail(aMessageKey, aParameterArray);
+    fail(aMessageKey, aParameters);
   }
 
   /**
@@ -91,15 +92,15 @@ public final class Assert {
    *
    * @param aCondition a boolean to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the condition is NOT true
    */
-  public static void assertTrue(final boolean aCondition, final String aMessageKey, final Object[] aParameterArray)
+  public static void assertTrue(final boolean aCondition, final String aMessageKey, final Object... aParameters)
       throws AssertionException {
     if (aCondition) {
       return;
     }
-    fail(aMessageKey, aParameterArray);
+    fail(aMessageKey, aParameters);
   }
 
   /**
@@ -108,15 +109,15 @@ public final class Assert {
    *
    * @param aCondition a boolean to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the condition is NOT false
    */
-  public static void assertFalse(final boolean aCondition, final String aMessageKey, final Object[] aParameterArray)
+  public static void assertFalse(final boolean aCondition, final String aMessageKey, final Object... aParameters)
       throws AssertionException {
     if (!aCondition) {
       return;
     }
-    fail(aMessageKey, aParameterArray);
+    fail(aMessageKey, aParameters);
   }
 
   /**
@@ -126,15 +127,15 @@ public final class Assert {
    * @param anExpectedBoolean a boolean to check
    * @param aCurrentBoolean a boolean to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the to booleans are not the same
    */
   public static void assertEquals(final boolean anExpectedBoolean, final boolean aCurrentBoolean,
-      final String aMessageKey, final Object[] aParameterArray) throws AssertionException {
+      final String aMessageKey, final Object... aParameters) throws AssertionException {
     if (anExpectedBoolean == aCurrentBoolean) {
       return;
     }
-    fail(aMessageKey, aParameterArray);
+    fail(aMessageKey, aParameters);
   }
 
   /**
@@ -144,11 +145,11 @@ public final class Assert {
    * @param anExpectedString a String to check
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the two strings are not the same
    */
   public static void assertEquals(final String anExpectedString, final String aCurrentString, final String aMessageKey,
-      final Object[] aParameterArray) throws AssertionException {
+      final Object... aParameters) throws AssertionException {
     if (anExpectedString == null && aCurrentString == null) {
       return;
     }
@@ -158,7 +159,7 @@ public final class Assert {
     }
 
     // @formatter:off
-    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray))
+    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameters))
         .append(' ')
         .append(constructComparisonMessage(anExpectedString, aCurrentString));
     // @formatter:on
@@ -172,11 +173,11 @@ public final class Assert {
    * @param anExpectedString a SecretString to check
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the two strings are not the same
    */
   public static void assertEquals(final SecretString anExpectedString, final String aCurrentString,
-      final String aMessageKey, final Object[] aParameterArray) throws AssertionException {
+      final String aMessageKey, final Object... aParameters) throws AssertionException {
     if ((anExpectedString == null || anExpectedString.getValue() == null) && aCurrentString == null) {
       return;
     }
@@ -186,7 +187,7 @@ public final class Assert {
       return;
     }
 
-    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray));
+    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameters));
     final String tmpExpected;
     String tmpCurrent = aCurrentString;
     if (anExpectedString == null) {
@@ -217,7 +218,7 @@ public final class Assert {
    */
   private static String constructComparisonMessage(final String anExpectedString, final String aCurrentString) {
     if (anExpectedString == null || aCurrentString == null) {
-      return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
+      return Messages.getMessage("assertExpectedActual", anExpectedString, aCurrentString);
     }
 
     final int tmpEnd = Math.min(anExpectedString.length(), aCurrentString.length());
@@ -239,7 +240,7 @@ public final class Assert {
 
     // equal strings
     if (j < i && k < i) {
-      return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
+      return Messages.getMessage("assertExpectedActual", anExpectedString, aCurrentString);
     }
 
     final StringBuilder tmpExpected = new StringBuilder();
@@ -262,22 +263,22 @@ public final class Assert {
       tmpExpected.append(anExpectedString.substring(tmpFrom));
       tmpCurrent.append(aCurrentString.substring(tmpFrom));
     }
-    return Messages.getMessage("assertExpectedActual", new String[] { tmpExpected.toString(), tmpCurrent.toString() });
+    return Messages.getMessage("assertExpectedActual", tmpExpected.toString(), tmpCurrent.toString());
   }
 
   /**
    * Asserts that two Strings are matching.
-   * This supports dos style wildcards.
+   * This supports DOS style wildcards.
    * Otherwise throws an AssertionException.
    *
    * @param anExpectedPattern a String to check including '*' as wildcard
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup
-   * @param aParameterArray the parameters as array
+   * @param aParameters the parameters
    * @throws AssertionException if the two strings are not the same
    */
   public static void assertMatch(final String anExpectedPattern, final String aCurrentString, final String aMessageKey,
-      final Object[] aParameterArray) throws AssertionException {
+      final Object... aParameters) throws AssertionException {
     if (anExpectedPattern == null && aCurrentString == null) {
       return;
     }
@@ -296,7 +297,7 @@ public final class Assert {
     }
 
     // @formatter:off
-    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameterArray))
+    final StringBuilder tmpMessage = new StringBuilder(Messages.getMessage(aMessageKey, aParameters))
         .append(' ')
         .append(constructComparisonMessage(anExpectedPattern, aCurrentString));
     // @formatter:on

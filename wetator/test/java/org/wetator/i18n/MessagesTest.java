@@ -21,33 +21,34 @@ import org.junit.Test;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class MessagesTest {
 
   @Test
   public void getMessage() {
-    final String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] { "param1" });
+    final String tmpMessage = Messages.getMessage("emptyFirstParameter", "param1");
     Assert.assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
   }
 
   @Test
   public void getMessageParamsNull() {
-    final String tmpMessage = Messages.getMessage("emptyFirstParameter", null);
+    final String tmpMessage = Messages.getMessage("emptyFirstParameter");
     Assert.assertEquals("The command '{0}' requires a first parameter.", tmpMessage);
   }
 
   @Test
   public void getMessageWrongResource() {
-    String tmpMessage = Messages.getMessage("unknown", new String[] { "param1" });
+    String tmpMessage = Messages.getMessage("unknown", "param1");
     Assert.assertEquals("Unknown message key 'unknown' (param(s):  'param1').", tmpMessage);
 
-    tmpMessage = Messages.getMessage("unknown", new String[] { "param1", "param2" });
+    tmpMessage = Messages.getMessage("unknown", "param1", "param2");
     Assert.assertEquals("Unknown message key 'unknown' (param(s):  'param1' 'param2').", tmpMessage);
 
-    tmpMessage = Messages.getMessage("unknown", new String[] { });
+    tmpMessage = Messages.getMessage("unknown", new Object[] { });
     Assert.assertEquals("Unknown message key 'unknown'.", tmpMessage);
 
-    tmpMessage = Messages.getMessage("unknown", null);
+    tmpMessage = Messages.getMessage("unknown");
     Assert.assertEquals("Unknown message key 'unknown'.", tmpMessage);
   }
 }

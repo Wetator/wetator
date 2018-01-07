@@ -18,7 +18,8 @@ package org.wetator.scriptcreator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -91,124 +92,119 @@ public class XMLScriptCreator implements IScriptCreator {
       }
 
       final File tmpFile = new File(outputDir, fileName + ".wet");
-      try {
-        final FileOutputStream tmpFileOut = new FileOutputStream(tmpFile);
+      try (OutputStream tmpFileOut = Files.newOutputStream(tmpFile.toPath())) {
+        final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(tmpFileOut, XML_ENCODING);
         try {
-          final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(tmpFileOut, XML_ENCODING);
-          try {
-            tmpWriter.writeStartDocument(XML_ENCODING, XML_VERSION);
-            tmpWriter.writeCharacters("\n");
+          tmpWriter.writeStartDocument(XML_ENCODING, XML_VERSION);
+          tmpWriter.writeCharacters("\n");
 
-            tmpWriter.writeStartElement(E_TEST_CASE);
-            tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/test-case");
-            for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
-              tmpWriter.writeNamespace(tmpNamespaceBean.getSymbol(), tmpNamespaceBean.getNamespace());
-            }
-            // tmpWriter.writeNamespace("d", "http://www.wetator.org/xsd/default-command-set");
-            // tmpWriter.writeNamespace("s", "http://www.wetator.org/xsd/sql-command-set");
-            // tmpWriter.writeNamespace("i", "http://www.wetator.org/xsd/incubator-command-set");
-            // tmpWriter.writeNamespace("t", "http://www.wetator.org/xsd/test-command-set");
-            tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            final StringBuilder tmpLocations = new StringBuilder(
-                "http://www.wetator.org/xsd/test-case test-case-" + TEST_CASE_XSD_VERSION + ".xsd\n");
-            for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
-              tmpLocations.append(tmpNamespaceBean.getNamespace());
-              tmpLocations.append(' ');
-              tmpLocations.append(tmpNamespaceBean.getLocation());
-              tmpLocations.append('\n');
-            }
-            tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
-                tmpLocations.substring(0, tmpLocations.length() - 1));
-            // tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
-            // "http://www.wetator.org/xsd/test-case test-case-" + XSD_VERSION + ".xsd\n"
-            // + "http://www.wetator.org/xsd/default-command-set default-command-set-" + XSD_VERSION + ".xsd\n"
-            // + "http://www.wetator.org/xsd/sql-command-set sql-command-set-" + XSD_VERSION + ".xsd\n"
-            // + "http://www.wetator.org/xsd/incubator-command-set incubator-command-set-" + XSD_VERSION + ".xsd\n"
-            // + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
-            tmpWriter.writeAttribute(A_VERSION, TEST_CASE_XSD_VERSION);
-            tmpWriter.writeCharacters("\n");
-            for (final Command tmpCommand : commands) {
-              tmpWriter.writeCharacters("    ");
-              if (tmpCommand.isComment() && StringUtils.isEmpty(tmpCommand.getName())) {
-                tmpWriter.writeStartElement(E_COMMENT);
-                if (tmpCommand.getFirstParameter() != null) {
-                  writeContent(tmpWriter, tmpCommand.getFirstParameter().getValue());
-                }
-                tmpWriter.writeEndElement();
-                tmpWriter.writeCharacters("\n");
-              } else {
-                final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
-                if (tmpCommandType == null) {
-                  if (tmpCommand.isComment()) {
-                    tmpWriter.writeStartElement(E_COMMENT);
+          tmpWriter.writeStartElement(E_TEST_CASE);
+          tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/test-case");
+          for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
+            tmpWriter.writeNamespace(tmpNamespaceBean.getSymbol(), tmpNamespaceBean.getNamespace());
+          }
+          // tmpWriter.writeNamespace("d", "http://www.wetator.org/xsd/default-command-set");
+          // tmpWriter.writeNamespace("s", "http://www.wetator.org/xsd/sql-command-set");
+          // tmpWriter.writeNamespace("i", "http://www.wetator.org/xsd/incubator-command-set");
+          // tmpWriter.writeNamespace("t", "http://www.wetator.org/xsd/test-command-set");
+          tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+          final StringBuilder tmpLocations = new StringBuilder(
+              "http://www.wetator.org/xsd/test-case test-case-" + TEST_CASE_XSD_VERSION + ".xsd\n");
+          for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
+            tmpLocations.append(tmpNamespaceBean.getNamespace());
+            tmpLocations.append(' ');
+            tmpLocations.append(tmpNamespaceBean.getLocation());
+            tmpLocations.append('\n');
+          }
+          tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
+              tmpLocations.substring(0, tmpLocations.length() - 1));
+          // tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
+          // "http://www.wetator.org/xsd/test-case test-case-" + XSD_VERSION + ".xsd\n"
+          // + "http://www.wetator.org/xsd/default-command-set default-command-set-" + XSD_VERSION + ".xsd\n"
+          // + "http://www.wetator.org/xsd/sql-command-set sql-command-set-" + XSD_VERSION + ".xsd\n"
+          // + "http://www.wetator.org/xsd/incubator-command-set incubator-command-set-" + XSD_VERSION + ".xsd\n"
+          // + "http://www.wetator.org/xsd/test-command-set test-command-set-" + XSD_VERSION + ".xsd");
+          tmpWriter.writeAttribute(A_VERSION, TEST_CASE_XSD_VERSION);
+          tmpWriter.writeCharacters("\n");
+          for (final Command tmpCommand : commands) {
+            tmpWriter.writeCharacters("    ");
+            if (tmpCommand.isComment() && StringUtils.isEmpty(tmpCommand.getName())) {
+              tmpWriter.writeStartElement(E_COMMENT);
+              if (tmpCommand.getFirstParameter() != null) {
+                writeContent(tmpWriter, tmpCommand.getFirstParameter().getValue());
+              }
+              tmpWriter.writeEndElement();
+              tmpWriter.writeCharacters("\n");
+            } else {
+              final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());
+              if (tmpCommandType == null) {
+                if (tmpCommand.isComment()) {
+                  tmpWriter.writeStartElement(E_COMMENT);
 
-                    final StringBuilder tmpContent = new StringBuilder();
-                    if (!StringUtils.isEmpty(tmpCommand.getName())) {
-                      tmpContent.append(tmpCommand.getName());
+                  final StringBuilder tmpContent = new StringBuilder();
+                  if (!StringUtils.isEmpty(tmpCommand.getName())) {
+                    tmpContent.append(tmpCommand.getName());
+                  }
+
+                  if (tmpCommand.getFirstParameter() != null) {
+                    if (tmpContent.length() > 0) {
+                      tmpContent.append(" - ");
                     }
+                    tmpContent.append(tmpCommand.getFirstParameter().getValue());
+                  }
 
-                    if (tmpCommand.getFirstParameter() != null) {
-                      if (tmpContent.length() > 0) {
-                        tmpContent.append(" - ");
-                      }
-                      tmpContent.append(tmpCommand.getFirstParameter().getValue());
+                  if (tmpCommand.getSecondParameter() != null) {
+                    if (tmpContent.length() > 0) {
+                      tmpContent.append(" - ");
                     }
-
-                    if (tmpCommand.getSecondParameter() != null) {
-                      if (tmpContent.length() > 0) {
-                        tmpContent.append(" - ");
-                      }
-                      tmpContent.append(tmpCommand.getSecondParameter().getValue());
-                    }
-
-                    writeContent(tmpWriter, tmpContent.toString());
-                    tmpWriter.writeEndElement();
-                    tmpWriter.writeCharacters("\n");
-                  } else {
-                    throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
-                  }
-                } else {
-                  tmpWriter.writeStartElement(E_COMMAND);
-                  if (tmpCommand.isComment()) {
-                    tmpWriter.writeAttribute(A_DISABLED, "true");
+                    tmpContent.append(tmpCommand.getSecondParameter().getValue());
                   }
 
-                  tmpWriter.writeStartElement(tmpCommandType.getNamespace(), tmpCommandType.getName());
-
-                  final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes();
-                  final String[] tmpParameterValues = new String[tmpParameterTypes.size()];
-                  if (tmpParameterValues.length >= 1 && tmpCommand.getFirstParameter() != null) {
-                    tmpParameterValues[0] = tmpCommand.getFirstParameter().getValue();
-                  }
-                  if (tmpParameterValues.length >= 2 && tmpCommand.getSecondParameter() != null) {
-                    tmpParameterValues[1] = tmpCommand.getSecondParameter().getValue();
-                  }
-                  if (tmpParameterValues.length >= 3 && tmpCommand.getThirdParameter() != null) {
-                    tmpParameterValues[2] = tmpCommand.getThirdParameter().getValue();
-                  }
-                  int i = 0;
-                  for (final ParameterType tmpParameterType : tmpParameterTypes) {
-                    if (StringUtils.isNotEmpty(tmpParameterValues[i])) {
-                      tmpWriter.writeStartElement(tmpParameterType.getNamespace(), tmpParameterType.getName());
-                      writeContent(tmpWriter, tmpParameterValues[i]);
-                      tmpWriter.writeEndElement();
-                    }
-                    i++;
-                  }
-
-                  tmpWriter.writeEndElement();
+                  writeContent(tmpWriter, tmpContent.toString());
                   tmpWriter.writeEndElement();
                   tmpWriter.writeCharacters("\n");
+                } else {
+                  throw new RuntimeException("Unknown command '" + tmpCommand.getName() + "'.");
                 }
+              } else {
+                tmpWriter.writeStartElement(E_COMMAND);
+                if (tmpCommand.isComment()) {
+                  tmpWriter.writeAttribute(A_DISABLED, "true");
+                }
+
+                tmpWriter.writeStartElement(tmpCommandType.getNamespace(), tmpCommandType.getName());
+
+                final Collection<ParameterType> tmpParameterTypes = tmpCommandType.getParameterTypes();
+                final String[] tmpParameterValues = new String[tmpParameterTypes.size()];
+                if (tmpParameterValues.length >= 1 && tmpCommand.getFirstParameter() != null) {
+                  tmpParameterValues[0] = tmpCommand.getFirstParameter().getValue();
+                }
+                if (tmpParameterValues.length >= 2 && tmpCommand.getSecondParameter() != null) {
+                  tmpParameterValues[1] = tmpCommand.getSecondParameter().getValue();
+                }
+                if (tmpParameterValues.length >= 3 && tmpCommand.getThirdParameter() != null) {
+                  tmpParameterValues[2] = tmpCommand.getThirdParameter().getValue();
+                }
+                int i = 0;
+                for (final ParameterType tmpParameterType : tmpParameterTypes) {
+                  if (StringUtils.isNotEmpty(tmpParameterValues[i])) {
+                    tmpWriter.writeStartElement(tmpParameterType.getNamespace(), tmpParameterType.getName());
+                    writeContent(tmpWriter, tmpParameterValues[i]);
+                    tmpWriter.writeEndElement();
+                  }
+                  i++;
+                }
+
+                tmpWriter.writeEndElement();
+                tmpWriter.writeEndElement();
+                tmpWriter.writeCharacters("\n");
               }
             }
-            tmpWriter.writeEndElement();
-            tmpWriter.writeEndDocument();
-          } finally {
-            tmpWriter.close();
           }
+          tmpWriter.writeEndElement();
+          tmpWriter.writeEndDocument();
         } finally {
-          tmpFileOut.close();
+          tmpWriter.close();
         }
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException(

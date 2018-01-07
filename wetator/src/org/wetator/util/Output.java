@@ -26,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
  * A simple helper to write formated to a writer.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class Output {
   private static final String NEW_LINE = System.getProperty("line.separator");
@@ -33,7 +34,7 @@ public final class Output {
   private Writer writer;
   private StringBuffer currentIndent;
   private boolean afterNewLine;
-  private final String indent;
+  private final String indent; // NOPMD
 
   /**
    * Constructor.

@@ -55,7 +55,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   /**
    * The prefix used to mark the db name.
    */
-  protected static final String DB_NAME_PREFIX = "@";
+  private static final String DB_NAME_PREFIX = "@";
 
   private static final Logger LOG = LogManager.getLogger(SqlCommandSet.class);
 
@@ -102,18 +102,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
 
-      final Connection tmpConnection = connections.get(tmpConnectionName);
+      final Connection tmpConnection = connections.get(tmpConnectionName); // NOPMD
 
-      try {
-        final Statement tmpStatement = tmpConnection.createStatement();
-        try {
-          tmpStatement.execute(tmpSql);
-        } finally {
-          tmpStatement.close();
-        }
+      try (Statement tmpStatement = tmpConnection.createStatement()) {
+        tmpStatement.execute(tmpSql);
       } catch (final SQLException e) {
-        final String tmpMessage = Messages.getMessage("sqlFailes",
-            new String[] { tmpSqlParam.toString(), e.getMessage() });
+        final String tmpMessage = Messages.getMessage("sqlFailes", tmpSqlParam.toString(), e.getMessage());
         throw new ActionException(tmpMessage);
       }
     }
@@ -135,34 +129,26 @@ public final class SqlCommandSet extends AbstractCommandSet {
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
 
-      final Connection tmpConnection = connections.get(tmpConnectionName);
+      final Connection tmpConnection = connections.get(tmpConnectionName); // NOPMD
 
       final StringBuilder tmpResult = new StringBuilder();
-      try {
-        final Statement tmpStatement = tmpConnection.createStatement();
-        try {
-          final ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql);
+      try (Statement tmpStatement = tmpConnection.createStatement();
+          ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql)) {
+        final ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
 
-          final ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
-
-          while (tmpResultSet.next()) {
-            for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
-              final String tmpValue = tmpResultSet.getString(i);
-              if (tmpResultSet.wasNull()) {
-                tmpResult.append("NULL");
-              } else {
-                tmpResult.append(tmpValue);
-              }
-              tmpResult.append(' ');
+        while (tmpResultSet.next()) {
+          for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
+            final String tmpValue = tmpResultSet.getString(i);
+            if (tmpResultSet.wasNull()) {
+              tmpResult.append("NULL");
+            } else {
+              tmpResult.append(tmpValue);
             }
+            tmpResult.append(' ');
           }
-          tmpResultSet.close();
-        } finally {
-          tmpStatement.close();
         }
       } catch (final SQLException e) {
-        final String tmpMessage = Messages.getMessage("sqlFailes",
-            new String[] { tmpSqlParam.toString(), e.getMessage() });
+        final String tmpMessage = Messages.getMessage("sqlFailes", tmpSqlParam.toString(), e.getMessage());
         throw new AssertionException(tmpMessage, e);
       }
 
@@ -196,37 +182,29 @@ public final class SqlCommandSet extends AbstractCommandSet {
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
 
-      final Connection tmpConnection = connections.get(tmpConnectionName);
+      final Connection tmpConnection = connections.get(tmpConnectionName); // NOPMD
 
       final StringBuilder tmpExpected = new StringBuilder();
-      try {
-        final Statement tmpStatement = tmpConnection.createStatement();
-        try {
-          final ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql);
+      try (Statement tmpStatement = tmpConnection.createStatement();
+          ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql)) {
+        final ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
 
-          final ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
-
-          while (tmpResultSet.next()) {
-            for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
-              final String tmpValue = tmpResultSet.getString(i);
-              if (tmpResultSet.wasNull()) {
-                aContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
-              } else {
-                if (tmpExpected.length() > 0) {
-                  tmpExpected.append(ContentPattern.DELIMITER);
-                  tmpExpected.append(' ');
-                }
-                tmpExpected.append(tmpValue);
+        while (tmpResultSet.next()) {
+          for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
+            final String tmpValue = tmpResultSet.getString(i);
+            if (tmpResultSet.wasNull()) {
+              aContext.informListenersWarn("ignoringNullValue", tmpMetaData.getColumnName(i));
+            } else {
+              if (tmpExpected.length() > 0) {
+                tmpExpected.append(ContentPattern.DELIMITER);
+                tmpExpected.append(' ');
               }
+              tmpExpected.append(tmpValue);
             }
           }
-          tmpResultSet.close();
-        } finally {
-          tmpStatement.close();
         }
       } catch (final SQLException e) {
-        final String tmpMessage = Messages.getMessage("sqlFailes",
-            new String[] { tmpSqlParam.toString(), e.getMessage() });
+        final String tmpMessage = Messages.getMessage("sqlFailes", tmpSqlParam.toString(), e.getMessage());
         throw new AssertionException(tmpMessage, e);
       }
 
@@ -279,7 +257,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       final String tmpPassword = aConfiguration
           .getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
       try {
-        final Connection tmpConnection = DriverManager.getConnection(tmpUrl, tmpUser, tmpPassword);
+        final Connection tmpConnection = DriverManager.getConnection(tmpUrl, tmpUser, tmpPassword); // NOPMD
         // to be sure
         tmpConnection.setAutoCommit(true);
 
@@ -322,11 +300,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
           return tmpConnectionName;
         }
       }
-      aContext.informListenersWarn("undefinedConnectionName", new String[] { aParameter.toString() });
+      aContext.informListenersWarn("undefinedConnectionName", aParameter.toString());
     }
 
     if (null == defaultConnectionName) {
-      final String tmpMessage = Messages.getMessage("noDefaultConnection", null);
+      final String tmpMessage = Messages.getMessage("noDefaultConnection");
       throw new InvalidInputException(tmpMessage);
     }
     return defaultConnectionName;

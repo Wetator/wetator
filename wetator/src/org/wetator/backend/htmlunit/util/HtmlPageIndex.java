@@ -415,7 +415,7 @@ public class HtmlPageIndex {
 
       if (aDomNode instanceof HtmlHiddenInput || aDomNode instanceof HtmlApplet || aDomNode instanceof HtmlScript
           || aDomNode instanceof HtmlStyle || aDomNode instanceof HtmlFileInput || aDomNode instanceof DomComment
-          || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) {
+          || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) { // NOPMD
         // nothing
       } else if (aDomNode instanceof DomText) {
         appendDomText((DomText) aDomNode);

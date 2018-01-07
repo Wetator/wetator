@@ -29,10 +29,11 @@ import org.wetator.util.SecretString;
  * our class that represents a command read from an source file.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class Command {
   private String name;
-  private boolean isComment;
+  private boolean comment;
   private Parameter firstParameter;
   private Parameter secondParameter;
   private Parameter thirdParameter;
@@ -46,7 +47,7 @@ public final class Command {
    */
   public Command(final String aName, final boolean anIsCommentFlag) {
     name = aName;
-    isComment = anIsCommentFlag;
+    comment = anIsCommentFlag;
 
     // debug
     lineNo = -1;
@@ -77,7 +78,7 @@ public final class Command {
    * @return the isComment flag
    */
   public boolean isComment() {
-    return isComment;
+    return comment;
   }
 
   /**
@@ -131,7 +132,7 @@ public final class Command {
    */
   public String toPrintableString(final WetatorContext aContext) {
     final StringBuilder tmpResult = new StringBuilder("[Command '").append(getName()).append('\'');
-    if (isComment) {
+    if (comment) {
       tmpResult.append(" COMMENT");
     }
 
@@ -140,7 +141,7 @@ public final class Command {
     if (null != tmpParameter) {
       tmpResult.append(tmpParameter.getValue(aContext).toString());
     }
-    tmpResult.append('\'');
+    tmpResult.append('\''); // NOPMD
 
     tmpParameter = getSecondParameter();
     tmpResult.append(" '");
@@ -172,8 +173,7 @@ public final class Command {
       return new SecretString();
     }
 
-    final SecretString tmpFirstValue = tmpFirstParameter.getValue(aContext);
-    return tmpFirstValue;
+    return tmpFirstParameter.getValue(aContext);
   }
 
   /**
@@ -188,11 +188,10 @@ public final class Command {
     final Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
-      invalidInput("emptyFirstParameter", new String[] { getName() });
+      invalidInput("emptyFirstParameter", getName());
     }
 
-    final SecretString tmpFirstValue = tmpFirstParameter.getValue(aContext);
-    return tmpFirstValue;
+    return tmpFirstParameter.getValue(aContext);
   }
 
   /**
@@ -232,8 +231,7 @@ public final class Command {
       return null;
     }
 
-    final SecretString tmpSecondValue = tmpSecondParameter.getValue(aContext);
-    return tmpSecondValue;
+    return tmpSecondParameter.getValue(aContext);
   }
 
   /**
@@ -259,11 +257,9 @@ public final class Command {
       final BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
       return Long.valueOf(tmpValue.longValueExact());
     } catch (final NumberFormatException e) {
-      invalidInput("integerParameterExpected",
-          new String[] { getName(), tmpSecondParameter.getValue(aContext).toString(), "2" });
+      invalidInput("integerParameterExpected", getName(), tmpSecondParameter.getValue(aContext).toString(), "2");
     } catch (final ArithmeticException e) {
-      invalidInput("integerParameterExpected",
-          new String[] { getName(), tmpSecondParameter.getValue(aContext).toString(), "2" });
+      invalidInput("integerParameterExpected", getName(), tmpSecondParameter.getValue(aContext).toString(), "2");
     }
     return null;
   }
@@ -280,7 +276,7 @@ public final class Command {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
-      invalidInput("emptySecondParameter", new String[] { getName() });
+      invalidInput("emptySecondParameter", getName());
     }
 
     return getSecondParameterValues(aContext);
@@ -298,11 +294,10 @@ public final class Command {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
-      invalidInput("emptySecondParameter", new String[] { getName() });
+      invalidInput("emptySecondParameter", getName());
     }
 
-    final SecretString tmpSecondValue = tmpSecondParameter.getValue(aContext);
-    return tmpSecondValue;
+    return tmpSecondParameter.getValue(aContext);
   }
 
   /**
@@ -314,7 +309,7 @@ public final class Command {
   public void checkNoUnusedSecondParameter(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpParameter = getSecondParameter();
     if (null != tmpParameter) {
-      invalidInput("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "2" });
+      invalidInput("unusedParameter", getName(), tmpParameter.getValue(aContext).toString(), "2");
     }
   }
 
@@ -327,13 +322,12 @@ public final class Command {
   public void checkNoUnusedThirdParameter(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpParameter = getThirdParameter();
     if (null != tmpParameter) {
-      invalidInput("unusedParameter", new String[] { getName(), tmpParameter.getValue(aContext).toString(), "3" });
+      invalidInput("unusedParameter", getName(), tmpParameter.getValue(aContext).toString(), "3");
     }
   }
 
-  private static void invalidInput(final String aMessageKey, final Object[] aParameterArray)
-      throws InvalidInputException {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+  private static void invalidInput(final String aMessageKey, final Object... aParameters) throws InvalidInputException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameters);
     throw new InvalidInputException(tmpMessage);
   }
 }

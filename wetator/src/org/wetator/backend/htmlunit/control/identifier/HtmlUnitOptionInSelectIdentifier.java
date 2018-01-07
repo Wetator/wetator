@@ -188,7 +188,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
                 getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                     tmpResult);
               }
-            } catch (final ElementNotFoundException e) {
+            } catch (final ElementNotFoundException e) { // NOPMD
               // not found
             }
           }

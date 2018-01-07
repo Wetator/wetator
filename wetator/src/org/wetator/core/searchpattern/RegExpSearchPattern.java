@@ -46,24 +46,6 @@ final class RegExpSearchPattern extends SearchPattern {
   private static long firstOccurenceIn;
   private static long lastOccurenceIn;
 
-  /**
-   * Helper to print the number of calls for the methods to stdout.
-   */
-  public static void dumpStatistics() {
-    System.out.println("constructor: " + constructor); // NOPMD
-    System.out.println("matches: " + matches); // NOPMD
-    System.out.println("matchesAtEnd: " + matchesAtEnd); // NOPMD
-    System.out.println(); // NOPMD
-    System.out.println("firstOccurenceIn: " + firstOccurenceIn); // NOPMD
-    System.out.println("lastOccurenceIn: " + lastOccurenceIn); // NOPMD
-    System.out.println(); // NOPMD
-    System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn); // NOPMD
-    System.out.println("noOfCharsBeforeLastShortestOccurenceIn: " + noOfCharsBeforeLastShortestOccurenceIn); // NOPMD
-    System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn); // NOPMD
-    System.out.println("noOfCharsAfterLastShortestOccurenceIn: " + noOfCharsAfterLastShortestOccurenceIn); // NOPMD
-    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn); // NOPMD
-  }
-
   private String patternString;
   private RunAutomaton runAutomaton;
   private int minLength;
@@ -293,6 +275,24 @@ final class RegExpSearchPattern extends SearchPattern {
     }
 
     return tmpResult;
+  }
+
+  /**
+   * Helper to print the number of calls for the methods to stdout.
+   */
+  public static void dumpStatistics() {
+    System.out.println("constructor: " + constructor); // NOPMD
+    System.out.println("matches: " + matches); // NOPMD
+    System.out.println("matchesAtEnd: " + matchesAtEnd); // NOPMD
+    System.out.println(); // NOPMD
+    System.out.println("firstOccurenceIn: " + firstOccurenceIn); // NOPMD
+    System.out.println("lastOccurenceIn: " + lastOccurenceIn); // NOPMD
+    System.out.println(); // NOPMD
+    System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn); // NOPMD
+    System.out.println("noOfCharsBeforeLastShortestOccurenceIn: " + noOfCharsBeforeLastShortestOccurenceIn); // NOPMD
+    System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn); // NOPMD
+    System.out.println("noOfCharsAfterLastShortestOccurenceIn: " + noOfCharsAfterLastShortestOccurenceIn); // NOPMD
+    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn); // NOPMD
   }
 
   @Override

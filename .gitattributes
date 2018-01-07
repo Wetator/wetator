@@ -700,13 +700,12 @@ wetator/test/java/org/wetator/util/XMLUtilTest.java -text
 wetator/test/legacy_xml/default_command_set.xml -text
 wetator/test/legacy_xml/modules/module.xml -text
 wetator/test/legacy_xml/sql_command_set.xml -text
-wetator/test/pmd/wet-clone.xml -text svneol=unset#text/plain
-wetator/test/pmd/wet-coupling.xml -text svneol=unset#text/plain
-wetator/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
-wetator/test/pmd/wet-logging-java.xml -text svneol=unset#text/plain
-wetator/test/pmd/wet-migrating.xml -text svneol=unset#text/plain
-wetator/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
-wetator/test/pmd/wet-strings.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-bestpractices.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-codestyle.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-design.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-errorprone.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-multithreading.xml -text svneol=unset#text/plain
+wetator/test/pmd/wet-performance.xml -text svneol=unset#text/plain
 wetator/test/real-world/jira/atlassian-jira.wett -text
 wetator/test/real-world/primefaces/inplace.wett -text
 wetator/test/real-world/primefaces/listbox.wett -text

@@ -17,9 +17,10 @@
 package org.wetator.core;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -283,7 +284,7 @@ public class WetatorConfiguration {
     final Properties tmpProperties;
     File tmpBaseDirectory;
     // ok, we can start to read the file
-    try (FileInputStream tmpFileInputStream = new FileInputStream(aConfigurationPropertyFile)) {
+    try (InputStream tmpFileInputStream = Files.newInputStream(aConfigurationPropertyFile.toPath())) {
       tmpProperties = new Properties();
       tmpProperties.load(tmpFileInputStream);
 
@@ -642,7 +643,7 @@ public class WetatorConfiguration {
         final List<String> tmpLines = FileUtils.readLines(tmpFilterFile, StandardCharsets.UTF_8);
 
         for (final String tmpLine : tmpLines) {
-          if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
+          if (StringUtils.isNotBlank(tmpLine) && tmpLine.charAt(0) != '#') {
             jsJobFilterPatterns.add(SearchPattern.compile(tmpLine));
           }
         }

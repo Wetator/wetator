@@ -77,9 +77,9 @@ public final class TestCommandSet extends AbstractCommandSet {
       if (tmpException != null) {
         final NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
         Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
-            "wrongErrorMessage", null);
+            "wrongErrorMessage");
       } else {
-        Assert.fail("expectedErrorNotThrown", null);
+        Assert.fail("expectedErrorNotThrown");
       }
     }
   }

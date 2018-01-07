@@ -127,6 +127,7 @@ import com.gargoylesoftware.htmlunit.svg.SvgRect;
  * Helper methods to write the HtmlUnit page as XHtml to a file.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class XHtmlOutputter {
   private static final Logger LOG = LogManager.getLogger(XHtmlOutputter.class);
@@ -288,7 +289,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the parent node
    * @throws IOException in case of error
    */
-  protected void writeSubNodes(final DomNode aDomNode) throws IOException {
+  private void writeSubNodes(final DomNode aDomNode) throws IOException {
     DomNode tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
@@ -318,7 +319,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeStartTag(final DomNode aDomNode) throws IOException {
+  private void writeStartTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
       output.print("<!-- Browser URL: ").print(htmlPage.getUrl().toExternalForm()).println(" -->");
@@ -390,7 +391,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeEndTag(final DomNode aDomNode) throws IOException {
+  private void writeEndTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("</html>");
     } else if (aDomNode instanceof HtmlUnknownElement) {
@@ -429,7 +430,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeAttributes(final DomNode aDomNode) throws IOException {
+  private void writeAttributes(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof DomElement) {
       final DomElement tmpDomElement = (DomElement) aDomNode;
 
@@ -623,7 +624,7 @@ public final class XHtmlOutputter {
         tmpTag = (String) tmpField.get(null);
         TAG_NAMES.put(tmpNodeClass, tmpTag);
         return tmpTag;
-      } catch (final NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+      } catch (final NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) { // NOPMD
         // ignore
       }
       tmpNodeClass = tmpNodeClass.getSuperclass();

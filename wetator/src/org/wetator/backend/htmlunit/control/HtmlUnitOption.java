@@ -71,17 +71,17 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     if (tmpHtmlOption.isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
     if (tmpHtmlOption.getEnclosingSelect().isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
 
     try {
       if (tmpHtmlOption.isSelected()) {
-        aWetatorContext.informListenersWarn("elementAlreadySelected", new String[] { getDescribingText() });
+        aWetatorContext.informListenersWarn("elementAlreadySelected", getDescribingText());
       } else {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Select - HtmlUnitOption.click() '" + tmpHtmlOption + "'");
@@ -98,12 +98,10 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -120,7 +118,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     final HtmlOption tmpHtmlOption = getHtmlElement();
 
     if (tmpHtmlOption.isDisabled()) {
-      final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
       throw new ActionException(tmpMessage);
     }
 
@@ -128,7 +126,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       final HtmlSelect tmpHtmlSelect = tmpHtmlOption.getEnclosingSelect();
       if (tmpHtmlSelect.isMultipleSelectEnabled()) {
         if (tmpHtmlSelect.isDisabled()) {
-          final String tmpMessage = Messages.getMessage("elementDisabled", new String[] { getDescribingText() });
+          final String tmpMessage = Messages.getMessage("elementDisabled", getDescribingText());
           throw new ActionException(tmpMessage);
         }
 
@@ -138,10 +136,10 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
           }
           tmpHtmlOption.click(false, true, false);
         } else {
-          aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });
+          aWetatorContext.informListenersWarn("elementAlreadyDeselected", getDescribingText());
         }
       } else {
-        final String tmpMessage = Messages.getMessage("deselectNotSupported", new String[] { getDescribingText() });
+        final String tmpMessage = Messages.getMessage("deselectNotSupported", getDescribingText());
         throw new ActionException(tmpMessage);
       }
 
@@ -156,12 +154,10 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     } catch (final ActionException e) {
       throw e;
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -213,12 +209,10 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }

@@ -20,15 +20,9 @@ package org.wetator.util;
  * XmlUtil contains some useful helpers for XML-File handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public class XMLUtil {
-
-  /**
-   * The constructor.
-   */
-  public XMLUtil() {
-    super();
-  }
 
   /**
    * Escape the the given string. For use as body text.<br>

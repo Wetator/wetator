@@ -17,10 +17,10 @@
 package org.wetator.scripter;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -144,11 +144,10 @@ public final class LegacyXMLScripter implements IScripter {
   }
 
   private List<Command> readCommands() throws InvalidInputException {
-
     InputStream tmpInputStream = null;
     try {
-      tmpInputStream = new FileInputStream(file);
-    } catch (final FileNotFoundException e) {
+      tmpInputStream = Files.newInputStream(file.toPath());
+    } catch (final IOException e) {
       throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.",
           e);
     }
@@ -239,14 +238,14 @@ public final class LegacyXMLScripter implements IScripter {
       if (tmpReader != null) {
         try {
           tmpReader.close();
-        } catch (final Exception e) {
+        } catch (final Exception e) { // NOPMD
           // bad luck
         }
       }
       if (tmpInputStream != null) {
         try {
           tmpInputStream.close();
-        } catch (final Exception e) {
+        } catch (final Exception e) { // NOPMD
           // bad luck
         }
       }

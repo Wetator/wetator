@@ -455,7 +455,7 @@
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true" encoding="UTF-8" cacheLocation="${dir.build}/pmd">
         	<sourceLanguage name="java" version="${javac.target}"/>
-            <ruleset>rulesets/java/basic.xml,rulesets/java/braces.xml,${dir.test}/pmd/wet-clone.xml,${dir.test}/pmd/wet-coupling.xml,rulesets/java/empty.xml,rulesets/java/finalizers.xml,${dir.test}/pmd/wet-logging-jakarta-commons.xml,${dir.test}/pmd/wet-logging-java.xml,${dir.test}/pmd/wet-migrating.xml,${dir.test}/pmd/wet-optimizations.xml,${dir.test}/pmd/wet-strings.xml,rulesets/java/unnecessary.xml,rulesets/java/unusedcode.xml</ruleset>
+            <ruleset>${dir.test}/pmd/wet-bestpractices.xml,${dir.test}/pmd/wet-codestyle.xml,${dir.test}/pmd/wet-design.xml,${dir.test}/pmd/wet-errorprone.xml,${dir.test}/pmd/wet-multithreading.xml,${dir.test}/pmd/wet-performance.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml">
             	<param name="encoding" value="UTF-8" />
             </formatter>

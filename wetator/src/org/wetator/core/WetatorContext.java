@@ -243,8 +243,8 @@ public class WetatorContext {
   public boolean determineAndExecuteCommandImpl(final Command aCommand) throws CommandException, InvalidInputException {
     final ICommandImplementation tmpCommandImplementation = engine.getCommandImplementationFor(aCommand.getName());
     if (null == tmpCommandImplementation) {
-      throw new InvalidInputException(Messages.getMessage("unsupportedCommand",
-          new String[] { aCommand.getName(), getFile().getAbsolutePath(), Integer.toString(aCommand.getLineNo()) }));
+      throw new InvalidInputException(Messages.getMessage("unsupportedCommand", aCommand.getName(),
+          getFile().getAbsolutePath(), Integer.toString(aCommand.getLineNo())));
     }
 
     // execute the command only if no error occurred so far or the command should be executed even if an error occurred
@@ -276,43 +276,42 @@ public class WetatorContext {
    * Informs all listeners about 'warn'.
    *
    * @param aMessageKey the message key of the warning
-   * @param aParameterArray the message parameters
+   * @param aParameters the message parameters
    */
-  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
-    informListenersWarn(aMessageKey, aParameterArray, (String) null);
+  public void informListenersWarn(final String aMessageKey, final String... aParameters) {
+    informListenersWarn(aMessageKey, aParameters, (String) null);
   }
 
   /**
    * Informs all listeners about 'warn'.
    *
    * @param aMessageKey the message key of the warning
-   * @param aParameterArray the message parameters
+   * @param aParameters the message parameters
    * @param aDetails optional details
    */
-  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray, final String aDetails) {
-    engine.informListenersWarn(aMessageKey, aParameterArray, aDetails);
+  public void informListenersWarn(final String aMessageKey, final String[] aParameters, final String aDetails) {
+    engine.informListenersWarn(aMessageKey, aParameters, aDetails);
   }
 
   /**
    * Informs all listeners about 'warn'.
    *
    * @param aMessageKey the message key of the warning
-   * @param aParameterArray the message parameters
+   * @param aParameters the message parameters
    * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray,
-      final Throwable aThrowable) {
-    engine.informListenersWarn(aMessageKey, aParameterArray, aThrowable);
+  public void informListenersWarn(final String aMessageKey, final String[] aParameters, final Throwable aThrowable) {
+    engine.informListenersWarn(aMessageKey, aParameters, aThrowable);
   }
 
   /**
    * Informs all listeners about 'info'.
    *
    * @param aMessageKey the message key of the information
-   * @param aParameterArray the message parameters
+   * @param aParameters the message parameters
    */
-  public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
-    engine.informListenersInfo(aMessageKey, aParameterArray);
+  public void informListenersInfo(final String aMessageKey, final String... aParameters) {
+    engine.informListenersInfo(aMessageKey, (Object[]) aParameters);
   }
 
   /**

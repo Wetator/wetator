@@ -121,7 +121,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL, tmpDeviation,
                   tmpDistance, tmpNodeSpot.getStartPos()));
             }
-          } catch (final ElementNotFoundException e) {
+          } catch (final ElementNotFoundException e) { // NOPMD
             // not found
           }
         }

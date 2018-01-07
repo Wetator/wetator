@@ -109,7 +109,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpHasFocus = tmpControl.hasFocus(aContext);
-      Assert.assertTrue(tmpHasFocus, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
+      Assert.assertTrue(tmpHasFocus, "elementNotFocused", tmpControl.getDescribingText());
     }
   }
 
@@ -127,11 +127,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final URL tmpUrl = tmpBrowser.getBookmark(tmpBookmarkName.getValue());
       if (tmpUrl == null) {
-        final String tmpMessage = Messages.getMessage("unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+        final String tmpMessage = Messages.getMessage("unknownBookmark", tmpBookmarkName.getValue());
         throw new ActionException(tmpMessage);
       }
 
-      aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
+      aContext.informListenersInfo("openUrl", tmpUrl.toString());
       tmpBrowser.openUrl(tmpUrl);
       tmpBrowser.saveCurrentWindowToLog();
     }
@@ -169,12 +169,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
         tmpWaitTime = tmpValue.longValueExact();
       } catch (final NumberFormatException e) {
-        final String tmpMessage = Messages.getMessage("integerParameterExpected",
-            new String[] { "wait", tmpWaitTimeString.toString(), "1" });
+        final String tmpMessage = Messages.getMessage("integerParameterExpected", "wait", tmpWaitTimeString.toString(),
+            "1");
         throw new InvalidInputException(tmpMessage);
       } catch (final ArithmeticException e) {
-        final String tmpMessage = Messages.getMessage("integerParameterExpected",
-            new String[] { "wait", tmpWaitTimeString.toString(), "1" });
+        final String tmpMessage = Messages.getMessage("integerParameterExpected", "wait", tmpWaitTimeString.toString(),
+            "1");
         throw new InvalidInputException(tmpMessage);
       }
 
@@ -183,7 +183,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         Thread.sleep(tmpWaitTime * 1000L);
         tmpBrowser.saveCurrentWindowToLog();
       } catch (final InterruptedException e) {
-        final String tmpMessage = Messages.getMessage("waitError", null);
+        final String tmpMessage = Messages.getMessage("waitError");
         throw new ActionException(tmpMessage, e);
       }
     }
@@ -212,7 +212,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
           tmpBrowser.saveCurrentWindowToLog();
         }
       } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
         throw new AssertionException(tmpMessage, e);
       }
     }
@@ -227,7 +227,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         throws CommandException, InvalidInputException {
       final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
       if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
-        final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", new String[] { tmpButton.toString() });
+        final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", tmpButton.toString());
         throw new InvalidInputException(tmpMessage);
       }
 
@@ -274,7 +274,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
             final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
             if (StringUtils.isEmpty(tmpAppletNameValue)
                 || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
-              aContext.informListenersInfo("assertApplet", new String[] { tmpAppletNameValue });
+              aContext.informListenersInfo("assertApplet", tmpAppletNameValue);
               tmpAppletTested = true;
               try {
                 final Applet tmpApplet = tmpHtmlApplet.getApplet();
@@ -282,22 +282,22 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
                 tmpApplet.destroy();
               } catch (final Exception e) {
                 // do a bit more and verify if all the jars are available
-                aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+                aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
                 checkArchiveAvailability(aContext, tmpHtmlApplet);
 
-                final String tmpMessage = Messages.getMessage("assertAppletFailed",
-                    new String[] { tmpHtmlApplet.getNameAttribute(), e.getMessage() });
+                final String tmpMessage = Messages.getMessage("assertAppletFailed", tmpHtmlApplet.getNameAttribute(),
+                    e.getMessage());
                 throw new AssertionException(tmpMessage, e);
               }
             }
           }
           if (!tmpAppletTested) {
-            final String tmpMessage = Messages.getMessage("assertAppletNotFound", new String[] { tmpAppletNameValue });
+            final String tmpMessage = Messages.getMessage("assertAppletNotFound", tmpAppletNameValue);
             throw new AssertionException(tmpMessage);
           }
         }
       } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
         throw new AssertionException(tmpMessage, e);
       }
     }
@@ -311,7 +311,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      * @param aHtmlApplet the {@link HtmlApplet} to check
      */
     private void checkArchiveAvailability(final WetatorContext aContext, final HtmlApplet aHtmlApplet) {
-      aContext.informListenersWarn("assertAppletArchives", new String[] { aHtmlApplet.getArchiveAttribute() });
+      aContext.informListenersWarn("assertAppletArchives", aHtmlApplet.getArchiveAttribute());
       final List<URL> tmpJarUrls = aHtmlApplet.getArchiveUrls();
       if (null != tmpJarUrls) {
         for (final URL tmpJarUrl : tmpJarUrls) {
@@ -319,8 +319,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
             final InputStream tmpIs = tmpJarUrl.openStream();
             tmpIs.close();
           } catch (final Exception eUrl) {
-            aContext.informListenersWarn("assertAppletUnreachableJar",
-                new String[] { tmpJarUrl.toString(), eUrl.toString() });
+            aContext.informListenersWarn("assertAppletUnreachableJar", tmpJarUrl.toString(), eUrl.toString());
           }
         }
       }
@@ -348,7 +347,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
         tmpBrowser.saveCurrentWindowToLog(tmpFocusedControl);
       } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+        final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
         throw new ActionException(tmpMessage, e);
       }
     }
