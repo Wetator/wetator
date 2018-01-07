@@ -29,8 +29,8 @@ public class HtmlUnitFinderDelegatorTest {
   public void pageNull() {
     try {
       new HtmlUnitFinderDelegator(null);
-      Assert.fail("NullPointerException expected.");
-    } catch (final NullPointerException e) {
+      Assert.fail("IllegalArgumentException expected.");
+    } catch (final IllegalArgumentException e) {
       Assert.assertEquals("HtmlPage can't be null", e.getMessage());
     }
   }
