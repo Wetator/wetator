@@ -13,7 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -189,10 +190,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <targetDirectory>${project.build.directory}/pmd</targetDirectory>
                     <targetJdk>1.8</targetJdk>
-                    <!-- PMD6 <sourceEncoding>UTF-8</sourceEncoding>
-                    <rulesets>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <analysisCache>true</analysisCache>
+                    <analysisCacheLocation>${project.build.directory}/pmd/pmd-cachefile</analysisCacheLocation>
+                    <targetDirectory>${project.build.directory}/pmd</targetDirectory>
+                    <linkXRef>false</linkXRef>
+                    <!-- PMD6 <rulesets>
                         <ruleset>src/test/pmd/wet-bestpractices.xml</ruleset>
                         <ruleset>src/test/pmd/wet-codestyle.xml</ruleset>
                         <ruleset>src/test/pmd/wet-design.xml</ruleset>
@@ -215,6 +219,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
         <pluginManagement>
             <plugins>
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -228,12 +233,8 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>com.cloudbees</groupId>
-                                        <artifactId>
-                                            maven-license-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.4,)
-                                        </versionRange>
+                                        <artifactId>maven-license-plugin</artifactId>
+                                        <versionRange>[1.4,)</versionRange>
                                         <goals>
                                             <goal>process</goal>
                                         </goals>
@@ -244,15 +245,9 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.apache.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            maven-enforcer-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.0,)
-                                        </versionRange>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-enforcer-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
                                         <goals>
                                             <goal>display-info</goal>
                                             <goal>enforce</goal>
@@ -265,12 +260,8 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.kohsuke</groupId>
-                                        <artifactId>
-                                            access-modifier-checker
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.0,)
-                                        </versionRange>
+                                        <artifactId>access-modifier-checker</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
                                         <goals>
                                             <goal>enforce</goal>
                                         </goals>
@@ -281,20 +272,12 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.jenkins-ci.tools
-                                        </groupId>
-                                        <artifactId>
-                                            maven-hpi-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.67,)
-                                        </versionRange>
+                                        <groupId>org.jenkins-ci.tools</groupId>
+                                        <artifactId>maven-hpi-plugin</artifactId>
+                                        <versionRange>[1.67,)</versionRange>
                                         <goals>
                                             <goal>test-hpl</goal>
-                                            <goal>
-                                                resolve-test-dependencies
-                                            </goal>
+                                            <goal>resolve-test-dependencies</goal>
                                             <goal>apt-compile</goal>
                                             <goal>insert-test</goal>
                                             <goal>validate</goal>
@@ -306,20 +289,25 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.codehaus.gmaven
-                                        </groupId>
-                                        <artifactId>
-                                            gmaven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.0,)
-                                        </versionRange>
+                                        <groupId>org.codehaus.gmaven</groupId>
+                                        <artifactId>gmaven-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
                                         <goals>
-                                            <goal>
-                                                generateTestStubs
-                                            </goal>
+                                            <goal>generateTestStubs</goal>
                                             <goal>testCompile</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jvnet.localizer</groupId>
+                                        <artifactId>maven-localizer-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
