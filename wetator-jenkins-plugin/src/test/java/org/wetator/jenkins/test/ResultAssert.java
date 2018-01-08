@@ -76,8 +76,8 @@ public class ResultAssert {
     Assert.assertEquals("BrowserResults.size", aBrowserResultCount, anActualTestFileResult.getBrowserResults().size());
   }
 
-  public static void assertBrowserResult(String aName, String aFullName, long aDuration, int aPassCount,
-      int aSkipCount, int aFailCount, boolean aPassed, boolean aSkipped, BrowserResult anActualBrowserResult) {
+  public static void assertBrowserResult(String aName, String aFullName, long aDuration, int aPassCount, int aSkipCount,
+      int aFailCount, boolean aPassed, boolean aSkipped, BrowserResult anActualBrowserResult) {
     Assert.assertEquals("Name", aName, anActualBrowserResult.getName());
     Assert.assertEquals("FullName", aFullName, anActualBrowserResult.getFullName());
     Assert.assertEquals("DisplayName", aName, anActualBrowserResult.getDisplayName());

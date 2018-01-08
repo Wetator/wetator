@@ -16,9 +16,6 @@
 
 package org.wetator.jenkins.result;
 
-import hudson.model.AbstractBuild;
-import hudson.model.Run;
-
 import java.util.logging.Logger;
 
 import org.jvnet.localizer.Localizable;
@@ -27,6 +24,9 @@ import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.export.Exported;
 import org.wetator.jenkins.Messages;
 import org.wetator.jenkins.WetatorBuildReport;
+
+import hudson.model.AbstractBuild;
+import hudson.model.Run;
 
 /**
  * This class represents the result of one browser run of one wetator test file.

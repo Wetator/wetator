@@ -16,8 +16,6 @@
 
 package org.wetator.jenkins.xstream;
 
-import hudson.util.XStream2;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,6 +40,8 @@ import org.wetator.jenkins.result.TestResults;
 import org.wetator.jenkins.util.GZIPXMLFile;
 
 import com.thoughtworks.xstream.XStream;
+
+import hudson.util.XStream2;
 
 /**
  * Tests the XStream serialization.<br/>

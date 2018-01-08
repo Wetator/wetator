@@ -16,13 +16,13 @@
 
 package org.wetator.jenkins.result;
 
-import hudson.model.AbstractBuild;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
+
+import hudson.model.AbstractBuild;
 
 /**
  * This class represents the results of one wetator test file and aggregates all {@link BrowserResult}s for this file.
