@@ -122,8 +122,6 @@ wetator-jenkins-plugin/src/main/resources/org/wetator/jenkins/result/TestResults
 wetator-jenkins-plugin/src/main/webapp/help-globalConfig.html -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/webapp/help-projectConfig.html -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/main/webapp/icons/wetator-48x48.png -text
-wetator-jenkins-plugin/src/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
-wetator-jenkins-plugin/src/test/findbugs/findbugsfilter.xsd -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/AllTests.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/parser/AllTests.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/parser/PathTest.java -text svneol=unset#text/plain
@@ -141,9 +139,15 @@ wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/AllTests.java -
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/XStreamDeserializationTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/XStreamLegacyDeserializationTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/XStreamSerializationTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/pmd/wet-bestpractices.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-clone.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/pmd/wet-codestyle.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/pmd/wet-design.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/pmd/wet-errorprone.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/pmd/wet-multithreading.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/pmd/wet-performance.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-strings.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/oldwetresult.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/oldwetresult2.xml -text svneol=unset#text/plain
@@ -213,6 +217,7 @@ wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/two
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/xstream/output/zeroReportFile.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/wetresult.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin/src/test/spotbugs/exclude-filter.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/util/JenkinsPluginTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/wetator-jenkins-plugin[!!-~]-[!!-~]clean[!!-~]compile.launch -text svneol=unset#text/plain
 wetator-jsf-ext/.checkstyle -text

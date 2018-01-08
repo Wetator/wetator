@@ -140,29 +140,44 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version><!--$NO-MVN-MAN-VER$-->
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>3.1.1</version><!--$NO-MVN-MAN-VER$-->
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>3.1.1</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
-                        <id>findbugs-report</id>
+                        <id>spotbugs-report</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>findbugs</goal>
+                            <goal>spotbugs</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
-                    <xmlOutputDirectory>${project.build.directory}/findbugs</xmlOutputDirectory>
-                    <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
-                    <excludeFilterFile>src/test/findbugs/excludeFilter.xml</excludeFilterFile>
+                    <xmlOutputDirectory>${project.build.directory}/spotbugs</xmlOutputDirectory>
+                    <findbugsXmlOutputDirectory>${project.build.directory}/spotbugs</findbugsXmlOutputDirectory>
+                    <excludeFilterFile>src/test/spotbugs/exclude-filter.xml</excludeFilterFile>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.8</version><!--$NO-MVN-MAN-VER$-->
+                <!-- PMD 6 is not yet supported by the maven plugin -->
+                <!-- PMD6 <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-java</artifactId>
+                        <version>6.0.0</version>
+                    </dependency>
+                </dependencies> -->
                 <executions>
                     <execution>
                         <id>pmd-report</id>
@@ -176,6 +191,15 @@
                 <configuration>
                     <targetDirectory>${project.build.directory}/pmd</targetDirectory>
                     <targetJdk>1.8</targetJdk>
+                    <!-- PMD6 <sourceEncoding>UTF-8</sourceEncoding>
+                    <rulesets>
+                        <ruleset>src/test/pmd/wet-bestpractices.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-codestyle.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-design.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-errorprone.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-multithreading.xml</ruleset>
+                        <ruleset>src/test/pmd/wet-performance.xml</ruleset>
+                    </rulesets> -->
                     <rulesets>
                         <ruleset>/rulesets/java/basic.xml</ruleset>
                         <ruleset>/rulesets/java/empty.xml</ruleset>
