@@ -31,9 +31,11 @@ import org.wetator.exception.InvalidInputException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
 import org.wetator.scriptcreator.LegacyXMLScriptCreator;
+import org.wetator.scriptcreator.WikiTextScriptCreator;
 import org.wetator.scriptcreator.XMLScriptCreator;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.LegacyXMLScripter;
+import org.wetator.scripter.WikiTextScripter;
 import org.wetator.scripter.XMLScripter;
 
 /**
@@ -197,7 +199,11 @@ public final class WetatorScriptConverter {
     /**
      * Excel.
      */
-    XLS(new ExcelScripter());
+    XLS(new ExcelScripter()),
+    /**
+     * Excel.
+     */
+    WETT(new WikiTextScripter());
 
     private IScripter scripter;
 
@@ -229,7 +235,11 @@ public final class WetatorScriptConverter {
     /**
      * XML.
      */
-    XML(new XMLScriptCreator());
+    XML(new XMLScriptCreator()),
+    /**
+     * XML.
+     */
+    WETT(new WikiTextScriptCreator());
 
     private IScriptCreator scriptCreator;
 
