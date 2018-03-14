@@ -244,7 +244,10 @@
         <ivy:resolve conf="default, master, compile, provided, runtime, test, optional" />
         <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle,orbit" />
 
+        <!-- this blocks the release task -->
+        <!--
         <ivy:checkdepsupdate revisionToCheck="latest.release" />
+        -->
     </target>
 
 
