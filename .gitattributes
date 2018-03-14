@@ -464,6 +464,7 @@ wetator/src/org/wetator/progresslistener/XMLResultWriter.java -text
 wetator/src/org/wetator/progresslistener/XSLTransformer.java -text
 wetator/src/org/wetator/scriptcreator/IScriptCreator.java -text svneol=unset#text/plain
 wetator/src/org/wetator/scriptcreator/LegacyXMLScriptCreator.java -text svneol=unset#text/plain
+wetator/src/org/wetator/scriptcreator/WikiTextScriptCreator.java -text
 wetator/src/org/wetator/scriptcreator/XMLScriptCreator.java -text svneol=unset#text/plain
 wetator/src/org/wetator/scripter/ExcelScripter.java -text
 wetator/src/org/wetator/scripter/LegacyXMLScripter.java -text svneol=unset#text/plain
