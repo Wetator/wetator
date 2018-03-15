@@ -18,9 +18,9 @@ package org.wetator.scriptcreator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -38,56 +38,47 @@ public class WikiTextScriptCreator implements IScriptCreator {
   private String fileName;
   private File outputDir;
 
-  private static final String ENCODING = "UTF-8";
-
   @Override
   public void createScript() {
     try {
       final File tmpFile = new File(outputDir, fileName + ".wett");
       try {
-        final FileOutputStream tmpFileOut = new FileOutputStream(tmpFile);
+        final Writer tmpWriter = Files.newBufferedWriter(tmpFile.toPath(), StandardCharsets.UTF_8);
         try {
-          final Writer tmpWriter = new OutputStreamWriter(tmpFileOut, ENCODING);
-          try {
-            for (final Command tmpCommand : commands) {
-              if (tmpCommand.isComment()) {
-                tmpWriter.write("#");
-                if (StringUtils.isNotBlank(tmpCommand.getName())) {
-                  tmpWriter.write(" ");
-                  tmpWriter.write(tmpCommand.getName());
-                }
-                if (tmpCommand.getFirstParameter() != null) {
-                  if (StringUtils.isNotBlank(tmpCommand.getFirstParameter().getValue())) {
-                    tmpWriter.write(" ");
-                    tmpWriter.write(tmpCommand.getFirstParameter().getValue());
-                  }
-                }
+          for (final Command tmpCommand : commands) {
+            if (tmpCommand.isComment()) {
+              tmpWriter.write("#");
+              if (StringUtils.isNotBlank(tmpCommand.getName())) {
+                tmpWriter.write(" ");
+                tmpWriter.write(tmpCommand.getName());
+              }
+              if (tmpCommand.getFirstParameter() != null
+                  && StringUtils.isNotBlank(tmpCommand.getFirstParameter().getValue())) {
+                tmpWriter.write(" ");
+                tmpWriter.write(tmpCommand.getFirstParameter().getValue());
+              }
+              if (tmpCommand.getSecondParameter() != null
+                  && StringUtils.isNotBlank(tmpCommand.getSecondParameter().getValue())) {
+                tmpWriter.write(" ");
+                tmpWriter.write(tmpCommand.getSecondParameter().getValue());
+              }
+            } else {
+              if (tmpCommand.getFirstParameter() != null) {
+                tmpWriter.write(StringUtils.rightPad(tmpCommand.getName(), 20));
+                tmpWriter.write(" || ");
+                tmpWriter.write(tmpCommand.getFirstParameter().getValue());
                 if (tmpCommand.getSecondParameter() != null) {
-                  if (StringUtils.isNotBlank(tmpCommand.getSecondParameter().getValue())) {
-                    tmpWriter.write(" ");
-                    tmpWriter.write(tmpCommand.getSecondParameter().getValue());
-                  }
+                  tmpWriter.write("  || ");
+                  tmpWriter.write(tmpCommand.getSecondParameter().getValue());
                 }
               } else {
-                if (tmpCommand.getFirstParameter() != null) {
-                  tmpWriter.write(StringUtils.rightPad(tmpCommand.getName(), 20));
-                  tmpWriter.write(" || ");
-                  tmpWriter.write(tmpCommand.getFirstParameter().getValue());
-                  if (tmpCommand.getSecondParameter() != null) {
-                    tmpWriter.write("  || ");
-                    tmpWriter.write(tmpCommand.getSecondParameter().getValue());
-                  }
-                } else {
-                  tmpWriter.write(tmpCommand.getName());
-                }
+                tmpWriter.write(tmpCommand.getName());
               }
-              tmpWriter.write(System.lineSeparator());
             }
-          } finally {
-            tmpWriter.close();
+            tmpWriter.write(System.lineSeparator());
           }
         } finally {
-          tmpFileOut.close();
+          tmpWriter.close();
         }
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException(
@@ -98,7 +89,7 @@ public class WikiTextScriptCreator implements IScriptCreator {
     } catch (final RuntimeException e) {
       throw e;
     } catch (final Exception e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
     }
   }
 
