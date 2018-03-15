@@ -42,43 +42,38 @@ public class WikiTextScriptCreator implements IScriptCreator {
   public void createScript() {
     try {
       final File tmpFile = new File(outputDir, fileName + ".wett");
-      try {
-        final Writer tmpWriter = Files.newBufferedWriter(tmpFile.toPath(), StandardCharsets.UTF_8);
-        try {
-          for (final Command tmpCommand : commands) {
-            if (tmpCommand.isComment()) {
-              tmpWriter.write("#");
-              if (StringUtils.isNotBlank(tmpCommand.getName())) {
-                tmpWriter.write(" ");
-                tmpWriter.write(tmpCommand.getName());
-              }
-              if (tmpCommand.getFirstParameter() != null
-                  && StringUtils.isNotBlank(tmpCommand.getFirstParameter().getValue())) {
-                tmpWriter.write(" ");
-                tmpWriter.write(tmpCommand.getFirstParameter().getValue());
-              }
-              if (tmpCommand.getSecondParameter() != null
-                  && StringUtils.isNotBlank(tmpCommand.getSecondParameter().getValue())) {
-                tmpWriter.write(" ");
+      try (Writer tmpWriter = Files.newBufferedWriter(tmpFile.toPath(), StandardCharsets.UTF_8)) {
+        for (final Command tmpCommand : commands) {
+          if (tmpCommand.isComment()) {
+            tmpWriter.write("#");
+            if (StringUtils.isNotBlank(tmpCommand.getName())) {
+              tmpWriter.write(" ");
+              tmpWriter.write(tmpCommand.getName());
+            }
+            if (tmpCommand.getFirstParameter() != null
+                && StringUtils.isNotBlank(tmpCommand.getFirstParameter().getValue())) {
+              tmpWriter.write(" ");
+              tmpWriter.write(tmpCommand.getFirstParameter().getValue());
+            }
+            if (tmpCommand.getSecondParameter() != null
+                && StringUtils.isNotBlank(tmpCommand.getSecondParameter().getValue())) {
+              tmpWriter.write(" ");
+              tmpWriter.write(tmpCommand.getSecondParameter().getValue());
+            }
+          } else {
+            if (tmpCommand.getFirstParameter() != null) {
+              tmpWriter.write(StringUtils.rightPad(tmpCommand.getName(), 20));
+              tmpWriter.write(" || ");
+              tmpWriter.write(tmpCommand.getFirstParameter().getValue());
+              if (tmpCommand.getSecondParameter() != null) {
+                tmpWriter.write("  || ");
                 tmpWriter.write(tmpCommand.getSecondParameter().getValue());
               }
             } else {
-              if (tmpCommand.getFirstParameter() != null) {
-                tmpWriter.write(StringUtils.rightPad(tmpCommand.getName(), 20));
-                tmpWriter.write(" || ");
-                tmpWriter.write(tmpCommand.getFirstParameter().getValue());
-                if (tmpCommand.getSecondParameter() != null) {
-                  tmpWriter.write("  || ");
-                  tmpWriter.write(tmpCommand.getSecondParameter().getValue());
-                }
-              } else {
-                tmpWriter.write(tmpCommand.getName());
-              }
+              tmpWriter.write(tmpCommand.getName());
             }
-            tmpWriter.write(System.lineSeparator());
           }
-        } finally {
-          tmpWriter.close();
+          tmpWriter.write(System.lineSeparator());
         }
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException(
