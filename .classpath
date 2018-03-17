@@ -39,9 +39,9 @@
 	<classpathentry kind="lib" path="lib/jetty-webapp-9.4.8.v20171121.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-9.4.8.v20171121.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-api-2.10.0.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-core-2.10.0.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-jcl-2.10.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-jcl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.10.0.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-2.13.0.jar"/>
 	<classpathentry kind="lib" path="lib/neko-htmlunit-2.30-SNAPSHOT.jar"/>

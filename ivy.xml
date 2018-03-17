@@ -37,11 +37,11 @@
         <dependency org="commons-io" name="commons-io" rev="2.6" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.7" />
         <dependency org="org.apache.commons" name="commons-text" rev="1.2" />
-        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.29" changing="true" />
+        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.30-SNAPSHOT" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.17" changing="true" /> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.18-SNAPSHOT" changing="true" /> -->
-        <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.10.0" />
-        <dependency org="org.apache.logging.log4j" name="log4j-jcl" rev="2.10.0" />
+        <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.11.0" />
+        <dependency org="org.apache.logging.log4j" name="log4j-jcl" rev="2.11.0" />
         <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.8" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.58" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.58" />
@@ -53,7 +53,7 @@
         <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.8.v20171121" conf="test" />
         <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.8.v20171121" conf="test" />
         <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.8.v20171121" conf="test" />
-        <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.10.0" conf="test,sources" />
+        <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.11.0" conf="test,sources" />
         <dependency org="org.hsqldb" name="hsqldb" rev="2.4.0" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
