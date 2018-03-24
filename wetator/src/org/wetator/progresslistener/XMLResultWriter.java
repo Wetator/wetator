@@ -154,7 +154,7 @@ public class XMLResultWriter implements IProgressListener {
       StringBuilder tmpInfo = new StringBuilder();
       final String[] tmpClassNames = new String[] { "com.gargoylesoftware.htmlunit.WebClient",
           "net.sourceforge.htmlunit.corejs.javascript.Function", "net.sourceforge.htmlunit.cyberneko.HTMLElements",
-          "com.steadystate.css.parser.CSSOMParser" };
+          "com.gargoylesoftware.css.parser.CSSOMParser" };
       for (final String tmpClassName : tmpClassNames) {
         tmpInfo.setLength(0);
         try {
