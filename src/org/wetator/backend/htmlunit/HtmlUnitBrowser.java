@@ -1355,10 +1355,7 @@ public final class HtmlUnitBrowser implements IBrowser {
               MAX_LENGTH);
           matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
-        } catch (final IOException e) {
-          Assert.fail("rtfConversionToTextFailed", e.getMessage());
-          return tmpPageChanged;
-        } catch (final BadLocationException e) {
+        } catch (final IOException | BadLocationException e) {
           Assert.fail("rtfConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
