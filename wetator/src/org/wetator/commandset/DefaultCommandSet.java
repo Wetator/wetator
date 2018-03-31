@@ -756,7 +756,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final Class<?> tmpClass = Class.forName(tmpClassName);
         Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
         if (null == tmpMethod) {
-          tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] { String[].class });
+          tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, String[].class);
           tmpParams = new Object[] { tmpParams };
         }
 
