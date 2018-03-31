@@ -229,8 +229,7 @@ public class WetatorEngine {
         @SuppressWarnings("unchecked")
         final Class<? extends IProgressListener> tmpClass = (Class<? extends IProgressListener>) Class
             .forName("org.wetator.progresslistener.Log4jProgressListener");
-        final Constructor<? extends IProgressListener> tmpConstructor = tmpClass
-            .getConstructor(new Class[] { int.class });
+        final Constructor<? extends IProgressListener> tmpConstructor = tmpClass.getConstructor(int.class);
         final IProgressListener tmpProgressListener = tmpConstructor.newInstance(configuration.getRetrospect());
 
         tmpProgressListener.init(this);
