@@ -263,10 +263,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
-      throw new ActionException(tmpMessage, e);
-    } catch (final IOException e) {
+    } catch (final BackendException | IOException e) {
       final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {

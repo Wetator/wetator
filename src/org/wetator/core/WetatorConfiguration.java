@@ -730,13 +730,7 @@ public class WetatorConfiguration {
           final IScripter tmpIScripter = tmpScripterClass.newInstance();
           scripters.add(tmpIScripter);
           LOG.info("Configuration: Scripter '" + tmpScripterClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final InstantiationException | IllegalAccessException e) {
+        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
           } else {
