@@ -109,8 +109,6 @@ public final class XSLTransformer {
           final StreamResult tmpStreamResult = new StreamResult(tmpBufferedOutputStream);
 
           tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
-          tmpBufferedOutputStream.close();
-
           copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
 
           LOG.info("Report written to " + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()));
