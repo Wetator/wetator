@@ -264,8 +264,8 @@ public final class ContentUtil {
     NormalizedString tmpResult = new NormalizedString();
 
     // TODO support old word format
-    try (final XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
-        final XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument)) {
+    try (XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
+        XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument)) {
       tmpResult.append(tmpExtractor.getText());
 
       if (tmpResult.length() <= aMaxLength) {
