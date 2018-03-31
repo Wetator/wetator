@@ -126,7 +126,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final String tmpUrlToLower = tmpUrlParam.toLowerCase(Locale.ENGLISH);
         if (tmpUrlToLower.startsWith("http://") || tmpUrlToLower.startsWith("https://")
             || tmpUrlToLower.startsWith("file://")) {
-          aContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
+          aContext.informListenersWarn("absoluteUrl", tmpUrlParam.toString());
         } else {
           final String tmpBaseUrl = aContext.getConfiguration().getBaseUrl();
           // a bit url cleanup - remove or add the slash before combining with the config
@@ -794,12 +794,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             aContext.informListenersInfo("javaExecResult", tmpResult.toString());
           }
         }
-      } catch (final NoClassDefFoundError e) {
-        aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
-        aContext.informListenersInfo("javaExecClasspath", System.getProperty("java.class.path"));
-        final String tmpMessage = Messages.getMessage("javaExecClassNotFound", tmpClassName, e.toString());
-        throw new CommandException(tmpMessage);
-      } catch (final ClassNotFoundException e) {
+      } catch (final NoClassDefFoundError | ClassNotFoundException e) {
         aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
         aContext.informListenersInfo("javaExecClasspath", System.getProperty("java.class.path"));
         final String tmpMessage = Messages.getMessage("javaExecClassNotFound", tmpClassName, e.toString());

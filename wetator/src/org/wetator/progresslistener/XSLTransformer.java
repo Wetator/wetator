@@ -104,16 +104,17 @@ public final class XSLTransformer {
 
         final StreamSource tmpXmlStreamSource = new StreamSource(xmlResultFile);
 
-        final OutputStream tmpFileOutputStream = Files.newOutputStream(tmpResultFile.toPath());
-        final BufferedOutputStream tmpBufferedOutputStream = new BufferedOutputStream(tmpFileOutputStream);
-        final StreamResult tmpStreamResult = new StreamResult(tmpBufferedOutputStream);
+        try (final OutputStream tmpFileOutputStream = Files.newOutputStream(tmpResultFile.toPath());
+            final BufferedOutputStream tmpBufferedOutputStream = new BufferedOutputStream(tmpFileOutputStream)) {
+          final StreamResult tmpStreamResult = new StreamResult(tmpBufferedOutputStream);
 
-        tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
-        tmpBufferedOutputStream.close();
+          tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
+          tmpBufferedOutputStream.close();
 
-        copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
+          copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
 
-        LOG.info("Report written to " + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()));
+          LOG.info("Report written to " + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()));
+        }
       } catch (final TransformerConfigurationException e) {
         LOG.error(
             "Problem loading XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "'. Aborting.",
