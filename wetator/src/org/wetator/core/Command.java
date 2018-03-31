@@ -256,9 +256,7 @@ public final class Command {
     try {
       final BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
       return Long.valueOf(tmpValue.longValueExact());
-    } catch (final NumberFormatException e) {
-      invalidInput("integerParameterExpected", getName(), tmpSecondParameter.getValue(aContext).toString(), "2");
-    } catch (final ArithmeticException e) {
+    } catch (final NumberFormatException | ArithmeticException e) {
       invalidInput("integerParameterExpected", getName(), tmpSecondParameter.getValue(aContext).toString(), "2");
     }
     return null;

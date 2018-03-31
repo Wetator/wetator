@@ -165,9 +165,6 @@ public class StdOutProgressListener implements IProgressListener {
         print(FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
         println(")");
       }
-      if (!tmpFirst) {
-        output.unindent().unindent().unindent().unindent().unindent().unindent();
-      }
     }
   }
 
