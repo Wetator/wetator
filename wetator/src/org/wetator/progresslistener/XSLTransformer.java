@@ -104,8 +104,8 @@ public final class XSLTransformer {
 
         final StreamSource tmpXmlStreamSource = new StreamSource(xmlResultFile);
 
-        try (final OutputStream tmpFileOutputStream = Files.newOutputStream(tmpResultFile.toPath());
-            final BufferedOutputStream tmpBufferedOutputStream = new BufferedOutputStream(tmpFileOutputStream)) {
+        try (OutputStream tmpFileOutputStream = Files.newOutputStream(tmpResultFile.toPath());
+            BufferedOutputStream tmpBufferedOutputStream = new BufferedOutputStream(tmpFileOutputStream)) {
           final StreamResult tmpStreamResult = new StreamResult(tmpBufferedOutputStream);
 
           tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
