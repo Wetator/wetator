@@ -214,30 +214,21 @@ public final class ContentUtil {
       } else if (ContentType.XLS == tmpType || ContentType.XLSX == tmpType) {
         try {
           tmpResult.append(getExcelContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale, aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        } catch (final InvalidFormatException e) {
+        } catch (final IOException | InvalidFormatException e) {
           throw new IOException(
               "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
       } else if (ContentType.DOCX == tmpType) {
         try {
           tmpResult.append(getWordContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        } catch (final InvalidFormatException e) {
+        } catch (final IOException | InvalidFormatException e) {
           throw new IOException(
               "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
       } else if (ContentType.RTF == tmpType) {
         try {
           tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        } catch (final BadLocationException e) {
+        } catch (final IOException | BadLocationException e) {
           throw new IOException(
               "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
